@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -73,9 +73,9 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  std::string mId;
   bool mIsActive;
   bool mIsSetIsActive;
+  std::string mElementName;
 
   /** @endcond */
 
@@ -94,11 +94,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this GeometryDefinition.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   GeometryDefinition(unsigned int level = SpatialExtension::getDefaultLevel(),
                      unsigned int version =
@@ -111,13 +107,11 @@ public:
    * Creates a new GeometryDefinition using the given SpatialPkgNamespaces
    * object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   GeometryDefinition(SpatialPkgNamespaces *spatialns);
 
@@ -159,7 +153,16 @@ public:
    * @return the value of the "id" attribute of this GeometryDefinition as a
    * string.
    */
-  const std::string& getId() const;
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this GeometryDefinition.
+   *
+   * @return the value of the "name" attribute of this GeometryDefinition as a
+   * string.
+   */
+  virtual const std::string& getName() const;
 
 
   /**
@@ -178,7 +181,17 @@ public:
    * @return @c true if this GeometryDefinition's "id" attribute has been set,
    * otherwise @c false is returned.
    */
-  bool isSetId() const;
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true if this GeometryDefinition's "name" attribute
+   * is set.
+   *
+   * @return @c true if this GeometryDefinition's "name" attribute has been
+   * set, otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
 
 
   /**
@@ -200,8 +213,25 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * Calling this function with @p id = @c NULL or an empty string is
+   * equivalent to calling unsetId().
    */
-  int setId(const std::string& id);
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "name" attribute of this GeometryDefinition.
+   *
+   * @param name std::string& value of the "name" attribute to be set.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p name = @c NULL or an empty string is
+   * equivalent to calling unsetName().
+   */
+  virtual int setName(const std::string& name);
 
 
   /**
@@ -224,7 +254,17 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetId();
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this GeometryDefinition.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetName();
 
 
   /**
@@ -290,12 +330,23 @@ public:
   /**
    * Returns the XML element name of this GeometryDefinition object.
    *
-   * For GeometryDefinition, the XML element name is always @c
-   * "geometryDefinition".
+   * For GeometryDefinition, the XML element name is always
+   * @c "geometryDefinition".
    *
    * @return the name of this element, i.e. @c "geometryDefinition".
    */
   virtual const std::string& getElementName() const;
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the XML name of this GeometryDefinition object.
+   */
+  virtual void setElementName(const std::string& name);
+
+  /** @endcond */
 
 
   /**
@@ -304,8 +355,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_GEOMETRYDEFINITION, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_GEOMETRYDEFINITION, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -691,8 +741,8 @@ BEGIN_C_DECLS
 
 
 /**
- * Creates a new AnalyticGeometry (GeometryDefinition_t) using the given SBML
- * Level, Version and &ldquo;spatial&rdquo; package version.
+ * Creates a new AnalyticGeometry using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
  * GeometryDefinition_t.
@@ -703,24 +753,22 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this GeometryDefinition_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof GeometryDefinition_t
  */
 LIBSBML_EXTERN
-GeometryDefinition_t *
+AnalyticGeometry_t *
 GeometryDefinition_createAnalyticGeometry(unsigned int level,
                                           unsigned int version,
                                           unsigned int pkgVersion);
 
 
 /**
- * Creates a new SampledFieldGeometry (GeometryDefinition_t) using the given
- * SBML Level, Version and &ldquo;spatial&rdquo; package version.
+ * Creates a new SampledFieldGeometry using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
  * GeometryDefinition_t.
@@ -731,28 +779,22 @@ GeometryDefinition_createAnalyticGeometry(unsigned int level,
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this GeometryDefinition_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof GeometryDefinition_t
  */
 LIBSBML_EXTERN
-GeometryDefinition_t *
-GeometryDefinition_createSampledFieldGeometry(
-                                              unsigned int level =
-                                                SpatialExtension::getDefaultLevel(),
-                                              unsigned int version =
-                                                SpatialExtension::getDefaultVersion(),
-                                              unsigned int pkgVersion =
-                                                SpatialExtension::getDefaultPackageVersion());
+SampledFieldGeometry_t *
+GeometryDefinition_createSampledFieldGeometry(unsigned int level,
+                                              unsigned int version,
+                                              unsigned int pkgVersion);
 
 
 /**
- * Creates a new CSGeometry (GeometryDefinition_t) using the given SBML Level,
- * Version and &ldquo;spatial&rdquo; package version.
+ * Creates a new CSGeometry using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
  * GeometryDefinition_t.
@@ -763,28 +805,22 @@ GeometryDefinition_createSampledFieldGeometry(
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this GeometryDefinition_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof GeometryDefinition_t
  */
 LIBSBML_EXTERN
-GeometryDefinition_t *
-GeometryDefinition_createCSGeometry(
-                                    unsigned int level =
-                                      SpatialExtension::getDefaultLevel(),
-                                    unsigned int version =
-                                      SpatialExtension::getDefaultVersion(),
-                                    unsigned int pkgVersion =
-                                      SpatialExtension::getDefaultPackageVersion());
+CSGeometry_t *
+GeometryDefinition_createCSGeometry(unsigned int level,
+                                    unsigned int version,
+                                    unsigned int pkgVersion);
 
 
 /**
- * Creates a new ParametricGeometry (GeometryDefinition_t) using the given SBML
- * Level, Version and &ldquo;spatial&rdquo; package version.
+ * Creates a new ParametricGeometry using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
  * GeometryDefinition_t.
@@ -795,28 +831,22 @@ GeometryDefinition_createCSGeometry(
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this GeometryDefinition_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof GeometryDefinition_t
  */
 LIBSBML_EXTERN
-GeometryDefinition_t *
-GeometryDefinition_createParametricGeometry(
-                                            unsigned int level =
-                                              SpatialExtension::getDefaultLevel(),
-                                            unsigned int version =
-                                              SpatialExtension::getDefaultVersion(),
-                                            unsigned int pkgVersion =
-                                              SpatialExtension::getDefaultPackageVersion());
+ParametricGeometry_t *
+GeometryDefinition_createParametricGeometry(unsigned int level,
+                                            unsigned int version,
+                                            unsigned int pkgVersion);
 
 
 /**
- * Creates a new MixedGeometry (GeometryDefinition_t) using the given SBML
- * Level, Version and &ldquo;spatial&rdquo; package version.
+ * Creates a new MixedGeometry using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
  * GeometryDefinition_t.
@@ -827,23 +857,17 @@ GeometryDefinition_createParametricGeometry(
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this GeometryDefinition_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof GeometryDefinition_t
  */
 LIBSBML_EXTERN
-GeometryDefinition_t *
-GeometryDefinition_createMixedGeometry(
-                                       unsigned int level =
-                                         SpatialExtension::getDefaultLevel(),
-                                       unsigned int version =
-                                         SpatialExtension::getDefaultVersion(),
-                                       unsigned int pkgVersion =
-                                         SpatialExtension::getDefaultPackageVersion());
+MixedGeometry_t *
+GeometryDefinition_createMixedGeometry(unsigned int level,
+                                       unsigned int version,
+                                       unsigned int pkgVersion);
 
 
 /**
@@ -852,6 +876,8 @@ GeometryDefinition_createMixedGeometry(
  * @param gd the GeometryDefinition_t structure.
  *
  * @return a (deep) copy of this GeometryDefinition_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof GeometryDefinition_t
  */
@@ -880,11 +906,30 @@ GeometryDefinition_free(GeometryDefinition_t* gd);
  * @return the value of the "id" attribute of this GeometryDefinition_t as a
  * pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof GeometryDefinition_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 GeometryDefinition_getId(const GeometryDefinition_t * gd);
+
+
+/**
+ * Returns the value of the "name" attribute of this GeometryDefinition_t.
+ *
+ * @param gd the GeometryDefinition_t structure whose name is sought.
+ *
+ * @return the value of the "name" attribute of this GeometryDefinition_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof GeometryDefinition_t
+ */
+LIBSBML_EXTERN
+char *
+GeometryDefinition_getName(const GeometryDefinition_t * gd);
 
 
 /**
@@ -903,13 +948,13 @@ GeometryDefinition_getIsActive(const GeometryDefinition_t * gd);
 
 
 /**
- * Predicate returning @c 1 if this GeometryDefinition_t's "id" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this GeometryDefinition_t's "id"
+ * attribute is set.
  *
  * @param gd the GeometryDefinition_t structure.
  *
- * @return @c 1 if this GeometryDefinition_t's "id" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this GeometryDefinition_t's "id" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
  * @memberof GeometryDefinition_t
  */
@@ -919,13 +964,29 @@ GeometryDefinition_isSetId(const GeometryDefinition_t * gd);
 
 
 /**
- * Predicate returning @c 1 if this GeometryDefinition_t's "isActive" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this GeometryDefinition_t's "name"
+ * attribute is set.
  *
  * @param gd the GeometryDefinition_t structure.
  *
- * @return @c 1 if this GeometryDefinition_t's "isActive" attribute has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this GeometryDefinition_t's "name" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof GeometryDefinition_t
+ */
+LIBSBML_EXTERN
+int
+GeometryDefinition_isSetName(const GeometryDefinition_t * gd);
+
+
+/**
+ * Predicate returning @c 1 (true) if this GeometryDefinition_t's "isActive"
+ * attribute is set.
+ *
+ * @param gd the GeometryDefinition_t structure.
+ *
+ * @return @c 1 (true) if this GeometryDefinition_t's "isActive" attribute has
+ * been set, otherwise @c 0 (false) is returned.
  *
  * @memberof GeometryDefinition_t
  */
@@ -944,12 +1005,37 @@ GeometryDefinition_isSetIsActive(const GeometryDefinition_t * gd);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling GeometryDefinition_unsetId().
  *
  * @memberof GeometryDefinition_t
  */
 LIBSBML_EXTERN
 int
 GeometryDefinition_setId(GeometryDefinition_t * gd, const char * id);
+
+
+/**
+ * Sets the value of the "name" attribute of this GeometryDefinition_t.
+ *
+ * @param gd the GeometryDefinition_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling GeometryDefinition_unsetName().
+ *
+ * @memberof GeometryDefinition_t
+ */
+LIBSBML_EXTERN
+int
+GeometryDefinition_setName(GeometryDefinition_t * gd, const char * name);
 
 
 /**
@@ -962,6 +1048,7 @@ GeometryDefinition_setId(GeometryDefinition_t * gd, const char * id);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof GeometryDefinition_t
  */
@@ -978,12 +1065,30 @@ GeometryDefinition_setIsActive(GeometryDefinition_t * gd, int isActive);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof GeometryDefinition_t
  */
 LIBSBML_EXTERN
 int
 GeometryDefinition_unsetId(GeometryDefinition_t * gd);
+
+
+/**
+ * Unsets the value of the "name" attribute of this GeometryDefinition_t.
+ *
+ * @param gd the GeometryDefinition_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof GeometryDefinition_t
+ */
+LIBSBML_EXTERN
+int
+GeometryDefinition_unsetName(GeometryDefinition_t * gd);
 
 
 /**
@@ -994,6 +1099,7 @@ GeometryDefinition_unsetId(GeometryDefinition_t * gd);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof GeometryDefinition_t
  */
@@ -1008,8 +1114,8 @@ GeometryDefinition_unsetIsActive(GeometryDefinition_t * gd);
  *
  * @param gd the GeometryDefinition_t structure.
  *
- * @return @c 1 if this GeometryDefinition_t is of type AnalyticGeometry_t, @c
- * 0 otherwise
+ * @return @c 1 if this GeometryDefinition_t is of type AnalyticGeometry_t,
+ * @c 0 otherwise
  *
  * @memberof GeometryDefinition_t
  */
@@ -1083,13 +1189,13 @@ GeometryDefinition_isMixedGeometry(const GeometryDefinition_t * gd);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * GeometryDefinition_t object have been set.
  *
  * @param gd the GeometryDefinition_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * GeometryDefinition_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * GeometryDefinition_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the GeometryDefinition_t object are:

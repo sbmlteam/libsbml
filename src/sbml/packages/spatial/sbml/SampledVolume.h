@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -67,7 +67,6 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  std::string mId;
   std::string mDomainType;
   double mSampledValue;
   bool mIsSetSampledValue;
@@ -93,11 +92,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this SampledVolume.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   SampledVolume(unsigned int level = SpatialExtension::getDefaultLevel(),
                 unsigned int version = SpatialExtension::getDefaultVersion(),
@@ -108,13 +103,11 @@ public:
   /**
    * Creates a new SampledVolume using the given SpatialPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   SampledVolume(SpatialPkgNamespaces *spatialns);
 
@@ -155,7 +148,16 @@ public:
    *
    * @return the value of the "id" attribute of this SampledVolume as a string.
    */
-  const std::string& getId() const;
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this SampledVolume.
+   *
+   * @return the value of the "name" attribute of this SampledVolume as a
+   * string.
+   */
+  virtual const std::string& getName() const;
 
 
   /**
@@ -200,7 +202,17 @@ public:
    * @return @c true if this SampledVolume's "id" attribute has been set,
    * otherwise @c false is returned.
    */
-  bool isSetId() const;
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true if this SampledVolume's "name" attribute is
+   * set.
+   *
+   * @return @c true if this SampledVolume's "name" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
 
 
   /**
@@ -252,8 +264,25 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * Calling this function with @p id = @c NULL or an empty string is
+   * equivalent to calling unsetId().
    */
-  int setId(const std::string& id);
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "name" attribute of this SampledVolume.
+   *
+   * @param name std::string& value of the "name" attribute to be set.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p name = @c NULL or an empty string is
+   * equivalent to calling unsetName().
+   */
+  virtual int setName(const std::string& name);
 
 
   /**
@@ -317,7 +346,17 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetId();
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this SampledVolume.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetName();
 
 
   /**
@@ -383,8 +422,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_SAMPLEDVOLUME, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_SAMPLEDVOLUME, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -405,7 +443,6 @@ public:
    * @note The required attributes for the SampledVolume object are:
    * @li "id"
    * @li "domainType"
-   * @li "sampledValue"
    */
   virtual bool hasRequiredAttributes() const;
 
@@ -772,11 +809,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this SampledVolume_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof SampledVolume_t
  */
@@ -793,6 +828,8 @@ SampledVolume_create(unsigned int level,
  * @param sv the SampledVolume_t structure.
  *
  * @return a (deep) copy of this SampledVolume_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof SampledVolume_t
  */
@@ -821,11 +858,30 @@ SampledVolume_free(SampledVolume_t* sv);
  * @return the value of the "id" attribute of this SampledVolume_t as a pointer
  * to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof SampledVolume_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 SampledVolume_getId(const SampledVolume_t * sv);
+
+
+/**
+ * Returns the value of the "name" attribute of this SampledVolume_t.
+ *
+ * @param sv the SampledVolume_t structure whose name is sought.
+ *
+ * @return the value of the "name" attribute of this SampledVolume_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof SampledVolume_t
+ */
+LIBSBML_EXTERN
+char *
+SampledVolume_getName(const SampledVolume_t * sv);
 
 
 /**
@@ -836,10 +892,12 @@ SampledVolume_getId(const SampledVolume_t * sv);
  * @return the value of the "domainType" attribute of this SampledVolume_t as a
  * pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof SampledVolume_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 SampledVolume_getDomainType(const SampledVolume_t * sv);
 
 
@@ -889,12 +947,13 @@ SampledVolume_getMaxValue(const SampledVolume_t * sv);
 
 
 /**
- * Predicate returning @c 1 if this SampledVolume_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this SampledVolume_t's "id" attribute is
+ * set.
  *
  * @param sv the SampledVolume_t structure.
  *
- * @return @c 1 if this SampledVolume_t's "id" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SampledVolume_t's "id" attribute has been set,
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof SampledVolume_t
  */
@@ -904,13 +963,29 @@ SampledVolume_isSetId(const SampledVolume_t * sv);
 
 
 /**
- * Predicate returning @c 1 if this SampledVolume_t's "domainType" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SampledVolume_t's "name" attribute
+ * is set.
  *
  * @param sv the SampledVolume_t structure.
  *
- * @return @c 1 if this SampledVolume_t's "domainType" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SampledVolume_t's "name" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof SampledVolume_t
+ */
+LIBSBML_EXTERN
+int
+SampledVolume_isSetName(const SampledVolume_t * sv);
+
+
+/**
+ * Predicate returning @c 1 (true) if this SampledVolume_t's "domainType"
+ * attribute is set.
+ *
+ * @param sv the SampledVolume_t structure.
+ *
+ * @return @c 1 (true) if this SampledVolume_t's "domainType" attribute has
+ * been set, otherwise @c 0 (false) is returned.
  *
  * @memberof SampledVolume_t
  */
@@ -920,13 +995,13 @@ SampledVolume_isSetDomainType(const SampledVolume_t * sv);
 
 
 /**
- * Predicate returning @c 1 if this SampledVolume_t's "sampledValue" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this SampledVolume_t's "sampledValue"
+ * attribute is set.
  *
  * @param sv the SampledVolume_t structure.
  *
- * @return @c 1 if this SampledVolume_t's "sampledValue" attribute has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SampledVolume_t's "sampledValue" attribute has
+ * been set, otherwise @c 0 (false) is returned.
  *
  * @memberof SampledVolume_t
  */
@@ -936,13 +1011,13 @@ SampledVolume_isSetSampledValue(const SampledVolume_t * sv);
 
 
 /**
- * Predicate returning @c 1 if this SampledVolume_t's "minValue" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SampledVolume_t's "minValue"
+ * attribute is set.
  *
  * @param sv the SampledVolume_t structure.
  *
- * @return @c 1 if this SampledVolume_t's "minValue" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SampledVolume_t's "minValue" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
  * @memberof SampledVolume_t
  */
@@ -952,13 +1027,13 @@ SampledVolume_isSetMinValue(const SampledVolume_t * sv);
 
 
 /**
- * Predicate returning @c 1 if this SampledVolume_t's "maxValue" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SampledVolume_t's "maxValue"
+ * attribute is set.
  *
  * @param sv the SampledVolume_t structure.
  *
- * @return @c 1 if this SampledVolume_t's "maxValue" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SampledVolume_t's "maxValue" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
  * @memberof SampledVolume_t
  */
@@ -977,12 +1052,37 @@ SampledVolume_isSetMaxValue(const SampledVolume_t * sv);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling SampledVolume_unsetId().
  *
  * @memberof SampledVolume_t
  */
 LIBSBML_EXTERN
 int
 SampledVolume_setId(SampledVolume_t * sv, const char * id);
+
+
+/**
+ * Sets the value of the "name" attribute of this SampledVolume_t.
+ *
+ * @param sv the SampledVolume_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling SampledVolume_unsetName().
+ *
+ * @memberof SampledVolume_t
+ */
+LIBSBML_EXTERN
+int
+SampledVolume_setName(SampledVolume_t * sv, const char * name);
 
 
 /**
@@ -996,6 +1096,7 @@ SampledVolume_setId(SampledVolume_t * sv, const char * id);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledVolume_t
  */
@@ -1014,6 +1115,7 @@ SampledVolume_setDomainType(SampledVolume_t * sv, const char * domainType);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledVolume_t
  */
@@ -1032,6 +1134,7 @@ SampledVolume_setSampledValue(SampledVolume_t * sv, double sampledValue);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledVolume_t
  */
@@ -1050,6 +1153,7 @@ SampledVolume_setMinValue(SampledVolume_t * sv, double minValue);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledVolume_t
  */
@@ -1066,12 +1170,30 @@ SampledVolume_setMaxValue(SampledVolume_t * sv, double maxValue);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledVolume_t
  */
 LIBSBML_EXTERN
 int
 SampledVolume_unsetId(SampledVolume_t * sv);
+
+
+/**
+ * Unsets the value of the "name" attribute of this SampledVolume_t.
+ *
+ * @param sv the SampledVolume_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SampledVolume_t
+ */
+LIBSBML_EXTERN
+int
+SampledVolume_unsetName(SampledVolume_t * sv);
 
 
 /**
@@ -1082,6 +1204,7 @@ SampledVolume_unsetId(SampledVolume_t * sv);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledVolume_t
  */
@@ -1098,6 +1221,7 @@ SampledVolume_unsetDomainType(SampledVolume_t * sv);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledVolume_t
  */
@@ -1114,6 +1238,7 @@ SampledVolume_unsetSampledValue(SampledVolume_t * sv);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledVolume_t
  */
@@ -1130,6 +1255,7 @@ SampledVolume_unsetMinValue(SampledVolume_t * sv);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledVolume_t
  */
@@ -1139,19 +1265,18 @@ SampledVolume_unsetMaxValue(SampledVolume_t * sv);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * SampledVolume_t object have been set.
  *
  * @param sv the SampledVolume_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * SampledVolume_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * SampledVolume_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the SampledVolume_t object are:
  * @li "id"
  * @li "domainType"
- * @li "sampledValue"
  *
  * @memberof SampledVolume_t
  */

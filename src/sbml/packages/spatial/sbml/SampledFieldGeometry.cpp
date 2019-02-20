@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -58,7 +58,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 SampledFieldGeometry::SampledFieldGeometry(unsigned int level,
                                            unsigned int version,
                                            unsigned int pkgVersion)
-  : GeometryDefinition(level, version)
+  : GeometryDefinition(level, version, pkgVersion)
   , mSampledVolumes (level, version, pkgVersion)
   , mSampledField ("")
 {
@@ -537,6 +537,25 @@ SampledFieldGeometry::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
+ * Updates the namespaces when setLevelVersion is used
+ */
+void
+SampledFieldGeometry::updateSBMLNamespace(const std::string& package,
+                                          unsigned int level,
+                                          unsigned int version)
+{
+  GeometryDefinition::updateSBMLNamespace(package, level, version);
+
+  mSampledVolumes.updateSBMLNamespace(package, level, version);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
  * Gets the value of the "attributeName" attribute of this
  * SampledFieldGeometry.
  */
@@ -812,6 +831,50 @@ SampledFieldGeometry::createChildObject(const std::string& elementName)
 /** @cond doxygenLibsbmlInternal */
 
 /*
+ * Adds a new "elementName" object to this SampledFieldGeometry.
+ */
+int
+SampledFieldGeometry::addChildObject(const std::string& elementName,
+                                     const SBase* element)
+{
+  if (elementName == "sampledVolume" && element->getTypeCode() ==
+    SBML_SPATIAL_SAMPLEDVOLUME)
+  {
+    return addSampledVolume((const SampledVolume*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Removes and returns the new "elementName" object with the given id in this
+ * SampledFieldGeometry.
+ */
+SBase*
+SampledFieldGeometry::removeChildObject(const std::string& elementName,
+                                        const std::string& id)
+{
+  if (elementName == "sampledVolume")
+  {
+    return removeSampledVolume(id);
+  }
+
+  return NULL;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
  * Returns the number of "elementName" in this SampledFieldGeometry.
  */
 unsigned int
@@ -840,7 +903,7 @@ SBase*
 SampledFieldGeometry::getObject(const std::string& elementName,
                                 unsigned int index)
 {
-  GeometryDefinition* obj = NULL;
+  SBase* obj = NULL;
 
   if (elementName == "sampledVolume")
   {
@@ -996,25 +1059,29 @@ SampledFieldGeometry::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   GeometryDefinition::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial",
-        SpatialSampledFieldGeometryAllowedAttributes, pkgVersion, level, version,
-          details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial",
-        SpatialSampledFieldGeometryAllowedCoreAttributes, pkgVersion, level,
-          version, details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial",
+          SpatialSampledFieldGeometryAllowedAttributes, pkgVersion, level,
+            version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialSampledFieldGeometryAllowedCoreAttributes, pkgVersion, level,
+            version, details);
+      }
     }
   }
 
@@ -1032,9 +1099,18 @@ SampledFieldGeometry::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mSampledField) == false)
     {
-      logError(SpatialSampledFieldGeometrySampledFieldMustBeSampledField,
-        level, version, "The attribute sampledField='" + mSampledField + "' does "
-          "not conform to the syntax.");
+      std::string msg = "The sampledField attribute on the <" +
+        getElementName() + ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mSampledField + "', which does not conform to the "
+        "syntax.";
+      log->logPackageError("spatial",
+        SpatialSampledFieldGeometrySampledFieldMustBeSampledField, pkgVersion,
+          level, version, msg, getLine(), getColumn());
     }
   }
   else
@@ -1128,7 +1204,7 @@ SampledFieldGeometry_free(SampledFieldGeometry_t* sfg)
  * SampledFieldGeometry_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 SampledFieldGeometry_getSampledField(const SampledFieldGeometry_t * sfg)
 {
   if (sfg == NULL)
@@ -1142,8 +1218,8 @@ SampledFieldGeometry_getSampledField(const SampledFieldGeometry_t * sfg)
 
 
 /*
- * Predicate returning @c 1 if this SampledFieldGeometry_t's "sampledField"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this SampledFieldGeometry_t's
+ * "sampledField" attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1180,7 +1256,7 @@ SampledFieldGeometry_unsetSampledField(SampledFieldGeometry_t * sfg)
 
 
 /*
- * Returns a ListOf_t* containing SampledVolume_t objects from this
+ * Returns a ListOf_t * containing SampledVolume_t objects from this
  * SampledFieldGeometry_t.
  */
 LIBSBML_EXTERN
@@ -1195,7 +1271,7 @@ SampledFieldGeometry_getListOfSampledVolumes(SampledFieldGeometry_t* sfg)
  * Get a SampledVolume_t from the SampledFieldGeometry_t.
  */
 LIBSBML_EXTERN
-const SampledVolume_t*
+SampledVolume_t*
 SampledFieldGeometry_getSampledVolume(SampledFieldGeometry_t* sfg,
                                       unsigned int n)
 {
@@ -1208,7 +1284,7 @@ SampledFieldGeometry_getSampledVolume(SampledFieldGeometry_t* sfg,
  * identifier.
  */
 LIBSBML_EXTERN
-const SampledVolume_t*
+SampledVolume_t*
 SampledFieldGeometry_getSampledVolumeById(SampledFieldGeometry_t* sfg,
                                           const char *sid)
 {
@@ -1221,7 +1297,7 @@ SampledFieldGeometry_getSampledVolumeById(SampledFieldGeometry_t* sfg,
  * DomainType to which it refers.
  */
 LIBSBML_EXTERN
-const SampledVolume_t*
+SampledVolume_t*
 SampledFieldGeometry_getSampledVolumeByDomainType(SampledFieldGeometry_t* sfg,
                                                   const char *sid)
 {
@@ -1292,7 +1368,7 @@ SampledFieldGeometry_removeSampledVolumeById(SampledFieldGeometry_t* sfg,
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * SampledFieldGeometry_t object have been set.
  */
 LIBSBML_EXTERN
@@ -1304,7 +1380,7 @@ SampledFieldGeometry_hasRequiredAttributes(const SampledFieldGeometry_t * sfg)
 
 
 /*
- * Predicate returning @c 1 if all the required elements for this
+ * Predicate returning @c 1 (true) if all the required elements for this
  * SampledFieldGeometry_t object have been set.
  */
 LIBSBML_EXTERN

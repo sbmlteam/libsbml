@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -90,11 +90,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this CSGScale.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   CSGScale(unsigned int level = SpatialExtension::getDefaultLevel(),
            unsigned int version = SpatialExtension::getDefaultVersion(),
@@ -105,13 +101,11 @@ public:
   /**
    * Creates a new CSGScale using the given SpatialPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   CSGScale(SpatialPkgNamespaces *spatialns);
 
@@ -283,8 +277,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_CSGSCALE, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_CSGSCALE, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -680,11 +673,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this CSGScale_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof CSGScale_t
  */
@@ -701,6 +692,8 @@ CSGScale_create(unsigned int level,
  * @param csgs the CSGScale_t structure.
  *
  * @return a (deep) copy of this CSGScale_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof CSGScale_t
  */
@@ -764,12 +757,13 @@ CSGScale_getScaleZ(const CSGScale_t * csgs);
 
 
 /**
- * Predicate returning @c 1 if this CSGScale_t's "scaleX" attribute is set.
+ * Predicate returning @c 1 (true) if this CSGScale_t's "scaleX" attribute is
+ * set.
  *
  * @param csgs the CSGScale_t structure.
  *
- * @return @c 1 if this CSGScale_t's "scaleX" attribute has been set, otherwise
- * @c 0 is returned.
+ * @return @c 1 (true) if this CSGScale_t's "scaleX" attribute has been set,
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof CSGScale_t
  */
@@ -779,12 +773,13 @@ CSGScale_isSetScaleX(const CSGScale_t * csgs);
 
 
 /**
- * Predicate returning @c 1 if this CSGScale_t's "scaleY" attribute is set.
+ * Predicate returning @c 1 (true) if this CSGScale_t's "scaleY" attribute is
+ * set.
  *
  * @param csgs the CSGScale_t structure.
  *
- * @return @c 1 if this CSGScale_t's "scaleY" attribute has been set, otherwise
- * @c 0 is returned.
+ * @return @c 1 (true) if this CSGScale_t's "scaleY" attribute has been set,
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof CSGScale_t
  */
@@ -794,12 +789,13 @@ CSGScale_isSetScaleY(const CSGScale_t * csgs);
 
 
 /**
- * Predicate returning @c 1 if this CSGScale_t's "scaleZ" attribute is set.
+ * Predicate returning @c 1 (true) if this CSGScale_t's "scaleZ" attribute is
+ * set.
  *
  * @param csgs the CSGScale_t structure.
  *
- * @return @c 1 if this CSGScale_t's "scaleZ" attribute has been set, otherwise
- * @c 0 is returned.
+ * @return @c 1 (true) if this CSGScale_t's "scaleZ" attribute has been set,
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof CSGScale_t
  */
@@ -818,6 +814,7 @@ CSGScale_isSetScaleZ(const CSGScale_t * csgs);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGScale_t
  */
@@ -836,6 +833,7 @@ CSGScale_setScaleX(CSGScale_t * csgs, double scaleX);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGScale_t
  */
@@ -854,6 +852,7 @@ CSGScale_setScaleY(CSGScale_t * csgs, double scaleY);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGScale_t
  */
@@ -870,6 +869,7 @@ CSGScale_setScaleZ(CSGScale_t * csgs, double scaleZ);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGScale_t
  */
@@ -886,6 +886,7 @@ CSGScale_unsetScaleX(CSGScale_t * csgs);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGScale_t
  */
@@ -902,6 +903,7 @@ CSGScale_unsetScaleY(CSGScale_t * csgs);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGScale_t
  */
@@ -911,13 +913,13 @@ CSGScale_unsetScaleZ(CSGScale_t * csgs);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this CSGScale_t
- * object have been set.
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * CSGScale_t object have been set.
  *
  * @param csgs the CSGScale_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this CSGScale_t
- * have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * CSGScale_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the CSGScale_t object are:

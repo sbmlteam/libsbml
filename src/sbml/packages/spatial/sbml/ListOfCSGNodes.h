@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -71,6 +71,13 @@ class CSGSetOperator;
 
 class LIBSBML_EXTERN ListOfCSGNodes : public ListOf
 {
+protected:
+
+  /** @cond doxygenLibsbmlInternal */
+
+  std::string mElementName;
+
+  /** @endcond */
 
 public:
 
@@ -87,11 +94,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this ListOfCSGNodes.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfCSGNodes(unsigned int level = SpatialExtension::getDefaultLevel(),
                  unsigned int version = SpatialExtension::getDefaultVersion(),
@@ -102,13 +105,11 @@ public:
   /**
    * Creates a new ListOfCSGNodes using the given SpatialPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfCSGNodes(SpatialPkgNamespaces *spatialns);
 
@@ -152,7 +153,14 @@ public:
    *
    * @return the nth CSGNode in this ListOfCSGNodes.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCSGNode(const CSGNode* object)
+   * @see createCSGNode()
+   * @see get(const std::string& sid)
+   * @see getNumCSGNodes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual CSGNode* get(unsigned int n);
 
@@ -165,7 +173,14 @@ public:
    *
    * @return the nth CSGNode in this ListOfCSGNodes.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCSGNode(const CSGNode* object)
+   * @see createCSGNode()
+   * @see get(const std::string& sid)
+   * @see getNumCSGNodes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual const CSGNode* get(unsigned int n) const;
 
@@ -176,10 +191,17 @@ public:
    * @param sid a string representing the identifier of the CSGNode to
    * retrieve.
    *
-   * @return the CSGNode in this ListOfCSGNodes with the given id or NULL if no
-   * such CSGNode exists.
+   * @return the CSGNode in this ListOfCSGNodes with the given @p sid or
+   * @c NULL if no such CSGNode exists.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCSGNode(const CSGNode* object)
+   * @see createCSGNode()
+   * @see get(unsigned int n)
+   * @see getNumCSGNodes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual CSGNode* get(const std::string& sid);
 
@@ -190,10 +212,17 @@ public:
    * @param sid a string representing the identifier of the CSGNode to
    * retrieve.
    *
-   * @return the CSGNode in this ListOfCSGNodes with the given id or NULL if no
-   * such CSGNode exists.
+   * @return the CSGNode in this ListOfCSGNodes with the given @p sid or
+   * @c NULL if no such CSGNode exists.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCSGNode(const CSGNode* object)
+   * @see createCSGNode()
+   * @see get(unsigned int n)
+   * @see getNumCSGNodes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual const CSGNode* get(const std::string& sid) const;
 
@@ -206,10 +235,14 @@ public:
    *
    * @return a pointer to the nth CSGNode in this ListOfCSGNodes.
    *
-   * @see size()
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addCSGNode(const CSGNode* object)
+   * @see createCSGNode()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumCSGNodes()
+   * @see remove(const std::string& sid)
    */
   virtual CSGNode* remove(unsigned int n);
 
@@ -223,8 +256,14 @@ public:
    * @return the CSGNode in this ListOfCSGNodes based on the identifier or NULL
    * if no such CSGNode exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addCSGNode(const CSGNode* object)
+   * @see createCSGNode()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumCSGNodes()
+   * @see remove(unsigned int n)
    */
   virtual CSGNode* remove(const std::string& sid);
 
@@ -237,10 +276,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createCSGNode()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumCSGNodes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   int addCSGNode(const CSGNode* csgn);
 
@@ -249,6 +298,13 @@ public:
    * Get the number of CSGNode objects in this ListOfCSGNodes.
    *
    * @return the number of CSGNode objects in this ListOfCSGNodes.
+   *
+   * @see addCSGNode(const CSGNode* object)
+   * @see createCSGNode()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   unsigned int getNumCSGNodes() const;
 
@@ -259,7 +315,14 @@ public:
    *
    * @return a new CSGPrimitive object instance.
    *
-   * @see addCSGNode(const CSGNode* csgn)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCSGNode(const CSGNode* object)
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumCSGNodes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   CSGPrimitive* createCSGPrimitive();
 
@@ -270,7 +333,14 @@ public:
    *
    * @return a new CSGTranslation object instance.
    *
-   * @see addCSGNode(const CSGNode* csgn)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCSGNode(const CSGNode* object)
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumCSGNodes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   CSGTranslation* createCSGTranslation();
 
@@ -281,7 +351,14 @@ public:
    *
    * @return a new CSGRotation object instance.
    *
-   * @see addCSGNode(const CSGNode* csgn)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCSGNode(const CSGNode* object)
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumCSGNodes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   CSGRotation* createCSGRotation();
 
@@ -292,7 +369,14 @@ public:
    *
    * @return a new CSGScale object instance.
    *
-   * @see addCSGNode(const CSGNode* csgn)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCSGNode(const CSGNode* object)
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumCSGNodes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   CSGScale* createCSGScale();
 
@@ -304,7 +388,14 @@ public:
    *
    * @return a new CSGHomogeneousTransformation object instance.
    *
-   * @see addCSGNode(const CSGNode* csgn)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCSGNode(const CSGNode* object)
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumCSGNodes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   CSGHomogeneousTransformation* createCSGHomogeneousTransformation();
 
@@ -315,7 +406,14 @@ public:
    *
    * @return a new CSGSetOperator object instance.
    *
-   * @see addCSGNode(const CSGNode* csgn)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCSGNode(const CSGNode* object)
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumCSGNodes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   CSGSetOperator* createCSGSetOperator();
 
@@ -330,14 +428,24 @@ public:
   virtual const std::string& getElementName() const;
 
 
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the XML name of this ListOfCSGNodes object.
+   */
+  virtual void setElementName(const std::string& name);
+
+  /** @endcond */
+
+
   /**
    * Returns the libSBML type code for this ListOfCSGNodes object.
    *
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}
+   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    */
@@ -352,8 +460,7 @@ public:
    *
    * @return the SBML typecode for the objects contained in this
    * ListOfCSGNodes:
-   *
-   * @sbmlconstant{SBML_SPATIAL_CSGNODE, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_CSGNODE, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -445,10 +552,12 @@ BEGIN_C_DECLS
  *
  * @return the nth CSGNode_t in this ListOf_t.
  *
- * @memberof CSGNode_t
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfCSGNodes_t
  */
 LIBSBML_EXTERN
-const CSGNode_t*
+CSGNode_t*
 ListOfCSGNodes_getCSGNode(ListOf_t* lo, unsigned int n);
 
 
@@ -460,13 +569,15 @@ ListOfCSGNodes_getCSGNode(ListOf_t* lo, unsigned int n);
  * @param sid a string representing the identifier of the CSGNode_t to
  * retrieve.
  *
- * @return the CSGNode_t in this ListOf_t with the given id or NULL if no such
- * CSGNode_t exists.
+ * @return the CSGNode_t in this ListOf_t with the given @p sid or @c NULL if
+ * no such CSGNode_t exists.
  *
- * @memberof CSGNode_t
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfCSGNodes_t
  */
 LIBSBML_EXTERN
-const CSGNode_t*
+CSGNode_t*
 ListOfCSGNodes_getById(ListOf_t* lo, const char *sid);
 
 
@@ -479,7 +590,9 @@ ListOfCSGNodes_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth CSGNode_t in this ListOf_t.
  *
- * @memberof CSGNode_t
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfCSGNodes_t
  */
 LIBSBML_EXTERN
 CSGNode_t*
@@ -497,7 +610,9 @@ ListOfCSGNodes_remove(ListOf_t* lo, unsigned int n);
  * @return the CSGNode_t in this ListOf_t based on the identifier or NULL if no
  * such CSGNode_t exists.
  *
- * @memberof CSGNode_t
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfCSGNodes_t
  */
 LIBSBML_EXTERN
 CSGNode_t*

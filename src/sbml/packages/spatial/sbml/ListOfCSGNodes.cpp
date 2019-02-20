@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -65,6 +65,7 @@ ListOfCSGNodes::ListOfCSGNodes(unsigned int level,
                                unsigned int version,
                                unsigned int pkgVersion)
   : ListOf(level, version)
+  , mElementName("csgNode")
 {
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
     pkgVersion));
@@ -76,6 +77,7 @@ ListOfCSGNodes::ListOfCSGNodes(unsigned int level,
  */
 ListOfCSGNodes::ListOfCSGNodes(SpatialPkgNamespaces *spatialns)
   : ListOf(spatialns)
+  , mElementName("csgNode")
 {
   setElementNamespace(spatialns->getURI());
 }
@@ -86,6 +88,7 @@ ListOfCSGNodes::ListOfCSGNodes(SpatialPkgNamespaces *spatialns)
  */
 ListOfCSGNodes::ListOfCSGNodes(const ListOfCSGNodes& orig)
   : ListOf( orig )
+  , mElementName ( orig.mElementName )
 {
 }
 
@@ -99,6 +102,7 @@ ListOfCSGNodes::operator=(const ListOfCSGNodes& rhs)
   if (&rhs != this)
   {
     ListOf::operator=(rhs);
+    mElementName = rhs.mElementName;
   }
 
   return *this;
@@ -418,9 +422,23 @@ ListOfCSGNodes::createCSGSetOperator()
 const std::string&
 ListOfCSGNodes::getElementName() const
 {
-  static const string name = "listOfCSGNodes";
-  return name;
+  return mElementName;
 }
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the XML name of this ListOfCSGNodes object.
+ */
+void
+ListOfCSGNodes::setElementName(const std::string& name)
+{
+  mElementName = name;
+}
+
+/** @endcond */
 
 
 /*
@@ -562,7 +580,7 @@ ListOfCSGNodes::isValidTypeForList(SBase* item)
  * Get a CSGNode_t from the ListOf_t.
  */
 LIBSBML_EXTERN
-const CSGNode_t*
+CSGNode_t*
 ListOfCSGNodes_getCSGNode(ListOf_t* lo, unsigned int n)
 {
   if (lo == NULL)
@@ -578,7 +596,7 @@ ListOfCSGNodes_getCSGNode(ListOf_t* lo, unsigned int n)
  * Get a CSGNode_t from the ListOf_t based on its identifier.
  */
 LIBSBML_EXTERN
-const CSGNode_t*
+CSGNode_t*
 ListOfCSGNodes_getById(ListOf_t* lo, const char *sid)
 {
   if (lo == NULL)

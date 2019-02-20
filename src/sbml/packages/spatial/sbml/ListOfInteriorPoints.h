@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -80,11 +80,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this ListOfInteriorPoints.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfInteriorPoints(unsigned int level =
     SpatialExtension::getDefaultLevel(),
@@ -98,13 +94,11 @@ public:
    * Creates a new ListOfInteriorPoints using the given SpatialPkgNamespaces
    * object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfInteriorPoints(SpatialPkgNamespaces *spatialns);
 
@@ -148,7 +142,14 @@ public:
    *
    * @return the nth InteriorPoint in this ListOfInteriorPoints.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addInteriorPoint(const InteriorPoint* object)
+   * @see createInteriorPoint()
+   * @see get(const std::string& sid)
+   * @see getNumInteriorPoints()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual InteriorPoint* get(unsigned int n);
 
@@ -161,7 +162,14 @@ public:
    *
    * @return the nth InteriorPoint in this ListOfInteriorPoints.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addInteriorPoint(const InteriorPoint* object)
+   * @see createInteriorPoint()
+   * @see get(const std::string& sid)
+   * @see getNumInteriorPoints()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual const InteriorPoint* get(unsigned int n) const;
 
@@ -173,10 +181,17 @@ public:
    * @param sid a string representing the identifier of the InteriorPoint to
    * retrieve.
    *
-   * @return the InteriorPoint in this ListOfInteriorPoints with the given id
-   * or NULL if no such InteriorPoint exists.
+   * @return the InteriorPoint in this ListOfInteriorPoints with the given @p
+   * sid or @c NULL if no such InteriorPoint exists.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addInteriorPoint(const InteriorPoint* object)
+   * @see createInteriorPoint()
+   * @see get(unsigned int n)
+   * @see getNumInteriorPoints()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual InteriorPoint* get(const std::string& sid);
 
@@ -188,10 +203,17 @@ public:
    * @param sid a string representing the identifier of the InteriorPoint to
    * retrieve.
    *
-   * @return the InteriorPoint in this ListOfInteriorPoints with the given id
-   * or NULL if no such InteriorPoint exists.
+   * @return the InteriorPoint in this ListOfInteriorPoints with the given @p
+   * sid or @c NULL if no such InteriorPoint exists.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addInteriorPoint(const InteriorPoint* object)
+   * @see createInteriorPoint()
+   * @see get(unsigned int n)
+   * @see getNumInteriorPoints()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual const InteriorPoint* get(const std::string& sid) const;
 
@@ -205,10 +227,14 @@ public:
    *
    * @return a pointer to the nth InteriorPoint in this ListOfInteriorPoints.
    *
-   * @see size()
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addInteriorPoint(const InteriorPoint* object)
+   * @see createInteriorPoint()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumInteriorPoints()
+   * @see remove(const std::string& sid)
    */
   virtual InteriorPoint* remove(unsigned int n);
 
@@ -223,8 +249,14 @@ public:
    * @return the InteriorPoint in this ListOfInteriorPoints based on the
    * identifier or NULL if no such InteriorPoint exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addInteriorPoint(const InteriorPoint* object)
+   * @see createInteriorPoint()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumInteriorPoints()
+   * @see remove(unsigned int n)
    */
   virtual InteriorPoint* remove(const std::string& sid);
 
@@ -237,10 +269,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createInteriorPoint()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumInteriorPoints()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   int addInteriorPoint(const InteriorPoint* ip);
 
@@ -249,6 +291,13 @@ public:
    * Get the number of InteriorPoint objects in this ListOfInteriorPoints.
    *
    * @return the number of InteriorPoint objects in this ListOfInteriorPoints.
+   *
+   * @see addInteriorPoint(const InteriorPoint* object)
+   * @see createInteriorPoint()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   unsigned int getNumInteriorPoints() const;
 
@@ -259,7 +308,14 @@ public:
    *
    * @return a new InteriorPoint object instance.
    *
-   * @see addInteriorPoint(const InteriorPoint* ip)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addInteriorPoint(const InteriorPoint* object)
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumInteriorPoints()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   InteriorPoint* createInteriorPoint();
 
@@ -267,8 +323,8 @@ public:
   /**
    * Returns the XML element name of this ListOfInteriorPoints object.
    *
-   * For ListOfInteriorPoints, the XML element name is always @c
-   * "listOfInteriorPoints".
+   * For ListOfInteriorPoints, the XML element name is always
+   * @c "listOfInteriorPoints".
    *
    * @return the name of this element, i.e. @c "listOfInteriorPoints".
    */
@@ -281,8 +337,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}
+   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    */
@@ -297,8 +352,7 @@ public:
    *
    * @return the SBML typecode for the objects contained in this
    * ListOfInteriorPoints:
-   *
-   * @sbmlconstant{SBML_SPATIAL_INTERIORPOINT, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_INTERIORPOINT, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -379,10 +433,12 @@ BEGIN_C_DECLS
  *
  * @return the nth InteriorPoint_t in this ListOf_t.
  *
- * @memberof InteriorPoint_t
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfInteriorPoints_t
  */
 LIBSBML_EXTERN
-const InteriorPoint_t*
+InteriorPoint_t*
 ListOfInteriorPoints_getInteriorPoint(ListOf_t* lo, unsigned int n);
 
 
@@ -394,13 +450,15 @@ ListOfInteriorPoints_getInteriorPoint(ListOf_t* lo, unsigned int n);
  * @param sid a string representing the identifier of the InteriorPoint_t to
  * retrieve.
  *
- * @return the InteriorPoint_t in this ListOf_t with the given id or NULL if no
- * such InteriorPoint_t exists.
+ * @return the InteriorPoint_t in this ListOf_t with the given @p sid or
+ * @c NULL if no such InteriorPoint_t exists.
  *
- * @memberof InteriorPoint_t
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfInteriorPoints_t
  */
 LIBSBML_EXTERN
-const InteriorPoint_t*
+InteriorPoint_t*
 ListOfInteriorPoints_getById(ListOf_t* lo, const char *sid);
 
 
@@ -415,7 +473,9 @@ ListOfInteriorPoints_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth InteriorPoint_t in this ListOf_t.
  *
- * @memberof InteriorPoint_t
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfInteriorPoints_t
  */
 LIBSBML_EXTERN
 InteriorPoint_t*
@@ -434,7 +494,9 @@ ListOfInteriorPoints_remove(ListOf_t* lo, unsigned int n);
  * @return the InteriorPoint_t in this ListOf_t based on the identifier or NULL
  * if no such InteriorPoint_t exists.
  *
- * @memberof InteriorPoint_t
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfInteriorPoints_t
  */
 LIBSBML_EXTERN
 InteriorPoint_t*

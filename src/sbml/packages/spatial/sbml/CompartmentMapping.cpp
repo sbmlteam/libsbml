@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -58,7 +58,6 @@ CompartmentMapping::CompartmentMapping(unsigned int level,
                                        unsigned int version,
                                        unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
   , mDomainType ("")
   , mUnitSize (util_NaN())
   , mIsSetUnitSize (false)
@@ -74,7 +73,6 @@ CompartmentMapping::CompartmentMapping(unsigned int level,
  */
 CompartmentMapping::CompartmentMapping(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
-  , mId ("")
   , mDomainType ("")
   , mUnitSize (util_NaN())
   , mIsSetUnitSize (false)
@@ -89,7 +87,6 @@ CompartmentMapping::CompartmentMapping(SpatialPkgNamespaces *spatialns)
  */
 CompartmentMapping::CompartmentMapping(const CompartmentMapping& orig)
   : SBase( orig )
-  , mId ( orig.mId )
   , mDomainType ( orig.mDomainType )
   , mUnitSize ( orig.mUnitSize )
   , mIsSetUnitSize ( orig.mIsSetUnitSize )
@@ -106,7 +103,6 @@ CompartmentMapping::operator=(const CompartmentMapping& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId = rhs.mId;
     mDomainType = rhs.mDomainType;
     mUnitSize = rhs.mUnitSize;
     mIsSetUnitSize = rhs.mIsSetUnitSize;
@@ -145,6 +141,16 @@ CompartmentMapping::getId() const
 
 
 /*
+ * Returns the value of the "name" attribute of this CompartmentMapping.
+ */
+const std::string&
+CompartmentMapping::getName() const
+{
+  return mName;
+}
+
+
+/*
  * Returns the value of the "domainType" attribute of this CompartmentMapping.
  */
 const std::string&
@@ -172,6 +178,17 @@ bool
 CompartmentMapping::isSetId() const
 {
   return (mId.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true if this CompartmentMapping's "name" attribute is
+ * set.
+ */
+bool
+CompartmentMapping::isSetName() const
+{
+  return (mName.empty() == false);
 }
 
 
@@ -204,6 +221,17 @@ int
 CompartmentMapping::setId(const std::string& id)
 {
   return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Sets the value of the "name" attribute of this CompartmentMapping.
+ */
+int
+CompartmentMapping::setName(const std::string& name)
+{
+  mName = name;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -246,6 +274,25 @@ CompartmentMapping::unsetId()
   mId.erase();
 
   if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "name" attribute of this CompartmentMapping.
+ */
+int
+CompartmentMapping::unsetName()
+{
+  mName.erase();
+
+  if (mName.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -527,6 +574,11 @@ CompartmentMapping::getAttribute(const std::string& attributeName,
     value = getId();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
+  else if (attributeName == "name")
+  {
+    value = getName();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
   else if (attributeName == "domainType")
   {
     value = getDomainType();
@@ -554,6 +606,10 @@ CompartmentMapping::isSetAttribute(const std::string& attributeName) const
   if (attributeName == "id")
   {
     value = isSetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = isSetName();
   }
   else if (attributeName == "domainType")
   {
@@ -661,6 +717,10 @@ CompartmentMapping::setAttribute(const std::string& attributeName,
   {
     return_value = setId(value);
   }
+  else if (attributeName == "name")
+  {
+    return_value = setName(value);
+  }
   else if (attributeName == "domainType")
   {
     return_value = setDomainType(value);
@@ -687,6 +747,10 @@ CompartmentMapping::unsetAttribute(const std::string& attributeName)
   if (attributeName == "id")
   {
     value = unsetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = unsetName();
   }
   else if (attributeName == "domainType")
   {
@@ -716,6 +780,8 @@ CompartmentMapping::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("id");
 
+  attributes.add("name");
+
   attributes.add("domainType");
 
   attributes.add("unitSize");
@@ -743,25 +809,29 @@ CompartmentMapping::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial",
-        SpatialCompartmentMappingAllowedAttributes, pkgVersion, level, version,
-          details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial",
-        SpatialCompartmentMappingAllowedCoreAttributes, pkgVersion, level,
-          version, details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial",
+          SpatialCompartmentMappingAllowedAttributes, pkgVersion, level, version,
+            details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialCompartmentMappingAllowedCoreAttributes, pkgVersion, level,
+            version, details);
+      }
     }
   }
 
@@ -779,8 +849,9 @@ CompartmentMapping::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      logError(SpatialIdSyntaxRule, level, version, "The id '" + mId + "' does "
-        "not conform to the syntax.");
+      log->logPackageError("spatial", SpatialIdSyntaxRule, pkgVersion, level,
+        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+          "which does not conform to the syntax.", getLine(), getColumn());
     }
   }
   else
@@ -789,6 +860,20 @@ CompartmentMapping::readAttributes(const XMLAttributes& attributes,
       "<CompartmentMapping> element.";
     log->logPackageError("spatial", SpatialCompartmentMappingAllowedAttributes,
       pkgVersion, level, version, message);
+  }
+
+  // 
+  // name string (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("name", mName);
+
+  if (assigned == true)
+  {
+    if (mName.empty() == true)
+    {
+      logEmptyString(mName, level, version, "<CompartmentMapping>");
+    }
   }
 
   // 
@@ -805,9 +890,18 @@ CompartmentMapping::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mDomainType) == false)
     {
-      logError(SpatialCompartmentMappingDomainTypeMustBeDomainType, level,
-        version, "The attribute domainType='" + mDomainType + "' does not conform "
-          "to the syntax.");
+      std::string msg = "The domainType attribute on the <" + getElementName()
+        + ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mDomainType + "', which does not conform to the "
+        "syntax.";
+      log->logPackageError("spatial",
+        SpatialCompartmentMappingDomainTypeMustBeDomainType, pkgVersion, level,
+          version, msg, getLine(), getColumn());
     }
   }
   else
@@ -865,6 +959,11 @@ CompartmentMapping::writeAttributes(XMLOutputStream& stream) const
   if (isSetId() == true)
   {
     stream.writeAttribute("id", getPrefix(), mId);
+  }
+
+  if (isSetName() == true)
+  {
+    stream.writeAttribute("name", getPrefix(), mName);
   }
 
   if (isSetDomainType() == true)
@@ -938,7 +1037,7 @@ CompartmentMapping_free(CompartmentMapping_t* cm)
  * Returns the value of the "id" attribute of this CompartmentMapping_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 CompartmentMapping_getId(const CompartmentMapping_t * cm)
 {
   if (cm == NULL)
@@ -951,11 +1050,27 @@ CompartmentMapping_getId(const CompartmentMapping_t * cm)
 
 
 /*
+ * Returns the value of the "name" attribute of this CompartmentMapping_t.
+ */
+LIBSBML_EXTERN
+char *
+CompartmentMapping_getName(const CompartmentMapping_t * cm)
+{
+  if (cm == NULL)
+  {
+    return NULL;
+  }
+
+  return cm->getName().empty() ? NULL : safe_strdup(cm->getName().c_str());
+}
+
+
+/*
  * Returns the value of the "domainType" attribute of this
  * CompartmentMapping_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 CompartmentMapping_getDomainType(const CompartmentMapping_t * cm)
 {
   if (cm == NULL)
@@ -980,8 +1095,8 @@ CompartmentMapping_getUnitSize(const CompartmentMapping_t * cm)
 
 
 /*
- * Predicate returning @c 1 if this CompartmentMapping_t's "id" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this CompartmentMapping_t's "id"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -992,7 +1107,19 @@ CompartmentMapping_isSetId(const CompartmentMapping_t * cm)
 
 
 /*
- * Predicate returning @c 1 if this CompartmentMapping_t's "domainType"
+ * Predicate returning @c 1 (true) if this CompartmentMapping_t's "name"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+CompartmentMapping_isSetName(const CompartmentMapping_t * cm)
+{
+  return (cm != NULL) ? static_cast<int>(cm->isSetName()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this CompartmentMapping_t's "domainType"
  * attribute is set.
  */
 LIBSBML_EXTERN
@@ -1004,8 +1131,8 @@ CompartmentMapping_isSetDomainType(const CompartmentMapping_t * cm)
 
 
 /*
- * Predicate returning @c 1 if this CompartmentMapping_t's "unitSize" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this CompartmentMapping_t's "unitSize"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1023,6 +1150,17 @@ int
 CompartmentMapping_setId(CompartmentMapping_t * cm, const char * id)
 {
   return (cm != NULL) ? cm->setId(id) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "name" attribute of this CompartmentMapping_t.
+ */
+LIBSBML_EXTERN
+int
+CompartmentMapping_setName(CompartmentMapping_t * cm, const char * name)
+{
+  return (cm != NULL) ? cm->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1061,6 +1199,17 @@ CompartmentMapping_unsetId(CompartmentMapping_t * cm)
 
 
 /*
+ * Unsets the value of the "name" attribute of this CompartmentMapping_t.
+ */
+LIBSBML_EXTERN
+int
+CompartmentMapping_unsetName(CompartmentMapping_t * cm)
+{
+  return (cm != NULL) ? cm->unsetName() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
  * Unsets the value of the "domainType" attribute of this CompartmentMapping_t.
  */
 LIBSBML_EXTERN
@@ -1083,7 +1232,7 @@ CompartmentMapping_unsetUnitSize(CompartmentMapping_t * cm)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * CompartmentMapping_t object have been set.
  */
 LIBSBML_EXTERN

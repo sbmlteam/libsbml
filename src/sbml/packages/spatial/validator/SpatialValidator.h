@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -34,8 +34,9 @@
  * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  *
- * @class 
- * @sbmlbrief{spatial} Entry point for &ldquo;spatial&rdquo package validation.
+ * @class SpatialValidator
+ * @sbmlbrief{spatial} Entry point for &ldquo;spatial&rdquo; package
+ * validation.
  *
  * @htmlinclude not-sbml-warning.html
  *

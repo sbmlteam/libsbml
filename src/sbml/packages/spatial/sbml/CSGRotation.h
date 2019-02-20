@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -93,11 +93,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this CSGRotation.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   CSGRotation(unsigned int level = SpatialExtension::getDefaultLevel(),
               unsigned int version = SpatialExtension::getDefaultVersion(),
@@ -108,13 +104,11 @@ public:
   /**
    * Creates a new CSGRotation using the given SpatialPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   CSGRotation(SpatialPkgNamespaces *spatialns);
 
@@ -338,8 +332,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_CSGROTATION, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_CSGROTATION, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -737,11 +730,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this CSGRotation_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof CSGRotation_t
  */
@@ -758,6 +749,8 @@ CSGRotation_create(unsigned int level,
  * @param csgr the CSGRotation_t structure.
  *
  * @return a (deep) copy of this CSGRotation_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof CSGRotation_t
  */
@@ -841,12 +834,13 @@ CSGRotation_getRotateAngleInRadians(const CSGRotation_t * csgr);
 
 
 /**
- * Predicate returning @c 1 if this CSGRotation_t's "rotateX" attribute is set.
+ * Predicate returning @c 1 (true) if this CSGRotation_t's "rotateX" attribute
+ * is set.
  *
  * @param csgr the CSGRotation_t structure.
  *
- * @return @c 1 if this CSGRotation_t's "rotateX" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this CSGRotation_t's "rotateX" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
  * @memberof CSGRotation_t
  */
@@ -856,12 +850,13 @@ CSGRotation_isSetRotateX(const CSGRotation_t * csgr);
 
 
 /**
- * Predicate returning @c 1 if this CSGRotation_t's "rotateY" attribute is set.
+ * Predicate returning @c 1 (true) if this CSGRotation_t's "rotateY" attribute
+ * is set.
  *
  * @param csgr the CSGRotation_t structure.
  *
- * @return @c 1 if this CSGRotation_t's "rotateY" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this CSGRotation_t's "rotateY" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
  * @memberof CSGRotation_t
  */
@@ -871,12 +866,13 @@ CSGRotation_isSetRotateY(const CSGRotation_t * csgr);
 
 
 /**
- * Predicate returning @c 1 if this CSGRotation_t's "rotateZ" attribute is set.
+ * Predicate returning @c 1 (true) if this CSGRotation_t's "rotateZ" attribute
+ * is set.
  *
  * @param csgr the CSGRotation_t structure.
  *
- * @return @c 1 if this CSGRotation_t's "rotateZ" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this CSGRotation_t's "rotateZ" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
  * @memberof CSGRotation_t
  */
@@ -886,13 +882,13 @@ CSGRotation_isSetRotateZ(const CSGRotation_t * csgr);
 
 
 /**
- * Predicate returning @c 1 if this CSGRotation_t's "rotateAngleInRadians"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this CSGRotation_t's
+ * "rotateAngleInRadians" attribute is set.
  *
  * @param csgr the CSGRotation_t structure.
  *
- * @return @c 1 if this CSGRotation_t's "rotateAngleInRadians" attribute has
- * been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this CSGRotation_t's "rotateAngleInRadians" attribute
+ * has been set, otherwise @c 0 (false) is returned.
  *
  * @memberof CSGRotation_t
  */
@@ -911,6 +907,7 @@ CSGRotation_isSetRotateAngleInRadians(const CSGRotation_t * csgr);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGRotation_t
  */
@@ -929,6 +926,7 @@ CSGRotation_setRotateX(CSGRotation_t * csgr, double rotateX);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGRotation_t
  */
@@ -947,6 +945,7 @@ CSGRotation_setRotateY(CSGRotation_t * csgr, double rotateY);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGRotation_t
  */
@@ -967,6 +966,7 @@ CSGRotation_setRotateZ(CSGRotation_t * csgr, double rotateZ);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGRotation_t
  */
@@ -984,6 +984,7 @@ CSGRotation_setRotateAngleInRadians(CSGRotation_t * csgr,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGRotation_t
  */
@@ -1000,6 +1001,7 @@ CSGRotation_unsetRotateX(CSGRotation_t * csgr);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGRotation_t
  */
@@ -1016,6 +1018,7 @@ CSGRotation_unsetRotateY(CSGRotation_t * csgr);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGRotation_t
  */
@@ -1033,6 +1036,7 @@ CSGRotation_unsetRotateZ(CSGRotation_t * csgr);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGRotation_t
  */
@@ -1042,13 +1046,13 @@ CSGRotation_unsetRotateAngleInRadians(CSGRotation_t * csgr);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * CSGRotation_t object have been set.
  *
  * @param csgr the CSGRotation_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * CSGRotation_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * CSGRotation_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the CSGRotation_t object are:

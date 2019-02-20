@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -57,7 +57,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 CSGTranslation::CSGTranslation(unsigned int level,
                                unsigned int version,
                                unsigned int pkgVersion)
-  : CSGTransformation(level, version)
+  : CSGTransformation(level, version, pkgVersion)
   , mTranslateX (util_NaN())
   , mIsSetTranslateX (false)
   , mTranslateY (util_NaN())
@@ -733,24 +733,28 @@ CSGTranslation::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   CSGTransformation::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialCSGTranslationAllowedAttributes,
-        pkgVersion, level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial",
-        SpatialCSGTranslationAllowedCoreAttributes, pkgVersion, level, version,
-          details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialCSGTranslationAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialCSGTranslationAllowedCoreAttributes, pkgVersion, level, version,
+            details);
+      }
     }
   }
 
@@ -945,8 +949,8 @@ CSGTranslation_getTranslateZ(const CSGTranslation_t * csgt)
 
 
 /*
- * Predicate returning @c 1 if this CSGTranslation_t's "translateX" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this CSGTranslation_t's "translateX"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -957,8 +961,8 @@ CSGTranslation_isSetTranslateX(const CSGTranslation_t * csgt)
 
 
 /*
- * Predicate returning @c 1 if this CSGTranslation_t's "translateY" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this CSGTranslation_t's "translateY"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -969,8 +973,8 @@ CSGTranslation_isSetTranslateY(const CSGTranslation_t * csgt)
 
 
 /*
- * Predicate returning @c 1 if this CSGTranslation_t's "translateZ" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this CSGTranslation_t's "translateZ"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1050,7 +1054,7 @@ CSGTranslation_unsetTranslateZ(CSGTranslation_t * csgt)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * CSGTranslation_t object have been set.
  */
 LIBSBML_EXTERN

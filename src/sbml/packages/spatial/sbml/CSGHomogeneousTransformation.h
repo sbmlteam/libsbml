@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -58,7 +58,6 @@
 #include <sbml/packages/spatial/sbml/CSGTransformation.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 #include <sbml/packages/spatial/sbml/TransformationComponent.h>
-#include <sbml/packages/spatial/sbml/TransformationComponent.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -71,7 +70,6 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   TransformationComponent* mForwardTransformation;
-  TransformationComponent* mReverseTransformation;
 
   /** @endcond */
 
@@ -90,32 +88,25 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this CSGHomogeneousTransformation.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   CSGHomogeneousTransformation(
                                unsigned int level =
                                  SpatialExtension::getDefaultLevel(),
                                unsigned int version =
                                  SpatialExtension::getDefaultVersion(),
-                               unsigned int pkgVersion =
-                                 SpatialExtension::getDefaultPackageVersion());
+                               unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
 
 
   /**
    * Creates a new CSGHomogeneousTransformation using the given
    * SpatialPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   CSGHomogeneousTransformation(SpatialPkgNamespaces *spatialns);
 
@@ -174,26 +165,6 @@ public:
 
 
   /**
-   * Returns the value of the "reverseTransformation" element of this
-   * CSGHomogeneousTransformation.
-   *
-   * @return the value of the "reverseTransformation" element of this
-   * CSGHomogeneousTransformation as a TransformationComponent*.
-   */
-  const TransformationComponent* getReverseTransformation() const;
-
-
-  /**
-   * Returns the value of the "reverseTransformation" element of this
-   * CSGHomogeneousTransformation.
-   *
-   * @return the value of the "reverseTransformation" element of this
-   * CSGHomogeneousTransformation as a TransformationComponent*.
-   */
-  TransformationComponent* getReverseTransformation();
-
-
-  /**
    * Predicate returning @c true if this CSGHomogeneousTransformation's
    * "forwardTransformation" element is set.
    *
@@ -202,17 +173,6 @@ public:
    * returned.
    */
   bool isSetForwardTransformation() const;
-
-
-  /**
-   * Predicate returning @c true if this CSGHomogeneousTransformation's
-   * "reverseTransformation" element is set.
-   *
-   * @return @c true if this CSGHomogeneousTransformation's
-   * "reverseTransformation" element has been set, otherwise @c false is
-   * returned.
-   */
-  bool isSetReverseTransformation() const;
 
 
   /**
@@ -232,22 +192,6 @@ public:
 
 
   /**
-   * Sets the value of the "reverseTransformation" element of this
-   * CSGHomogeneousTransformation.
-   *
-   * @param reverseTransformation TransformationComponent* value of the
-   * "reverseTransformation" element to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setReverseTransformation(const TransformationComponent*
-    reverseTransformation);
-
-
-  /**
    * Creates a new TransformationComponent object, adds it to this
    * CSGHomogeneousTransformation object and returns the
    * TransformationComponent object created.
@@ -255,16 +199,6 @@ public:
    * @return a new TransformationComponent object instance.
    */
   TransformationComponent* createForwardTransformation();
-
-
-  /**
-   * Creates a new TransformationComponent object, adds it to this
-   * CSGHomogeneousTransformation object and returns the
-   * TransformationComponent object created.
-   *
-   * @return a new TransformationComponent object instance.
-   */
-  TransformationComponent* createReverseTransformation();
 
 
   /**
@@ -279,21 +213,10 @@ public:
 
 
   /**
-   * Unsets the value of the "reverseTransformation" element of this
-   * CSGHomogeneousTransformation.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetReverseTransformation();
-
-
-  /**
    * Returns the XML element name of this CSGHomogeneousTransformation object.
    *
-   * For CSGHomogeneousTransformation, the XML element name is always @c
-   * "csgHomogeneousTransformation".
+   * For CSGHomogeneousTransformation, the XML element name is always
+   * @c "csgHomogeneousTransformation".
    *
    * @return the name of this element, i.e. @c "csgHomogeneousTransformation".
    */
@@ -307,9 +230,8 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
    * @sbmlconstant{SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION,
-   * SBMLSpatialTypeCode_t}
+   * SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -326,10 +248,6 @@ public:
    * @return @c true to indicate that all the required attributes of this
    * CSGHomogeneousTransformation have been set, otherwise @c false is
    * returned.
-   *
-   *
-   * @note The required attributes for the CSGHomogeneousTransformation object
-   * are:
    */
   virtual bool hasRequiredAttributes() const;
 
@@ -346,7 +264,6 @@ public:
    * @note The required elements for the CSGHomogeneousTransformation object
    * are:
    * @li "forwardTransformation"
-   * @li "reverseTransformation"
    */
   virtual bool hasRequiredElements() const;
 
@@ -404,6 +321,19 @@ public:
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix,
                                      bool flag);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Updates the namespaces when setLevelVersion is used
+   */
+  virtual void updateSBMLNamespace(const std::string& package,
+                                   unsigned int level,
+                                   unsigned int version);
 
   /** @endcond */
 
@@ -663,9 +593,48 @@ public:
    *
    * @param elementName, the name of the element to create.
    *
-   * pointer to the element created.
+   * @return pointer to the element created.
    */
-  virtual SBase* createObject(const std::string& elementName);
+  virtual SBase* createChildObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Adds a new "elementName" object to this CSGHomogeneousTransformation.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @param element, pointer to the element to be added.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int addChildObject(const std::string& elementName,
+                             const SBase* element);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Removes and returns the new "elementName" object with the given id in this
+   * CSGHomogeneousTransformation.
+   *
+   * @param elementName, the name of the element to remove.
+   *
+   * @param id, the id of the element to remove.
+   *
+   * @return pointer to the element removed.
+   */
+  virtual SBase* removeChildObject(const std::string& elementName,
+                                   const std::string& id);
 
   /** @endcond */
 
@@ -678,7 +647,7 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * unsigned int number of elements.
+   * @return unsigned int number of elements.
    */
   virtual unsigned int getNumObjects(const std::string& elementName);
 
@@ -694,9 +663,9 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * @param index, unsigned int teh index of teh object to retrieve.
+   * @param index, unsigned int the index of the object to retrieve.
    *
-   * pointer to the object.
+   * @return pointer to the object.
    */
   virtual SBase* getObject(const std::string& elementName, unsigned int index);
 
@@ -715,7 +684,8 @@ public:
    * @param id a string representing the id attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p id.
+   * @return a pointer to the SBase element with the given @p id. If no such
+   * object is found, this method returns @c NULL.
    */
   virtual SBase* getElementBySId(const std::string& id);
 
@@ -727,7 +697,8 @@ public:
    * @param metaid a string representing the metaid attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p metaid.
+   * @return a pointer to the SBase element with the given @p metaid. If no
+   * such object is found this method returns @c NULL.
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
 
@@ -736,8 +707,8 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
-   * filter, an ElementFilter that may impose restrictions on the objects to be
-   * retrieved.
+   * @param filter an ElementFilter that may impose restrictions on the objects
+   * to be retrieved.
    *
    * @return a List* pointer of pointers to all SBase child objects with any
    * restriction imposed.
@@ -832,11 +803,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this CSGHomogeneousTransformation_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof CSGHomogeneousTransformation_t
  */
@@ -854,6 +823,8 @@ CSGHomogeneousTransformation_create(unsigned int level,
  * @param csght the CSGHomogeneousTransformation_t structure.
  *
  * @return a (deep) copy of this CSGHomogeneousTransformation_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof CSGHomogeneousTransformation_t
  */
@@ -894,54 +865,20 @@ CSGHomogeneousTransformation_getForwardTransformation(const
 
 
 /**
- * Returns the value of the "reverseTransformation" element of this
- * CSGHomogeneousTransformation_t.
- *
- * @param csght the CSGHomogeneousTransformation_t structure whose
- * reverseTransformation is sought.
- *
- * @return the value of the "reverseTransformation" element of this
- * CSGHomogeneousTransformation_t as a TransformationComponent*.
- *
- * @memberof CSGHomogeneousTransformation_t
- */
-LIBSBML_EXTERN
-const TransformationComponent_t*
-CSGHomogeneousTransformation_getReverseTransformation(const
-  CSGHomogeneousTransformation_t * csght);
-
-
-/**
- * Predicate returning @c 1 if this CSGHomogeneousTransformation_t's
+ * Predicate returning @c 1 (true) if this CSGHomogeneousTransformation_t's
  * "forwardTransformation" element is set.
  *
  * @param csght the CSGHomogeneousTransformation_t structure.
  *
- * @return @c 1 if this CSGHomogeneousTransformation_t's
- * "forwardTransformation" element has been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this CSGHomogeneousTransformation_t's
+ * "forwardTransformation" element has been set, otherwise @c 0 (false) is
+ * returned.
  *
  * @memberof CSGHomogeneousTransformation_t
  */
 LIBSBML_EXTERN
 int
 CSGHomogeneousTransformation_isSetForwardTransformation(const
-  CSGHomogeneousTransformation_t * csght);
-
-
-/**
- * Predicate returning @c 1 if this CSGHomogeneousTransformation_t's
- * "reverseTransformation" element is set.
- *
- * @param csght the CSGHomogeneousTransformation_t structure.
- *
- * @return @c 1 if this CSGHomogeneousTransformation_t's
- * "reverseTransformation" element has been set, otherwise @c 0 is returned.
- *
- * @memberof CSGHomogeneousTransformation_t
- */
-LIBSBML_EXTERN
-int
-CSGHomogeneousTransformation_isSetReverseTransformation(const
   CSGHomogeneousTransformation_t * csght);
 
 
@@ -957,6 +894,7 @@ CSGHomogeneousTransformation_isSetReverseTransformation(const
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGHomogeneousTransformation_t
  */
@@ -965,34 +903,8 @@ int
 CSGHomogeneousTransformation_setForwardTransformation(
                                                       CSGHomogeneousTransformation_t
                                                         * csght,
-                                                      const
-                                                        TransformationComponent_t*
-                                                          forwardTransformation);
-
-
-/**
- * Sets the value of the "reverseTransformation" element of this
- * CSGHomogeneousTransformation_t.
- *
- * @param csght the CSGHomogeneousTransformation_t structure.
- *
- * @param reverseTransformation TransformationComponent_t* value of the
- * "reverseTransformation" element to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- *
- * @memberof CSGHomogeneousTransformation_t
- */
-LIBSBML_EXTERN
-int
-CSGHomogeneousTransformation_setReverseTransformation(
-                                                      CSGHomogeneousTransformation_t
-                                                        * csght,
-                                                      const
-                                                        TransformationComponent_t*
-                                                          reverseTransformation);
+                                                      const TransformationComponent_t*
+                                                        forwardTransformation);
 
 
 /**
@@ -1014,24 +926,6 @@ CSGHomogeneousTransformation_createForwardTransformation(CSGHomogeneousTransform
 
 
 /**
- * Creates a new TransformationComponent_t object, adds it to this
- * CSGHomogeneousTransformation_t object and returns the
- * TransformationComponent_t object created.
- *
- * @param csght the CSGHomogeneousTransformation_t structure to which the
- * TransformationComponent_t should be added.
- *
- * @return a new TransformationComponent_t object instance.
- *
- * @memberof CSGHomogeneousTransformation_t
- */
-LIBSBML_EXTERN
-TransformationComponent_t*
-CSGHomogeneousTransformation_createReverseTransformation(CSGHomogeneousTransformation_t*
-  csght);
-
-
-/**
  * Unsets the value of the "forwardTransformation" element of this
  * CSGHomogeneousTransformation_t.
  *
@@ -1040,6 +934,7 @@ CSGHomogeneousTransformation_createReverseTransformation(CSGHomogeneousTransform
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGHomogeneousTransformation_t
  */
@@ -1050,35 +945,14 @@ CSGHomogeneousTransformation_unsetForwardTransformation(CSGHomogeneousTransforma
 
 
 /**
- * Unsets the value of the "reverseTransformation" element of this
- * CSGHomogeneousTransformation_t.
- *
- * @param csght the CSGHomogeneousTransformation_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- *
- * @memberof CSGHomogeneousTransformation_t
- */
-LIBSBML_EXTERN
-int
-CSGHomogeneousTransformation_unsetReverseTransformation(CSGHomogeneousTransformation_t
-  * csght);
-
-
-/**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * CSGHomogeneousTransformation_t object have been set.
  *
  * @param csght the CSGHomogeneousTransformation_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * CSGHomogeneousTransformation_t have been set, otherwise @c 0 is returned.
- *
- *
- * @note The required attributes for the CSGHomogeneousTransformation_t object
- * are:
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * CSGHomogeneousTransformation_t have been set, otherwise @c 0 (false) is
+ * returned.
  *
  * @memberof CSGHomogeneousTransformation_t
  */
@@ -1089,19 +963,19 @@ CSGHomogeneousTransformation_hasRequiredAttributes(const
 
 
 /**
- * Predicate returning @c 1 if all the required elements for this
+ * Predicate returning @c 1 (true) if all the required elements for this
  * CSGHomogeneousTransformation_t object have been set.
  *
  * @param csght the CSGHomogeneousTransformation_t structure.
  *
- * @return @c 1 to indicate that all the required elements of this
- * CSGHomogeneousTransformation_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required elements of this
+ * CSGHomogeneousTransformation_t have been set, otherwise @c 0 (false) is
+ * returned.
  *
  *
  * @note The required elements for the CSGHomogeneousTransformation_t object
  * are:
  * @li "forwardTransformation"
- * @li "reverseTransformation"
  *
  * @memberof CSGHomogeneousTransformation_t
  */

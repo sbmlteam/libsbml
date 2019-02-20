@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -89,11 +89,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this MixedGeometry.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   MixedGeometry(unsigned int level = SpatialExtension::getDefaultLevel(),
                 unsigned int version = SpatialExtension::getDefaultVersion(),
@@ -104,13 +100,11 @@ public:
   /**
    * Creates a new MixedGeometry using the given SpatialPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   MixedGeometry(SpatialPkgNamespaces *spatialns);
 
@@ -150,6 +144,16 @@ public:
    * Returns the ListOfGeometryDefinitions from this MixedGeometry.
    *
    * @return the ListOfGeometryDefinitions from this MixedGeometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   const ListOfGeometryDefinitions* getListOfGeometryDefinitions() const;
 
@@ -158,6 +162,16 @@ public:
    * Returns the ListOfGeometryDefinitions from this MixedGeometry.
    *
    * @return the ListOfGeometryDefinitions from this MixedGeometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   ListOfGeometryDefinitions* getListOfGeometryDefinitions();
 
@@ -171,7 +185,14 @@ public:
    * @return the nth GeometryDefinition in the ListOfGeometryDefinitions within
    * this MixedGeometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
+   * @see getGeometryDefinition(const std::string& sid)
    * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   GeometryDefinition* getGeometryDefinition(unsigned int n);
 
@@ -185,7 +206,14 @@ public:
    * @return the nth GeometryDefinition in the ListOfGeometryDefinitions within
    * this MixedGeometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
+   * @see getGeometryDefinition(const std::string& sid)
    * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   const GeometryDefinition* getGeometryDefinition(unsigned int n) const;
 
@@ -197,11 +225,17 @@ public:
    * to retrieve.
    *
    * @return the GeometryDefinition in the ListOfGeometryDefinitions within
-   * this MixedGeometry with the given id or NULL if no such GeometryDefinition
-   * exists.
+   * this MixedGeometry with the given @p sid or @c NULL if no such
+   * GeometryDefinition exists.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
    * @see getGeometryDefinition(unsigned int n)
    * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   GeometryDefinition* getGeometryDefinition(const std::string& sid);
 
@@ -213,11 +247,17 @@ public:
    * to retrieve.
    *
    * @return the GeometryDefinition in the ListOfGeometryDefinitions within
-   * this MixedGeometry with the given id or NULL if no such GeometryDefinition
-   * exists.
+   * this MixedGeometry with the given @p sid or @c NULL if no such
+   * GeometryDefinition exists.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
    * @see getGeometryDefinition(unsigned int n)
    * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   const GeometryDefinition* getGeometryDefinition(const std::string& sid)
     const;
@@ -231,10 +271,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createGeometryDefinition()
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   int addGeometryDefinition(const GeometryDefinition* gd);
 
@@ -243,6 +293,13 @@ public:
    * Get the number of GeometryDefinition objects in this MixedGeometry.
    *
    * @return the number of GeometryDefinition objects in this MixedGeometry.
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   unsigned int getNumGeometryDefinitions() const;
 
@@ -253,7 +310,14 @@ public:
    *
    * @return a new AnalyticGeometry object instance.
    *
-   * @see addGeometryDefinition(const GeometryDefinition* gd)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   AnalyticGeometry* createAnalyticGeometry();
 
@@ -264,7 +328,14 @@ public:
    *
    * @return a new SampledFieldGeometry object instance.
    *
-   * @see addGeometryDefinition(const GeometryDefinition* gd)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   SampledFieldGeometry* createSampledFieldGeometry();
 
@@ -275,7 +346,14 @@ public:
    *
    * @return a new CSGeometry object instance.
    *
-   * @see addGeometryDefinition(const GeometryDefinition* gd)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   CSGeometry* createCSGeometry();
 
@@ -286,7 +364,14 @@ public:
    *
    * @return a new ParametricGeometry object instance.
    *
-   * @see addGeometryDefinition(const GeometryDefinition* gd)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   ParametricGeometry* createParametricGeometry();
 
@@ -297,7 +382,14 @@ public:
    *
    * @return a new MixedGeometry object instance.
    *
-   * @see addGeometryDefinition(const GeometryDefinition* gd)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   MixedGeometry* createMixedGeometry();
 
@@ -311,10 +403,14 @@ public:
    *
    * @return a pointer to the nth GeometryDefinition in this MixedGeometry.
    *
-   * @see getNumGeometryDefinitions
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
    */
   GeometryDefinition* removeGeometryDefinition(unsigned int n);
 
@@ -329,8 +425,14 @@ public:
    * @return the GeometryDefinition in this MixedGeometry based on the
    * identifier or NULL if no such GeometryDefinition exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(unsigned int n)
    */
   GeometryDefinition* removeGeometryDefinition(const std::string& sid);
 
@@ -339,6 +441,16 @@ public:
    * Returns the ListOfOrdinalMappings from this MixedGeometry.
    *
    * @return the ListOfOrdinalMappings from this MixedGeometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addOrdinalMapping(const OrdinalMapping* object)
+   * @see createOrdinalMapping()
+   * @see getOrdinalMapping(const std::string& sid)
+   * @see getOrdinalMapping(unsigned int n)
+   * @see getNumOrdinalMappings()
+   * @see removeOrdinalMapping(const std::string& sid)
+   * @see removeOrdinalMapping(unsigned int n)
    */
   const ListOfOrdinalMappings* getListOfOrdinalMappings() const;
 
@@ -347,6 +459,16 @@ public:
    * Returns the ListOfOrdinalMappings from this MixedGeometry.
    *
    * @return the ListOfOrdinalMappings from this MixedGeometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addOrdinalMapping(const OrdinalMapping* object)
+   * @see createOrdinalMapping()
+   * @see getOrdinalMapping(const std::string& sid)
+   * @see getOrdinalMapping(unsigned int n)
+   * @see getNumOrdinalMappings()
+   * @see removeOrdinalMapping(const std::string& sid)
+   * @see removeOrdinalMapping(unsigned int n)
    */
   ListOfOrdinalMappings* getListOfOrdinalMappings();
 
@@ -360,7 +482,14 @@ public:
    * @return the nth OrdinalMapping in the ListOfOrdinalMappings within this
    * MixedGeometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addOrdinalMapping(const OrdinalMapping* object)
+   * @see createOrdinalMapping()
+   * @see getOrdinalMapping(const std::string& sid)
    * @see getNumOrdinalMappings()
+   * @see removeOrdinalMapping(const std::string& sid)
+   * @see removeOrdinalMapping(unsigned int n)
    */
   OrdinalMapping* getOrdinalMapping(unsigned int n);
 
@@ -374,7 +503,14 @@ public:
    * @return the nth OrdinalMapping in the ListOfOrdinalMappings within this
    * MixedGeometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addOrdinalMapping(const OrdinalMapping* object)
+   * @see createOrdinalMapping()
+   * @see getOrdinalMapping(const std::string& sid)
    * @see getNumOrdinalMappings()
+   * @see removeOrdinalMapping(const std::string& sid)
+   * @see removeOrdinalMapping(unsigned int n)
    */
   const OrdinalMapping* getOrdinalMapping(unsigned int n) const;
 
@@ -383,11 +519,13 @@ public:
    * Get an OrdinalMapping from the MixedGeometry based on the
    * GeometryDefinition to which it refers.
    *
-   * @param sid a string representing the geometryDefinition attribute of the
+   * @param sid a string representing the "geometryDefinition" attribute of the
    * OrdinalMapping object to retrieve.
    *
    * @return the first OrdinalMapping in this MixedGeometry based on the given
    * geometryDefinition attribute or NULL if no such OrdinalMapping exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   const OrdinalMapping* getOrdinalMappingByGeometryDefinition(const
     std::string& sid) const;
@@ -397,11 +535,13 @@ public:
    * Get an OrdinalMapping from the MixedGeometry based on the
    * GeometryDefinition to which it refers.
    *
-   * @param sid a string representing the geometryDefinition attribute of the
+   * @param sid a string representing the "geometryDefinition" attribute of the
    * OrdinalMapping object to retrieve.
    *
    * @return the first OrdinalMapping in this MixedGeometry based on the given
    * geometryDefinition attribute or NULL if no such OrdinalMapping exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   OrdinalMapping* getOrdinalMappingByGeometryDefinition(const std::string&
     sid);
@@ -415,10 +555,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createOrdinalMapping()
+   * @see getOrdinalMapping(const std::string& sid)
+   * @see getOrdinalMapping(unsigned int n)
+   * @see getNumOrdinalMappings()
+   * @see removeOrdinalMapping(const std::string& sid)
+   * @see removeOrdinalMapping(unsigned int n)
    */
   int addOrdinalMapping(const OrdinalMapping* om);
 
@@ -427,6 +577,13 @@ public:
    * Get the number of OrdinalMapping objects in this MixedGeometry.
    *
    * @return the number of OrdinalMapping objects in this MixedGeometry.
+   *
+   * @see addOrdinalMapping(const OrdinalMapping* object)
+   * @see createOrdinalMapping()
+   * @see getOrdinalMapping(const std::string& sid)
+   * @see getOrdinalMapping(unsigned int n)
+   * @see removeOrdinalMapping(const std::string& sid)
+   * @see removeOrdinalMapping(unsigned int n)
    */
   unsigned int getNumOrdinalMappings() const;
 
@@ -437,7 +594,14 @@ public:
    *
    * @return a new OrdinalMapping object instance.
    *
-   * @see addOrdinalMapping(const OrdinalMapping* om)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addOrdinalMapping(const OrdinalMapping* object)
+   * @see getOrdinalMapping(const std::string& sid)
+   * @see getOrdinalMapping(unsigned int n)
+   * @see getNumOrdinalMappings()
+   * @see removeOrdinalMapping(const std::string& sid)
+   * @see removeOrdinalMapping(unsigned int n)
    */
   OrdinalMapping* createOrdinalMapping();
 
@@ -451,10 +615,14 @@ public:
    *
    * @return a pointer to the nth OrdinalMapping in this MixedGeometry.
    *
-   * @see getNumOrdinalMappings
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addOrdinalMapping(const OrdinalMapping* object)
+   * @see createOrdinalMapping()
+   * @see getOrdinalMapping(const std::string& sid)
+   * @see getOrdinalMapping(unsigned int n)
+   * @see getNumOrdinalMappings()
+   * @see removeOrdinalMapping(const std::string& sid)
    */
   OrdinalMapping* removeOrdinalMapping(unsigned int n);
 
@@ -475,8 +643,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_MIXEDGEOMETRY, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_MIXEDGEOMETRY, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -492,9 +659,6 @@ public:
    *
    * @return @c true to indicate that all the required attributes of this
    * MixedGeometry have been set, otherwise @c false is returned.
-   *
-   *
-   * @note The required attributes for the MixedGeometry object are:
    */
   virtual bool hasRequiredAttributes() const;
 
@@ -565,6 +729,19 @@ public:
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix,
                                      bool flag);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Updates the namespaces when setLevelVersion is used
+   */
+  virtual void updateSBMLNamespace(const std::string& package,
+                                   unsigned int level,
+                                   unsigned int version);
 
   /** @endcond */
 
@@ -812,9 +989,48 @@ public:
    *
    * @param elementName, the name of the element to create.
    *
-   * pointer to the element created.
+   * @return pointer to the element created.
    */
   virtual SBase* createChildObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Adds a new "elementName" object to this MixedGeometry.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @param element, pointer to the element to be added.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int addChildObject(const std::string& elementName,
+                             const SBase* element);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Removes and returns the new "elementName" object with the given id in this
+   * MixedGeometry.
+   *
+   * @param elementName, the name of the element to remove.
+   *
+   * @param id, the id of the element to remove.
+   *
+   * @return pointer to the element removed.
+   */
+  virtual SBase* removeChildObject(const std::string& elementName,
+                                   const std::string& id);
 
   /** @endcond */
 
@@ -827,7 +1043,7 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * unsigned int number of elements.
+   * @return unsigned int number of elements.
    */
   virtual unsigned int getNumObjects(const std::string& elementName);
 
@@ -842,9 +1058,9 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * @param index, unsigned int teh index of teh object to retrieve.
+   * @param index, unsigned int the index of the object to retrieve.
    *
-   * pointer to the object.
+   * @return pointer to the object.
    */
   virtual SBase* getObject(const std::string& elementName, unsigned int index);
 
@@ -863,7 +1079,8 @@ public:
    * @param id a string representing the id attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p id.
+   * @return a pointer to the SBase element with the given @p id. If no such
+   * object is found, this method returns @c NULL.
    */
   virtual SBase* getElementBySId(const std::string& id);
 
@@ -875,7 +1092,8 @@ public:
    * @param metaid a string representing the metaid attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p metaid.
+   * @return a pointer to the SBase element with the given @p metaid. If no
+   * such object is found this method returns @c NULL.
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
 
@@ -884,8 +1102,8 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
-   * filter, an ElementFilter that may impose restrictions on the objects to be
-   * retrieved.
+   * @param filter an ElementFilter that may impose restrictions on the objects
+   * to be retrieved.
    *
    * @return a List* pointer of pointers to all SBase child objects with any
    * restriction imposed.
@@ -980,11 +1198,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this MixedGeometry_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof MixedGeometry_t
  */
@@ -1001,6 +1217,8 @@ MixedGeometry_create(unsigned int level,
  * @param mg the MixedGeometry_t structure.
  *
  * @return a (deep) copy of this MixedGeometry_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof MixedGeometry_t
  */
@@ -1022,14 +1240,24 @@ MixedGeometry_free(MixedGeometry_t* mg);
 
 
 /**
- * Returns a ListOf_t* containing GeometryDefinition_t objects from this
+ * Returns a ListOf_t * containing GeometryDefinition_t objects from this
  * MixedGeometry_t.
  *
- * @param mg the MixedGeometry_t structure whose "ListOfGeometryDefinitions" is
+ * @param mg the MixedGeometry_t structure whose ListOfGeometryDefinitions is
  * sought.
  *
- * @return the "ListOfGeometryDefinitions" from this MixedGeometry_t as a
+ * @return the ListOfGeometryDefinitions from this MixedGeometry_t as a
  * ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see MixedGeometry_addGeometryDefinition()
+ * @see MixedGeometry_createGeometryDefinition()
+ * @see MixedGeometry_getGeometryDefinitionById()
+ * @see MixedGeometry_getGeometryDefinition()
+ * @see MixedGeometry_getNumGeometryDefinitions()
+ * @see MixedGeometry_removeGeometryDefinitionById()
+ * @see MixedGeometry_removeGeometryDefinition()
  *
  * @memberof MixedGeometry_t
  */
@@ -1049,10 +1277,12 @@ MixedGeometry_getListOfGeometryDefinitions(MixedGeometry_t* mg);
  * @return the nth GeometryDefinition_t in the ListOfGeometryDefinitions within
  * this MixedGeometry.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof MixedGeometry_t
  */
 LIBSBML_EXTERN
-const GeometryDefinition_t*
+GeometryDefinition_t*
 MixedGeometry_getGeometryDefinition(MixedGeometry_t* mg, unsigned int n);
 
 
@@ -1065,13 +1295,15 @@ MixedGeometry_getGeometryDefinition(MixedGeometry_t* mg, unsigned int n);
  * to retrieve.
  *
  * @return the GeometryDefinition_t in the ListOfGeometryDefinitions within
- * this MixedGeometry with the given id or NULL if no such GeometryDefinition_t
- * exists.
+ * this MixedGeometry with the given @p sid or @c NULL if no such
+ * GeometryDefinition_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof MixedGeometry_t
  */
 LIBSBML_EXTERN
-const GeometryDefinition_t*
+GeometryDefinition_t*
 MixedGeometry_getGeometryDefinitionById(MixedGeometry_t* mg, const char *sid);
 
 
@@ -1086,6 +1318,11 @@ MixedGeometry_getGeometryDefinitionById(MixedGeometry_t* mg, const char *sid);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
  *
  * @memberof MixedGeometry_t
  */
@@ -1118,6 +1355,8 @@ MixedGeometry_getNumGeometryDefinitions(MixedGeometry_t* mg);
  *
  * @return a new AnalyticGeometry_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof MixedGeometry_t
  */
 LIBSBML_EXTERN
@@ -1133,6 +1372,8 @@ MixedGeometry_createAnalyticGeometry(MixedGeometry_t* mg);
  * should be added.
  *
  * @return a new SampledFieldGeometry_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof MixedGeometry_t
  */
@@ -1150,6 +1391,8 @@ MixedGeometry_createSampledFieldGeometry(MixedGeometry_t* mg);
  *
  * @return a new CSGeometry_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof MixedGeometry_t
  */
 LIBSBML_EXTERN
@@ -1166,6 +1409,8 @@ MixedGeometry_createCSGeometry(MixedGeometry_t* mg);
  *
  * @return a new ParametricGeometry_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof MixedGeometry_t
  */
 LIBSBML_EXTERN
@@ -1181,6 +1426,8 @@ MixedGeometry_createParametricGeometry(MixedGeometry_t* mg);
  * be added.
  *
  * @return a new MixedGeometry_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof MixedGeometry_t
  */
@@ -1199,6 +1446,8 @@ MixedGeometry_createMixedGeometry(MixedGeometry_t* mg);
  * to remove.
  *
  * @return a pointer to the nth GeometryDefinition_t in this MixedGeometry_t.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof MixedGeometry_t
  */
@@ -1219,6 +1468,8 @@ MixedGeometry_removeGeometryDefinition(MixedGeometry_t* mg, unsigned int n);
  * @return the GeometryDefinition_t in this MixedGeometry_t based on the
  * identifier or NULL if no such GeometryDefinition_t exists.
  *
+ * @copydetails doc_returned_owned_pointer
+ *
  * @memberof MixedGeometry_t
  */
 LIBSBML_EXTERN
@@ -1228,14 +1479,23 @@ MixedGeometry_removeGeometryDefinitionById(MixedGeometry_t* mg,
 
 
 /**
- * Returns a ListOf_t* containing OrdinalMapping_t objects from this
+ * Returns a ListOf_t * containing OrdinalMapping_t objects from this
  * MixedGeometry_t.
  *
- * @param mg the MixedGeometry_t structure whose "ListOfOrdinalMappings" is
+ * @param mg the MixedGeometry_t structure whose ListOfOrdinalMappings is
  * sought.
  *
- * @return the "ListOfOrdinalMappings" from this MixedGeometry_t as a ListOf_t
- * *.
+ * @return the ListOfOrdinalMappings from this MixedGeometry_t as a ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see MixedGeometry_addOrdinalMapping()
+ * @see MixedGeometry_createOrdinalMapping()
+ * @see MixedGeometry_getOrdinalMappingById()
+ * @see MixedGeometry_getOrdinalMapping()
+ * @see MixedGeometry_getNumOrdinalMappings()
+ * @see MixedGeometry_removeOrdinalMappingById()
+ * @see MixedGeometry_removeOrdinalMapping()
  *
  * @memberof MixedGeometry_t
  */
@@ -1255,10 +1515,12 @@ MixedGeometry_getListOfOrdinalMappings(MixedGeometry_t* mg);
  * @return the nth OrdinalMapping_t in the ListOfOrdinalMappings within this
  * MixedGeometry.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof MixedGeometry_t
  */
 LIBSBML_EXTERN
-const OrdinalMapping_t*
+OrdinalMapping_t*
 MixedGeometry_getOrdinalMapping(MixedGeometry_t* mg, unsigned int n);
 
 
@@ -1268,17 +1530,19 @@ MixedGeometry_getOrdinalMapping(MixedGeometry_t* mg, unsigned int n);
  *
  * @param mg the MixedGeometry_t structure to search.
  *
- * @param sid a string representing the geometryDefinition attribute of the
+ * @param sid a string representing the "geometryDefinition" attribute of the
  * OrdinalMapping_t object to retrieve.
  *
  * @return the first OrdinalMapping_t in this MixedGeometry_t based on the
  * given geometryDefinition attribute or NULL if no such OrdinalMapping_t
  * exists.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof MixedGeometry_t
  */
 LIBSBML_EXTERN
-const OrdinalMapping_t*
+OrdinalMapping_t*
 MixedGeometry_getOrdinalMappingByGeometryDefinition(MixedGeometry_t* mg,
                                                     const char *sid);
 
@@ -1294,6 +1558,11 @@ MixedGeometry_getOrdinalMappingByGeometryDefinition(MixedGeometry_t* mg,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
  *
  * @memberof MixedGeometry_t
  */
@@ -1326,6 +1595,8 @@ MixedGeometry_getNumOrdinalMappings(MixedGeometry_t* mg);
  *
  * @return a new OrdinalMapping_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof MixedGeometry_t
  */
 LIBSBML_EXTERN
@@ -1344,6 +1615,8 @@ MixedGeometry_createOrdinalMapping(MixedGeometry_t* mg);
  *
  * @return a pointer to the nth OrdinalMapping_t in this MixedGeometry_t.
  *
+ * @copydetails doc_returned_owned_pointer
+ *
  * @memberof MixedGeometry_t
  */
 LIBSBML_EXTERN
@@ -1352,16 +1625,13 @@ MixedGeometry_removeOrdinalMapping(MixedGeometry_t* mg, unsigned int n);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * MixedGeometry_t object have been set.
  *
  * @param mg the MixedGeometry_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * MixedGeometry_t have been set, otherwise @c 0 is returned.
- *
- *
- * @note The required attributes for the MixedGeometry_t object are:
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * MixedGeometry_t have been set, otherwise @c 0 (false) is returned.
  *
  * @memberof MixedGeometry_t
  */
@@ -1371,13 +1641,13 @@ MixedGeometry_hasRequiredAttributes(const MixedGeometry_t * mg);
 
 
 /**
- * Predicate returning @c 1 if all the required elements for this
+ * Predicate returning @c 1 (true) if all the required elements for this
  * MixedGeometry_t object have been set.
  *
  * @param mg the MixedGeometry_t structure.
  *
- * @return @c 1 to indicate that all the required elements of this
- * MixedGeometry_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required elements of this
+ * MixedGeometry_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required elements for the MixedGeometry_t object are:

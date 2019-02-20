@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -80,11 +80,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this ListOfSampledVolumes.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfSampledVolumes(unsigned int level =
     SpatialExtension::getDefaultLevel(),
@@ -98,13 +94,11 @@ public:
    * Creates a new ListOfSampledVolumes using the given SpatialPkgNamespaces
    * object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfSampledVolumes(SpatialPkgNamespaces *spatialns);
 
@@ -148,7 +142,14 @@ public:
    *
    * @return the nth SampledVolume in this ListOfSampledVolumes.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see createSampledVolume()
+   * @see get(const std::string& sid)
+   * @see getNumSampledVolumes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual SampledVolume* get(unsigned int n);
 
@@ -161,7 +162,14 @@ public:
    *
    * @return the nth SampledVolume in this ListOfSampledVolumes.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see createSampledVolume()
+   * @see get(const std::string& sid)
+   * @see getNumSampledVolumes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual const SampledVolume* get(unsigned int n) const;
 
@@ -172,10 +180,17 @@ public:
    * @param sid a string representing the identifier of the SampledVolume to
    * retrieve.
    *
-   * @return the SampledVolume in this ListOfSampledVolumes with the given id
-   * or NULL if no such SampledVolume exists.
+   * @return the SampledVolume in this ListOfSampledVolumes with the given @p
+   * sid or @c NULL if no such SampledVolume exists.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see createSampledVolume()
+   * @see get(unsigned int n)
+   * @see getNumSampledVolumes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual SampledVolume* get(const std::string& sid);
 
@@ -186,10 +201,17 @@ public:
    * @param sid a string representing the identifier of the SampledVolume to
    * retrieve.
    *
-   * @return the SampledVolume in this ListOfSampledVolumes with the given id
-   * or NULL if no such SampledVolume exists.
+   * @return the SampledVolume in this ListOfSampledVolumes with the given @p
+   * sid or @c NULL if no such SampledVolume exists.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see createSampledVolume()
+   * @see get(unsigned int n)
+   * @see getNumSampledVolumes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual const SampledVolume* get(const std::string& sid) const;
 
@@ -203,10 +225,14 @@ public:
    *
    * @return a pointer to the nth SampledVolume in this ListOfSampledVolumes.
    *
-   * @see size()
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see createSampledVolume()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumSampledVolumes()
+   * @see remove(const std::string& sid)
    */
   virtual SampledVolume* remove(unsigned int n);
 
@@ -221,8 +247,14 @@ public:
    * @return the SampledVolume in this ListOfSampledVolumes based on the
    * identifier or NULL if no such SampledVolume exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see createSampledVolume()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumSampledVolumes()
+   * @see remove(unsigned int n)
    */
   virtual SampledVolume* remove(const std::string& sid);
 
@@ -235,10 +267,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createSampledVolume()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumSampledVolumes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   int addSampledVolume(const SampledVolume* sv);
 
@@ -247,6 +289,13 @@ public:
    * Get the number of SampledVolume objects in this ListOfSampledVolumes.
    *
    * @return the number of SampledVolume objects in this ListOfSampledVolumes.
+   *
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see createSampledVolume()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   unsigned int getNumSampledVolumes() const;
 
@@ -257,7 +306,14 @@ public:
    *
    * @return a new SampledVolume object instance.
    *
-   * @see addSampledVolume(const SampledVolume* sv)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumSampledVolumes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   SampledVolume* createSampledVolume();
 
@@ -266,11 +322,13 @@ public:
    * Get a SampledVolume from the ListOfSampledVolumes based on the DomainType
    * to which it refers.
    *
-   * @param sid a string representing the domainType attribute of the
+   * @param sid a string representing the "domainType" attribute of the
    * SampledVolume object to retrieve.
    *
    * @return the first SampledVolume in this ListOfSampledVolumes based on the
    * given domainType attribute or NULL if no such SampledVolume exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   const SampledVolume* getByDomainType(const std::string& sid) const;
 
@@ -279,11 +337,13 @@ public:
    * Get a SampledVolume from the ListOfSampledVolumes based on the DomainType
    * to which it refers.
    *
-   * @param sid a string representing the domainType attribute of the
+   * @param sid a string representing the "domainType" attribute of the
    * SampledVolume object to retrieve.
    *
    * @return the first SampledVolume in this ListOfSampledVolumes based on the
    * given domainType attribute or NULL if no such SampledVolume exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   SampledVolume* getByDomainType(const std::string& sid);
 
@@ -291,8 +351,8 @@ public:
   /**
    * Returns the XML element name of this ListOfSampledVolumes object.
    *
-   * For ListOfSampledVolumes, the XML element name is always @c
-   * "listOfSampledVolumes".
+   * For ListOfSampledVolumes, the XML element name is always
+   * @c "listOfSampledVolumes".
    *
    * @return the name of this element, i.e. @c "listOfSampledVolumes".
    */
@@ -305,8 +365,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}
+   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    */
@@ -321,8 +380,7 @@ public:
    *
    * @return the SBML typecode for the objects contained in this
    * ListOfSampledVolumes:
-   *
-   * @sbmlconstant{SBML_SPATIAL_SAMPLEDVOLUME, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_SAMPLEDVOLUME, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -403,10 +461,12 @@ BEGIN_C_DECLS
  *
  * @return the nth SampledVolume_t in this ListOf_t.
  *
- * @memberof SampledVolume_t
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfSampledVolumes_t
  */
 LIBSBML_EXTERN
-const SampledVolume_t*
+SampledVolume_t*
 ListOfSampledVolumes_getSampledVolume(ListOf_t* lo, unsigned int n);
 
 
@@ -418,13 +478,15 @@ ListOfSampledVolumes_getSampledVolume(ListOf_t* lo, unsigned int n);
  * @param sid a string representing the identifier of the SampledVolume_t to
  * retrieve.
  *
- * @return the SampledVolume_t in this ListOf_t with the given id or NULL if no
- * such SampledVolume_t exists.
+ * @return the SampledVolume_t in this ListOf_t with the given @p sid or
+ * @c NULL if no such SampledVolume_t exists.
  *
- * @memberof SampledVolume_t
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfSampledVolumes_t
  */
 LIBSBML_EXTERN
-const SampledVolume_t*
+SampledVolume_t*
 ListOfSampledVolumes_getById(ListOf_t* lo, const char *sid);
 
 
@@ -439,7 +501,9 @@ ListOfSampledVolumes_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth SampledVolume_t in this ListOf_t.
  *
- * @memberof SampledVolume_t
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfSampledVolumes_t
  */
 LIBSBML_EXTERN
 SampledVolume_t*
@@ -458,7 +522,9 @@ ListOfSampledVolumes_remove(ListOf_t* lo, unsigned int n);
  * @return the SampledVolume_t in this ListOf_t based on the identifier or NULL
  * if no such SampledVolume_t exists.
  *
- * @memberof SampledVolume_t
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfSampledVolumes_t
  */
 LIBSBML_EXTERN
 SampledVolume_t*

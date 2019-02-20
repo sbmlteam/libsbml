@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -59,7 +59,6 @@ SampledField::SampledField(unsigned int level,
                            unsigned int version,
                            unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
   , mDataType (SPATIAL_DATAKIND_INVALID)
   , mNumSamples1 (SBML_INT_MAX)
   , mIsSetNumSamples1 (false)
@@ -85,7 +84,6 @@ SampledField::SampledField(unsigned int level,
  */
 SampledField::SampledField(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
-  , mId ("")
   , mDataType (SPATIAL_DATAKIND_INVALID)
   , mNumSamples1 (SBML_INT_MAX)
   , mIsSetNumSamples1 (false)
@@ -102,11 +100,9 @@ SampledField::SampledField(SpatialPkgNamespaces *spatialns)
 , mUncompressedLength(0)
 {
   setElementNamespace(spatialns->getURI());
-
   // connect to child objects
   connectToChild();
 
-  // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
 }
 
@@ -116,7 +112,6 @@ SampledField::SampledField(SpatialPkgNamespaces *spatialns)
  */
 SampledField::SampledField(const SampledField& orig)
   : SBase( orig )
-  , mId ( orig.mId )
   , mDataType ( orig.mDataType )
   , mNumSamples1 ( orig.mNumSamples1 )
   , mIsSetNumSamples1 ( orig.mIsSetNumSamples1 )
@@ -133,7 +128,7 @@ SampledField::SampledField(const SampledField& orig)
   , mUncompressedLength ( 0)
 {
   setSamples(orig.mSamples, orig.mSamplesLength);
-  
+
   // connect to child objects
   connectToChild();
 }
@@ -148,7 +143,6 @@ SampledField::operator=(const SampledField& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId = rhs.mId;
     mDataType = rhs.mDataType;
     mNumSamples1 = rhs.mNumSamples1;
     mIsSetNumSamples1 = rhs.mIsSetNumSamples1;
@@ -209,6 +203,16 @@ SampledField::getId() const
 
 
 /*
+ * Returns the value of the "name" attribute of this SampledField.
+ */
+const std::string&
+SampledField::getName() const
+{
+  return mName;
+}
+
+
+/*
  * Returns the value of the "dataType" attribute of this SampledField.
  */
 DataKind_t
@@ -221,13 +225,6 @@ SampledField::getDataType() const
 /*
  * Returns the value of the "dataType" attribute of this SampledField.
  */
-//const std::string&
-//SampledField::getDataTypeAsString() const
-//{
-//  static const std::string code_str = DataKind_toString(mDataType);
-//  return code_str;
-//}
-//bgoli22
 std::string
 SampledField::getDataTypeAsString() const
 {
@@ -279,20 +276,13 @@ SampledField::getInterpolationType() const
 /*
  * Returns the value of the "interpolationType" attribute of this SampledField.
  */
-//const std::string&
-//SampledField::getInterpolationTypeAsString() const
-//{
-//  static const std::string code_str =
-//    InterpolationKind_toString(mInterpolationType);
-//  return code_str;
-//}
-//bgoli22
 std::string
 SampledField::getInterpolationTypeAsString() const
 {
   std::string code_str = InterpolationKind_toString(mInterpolationType);
   return code_str;
 }
+
 
 /*
  * Returns the value of the "compression" attribute of this SampledField.
@@ -307,13 +297,6 @@ SampledField::getCompression() const
 /*
  * Returns the value of the "compression" attribute of this SampledField.
  */
-//const std::string&
-//SampledField::getCompressionAsString() const
-//{
-//  static const std::string code_str = CompressionKind_toString(mCompression);
-//  return code_str;
-//}
-//bgoli22
 std::string
 SampledField::getCompressionAsString() const
 {
@@ -354,6 +337,16 @@ bool
 SampledField::isSetId() const
 {
   return (mId.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true if this SampledField's "name" attribute is set.
+ */
+bool
+SampledField::isSetName() const
+{
+  return (mName.empty() == false);
 }
 
 
@@ -456,6 +449,17 @@ SampledField::setId(const std::string& id)
 
 
 /*
+ * Sets the value of the "name" attribute of this SampledField.
+ */
+int
+SampledField::setName(const std::string& name)
+{
+  mName = name;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
  * Sets the value of the "dataType" attribute of this SampledField.
  */
 int
@@ -480,22 +484,13 @@ SampledField::setDataType(const DataKind_t dataType)
 int
 SampledField::setDataType(const std::string& dataType)
 {
-  //if (DataKind_isValidString(dataType.c_str()) == 0)
-  //{
-  //  mDataType = SPATIAL_DATAKIND_INVALID;
-  //  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  //}
-  //else
-  //{
-  //  mDataType = DataKind_fromString(dataType.c_str());
-  //  return LIBSBML_OPERATION_SUCCESS;
-  //}
-  //bgoli22
   mDataType = DataKind_fromString(dataType.c_str());
+
   if (mDataType == SPATIAL_DATAKIND_INVALID)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
+
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -561,23 +556,13 @@ SampledField::setInterpolationType(const InterpolationKind_t interpolationType)
 int
 SampledField::setInterpolationType(const std::string& interpolationType)
 {
-  //if (InterpolationKind_isValidString(interpolationType.c_str()) == 0)
-  //{
-  //  mInterpolationType = SPATIAL_INTERPOLATIONKIND_INVALID;
-  //  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  //}
-  //else
-  //{
-  //  mInterpolationType =
-  //    InterpolationKind_fromString(interpolationType.c_str());
-  //  return LIBSBML_OPERATION_SUCCESS;
-  //}
-  //bgoli22
   mInterpolationType = InterpolationKind_fromString(interpolationType.c_str());
+
   if (mInterpolationType == SPATIAL_INTERPOLATIONKIND_INVALID)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
+
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -673,6 +658,25 @@ SampledField::unsetId()
   mId.erase();
 
   if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "name" attribute of this SampledField.
+ */
+int
+SampledField::unsetName()
+{
+  mName.erase();
+
+  if (mName.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -1091,6 +1095,11 @@ SampledField::getAttribute(const std::string& attributeName,
     value = getId();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
+  else if (attributeName == "name")
+  {
+    value = getName();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
   else if (attributeName == "dataType")
   {
     value = getDataTypeAsString();
@@ -1128,6 +1137,10 @@ SampledField::isSetAttribute(const std::string& attributeName) const
   if (attributeName == "id")
   {
     value = isSetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = isSetName();
   }
   else if (attributeName == "dataType")
   {
@@ -1270,6 +1283,10 @@ SampledField::setAttribute(const std::string& attributeName,
   {
     return_value = setId(value);
   }
+  else if (attributeName == "name")
+  {
+    return_value = setName(value);
+  }
   else if (attributeName == "dataType")
   {
     return_value = setDataType(value);
@@ -1303,6 +1320,10 @@ SampledField::unsetAttribute(const std::string& attributeName)
   if (attributeName == "id")
   {
     value = unsetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = unsetName();
   }
   else if (attributeName == "dataType")
   {
@@ -1356,6 +1377,8 @@ SampledField::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("id");
 
+  attributes.add("name");
+
   attributes.add("dataType");
 
   attributes.add("numSamples1");
@@ -1391,7 +1414,8 @@ SampledField::readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  if (static_cast<ListOfSampledFields*>(getParentSBMLObject())->size() < 2)
+  if (log && getParentSBMLObject() &&
+    static_cast<ListOfSampledFields*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
@@ -1415,23 +1439,28 @@ SampledField::readAttributes(const XMLAttributes& attributes,
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialSampledFieldAllowedAttributes,
-        pkgVersion, level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial", SpatialSampledFieldAllowedCoreAttributes,
-        pkgVersion, level, version, details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialSampledFieldAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialSampledFieldAllowedCoreAttributes, pkgVersion, level, version,
+            details);
+      }
     }
   }
 
@@ -1449,8 +1478,9 @@ SampledField::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      logError(SpatialIdSyntaxRule, level, version, "The id '" + mId + "' does "
-        "not conform to the syntax.");
+      log->logPackageError("spatial", SpatialIdSyntaxRule, pkgVersion, level,
+        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+          "which does not conform to the syntax.", getLine(), getColumn());
     }
   }
   else
@@ -1462,21 +1492,35 @@ SampledField::readAttributes(const XMLAttributes& attributes,
   }
 
   // 
-  // dataType enum (use = "required" )
+  // name string (use = "optional" )
   // 
 
-  std::string datatype;
-  assigned = attributes.readInto("dataType", datatype);
+  assigned = attributes.readInto("name", mName);
 
   if (assigned == true)
   {
-    if (datatype.empty() == true)
+    if (mName.empty() == true)
     {
-      logEmptyString(datatype, level, version, "<SampledField>");
+      logEmptyString(mName, level, version, "<SampledField>");
+    }
+  }
+
+  // 
+  // dataType enum (use = "required" )
+  // 
+
+  std::string dataType;
+  assigned = attributes.readInto("dataType", dataType);
+
+  if (assigned == true)
+  {
+    if (dataType.empty() == true)
+    {
+      logEmptyString(dataType, level, version, "<SampledField>");
     }
     else
     {
-      mDataType = DataKind_fromString(datatype.c_str());
+      mDataType = DataKind_fromString(dataType.c_str());
 
       if (DataKind_isValid(mDataType) == 0)
       {
@@ -1487,7 +1531,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
           msg += "with id '" + getId() + "'";
         }
 
-        msg += "is '" + datatype + "', which is not a valid option.";
+        msg += "is '" + dataType + "', which is not a valid option.";
 
         log->logPackageError("spatial",
           SpatialSampledFieldDataTypeMustBeDataKindEnum, pkgVersion, level,
@@ -1576,19 +1620,19 @@ SampledField::readAttributes(const XMLAttributes& attributes,
   // interpolationType enum (use = "required" )
   // 
 
-  std::string interpolationtype;
-  assigned = attributes.readInto("interpolationType", interpolationtype);
+  std::string interpolationType;
+  assigned = attributes.readInto("interpolationType", interpolationType);
 
   if (assigned == true)
   {
-    if (interpolationtype.empty() == true)
+    if (interpolationType.empty() == true)
     {
-      logEmptyString(interpolationtype, level, version, "<SampledField>");
+      logEmptyString(interpolationType, level, version, "<SampledField>");
     }
     else
     {
       mInterpolationType =
-        InterpolationKind_fromString(interpolationtype.c_str());
+        InterpolationKind_fromString(interpolationType.c_str());
 
       if (InterpolationKind_isValid(mInterpolationType) == 0)
       {
@@ -1599,7 +1643,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
           msg += "with id '" + getId() + "'";
         }
 
-        msg += "is '" + interpolationtype + "', which is not a valid option.";
+        msg += "is '" + interpolationType + "', which is not a valid option.";
 
         log->logPackageError("spatial",
           SpatialSampledFieldInterpolationTypeMustBeInterpolationKindEnum,
@@ -1703,6 +1747,11 @@ SampledField::writeAttributes(XMLOutputStream& stream) const
     stream.writeAttribute("id", getPrefix(), mId);
   }
 
+  if (isSetName() == true)
+  {
+    stream.writeAttribute("name", getPrefix(), mName);
+  }
+
   if (isSetDataType() == true)
   {
     stream.writeAttribute("dataType", getPrefix(),
@@ -1745,6 +1794,7 @@ SampledField::writeAttributes(XMLOutputStream& stream) const
 }
 
 /** @endcond */
+
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -1990,7 +2040,7 @@ SampledField_free(SampledField_t* sf)
  * Returns the value of the "id" attribute of this SampledField_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 SampledField_getId(const SampledField_t * sf)
 {
   if (sf == NULL)
@@ -1999,6 +2049,22 @@ SampledField_getId(const SampledField_t * sf)
   }
 
   return sf->getId().empty() ? NULL : safe_strdup(sf->getId().c_str());
+}
+
+
+/*
+ * Returns the value of the "name" attribute of this SampledField_t.
+ */
+LIBSBML_EXTERN
+char *
+SampledField_getName(const SampledField_t * sf)
+{
+  if (sf == NULL)
+  {
+    return NULL;
+  }
+
+  return sf->getName().empty() ? NULL : safe_strdup(sf->getName().c_str());
 }
 
 
@@ -2022,10 +2088,10 @@ SampledField_getDataType(const SampledField_t * sf)
  * Returns the value of the "dataType" attribute of this SampledField_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 SampledField_getDataTypeAsString(const SampledField_t * sf)
 {
-  return DataKind_toString(sf->getDataType());
+  return (char*)(DataKind_toString(sf->getDataType()));
 }
 
 
@@ -2084,10 +2150,10 @@ SampledField_getInterpolationType(const SampledField_t * sf)
  * SampledField_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 SampledField_getInterpolationTypeAsString(const SampledField_t * sf)
 {
-  return InterpolationKind_toString(sf->getInterpolationType());
+  return (char*)(InterpolationKind_toString(sf->getInterpolationType()));
 }
 
 
@@ -2111,10 +2177,10 @@ SampledField_getCompression(const SampledField_t * sf)
  * Returns the value of the "compression" attribute of this SampledField_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 SampledField_getCompressionAsString(const SampledField_t * sf)
 {
-  return CompressionKind_toString(sf->getCompression());
+  return (char*)(CompressionKind_toString(sf->getCompression()));
 }
 
 
@@ -2130,7 +2196,8 @@ SampledField_getSamplesLength(const SampledField_t * sf)
 
 
 /*
- * Predicate returning @c 1 if this SampledField_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this SampledField_t's "id" attribute is
+ * set.
  */
 LIBSBML_EXTERN
 int
@@ -2141,8 +2208,20 @@ SampledField_isSetId(const SampledField_t * sf)
 
 
 /*
- * Predicate returning @c 1 if this SampledField_t's "dataType" attribute is
+ * Predicate returning @c 1 (true) if this SampledField_t's "name" attribute is
  * set.
+ */
+LIBSBML_EXTERN
+int
+SampledField_isSetName(const SampledField_t * sf)
+{
+  return (sf != NULL) ? static_cast<int>(sf->isSetName()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this SampledField_t's "dataType"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -2153,8 +2232,8 @@ SampledField_isSetDataType(const SampledField_t * sf)
 
 
 /*
- * Predicate returning @c 1 if this SampledField_t's "numSamples1" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SampledField_t's "numSamples1"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -2165,8 +2244,8 @@ SampledField_isSetNumSamples1(const SampledField_t * sf)
 
 
 /*
- * Predicate returning @c 1 if this SampledField_t's "numSamples2" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SampledField_t's "numSamples2"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -2177,8 +2256,8 @@ SampledField_isSetNumSamples2(const SampledField_t * sf)
 
 
 /*
- * Predicate returning @c 1 if this SampledField_t's "numSamples3" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SampledField_t's "numSamples3"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -2189,7 +2268,7 @@ SampledField_isSetNumSamples3(const SampledField_t * sf)
 
 
 /*
- * Predicate returning @c 1 if this SampledField_t's "interpolationType"
+ * Predicate returning @c 1 (true) if this SampledField_t's "interpolationType"
  * attribute is set.
  */
 LIBSBML_EXTERN
@@ -2201,8 +2280,8 @@ SampledField_isSetInterpolationType(const SampledField_t * sf)
 
 
 /*
- * Predicate returning @c 1 if this SampledField_t's "compression" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SampledField_t's "compression"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -2213,8 +2292,8 @@ SampledField_isSetCompression(const SampledField_t * sf)
 
 
 /*
- * Predicate returning @c 1 if this SampledField_t's "samples" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SampledField_t's "samples" attribute
+ * is set.
  */
 LIBSBML_EXTERN
 int
@@ -2225,8 +2304,8 @@ SampledField_isSetSamples(const SampledField_t * sf)
 
 
 /*
- * Predicate returning @c 1 if this SampledField_t's "samplesLength" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this SampledField_t's "samplesLength"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -2244,6 +2323,17 @@ int
 SampledField_setId(SampledField_t * sf, const char * id)
 {
   return (sf != NULL) ? sf->setId(id) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "name" attribute of this SampledField_t.
+ */
+LIBSBML_EXTERN
+int
+SampledField_setName(SampledField_t * sf, const char * name)
+{
+  return (sf != NULL) ? sf->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2393,6 +2483,17 @@ SampledField_unsetId(SampledField_t * sf)
 
 
 /*
+ * Unsets the value of the "name" attribute of this SampledField_t.
+ */
+LIBSBML_EXTERN
+int
+SampledField_unsetName(SampledField_t * sf)
+{
+  return (sf != NULL) ? sf->unsetName() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
  * Unsets the value of the "dataType" attribute of this SampledField_t.
  */
 LIBSBML_EXTERN
@@ -2482,7 +2583,7 @@ SampledField_unsetSamplesLength(SampledField_t * sf)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * SampledField_t object have been set.
  */
 LIBSBML_EXTERN

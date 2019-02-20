@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -93,6 +93,11 @@ typedef CLASS_OR_STRUCT Geometry                     Geometry_t;
 typedef CLASS_OR_STRUCT MixedGeometry                MixedGeometry_t;
 typedef CLASS_OR_STRUCT OrdinalMapping               OrdinalMapping_t;
 typedef CLASS_OR_STRUCT SpatialPoints                SpatialPoints_t;
+typedef CLASS_OR_STRUCT SpatialModelPlugin           SpatialModelPlugin_t;
+typedef CLASS_OR_STRUCT SpatialCompartmentPlugin     SpatialCompartmentPlugin_t;
+typedef CLASS_OR_STRUCT SpatialSpeciesPlugin         SpatialSpeciesPlugin_t;
+typedef CLASS_OR_STRUCT SpatialParameterPlugin       SpatialParameterPlugin_t;
+typedef CLASS_OR_STRUCT SpatialReactionPlugin        SpatialReactionPlugin_t;
 
 
 LIBSBML_CPP_NAMESPACE_END

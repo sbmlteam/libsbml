@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -80,11 +80,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this ListOfAdjacentDomains.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfAdjacentDomains(unsigned int level =
     SpatialExtension::getDefaultLevel(),
@@ -98,13 +94,11 @@ public:
    * Creates a new ListOfAdjacentDomains using the given SpatialPkgNamespaces
    * object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfAdjacentDomains(SpatialPkgNamespaces *spatialns);
 
@@ -148,7 +142,14 @@ public:
    *
    * @return the nth AdjacentDomains in this ListOfAdjacentDomains.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see createAdjacentDomains()
+   * @see get(const std::string& sid)
+   * @see getNumAdjacentDomains()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual AdjacentDomains* get(unsigned int n);
 
@@ -161,7 +162,14 @@ public:
    *
    * @return the nth AdjacentDomains in this ListOfAdjacentDomains.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see createAdjacentDomains()
+   * @see get(const std::string& sid)
+   * @see getNumAdjacentDomains()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual const AdjacentDomains* get(unsigned int n) const;
 
@@ -174,9 +182,16 @@ public:
    * retrieve.
    *
    * @return the AdjacentDomains in this ListOfAdjacentDomains with the given
-   * id or NULL if no such AdjacentDomains exists.
+   * @p sid or @c NULL if no such AdjacentDomains exists.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see createAdjacentDomains()
+   * @see get(unsigned int n)
+   * @see getNumAdjacentDomains()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual AdjacentDomains* get(const std::string& sid);
 
@@ -189,9 +204,16 @@ public:
    * retrieve.
    *
    * @return the AdjacentDomains in this ListOfAdjacentDomains with the given
-   * id or NULL if no such AdjacentDomains exists.
+   * @p sid or @c NULL if no such AdjacentDomains exists.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see createAdjacentDomains()
+   * @see get(unsigned int n)
+   * @see getNumAdjacentDomains()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual const AdjacentDomains* get(const std::string& sid) const;
 
@@ -206,10 +228,14 @@ public:
    * @return a pointer to the nth AdjacentDomains in this
    * ListOfAdjacentDomains.
    *
-   * @see size()
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see createAdjacentDomains()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumAdjacentDomains()
+   * @see remove(const std::string& sid)
    */
   virtual AdjacentDomains* remove(unsigned int n);
 
@@ -224,8 +250,14 @@ public:
    * @return the AdjacentDomains in this ListOfAdjacentDomains based on the
    * identifier or NULL if no such AdjacentDomains exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see createAdjacentDomains()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumAdjacentDomains()
+   * @see remove(unsigned int n)
    */
   virtual AdjacentDomains* remove(const std::string& sid);
 
@@ -238,10 +270,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createAdjacentDomains()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumAdjacentDomains()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   int addAdjacentDomains(const AdjacentDomains* ad);
 
@@ -251,6 +293,13 @@ public:
    *
    * @return the number of AdjacentDomains objects in this
    * ListOfAdjacentDomains.
+   *
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see createAdjacentDomains()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   unsigned int getNumAdjacentDomains() const;
 
@@ -262,7 +311,14 @@ public:
    *
    * @return a new AdjacentDomains object instance.
    *
-   * @see addAdjacentDomains(const AdjacentDomains* ad)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumAdjacentDomains()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   AdjacentDomains* createAdjacentDomains();
 
@@ -271,11 +327,13 @@ public:
    * Get an AdjacentDomains from the ListOfAdjacentDomains based on the Domain1
    * to which it refers.
    *
-   * @param sid a string representing the domain1 attribute of the
+   * @param sid a string representing the "domain1" attribute of the
    * AdjacentDomains object to retrieve.
    *
    * @return the first AdjacentDomains in this ListOfAdjacentDomains based on
    * the given domain1 attribute or NULL if no such AdjacentDomains exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   const AdjacentDomains* getByDomain1(const std::string& sid) const;
 
@@ -284,11 +342,13 @@ public:
    * Get an AdjacentDomains from the ListOfAdjacentDomains based on the Domain1
    * to which it refers.
    *
-   * @param sid a string representing the domain1 attribute of the
+   * @param sid a string representing the "domain1" attribute of the
    * AdjacentDomains object to retrieve.
    *
    * @return the first AdjacentDomains in this ListOfAdjacentDomains based on
    * the given domain1 attribute or NULL if no such AdjacentDomains exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   AdjacentDomains* getByDomain1(const std::string& sid);
 
@@ -297,11 +357,13 @@ public:
    * Get an AdjacentDomains from the ListOfAdjacentDomains based on the Domain2
    * to which it refers.
    *
-   * @param sid a string representing the domain2 attribute of the
+   * @param sid a string representing the "domain2" attribute of the
    * AdjacentDomains object to retrieve.
    *
    * @return the first AdjacentDomains in this ListOfAdjacentDomains based on
    * the given domain2 attribute or NULL if no such AdjacentDomains exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   const AdjacentDomains* getByDomain2(const std::string& sid) const;
 
@@ -310,11 +372,13 @@ public:
    * Get an AdjacentDomains from the ListOfAdjacentDomains based on the Domain2
    * to which it refers.
    *
-   * @param sid a string representing the domain2 attribute of the
+   * @param sid a string representing the "domain2" attribute of the
    * AdjacentDomains object to retrieve.
    *
    * @return the first AdjacentDomains in this ListOfAdjacentDomains based on
    * the given domain2 attribute or NULL if no such AdjacentDomains exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   AdjacentDomains* getByDomain2(const std::string& sid);
 
@@ -322,8 +386,8 @@ public:
   /**
    * Returns the XML element name of this ListOfAdjacentDomains object.
    *
-   * For ListOfAdjacentDomains, the XML element name is always @c
-   * "listOfAdjacentDomains".
+   * For ListOfAdjacentDomains, the XML element name is always
+   * @c "listOfAdjacentDomains".
    *
    * @return the name of this element, i.e. @c "listOfAdjacentDomains".
    */
@@ -336,8 +400,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}
+   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    */
@@ -352,8 +415,7 @@ public:
    *
    * @return the SBML typecode for the objects contained in this
    * ListOfAdjacentDomains:
-   *
-   * @sbmlconstant{SBML_SPATIAL_ADJACENTDOMAINS, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_ADJACENTDOMAINS, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -434,10 +496,12 @@ BEGIN_C_DECLS
  *
  * @return the nth AdjacentDomains_t in this ListOf_t.
  *
- * @memberof AdjacentDomains_t
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfAdjacentDomains_t
  */
 LIBSBML_EXTERN
-const AdjacentDomains_t*
+AdjacentDomains_t*
 ListOfAdjacentDomains_getAdjacentDomains(ListOf_t* lo, unsigned int n);
 
 
@@ -449,13 +513,15 @@ ListOfAdjacentDomains_getAdjacentDomains(ListOf_t* lo, unsigned int n);
  * @param sid a string representing the identifier of the AdjacentDomains_t to
  * retrieve.
  *
- * @return the AdjacentDomains_t in this ListOf_t with the given id or NULL if
- * no such AdjacentDomains_t exists.
+ * @return the AdjacentDomains_t in this ListOf_t with the given @p sid or
+ * @c NULL if no such AdjacentDomains_t exists.
  *
- * @memberof AdjacentDomains_t
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfAdjacentDomains_t
  */
 LIBSBML_EXTERN
-const AdjacentDomains_t*
+AdjacentDomains_t*
 ListOfAdjacentDomains_getById(ListOf_t* lo, const char *sid);
 
 
@@ -470,7 +536,9 @@ ListOfAdjacentDomains_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth AdjacentDomains_t in this ListOf_t.
  *
- * @memberof AdjacentDomains_t
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfAdjacentDomains_t
  */
 LIBSBML_EXTERN
 AdjacentDomains_t*
@@ -489,7 +557,9 @@ ListOfAdjacentDomains_remove(ListOf_t* lo, unsigned int n);
  * @return the AdjacentDomains_t in this ListOf_t based on the identifier or
  * NULL if no such AdjacentDomains_t exists.
  *
- * @memberof AdjacentDomains_t
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfAdjacentDomains_t
  */
 LIBSBML_EXTERN
 AdjacentDomains_t*

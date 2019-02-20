@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -50,6 +50,7 @@
 
 
 #include <sbml/extension/SBasePlugin.h>
+#include <sbml/packages/spatial/common/spatialfwd.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 
 
@@ -70,14 +71,21 @@ protected:
 public:
 
   /**
-   * Creates a new SpatialReactionPlugin using the given uri, prefix and
+   * Creates a new SpatialReactionPlugin using the given URI, prefix and
    * package namespace.
    *
-   * @param uri a string, representing the uri of the package.
+   * @param uri a string, representing the URI of the SBML Level&nbsp;3 package
+   * implemented by this libSBML package extension.
    *
-   * @param prefix a string, the prefix to be used.
+   * @param prefix a string, the XML namespace prefix being used for this
+   * package.
    *
-   * @param spatialns a pointer to the SpatialPkgNamespaces object to be used.
+   * @param spatialns a pointer to the namesspaces object
+   * (SpatialPkgNamespaces) for this package.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
    */
   SpatialReactionPlugin(const std::string& uri,
                         const std::string& prefix,
@@ -515,6 +523,104 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 #endif /* __cplusplus */
+
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+ * Returns the value of the "isLocal" attribute of this
+ * SpatialReactionPlugin_t.
+ *
+ * @param srp the SpatialReactionPlugin_t structure whose isLocal is sought.
+ *
+ * @return the value of the "isLocal" attribute of this SpatialReactionPlugin_t
+ * as a boolean.
+ *
+ * @memberof SpatialReactionPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialReactionPlugin_getIsLocal(const SpatialReactionPlugin_t * srp);
+
+
+/**
+ * Predicate returning @c 1 (true) if this SpatialReactionPlugin_t's "isLocal"
+ * attribute is set.
+ *
+ * @param srp the SpatialReactionPlugin_t structure.
+ *
+ * @return @c 1 (true) if this SpatialReactionPlugin_t's "isLocal" attribute
+ * has been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof SpatialReactionPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialReactionPlugin_isSetIsLocal(const SpatialReactionPlugin_t * srp);
+
+
+/**
+ * Sets the value of the "isLocal" attribute of this SpatialReactionPlugin_t.
+ *
+ * @param srp the SpatialReactionPlugin_t structure.
+ *
+ * @param isLocal int value of the "isLocal" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpatialReactionPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialReactionPlugin_setIsLocal(SpatialReactionPlugin_t * srp, int isLocal);
+
+
+/**
+ * Unsets the value of the "isLocal" attribute of this SpatialReactionPlugin_t.
+ *
+ * @param srp the SpatialReactionPlugin_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpatialReactionPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialReactionPlugin_unsetIsLocal(SpatialReactionPlugin_t * srp);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
 
 
 

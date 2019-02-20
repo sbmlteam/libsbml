@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -67,7 +67,6 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  std::string mId;
   double mValue;
   bool mIsSetValue;
   std::string mElementName;
@@ -88,11 +87,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this Boundary.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   Boundary(unsigned int level = SpatialExtension::getDefaultLevel(),
            unsigned int version = SpatialExtension::getDefaultVersion(),
@@ -103,13 +98,11 @@ public:
   /**
    * Creates a new Boundary using the given SpatialPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   Boundary(SpatialPkgNamespaces *spatialns);
 
@@ -150,7 +143,15 @@ public:
    *
    * @return the value of the "id" attribute of this Boundary as a string.
    */
-  const std::string& getId() const;
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this Boundary.
+   *
+   * @return the value of the "name" attribute of this Boundary as a string.
+   */
+  virtual const std::string& getName() const;
 
 
   /**
@@ -167,7 +168,16 @@ public:
    * @return @c true if this Boundary's "id" attribute has been set, otherwise
    * @c false is returned.
    */
-  bool isSetId() const;
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true if this Boundary's "name" attribute is set.
+   *
+   * @return @c true if this Boundary's "name" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
 
 
   /**
@@ -188,8 +198,25 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * Calling this function with @p id = @c NULL or an empty string is
+   * equivalent to calling unsetId().
    */
-  int setId(const std::string& id);
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "name" attribute of this Boundary.
+   *
+   * @param name std::string& value of the "name" attribute to be set.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p name = @c NULL or an empty string is
+   * equivalent to calling unsetName().
+   */
+  virtual int setName(const std::string& name);
 
 
   /**
@@ -212,7 +239,17 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetId();
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this Boundary.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetName();
 
 
   /**
@@ -252,8 +289,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_BOUNDARY, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_BOUNDARY, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -639,11 +675,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this Boundary_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Boundary_t
  */
@@ -660,6 +694,8 @@ Boundary_create(unsigned int level,
  * @param b the Boundary_t structure.
  *
  * @return a (deep) copy of this Boundary_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Boundary_t
  */
@@ -688,11 +724,30 @@ Boundary_free(Boundary_t* b);
  * @return the value of the "id" attribute of this Boundary_t as a pointer to a
  * string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof Boundary_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 Boundary_getId(const Boundary_t * b);
+
+
+/**
+ * Returns the value of the "name" attribute of this Boundary_t.
+ *
+ * @param b the Boundary_t structure whose name is sought.
+ *
+ * @return the value of the "name" attribute of this Boundary_t as a pointer to
+ * a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof Boundary_t
+ */
+LIBSBML_EXTERN
+char *
+Boundary_getName(const Boundary_t * b);
 
 
 /**
@@ -710,12 +765,12 @@ Boundary_getValue(const Boundary_t * b);
 
 
 /**
- * Predicate returning @c 1 if this Boundary_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this Boundary_t's "id" attribute is set.
  *
  * @param b the Boundary_t structure.
  *
- * @return @c 1 if this Boundary_t's "id" attribute has been set, otherwise @c
- * 0 is returned.
+ * @return @c 1 (true) if this Boundary_t's "id" attribute has been set,
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof Boundary_t
  */
@@ -725,12 +780,29 @@ Boundary_isSetId(const Boundary_t * b);
 
 
 /**
- * Predicate returning @c 1 if this Boundary_t's "value" attribute is set.
+ * Predicate returning @c 1 (true) if this Boundary_t's "name" attribute is
+ * set.
  *
  * @param b the Boundary_t structure.
  *
- * @return @c 1 if this Boundary_t's "value" attribute has been set, otherwise
- * @c 0 is returned.
+ * @return @c 1 (true) if this Boundary_t's "name" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof Boundary_t
+ */
+LIBSBML_EXTERN
+int
+Boundary_isSetName(const Boundary_t * b);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Boundary_t's "value" attribute is
+ * set.
+ *
+ * @param b the Boundary_t structure.
+ *
+ * @return @c 1 (true) if this Boundary_t's "value" attribute has been set,
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof Boundary_t
  */
@@ -749,12 +821,37 @@ Boundary_isSetValue(const Boundary_t * b);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling Boundary_unsetId().
  *
  * @memberof Boundary_t
  */
 LIBSBML_EXTERN
 int
 Boundary_setId(Boundary_t * b, const char * id);
+
+
+/**
+ * Sets the value of the "name" attribute of this Boundary_t.
+ *
+ * @param b the Boundary_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling Boundary_unsetName().
+ *
+ * @memberof Boundary_t
+ */
+LIBSBML_EXTERN
+int
+Boundary_setName(Boundary_t * b, const char * name);
 
 
 /**
@@ -767,6 +864,7 @@ Boundary_setId(Boundary_t * b, const char * id);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Boundary_t
  */
@@ -783,12 +881,30 @@ Boundary_setValue(Boundary_t * b, double value);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Boundary_t
  */
 LIBSBML_EXTERN
 int
 Boundary_unsetId(Boundary_t * b);
+
+
+/**
+ * Unsets the value of the "name" attribute of this Boundary_t.
+ *
+ * @param b the Boundary_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Boundary_t
+ */
+LIBSBML_EXTERN
+int
+Boundary_unsetName(Boundary_t * b);
 
 
 /**
@@ -799,6 +915,7 @@ Boundary_unsetId(Boundary_t * b);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Boundary_t
  */
@@ -808,13 +925,13 @@ Boundary_unsetValue(Boundary_t * b);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this Boundary_t
- * object have been set.
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * Boundary_t object have been set.
  *
  * @param b the Boundary_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this Boundary_t
- * have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * Boundary_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the Boundary_t object are:

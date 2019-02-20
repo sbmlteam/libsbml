@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -38,6 +38,34 @@
  * @sbmlbrief{spatial} TODO:Definition of the CoordinateComponent class.
  */
 
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file. The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality. Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ *
+ *
+ * @class doc_coordinatecomponent_type
+ *
+ * @par
+ * The attribute "type" on a CoordinateComponent object is used to TODO:add
+ * explanation
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
+ * allowable values for "type":
+ * <ul>
+ * <li> @c "cartesianX", TODO:add description
+ *
+ * <li> @c "cartesianY", TODO:add description
+ *
+ * <li> @c "cartesianZ", TODO:add description
+ *
+ * </ul>
+ */
+
 
 #ifndef CoordinateComponent_H__
 #define CoordinateComponent_H__
@@ -57,7 +85,6 @@
 #include <sbml/SBase.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 #include <sbml/packages/spatial/sbml/Boundary.h>
-#include <sbml/packages/spatial/sbml/Boundary.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -69,7 +96,6 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  std::string mId;
   CoordinateKind_t mType;
   std::string mUnit;
   Boundary* mBoundaryMin;
@@ -92,11 +118,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this CoordinateComponent.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   CoordinateComponent(unsigned int level = SpatialExtension::getDefaultLevel(),
                       unsigned int version =
@@ -109,13 +131,11 @@ public:
    * Creates a new CoordinateComponent using the given SpatialPkgNamespaces
    * object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   CoordinateComponent(SpatialPkgNamespaces *spatialns);
 
@@ -157,7 +177,16 @@ public:
    * @return the value of the "id" attribute of this CoordinateComponent as a
    * string.
    */
-  const std::string& getId() const;
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this CoordinateComponent.
+   *
+   * @return the value of the "name" attribute of this CoordinateComponent as a
+   * string.
+   */
+  virtual const std::string& getName() const;
 
 
   /**
@@ -165,6 +194,15 @@ public:
    *
    * @return the value of the "type" attribute of this CoordinateComponent as a
    * CoordinateKind_t.
+   *
+   * @copydetails doc_coordinatecomponent_type
+   * @if clike The value is drawn from the enumeration @ref CoordinateKind_t
+   * @endif
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_X, CoordinateKind_t}
+   * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Y, CoordinateKind_t}
+   * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Z, CoordinateKind_t}
+   * @li @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t}
    */
   CoordinateKind_t getType() const;
 
@@ -174,6 +212,13 @@ public:
    *
    * @return the value of the "type" attribute of this CoordinateComponent as a
    * string.
+   *
+   * @copydetails doc_coordinatecomponent_type
+   * The possible values returned by this method are:
+   * @li @c "cartesianX"
+   * @li @c "cartesianY"
+   * @li @c "cartesianZ"
+   * @li @c "invalid CoordinateKind value"
    */
   const std::string& getTypeAsString() const;
 
@@ -194,7 +239,17 @@ public:
    * @return @c true if this CoordinateComponent's "id" attribute has been set,
    * otherwise @c false is returned.
    */
-  bool isSetId() const;
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true if this CoordinateComponent's "name" attribute
+   * is set.
+   *
+   * @return @c true if this CoordinateComponent's "name" attribute has been
+   * set, otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
 
 
   /**
@@ -203,6 +258,8 @@ public:
    *
    * @return @c true if this CoordinateComponent's "type" attribute has been
    * set, otherwise @c false is returned.
+   *
+   * @copydetails doc_coordinatecomponent_type
    */
   bool isSetType() const;
 
@@ -226,19 +283,39 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * Calling this function with @p id = @c NULL or an empty string is
+   * equivalent to calling unsetId().
    */
-  int setId(const std::string& id);
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "name" attribute of this CoordinateComponent.
+   *
+   * @param name std::string& value of the "name" attribute to be set.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p name = @c NULL or an empty string is
+   * equivalent to calling unsetName().
+   */
+  virtual int setName(const std::string& name);
 
 
   /**
    * Sets the value of the "type" attribute of this CoordinateComponent.
    *
-   * @param type CoordinateKind_t value of the "type" attribute to be set.
+   * @param type @if clike CoordinateKind_t@else int@endif value of the "type"
+   * attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_coordinatecomponent_type
    */
   int setType(const CoordinateKind_t type);
 
@@ -252,6 +329,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_coordinatecomponent_type
    */
   int setType(const std::string& type);
 
@@ -276,15 +355,26 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetId();
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this CoordinateComponent.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetName();
 
 
   /**
    * Unsets the value of the "type" attribute of this CoordinateComponent.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_coordinatecomponent_type
    */
   int unsetType();
 
@@ -433,8 +523,8 @@ public:
   /**
    * Returns the XML element name of this CoordinateComponent object.
    *
-   * For CoordinateComponent, the XML element name is always @c
-   * "coordinateComponent".
+   * For CoordinateComponent, the XML element name is always
+   * @c "coordinateComponent".
    *
    * @return the name of this element, i.e. @c "coordinateComponent".
    */
@@ -447,8 +537,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_COORDINATECOMPONENT, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_COORDINATECOMPONENT, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -541,6 +630,19 @@ public:
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix,
                                      bool flag);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Updates the namespaces when setLevelVersion is used
+   */
+  virtual void updateSBMLNamespace(const std::string& package,
+                                   unsigned int level,
+                                   unsigned int version);
 
   /** @endcond */
 
@@ -800,9 +902,48 @@ public:
    *
    * @param elementName, the name of the element to create.
    *
-   * pointer to the element created.
+   * @return pointer to the element created.
    */
-  virtual SBase* createObject(const std::string& elementName);
+  virtual SBase* createChildObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Adds a new "elementName" object to this CoordinateComponent.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @param element, pointer to the element to be added.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int addChildObject(const std::string& elementName,
+                             const SBase* element);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Removes and returns the new "elementName" object with the given id in this
+   * CoordinateComponent.
+   *
+   * @param elementName, the name of the element to remove.
+   *
+   * @param id, the id of the element to remove.
+   *
+   * @return pointer to the element removed.
+   */
+  virtual SBase* removeChildObject(const std::string& elementName,
+                                   const std::string& id);
 
   /** @endcond */
 
@@ -815,7 +956,7 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * unsigned int number of elements.
+   * @return unsigned int number of elements.
    */
   virtual unsigned int getNumObjects(const std::string& elementName);
 
@@ -830,9 +971,9 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * @param index, unsigned int teh index of teh object to retrieve.
+   * @param index, unsigned int the index of the object to retrieve.
    *
-   * pointer to the object.
+   * @return pointer to the object.
    */
   virtual SBase* getObject(const std::string& elementName, unsigned int index);
 
@@ -851,7 +992,8 @@ public:
    * @param id a string representing the id attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p id.
+   * @return a pointer to the SBase element with the given @p id. If no such
+   * object is found, this method returns @c NULL.
    */
   virtual SBase* getElementBySId(const std::string& id);
 
@@ -863,7 +1005,8 @@ public:
    * @param metaid a string representing the metaid attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p metaid.
+   * @return a pointer to the SBase element with the given @p metaid. If no
+   * such object is found this method returns @c NULL.
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
 
@@ -872,8 +1015,8 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
-   * filter, an ElementFilter that may impose restrictions on the objects to be
-   * retrieved.
+   * @param filter an ElementFilter that may impose restrictions on the objects
+   * to be retrieved.
    *
    * @return a List* pointer of pointers to all SBase child objects with any
    * restriction imposed.
@@ -968,11 +1111,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this CoordinateComponent_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof CoordinateComponent_t
  */
@@ -989,6 +1130,8 @@ CoordinateComponent_create(unsigned int level,
  * @param cc the CoordinateComponent_t structure.
  *
  * @return a (deep) copy of this CoordinateComponent_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof CoordinateComponent_t
  */
@@ -1017,11 +1160,30 @@ CoordinateComponent_free(CoordinateComponent_t* cc);
  * @return the value of the "id" attribute of this CoordinateComponent_t as a
  * pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof CoordinateComponent_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 CoordinateComponent_getId(const CoordinateComponent_t * cc);
+
+
+/**
+ * Returns the value of the "name" attribute of this CoordinateComponent_t.
+ *
+ * @param cc the CoordinateComponent_t structure whose name is sought.
+ *
+ * @return the value of the "name" attribute of this CoordinateComponent_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof CoordinateComponent_t
+ */
+LIBSBML_EXTERN
+char *
+CoordinateComponent_getName(const CoordinateComponent_t * cc);
 
 
 /**
@@ -1031,6 +1193,15 @@ CoordinateComponent_getId(const CoordinateComponent_t * cc);
  *
  * @return the value of the "type" attribute of this CoordinateComponent_t as a
  * CoordinateKind_t.
+ *
+ * @copydetails doc_coordinatecomponent_type
+ * @if clike The value is drawn from the enumeration @ref CoordinateKind_t
+ * @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_X, CoordinateKind_t}
+ * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Y, CoordinateKind_t}
+ * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Z, CoordinateKind_t}
+ * @li @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t}
  *
  * @memberof CoordinateComponent_t
  */
@@ -1047,10 +1218,19 @@ CoordinateComponent_getType(const CoordinateComponent_t * cc);
  * @return the value of the "type" attribute of this CoordinateComponent_t as a
  * const char *.
  *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_coordinatecomponent_type
+ * The possible values returned by this method are:
+ * @li @c "cartesianX"
+ * @li @c "cartesianY"
+ * @li @c "cartesianZ"
+ * @li @c "invalid CoordinateKind value"
+ *
  * @memberof CoordinateComponent_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 CoordinateComponent_getTypeAsString(const CoordinateComponent_t * cc);
 
 
@@ -1062,21 +1242,23 @@ CoordinateComponent_getTypeAsString(const CoordinateComponent_t * cc);
  * @return the value of the "unit" attribute of this CoordinateComponent_t as a
  * pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof CoordinateComponent_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 CoordinateComponent_getUnit(const CoordinateComponent_t * cc);
 
 
 /**
- * Predicate returning @c 1 if this CoordinateComponent_t's "id" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this CoordinateComponent_t's "id"
+ * attribute is set.
  *
  * @param cc the CoordinateComponent_t structure.
  *
- * @return @c 1 if this CoordinateComponent_t's "id" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this CoordinateComponent_t's "id" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
  * @memberof CoordinateComponent_t
  */
@@ -1086,13 +1268,31 @@ CoordinateComponent_isSetId(const CoordinateComponent_t * cc);
 
 
 /**
- * Predicate returning @c 1 if this CoordinateComponent_t's "type" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this CoordinateComponent_t's "name"
+ * attribute is set.
  *
  * @param cc the CoordinateComponent_t structure.
  *
- * @return @c 1 if this CoordinateComponent_t's "type" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this CoordinateComponent_t's "name" attribute has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof CoordinateComponent_t
+ */
+LIBSBML_EXTERN
+int
+CoordinateComponent_isSetName(const CoordinateComponent_t * cc);
+
+
+/**
+ * Predicate returning @c 1 (true) if this CoordinateComponent_t's "type"
+ * attribute is set.
+ *
+ * @param cc the CoordinateComponent_t structure.
+ *
+ * @return @c 1 (true) if this CoordinateComponent_t's "type" attribute has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_coordinatecomponent_type
  *
  * @memberof CoordinateComponent_t
  */
@@ -1102,13 +1302,13 @@ CoordinateComponent_isSetType(const CoordinateComponent_t * cc);
 
 
 /**
- * Predicate returning @c 1 if this CoordinateComponent_t's "unit" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this CoordinateComponent_t's "unit"
+ * attribute is set.
  *
  * @param cc the CoordinateComponent_t structure.
  *
- * @return @c 1 if this CoordinateComponent_t's "unit" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this CoordinateComponent_t's "unit" attribute has
+ * been set, otherwise @c 0 (false) is returned.
  *
  * @memberof CoordinateComponent_t
  */
@@ -1127,12 +1327,37 @@ CoordinateComponent_isSetUnit(const CoordinateComponent_t * cc);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling CoordinateComponent_unsetId().
  *
  * @memberof CoordinateComponent_t
  */
 LIBSBML_EXTERN
 int
 CoordinateComponent_setId(CoordinateComponent_t * cc, const char * id);
+
+
+/**
+ * Sets the value of the "name" attribute of this CoordinateComponent_t.
+ *
+ * @param cc the CoordinateComponent_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling CoordinateComponent_unsetName().
+ *
+ * @memberof CoordinateComponent_t
+ */
+LIBSBML_EXTERN
+int
+CoordinateComponent_setName(CoordinateComponent_t * cc, const char * name);
 
 
 /**
@@ -1145,6 +1370,9 @@ CoordinateComponent_setId(CoordinateComponent_t * cc, const char * id);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_coordinatecomponent_type
  *
  * @memberof CoordinateComponent_t
  */
@@ -1164,6 +1392,9 @@ CoordinateComponent_setType(CoordinateComponent_t * cc,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_coordinatecomponent_type
  *
  * @memberof CoordinateComponent_t
  */
@@ -1183,6 +1414,7 @@ CoordinateComponent_setTypeAsString(CoordinateComponent_t * cc,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CoordinateComponent_t
  */
@@ -1199,6 +1431,7 @@ CoordinateComponent_setUnit(CoordinateComponent_t * cc, const char * unit);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CoordinateComponent_t
  */
@@ -1208,13 +1441,32 @@ CoordinateComponent_unsetId(CoordinateComponent_t * cc);
 
 
 /**
- * Unsets the value of the "type" attribute of this CoordinateComponent_t.
+ * Unsets the value of the "name" attribute of this CoordinateComponent_t.
  *
  * @param cc the CoordinateComponent_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof CoordinateComponent_t
+ */
+LIBSBML_EXTERN
+int
+CoordinateComponent_unsetName(CoordinateComponent_t * cc);
+
+
+/**
+ * Unsets the value of the "type" attribute of this CoordinateComponent_t.
+ *
+ * @param cc the CoordinateComponent_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_coordinatecomponent_type
  *
  * @memberof CoordinateComponent_t
  */
@@ -1231,6 +1483,7 @@ CoordinateComponent_unsetType(CoordinateComponent_t * cc);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CoordinateComponent_t
  */
@@ -1272,13 +1525,13 @@ CoordinateComponent_getBoundaryMax(const CoordinateComponent_t * cc);
 
 
 /**
- * Predicate returning @c 1 if this CoordinateComponent_t's "boundaryMin"
- * element is set.
+ * Predicate returning @c 1 (true) if this CoordinateComponent_t's
+ * "boundaryMin" element is set.
  *
  * @param cc the CoordinateComponent_t structure.
  *
- * @return @c 1 if this CoordinateComponent_t's "boundaryMin" element has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this CoordinateComponent_t's "boundaryMin" element
+ * has been set, otherwise @c 0 (false) is returned.
  *
  * @memberof CoordinateComponent_t
  */
@@ -1288,13 +1541,13 @@ CoordinateComponent_isSetBoundaryMin(const CoordinateComponent_t * cc);
 
 
 /**
- * Predicate returning @c 1 if this CoordinateComponent_t's "boundaryMax"
- * element is set.
+ * Predicate returning @c 1 (true) if this CoordinateComponent_t's
+ * "boundaryMax" element is set.
  *
  * @param cc the CoordinateComponent_t structure.
  *
- * @return @c 1 if this CoordinateComponent_t's "boundaryMax" element has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this CoordinateComponent_t's "boundaryMax" element
+ * has been set, otherwise @c 0 (false) is returned.
  *
  * @memberof CoordinateComponent_t
  */
@@ -1313,6 +1566,7 @@ CoordinateComponent_isSetBoundaryMax(const CoordinateComponent_t * cc);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CoordinateComponent_t
  */
@@ -1332,6 +1586,7 @@ CoordinateComponent_setBoundaryMin(CoordinateComponent_t * cc,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CoordinateComponent_t
  */
@@ -1381,6 +1636,7 @@ CoordinateComponent_createBoundaryMax(CoordinateComponent_t* cc);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CoordinateComponent_t
  */
@@ -1397,6 +1653,7 @@ CoordinateComponent_unsetBoundaryMin(CoordinateComponent_t * cc);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CoordinateComponent_t
  */
@@ -1406,13 +1663,13 @@ CoordinateComponent_unsetBoundaryMax(CoordinateComponent_t * cc);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * CoordinateComponent_t object have been set.
  *
  * @param cc the CoordinateComponent_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * CoordinateComponent_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * CoordinateComponent_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the CoordinateComponent_t object are:
@@ -1427,13 +1684,13 @@ CoordinateComponent_hasRequiredAttributes(const CoordinateComponent_t * cc);
 
 
 /**
- * Predicate returning @c 1 if all the required elements for this
+ * Predicate returning @c 1 (true) if all the required elements for this
  * CoordinateComponent_t object have been set.
  *
  * @param cc the CoordinateComponent_t structure.
  *
- * @return @c 1 to indicate that all the required elements of this
- * CoordinateComponent_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required elements of this
+ * CoordinateComponent_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required elements for the CoordinateComponent_t object are:

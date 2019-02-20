@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -59,7 +59,6 @@ DomainType::DomainType(unsigned int level,
                        unsigned int version,
                        unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
   , mSpatialDimensions (SBML_INT_MAX)
   , mIsSetSpatialDimensions (false)
 {
@@ -73,7 +72,6 @@ DomainType::DomainType(unsigned int level,
  */
 DomainType::DomainType(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
-  , mId ("")
   , mSpatialDimensions (SBML_INT_MAX)
   , mIsSetSpatialDimensions (false)
 {
@@ -87,7 +85,6 @@ DomainType::DomainType(SpatialPkgNamespaces *spatialns)
  */
 DomainType::DomainType(const DomainType& orig)
   : SBase( orig )
-  , mId ( orig.mId )
   , mSpatialDimensions ( orig.mSpatialDimensions )
   , mIsSetSpatialDimensions ( orig.mIsSetSpatialDimensions )
 {
@@ -103,7 +100,6 @@ DomainType::operator=(const DomainType& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId = rhs.mId;
     mSpatialDimensions = rhs.mSpatialDimensions;
     mIsSetSpatialDimensions = rhs.mIsSetSpatialDimensions;
   }
@@ -141,6 +137,16 @@ DomainType::getId() const
 
 
 /*
+ * Returns the value of the "name" attribute of this DomainType.
+ */
+const std::string&
+DomainType::getName() const
+{
+  return mName;
+}
+
+
+/*
  * Returns the value of the "spatialDimensions" attribute of this DomainType.
  */
 int
@@ -157,6 +163,16 @@ bool
 DomainType::isSetId() const
 {
   return (mId.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true if this DomainType's "name" attribute is set.
+ */
+bool
+DomainType::isSetName() const
+{
+  return (mName.empty() == false);
 }
 
 
@@ -182,6 +198,17 @@ DomainType::setId(const std::string& id)
 
 
 /*
+ * Sets the value of the "name" attribute of this DomainType.
+ */
+int
+DomainType::setName(const std::string& name)
+{
+  mName = name;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
  * Sets the value of the "spatialDimensions" attribute of this DomainType.
  */
 int
@@ -202,6 +229,25 @@ DomainType::unsetId()
   mId.erase();
 
   if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "name" attribute of this DomainType.
+ */
+int
+DomainType::unsetName()
+{
+  mName.erase();
+
+  if (mName.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -443,6 +489,11 @@ DomainType::getAttribute(const std::string& attributeName,
     value = getId();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
+  else if (attributeName == "name")
+  {
+    value = getName();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
 
   return return_value;
 }
@@ -465,6 +516,10 @@ DomainType::isSetAttribute(const std::string& attributeName) const
   if (attributeName == "id")
   {
     value = isSetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = isSetName();
   }
   else if (attributeName == "spatialDimensions")
   {
@@ -566,6 +621,10 @@ DomainType::setAttribute(const std::string& attributeName,
   {
     return_value = setId(value);
   }
+  else if (attributeName == "name")
+  {
+    return_value = setName(value);
+  }
 
   return return_value;
 }
@@ -587,6 +646,10 @@ DomainType::unsetAttribute(const std::string& attributeName)
   if (attributeName == "id")
   {
     value = unsetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = unsetName();
   }
   else if (attributeName == "spatialDimensions")
   {
@@ -612,6 +675,8 @@ DomainType::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("id");
 
+  attributes.add("name");
+
   attributes.add("spatialDimensions");
 }
 
@@ -635,7 +700,8 @@ DomainType::readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  if (static_cast<ListOfDomainTypes*>(getParentSBMLObject())->size() < 2)
+  if (log && getParentSBMLObject() &&
+    static_cast<ListOfDomainTypes*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
@@ -659,23 +725,27 @@ DomainType::readAttributes(const XMLAttributes& attributes,
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialDomainTypeAllowedAttributes,
-        pkgVersion, level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial", SpatialDomainTypeAllowedCoreAttributes,
-        pkgVersion, level, version, details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialDomainTypeAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial", SpatialDomainTypeAllowedCoreAttributes,
+          pkgVersion, level, version, details);
+      }
     }
   }
 
@@ -693,8 +763,9 @@ DomainType::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      logError(SpatialIdSyntaxRule, level, version, "The id '" + mId + "' does "
-        "not conform to the syntax.");
+      log->logPackageError("spatial", SpatialIdSyntaxRule, pkgVersion, level,
+        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+          "which does not conform to the syntax.", getLine(), getColumn());
     }
   }
   else
@@ -703,6 +774,20 @@ DomainType::readAttributes(const XMLAttributes& attributes,
       "<DomainType> element.";
     log->logPackageError("spatial", SpatialDomainTypeAllowedAttributes,
       pkgVersion, level, version, message);
+  }
+
+  // 
+  // name string (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("name", mName);
+
+  if (assigned == true)
+  {
+    if (mName.empty() == true)
+    {
+      logEmptyString(mName, level, version, "<DomainType>");
+    }
   }
 
   // 
@@ -752,6 +837,11 @@ DomainType::writeAttributes(XMLOutputStream& stream) const
   if (isSetId() == true)
   {
     stream.writeAttribute("id", getPrefix(), mId);
+  }
+
+  if (isSetName() == true)
+  {
+    stream.writeAttribute("name", getPrefix(), mName);
   }
 
   if (isSetSpatialDimensions() == true)
@@ -821,7 +911,7 @@ DomainType_free(DomainType_t* dt)
  * Returns the value of the "id" attribute of this DomainType_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 DomainType_getId(const DomainType_t * dt)
 {
   if (dt == NULL)
@@ -830,6 +920,22 @@ DomainType_getId(const DomainType_t * dt)
   }
 
   return dt->getId().empty() ? NULL : safe_strdup(dt->getId().c_str());
+}
+
+
+/*
+ * Returns the value of the "name" attribute of this DomainType_t.
+ */
+LIBSBML_EXTERN
+char *
+DomainType_getName(const DomainType_t * dt)
+{
+  if (dt == NULL)
+  {
+    return NULL;
+  }
+
+  return dt->getName().empty() ? NULL : safe_strdup(dt->getName().c_str());
 }
 
 
@@ -845,7 +951,8 @@ DomainType_getSpatialDimensions(const DomainType_t * dt)
 
 
 /*
- * Predicate returning @c 1 if this DomainType_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this DomainType_t's "id" attribute is
+ * set.
  */
 LIBSBML_EXTERN
 int
@@ -856,7 +963,19 @@ DomainType_isSetId(const DomainType_t * dt)
 
 
 /*
- * Predicate returning @c 1 if this DomainType_t's "spatialDimensions"
+ * Predicate returning @c 1 (true) if this DomainType_t's "name" attribute is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+DomainType_isSetName(const DomainType_t * dt)
+{
+  return (dt != NULL) ? static_cast<int>(dt->isSetName()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DomainType_t's "spatialDimensions"
  * attribute is set.
  */
 LIBSBML_EXTERN
@@ -875,6 +994,17 @@ int
 DomainType_setId(DomainType_t * dt, const char * id)
 {
   return (dt != NULL) ? dt->setId(id) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "name" attribute of this DomainType_t.
+ */
+LIBSBML_EXTERN
+int
+DomainType_setName(DomainType_t * dt, const char * name)
+{
+  return (dt != NULL) ? dt->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -902,6 +1032,17 @@ DomainType_unsetId(DomainType_t * dt)
 
 
 /*
+ * Unsets the value of the "name" attribute of this DomainType_t.
+ */
+LIBSBML_EXTERN
+int
+DomainType_unsetName(DomainType_t * dt)
+{
+  return (dt != NULL) ? dt->unsetName() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
  * Unsets the value of the "spatialDimensions" attribute of this DomainType_t.
  */
 LIBSBML_EXTERN
@@ -913,7 +1054,7 @@ DomainType_unsetSpatialDimensions(DomainType_t * dt)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * DomainType_t object have been set.
  */
 LIBSBML_EXTERN

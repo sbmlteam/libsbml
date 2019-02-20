@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -65,8 +65,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 CSGTransformation::CSGTransformation(unsigned int level,
                                      unsigned int version,
                                      unsigned int pkgVersion)
-  : CSGNode(level, version)
+  : CSGNode(level, version, pkgVersion)
   , mCSGNode (NULL)
+  , mElementName("csgTransformation")
 {
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
     pkgVersion));
@@ -80,6 +81,7 @@ CSGTransformation::CSGTransformation(unsigned int level,
 CSGTransformation::CSGTransformation(SpatialPkgNamespaces *spatialns)
   : CSGNode(spatialns)
   , mCSGNode (NULL)
+  , mElementName("csgTransformation")
 {
   setElementNamespace(spatialns->getURI());
   connectToChild();
@@ -93,6 +95,7 @@ CSGTransformation::CSGTransformation(SpatialPkgNamespaces *spatialns)
 CSGTransformation::CSGTransformation(const CSGTransformation& orig)
   : CSGNode( orig )
   , mCSGNode ( NULL )
+  , mElementName ( orig.mElementName )
 {
   if (orig.mCSGNode != NULL)
   {
@@ -112,6 +115,7 @@ CSGTransformation::operator=(const CSGTransformation& rhs)
   if (&rhs != this)
   {
     CSGNode::operator=(rhs);
+    mElementName = rhs.mElementName;
     delete mCSGNode;
     if (rhs.mCSGNode != NULL)
     {
@@ -411,9 +415,23 @@ CSGTransformation::isCSGHomogeneousTransformation() const
 const std::string&
 CSGTransformation::getElementName() const
 {
-  static const string name = "csgTransformation";
-  return name;
+  return mElementName;
 }
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the XML name of this CSGTransformation object.
+ */
+void
+CSGTransformation::setElementName(const std::string& name)
+{
+  mElementName = name;
+}
+
+/** @endcond */
 
 
 /*
@@ -553,6 +571,28 @@ CSGTransformation::enablePackageInternal(const std::string& pkgURI,
   if (isSetCSGNode())
   {
     mCSGNode->enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Updates the namespaces when setLevelVersion is used
+ */
+void
+CSGTransformation::updateSBMLNamespace(const std::string& package,
+                                       unsigned int level,
+                                       unsigned int version)
+{
+  CSGNode::updateSBMLNamespace(package, level, version);
+
+  if (mCSGNode != NULL)
+  {
+    mCSGNode->updateSBMLNamespace(package, level, version);
   }
 }
 
@@ -779,16 +819,131 @@ CSGTransformation::unsetAttribute(const std::string& attributeName)
  * Creates and returns an new "elementName" object in this CSGTransformation.
  */
 SBase*
-CSGTransformation::createObject(const std::string& elementName)
+CSGTransformation::createChildObject(const std::string& elementName)
 {
   CSGNode* obj = NULL;
 
-  //if (elementName == "csgNode")
-  //{
-  //  return createCSGNode();
-  //}
+  if (elementName == "csgPrimitive")
+  {
+    return createCSGPrimitive();
+  }
+  else if (elementName == "csgTranslation")
+  {
+    return createCSGTranslation();
+  }
+  else if (elementName == "csgRotation")
+  {
+    return createCSGRotation();
+  }
+  else if (elementName == "csgScale")
+  {
+    return createCSGScale();
+  }
+  else if (elementName == "csgHomogeneousTransformation")
+  {
+    return createCSGHomogeneousTransformation();
+  }
+  else if (elementName == "csgSetOperator")
+  {
+    return createCSGSetOperator();
+  }
 
   return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds a new "elementName" object to this CSGTransformation.
+ */
+int
+CSGTransformation::addChildObject(const std::string& elementName,
+                                  const SBase* element)
+{
+  if (elementName == "csgPrimitive" && element->getTypeCode() ==
+    SBML_SPATIAL_CSGPRIMITIVE)
+  {
+    return setCSGNode((const CSGNode*)(element));
+  }
+  else if (elementName == "csgTranslation" && element->getTypeCode() ==
+    SBML_SPATIAL_CSGTRANSLATION)
+  {
+    return setCSGNode((const CSGNode*)(element));
+  }
+  else if (elementName == "csgRotation" && element->getTypeCode() ==
+    SBML_SPATIAL_CSGROTATION)
+  {
+    return setCSGNode((const CSGNode*)(element));
+  }
+  else if (elementName == "csgScale" && element->getTypeCode() ==
+    SBML_SPATIAL_CSGSCALE)
+  {
+    return setCSGNode((const CSGNode*)(element));
+  }
+  else if (elementName == "csgHomogeneousTransformation" &&
+    element->getTypeCode() == SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION)
+  {
+    return setCSGNode((const CSGNode*)(element));
+  }
+  else if (elementName == "csgSetOperator" && element->getTypeCode() ==
+    SBML_SPATIAL_CSGSETOPERATOR)
+  {
+    return setCSGNode((const CSGNode*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Removes and returns the new "elementName" object with the given id in this
+ * CSGTransformation.
+ */
+SBase*
+CSGTransformation::removeChildObject(const std::string& elementName,
+                                     const std::string& id)
+{
+  if (elementName == "csgPrimitive")
+  {
+    CSGNode * obj = getCSGNode();
+    if (unsetCSGNode() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "csgTranslation")
+  {
+    CSGNode * obj = getCSGNode();
+    if (unsetCSGNode() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "csgRotation")
+  {
+    CSGNode * obj = getCSGNode();
+    if (unsetCSGNode() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "csgScale")
+  {
+    CSGNode * obj = getCSGNode();
+    if (unsetCSGNode() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "csgHomogeneousTransformation")
+  {
+    CSGNode * obj = getCSGNode();
+    if (unsetCSGNode() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "csgSetOperator")
+  {
+    CSGNode * obj = getCSGNode();
+    if (unsetCSGNode() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+
+  return NULL;
 }
 
 /** @endcond */
@@ -829,7 +984,7 @@ SBase*
 CSGTransformation::getObject(const std::string& elementName,
                              unsigned int index)
 {
-  CSGNode* obj = NULL;
+  SBase* obj = NULL;
 
   if (elementName == "csgNode")
   {
@@ -942,91 +1097,85 @@ CSGTransformation::createObject(XMLInputStream& stream)
 
   if (name == "csgPrimitive")
   {
-    if (mCSGNode != NULL)
+    if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGTransformationAllowedElements, getPackageVersion(),
-        getLevel(), getVersion());
-
-      delete mCSGNode;
-      mCSGNode = NULL;
+        SpatialCSGTransformationAllowedElements, getPackageVersion(), getLevel(),
+          getVersion());
     }
 
+    delete mCSGNode;
+      mCSGNode = NULL;
     mCSGNode = new CSGPrimitive(spatialns);
     obj = mCSGNode;
   }
   else if (name == "csgTranslation")
   {
-    if (mCSGNode != NULL)
+    if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGTransformationAllowedElements, getPackageVersion(),
-        getLevel(), getVersion());
-
-      delete mCSGNode;
-      mCSGNode = NULL;
+        SpatialCSGTransformationAllowedElements, getPackageVersion(), getLevel(),
+          getVersion());
     }
 
+    delete mCSGNode;
+      mCSGNode = NULL;
     mCSGNode = new CSGTranslation(spatialns);
     obj = mCSGNode;
   }
   else if (name == "csgRotation")
   {
-    if (mCSGNode != NULL)
+    if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGTransformationAllowedElements, getPackageVersion(),
-        getLevel(), getVersion());
-
-      delete mCSGNode;
-      mCSGNode = NULL;
+        SpatialCSGTransformationAllowedElements, getPackageVersion(), getLevel(),
+          getVersion());
     }
 
+    delete mCSGNode;
+      mCSGNode = NULL;
     mCSGNode = new CSGRotation(spatialns);
     obj = mCSGNode;
   }
   else if (name == "csgScale")
   {
-    if (mCSGNode != NULL)
+    if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGTransformationAllowedElements, getPackageVersion(),
-        getLevel(), getVersion());
-
-      delete mCSGNode;
-      mCSGNode = NULL;
+        SpatialCSGTransformationAllowedElements, getPackageVersion(), getLevel(),
+          getVersion());
     }
 
+    delete mCSGNode;
+      mCSGNode = NULL;
     mCSGNode = new CSGScale(spatialns);
     obj = mCSGNode;
   }
   else if (name == "csgHomogeneousTransformation")
   {
-    if (mCSGNode != NULL)
+    if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGTransformationAllowedElements, getPackageVersion(),
-        getLevel(), getVersion());
-
-      delete mCSGNode;
-      mCSGNode = NULL;
+        SpatialCSGTransformationAllowedElements, getPackageVersion(), getLevel(),
+          getVersion());
     }
 
+    delete mCSGNode;
+      mCSGNode = NULL;
     mCSGNode = new CSGHomogeneousTransformation(spatialns);
     obj = mCSGNode;
   }
   else if (name == "csgSetOperator")
   {
-    if (mCSGNode != NULL)
+    if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGTransformationAllowedElements, getPackageVersion(),
-        getLevel(), getVersion());
-
-      delete mCSGNode;
-      mCSGNode = NULL;
+        SpatialCSGTransformationAllowedElements, getPackageVersion(), getLevel(),
+          getVersion());
     }
 
+    delete mCSGNode;
+      mCSGNode = NULL;
     mCSGNode = new CSGSetOperator(spatialns);
     obj = mCSGNode;
   }
@@ -1074,24 +1223,28 @@ CSGTransformation::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   CSGNode::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialUnknown, pkgVersion, level,
-        version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial",
-        SpatialCSGTransformationAllowedCoreAttributes, pkgVersion, level,
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialUnknown, pkgVersion, level,
           version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialCSGTransformationAllowedCoreAttributes, pkgVersion, level,
+            version, details);
+      }
     }
   }
 }
@@ -1184,8 +1337,8 @@ CSGTransformation_getCSGNode(const CSGTransformation_t * csgt)
 
 
 /*
- * Predicate returning @c 1 if this CSGTransformation_t's "csgNode" element is
- * set.
+ * Predicate returning @c 1 (true) if this CSGTransformation_t's "csgNode"
+ * element is set.
  */
 LIBSBML_EXTERN
 int
@@ -1341,7 +1494,7 @@ CSGTransformation_isCSGHomogeneousTransformation(const CSGTransformation_t *
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * CSGTransformation_t object have been set.
  */
 LIBSBML_EXTERN
@@ -1353,7 +1506,7 @@ CSGTransformation_hasRequiredAttributes(const CSGTransformation_t * csgt)
 
 
 /*
- * Predicate returning @c 1 if all the required elements for this
+ * Predicate returning @c 1 (true) if all the required elements for this
  * CSGTransformation_t object have been set.
  */
 LIBSBML_EXTERN

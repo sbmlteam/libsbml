@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -36,8 +36,7 @@
  */
 #include <sbml/packages/spatial/sbml/CSGHomogeneousTransformation.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
-#include <util/ElementFilter.h>
-
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -61,9 +60,8 @@ CSGHomogeneousTransformation::CSGHomogeneousTransformation(unsigned int level,
                                                              version,
                                                            unsigned int
                                                              pkgVersion)
-  : CSGTransformation(level, version)
+  : CSGTransformation(level, version, pkgVersion)
   , mForwardTransformation (NULL)
-  , mReverseTransformation (NULL)
 {
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
     pkgVersion));
@@ -79,7 +77,6 @@ CSGHomogeneousTransformation::CSGHomogeneousTransformation(SpatialPkgNamespaces
   *spatialns)
   : CSGTransformation(spatialns)
   , mForwardTransformation (NULL)
-  , mReverseTransformation (NULL)
 {
   setElementNamespace(spatialns->getURI());
   connectToChild();
@@ -94,16 +91,10 @@ CSGHomogeneousTransformation::CSGHomogeneousTransformation(const
   CSGHomogeneousTransformation& orig)
   : CSGTransformation( orig )
   , mForwardTransformation ( NULL )
-  , mReverseTransformation ( NULL )
 {
   if (orig.mForwardTransformation != NULL)
   {
     mForwardTransformation = orig.mForwardTransformation->clone();
-  }
-
-  if (orig.mReverseTransformation != NULL)
-  {
-    mReverseTransformation = orig.mReverseTransformation->clone();
   }
 
   connectToChild();
@@ -130,16 +121,6 @@ CSGHomogeneousTransformation::operator=(const CSGHomogeneousTransformation&
       mForwardTransformation = NULL;
     }
 
-    delete mReverseTransformation;
-    if (rhs.mReverseTransformation != NULL)
-    {
-      mReverseTransformation = rhs.mReverseTransformation->clone();
-    }
-    else
-    {
-      mReverseTransformation = NULL;
-    }
-
     connectToChild();
   }
 
@@ -164,8 +145,6 @@ CSGHomogeneousTransformation::~CSGHomogeneousTransformation()
 {
   delete mForwardTransformation;
   mForwardTransformation = NULL;
-  delete mReverseTransformation;
-  mReverseTransformation = NULL;
 }
 
 
@@ -192,28 +171,6 @@ CSGHomogeneousTransformation::getForwardTransformation()
 
 
 /*
- * Returns the value of the "reverseTransformation" element of this
- * CSGHomogeneousTransformation.
- */
-const TransformationComponent*
-CSGHomogeneousTransformation::getReverseTransformation() const
-{
-  return mReverseTransformation;
-}
-
-
-/*
- * Returns the value of the "reverseTransformation" element of this
- * CSGHomogeneousTransformation.
- */
-TransformationComponent*
-CSGHomogeneousTransformation::getReverseTransformation()
-{
-  return mReverseTransformation;
-}
-
-
-/*
  * Predicate returning @c true if this CSGHomogeneousTransformation's
  * "forwardTransformation" element is set.
  */
@@ -221,17 +178,6 @@ bool
 CSGHomogeneousTransformation::isSetForwardTransformation() const
 {
   return (mForwardTransformation != NULL);
-}
-
-
-/*
- * Predicate returning @c true if this CSGHomogeneousTransformation's
- * "reverseTransformation" element is set.
- */
-bool
-CSGHomogeneousTransformation::isSetReverseTransformation() const
-{
-  return (mReverseTransformation != NULL);
 }
 
 
@@ -270,40 +216,6 @@ CSGHomogeneousTransformation::setForwardTransformation(const
 
 
 /*
- * Sets the value of the "reverseTransformation" element of this
- * CSGHomogeneousTransformation.
- */
-int
-CSGHomogeneousTransformation::setReverseTransformation(const
-  TransformationComponent* reverseTransformation)
-{
-  if (mReverseTransformation == reverseTransformation)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (reverseTransformation == NULL)
-  {
-    delete mReverseTransformation;
-    mReverseTransformation = NULL;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    delete mReverseTransformation;
-    mReverseTransformation = (reverseTransformation != NULL) ?
-      reverseTransformation->clone() : NULL;
-    if (mReverseTransformation != NULL)
-    {
-      mReverseTransformation->setElementName("reverseTransformation");
-      mReverseTransformation->connectToParent(this);
-    }
-
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-/*
  * Creates a new TransformationComponent object, adds it to this
  * CSGHomogeneousTransformation object and returns the TransformationComponent
  * object created.
@@ -330,32 +242,6 @@ CSGHomogeneousTransformation::createForwardTransformation()
 
 
 /*
- * Creates a new TransformationComponent object, adds it to this
- * CSGHomogeneousTransformation object and returns the TransformationComponent
- * object created.
- */
-TransformationComponent*
-CSGHomogeneousTransformation::createReverseTransformation()
-{
-  if (mReverseTransformation != NULL)
-  {
-    delete mReverseTransformation;
-  }
-
-  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mReverseTransformation = new TransformationComponent(spatialns);
-
-  mReverseTransformation->setElementName("reverseTransformation");
-
-  delete spatialns;
-
-  connectToChild();
-
-  return mReverseTransformation;
-}
-
-
-/*
  * Unsets the value of the "forwardTransformation" element of this
  * CSGHomogeneousTransformation.
  */
@@ -364,19 +250,6 @@ CSGHomogeneousTransformation::unsetForwardTransformation()
 {
   delete mForwardTransformation;
   mForwardTransformation = NULL;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "reverseTransformation" element of this
- * CSGHomogeneousTransformation.
- */
-int
-CSGHomogeneousTransformation::unsetReverseTransformation()
-{
-  delete mReverseTransformation;
-  mReverseTransformation = NULL;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -429,11 +302,6 @@ CSGHomogeneousTransformation::hasRequiredElements() const
     allPresent = false;
   }
 
-  if (isSetReverseTransformation() == false)
-  {
-    allPresent = false;
-  }
-
   return allPresent;
 }
 
@@ -452,11 +320,6 @@ CSGHomogeneousTransformation::writeElements(XMLOutputStream& stream) const
   if (isSetForwardTransformation() == true)
   {
     mForwardTransformation->write(stream);
-  }
-
-  if (isSetReverseTransformation() == true)
-  {
-    mReverseTransformation->write(stream);
   }
 
   SBase::writeExtensionElements(stream);
@@ -481,11 +344,6 @@ CSGHomogeneousTransformation::accept(SBMLVisitor& v) const
     mForwardTransformation->accept(v);
   }
 
-  if (mReverseTransformation != NULL)
-  {
-    mReverseTransformation->accept(v);
-  }
-
   v.leave(*this);
   return true;
 }
@@ -508,11 +366,6 @@ CSGHomogeneousTransformation::setSBMLDocument(SBMLDocument* d)
   {
     mForwardTransformation->setSBMLDocument(d);
   }
-
-  if (mReverseTransformation != NULL)
-  {
-    mReverseTransformation->setSBMLDocument(d);
-  }
 }
 
 /** @endcond */
@@ -532,11 +385,6 @@ CSGHomogeneousTransformation::connectToChild()
   if (mForwardTransformation != NULL)
   {
     mForwardTransformation->connectToParent(this);
-  }
-
-  if (mReverseTransformation != NULL)
-  {
-    mReverseTransformation->connectToParent(this);
   }
 }
 
@@ -561,10 +409,27 @@ CSGHomogeneousTransformation::enablePackageInternal(const std::string& pkgURI,
   {
     mForwardTransformation->enablePackageInternal(pkgURI, pkgPrefix, flag);
   }
+}
 
-  if (isSetReverseTransformation())
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Updates the namespaces when setLevelVersion is used
+ */
+void
+CSGHomogeneousTransformation::updateSBMLNamespace(const std::string& package,
+                                                  unsigned int level,
+                                                  unsigned int version)
+{
+  CSGTransformation::updateSBMLNamespace(package, level, version);
+
+  if (mForwardTransformation != NULL)
   {
-    mReverseTransformation->enablePackageInternal(pkgURI, pkgPrefix, flag);
+    mForwardTransformation->updateSBMLNamespace(package, level, version);
   }
 }
 
@@ -806,7 +671,7 @@ CSGHomogeneousTransformation::unsetAttribute(const std::string& attributeName)
  * CSGHomogeneousTransformation.
  */
 SBase*
-CSGHomogeneousTransformation::createObject(const std::string& elementName)
+CSGHomogeneousTransformation::createChildObject(const std::string& elementName)
 {
   CSGTransformation* obj = NULL;
 
@@ -814,12 +679,53 @@ CSGHomogeneousTransformation::createObject(const std::string& elementName)
   {
     return createForwardTransformation();
   }
-  else if (elementName == "reverseTransformation")
-  {
-    return createReverseTransformation();
-  }
 
   return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds a new "elementName" object to this CSGHomogeneousTransformation.
+ */
+int
+CSGHomogeneousTransformation::addChildObject(const std::string& elementName,
+                                             const SBase* element)
+{
+  if (elementName == "forwardTransformation" && element->getTypeCode() ==
+    SBML_SPATIAL_TRANSFORMATIONCOMPONENT)
+  {
+    return setForwardTransformation((const TransformationComponent*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Removes and returns the new "elementName" object with the given id in this
+ * CSGHomogeneousTransformation.
+ */
+SBase*
+CSGHomogeneousTransformation::removeChildObject(const std::string& elementName,
+                                                const std::string& id)
+{
+  if (elementName == "forwardTransformation")
+  {
+    TransformationComponent * obj = getForwardTransformation();
+    if (unsetForwardTransformation() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+
+  return NULL;
 }
 
 /** @endcond */
@@ -843,13 +749,6 @@ CSGHomogeneousTransformation::getNumObjects(const std::string& elementName)
       return 1;
     }
   }
-  else if (elementName == "reverseTransformation")
-  {
-    if (isSetReverseTransformation())
-    {
-      return 1;
-    }
-  }
 
   return n;
 }
@@ -867,15 +766,11 @@ SBase*
 CSGHomogeneousTransformation::getObject(const std::string& elementName,
                                         unsigned int index)
 {
-  CSGTransformation* obj = NULL;
+  SBase* obj = NULL;
 
   if (elementName == "forwardTransformation")
   {
     return getForwardTransformation();
-  }
-  else if (elementName == "reverseTransformation")
-  {
-    return getReverseTransformation();
   }
 
   return obj;
@@ -906,20 +801,6 @@ CSGHomogeneousTransformation::getElementBySId(const std::string& id)
     }
 
     obj = mForwardTransformation->getElementBySId(id);
-    if (obj != NULL)
-    {
-      return obj;
-    }
-  }
-
-  if (mReverseTransformation != NULL)
-  {
-    if (mReverseTransformation->getId() == id)
-    {
-      return mReverseTransformation;
-    }
-
-    obj = mReverseTransformation->getElementBySId(id);
     if (obj != NULL)
     {
       return obj;
@@ -958,20 +839,6 @@ CSGHomogeneousTransformation::getElementByMetaId(const std::string& metaid)
     }
   }
 
-  if (mReverseTransformation != NULL)
-  {
-    if (mReverseTransformation->getMetaId() == metaid)
-    {
-      return mReverseTransformation;
-    }
-
-    obj = mReverseTransformation->getElementByMetaId(metaid);
-    if (obj != NULL)
-    {
-      return obj;
-    }
-  }
-
   return obj;
 }
 
@@ -987,7 +854,6 @@ CSGHomogeneousTransformation::getAllElements(ElementFilter* filter)
   List* sublist = NULL;
 
   ADD_FILTERED_POINTER(ret, sublist, mForwardTransformation, filter);
-  ADD_FILTERED_POINTER(ret, sublist, mReverseTransformation, filter);
 
 
   ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
@@ -1013,35 +879,18 @@ CSGHomogeneousTransformation::createObject(XMLInputStream& stream)
 
   if (name == "forwardTransformation")
   {
-    if (mForwardTransformation != NULL)
+    if (isSetForwardTransformation())
     {
       getErrorLog()->logPackageError("spatial",
         SpatialCSGHomogeneousTransformationAllowedElements, getPackageVersion(),
           getLevel(), getVersion());
-
-      delete mForwardTransformation;
-      mForwardTransformation = NULL;
     }
 
+    delete mForwardTransformation;
+      mForwardTransformation = NULL;
     mForwardTransformation = new TransformationComponent(spatialns);
     mForwardTransformation->setElementName(name);
     obj = mForwardTransformation;
-  }
-  else if (name == "reverseTransformation")
-  {
-    if (mReverseTransformation != NULL)
-    {
-      getErrorLog()->logPackageError("spatial",
-        SpatialCSGHomogeneousTransformationAllowedElements, getPackageVersion(),
-          getLevel(), getVersion());
-
-      delete mReverseTransformation;
-      mReverseTransformation = NULL;
-    }
-
-    mReverseTransformation = new TransformationComponent(spatialns);
-    mReverseTransformation->setElementName(name);
-    obj = mReverseTransformation;
   }
 
   delete spatialns;
@@ -1089,24 +938,27 @@ CSGHomogeneousTransformation::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   CSGTransformation::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
-
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialUnknown, pkgVersion, level,
-        version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial",
-        SpatialCSGHomogeneousTransformationAllowedCoreAttributes, pkgVersion,
-          level, version, details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialUnknown, pkgVersion, level,
+          version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialCSGHomogeneousTransformationAllowedCoreAttributes, pkgVersion,
+            level, version, details);
+      }
     }
   }
 }
@@ -1202,25 +1054,7 @@ CSGHomogeneousTransformation_getForwardTransformation(const
 
 
 /*
- * Returns the value of the "reverseTransformation" element of this
- * CSGHomogeneousTransformation_t.
- */
-LIBSBML_EXTERN
-const TransformationComponent_t*
-CSGHomogeneousTransformation_getReverseTransformation(const
-  CSGHomogeneousTransformation_t * csght)
-{
-  if (csght == NULL)
-  {
-    return NULL;
-  }
-
-  return (TransformationComponent_t*)(csght->getReverseTransformation());
-}
-
-
-/*
- * Predicate returning @c 1 if this CSGHomogeneousTransformation_t's
+ * Predicate returning @c 1 (true) if this CSGHomogeneousTransformation_t's
  * "forwardTransformation" element is set.
  */
 LIBSBML_EXTERN
@@ -1234,20 +1068,6 @@ CSGHomogeneousTransformation_isSetForwardTransformation(const
 
 
 /*
- * Predicate returning @c 1 if this CSGHomogeneousTransformation_t's
- * "reverseTransformation" element is set.
- */
-LIBSBML_EXTERN
-int
-CSGHomogeneousTransformation_isSetReverseTransformation(const
-  CSGHomogeneousTransformation_t * csght)
-{
-  return (csght != NULL) ?
-    static_cast<int>(csght->isSetReverseTransformation()) : 0;
-}
-
-
-/*
  * Sets the value of the "forwardTransformation" element of this
  * CSGHomogeneousTransformation_t.
  */
@@ -1256,31 +1076,11 @@ int
 CSGHomogeneousTransformation_setForwardTransformation(
                                                       CSGHomogeneousTransformation_t
                                                         * csght,
-                                                      const
-                                                        TransformationComponent_t*
-                                                          forwardTransformation)
+                                                      const TransformationComponent_t*
+                                                        forwardTransformation)
 {
   return (csght != NULL) ?
     csght->setForwardTransformation(forwardTransformation) :
-      LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "reverseTransformation" element of this
- * CSGHomogeneousTransformation_t.
- */
-LIBSBML_EXTERN
-int
-CSGHomogeneousTransformation_setReverseTransformation(
-                                                      CSGHomogeneousTransformation_t
-                                                        * csght,
-                                                      const
-                                                        TransformationComponent_t*
-                                                          reverseTransformation)
-{
-  return (csght != NULL) ?
-    csght->setReverseTransformation(reverseTransformation) :
       LIBSBML_INVALID_OBJECT;
 }
 
@@ -1305,25 +1105,6 @@ CSGHomogeneousTransformation_createForwardTransformation(CSGHomogeneousTransform
 
 
 /*
- * Creates a new TransformationComponent_t object, adds it to this
- * CSGHomogeneousTransformation_t object and returns the
- * TransformationComponent_t object created.
- */
-LIBSBML_EXTERN
-TransformationComponent_t*
-CSGHomogeneousTransformation_createReverseTransformation(CSGHomogeneousTransformation_t*
-  csght)
-{
-  if (csght == NULL)
-  {
-    return NULL;
-  }
-
-  return (TransformationComponent_t*)(csght->createReverseTransformation());
-}
-
-
-/*
  * Unsets the value of the "forwardTransformation" element of this
  * CSGHomogeneousTransformation_t.
  */
@@ -1338,21 +1119,7 @@ CSGHomogeneousTransformation_unsetForwardTransformation(CSGHomogeneousTransforma
 
 
 /*
- * Unsets the value of the "reverseTransformation" element of this
- * CSGHomogeneousTransformation_t.
- */
-LIBSBML_EXTERN
-int
-CSGHomogeneousTransformation_unsetReverseTransformation(CSGHomogeneousTransformation_t
-  * csght)
-{
-  return (csght != NULL) ? csght->unsetReverseTransformation() :
-    LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * CSGHomogeneousTransformation_t object have been set.
  */
 LIBSBML_EXTERN
@@ -1366,7 +1133,7 @@ CSGHomogeneousTransformation_hasRequiredAttributes(const
 
 
 /*
- * Predicate returning @c 1 if all the required elements for this
+ * Predicate returning @c 1 (true) if all the required elements for this
  * CSGHomogeneousTransformation_t object have been set.
  */
 LIBSBML_EXTERN

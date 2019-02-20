@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -67,7 +67,6 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  std::string mId;
   std::string mDomain1;
   std::string mDomain2;
 
@@ -88,11 +87,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this AdjacentDomains.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   AdjacentDomains(unsigned int level = SpatialExtension::getDefaultLevel(),
                   unsigned int version = SpatialExtension::getDefaultVersion(),
@@ -103,13 +98,11 @@ public:
   /**
    * Creates a new AdjacentDomains using the given SpatialPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   AdjacentDomains(SpatialPkgNamespaces *spatialns);
 
@@ -151,7 +144,16 @@ public:
    * @return the value of the "id" attribute of this AdjacentDomains as a
    * string.
    */
-  const std::string& getId() const;
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this AdjacentDomains.
+   *
+   * @return the value of the "name" attribute of this AdjacentDomains as a
+   * string.
+   */
+  virtual const std::string& getName() const;
 
 
   /**
@@ -179,7 +181,17 @@ public:
    * @return @c true if this AdjacentDomains's "id" attribute has been set,
    * otherwise @c false is returned.
    */
-  bool isSetId() const;
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true if this AdjacentDomains's "name" attribute is
+   * set.
+   *
+   * @return @c true if this AdjacentDomains's "name" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
 
 
   /**
@@ -211,8 +223,25 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * Calling this function with @p id = @c NULL or an empty string is
+   * equivalent to calling unsetId().
    */
-  int setId(const std::string& id);
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "name" attribute of this AdjacentDomains.
+   *
+   * @param name std::string& value of the "name" attribute to be set.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p name = @c NULL or an empty string is
+   * equivalent to calling unsetName().
+   */
+  virtual int setName(const std::string& name);
 
 
   /**
@@ -248,7 +277,17 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetId();
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this AdjacentDomains.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetName();
 
 
   /**
@@ -294,8 +333,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_ADJACENTDOMAINS, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_ADJACENTDOMAINS, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -683,11 +721,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this AdjacentDomains_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof AdjacentDomains_t
  */
@@ -704,6 +740,8 @@ AdjacentDomains_create(unsigned int level,
  * @param ad the AdjacentDomains_t structure.
  *
  * @return a (deep) copy of this AdjacentDomains_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof AdjacentDomains_t
  */
@@ -732,11 +770,30 @@ AdjacentDomains_free(AdjacentDomains_t* ad);
  * @return the value of the "id" attribute of this AdjacentDomains_t as a
  * pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof AdjacentDomains_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 AdjacentDomains_getId(const AdjacentDomains_t * ad);
+
+
+/**
+ * Returns the value of the "name" attribute of this AdjacentDomains_t.
+ *
+ * @param ad the AdjacentDomains_t structure whose name is sought.
+ *
+ * @return the value of the "name" attribute of this AdjacentDomains_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof AdjacentDomains_t
+ */
+LIBSBML_EXTERN
+char *
+AdjacentDomains_getName(const AdjacentDomains_t * ad);
 
 
 /**
@@ -747,10 +804,12 @@ AdjacentDomains_getId(const AdjacentDomains_t * ad);
  * @return the value of the "domain1" attribute of this AdjacentDomains_t as a
  * pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof AdjacentDomains_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 AdjacentDomains_getDomain1(const AdjacentDomains_t * ad);
 
 
@@ -762,20 +821,23 @@ AdjacentDomains_getDomain1(const AdjacentDomains_t * ad);
  * @return the value of the "domain2" attribute of this AdjacentDomains_t as a
  * pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof AdjacentDomains_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 AdjacentDomains_getDomain2(const AdjacentDomains_t * ad);
 
 
 /**
- * Predicate returning @c 1 if this AdjacentDomains_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this AdjacentDomains_t's "id" attribute
+ * is set.
  *
  * @param ad the AdjacentDomains_t structure.
  *
- * @return @c 1 if this AdjacentDomains_t's "id" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this AdjacentDomains_t's "id" attribute has been set,
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof AdjacentDomains_t
  */
@@ -785,13 +847,29 @@ AdjacentDomains_isSetId(const AdjacentDomains_t * ad);
 
 
 /**
- * Predicate returning @c 1 if this AdjacentDomains_t's "domain1" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this AdjacentDomains_t's "name" attribute
+ * is set.
  *
  * @param ad the AdjacentDomains_t structure.
  *
- * @return @c 1 if this AdjacentDomains_t's "domain1" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this AdjacentDomains_t's "name" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof AdjacentDomains_t
+ */
+LIBSBML_EXTERN
+int
+AdjacentDomains_isSetName(const AdjacentDomains_t * ad);
+
+
+/**
+ * Predicate returning @c 1 (true) if this AdjacentDomains_t's "domain1"
+ * attribute is set.
+ *
+ * @param ad the AdjacentDomains_t structure.
+ *
+ * @return @c 1 (true) if this AdjacentDomains_t's "domain1" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
  * @memberof AdjacentDomains_t
  */
@@ -801,13 +879,13 @@ AdjacentDomains_isSetDomain1(const AdjacentDomains_t * ad);
 
 
 /**
- * Predicate returning @c 1 if this AdjacentDomains_t's "domain2" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this AdjacentDomains_t's "domain2"
+ * attribute is set.
  *
  * @param ad the AdjacentDomains_t structure.
  *
- * @return @c 1 if this AdjacentDomains_t's "domain2" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this AdjacentDomains_t's "domain2" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
  * @memberof AdjacentDomains_t
  */
@@ -826,12 +904,37 @@ AdjacentDomains_isSetDomain2(const AdjacentDomains_t * ad);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling AdjacentDomains_unsetId().
  *
  * @memberof AdjacentDomains_t
  */
 LIBSBML_EXTERN
 int
 AdjacentDomains_setId(AdjacentDomains_t * ad, const char * id);
+
+
+/**
+ * Sets the value of the "name" attribute of this AdjacentDomains_t.
+ *
+ * @param ad the AdjacentDomains_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling AdjacentDomains_unsetName().
+ *
+ * @memberof AdjacentDomains_t
+ */
+LIBSBML_EXTERN
+int
+AdjacentDomains_setName(AdjacentDomains_t * ad, const char * name);
 
 
 /**
@@ -844,6 +947,7 @@ AdjacentDomains_setId(AdjacentDomains_t * ad, const char * id);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof AdjacentDomains_t
  */
@@ -862,6 +966,7 @@ AdjacentDomains_setDomain1(AdjacentDomains_t * ad, const char * domain1);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof AdjacentDomains_t
  */
@@ -878,12 +983,30 @@ AdjacentDomains_setDomain2(AdjacentDomains_t * ad, const char * domain2);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof AdjacentDomains_t
  */
 LIBSBML_EXTERN
 int
 AdjacentDomains_unsetId(AdjacentDomains_t * ad);
+
+
+/**
+ * Unsets the value of the "name" attribute of this AdjacentDomains_t.
+ *
+ * @param ad the AdjacentDomains_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof AdjacentDomains_t
+ */
+LIBSBML_EXTERN
+int
+AdjacentDomains_unsetName(AdjacentDomains_t * ad);
 
 
 /**
@@ -894,6 +1017,7 @@ AdjacentDomains_unsetId(AdjacentDomains_t * ad);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof AdjacentDomains_t
  */
@@ -910,6 +1034,7 @@ AdjacentDomains_unsetDomain1(AdjacentDomains_t * ad);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof AdjacentDomains_t
  */
@@ -919,13 +1044,13 @@ AdjacentDomains_unsetDomain2(AdjacentDomains_t * ad);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * AdjacentDomains_t object have been set.
  *
  * @param ad the AdjacentDomains_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * AdjacentDomains_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * AdjacentDomains_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the AdjacentDomains_t object are:

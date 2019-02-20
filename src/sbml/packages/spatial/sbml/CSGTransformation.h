@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -56,7 +56,6 @@
 
 #include <sbml/packages/spatial/sbml/CSGNode.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
-#include <sbml/packages/spatial/sbml/CSGNode.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -74,6 +73,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   CSGNode* mCSGNode;
+  std::string mElementName;
 
   /** @endcond */
 
@@ -92,11 +92,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this CSGTransformation.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   CSGTransformation(unsigned int level = SpatialExtension::getDefaultLevel(),
                     unsigned int version =
@@ -109,13 +105,11 @@ public:
    * Creates a new CSGTransformation using the given SpatialPkgNamespaces
    * object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   CSGTransformation(SpatialPkgNamespaces *spatialns);
 
@@ -300,12 +294,23 @@ public:
   /**
    * Returns the XML element name of this CSGTransformation object.
    *
-   * For CSGTransformation, the XML element name is always @c
-   * "csgTransformation".
+   * For CSGTransformation, the XML element name is always
+   * @c "csgTransformation".
    *
    * @return the name of this element, i.e. @c "csgTransformation".
    */
   virtual const std::string& getElementName() const;
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the XML name of this CSGTransformation object.
+   */
+  virtual void setElementName(const std::string& name);
+
+  /** @endcond */
 
 
   /**
@@ -314,8 +319,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_CSGTRANSFORMATION, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_CSGTRANSFORMATION, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -331,9 +335,6 @@ public:
    *
    * @return @c true to indicate that all the required attributes of this
    * CSGTransformation have been set, otherwise @c false is returned.
-   *
-   *
-   * @note The required attributes for the CSGTransformation object are:
    */
   virtual bool hasRequiredAttributes() const;
 
@@ -404,6 +405,19 @@ public:
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix,
                                      bool flag);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Updates the namespaces when setLevelVersion is used
+   */
+  virtual void updateSBMLNamespace(const std::string& package,
+                                   unsigned int level,
+                                   unsigned int version);
 
   /** @endcond */
 
@@ -652,9 +666,48 @@ public:
    *
    * @param elementName, the name of the element to create.
    *
-   * pointer to the element created.
+   * @return pointer to the element created.
    */
-  virtual SBase* createObject(const std::string& elementName);
+  virtual SBase* createChildObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Adds a new "elementName" object to this CSGTransformation.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @param element, pointer to the element to be added.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int addChildObject(const std::string& elementName,
+                             const SBase* element);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Removes and returns the new "elementName" object with the given id in this
+   * CSGTransformation.
+   *
+   * @param elementName, the name of the element to remove.
+   *
+   * @param id, the id of the element to remove.
+   *
+   * @return pointer to the element removed.
+   */
+  virtual SBase* removeChildObject(const std::string& elementName,
+                                   const std::string& id);
 
   /** @endcond */
 
@@ -667,7 +720,7 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * unsigned int number of elements.
+   * @return unsigned int number of elements.
    */
   virtual unsigned int getNumObjects(const std::string& elementName);
 
@@ -682,9 +735,9 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * @param index, unsigned int teh index of teh object to retrieve.
+   * @param index, unsigned int the index of the object to retrieve.
    *
-   * pointer to the object.
+   * @return pointer to the object.
    */
   virtual SBase* getObject(const std::string& elementName, unsigned int index);
 
@@ -703,7 +756,8 @@ public:
    * @param id a string representing the id attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p id.
+   * @return a pointer to the SBase element with the given @p id. If no such
+   * object is found, this method returns @c NULL.
    */
   virtual SBase* getElementBySId(const std::string& id);
 
@@ -715,7 +769,8 @@ public:
    * @param metaid a string representing the metaid attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p metaid.
+   * @return a pointer to the SBase element with the given @p metaid. If no
+   * such object is found this method returns @c NULL.
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
 
@@ -724,8 +779,8 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
-   * filter, an ElementFilter that may impose restrictions on the objects to be
-   * retrieved.
+   * @param filter an ElementFilter that may impose restrictions on the objects
+   * to be retrieved.
    *
    * @return a List* pointer of pointers to all SBase child objects with any
    * restriction imposed.
@@ -820,11 +875,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this CSGTransformation_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof CSGTransformation_t
  */
@@ -841,6 +894,8 @@ CSGTransformation_create(unsigned int level,
  * @param csgt the CSGTransformation_t structure.
  *
  * @return a (deep) copy of this CSGTransformation_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof CSGTransformation_t
  */
@@ -877,13 +932,13 @@ CSGTransformation_getCSGNode(const CSGTransformation_t * csgt);
 
 
 /**
- * Predicate returning @c 1 if this CSGTransformation_t's "csgNode" element is
- * set.
+ * Predicate returning @c 1 (true) if this CSGTransformation_t's "csgNode"
+ * element is set.
  *
  * @param csgt the CSGTransformation_t structure.
  *
- * @return @c 1 if this CSGTransformation_t's "csgNode" element has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this CSGTransformation_t's "csgNode" element has been
+ * set, otherwise @c 0 (false) is returned.
  *
  * @memberof CSGTransformation_t
  */
@@ -902,6 +957,7 @@ CSGTransformation_isSetCSGNode(const CSGTransformation_t * csgt);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGTransformation_t
  */
@@ -1017,6 +1073,7 @@ CSGTransformation_createCSGSetOperator(CSGTransformation_t* csgt);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CSGTransformation_t
  */
@@ -1090,16 +1147,13 @@ CSGTransformation_isCSGHomogeneousTransformation(const CSGTransformation_t *
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * CSGTransformation_t object have been set.
  *
  * @param csgt the CSGTransformation_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * CSGTransformation_t have been set, otherwise @c 0 is returned.
- *
- *
- * @note The required attributes for the CSGTransformation_t object are:
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * CSGTransformation_t have been set, otherwise @c 0 (false) is returned.
  *
  * @memberof CSGTransformation_t
  */
@@ -1109,13 +1163,13 @@ CSGTransformation_hasRequiredAttributes(const CSGTransformation_t * csgt);
 
 
 /**
- * Predicate returning @c 1 if all the required elements for this
+ * Predicate returning @c 1 (true) if all the required elements for this
  * CSGTransformation_t object have been set.
  *
  * @param csgt the CSGTransformation_t structure.
  *
- * @return @c 1 to indicate that all the required elements of this
- * CSGTransformation_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required elements of this
+ * CSGTransformation_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required elements for the CSGTransformation_t object are:

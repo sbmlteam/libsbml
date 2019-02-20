@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -80,32 +80,25 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this ListOfCoordinateComponents.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfCoordinateComponents(
                              unsigned int level =
                                SpatialExtension::getDefaultLevel(),
                              unsigned int version =
                                SpatialExtension::getDefaultVersion(),
-                             unsigned int pkgVersion =
-                               SpatialExtension::getDefaultPackageVersion());
+                             unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
 
 
   /**
    * Creates a new ListOfCoordinateComponents using the given
    * SpatialPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfCoordinateComponents(SpatialPkgNamespaces *spatialns);
 
@@ -149,7 +142,14 @@ public:
    *
    * @return the nth CoordinateComponent in this ListOfCoordinateComponents.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
+   * @see get(const std::string& sid)
+   * @see getNumCoordinateComponents()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual CoordinateComponent* get(unsigned int n);
 
@@ -162,7 +162,14 @@ public:
    *
    * @return the nth CoordinateComponent in this ListOfCoordinateComponents.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
+   * @see get(const std::string& sid)
+   * @see getNumCoordinateComponents()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual const CoordinateComponent* get(unsigned int n) const;
 
@@ -175,9 +182,16 @@ public:
    * to retrieve.
    *
    * @return the CoordinateComponent in this ListOfCoordinateComponents with
-   * the given id or NULL if no such CoordinateComponent exists.
+   * the given @p sid or @c NULL if no such CoordinateComponent exists.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
+   * @see get(unsigned int n)
+   * @see getNumCoordinateComponents()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual CoordinateComponent* get(const std::string& sid);
 
@@ -190,9 +204,16 @@ public:
    * to retrieve.
    *
    * @return the CoordinateComponent in this ListOfCoordinateComponents with
-   * the given id or NULL if no such CoordinateComponent exists.
+   * the given @p sid or @c NULL if no such CoordinateComponent exists.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
+   * @see get(unsigned int n)
+   * @see getNumCoordinateComponents()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual const CoordinateComponent* get(const std::string& sid) const;
 
@@ -207,10 +228,14 @@ public:
    * @return a pointer to the nth CoordinateComponent in this
    * ListOfCoordinateComponents.
    *
-   * @see size()
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumCoordinateComponents()
+   * @see remove(const std::string& sid)
    */
   virtual CoordinateComponent* remove(unsigned int n);
 
@@ -225,8 +250,14 @@ public:
    * @return the CoordinateComponent in this ListOfCoordinateComponents based
    * on the identifier or NULL if no such CoordinateComponent exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumCoordinateComponents()
+   * @see remove(unsigned int n)
    */
   virtual CoordinateComponent* remove(const std::string& sid);
 
@@ -240,10 +271,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createCoordinateComponent()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumCoordinateComponents()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   int addCoordinateComponent(const CoordinateComponent* cc);
 
@@ -254,6 +295,13 @@ public:
    *
    * @return the number of CoordinateComponent objects in this
    * ListOfCoordinateComponents.
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   unsigned int getNumCoordinateComponents() const;
 
@@ -265,7 +313,14 @@ public:
    *
    * @return a new CoordinateComponent object instance.
    *
-   * @see addCoordinateComponent(const CoordinateComponent* cc)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumCoordinateComponents()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   CoordinateComponent* createCoordinateComponent();
 
@@ -273,8 +328,8 @@ public:
   /**
    * Returns the XML element name of this ListOfCoordinateComponents object.
    *
-   * For ListOfCoordinateComponents, the XML element name is always @c
-   * "listOfCoordinateComponents".
+   * For ListOfCoordinateComponents, the XML element name is always
+   * @c "listOfCoordinateComponents".
    *
    * @return the name of this element, i.e. @c "listOfCoordinateComponents".
    */
@@ -287,8 +342,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}
+   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    */
@@ -303,8 +357,7 @@ public:
    *
    * @return the SBML typecode for the objects contained in this
    * ListOfCoordinateComponents:
-   *
-   * @sbmlconstant{SBML_SPATIAL_COORDINATECOMPONENT, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_COORDINATECOMPONENT, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -385,10 +438,12 @@ BEGIN_C_DECLS
  *
  * @return the nth CoordinateComponent_t in this ListOf_t.
  *
- * @memberof CoordinateComponent_t
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfCoordinateComponents_t
  */
 LIBSBML_EXTERN
-const CoordinateComponent_t*
+CoordinateComponent_t*
 ListOfCoordinateComponents_getCoordinateComponent(ListOf_t* lo,
                                                   unsigned int n);
 
@@ -401,13 +456,15 @@ ListOfCoordinateComponents_getCoordinateComponent(ListOf_t* lo,
  * @param sid a string representing the identifier of the CoordinateComponent_t
  * to retrieve.
  *
- * @return the CoordinateComponent_t in this ListOf_t with the given id or NULL
- * if no such CoordinateComponent_t exists.
+ * @return the CoordinateComponent_t in this ListOf_t with the given @p sid or
+ * @c NULL if no such CoordinateComponent_t exists.
  *
- * @memberof CoordinateComponent_t
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfCoordinateComponents_t
  */
 LIBSBML_EXTERN
-const CoordinateComponent_t*
+CoordinateComponent_t*
 ListOfCoordinateComponents_getById(ListOf_t* lo, const char *sid);
 
 
@@ -422,7 +479,9 @@ ListOfCoordinateComponents_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth CoordinateComponent_t in this ListOf_t.
  *
- * @memberof CoordinateComponent_t
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfCoordinateComponents_t
  */
 LIBSBML_EXTERN
 CoordinateComponent_t*
@@ -441,7 +500,9 @@ ListOfCoordinateComponents_remove(ListOf_t* lo, unsigned int n);
  * @return the CoordinateComponent_t in this ListOf_t based on the identifier
  * or NULL if no such CoordinateComponent_t exists.
  *
- * @memberof CoordinateComponent_t
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfCoordinateComponents_t
  */
 LIBSBML_EXTERN
 CoordinateComponent_t*

@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -663,7 +663,8 @@ OrdinalMapping::readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  if (static_cast<ListOfOrdinalMappings*>(getParentSBMLObject())->size() < 2)
+  if (log && getParentSBMLObject() &&
+    static_cast<ListOfOrdinalMappings*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
@@ -687,24 +688,28 @@ OrdinalMapping::readAttributes(const XMLAttributes& attributes,
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialOrdinalMappingAllowedAttributes,
-        pkgVersion, level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial",
-        SpatialOrdinalMappingAllowedCoreAttributes, pkgVersion, level, version,
-          details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialOrdinalMappingAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialOrdinalMappingAllowedCoreAttributes, pkgVersion, level, version,
+            details);
+      }
     }
   }
 
@@ -722,9 +727,18 @@ OrdinalMapping::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mGeometryDefinition) == false)
     {
-      logError(SpatialOrdinalMappingGeometryDefinitionMustBeGeometryDefinition,
-        level, version, "The attribute geometryDefinition='" +
-          mGeometryDefinition + "' does not conform to the syntax.");
+      std::string msg = "The geometryDefinition attribute on the <" +
+        getElementName() + ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mGeometryDefinition + "', which does not conform to the "
+        "syntax.";
+      log->logPackageError("spatial",
+        SpatialOrdinalMappingGeometryDefinitionMustBeGeometryDefinition,
+          pkgVersion, level, version, msg, getLine(), getColumn());
     }
   }
   else
@@ -851,7 +865,7 @@ OrdinalMapping_free(OrdinalMapping_t* om)
  * OrdinalMapping_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 OrdinalMapping_getGeometryDefinition(const OrdinalMapping_t * om)
 {
   if (om == NULL)
@@ -876,8 +890,8 @@ OrdinalMapping_getOrdinal(const OrdinalMapping_t * om)
 
 
 /*
- * Predicate returning @c 1 if this OrdinalMapping_t's "geometryDefinition"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this OrdinalMapping_t's
+ * "geometryDefinition" attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -888,8 +902,8 @@ OrdinalMapping_isSetGeometryDefinition(const OrdinalMapping_t * om)
 
 
 /*
- * Predicate returning @c 1 if this OrdinalMapping_t's "ordinal" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this OrdinalMapping_t's "ordinal"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -948,7 +962,7 @@ OrdinalMapping_unsetOrdinal(OrdinalMapping_t * om)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * OrdinalMapping_t object have been set.
  */
 LIBSBML_EXTERN

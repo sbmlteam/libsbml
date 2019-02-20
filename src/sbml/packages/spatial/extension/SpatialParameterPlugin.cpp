@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -36,9 +36,8 @@
  */
 #include <sbml/packages/spatial/extension/SpatialParameterPlugin.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 #include <sbml/Model.h>
-
-#include <util/ElementFilter.h>
 
 
 using namespace std;
@@ -54,7 +53,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
- * Creates a new SpatialParameterPlugin using the given uri, prefix and package
+ * Creates a new SpatialParameterPlugin using the given URI, prefix and package
  * namespace.
  */
 SpatialParameterPlugin::SpatialParameterPlugin(const std::string& uri,
@@ -352,6 +351,7 @@ SpatialParameterPlugin::setSpatialSymbolReference(const SpatialSymbolReference*
     delete mSpatialSymbolReference;
     mSpatialSymbolReference =
       static_cast<SpatialSymbolReference*>(spatialSymbolReference->clone());
+    connectToChild();
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -390,6 +390,7 @@ SpatialParameterPlugin::setAdvectionCoefficient(const AdvectionCoefficient*
     delete mAdvectionCoefficient;
     mAdvectionCoefficient =
       static_cast<AdvectionCoefficient*>(advectionCoefficient->clone());
+    connectToChild();
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -428,6 +429,7 @@ SpatialParameterPlugin::setBoundaryCondition(const BoundaryCondition*
     delete mBoundaryCondition;
     mBoundaryCondition =
       static_cast<BoundaryCondition*>(boundaryCondition->clone());
+    connectToChild();
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -466,6 +468,7 @@ SpatialParameterPlugin::setDiffusionCoefficient(const DiffusionCoefficient*
     delete mDiffusionCoefficient;
     mDiffusionCoefficient =
       static_cast<DiffusionCoefficient*>(diffusionCoefficient->clone());
+    connectToChild();
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -624,19 +627,6 @@ SpatialParameterPlugin::unsetDiffusionCoefficient()
   delete mDiffusionCoefficient;
   mDiffusionCoefficient = NULL;
   return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Predicate returning @c true if all the required elements for this
- * SpatialParameterPlugin object have been set.
- */
-bool
-SpatialParameterPlugin::hasRequiredElements() const
-{
-  bool allPresent = true;
-
-  return allPresent;
 }
 
 
@@ -827,6 +817,43 @@ SpatialParameterPlugin::enablePackageInternal(const std::string& pkgURI,
   if (isSetDiffusionCoefficient())
   {
     mDiffusionCoefficient->enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Updates the namespaces when setLevelVersion is used
+ */
+void
+SpatialParameterPlugin::updateSBMLNamespace(const std::string& package,
+                                            unsigned int level,
+                                            unsigned int version)
+{
+  SBasePlugin::updateSBMLNamespace(package, level, version);
+
+  if (mSpatialSymbolReference != NULL)
+  {
+    mSpatialSymbolReference->updateSBMLNamespace(package, level, version);
+  }
+
+  if (mAdvectionCoefficient != NULL)
+  {
+    mAdvectionCoefficient->updateSBMLNamespace(package, level, version);
+  }
+
+  if (mBoundaryCondition != NULL)
+  {
+    mBoundaryCondition->updateSBMLNamespace(package, level, version);
+  }
+
+  if (mDiffusionCoefficient != NULL)
+  {
+    mDiffusionCoefficient->updateSBMLNamespace(package, level, version);
   }
 }
 
@@ -1067,7 +1094,7 @@ SpatialParameterPlugin::unsetAttribute(const std::string& attributeName)
  * SpatialParameterPlugin.
  */
 SBase*
-SpatialParameterPlugin::createObject(const std::string& elementName)
+SpatialParameterPlugin::createChildObject(const std::string& elementName)
 {
   SBase* obj = NULL;
 
@@ -1089,6 +1116,81 @@ SpatialParameterPlugin::createObject(const std::string& elementName)
   }
 
   return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds a new "elementName" object to this SpatialParameterPlugin.
+ */
+int
+SpatialParameterPlugin::addChildObject(const std::string& elementName,
+                                       const SBase* element)
+{
+  if (elementName == "spatialSymbolReference" && element->getTypeCode() ==
+    SBML_SPATIAL_SPATIALSYMBOLREFERENCE)
+  {
+    return setSpatialSymbolReference((const SpatialSymbolReference*)(element));
+  }
+  else if (elementName == "advectionCoefficient" && element->getTypeCode() ==
+    SBML_SPATIAL_ADVECTIONCOEFFICIENT)
+  {
+    return setAdvectionCoefficient((const AdvectionCoefficient*)(element));
+  }
+  else if (elementName == "boundaryCondition" && element->getTypeCode() ==
+    SBML_SPATIAL_BOUNDARYCONDITION)
+  {
+    return setBoundaryCondition((const BoundaryCondition*)(element));
+  }
+  else if (elementName == "diffusionCoefficient" && element->getTypeCode() ==
+    SBML_SPATIAL_DIFFUSIONCOEFFICIENT)
+  {
+    return setDiffusionCoefficient((const DiffusionCoefficient*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Removes and returns the new "elementName" object with the given id in this
+ * SpatialParameterPlugin.
+ */
+SBase*
+SpatialParameterPlugin::removeChildObject(const std::string& elementName,
+                                          const std::string& id)
+{
+  if (elementName == "spatialSymbolReference")
+  {
+    SpatialSymbolReference * obj = getSpatialSymbolReference();
+    if (unsetSpatialSymbolReference() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "advectionCoefficient")
+  {
+    AdvectionCoefficient * obj = getAdvectionCoefficient();
+    if (unsetAdvectionCoefficient() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "boundaryCondition")
+  {
+    BoundaryCondition * obj = getBoundaryCondition();
+    if (unsetBoundaryCondition() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "diffusionCoefficient")
+  {
+    DiffusionCoefficient * obj = getDiffusionCoefficient();
+    if (unsetDiffusionCoefficient() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+
+  return NULL;
 }
 
 /** @endcond */
@@ -1404,61 +1506,57 @@ SpatialParameterPlugin::createObject(XMLInputStream& stream)
   {
     if (name == "spatialSymbolReference")
     {
-      if (mSpatialSymbolReference != NULL)
+      if (isSetSpatialSymbolReference())
       {
         getErrorLog()->logPackageError("spatial",
           SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
             getVersion());
- 
-        delete mSpatialSymbolReference;
-        mSpatialSymbolReference = NULL;
       }
 
+      delete mSpatialSymbolReference;
+        mSpatialSymbolReference = NULL;
       mSpatialSymbolReference = new SpatialSymbolReference(spatialns);
       obj = mSpatialSymbolReference;
     }
     else if (name == "advectionCoefficient")
     {
-      if (mAdvectionCoefficient != NULL)
+      if (isSetAdvectionCoefficient())
       {
         getErrorLog()->logPackageError("spatial",
           SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
             getVersion());
-
-        delete mAdvectionCoefficient;
-        mAdvectionCoefficient = NULL;
       }
 
+      delete mAdvectionCoefficient;
+        mAdvectionCoefficient = NULL;
       mAdvectionCoefficient = new AdvectionCoefficient(spatialns);
       obj = mAdvectionCoefficient;
     }
     else if (name == "boundaryCondition")
     {
-      if (mBoundaryCondition != NULL)
+      if (isSetBoundaryCondition())
       {
         getErrorLog()->logPackageError("spatial",
           SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
             getVersion());
-
-        delete mBoundaryCondition;
-        mBoundaryCondition = NULL;
       }
 
+      delete mBoundaryCondition;
+        mBoundaryCondition = NULL;
       mBoundaryCondition = new BoundaryCondition(spatialns);
       obj = mBoundaryCondition;
     }
     else if (name == "diffusionCoefficient")
     {
-      if (mDiffusionCoefficient != NULL)
+      if (isSetDiffusionCoefficient())
       {
         getErrorLog()->logPackageError("spatial",
           SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
             getVersion());
-
-        delete mDiffusionCoefficient;
-        mDiffusionCoefficient = NULL;
       }
 
+      delete mDiffusionCoefficient;
+        mDiffusionCoefficient = NULL;
       mDiffusionCoefficient = new DiffusionCoefficient(spatialns);
       obj = mDiffusionCoefficient;
     }
@@ -1518,6 +1616,326 @@ SpatialParameterPlugin::getType() const
 
 
 #endif /* __cplusplus */
+
+
+/*
+ * Returns the value of the "spatialSymbolReference" element of this
+ * SpatialParameterPlugin_t.
+ */
+LIBSBML_EXTERN
+const SpatialSymbolReference_t*
+SpatialParameterPlugin_getSpatialSymbolReference(const SpatialParameterPlugin_t
+  * spp)
+{
+  if (spp == NULL)
+  {
+    return NULL;
+  }
+
+  return (SpatialSymbolReference_t*)(spp->getSpatialSymbolReference());
+}
+
+
+/*
+ * Returns the value of the "advectionCoefficient" element of this
+ * SpatialParameterPlugin_t.
+ */
+LIBSBML_EXTERN
+const AdvectionCoefficient_t*
+SpatialParameterPlugin_getAdvectionCoefficient(const SpatialParameterPlugin_t *
+  spp)
+{
+  if (spp == NULL)
+  {
+    return NULL;
+  }
+
+  return (AdvectionCoefficient_t*)(spp->getAdvectionCoefficient());
+}
+
+
+/*
+ * Returns the value of the "boundaryCondition" element of this
+ * SpatialParameterPlugin_t.
+ */
+LIBSBML_EXTERN
+const BoundaryCondition_t*
+SpatialParameterPlugin_getBoundaryCondition(const SpatialParameterPlugin_t *
+  spp)
+{
+  if (spp == NULL)
+  {
+    return NULL;
+  }
+
+  return (BoundaryCondition_t*)(spp->getBoundaryCondition());
+}
+
+
+/*
+ * Returns the value of the "diffusionCoefficient" element of this
+ * SpatialParameterPlugin_t.
+ */
+LIBSBML_EXTERN
+const DiffusionCoefficient_t*
+SpatialParameterPlugin_getDiffusionCoefficient(const SpatialParameterPlugin_t *
+  spp)
+{
+  if (spp == NULL)
+  {
+    return NULL;
+  }
+
+  return (DiffusionCoefficient_t*)(spp->getDiffusionCoefficient());
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this SpatialParameterPlugin_t's
+ * "spatialSymbolReference" element is set.
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_isSetSpatialSymbolReference(const
+  SpatialParameterPlugin_t * spp)
+{
+  return (spp != NULL) ? static_cast<int>(spp->isSetSpatialSymbolReference()) :
+    0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this SpatialParameterPlugin_t's
+ * "advectionCoefficient" element is set.
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_isSetAdvectionCoefficient(const SpatialParameterPlugin_t
+  * spp)
+{
+  return (spp != NULL) ? static_cast<int>(spp->isSetAdvectionCoefficient()) :
+    0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this SpatialParameterPlugin_t's
+ * "boundaryCondition" element is set.
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_isSetBoundaryCondition(const SpatialParameterPlugin_t *
+  spp)
+{
+  return (spp != NULL) ? static_cast<int>(spp->isSetBoundaryCondition()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this SpatialParameterPlugin_t's
+ * "diffusionCoefficient" element is set.
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_isSetDiffusionCoefficient(const SpatialParameterPlugin_t
+  * spp)
+{
+  return (spp != NULL) ? static_cast<int>(spp->isSetDiffusionCoefficient()) :
+    0;
+}
+
+
+/*
+ * Sets the value of the "spatialSymbolReference" element of this
+ * SpatialParameterPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_setSpatialSymbolReference(
+                                                 SpatialParameterPlugin_t *
+                                                   spp,
+                                                 const
+                                                   SpatialSymbolReference_t*
+                                                     spatialSymbolReference)
+{
+  return (spp != NULL) ? spp->setSpatialSymbolReference(spatialSymbolReference)
+    : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "advectionCoefficient" element of this
+ * SpatialParameterPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_setAdvectionCoefficient(SpatialParameterPlugin_t * spp,
+                                               const AdvectionCoefficient_t*
+                                                 advectionCoefficient)
+{
+  return (spp != NULL) ? spp->setAdvectionCoefficient(advectionCoefficient) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "boundaryCondition" element of this
+ * SpatialParameterPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_setBoundaryCondition(SpatialParameterPlugin_t * spp,
+                                            const BoundaryCondition_t*
+                                              boundaryCondition)
+{
+  return (spp != NULL) ? spp->setBoundaryCondition(boundaryCondition) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "diffusionCoefficient" element of this
+ * SpatialParameterPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_setDiffusionCoefficient(SpatialParameterPlugin_t * spp,
+                                               const DiffusionCoefficient_t*
+                                                 diffusionCoefficient)
+{
+  return (spp != NULL) ? spp->setDiffusionCoefficient(diffusionCoefficient) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Creates a new SpatialSymbolReference_t object, adds it to this
+ * SpatialParameterPlugin_t object and returns the SpatialSymbolReference_t
+ * object created.
+ */
+LIBSBML_EXTERN
+SpatialSymbolReference_t*
+SpatialParameterPlugin_createSpatialSymbolReference(SpatialParameterPlugin_t*
+  spp)
+{
+  if (spp == NULL)
+  {
+    return NULL;
+  }
+
+  return (SpatialSymbolReference_t*)(spp->createSpatialSymbolReference());
+}
+
+
+/*
+ * Creates a new AdvectionCoefficient_t object, adds it to this
+ * SpatialParameterPlugin_t object and returns the AdvectionCoefficient_t
+ * object created.
+ */
+LIBSBML_EXTERN
+AdvectionCoefficient_t*
+SpatialParameterPlugin_createAdvectionCoefficient(SpatialParameterPlugin_t*
+  spp)
+{
+  if (spp == NULL)
+  {
+    return NULL;
+  }
+
+  return (AdvectionCoefficient_t*)(spp->createAdvectionCoefficient());
+}
+
+
+/*
+ * Creates a new BoundaryCondition_t object, adds it to this
+ * SpatialParameterPlugin_t object and returns the BoundaryCondition_t object
+ * created.
+ */
+LIBSBML_EXTERN
+BoundaryCondition_t*
+SpatialParameterPlugin_createBoundaryCondition(SpatialParameterPlugin_t* spp)
+{
+  if (spp == NULL)
+  {
+    return NULL;
+  }
+
+  return (BoundaryCondition_t*)(spp->createBoundaryCondition());
+}
+
+
+/*
+ * Creates a new DiffusionCoefficient_t object, adds it to this
+ * SpatialParameterPlugin_t object and returns the DiffusionCoefficient_t
+ * object created.
+ */
+LIBSBML_EXTERN
+DiffusionCoefficient_t*
+SpatialParameterPlugin_createDiffusionCoefficient(SpatialParameterPlugin_t*
+  spp)
+{
+  if (spp == NULL)
+  {
+    return NULL;
+  }
+
+  return (DiffusionCoefficient_t*)(spp->createDiffusionCoefficient());
+}
+
+
+/*
+ * Unsets the value of the "spatialSymbolReference" element of this
+ * SpatialParameterPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_unsetSpatialSymbolReference(SpatialParameterPlugin_t *
+  spp)
+{
+  return (spp != NULL) ? spp->unsetSpatialSymbolReference() :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "advectionCoefficient" element of this
+ * SpatialParameterPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_unsetAdvectionCoefficient(SpatialParameterPlugin_t *
+  spp)
+{
+  return (spp != NULL) ? spp->unsetAdvectionCoefficient() :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "boundaryCondition" element of this
+ * SpatialParameterPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_unsetBoundaryCondition(SpatialParameterPlugin_t * spp)
+{
+  return (spp != NULL) ? spp->unsetBoundaryCondition() :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "diffusionCoefficient" element of this
+ * SpatialParameterPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_unsetDiffusionCoefficient(SpatialParameterPlugin_t *
+  spp)
+{
+  return (spp != NULL) ? spp->unsetDiffusionCoefficient() :
+    LIBSBML_INVALID_OBJECT;
+}
 
 
 

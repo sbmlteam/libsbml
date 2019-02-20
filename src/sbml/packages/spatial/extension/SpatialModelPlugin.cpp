@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -36,9 +36,9 @@
  */
 #include <sbml/packages/spatial/extension/SpatialModelPlugin.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 #include <sbml/Model.h>
 
-#include <util/ElementFilter.h>
 
 using namespace std;
 
@@ -51,13 +51,14 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 #ifdef __cplusplus
 /*
- * Creates a new SpatialModelPlugin
+ * Creates a new SpatialModelPlugin using the given URI, prefix and package
+ * namespace.
  */
-SpatialModelPlugin::SpatialModelPlugin(const std::string& uri,  
-                                 const std::string& prefix, 
-                               SpatialPkgNamespaces* spatialns) :
-    SBasePlugin(uri, prefix, spatialns)
-  , mGeometry  ( NULL )
+SpatialModelPlugin::SpatialModelPlugin(const std::string& uri,
+                                       const std::string& prefix,
+                                       SpatialPkgNamespaces* spatialns)
+  : SBasePlugin(uri, prefix, spatialns)
+  , mGeometry (NULL)
 {
   connectToChild();
 }
@@ -66,14 +67,15 @@ SpatialModelPlugin::SpatialModelPlugin(const std::string& uri,
 /*
  * Copy constructor for SpatialModelPlugin.
  */
-SpatialModelPlugin::SpatialModelPlugin(const SpatialModelPlugin& orig) :
-    SBasePlugin(orig)
+SpatialModelPlugin::SpatialModelPlugin(const SpatialModelPlugin& orig)
+  : SBasePlugin( orig )
   , mGeometry ( NULL )
 {
   if (orig.mGeometry != NULL)
   {
     mGeometry = orig.mGeometry->clone();
   }
+
   connectToChild();
 }
 
@@ -186,6 +188,7 @@ SpatialModelPlugin::setGeometry(const Geometry* geometry)
   {
     delete mGeometry;
     mGeometry = static_cast<Geometry*>(geometry->clone());
+    connectToChild();
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -225,19 +228,6 @@ SpatialModelPlugin::unsetGeometry()
   delete mGeometry;
   mGeometry = NULL;
   return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Predicate returning @c true if all the required elements for this
- * SpatialModelPlugin object have been set.
- */
-bool
-SpatialModelPlugin::hasRequiredElements() const
-{
-  bool allPresent = true;
-
-  return allPresent;
 }
 
 
@@ -352,6 +342,28 @@ SpatialModelPlugin::enablePackageInternal(const std::string& pkgURI,
   if (isSetGeometry())
   {
     mGeometry->enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Updates the namespaces when setLevelVersion is used
+ */
+void
+SpatialModelPlugin::updateSBMLNamespace(const std::string& package,
+                                        unsigned int level,
+                                        unsigned int version)
+{
+  SBasePlugin::updateSBMLNamespace(package, level, version);
+
+  if (mGeometry != NULL)
+  {
+    mGeometry->updateSBMLNamespace(package, level, version);
   }
 }
 
@@ -579,7 +591,7 @@ SpatialModelPlugin::unsetAttribute(const std::string& attributeName)
  * Creates and returns an new "elementName" object in this SpatialModelPlugin.
  */
 SBase*
-SpatialModelPlugin::createObject(const std::string& elementName)
+SpatialModelPlugin::createChildObject(const std::string& elementName)
 {
   SBase* obj = NULL;
 
@@ -589,6 +601,51 @@ SpatialModelPlugin::createObject(const std::string& elementName)
   }
 
   return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds a new "elementName" object to this SpatialModelPlugin.
+ */
+int
+SpatialModelPlugin::addChildObject(const std::string& elementName,
+                                   const SBase* element)
+{
+  if (elementName == "geometry" && element->getTypeCode() ==
+    SBML_SPATIAL_GEOMETRY)
+  {
+    return setGeometry((const Geometry*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Removes and returns the new "elementName" object with the given id in this
+ * SpatialModelPlugin.
+ */
+SBase*
+SpatialModelPlugin::removeChildObject(const std::string& elementName,
+                                      const std::string& id)
+{
+  if (elementName == "geometry")
+  {
+    Geometry * obj = getGeometry();
+    if (unsetGeometry() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+
+  return NULL;
 }
 
 /** @endcond */
@@ -767,30 +824,31 @@ SpatialModelPlugin::appendFrom(const Model* model)
  * Creates a new object from the next XMLToken on the XMLInputStream
  */
 SBase*
-SpatialModelPlugin::createObject (XMLInputStream& stream)
+SpatialModelPlugin::createObject(XMLInputStream& stream)
 {
   SBase* obj = NULL;
 
-  const std::string&      name   = stream.peek().getName(); 
-  const XMLNamespaces&    xmlns  = stream.peek().getNamespaces(); 
-  const std::string&      prefix = stream.peek().getPrefix(); 
+  const std::string& name = stream.peek().getName();
+  const XMLNamespaces& xmlns = stream.peek().getNamespaces();
+  const std::string& prefix = stream.peek().getPrefix();
 
-  const std::string& targetPrefix = (xmlns.hasURI(mURI)) ? xmlns.getPrefix(mURI) : mPrefix;
+  const std::string& targetPrefix = (xmlns.hasURI(mURI)) ?
+    xmlns.getPrefix(mURI) : mPrefix;
 
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  if (prefix == targetPrefix) 
-  { 
+
+  if (prefix == targetPrefix)
+  {
     if (name == "geometry")
     {
       if (isSetGeometry())
       {
         getErrorLog()->logPackageError("spatial", SpatialModelAllowedElements,
           getPackageVersion(), getLevel(), getVersion());
-
-        delete mGeometry;
-        mGeometry = NULL;
       }
 
+      delete mGeometry;
+        mGeometry = NULL;
       mGeometry = new Geometry(spatialns);
       obj = mGeometry;
     }
@@ -809,6 +867,74 @@ SpatialModelPlugin::createObject (XMLInputStream& stream)
 
 
 #endif /* __cplusplus */
+
+
+/*
+ * Returns the value of the "geometry" element of this SpatialModelPlugin_t.
+ */
+LIBSBML_EXTERN
+const Geometry_t*
+SpatialModelPlugin_getGeometry(const SpatialModelPlugin_t * smp)
+{
+  if (smp == NULL)
+  {
+    return NULL;
+  }
+
+  return (Geometry_t*)(smp->getGeometry());
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this SpatialModelPlugin_t's "geometry"
+ * element is set.
+ */
+LIBSBML_EXTERN
+int
+SpatialModelPlugin_isSetGeometry(const SpatialModelPlugin_t * smp)
+{
+  return (smp != NULL) ? static_cast<int>(smp->isSetGeometry()) : 0;
+}
+
+
+/*
+ * Sets the value of the "geometry" element of this SpatialModelPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialModelPlugin_setGeometry(SpatialModelPlugin_t * smp,
+                               const Geometry_t* geometry)
+{
+  return (smp != NULL) ? smp->setGeometry(geometry) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Creates a new Geometry_t object, adds it to this SpatialModelPlugin_t object
+ * and returns the Geometry_t object created.
+ */
+LIBSBML_EXTERN
+Geometry_t*
+SpatialModelPlugin_createGeometry(SpatialModelPlugin_t* smp)
+{
+  if (smp == NULL)
+  {
+    return NULL;
+  }
+
+  return (Geometry_t*)(smp->createGeometry());
+}
+
+
+/*
+ * Unsets the value of the "geometry" element of this SpatialModelPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialModelPlugin_unsetGeometry(SpatialModelPlugin_t * smp)
+{
+  return (smp != NULL) ? smp->unsetGeometry() : LIBSBML_INVALID_OBJECT;
+}
 
 
 

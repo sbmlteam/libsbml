@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -211,6 +211,10 @@ ListOfAnalyticVolumes::addAnalyticVolume(const AnalyticVolume* av)
   {
     return LIBSBML_INVALID_OBJECT;
   }
+  else if (av->hasRequiredElements() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
   else if (getLevel() != av->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
@@ -405,7 +409,7 @@ ListOfAnalyticVolumes::writeXMLNS(XMLOutputStream& stream) const
  * Get an AnalyticVolume_t from the ListOf_t.
  */
 LIBSBML_EXTERN
-const AnalyticVolume_t*
+AnalyticVolume_t*
 ListOfAnalyticVolumes_getAnalyticVolume(ListOf_t* lo, unsigned int n)
 {
   if (lo == NULL)
@@ -421,7 +425,7 @@ ListOfAnalyticVolumes_getAnalyticVolume(ListOf_t* lo, unsigned int n)
  * Get an AnalyticVolume_t from the ListOf_t based on its identifier.
  */
 LIBSBML_EXTERN
-const AnalyticVolume_t*
+AnalyticVolume_t*
 ListOfAnalyticVolumes_getById(ListOf_t* lo, const char *sid)
 {
   if (lo == NULL)

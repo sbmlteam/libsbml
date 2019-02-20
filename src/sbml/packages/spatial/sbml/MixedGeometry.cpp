@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -64,7 +64,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 MixedGeometry::MixedGeometry(unsigned int level,
                              unsigned int version,
                              unsigned int pkgVersion)
-  : GeometryDefinition(level, version)
+  : GeometryDefinition(level, version, pkgVersion)
   , mGeometryDefinitions (level, version, pkgVersion)
   , mOrdinalMappings (level, version, pkgVersion)
 {
@@ -711,6 +711,27 @@ MixedGeometry::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
+ * Updates the namespaces when setLevelVersion is used
+ */
+void
+MixedGeometry::updateSBMLNamespace(const std::string& package,
+                                   unsigned int level,
+                                   unsigned int version)
+{
+  GeometryDefinition::updateSBMLNamespace(package, level, version);
+
+  mGeometryDefinitions.updateSBMLNamespace(package, level, version);
+
+  mOrdinalMappings.updateSBMLNamespace(package, level, version);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
  * Gets the value of the "attributeName" attribute of this MixedGeometry.
  */
 int
@@ -930,16 +951,127 @@ MixedGeometry::createChildObject(const std::string& elementName)
 {
   GeometryDefinition* obj = NULL;
 
-  //if (elementName == "geometryDefinition")
-  //{
-  //  return createGeometryDefinition();
-  //}
-  if (elementName == "ordinalMapping")
+  if (elementName == "analyticGeometry")
+  {
+    return createAnalyticGeometry();
+  }
+  else if (elementName == "sampledFieldGeometry")
+  {
+    return createSampledFieldGeometry();
+  }
+  else if (elementName == "csGeometry")
+  {
+    return createCSGeometry();
+  }
+  else if (elementName == "parametricGeometry")
+  {
+    return createParametricGeometry();
+  }
+  else if (elementName == "mixedGeometry")
+  {
+    return createMixedGeometry();
+  }
+  else if (elementName == "ordinalMapping")
   {
     return createOrdinalMapping();
   }
 
   return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds a new "elementName" object to this MixedGeometry.
+ */
+int
+MixedGeometry::addChildObject(const std::string& elementName,
+                              const SBase* element)
+{
+  if (elementName == "analyticGeometry" && element->getTypeCode() ==
+    SBML_SPATIAL_ANALYTICGEOMETRY)
+  {
+    return addGeometryDefinition((const GeometryDefinition*)(element));
+  }
+  else if (elementName == "sampledFieldGeometry" && element->getTypeCode() ==
+    SBML_SPATIAL_SAMPLEDFIELDGEOMETRY)
+  {
+    return addGeometryDefinition((const GeometryDefinition*)(element));
+  }
+  else if (elementName == "csGeometry" && element->getTypeCode() ==
+    SBML_SPATIAL_CSGEOMETRY)
+  {
+    return addGeometryDefinition((const GeometryDefinition*)(element));
+  }
+  else if (elementName == "parametricGeometry" && element->getTypeCode() ==
+    SBML_SPATIAL_PARAMETRICGEOMETRY)
+  {
+    return addGeometryDefinition((const GeometryDefinition*)(element));
+  }
+  else if (elementName == "mixedGeometry" && element->getTypeCode() ==
+    SBML_SPATIAL_MIXEDGEOMETRY)
+  {
+    return addGeometryDefinition((const GeometryDefinition*)(element));
+  }
+  else if (elementName == "ordinalMapping" && element->getTypeCode() ==
+    SBML_SPATIAL_ORDINALMAPPING)
+  {
+    return addOrdinalMapping((const OrdinalMapping*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Removes and returns the new "elementName" object with the given id in this
+ * MixedGeometry.
+ */
+SBase*
+MixedGeometry::removeChildObject(const std::string& elementName,
+                                 const std::string& id)
+{
+  if (elementName == "analyticGeometry")
+  {
+    return removeGeometryDefinition(id);
+  }
+  else if (elementName == "sampledFieldGeometry")
+  {
+    return removeGeometryDefinition(id);
+  }
+  else if (elementName == "csGeometry")
+  {
+    return removeGeometryDefinition(id);
+  }
+  else if (elementName == "parametricGeometry")
+  {
+    return removeGeometryDefinition(id);
+  }
+  else if (elementName == "mixedGeometry")
+  {
+    return removeGeometryDefinition(id);
+  }
+  else if (elementName == "ordinalMapping")
+  {
+    for (unsigned int i = 0; i < getNumOrdinalMappings(); i++)
+    {
+      if (getOrdinalMapping(i)->getId() == id)
+      {
+        return removeOrdinalMapping(i);
+      }
+    }
+  }
+
+  return NULL;
 }
 
 /** @endcond */
@@ -980,7 +1112,7 @@ MixedGeometry::getNumObjects(const std::string& elementName)
 SBase*
 MixedGeometry::getObject(const std::string& elementName, unsigned int index)
 {
-  GeometryDefinition* obj = NULL;
+  SBase* obj = NULL;
 
   if (elementName == "geometryDefinition")
   {
@@ -1168,24 +1300,28 @@ MixedGeometry::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   GeometryDefinition::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialUnknown, pkgVersion, level,
-        version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial",
-        SpatialMixedGeometryAllowedCoreAttributes, pkgVersion, level, version,
-          details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialUnknown, pkgVersion, level,
+          version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialMixedGeometryAllowedCoreAttributes, pkgVersion, level, version,
+            details);
+      }
     }
   }
 }
@@ -1262,7 +1398,7 @@ MixedGeometry_free(MixedGeometry_t* mg)
 
 
 /*
- * Returns a ListOf_t* containing GeometryDefinition_t objects from this
+ * Returns a ListOf_t * containing GeometryDefinition_t objects from this
  * MixedGeometry_t.
  */
 LIBSBML_EXTERN
@@ -1277,7 +1413,7 @@ MixedGeometry_getListOfGeometryDefinitions(MixedGeometry_t* mg)
  * Get a GeometryDefinition_t from the MixedGeometry_t.
  */
 LIBSBML_EXTERN
-const GeometryDefinition_t*
+GeometryDefinition_t*
 MixedGeometry_getGeometryDefinition(MixedGeometry_t* mg, unsigned int n)
 {
   return (mg != NULL) ? mg->getGeometryDefinition(n) : NULL;
@@ -1288,7 +1424,7 @@ MixedGeometry_getGeometryDefinition(MixedGeometry_t* mg, unsigned int n)
  * Get a GeometryDefinition_t from the MixedGeometry_t based on its identifier.
  */
 LIBSBML_EXTERN
-const GeometryDefinition_t*
+GeometryDefinition_t*
 MixedGeometry_getGeometryDefinitionById(MixedGeometry_t* mg, const char *sid)
 {
   return (mg != NULL && sid != NULL) ? mg->getGeometryDefinition(sid) : NULL;
@@ -1405,7 +1541,7 @@ MixedGeometry_removeGeometryDefinitionById(MixedGeometry_t* mg,
 
 
 /*
- * Returns a ListOf_t* containing OrdinalMapping_t objects from this
+ * Returns a ListOf_t * containing OrdinalMapping_t objects from this
  * MixedGeometry_t.
  */
 LIBSBML_EXTERN
@@ -1420,7 +1556,7 @@ MixedGeometry_getListOfOrdinalMappings(MixedGeometry_t* mg)
  * Get an OrdinalMapping_t from the MixedGeometry_t.
  */
 LIBSBML_EXTERN
-const OrdinalMapping_t*
+OrdinalMapping_t*
 MixedGeometry_getOrdinalMapping(MixedGeometry_t* mg, unsigned int n)
 {
   return (mg != NULL) ? mg->getOrdinalMapping(n) : NULL;
@@ -1432,7 +1568,7 @@ MixedGeometry_getOrdinalMapping(MixedGeometry_t* mg, unsigned int n)
  * GeometryDefinition to which it refers.
  */
 LIBSBML_EXTERN
-const OrdinalMapping_t*
+OrdinalMapping_t*
 MixedGeometry_getOrdinalMappingByGeometryDefinition(MixedGeometry_t* mg,
                                                     const char *sid)
 {
@@ -1489,7 +1625,7 @@ MixedGeometry_removeOrdinalMapping(MixedGeometry_t* mg, unsigned int n)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * MixedGeometry_t object have been set.
  */
 LIBSBML_EXTERN
@@ -1501,7 +1637,7 @@ MixedGeometry_hasRequiredAttributes(const MixedGeometry_t * mg)
 
 
 /*
- * Predicate returning @c 1 if all the required elements for this
+ * Predicate returning @c 1 (true) if all the required elements for this
  * MixedGeometry_t object have been set.
  */
 LIBSBML_EXTERN

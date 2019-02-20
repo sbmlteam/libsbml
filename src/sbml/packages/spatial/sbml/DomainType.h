@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -67,7 +67,6 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  std::string mId;
   int mSpatialDimensions;
   bool mIsSetSpatialDimensions;
 
@@ -87,11 +86,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this DomainType.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   DomainType(unsigned int level = SpatialExtension::getDefaultLevel(),
              unsigned int version = SpatialExtension::getDefaultVersion(),
@@ -102,13 +97,11 @@ public:
   /**
    * Creates a new DomainType using the given SpatialPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   DomainType(SpatialPkgNamespaces *spatialns);
 
@@ -149,7 +142,15 @@ public:
    *
    * @return the value of the "id" attribute of this DomainType as a string.
    */
-  const std::string& getId() const;
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this DomainType.
+   *
+   * @return the value of the "name" attribute of this DomainType as a string.
+   */
+  virtual const std::string& getName() const;
 
 
   /**
@@ -167,7 +168,16 @@ public:
    * @return @c true if this DomainType's "id" attribute has been set,
    * otherwise @c false is returned.
    */
-  bool isSetId() const;
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true if this DomainType's "name" attribute is set.
+   *
+   * @return @c true if this DomainType's "name" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
 
 
   /**
@@ -189,8 +199,25 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * Calling this function with @p id = @c NULL or an empty string is
+   * equivalent to calling unsetId().
    */
-  int setId(const std::string& id);
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "name" attribute of this DomainType.
+   *
+   * @param name std::string& value of the "name" attribute to be set.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p name = @c NULL or an empty string is
+   * equivalent to calling unsetName().
+   */
+  virtual int setName(const std::string& name);
 
 
   /**
@@ -214,7 +241,17 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetId();
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this DomainType.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetName();
 
 
   /**
@@ -243,8 +280,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_DOMAINTYPE, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_DOMAINTYPE, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -630,11 +666,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this DomainType_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof DomainType_t
  */
@@ -651,6 +685,8 @@ DomainType_create(unsigned int level,
  * @param dt the DomainType_t structure.
  *
  * @return a (deep) copy of this DomainType_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof DomainType_t
  */
@@ -679,11 +715,30 @@ DomainType_free(DomainType_t* dt);
  * @return the value of the "id" attribute of this DomainType_t as a pointer to
  * a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof DomainType_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 DomainType_getId(const DomainType_t * dt);
+
+
+/**
+ * Returns the value of the "name" attribute of this DomainType_t.
+ *
+ * @param dt the DomainType_t structure whose name is sought.
+ *
+ * @return the value of the "name" attribute of this DomainType_t as a pointer
+ * to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof DomainType_t
+ */
+LIBSBML_EXTERN
+char *
+DomainType_getName(const DomainType_t * dt);
 
 
 /**
@@ -702,12 +757,13 @@ DomainType_getSpatialDimensions(const DomainType_t * dt);
 
 
 /**
- * Predicate returning @c 1 if this DomainType_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this DomainType_t's "id" attribute is
+ * set.
  *
  * @param dt the DomainType_t structure.
  *
- * @return @c 1 if this DomainType_t's "id" attribute has been set, otherwise
- * @c 0 is returned.
+ * @return @c 1 (true) if this DomainType_t's "id" attribute has been set,
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof DomainType_t
  */
@@ -717,13 +773,29 @@ DomainType_isSetId(const DomainType_t * dt);
 
 
 /**
- * Predicate returning @c 1 if this DomainType_t's "spatialDimensions"
+ * Predicate returning @c 1 (true) if this DomainType_t's "name" attribute is
+ * set.
+ *
+ * @param dt the DomainType_t structure.
+ *
+ * @return @c 1 (true) if this DomainType_t's "name" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof DomainType_t
+ */
+LIBSBML_EXTERN
+int
+DomainType_isSetName(const DomainType_t * dt);
+
+
+/**
+ * Predicate returning @c 1 (true) if this DomainType_t's "spatialDimensions"
  * attribute is set.
  *
  * @param dt the DomainType_t structure.
  *
- * @return @c 1 if this DomainType_t's "spatialDimensions" attribute has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this DomainType_t's "spatialDimensions" attribute has
+ * been set, otherwise @c 0 (false) is returned.
  *
  * @memberof DomainType_t
  */
@@ -742,12 +814,37 @@ DomainType_isSetSpatialDimensions(const DomainType_t * dt);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling DomainType_unsetId().
  *
  * @memberof DomainType_t
  */
 LIBSBML_EXTERN
 int
 DomainType_setId(DomainType_t * dt, const char * id);
+
+
+/**
+ * Sets the value of the "name" attribute of this DomainType_t.
+ *
+ * @param dt the DomainType_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling DomainType_unsetName().
+ *
+ * @memberof DomainType_t
+ */
+LIBSBML_EXTERN
+int
+DomainType_setName(DomainType_t * dt, const char * name);
 
 
 /**
@@ -761,6 +858,7 @@ DomainType_setId(DomainType_t * dt, const char * id);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof DomainType_t
  */
@@ -777,12 +875,30 @@ DomainType_setSpatialDimensions(DomainType_t * dt, int spatialDimensions);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof DomainType_t
  */
 LIBSBML_EXTERN
 int
 DomainType_unsetId(DomainType_t * dt);
+
+
+/**
+ * Unsets the value of the "name" attribute of this DomainType_t.
+ *
+ * @param dt the DomainType_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof DomainType_t
+ */
+LIBSBML_EXTERN
+int
+DomainType_unsetName(DomainType_t * dt);
 
 
 /**
@@ -793,6 +909,7 @@ DomainType_unsetId(DomainType_t * dt);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof DomainType_t
  */
@@ -802,13 +919,13 @@ DomainType_unsetSpatialDimensions(DomainType_t * dt);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * DomainType_t object have been set.
  *
  * @param dt the DomainType_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * DomainType_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * DomainType_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the DomainType_t object are:

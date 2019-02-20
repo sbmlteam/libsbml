@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -57,7 +57,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 CSGPrimitive::CSGPrimitive(unsigned int level,
                            unsigned int version,
                            unsigned int pkgVersion)
-  : CSGNode(level, version)
+  : CSGNode(level, version, pkgVersion)
   , mPrimitiveType (SPATIAL_PRIMITIVEKIND_INVALID)
 {
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
@@ -596,23 +596,28 @@ CSGPrimitive::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   CSGNode::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialCSGPrimitiveAllowedAttributes,
-        pkgVersion, level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial", SpatialCSGPrimitiveAllowedCoreAttributes,
-        pkgVersion, level, version, details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialCSGPrimitiveAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialCSGPrimitiveAllowedCoreAttributes, pkgVersion, level, version,
+            details);
+      }
     }
   }
 
@@ -620,18 +625,18 @@ CSGPrimitive::readAttributes(const XMLAttributes& attributes,
   // primitiveType enum (use = "required" )
   // 
 
-  std::string primitivetype;
-  assigned = attributes.readInto("primitiveType", primitivetype);
+  std::string primitiveType;
+  assigned = attributes.readInto("primitiveType", primitiveType);
 
   if (assigned == true)
   {
-    if (primitivetype.empty() == true)
+    if (primitiveType.empty() == true)
     {
-      logEmptyString(primitivetype, level, version, "<CSGPrimitive>");
+      logEmptyString(primitiveType, level, version, "<CSGPrimitive>");
     }
     else
     {
-      mPrimitiveType = PrimitiveKind_fromString(primitivetype.c_str());
+      mPrimitiveType = PrimitiveKind_fromString(primitiveType.c_str());
 
       if (PrimitiveKind_isValid(mPrimitiveType) == 0)
       {
@@ -642,7 +647,7 @@ CSGPrimitive::readAttributes(const XMLAttributes& attributes,
           msg += "with id '" + getId() + "'";
         }
 
-        msg += "is '" + primitivetype + "', which is not a valid option.";
+        msg += "is '" + primitiveType + "', which is not a valid option.";
 
         log->logPackageError("spatial",
           SpatialCSGPrimitivePrimitiveTypeMustBePrimitiveKindEnum, pkgVersion,
@@ -755,16 +760,16 @@ CSGPrimitive_getPrimitiveType(const CSGPrimitive_t * csgp)
  * Returns the value of the "primitiveType" attribute of this CSGPrimitive_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 CSGPrimitive_getPrimitiveTypeAsString(const CSGPrimitive_t * csgp)
 {
-  return PrimitiveKind_toString(csgp->getPrimitiveType());
+  return (char*)(PrimitiveKind_toString(csgp->getPrimitiveType()));
 }
 
 
 /*
- * Predicate returning @c 1 if this CSGPrimitive_t's "primitiveType" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this CSGPrimitive_t's "primitiveType"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -812,7 +817,7 @@ CSGPrimitive_unsetPrimitiveType(CSGPrimitive_t * csgp)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * CSGPrimitive_t object have been set.
  */
 LIBSBML_EXTERN

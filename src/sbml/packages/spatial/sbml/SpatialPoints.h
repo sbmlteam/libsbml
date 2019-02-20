@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -36,6 +36,54 @@
  *
  * @class SpatialPoints
  * @sbmlbrief{spatial} TODO:Definition of the SpatialPoints class.
+ */
+
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file. The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality. Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ *
+ *
+ * @class doc_spatialpoints_compression
+ *
+ * @par
+ * The attribute "compression" on a SpatialPoints object is used to TODO:add
+ * explanation
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
+ * allowable values for "compression":
+ * <ul>
+ * <li> @c "uncompressed", TODO:add description
+ *
+ * <li> @c "deflated", TODO:add description
+ *
+ * </ul>
+ *
+ * @class doc_spatialpoints_dataType
+ *
+ * @par
+ * The attribute "dataType" on a SpatialPoints object is used to TODO:add
+ * explanation
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
+ * allowable values for "dataType":
+ * <ul>
+ * <li> @c "double", TODO:add description
+ *
+ * <li> @c "float", TODO:add description
+ *
+ * <li> @c "uint8", TODO:add description
+ *
+ * <li> @c "uint16", TODO:add description
+ *
+ * <li> @c "uint32", TODO:add description
+ *
+ * </ul>
  */
 
 
@@ -67,7 +115,6 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  std::string mId;
   CompressionKind_t mCompression;
   double* mArrayData;
   int mArrayDataLength;
@@ -91,11 +138,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this SpatialPoints.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   SpatialPoints(unsigned int level = SpatialExtension::getDefaultLevel(),
                 unsigned int version = SpatialExtension::getDefaultVersion(),
@@ -106,13 +149,11 @@ public:
   /**
    * Creates a new SpatialPoints using the given SpatialPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   SpatialPoints(SpatialPkgNamespaces *spatialns);
 
@@ -149,18 +190,18 @@ public:
 
 
   /**
-   * Returns the value of the "id" attribute of this SpatialPoints.
-   *
-   * @return the value of the "id" attribute of this SpatialPoints as a string.
-   */
-  const std::string& getId() const;
-
-
-  /**
    * Returns the value of the "compression" attribute of this SpatialPoints.
    *
    * @return the value of the "compression" attribute of this SpatialPoints as
    * a CompressionKind_t.
+   *
+   * @copydetails doc_spatialpoints_compression
+   * @if clike The value is drawn from the enumeration @ref CompressionKind_t
+   * @endif
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_UNCOMPRESSED, CompressionKind_t}
+   * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_DEFLATED, CompressionKind_t}
+   * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_INVALID, CompressionKind_t}
    */
   CompressionKind_t getCompression() const;
 
@@ -170,6 +211,12 @@ public:
    *
    * @return the value of the "compression" attribute of this SpatialPoints as
    * a string.
+   *
+   * @copydetails doc_spatialpoints_compression
+   * The possible values returned by this method are:
+   * @li @c "uncompressed"
+   * @li @c "deflated"
+   * @li @c "invalid CompressionKind value"
    */
   const std::string& getCompressionAsString() const;
 
@@ -201,6 +248,16 @@ public:
    *
    * @return the value of the "dataType" attribute of this SpatialPoints as a
    * DataKind_t.
+   *
+   * @copydetails doc_spatialpoints_dataType
+   * @if clike The value is drawn from the enumeration @ref DataKind_t @endif
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_DATAKIND_DOUBLE, DataKind_t}
+   * @li @sbmlconstant{SPATIAL_DATAKIND_FLOAT, DataKind_t}
+   * @li @sbmlconstant{SPATIAL_DATAKIND_UINT8, DataKind_t}
+   * @li @sbmlconstant{SPATIAL_DATAKIND_UINT16, DataKind_t}
+   * @li @sbmlconstant{SPATIAL_DATAKIND_UINT32, DataKind_t}
+   * @li @sbmlconstant{SPATIAL_DATAKIND_INVALID, DataKind_t}
    */
   DataKind_t getDataType() const;
 
@@ -210,17 +267,17 @@ public:
    *
    * @return the value of the "dataType" attribute of this SpatialPoints as a
    * string.
+   *
+   * @copydetails doc_spatialpoints_dataType
+   * The possible values returned by this method are:
+   * @li @c "double"
+   * @li @c "float"
+   * @li @c "uint8"
+   * @li @c "uint16"
+   * @li @c "uint32"
+   * @li @c "invalid DataKind value"
    */
   std::string getDataTypeAsString() const;
-  //bgoli22
-
-  /**
-   * Predicate returning @c true if this SpatialPoints's "id" attribute is set.
-   *
-   * @return @c true if this SpatialPoints's "id" attribute has been set,
-   * otherwise @c false is returned.
-   */
-  bool isSetId() const;
 
 
   /**
@@ -229,6 +286,8 @@ public:
    *
    * @return @c true if this SpatialPoints's "compression" attribute has been
    * set, otherwise @c false is returned.
+   *
+   * @copydetails doc_spatialpoints_compression
    */
   bool isSetCompression() const;
 
@@ -259,33 +318,24 @@ public:
    *
    * @return @c true if this SpatialPoints's "dataType" attribute has been set,
    * otherwise @c false is returned.
+   *
+   * @copydetails doc_spatialpoints_dataType
    */
   bool isSetDataType() const;
 
 
   /**
-   * Sets the value of the "id" attribute of this SpatialPoints.
-   *
-   * @param id std::string& value of the "id" attribute to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setId(const std::string& id);
-
-
-  /**
    * Sets the value of the "compression" attribute of this SpatialPoints.
    *
-   * @param compression CompressionKind_t value of the "compression" attribute
-   * to be set.
+   * @param compression @if clike CompressionKind_t@else int@endif value of the
+   * "compression" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_spatialpoints_compression
    */
   int setCompression(const CompressionKind_t compression);
 
@@ -299,6 +349,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_spatialpoints_compression
    */
   int setCompression(const std::string& compression);
 
@@ -336,12 +388,15 @@ public:
   /**
    * Sets the value of the "dataType" attribute of this SpatialPoints.
    *
-   * @param dataType DataKind_t value of the "dataType" attribute to be set.
+   * @param dataType @if clike DataKind_t@else int@endif value of the
+   * "dataType" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_spatialpoints_dataType
    */
   int setDataType(const DataKind_t dataType);
 
@@ -355,26 +410,19 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_spatialpoints_dataType
    */
   int setDataType(const std::string& dataType);
 
 
   /**
-   * Unsets the value of the "id" attribute of this SpatialPoints.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetId();
-
-
-  /**
    * Unsets the value of the "compression" attribute of this SpatialPoints.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_spatialpoints_compression
    */
   int unsetCompression();
 
@@ -402,9 +450,10 @@ public:
   /**
    * Unsets the value of the "dataType" attribute of this SpatialPoints.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_spatialpoints_dataType
    */
   int unsetDataType();
 
@@ -425,8 +474,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_SPATIALPOINTS, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_SPATIALPOINTS, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -445,7 +493,6 @@ public:
    *
    *
    * @note The required attributes for the SpatialPoints object are:
-   * @li "id"
    * @li "compression"
    * @li "arrayData"
    * @li "arrayDataLength"
@@ -837,11 +884,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this SpatialPoints_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof SpatialPoints_t
  */
@@ -858,6 +903,8 @@ SpatialPoints_create(unsigned int level,
  * @param sp the SpatialPoints_t structure.
  *
  * @return a (deep) copy of this SpatialPoints_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof SpatialPoints_t
  */
@@ -879,27 +926,20 @@ SpatialPoints_free(SpatialPoints_t* sp);
 
 
 /**
- * Returns the value of the "id" attribute of this SpatialPoints_t.
- *
- * @param sp the SpatialPoints_t structure whose id is sought.
- *
- * @return the value of the "id" attribute of this SpatialPoints_t as a pointer
- * to a string.
- *
- * @memberof SpatialPoints_t
- */
-LIBSBML_EXTERN
-const char *
-SpatialPoints_getId(const SpatialPoints_t * sp);
-
-
-/**
  * Returns the value of the "compression" attribute of this SpatialPoints_t.
  *
  * @param sp the SpatialPoints_t structure whose compression is sought.
  *
  * @return the value of the "compression" attribute of this SpatialPoints_t as
  * a CompressionKind_t.
+ *
+ * @copydetails doc_spatialpoints_compression
+ * @if clike The value is drawn from the enumeration @ref CompressionKind_t
+ * @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_UNCOMPRESSED, CompressionKind_t}
+ * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_DEFLATED, CompressionKind_t}
+ * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_INVALID, CompressionKind_t}
  *
  * @memberof SpatialPoints_t
  */
@@ -916,10 +956,18 @@ SpatialPoints_getCompression(const SpatialPoints_t * sp);
  * @return the value of the "compression" attribute of this SpatialPoints_t as
  * a const char *.
  *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_spatialpoints_compression
+ * The possible values returned by this method are:
+ * @li @c "uncompressed"
+ * @li @c "deflated"
+ * @li @c "invalid CompressionKind value"
+ *
  * @memberof SpatialPoints_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 SpatialPoints_getCompressionAsString(const SpatialPoints_t * sp);
 
 
@@ -947,6 +995,16 @@ SpatialPoints_getArrayDataLength(const SpatialPoints_t * sp);
  * @return the value of the "dataType" attribute of this SpatialPoints_t as a
  * DataKind_t.
  *
+ * @copydetails doc_spatialpoints_dataType
+ * @if clike The value is drawn from the enumeration @ref DataKind_t @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_DATAKIND_DOUBLE, DataKind_t}
+ * @li @sbmlconstant{SPATIAL_DATAKIND_FLOAT, DataKind_t}
+ * @li @sbmlconstant{SPATIAL_DATAKIND_UINT8, DataKind_t}
+ * @li @sbmlconstant{SPATIAL_DATAKIND_UINT16, DataKind_t}
+ * @li @sbmlconstant{SPATIAL_DATAKIND_UINT32, DataKind_t}
+ * @li @sbmlconstant{SPATIAL_DATAKIND_INVALID, DataKind_t}
+ *
  * @memberof SpatialPoints_t
  */
 LIBSBML_EXTERN
@@ -962,36 +1020,34 @@ SpatialPoints_getDataType(const SpatialPoints_t * sp);
  * @return the value of the "dataType" attribute of this SpatialPoints_t as a
  * const char *.
  *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_spatialpoints_dataType
+ * The possible values returned by this method are:
+ * @li @c "double"
+ * @li @c "float"
+ * @li @c "uint8"
+ * @li @c "uint16"
+ * @li @c "uint32"
+ * @li @c "invalid DataKind value"
+ *
  * @memberof SpatialPoints_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 SpatialPoints_getDataTypeAsString(const SpatialPoints_t * sp);
 
 
 /**
- * Predicate returning @c 1 if this SpatialPoints_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this SpatialPoints_t's "compression"
+ * attribute is set.
  *
  * @param sp the SpatialPoints_t structure.
  *
- * @return @c 1 if this SpatialPoints_t's "id" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SpatialPoints_t's "compression" attribute has
+ * been set, otherwise @c 0 (false) is returned.
  *
- * @memberof SpatialPoints_t
- */
-LIBSBML_EXTERN
-int
-SpatialPoints_isSetId(const SpatialPoints_t * sp);
-
-
-/**
- * Predicate returning @c 1 if this SpatialPoints_t's "compression" attribute
- * is set.
- *
- * @param sp the SpatialPoints_t structure.
- *
- * @return @c 1 if this SpatialPoints_t's "compression" attribute has been set,
- * otherwise @c 0 is returned.
+ * @copydetails doc_spatialpoints_compression
  *
  * @memberof SpatialPoints_t
  */
@@ -1001,13 +1057,13 @@ SpatialPoints_isSetCompression(const SpatialPoints_t * sp);
 
 
 /**
- * Predicate returning @c 1 if this SpatialPoints_t's "arrayData" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SpatialPoints_t's "arrayData"
+ * attribute is set.
  *
  * @param sp the SpatialPoints_t structure.
  *
- * @return @c 1 if this SpatialPoints_t's "arrayData" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SpatialPoints_t's "arrayData" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
  * @memberof SpatialPoints_t
  */
@@ -1017,13 +1073,13 @@ SpatialPoints_isSetArrayData(const SpatialPoints_t * sp);
 
 
 /**
- * Predicate returning @c 1 if this SpatialPoints_t's "arrayDataLength"
+ * Predicate returning @c 1 (true) if this SpatialPoints_t's "arrayDataLength"
  * attribute is set.
  *
  * @param sp the SpatialPoints_t structure.
  *
- * @return @c 1 if this SpatialPoints_t's "arrayDataLength" attribute has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SpatialPoints_t's "arrayDataLength" attribute
+ * has been set, otherwise @c 0 (false) is returned.
  *
  * @memberof SpatialPoints_t
  */
@@ -1033,37 +1089,21 @@ SpatialPoints_isSetArrayDataLength(const SpatialPoints_t * sp);
 
 
 /**
- * Predicate returning @c 1 if this SpatialPoints_t's "dataType" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SpatialPoints_t's "dataType"
+ * attribute is set.
  *
  * @param sp the SpatialPoints_t structure.
  *
- * @return @c 1 if this SpatialPoints_t's "dataType" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SpatialPoints_t's "dataType" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_spatialpoints_dataType
  *
  * @memberof SpatialPoints_t
  */
 LIBSBML_EXTERN
 int
 SpatialPoints_isSetDataType(const SpatialPoints_t * sp);
-
-
-/**
- * Sets the value of the "id" attribute of this SpatialPoints_t.
- *
- * @param sp the SpatialPoints_t structure.
- *
- * @param id const char * value of the "id" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- *
- * @memberof SpatialPoints_t
- */
-LIBSBML_EXTERN
-int
-SpatialPoints_setId(SpatialPoints_t * sp, const char * id);
 
 
 /**
@@ -1077,6 +1117,9 @@ SpatialPoints_setId(SpatialPoints_t * sp, const char * id);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_spatialpoints_compression
  *
  * @memberof SpatialPoints_t
  */
@@ -1096,6 +1139,9 @@ SpatialPoints_setCompression(SpatialPoints_t * sp,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_spatialpoints_compression
  *
  * @memberof SpatialPoints_t
  */
@@ -1139,6 +1185,7 @@ SpatialPoints_setArrayData(SpatialPoints_t* sp,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SpatialPoints_t
  */
@@ -1157,6 +1204,9 @@ SpatialPoints_setArrayDataLength(SpatialPoints_t * sp, int arrayDataLength);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_spatialpoints_dataType
  *
  * @memberof SpatialPoints_t
  */
@@ -1175,6 +1225,9 @@ SpatialPoints_setDataType(SpatialPoints_t * sp, DataKind_t dataType);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_spatialpoints_dataType
  *
  * @memberof SpatialPoints_t
  */
@@ -1185,29 +1238,15 @@ SpatialPoints_setDataTypeAsString(SpatialPoints_t * sp,
 
 
 /**
- * Unsets the value of the "id" attribute of this SpatialPoints_t.
- *
- * @param sp the SpatialPoints_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- *
- * @memberof SpatialPoints_t
- */
-LIBSBML_EXTERN
-int
-SpatialPoints_unsetId(SpatialPoints_t * sp);
-
-
-/**
  * Unsets the value of the "compression" attribute of this SpatialPoints_t.
  *
  * @param sp the SpatialPoints_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_spatialpoints_compression
  *
  * @memberof SpatialPoints_t
  */
@@ -1224,6 +1263,7 @@ SpatialPoints_unsetCompression(SpatialPoints_t * sp);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SpatialPoints_t
  */
@@ -1240,6 +1280,7 @@ SpatialPoints_unsetArrayData(SpatialPoints_t * sp);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SpatialPoints_t
  */
@@ -1255,7 +1296,9 @@ SpatialPoints_unsetArrayDataLength(SpatialPoints_t * sp);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_spatialpoints_dataType
  *
  * @memberof SpatialPoints_t
  */
@@ -1265,17 +1308,16 @@ SpatialPoints_unsetDataType(SpatialPoints_t * sp);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * SpatialPoints_t object have been set.
  *
  * @param sp the SpatialPoints_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * SpatialPoints_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * SpatialPoints_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the SpatialPoints_t object are:
- * @li "id"
  * @li "compression"
  * @li "arrayData"
  * @li "arrayDataLength"

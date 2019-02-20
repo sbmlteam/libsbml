@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -77,11 +77,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this ListOfDomainTypes.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfDomainTypes(unsigned int level = SpatialExtension::getDefaultLevel(),
                     unsigned int version =
@@ -94,13 +90,11 @@ public:
    * Creates a new ListOfDomainTypes using the given SpatialPkgNamespaces
    * object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfDomainTypes(SpatialPkgNamespaces *spatialns);
 
@@ -144,7 +138,14 @@ public:
    *
    * @return the nth DomainType in this ListOfDomainTypes.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomainType(const DomainType* object)
+   * @see createDomainType()
+   * @see get(const std::string& sid)
+   * @see getNumDomainTypes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual DomainType* get(unsigned int n);
 
@@ -157,7 +158,14 @@ public:
    *
    * @return the nth DomainType in this ListOfDomainTypes.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomainType(const DomainType* object)
+   * @see createDomainType()
+   * @see get(const std::string& sid)
+   * @see getNumDomainTypes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual const DomainType* get(unsigned int n) const;
 
@@ -168,10 +176,17 @@ public:
    * @param sid a string representing the identifier of the DomainType to
    * retrieve.
    *
-   * @return the DomainType in this ListOfDomainTypes with the given id or NULL
-   * if no such DomainType exists.
+   * @return the DomainType in this ListOfDomainTypes with the given @p sid or
+   * @c NULL if no such DomainType exists.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomainType(const DomainType* object)
+   * @see createDomainType()
+   * @see get(unsigned int n)
+   * @see getNumDomainTypes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual DomainType* get(const std::string& sid);
 
@@ -182,10 +197,17 @@ public:
    * @param sid a string representing the identifier of the DomainType to
    * retrieve.
    *
-   * @return the DomainType in this ListOfDomainTypes with the given id or NULL
-   * if no such DomainType exists.
+   * @return the DomainType in this ListOfDomainTypes with the given @p sid or
+   * @c NULL if no such DomainType exists.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomainType(const DomainType* object)
+   * @see createDomainType()
+   * @see get(unsigned int n)
+   * @see getNumDomainTypes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual const DomainType* get(const std::string& sid) const;
 
@@ -199,10 +221,14 @@ public:
    *
    * @return a pointer to the nth DomainType in this ListOfDomainTypes.
    *
-   * @see size()
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addDomainType(const DomainType* object)
+   * @see createDomainType()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumDomainTypes()
+   * @see remove(const std::string& sid)
    */
   virtual DomainType* remove(unsigned int n);
 
@@ -217,8 +243,14 @@ public:
    * @return the DomainType in this ListOfDomainTypes based on the identifier
    * or NULL if no such DomainType exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addDomainType(const DomainType* object)
+   * @see createDomainType()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumDomainTypes()
+   * @see remove(unsigned int n)
    */
   virtual DomainType* remove(const std::string& sid);
 
@@ -231,10 +263,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createDomainType()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumDomainTypes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   int addDomainType(const DomainType* dt);
 
@@ -243,6 +285,13 @@ public:
    * Get the number of DomainType objects in this ListOfDomainTypes.
    *
    * @return the number of DomainType objects in this ListOfDomainTypes.
+   *
+   * @see addDomainType(const DomainType* object)
+   * @see createDomainType()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   unsigned int getNumDomainTypes() const;
 
@@ -253,7 +302,14 @@ public:
    *
    * @return a new DomainType object instance.
    *
-   * @see addDomainType(const DomainType* dt)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomainType(const DomainType* object)
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumDomainTypes()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   DomainType* createDomainType();
 
@@ -261,8 +317,8 @@ public:
   /**
    * Returns the XML element name of this ListOfDomainTypes object.
    *
-   * For ListOfDomainTypes, the XML element name is always @c
-   * "listOfDomainTypes".
+   * For ListOfDomainTypes, the XML element name is always
+   * @c "listOfDomainTypes".
    *
    * @return the name of this element, i.e. @c "listOfDomainTypes".
    */
@@ -275,8 +331,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}
+   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    */
@@ -291,8 +346,7 @@ public:
    *
    * @return the SBML typecode for the objects contained in this
    * ListOfDomainTypes:
-   *
-   * @sbmlconstant{SBML_SPATIAL_DOMAINTYPE, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_DOMAINTYPE, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -373,10 +427,12 @@ BEGIN_C_DECLS
  *
  * @return the nth DomainType_t in this ListOf_t.
  *
- * @memberof DomainType_t
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfDomainTypes_t
  */
 LIBSBML_EXTERN
-const DomainType_t*
+DomainType_t*
 ListOfDomainTypes_getDomainType(ListOf_t* lo, unsigned int n);
 
 
@@ -388,13 +444,15 @@ ListOfDomainTypes_getDomainType(ListOf_t* lo, unsigned int n);
  * @param sid a string representing the identifier of the DomainType_t to
  * retrieve.
  *
- * @return the DomainType_t in this ListOf_t with the given id or NULL if no
- * such DomainType_t exists.
+ * @return the DomainType_t in this ListOf_t with the given @p sid or @c NULL
+ * if no such DomainType_t exists.
  *
- * @memberof DomainType_t
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfDomainTypes_t
  */
 LIBSBML_EXTERN
-const DomainType_t*
+DomainType_t*
 ListOfDomainTypes_getById(ListOf_t* lo, const char *sid);
 
 
@@ -408,7 +466,9 @@ ListOfDomainTypes_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth DomainType_t in this ListOf_t.
  *
- * @memberof DomainType_t
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfDomainTypes_t
  */
 LIBSBML_EXTERN
 DomainType_t*
@@ -427,7 +487,9 @@ ListOfDomainTypes_remove(ListOf_t* lo, unsigned int n);
  * @return the DomainType_t in this ListOf_t based on the identifier or NULL if
  * no such DomainType_t exists.
  *
- * @memberof DomainType_t
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfDomainTypes_t
  */
 LIBSBML_EXTERN
 DomainType_t*

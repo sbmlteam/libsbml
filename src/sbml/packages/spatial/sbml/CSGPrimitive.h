@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -36,6 +36,40 @@
  *
  * @class CSGPrimitive
  * @sbmlbrief{spatial} TODO:Definition of the CSGPrimitive class.
+ */
+
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file. The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality. Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ *
+ *
+ * @class doc_csgprimitive_primitiveType
+ *
+ * @par
+ * The attribute "primitiveType" on a CSGPrimitive object is used to TODO:add
+ * explanation
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
+ * allowable values for "primitiveType":
+ * <ul>
+ * <li> @c "sphere", TODO:add description
+ *
+ * <li> @c "cube", TODO:add description
+ *
+ * <li> @c "cylinder", TODO:add description
+ *
+ * <li> @c "cone", TODO:add description
+ *
+ * <li> @c "circle", TODO:add description
+ *
+ * <li> @c "square", TODO:add description
+ *
+ * </ul>
  */
 
 
@@ -86,11 +120,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this CSGPrimitive.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   CSGPrimitive(unsigned int level = SpatialExtension::getDefaultLevel(),
                unsigned int version = SpatialExtension::getDefaultVersion(),
@@ -101,13 +131,11 @@ public:
   /**
    * Creates a new CSGPrimitive using the given SpatialPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   CSGPrimitive(SpatialPkgNamespaces *spatialns);
 
@@ -148,6 +176,18 @@ public:
    *
    * @return the value of the "primitiveType" attribute of this CSGPrimitive as
    * a PrimitiveKind_t.
+   *
+   * @copydetails doc_csgprimitive_primitiveType
+   * @if clike The value is drawn from the enumeration @ref PrimitiveKind_t
+   * @endif
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_PRIMITIVEKIND_SPHERE, PrimitiveKind_t}
+   * @li @sbmlconstant{SPATIAL_PRIMITIVEKIND_CUBE, PrimitiveKind_t}
+   * @li @sbmlconstant{SPATIAL_PRIMITIVEKIND_CYLINDER, PrimitiveKind_t}
+   * @li @sbmlconstant{SPATIAL_PRIMITIVEKIND_CONE, PrimitiveKind_t}
+   * @li @sbmlconstant{SPATIAL_PRIMITIVEKIND_CIRCLE, PrimitiveKind_t}
+   * @li @sbmlconstant{SPATIAL_PRIMITIVEKIND_SQUARE, PrimitiveKind_t}
+   * @li @sbmlconstant{SPATIAL_PRIMITIVEKIND_INVALID, PrimitiveKind_t}
    */
   PrimitiveKind_t getPrimitiveType() const;
 
@@ -157,6 +197,16 @@ public:
    *
    * @return the value of the "primitiveType" attribute of this CSGPrimitive as
    * a string.
+   *
+   * @copydetails doc_csgprimitive_primitiveType
+   * The possible values returned by this method are:
+   * @li @c "sphere"
+   * @li @c "cube"
+   * @li @c "cylinder"
+   * @li @c "cone"
+   * @li @c "circle"
+   * @li @c "square"
+   * @li @c "invalid PrimitiveKind value"
    */
   const std::string& getPrimitiveTypeAsString() const;
 
@@ -167,6 +217,8 @@ public:
    *
    * @return @c true if this CSGPrimitive's "primitiveType" attribute has been
    * set, otherwise @c false is returned.
+   *
+   * @copydetails doc_csgprimitive_primitiveType
    */
   bool isSetPrimitiveType() const;
 
@@ -174,13 +226,15 @@ public:
   /**
    * Sets the value of the "primitiveType" attribute of this CSGPrimitive.
    *
-   * @param primitiveType PrimitiveKind_t value of the "primitiveType"
-   * attribute to be set.
+   * @param primitiveType @if clike PrimitiveKind_t@else int@endif value of the
+   * "primitiveType" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_csgprimitive_primitiveType
    */
   int setPrimitiveType(const PrimitiveKind_t primitiveType);
 
@@ -195,6 +249,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_csgprimitive_primitiveType
    */
   int setPrimitiveType(const std::string& primitiveType);
 
@@ -202,9 +258,10 @@ public:
   /**
    * Unsets the value of the "primitiveType" attribute of this CSGPrimitive.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_csgprimitive_primitiveType
    */
   int unsetPrimitiveType();
 
@@ -225,8 +282,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_CSGPRIMITIVE, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_CSGPRIMITIVE, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -623,11 +679,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this CSGPrimitive_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof CSGPrimitive_t
  */
@@ -644,6 +698,8 @@ CSGPrimitive_create(unsigned int level,
  * @param csgp the CSGPrimitive_t structure.
  *
  * @return a (deep) copy of this CSGPrimitive_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof CSGPrimitive_t
  */
@@ -672,6 +728,18 @@ CSGPrimitive_free(CSGPrimitive_t* csgp);
  * @return the value of the "primitiveType" attribute of this CSGPrimitive_t as
  * a PrimitiveKind_t.
  *
+ * @copydetails doc_csgprimitive_primitiveType
+ * @if clike The value is drawn from the enumeration @ref PrimitiveKind_t
+ * @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_PRIMITIVEKIND_SPHERE, PrimitiveKind_t}
+ * @li @sbmlconstant{SPATIAL_PRIMITIVEKIND_CUBE, PrimitiveKind_t}
+ * @li @sbmlconstant{SPATIAL_PRIMITIVEKIND_CYLINDER, PrimitiveKind_t}
+ * @li @sbmlconstant{SPATIAL_PRIMITIVEKIND_CONE, PrimitiveKind_t}
+ * @li @sbmlconstant{SPATIAL_PRIMITIVEKIND_CIRCLE, PrimitiveKind_t}
+ * @li @sbmlconstant{SPATIAL_PRIMITIVEKIND_SQUARE, PrimitiveKind_t}
+ * @li @sbmlconstant{SPATIAL_PRIMITIVEKIND_INVALID, PrimitiveKind_t}
+ *
  * @memberof CSGPrimitive_t
  */
 LIBSBML_EXTERN
@@ -687,21 +755,35 @@ CSGPrimitive_getPrimitiveType(const CSGPrimitive_t * csgp);
  * @return the value of the "primitiveType" attribute of this CSGPrimitive_t as
  * a const char *.
  *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_csgprimitive_primitiveType
+ * The possible values returned by this method are:
+ * @li @c "sphere"
+ * @li @c "cube"
+ * @li @c "cylinder"
+ * @li @c "cone"
+ * @li @c "circle"
+ * @li @c "square"
+ * @li @c "invalid PrimitiveKind value"
+ *
  * @memberof CSGPrimitive_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 CSGPrimitive_getPrimitiveTypeAsString(const CSGPrimitive_t * csgp);
 
 
 /**
- * Predicate returning @c 1 if this CSGPrimitive_t's "primitiveType" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this CSGPrimitive_t's "primitiveType"
+ * attribute is set.
  *
  * @param csgp the CSGPrimitive_t structure.
  *
- * @return @c 1 if this CSGPrimitive_t's "primitiveType" attribute has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this CSGPrimitive_t's "primitiveType" attribute has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_csgprimitive_primitiveType
  *
  * @memberof CSGPrimitive_t
  */
@@ -721,6 +803,9 @@ CSGPrimitive_isSetPrimitiveType(const CSGPrimitive_t * csgp);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_csgprimitive_primitiveType
  *
  * @memberof CSGPrimitive_t
  */
@@ -741,6 +826,9 @@ CSGPrimitive_setPrimitiveType(CSGPrimitive_t * csgp,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_csgprimitive_primitiveType
  *
  * @memberof CSGPrimitive_t
  */
@@ -757,7 +845,9 @@ CSGPrimitive_setPrimitiveTypeAsString(CSGPrimitive_t * csgp,
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_csgprimitive_primitiveType
  *
  * @memberof CSGPrimitive_t
  */
@@ -767,13 +857,13 @@ CSGPrimitive_unsetPrimitiveType(CSGPrimitive_t * csgp);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * CSGPrimitive_t object have been set.
  *
  * @param csgp the CSGPrimitive_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * CSGPrimitive_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * CSGPrimitive_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the CSGPrimitive_t object are:

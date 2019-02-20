@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -75,14 +75,21 @@ protected:
 public:
 
   /**
-   * Creates a new SpatialParameterPlugin using the given uri, prefix and
+   * Creates a new SpatialParameterPlugin using the given URI, prefix and
    * package namespace.
    *
-   * @param uri a string, representing the uri of the package.
+   * @param uri a string, representing the URI of the SBML Level&nbsp;3 package
+   * implemented by this libSBML package extension.
    *
-   * @param prefix a string, the prefix to be used.
+   * @param prefix a string, the XML namespace prefix being used for this
+   * package.
    *
-   * @param spatialns a pointer to the SpatialPkgNamespaces object to be used.
+   * @param spatialns a pointer to the namesspaces object
+   * (SpatialPkgNamespaces) for this package.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
    */
   SpatialParameterPlugin(const std::string& uri,
                          const std::string& prefix,
@@ -387,19 +394,6 @@ public:
   int unsetDiffusionCoefficient();
 
 
-  /**
-   * Predicate returning @c true if all the required elements for this
-   * SpatialParameterPlugin object have been set.
-   *
-   * @return @c true to indicate that all the required elements of this
-   * SpatialParameterPlugin have been set, otherwise @c false is returned.
-   *
-   *
-   * @note The required elements for the SpatialParameterPlugin object are:
-   */
-  virtual bool hasRequiredElements() const;
-
-
 
   /** @cond doxygenLibsbmlInternal */
 
@@ -464,6 +458,19 @@ public:
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix,
                                      bool flag);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Updates the namespaces when setLevelVersion is used
+   */
+  virtual void updateSBMLNamespace(const std::string& package,
+                                   unsigned int level,
+                                   unsigned int version);
 
   /** @endcond */
 
@@ -723,9 +730,48 @@ public:
    *
    * @param elementName, the name of the element to create.
    *
-   * pointer to the element created.
+   * @return pointer to the element created.
    */
-  virtual SBase* createObject(const std::string& elementName);
+  virtual SBase* createChildObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Adds a new "elementName" object to this SpatialParameterPlugin.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @param element, pointer to the element to be added.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int addChildObject(const std::string& elementName,
+                             const SBase* element);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Removes and returns the new "elementName" object with the given id in this
+   * SpatialParameterPlugin.
+   *
+   * @param elementName, the name of the element to remove.
+   *
+   * @param id, the id of the element to remove.
+   *
+   * @return pointer to the element removed.
+   */
+  virtual SBase* removeChildObject(const std::string& elementName,
+                                   const std::string& id);
 
   /** @endcond */
 
@@ -738,7 +784,7 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * unsigned int number of elements.
+   * @return unsigned int number of elements.
    */
   virtual unsigned int getNumObjects(const std::string& elementName);
 
@@ -753,9 +799,9 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * @param index, unsigned int teh index of teh object to retrieve.
+   * @param index, unsigned int the index of the object to retrieve.
    *
-   * pointer to the object.
+   * @return pointer to the object.
    */
   virtual SBase* getObject(const std::string& elementName, unsigned int index);
 
@@ -774,7 +820,8 @@ public:
    * @param id a string representing the id attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p id.
+   * @return a pointer to the SBase element with the given @p id. If no such
+   * object is found, this method returns @c NULL.
    */
   virtual SBase* getElementBySId(const std::string& id);
 
@@ -786,7 +833,8 @@ public:
    * @param metaid a string representing the metaid attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p metaid.
+   * @return a pointer to the SBase element with the given @p metaid. If no
+   * such object is found this method returns @c NULL.
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
 
@@ -795,8 +843,8 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
-   * filter, an ElementFilter that may impose restrictions on the objects to be
-   * retrieved.
+   * @param filter an ElementFilter that may impose restrictions on the objects
+   * to be retrieved.
    *
    * @return a List* pointer of pointers to all SBase child objects with any
    * restriction imposed.
@@ -860,6 +908,420 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 #endif /* __cplusplus */
+
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+ * Returns the value of the "spatialSymbolReference" element of this
+ * SpatialParameterPlugin_t.
+ *
+ * @param spp the SpatialParameterPlugin_t structure whose
+ * spatialSymbolReference is sought.
+ *
+ * @return the value of the "spatialSymbolReference" element of this
+ * SpatialParameterPlugin_t as a SpatialSymbolReference*.
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+const SpatialSymbolReference_t*
+SpatialParameterPlugin_getSpatialSymbolReference(const SpatialParameterPlugin_t
+  * spp);
+
+
+/**
+ * Returns the value of the "advectionCoefficient" element of this
+ * SpatialParameterPlugin_t.
+ *
+ * @param spp the SpatialParameterPlugin_t structure whose advectionCoefficient
+ * is sought.
+ *
+ * @return the value of the "advectionCoefficient" element of this
+ * SpatialParameterPlugin_t as a AdvectionCoefficient*.
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+const AdvectionCoefficient_t*
+SpatialParameterPlugin_getAdvectionCoefficient(const SpatialParameterPlugin_t *
+  spp);
+
+
+/**
+ * Returns the value of the "boundaryCondition" element of this
+ * SpatialParameterPlugin_t.
+ *
+ * @param spp the SpatialParameterPlugin_t structure whose boundaryCondition is
+ * sought.
+ *
+ * @return the value of the "boundaryCondition" element of this
+ * SpatialParameterPlugin_t as a BoundaryCondition*.
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+const BoundaryCondition_t*
+SpatialParameterPlugin_getBoundaryCondition(const SpatialParameterPlugin_t *
+  spp);
+
+
+/**
+ * Returns the value of the "diffusionCoefficient" element of this
+ * SpatialParameterPlugin_t.
+ *
+ * @param spp the SpatialParameterPlugin_t structure whose diffusionCoefficient
+ * is sought.
+ *
+ * @return the value of the "diffusionCoefficient" element of this
+ * SpatialParameterPlugin_t as a DiffusionCoefficient*.
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+const DiffusionCoefficient_t*
+SpatialParameterPlugin_getDiffusionCoefficient(const SpatialParameterPlugin_t *
+  spp);
+
+
+/**
+ * Predicate returning @c 1 (true) if this SpatialParameterPlugin_t's
+ * "spatialSymbolReference" element is set.
+ *
+ * @param spp the SpatialParameterPlugin_t structure.
+ *
+ * @return @c 1 (true) if this SpatialParameterPlugin_t's
+ * "spatialSymbolReference" element has been set, otherwise @c 0 (false) is
+ * returned.
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_isSetSpatialSymbolReference(const
+  SpatialParameterPlugin_t * spp);
+
+
+/**
+ * Predicate returning @c 1 (true) if this SpatialParameterPlugin_t's
+ * "advectionCoefficient" element is set.
+ *
+ * @param spp the SpatialParameterPlugin_t structure.
+ *
+ * @return @c 1 (true) if this SpatialParameterPlugin_t's
+ * "advectionCoefficient" element has been set, otherwise @c 0 (false) is
+ * returned.
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_isSetAdvectionCoefficient(const SpatialParameterPlugin_t
+  * spp);
+
+
+/**
+ * Predicate returning @c 1 (true) if this SpatialParameterPlugin_t's
+ * "boundaryCondition" element is set.
+ *
+ * @param spp the SpatialParameterPlugin_t structure.
+ *
+ * @return @c 1 (true) if this SpatialParameterPlugin_t's "boundaryCondition"
+ * element has been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_isSetBoundaryCondition(const SpatialParameterPlugin_t *
+  spp);
+
+
+/**
+ * Predicate returning @c 1 (true) if this SpatialParameterPlugin_t's
+ * "diffusionCoefficient" element is set.
+ *
+ * @param spp the SpatialParameterPlugin_t structure.
+ *
+ * @return @c 1 (true) if this SpatialParameterPlugin_t's
+ * "diffusionCoefficient" element has been set, otherwise @c 0 (false) is
+ * returned.
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_isSetDiffusionCoefficient(const SpatialParameterPlugin_t
+  * spp);
+
+
+/**
+ * Sets the value of the "spatialSymbolReference" element of this
+ * SpatialParameterPlugin_t.
+ *
+ * @param spp the SpatialParameterPlugin_t structure.
+ *
+ * @param spatialSymbolReference SpatialSymbolReference_t* value of the
+ * "spatialSymbolReference" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_setSpatialSymbolReference(
+                                                 SpatialParameterPlugin_t *
+                                                   spp,
+                                                 const
+                                                   SpatialSymbolReference_t*
+                                                     spatialSymbolReference);
+
+
+/**
+ * Sets the value of the "advectionCoefficient" element of this
+ * SpatialParameterPlugin_t.
+ *
+ * @param spp the SpatialParameterPlugin_t structure.
+ *
+ * @param advectionCoefficient AdvectionCoefficient_t* value of the
+ * "advectionCoefficient" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_setAdvectionCoefficient(SpatialParameterPlugin_t * spp,
+                                               const AdvectionCoefficient_t*
+                                                 advectionCoefficient);
+
+
+/**
+ * Sets the value of the "boundaryCondition" element of this
+ * SpatialParameterPlugin_t.
+ *
+ * @param spp the SpatialParameterPlugin_t structure.
+ *
+ * @param boundaryCondition BoundaryCondition_t* value of the
+ * "boundaryCondition" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_setBoundaryCondition(SpatialParameterPlugin_t * spp,
+                                            const BoundaryCondition_t*
+                                              boundaryCondition);
+
+
+/**
+ * Sets the value of the "diffusionCoefficient" element of this
+ * SpatialParameterPlugin_t.
+ *
+ * @param spp the SpatialParameterPlugin_t structure.
+ *
+ * @param diffusionCoefficient DiffusionCoefficient_t* value of the
+ * "diffusionCoefficient" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_setDiffusionCoefficient(SpatialParameterPlugin_t * spp,
+                                               const DiffusionCoefficient_t*
+                                                 diffusionCoefficient);
+
+
+/**
+ * Creates a new SpatialSymbolReference_t object, adds it to this
+ * SpatialParameterPlugin_t object and returns the SpatialSymbolReference_t
+ * object created.
+ *
+ * @param spp the SpatialParameterPlugin_t structure to which the
+ * SpatialSymbolReference_t should be added.
+ *
+ * @return a new SpatialSymbolReference_t object instance.
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+SpatialSymbolReference_t*
+SpatialParameterPlugin_createSpatialSymbolReference(SpatialParameterPlugin_t*
+  spp);
+
+
+/**
+ * Creates a new AdvectionCoefficient_t object, adds it to this
+ * SpatialParameterPlugin_t object and returns the AdvectionCoefficient_t
+ * object created.
+ *
+ * @param spp the SpatialParameterPlugin_t structure to which the
+ * AdvectionCoefficient_t should be added.
+ *
+ * @return a new AdvectionCoefficient_t object instance.
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+AdvectionCoefficient_t*
+SpatialParameterPlugin_createAdvectionCoefficient(SpatialParameterPlugin_t*
+  spp);
+
+
+/**
+ * Creates a new BoundaryCondition_t object, adds it to this
+ * SpatialParameterPlugin_t object and returns the BoundaryCondition_t object
+ * created.
+ *
+ * @param spp the SpatialParameterPlugin_t structure to which the
+ * BoundaryCondition_t should be added.
+ *
+ * @return a new BoundaryCondition_t object instance.
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+BoundaryCondition_t*
+SpatialParameterPlugin_createBoundaryCondition(SpatialParameterPlugin_t* spp);
+
+
+/**
+ * Creates a new DiffusionCoefficient_t object, adds it to this
+ * SpatialParameterPlugin_t object and returns the DiffusionCoefficient_t
+ * object created.
+ *
+ * @param spp the SpatialParameterPlugin_t structure to which the
+ * DiffusionCoefficient_t should be added.
+ *
+ * @return a new DiffusionCoefficient_t object instance.
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+DiffusionCoefficient_t*
+SpatialParameterPlugin_createDiffusionCoefficient(SpatialParameterPlugin_t*
+  spp);
+
+
+/**
+ * Unsets the value of the "spatialSymbolReference" element of this
+ * SpatialParameterPlugin_t.
+ *
+ * @param spp the SpatialParameterPlugin_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_unsetSpatialSymbolReference(SpatialParameterPlugin_t *
+  spp);
+
+
+/**
+ * Unsets the value of the "advectionCoefficient" element of this
+ * SpatialParameterPlugin_t.
+ *
+ * @param spp the SpatialParameterPlugin_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_unsetAdvectionCoefficient(SpatialParameterPlugin_t *
+  spp);
+
+
+/**
+ * Unsets the value of the "boundaryCondition" element of this
+ * SpatialParameterPlugin_t.
+ *
+ * @param spp the SpatialParameterPlugin_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_unsetBoundaryCondition(SpatialParameterPlugin_t * spp);
+
+
+/**
+ * Unsets the value of the "diffusionCoefficient" element of this
+ * SpatialParameterPlugin_t.
+ *
+ * @param spp the SpatialParameterPlugin_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpatialParameterPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialParameterPlugin_unsetDiffusionCoefficient(SpatialParameterPlugin_t *
+  spp);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
 
 
 

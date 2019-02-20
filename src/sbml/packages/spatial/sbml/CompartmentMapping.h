@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -67,7 +67,6 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  std::string mId;
   std::string mDomainType;
   double mUnitSize;
   bool mIsSetUnitSize;
@@ -89,11 +88,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this CompartmentMapping.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   CompartmentMapping(unsigned int level = SpatialExtension::getDefaultLevel(),
                      unsigned int version =
@@ -106,13 +101,11 @@ public:
    * Creates a new CompartmentMapping using the given SpatialPkgNamespaces
    * object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   CompartmentMapping(SpatialPkgNamespaces *spatialns);
 
@@ -154,7 +147,16 @@ public:
    * @return the value of the "id" attribute of this CompartmentMapping as a
    * string.
    */
-  const std::string& getId() const;
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this CompartmentMapping.
+   *
+   * @return the value of the "name" attribute of this CompartmentMapping as a
+   * string.
+   */
+  virtual const std::string& getName() const;
 
 
   /**
@@ -183,7 +185,17 @@ public:
    * @return @c true if this CompartmentMapping's "id" attribute has been set,
    * otherwise @c false is returned.
    */
-  bool isSetId() const;
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true if this CompartmentMapping's "name" attribute
+   * is set.
+   *
+   * @return @c true if this CompartmentMapping's "name" attribute has been
+   * set, otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
 
 
   /**
@@ -215,8 +227,25 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * Calling this function with @p id = @c NULL or an empty string is
+   * equivalent to calling unsetId().
    */
-  int setId(const std::string& id);
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "name" attribute of this CompartmentMapping.
+   *
+   * @param name std::string& value of the "name" attribute to be set.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p name = @c NULL or an empty string is
+   * equivalent to calling unsetName().
+   */
+  virtual int setName(const std::string& name);
 
 
   /**
@@ -253,7 +282,17 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetId();
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this CompartmentMapping.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetName();
 
 
   /**
@@ -286,8 +325,8 @@ public:
   /**
    * Returns the XML element name of this CompartmentMapping object.
    *
-   * For CompartmentMapping, the XML element name is always @c
-   * "compartmentMapping".
+   * For CompartmentMapping, the XML element name is always
+   * @c "compartmentMapping".
    *
    * @return the name of this element, i.e. @c "compartmentMapping".
    */
@@ -300,8 +339,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_COMPARTMENTMAPPING, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_COMPARTMENTMAPPING, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -700,11 +738,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this CompartmentMapping_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof CompartmentMapping_t
  */
@@ -721,6 +757,8 @@ CompartmentMapping_create(unsigned int level,
  * @param cm the CompartmentMapping_t structure.
  *
  * @return a (deep) copy of this CompartmentMapping_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof CompartmentMapping_t
  */
@@ -749,11 +787,30 @@ CompartmentMapping_free(CompartmentMapping_t* cm);
  * @return the value of the "id" attribute of this CompartmentMapping_t as a
  * pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof CompartmentMapping_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 CompartmentMapping_getId(const CompartmentMapping_t * cm);
+
+
+/**
+ * Returns the value of the "name" attribute of this CompartmentMapping_t.
+ *
+ * @param cm the CompartmentMapping_t structure whose name is sought.
+ *
+ * @return the value of the "name" attribute of this CompartmentMapping_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof CompartmentMapping_t
+ */
+LIBSBML_EXTERN
+char *
+CompartmentMapping_getName(const CompartmentMapping_t * cm);
 
 
 /**
@@ -765,10 +822,12 @@ CompartmentMapping_getId(const CompartmentMapping_t * cm);
  * @return the value of the "domainType" attribute of this CompartmentMapping_t
  * as a pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof CompartmentMapping_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 CompartmentMapping_getDomainType(const CompartmentMapping_t * cm);
 
 
@@ -788,13 +847,13 @@ CompartmentMapping_getUnitSize(const CompartmentMapping_t * cm);
 
 
 /**
- * Predicate returning @c 1 if this CompartmentMapping_t's "id" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this CompartmentMapping_t's "id"
+ * attribute is set.
  *
  * @param cm the CompartmentMapping_t structure.
  *
- * @return @c 1 if this CompartmentMapping_t's "id" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this CompartmentMapping_t's "id" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
  * @memberof CompartmentMapping_t
  */
@@ -804,13 +863,29 @@ CompartmentMapping_isSetId(const CompartmentMapping_t * cm);
 
 
 /**
- * Predicate returning @c 1 if this CompartmentMapping_t's "domainType"
+ * Predicate returning @c 1 (true) if this CompartmentMapping_t's "name"
  * attribute is set.
  *
  * @param cm the CompartmentMapping_t structure.
  *
- * @return @c 1 if this CompartmentMapping_t's "domainType" attribute has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this CompartmentMapping_t's "name" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof CompartmentMapping_t
+ */
+LIBSBML_EXTERN
+int
+CompartmentMapping_isSetName(const CompartmentMapping_t * cm);
+
+
+/**
+ * Predicate returning @c 1 (true) if this CompartmentMapping_t's "domainType"
+ * attribute is set.
+ *
+ * @param cm the CompartmentMapping_t structure.
+ *
+ * @return @c 1 (true) if this CompartmentMapping_t's "domainType" attribute
+ * has been set, otherwise @c 0 (false) is returned.
  *
  * @memberof CompartmentMapping_t
  */
@@ -820,13 +895,13 @@ CompartmentMapping_isSetDomainType(const CompartmentMapping_t * cm);
 
 
 /**
- * Predicate returning @c 1 if this CompartmentMapping_t's "unitSize" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this CompartmentMapping_t's "unitSize"
+ * attribute is set.
  *
  * @param cm the CompartmentMapping_t structure.
  *
- * @return @c 1 if this CompartmentMapping_t's "unitSize" attribute has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this CompartmentMapping_t's "unitSize" attribute has
+ * been set, otherwise @c 0 (false) is returned.
  *
  * @memberof CompartmentMapping_t
  */
@@ -845,12 +920,37 @@ CompartmentMapping_isSetUnitSize(const CompartmentMapping_t * cm);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling CompartmentMapping_unsetId().
  *
  * @memberof CompartmentMapping_t
  */
 LIBSBML_EXTERN
 int
 CompartmentMapping_setId(CompartmentMapping_t * cm, const char * id);
+
+
+/**
+ * Sets the value of the "name" attribute of this CompartmentMapping_t.
+ *
+ * @param cm the CompartmentMapping_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling CompartmentMapping_unsetName().
+ *
+ * @memberof CompartmentMapping_t
+ */
+LIBSBML_EXTERN
+int
+CompartmentMapping_setName(CompartmentMapping_t * cm, const char * name);
 
 
 /**
@@ -864,6 +964,7 @@ CompartmentMapping_setId(CompartmentMapping_t * cm, const char * id);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CompartmentMapping_t
  */
@@ -883,6 +984,7 @@ CompartmentMapping_setDomainType(CompartmentMapping_t * cm,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CompartmentMapping_t
  */
@@ -899,12 +1001,30 @@ CompartmentMapping_setUnitSize(CompartmentMapping_t * cm, double unitSize);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CompartmentMapping_t
  */
 LIBSBML_EXTERN
 int
 CompartmentMapping_unsetId(CompartmentMapping_t * cm);
+
+
+/**
+ * Unsets the value of the "name" attribute of this CompartmentMapping_t.
+ *
+ * @param cm the CompartmentMapping_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof CompartmentMapping_t
+ */
+LIBSBML_EXTERN
+int
+CompartmentMapping_unsetName(CompartmentMapping_t * cm);
 
 
 /**
@@ -915,6 +1035,7 @@ CompartmentMapping_unsetId(CompartmentMapping_t * cm);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CompartmentMapping_t
  */
@@ -931,6 +1052,7 @@ CompartmentMapping_unsetDomainType(CompartmentMapping_t * cm);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CompartmentMapping_t
  */
@@ -940,13 +1062,13 @@ CompartmentMapping_unsetUnitSize(CompartmentMapping_t * cm);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * CompartmentMapping_t object have been set.
  *
  * @param cm the CompartmentMapping_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * CompartmentMapping_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * CompartmentMapping_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the CompartmentMapping_t object are:

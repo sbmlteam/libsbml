@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -67,7 +67,6 @@ CSGObject::CSGObject(unsigned int level,
                      unsigned int version,
                      unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
   , mDomainType ("")
   , mOrdinal (SBML_INT_MAX)
   , mIsSetOrdinal (false)
@@ -84,7 +83,6 @@ CSGObject::CSGObject(unsigned int level,
  */
 CSGObject::CSGObject(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
-  , mId ("")
   , mDomainType ("")
   , mOrdinal (SBML_INT_MAX)
   , mIsSetOrdinal (false)
@@ -101,7 +99,6 @@ CSGObject::CSGObject(SpatialPkgNamespaces *spatialns)
  */
 CSGObject::CSGObject(const CSGObject& orig)
   : SBase( orig )
-  , mId ( orig.mId )
   , mDomainType ( orig.mDomainType )
   , mOrdinal ( orig.mOrdinal )
   , mIsSetOrdinal ( orig.mIsSetOrdinal )
@@ -125,7 +122,6 @@ CSGObject::operator=(const CSGObject& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId = rhs.mId;
     mDomainType = rhs.mDomainType;
     mOrdinal = rhs.mOrdinal;
     mIsSetOrdinal = rhs.mIsSetOrdinal;
@@ -177,6 +173,16 @@ CSGObject::getId() const
 
 
 /*
+ * Returns the value of the "name" attribute of this CSGObject.
+ */
+const std::string&
+CSGObject::getName() const
+{
+  return mName;
+}
+
+
+/*
  * Returns the value of the "domainType" attribute of this CSGObject.
  */
 const std::string&
@@ -203,6 +209,16 @@ bool
 CSGObject::isSetId() const
 {
   return (mId.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true if this CSGObject's "name" attribute is set.
+ */
+bool
+CSGObject::isSetName() const
+{
+  return (mName.empty() == false);
 }
 
 
@@ -234,6 +250,17 @@ int
 CSGObject::setId(const std::string& id)
 {
   return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Sets the value of the "name" attribute of this CSGObject.
+ */
+int
+CSGObject::setName(const std::string& name)
+{
+  mName = name;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -276,6 +303,25 @@ CSGObject::unsetId()
   mId.erase();
 
   if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "name" attribute of this CSGObject.
+ */
+int
+CSGObject::unsetName()
+{
+  mName.erase();
+
+  if (mName.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -721,6 +767,28 @@ CSGObject::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
+ * Updates the namespaces when setLevelVersion is used
+ */
+void
+CSGObject::updateSBMLNamespace(const std::string& package,
+                               unsigned int level,
+                               unsigned int version)
+{
+  SBase::updateSBMLNamespace(package, level, version);
+
+  if (mCSGNode != NULL)
+  {
+    mCSGNode->updateSBMLNamespace(package, level, version);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
  * Gets the value of the "attributeName" attribute of this CSGObject.
  */
 int
@@ -819,6 +887,11 @@ CSGObject::getAttribute(const std::string& attributeName,
     value = getId();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
+  else if (attributeName == "name")
+  {
+    value = getName();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
   else if (attributeName == "domainType")
   {
     value = getDomainType();
@@ -846,6 +919,10 @@ CSGObject::isSetAttribute(const std::string& attributeName) const
   if (attributeName == "id")
   {
     value = isSetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = isSetName();
   }
   else if (attributeName == "domainType")
   {
@@ -951,6 +1028,10 @@ CSGObject::setAttribute(const std::string& attributeName,
   {
     return_value = setId(value);
   }
+  else if (attributeName == "name")
+  {
+    return_value = setName(value);
+  }
   else if (attributeName == "domainType")
   {
     return_value = setDomainType(value);
@@ -977,6 +1058,10 @@ CSGObject::unsetAttribute(const std::string& attributeName)
   {
     value = unsetId();
   }
+  else if (attributeName == "name")
+  {
+    value = unsetName();
+  }
   else if (attributeName == "domainType")
   {
     value = unsetDomainType();
@@ -999,16 +1084,131 @@ CSGObject::unsetAttribute(const std::string& attributeName)
  * Creates and returns an new "elementName" object in this CSGObject.
  */
 SBase*
-CSGObject::createObject(const std::string& elementName)
+CSGObject::createChildObject(const std::string& elementName)
 {
   SBase* obj = NULL;
 
-  //if (elementName == "csgNode")
-  //{
-  //  return createCSGNode();
-  //}
+  if (elementName == "csgPrimitive")
+  {
+    return createCSGPrimitive();
+  }
+  else if (elementName == "csgTranslation")
+  {
+    return createCSGTranslation();
+  }
+  else if (elementName == "csgRotation")
+  {
+    return createCSGRotation();
+  }
+  else if (elementName == "csgScale")
+  {
+    return createCSGScale();
+  }
+  else if (elementName == "csgHomogeneousTransformation")
+  {
+    return createCSGHomogeneousTransformation();
+  }
+  else if (elementName == "csgSetOperator")
+  {
+    return createCSGSetOperator();
+  }
 
   return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds a new "elementName" object to this CSGObject.
+ */
+int
+CSGObject::addChildObject(const std::string& elementName,
+                          const SBase* element)
+{
+  if (elementName == "csgPrimitive" && element->getTypeCode() ==
+    SBML_SPATIAL_CSGPRIMITIVE)
+  {
+    return setCSGNode((const CSGNode*)(element));
+  }
+  else if (elementName == "csgTranslation" && element->getTypeCode() ==
+    SBML_SPATIAL_CSGTRANSLATION)
+  {
+    return setCSGNode((const CSGNode*)(element));
+  }
+  else if (elementName == "csgRotation" && element->getTypeCode() ==
+    SBML_SPATIAL_CSGROTATION)
+  {
+    return setCSGNode((const CSGNode*)(element));
+  }
+  else if (elementName == "csgScale" && element->getTypeCode() ==
+    SBML_SPATIAL_CSGSCALE)
+  {
+    return setCSGNode((const CSGNode*)(element));
+  }
+  else if (elementName == "csgHomogeneousTransformation" &&
+    element->getTypeCode() == SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION)
+  {
+    return setCSGNode((const CSGNode*)(element));
+  }
+  else if (elementName == "csgSetOperator" && element->getTypeCode() ==
+    SBML_SPATIAL_CSGSETOPERATOR)
+  {
+    return setCSGNode((const CSGNode*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Removes and returns the new "elementName" object with the given id in this
+ * CSGObject.
+ */
+SBase*
+CSGObject::removeChildObject(const std::string& elementName,
+                             const std::string& id)
+{
+  if (elementName == "csgPrimitive")
+  {
+    CSGNode * obj = getCSGNode();
+    if (unsetCSGNode() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "csgTranslation")
+  {
+    CSGNode * obj = getCSGNode();
+    if (unsetCSGNode() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "csgRotation")
+  {
+    CSGNode * obj = getCSGNode();
+    if (unsetCSGNode() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "csgScale")
+  {
+    CSGNode * obj = getCSGNode();
+    if (unsetCSGNode() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "csgHomogeneousTransformation")
+  {
+    CSGNode * obj = getCSGNode();
+    if (unsetCSGNode() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "csgSetOperator")
+  {
+    CSGNode * obj = getCSGNode();
+    if (unsetCSGNode() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+
+  return NULL;
 }
 
 /** @endcond */
@@ -1161,91 +1361,85 @@ CSGObject::createObject(XMLInputStream& stream)
 
   if (name == "csgPrimitive")
   {
-    if (mCSGNode != NULL)
+    if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGObjectAllowedElements, getPackageVersion(),
-        getLevel(), getVersion());
-
-      delete mCSGNode;
-      mCSGNode = NULL;
+        SpatialCSGObjectAllowedElements, getPackageVersion(), getLevel(),
+          getVersion());
     }
-    
+
+    delete mCSGNode;
+      mCSGNode = NULL;
     mCSGNode = new CSGPrimitive(spatialns);
     obj = mCSGNode;
   }
   else if (name == "csgTranslation")
   {
-    if (mCSGNode != NULL)
+    if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGObjectAllowedElements, getPackageVersion(),
-        getLevel(), getVersion());
-
-      delete mCSGNode;
-      mCSGNode = NULL;
+        SpatialCSGObjectAllowedElements, getPackageVersion(), getLevel(),
+          getVersion());
     }
 
+    delete mCSGNode;
+      mCSGNode = NULL;
     mCSGNode = new CSGTranslation(spatialns);
     obj = mCSGNode;
   }
   else if (name == "csgRotation")
   {
-    if (mCSGNode != NULL)
+    if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGObjectAllowedElements, getPackageVersion(),
-        getLevel(), getVersion());
-
-      delete mCSGNode;
-      mCSGNode = NULL;
+        SpatialCSGObjectAllowedElements, getPackageVersion(), getLevel(),
+          getVersion());
     }
 
+    delete mCSGNode;
+      mCSGNode = NULL;
     mCSGNode = new CSGRotation(spatialns);
     obj = mCSGNode;
   }
   else if (name == "csgScale")
   {
-    if (mCSGNode != NULL)
+    if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGObjectAllowedElements, getPackageVersion(),
-        getLevel(), getVersion());
-
-      delete mCSGNode;
-      mCSGNode = NULL;
+        SpatialCSGObjectAllowedElements, getPackageVersion(), getLevel(),
+          getVersion());
     }
 
+    delete mCSGNode;
+      mCSGNode = NULL;
     mCSGNode = new CSGScale(spatialns);
     obj = mCSGNode;
   }
   else if (name == "csgHomogeneousTransformation")
   {
-    if (mCSGNode != NULL)
+    if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGObjectAllowedElements, getPackageVersion(),
-        getLevel(), getVersion());
-
-      delete mCSGNode;
-      mCSGNode = NULL;
+        SpatialCSGObjectAllowedElements, getPackageVersion(), getLevel(),
+          getVersion());
     }
 
+    delete mCSGNode;
+      mCSGNode = NULL;
     mCSGNode = new CSGHomogeneousTransformation(spatialns);
     obj = mCSGNode;
   }
   else if (name == "csgSetOperator")
   {
-    if (mCSGNode != NULL)
+    if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGObjectAllowedElements, getPackageVersion(),
-        getLevel(), getVersion());
-
-      delete mCSGNode;
-      mCSGNode = NULL;
+        SpatialCSGObjectAllowedElements, getPackageVersion(), getLevel(),
+          getVersion());
     }
 
+    delete mCSGNode;
+      mCSGNode = NULL;
     mCSGNode = new CSGSetOperator(spatialns);
     obj = mCSGNode;
   }
@@ -1273,6 +1467,8 @@ CSGObject::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("id");
 
+  attributes.add("name");
+
   attributes.add("domainType");
 
   attributes.add("ordinal");
@@ -1298,7 +1494,8 @@ CSGObject::readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  if (static_cast<ListOfCSGObjects*>(getParentSBMLObject())->size() < 2)
+  if (log && getParentSBMLObject() &&
+    static_cast<ListOfCSGObjects*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
@@ -1322,23 +1519,27 @@ CSGObject::readAttributes(const XMLAttributes& attributes,
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialCSGObjectAllowedAttributes,
-        pkgVersion, level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial", SpatialCSGObjectAllowedCoreAttributes,
-        pkgVersion, level, version, details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialCSGObjectAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial", SpatialCSGObjectAllowedCoreAttributes,
+          pkgVersion, level, version, details);
+      }
     }
   }
 
@@ -1356,8 +1557,9 @@ CSGObject::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      logError(SpatialIdSyntaxRule, level, version, "The id '" + mId + "' does "
-        "not conform to the syntax.");
+      log->logPackageError("spatial", SpatialIdSyntaxRule, pkgVersion, level,
+        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+          "which does not conform to the syntax.", getLine(), getColumn());
     }
   }
   else
@@ -1366,6 +1568,20 @@ CSGObject::readAttributes(const XMLAttributes& attributes,
       "<CSGObject> element.";
     log->logPackageError("spatial", SpatialCSGObjectAllowedAttributes,
       pkgVersion, level, version, message);
+  }
+
+  // 
+  // name string (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("name", mName);
+
+  if (assigned == true)
+  {
+    if (mName.empty() == true)
+    {
+      logEmptyString(mName, level, version, "<CSGObject>");
+    }
   }
 
   // 
@@ -1382,9 +1598,18 @@ CSGObject::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mDomainType) == false)
     {
-      logError(SpatialCSGObjectDomainTypeMustBeDomainType, level, version, "The "
-        "attribute domainType='" + mDomainType + "' does not conform to the "
-          "syntax.");
+      std::string msg = "The domainType attribute on the <" + getElementName()
+        + ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mDomainType + "', which does not conform to the "
+        "syntax.";
+      log->logPackageError("spatial",
+        SpatialCSGObjectDomainTypeMustBeDomainType, pkgVersion, level, version,
+          msg, getLine(), getColumn());
     }
   }
   else
@@ -1433,6 +1658,11 @@ CSGObject::writeAttributes(XMLOutputStream& stream) const
   if (isSetId() == true)
   {
     stream.writeAttribute("id", getPrefix(), mId);
+  }
+
+  if (isSetName() == true)
+  {
+    stream.writeAttribute("name", getPrefix(), mName);
   }
 
   if (isSetDomainType() == true)
@@ -1506,7 +1736,7 @@ CSGObject_free(CSGObject_t* csgo)
  * Returns the value of the "id" attribute of this CSGObject_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 CSGObject_getId(const CSGObject_t * csgo)
 {
   if (csgo == NULL)
@@ -1519,10 +1749,26 @@ CSGObject_getId(const CSGObject_t * csgo)
 
 
 /*
+ * Returns the value of the "name" attribute of this CSGObject_t.
+ */
+LIBSBML_EXTERN
+char *
+CSGObject_getName(const CSGObject_t * csgo)
+{
+  if (csgo == NULL)
+  {
+    return NULL;
+  }
+
+  return csgo->getName().empty() ? NULL : safe_strdup(csgo->getName().c_str());
+}
+
+
+/*
  * Returns the value of the "domainType" attribute of this CSGObject_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 CSGObject_getDomainType(const CSGObject_t * csgo)
 {
   if (csgo == NULL)
@@ -1547,7 +1793,7 @@ CSGObject_getOrdinal(const CSGObject_t * csgo)
 
 
 /*
- * Predicate returning @c 1 if this CSGObject_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this CSGObject_t's "id" attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1558,8 +1804,20 @@ CSGObject_isSetId(const CSGObject_t * csgo)
 
 
 /*
- * Predicate returning @c 1 if this CSGObject_t's "domainType" attribute is
+ * Predicate returning @c 1 (true) if this CSGObject_t's "name" attribute is
  * set.
+ */
+LIBSBML_EXTERN
+int
+CSGObject_isSetName(const CSGObject_t * csgo)
+{
+  return (csgo != NULL) ? static_cast<int>(csgo->isSetName()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this CSGObject_t's "domainType" attribute
+ * is set.
  */
 LIBSBML_EXTERN
 int
@@ -1570,7 +1828,8 @@ CSGObject_isSetDomainType(const CSGObject_t * csgo)
 
 
 /*
- * Predicate returning @c 1 if this CSGObject_t's "ordinal" attribute is set.
+ * Predicate returning @c 1 (true) if this CSGObject_t's "ordinal" attribute is
+ * set.
  */
 LIBSBML_EXTERN
 int
@@ -1588,6 +1847,17 @@ int
 CSGObject_setId(CSGObject_t * csgo, const char * id)
 {
   return (csgo != NULL) ? csgo->setId(id) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "name" attribute of this CSGObject_t.
+ */
+LIBSBML_EXTERN
+int
+CSGObject_setName(CSGObject_t * csgo, const char * name)
+{
+  return (csgo != NULL) ? csgo->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1622,6 +1892,17 @@ int
 CSGObject_unsetId(CSGObject_t * csgo)
 {
   return (csgo != NULL) ? csgo->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "name" attribute of this CSGObject_t.
+ */
+LIBSBML_EXTERN
+int
+CSGObject_unsetName(CSGObject_t * csgo)
+{
+  return (csgo != NULL) ? csgo->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1664,7 +1945,8 @@ CSGObject_getCSGNode(const CSGObject_t * csgo)
 
 
 /*
- * Predicate returning @c 1 if this CSGObject_t's "csgNode" element is set.
+ * Predicate returning @c 1 (true) if this CSGObject_t's "csgNode" element is
+ * set.
  */
 LIBSBML_EXTERN
 int
@@ -1770,8 +2052,8 @@ CSGObject_unsetCSGNode(CSGObject_t * csgo)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this CSGObject_t
- * object have been set.
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * CSGObject_t object have been set.
  */
 LIBSBML_EXTERN
 int
@@ -1782,8 +2064,8 @@ CSGObject_hasRequiredAttributes(const CSGObject_t * csgo)
 
 
 /*
- * Predicate returning @c 1 if all the required elements for this CSGObject_t
- * object have been set.
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * CSGObject_t object have been set.
  */
 LIBSBML_EXTERN
 int

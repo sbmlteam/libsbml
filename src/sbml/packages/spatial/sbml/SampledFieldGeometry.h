@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -88,11 +88,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this SampledFieldGeometry.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   SampledFieldGeometry(unsigned int level =
     SpatialExtension::getDefaultLevel(),
@@ -106,13 +102,11 @@ public:
    * Creates a new SampledFieldGeometry using the given SpatialPkgNamespaces
    * object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   SampledFieldGeometry(SpatialPkgNamespaces *spatialns);
 
@@ -198,6 +192,16 @@ public:
    * Returns the ListOfSampledVolumes from this SampledFieldGeometry.
    *
    * @return the ListOfSampledVolumes from this SampledFieldGeometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see createSampledVolume()
+   * @see getSampledVolume(const std::string& sid)
+   * @see getSampledVolume(unsigned int n)
+   * @see getNumSampledVolumes()
+   * @see removeSampledVolume(const std::string& sid)
+   * @see removeSampledVolume(unsigned int n)
    */
   const ListOfSampledVolumes* getListOfSampledVolumes() const;
 
@@ -206,6 +210,16 @@ public:
    * Returns the ListOfSampledVolumes from this SampledFieldGeometry.
    *
    * @return the ListOfSampledVolumes from this SampledFieldGeometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see createSampledVolume()
+   * @see getSampledVolume(const std::string& sid)
+   * @see getSampledVolume(unsigned int n)
+   * @see getNumSampledVolumes()
+   * @see removeSampledVolume(const std::string& sid)
+   * @see removeSampledVolume(unsigned int n)
    */
   ListOfSampledVolumes* getListOfSampledVolumes();
 
@@ -219,7 +233,14 @@ public:
    * @return the nth SampledVolume in the ListOfSampledVolumes within this
    * SampledFieldGeometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see createSampledVolume()
+   * @see getSampledVolume(const std::string& sid)
    * @see getNumSampledVolumes()
+   * @see removeSampledVolume(const std::string& sid)
+   * @see removeSampledVolume(unsigned int n)
    */
   SampledVolume* getSampledVolume(unsigned int n);
 
@@ -233,7 +254,14 @@ public:
    * @return the nth SampledVolume in the ListOfSampledVolumes within this
    * SampledFieldGeometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see createSampledVolume()
+   * @see getSampledVolume(const std::string& sid)
    * @see getNumSampledVolumes()
+   * @see removeSampledVolume(const std::string& sid)
+   * @see removeSampledVolume(unsigned int n)
    */
   const SampledVolume* getSampledVolume(unsigned int n) const;
 
@@ -245,11 +273,17 @@ public:
    * retrieve.
    *
    * @return the SampledVolume in the ListOfSampledVolumes within this
-   * SampledFieldGeometry with the given id or NULL if no such SampledVolume
-   * exists.
+   * SampledFieldGeometry with the given @p sid or @c NULL if no such
+   * SampledVolume exists.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see createSampledVolume()
    * @see getSampledVolume(unsigned int n)
    * @see getNumSampledVolumes()
+   * @see removeSampledVolume(const std::string& sid)
+   * @see removeSampledVolume(unsigned int n)
    */
   SampledVolume* getSampledVolume(const std::string& sid);
 
@@ -261,11 +295,17 @@ public:
    * retrieve.
    *
    * @return the SampledVolume in the ListOfSampledVolumes within this
-   * SampledFieldGeometry with the given id or NULL if no such SampledVolume
-   * exists.
+   * SampledFieldGeometry with the given @p sid or @c NULL if no such
+   * SampledVolume exists.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see createSampledVolume()
    * @see getSampledVolume(unsigned int n)
    * @see getNumSampledVolumes()
+   * @see removeSampledVolume(const std::string& sid)
+   * @see removeSampledVolume(unsigned int n)
    */
   const SampledVolume* getSampledVolume(const std::string& sid) const;
 
@@ -274,11 +314,13 @@ public:
    * Get a SampledVolume from the SampledFieldGeometry based on the DomainType
    * to which it refers.
    *
-   * @param sid a string representing the domainType attribute of the
+   * @param sid a string representing the "domainType" attribute of the
    * SampledVolume object to retrieve.
    *
    * @return the first SampledVolume in this SampledFieldGeometry based on the
    * given domainType attribute or NULL if no such SampledVolume exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   const SampledVolume* getSampledVolumeByDomainType(const std::string& sid)
     const;
@@ -288,11 +330,13 @@ public:
    * Get a SampledVolume from the SampledFieldGeometry based on the DomainType
    * to which it refers.
    *
-   * @param sid a string representing the domainType attribute of the
+   * @param sid a string representing the "domainType" attribute of the
    * SampledVolume object to retrieve.
    *
    * @return the first SampledVolume in this SampledFieldGeometry based on the
    * given domainType attribute or NULL if no such SampledVolume exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   SampledVolume* getSampledVolumeByDomainType(const std::string& sid);
 
@@ -305,10 +349,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createSampledVolume()
+   * @see getSampledVolume(const std::string& sid)
+   * @see getSampledVolume(unsigned int n)
+   * @see getNumSampledVolumes()
+   * @see removeSampledVolume(const std::string& sid)
+   * @see removeSampledVolume(unsigned int n)
    */
   int addSampledVolume(const SampledVolume* sv);
 
@@ -317,6 +371,13 @@ public:
    * Get the number of SampledVolume objects in this SampledFieldGeometry.
    *
    * @return the number of SampledVolume objects in this SampledFieldGeometry.
+   *
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see createSampledVolume()
+   * @see getSampledVolume(const std::string& sid)
+   * @see getSampledVolume(unsigned int n)
+   * @see removeSampledVolume(const std::string& sid)
+   * @see removeSampledVolume(unsigned int n)
    */
   unsigned int getNumSampledVolumes() const;
 
@@ -327,7 +388,14 @@ public:
    *
    * @return a new SampledVolume object instance.
    *
-   * @see addSampledVolume(const SampledVolume* sv)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see getSampledVolume(const std::string& sid)
+   * @see getSampledVolume(unsigned int n)
+   * @see getNumSampledVolumes()
+   * @see removeSampledVolume(const std::string& sid)
+   * @see removeSampledVolume(unsigned int n)
    */
   SampledVolume* createSampledVolume();
 
@@ -341,10 +409,14 @@ public:
    *
    * @return a pointer to the nth SampledVolume in this SampledFieldGeometry.
    *
-   * @see getNumSampledVolumes
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see createSampledVolume()
+   * @see getSampledVolume(const std::string& sid)
+   * @see getSampledVolume(unsigned int n)
+   * @see getNumSampledVolumes()
+   * @see removeSampledVolume(const std::string& sid)
    */
   SampledVolume* removeSampledVolume(unsigned int n);
 
@@ -359,8 +431,14 @@ public:
    * @return the SampledVolume in this SampledFieldGeometry based on the
    * identifier or NULL if no such SampledVolume exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addSampledVolume(const SampledVolume* object)
+   * @see createSampledVolume()
+   * @see getSampledVolume(const std::string& sid)
+   * @see getSampledVolume(unsigned int n)
+   * @see getNumSampledVolumes()
+   * @see removeSampledVolume(unsigned int n)
    */
   SampledVolume* removeSampledVolume(const std::string& sid);
 
@@ -375,8 +453,8 @@ public:
   /**
    * Returns the XML element name of this SampledFieldGeometry object.
    *
-   * For SampledFieldGeometry, the XML element name is always @c
-   * "sampledFieldGeometry".
+   * For SampledFieldGeometry, the XML element name is always
+   * @c "sampledFieldGeometry".
    *
    * @return the name of this element, i.e. @c "sampledFieldGeometry".
    */
@@ -389,8 +467,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_SAMPLEDFIELDGEOMETRY, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_SAMPLEDFIELDGEOMETRY, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -480,6 +557,19 @@ public:
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix,
                                      bool flag);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Updates the namespaces when setLevelVersion is used
+   */
+  virtual void updateSBMLNamespace(const std::string& package,
+                                   unsigned int level,
+                                   unsigned int version);
 
   /** @endcond */
 
@@ -750,11 +840,50 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Adds a new "elementName" object to this SampledFieldGeometry.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @param element, pointer to the element to be added.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int addChildObject(const std::string& elementName,
+                             const SBase* element);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Removes and returns the new "elementName" object with the given id in this
+   * SampledFieldGeometry.
+   *
+   * @param elementName, the name of the element to remove.
+   *
+   * @param id, the id of the element to remove.
+   *
+   * @return pointer to the element removed.
+   */
+  virtual SBase* removeChildObject(const std::string& elementName,
+                                   const std::string& id);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
    * Returns the number of "elementName" in this SampledFieldGeometry.
    *
    * @param elementName, the name of the element to get number of.
    *
-   * unsigned int number of elements.
+   * @return unsigned int number of elements.
    */
   virtual unsigned int getNumObjects(const std::string& elementName);
 
@@ -769,9 +898,9 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * @param index, unsigned int teh index of teh object to retrieve.
+   * @param index, unsigned int the index of the object to retrieve.
    *
-   * pointer to the object.
+   * @return pointer to the object.
    */
   virtual SBase* getObject(const std::string& elementName, unsigned int index);
 
@@ -790,7 +919,8 @@ public:
    * @param id a string representing the id attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p id.
+   * @return a pointer to the SBase element with the given @p id. If no such
+   * object is found, this method returns @c NULL.
    */
   virtual SBase* getElementBySId(const std::string& id);
 
@@ -802,7 +932,8 @@ public:
    * @param metaid a string representing the metaid attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p metaid.
+   * @return a pointer to the SBase element with the given @p metaid. If no
+   * such object is found this method returns @c NULL.
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
 
@@ -811,8 +942,8 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
-   * filter, an ElementFilter that may impose restrictions on the objects to be
-   * retrieved.
+   * @param filter an ElementFilter that may impose restrictions on the objects
+   * to be retrieved.
    *
    * @return a List* pointer of pointers to all SBase child objects with any
    * restriction imposed.
@@ -907,11 +1038,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this SampledFieldGeometry_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof SampledFieldGeometry_t
  */
@@ -928,6 +1057,8 @@ SampledFieldGeometry_create(unsigned int level,
  * @param sfg the SampledFieldGeometry_t structure.
  *
  * @return a (deep) copy of this SampledFieldGeometry_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof SampledFieldGeometry_t
  */
@@ -958,21 +1089,23 @@ SampledFieldGeometry_free(SampledFieldGeometry_t* sfg);
  * @return the value of the "sampledField" attribute of this
  * SampledFieldGeometry_t as a pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof SampledFieldGeometry_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 SampledFieldGeometry_getSampledField(const SampledFieldGeometry_t * sfg);
 
 
 /**
- * Predicate returning @c 1 if this SampledFieldGeometry_t's "sampledField"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this SampledFieldGeometry_t's
+ * "sampledField" attribute is set.
  *
  * @param sfg the SampledFieldGeometry_t structure.
  *
- * @return @c 1 if this SampledFieldGeometry_t's "sampledField" attribute has
- * been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SampledFieldGeometry_t's "sampledField"
+ * attribute has been set, otherwise @c 0 (false) is returned.
  *
  * @memberof SampledFieldGeometry_t
  */
@@ -993,6 +1126,7 @@ SampledFieldGeometry_isSetSampledField(const SampledFieldGeometry_t * sfg);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledFieldGeometry_t
  */
@@ -1011,6 +1145,7 @@ SampledFieldGeometry_setSampledField(SampledFieldGeometry_t * sfg,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledFieldGeometry_t
  */
@@ -1020,14 +1155,24 @@ SampledFieldGeometry_unsetSampledField(SampledFieldGeometry_t * sfg);
 
 
 /**
- * Returns a ListOf_t* containing SampledVolume_t objects from this
+ * Returns a ListOf_t * containing SampledVolume_t objects from this
  * SampledFieldGeometry_t.
  *
- * @param sfg the SampledFieldGeometry_t structure whose "ListOfSampledVolumes"
+ * @param sfg the SampledFieldGeometry_t structure whose ListOfSampledVolumes
  * is sought.
  *
- * @return the "ListOfSampledVolumes" from this SampledFieldGeometry_t as a
+ * @return the ListOfSampledVolumes from this SampledFieldGeometry_t as a
  * ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see SampledFieldGeometry_addSampledVolume()
+ * @see SampledFieldGeometry_createSampledVolume()
+ * @see SampledFieldGeometry_getSampledVolumeById()
+ * @see SampledFieldGeometry_getSampledVolume()
+ * @see SampledFieldGeometry_getNumSampledVolumes()
+ * @see SampledFieldGeometry_removeSampledVolumeById()
+ * @see SampledFieldGeometry_removeSampledVolume()
  *
  * @memberof SampledFieldGeometry_t
  */
@@ -1047,10 +1192,12 @@ SampledFieldGeometry_getListOfSampledVolumes(SampledFieldGeometry_t* sfg);
  * @return the nth SampledVolume_t in the ListOfSampledVolumes within this
  * SampledFieldGeometry.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof SampledFieldGeometry_t
  */
 LIBSBML_EXTERN
-const SampledVolume_t*
+SampledVolume_t*
 SampledFieldGeometry_getSampledVolume(SampledFieldGeometry_t* sfg,
                                       unsigned int n);
 
@@ -1065,13 +1212,15 @@ SampledFieldGeometry_getSampledVolume(SampledFieldGeometry_t* sfg,
  * retrieve.
  *
  * @return the SampledVolume_t in the ListOfSampledVolumes within this
- * SampledFieldGeometry with the given id or NULL if no such SampledVolume_t
- * exists.
+ * SampledFieldGeometry with the given @p sid or @c NULL if no such
+ * SampledVolume_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof SampledFieldGeometry_t
  */
 LIBSBML_EXTERN
-const SampledVolume_t*
+SampledVolume_t*
 SampledFieldGeometry_getSampledVolumeById(SampledFieldGeometry_t* sfg,
                                           const char *sid);
 
@@ -1082,16 +1231,18 @@ SampledFieldGeometry_getSampledVolumeById(SampledFieldGeometry_t* sfg,
  *
  * @param sfg the SampledFieldGeometry_t structure to search.
  *
- * @param sid a string representing the domainType attribute of the
+ * @param sid a string representing the "domainType" attribute of the
  * SampledVolume_t object to retrieve.
  *
  * @return the first SampledVolume_t in this SampledFieldGeometry_t based on
  * the given domainType attribute or NULL if no such SampledVolume_t exists.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof SampledFieldGeometry_t
  */
 LIBSBML_EXTERN
-const SampledVolume_t*
+SampledVolume_t*
 SampledFieldGeometry_getSampledVolumeByDomainType(SampledFieldGeometry_t* sfg,
                                                   const char *sid);
 
@@ -1107,6 +1258,11 @@ SampledFieldGeometry_getSampledVolumeByDomainType(SampledFieldGeometry_t* sfg,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
  *
  * @memberof SampledFieldGeometry_t
  */
@@ -1140,6 +1296,8 @@ SampledFieldGeometry_getNumSampledVolumes(SampledFieldGeometry_t* sfg);
  *
  * @return a new SampledVolume_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof SampledFieldGeometry_t
  */
 LIBSBML_EXTERN
@@ -1157,6 +1315,8 @@ SampledFieldGeometry_createSampledVolume(SampledFieldGeometry_t* sfg);
  * remove.
  *
  * @return a pointer to the nth SampledVolume_t in this SampledFieldGeometry_t.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof SampledFieldGeometry_t
  */
@@ -1178,6 +1338,8 @@ SampledFieldGeometry_removeSampledVolume(SampledFieldGeometry_t* sfg,
  * @return the SampledVolume_t in this SampledFieldGeometry_t based on the
  * identifier or NULL if no such SampledVolume_t exists.
  *
+ * @copydetails doc_returned_owned_pointer
+ *
  * @memberof SampledFieldGeometry_t
  */
 LIBSBML_EXTERN
@@ -1187,13 +1349,13 @@ SampledFieldGeometry_removeSampledVolumeById(SampledFieldGeometry_t* sfg,
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * SampledFieldGeometry_t object have been set.
  *
  * @param sfg the SampledFieldGeometry_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * SampledFieldGeometry_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * SampledFieldGeometry_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the SampledFieldGeometry_t object are:
@@ -1207,13 +1369,13 @@ SampledFieldGeometry_hasRequiredAttributes(const SampledFieldGeometry_t * sfg);
 
 
 /**
- * Predicate returning @c 1 if all the required elements for this
+ * Predicate returning @c 1 (true) if all the required elements for this
  * SampledFieldGeometry_t object have been set.
  *
  * @param sfg the SampledFieldGeometry_t structure.
  *
- * @return @c 1 to indicate that all the required elements of this
- * SampledFieldGeometry_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required elements of this
+ * SampledFieldGeometry_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required elements for the SampledFieldGeometry_t object are:

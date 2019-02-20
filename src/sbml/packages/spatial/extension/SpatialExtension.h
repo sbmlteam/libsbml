@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -236,6 +236,7 @@ public:
    *
    * @return the version of the SBML Level&nbsp;3 package for the given URI of
    * this package, or @c 0 if the given URI is invalid, or for a different
+   * package.
    */
   virtual unsigned int getPackageVersion(const std::string& uri) const;
 
@@ -411,7 +412,7 @@ typedef enum
 
 
 /**
- * @enum BoundaryConditionKind_t
+ * @enum BoundaryKind_t
  * @brief Enumeration of values permitted as the value of the "boundarykind"
  * attribute on Spatial objects.
  *
@@ -433,15 +434,14 @@ typedef enum
 , SPATIAL_BOUNDARYKIND_ROBIN_SUM                                      /*!< The spatial boundarykind is @c "Robin_sum". */
 , SPATIAL_BOUNDARYKIND_NEUMANN                                        /*!< The spatial boundarykind is @c "Neumann". */
 , SPATIAL_BOUNDARYKIND_DIRICHLET                                      /*!< The spatial boundarykind is @c "Dirichlet". */
-, SPATIAL_BOUNDARYKIND_INVALID                                        /*!< Invalid BoundaryConditionKind value. */
-} BoundaryConditionKind_t;
+, SPATIAL_BOUNDARYKIND_INVALID                                        /*!< Invalid BoundaryKind value. */
+} BoundaryKind_t;
 
 
 /**
- * Returns the string version of the provided #BoundaryConditionKind_t
- * enumeration.
+ * Returns the string version of the provided #BoundaryKind_t enumeration.
  *
- * @param bck the #BoundaryConditionKind_t enumeration value to convert.
+ * @param bk the #BoundaryKind_t enumeration value to convert.
  *
  * @return A string corresponding to the given type:
  * "Robin_valueCoefficient",
@@ -450,7 +450,7 @@ typedef enum
  * "Neumann",
  * "Dirichlet",
  * or @c NULL if the value is @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID,
- * BoundaryConditionKind_t} or another invalid enumeration value.
+ * BoundaryKind_t} or another invalid enumeration value.
  *
  * @copydetails doc_returned_unowned_char
  *
@@ -460,56 +460,55 @@ typedef enum
  */
 LIBSBML_EXTERN
 const char*
-BoundaryConditionKind_toString(BoundaryConditionKind_t bck);
+BoundaryKind_toString(BoundaryKind_t bk);
 
 
 /**
  */
 LIBSBML_EXTERN
-BoundaryConditionKind_t
+BoundaryKind_t
 BoundaryConditionKind_parse(const char* code);
 
 /**
- * Returns the #BoundaryConditionKind_t enumeration corresponding to the given
- * string or @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID,
- * BoundaryConditionKind_t} if there is no such match.
+ * Returns the #BoundaryKind_t enumeration corresponding to the given string or
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID, BoundaryKind_t} if there is no
+ * such match.
  *
- * @param code the string to convert to a #BoundaryConditionKind_t.
+ * @param code the string to convert to a #BoundaryKind_t.
  *
- * @return the corresponding #BoundaryConditionKind_t or
- * @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID, BoundaryConditionKind_t} if no
- * match is found.
+ * @return the corresponding #BoundaryKind_t or
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID, BoundaryKind_t} if no match is
+ * found.
  *
  * @note The matching is case-sensitive: "Robin_valueCoefficient" will return
- * @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT,
- * BoundaryConditionKind_t}, but "Robin_valueCoefficient" will return
- * @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID, BoundaryConditionKind_t}.
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT, BoundaryKind_t},
+ * but "Robin_valueCoefficient" will return
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID, BoundaryKind_t}.
  *
  * @if conly
  * @memberof Spatial_t
  * @endif
  */
 LIBSBML_EXTERN
-BoundaryConditionKind_t
-BoundaryConditionKind_fromString(const char* code);
+BoundaryKind_t
+BoundaryKind_fromString(const char* code);
 
 
 /**
  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
- * given #BoundaryConditionKind_t is valid.
+ * given #BoundaryKind_t is valid.
  *
- * @param bck the #BoundaryConditionKind_t enumeration to query.
+ * @param bk the #BoundaryKind_t enumeration to query.
  *
- * @return @c 1 (true) if the #BoundaryConditionKind_t is
- * @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT,
- * BoundaryConditionKind_t},
+ * @return @c 1 (true) if the #BoundaryKind_t is
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT, BoundaryKind_t},
  * @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_INWARD_NORMAL_GRADIENT_COEFFICIENT,
- * BoundaryConditionKind_t},
- * @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_SUM, BoundaryConditionKind_t},
- * @sbmlconstant{SPATIAL_BOUNDARYKIND_NEUMANN, BoundaryConditionKind_t}, or
- * @sbmlconstant{SPATIAL_BOUNDARYKIND_DIRICHLET, BoundaryConditionKind_t};
+ * BoundaryKind_t},
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_SUM, BoundaryKind_t},
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_NEUMANN, BoundaryKind_t}, or
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_DIRICHLET, BoundaryKind_t};
  * @c 0 (false) otherwise (including
- * @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID, BoundaryConditionKind_t}).
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID, BoundaryKind_t}).
  *
  * @if conly
  * @memberof Spatial_t
@@ -517,12 +516,12 @@ BoundaryConditionKind_fromString(const char* code);
  */
 LIBSBML_EXTERN
 int
-BoundaryConditionKind_isValid(BoundaryConditionKind_t bck);
+BoundaryKind_isValid(BoundaryKind_t bk);
 
 
 /**
  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
- * given string is a valid #BoundaryConditionKind_t.
+ * given string is a valid #BoundaryKind_t.
  *
  * @param code the string to query.
  *
@@ -530,8 +529,9 @@ BoundaryConditionKind_isValid(BoundaryConditionKind_t bck);
  * "Robin_valueCoefficient",
  * "Robin_inwardNormalGradientCoefficient",
  * "Robin_sum",
- * "Neumann", or
- * "Dirichlet";
+ * "Neumann",
+ * "Dirichlet", or
+ * "invalid BoundaryKind value";
  * @c 0 (false) otherwise.
  *
  * @note The matching is case-sensitive: "Robin_valueCoefficient" will return
@@ -543,7 +543,7 @@ BoundaryConditionKind_isValid(BoundaryConditionKind_t bck);
  */
 LIBSBML_EXTERN
 int
-BoundaryConditionKind_isValidString(const char* code);
+BoundaryKind_isValidString(const char* code);
 
 
 /**
@@ -564,10 +564,10 @@ BoundaryConditionKind_isValidString(const char* code);
  */
 typedef enum
 {
-  SPATIAL_COORDINATEKIND_CARTESIAN_X   /*!< The spatial coordinatekind is @c "cartesianX". */
-, SPATIAL_COORDINATEKIND_CARTESIAN_Y   /*!< The spatial coordinatekind is @c "cartesianY". */
-, SPATIAL_COORDINATEKIND_CARTESIAN_Z   /*!< The spatial coordinatekind is @c "cartesianZ". */
-, SPATIAL_COORDINATEKIND_INVALID       /*!< Invalid CoordinateKind value. */
+  SPATIAL_COORDINATEKIND_CARTESIAN_X       /*!< The spatial coordinatekind is @c "cartesianX". */
+, SPATIAL_COORDINATEKIND_CARTESIAN_Y       /*!< The spatial coordinatekind is @c "cartesianY". */
+, SPATIAL_COORDINATEKIND_CARTESIAN_Z       /*!< The spatial coordinatekind is @c "cartesianZ". */
+, SPATIAL_COORDINATEKIND_INVALID           /*!< Invalid CoordinateKind value. */
 } CoordinateKind_t;
 
 
@@ -580,9 +580,9 @@ typedef enum
  * "cartesianX",
  * "cartesianY",
  * "cartesianZ",
- * or @c NULL if the value is
- * @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t} or
- * another invalid enumeration value.
+ * "invalid CoordinateKind value",
+ * or @c NULL if the value is @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID,
+ * CoordinateKind_t} or another invalid enumeration value.
  *
  * @copydetails doc_returned_unowned_char
  *
@@ -604,19 +604,19 @@ CoordinateKind_parse(const char* code);
 
 /**
  * Returns the #CoordinateKind_t enumeration corresponding to the given string
- * or @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t}
- * if there is no such match.
+ * or @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t} if there
+ * is no such match.
  *
  * @param code the string to convert to a #CoordinateKind_t.
  *
  * @return the corresponding #CoordinateKind_t or
- * @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t} if
- * no match is found.
+ * @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t} if no match
+ * is found.
  *
  * @note The matching is case-sensitive: "cartesianX" will return
  * @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_X, CoordinateKind_t}, but
- * "CartesianX" will return
- * @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t}.
+ * "CartesianX" will return @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID,
+ * CoordinateKind_t}.
  *
  * @if conly
  * @memberof Spatial_t
@@ -1050,7 +1050,7 @@ typedef enum
 {
   SPATIAL_SETOPERATION_UNION              /*!< The spatial setoperation is @c "union". */
 , SPATIAL_SETOPERATION_INTERSECTION       /*!< The spatial setoperation is @c "intersection". */
-, SPATIAL_SETOPERATION_DIFFERENCE         /*!< The spatial setoperation is @c "relativeComplement". */
+, SPATIAL_SETOPERATION_DIFFERENCE         /*!< The spatial setoperation is @c "difference". */
 , SPATIAL_SETOPERATION_INVALID            /*!< Invalid SetOperation value. */
 } SetOperation_t;
 
@@ -1063,7 +1063,7 @@ typedef enum
  * @return A string corresponding to the given type:
  * "union",
  * "intersection",
- * "relativeComplement",
+ * "difference",
  * or @c NULL if the value is @sbmlconstant{SPATIAL_SETOPERATION_INVALID,
  * SetOperation_t} or another invalid enumeration value.
  *
@@ -1137,8 +1137,9 @@ SetOperation_isValid(SetOperation_t so);
  *
  * @return @c 1 (true) if the string is
  * "union",
- * "intersection", or
- * "relativeComplement";
+ * "intersection",
+ * "difference", or
+ * "invalid SetOperation value";
  * @c 0 (false) otherwise.
  *
  * @note The matching is case-sensitive: "union" will return @c 1 (true), but
@@ -1413,14 +1414,13 @@ PolygonKind_isValidString(const char* code);
  */
 typedef enum
 {
-  SPATIAL_PRIMITIVEKIND_SPHERE              /*!< The spatial primitivekind is @c "sphere". */
-, SPATIAL_PRIMITIVEKIND_CUBE                /*!< The spatial primitivekind is @c "cube". */
-, SPATIAL_PRIMITIVEKIND_CYLINDER            /*!< The spatial primitivekind is @c "cylinder". */
-, SPATIAL_PRIMITIVEKIND_CONE                /*!< The spatial primitivekind is @c "cone". */
-, SPATIAL_PRIMITIVEKIND_CIRCLE              /*!< The spatial primitivekind is @c "circle". */
-, SPATIAL_PRIMITIVEKIND_SQUARE              /*!< The spatial primitivekind is @c "square". */
-, SPATIAL_PRIMITIVEKIND_RIGHTTRIANGLE       /*!< The spatial primitivekind is @c "rightTriangle". */
-, SPATIAL_PRIMITIVEKIND_INVALID             /*!< Invalid PrimitiveKind value. */
+  SPATIAL_PRIMITIVEKIND_SPHERE         /*!< The spatial primitivekind is @c "sphere". */
+, SPATIAL_PRIMITIVEKIND_CUBE           /*!< The spatial primitivekind is @c "cube". */
+, SPATIAL_PRIMITIVEKIND_CYLINDER       /*!< The spatial primitivekind is @c "cylinder". */
+, SPATIAL_PRIMITIVEKIND_CONE           /*!< The spatial primitivekind is @c "cone". */
+, SPATIAL_PRIMITIVEKIND_CIRCLE         /*!< The spatial primitivekind is @c "circle". */
+, SPATIAL_PRIMITIVEKIND_SQUARE         /*!< The spatial primitivekind is @c "square". */
+, SPATIAL_PRIMITIVEKIND_INVALID        /*!< Invalid PrimitiveKind value. */
 } PrimitiveKind_t;
 
 
@@ -1436,7 +1436,6 @@ typedef enum
  * "cone",
  * "circle",
  * "square",
- * "rightTriangle",
  * or @c NULL if the value is @sbmlconstant{SPATIAL_PRIMITIVEKIND_INVALID,
  * PrimitiveKind_t} or another invalid enumeration value.
  *
@@ -1495,7 +1494,6 @@ PrimitiveKind_fromString(const char* code);
  * @sbmlconstant{SPATIAL_PRIMITIVEKIND_CONE, PrimitiveKind_t},
  * @sbmlconstant{SPATIAL_PRIMITIVEKIND_CIRCLE, PrimitiveKind_t},
  * @sbmlconstant{SPATIAL_PRIMITIVEKIND_SQUARE, PrimitiveKind_t}, or
- * @sbmlconstant{SPATIAL_PRIMITIVEKIND_RIGHTTRIANGLE, PrimitiveKind_t};
  * @c 0 (false) otherwise (including
  * @sbmlconstant{SPATIAL_PRIMITIVEKIND_INVALID, PrimitiveKind_t}).
  *
@@ -1521,7 +1519,6 @@ PrimitiveKind_isValid(PrimitiveKind_t pk);
  * "cone",
  * "circle",
  * "square", or
- * "rightTriangle";
  * @c 0 (false) otherwise.
  *
  * @note The matching is case-sensitive: "sphere" will return @c 1 (true), but

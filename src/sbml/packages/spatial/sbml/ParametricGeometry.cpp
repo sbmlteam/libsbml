@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -58,7 +58,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 ParametricGeometry::ParametricGeometry(unsigned int level,
                                        unsigned int version,
                                        unsigned int pkgVersion)
-  : GeometryDefinition(level, version)
+  : GeometryDefinition(level, version, pkgVersion)
   , mSpatialPoints (NULL)
   , mParametricObjects (level, version, pkgVersion)
 {
@@ -595,6 +595,30 @@ ParametricGeometry::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
+ * Updates the namespaces when setLevelVersion is used
+ */
+void
+ParametricGeometry::updateSBMLNamespace(const std::string& package,
+                                        unsigned int level,
+                                        unsigned int version)
+{
+  GeometryDefinition::updateSBMLNamespace(package, level, version);
+
+  if (mSpatialPoints != NULL)
+  {
+    mSpatialPoints->updateSBMLNamespace(package, level, version);
+  }
+
+  mParametricObjects.updateSBMLNamespace(package, level, version);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
  * Gets the value of the "attributeName" attribute of this ParametricGeometry.
  */
 int
@@ -835,6 +859,60 @@ ParametricGeometry::createChildObject(const std::string& elementName)
 /** @cond doxygenLibsbmlInternal */
 
 /*
+ * Adds a new "elementName" object to this ParametricGeometry.
+ */
+int
+ParametricGeometry::addChildObject(const std::string& elementName,
+                                   const SBase* element)
+{
+  if (elementName == "spatialPoints" && element->getTypeCode() ==
+    SBML_SPATIAL_SPATIALPOINTS)
+  {
+    return setSpatialPoints((const SpatialPoints*)(element));
+  }
+  else if (elementName == "parametricObject" && element->getTypeCode() ==
+    SBML_SPATIAL_PARAMETRICOBJECT)
+  {
+    return addParametricObject((const ParametricObject*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Removes and returns the new "elementName" object with the given id in this
+ * ParametricGeometry.
+ */
+SBase*
+ParametricGeometry::removeChildObject(const std::string& elementName,
+                                      const std::string& id)
+{
+  if (elementName == "spatialPoints")
+  {
+    SpatialPoints * obj = getSpatialPoints();
+    if (unsetSpatialPoints() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "parametricObject")
+  {
+    return removeParametricObject(id);
+  }
+
+  return NULL;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
  * Returns the number of "elementName" in this ParametricGeometry.
  */
 unsigned int
@@ -870,7 +948,7 @@ SBase*
 ParametricGeometry::getObject(const std::string& elementName,
                               unsigned int index)
 {
-  GeometryDefinition* obj = NULL;
+  SBase* obj = NULL;
 
   if (elementName == "spatialPoints")
   {
@@ -1007,16 +1085,15 @@ ParametricGeometry::createObject(XMLInputStream& stream)
 
   if (name == "spatialPoints")
   {
-    if (mSpatialPoints != NULL)
+    if (isSetSpatialPoints())
     {
       getErrorLog()->logPackageError("spatial",
         SpatialParametricGeometryAllowedElements, getPackageVersion(),
           getLevel(), getVersion());
-
-      delete mSpatialPoints;
-      mSpatialPoints = NULL;
     }
 
+    delete mSpatialPoints;
+      mSpatialPoints = NULL;
     mSpatialPoints = new SpatialPoints(spatialns);
     obj = mSpatialPoints;
   }
@@ -1076,24 +1153,28 @@ ParametricGeometry::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   GeometryDefinition::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialUnknown, pkgVersion, level,
-        version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial",
-        SpatialParametricGeometryAllowedCoreAttributes, pkgVersion, level,
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialUnknown, pkgVersion, level,
           version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialParametricGeometryAllowedCoreAttributes, pkgVersion, level,
+            version, details);
+      }
     }
   }
 }
@@ -1187,8 +1268,8 @@ ParametricGeometry_getSpatialPoints(const ParametricGeometry_t * pg)
 
 
 /*
- * Predicate returning @c 1 if this ParametricGeometry_t's "spatialPoints"
- * element is set.
+ * Predicate returning @c 1 (true) if this ParametricGeometry_t's
+ * "spatialPoints" element is set.
  */
 LIBSBML_EXTERN
 int
@@ -1241,7 +1322,7 @@ ParametricGeometry_unsetSpatialPoints(ParametricGeometry_t * pg)
 
 
 /*
- * Returns a ListOf_t* containing ParametricObject_t objects from this
+ * Returns a ListOf_t * containing ParametricObject_t objects from this
  * ParametricGeometry_t.
  */
 LIBSBML_EXTERN
@@ -1256,7 +1337,7 @@ ParametricGeometry_getListOfParametricObjects(ParametricGeometry_t* pg)
  * Get a ParametricObject_t from the ParametricGeometry_t.
  */
 LIBSBML_EXTERN
-const ParametricObject_t*
+ParametricObject_t*
 ParametricGeometry_getParametricObject(ParametricGeometry_t* pg,
                                        unsigned int n)
 {
@@ -1269,7 +1350,7 @@ ParametricGeometry_getParametricObject(ParametricGeometry_t* pg,
  * identifier.
  */
 LIBSBML_EXTERN
-const ParametricObject_t*
+ParametricObject_t*
 ParametricGeometry_getParametricObjectById(ParametricGeometry_t* pg,
                                            const char *sid)
 {
@@ -1282,7 +1363,7 @@ ParametricGeometry_getParametricObjectById(ParametricGeometry_t* pg,
  * DomainType to which it refers.
  */
 LIBSBML_EXTERN
-const ParametricObject_t*
+ParametricObject_t*
 ParametricGeometry_getParametricObjectByDomainType(ParametricGeometry_t* pg,
                                                    const char *sid)
 {
@@ -1354,7 +1435,7 @@ ParametricGeometry_removeParametricObjectById(ParametricGeometry_t* pg,
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * ParametricGeometry_t object have been set.
  */
 LIBSBML_EXTERN
@@ -1366,7 +1447,7 @@ ParametricGeometry_hasRequiredAttributes(const ParametricGeometry_t * pg)
 
 
 /*
- * Predicate returning @c 1 if all the required elements for this
+ * Predicate returning @c 1 (true) if all the required elements for this
  * ParametricGeometry_t object have been set.
  */
 LIBSBML_EXTERN

@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -69,14 +69,21 @@ protected:
 public:
 
   /**
-   * Creates a new SpatialModelPlugin using the given uri, prefix and package
+   * Creates a new SpatialModelPlugin using the given URI, prefix and package
    * namespace.
    *
-   * @param uri a string, representing the uri of the package.
+   * @param uri a string, representing the URI of the SBML Level&nbsp;3 package
+   * implemented by this libSBML package extension.
    *
-   * @param prefix a string, the prefix to be used.
+   * @param prefix a string, the XML namespace prefix being used for this
+   * package.
    *
-   * @param spatialns a pointer to the SpatialPkgNamespaces object to be used.
+   * @param spatialns a pointer to the namesspaces object
+   * (SpatialPkgNamespaces) for this package.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
    */
   SpatialModelPlugin(const std::string& uri,
                      const std::string& prefix,
@@ -174,19 +181,6 @@ public:
   int unsetGeometry();
 
 
-  /**
-   * Predicate returning @c true if all the required elements for this
-   * SpatialModelPlugin object have been set.
-   *
-   * @return @c true to indicate that all the required elements of this
-   * SpatialModelPlugin have been set, otherwise @c false is returned.
-   *
-   *
-   * @note The required elements for the SpatialModelPlugin object are:
-   */
-  virtual bool hasRequiredElements() const;
-
-
 
   /** @cond doxygenLibsbmlInternal */
 
@@ -251,6 +245,19 @@ public:
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix,
                                      bool flag);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Updates the namespaces when setLevelVersion is used
+   */
+  virtual void updateSBMLNamespace(const std::string& package,
+                                   unsigned int level,
+                                   unsigned int version);
 
   /** @endcond */
 
@@ -510,9 +517,48 @@ public:
    *
    * @param elementName, the name of the element to create.
    *
-   * pointer to the element created.
+   * @return pointer to the element created.
    */
-  virtual SBase* createObject(const std::string& elementName);
+  virtual SBase* createChildObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Adds a new "elementName" object to this SpatialModelPlugin.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @param element, pointer to the element to be added.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int addChildObject(const std::string& elementName,
+                             const SBase* element);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Removes and returns the new "elementName" object with the given id in this
+   * SpatialModelPlugin.
+   *
+   * @param elementName, the name of the element to remove.
+   *
+   * @param id, the id of the element to remove.
+   *
+   * @return pointer to the element removed.
+   */
+  virtual SBase* removeChildObject(const std::string& elementName,
+                                   const std::string& id);
 
   /** @endcond */
 
@@ -525,7 +571,7 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * unsigned int number of elements.
+   * @return unsigned int number of elements.
    */
   virtual unsigned int getNumObjects(const std::string& elementName);
 
@@ -540,9 +586,9 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * @param index, unsigned int teh index of teh object to retrieve.
+   * @param index, unsigned int the index of the object to retrieve.
    *
-   * pointer to the object.
+   * @return pointer to the object.
    */
   virtual SBase* getObject(const std::string& elementName, unsigned int index);
 
@@ -561,7 +607,8 @@ public:
    * @param id a string representing the id attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p id.
+   * @return a pointer to the SBase element with the given @p id. If no such
+   * object is found, this method returns @c NULL.
    */
   virtual SBase* getElementBySId(const std::string& id);
 
@@ -573,7 +620,8 @@ public:
    * @param metaid a string representing the metaid attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p metaid.
+   * @return a pointer to the SBase element with the given @p metaid. If no
+   * such object is found this method returns @c NULL.
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
 
@@ -582,8 +630,8 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
-   * filter, an ElementFilter that may impose restrictions on the objects to be
-   * retrieved.
+   * @param filter an ElementFilter that may impose restrictions on the objects
+   * to be retrieved.
    *
    * @return a List* pointer of pointers to all SBase child objects with any
    * restriction imposed.
@@ -628,6 +676,120 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 #endif /* __cplusplus */
+
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+ * Returns the value of the "geometry" element of this SpatialModelPlugin_t.
+ *
+ * @param smp the SpatialModelPlugin_t structure whose geometry is sought.
+ *
+ * @return the value of the "geometry" element of this SpatialModelPlugin_t as
+ * a Geometry*.
+ *
+ * @memberof SpatialModelPlugin_t
+ */
+LIBSBML_EXTERN
+const Geometry_t*
+SpatialModelPlugin_getGeometry(const SpatialModelPlugin_t * smp);
+
+
+/**
+ * Predicate returning @c 1 (true) if this SpatialModelPlugin_t's "geometry"
+ * element is set.
+ *
+ * @param smp the SpatialModelPlugin_t structure.
+ *
+ * @return @c 1 (true) if this SpatialModelPlugin_t's "geometry" element has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof SpatialModelPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialModelPlugin_isSetGeometry(const SpatialModelPlugin_t * smp);
+
+
+/**
+ * Sets the value of the "geometry" element of this SpatialModelPlugin_t.
+ *
+ * @param smp the SpatialModelPlugin_t structure.
+ *
+ * @param geometry Geometry_t* value of the "geometry" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpatialModelPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialModelPlugin_setGeometry(SpatialModelPlugin_t * smp,
+                               const Geometry_t* geometry);
+
+
+/**
+ * Creates a new Geometry_t object, adds it to this SpatialModelPlugin_t object
+ * and returns the Geometry_t object created.
+ *
+ * @param smp the SpatialModelPlugin_t structure to which the Geometry_t should
+ * be added.
+ *
+ * @return a new Geometry_t object instance.
+ *
+ * @memberof SpatialModelPlugin_t
+ */
+LIBSBML_EXTERN
+Geometry_t*
+SpatialModelPlugin_createGeometry(SpatialModelPlugin_t* smp);
+
+
+/**
+ * Unsets the value of the "geometry" element of this SpatialModelPlugin_t.
+ *
+ * @param smp the SpatialModelPlugin_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpatialModelPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SpatialModelPlugin_unsetGeometry(SpatialModelPlugin_t * smp);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
 
 
 

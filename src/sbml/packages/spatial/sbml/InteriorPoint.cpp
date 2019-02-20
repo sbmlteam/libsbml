@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -714,7 +714,8 @@ InteriorPoint::readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  if (static_cast<ListOfInteriorPoints*>(getParentSBMLObject())->size() < 2)
+  if (log && getParentSBMLObject() &&
+    static_cast<ListOfInteriorPoints*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
@@ -738,24 +739,28 @@ InteriorPoint::readAttributes(const XMLAttributes& attributes,
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialInteriorPointAllowedAttributes,
-        pkgVersion, level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial",
-        SpatialInteriorPointAllowedCoreAttributes, pkgVersion, level, version,
-          details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialInteriorPointAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialInteriorPointAllowedCoreAttributes, pkgVersion, level, version,
+            details);
+      }
     }
   }
 
@@ -947,8 +952,8 @@ InteriorPoint_getCoord3(const InteriorPoint_t * ip)
 
 
 /*
- * Predicate returning @c 1 if this InteriorPoint_t's "coord1" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this InteriorPoint_t's "coord1" attribute
+ * is set.
  */
 LIBSBML_EXTERN
 int
@@ -959,8 +964,8 @@ InteriorPoint_isSetCoord1(const InteriorPoint_t * ip)
 
 
 /*
- * Predicate returning @c 1 if this InteriorPoint_t's "coord2" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this InteriorPoint_t's "coord2" attribute
+ * is set.
  */
 LIBSBML_EXTERN
 int
@@ -971,8 +976,8 @@ InteriorPoint_isSetCoord2(const InteriorPoint_t * ip)
 
 
 /*
- * Predicate returning @c 1 if this InteriorPoint_t's "coord3" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this InteriorPoint_t's "coord3" attribute
+ * is set.
  */
 LIBSBML_EXTERN
 int
@@ -1049,7 +1054,7 @@ InteriorPoint_unsetCoord3(InteriorPoint_t * ip)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * InteriorPoint_t object have been set.
  */
 LIBSBML_EXTERN

@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -80,11 +80,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this ListOfParametricObjects.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfParametricObjects(
                           unsigned int level =
@@ -99,13 +95,11 @@ public:
    * Creates a new ListOfParametricObjects using the given SpatialPkgNamespaces
    * object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfParametricObjects(SpatialPkgNamespaces *spatialns);
 
@@ -149,7 +143,14 @@ public:
    *
    * @return the nth ParametricObject in this ListOfParametricObjects.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addParametricObject(const ParametricObject* object)
+   * @see createParametricObject()
+   * @see get(const std::string& sid)
+   * @see getNumParametricObjects()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual ParametricObject* get(unsigned int n);
 
@@ -162,7 +163,14 @@ public:
    *
    * @return the nth ParametricObject in this ListOfParametricObjects.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addParametricObject(const ParametricObject* object)
+   * @see createParametricObject()
+   * @see get(const std::string& sid)
+   * @see getNumParametricObjects()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual const ParametricObject* get(unsigned int n) const;
 
@@ -175,9 +183,16 @@ public:
    * retrieve.
    *
    * @return the ParametricObject in this ListOfParametricObjects with the
-   * given id or NULL if no such ParametricObject exists.
+   * given @p sid or @c NULL if no such ParametricObject exists.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addParametricObject(const ParametricObject* object)
+   * @see createParametricObject()
+   * @see get(unsigned int n)
+   * @see getNumParametricObjects()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual ParametricObject* get(const std::string& sid);
 
@@ -190,9 +205,16 @@ public:
    * retrieve.
    *
    * @return the ParametricObject in this ListOfParametricObjects with the
-   * given id or NULL if no such ParametricObject exists.
+   * given @p sid or @c NULL if no such ParametricObject exists.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addParametricObject(const ParametricObject* object)
+   * @see createParametricObject()
+   * @see get(unsigned int n)
+   * @see getNumParametricObjects()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual const ParametricObject* get(const std::string& sid) const;
 
@@ -207,10 +229,14 @@ public:
    * @return a pointer to the nth ParametricObject in this
    * ListOfParametricObjects.
    *
-   * @see size()
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addParametricObject(const ParametricObject* object)
+   * @see createParametricObject()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumParametricObjects()
+   * @see remove(const std::string& sid)
    */
   virtual ParametricObject* remove(unsigned int n);
 
@@ -225,8 +251,14 @@ public:
    * @return the ParametricObject in this ListOfParametricObjects based on the
    * identifier or NULL if no such ParametricObject exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addParametricObject(const ParametricObject* object)
+   * @see createParametricObject()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumParametricObjects()
+   * @see remove(unsigned int n)
    */
   virtual ParametricObject* remove(const std::string& sid);
 
@@ -239,10 +271,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createParametricObject()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumParametricObjects()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   int addParametricObject(const ParametricObject* po);
 
@@ -253,6 +295,13 @@ public:
    *
    * @return the number of ParametricObject objects in this
    * ListOfParametricObjects.
+   *
+   * @see addParametricObject(const ParametricObject* object)
+   * @see createParametricObject()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   unsigned int getNumParametricObjects() const;
 
@@ -264,7 +313,14 @@ public:
    *
    * @return a new ParametricObject object instance.
    *
-   * @see addParametricObject(const ParametricObject* po)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addParametricObject(const ParametricObject* object)
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumParametricObjects()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   ParametricObject* createParametricObject();
 
@@ -273,12 +329,14 @@ public:
    * Get a ParametricObject from the ListOfParametricObjects based on the
    * DomainType to which it refers.
    *
-   * @param sid a string representing the domainType attribute of the
+   * @param sid a string representing the "domainType" attribute of the
    * ParametricObject object to retrieve.
    *
    * @return the first ParametricObject in this ListOfParametricObjects based
    * on the given domainType attribute or NULL if no such ParametricObject
    * exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   const ParametricObject* getByDomainType(const std::string& sid) const;
 
@@ -287,12 +345,14 @@ public:
    * Get a ParametricObject from the ListOfParametricObjects based on the
    * DomainType to which it refers.
    *
-   * @param sid a string representing the domainType attribute of the
+   * @param sid a string representing the "domainType" attribute of the
    * ParametricObject object to retrieve.
    *
    * @return the first ParametricObject in this ListOfParametricObjects based
    * on the given domainType attribute or NULL if no such ParametricObject
    * exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   ParametricObject* getByDomainType(const std::string& sid);
 
@@ -300,8 +360,8 @@ public:
   /**
    * Returns the XML element name of this ListOfParametricObjects object.
    *
-   * For ListOfParametricObjects, the XML element name is always @c
-   * "listOfParametricObjects".
+   * For ListOfParametricObjects, the XML element name is always
+   * @c "listOfParametricObjects".
    *
    * @return the name of this element, i.e. @c "listOfParametricObjects".
    */
@@ -314,8 +374,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}
+   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    */
@@ -330,8 +389,7 @@ public:
    *
    * @return the SBML typecode for the objects contained in this
    * ListOfParametricObjects:
-   *
-   * @sbmlconstant{SBML_SPATIAL_PARAMETRICOBJECT, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_PARAMETRICOBJECT, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -412,10 +470,12 @@ BEGIN_C_DECLS
  *
  * @return the nth ParametricObject_t in this ListOf_t.
  *
- * @memberof ParametricObject_t
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfParametricObjects_t
  */
 LIBSBML_EXTERN
-const ParametricObject_t*
+ParametricObject_t*
 ListOfParametricObjects_getParametricObject(ListOf_t* lo, unsigned int n);
 
 
@@ -427,13 +487,15 @@ ListOfParametricObjects_getParametricObject(ListOf_t* lo, unsigned int n);
  * @param sid a string representing the identifier of the ParametricObject_t to
  * retrieve.
  *
- * @return the ParametricObject_t in this ListOf_t with the given id or NULL if
- * no such ParametricObject_t exists.
+ * @return the ParametricObject_t in this ListOf_t with the given @p sid or
+ * @c NULL if no such ParametricObject_t exists.
  *
- * @memberof ParametricObject_t
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfParametricObjects_t
  */
 LIBSBML_EXTERN
-const ParametricObject_t*
+ParametricObject_t*
 ListOfParametricObjects_getById(ListOf_t* lo, const char *sid);
 
 
@@ -448,7 +510,9 @@ ListOfParametricObjects_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth ParametricObject_t in this ListOf_t.
  *
- * @memberof ParametricObject_t
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfParametricObjects_t
  */
 LIBSBML_EXTERN
 ParametricObject_t*
@@ -467,7 +531,9 @@ ListOfParametricObjects_remove(ListOf_t* lo, unsigned int n);
  * @return the ParametricObject_t in this ListOf_t based on the identifier or
  * NULL if no such ParametricObject_t exists.
  *
- * @memberof ParametricObject_t
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfParametricObjects_t
  */
 LIBSBML_EXTERN
 ParametricObject_t*

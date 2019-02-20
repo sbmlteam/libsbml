@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -52,7 +52,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
- * Creates a new SpatialSpeciesPlugin using the given uri, prefix and package
+ * Creates a new SpatialSpeciesPlugin using the given URI, prefix and package
  * namespace.
  */
 SpatialSpeciesPlugin::SpatialSpeciesPlugin(const std::string& uri,
@@ -528,30 +528,34 @@ SpatialSpeciesPlugin::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   SBasePlugin::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialSpeciesAllowedAttributes,
-        pkgVersion, level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial", SpatialSpeciesAllowedAttributes,
-        pkgVersion, level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == NotSchemaConformant)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(NotSchemaConformant);
-      log->logPackageError("spatial", SpatialSpeciesAllowedAttributes,
-        pkgVersion, level, version, details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialSpeciesAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial", SpatialSpeciesAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == NotSchemaConformant)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(NotSchemaConformant);
+        log->logPackageError("spatial", SpatialSpeciesAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
     }
   }
 
@@ -600,6 +604,53 @@ SpatialSpeciesPlugin::writeAttributes(XMLOutputStream& stream) const
 
 
 #endif /* __cplusplus */
+
+
+/*
+ * Returns the value of the "isSpatial" attribute of this
+ * SpatialSpeciesPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialSpeciesPlugin_getIsSpatial(const SpatialSpeciesPlugin_t * ssp)
+{
+  return (ssp != NULL) ? static_cast<int>(ssp->getIsSpatial()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this SpatialSpeciesPlugin_t's "isSpatial"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+SpatialSpeciesPlugin_isSetIsSpatial(const SpatialSpeciesPlugin_t * ssp)
+{
+  return (ssp != NULL) ? static_cast<int>(ssp->isSetIsSpatial()) : 0;
+}
+
+
+/*
+ * Sets the value of the "isSpatial" attribute of this SpatialSpeciesPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialSpeciesPlugin_setIsSpatial(SpatialSpeciesPlugin_t * ssp, int isSpatial)
+{
+  return (ssp != NULL) ? ssp->setIsSpatial(isSpatial) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "isSpatial" attribute of this
+ * SpatialSpeciesPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialSpeciesPlugin_unsetIsSpatial(SpatialSpeciesPlugin_t * ssp)
+{
+  return (ssp != NULL) ? ssp->unsetIsSpatial() : LIBSBML_INVALID_OBJECT;
+}
 
 
 

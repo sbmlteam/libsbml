@@ -51,7 +51,7 @@
 using namespace std;
 
 // 1220805
-START_CONSTRAINT(SpatialDomainDomainTypeMustBeSId, Domain, domain)
+START_CONSTRAINT(SpatialDomainDomainTypeMustBeDomainType, Domain, domain)
 {
   pre(domain.isSetDomainType());
 

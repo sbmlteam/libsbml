@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -216,6 +216,10 @@ ListOfCoordinateComponents::addCoordinateComponent(const CoordinateComponent*
   {
     return LIBSBML_INVALID_OBJECT;
   }
+  else if (cc->hasRequiredElements() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
   else if (getLevel() != cc->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
@@ -370,7 +374,7 @@ ListOfCoordinateComponents::writeXMLNS(XMLOutputStream& stream) const
  * Get a CoordinateComponent_t from the ListOf_t.
  */
 LIBSBML_EXTERN
-const CoordinateComponent_t*
+CoordinateComponent_t*
 ListOfCoordinateComponents_getCoordinateComponent(ListOf_t* lo,
                                                   unsigned int n)
 {
@@ -387,7 +391,7 @@ ListOfCoordinateComponents_getCoordinateComponent(ListOf_t* lo,
  * Get a CoordinateComponent_t from the ListOf_t based on its identifier.
  */
 LIBSBML_EXTERN
-const CoordinateComponent_t*
+CoordinateComponent_t*
 ListOfCoordinateComponents_getById(ListOf_t* lo, const char *sid)
 {
   if (lo == NULL)

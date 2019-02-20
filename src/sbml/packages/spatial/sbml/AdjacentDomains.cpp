@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -59,7 +59,6 @@ AdjacentDomains::AdjacentDomains(unsigned int level,
                                  unsigned int version,
                                  unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
   , mDomain1 ("")
   , mDomain2 ("")
 {
@@ -73,7 +72,6 @@ AdjacentDomains::AdjacentDomains(unsigned int level,
  */
 AdjacentDomains::AdjacentDomains(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
-  , mId ("")
   , mDomain1 ("")
   , mDomain2 ("")
 {
@@ -87,7 +85,6 @@ AdjacentDomains::AdjacentDomains(SpatialPkgNamespaces *spatialns)
  */
 AdjacentDomains::AdjacentDomains(const AdjacentDomains& orig)
   : SBase( orig )
-  , mId ( orig.mId )
   , mDomain1 ( orig.mDomain1 )
   , mDomain2 ( orig.mDomain2 )
 {
@@ -103,7 +100,6 @@ AdjacentDomains::operator=(const AdjacentDomains& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId = rhs.mId;
     mDomain1 = rhs.mDomain1;
     mDomain2 = rhs.mDomain2;
   }
@@ -141,6 +137,16 @@ AdjacentDomains::getId() const
 
 
 /*
+ * Returns the value of the "name" attribute of this AdjacentDomains.
+ */
+const std::string&
+AdjacentDomains::getName() const
+{
+  return mName;
+}
+
+
+/*
  * Returns the value of the "domain1" attribute of this AdjacentDomains.
  */
 const std::string&
@@ -167,6 +173,17 @@ bool
 AdjacentDomains::isSetId() const
 {
   return (mId.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true if this AdjacentDomains's "name" attribute is
+ * set.
+ */
+bool
+AdjacentDomains::isSetName() const
+{
+  return (mName.empty() == false);
 }
 
 
@@ -199,6 +216,17 @@ int
 AdjacentDomains::setId(const std::string& id)
 {
   return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Sets the value of the "name" attribute of this AdjacentDomains.
+ */
+int
+AdjacentDomains::setName(const std::string& name)
+{
+  mName = name;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -247,6 +275,25 @@ AdjacentDomains::unsetId()
   mId.erase();
 
   if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "name" attribute of this AdjacentDomains.
+ */
+int
+AdjacentDomains::unsetName()
+{
+  mName.erase();
+
+  if (mName.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -521,6 +568,11 @@ AdjacentDomains::getAttribute(const std::string& attributeName,
     value = getId();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
+  else if (attributeName == "name")
+  {
+    value = getName();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
   else if (attributeName == "domain1")
   {
     value = getDomain1();
@@ -553,6 +605,10 @@ AdjacentDomains::isSetAttribute(const std::string& attributeName) const
   if (attributeName == "id")
   {
     value = isSetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = isSetName();
   }
   else if (attributeName == "domain1")
   {
@@ -654,6 +710,10 @@ AdjacentDomains::setAttribute(const std::string& attributeName,
   {
     return_value = setId(value);
   }
+  else if (attributeName == "name")
+  {
+    return_value = setName(value);
+  }
   else if (attributeName == "domain1")
   {
     return_value = setDomain1(value);
@@ -684,6 +744,10 @@ AdjacentDomains::unsetAttribute(const std::string& attributeName)
   {
     value = unsetId();
   }
+  else if (attributeName == "name")
+  {
+    value = unsetName();
+  }
   else if (attributeName == "domain1")
   {
     value = unsetDomain1();
@@ -712,6 +776,8 @@ AdjacentDomains::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("id");
 
+  attributes.add("name");
+
   attributes.add("domain1");
 
   attributes.add("domain2");
@@ -737,7 +803,8 @@ AdjacentDomains::readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  if (static_cast<ListOfAdjacentDomains*>(getParentSBMLObject())->size() < 2)
+  if (log && getParentSBMLObject() &&
+    static_cast<ListOfAdjacentDomains*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
@@ -762,24 +829,29 @@ AdjacentDomains::readAttributes(const XMLAttributes& attributes,
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialAdjacentDomainsAllowedAttributes,
-        pkgVersion, level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial",
-        SpatialAdjacentDomainsAllowedCoreAttributes, pkgVersion, level, version,
-          details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial",
+          SpatialAdjacentDomainsAllowedAttributes, pkgVersion, level, version,
+            details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialAdjacentDomainsAllowedCoreAttributes, pkgVersion, level,
+            version, details);
+      }
     }
   }
 
@@ -797,8 +869,9 @@ AdjacentDomains::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      logError(SpatialIdSyntaxRule, level, version, "The id '" + mId + "' does "
-        "not conform to the syntax.");
+      log->logPackageError("spatial", SpatialIdSyntaxRule, pkgVersion, level,
+        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+          "which does not conform to the syntax.", getLine(), getColumn());
     }
   }
   else
@@ -807,6 +880,20 @@ AdjacentDomains::readAttributes(const XMLAttributes& attributes,
       "<AdjacentDomains> element.";
     log->logPackageError("spatial", SpatialAdjacentDomainsAllowedAttributes,
       pkgVersion, level, version, message);
+  }
+
+  // 
+  // name string (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("name", mName);
+
+  if (assigned == true)
+  {
+    if (mName.empty() == true)
+    {
+      logEmptyString(mName, level, version, "<AdjacentDomains>");
+    }
   }
 
   // 
@@ -823,8 +910,17 @@ AdjacentDomains::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mDomain1) == false)
     {
-      logError(SpatialAdjacentDomainsDomain1MustBeDomain, level, version, "The "
-        "attribute domain1='" + mDomain1 + "' does not conform to the syntax.");
+      std::string msg = "The domain1 attribute on the <" + getElementName() +
+        ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mDomain1 + "', which does not conform to the syntax.";
+      log->logPackageError("spatial",
+        SpatialAdjacentDomainsDomain1MustBeDomain, pkgVersion, level, version,
+          msg, getLine(), getColumn());
     }
   }
   else
@@ -849,8 +945,17 @@ AdjacentDomains::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mDomain2) == false)
     {
-      logError(SpatialAdjacentDomainsDomain2MustBeDomain, level, version, "The "
-        "attribute domain2='" + mDomain2 + "' does not conform to the syntax.");
+      std::string msg = "The domain2 attribute on the <" + getElementName() +
+        ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mDomain2 + "', which does not conform to the syntax.";
+      log->logPackageError("spatial",
+        SpatialAdjacentDomainsDomain2MustBeDomain, pkgVersion, level, version,
+          msg, getLine(), getColumn());
     }
   }
   else
@@ -879,6 +984,11 @@ AdjacentDomains::writeAttributes(XMLOutputStream& stream) const
   if (isSetId() == true)
   {
     stream.writeAttribute("id", getPrefix(), mId);
+  }
+
+  if (isSetName() == true)
+  {
+    stream.writeAttribute("name", getPrefix(), mName);
   }
 
   if (isSetDomain1() == true)
@@ -952,7 +1062,7 @@ AdjacentDomains_free(AdjacentDomains_t* ad)
  * Returns the value of the "id" attribute of this AdjacentDomains_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 AdjacentDomains_getId(const AdjacentDomains_t * ad)
 {
   if (ad == NULL)
@@ -965,10 +1075,26 @@ AdjacentDomains_getId(const AdjacentDomains_t * ad)
 
 
 /*
+ * Returns the value of the "name" attribute of this AdjacentDomains_t.
+ */
+LIBSBML_EXTERN
+char *
+AdjacentDomains_getName(const AdjacentDomains_t * ad)
+{
+  if (ad == NULL)
+  {
+    return NULL;
+  }
+
+  return ad->getName().empty() ? NULL : safe_strdup(ad->getName().c_str());
+}
+
+
+/*
  * Returns the value of the "domain1" attribute of this AdjacentDomains_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 AdjacentDomains_getDomain1(const AdjacentDomains_t * ad)
 {
   if (ad == NULL)
@@ -985,7 +1111,7 @@ AdjacentDomains_getDomain1(const AdjacentDomains_t * ad)
  * Returns the value of the "domain2" attribute of this AdjacentDomains_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 AdjacentDomains_getDomain2(const AdjacentDomains_t * ad)
 {
   if (ad == NULL)
@@ -999,7 +1125,8 @@ AdjacentDomains_getDomain2(const AdjacentDomains_t * ad)
 
 
 /*
- * Predicate returning @c 1 if this AdjacentDomains_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this AdjacentDomains_t's "id" attribute
+ * is set.
  */
 LIBSBML_EXTERN
 int
@@ -1010,8 +1137,20 @@ AdjacentDomains_isSetId(const AdjacentDomains_t * ad)
 
 
 /*
- * Predicate returning @c 1 if this AdjacentDomains_t's "domain1" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this AdjacentDomains_t's "name" attribute
+ * is set.
+ */
+LIBSBML_EXTERN
+int
+AdjacentDomains_isSetName(const AdjacentDomains_t * ad)
+{
+  return (ad != NULL) ? static_cast<int>(ad->isSetName()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this AdjacentDomains_t's "domain1"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1022,8 +1161,8 @@ AdjacentDomains_isSetDomain1(const AdjacentDomains_t * ad)
 
 
 /*
- * Predicate returning @c 1 if this AdjacentDomains_t's "domain2" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this AdjacentDomains_t's "domain2"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1041,6 +1180,17 @@ int
 AdjacentDomains_setId(AdjacentDomains_t * ad, const char * id)
 {
   return (ad != NULL) ? ad->setId(id) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "name" attribute of this AdjacentDomains_t.
+ */
+LIBSBML_EXTERN
+int
+AdjacentDomains_setName(AdjacentDomains_t * ad, const char * name)
+{
+  return (ad != NULL) ? ad->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1078,6 +1228,17 @@ AdjacentDomains_unsetId(AdjacentDomains_t * ad)
 
 
 /*
+ * Unsets the value of the "name" attribute of this AdjacentDomains_t.
+ */
+LIBSBML_EXTERN
+int
+AdjacentDomains_unsetName(AdjacentDomains_t * ad)
+{
+  return (ad != NULL) ? ad->unsetName() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
  * Unsets the value of the "domain1" attribute of this AdjacentDomains_t.
  */
 LIBSBML_EXTERN
@@ -1100,7 +1261,7 @@ AdjacentDomains_unsetDomain2(AdjacentDomains_t * ad)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * AdjacentDomains_t object have been set.
  */
 LIBSBML_EXTERN

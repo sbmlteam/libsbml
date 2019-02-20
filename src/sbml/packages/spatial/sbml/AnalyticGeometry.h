@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -87,11 +87,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this AnalyticGeometry.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   AnalyticGeometry(unsigned int level = SpatialExtension::getDefaultLevel(),
                    unsigned int version =
@@ -104,13 +100,11 @@ public:
    * Creates a new AnalyticGeometry using the given SpatialPkgNamespaces
    * object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   AnalyticGeometry(SpatialPkgNamespaces *spatialns);
 
@@ -150,6 +144,16 @@ public:
    * Returns the ListOfAnalyticVolumes from this AnalyticGeometry.
    *
    * @return the ListOfAnalyticVolumes from this AnalyticGeometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAnalyticVolume(const AnalyticVolume* object)
+   * @see createAnalyticVolume()
+   * @see getAnalyticVolume(const std::string& sid)
+   * @see getAnalyticVolume(unsigned int n)
+   * @see getNumAnalyticVolumes()
+   * @see removeAnalyticVolume(const std::string& sid)
+   * @see removeAnalyticVolume(unsigned int n)
    */
   const ListOfAnalyticVolumes* getListOfAnalyticVolumes() const;
 
@@ -158,6 +162,16 @@ public:
    * Returns the ListOfAnalyticVolumes from this AnalyticGeometry.
    *
    * @return the ListOfAnalyticVolumes from this AnalyticGeometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAnalyticVolume(const AnalyticVolume* object)
+   * @see createAnalyticVolume()
+   * @see getAnalyticVolume(const std::string& sid)
+   * @see getAnalyticVolume(unsigned int n)
+   * @see getNumAnalyticVolumes()
+   * @see removeAnalyticVolume(const std::string& sid)
+   * @see removeAnalyticVolume(unsigned int n)
    */
   ListOfAnalyticVolumes* getListOfAnalyticVolumes();
 
@@ -171,7 +185,14 @@ public:
    * @return the nth AnalyticVolume in the ListOfAnalyticVolumes within this
    * AnalyticGeometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAnalyticVolume(const AnalyticVolume* object)
+   * @see createAnalyticVolume()
+   * @see getAnalyticVolume(const std::string& sid)
    * @see getNumAnalyticVolumes()
+   * @see removeAnalyticVolume(const std::string& sid)
+   * @see removeAnalyticVolume(unsigned int n)
    */
   AnalyticVolume* getAnalyticVolume(unsigned int n);
 
@@ -185,7 +206,14 @@ public:
    * @return the nth AnalyticVolume in the ListOfAnalyticVolumes within this
    * AnalyticGeometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAnalyticVolume(const AnalyticVolume* object)
+   * @see createAnalyticVolume()
+   * @see getAnalyticVolume(const std::string& sid)
    * @see getNumAnalyticVolumes()
+   * @see removeAnalyticVolume(const std::string& sid)
+   * @see removeAnalyticVolume(unsigned int n)
    */
   const AnalyticVolume* getAnalyticVolume(unsigned int n) const;
 
@@ -197,11 +225,17 @@ public:
    * retrieve.
    *
    * @return the AnalyticVolume in the ListOfAnalyticVolumes within this
-   * AnalyticGeometry with the given id or NULL if no such AnalyticVolume
-   * exists.
+   * AnalyticGeometry with the given @p sid or @c NULL if no such
+   * AnalyticVolume exists.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAnalyticVolume(const AnalyticVolume* object)
+   * @see createAnalyticVolume()
    * @see getAnalyticVolume(unsigned int n)
    * @see getNumAnalyticVolumes()
+   * @see removeAnalyticVolume(const std::string& sid)
+   * @see removeAnalyticVolume(unsigned int n)
    */
   AnalyticVolume* getAnalyticVolume(const std::string& sid);
 
@@ -213,11 +247,17 @@ public:
    * retrieve.
    *
    * @return the AnalyticVolume in the ListOfAnalyticVolumes within this
-   * AnalyticGeometry with the given id or NULL if no such AnalyticVolume
-   * exists.
+   * AnalyticGeometry with the given @p sid or @c NULL if no such
+   * AnalyticVolume exists.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAnalyticVolume(const AnalyticVolume* object)
+   * @see createAnalyticVolume()
    * @see getAnalyticVolume(unsigned int n)
    * @see getNumAnalyticVolumes()
+   * @see removeAnalyticVolume(const std::string& sid)
+   * @see removeAnalyticVolume(unsigned int n)
    */
   const AnalyticVolume* getAnalyticVolume(const std::string& sid) const;
 
@@ -226,11 +266,13 @@ public:
    * Get an AnalyticVolume from the AnalyticGeometry based on the DomainType to
    * which it refers.
    *
-   * @param sid a string representing the domainType attribute of the
+   * @param sid a string representing the "domainType" attribute of the
    * AnalyticVolume object to retrieve.
    *
    * @return the first AnalyticVolume in this AnalyticGeometry based on the
    * given domainType attribute or NULL if no such AnalyticVolume exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   const AnalyticVolume* getAnalyticVolumeByDomainType(const std::string& sid)
     const;
@@ -240,11 +282,13 @@ public:
    * Get an AnalyticVolume from the AnalyticGeometry based on the DomainType to
    * which it refers.
    *
-   * @param sid a string representing the domainType attribute of the
+   * @param sid a string representing the "domainType" attribute of the
    * AnalyticVolume object to retrieve.
    *
    * @return the first AnalyticVolume in this AnalyticGeometry based on the
    * given domainType attribute or NULL if no such AnalyticVolume exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   AnalyticVolume* getAnalyticVolumeByDomainType(const std::string& sid);
 
@@ -257,10 +301,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createAnalyticVolume()
+   * @see getAnalyticVolume(const std::string& sid)
+   * @see getAnalyticVolume(unsigned int n)
+   * @see getNumAnalyticVolumes()
+   * @see removeAnalyticVolume(const std::string& sid)
+   * @see removeAnalyticVolume(unsigned int n)
    */
   int addAnalyticVolume(const AnalyticVolume* av);
 
@@ -269,6 +323,13 @@ public:
    * Get the number of AnalyticVolume objects in this AnalyticGeometry.
    *
    * @return the number of AnalyticVolume objects in this AnalyticGeometry.
+   *
+   * @see addAnalyticVolume(const AnalyticVolume* object)
+   * @see createAnalyticVolume()
+   * @see getAnalyticVolume(const std::string& sid)
+   * @see getAnalyticVolume(unsigned int n)
+   * @see removeAnalyticVolume(const std::string& sid)
+   * @see removeAnalyticVolume(unsigned int n)
    */
   unsigned int getNumAnalyticVolumes() const;
 
@@ -279,7 +340,14 @@ public:
    *
    * @return a new AnalyticVolume object instance.
    *
-   * @see addAnalyticVolume(const AnalyticVolume* av)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAnalyticVolume(const AnalyticVolume* object)
+   * @see getAnalyticVolume(const std::string& sid)
+   * @see getAnalyticVolume(unsigned int n)
+   * @see getNumAnalyticVolumes()
+   * @see removeAnalyticVolume(const std::string& sid)
+   * @see removeAnalyticVolume(unsigned int n)
    */
   AnalyticVolume* createAnalyticVolume();
 
@@ -293,10 +361,14 @@ public:
    *
    * @return a pointer to the nth AnalyticVolume in this AnalyticGeometry.
    *
-   * @see getNumAnalyticVolumes
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addAnalyticVolume(const AnalyticVolume* object)
+   * @see createAnalyticVolume()
+   * @see getAnalyticVolume(const std::string& sid)
+   * @see getAnalyticVolume(unsigned int n)
+   * @see getNumAnalyticVolumes()
+   * @see removeAnalyticVolume(const std::string& sid)
    */
   AnalyticVolume* removeAnalyticVolume(unsigned int n);
 
@@ -311,8 +383,14 @@ public:
    * @return the AnalyticVolume in this AnalyticGeometry based on the
    * identifier or NULL if no such AnalyticVolume exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addAnalyticVolume(const AnalyticVolume* object)
+   * @see createAnalyticVolume()
+   * @see getAnalyticVolume(const std::string& sid)
+   * @see getAnalyticVolume(unsigned int n)
+   * @see getNumAnalyticVolumes()
+   * @see removeAnalyticVolume(unsigned int n)
    */
   AnalyticVolume* removeAnalyticVolume(const std::string& sid);
 
@@ -320,8 +398,8 @@ public:
   /**
    * Returns the XML element name of this AnalyticGeometry object.
    *
-   * For AnalyticGeometry, the XML element name is always @c
-   * "analyticGeometry".
+   * For AnalyticGeometry, the XML element name is always
+   * @c "analyticGeometry".
    *
    * @return the name of this element, i.e. @c "analyticGeometry".
    */
@@ -334,8 +412,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_ANALYTICGEOMETRY, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_ANALYTICGEOMETRY, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -351,9 +428,6 @@ public:
    *
    * @return @c true to indicate that all the required attributes of this
    * AnalyticGeometry have been set, otherwise @c false is returned.
-   *
-   *
-   * @note The required attributes for the AnalyticGeometry object are:
    */
   virtual bool hasRequiredAttributes() const;
 
@@ -424,6 +498,19 @@ public:
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix,
                                      bool flag);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Updates the namespaces when setLevelVersion is used
+   */
+  virtual void updateSBMLNamespace(const std::string& package,
+                                   unsigned int level,
+                                   unsigned int version);
 
   /** @endcond */
 
@@ -672,9 +759,48 @@ public:
    *
    * @param elementName, the name of the element to create.
    *
-   * pointer to the element created.
+   * @return pointer to the element created.
    */
-  virtual SBase* createObject(const std::string& elementName);
+  virtual SBase* createChildObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Adds a new "elementName" object to this AnalyticGeometry.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @param element, pointer to the element to be added.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int addChildObject(const std::string& elementName,
+                             const SBase* element);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Removes and returns the new "elementName" object with the given id in this
+   * AnalyticGeometry.
+   *
+   * @param elementName, the name of the element to remove.
+   *
+   * @param id, the id of the element to remove.
+   *
+   * @return pointer to the element removed.
+   */
+  virtual SBase* removeChildObject(const std::string& elementName,
+                                   const std::string& id);
 
   /** @endcond */
 
@@ -687,7 +813,7 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * unsigned int number of elements.
+   * @return unsigned int number of elements.
    */
   virtual unsigned int getNumObjects(const std::string& elementName);
 
@@ -702,9 +828,9 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * @param index, unsigned int teh index of teh object to retrieve.
+   * @param index, unsigned int the index of the object to retrieve.
    *
-   * pointer to the object.
+   * @return pointer to the object.
    */
   virtual SBase* getObject(const std::string& elementName, unsigned int index);
 
@@ -723,7 +849,8 @@ public:
    * @param id a string representing the id attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p id.
+   * @return a pointer to the SBase element with the given @p id. If no such
+   * object is found, this method returns @c NULL.
    */
   virtual SBase* getElementBySId(const std::string& id);
 
@@ -735,7 +862,8 @@ public:
    * @param metaid a string representing the metaid attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p metaid.
+   * @return a pointer to the SBase element with the given @p metaid. If no
+   * such object is found this method returns @c NULL.
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
 
@@ -744,8 +872,8 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
-   * filter, an ElementFilter that may impose restrictions on the objects to be
-   * retrieved.
+   * @param filter an ElementFilter that may impose restrictions on the objects
+   * to be retrieved.
    *
    * @return a List* pointer of pointers to all SBase child objects with any
    * restriction imposed.
@@ -840,11 +968,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this AnalyticGeometry_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof AnalyticGeometry_t
  */
@@ -861,6 +987,8 @@ AnalyticGeometry_create(unsigned int level,
  * @param ag the AnalyticGeometry_t structure.
  *
  * @return a (deep) copy of this AnalyticGeometry_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof AnalyticGeometry_t
  */
@@ -882,14 +1010,24 @@ AnalyticGeometry_free(AnalyticGeometry_t* ag);
 
 
 /**
- * Returns a ListOf_t* containing AnalyticVolume_t objects from this
+ * Returns a ListOf_t * containing AnalyticVolume_t objects from this
  * AnalyticGeometry_t.
  *
- * @param ag the AnalyticGeometry_t structure whose "ListOfAnalyticVolumes" is
+ * @param ag the AnalyticGeometry_t structure whose ListOfAnalyticVolumes is
  * sought.
  *
- * @return the "ListOfAnalyticVolumes" from this AnalyticGeometry_t as a
- * ListOf_t *.
+ * @return the ListOfAnalyticVolumes from this AnalyticGeometry_t as a ListOf_t
+ * *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see AnalyticGeometry_addAnalyticVolume()
+ * @see AnalyticGeometry_createAnalyticVolume()
+ * @see AnalyticGeometry_getAnalyticVolumeById()
+ * @see AnalyticGeometry_getAnalyticVolume()
+ * @see AnalyticGeometry_getNumAnalyticVolumes()
+ * @see AnalyticGeometry_removeAnalyticVolumeById()
+ * @see AnalyticGeometry_removeAnalyticVolume()
  *
  * @memberof AnalyticGeometry_t
  */
@@ -909,10 +1047,12 @@ AnalyticGeometry_getListOfAnalyticVolumes(AnalyticGeometry_t* ag);
  * @return the nth AnalyticVolume_t in the ListOfAnalyticVolumes within this
  * AnalyticGeometry.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof AnalyticGeometry_t
  */
 LIBSBML_EXTERN
-const AnalyticVolume_t*
+AnalyticVolume_t*
 AnalyticGeometry_getAnalyticVolume(AnalyticGeometry_t* ag, unsigned int n);
 
 
@@ -925,13 +1065,15 @@ AnalyticGeometry_getAnalyticVolume(AnalyticGeometry_t* ag, unsigned int n);
  * retrieve.
  *
  * @return the AnalyticVolume_t in the ListOfAnalyticVolumes within this
- * AnalyticGeometry with the given id or NULL if no such AnalyticVolume_t
- * exists.
+ * AnalyticGeometry with the given @p sid or @c NULL if no such
+ * AnalyticVolume_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof AnalyticGeometry_t
  */
 LIBSBML_EXTERN
-const AnalyticVolume_t*
+AnalyticVolume_t*
 AnalyticGeometry_getAnalyticVolumeById(AnalyticGeometry_t* ag,
                                        const char *sid);
 
@@ -942,16 +1084,18 @@ AnalyticGeometry_getAnalyticVolumeById(AnalyticGeometry_t* ag,
  *
  * @param ag the AnalyticGeometry_t structure to search.
  *
- * @param sid a string representing the domainType attribute of the
+ * @param sid a string representing the "domainType" attribute of the
  * AnalyticVolume_t object to retrieve.
  *
  * @return the first AnalyticVolume_t in this AnalyticGeometry_t based on the
  * given domainType attribute or NULL if no such AnalyticVolume_t exists.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof AnalyticGeometry_t
  */
 LIBSBML_EXTERN
-const AnalyticVolume_t*
+AnalyticVolume_t*
 AnalyticGeometry_getAnalyticVolumeByDomainType(AnalyticGeometry_t* ag,
                                                const char *sid);
 
@@ -967,6 +1111,11 @@ AnalyticGeometry_getAnalyticVolumeByDomainType(AnalyticGeometry_t* ag,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
  *
  * @memberof AnalyticGeometry_t
  */
@@ -999,6 +1148,8 @@ AnalyticGeometry_getNumAnalyticVolumes(AnalyticGeometry_t* ag);
  *
  * @return a new AnalyticVolume_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof AnalyticGeometry_t
  */
 LIBSBML_EXTERN
@@ -1016,6 +1167,8 @@ AnalyticGeometry_createAnalyticVolume(AnalyticGeometry_t* ag);
  * remove.
  *
  * @return a pointer to the nth AnalyticVolume_t in this AnalyticGeometry_t.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof AnalyticGeometry_t
  */
@@ -1036,6 +1189,8 @@ AnalyticGeometry_removeAnalyticVolume(AnalyticGeometry_t* ag, unsigned int n);
  * @return the AnalyticVolume_t in this AnalyticGeometry_t based on the
  * identifier or NULL if no such AnalyticVolume_t exists.
  *
+ * @copydetails doc_returned_owned_pointer
+ *
  * @memberof AnalyticGeometry_t
  */
 LIBSBML_EXTERN
@@ -1045,16 +1200,13 @@ AnalyticGeometry_removeAnalyticVolumeById(AnalyticGeometry_t* ag,
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * AnalyticGeometry_t object have been set.
  *
  * @param ag the AnalyticGeometry_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * AnalyticGeometry_t have been set, otherwise @c 0 is returned.
- *
- *
- * @note The required attributes for the AnalyticGeometry_t object are:
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * AnalyticGeometry_t have been set, otherwise @c 0 (false) is returned.
  *
  * @memberof AnalyticGeometry_t
  */
@@ -1064,13 +1216,13 @@ AnalyticGeometry_hasRequiredAttributes(const AnalyticGeometry_t * ag);
 
 
 /**
- * Predicate returning @c 1 if all the required elements for this
+ * Predicate returning @c 1 (true) if all the required elements for this
  * AnalyticGeometry_t object have been set.
  *
  * @param ag the AnalyticGeometry_t structure.
  *
- * @return @c 1 to indicate that all the required elements of this
- * AnalyticGeometry_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required elements of this
+ * AnalyticGeometry_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required elements for the AnalyticGeometry_t object are:

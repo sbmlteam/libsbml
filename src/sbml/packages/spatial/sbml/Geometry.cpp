@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -65,7 +65,6 @@ Geometry::Geometry(unsigned int level,
                    unsigned int version,
                    unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
   , mCoordinateSystem (SPATIAL_GEOMETRYKIND_INVALID)
   , mCoordinateComponents (level, version, pkgVersion)
   , mDomainTypes (level, version, pkgVersion)
@@ -85,7 +84,6 @@ Geometry::Geometry(unsigned int level,
  */
 Geometry::Geometry(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
-  , mId ("")
   , mCoordinateSystem (SPATIAL_GEOMETRYKIND_INVALID)
   , mCoordinateComponents (spatialns)
   , mDomainTypes (spatialns)
@@ -105,7 +103,6 @@ Geometry::Geometry(SpatialPkgNamespaces *spatialns)
  */
 Geometry::Geometry(const Geometry& orig)
   : SBase( orig )
-  , mId ( orig.mId )
   , mCoordinateSystem ( orig.mCoordinateSystem )
   , mCoordinateComponents ( orig.mCoordinateComponents )
   , mDomainTypes ( orig.mDomainTypes )
@@ -127,7 +124,6 @@ Geometry::operator=(const Geometry& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId = rhs.mId;
     mCoordinateSystem = rhs.mCoordinateSystem;
     mCoordinateComponents = rhs.mCoordinateComponents;
     mDomainTypes = rhs.mDomainTypes;
@@ -183,13 +179,6 @@ Geometry::getCoordinateSystem() const
 /*
  * Returns the value of the "coordinateSystem" attribute of this Geometry.
  */
-//const std::string&
-//Geometry::getCoordinateSystemAsString() const
-//{
-//  static const std::string code_str = GeometryKind_toString(mCoordinateSystem);
-//  return code_str;
-//}
-//bgoli22
 std::string
 Geometry::getCoordinateSystemAsString() const
 {
@@ -254,22 +243,13 @@ Geometry::setCoordinateSystem(const GeometryKind_t coordinateSystem)
 int
 Geometry::setCoordinateSystem(const std::string& coordinateSystem)
 {
-  //if (GeometryKind_isValidString(coordinateSystem.c_str()) == 0)
-  //{
-  //  mCoordinateSystem = SPATIAL_GEOMETRYKIND_INVALID;
-  //  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  //}
-  //else
-  //{
-  //  mCoordinateSystem = GeometryKind_fromString(coordinateSystem.c_str());
-  //  return LIBSBML_OPERATION_SUCCESS;
-  //}
-  //bgoli22
   mCoordinateSystem = GeometryKind_fromString(coordinateSystem.c_str());
+
   if (mCoordinateSystem == SPATIAL_GEOMETRYKIND_INVALID)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
+
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -977,6 +957,7 @@ Geometry::createAdjacentDomains()
 
   if (ad != NULL)
   {
+    //ad->setElementName("adjacentDomains");
     mAdjacentDomains.appendAndOwn(ad);
   }
 
@@ -1472,19 +1453,6 @@ Geometry::hasRequiredAttributes() const
 }
 
 
-/*
- * Predicate returning @c true if all the required elements for this Geometry
- * object have been set.
- */
-bool
-Geometry::hasRequiredElements() const
-{
-  bool allPresent = true;
-
-  return allPresent;
-}
-
-
 
 /** @cond doxygenLibsbmlInternal */
 
@@ -1640,6 +1608,35 @@ Geometry::enablePackageInternal(const std::string& pkgURI,
   mGeometryDefinitions.enablePackageInternal(pkgURI, pkgPrefix, flag);
 
   mSampledFields.enablePackageInternal(pkgURI, pkgPrefix, flag);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Updates the namespaces when setLevelVersion is used
+ */
+void
+Geometry::updateSBMLNamespace(const std::string& package,
+                              unsigned int level,
+                              unsigned int version)
+{
+  SBase::updateSBMLNamespace(package, level, version);
+
+  mCoordinateComponents.updateSBMLNamespace(package, level, version);
+
+  mDomainTypes.updateSBMLNamespace(package, level, version);
+
+  mDomains.updateSBMLNamespace(package, level, version);
+
+  mAdjacentDomains.updateSBMLNamespace(package, level, version);
+
+  mGeometryDefinitions.updateSBMLNamespace(package, level, version);
+
+  mSampledFields.updateSBMLNamespace(package, level, version);
 }
 
 /** @endcond */
@@ -1923,13 +1920,237 @@ Geometry::createChildObject(const std::string& elementName)
   {
     return createAdjacentDomains();
   }
-  //else if (elementName == "geometryDefinition")
-  //{
-  //  return createGeometryDefinition();
-//  }
+  else if (elementName == "analyticGeometry")
+  {
+    return createAnalyticGeometry();
+  }
+  else if (elementName == "sampledFieldGeometry")
+  {
+    return createSampledFieldGeometry();
+  }
+  else if (elementName == "csGeometry")
+  {
+    return createCSGeometry();
+  }
+  else if (elementName == "parametricGeometry")
+  {
+    return createParametricGeometry();
+  }
+  else if (elementName == "mixedGeometry")
+  {
+    return createMixedGeometry();
+  }
   else if (elementName == "sampledField")
   {
     return createSampledField();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds a new "elementName" object to this Geometry.
+ */
+int
+Geometry::addChildObject(const std::string& elementName, const SBase* element)
+{
+  if (elementName == "coordinateComponent" && element->getTypeCode() ==
+    SBML_SPATIAL_COORDINATECOMPONENT)
+  {
+    return addCoordinateComponent((const CoordinateComponent*)(element));
+  }
+  else if (elementName == "domainType" && element->getTypeCode() ==
+    SBML_SPATIAL_DOMAINTYPE)
+  {
+    return addDomainType((const DomainType*)(element));
+  }
+  else if (elementName == "domain" && element->getTypeCode() ==
+    SBML_SPATIAL_DOMAIN)
+  {
+    return addDomain((const Domain*)(element));
+  }
+  else if (elementName == "adjacentDomains" && element->getTypeCode() ==
+    SBML_SPATIAL_ADJACENTDOMAINS)
+  {
+    return addAdjacentDomains((const AdjacentDomains*)(element));
+  }
+  else if (elementName == "analyticGeometry" && element->getTypeCode() ==
+    SBML_SPATIAL_ANALYTICGEOMETRY)
+  {
+    return addGeometryDefinition((const GeometryDefinition*)(element));
+  }
+  else if (elementName == "sampledFieldGeometry" && element->getTypeCode() ==
+    SBML_SPATIAL_SAMPLEDFIELDGEOMETRY)
+  {
+    return addGeometryDefinition((const GeometryDefinition*)(element));
+  }
+  else if (elementName == "csGeometry" && element->getTypeCode() ==
+    SBML_SPATIAL_CSGEOMETRY)
+  {
+    return addGeometryDefinition((const GeometryDefinition*)(element));
+  }
+  else if (elementName == "parametricGeometry" && element->getTypeCode() ==
+    SBML_SPATIAL_PARAMETRICGEOMETRY)
+  {
+    return addGeometryDefinition((const GeometryDefinition*)(element));
+  }
+  else if (elementName == "mixedGeometry" && element->getTypeCode() ==
+    SBML_SPATIAL_MIXEDGEOMETRY)
+  {
+    return addGeometryDefinition((const GeometryDefinition*)(element));
+  }
+  else if (elementName == "sampledField" && element->getTypeCode() ==
+    SBML_SPATIAL_SAMPLEDFIELD)
+  {
+    return addSampledField((const SampledField*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Removes and returns the new "elementName" object with the given id in this
+ * Geometry.
+ */
+SBase*
+Geometry::removeChildObject(const std::string& elementName,
+                            const std::string& id)
+{
+  if (elementName == "coordinateComponent")
+  {
+    return removeCoordinateComponent(id);
+  }
+  else if (elementName == "domainType")
+  {
+    return removeDomainType(id);
+  }
+  else if (elementName == "domain")
+  {
+    return removeDomain(id);
+  }
+  else if (elementName == "adjacentDomains")
+  {
+    return removeAdjacentDomains(id);
+  }
+  else if (elementName == "analyticGeometry")
+  {
+    return removeGeometryDefinition(id);
+  }
+  else if (elementName == "sampledFieldGeometry")
+  {
+    return removeGeometryDefinition(id);
+  }
+  else if (elementName == "csGeometry")
+  {
+    return removeGeometryDefinition(id);
+  }
+  else if (elementName == "parametricGeometry")
+  {
+    return removeGeometryDefinition(id);
+  }
+  else if (elementName == "mixedGeometry")
+  {
+    return removeGeometryDefinition(id);
+  }
+  else if (elementName == "sampledField")
+  {
+    return removeSampledField(id);
+  }
+
+  return NULL;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this Geometry.
+ */
+unsigned int
+Geometry::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "coordinateComponent")
+  {
+    return getNumCoordinateComponents();
+  }
+  else if (elementName == "domainType")
+  {
+    return getNumDomainTypes();
+  }
+  else if (elementName == "domain")
+  {
+    return getNumDomains();
+  }
+  else if (elementName == "adjacentDomains")
+  {
+    return getNumAdjacentDomains();
+  }
+  else if (elementName == "geometryDefinition")
+  {
+    return getNumGeometryDefinitions();
+  }
+  else if (elementName == "sampledField")
+  {
+    return getNumSampledFields();
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this Geometry.
+ */
+SBase*
+Geometry::getObject(const std::string& elementName, unsigned int index)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "coordinateComponent")
+  {
+    return getCoordinateComponent(index);
+  }
+  else if (elementName == "domainType")
+  {
+    return getDomainType(index);
+  }
+  else if (elementName == "domain")
+  {
+    return getDomain(index);
+  }
+  else if (elementName == "adjacentDomains")
+  {
+    return getAdjacentDomains(index);
+  }
+  else if (elementName == "geometryDefinition")
+  {
+    return getGeometryDefinition(index);
+  }
+  else if (elementName == "sampledField")
+  {
+    return getSampledField(index);
   }
 
   return obj;
@@ -2231,23 +2452,27 @@ Geometry::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialGeometryAllowedAttributes,
-        pkgVersion, level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial", SpatialGeometryAllowedCoreAttributes,
-        pkgVersion, level, version, details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialGeometryAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial", SpatialGeometryAllowedCoreAttributes,
+          pkgVersion, level, version, details);
+      }
     }
   }
 
@@ -2265,8 +2490,9 @@ Geometry::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      logError(SpatialIdSyntaxRule, level, version, "The id '" + mId + "' does "
-        "not conform to the syntax.");
+      log->logPackageError("spatial", SpatialIdSyntaxRule, pkgVersion, level,
+        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+          "which does not conform to the syntax.", getLine(), getColumn());
     }
   }
 
@@ -2274,18 +2500,18 @@ Geometry::readAttributes(const XMLAttributes& attributes,
   // coordinateSystem enum (use = "required" )
   // 
 
-  std::string coordinatesystem;
-  assigned = attributes.readInto("coordinateSystem", coordinatesystem);
+  std::string coordinateSystem;
+  assigned = attributes.readInto("coordinateSystem", coordinateSystem);
 
   if (assigned == true)
   {
-    if (coordinatesystem.empty() == true)
+    if (coordinateSystem.empty() == true)
     {
-      logEmptyString(coordinatesystem, level, version, "<Geometry>");
+      logEmptyString(coordinateSystem, level, version, "<Geometry>");
     }
     else
     {
-      mCoordinateSystem = GeometryKind_fromString(coordinatesystem.c_str());
+      mCoordinateSystem = GeometryKind_fromString(coordinateSystem.c_str());
 
       if (GeometryKind_isValid(mCoordinateSystem) == 0)
       {
@@ -2296,7 +2522,7 @@ Geometry::readAttributes(const XMLAttributes& attributes,
           msg += "with id '" + getId() + "'";
         }
 
-        msg += "is '" + coordinatesystem + "', which is not a valid option.";
+        msg += "is '" + coordinateSystem + "', which is not a valid option.";
 
         log->logPackageError("spatial",
           SpatialGeometryCoordinateSystemMustBeGeometryKindEnum, pkgVersion,
@@ -2398,7 +2624,7 @@ Geometry_free(Geometry_t* g)
  * Returns the value of the "id" attribute of this Geometry_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 Geometry_getId(const Geometry_t * g)
 {
   if (g == NULL)
@@ -2430,15 +2656,15 @@ Geometry_getCoordinateSystem(const Geometry_t * g)
  * Returns the value of the "coordinateSystem" attribute of this Geometry_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 Geometry_getCoordinateSystemAsString(const Geometry_t * g)
 {
-  return GeometryKind_toString(g->getCoordinateSystem());
+  return (char*)(GeometryKind_toString(g->getCoordinateSystem()));
 }
 
 
 /*
- * Predicate returning @c 1 if this Geometry_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this Geometry_t's "id" attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -2449,8 +2675,8 @@ Geometry_isSetId(const Geometry_t * g)
 
 
 /*
- * Predicate returning @c 1 if this Geometry_t's "coordinateSystem" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this Geometry_t's "coordinateSystem"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -2519,7 +2745,7 @@ Geometry_unsetCoordinateSystem(Geometry_t * g)
 
 
 /*
- * Returns a ListOf_t* containing CoordinateComponent_t objects from this
+ * Returns a ListOf_t * containing CoordinateComponent_t objects from this
  * Geometry_t.
  */
 LIBSBML_EXTERN
@@ -2534,7 +2760,7 @@ Geometry_getListOfCoordinateComponents(Geometry_t* g)
  * Get a CoordinateComponent_t from the Geometry_t.
  */
 LIBSBML_EXTERN
-const CoordinateComponent_t*
+CoordinateComponent_t*
 Geometry_getCoordinateComponent(Geometry_t* g, unsigned int n)
 {
   return (g != NULL) ? g->getCoordinateComponent(n) : NULL;
@@ -2545,7 +2771,7 @@ Geometry_getCoordinateComponent(Geometry_t* g, unsigned int n)
  * Get a CoordinateComponent_t from the Geometry_t based on its identifier.
  */
 LIBSBML_EXTERN
-const CoordinateComponent_t*
+CoordinateComponent_t*
 Geometry_getCoordinateComponentById(Geometry_t* g, const char *sid)
 {
   return (g != NULL && sid != NULL) ? g->getCoordinateComponent(sid) : NULL;
@@ -2612,7 +2838,7 @@ Geometry_removeCoordinateComponentById(Geometry_t* g, const char* sid)
 
 
 /*
- * Returns a ListOf_t* containing DomainType_t objects from this Geometry_t.
+ * Returns a ListOf_t * containing DomainType_t objects from this Geometry_t.
  */
 LIBSBML_EXTERN
 ListOf_t*
@@ -2626,7 +2852,7 @@ Geometry_getListOfDomainTypes(Geometry_t* g)
  * Get a DomainType_t from the Geometry_t.
  */
 LIBSBML_EXTERN
-const DomainType_t*
+DomainType_t*
 Geometry_getDomainType(Geometry_t* g, unsigned int n)
 {
   return (g != NULL) ? g->getDomainType(n) : NULL;
@@ -2637,7 +2863,7 @@ Geometry_getDomainType(Geometry_t* g, unsigned int n)
  * Get a DomainType_t from the Geometry_t based on its identifier.
  */
 LIBSBML_EXTERN
-const DomainType_t*
+DomainType_t*
 Geometry_getDomainTypeById(Geometry_t* g, const char *sid)
 {
   return (g != NULL && sid != NULL) ? g->getDomainType(sid) : NULL;
@@ -2703,7 +2929,7 @@ Geometry_removeDomainTypeById(Geometry_t* g, const char* sid)
 
 
 /*
- * Returns a ListOf_t* containing Domain_t objects from this Geometry_t.
+ * Returns a ListOf_t * containing Domain_t objects from this Geometry_t.
  */
 LIBSBML_EXTERN
 ListOf_t*
@@ -2717,7 +2943,7 @@ Geometry_getListOfDomains(Geometry_t* g)
  * Get a Domain_t from the Geometry_t.
  */
 LIBSBML_EXTERN
-const Domain_t*
+Domain_t*
 Geometry_getDomain(Geometry_t* g, unsigned int n)
 {
   return (g != NULL) ? g->getDomain(n) : NULL;
@@ -2728,7 +2954,7 @@ Geometry_getDomain(Geometry_t* g, unsigned int n)
  * Get a Domain_t from the Geometry_t based on its identifier.
  */
 LIBSBML_EXTERN
-const Domain_t*
+Domain_t*
 Geometry_getDomainById(Geometry_t* g, const char *sid)
 {
   return (g != NULL && sid != NULL) ? g->getDomain(sid) : NULL;
@@ -2740,7 +2966,7 @@ Geometry_getDomainById(Geometry_t* g, const char *sid)
  * refers.
  */
 LIBSBML_EXTERN
-const Domain_t*
+Domain_t*
 Geometry_getDomainByDomainType(Geometry_t* g, const char *sid)
 {
   return (g != NULL && sid != NULL) ? g->getDomainByDomainType(sid) : NULL;
@@ -2805,7 +3031,7 @@ Geometry_removeDomainById(Geometry_t* g, const char* sid)
 
 
 /*
- * Returns a ListOf_t* containing AdjacentDomains_t objects from this
+ * Returns a ListOf_t * containing AdjacentDomains_t objects from this
  * Geometry_t.
  */
 LIBSBML_EXTERN
@@ -2820,7 +3046,7 @@ Geometry_getListOfAdjacentDomains(Geometry_t* g)
  * Get an AdjacentDomains_t from the Geometry_t.
  */
 LIBSBML_EXTERN
-const AdjacentDomains_t*
+AdjacentDomains_t*
 Geometry_getAdjacentDomains(Geometry_t* g, unsigned int n)
 {
   return (g != NULL) ? g->getAdjacentDomains(n) : NULL;
@@ -2831,7 +3057,7 @@ Geometry_getAdjacentDomains(Geometry_t* g, unsigned int n)
  * Get an AdjacentDomains_t from the Geometry_t based on its identifier.
  */
 LIBSBML_EXTERN
-const AdjacentDomains_t*
+AdjacentDomains_t*
 Geometry_getAdjacentDomainsById(Geometry_t* g, const char *sid)
 {
   return (g != NULL && sid != NULL) ? g->getAdjacentDomains(sid) : NULL;
@@ -2843,7 +3069,7 @@ Geometry_getAdjacentDomainsById(Geometry_t* g, const char *sid)
  * it refers.
  */
 LIBSBML_EXTERN
-const AdjacentDomains_t*
+AdjacentDomains_t*
 Geometry_getAdjacentDomainsByDomain1(Geometry_t* g, const char *sid)
 {
   return (g != NULL && sid != NULL) ? g->getAdjacentDomainsByDomain1(sid) :
@@ -2856,7 +3082,7 @@ Geometry_getAdjacentDomainsByDomain1(Geometry_t* g, const char *sid)
  * it refers.
  */
 LIBSBML_EXTERN
-const AdjacentDomains_t*
+AdjacentDomains_t*
 Geometry_getAdjacentDomainsByDomain2(Geometry_t* g, const char *sid)
 {
   return (g != NULL && sid != NULL) ? g->getAdjacentDomainsByDomain2(sid) :
@@ -2923,7 +3149,7 @@ Geometry_removeAdjacentDomainsById(Geometry_t* g, const char* sid)
 
 
 /*
- * Returns a ListOf_t* containing GeometryDefinition_t objects from this
+ * Returns a ListOf_t * containing GeometryDefinition_t objects from this
  * Geometry_t.
  */
 LIBSBML_EXTERN
@@ -2938,7 +3164,7 @@ Geometry_getListOfGeometryDefinitions(Geometry_t* g)
  * Get a GeometryDefinition_t from the Geometry_t.
  */
 LIBSBML_EXTERN
-const GeometryDefinition_t*
+GeometryDefinition_t*
 Geometry_getGeometryDefinition(Geometry_t* g, unsigned int n)
 {
   return (g != NULL) ? g->getGeometryDefinition(n) : NULL;
@@ -2949,7 +3175,7 @@ Geometry_getGeometryDefinition(Geometry_t* g, unsigned int n)
  * Get a GeometryDefinition_t from the Geometry_t based on its identifier.
  */
 LIBSBML_EXTERN
-const GeometryDefinition_t*
+GeometryDefinition_t*
 Geometry_getGeometryDefinitionById(Geometry_t* g, const char *sid)
 {
   return (g != NULL && sid != NULL) ? g->getGeometryDefinition(sid) : NULL;
@@ -3063,7 +3289,7 @@ Geometry_removeGeometryDefinitionById(Geometry_t* g, const char* sid)
 
 
 /*
- * Returns a ListOf_t* containing SampledField_t objects from this Geometry_t.
+ * Returns a ListOf_t * containing SampledField_t objects from this Geometry_t.
  */
 LIBSBML_EXTERN
 ListOf_t*
@@ -3077,7 +3303,7 @@ Geometry_getListOfSampledFields(Geometry_t* g)
  * Get a SampledField_t from the Geometry_t.
  */
 LIBSBML_EXTERN
-const SampledField_t*
+SampledField_t*
 Geometry_getSampledField(Geometry_t* g, unsigned int n)
 {
   return (g != NULL) ? g->getSampledField(n) : NULL;
@@ -3088,7 +3314,7 @@ Geometry_getSampledField(Geometry_t* g, unsigned int n)
  * Get a SampledField_t from the Geometry_t based on its identifier.
  */
 LIBSBML_EXTERN
-const SampledField_t*
+SampledField_t*
 Geometry_getSampledFieldById(Geometry_t* g, const char *sid)
 {
   return (g != NULL && sid != NULL) ? g->getSampledField(sid) : NULL;
@@ -3154,26 +3380,14 @@ Geometry_removeSampledFieldById(Geometry_t* g, const char* sid)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this Geometry_t
- * object have been set.
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * Geometry_t object have been set.
  */
 LIBSBML_EXTERN
 int
 Geometry_hasRequiredAttributes(const Geometry_t * g)
 {
   return (g != NULL) ? static_cast<int>(g->hasRequiredAttributes()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 if all the required elements for this Geometry_t
- * object have been set.
- */
-LIBSBML_EXTERN
-int
-Geometry_hasRequiredElements(const Geometry_t * g)
-{
-  return (g != NULL) ? static_cast<int>(g->hasRequiredElements()) : 0;
 }
 
 

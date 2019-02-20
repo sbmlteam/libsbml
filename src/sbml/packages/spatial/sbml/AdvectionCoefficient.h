@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -36,6 +36,34 @@
  *
  * @class AdvectionCoefficient
  * @sbmlbrief{spatial} TODO:Definition of the AdvectionCoefficient class.
+ */
+
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file. The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality. Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ *
+ *
+ * @class doc_advectioncoefficient_coordinate
+ *
+ * @par
+ * The attribute "coordinate" on a AdvectionCoefficient object is used to
+ * TODO:add explanation
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
+ * allowable values for "coordinate":
+ * <ul>
+ * <li> @c "cartesianX", TODO:add description
+ *
+ * <li> @c "cartesianY", TODO:add description
+ *
+ * <li> @c "cartesianZ", TODO:add description
+ *
+ * </ul>
  */
 
 
@@ -87,11 +115,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this AdvectionCoefficient.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   AdvectionCoefficient(unsigned int level =
     SpatialExtension::getDefaultLevel(),
@@ -105,13 +129,11 @@ public:
    * Creates a new AdvectionCoefficient using the given SpatialPkgNamespaces
    * object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   AdvectionCoefficient(SpatialPkgNamespaces *spatialns);
 
@@ -163,6 +185,15 @@ public:
    *
    * @return the value of the "coordinate" attribute of this
    * AdvectionCoefficient as a CoordinateKind_t.
+   *
+   * @copydetails doc_advectioncoefficient_coordinate
+   * @if clike The value is drawn from the enumeration @ref CoordinateKind_t
+   * @endif
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_X, CoordinateKind_t}
+   * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Y, CoordinateKind_t}
+   * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Z, CoordinateKind_t}
+   * @li @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t}
    */
   CoordinateKind_t getCoordinate() const;
 
@@ -173,6 +204,13 @@ public:
    *
    * @return the value of the "coordinate" attribute of this
    * AdvectionCoefficient as a string.
+   *
+   * @copydetails doc_advectioncoefficient_coordinate
+   * The possible values returned by this method are:
+   * @li @c "cartesianX"
+   * @li @c "cartesianY"
+   * @li @c "cartesianZ"
+   * @li @c "invalid CoordinateKind value"
    */
   const std::string& getCoordinateAsString() const;
 
@@ -193,6 +231,8 @@ public:
    *
    * @return @c true if this AdvectionCoefficient's "coordinate" attribute has
    * been set, otherwise @c false is returned.
+   *
+   * @copydetails doc_advectioncoefficient_coordinate
    */
   bool isSetCoordinate() const;
 
@@ -213,13 +253,15 @@ public:
   /**
    * Sets the value of the "coordinate" attribute of this AdvectionCoefficient.
    *
-   * @param coordinate CoordinateKind_t value of the "coordinate" attribute to
-   * be set.
+   * @param coordinate @if clike CoordinateKind_t@else int@endif value of the
+   * "coordinate" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_advectioncoefficient_coordinate
    */
   int setCoordinate(const CoordinateKind_t coordinate);
 
@@ -233,6 +275,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_advectioncoefficient_coordinate
    */
   int setCoordinate(const std::string& coordinate);
 
@@ -251,9 +295,10 @@ public:
    * Unsets the value of the "coordinate" attribute of this
    * AdvectionCoefficient.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_advectioncoefficient_coordinate
    */
   int unsetCoordinate();
 
@@ -268,8 +313,8 @@ public:
   /**
    * Returns the XML element name of this AdvectionCoefficient object.
    *
-   * For AdvectionCoefficient, the XML element name is always @c
-   * "advectionCoefficient".
+   * For AdvectionCoefficient, the XML element name is always
+   * @c "advectionCoefficient".
    *
    * @return the name of this element, i.e. @c "advectionCoefficient".
    */
@@ -282,8 +327,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_ADVECTIONCOEFFICIENT, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_ADVECTIONCOEFFICIENT, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -681,11 +725,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this AdvectionCoefficient_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof AdvectionCoefficient_t
  */
@@ -702,6 +744,8 @@ AdvectionCoefficient_create(unsigned int level,
  * @param ac the AdvectionCoefficient_t structure.
  *
  * @return a (deep) copy of this AdvectionCoefficient_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof AdvectionCoefficient_t
  */
@@ -731,10 +775,12 @@ AdvectionCoefficient_free(AdvectionCoefficient_t* ac);
  * @return the value of the "variable" attribute of this AdvectionCoefficient_t
  * as a pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof AdvectionCoefficient_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 AdvectionCoefficient_getVariable(const AdvectionCoefficient_t * ac);
 
 
@@ -746,6 +792,15 @@ AdvectionCoefficient_getVariable(const AdvectionCoefficient_t * ac);
  *
  * @return the value of the "coordinate" attribute of this
  * AdvectionCoefficient_t as a CoordinateKind_t.
+ *
+ * @copydetails doc_advectioncoefficient_coordinate
+ * @if clike The value is drawn from the enumeration @ref CoordinateKind_t
+ * @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_X, CoordinateKind_t}
+ * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Y, CoordinateKind_t}
+ * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Z, CoordinateKind_t}
+ * @li @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t}
  *
  * @memberof AdvectionCoefficient_t
  */
@@ -763,21 +818,30 @@ AdvectionCoefficient_getCoordinate(const AdvectionCoefficient_t * ac);
  * @return the value of the "coordinate" attribute of this
  * AdvectionCoefficient_t as a const char *.
  *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_advectioncoefficient_coordinate
+ * The possible values returned by this method are:
+ * @li @c "cartesianX"
+ * @li @c "cartesianY"
+ * @li @c "cartesianZ"
+ * @li @c "invalid CoordinateKind value"
+ *
  * @memberof AdvectionCoefficient_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 AdvectionCoefficient_getCoordinateAsString(const AdvectionCoefficient_t * ac);
 
 
 /**
- * Predicate returning @c 1 if this AdvectionCoefficient_t's "variable"
+ * Predicate returning @c 1 (true) if this AdvectionCoefficient_t's "variable"
  * attribute is set.
  *
  * @param ac the AdvectionCoefficient_t structure.
  *
- * @return @c 1 if this AdvectionCoefficient_t's "variable" attribute has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this AdvectionCoefficient_t's "variable" attribute
+ * has been set, otherwise @c 0 (false) is returned.
  *
  * @memberof AdvectionCoefficient_t
  */
@@ -787,13 +851,15 @@ AdvectionCoefficient_isSetVariable(const AdvectionCoefficient_t * ac);
 
 
 /**
- * Predicate returning @c 1 if this AdvectionCoefficient_t's "coordinate"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this AdvectionCoefficient_t's
+ * "coordinate" attribute is set.
  *
  * @param ac the AdvectionCoefficient_t structure.
  *
- * @return @c 1 if this AdvectionCoefficient_t's "coordinate" attribute has
- * been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this AdvectionCoefficient_t's "coordinate" attribute
+ * has been set, otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_advectioncoefficient_coordinate
  *
  * @memberof AdvectionCoefficient_t
  */
@@ -812,6 +878,7 @@ AdvectionCoefficient_isSetCoordinate(const AdvectionCoefficient_t * ac);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof AdvectionCoefficient_t
  */
@@ -832,6 +899,9 @@ AdvectionCoefficient_setVariable(AdvectionCoefficient_t * ac,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_advectioncoefficient_coordinate
  *
  * @memberof AdvectionCoefficient_t
  */
@@ -851,6 +921,9 @@ AdvectionCoefficient_setCoordinate(AdvectionCoefficient_t * ac,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_advectioncoefficient_coordinate
  *
  * @memberof AdvectionCoefficient_t
  */
@@ -868,6 +941,7 @@ AdvectionCoefficient_setCoordinateAsString(AdvectionCoefficient_t * ac,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof AdvectionCoefficient_t
  */
@@ -884,7 +958,9 @@ AdvectionCoefficient_unsetVariable(AdvectionCoefficient_t * ac);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_advectioncoefficient_coordinate
  *
  * @memberof AdvectionCoefficient_t
  */
@@ -894,13 +970,13 @@ AdvectionCoefficient_unsetCoordinate(AdvectionCoefficient_t * ac);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * AdvectionCoefficient_t object have been set.
  *
  * @param ac the AdvectionCoefficient_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * AdvectionCoefficient_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * AdvectionCoefficient_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the AdvectionCoefficient_t object are:

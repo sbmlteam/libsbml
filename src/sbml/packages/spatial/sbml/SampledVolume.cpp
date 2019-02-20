@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -59,7 +59,6 @@ SampledVolume::SampledVolume(unsigned int level,
                              unsigned int version,
                              unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
   , mDomainType ("")
   , mSampledValue (util_NaN())
   , mIsSetSampledValue (false)
@@ -78,7 +77,6 @@ SampledVolume::SampledVolume(unsigned int level,
  */
 SampledVolume::SampledVolume(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
-  , mId ("")
   , mDomainType ("")
   , mSampledValue (util_NaN())
   , mIsSetSampledValue (false)
@@ -97,7 +95,6 @@ SampledVolume::SampledVolume(SpatialPkgNamespaces *spatialns)
  */
 SampledVolume::SampledVolume(const SampledVolume& orig)
   : SBase( orig )
-  , mId ( orig.mId )
   , mDomainType ( orig.mDomainType )
   , mSampledValue ( orig.mSampledValue )
   , mIsSetSampledValue ( orig.mIsSetSampledValue )
@@ -118,7 +115,6 @@ SampledVolume::operator=(const SampledVolume& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId = rhs.mId;
     mDomainType = rhs.mDomainType;
     mSampledValue = rhs.mSampledValue;
     mIsSetSampledValue = rhs.mIsSetSampledValue;
@@ -157,6 +153,16 @@ const std::string&
 SampledVolume::getId() const
 {
   return mId;
+}
+
+
+/*
+ * Returns the value of the "name" attribute of this SampledVolume.
+ */
+const std::string&
+SampledVolume::getName() const
+{
+  return mName;
 }
 
 
@@ -211,6 +217,16 @@ SampledVolume::isSetId() const
 
 
 /*
+ * Predicate returning @c true if this SampledVolume's "name" attribute is set.
+ */
+bool
+SampledVolume::isSetName() const
+{
+  return (mName.empty() == false);
+}
+
+
+/*
  * Predicate returning @c true if this SampledVolume's "domainType" attribute
  * is set.
  */
@@ -261,6 +277,17 @@ int
 SampledVolume::setId(const std::string& id)
 {
   return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Sets the value of the "name" attribute of this SampledVolume.
+ */
+int
+SampledVolume::setName(const std::string& name)
+{
+  mName = name;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -327,6 +354,25 @@ SampledVolume::unsetId()
   mId.erase();
 
   if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "name" attribute of this SampledVolume.
+ */
+int
+SampledVolume::unsetName()
+{
+  mName.erase();
+
+  if (mName.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -466,11 +512,6 @@ SampledVolume::hasRequiredAttributes() const
   }
 
   if (isSetDomainType() == false)
-  {
-    allPresent = false;
-  }
-
-  if (isSetSampledValue() == false)
   {
     allPresent = false;
   }
@@ -658,6 +699,11 @@ SampledVolume::getAttribute(const std::string& attributeName,
     value = getId();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
+  else if (attributeName == "name")
+  {
+    value = getName();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
   else if (attributeName == "domainType")
   {
     value = getDomainType();
@@ -685,6 +731,10 @@ SampledVolume::isSetAttribute(const std::string& attributeName) const
   if (attributeName == "id")
   {
     value = isSetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = isSetName();
   }
   else if (attributeName == "domainType")
   {
@@ -807,6 +857,10 @@ SampledVolume::setAttribute(const std::string& attributeName,
   {
     return_value = setId(value);
   }
+  else if (attributeName == "name")
+  {
+    return_value = setName(value);
+  }
   else if (attributeName == "domainType")
   {
     return_value = setDomainType(value);
@@ -832,6 +886,10 @@ SampledVolume::unsetAttribute(const std::string& attributeName)
   if (attributeName == "id")
   {
     value = unsetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = unsetName();
   }
   else if (attributeName == "domainType")
   {
@@ -869,6 +927,8 @@ SampledVolume::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("id");
 
+  attributes.add("name");
+
   attributes.add("domainType");
 
   attributes.add("sampledValue");
@@ -898,7 +958,8 @@ SampledVolume::readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  if (static_cast<ListOfSampledVolumes*>(getParentSBMLObject())->size() < 2)
+  if (log && getParentSBMLObject() &&
+    static_cast<ListOfSampledVolumes*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
@@ -922,24 +983,28 @@ SampledVolume::readAttributes(const XMLAttributes& attributes,
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialSampledVolumeAllowedAttributes,
-        pkgVersion, level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial",
-        SpatialSampledVolumeAllowedCoreAttributes, pkgVersion, level, version,
-          details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialSampledVolumeAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialSampledVolumeAllowedCoreAttributes, pkgVersion, level, version,
+            details);
+      }
     }
   }
 
@@ -957,8 +1022,9 @@ SampledVolume::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      logError(SpatialIdSyntaxRule, level, version, "The id '" + mId + "' does "
-        "not conform to the syntax.");
+      log->logPackageError("spatial", SpatialIdSyntaxRule, pkgVersion, level,
+        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+          "which does not conform to the syntax.", getLine(), getColumn());
     }
   }
   else
@@ -967,6 +1033,20 @@ SampledVolume::readAttributes(const XMLAttributes& attributes,
       "<SampledVolume> element.";
     log->logPackageError("spatial", SpatialSampledVolumeAllowedAttributes,
       pkgVersion, level, version, message);
+  }
+
+  // 
+  // name string (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("name", mName);
+
+  if (assigned == true)
+  {
+    if (mName.empty() == true)
+    {
+      logEmptyString(mName, level, version, "<SampledVolume>");
+    }
   }
 
   // 
@@ -983,9 +1063,18 @@ SampledVolume::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mDomainType) == false)
     {
-      logError(SpatialSampledVolumeDomainTypeMustBeDomainType, level, version,
-        "The attribute domainType='" + mDomainType + "' does not conform to the "
-          "syntax.");
+      std::string msg = "The domainType attribute on the <" + getElementName()
+        + ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mDomainType + "', which does not conform to the "
+        "syntax.";
+      log->logPackageError("spatial",
+        SpatialSampledVolumeDomainTypeMustBeDomainType, pkgVersion, level,
+          version, msg, getLine(), getColumn());
     }
   }
   else
@@ -997,7 +1086,7 @@ SampledVolume::readAttributes(const XMLAttributes& attributes,
   }
 
   // 
-  // sampledValue double (use = "required" )
+  // sampledValue double (use = "optional" )
   // 
 
   numErrs = log->getNumErrors();
@@ -1014,13 +1103,6 @@ SampledVolume::readAttributes(const XMLAttributes& attributes,
       log->logPackageError("spatial",
         SpatialSampledVolumeSampledValueMustBeDouble, pkgVersion, level, version,
           message);
-    }
-    else
-    {
-      std::string message = "Spatial attribute 'sampledValue' is missing from "
-        "the <SampledVolume> element.";
-      log->logPackageError("spatial", SpatialSampledVolumeAllowedAttributes,
-        pkgVersion, level, version, message);
     }
   }
 
@@ -1082,6 +1164,11 @@ SampledVolume::writeAttributes(XMLOutputStream& stream) const
   if (isSetId() == true)
   {
     stream.writeAttribute("id", getPrefix(), mId);
+  }
+
+  if (isSetName() == true)
+  {
+    stream.writeAttribute("name", getPrefix(), mName);
   }
 
   if (isSetDomainType() == true)
@@ -1165,7 +1252,7 @@ SampledVolume_free(SampledVolume_t* sv)
  * Returns the value of the "id" attribute of this SampledVolume_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 SampledVolume_getId(const SampledVolume_t * sv)
 {
   if (sv == NULL)
@@ -1178,10 +1265,26 @@ SampledVolume_getId(const SampledVolume_t * sv)
 
 
 /*
+ * Returns the value of the "name" attribute of this SampledVolume_t.
+ */
+LIBSBML_EXTERN
+char *
+SampledVolume_getName(const SampledVolume_t * sv)
+{
+  if (sv == NULL)
+  {
+    return NULL;
+  }
+
+  return sv->getName().empty() ? NULL : safe_strdup(sv->getName().c_str());
+}
+
+
+/*
  * Returns the value of the "domainType" attribute of this SampledVolume_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 SampledVolume_getDomainType(const SampledVolume_t * sv)
 {
   if (sv == NULL)
@@ -1228,7 +1331,8 @@ SampledVolume_getMaxValue(const SampledVolume_t * sv)
 
 
 /*
- * Predicate returning @c 1 if this SampledVolume_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this SampledVolume_t's "id" attribute is
+ * set.
  */
 LIBSBML_EXTERN
 int
@@ -1239,8 +1343,20 @@ SampledVolume_isSetId(const SampledVolume_t * sv)
 
 
 /*
- * Predicate returning @c 1 if this SampledVolume_t's "domainType" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SampledVolume_t's "name" attribute
+ * is set.
+ */
+LIBSBML_EXTERN
+int
+SampledVolume_isSetName(const SampledVolume_t * sv)
+{
+  return (sv != NULL) ? static_cast<int>(sv->isSetName()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this SampledVolume_t's "domainType"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1251,8 +1367,8 @@ SampledVolume_isSetDomainType(const SampledVolume_t * sv)
 
 
 /*
- * Predicate returning @c 1 if this SampledVolume_t's "sampledValue" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this SampledVolume_t's "sampledValue"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1263,8 +1379,8 @@ SampledVolume_isSetSampledValue(const SampledVolume_t * sv)
 
 
 /*
- * Predicate returning @c 1 if this SampledVolume_t's "minValue" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SampledVolume_t's "minValue"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1275,8 +1391,8 @@ SampledVolume_isSetMinValue(const SampledVolume_t * sv)
 
 
 /*
- * Predicate returning @c 1 if this SampledVolume_t's "maxValue" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SampledVolume_t's "maxValue"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1294,6 +1410,17 @@ int
 SampledVolume_setId(SampledVolume_t * sv, const char * id)
 {
   return (sv != NULL) ? sv->setId(id) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "name" attribute of this SampledVolume_t.
+ */
+LIBSBML_EXTERN
+int
+SampledVolume_setName(SampledVolume_t * sv, const char * name)
+{
+  return (sv != NULL) ? sv->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1354,6 +1481,17 @@ SampledVolume_unsetId(SampledVolume_t * sv)
 
 
 /*
+ * Unsets the value of the "name" attribute of this SampledVolume_t.
+ */
+LIBSBML_EXTERN
+int
+SampledVolume_unsetName(SampledVolume_t * sv)
+{
+  return (sv != NULL) ? sv->unsetName() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
  * Unsets the value of the "domainType" attribute of this SampledVolume_t.
  */
 LIBSBML_EXTERN
@@ -1398,7 +1536,7 @@ SampledVolume_unsetMaxValue(SampledVolume_t * sv)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * SampledVolume_t object have been set.
  */
 LIBSBML_EXTERN

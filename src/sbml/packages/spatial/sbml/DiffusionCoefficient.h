@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -36,6 +36,70 @@
  *
  * @class DiffusionCoefficient
  * @sbmlbrief{spatial} TODO:Definition of the DiffusionCoefficient class.
+ */
+
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file. The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality. Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ *
+ *
+ * @class doc_diffusioncoefficient_type
+ *
+ * @par
+ * The attribute "type" on a DiffusionCoefficient object is used to TODO:add
+ * explanation
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
+ * allowable values for "type":
+ * <ul>
+ * <li> @c "isotropic", TODO:add description
+ *
+ * <li> @c "anisotropic", TODO:add description
+ *
+ * <li> @c "tensor", TODO:add description
+ *
+ * </ul>
+ *
+ * @class doc_diffusioncoefficient_coordinateReference1
+ *
+ * @par
+ * The attribute "coordinateReference1" on a DiffusionCoefficient object is
+ * used to TODO:add explanation
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
+ * allowable values for "coordinateReference1":
+ * <ul>
+ * <li> @c "cartesianX", TODO:add description
+ *
+ * <li> @c "cartesianY", TODO:add description
+ *
+ * <li> @c "cartesianZ", TODO:add description
+ *
+ * </ul>
+ *
+ * @class doc_diffusioncoefficient_coordinateReference2
+ *
+ * @par
+ * The attribute "coordinateReference2" on a DiffusionCoefficient object is
+ * used to TODO:add explanation
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
+ * allowable values for "coordinateReference2":
+ * <ul>
+ * <li> @c "cartesianX", TODO:add description
+ *
+ * <li> @c "cartesianY", TODO:add description
+ *
+ * <li> @c "cartesianZ", TODO:add description
+ *
+ * </ul>
  */
 
 
@@ -89,11 +153,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this DiffusionCoefficient.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   DiffusionCoefficient(unsigned int level =
     SpatialExtension::getDefaultLevel(),
@@ -107,13 +167,11 @@ public:
    * Creates a new DiffusionCoefficient using the given SpatialPkgNamespaces
    * object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   DiffusionCoefficient(SpatialPkgNamespaces *spatialns);
 
@@ -164,6 +222,15 @@ public:
    *
    * @return the value of the "type" attribute of this DiffusionCoefficient as
    * a DiffusionKind_t.
+   *
+   * @copydetails doc_diffusioncoefficient_type
+   * @if clike The value is drawn from the enumeration @ref DiffusionKind_t
+   * @endif
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_DIFFUSIONKIND_ISOTROPIC, DiffusionKind_t}
+   * @li @sbmlconstant{SPATIAL_DIFFUSIONKIND_ANISOTROPIC, DiffusionKind_t}
+   * @li @sbmlconstant{SPATIAL_DIFFUSIONKIND_TENSOR, DiffusionKind_t}
+   * @li @sbmlconstant{SPATIAL_DIFFUSIONKIND_INVALID, DiffusionKind_t}
    */
   DiffusionKind_t getType() const;
 
@@ -173,10 +240,15 @@ public:
    *
    * @return the value of the "type" attribute of this DiffusionCoefficient as
    * a string.
+   *
+   * @copydetails doc_diffusioncoefficient_type
+   * The possible values returned by this method are:
+   * @li @c "isotropic"
+   * @li @c "anisotropic"
+   * @li @c "tensor"
+   * @li @c "invalid DiffusionKind value"
    */
   std::string getTypeAsString() const;
-  //bgoli22
-
 
 
   /**
@@ -185,6 +257,15 @@ public:
    *
    * @return the value of the "coordinateReference1" attribute of this
    * DiffusionCoefficient as a CoordinateKind_t.
+   *
+   * @copydetails doc_diffusioncoefficient_coordinateReference1
+   * @if clike The value is drawn from the enumeration @ref CoordinateKind_t
+   * @endif
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_X, CoordinateKind_t}
+   * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Y, CoordinateKind_t}
+   * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Z, CoordinateKind_t}
+   * @li @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t}
    */
   CoordinateKind_t getCoordinateReference1() const;
 
@@ -195,6 +276,13 @@ public:
    *
    * @return the value of the "coordinateReference1" attribute of this
    * DiffusionCoefficient as a string.
+   *
+   * @copydetails doc_diffusioncoefficient_coordinateReference1
+   * The possible values returned by this method are:
+   * @li @c "cartesianX"
+   * @li @c "cartesianY"
+   * @li @c "cartesianZ"
+   * @li @c "invalid CoordinateKind value"
    */
   const std::string& getCoordinateReference1AsString() const;
 
@@ -205,6 +293,15 @@ public:
    *
    * @return the value of the "coordinateReference2" attribute of this
    * DiffusionCoefficient as a CoordinateKind_t.
+   *
+   * @copydetails doc_diffusioncoefficient_coordinateReference2
+   * @if clike The value is drawn from the enumeration @ref CoordinateKind_t
+   * @endif
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_X, CoordinateKind_t}
+   * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Y, CoordinateKind_t}
+   * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Z, CoordinateKind_t}
+   * @li @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t}
    */
   CoordinateKind_t getCoordinateReference2() const;
 
@@ -215,10 +312,15 @@ public:
    *
    * @return the value of the "coordinateReference2" attribute of this
    * DiffusionCoefficient as a string.
+   *
+   * @copydetails doc_diffusioncoefficient_coordinateReference2
+   * The possible values returned by this method are:
+   * @li @c "cartesianX"
+   * @li @c "cartesianY"
+   * @li @c "cartesianZ"
+   * @li @c "invalid CoordinateKind value"
    */
   std::string getCoordinateReference2AsString() const;
-  //bgoli22
-
 
 
   /**
@@ -237,6 +339,8 @@ public:
    *
    * @return @c true if this DiffusionCoefficient's "type" attribute has been
    * set, otherwise @c false is returned.
+   *
+   * @copydetails doc_diffusioncoefficient_type
    */
   bool isSetType() const;
 
@@ -247,6 +351,8 @@ public:
    *
    * @return @c true if this DiffusionCoefficient's "coordinateReference1"
    * attribute has been set, otherwise @c false is returned.
+   *
+   * @copydetails doc_diffusioncoefficient_coordinateReference1
    */
   bool isSetCoordinateReference1() const;
 
@@ -257,6 +363,8 @@ public:
    *
    * @return @c true if this DiffusionCoefficient's "coordinateReference2"
    * attribute has been set, otherwise @c false is returned.
+   *
+   * @copydetails doc_diffusioncoefficient_coordinateReference2
    */
   bool isSetCoordinateReference2() const;
 
@@ -277,12 +385,15 @@ public:
   /**
    * Sets the value of the "type" attribute of this DiffusionCoefficient.
    *
-   * @param type DiffusionKind_t value of the "type" attribute to be set.
+   * @param type @if clike DiffusionKind_t@else int@endif value of the "type"
+   * attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_diffusioncoefficient_type
    */
   int setType(const DiffusionKind_t type);
 
@@ -296,6 +407,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_diffusioncoefficient_type
    */
   int setType(const std::string& type);
 
@@ -304,13 +417,15 @@ public:
    * Sets the value of the "coordinateReference1" attribute of this
    * DiffusionCoefficient.
    *
-   * @param coordinateReference1 CoordinateKind_t value of the
-   * "coordinateReference1" attribute to be set.
+   * @param coordinateReference1 @if clike CoordinateKind_t@else int@endif
+   * value of the "coordinateReference1" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_diffusioncoefficient_coordinateReference1
    */
   int setCoordinateReference1(const CoordinateKind_t coordinateReference1);
 
@@ -326,6 +441,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_diffusioncoefficient_coordinateReference1
    */
   int setCoordinateReference1(const std::string& coordinateReference1);
 
@@ -334,13 +451,15 @@ public:
    * Sets the value of the "coordinateReference2" attribute of this
    * DiffusionCoefficient.
    *
-   * @param coordinateReference2 CoordinateKind_t value of the
-   * "coordinateReference2" attribute to be set.
+   * @param coordinateReference2 @if clike CoordinateKind_t@else int@endif
+   * value of the "coordinateReference2" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_diffusioncoefficient_coordinateReference2
    */
   int setCoordinateReference2(const CoordinateKind_t coordinateReference2);
 
@@ -356,6 +475,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_diffusioncoefficient_coordinateReference2
    */
   int setCoordinateReference2(const std::string& coordinateReference2);
 
@@ -373,9 +494,10 @@ public:
   /**
    * Unsets the value of the "type" attribute of this DiffusionCoefficient.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_diffusioncoefficient_type
    */
   int unsetType();
 
@@ -384,9 +506,10 @@ public:
    * Unsets the value of the "coordinateReference1" attribute of this
    * DiffusionCoefficient.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_diffusioncoefficient_coordinateReference1
    */
   int unsetCoordinateReference1();
 
@@ -395,9 +518,10 @@ public:
    * Unsets the value of the "coordinateReference2" attribute of this
    * DiffusionCoefficient.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_diffusioncoefficient_coordinateReference2
    */
   int unsetCoordinateReference2();
 
@@ -412,8 +536,8 @@ public:
   /**
    * Returns the XML element name of this DiffusionCoefficient object.
    *
-   * For DiffusionCoefficient, the XML element name is always @c
-   * "diffusionCoefficient".
+   * For DiffusionCoefficient, the XML element name is always
+   * @c "diffusionCoefficient".
    *
    * @return the name of this element, i.e. @c "diffusionCoefficient".
    */
@@ -426,8 +550,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_DIFFUSIONCOEFFICIENT, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_DIFFUSIONCOEFFICIENT, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -825,11 +948,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this DiffusionCoefficient_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -846,6 +967,8 @@ DiffusionCoefficient_create(unsigned int level,
  * @param dc the DiffusionCoefficient_t structure.
  *
  * @return a (deep) copy of this DiffusionCoefficient_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -875,10 +998,12 @@ DiffusionCoefficient_free(DiffusionCoefficient_t* dc);
  * @return the value of the "variable" attribute of this DiffusionCoefficient_t
  * as a pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof DiffusionCoefficient_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 DiffusionCoefficient_getVariable(const DiffusionCoefficient_t * dc);
 
 
@@ -889,6 +1014,15 @@ DiffusionCoefficient_getVariable(const DiffusionCoefficient_t * dc);
  *
  * @return the value of the "type" attribute of this DiffusionCoefficient_t as
  * a DiffusionKind_t.
+ *
+ * @copydetails doc_diffusioncoefficient_type
+ * @if clike The value is drawn from the enumeration @ref DiffusionKind_t
+ * @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_DIFFUSIONKIND_ISOTROPIC, DiffusionKind_t}
+ * @li @sbmlconstant{SPATIAL_DIFFUSIONKIND_ANISOTROPIC, DiffusionKind_t}
+ * @li @sbmlconstant{SPATIAL_DIFFUSIONKIND_TENSOR, DiffusionKind_t}
+ * @li @sbmlconstant{SPATIAL_DIFFUSIONKIND_INVALID, DiffusionKind_t}
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -905,10 +1039,19 @@ DiffusionCoefficient_getType(const DiffusionCoefficient_t * dc);
  * @return the value of the "type" attribute of this DiffusionCoefficient_t as
  * a const char *.
  *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_diffusioncoefficient_type
+ * The possible values returned by this method are:
+ * @li @c "isotropic"
+ * @li @c "anisotropic"
+ * @li @c "tensor"
+ * @li @c "invalid DiffusionKind value"
+ *
  * @memberof DiffusionCoefficient_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 DiffusionCoefficient_getTypeAsString(const DiffusionCoefficient_t * dc);
 
 
@@ -921,6 +1064,15 @@ DiffusionCoefficient_getTypeAsString(const DiffusionCoefficient_t * dc);
  *
  * @return the value of the "coordinateReference1" attribute of this
  * DiffusionCoefficient_t as a CoordinateKind_t.
+ *
+ * @copydetails doc_diffusioncoefficient_coordinateReference1
+ * @if clike The value is drawn from the enumeration @ref CoordinateKind_t
+ * @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_X, CoordinateKind_t}
+ * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Y, CoordinateKind_t}
+ * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Z, CoordinateKind_t}
+ * @li @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t}
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -940,10 +1092,19 @@ DiffusionCoefficient_getCoordinateReference1(const DiffusionCoefficient_t *
  * @return the value of the "coordinateReference1" attribute of this
  * DiffusionCoefficient_t as a const char *.
  *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_diffusioncoefficient_coordinateReference1
+ * The possible values returned by this method are:
+ * @li @c "cartesianX"
+ * @li @c "cartesianY"
+ * @li @c "cartesianZ"
+ * @li @c "invalid CoordinateKind value"
+ *
  * @memberof DiffusionCoefficient_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 DiffusionCoefficient_getCoordinateReference1AsString(const
   DiffusionCoefficient_t * dc);
 
@@ -957,6 +1118,15 @@ DiffusionCoefficient_getCoordinateReference1AsString(const
  *
  * @return the value of the "coordinateReference2" attribute of this
  * DiffusionCoefficient_t as a CoordinateKind_t.
+ *
+ * @copydetails doc_diffusioncoefficient_coordinateReference2
+ * @if clike The value is drawn from the enumeration @ref CoordinateKind_t
+ * @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_X, CoordinateKind_t}
+ * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Y, CoordinateKind_t}
+ * @li @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Z, CoordinateKind_t}
+ * @li @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t}
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -976,22 +1146,31 @@ DiffusionCoefficient_getCoordinateReference2(const DiffusionCoefficient_t *
  * @return the value of the "coordinateReference2" attribute of this
  * DiffusionCoefficient_t as a const char *.
  *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_diffusioncoefficient_coordinateReference2
+ * The possible values returned by this method are:
+ * @li @c "cartesianX"
+ * @li @c "cartesianY"
+ * @li @c "cartesianZ"
+ * @li @c "invalid CoordinateKind value"
+ *
  * @memberof DiffusionCoefficient_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 DiffusionCoefficient_getCoordinateReference2AsString(const
   DiffusionCoefficient_t * dc);
 
 
 /**
- * Predicate returning @c 1 if this DiffusionCoefficient_t's "variable"
+ * Predicate returning @c 1 (true) if this DiffusionCoefficient_t's "variable"
  * attribute is set.
  *
  * @param dc the DiffusionCoefficient_t structure.
  *
- * @return @c 1 if this DiffusionCoefficient_t's "variable" attribute has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this DiffusionCoefficient_t's "variable" attribute
+ * has been set, otherwise @c 0 (false) is returned.
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -1001,13 +1180,15 @@ DiffusionCoefficient_isSetVariable(const DiffusionCoefficient_t * dc);
 
 
 /**
- * Predicate returning @c 1 if this DiffusionCoefficient_t's "type" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this DiffusionCoefficient_t's "type"
+ * attribute is set.
  *
  * @param dc the DiffusionCoefficient_t structure.
  *
- * @return @c 1 if this DiffusionCoefficient_t's "type" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this DiffusionCoefficient_t's "type" attribute has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_diffusioncoefficient_type
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -1017,13 +1198,15 @@ DiffusionCoefficient_isSetType(const DiffusionCoefficient_t * dc);
 
 
 /**
- * Predicate returning @c 1 if this DiffusionCoefficient_t's
+ * Predicate returning @c 1 (true) if this DiffusionCoefficient_t's
  * "coordinateReference1" attribute is set.
  *
  * @param dc the DiffusionCoefficient_t structure.
  *
- * @return @c 1 if this DiffusionCoefficient_t's "coordinateReference1"
- * attribute has been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this DiffusionCoefficient_t's "coordinateReference1"
+ * attribute has been set, otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_diffusioncoefficient_coordinateReference1
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -1034,13 +1217,15 @@ DiffusionCoefficient_isSetCoordinateReference1(const DiffusionCoefficient_t *
 
 
 /**
- * Predicate returning @c 1 if this DiffusionCoefficient_t's
+ * Predicate returning @c 1 (true) if this DiffusionCoefficient_t's
  * "coordinateReference2" attribute is set.
  *
  * @param dc the DiffusionCoefficient_t structure.
  *
- * @return @c 1 if this DiffusionCoefficient_t's "coordinateReference2"
- * attribute has been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this DiffusionCoefficient_t's "coordinateReference2"
+ * attribute has been set, otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_diffusioncoefficient_coordinateReference2
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -1060,6 +1245,7 @@ DiffusionCoefficient_isSetCoordinateReference2(const DiffusionCoefficient_t *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -1079,6 +1265,9 @@ DiffusionCoefficient_setVariable(DiffusionCoefficient_t * dc,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_diffusioncoefficient_type
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -1098,6 +1287,9 @@ DiffusionCoefficient_setType(DiffusionCoefficient_t * dc,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_diffusioncoefficient_type
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -1119,6 +1311,9 @@ DiffusionCoefficient_setTypeAsString(DiffusionCoefficient_t * dc,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_diffusioncoefficient_coordinateReference1
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -1141,6 +1336,9 @@ DiffusionCoefficient_setCoordinateReference1(DiffusionCoefficient_t * dc,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_diffusioncoefficient_coordinateReference1
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -1149,8 +1347,7 @@ int
 DiffusionCoefficient_setCoordinateReference1AsString(
                                                      DiffusionCoefficient_t *
                                                        dc,
-                                                     const char *
-                                                       coordinateReference1);
+                                                     const char * coordinateReference1);
 
 
 /**
@@ -1165,6 +1362,9 @@ DiffusionCoefficient_setCoordinateReference1AsString(
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_diffusioncoefficient_coordinateReference2
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -1187,6 +1387,9 @@ DiffusionCoefficient_setCoordinateReference2(DiffusionCoefficient_t * dc,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_diffusioncoefficient_coordinateReference2
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -1195,8 +1398,7 @@ int
 DiffusionCoefficient_setCoordinateReference2AsString(
                                                      DiffusionCoefficient_t *
                                                        dc,
-                                                     const char *
-                                                       coordinateReference2);
+                                                     const char * coordinateReference2);
 
 
 /**
@@ -1207,6 +1409,7 @@ DiffusionCoefficient_setCoordinateReference2AsString(
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -1222,7 +1425,9 @@ DiffusionCoefficient_unsetVariable(DiffusionCoefficient_t * dc);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_diffusioncoefficient_type
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -1239,7 +1444,9 @@ DiffusionCoefficient_unsetType(DiffusionCoefficient_t * dc);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_diffusioncoefficient_coordinateReference1
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -1256,7 +1463,9 @@ DiffusionCoefficient_unsetCoordinateReference1(DiffusionCoefficient_t * dc);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_diffusioncoefficient_coordinateReference2
  *
  * @memberof DiffusionCoefficient_t
  */
@@ -1266,13 +1475,13 @@ DiffusionCoefficient_unsetCoordinateReference2(DiffusionCoefficient_t * dc);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * DiffusionCoefficient_t object have been set.
  *
  * @param dc the DiffusionCoefficient_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * DiffusionCoefficient_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * DiffusionCoefficient_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the DiffusionCoefficient_t object are:

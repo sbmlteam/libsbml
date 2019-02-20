@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -57,7 +57,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 CSGRotation::CSGRotation(unsigned int level,
                          unsigned int version,
                          unsigned int pkgVersion)
-  : CSGTransformation(level, version)
+  : CSGTransformation(level, version, pkgVersion)
   , mRotateX (util_NaN())
   , mIsSetRotateX (false)
   , mRotateY (util_NaN())
@@ -818,23 +818,28 @@ CSGRotation::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   CSGTransformation::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialCSGRotationAllowedAttributes,
-        pkgVersion, level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial", SpatialCSGRotationAllowedCoreAttributes,
-        pkgVersion, level, version, details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialCSGRotationAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialCSGRotationAllowedCoreAttributes, pkgVersion, level, version,
+            details);
+      }
     }
   }
 
@@ -1073,7 +1078,8 @@ CSGRotation_getRotateAngleInRadians(const CSGRotation_t * csgr)
 
 
 /*
- * Predicate returning @c 1 if this CSGRotation_t's "rotateX" attribute is set.
+ * Predicate returning @c 1 (true) if this CSGRotation_t's "rotateX" attribute
+ * is set.
  */
 LIBSBML_EXTERN
 int
@@ -1084,7 +1090,8 @@ CSGRotation_isSetRotateX(const CSGRotation_t * csgr)
 
 
 /*
- * Predicate returning @c 1 if this CSGRotation_t's "rotateY" attribute is set.
+ * Predicate returning @c 1 (true) if this CSGRotation_t's "rotateY" attribute
+ * is set.
  */
 LIBSBML_EXTERN
 int
@@ -1095,7 +1102,8 @@ CSGRotation_isSetRotateY(const CSGRotation_t * csgr)
 
 
 /*
- * Predicate returning @c 1 if this CSGRotation_t's "rotateZ" attribute is set.
+ * Predicate returning @c 1 (true) if this CSGRotation_t's "rotateZ" attribute
+ * is set.
  */
 LIBSBML_EXTERN
 int
@@ -1106,8 +1114,8 @@ CSGRotation_isSetRotateZ(const CSGRotation_t * csgr)
 
 
 /*
- * Predicate returning @c 1 if this CSGRotation_t's "rotateAngleInRadians"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this CSGRotation_t's
+ * "rotateAngleInRadians" attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1212,7 +1220,7 @@ CSGRotation_unsetRotateAngleInRadians(CSGRotation_t * csgr)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * CSGRotation_t object have been set.
  */
 LIBSBML_EXTERN

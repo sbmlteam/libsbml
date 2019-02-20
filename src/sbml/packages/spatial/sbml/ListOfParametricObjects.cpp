@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -407,7 +407,7 @@ ListOfParametricObjects::writeXMLNS(XMLOutputStream& stream) const
  * Get a ParametricObject_t from the ListOf_t.
  */
 LIBSBML_EXTERN
-const ParametricObject_t*
+ParametricObject_t*
 ListOfParametricObjects_getParametricObject(ListOf_t* lo, unsigned int n)
 {
   if (lo == NULL)
@@ -423,7 +423,7 @@ ListOfParametricObjects_getParametricObject(ListOf_t* lo, unsigned int n)
  * Get a ParametricObject_t from the ListOf_t based on its identifier.
  */
 LIBSBML_EXTERN
-const ParametricObject_t*
+ParametricObject_t*
 ListOfParametricObjects_getById(ListOf_t* lo, const char *sid)
 {
   if (lo == NULL)

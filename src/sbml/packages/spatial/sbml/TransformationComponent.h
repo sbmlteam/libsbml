@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -89,11 +89,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this TransformationComponent.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   TransformationComponent(
                           unsigned int level =
@@ -108,13 +104,11 @@ public:
    * Creates a new TransformationComponent using the given SpatialPkgNamespaces
    * object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   TransformationComponent(SpatialPkgNamespaces *spatialns);
 
@@ -251,8 +245,8 @@ public:
   /**
    * Returns the XML element name of this TransformationComponent object.
    *
-   * For TransformationComponent, the XML element name is always @c
-   * "transformationComponent".
+   * For TransformationComponent, the XML element name is always
+   * @c "transformationComponent".
    *
    * @return the name of this element, i.e. @c "transformationComponent".
    */
@@ -276,8 +270,8 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_TRANSFORMATIONCOMPONENT, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_TRANSFORMATIONCOMPONENT,
+   * SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -472,7 +466,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Predicate returning @c true if this TransformationComponents's attribute
+   * Predicate returning @c true if this TransformationComponent's attribute
    * "attributeName" is set.
    *
    * @param attributeName, the name of the attribute to query.
@@ -697,19 +691,17 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this TransformationComponent_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof TransformationComponent_t
  */
 LIBSBML_EXTERN
 TransformationComponent_t *
 TransformationComponent_create(unsigned int level,
-                                unsigned int version,
-                                unsigned int pkgVersion);
+                               unsigned int version,
+                               unsigned int pkgVersion);
 
 
 /**
@@ -718,6 +710,8 @@ TransformationComponent_create(unsigned int level,
  * @param tc the TransformationComponent_t structure.
  *
  * @return a (deep) copy of this TransformationComponent_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof TransformationComponent_t
  */
@@ -757,13 +751,13 @@ TransformationComponent_getComponentsLength(const TransformationComponent_t *
 
 
 /**
- * Predicate returning @c 1 if this TransformationComponent_t's "components"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this TransformationComponent_t's
+ * "components" attribute is set.
  *
  * @param tc the TransformationComponent_t structure.
  *
- * @return @c 1 if this TransformationComponent_t's "components" attribute has
- * been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this TransformationComponent_t's "components"
+ * attribute has been set, otherwise @c 0 (false) is returned.
  *
  * @memberof TransformationComponent_t
  */
@@ -773,13 +767,13 @@ TransformationComponent_isSetComponents(const TransformationComponent_t * tc);
 
 
 /**
- * Predicate returning @c 1 if this TransformationComponent_t's
+ * Predicate returning @c 1 (true) if this TransformationComponent_t's
  * "componentsLength" attribute is set.
  *
  * @param tc the TransformationComponent_t structure.
  *
- * @return @c 1 if this TransformationComponent_t's "componentsLength"
- * attribute has been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this TransformationComponent_t's "componentsLength"
+ * attribute has been set, otherwise @c 0 (false) is returned.
  *
  * @memberof TransformationComponent_t
  */
@@ -825,6 +819,7 @@ TransformationComponent_setComponents(TransformationComponent_t* tc,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof TransformationComponent_t
  */
@@ -843,6 +838,7 @@ TransformationComponent_setComponentsLength(TransformationComponent_t * tc,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof TransformationComponent_t
  */
@@ -860,6 +856,7 @@ TransformationComponent_unsetComponents(TransformationComponent_t * tc);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof TransformationComponent_t
  */
@@ -869,13 +866,13 @@ TransformationComponent_unsetComponentsLength(TransformationComponent_t * tc);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * TransformationComponent_t object have been set.
  *
  * @param tc the TransformationComponent_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * TransformationComponent_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * TransformationComponent_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the TransformationComponent_t object are:

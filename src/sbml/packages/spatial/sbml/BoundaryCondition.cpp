@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -146,7 +146,7 @@ BoundaryCondition::getVariable() const
 /*
  * Returns the value of the "type" attribute of this BoundaryCondition.
  */
-BoundaryConditionKind_t
+BoundaryKind_t
 BoundaryCondition::getType() const
 {
   return mType;
@@ -159,10 +159,9 @@ BoundaryCondition::getType() const
 const std::string&
 BoundaryCondition::getTypeAsString() const
 {
-  static const std::string code_str = BoundaryConditionKind_toString(mType);
+  static const std::string code_str = BoundaryKind_toString(mType);
   return code_str;
 }
-//bgoli22
 
 
 /*
@@ -253,9 +252,9 @@ BoundaryCondition::setVariable(const std::string& variable)
  * Sets the value of the "type" attribute of this BoundaryCondition.
  */
 int
-BoundaryCondition::setType(const BoundaryConditionKind_t type)
+BoundaryCondition::setType(const BoundaryKind_t type)
 {
-  if (BoundaryConditionKind_isValid(type) == 0)
+  if (BoundaryKind_isValid(type) == 0)
   {
     mType = SPATIAL_BOUNDARYKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
@@ -274,17 +273,16 @@ BoundaryCondition::setType(const BoundaryConditionKind_t type)
 int
 BoundaryCondition::setType(const std::string& type)
 {
-  if (BoundaryConditionKind_isValidString(type.c_str()) == 0)
+  if (BoundaryKind_isValidString(type.c_str()) == 0)
   {
     mType = SPATIAL_BOUNDARYKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
   {
-    mType = BoundaryConditionKind_fromString(type.c_str());
+    mType = BoundaryKind_fromString(type.c_str());
     return LIBSBML_OPERATION_SUCCESS;
   }
-  //bgoli22
 }
 
 
@@ -859,25 +857,29 @@ BoundaryCondition::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial",
-        SpatialBoundaryConditionAllowedAttributes, pkgVersion, level, version,
-          details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial",
-        SpatialBoundaryConditionAllowedCoreAttributes, pkgVersion, level,
-          version, details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial",
+          SpatialBoundaryConditionAllowedAttributes, pkgVersion, level, version,
+            details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialBoundaryConditionAllowedCoreAttributes, pkgVersion, level,
+            version, details);
+      }
     }
   }
 
@@ -895,9 +897,17 @@ BoundaryCondition::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mVariable) == false)
     {
-      logError(SpatialBoundaryConditionVariableMustBeSpecies, level, version,
-        "The attribute variable='" + mVariable + "' does not conform to the "
-          "syntax.");
+      std::string msg = "The variable attribute on the <" + getElementName() +
+        ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mVariable + "', which does not conform to the syntax.";
+      log->logPackageError("spatial",
+        SpatialBoundaryConditionVariableMustBeSpecies, pkgVersion, level,
+          version, msg, getLine(), getColumn());
     }
   }
   else
@@ -923,9 +933,9 @@ BoundaryCondition::readAttributes(const XMLAttributes& attributes,
     }
     else
     {
-      mType = BoundaryConditionKind_fromString(type.c_str());
+      mType = BoundaryKind_fromString(type.c_str());
 
-      if (BoundaryConditionKind_isValid(mType) == 0)
+      if (BoundaryKind_isValid(mType) == 0)
       {
         std::string msg = "The type on the <BoundaryCondition> ";
 
@@ -937,8 +947,8 @@ BoundaryCondition::readAttributes(const XMLAttributes& attributes,
         msg += "is '" + type + "', which is not a valid option.";
 
         log->logPackageError("spatial",
-          SpatialBoundaryConditionTypeMustBeBoundaryConditionKindEnum,
-            pkgVersion, level, version, msg);
+          SpatialBoundaryConditionTypeMustBeBoundaryKindEnum, pkgVersion, level,
+            version, msg);
       }
     }
   }
@@ -964,9 +974,18 @@ BoundaryCondition::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mCoordinateBoundary) == false)
     {
-      logError(SpatialBoundaryConditionCoordinateBoundaryMustBeBoundary, level,
-        version, "The attribute coordinateBoundary='" + mCoordinateBoundary + "' "
-          "does not conform to the syntax.");
+      std::string msg = "The coordinateBoundary attribute on the <" +
+        getElementName() + ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mCoordinateBoundary + "', which does not conform to the "
+        "syntax.";
+      log->logPackageError("spatial",
+        SpatialBoundaryConditionCoordinateBoundaryMustBeBoundary, pkgVersion,
+          level, version, msg, getLine(), getColumn());
     }
   }
 
@@ -985,9 +1004,18 @@ BoundaryCondition::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mBoundaryDomainType) == false)
     {
-      logError(SpatialBoundaryConditionBoundaryDomainTypeMustBeDomainType,
-        level, version, "The attribute boundaryDomainType='" +
-          mBoundaryDomainType + "' does not conform to the syntax.");
+      std::string msg = "The boundaryDomainType attribute on the <" +
+        getElementName() + ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mBoundaryDomainType + "', which does not conform to the "
+        "syntax.";
+      log->logPackageError("spatial",
+        SpatialBoundaryConditionBoundaryDomainTypeMustBeDomainType, pkgVersion,
+          level, version, msg, getLine(), getColumn());
     }
   }
 }
@@ -1013,8 +1041,7 @@ BoundaryCondition::writeAttributes(XMLOutputStream& stream) const
 
   if (isSetType() == true)
   {
-    stream.writeAttribute("type", getPrefix(),
-      BoundaryConditionKind_toString(mType));
+    stream.writeAttribute("type", getPrefix(), BoundaryKind_toString(mType));
   }
 
   if (isSetCoordinateBoundary() == true)
@@ -1090,7 +1117,7 @@ BoundaryCondition_free(BoundaryCondition_t* bc)
  * Returns the value of the "variable" attribute of this BoundaryCondition_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 BoundaryCondition_getVariable(const BoundaryCondition_t * bc)
 {
   if (bc == NULL)
@@ -1107,7 +1134,7 @@ BoundaryCondition_getVariable(const BoundaryCondition_t * bc)
  * Returns the value of the "type" attribute of this BoundaryCondition_t.
  */
 LIBSBML_EXTERN
-BoundaryConditionKind_t
+BoundaryKind_t
 BoundaryCondition_getType(const BoundaryCondition_t * bc)
 {
   if (bc == NULL)
@@ -1123,10 +1150,10 @@ BoundaryCondition_getType(const BoundaryCondition_t * bc)
  * Returns the value of the "type" attribute of this BoundaryCondition_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 BoundaryCondition_getTypeAsString(const BoundaryCondition_t * bc)
 {
-  return BoundaryConditionKind_toString(bc->getType());
+  return (char*)(BoundaryKind_toString(bc->getType()));
 }
 
 
@@ -1135,7 +1162,7 @@ BoundaryCondition_getTypeAsString(const BoundaryCondition_t * bc)
  * BoundaryCondition_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 BoundaryCondition_getCoordinateBoundary(const BoundaryCondition_t * bc)
 {
   if (bc == NULL)
@@ -1153,7 +1180,7 @@ BoundaryCondition_getCoordinateBoundary(const BoundaryCondition_t * bc)
  * BoundaryCondition_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 BoundaryCondition_getBoundaryDomainType(const BoundaryCondition_t * bc)
 {
   if (bc == NULL)
@@ -1167,8 +1194,8 @@ BoundaryCondition_getBoundaryDomainType(const BoundaryCondition_t * bc)
 
 
 /*
- * Predicate returning @c 1 if this BoundaryCondition_t's "variable" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this BoundaryCondition_t's "variable"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1179,8 +1206,8 @@ BoundaryCondition_isSetVariable(const BoundaryCondition_t * bc)
 
 
 /*
- * Predicate returning @c 1 if this BoundaryCondition_t's "type" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this BoundaryCondition_t's "type"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1191,8 +1218,8 @@ BoundaryCondition_isSetType(const BoundaryCondition_t * bc)
 
 
 /*
- * Predicate returning @c 1 if this BoundaryCondition_t's "coordinateBoundary"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this BoundaryCondition_t's
+ * "coordinateBoundary" attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1203,8 +1230,8 @@ BoundaryCondition_isSetCoordinateBoundary(const BoundaryCondition_t * bc)
 
 
 /*
- * Predicate returning @c 1 if this BoundaryCondition_t's "boundaryDomainType"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this BoundaryCondition_t's
+ * "boundaryDomainType" attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1230,8 +1257,7 @@ BoundaryCondition_setVariable(BoundaryCondition_t * bc, const char * variable)
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_setType(BoundaryCondition_t * bc,
-                          BoundaryConditionKind_t type)
+BoundaryCondition_setType(BoundaryCondition_t * bc, BoundaryKind_t type)
 {
   return (bc != NULL) ? bc->setType(type) : LIBSBML_INVALID_OBJECT;
 }
@@ -1323,7 +1349,7 @@ BoundaryCondition_unsetBoundaryDomainType(BoundaryCondition_t * bc)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * BoundaryCondition_t object have been set.
  */
 LIBSBML_EXTERN

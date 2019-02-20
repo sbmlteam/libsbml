@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -80,11 +80,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this ListOfCSGObjects.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfCSGObjects(unsigned int level = SpatialExtension::getDefaultLevel(),
                    unsigned int version =
@@ -97,13 +93,11 @@ public:
    * Creates a new ListOfCSGObjects using the given SpatialPkgNamespaces
    * object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfCSGObjects(SpatialPkgNamespaces *spatialns);
 
@@ -147,7 +141,14 @@ public:
    *
    * @return the nth CSGObject in this ListOfCSGObjects.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCSGObject(const CSGObject* object)
+   * @see createCSGObject()
+   * @see get(const std::string& sid)
+   * @see getNumCSGObjects()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual CSGObject* get(unsigned int n);
 
@@ -160,7 +161,14 @@ public:
    *
    * @return the nth CSGObject in this ListOfCSGObjects.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCSGObject(const CSGObject* object)
+   * @see createCSGObject()
+   * @see get(const std::string& sid)
+   * @see getNumCSGObjects()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual const CSGObject* get(unsigned int n) const;
 
@@ -171,10 +179,17 @@ public:
    * @param sid a string representing the identifier of the CSGObject to
    * retrieve.
    *
-   * @return the CSGObject in this ListOfCSGObjects with the given id or NULL
-   * if no such CSGObject exists.
+   * @return the CSGObject in this ListOfCSGObjects with the given @p sid or
+   * @c NULL if no such CSGObject exists.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCSGObject(const CSGObject* object)
+   * @see createCSGObject()
+   * @see get(unsigned int n)
+   * @see getNumCSGObjects()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual CSGObject* get(const std::string& sid);
 
@@ -185,10 +200,17 @@ public:
    * @param sid a string representing the identifier of the CSGObject to
    * retrieve.
    *
-   * @return the CSGObject in this ListOfCSGObjects with the given id or NULL
-   * if no such CSGObject exists.
+   * @return the CSGObject in this ListOfCSGObjects with the given @p sid or
+   * @c NULL if no such CSGObject exists.
    *
-   * @see size()
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCSGObject(const CSGObject* object)
+   * @see createCSGObject()
+   * @see get(unsigned int n)
+   * @see getNumCSGObjects()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual const CSGObject* get(const std::string& sid) const;
 
@@ -202,10 +224,14 @@ public:
    *
    * @return a pointer to the nth CSGObject in this ListOfCSGObjects.
    *
-   * @see size()
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addCSGObject(const CSGObject* object)
+   * @see createCSGObject()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumCSGObjects()
+   * @see remove(const std::string& sid)
    */
   virtual CSGObject* remove(unsigned int n);
 
@@ -220,8 +246,14 @@ public:
    * @return the CSGObject in this ListOfCSGObjects based on the identifier or
    * NULL if no such CSGObject exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addCSGObject(const CSGObject* object)
+   * @see createCSGObject()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumCSGObjects()
+   * @see remove(unsigned int n)
    */
   virtual CSGObject* remove(const std::string& sid);
 
@@ -234,10 +266,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createCSGObject()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumCSGObjects()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   int addCSGObject(const CSGObject* csgo);
 
@@ -246,6 +288,13 @@ public:
    * Get the number of CSGObject objects in this ListOfCSGObjects.
    *
    * @return the number of CSGObject objects in this ListOfCSGObjects.
+   *
+   * @see addCSGObject(const CSGObject* object)
+   * @see createCSGObject()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   unsigned int getNumCSGObjects() const;
 
@@ -256,7 +305,14 @@ public:
    *
    * @return a new CSGObject object instance.
    *
-   * @see addCSGObject(const CSGObject* csgo)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCSGObject(const CSGObject* object)
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumCSGObjects()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   CSGObject* createCSGObject();
 
@@ -265,11 +321,13 @@ public:
    * Get a CSGObject from the ListOfCSGObjects based on the DomainType to which
    * it refers.
    *
-   * @param sid a string representing the domainType attribute of the CSGObject
-   * object to retrieve.
+   * @param sid a string representing the "domainType" attribute of the
+   * CSGObject object to retrieve.
    *
    * @return the first CSGObject in this ListOfCSGObjects based on the given
    * domainType attribute or NULL if no such CSGObject exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   const CSGObject* getByDomainType(const std::string& sid) const;
 
@@ -278,11 +336,13 @@ public:
    * Get a CSGObject from the ListOfCSGObjects based on the DomainType to which
    * it refers.
    *
-   * @param sid a string representing the domainType attribute of the CSGObject
-   * object to retrieve.
+   * @param sid a string representing the "domainType" attribute of the
+   * CSGObject object to retrieve.
    *
    * @return the first CSGObject in this ListOfCSGObjects based on the given
    * domainType attribute or NULL if no such CSGObject exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   CSGObject* getByDomainType(const std::string& sid);
 
@@ -290,8 +350,8 @@ public:
   /**
    * Returns the XML element name of this ListOfCSGObjects object.
    *
-   * For ListOfCSGObjects, the XML element name is always @c
-   * "listOfCSGObjects".
+   * For ListOfCSGObjects, the XML element name is always
+   * @c "listOfCSGObjects".
    *
    * @return the name of this element, i.e. @c "listOfCSGObjects".
    */
@@ -304,8 +364,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}
+   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    */
@@ -320,8 +379,7 @@ public:
    *
    * @return the SBML typecode for the objects contained in this
    * ListOfCSGObjects:
-   *
-   * @sbmlconstant{SBML_SPATIAL_CSGOBJECT, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_CSGOBJECT, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -402,10 +460,12 @@ BEGIN_C_DECLS
  *
  * @return the nth CSGObject_t in this ListOf_t.
  *
- * @memberof CSGObject_t
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfCSGObjects_t
  */
 LIBSBML_EXTERN
-const CSGObject_t*
+CSGObject_t*
 ListOfCSGObjects_getCSGObject(ListOf_t* lo, unsigned int n);
 
 
@@ -417,13 +477,15 @@ ListOfCSGObjects_getCSGObject(ListOf_t* lo, unsigned int n);
  * @param sid a string representing the identifier of the CSGObject_t to
  * retrieve.
  *
- * @return the CSGObject_t in this ListOf_t with the given id or NULL if no
- * such CSGObject_t exists.
+ * @return the CSGObject_t in this ListOf_t with the given @p sid or @c NULL if
+ * no such CSGObject_t exists.
  *
- * @memberof CSGObject_t
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfCSGObjects_t
  */
 LIBSBML_EXTERN
-const CSGObject_t*
+CSGObject_t*
 ListOfCSGObjects_getById(ListOf_t* lo, const char *sid);
 
 
@@ -437,7 +499,9 @@ ListOfCSGObjects_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth CSGObject_t in this ListOf_t.
  *
- * @memberof CSGObject_t
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfCSGObjects_t
  */
 LIBSBML_EXTERN
 CSGObject_t*
@@ -456,7 +520,9 @@ ListOfCSGObjects_remove(ListOf_t* lo, unsigned int n);
  * @return the CSGObject_t in this ListOf_t based on the identifier or NULL if
  * no such CSGObject_t exists.
  *
- * @memberof CSGObject_t
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfCSGObjects_t
  */
 LIBSBML_EXTERN
 CSGObject_t*

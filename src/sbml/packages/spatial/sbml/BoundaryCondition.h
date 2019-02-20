@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -36,6 +36,38 @@
  *
  * @class BoundaryCondition
  * @sbmlbrief{spatial} TODO:Definition of the BoundaryCondition class.
+ */
+
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file. The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality. Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ *
+ *
+ * @class doc_boundarycondition_type
+ *
+ * @par
+ * The attribute "type" on a BoundaryCondition object is used to TODO:add
+ * explanation
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
+ * allowable values for "type":
+ * <ul>
+ * <li> @c "Robin_valueCoefficient", TODO:add description
+ *
+ * <li> @c "Robin_inwardNormalGradientCoefficient", TODO:add description
+ *
+ * <li> @c "Robin_sum", TODO:add description
+ *
+ * <li> @c "Neumann", TODO:add description
+ *
+ * <li> @c "Dirichlet", TODO:add description
+ *
+ * </ul>
  */
 
 
@@ -68,7 +100,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   std::string mVariable;
-  BoundaryConditionKind_t mType;
+  BoundaryKind_t mType;
   std::string mCoordinateBoundary;
   std::string mBoundaryDomainType;
 
@@ -89,11 +121,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this BoundaryCondition.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   BoundaryCondition(unsigned int level = SpatialExtension::getDefaultLevel(),
                     unsigned int version =
@@ -106,13 +134,11 @@ public:
    * Creates a new BoundaryCondition using the given SpatialPkgNamespaces
    * object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   BoundaryCondition(SpatialPkgNamespaces *spatialns);
 
@@ -161,9 +187,22 @@ public:
    * Returns the value of the "type" attribute of this BoundaryCondition.
    *
    * @return the value of the "type" attribute of this BoundaryCondition as a
-   * BoundaryConditionKind_t.
+   * BoundaryKind_t.
+   *
+   * @copydetails doc_boundarycondition_type
+   * @if clike The value is drawn from the enumeration @ref BoundaryKind_t
+   * @endif
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT,
+   * BoundaryKind_t}
+   * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_INWARD_NORMAL_GRADIENT_COEFFICIENT,
+   * BoundaryKind_t}
+   * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_SUM, BoundaryKind_t}
+   * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_NEUMANN, BoundaryKind_t}
+   * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_DIRICHLET, BoundaryKind_t}
+   * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID, BoundaryKind_t}
    */
-  BoundaryConditionKind_t getType() const;
+  BoundaryKind_t getType() const;
 
 
   /**
@@ -171,6 +210,15 @@ public:
    *
    * @return the value of the "type" attribute of this BoundaryCondition as a
    * string.
+   *
+   * @copydetails doc_boundarycondition_type
+   * The possible values returned by this method are:
+   * @li @c "Robin_valueCoefficient"
+   * @li @c "Robin_inwardNormalGradientCoefficient"
+   * @li @c "Robin_sum"
+   * @li @c "Neumann"
+   * @li @c "Dirichlet"
+   * @li @c "invalid BoundaryKind value"
    */
   const std::string& getTypeAsString() const;
 
@@ -211,6 +259,8 @@ public:
    *
    * @return @c true if this BoundaryCondition's "type" attribute has been set,
    * otherwise @c false is returned.
+   *
+   * @copydetails doc_boundarycondition_type
    */
   bool isSetType() const;
 
@@ -251,15 +301,17 @@ public:
   /**
    * Sets the value of the "type" attribute of this BoundaryCondition.
    *
-   * @param type BoundaryConditionKind_t value of the "type" attribute to be
-   * set.
+   * @param type @if clike BoundaryKind_t@else int@endif value of the "type"
+   * attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_boundarycondition_type
    */
-  int setType(const BoundaryConditionKind_t type);
+  int setType(const BoundaryKind_t type);
 
 
   /**
@@ -271,6 +323,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_boundarycondition_type
    */
   int setType(const std::string& type);
 
@@ -318,9 +372,10 @@ public:
   /**
    * Unsets the value of the "type" attribute of this BoundaryCondition.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_boundarycondition_type
    */
   int unsetType();
 
@@ -357,8 +412,8 @@ public:
   /**
    * Returns the XML element name of this BoundaryCondition object.
    *
-   * For BoundaryCondition, the XML element name is always @c
-   * "boundaryCondition".
+   * For BoundaryCondition, the XML element name is always
+   * @c "boundaryCondition".
    *
    * @return the name of this element, i.e. @c "boundaryCondition".
    */
@@ -371,8 +426,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_BOUNDARYCONDITION, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_BOUNDARYCONDITION, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -760,11 +814,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this BoundaryCondition_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof BoundaryCondition_t
  */
@@ -781,6 +833,8 @@ BoundaryCondition_create(unsigned int level,
  * @param bc the BoundaryCondition_t structure.
  *
  * @return a (deep) copy of this BoundaryCondition_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof BoundaryCondition_t
  */
@@ -809,10 +863,12 @@ BoundaryCondition_free(BoundaryCondition_t* bc);
  * @return the value of the "variable" attribute of this BoundaryCondition_t as
  * a pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 BoundaryCondition_getVariable(const BoundaryCondition_t * bc);
 
 
@@ -822,12 +878,24 @@ BoundaryCondition_getVariable(const BoundaryCondition_t * bc);
  * @param bc the BoundaryCondition_t structure whose type is sought.
  *
  * @return the value of the "type" attribute of this BoundaryCondition_t as a
- * BoundaryConditionKind_t.
+ * BoundaryKind_t.
+ *
+ * @copydetails doc_boundarycondition_type
+ * @if clike The value is drawn from the enumeration @ref BoundaryKind_t @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT,
+ * BoundaryKind_t}
+ * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_INWARD_NORMAL_GRADIENT_COEFFICIENT,
+ * BoundaryKind_t}
+ * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_SUM, BoundaryKind_t}
+ * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_NEUMANN, BoundaryKind_t}
+ * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_DIRICHLET, BoundaryKind_t}
+ * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID, BoundaryKind_t}
  *
  * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
-BoundaryConditionKind_t
+BoundaryKind_t
 BoundaryCondition_getType(const BoundaryCondition_t * bc);
 
 
@@ -839,10 +907,21 @@ BoundaryCondition_getType(const BoundaryCondition_t * bc);
  * @return the value of the "type" attribute of this BoundaryCondition_t as a
  * const char *.
  *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_boundarycondition_type
+ * The possible values returned by this method are:
+ * @li @c "Robin_valueCoefficient"
+ * @li @c "Robin_inwardNormalGradientCoefficient"
+ * @li @c "Robin_sum"
+ * @li @c "Neumann"
+ * @li @c "Dirichlet"
+ * @li @c "invalid BoundaryKind value"
+ *
  * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 BoundaryCondition_getTypeAsString(const BoundaryCondition_t * bc);
 
 
@@ -856,10 +935,12 @@ BoundaryCondition_getTypeAsString(const BoundaryCondition_t * bc);
  * @return the value of the "coordinateBoundary" attribute of this
  * BoundaryCondition_t as a pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 BoundaryCondition_getCoordinateBoundary(const BoundaryCondition_t * bc);
 
 
@@ -873,21 +954,23 @@ BoundaryCondition_getCoordinateBoundary(const BoundaryCondition_t * bc);
  * @return the value of the "boundaryDomainType" attribute of this
  * BoundaryCondition_t as a pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 BoundaryCondition_getBoundaryDomainType(const BoundaryCondition_t * bc);
 
 
 /**
- * Predicate returning @c 1 if this BoundaryCondition_t's "variable" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this BoundaryCondition_t's "variable"
+ * attribute is set.
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @return @c 1 if this BoundaryCondition_t's "variable" attribute has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this BoundaryCondition_t's "variable" attribute has
+ * been set, otherwise @c 0 (false) is returned.
  *
  * @memberof BoundaryCondition_t
  */
@@ -897,13 +980,15 @@ BoundaryCondition_isSetVariable(const BoundaryCondition_t * bc);
 
 
 /**
- * Predicate returning @c 1 if this BoundaryCondition_t's "type" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this BoundaryCondition_t's "type"
+ * attribute is set.
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @return @c 1 if this BoundaryCondition_t's "type" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this BoundaryCondition_t's "type" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_boundarycondition_type
  *
  * @memberof BoundaryCondition_t
  */
@@ -913,13 +998,13 @@ BoundaryCondition_isSetType(const BoundaryCondition_t * bc);
 
 
 /**
- * Predicate returning @c 1 if this BoundaryCondition_t's "coordinateBoundary"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this BoundaryCondition_t's
+ * "coordinateBoundary" attribute is set.
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @return @c 1 if this BoundaryCondition_t's "coordinateBoundary" attribute
- * has been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this BoundaryCondition_t's "coordinateBoundary"
+ * attribute has been set, otherwise @c 0 (false) is returned.
  *
  * @memberof BoundaryCondition_t
  */
@@ -929,13 +1014,13 @@ BoundaryCondition_isSetCoordinateBoundary(const BoundaryCondition_t * bc);
 
 
 /**
- * Predicate returning @c 1 if this BoundaryCondition_t's "boundaryDomainType"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this BoundaryCondition_t's
+ * "boundaryDomainType" attribute is set.
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @return @c 1 if this BoundaryCondition_t's "boundaryDomainType" attribute
- * has been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this BoundaryCondition_t's "boundaryDomainType"
+ * attribute has been set, otherwise @c 0 (false) is returned.
  *
  * @memberof BoundaryCondition_t
  */
@@ -954,6 +1039,7 @@ BoundaryCondition_isSetBoundaryDomainType(const BoundaryCondition_t * bc);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof BoundaryCondition_t
  */
@@ -968,18 +1054,20 @@ BoundaryCondition_setVariable(BoundaryCondition_t * bc,
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @param type BoundaryConditionKind_t value of the "type" attribute to be set.
+ * @param type BoundaryKind_t value of the "type" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_boundarycondition_type
  *
  * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_setType(BoundaryCondition_t * bc,
-                          BoundaryConditionKind_t type);
+BoundaryCondition_setType(BoundaryCondition_t * bc, BoundaryKind_t type);
 
 
 /**
@@ -992,6 +1080,9 @@ BoundaryCondition_setType(BoundaryCondition_t * bc,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_boundarycondition_type
  *
  * @memberof BoundaryCondition_t
  */
@@ -1013,6 +1104,7 @@ BoundaryCondition_setTypeAsString(BoundaryCondition_t * bc,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof BoundaryCondition_t
  */
@@ -1034,6 +1126,7 @@ BoundaryCondition_setCoordinateBoundary(BoundaryCondition_t * bc,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof BoundaryCondition_t
  */
@@ -1051,6 +1144,7 @@ BoundaryCondition_setBoundaryDomainType(BoundaryCondition_t * bc,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof BoundaryCondition_t
  */
@@ -1066,7 +1160,9 @@ BoundaryCondition_unsetVariable(BoundaryCondition_t * bc);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_boundarycondition_type
  *
  * @memberof BoundaryCondition_t
  */
@@ -1084,6 +1180,7 @@ BoundaryCondition_unsetType(BoundaryCondition_t * bc);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof BoundaryCondition_t
  */
@@ -1101,6 +1198,7 @@ BoundaryCondition_unsetCoordinateBoundary(BoundaryCondition_t * bc);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof BoundaryCondition_t
  */
@@ -1110,13 +1208,13 @@ BoundaryCondition_unsetBoundaryDomainType(BoundaryCondition_t * bc);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * BoundaryCondition_t object have been set.
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * BoundaryCondition_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * BoundaryCondition_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the BoundaryCondition_t object are:

@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -36,6 +36,30 @@
  *
  * @class Geometry
  * @sbmlbrief{spatial} TODO:Definition of the Geometry class.
+ */
+
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file. The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality. Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ *
+ *
+ * @class doc_geometry_coordinateSystem
+ *
+ * @par
+ * The attribute "coordinateSystem" on a Geometry object is used to TODO:add
+ * explanation
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
+ * allowable values for "coordinateSystem":
+ * <ul>
+ * <li> @c "cartesian", TODO:add description
+ *
+ * </ul>
  */
 
 
@@ -73,7 +97,6 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  std::string mId;
   GeometryKind_t mCoordinateSystem;
   ListOfCoordinateComponents mCoordinateComponents;
   ListOfDomainTypes mDomainTypes;
@@ -98,11 +121,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this Geometry.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   Geometry(unsigned int level = SpatialExtension::getDefaultLevel(),
            unsigned int version = SpatialExtension::getDefaultVersion(),
@@ -113,13 +132,11 @@ public:
   /**
    * Creates a new Geometry using the given SpatialPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   Geometry(SpatialPkgNamespaces *spatialns);
 
@@ -160,7 +177,7 @@ public:
    *
    * @return the value of the "id" attribute of this Geometry as a string.
    */
-  const std::string& getId() const;
+  virtual const std::string& getId() const;
 
 
   /**
@@ -168,6 +185,13 @@ public:
    *
    * @return the value of the "coordinateSystem" attribute of this Geometry as
    * a GeometryKind_t.
+   *
+   * @copydetails doc_geometry_coordinateSystem
+   * @if clike The value is drawn from the enumeration @ref GeometryKind_t
+   * @endif
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_GEOMETRYKIND_CARTESIAN, GeometryKind_t}
+   * @li @sbmlconstant{SPATIAL_GEOMETRYKIND_INVALID, GeometryKind_t}
    */
   GeometryKind_t getCoordinateSystem() const;
 
@@ -177,9 +201,13 @@ public:
    *
    * @return the value of the "coordinateSystem" attribute of this Geometry as
    * a string.
+   *
+   * @copydetails doc_geometry_coordinateSystem
+   * The possible values returned by this method are:
+   * @li @c "cartesian"
+   * @li @c "invalid GeometryKind value"
    */
   std::string getCoordinateSystemAsString() const;
-  //bgoli22
 
 
   /**
@@ -188,7 +216,7 @@ public:
    * @return @c true if this Geometry's "id" attribute has been set, otherwise
    * @c false is returned.
    */
-  bool isSetId() const;
+  virtual bool isSetId() const;
 
 
   /**
@@ -197,6 +225,8 @@ public:
    *
    * @return @c true if this Geometry's "coordinateSystem" attribute has been
    * set, otherwise @c false is returned.
+   *
+   * @copydetails doc_geometry_coordinateSystem
    */
   bool isSetCoordinateSystem() const;
 
@@ -210,20 +240,25 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * Calling this function with @p id = @c NULL or an empty string is
+   * equivalent to calling unsetId().
    */
-  int setId(const std::string& id);
+  virtual int setId(const std::string& id);
 
 
   /**
    * Sets the value of the "coordinateSystem" attribute of this Geometry.
    *
-   * @param coordinateSystem GeometryKind_t value of the "coordinateSystem"
-   * attribute to be set.
+   * @param coordinateSystem @if clike GeometryKind_t@else int@endif value of
+   * the "coordinateSystem" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_geometry_coordinateSystem
    */
   int setCoordinateSystem(const GeometryKind_t coordinateSystem);
 
@@ -238,6 +273,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_geometry_coordinateSystem
    */
   int setCoordinateSystem(const std::string& coordinateSystem);
 
@@ -249,15 +286,16 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetId();
+  virtual int unsetId();
 
 
   /**
    * Unsets the value of the "coordinateSystem" attribute of this Geometry.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_geometry_coordinateSystem
    */
   int unsetCoordinateSystem();
 
@@ -266,6 +304,16 @@ public:
    * Returns the ListOfCoordinateComponents from this Geometry.
    *
    * @return the ListOfCoordinateComponents from this Geometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
+   * @see getCoordinateComponent(const std::string& sid)
+   * @see getCoordinateComponent(unsigned int n)
+   * @see getNumCoordinateComponents()
+   * @see removeCoordinateComponent(const std::string& sid)
+   * @see removeCoordinateComponent(unsigned int n)
    */
   const ListOfCoordinateComponents* getListOfCoordinateComponents() const;
 
@@ -274,6 +322,16 @@ public:
    * Returns the ListOfCoordinateComponents from this Geometry.
    *
    * @return the ListOfCoordinateComponents from this Geometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
+   * @see getCoordinateComponent(const std::string& sid)
+   * @see getCoordinateComponent(unsigned int n)
+   * @see getNumCoordinateComponents()
+   * @see removeCoordinateComponent(const std::string& sid)
+   * @see removeCoordinateComponent(unsigned int n)
    */
   ListOfCoordinateComponents* getListOfCoordinateComponents();
 
@@ -287,7 +345,14 @@ public:
    * @return the nth CoordinateComponent in the ListOfCoordinateComponents
    * within this Geometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
+   * @see getCoordinateComponent(const std::string& sid)
    * @see getNumCoordinateComponents()
+   * @see removeCoordinateComponent(const std::string& sid)
+   * @see removeCoordinateComponent(unsigned int n)
    */
   CoordinateComponent* getCoordinateComponent(unsigned int n);
 
@@ -301,7 +366,14 @@ public:
    * @return the nth CoordinateComponent in the ListOfCoordinateComponents
    * within this Geometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
+   * @see getCoordinateComponent(const std::string& sid)
    * @see getNumCoordinateComponents()
+   * @see removeCoordinateComponent(const std::string& sid)
+   * @see removeCoordinateComponent(unsigned int n)
    */
   const CoordinateComponent* getCoordinateComponent(unsigned int n) const;
 
@@ -313,11 +385,17 @@ public:
    * to retrieve.
    *
    * @return the CoordinateComponent in the ListOfCoordinateComponents within
-   * this Geometry with the given id or NULL if no such CoordinateComponent
-   * exists.
+   * this Geometry with the given @p sid or @c NULL if no such
+   * CoordinateComponent exists.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
    * @see getCoordinateComponent(unsigned int n)
    * @see getNumCoordinateComponents()
+   * @see removeCoordinateComponent(const std::string& sid)
+   * @see removeCoordinateComponent(unsigned int n)
    */
   CoordinateComponent* getCoordinateComponent(const std::string& sid);
 
@@ -329,11 +407,17 @@ public:
    * to retrieve.
    *
    * @return the CoordinateComponent in the ListOfCoordinateComponents within
-   * this Geometry with the given id or NULL if no such CoordinateComponent
-   * exists.
+   * this Geometry with the given @p sid or @c NULL if no such
+   * CoordinateComponent exists.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
    * @see getCoordinateComponent(unsigned int n)
    * @see getNumCoordinateComponents()
+   * @see removeCoordinateComponent(const std::string& sid)
+   * @see removeCoordinateComponent(unsigned int n)
    */
   const CoordinateComponent* getCoordinateComponent(const std::string& sid)
     const;
@@ -347,10 +431,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createCoordinateComponent()
+   * @see getCoordinateComponent(const std::string& sid)
+   * @see getCoordinateComponent(unsigned int n)
+   * @see getNumCoordinateComponents()
+   * @see removeCoordinateComponent(const std::string& sid)
+   * @see removeCoordinateComponent(unsigned int n)
    */
   int addCoordinateComponent(const CoordinateComponent* cc);
 
@@ -359,6 +453,13 @@ public:
    * Get the number of CoordinateComponent objects in this Geometry.
    *
    * @return the number of CoordinateComponent objects in this Geometry.
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
+   * @see getCoordinateComponent(const std::string& sid)
+   * @see getCoordinateComponent(unsigned int n)
+   * @see removeCoordinateComponent(const std::string& sid)
+   * @see removeCoordinateComponent(unsigned int n)
    */
   unsigned int getNumCoordinateComponents() const;
 
@@ -369,7 +470,14 @@ public:
    *
    * @return a new CoordinateComponent object instance.
    *
-   * @see addCoordinateComponent(const CoordinateComponent* cc)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see getCoordinateComponent(const std::string& sid)
+   * @see getCoordinateComponent(unsigned int n)
+   * @see getNumCoordinateComponents()
+   * @see removeCoordinateComponent(const std::string& sid)
+   * @see removeCoordinateComponent(unsigned int n)
    */
   CoordinateComponent* createCoordinateComponent();
 
@@ -383,10 +491,14 @@ public:
    *
    * @return a pointer to the nth CoordinateComponent in this Geometry.
    *
-   * @see getNumCoordinateComponents
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
+   * @see getCoordinateComponent(const std::string& sid)
+   * @see getCoordinateComponent(unsigned int n)
+   * @see getNumCoordinateComponents()
+   * @see removeCoordinateComponent(const std::string& sid)
    */
   CoordinateComponent* removeCoordinateComponent(unsigned int n);
 
@@ -401,8 +513,14 @@ public:
    * @return the CoordinateComponent in this Geometry based on the identifier
    * or NULL if no such CoordinateComponent exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
+   * @see getCoordinateComponent(const std::string& sid)
+   * @see getCoordinateComponent(unsigned int n)
+   * @see getNumCoordinateComponents()
+   * @see removeCoordinateComponent(unsigned int n)
    */
   CoordinateComponent* removeCoordinateComponent(const std::string& sid);
 
@@ -411,6 +529,16 @@ public:
    * Returns the ListOfDomainTypes from this Geometry.
    *
    * @return the ListOfDomainTypes from this Geometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomainType(const DomainType* object)
+   * @see createDomainType()
+   * @see getDomainType(const std::string& sid)
+   * @see getDomainType(unsigned int n)
+   * @see getNumDomainTypes()
+   * @see removeDomainType(const std::string& sid)
+   * @see removeDomainType(unsigned int n)
    */
   const ListOfDomainTypes* getListOfDomainTypes() const;
 
@@ -419,6 +547,16 @@ public:
    * Returns the ListOfDomainTypes from this Geometry.
    *
    * @return the ListOfDomainTypes from this Geometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomainType(const DomainType* object)
+   * @see createDomainType()
+   * @see getDomainType(const std::string& sid)
+   * @see getDomainType(unsigned int n)
+   * @see getNumDomainTypes()
+   * @see removeDomainType(const std::string& sid)
+   * @see removeDomainType(unsigned int n)
    */
   ListOfDomainTypes* getListOfDomainTypes();
 
@@ -431,7 +569,14 @@ public:
    *
    * @return the nth DomainType in the ListOfDomainTypes within this Geometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomainType(const DomainType* object)
+   * @see createDomainType()
+   * @see getDomainType(const std::string& sid)
    * @see getNumDomainTypes()
+   * @see removeDomainType(const std::string& sid)
+   * @see removeDomainType(unsigned int n)
    */
   DomainType* getDomainType(unsigned int n);
 
@@ -444,7 +589,14 @@ public:
    *
    * @return the nth DomainType in the ListOfDomainTypes within this Geometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomainType(const DomainType* object)
+   * @see createDomainType()
+   * @see getDomainType(const std::string& sid)
    * @see getNumDomainTypes()
+   * @see removeDomainType(const std::string& sid)
+   * @see removeDomainType(unsigned int n)
    */
   const DomainType* getDomainType(unsigned int n) const;
 
@@ -456,10 +608,16 @@ public:
    * retrieve.
    *
    * @return the DomainType in the ListOfDomainTypes within this Geometry with
-   * the given id or NULL if no such DomainType exists.
+   * the given @p sid or @c NULL if no such DomainType exists.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomainType(const DomainType* object)
+   * @see createDomainType()
    * @see getDomainType(unsigned int n)
    * @see getNumDomainTypes()
+   * @see removeDomainType(const std::string& sid)
+   * @see removeDomainType(unsigned int n)
    */
   DomainType* getDomainType(const std::string& sid);
 
@@ -471,10 +629,16 @@ public:
    * retrieve.
    *
    * @return the DomainType in the ListOfDomainTypes within this Geometry with
-   * the given id or NULL if no such DomainType exists.
+   * the given @p sid or @c NULL if no such DomainType exists.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomainType(const DomainType* object)
+   * @see createDomainType()
    * @see getDomainType(unsigned int n)
    * @see getNumDomainTypes()
+   * @see removeDomainType(const std::string& sid)
+   * @see removeDomainType(unsigned int n)
    */
   const DomainType* getDomainType(const std::string& sid) const;
 
@@ -487,10 +651,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createDomainType()
+   * @see getDomainType(const std::string& sid)
+   * @see getDomainType(unsigned int n)
+   * @see getNumDomainTypes()
+   * @see removeDomainType(const std::string& sid)
+   * @see removeDomainType(unsigned int n)
    */
   int addDomainType(const DomainType* dt);
 
@@ -499,6 +673,13 @@ public:
    * Get the number of DomainType objects in this Geometry.
    *
    * @return the number of DomainType objects in this Geometry.
+   *
+   * @see addDomainType(const DomainType* object)
+   * @see createDomainType()
+   * @see getDomainType(const std::string& sid)
+   * @see getDomainType(unsigned int n)
+   * @see removeDomainType(const std::string& sid)
+   * @see removeDomainType(unsigned int n)
    */
   unsigned int getNumDomainTypes() const;
 
@@ -509,7 +690,14 @@ public:
    *
    * @return a new DomainType object instance.
    *
-   * @see addDomainType(const DomainType* dt)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomainType(const DomainType* object)
+   * @see getDomainType(const std::string& sid)
+   * @see getDomainType(unsigned int n)
+   * @see getNumDomainTypes()
+   * @see removeDomainType(const std::string& sid)
+   * @see removeDomainType(unsigned int n)
    */
   DomainType* createDomainType();
 
@@ -522,10 +710,14 @@ public:
    *
    * @return a pointer to the nth DomainType in this Geometry.
    *
-   * @see getNumDomainTypes
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addDomainType(const DomainType* object)
+   * @see createDomainType()
+   * @see getDomainType(const std::string& sid)
+   * @see getDomainType(unsigned int n)
+   * @see getNumDomainTypes()
+   * @see removeDomainType(const std::string& sid)
    */
   DomainType* removeDomainType(unsigned int n);
 
@@ -540,8 +732,14 @@ public:
    * @return the DomainType in this Geometry based on the identifier or NULL if
    * no such DomainType exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addDomainType(const DomainType* object)
+   * @see createDomainType()
+   * @see getDomainType(const std::string& sid)
+   * @see getDomainType(unsigned int n)
+   * @see getNumDomainTypes()
+   * @see removeDomainType(unsigned int n)
    */
   DomainType* removeDomainType(const std::string& sid);
 
@@ -550,6 +748,16 @@ public:
    * Returns the ListOfDomains from this Geometry.
    *
    * @return the ListOfDomains from this Geometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomain(const Domain* object)
+   * @see createDomain()
+   * @see getDomain(const std::string& sid)
+   * @see getDomain(unsigned int n)
+   * @see getNumDomains()
+   * @see removeDomain(const std::string& sid)
+   * @see removeDomain(unsigned int n)
    */
   const ListOfDomains* getListOfDomains() const;
 
@@ -558,6 +766,16 @@ public:
    * Returns the ListOfDomains from this Geometry.
    *
    * @return the ListOfDomains from this Geometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomain(const Domain* object)
+   * @see createDomain()
+   * @see getDomain(const std::string& sid)
+   * @see getDomain(unsigned int n)
+   * @see getNumDomains()
+   * @see removeDomain(const std::string& sid)
+   * @see removeDomain(unsigned int n)
    */
   ListOfDomains* getListOfDomains();
 
@@ -569,7 +787,14 @@ public:
    *
    * @return the nth Domain in the ListOfDomains within this Geometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomain(const Domain* object)
+   * @see createDomain()
+   * @see getDomain(const std::string& sid)
    * @see getNumDomains()
+   * @see removeDomain(const std::string& sid)
+   * @see removeDomain(unsigned int n)
    */
   Domain* getDomain(unsigned int n);
 
@@ -581,7 +806,14 @@ public:
    *
    * @return the nth Domain in the ListOfDomains within this Geometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomain(const Domain* object)
+   * @see createDomain()
+   * @see getDomain(const std::string& sid)
    * @see getNumDomains()
+   * @see removeDomain(const std::string& sid)
+   * @see removeDomain(unsigned int n)
    */
   const Domain* getDomain(unsigned int n) const;
 
@@ -592,10 +824,16 @@ public:
    * @param sid a string representing the identifier of the Domain to retrieve.
    *
    * @return the Domain in the ListOfDomains within this Geometry with the
-   * given id or NULL if no such Domain exists.
+   * given @p sid or @c NULL if no such Domain exists.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomain(const Domain* object)
+   * @see createDomain()
    * @see getDomain(unsigned int n)
    * @see getNumDomains()
+   * @see removeDomain(const std::string& sid)
+   * @see removeDomain(unsigned int n)
    */
   Domain* getDomain(const std::string& sid);
 
@@ -606,10 +844,16 @@ public:
    * @param sid a string representing the identifier of the Domain to retrieve.
    *
    * @return the Domain in the ListOfDomains within this Geometry with the
-   * given id or NULL if no such Domain exists.
+   * given @p sid or @c NULL if no such Domain exists.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomain(const Domain* object)
+   * @see createDomain()
    * @see getDomain(unsigned int n)
    * @see getNumDomains()
+   * @see removeDomain(const std::string& sid)
+   * @see removeDomain(unsigned int n)
    */
   const Domain* getDomain(const std::string& sid) const;
 
@@ -617,11 +861,13 @@ public:
   /**
    * Get a Domain from the Geometry based on the DomainType to which it refers.
    *
-   * @param sid a string representing the domainType attribute of the Domain
+   * @param sid a string representing the "domainType" attribute of the Domain
    * object to retrieve.
    *
    * @return the first Domain in this Geometry based on the given domainType
    * attribute or NULL if no such Domain exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   const Domain* getDomainByDomainType(const std::string& sid) const;
 
@@ -629,11 +875,13 @@ public:
   /**
    * Get a Domain from the Geometry based on the DomainType to which it refers.
    *
-   * @param sid a string representing the domainType attribute of the Domain
+   * @param sid a string representing the "domainType" attribute of the Domain
    * object to retrieve.
    *
    * @return the first Domain in this Geometry based on the given domainType
    * attribute or NULL if no such Domain exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   Domain* getDomainByDomainType(const std::string& sid);
 
@@ -646,10 +894,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createDomain()
+   * @see getDomain(const std::string& sid)
+   * @see getDomain(unsigned int n)
+   * @see getNumDomains()
+   * @see removeDomain(const std::string& sid)
+   * @see removeDomain(unsigned int n)
    */
   int addDomain(const Domain* d);
 
@@ -658,6 +916,13 @@ public:
    * Get the number of Domain objects in this Geometry.
    *
    * @return the number of Domain objects in this Geometry.
+   *
+   * @see addDomain(const Domain* object)
+   * @see createDomain()
+   * @see getDomain(const std::string& sid)
+   * @see getDomain(unsigned int n)
+   * @see removeDomain(const std::string& sid)
+   * @see removeDomain(unsigned int n)
    */
   unsigned int getNumDomains() const;
 
@@ -668,7 +933,14 @@ public:
    *
    * @return a new Domain object instance.
    *
-   * @see addDomain(const Domain* d)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDomain(const Domain* object)
+   * @see getDomain(const std::string& sid)
+   * @see getDomain(unsigned int n)
+   * @see getNumDomains()
+   * @see removeDomain(const std::string& sid)
+   * @see removeDomain(unsigned int n)
    */
   Domain* createDomain();
 
@@ -680,10 +952,14 @@ public:
    *
    * @return a pointer to the nth Domain in this Geometry.
    *
-   * @see getNumDomains
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addDomain(const Domain* object)
+   * @see createDomain()
+   * @see getDomain(const std::string& sid)
+   * @see getDomain(unsigned int n)
+   * @see getNumDomains()
+   * @see removeDomain(const std::string& sid)
    */
   Domain* removeDomain(unsigned int n);
 
@@ -697,8 +973,14 @@ public:
    * @return the Domain in this Geometry based on the identifier or NULL if no
    * such Domain exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addDomain(const Domain* object)
+   * @see createDomain()
+   * @see getDomain(const std::string& sid)
+   * @see getDomain(unsigned int n)
+   * @see getNumDomains()
+   * @see removeDomain(unsigned int n)
    */
   Domain* removeDomain(const std::string& sid);
 
@@ -707,6 +989,16 @@ public:
    * Returns the ListOfAdjacentDomains from this Geometry.
    *
    * @return the ListOfAdjacentDomains from this Geometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAdjacentDomain(const AdjacentDomains* object)
+   * @see createAdjacentDomain()
+   * @see getAdjacentDomain(const std::string& sid)
+   * @see getAdjacentDomain(unsigned int n)
+   * @see getNumAdjacentDomains()
+   * @see removeAdjacentDomain(const std::string& sid)
+   * @see removeAdjacentDomain(unsigned int n)
    */
   const ListOfAdjacentDomains* getListOfAdjacentDomains() const;
 
@@ -715,6 +1007,16 @@ public:
    * Returns the ListOfAdjacentDomains from this Geometry.
    *
    * @return the ListOfAdjacentDomains from this Geometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAdjacentDomain(const AdjacentDomains* object)
+   * @see createAdjacentDomain()
+   * @see getAdjacentDomain(const std::string& sid)
+   * @see getAdjacentDomain(unsigned int n)
+   * @see getNumAdjacentDomains()
+   * @see removeAdjacentDomain(const std::string& sid)
+   * @see removeAdjacentDomain(unsigned int n)
    */
   ListOfAdjacentDomains* getListOfAdjacentDomains();
 
@@ -728,7 +1030,14 @@ public:
    * @return the nth AdjacentDomains in the ListOfAdjacentDomains within this
    * Geometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAdjacentDomain(const AdjacentDomains* object)
+   * @see createAdjacentDomain()
+   * @see getAdjacentDomain(const std::string& sid)
    * @see getNumAdjacentDomains()
+   * @see removeAdjacentDomain(const std::string& sid)
+   * @see removeAdjacentDomain(unsigned int n)
    */
   AdjacentDomains* getAdjacentDomains(unsigned int n);
 
@@ -742,7 +1051,14 @@ public:
    * @return the nth AdjacentDomains in the ListOfAdjacentDomains within this
    * Geometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAdjacentDomain(const AdjacentDomains* object)
+   * @see createAdjacentDomain()
+   * @see getAdjacentDomain(const std::string& sid)
    * @see getNumAdjacentDomains()
+   * @see removeAdjacentDomain(const std::string& sid)
+   * @see removeAdjacentDomain(unsigned int n)
    */
   const AdjacentDomains* getAdjacentDomains(unsigned int n) const;
 
@@ -754,10 +1070,17 @@ public:
    * retrieve.
    *
    * @return the AdjacentDomains in the ListOfAdjacentDomains within this
-   * Geometry with the given id or NULL if no such AdjacentDomains exists.
+   * Geometry with the given @p sid or @c NULL if no such AdjacentDomains
+   * exists.
    *
-   * @see getAdjacentDomains(unsigned int n)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAdjacentDomain(const AdjacentDomains* object)
+   * @see createAdjacentDomain()
+   * @see getAdjacentDomain(unsigned int n)
    * @see getNumAdjacentDomains()
+   * @see removeAdjacentDomain(const std::string& sid)
+   * @see removeAdjacentDomain(unsigned int n)
    */
   AdjacentDomains* getAdjacentDomains(const std::string& sid);
 
@@ -769,10 +1092,17 @@ public:
    * retrieve.
    *
    * @return the AdjacentDomains in the ListOfAdjacentDomains within this
-   * Geometry with the given id or NULL if no such AdjacentDomains exists.
+   * Geometry with the given @p sid or @c NULL if no such AdjacentDomains
+   * exists.
    *
-   * @see getAdjacentDomains(unsigned int n)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAdjacentDomain(const AdjacentDomains* object)
+   * @see createAdjacentDomain()
+   * @see getAdjacentDomain(unsigned int n)
    * @see getNumAdjacentDomains()
+   * @see removeAdjacentDomain(const std::string& sid)
+   * @see removeAdjacentDomain(unsigned int n)
    */
   const AdjacentDomains* getAdjacentDomains(const std::string& sid) const;
 
@@ -781,11 +1111,13 @@ public:
    * Get an AdjacentDomains from the Geometry based on the Domain1 to which it
    * refers.
    *
-   * @param sid a string representing the domain1 attribute of the
+   * @param sid a string representing the "domain1" attribute of the
    * AdjacentDomains object to retrieve.
    *
    * @return the first AdjacentDomains in this Geometry based on the given
    * domain1 attribute or NULL if no such AdjacentDomains exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   const AdjacentDomains* getAdjacentDomainsByDomain1(const std::string& sid)
     const;
@@ -795,11 +1127,13 @@ public:
    * Get an AdjacentDomains from the Geometry based on the Domain1 to which it
    * refers.
    *
-   * @param sid a string representing the domain1 attribute of the
+   * @param sid a string representing the "domain1" attribute of the
    * AdjacentDomains object to retrieve.
    *
    * @return the first AdjacentDomains in this Geometry based on the given
    * domain1 attribute or NULL if no such AdjacentDomains exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   AdjacentDomains* getAdjacentDomainsByDomain1(const std::string& sid);
 
@@ -808,11 +1142,13 @@ public:
    * Get an AdjacentDomains from the Geometry based on the Domain2 to which it
    * refers.
    *
-   * @param sid a string representing the domain2 attribute of the
+   * @param sid a string representing the "domain2" attribute of the
    * AdjacentDomains object to retrieve.
    *
    * @return the first AdjacentDomains in this Geometry based on the given
    * domain2 attribute or NULL if no such AdjacentDomains exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   const AdjacentDomains* getAdjacentDomainsByDomain2(const std::string& sid)
     const;
@@ -822,11 +1158,13 @@ public:
    * Get an AdjacentDomains from the Geometry based on the Domain2 to which it
    * refers.
    *
-   * @param sid a string representing the domain2 attribute of the
+   * @param sid a string representing the "domain2" attribute of the
    * AdjacentDomains object to retrieve.
    *
    * @return the first AdjacentDomains in this Geometry based on the given
    * domain2 attribute or NULL if no such AdjacentDomains exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   AdjacentDomains* getAdjacentDomainsByDomain2(const std::string& sid);
 
@@ -839,10 +1177,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
-   * @see createAdjacentDomains()
+   * @see createAdjacentDomain()
+   * @see getAdjacentDomain(const std::string& sid)
+   * @see getAdjacentDomain(unsigned int n)
+   * @see getNumAdjacentDomains()
+   * @see removeAdjacentDomain(const std::string& sid)
+   * @see removeAdjacentDomain(unsigned int n)
    */
   int addAdjacentDomains(const AdjacentDomains* ad);
 
@@ -851,6 +1199,13 @@ public:
    * Get the number of AdjacentDomains objects in this Geometry.
    *
    * @return the number of AdjacentDomains objects in this Geometry.
+   *
+   * @see addAdjacentDomain(const AdjacentDomains* object)
+   * @see createAdjacentDomain()
+   * @see getAdjacentDomain(const std::string& sid)
+   * @see getAdjacentDomain(unsigned int n)
+   * @see removeAdjacentDomain(const std::string& sid)
+   * @see removeAdjacentDomain(unsigned int n)
    */
   unsigned int getNumAdjacentDomains() const;
 
@@ -861,7 +1216,14 @@ public:
    *
    * @return a new AdjacentDomains object instance.
    *
-   * @see addAdjacentDomains(const AdjacentDomains* ad)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addAdjacentDomain(const AdjacentDomains* object)
+   * @see getAdjacentDomain(const std::string& sid)
+   * @see getAdjacentDomain(unsigned int n)
+   * @see getNumAdjacentDomains()
+   * @see removeAdjacentDomain(const std::string& sid)
+   * @see removeAdjacentDomain(unsigned int n)
    */
   AdjacentDomains* createAdjacentDomains();
 
@@ -875,10 +1237,14 @@ public:
    *
    * @return a pointer to the nth AdjacentDomains in this Geometry.
    *
-   * @see getNumAdjacentDomains
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addAdjacentDomain(const AdjacentDomains* object)
+   * @see createAdjacentDomain()
+   * @see getAdjacentDomain(const std::string& sid)
+   * @see getAdjacentDomain(unsigned int n)
+   * @see getNumAdjacentDomains()
+   * @see removeAdjacentDomain(const std::string& sid)
    */
   AdjacentDomains* removeAdjacentDomains(unsigned int n);
 
@@ -893,8 +1259,14 @@ public:
    * @return the AdjacentDomains in this Geometry based on the identifier or
    * NULL if no such AdjacentDomains exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addAdjacentDomain(const AdjacentDomains* object)
+   * @see createAdjacentDomain()
+   * @see getAdjacentDomain(const std::string& sid)
+   * @see getAdjacentDomain(unsigned int n)
+   * @see getNumAdjacentDomains()
+   * @see removeAdjacentDomain(unsigned int n)
    */
   AdjacentDomains* removeAdjacentDomains(const std::string& sid);
 
@@ -903,6 +1275,16 @@ public:
    * Returns the ListOfGeometryDefinitions from this Geometry.
    *
    * @return the ListOfGeometryDefinitions from this Geometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   const ListOfGeometryDefinitions* getListOfGeometryDefinitions() const;
 
@@ -911,6 +1293,16 @@ public:
    * Returns the ListOfGeometryDefinitions from this Geometry.
    *
    * @return the ListOfGeometryDefinitions from this Geometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   ListOfGeometryDefinitions* getListOfGeometryDefinitions();
 
@@ -924,7 +1316,14 @@ public:
    * @return the nth GeometryDefinition in the ListOfGeometryDefinitions within
    * this Geometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
+   * @see getGeometryDefinition(const std::string& sid)
    * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   GeometryDefinition* getGeometryDefinition(unsigned int n);
 
@@ -938,7 +1337,14 @@ public:
    * @return the nth GeometryDefinition in the ListOfGeometryDefinitions within
    * this Geometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
+   * @see getGeometryDefinition(const std::string& sid)
    * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   const GeometryDefinition* getGeometryDefinition(unsigned int n) const;
 
@@ -950,11 +1356,17 @@ public:
    * to retrieve.
    *
    * @return the GeometryDefinition in the ListOfGeometryDefinitions within
-   * this Geometry with the given id or NULL if no such GeometryDefinition
-   * exists.
+   * this Geometry with the given @p sid or @c NULL if no such
+   * GeometryDefinition exists.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
    * @see getGeometryDefinition(unsigned int n)
    * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   GeometryDefinition* getGeometryDefinition(const std::string& sid);
 
@@ -966,11 +1378,17 @@ public:
    * to retrieve.
    *
    * @return the GeometryDefinition in the ListOfGeometryDefinitions within
-   * this Geometry with the given id or NULL if no such GeometryDefinition
-   * exists.
+   * this Geometry with the given @p sid or @c NULL if no such
+   * GeometryDefinition exists.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
    * @see getGeometryDefinition(unsigned int n)
    * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   const GeometryDefinition* getGeometryDefinition(const std::string& sid)
     const;
@@ -984,10 +1402,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createGeometryDefinition()
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   int addGeometryDefinition(const GeometryDefinition* gd);
 
@@ -996,6 +1424,13 @@ public:
    * Get the number of GeometryDefinition objects in this Geometry.
    *
    * @return the number of GeometryDefinition objects in this Geometry.
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   unsigned int getNumGeometryDefinitions() const;
 
@@ -1006,7 +1441,14 @@ public:
    *
    * @return a new AnalyticGeometry object instance.
    *
-   * @see addGeometryDefinition(const GeometryDefinition* gd)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   AnalyticGeometry* createAnalyticGeometry();
 
@@ -1017,7 +1459,14 @@ public:
    *
    * @return a new SampledFieldGeometry object instance.
    *
-   * @see addGeometryDefinition(const GeometryDefinition* gd)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   SampledFieldGeometry* createSampledFieldGeometry();
 
@@ -1028,7 +1477,14 @@ public:
    *
    * @return a new CSGeometry object instance.
    *
-   * @see addGeometryDefinition(const GeometryDefinition* gd)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   CSGeometry* createCSGeometry();
 
@@ -1039,7 +1495,14 @@ public:
    *
    * @return a new ParametricGeometry object instance.
    *
-   * @see addGeometryDefinition(const GeometryDefinition* gd)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   ParametricGeometry* createParametricGeometry();
 
@@ -1050,7 +1513,14 @@ public:
    *
    * @return a new MixedGeometry object instance.
    *
-   * @see addGeometryDefinition(const GeometryDefinition* gd)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
+   * @see removeGeometryDefinition(unsigned int n)
    */
   MixedGeometry* createMixedGeometry();
 
@@ -1064,10 +1534,14 @@ public:
    *
    * @return a pointer to the nth GeometryDefinition in this Geometry.
    *
-   * @see getNumGeometryDefinitions
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(const std::string& sid)
    */
   GeometryDefinition* removeGeometryDefinition(unsigned int n);
 
@@ -1082,8 +1556,14 @@ public:
    * @return the GeometryDefinition in this Geometry based on the identifier or
    * NULL if no such GeometryDefinition exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* object)
+   * @see createGeometryDefinition()
+   * @see getGeometryDefinition(const std::string& sid)
+   * @see getGeometryDefinition(unsigned int n)
+   * @see getNumGeometryDefinitions()
+   * @see removeGeometryDefinition(unsigned int n)
    */
   GeometryDefinition* removeGeometryDefinition(const std::string& sid);
 
@@ -1092,6 +1572,16 @@ public:
    * Returns the ListOfSampledFields from this Geometry.
    *
    * @return the ListOfSampledFields from this Geometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledField(const SampledField* object)
+   * @see createSampledField()
+   * @see getSampledField(const std::string& sid)
+   * @see getSampledField(unsigned int n)
+   * @see getNumSampledFields()
+   * @see removeSampledField(const std::string& sid)
+   * @see removeSampledField(unsigned int n)
    */
   const ListOfSampledFields* getListOfSampledFields() const;
 
@@ -1100,6 +1590,16 @@ public:
    * Returns the ListOfSampledFields from this Geometry.
    *
    * @return the ListOfSampledFields from this Geometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledField(const SampledField* object)
+   * @see createSampledField()
+   * @see getSampledField(const std::string& sid)
+   * @see getSampledField(unsigned int n)
+   * @see getNumSampledFields()
+   * @see removeSampledField(const std::string& sid)
+   * @see removeSampledField(unsigned int n)
    */
   ListOfSampledFields* getListOfSampledFields();
 
@@ -1113,7 +1613,14 @@ public:
    * @return the nth SampledField in the ListOfSampledFields within this
    * Geometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledField(const SampledField* object)
+   * @see createSampledField()
+   * @see getSampledField(const std::string& sid)
    * @see getNumSampledFields()
+   * @see removeSampledField(const std::string& sid)
+   * @see removeSampledField(unsigned int n)
    */
   SampledField* getSampledField(unsigned int n);
 
@@ -1127,7 +1634,14 @@ public:
    * @return the nth SampledField in the ListOfSampledFields within this
    * Geometry.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledField(const SampledField* object)
+   * @see createSampledField()
+   * @see getSampledField(const std::string& sid)
    * @see getNumSampledFields()
+   * @see removeSampledField(const std::string& sid)
+   * @see removeSampledField(unsigned int n)
    */
   const SampledField* getSampledField(unsigned int n) const;
 
@@ -1139,10 +1653,16 @@ public:
    * retrieve.
    *
    * @return the SampledField in the ListOfSampledFields within this Geometry
-   * with the given id or NULL if no such SampledField exists.
+   * with the given @p sid or @c NULL if no such SampledField exists.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledField(const SampledField* object)
+   * @see createSampledField()
    * @see getSampledField(unsigned int n)
    * @see getNumSampledFields()
+   * @see removeSampledField(const std::string& sid)
+   * @see removeSampledField(unsigned int n)
    */
   SampledField* getSampledField(const std::string& sid);
 
@@ -1154,10 +1674,16 @@ public:
    * retrieve.
    *
    * @return the SampledField in the ListOfSampledFields within this Geometry
-   * with the given id or NULL if no such SampledField exists.
+   * with the given @p sid or @c NULL if no such SampledField exists.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledField(const SampledField* object)
+   * @see createSampledField()
    * @see getSampledField(unsigned int n)
    * @see getNumSampledFields()
+   * @see removeSampledField(const std::string& sid)
+   * @see removeSampledField(unsigned int n)
    */
   const SampledField* getSampledField(const std::string& sid) const;
 
@@ -1170,10 +1696,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createSampledField()
+   * @see getSampledField(const std::string& sid)
+   * @see getSampledField(unsigned int n)
+   * @see getNumSampledFields()
+   * @see removeSampledField(const std::string& sid)
+   * @see removeSampledField(unsigned int n)
    */
   int addSampledField(const SampledField* sf);
 
@@ -1182,6 +1718,13 @@ public:
    * Get the number of SampledField objects in this Geometry.
    *
    * @return the number of SampledField objects in this Geometry.
+   *
+   * @see addSampledField(const SampledField* object)
+   * @see createSampledField()
+   * @see getSampledField(const std::string& sid)
+   * @see getSampledField(unsigned int n)
+   * @see removeSampledField(const std::string& sid)
+   * @see removeSampledField(unsigned int n)
    */
   unsigned int getNumSampledFields() const;
 
@@ -1192,7 +1735,14 @@ public:
    *
    * @return a new SampledField object instance.
    *
-   * @see addSampledField(const SampledField* sf)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addSampledField(const SampledField* object)
+   * @see getSampledField(const std::string& sid)
+   * @see getSampledField(unsigned int n)
+   * @see getNumSampledFields()
+   * @see removeSampledField(const std::string& sid)
+   * @see removeSampledField(unsigned int n)
    */
   SampledField* createSampledField();
 
@@ -1206,10 +1756,14 @@ public:
    *
    * @return a pointer to the nth SampledField in this Geometry.
    *
-   * @see getNumSampledFields
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addSampledField(const SampledField* object)
+   * @see createSampledField()
+   * @see getSampledField(const std::string& sid)
+   * @see getSampledField(unsigned int n)
+   * @see getNumSampledFields()
+   * @see removeSampledField(const std::string& sid)
    */
   SampledField* removeSampledField(unsigned int n);
 
@@ -1224,8 +1778,14 @@ public:
    * @return the SampledField in this Geometry based on the identifier or NULL
    * if no such SampledField exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addSampledField(const SampledField* object)
+   * @see createSampledField()
+   * @see getSampledField(const std::string& sid)
+   * @see getSampledField(unsigned int n)
+   * @see getNumSampledFields()
+   * @see removeSampledField(unsigned int n)
    */
   SampledField* removeSampledField(const std::string& sid);
 
@@ -1246,8 +1806,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_GEOMETRY, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_GEOMETRY, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -1269,19 +1828,6 @@ public:
    * @li "coordinateSystem"
    */
   virtual bool hasRequiredAttributes() const;
-
-
-  /**
-   * Predicate returning @c true if all the required elements for this Geometry
-   * object have been set.
-   *
-   * @return @c true to indicate that all the required elements of this
-   * Geometry have been set, otherwise @c false is returned.
-   *
-   *
-   * @note The required elements for the Geometry object are:
-   */
-  virtual bool hasRequiredElements() const;
 
 
 
@@ -1337,6 +1883,19 @@ public:
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix,
                                      bool flag);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Updates the namespaces when setLevelVersion is used
+   */
+  virtual void updateSBMLNamespace(const std::string& package,
+                                   unsigned int level,
+                                   unsigned int version);
 
   /** @endcond */
 
@@ -1592,6 +2151,77 @@ public:
 
 
 
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Adds a new "elementName" object to this Geometry.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @param element, pointer to the element to be added.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int addChildObject(const std::string& elementName,
+                             const SBase* element);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Removes and returns the new "elementName" object with the given id in this
+   * Geometry.
+   *
+   * @param elementName, the name of the element to remove.
+   *
+   * @param id, the id of the element to remove.
+   *
+   * @return pointer to the element removed.
+   */
+  virtual SBase* removeChildObject(const std::string& elementName,
+                                   const std::string& id);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the number of "elementName" in this Geometry.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @return unsigned int number of elements.
+   */
+  virtual unsigned int getNumObjects(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the nth object of "objectName" in this Geometry.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @param index, unsigned int the index of the object to retrieve.
+   *
+   * @return pointer to the object.
+   */
+  virtual SBase* getObject(const std::string& elementName, unsigned int index);
+
+  /** @endcond */
+
+
+
 
   #endif /* !SWIG */
 
@@ -1603,7 +2233,8 @@ public:
    * @param id a string representing the id attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p id.
+   * @return a pointer to the SBase element with the given @p id. If no such
+   * object is found, this method returns @c NULL.
    */
   virtual SBase* getElementBySId(const std::string& id);
 
@@ -1615,7 +2246,8 @@ public:
    * @param metaid a string representing the metaid attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p metaid.
+   * @return a pointer to the SBase element with the given @p metaid. If no
+   * such object is found this method returns @c NULL.
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
 
@@ -1624,8 +2256,8 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
-   * filter, an ElementFilter that may impose restrictions on the objects to be
-   * retrieved.
+   * @param filter an ElementFilter that may impose restrictions on the objects
+   * to be retrieved.
    *
    * @return a List* pointer of pointers to all SBase child objects with any
    * restriction imposed.
@@ -1719,11 +2351,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this Geometry_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Geometry_t
  */
@@ -1740,6 +2370,8 @@ Geometry_create(unsigned int level,
  * @param g the Geometry_t structure.
  *
  * @return a (deep) copy of this Geometry_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Geometry_t
  */
@@ -1768,10 +2400,12 @@ Geometry_free(Geometry_t* g);
  * @return the value of the "id" attribute of this Geometry_t as a pointer to a
  * string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 Geometry_getId(const Geometry_t * g);
 
 
@@ -1782,6 +2416,12 @@ Geometry_getId(const Geometry_t * g);
  *
  * @return the value of the "coordinateSystem" attribute of this Geometry_t as
  * a GeometryKind_t.
+ *
+ * @copydetails doc_geometry_coordinateSystem
+ * @if clike The value is drawn from the enumeration @ref GeometryKind_t @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_GEOMETRYKIND_CARTESIAN, GeometryKind_t}
+ * @li @sbmlconstant{SPATIAL_GEOMETRYKIND_INVALID, GeometryKind_t}
  *
  * @memberof Geometry_t
  */
@@ -1798,20 +2438,27 @@ Geometry_getCoordinateSystem(const Geometry_t * g);
  * @return the value of the "coordinateSystem" attribute of this Geometry_t as
  * a const char *.
  *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_geometry_coordinateSystem
+ * The possible values returned by this method are:
+ * @li @c "cartesian"
+ * @li @c "invalid GeometryKind value"
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 Geometry_getCoordinateSystemAsString(const Geometry_t * g);
 
 
 /**
- * Predicate returning @c 1 if this Geometry_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this Geometry_t's "id" attribute is set.
  *
  * @param g the Geometry_t structure.
  *
- * @return @c 1 if this Geometry_t's "id" attribute has been set, otherwise @c
- * 0 is returned.
+ * @return @c 1 (true) if this Geometry_t's "id" attribute has been set,
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof Geometry_t
  */
@@ -1821,13 +2468,15 @@ Geometry_isSetId(const Geometry_t * g);
 
 
 /**
- * Predicate returning @c 1 if this Geometry_t's "coordinateSystem" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this Geometry_t's "coordinateSystem"
+ * attribute is set.
  *
  * @param g the Geometry_t structure.
  *
- * @return @c 1 if this Geometry_t's "coordinateSystem" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this Geometry_t's "coordinateSystem" attribute has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_geometry_coordinateSystem
  *
  * @memberof Geometry_t
  */
@@ -1846,6 +2495,10 @@ Geometry_isSetCoordinateSystem(const Geometry_t * g);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling Geometry_unsetId().
  *
  * @memberof Geometry_t
  */
@@ -1865,6 +2518,9 @@ Geometry_setId(Geometry_t * g, const char * id);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_geometry_coordinateSystem
  *
  * @memberof Geometry_t
  */
@@ -1884,6 +2540,9 @@ Geometry_setCoordinateSystem(Geometry_t * g, GeometryKind_t coordinateSystem);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_geometry_coordinateSystem
  *
  * @memberof Geometry_t
  */
@@ -1901,6 +2560,7 @@ Geometry_setCoordinateSystemAsString(Geometry_t * g,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Geometry_t
  */
@@ -1916,7 +2576,9 @@ Geometry_unsetId(Geometry_t * g);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_geometry_coordinateSystem
  *
  * @memberof Geometry_t
  */
@@ -1926,14 +2588,23 @@ Geometry_unsetCoordinateSystem(Geometry_t * g);
 
 
 /**
- * Returns a ListOf_t* containing CoordinateComponent_t objects from this
+ * Returns a ListOf_t * containing CoordinateComponent_t objects from this
  * Geometry_t.
  *
- * @param g the Geometry_t structure whose "ListOfCoordinateComponents" is
+ * @param g the Geometry_t structure whose ListOfCoordinateComponents is
  * sought.
  *
- * @return the "ListOfCoordinateComponents" from this Geometry_t as a ListOf_t
- * *.
+ * @return the ListOfCoordinateComponents from this Geometry_t as a ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see Geometry_addCoordinateComponent()
+ * @see Geometry_createCoordinateComponent()
+ * @see Geometry_getCoordinateComponentById()
+ * @see Geometry_getCoordinateComponent()
+ * @see Geometry_getNumCoordinateComponents()
+ * @see Geometry_removeCoordinateComponentById()
+ * @see Geometry_removeCoordinateComponent()
  *
  * @memberof Geometry_t
  */
@@ -1953,10 +2624,12 @@ Geometry_getListOfCoordinateComponents(Geometry_t* g);
  * @return the nth CoordinateComponent_t in the ListOfCoordinateComponents
  * within this Geometry.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
-const CoordinateComponent_t*
+CoordinateComponent_t*
 Geometry_getCoordinateComponent(Geometry_t* g, unsigned int n);
 
 
@@ -1969,13 +2642,15 @@ Geometry_getCoordinateComponent(Geometry_t* g, unsigned int n);
  * to retrieve.
  *
  * @return the CoordinateComponent_t in the ListOfCoordinateComponents within
- * this Geometry with the given id or NULL if no such CoordinateComponent_t
- * exists.
+ * this Geometry with the given @p sid or @c NULL if no such
+ * CoordinateComponent_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
-const CoordinateComponent_t*
+CoordinateComponent_t*
 Geometry_getCoordinateComponentById(Geometry_t* g, const char *sid);
 
 
@@ -1990,6 +2665,11 @@ Geometry_getCoordinateComponentById(Geometry_t* g, const char *sid);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
  *
  * @memberof Geometry_t
  */
@@ -2022,6 +2702,8 @@ Geometry_getNumCoordinateComponents(Geometry_t* g);
  *
  * @return a new CoordinateComponent_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
@@ -2039,6 +2721,8 @@ Geometry_createCoordinateComponent(Geometry_t* g);
  * to remove.
  *
  * @return a pointer to the nth CoordinateComponent_t in this Geometry_t.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Geometry_t
  */
@@ -2059,6 +2743,8 @@ Geometry_removeCoordinateComponent(Geometry_t* g, unsigned int n);
  * @return the CoordinateComponent_t in this Geometry_t based on the identifier
  * or NULL if no such CoordinateComponent_t exists.
  *
+ * @copydetails doc_returned_owned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
@@ -2067,11 +2753,21 @@ Geometry_removeCoordinateComponentById(Geometry_t* g, const char* sid);
 
 
 /**
- * Returns a ListOf_t* containing DomainType_t objects from this Geometry_t.
+ * Returns a ListOf_t * containing DomainType_t objects from this Geometry_t.
  *
- * @param g the Geometry_t structure whose "ListOfDomainTypes" is sought.
+ * @param g the Geometry_t structure whose ListOfDomainTypes is sought.
  *
- * @return the "ListOfDomainTypes" from this Geometry_t as a ListOf_t *.
+ * @return the ListOfDomainTypes from this Geometry_t as a ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see Geometry_addDomainType()
+ * @see Geometry_createDomainType()
+ * @see Geometry_getDomainTypeById()
+ * @see Geometry_getDomainType()
+ * @see Geometry_getNumDomainTypes()
+ * @see Geometry_removeDomainTypeById()
+ * @see Geometry_removeDomainType()
  *
  * @memberof Geometry_t
  */
@@ -2090,10 +2786,12 @@ Geometry_getListOfDomainTypes(Geometry_t* g);
  *
  * @return the nth DomainType_t in the ListOfDomainTypes within this Geometry.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
-const DomainType_t*
+DomainType_t*
 Geometry_getDomainType(Geometry_t* g, unsigned int n);
 
 
@@ -2106,12 +2804,14 @@ Geometry_getDomainType(Geometry_t* g, unsigned int n);
  * retrieve.
  *
  * @return the DomainType_t in the ListOfDomainTypes within this Geometry with
- * the given id or NULL if no such DomainType_t exists.
+ * the given @p sid or @c NULL if no such DomainType_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
-const DomainType_t*
+DomainType_t*
 Geometry_getDomainTypeById(Geometry_t* g, const char *sid);
 
 
@@ -2125,6 +2825,11 @@ Geometry_getDomainTypeById(Geometry_t* g, const char *sid);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
  *
  * @memberof Geometry_t
  */
@@ -2155,6 +2860,8 @@ Geometry_getNumDomainTypes(Geometry_t* g);
  *
  * @return a new DomainType_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
@@ -2172,6 +2879,8 @@ Geometry_createDomainType(Geometry_t* g);
  * remove.
  *
  * @return a pointer to the nth DomainType_t in this Geometry_t.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Geometry_t
  */
@@ -2192,6 +2901,8 @@ Geometry_removeDomainType(Geometry_t* g, unsigned int n);
  * @return the DomainType_t in this Geometry_t based on the identifier or NULL
  * if no such DomainType_t exists.
  *
+ * @copydetails doc_returned_owned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
@@ -2200,11 +2911,21 @@ Geometry_removeDomainTypeById(Geometry_t* g, const char* sid);
 
 
 /**
- * Returns a ListOf_t* containing Domain_t objects from this Geometry_t.
+ * Returns a ListOf_t * containing Domain_t objects from this Geometry_t.
  *
- * @param g the Geometry_t structure whose "ListOfDomains" is sought.
+ * @param g the Geometry_t structure whose ListOfDomains is sought.
  *
- * @return the "ListOfDomains" from this Geometry_t as a ListOf_t *.
+ * @return the ListOfDomains from this Geometry_t as a ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see Geometry_addDomain()
+ * @see Geometry_createDomain()
+ * @see Geometry_getDomainById()
+ * @see Geometry_getDomain()
+ * @see Geometry_getNumDomains()
+ * @see Geometry_removeDomainById()
+ * @see Geometry_removeDomain()
  *
  * @memberof Geometry_t
  */
@@ -2222,10 +2943,12 @@ Geometry_getListOfDomains(Geometry_t* g);
  *
  * @return the nth Domain_t in the ListOfDomains within this Geometry.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
-const Domain_t*
+Domain_t*
 Geometry_getDomain(Geometry_t* g, unsigned int n);
 
 
@@ -2237,12 +2960,14 @@ Geometry_getDomain(Geometry_t* g, unsigned int n);
  * @param sid a string representing the identifier of the Domain_t to retrieve.
  *
  * @return the Domain_t in the ListOfDomains within this Geometry with the
- * given id or NULL if no such Domain_t exists.
+ * given @p sid or @c NULL if no such Domain_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
-const Domain_t*
+Domain_t*
 Geometry_getDomainById(Geometry_t* g, const char *sid);
 
 
@@ -2252,16 +2977,18 @@ Geometry_getDomainById(Geometry_t* g, const char *sid);
  *
  * @param g the Geometry_t structure to search.
  *
- * @param sid a string representing the domainType attribute of the Domain_t
+ * @param sid a string representing the "domainType" attribute of the Domain_t
  * object to retrieve.
  *
  * @return the first Domain_t in this Geometry_t based on the given domainType
  * attribute or NULL if no such Domain_t exists.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
-const Domain_t*
+Domain_t*
 Geometry_getDomainByDomainType(Geometry_t* g, const char *sid);
 
 
@@ -2275,6 +3002,11 @@ Geometry_getDomainByDomainType(Geometry_t* g, const char *sid);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
  *
  * @memberof Geometry_t
  */
@@ -2305,6 +3037,8 @@ Geometry_getNumDomains(Geometry_t* g);
  *
  * @return a new Domain_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
@@ -2320,6 +3054,8 @@ Geometry_createDomain(Geometry_t* g);
  * @param n an unsigned int representing the index of the Domain_t to remove.
  *
  * @return a pointer to the nth Domain_t in this Geometry_t.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Geometry_t
  */
@@ -2339,6 +3075,8 @@ Geometry_removeDomain(Geometry_t* g, unsigned int n);
  * @return the Domain_t in this Geometry_t based on the identifier or NULL if
  * no such Domain_t exists.
  *
+ * @copydetails doc_returned_owned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
@@ -2347,12 +3085,22 @@ Geometry_removeDomainById(Geometry_t* g, const char* sid);
 
 
 /**
- * Returns a ListOf_t* containing AdjacentDomains_t objects from this
+ * Returns a ListOf_t * containing AdjacentDomains_t objects from this
  * Geometry_t.
  *
- * @param g the Geometry_t structure whose "ListOfAdjacentDomains" is sought.
+ * @param g the Geometry_t structure whose ListOfAdjacentDomains is sought.
  *
- * @return the "ListOfAdjacentDomains" from this Geometry_t as a ListOf_t *.
+ * @return the ListOfAdjacentDomains from this Geometry_t as a ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see Geometry_addAdjacentDomain()
+ * @see Geometry_createAdjacentDomain()
+ * @see Geometry_getAdjacentDomainById()
+ * @see Geometry_getAdjacentDomain()
+ * @see Geometry_getNumAdjacentDomains()
+ * @see Geometry_removeAdjacentDomainById()
+ * @see Geometry_removeAdjacentDomain()
  *
  * @memberof Geometry_t
  */
@@ -2372,10 +3120,12 @@ Geometry_getListOfAdjacentDomains(Geometry_t* g);
  * @return the nth AdjacentDomains_t in the ListOfAdjacentDomains within this
  * Geometry.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
-const AdjacentDomains_t*
+AdjacentDomains_t*
 Geometry_getAdjacentDomains(Geometry_t* g, unsigned int n);
 
 
@@ -2388,12 +3138,15 @@ Geometry_getAdjacentDomains(Geometry_t* g, unsigned int n);
  * retrieve.
  *
  * @return the AdjacentDomains_t in the ListOfAdjacentDomains within this
- * Geometry with the given id or NULL if no such AdjacentDomains_t exists.
+ * Geometry with the given @p sid or @c NULL if no such AdjacentDomains_t
+ * exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
-const AdjacentDomains_t*
+AdjacentDomains_t*
 Geometry_getAdjacentDomainsById(Geometry_t* g, const char *sid);
 
 
@@ -2403,16 +3156,18 @@ Geometry_getAdjacentDomainsById(Geometry_t* g, const char *sid);
  *
  * @param g the Geometry_t structure to search.
  *
- * @param sid a string representing the domain1 attribute of the
+ * @param sid a string representing the "domain1" attribute of the
  * AdjacentDomains_t object to retrieve.
  *
  * @return the first AdjacentDomains_t in this Geometry_t based on the given
  * domain1 attribute or NULL if no such AdjacentDomains_t exists.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
-const AdjacentDomains_t*
+AdjacentDomains_t*
 Geometry_getAdjacentDomainsByDomain1(Geometry_t* g, const char *sid);
 
 
@@ -2422,16 +3177,18 @@ Geometry_getAdjacentDomainsByDomain1(Geometry_t* g, const char *sid);
  *
  * @param g the Geometry_t structure to search.
  *
- * @param sid a string representing the domain2 attribute of the
+ * @param sid a string representing the "domain2" attribute of the
  * AdjacentDomains_t object to retrieve.
  *
  * @return the first AdjacentDomains_t in this Geometry_t based on the given
  * domain2 attribute or NULL if no such AdjacentDomains_t exists.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
-const AdjacentDomains_t*
+AdjacentDomains_t*
 Geometry_getAdjacentDomainsByDomain2(Geometry_t* g, const char *sid);
 
 
@@ -2446,6 +3203,11 @@ Geometry_getAdjacentDomainsByDomain2(Geometry_t* g, const char *sid);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
  *
  * @memberof Geometry_t
  */
@@ -2477,6 +3239,8 @@ Geometry_getNumAdjacentDomains(Geometry_t* g);
  *
  * @return a new AdjacentDomains_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
@@ -2494,6 +3258,8 @@ Geometry_createAdjacentDomains(Geometry_t* g);
  * remove.
  *
  * @return a pointer to the nth AdjacentDomains_t in this Geometry_t.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Geometry_t
  */
@@ -2514,6 +3280,8 @@ Geometry_removeAdjacentDomains(Geometry_t* g, unsigned int n);
  * @return the AdjacentDomains_t in this Geometry_t based on the identifier or
  * NULL if no such AdjacentDomains_t exists.
  *
+ * @copydetails doc_returned_owned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
@@ -2522,14 +3290,22 @@ Geometry_removeAdjacentDomainsById(Geometry_t* g, const char* sid);
 
 
 /**
- * Returns a ListOf_t* containing GeometryDefinition_t objects from this
+ * Returns a ListOf_t * containing GeometryDefinition_t objects from this
  * Geometry_t.
  *
- * @param g the Geometry_t structure whose "ListOfGeometryDefinitions" is
- * sought.
+ * @param g the Geometry_t structure whose ListOfGeometryDefinitions is sought.
  *
- * @return the "ListOfGeometryDefinitions" from this Geometry_t as a ListOf_t
- * *.
+ * @return the ListOfGeometryDefinitions from this Geometry_t as a ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see Geometry_addGeometryDefinition()
+ * @see Geometry_createGeometryDefinition()
+ * @see Geometry_getGeometryDefinitionById()
+ * @see Geometry_getGeometryDefinition()
+ * @see Geometry_getNumGeometryDefinitions()
+ * @see Geometry_removeGeometryDefinitionById()
+ * @see Geometry_removeGeometryDefinition()
  *
  * @memberof Geometry_t
  */
@@ -2549,10 +3325,12 @@ Geometry_getListOfGeometryDefinitions(Geometry_t* g);
  * @return the nth GeometryDefinition_t in the ListOfGeometryDefinitions within
  * this Geometry.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
-const GeometryDefinition_t*
+GeometryDefinition_t*
 Geometry_getGeometryDefinition(Geometry_t* g, unsigned int n);
 
 
@@ -2565,13 +3343,15 @@ Geometry_getGeometryDefinition(Geometry_t* g, unsigned int n);
  * to retrieve.
  *
  * @return the GeometryDefinition_t in the ListOfGeometryDefinitions within
- * this Geometry with the given id or NULL if no such GeometryDefinition_t
- * exists.
+ * this Geometry with the given @p sid or @c NULL if no such
+ * GeometryDefinition_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
-const GeometryDefinition_t*
+GeometryDefinition_t*
 Geometry_getGeometryDefinitionById(Geometry_t* g, const char *sid);
 
 
@@ -2586,6 +3366,11 @@ Geometry_getGeometryDefinitionById(Geometry_t* g, const char *sid);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
  *
  * @memberof Geometry_t
  */
@@ -2617,6 +3402,8 @@ Geometry_getNumGeometryDefinitions(Geometry_t* g);
  *
  * @return a new AnalyticGeometry_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
@@ -2633,6 +3420,8 @@ Geometry_createAnalyticGeometry(Geometry_t* g);
  *
  * @return a new SampledFieldGeometry_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
@@ -2647,6 +3436,8 @@ Geometry_createSampledFieldGeometry(Geometry_t* g);
  * @param g the Geometry_t structure to which the CSGeometry_t should be added.
  *
  * @return a new CSGeometry_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Geometry_t
  */
@@ -2664,6 +3455,8 @@ Geometry_createCSGeometry(Geometry_t* g);
  *
  * @return a new ParametricGeometry_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
@@ -2679,6 +3472,8 @@ Geometry_createParametricGeometry(Geometry_t* g);
  * added.
  *
  * @return a new MixedGeometry_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Geometry_t
  */
@@ -2697,6 +3492,8 @@ Geometry_createMixedGeometry(Geometry_t* g);
  * to remove.
  *
  * @return a pointer to the nth GeometryDefinition_t in this Geometry_t.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Geometry_t
  */
@@ -2717,6 +3514,8 @@ Geometry_removeGeometryDefinition(Geometry_t* g, unsigned int n);
  * @return the GeometryDefinition_t in this Geometry_t based on the identifier
  * or NULL if no such GeometryDefinition_t exists.
  *
+ * @copydetails doc_returned_owned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
@@ -2725,11 +3524,21 @@ Geometry_removeGeometryDefinitionById(Geometry_t* g, const char* sid);
 
 
 /**
- * Returns a ListOf_t* containing SampledField_t objects from this Geometry_t.
+ * Returns a ListOf_t * containing SampledField_t objects from this Geometry_t.
  *
- * @param g the Geometry_t structure whose "ListOfSampledFields" is sought.
+ * @param g the Geometry_t structure whose ListOfSampledFields is sought.
  *
- * @return the "ListOfSampledFields" from this Geometry_t as a ListOf_t *.
+ * @return the ListOfSampledFields from this Geometry_t as a ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see Geometry_addSampledField()
+ * @see Geometry_createSampledField()
+ * @see Geometry_getSampledFieldById()
+ * @see Geometry_getSampledField()
+ * @see Geometry_getNumSampledFields()
+ * @see Geometry_removeSampledFieldById()
+ * @see Geometry_removeSampledField()
  *
  * @memberof Geometry_t
  */
@@ -2749,10 +3558,12 @@ Geometry_getListOfSampledFields(Geometry_t* g);
  * @return the nth SampledField_t in the ListOfSampledFields within this
  * Geometry.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
-const SampledField_t*
+SampledField_t*
 Geometry_getSampledField(Geometry_t* g, unsigned int n);
 
 
@@ -2765,12 +3576,14 @@ Geometry_getSampledField(Geometry_t* g, unsigned int n);
  * retrieve.
  *
  * @return the SampledField_t in the ListOfSampledFields within this Geometry
- * with the given id or NULL if no such SampledField_t exists.
+ * with the given @p sid or @c NULL if no such SampledField_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
-const SampledField_t*
+SampledField_t*
 Geometry_getSampledFieldById(Geometry_t* g, const char *sid);
 
 
@@ -2785,6 +3598,11 @@ Geometry_getSampledFieldById(Geometry_t* g, const char *sid);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
  *
  * @memberof Geometry_t
  */
@@ -2816,6 +3634,8 @@ Geometry_getNumSampledFields(Geometry_t* g);
  *
  * @return a new SampledField_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
@@ -2833,6 +3653,8 @@ Geometry_createSampledField(Geometry_t* g);
  * remove.
  *
  * @return a pointer to the nth SampledField_t in this Geometry_t.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Geometry_t
  */
@@ -2853,6 +3675,8 @@ Geometry_removeSampledField(Geometry_t* g, unsigned int n);
  * @return the SampledField_t in this Geometry_t based on the identifier or
  * NULL if no such SampledField_t exists.
  *
+ * @copydetails doc_returned_owned_pointer
+ *
  * @memberof Geometry_t
  */
 LIBSBML_EXTERN
@@ -2861,13 +3685,13 @@ Geometry_removeSampledFieldById(Geometry_t* g, const char* sid);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this Geometry_t
- * object have been set.
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * Geometry_t object have been set.
  *
  * @param g the Geometry_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this Geometry_t
- * have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * Geometry_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the Geometry_t object are:
@@ -2878,25 +3702,6 @@ Geometry_removeSampledFieldById(Geometry_t* g, const char* sid);
 LIBSBML_EXTERN
 int
 Geometry_hasRequiredAttributes(const Geometry_t * g);
-
-
-/**
- * Predicate returning @c 1 if all the required elements for this Geometry_t
- * object have been set.
- *
- * @param g the Geometry_t structure.
- *
- * @return @c 1 to indicate that all the required elements of this Geometry_t
- * have been set, otherwise @c 0 is returned.
- *
- *
- * @note The required elements for the Geometry_t object are:
- *
- * @memberof Geometry_t
- */
-LIBSBML_EXTERN
-int
-Geometry_hasRequiredElements(const Geometry_t * g);
 
 
 

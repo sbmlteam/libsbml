@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -36,6 +36,70 @@
  *
  * @class SampledField
  * @sbmlbrief{spatial} TODO:Definition of the SampledField class.
+ */
+
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file. The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality. Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ *
+ *
+ * @class doc_sampledfield_dataType
+ *
+ * @par
+ * The attribute "dataType" on a SampledField object is used to TODO:add
+ * explanation
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
+ * allowable values for "dataType":
+ * <ul>
+ * <li> @c "double", TODO:add description
+ *
+ * <li> @c "float", TODO:add description
+ *
+ * <li> @c "uint8", TODO:add description
+ *
+ * <li> @c "uint16", TODO:add description
+ *
+ * <li> @c "uint32", TODO:add description
+ *
+ * </ul>
+ *
+ * @class doc_sampledfield_interpolationType
+ *
+ * @par
+ * The attribute "interpolationType" on a SampledField object is used to
+ * TODO:add explanation
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
+ * allowable values for "interpolationType":
+ * <ul>
+ * <li> @c "nearestNeighbor", TODO:add description
+ *
+ * <li> @c "linear", TODO:add description
+ *
+ * </ul>
+ *
+ * @class doc_sampledfield_compression
+ *
+ * @par
+ * The attribute "compression" on a SampledField object is used to TODO:add
+ * explanation
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
+ * allowable values for "compression":
+ * <ul>
+ * <li> @c "uncompressed", TODO:add description
+ *
+ * <li> @c "deflated", TODO:add description
+ *
+ * </ul>
  */
 
 
@@ -67,7 +131,6 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  std::string mId;
   DataKind_t mDataType;
   int mNumSamples1;
   bool mIsSetNumSamples1;
@@ -98,11 +161,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this SampledField.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   SampledField(unsigned int level = SpatialExtension::getDefaultLevel(),
                unsigned int version = SpatialExtension::getDefaultVersion(),
@@ -113,13 +172,11 @@ public:
   /**
    * Creates a new SampledField using the given SpatialPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   SampledField(SpatialPkgNamespaces *spatialns);
 
@@ -160,7 +217,16 @@ public:
    *
    * @return the value of the "id" attribute of this SampledField as a string.
    */
-  const std::string& getId() const;
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this SampledField.
+   *
+   * @return the value of the "name" attribute of this SampledField as a
+   * string.
+   */
+  virtual const std::string& getName() const;
 
 
   /**
@@ -168,6 +234,16 @@ public:
    *
    * @return the value of the "dataType" attribute of this SampledField as a
    * DataKind_t.
+   *
+   * @copydetails doc_sampledfield_dataType
+   * @if clike The value is drawn from the enumeration @ref DataKind_t @endif
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_DATAKIND_DOUBLE, DataKind_t}
+   * @li @sbmlconstant{SPATIAL_DATAKIND_FLOAT, DataKind_t}
+   * @li @sbmlconstant{SPATIAL_DATAKIND_UINT8, DataKind_t}
+   * @li @sbmlconstant{SPATIAL_DATAKIND_UINT16, DataKind_t}
+   * @li @sbmlconstant{SPATIAL_DATAKIND_UINT32, DataKind_t}
+   * @li @sbmlconstant{SPATIAL_DATAKIND_INVALID, DataKind_t}
    */
   DataKind_t getDataType() const;
 
@@ -177,9 +253,17 @@ public:
    *
    * @return the value of the "dataType" attribute of this SampledField as a
    * string.
+   *
+   * @copydetails doc_sampledfield_dataType
+   * The possible values returned by this method are:
+   * @li @c "double"
+   * @li @c "float"
+   * @li @c "uint8"
+   * @li @c "uint16"
+   * @li @c "uint32"
+   * @li @c "invalid DataKind value"
    */
   std::string getDataTypeAsString() const;
-  //bgoli22
 
 
   /**
@@ -215,6 +299,15 @@ public:
    *
    * @return the value of the "interpolationType" attribute of this
    * SampledField as a InterpolationKind_t.
+   *
+   * @copydetails doc_sampledfield_interpolationType
+   * @if clike The value is drawn from the enumeration @ref InterpolationKind_t
+   * @endif
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_INTERPOLATIONKIND_NEARESTNEIGHBOR,
+   * InterpolationKind_t}
+   * @li @sbmlconstant{SPATIAL_INTERPOLATIONKIND_LINEAR, InterpolationKind_t}
+   * @li @sbmlconstant{SPATIAL_INTERPOLATIONKIND_INVALID, InterpolationKind_t}
    */
   InterpolationKind_t getInterpolationType() const;
 
@@ -225,9 +318,14 @@ public:
    *
    * @return the value of the "interpolationType" attribute of this
    * SampledField as a string.
+   *
+   * @copydetails doc_sampledfield_interpolationType
+   * The possible values returned by this method are:
+   * @li @c "nearestNeighbor"
+   * @li @c "linear"
+   * @li @c "invalid InterpolationKind value"
    */
   std::string getInterpolationTypeAsString() const;
-  //bgoli22
 
 
   /**
@@ -235,6 +333,14 @@ public:
    *
    * @return the value of the "compression" attribute of this SampledField as a
    * CompressionKind_t.
+   *
+   * @copydetails doc_sampledfield_compression
+   * @if clike The value is drawn from the enumeration @ref CompressionKind_t
+   * @endif
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_UNCOMPRESSED, CompressionKind_t}
+   * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_DEFLATED, CompressionKind_t}
+   * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_INVALID, CompressionKind_t}
    */
   CompressionKind_t getCompression() const;
 
@@ -244,10 +350,15 @@ public:
    *
    * @return the value of the "compression" attribute of this SampledField as a
    * string.
+   *
+   * @copydetails doc_sampledfield_compression
+   * The possible values returned by this method are:
+   * @li @c "uncompressed"
+   * @li @c "deflated"
+   * @li @c "invalid CompressionKind value"
    */
   std::string getCompressionAsString() const;
-  //bgoli22
-  
+
 
   /**
    * Returns the value of the "samples" attribute of this SampledField.
@@ -276,7 +387,17 @@ public:
    * @return @c true if this SampledField's "id" attribute has been set,
    * otherwise @c false is returned.
    */
-  bool isSetId() const;
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true if this SampledField's "name" attribute is
+   * set.
+   *
+   * @return @c true if this SampledField's "name" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
 
 
   /**
@@ -285,6 +406,8 @@ public:
    *
    * @return @c true if this SampledField's "dataType" attribute has been set,
    * otherwise @c false is returned.
+   *
+   * @copydetails doc_sampledfield_dataType
    */
   bool isSetDataType() const;
 
@@ -325,6 +448,8 @@ public:
    *
    * @return @c true if this SampledField's "interpolationType" attribute has
    * been set, otherwise @c false is returned.
+   *
+   * @copydetails doc_sampledfield_interpolationType
    */
   bool isSetInterpolationType() const;
 
@@ -335,6 +460,8 @@ public:
    *
    * @return @c true if this SampledField's "compression" attribute has been
    * set, otherwise @c false is returned.
+   *
+   * @copydetails doc_sampledfield_compression
    */
   bool isSetCompression() const;
 
@@ -368,19 +495,39 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * Calling this function with @p id = @c NULL or an empty string is
+   * equivalent to calling unsetId().
    */
-  int setId(const std::string& id);
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "name" attribute of this SampledField.
+   *
+   * @param name std::string& value of the "name" attribute to be set.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p name = @c NULL or an empty string is
+   * equivalent to calling unsetName().
+   */
+  virtual int setName(const std::string& name);
 
 
   /**
    * Sets the value of the "dataType" attribute of this SampledField.
    *
-   * @param dataType DataKind_t value of the "dataType" attribute to be set.
+   * @param dataType @if clike DataKind_t@else int@endif value of the
+   * "dataType" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_sampledfield_dataType
    */
   int setDataType(const DataKind_t dataType);
 
@@ -394,6 +541,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_sampledfield_dataType
    */
   int setDataType(const std::string& dataType);
 
@@ -440,13 +589,15 @@ public:
   /**
    * Sets the value of the "interpolationType" attribute of this SampledField.
    *
-   * @param interpolationType InterpolationKind_t value of the
-   * "interpolationType" attribute to be set.
+   * @param interpolationType @if clike InterpolationKind_t@else int@endif
+   * value of the "interpolationType" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_sampledfield_interpolationType
    */
   int setInterpolationType(const InterpolationKind_t interpolationType);
 
@@ -461,6 +612,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_sampledfield_interpolationType
    */
   int setInterpolationType(const std::string& interpolationType);
 
@@ -468,13 +621,15 @@ public:
   /**
    * Sets the value of the "compression" attribute of this SampledField.
    *
-   * @param compression CompressionKind_t value of the "compression" attribute
-   * to be set.
+   * @param compression @if clike CompressionKind_t@else int@endif value of the
+   * "compression" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_sampledfield_compression
    */
   int setCompression(const CompressionKind_t compression);
 
@@ -488,6 +643,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_sampledfield_compression
    */
   int setCompression(const std::string& compression);
 
@@ -528,15 +685,26 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetId();
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this SampledField.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetName();
 
 
   /**
    * Unsets the value of the "dataType" attribute of this SampledField.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_sampledfield_dataType
    */
   int unsetDataType();
 
@@ -575,9 +743,10 @@ public:
    * Unsets the value of the "interpolationType" attribute of this
    * SampledField.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_sampledfield_interpolationType
    */
   int unsetInterpolationType();
 
@@ -585,9 +754,10 @@ public:
   /**
    * Unsets the value of the "compression" attribute of this SampledField.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_sampledfield_compression
    */
   int unsetCompression();
 
@@ -628,8 +798,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_SAMPLEDFIELD, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_SAMPLEDFIELD, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -1090,11 +1259,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this SampledField_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof SampledField_t
  */
@@ -1111,6 +1278,8 @@ SampledField_create(unsigned int level,
  * @param sf the SampledField_t structure.
  *
  * @return a (deep) copy of this SampledField_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof SampledField_t
  */
@@ -1139,11 +1308,30 @@ SampledField_free(SampledField_t* sf);
  * @return the value of the "id" attribute of this SampledField_t as a pointer
  * to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof SampledField_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 SampledField_getId(const SampledField_t * sf);
+
+
+/**
+ * Returns the value of the "name" attribute of this SampledField_t.
+ *
+ * @param sf the SampledField_t structure whose name is sought.
+ *
+ * @return the value of the "name" attribute of this SampledField_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof SampledField_t
+ */
+LIBSBML_EXTERN
+char *
+SampledField_getName(const SampledField_t * sf);
 
 
 /**
@@ -1153,6 +1341,16 @@ SampledField_getId(const SampledField_t * sf);
  *
  * @return the value of the "dataType" attribute of this SampledField_t as a
  * DataKind_t.
+ *
+ * @copydetails doc_sampledfield_dataType
+ * @if clike The value is drawn from the enumeration @ref DataKind_t @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_DATAKIND_DOUBLE, DataKind_t}
+ * @li @sbmlconstant{SPATIAL_DATAKIND_FLOAT, DataKind_t}
+ * @li @sbmlconstant{SPATIAL_DATAKIND_UINT8, DataKind_t}
+ * @li @sbmlconstant{SPATIAL_DATAKIND_UINT16, DataKind_t}
+ * @li @sbmlconstant{SPATIAL_DATAKIND_UINT32, DataKind_t}
+ * @li @sbmlconstant{SPATIAL_DATAKIND_INVALID, DataKind_t}
  *
  * @memberof SampledField_t
  */
@@ -1169,10 +1367,21 @@ SampledField_getDataType(const SampledField_t * sf);
  * @return the value of the "dataType" attribute of this SampledField_t as a
  * const char *.
  *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_sampledfield_dataType
+ * The possible values returned by this method are:
+ * @li @c "double"
+ * @li @c "float"
+ * @li @c "uint8"
+ * @li @c "uint16"
+ * @li @c "uint32"
+ * @li @c "invalid DataKind value"
+ *
  * @memberof SampledField_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 SampledField_getDataTypeAsString(const SampledField_t * sf);
 
 
@@ -1230,6 +1439,15 @@ SampledField_getNumSamples3(const SampledField_t * sf);
  * @return the value of the "interpolationType" attribute of this
  * SampledField_t as a InterpolationKind_t.
  *
+ * @copydetails doc_sampledfield_interpolationType
+ * @if clike The value is drawn from the enumeration @ref InterpolationKind_t
+ * @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_INTERPOLATIONKIND_NEARESTNEIGHBOR,
+ * InterpolationKind_t}
+ * @li @sbmlconstant{SPATIAL_INTERPOLATIONKIND_LINEAR, InterpolationKind_t}
+ * @li @sbmlconstant{SPATIAL_INTERPOLATIONKIND_INVALID, InterpolationKind_t}
+ *
  * @memberof SampledField_t
  */
 LIBSBML_EXTERN
@@ -1246,10 +1464,18 @@ SampledField_getInterpolationType(const SampledField_t * sf);
  * @return the value of the "interpolationType" attribute of this
  * SampledField_t as a const char *.
  *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_sampledfield_interpolationType
+ * The possible values returned by this method are:
+ * @li @c "nearestNeighbor"
+ * @li @c "linear"
+ * @li @c "invalid InterpolationKind value"
+ *
  * @memberof SampledField_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 SampledField_getInterpolationTypeAsString(const SampledField_t * sf);
 
 
@@ -1260,6 +1486,14 @@ SampledField_getInterpolationTypeAsString(const SampledField_t * sf);
  *
  * @return the value of the "compression" attribute of this SampledField_t as a
  * CompressionKind_t.
+ *
+ * @copydetails doc_sampledfield_compression
+ * @if clike The value is drawn from the enumeration @ref CompressionKind_t
+ * @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_UNCOMPRESSED, CompressionKind_t}
+ * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_DEFLATED, CompressionKind_t}
+ * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_INVALID, CompressionKind_t}
  *
  * @memberof SampledField_t
  */
@@ -1276,10 +1510,18 @@ SampledField_getCompression(const SampledField_t * sf);
  * @return the value of the "compression" attribute of this SampledField_t as a
  * const char *.
  *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_sampledfield_compression
+ * The possible values returned by this method are:
+ * @li @c "uncompressed"
+ * @li @c "deflated"
+ * @li @c "invalid CompressionKind value"
+ *
  * @memberof SampledField_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 SampledField_getCompressionAsString(const SampledField_t * sf);
 
 
@@ -1299,12 +1541,13 @@ SampledField_getSamplesLength(const SampledField_t * sf);
 
 
 /**
- * Predicate returning @c 1 if this SampledField_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this SampledField_t's "id" attribute is
+ * set.
  *
  * @param sf the SampledField_t structure.
  *
- * @return @c 1 if this SampledField_t's "id" attribute has been set, otherwise
- * @c 0 is returned.
+ * @return @c 1 (true) if this SampledField_t's "id" attribute has been set,
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof SampledField_t
  */
@@ -1314,13 +1557,31 @@ SampledField_isSetId(const SampledField_t * sf);
 
 
 /**
- * Predicate returning @c 1 if this SampledField_t's "dataType" attribute is
+ * Predicate returning @c 1 (true) if this SampledField_t's "name" attribute is
  * set.
  *
  * @param sf the SampledField_t structure.
  *
- * @return @c 1 if this SampledField_t's "dataType" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SampledField_t's "name" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof SampledField_t
+ */
+LIBSBML_EXTERN
+int
+SampledField_isSetName(const SampledField_t * sf);
+
+
+/**
+ * Predicate returning @c 1 (true) if this SampledField_t's "dataType"
+ * attribute is set.
+ *
+ * @param sf the SampledField_t structure.
+ *
+ * @return @c 1 (true) if this SampledField_t's "dataType" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_sampledfield_dataType
  *
  * @memberof SampledField_t
  */
@@ -1330,13 +1591,13 @@ SampledField_isSetDataType(const SampledField_t * sf);
 
 
 /**
- * Predicate returning @c 1 if this SampledField_t's "numSamples1" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SampledField_t's "numSamples1"
+ * attribute is set.
  *
  * @param sf the SampledField_t structure.
  *
- * @return @c 1 if this SampledField_t's "numSamples1" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SampledField_t's "numSamples1" attribute has
+ * been set, otherwise @c 0 (false) is returned.
  *
  * @memberof SampledField_t
  */
@@ -1346,13 +1607,13 @@ SampledField_isSetNumSamples1(const SampledField_t * sf);
 
 
 /**
- * Predicate returning @c 1 if this SampledField_t's "numSamples2" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SampledField_t's "numSamples2"
+ * attribute is set.
  *
  * @param sf the SampledField_t structure.
  *
- * @return @c 1 if this SampledField_t's "numSamples2" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SampledField_t's "numSamples2" attribute has
+ * been set, otherwise @c 0 (false) is returned.
  *
  * @memberof SampledField_t
  */
@@ -1362,13 +1623,13 @@ SampledField_isSetNumSamples2(const SampledField_t * sf);
 
 
 /**
- * Predicate returning @c 1 if this SampledField_t's "numSamples3" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SampledField_t's "numSamples3"
+ * attribute is set.
  *
  * @param sf the SampledField_t structure.
  *
- * @return @c 1 if this SampledField_t's "numSamples3" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SampledField_t's "numSamples3" attribute has
+ * been set, otherwise @c 0 (false) is returned.
  *
  * @memberof SampledField_t
  */
@@ -1378,13 +1639,15 @@ SampledField_isSetNumSamples3(const SampledField_t * sf);
 
 
 /**
- * Predicate returning @c 1 if this SampledField_t's "interpolationType"
+ * Predicate returning @c 1 (true) if this SampledField_t's "interpolationType"
  * attribute is set.
  *
  * @param sf the SampledField_t structure.
  *
- * @return @c 1 if this SampledField_t's "interpolationType" attribute has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SampledField_t's "interpolationType" attribute
+ * has been set, otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_sampledfield_interpolationType
  *
  * @memberof SampledField_t
  */
@@ -1394,13 +1657,15 @@ SampledField_isSetInterpolationType(const SampledField_t * sf);
 
 
 /**
- * Predicate returning @c 1 if this SampledField_t's "compression" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SampledField_t's "compression"
+ * attribute is set.
  *
  * @param sf the SampledField_t structure.
  *
- * @return @c 1 if this SampledField_t's "compression" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SampledField_t's "compression" attribute has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_sampledfield_compression
  *
  * @memberof SampledField_t
  */
@@ -1410,13 +1675,13 @@ SampledField_isSetCompression(const SampledField_t * sf);
 
 
 /**
- * Predicate returning @c 1 if this SampledField_t's "samples" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SampledField_t's "samples" attribute
+ * is set.
  *
  * @param sf the SampledField_t structure.
  *
- * @return @c 1 if this SampledField_t's "samples" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SampledField_t's "samples" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
  * @memberof SampledField_t
  */
@@ -1426,13 +1691,13 @@ SampledField_isSetSamples(const SampledField_t * sf);
 
 
 /**
- * Predicate returning @c 1 if this SampledField_t's "samplesLength" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this SampledField_t's "samplesLength"
+ * attribute is set.
  *
  * @param sf the SampledField_t structure.
  *
- * @return @c 1 if this SampledField_t's "samplesLength" attribute has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this SampledField_t's "samplesLength" attribute has
+ * been set, otherwise @c 0 (false) is returned.
  *
  * @memberof SampledField_t
  */
@@ -1451,12 +1716,37 @@ SampledField_isSetSamplesLength(const SampledField_t * sf);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling SampledField_unsetId().
  *
  * @memberof SampledField_t
  */
 LIBSBML_EXTERN
 int
 SampledField_setId(SampledField_t * sf, const char * id);
+
+
+/**
+ * Sets the value of the "name" attribute of this SampledField_t.
+ *
+ * @param sf the SampledField_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling SampledField_unsetName().
+ *
+ * @memberof SampledField_t
+ */
+LIBSBML_EXTERN
+int
+SampledField_setName(SampledField_t * sf, const char * name);
 
 
 /**
@@ -1469,6 +1759,9 @@ SampledField_setId(SampledField_t * sf, const char * id);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_sampledfield_dataType
  *
  * @memberof SampledField_t
  */
@@ -1487,6 +1780,9 @@ SampledField_setDataType(SampledField_t * sf, DataKind_t dataType);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_sampledfield_dataType
  *
  * @memberof SampledField_t
  */
@@ -1505,6 +1801,7 @@ SampledField_setDataTypeAsString(SampledField_t * sf, const char * dataType);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledField_t
  */
@@ -1523,6 +1820,7 @@ SampledField_setNumSamples1(SampledField_t * sf, int numSamples1);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledField_t
  */
@@ -1541,6 +1839,7 @@ SampledField_setNumSamples2(SampledField_t * sf, int numSamples2);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledField_t
  */
@@ -1560,6 +1859,9 @@ SampledField_setNumSamples3(SampledField_t * sf, int numSamples3);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_sampledfield_interpolationType
  *
  * @memberof SampledField_t
  */
@@ -1580,6 +1882,9 @@ SampledField_setInterpolationType(SampledField_t * sf,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_sampledfield_interpolationType
  *
  * @memberof SampledField_t
  */
@@ -1600,6 +1905,9 @@ SampledField_setInterpolationTypeAsString(SampledField_t * sf,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_sampledfield_compression
  *
  * @memberof SampledField_t
  */
@@ -1619,6 +1927,9 @@ SampledField_setCompression(SampledField_t * sf,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_sampledfield_compression
  *
  * @memberof SampledField_t
  */
@@ -1659,6 +1970,7 @@ SampledField_setSamples(SampledField_t* sf, int* samples, int arrayLength);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledField_t
  */
@@ -1675,6 +1987,7 @@ SampledField_setSamplesLength(SampledField_t * sf, int samplesLength);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledField_t
  */
@@ -1684,13 +1997,32 @@ SampledField_unsetId(SampledField_t * sf);
 
 
 /**
- * Unsets the value of the "dataType" attribute of this SampledField_t.
+ * Unsets the value of the "name" attribute of this SampledField_t.
  *
  * @param sf the SampledField_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SampledField_t
+ */
+LIBSBML_EXTERN
+int
+SampledField_unsetName(SampledField_t * sf);
+
+
+/**
+ * Unsets the value of the "dataType" attribute of this SampledField_t.
+ *
+ * @param sf the SampledField_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_sampledfield_dataType
  *
  * @memberof SampledField_t
  */
@@ -1707,6 +2039,7 @@ SampledField_unsetDataType(SampledField_t * sf);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledField_t
  */
@@ -1723,6 +2056,7 @@ SampledField_unsetNumSamples1(SampledField_t * sf);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledField_t
  */
@@ -1739,6 +2073,7 @@ SampledField_unsetNumSamples2(SampledField_t * sf);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledField_t
  */
@@ -1755,7 +2090,9 @@ SampledField_unsetNumSamples3(SampledField_t * sf);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_sampledfield_interpolationType
  *
  * @memberof SampledField_t
  */
@@ -1771,7 +2108,9 @@ SampledField_unsetInterpolationType(SampledField_t * sf);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_sampledfield_compression
  *
  * @memberof SampledField_t
  */
@@ -1788,6 +2127,7 @@ SampledField_unsetCompression(SampledField_t * sf);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledField_t
  */
@@ -1804,6 +2144,7 @@ SampledField_unsetSamples(SampledField_t * sf);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SampledField_t
  */
@@ -1813,13 +2154,13 @@ SampledField_unsetSamplesLength(SampledField_t * sf);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * SampledField_t object have been set.
  *
  * @param sf the SampledField_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * SampledField_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * SampledField_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the SampledField_t object are:

@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -88,11 +88,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this OrdinalMapping.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   OrdinalMapping(unsigned int level = SpatialExtension::getDefaultLevel(),
                  unsigned int version = SpatialExtension::getDefaultVersion(),
@@ -103,13 +99,11 @@ public:
   /**
    * Creates a new OrdinalMapping using the given SpatialPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   OrdinalMapping(SpatialPkgNamespaces *spatialns);
 
@@ -256,8 +250,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_ORDINALMAPPING, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_ORDINALMAPPING, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -644,11 +637,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this OrdinalMapping_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof OrdinalMapping_t
  */
@@ -665,6 +656,8 @@ OrdinalMapping_create(unsigned int level,
  * @param om the OrdinalMapping_t structure.
  *
  * @return a (deep) copy of this OrdinalMapping_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof OrdinalMapping_t
  */
@@ -694,10 +687,12 @@ OrdinalMapping_free(OrdinalMapping_t* om);
  * @return the value of the "geometryDefinition" attribute of this
  * OrdinalMapping_t as a pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof OrdinalMapping_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 OrdinalMapping_getGeometryDefinition(const OrdinalMapping_t * om);
 
 
@@ -717,13 +712,13 @@ OrdinalMapping_getOrdinal(const OrdinalMapping_t * om);
 
 
 /**
- * Predicate returning @c 1 if this OrdinalMapping_t's "geometryDefinition"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this OrdinalMapping_t's
+ * "geometryDefinition" attribute is set.
  *
  * @param om the OrdinalMapping_t structure.
  *
- * @return @c 1 if this OrdinalMapping_t's "geometryDefinition" attribute has
- * been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this OrdinalMapping_t's "geometryDefinition"
+ * attribute has been set, otherwise @c 0 (false) is returned.
  *
  * @memberof OrdinalMapping_t
  */
@@ -733,13 +728,13 @@ OrdinalMapping_isSetGeometryDefinition(const OrdinalMapping_t * om);
 
 
 /**
- * Predicate returning @c 1 if this OrdinalMapping_t's "ordinal" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this OrdinalMapping_t's "ordinal"
+ * attribute is set.
  *
  * @param om the OrdinalMapping_t structure.
  *
- * @return @c 1 if this OrdinalMapping_t's "ordinal" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this OrdinalMapping_t's "ordinal" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
  * @memberof OrdinalMapping_t
  */
@@ -760,6 +755,7 @@ OrdinalMapping_isSetOrdinal(const OrdinalMapping_t * om);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof OrdinalMapping_t
  */
@@ -779,6 +775,7 @@ OrdinalMapping_setGeometryDefinition(OrdinalMapping_t * om,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof OrdinalMapping_t
  */
@@ -796,6 +793,7 @@ OrdinalMapping_setOrdinal(OrdinalMapping_t * om, int ordinal);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof OrdinalMapping_t
  */
@@ -812,6 +810,7 @@ OrdinalMapping_unsetGeometryDefinition(OrdinalMapping_t * om);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof OrdinalMapping_t
  */
@@ -821,13 +820,13 @@ OrdinalMapping_unsetOrdinal(OrdinalMapping_t * om);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * OrdinalMapping_t object have been set.
  *
  * @param om the OrdinalMapping_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * OrdinalMapping_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * OrdinalMapping_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the OrdinalMapping_t object are:

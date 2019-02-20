@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -58,7 +58,6 @@ Boundary::Boundary(unsigned int level,
                    unsigned int version,
                    unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
   , mValue (util_NaN())
   , mIsSetValue (false)
   , mElementName("boundary")
@@ -73,7 +72,6 @@ Boundary::Boundary(unsigned int level,
  */
 Boundary::Boundary(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
-  , mId ("")
   , mValue (util_NaN())
   , mIsSetValue (false)
   , mElementName("boundary")
@@ -88,7 +86,6 @@ Boundary::Boundary(SpatialPkgNamespaces *spatialns)
  */
 Boundary::Boundary(const Boundary& orig)
   : SBase( orig )
-  , mId ( orig.mId )
   , mValue ( orig.mValue )
   , mIsSetValue ( orig.mIsSetValue )
   , mElementName ( orig.mElementName )
@@ -105,7 +102,6 @@ Boundary::operator=(const Boundary& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId = rhs.mId;
     mValue = rhs.mValue;
     mIsSetValue = rhs.mIsSetValue;
     mElementName = rhs.mElementName;
@@ -144,6 +140,16 @@ Boundary::getId() const
 
 
 /*
+ * Returns the value of the "name" attribute of this Boundary.
+ */
+const std::string&
+Boundary::getName() const
+{
+  return mName;
+}
+
+
+/*
  * Returns the value of the "value" attribute of this Boundary.
  */
 double
@@ -160,6 +166,16 @@ bool
 Boundary::isSetId() const
 {
   return (mId.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true if this Boundary's "name" attribute is set.
+ */
+bool
+Boundary::isSetName() const
+{
+  return (mName.empty() == false);
 }
 
 
@@ -184,6 +200,17 @@ Boundary::setId(const std::string& id)
 
 
 /*
+ * Sets the value of the "name" attribute of this Boundary.
+ */
+int
+Boundary::setName(const std::string& name)
+{
+  mName = name;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
  * Sets the value of the "value" attribute of this Boundary.
  */
 int
@@ -204,6 +231,25 @@ Boundary::unsetId()
   mId.erase();
 
   if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "name" attribute of this Boundary.
+ */
+int
+Boundary::unsetName()
+{
+  mName.erase();
+
+  if (mName.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -458,6 +504,11 @@ Boundary::getAttribute(const std::string& attributeName,
     value = getId();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
+  else if (attributeName == "name")
+  {
+    value = getName();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
 
   return return_value;
 }
@@ -480,6 +531,10 @@ Boundary::isSetAttribute(const std::string& attributeName) const
   if (attributeName == "id")
   {
     value = isSetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = isSetName();
   }
   else if (attributeName == "value")
   {
@@ -581,6 +636,10 @@ Boundary::setAttribute(const std::string& attributeName,
   {
     return_value = setId(value);
   }
+  else if (attributeName == "name")
+  {
+    return_value = setName(value);
+  }
 
   return return_value;
 }
@@ -602,6 +661,10 @@ Boundary::unsetAttribute(const std::string& attributeName)
   if (attributeName == "id")
   {
     value = unsetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = unsetName();
   }
   else if (attributeName == "value")
   {
@@ -627,6 +690,8 @@ Boundary::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("id");
 
+  attributes.add("name");
+
   attributes.add("value");
 }
 
@@ -651,23 +716,27 @@ Boundary::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialBoundaryAllowedAttributes,
-        pkgVersion, level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial", SpatialBoundaryAllowedCoreAttributes,
-        pkgVersion, level, version, details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialBoundaryAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial", SpatialBoundaryAllowedCoreAttributes,
+          pkgVersion, level, version, details);
+      }
     }
   }
 
@@ -685,8 +754,9 @@ Boundary::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      logError(SpatialIdSyntaxRule, level, version, "The id '" + mId + "' does "
-        "not conform to the syntax.");
+      log->logPackageError("spatial", SpatialIdSyntaxRule, pkgVersion, level,
+        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+          "which does not conform to the syntax.", getLine(), getColumn());
     }
   }
   else
@@ -695,6 +765,20 @@ Boundary::readAttributes(const XMLAttributes& attributes,
       "<Boundary> element.";
     log->logPackageError("spatial", SpatialBoundaryAllowedAttributes,
       pkgVersion, level, version, message);
+  }
+
+  // 
+  // name string (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("name", mName);
+
+  if (assigned == true)
+  {
+    if (mName.empty() == true)
+    {
+      logEmptyString(mName, level, version, "<Boundary>");
+    }
   }
 
   // 
@@ -742,6 +826,11 @@ Boundary::writeAttributes(XMLOutputStream& stream) const
   if (isSetId() == true)
   {
     stream.writeAttribute("id", getPrefix(), mId);
+  }
+
+  if (isSetName() == true)
+  {
+    stream.writeAttribute("name", getPrefix(), mName);
   }
 
   if (isSetValue() == true)
@@ -810,7 +899,7 @@ Boundary_free(Boundary_t* b)
  * Returns the value of the "id" attribute of this Boundary_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 Boundary_getId(const Boundary_t * b)
 {
   if (b == NULL)
@@ -819,6 +908,22 @@ Boundary_getId(const Boundary_t * b)
   }
 
   return b->getId().empty() ? NULL : safe_strdup(b->getId().c_str());
+}
+
+
+/*
+ * Returns the value of the "name" attribute of this Boundary_t.
+ */
+LIBSBML_EXTERN
+char *
+Boundary_getName(const Boundary_t * b)
+{
+  if (b == NULL)
+  {
+    return NULL;
+  }
+
+  return b->getName().empty() ? NULL : safe_strdup(b->getName().c_str());
 }
 
 
@@ -834,7 +939,7 @@ Boundary_getValue(const Boundary_t * b)
 
 
 /*
- * Predicate returning @c 1 if this Boundary_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this Boundary_t's "id" attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -845,7 +950,20 @@ Boundary_isSetId(const Boundary_t * b)
 
 
 /*
- * Predicate returning @c 1 if this Boundary_t's "value" attribute is set.
+ * Predicate returning @c 1 (true) if this Boundary_t's "name" attribute is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+Boundary_isSetName(const Boundary_t * b)
+{
+  return (b != NULL) ? static_cast<int>(b->isSetName()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Boundary_t's "value" attribute is
+ * set.
  */
 LIBSBML_EXTERN
 int
@@ -863,6 +981,17 @@ int
 Boundary_setId(Boundary_t * b, const char * id)
 {
   return (b != NULL) ? b->setId(id) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "name" attribute of this Boundary_t.
+ */
+LIBSBML_EXTERN
+int
+Boundary_setName(Boundary_t * b, const char * name)
+{
+  return (b != NULL) ? b->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -889,6 +1018,17 @@ Boundary_unsetId(Boundary_t * b)
 
 
 /*
+ * Unsets the value of the "name" attribute of this Boundary_t.
+ */
+LIBSBML_EXTERN
+int
+Boundary_unsetName(Boundary_t * b)
+{
+  return (b != NULL) ? b->unsetName() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
  * Unsets the value of the "value" attribute of this Boundary_t.
  */
 LIBSBML_EXTERN
@@ -900,8 +1040,8 @@ Boundary_unsetValue(Boundary_t * b)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this Boundary_t
- * object have been set.
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * Boundary_t object have been set.
  */
 LIBSBML_EXTERN
 int

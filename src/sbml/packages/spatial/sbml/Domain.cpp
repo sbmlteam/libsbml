@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -60,7 +60,6 @@ Domain::Domain(unsigned int level,
                unsigned int version,
                unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
   , mDomainType ("")
   , mInteriorPoints (level, version, pkgVersion)
 {
@@ -75,7 +74,6 @@ Domain::Domain(unsigned int level,
  */
 Domain::Domain(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
-  , mId ("")
   , mDomainType ("")
   , mInteriorPoints (spatialns)
 {
@@ -90,7 +88,6 @@ Domain::Domain(SpatialPkgNamespaces *spatialns)
  */
 Domain::Domain(const Domain& orig)
   : SBase( orig )
-  , mId ( orig.mId )
   , mDomainType ( orig.mDomainType )
   , mInteriorPoints ( orig.mInteriorPoints )
 {
@@ -107,7 +104,6 @@ Domain::operator=(const Domain& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId = rhs.mId;
     mDomainType = rhs.mDomainType;
     mInteriorPoints = rhs.mInteriorPoints;
     connectToChild();
@@ -146,6 +142,16 @@ Domain::getId() const
 
 
 /*
+ * Returns the value of the "name" attribute of this Domain.
+ */
+const std::string&
+Domain::getName() const
+{
+  return mName;
+}
+
+
+/*
  * Returns the value of the "domainType" attribute of this Domain.
  */
 const std::string&
@@ -166,6 +172,16 @@ Domain::isSetId() const
 
 
 /*
+ * Predicate returning @c true if this Domain's "name" attribute is set.
+ */
+bool
+Domain::isSetName() const
+{
+  return (mName.empty() == false);
+}
+
+
+/*
  * Predicate returning @c true if this Domain's "domainType" attribute is set.
  */
 bool
@@ -182,6 +198,17 @@ int
 Domain::setId(const std::string& id)
 {
   return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Sets the value of the "name" attribute of this Domain.
+ */
+int
+Domain::setName(const std::string& name)
+{
+  mName = name;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -212,6 +239,25 @@ Domain::unsetId()
   mId.erase();
 
   if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "name" attribute of this Domain.
+ */
+int
+Domain::unsetName()
+{
+  mName.erase();
+
+  if (mName.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -420,19 +466,6 @@ Domain::hasRequiredAttributes() const
 }
 
 
-/*
- * Predicate returning @c true if all the required elements for this Domain
- * object have been set.
- */
-bool
-Domain::hasRequiredElements() const
-{
-  bool allPresent = true;
-
-  return allPresent;
-}
-
-
 
 /** @cond doxygenLibsbmlInternal */
 
@@ -532,6 +565,25 @@ Domain::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
+ * Updates the namespaces when setLevelVersion is used
+ */
+void
+Domain::updateSBMLNamespace(const std::string& package,
+                            unsigned int level,
+                            unsigned int version)
+{
+  SBase::updateSBMLNamespace(package, level, version);
+
+  mInteriorPoints.updateSBMLNamespace(package, level, version);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
  * Gets the value of the "attributeName" attribute of this Domain.
  */
 int
@@ -619,6 +671,11 @@ Domain::getAttribute(const std::string& attributeName,
     value = getId();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
+  else if (attributeName == "name")
+  {
+    value = getName();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
   else if (attributeName == "domainType")
   {
     value = getDomainType();
@@ -646,6 +703,10 @@ Domain::isSetAttribute(const std::string& attributeName) const
   if (attributeName == "id")
   {
     value = isSetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = isSetName();
   }
   else if (attributeName == "domainType")
   {
@@ -742,6 +803,10 @@ Domain::setAttribute(const std::string& attributeName,
   {
     return_value = setId(value);
   }
+  else if (attributeName == "name")
+  {
+    return_value = setName(value);
+  }
   else if (attributeName == "domainType")
   {
     return_value = setDomainType(value);
@@ -767,6 +832,10 @@ Domain::unsetAttribute(const std::string& attributeName)
   if (attributeName == "id")
   {
     value = unsetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = unsetName();
   }
   else if (attributeName == "domainType")
   {
@@ -1013,6 +1082,8 @@ Domain::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("id");
 
+  attributes.add("name");
+
   attributes.add("domainType");
 }
 
@@ -1036,7 +1107,8 @@ Domain::readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  if (static_cast<ListOfDomains*>(getParentSBMLObject())->size() < 2)
+  if (log && getParentSBMLObject() &&
+    static_cast<ListOfDomains*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
@@ -1060,23 +1132,27 @@ Domain::readAttributes(const XMLAttributes& attributes,
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialDomainAllowedAttributes,
-        pkgVersion, level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial", SpatialDomainAllowedCoreAttributes,
-        pkgVersion, level, version, details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialDomainAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial", SpatialDomainAllowedCoreAttributes,
+          pkgVersion, level, version, details);
+      }
     }
   }
 
@@ -1094,8 +1170,9 @@ Domain::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      logError(SpatialIdSyntaxRule, level, version, "The id '" + mId + "' does "
-        "not conform to the syntax.");
+      log->logPackageError("spatial", SpatialIdSyntaxRule, pkgVersion, level,
+        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+          "which does not conform to the syntax.", getLine(), getColumn());
     }
   }
   else
@@ -1104,6 +1181,20 @@ Domain::readAttributes(const XMLAttributes& attributes,
       "element.";
     log->logPackageError("spatial", SpatialDomainAllowedAttributes, pkgVersion,
       level, version, message);
+  }
+
+  // 
+  // name string (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("name", mName);
+
+  if (assigned == true)
+  {
+    if (mName.empty() == true)
+    {
+      logEmptyString(mName, level, version, "<Domain>");
+    }
   }
 
   // 
@@ -1120,8 +1211,17 @@ Domain::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mDomainType) == false)
     {
-      logError(SpatialDomainDomainTypeMustBeSId, level, version, "The attribute "
-        "domainType='" + mDomainType + "' does not conform to the syntax.");
+      std::string msg = "The domainType attribute on the <" + getElementName()
+        + ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mDomainType + "', which does not conform to the "
+        "syntax.";
+      log->logPackageError("spatial", SpatialDomainDomainTypeMustBeDomainType,
+        pkgVersion, level, version, msg, getLine(), getColumn());
     }
   }
   else
@@ -1150,6 +1250,11 @@ Domain::writeAttributes(XMLOutputStream& stream) const
   if (isSetId() == true)
   {
     stream.writeAttribute("id", getPrefix(), mId);
+  }
+
+  if (isSetName() == true)
+  {
+    stream.writeAttribute("name", getPrefix(), mName);
   }
 
   if (isSetDomainType() == true)
@@ -1218,7 +1323,7 @@ Domain_free(Domain_t* d)
  * Returns the value of the "id" attribute of this Domain_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 Domain_getId(const Domain_t * d)
 {
   if (d == NULL)
@@ -1231,10 +1336,26 @@ Domain_getId(const Domain_t * d)
 
 
 /*
+ * Returns the value of the "name" attribute of this Domain_t.
+ */
+LIBSBML_EXTERN
+char *
+Domain_getName(const Domain_t * d)
+{
+  if (d == NULL)
+  {
+    return NULL;
+  }
+
+  return d->getName().empty() ? NULL : safe_strdup(d->getName().c_str());
+}
+
+
+/*
  * Returns the value of the "domainType" attribute of this Domain_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 Domain_getDomainType(const Domain_t * d)
 {
   if (d == NULL)
@@ -1248,7 +1369,7 @@ Domain_getDomainType(const Domain_t * d)
 
 
 /*
- * Predicate returning @c 1 if this Domain_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this Domain_t's "id" attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1259,7 +1380,19 @@ Domain_isSetId(const Domain_t * d)
 
 
 /*
- * Predicate returning @c 1 if this Domain_t's "domainType" attribute is set.
+ * Predicate returning @c 1 (true) if this Domain_t's "name" attribute is set.
+ */
+LIBSBML_EXTERN
+int
+Domain_isSetName(const Domain_t * d)
+{
+  return (d != NULL) ? static_cast<int>(d->isSetName()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Domain_t's "domainType" attribute is
+ * set.
  */
 LIBSBML_EXTERN
 int
@@ -1277,6 +1410,17 @@ int
 Domain_setId(Domain_t * d, const char * id)
 {
   return (d != NULL) ? d->setId(id) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "name" attribute of this Domain_t.
+ */
+LIBSBML_EXTERN
+int
+Domain_setName(Domain_t * d, const char * name)
+{
+  return (d != NULL) ? d->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1303,6 +1447,17 @@ Domain_unsetId(Domain_t * d)
 
 
 /*
+ * Unsets the value of the "name" attribute of this Domain_t.
+ */
+LIBSBML_EXTERN
+int
+Domain_unsetName(Domain_t * d)
+{
+  return (d != NULL) ? d->unsetName() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
  * Unsets the value of the "domainType" attribute of this Domain_t.
  */
 LIBSBML_EXTERN
@@ -1314,7 +1469,7 @@ Domain_unsetDomainType(Domain_t * d)
 
 
 /*
- * Returns a ListOf_t* containing InteriorPoint_t objects from this Domain_t.
+ * Returns a ListOf_t * containing InteriorPoint_t objects from this Domain_t.
  */
 LIBSBML_EXTERN
 ListOf_t*
@@ -1328,7 +1483,7 @@ Domain_getListOfInteriorPoints(Domain_t* d)
  * Get an InteriorPoint_t from the Domain_t.
  */
 LIBSBML_EXTERN
-const InteriorPoint_t*
+InteriorPoint_t*
 Domain_getInteriorPoint(Domain_t* d, unsigned int n)
 {
   return (d != NULL) ? d->getInteriorPoint(n) : NULL;
@@ -1382,26 +1537,14 @@ Domain_removeInteriorPoint(Domain_t* d, unsigned int n)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this Domain_t
- * object have been set.
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * Domain_t object have been set.
  */
 LIBSBML_EXTERN
 int
 Domain_hasRequiredAttributes(const Domain_t * d)
 {
   return (d != NULL) ? static_cast<int>(d->hasRequiredAttributes()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 if all the required elements for this Domain_t
- * object have been set.
- */
-LIBSBML_EXTERN
-int
-Domain_hasRequiredElements(const Domain_t * d)
-{
-  return (d != NULL) ? static_cast<int>(d->hasRequiredElements()) : 0;
 }
 
 

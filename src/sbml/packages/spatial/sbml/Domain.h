@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -68,7 +68,6 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  std::string mId;
   std::string mDomainType;
   ListOfInteriorPoints mInteriorPoints;
 
@@ -87,11 +86,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this Domain.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   Domain(unsigned int level = SpatialExtension::getDefaultLevel(),
          unsigned int version = SpatialExtension::getDefaultVersion(),
@@ -102,13 +97,11 @@ public:
   /**
    * Creates a new Domain using the given SpatialPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   Domain(SpatialPkgNamespaces *spatialns);
 
@@ -149,7 +142,15 @@ public:
    *
    * @return the value of the "id" attribute of this Domain as a string.
    */
-  const std::string& getId() const;
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this Domain.
+   *
+   * @return the value of the "name" attribute of this Domain as a string.
+   */
+  virtual const std::string& getName() const;
 
 
   /**
@@ -164,10 +165,19 @@ public:
   /**
    * Predicate returning @c true if this Domain's "id" attribute is set.
    *
-   * @return @c true if this Domain's "id" attribute has been set, otherwise @c
-   * false is returned.
+   * @return @c true if this Domain's "id" attribute has been set, otherwise
+   * @c false is returned.
    */
-  bool isSetId() const;
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true if this Domain's "name" attribute is set.
+   *
+   * @return @c true if this Domain's "name" attribute has been set, otherwise
+   * @c false is returned.
+   */
+  virtual bool isSetName() const;
 
 
   /**
@@ -189,8 +199,25 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * Calling this function with @p id = @c NULL or an empty string is
+   * equivalent to calling unsetId().
    */
-  int setId(const std::string& id);
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "name" attribute of this Domain.
+   *
+   * @param name std::string& value of the "name" attribute to be set.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p name = @c NULL or an empty string is
+   * equivalent to calling unsetName().
+   */
+  virtual int setName(const std::string& name);
 
 
   /**
@@ -214,7 +241,17 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetId();
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this Domain.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetName();
 
 
   /**
@@ -231,6 +268,16 @@ public:
    * Returns the ListOfInteriorPoints from this Domain.
    *
    * @return the ListOfInteriorPoints from this Domain.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addInteriorPoint(const InteriorPoint* object)
+   * @see createInteriorPoint()
+   * @see getInteriorPoint(const std::string& sid)
+   * @see getInteriorPoint(unsigned int n)
+   * @see getNumInteriorPoints()
+   * @see removeInteriorPoint(const std::string& sid)
+   * @see removeInteriorPoint(unsigned int n)
    */
   const ListOfInteriorPoints* getListOfInteriorPoints() const;
 
@@ -239,6 +286,16 @@ public:
    * Returns the ListOfInteriorPoints from this Domain.
    *
    * @return the ListOfInteriorPoints from this Domain.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addInteriorPoint(const InteriorPoint* object)
+   * @see createInteriorPoint()
+   * @see getInteriorPoint(const std::string& sid)
+   * @see getInteriorPoint(unsigned int n)
+   * @see getNumInteriorPoints()
+   * @see removeInteriorPoint(const std::string& sid)
+   * @see removeInteriorPoint(unsigned int n)
    */
   ListOfInteriorPoints* getListOfInteriorPoints();
 
@@ -252,7 +309,14 @@ public:
    * @return the nth InteriorPoint in the ListOfInteriorPoints within this
    * Domain.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addInteriorPoint(const InteriorPoint* object)
+   * @see createInteriorPoint()
+   * @see getInteriorPoint(const std::string& sid)
    * @see getNumInteriorPoints()
+   * @see removeInteriorPoint(const std::string& sid)
+   * @see removeInteriorPoint(unsigned int n)
    */
   InteriorPoint* getInteriorPoint(unsigned int n);
 
@@ -266,7 +330,14 @@ public:
    * @return the nth InteriorPoint in the ListOfInteriorPoints within this
    * Domain.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addInteriorPoint(const InteriorPoint* object)
+   * @see createInteriorPoint()
+   * @see getInteriorPoint(const std::string& sid)
    * @see getNumInteriorPoints()
+   * @see removeInteriorPoint(const std::string& sid)
+   * @see removeInteriorPoint(unsigned int n)
    */
   const InteriorPoint* getInteriorPoint(unsigned int n) const;
 
@@ -279,10 +350,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createInteriorPoint()
+   * @see getInteriorPoint(const std::string& sid)
+   * @see getInteriorPoint(unsigned int n)
+   * @see getNumInteriorPoints()
+   * @see removeInteriorPoint(const std::string& sid)
+   * @see removeInteriorPoint(unsigned int n)
    */
   int addInteriorPoint(const InteriorPoint* ip);
 
@@ -291,6 +372,13 @@ public:
    * Get the number of InteriorPoint objects in this Domain.
    *
    * @return the number of InteriorPoint objects in this Domain.
+   *
+   * @see addInteriorPoint(const InteriorPoint* object)
+   * @see createInteriorPoint()
+   * @see getInteriorPoint(const std::string& sid)
+   * @see getInteriorPoint(unsigned int n)
+   * @see removeInteriorPoint(const std::string& sid)
+   * @see removeInteriorPoint(unsigned int n)
    */
   unsigned int getNumInteriorPoints() const;
 
@@ -301,7 +389,14 @@ public:
    *
    * @return a new InteriorPoint object instance.
    *
-   * @see addInteriorPoint(const InteriorPoint* ip)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addInteriorPoint(const InteriorPoint* object)
+   * @see getInteriorPoint(const std::string& sid)
+   * @see getInteriorPoint(unsigned int n)
+   * @see getNumInteriorPoints()
+   * @see removeInteriorPoint(const std::string& sid)
+   * @see removeInteriorPoint(unsigned int n)
    */
   InteriorPoint* createInteriorPoint();
 
@@ -315,10 +410,14 @@ public:
    *
    * @return a pointer to the nth InteriorPoint in this Domain.
    *
-   * @see getNumInteriorPoints
+   * @copydetails doc_returned_owned_pointer
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @see addInteriorPoint(const InteriorPoint* object)
+   * @see createInteriorPoint()
+   * @see getInteriorPoint(const std::string& sid)
+   * @see getInteriorPoint(unsigned int n)
+   * @see getNumInteriorPoints()
+   * @see removeInteriorPoint(const std::string& sid)
    */
   InteriorPoint* removeInteriorPoint(unsigned int n);
 
@@ -346,8 +445,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_DOMAIN, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_DOMAIN, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -370,19 +468,6 @@ public:
    * @li "domainType"
    */
   virtual bool hasRequiredAttributes() const;
-
-
-  /**
-   * Predicate returning @c true if all the required elements for this Domain
-   * object have been set.
-   *
-   * @return @c true to indicate that all the required elements of this Domain
-   * have been set, otherwise @c false is returned.
-   *
-   *
-   * @note The required elements for the Domain object are:
-   */
-  virtual bool hasRequiredElements() const;
 
 
 
@@ -438,6 +523,19 @@ public:
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix,
                                      bool flag);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Updates the namespaces when setLevelVersion is used
+   */
+  virtual void updateSBMLNamespace(const std::string& package,
+                                   unsigned int level,
+                                   unsigned int version);
 
   /** @endcond */
 
@@ -739,7 +837,7 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * unsigned int number of elements.
+   * @return unsigned int number of elements.
    */
   virtual unsigned int getNumObjects(const std::string& elementName);
 
@@ -754,9 +852,9 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * @param index, unsigned int teh index of teh object to retrieve.
+   * @param index, unsigned int the index of the object to retrieve.
    *
-   * pointer to the object.
+   * @return pointer to the object.
    */
   virtual SBase* getObject(const std::string& elementName, unsigned int index);
 
@@ -775,7 +873,8 @@ public:
    * @param id a string representing the id attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p id.
+   * @return a pointer to the SBase element with the given @p id. If no such
+   * object is found, this method returns @c NULL.
    */
   virtual SBase* getElementBySId(const std::string& id);
 
@@ -787,7 +886,8 @@ public:
    * @param metaid a string representing the metaid attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p metaid.
+   * @return a pointer to the SBase element with the given @p metaid. If no
+   * such object is found this method returns @c NULL.
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
 
@@ -796,8 +896,8 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
-   * filter, an ElementFilter that may impose restrictions on the objects to be
-   * retrieved.
+   * @param filter an ElementFilter that may impose restrictions on the objects
+   * to be retrieved.
    *
    * @return a List* pointer of pointers to all SBase child objects with any
    * restriction imposed.
@@ -890,11 +990,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this Domain_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Domain_t
  */
@@ -911,6 +1009,8 @@ Domain_create(unsigned int level,
  * @param d the Domain_t structure.
  *
  * @return a (deep) copy of this Domain_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Domain_t
  */
@@ -939,11 +1039,30 @@ Domain_free(Domain_t* d);
  * @return the value of the "id" attribute of this Domain_t as a pointer to a
  * string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof Domain_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 Domain_getId(const Domain_t * d);
+
+
+/**
+ * Returns the value of the "name" attribute of this Domain_t.
+ *
+ * @param d the Domain_t structure whose name is sought.
+ *
+ * @return the value of the "name" attribute of this Domain_t as a pointer to a
+ * string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof Domain_t
+ */
+LIBSBML_EXTERN
+char *
+Domain_getName(const Domain_t * d);
 
 
 /**
@@ -954,20 +1073,22 @@ Domain_getId(const Domain_t * d);
  * @return the value of the "domainType" attribute of this Domain_t as a
  * pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof Domain_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 Domain_getDomainType(const Domain_t * d);
 
 
 /**
- * Predicate returning @c 1 if this Domain_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this Domain_t's "id" attribute is set.
  *
  * @param d the Domain_t structure.
  *
- * @return @c 1 if this Domain_t's "id" attribute has been set, otherwise @c 0
- * is returned.
+ * @return @c 1 (true) if this Domain_t's "id" attribute has been set,
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof Domain_t
  */
@@ -977,12 +1098,28 @@ Domain_isSetId(const Domain_t * d);
 
 
 /**
- * Predicate returning @c 1 if this Domain_t's "domainType" attribute is set.
+ * Predicate returning @c 1 (true) if this Domain_t's "name" attribute is set.
  *
  * @param d the Domain_t structure.
  *
- * @return @c 1 if this Domain_t's "domainType" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this Domain_t's "name" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof Domain_t
+ */
+LIBSBML_EXTERN
+int
+Domain_isSetName(const Domain_t * d);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Domain_t's "domainType" attribute is
+ * set.
+ *
+ * @param d the Domain_t structure.
+ *
+ * @return @c 1 (true) if this Domain_t's "domainType" attribute has been set,
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof Domain_t
  */
@@ -1001,12 +1138,37 @@ Domain_isSetDomainType(const Domain_t * d);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling Domain_unsetId().
  *
  * @memberof Domain_t
  */
 LIBSBML_EXTERN
 int
 Domain_setId(Domain_t * d, const char * id);
+
+
+/**
+ * Sets the value of the "name" attribute of this Domain_t.
+ *
+ * @param d the Domain_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling Domain_unsetName().
+ *
+ * @memberof Domain_t
+ */
+LIBSBML_EXTERN
+int
+Domain_setName(Domain_t * d, const char * name);
 
 
 /**
@@ -1020,6 +1182,7 @@ Domain_setId(Domain_t * d, const char * id);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Domain_t
  */
@@ -1036,12 +1199,30 @@ Domain_setDomainType(Domain_t * d, const char * domainType);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Domain_t
  */
 LIBSBML_EXTERN
 int
 Domain_unsetId(Domain_t * d);
+
+
+/**
+ * Unsets the value of the "name" attribute of this Domain_t.
+ *
+ * @param d the Domain_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Domain_t
+ */
+LIBSBML_EXTERN
+int
+Domain_unsetName(Domain_t * d);
 
 
 /**
@@ -1052,6 +1233,7 @@ Domain_unsetId(Domain_t * d);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Domain_t
  */
@@ -1061,11 +1243,21 @@ Domain_unsetDomainType(Domain_t * d);
 
 
 /**
- * Returns a ListOf_t* containing InteriorPoint_t objects from this Domain_t.
+ * Returns a ListOf_t * containing InteriorPoint_t objects from this Domain_t.
  *
- * @param d the Domain_t structure whose "ListOfInteriorPoints" is sought.
+ * @param d the Domain_t structure whose ListOfInteriorPoints is sought.
  *
- * @return the "ListOfInteriorPoints" from this Domain_t as a ListOf_t *.
+ * @return the ListOfInteriorPoints from this Domain_t as a ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see Domain_addInteriorPoint()
+ * @see Domain_createInteriorPoint()
+ * @see Domain_getInteriorPointById()
+ * @see Domain_getInteriorPoint()
+ * @see Domain_getNumInteriorPoints()
+ * @see Domain_removeInteriorPointById()
+ * @see Domain_removeInteriorPoint()
  *
  * @memberof Domain_t
  */
@@ -1085,10 +1277,12 @@ Domain_getListOfInteriorPoints(Domain_t* d);
  * @return the nth InteriorPoint_t in the ListOfInteriorPoints within this
  * Domain.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Domain_t
  */
 LIBSBML_EXTERN
-const InteriorPoint_t*
+InteriorPoint_t*
 Domain_getInteriorPoint(Domain_t* d, unsigned int n);
 
 
@@ -1103,6 +1297,11 @@ Domain_getInteriorPoint(Domain_t* d, unsigned int n);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
  *
  * @memberof Domain_t
  */
@@ -1134,6 +1333,8 @@ Domain_getNumInteriorPoints(Domain_t* d);
  *
  * @return a new InteriorPoint_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Domain_t
  */
 LIBSBML_EXTERN
@@ -1152,6 +1353,8 @@ Domain_createInteriorPoint(Domain_t* d);
  *
  * @return a pointer to the nth InteriorPoint_t in this Domain_t.
  *
+ * @copydetails doc_returned_owned_pointer
+ *
  * @memberof Domain_t
  */
 LIBSBML_EXTERN
@@ -1160,13 +1363,13 @@ Domain_removeInteriorPoint(Domain_t* d, unsigned int n);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this Domain_t
- * object have been set.
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * Domain_t object have been set.
  *
  * @param d the Domain_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this Domain_t
- * have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * Domain_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the Domain_t object are:
@@ -1178,25 +1381,6 @@ Domain_removeInteriorPoint(Domain_t* d, unsigned int n);
 LIBSBML_EXTERN
 int
 Domain_hasRequiredAttributes(const Domain_t * d);
-
-
-/**
- * Predicate returning @c 1 if all the required elements for this Domain_t
- * object have been set.
- *
- * @param d the Domain_t structure.
- *
- * @return @c 1 to indicate that all the required elements of this Domain_t
- * have been set, otherwise @c 0 is returned.
- *
- *
- * @note The required elements for the Domain_t object are:
- *
- * @memberof Domain_t
- */
-LIBSBML_EXTERN
-int
-Domain_hasRequiredElements(const Domain_t * d);
 
 
 

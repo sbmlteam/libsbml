@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -58,7 +58,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 AnalyticGeometry::AnalyticGeometry(unsigned int level,
                                    unsigned int version,
                                    unsigned int pkgVersion)
-  : GeometryDefinition(level, version)
+  : GeometryDefinition(level, version, pkgVersion)
   , mAnalyticVolumes (level, version, pkgVersion)
 {
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
@@ -219,6 +219,10 @@ AnalyticGeometry::addAnalyticVolume(const AnalyticVolume* av)
     return LIBSBML_OPERATION_FAILED;
   }
   else if (av->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (av->hasRequiredElements() == false)
   {
     return LIBSBML_INVALID_OBJECT;
   }
@@ -452,6 +456,25 @@ AnalyticGeometry::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
+ * Updates the namespaces when setLevelVersion is used
+ */
+void
+AnalyticGeometry::updateSBMLNamespace(const std::string& package,
+                                      unsigned int level,
+                                      unsigned int version)
+{
+  GeometryDefinition::updateSBMLNamespace(package, level, version);
+
+  mAnalyticVolumes.updateSBMLNamespace(package, level, version);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
  * Gets the value of the "attributeName" attribute of this AnalyticGeometry.
  */
 int
@@ -667,7 +690,7 @@ AnalyticGeometry::unsetAttribute(const std::string& attributeName)
  * Creates and returns an new "elementName" object in this AnalyticGeometry.
  */
 SBase*
-AnalyticGeometry::createObject(const std::string& elementName)
+AnalyticGeometry::createChildObject(const std::string& elementName)
 {
   GeometryDefinition* obj = NULL;
 
@@ -677,6 +700,50 @@ AnalyticGeometry::createObject(const std::string& elementName)
   }
 
   return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds a new "elementName" object to this AnalyticGeometry.
+ */
+int
+AnalyticGeometry::addChildObject(const std::string& elementName,
+                                 const SBase* element)
+{
+  if (elementName == "analyticVolume" && element->getTypeCode() ==
+    SBML_SPATIAL_ANALYTICVOLUME)
+  {
+    return addAnalyticVolume((const AnalyticVolume*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Removes and returns the new "elementName" object with the given id in this
+ * AnalyticGeometry.
+ */
+SBase*
+AnalyticGeometry::removeChildObject(const std::string& elementName,
+                                    const std::string& id)
+{
+  if (elementName == "analyticVolume")
+  {
+    return removeAnalyticVolume(id);
+  }
+
+  return NULL;
 }
 
 /** @endcond */
@@ -714,7 +781,7 @@ SBase*
 AnalyticGeometry::getObject(const std::string& elementName,
                             unsigned int index)
 {
-  GeometryDefinition* obj = NULL;
+  SBase* obj = NULL;
 
   if (elementName == "analyticVolume")
   {
@@ -867,24 +934,28 @@ AnalyticGeometry::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   GeometryDefinition::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialUnknown, pkgVersion, level,
-        version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial",
-        SpatialAnalyticGeometryAllowedCoreAttributes, pkgVersion, level, version,
-          details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialUnknown, pkgVersion, level,
+          version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialAnalyticGeometryAllowedCoreAttributes, pkgVersion, level,
+            version, details);
+      }
     }
   }
 }
@@ -961,7 +1032,7 @@ AnalyticGeometry_free(AnalyticGeometry_t* ag)
 
 
 /*
- * Returns a ListOf_t* containing AnalyticVolume_t objects from this
+ * Returns a ListOf_t * containing AnalyticVolume_t objects from this
  * AnalyticGeometry_t.
  */
 LIBSBML_EXTERN
@@ -976,7 +1047,7 @@ AnalyticGeometry_getListOfAnalyticVolumes(AnalyticGeometry_t* ag)
  * Get an AnalyticVolume_t from the AnalyticGeometry_t.
  */
 LIBSBML_EXTERN
-const AnalyticVolume_t*
+AnalyticVolume_t*
 AnalyticGeometry_getAnalyticVolume(AnalyticGeometry_t* ag, unsigned int n)
 {
   return (ag != NULL) ? ag->getAnalyticVolume(n) : NULL;
@@ -987,7 +1058,7 @@ AnalyticGeometry_getAnalyticVolume(AnalyticGeometry_t* ag, unsigned int n)
  * Get an AnalyticVolume_t from the AnalyticGeometry_t based on its identifier.
  */
 LIBSBML_EXTERN
-const AnalyticVolume_t*
+AnalyticVolume_t*
 AnalyticGeometry_getAnalyticVolumeById(AnalyticGeometry_t* ag,
                                        const char *sid)
 {
@@ -1000,7 +1071,7 @@ AnalyticGeometry_getAnalyticVolumeById(AnalyticGeometry_t* ag,
  * to which it refers.
  */
 LIBSBML_EXTERN
-const AnalyticVolume_t*
+AnalyticVolume_t*
 AnalyticGeometry_getAnalyticVolumeByDomainType(AnalyticGeometry_t* ag,
                                                const char *sid)
 {
@@ -1070,7 +1141,7 @@ AnalyticGeometry_removeAnalyticVolumeById(AnalyticGeometry_t* ag,
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * AnalyticGeometry_t object have been set.
  */
 LIBSBML_EXTERN
@@ -1082,7 +1153,7 @@ AnalyticGeometry_hasRequiredAttributes(const AnalyticGeometry_t * ag)
 
 
 /*
- * Predicate returning @c 1 if all the required elements for this
+ * Predicate returning @c 1 (true) if all the required elements for this
  * AnalyticGeometry_t object have been set.
  */
 LIBSBML_EXTERN

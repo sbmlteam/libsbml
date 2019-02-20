@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -58,7 +58,6 @@ SpatialPoints::SpatialPoints(unsigned int level,
                              unsigned int version,
                              unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
   , mCompression (SPATIAL_COMPRESSIONKIND_INVALID)
   , mArrayData (NULL)
   , mArrayDataLength (SBML_INT_MAX)
@@ -75,7 +74,6 @@ SpatialPoints::SpatialPoints(unsigned int level,
  */
 SpatialPoints::SpatialPoints(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
-  , mId ("")
   , mCompression (SPATIAL_COMPRESSIONKIND_INVALID)
   , mArrayData (NULL)
   , mArrayDataLength (SBML_INT_MAX)
@@ -92,7 +90,6 @@ SpatialPoints::SpatialPoints(SpatialPkgNamespaces *spatialns)
  */
 SpatialPoints::SpatialPoints(const SpatialPoints& orig)
   : SBase( orig )
-  , mId ( orig.mId )
   , mCompression ( orig.mCompression )
   , mArrayData ( NULL )
   , mArrayDataLength ( orig.mArrayDataLength )
@@ -113,7 +110,6 @@ SpatialPoints::operator=(const SpatialPoints& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId = rhs.mId;
     mCompression = rhs.mCompression;
     mArrayData = NULL;
     setArrayData(rhs.mArrayData, rhs.mArrayDataLength);
@@ -147,16 +143,6 @@ SpatialPoints::~SpatialPoints()
   }
 
   mArrayData = NULL;
-}
-
-
-/*
- * Returns the value of the "id" attribute of this SpatialPoints.
- */
-const std::string&
-SpatialPoints::getId() const
-{
-  return mId;
 }
 
 
@@ -219,28 +205,11 @@ SpatialPoints::getDataType() const
 /*
  * Returns the value of the "dataType" attribute of this SpatialPoints.
  */
-//const std::string&
-//SpatialPoints::getDataTypeAsString() const
-//{
-//  static const std::string code_str = DataKind_toString(mDataType);
-//  return code_str;
-//}
-//bgoli22
 std::string
 SpatialPoints::getDataTypeAsString() const
 {
   std::string code_str = DataKind_toString(mDataType);
   return code_str;
-}
-
-
-/*
- * Predicate returning @c true if this SpatialPoints's "id" attribute is set.
- */
-bool
-SpatialPoints::isSetId() const
-{
-  return (mId.empty() == false);
 }
 
 
@@ -285,16 +254,6 @@ bool
 SpatialPoints::isSetDataType() const
 {
   return (mDataType != SPATIAL_DATAKIND_INVALID);
-}
-
-
-/*
- * Sets the value of the "id" attribute of this SpatialPoints.
- */
-int
-SpatialPoints::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
 }
 
 
@@ -398,42 +357,14 @@ SpatialPoints::setDataType(const DataKind_t dataType)
 int
 SpatialPoints::setDataType(const std::string& dataType)
 {
-  //if (DataKind_isValidString(dataType.c_str()) == 0)
-  //{
-  //  mDataType = SPATIAL_DATAKIND_INVALID;
-  //  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  //}
-  //else
-  //{
-  //  mDataType = DataKind_fromString(dataType.c_str());
-  //  return LIBSBML_OPERATION_SUCCESS;
-  //}
-  //bgoli22
   mDataType = DataKind_fromString(dataType.c_str());
+
   if (mDataType == SPATIAL_DATAKIND_INVALID)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
+
   return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this SpatialPoints.
- */
-int
-SpatialPoints::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
 }
 
 
@@ -525,11 +456,6 @@ bool
 SpatialPoints::hasRequiredAttributes() const
 {
   bool allPresent = true;
-
-  if (isSetId() == false)
-  {
-    allPresent = false;
-  }
 
   if (isSetCompression() == false)
   {
@@ -740,12 +666,7 @@ SpatialPoints::getAttribute(const std::string& attributeName,
     return return_value;
   }
 
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "compression")
+  if (attributeName == "compression")
   {
     value = getCompressionAsString();
     return_value = LIBSBML_OPERATION_SUCCESS;
@@ -774,11 +695,7 @@ SpatialPoints::isSetAttribute(const std::string& attributeName) const
 {
   bool value = SBase::isSetAttribute(attributeName);
 
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "compression")
+  if (attributeName == "compression")
   {
     value = isSetCompression();
   }
@@ -887,11 +804,7 @@ SpatialPoints::setAttribute(const std::string& attributeName,
 {
   int return_value = SBase::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "compression")
+  if (attributeName == "compression")
   {
     return_value = setCompression(value);
   }
@@ -917,11 +830,7 @@ SpatialPoints::unsetAttribute(const std::string& attributeName)
 {
   int value = SBase::unsetAttribute(attributeName);
 
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "compression")
+  if (attributeName == "compression")
   {
     value = unsetCompression();
   }
@@ -955,8 +864,6 @@ SpatialPoints::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   SBase::addExpectedAttributes(attributes);
 
-  attributes.add("id");
-
   attributes.add("compression");
 
   attributes.add("arrayDataLength");
@@ -985,51 +892,29 @@ SpatialPoints::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial", SpatialSpatialPointsAllowedAttributes,
-        pkgVersion, level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial",
-        SpatialSpatialPointsAllowedCoreAttributes, pkgVersion, level, version,
-          details);
-    }
-  }
+    numErrs = log->getNumErrors();
 
-  // 
-  // id SId (use = "required" )
-  // 
-
-  assigned = attributes.readInto("id", mId);
-
-  if (assigned == true)
-  {
-    if (mId.empty() == true)
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      logEmptyString(mId, level, version, "<SpatialPoints>");
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialSpatialPointsAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialSpatialPointsAllowedCoreAttributes, pkgVersion, level, version,
+            details);
+      }
     }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-    {
-      logError(SpatialIdSyntaxRule, level, version, "The id '" + mId + "' does "
-        "not conform to the syntax.");
-    }
-  }
-  else
-  {
-    std::string message = "Spatial attribute 'id' is missing from the "
-      "<SpatialPoints> element.";
-    log->logPackageError("spatial", SpatialSpatialPointsAllowedAttributes,
-      pkgVersion, level, version, message);
   }
 
   // 
@@ -1106,18 +991,18 @@ SpatialPoints::readAttributes(const XMLAttributes& attributes,
   // dataType enum (use = "optional" )
   // 
 
-  std::string datatype;
-  assigned = attributes.readInto("dataType", datatype);
+  std::string dataType;
+  assigned = attributes.readInto("dataType", dataType);
 
   if (assigned == true)
   {
-    if (datatype.empty() == true)
+    if (dataType.empty() == true)
     {
-      logEmptyString(datatype, level, version, "<SpatialPoints>");
+      logEmptyString(dataType, level, version, "<SpatialPoints>");
     }
     else
     {
-      mDataType = DataKind_fromString(datatype.c_str());
+      mDataType = DataKind_fromString(dataType.c_str());
 
       if (DataKind_isValid(mDataType) == 0)
       {
@@ -1128,7 +1013,7 @@ SpatialPoints::readAttributes(const XMLAttributes& attributes,
           msg += "with id '" + getId() + "'";
         }
 
-        msg += "is '" + datatype + "', which is not a valid option.";
+        msg += "is '" + dataType + "', which is not a valid option.";
 
         log->logPackageError("spatial",
           SpatialSpatialPointsDataTypeMustBeDataKindEnum, pkgVersion, level,
@@ -1151,11 +1036,6 @@ void
 SpatialPoints::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
-
-  if (isSetId() == true)
-  {
-    stream.writeAttribute("id", getPrefix(), mId);
-  }
 
   if (isSetCompression() == true)
   {
@@ -1268,22 +1148,6 @@ SpatialPoints_free(SpatialPoints_t* sp)
 
 
 /*
- * Returns the value of the "id" attribute of this SpatialPoints_t.
- */
-LIBSBML_EXTERN
-const char *
-SpatialPoints_getId(const SpatialPoints_t * sp)
-{
-  if (sp == NULL)
-  {
-    return NULL;
-  }
-
-  return sp->getId().empty() ? NULL : safe_strdup(sp->getId().c_str());
-}
-
-
-/*
  * Returns the value of the "compression" attribute of this SpatialPoints_t.
  */
 LIBSBML_EXTERN
@@ -1303,10 +1167,10 @@ SpatialPoints_getCompression(const SpatialPoints_t * sp)
  * Returns the value of the "compression" attribute of this SpatialPoints_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 SpatialPoints_getCompressionAsString(const SpatialPoints_t * sp)
 {
-  return CompressionKind_toString(sp->getCompression());
+  return (char*)(CompressionKind_toString(sp->getCompression()));
 }
 
 
@@ -1342,27 +1206,16 @@ SpatialPoints_getDataType(const SpatialPoints_t * sp)
  * Returns the value of the "dataType" attribute of this SpatialPoints_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 SpatialPoints_getDataTypeAsString(const SpatialPoints_t * sp)
 {
-  return DataKind_toString(sp->getDataType());
+  return (char*)(DataKind_toString(sp->getDataType()));
 }
 
 
 /*
- * Predicate returning @c 1 if this SpatialPoints_t's "id" attribute is set.
- */
-LIBSBML_EXTERN
-int
-SpatialPoints_isSetId(const SpatialPoints_t * sp)
-{
-  return (sp != NULL) ? static_cast<int>(sp->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 if this SpatialPoints_t's "compression" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this SpatialPoints_t's "compression"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1373,8 +1226,8 @@ SpatialPoints_isSetCompression(const SpatialPoints_t * sp)
 
 
 /*
- * Predicate returning @c 1 if this SpatialPoints_t's "arrayData" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SpatialPoints_t's "arrayData"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1385,7 +1238,7 @@ SpatialPoints_isSetArrayData(const SpatialPoints_t * sp)
 
 
 /*
- * Predicate returning @c 1 if this SpatialPoints_t's "arrayDataLength"
+ * Predicate returning @c 1 (true) if this SpatialPoints_t's "arrayDataLength"
  * attribute is set.
  */
 LIBSBML_EXTERN
@@ -1397,25 +1250,14 @@ SpatialPoints_isSetArrayDataLength(const SpatialPoints_t * sp)
 
 
 /*
- * Predicate returning @c 1 if this SpatialPoints_t's "dataType" attribute is
- * set.
+ * Predicate returning @c 1 (true) if this SpatialPoints_t's "dataType"
+ * attribute is set.
  */
 LIBSBML_EXTERN
 int
 SpatialPoints_isSetDataType(const SpatialPoints_t * sp)
 {
   return (sp != NULL) ? static_cast<int>(sp->isSetDataType()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this SpatialPoints_t.
- */
-LIBSBML_EXTERN
-int
-SpatialPoints_setId(SpatialPoints_t * sp, const char * id)
-{
-  return (sp != NULL) ? sp->setId(id) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1494,17 +1336,6 @@ SpatialPoints_setDataTypeAsString(SpatialPoints_t * sp, const char * dataType)
 
 
 /*
- * Unsets the value of the "id" attribute of this SpatialPoints_t.
- */
-LIBSBML_EXTERN
-int
-SpatialPoints_unsetId(SpatialPoints_t * sp)
-{
-  return (sp != NULL) ? sp->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
  * Unsets the value of the "compression" attribute of this SpatialPoints_t.
  */
 LIBSBML_EXTERN
@@ -1549,7 +1380,7 @@ SpatialPoints_unsetDataType(SpatialPoints_t * sp)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * SpatialPoints_t object have been set.
  */
 LIBSBML_EXTERN

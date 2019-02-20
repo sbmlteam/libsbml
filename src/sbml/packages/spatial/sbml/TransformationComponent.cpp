@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -530,7 +530,7 @@ TransformationComponent::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Predicate returning @c true if this TransformationComponents's attribute
+ * Predicate returning @c true if this TransformationComponent's attribute
  * "attributeName" is set.
  */
 bool
@@ -716,25 +716,29 @@ TransformationComponent::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial",
-        SpatialTransformationComponentAllowedAttributes, pkgVersion, level,
-          version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial",
-        SpatialTransformationComponentAllowedCoreAttributes, pkgVersion, level,
-          version, details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial",
+          SpatialTransformationComponentAllowedAttributes, pkgVersion, level,
+            version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialTransformationComponentAllowedCoreAttributes, pkgVersion, level,
+            version, details);
+      }
     }
   }
 
@@ -895,8 +899,8 @@ TransformationComponent_getComponentsLength(const TransformationComponent_t *
 
 
 /*
- * Predicate returning @c 1 if this TransformationComponent_t's "components"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this TransformationComponent_t's
+ * "components" attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -907,7 +911,7 @@ TransformationComponent_isSetComponents(const TransformationComponent_t * tc)
 
 
 /*
- * Predicate returning @c 1 if this TransformationComponent_t's
+ * Predicate returning @c 1 (true) if this TransformationComponent_t's
  * "componentsLength" attribute is set.
  */
 LIBSBML_EXTERN
@@ -973,7 +977,7 @@ TransformationComponent_unsetComponentsLength(TransformationComponent_t * tc)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * TransformationComponent_t object have been set.
  */
 LIBSBML_EXTERN

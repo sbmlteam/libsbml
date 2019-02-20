@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -696,25 +696,28 @@ AdvectionCoefficient::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
-
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial",
-        SpatialAdvectionCoefficientAllowedAttributes, pkgVersion, level, version,
-          details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial",
-        SpatialAdvectionCoefficientAllowedCoreAttributes, pkgVersion, level,
-          version, details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial",
+          SpatialAdvectionCoefficientAllowedAttributes, pkgVersion, level,
+            version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialAdvectionCoefficientAllowedCoreAttributes, pkgVersion, level,
+            version, details);
+      }
     }
   }
 
@@ -732,9 +735,17 @@ AdvectionCoefficient::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mVariable) == false)
     {
-      logError(SpatialAdvectionCoefficientVariableMustBeSpecies, level,
-        version, "The attribute variable='" + mVariable + "' does not conform to "
-          "the syntax.");
+      std::string msg = "The variable attribute on the <" + getElementName() +
+        ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mVariable + "', which does not conform to the syntax.";
+      log->logPackageError("spatial",
+        SpatialAdvectionCoefficientVariableMustBeSpecies, pkgVersion, level,
+          version, msg, getLine(), getColumn());
     }
   }
   else
@@ -876,7 +887,7 @@ AdvectionCoefficient_free(AdvectionCoefficient_t* ac)
  * AdvectionCoefficient_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 AdvectionCoefficient_getVariable(const AdvectionCoefficient_t * ac)
 {
   if (ac == NULL)
@@ -911,15 +922,15 @@ AdvectionCoefficient_getCoordinate(const AdvectionCoefficient_t * ac)
  * AdvectionCoefficient_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 AdvectionCoefficient_getCoordinateAsString(const AdvectionCoefficient_t * ac)
 {
-  return CoordinateKind_toString(ac->getCoordinate());
+  return (char*)(CoordinateKind_toString(ac->getCoordinate()));
 }
 
 
 /*
- * Predicate returning @c 1 if this AdvectionCoefficient_t's "variable"
+ * Predicate returning @c 1 (true) if this AdvectionCoefficient_t's "variable"
  * attribute is set.
  */
 LIBSBML_EXTERN
@@ -931,8 +942,8 @@ AdvectionCoefficient_isSetVariable(const AdvectionCoefficient_t * ac)
 
 
 /*
- * Predicate returning @c 1 if this AdvectionCoefficient_t's "coordinate"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this AdvectionCoefficient_t's
+ * "coordinate" attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1002,7 +1013,7 @@ AdvectionCoefficient_unsetCoordinate(AdvectionCoefficient_t * ac)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * AdvectionCoefficient_t object have been set.
  */
 LIBSBML_EXTERN

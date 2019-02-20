@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -36,6 +36,70 @@
  *
  * @class ParametricObject
  * @sbmlbrief{spatial} TODO:Definition of the ParametricObject class.
+ */
+
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file. The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality. Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ *
+ *
+ * @class doc_parametricobject_polygonType
+ *
+ * @par
+ * The attribute "polygonType" on a ParametricObject object is used to TODO:add
+ * explanation
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
+ * allowable values for "polygonType":
+ * <ul>
+ * <li> @c "triangle", TODO:add description
+ *
+ * <li> @c "quadrilateral", TODO:add description
+ *
+ * </ul>
+ *
+ * @class doc_parametricobject_compression
+ *
+ * @par
+ * The attribute "compression" on a ParametricObject object is used to TODO:add
+ * explanation
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
+ * allowable values for "compression":
+ * <ul>
+ * <li> @c "uncompressed", TODO:add description
+ *
+ * <li> @c "deflated", TODO:add description
+ *
+ * </ul>
+ *
+ * @class doc_parametricobject_dataType
+ *
+ * @par
+ * The attribute "dataType" on a ParametricObject object is used to TODO:add
+ * explanation
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
+ * allowable values for "dataType":
+ * <ul>
+ * <li> @c "double", TODO:add description
+ *
+ * <li> @c "float", TODO:add description
+ *
+ * <li> @c "uint8", TODO:add description
+ *
+ * <li> @c "uint16", TODO:add description
+ *
+ * <li> @c "uint32", TODO:add description
+ *
+ * </ul>
  */
 
 
@@ -67,7 +131,6 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  std::string mId;
   PolygonKind_t mPolygonType;
   std::string mDomainType;
   int* mPointIndex;
@@ -93,11 +156,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
    * this ParametricObject.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ParametricObject(unsigned int level = SpatialExtension::getDefaultLevel(),
                    unsigned int version =
@@ -110,13 +169,11 @@ public:
    * Creates a new ParametricObject using the given SpatialPkgNamespaces
    * object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param spatialns the SpatialPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ParametricObject(SpatialPkgNamespaces *spatialns);
 
@@ -158,7 +215,16 @@ public:
    * @return the value of the "id" attribute of this ParametricObject as a
    * string.
    */
-  const std::string& getId() const;
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this ParametricObject.
+   *
+   * @return the value of the "name" attribute of this ParametricObject as a
+   * string.
+   */
+  virtual const std::string& getName() const;
 
 
   /**
@@ -166,6 +232,14 @@ public:
    *
    * @return the value of the "polygonType" attribute of this ParametricObject
    * as a PolygonKind_t.
+   *
+   * @copydetails doc_parametricobject_polygonType
+   * @if clike The value is drawn from the enumeration @ref PolygonKind_t
+   * @endif
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_POLYGONKIND_TRIANGLE, PolygonKind_t}
+   * @li @sbmlconstant{SPATIAL_POLYGONKIND_QUADRILATERAL, PolygonKind_t}
+   * @li @sbmlconstant{SPATIAL_POLYGONKIND_INVALID, PolygonKind_t}
    */
   PolygonKind_t getPolygonType() const;
 
@@ -175,9 +249,14 @@ public:
    *
    * @return the value of the "polygonType" attribute of this ParametricObject
    * as a string.
+   *
+   * @copydetails doc_parametricobject_polygonType
+   * The possible values returned by this method are:
+   * @li @c "triangle"
+   * @li @c "quadrilateral"
+   * @li @c "invalid PolygonKind value"
    */
   std::string getPolygonTypeAsString() const;
-  //bgoli22
 
 
   /**
@@ -216,6 +295,14 @@ public:
    *
    * @return the value of the "compression" attribute of this ParametricObject
    * as a CompressionKind_t.
+   *
+   * @copydetails doc_parametricobject_compression
+   * @if clike The value is drawn from the enumeration @ref CompressionKind_t
+   * @endif
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_UNCOMPRESSED, CompressionKind_t}
+   * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_DEFLATED, CompressionKind_t}
+   * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_INVALID, CompressionKind_t}
    */
   CompressionKind_t getCompression() const;
 
@@ -225,6 +312,12 @@ public:
    *
    * @return the value of the "compression" attribute of this ParametricObject
    * as a string.
+   *
+   * @copydetails doc_parametricobject_compression
+   * The possible values returned by this method are:
+   * @li @c "uncompressed"
+   * @li @c "deflated"
+   * @li @c "invalid CompressionKind value"
    */
   const std::string& getCompressionAsString() const;
 
@@ -234,6 +327,16 @@ public:
    *
    * @return the value of the "dataType" attribute of this ParametricObject as
    * a DataKind_t.
+   *
+   * @copydetails doc_parametricobject_dataType
+   * @if clike The value is drawn from the enumeration @ref DataKind_t @endif
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_DATAKIND_DOUBLE, DataKind_t}
+   * @li @sbmlconstant{SPATIAL_DATAKIND_FLOAT, DataKind_t}
+   * @li @sbmlconstant{SPATIAL_DATAKIND_UINT8, DataKind_t}
+   * @li @sbmlconstant{SPATIAL_DATAKIND_UINT16, DataKind_t}
+   * @li @sbmlconstant{SPATIAL_DATAKIND_UINT32, DataKind_t}
+   * @li @sbmlconstant{SPATIAL_DATAKIND_INVALID, DataKind_t}
    */
   DataKind_t getDataType() const;
 
@@ -243,9 +346,17 @@ public:
    *
    * @return the value of the "dataType" attribute of this ParametricObject as
    * a string.
+   *
+   * @copydetails doc_parametricobject_dataType
+   * The possible values returned by this method are:
+   * @li @c "double"
+   * @li @c "float"
+   * @li @c "uint8"
+   * @li @c "uint16"
+   * @li @c "uint32"
+   * @li @c "invalid DataKind value"
    */
   std::string getDataTypeAsString() const;
-  //bgoli22
 
 
   /**
@@ -255,7 +366,17 @@ public:
    * @return @c true if this ParametricObject's "id" attribute has been set,
    * otherwise @c false is returned.
    */
-  bool isSetId() const;
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true if this ParametricObject's "name" attribute is
+   * set.
+   *
+   * @return @c true if this ParametricObject's "name" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
 
 
   /**
@@ -264,6 +385,8 @@ public:
    *
    * @return @c true if this ParametricObject's "polygonType" attribute has
    * been set, otherwise @c false is returned.
+   *
+   * @copydetails doc_parametricobject_polygonType
    */
   bool isSetPolygonType() const;
 
@@ -304,6 +427,8 @@ public:
    *
    * @return @c true if this ParametricObject's "compression" attribute has
    * been set, otherwise @c false is returned.
+   *
+   * @copydetails doc_parametricobject_compression
    */
   bool isSetCompression() const;
 
@@ -314,6 +439,8 @@ public:
    *
    * @return @c true if this ParametricObject's "dataType" attribute has been
    * set, otherwise @c false is returned.
+   *
+   * @copydetails doc_parametricobject_dataType
    */
   bool isSetDataType() const;
 
@@ -327,20 +454,39 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * Calling this function with @p id = @c NULL or an empty string is
+   * equivalent to calling unsetId().
    */
-  int setId(const std::string& id);
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "name" attribute of this ParametricObject.
+   *
+   * @param name std::string& value of the "name" attribute to be set.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p name = @c NULL or an empty string is
+   * equivalent to calling unsetName().
+   */
+  virtual int setName(const std::string& name);
 
 
   /**
    * Sets the value of the "polygonType" attribute of this ParametricObject.
    *
-   * @param polygonType PolygonKind_t value of the "polygonType" attribute to
-   * be set.
+   * @param polygonType @if clike PolygonKind_t@else int@endif value of the
+   * "polygonType" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_parametricobject_polygonType
    */
   int setPolygonType(const PolygonKind_t polygonType);
 
@@ -354,6 +500,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_parametricobject_polygonType
    */
   int setPolygonType(const std::string& polygonType);
 
@@ -406,13 +554,15 @@ public:
   /**
    * Sets the value of the "compression" attribute of this ParametricObject.
    *
-   * @param compression CompressionKind_t value of the "compression" attribute
-   * to be set.
+   * @param compression @if clike CompressionKind_t@else int@endif value of the
+   * "compression" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_parametricobject_compression
    */
   int setCompression(const CompressionKind_t compression);
 
@@ -426,6 +576,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_parametricobject_compression
    */
   int setCompression(const std::string& compression);
 
@@ -433,12 +585,15 @@ public:
   /**
    * Sets the value of the "dataType" attribute of this ParametricObject.
    *
-   * @param dataType DataKind_t value of the "dataType" attribute to be set.
+   * @param dataType @if clike DataKind_t@else int@endif value of the
+   * "dataType" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_parametricobject_dataType
    */
   int setDataType(const DataKind_t dataType);
 
@@ -452,6 +607,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * @copydetails doc_parametricobject_dataType
    */
   int setDataType(const std::string& dataType);
 
@@ -463,15 +620,26 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetId();
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this ParametricObject.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetName();
 
 
   /**
    * Unsets the value of the "polygonType" attribute of this ParametricObject.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_parametricobject_polygonType
    */
   int unsetPolygonType();
 
@@ -510,9 +678,10 @@ public:
   /**
    * Unsets the value of the "compression" attribute of this ParametricObject.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_parametricobject_compression
    */
   int unsetCompression();
 
@@ -520,9 +689,10 @@ public:
   /**
    * Unsets the value of the "dataType" attribute of this ParametricObject.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_parametricobject_dataType
    */
   int unsetDataType();
 
@@ -537,8 +707,8 @@ public:
   /**
    * Returns the XML element name of this ParametricObject object.
    *
-   * For ParametricObject, the XML element name is always @c
-   * "parametricObject".
+   * For ParametricObject, the XML element name is always
+   * @c "parametricObject".
    *
    * @return the name of this element, i.e. @c "parametricObject".
    */
@@ -551,8 +721,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_SPATIAL_PARAMETRICOBJECT, SBMLSpatialTypeCode_t}
+   * @sbmlconstant{SBML_SPATIAL_PARAMETRICOBJECT, SBMLSpatialTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -966,11 +1135,9 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
  * this ParametricObject_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof ParametricObject_t
  */
@@ -987,6 +1154,8 @@ ParametricObject_create(unsigned int level,
  * @param po the ParametricObject_t structure.
  *
  * @return a (deep) copy of this ParametricObject_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof ParametricObject_t
  */
@@ -1015,11 +1184,30 @@ ParametricObject_free(ParametricObject_t* po);
  * @return the value of the "id" attribute of this ParametricObject_t as a
  * pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof ParametricObject_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 ParametricObject_getId(const ParametricObject_t * po);
+
+
+/**
+ * Returns the value of the "name" attribute of this ParametricObject_t.
+ *
+ * @param po the ParametricObject_t structure whose name is sought.
+ *
+ * @return the value of the "name" attribute of this ParametricObject_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof ParametricObject_t
+ */
+LIBSBML_EXTERN
+char *
+ParametricObject_getName(const ParametricObject_t * po);
 
 
 /**
@@ -1029,6 +1217,13 @@ ParametricObject_getId(const ParametricObject_t * po);
  *
  * @return the value of the "polygonType" attribute of this ParametricObject_t
  * as a PolygonKind_t.
+ *
+ * @copydetails doc_parametricobject_polygonType
+ * @if clike The value is drawn from the enumeration @ref PolygonKind_t @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_POLYGONKIND_TRIANGLE, PolygonKind_t}
+ * @li @sbmlconstant{SPATIAL_POLYGONKIND_QUADRILATERAL, PolygonKind_t}
+ * @li @sbmlconstant{SPATIAL_POLYGONKIND_INVALID, PolygonKind_t}
  *
  * @memberof ParametricObject_t
  */
@@ -1045,10 +1240,18 @@ ParametricObject_getPolygonType(const ParametricObject_t * po);
  * @return the value of the "polygonType" attribute of this ParametricObject_t
  * as a const char *.
  *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_parametricobject_polygonType
+ * The possible values returned by this method are:
+ * @li @c "triangle"
+ * @li @c "quadrilateral"
+ * @li @c "invalid PolygonKind value"
+ *
  * @memberof ParametricObject_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 ParametricObject_getPolygonTypeAsString(const ParametricObject_t * po);
 
 
@@ -1060,10 +1263,12 @@ ParametricObject_getPolygonTypeAsString(const ParametricObject_t * po);
  * @return the value of the "domainType" attribute of this ParametricObject_t
  * as a pointer to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof ParametricObject_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 ParametricObject_getDomainType(const ParametricObject_t * po);
 
 
@@ -1091,6 +1296,14 @@ ParametricObject_getPointIndexLength(const ParametricObject_t * po);
  * @return the value of the "compression" attribute of this ParametricObject_t
  * as a CompressionKind_t.
  *
+ * @copydetails doc_parametricobject_compression
+ * @if clike The value is drawn from the enumeration @ref CompressionKind_t
+ * @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_UNCOMPRESSED, CompressionKind_t}
+ * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_DEFLATED, CompressionKind_t}
+ * @li @sbmlconstant{SPATIAL_COMPRESSIONKIND_INVALID, CompressionKind_t}
+ *
  * @memberof ParametricObject_t
  */
 LIBSBML_EXTERN
@@ -1106,10 +1319,18 @@ ParametricObject_getCompression(const ParametricObject_t * po);
  * @return the value of the "compression" attribute of this ParametricObject_t
  * as a const char *.
  *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_parametricobject_compression
+ * The possible values returned by this method are:
+ * @li @c "uncompressed"
+ * @li @c "deflated"
+ * @li @c "invalid CompressionKind value"
+ *
  * @memberof ParametricObject_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 ParametricObject_getCompressionAsString(const ParametricObject_t * po);
 
 
@@ -1120,6 +1341,16 @@ ParametricObject_getCompressionAsString(const ParametricObject_t * po);
  *
  * @return the value of the "dataType" attribute of this ParametricObject_t as
  * a DataKind_t.
+ *
+ * @copydetails doc_parametricobject_dataType
+ * @if clike The value is drawn from the enumeration @ref DataKind_t @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_DATAKIND_DOUBLE, DataKind_t}
+ * @li @sbmlconstant{SPATIAL_DATAKIND_FLOAT, DataKind_t}
+ * @li @sbmlconstant{SPATIAL_DATAKIND_UINT8, DataKind_t}
+ * @li @sbmlconstant{SPATIAL_DATAKIND_UINT16, DataKind_t}
+ * @li @sbmlconstant{SPATIAL_DATAKIND_UINT32, DataKind_t}
+ * @li @sbmlconstant{SPATIAL_DATAKIND_INVALID, DataKind_t}
  *
  * @memberof ParametricObject_t
  */
@@ -1136,20 +1367,32 @@ ParametricObject_getDataType(const ParametricObject_t * po);
  * @return the value of the "dataType" attribute of this ParametricObject_t as
  * a const char *.
  *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_parametricobject_dataType
+ * The possible values returned by this method are:
+ * @li @c "double"
+ * @li @c "float"
+ * @li @c "uint8"
+ * @li @c "uint16"
+ * @li @c "uint32"
+ * @li @c "invalid DataKind value"
+ *
  * @memberof ParametricObject_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 ParametricObject_getDataTypeAsString(const ParametricObject_t * po);
 
 
 /**
- * Predicate returning @c 1 if this ParametricObject_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this ParametricObject_t's "id" attribute
+ * is set.
  *
  * @param po the ParametricObject_t structure.
  *
- * @return @c 1 if this ParametricObject_t's "id" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this ParametricObject_t's "id" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
  * @memberof ParametricObject_t
  */
@@ -1159,13 +1402,31 @@ ParametricObject_isSetId(const ParametricObject_t * po);
 
 
 /**
- * Predicate returning @c 1 if this ParametricObject_t's "polygonType"
+ * Predicate returning @c 1 (true) if this ParametricObject_t's "name"
  * attribute is set.
  *
  * @param po the ParametricObject_t structure.
  *
- * @return @c 1 if this ParametricObject_t's "polygonType" attribute has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this ParametricObject_t's "name" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_isSetName(const ParametricObject_t * po);
+
+
+/**
+ * Predicate returning @c 1 (true) if this ParametricObject_t's "polygonType"
+ * attribute is set.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return @c 1 (true) if this ParametricObject_t's "polygonType" attribute has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_parametricobject_polygonType
  *
  * @memberof ParametricObject_t
  */
@@ -1175,13 +1436,13 @@ ParametricObject_isSetPolygonType(const ParametricObject_t * po);
 
 
 /**
- * Predicate returning @c 1 if this ParametricObject_t's "domainType" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this ParametricObject_t's "domainType"
+ * attribute is set.
  *
  * @param po the ParametricObject_t structure.
  *
- * @return @c 1 if this ParametricObject_t's "domainType" attribute has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this ParametricObject_t's "domainType" attribute has
+ * been set, otherwise @c 0 (false) is returned.
  *
  * @memberof ParametricObject_t
  */
@@ -1191,13 +1452,13 @@ ParametricObject_isSetDomainType(const ParametricObject_t * po);
 
 
 /**
- * Predicate returning @c 1 if this ParametricObject_t's "pointIndex" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this ParametricObject_t's "pointIndex"
+ * attribute is set.
  *
  * @param po the ParametricObject_t structure.
  *
- * @return @c 1 if this ParametricObject_t's "pointIndex" attribute has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this ParametricObject_t's "pointIndex" attribute has
+ * been set, otherwise @c 0 (false) is returned.
  *
  * @memberof ParametricObject_t
  */
@@ -1207,13 +1468,13 @@ ParametricObject_isSetPointIndex(const ParametricObject_t * po);
 
 
 /**
- * Predicate returning @c 1 if this ParametricObject_t's "pointIndexLength"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this ParametricObject_t's
+ * "pointIndexLength" attribute is set.
  *
  * @param po the ParametricObject_t structure.
  *
- * @return @c 1 if this ParametricObject_t's "pointIndexLength" attribute has
- * been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this ParametricObject_t's "pointIndexLength"
+ * attribute has been set, otherwise @c 0 (false) is returned.
  *
  * @memberof ParametricObject_t
  */
@@ -1223,13 +1484,15 @@ ParametricObject_isSetPointIndexLength(const ParametricObject_t * po);
 
 
 /**
- * Predicate returning @c 1 if this ParametricObject_t's "compression"
+ * Predicate returning @c 1 (true) if this ParametricObject_t's "compression"
  * attribute is set.
  *
  * @param po the ParametricObject_t structure.
  *
- * @return @c 1 if this ParametricObject_t's "compression" attribute has been
- * set, otherwise @c 0 is returned.
+ * @return @c 1 (true) if this ParametricObject_t's "compression" attribute has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_parametricobject_compression
  *
  * @memberof ParametricObject_t
  */
@@ -1239,13 +1502,15 @@ ParametricObject_isSetCompression(const ParametricObject_t * po);
 
 
 /**
- * Predicate returning @c 1 if this ParametricObject_t's "dataType" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this ParametricObject_t's "dataType"
+ * attribute is set.
  *
  * @param po the ParametricObject_t structure.
  *
- * @return @c 1 if this ParametricObject_t's "dataType" attribute has been set,
- * otherwise @c 0 is returned.
+ * @return @c 1 (true) if this ParametricObject_t's "dataType" attribute has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_parametricobject_dataType
  *
  * @memberof ParametricObject_t
  */
@@ -1264,12 +1529,37 @@ ParametricObject_isSetDataType(const ParametricObject_t * po);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling ParametricObject_unsetId().
  *
  * @memberof ParametricObject_t
  */
 LIBSBML_EXTERN
 int
 ParametricObject_setId(ParametricObject_t * po, const char * id);
+
+
+/**
+ * Sets the value of the "name" attribute of this ParametricObject_t.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling ParametricObject_unsetName().
+ *
+ * @memberof ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_setName(ParametricObject_t * po, const char * name);
 
 
 /**
@@ -1283,6 +1573,9 @@ ParametricObject_setId(ParametricObject_t * po, const char * id);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_parametricobject_polygonType
  *
  * @memberof ParametricObject_t
  */
@@ -1302,6 +1595,9 @@ ParametricObject_setPolygonType(ParametricObject_t * po,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_parametricobject_polygonType
  *
  * @memberof ParametricObject_t
  */
@@ -1322,6 +1618,7 @@ ParametricObject_setPolygonTypeAsString(ParametricObject_t * po,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof ParametricObject_t
  */
@@ -1366,6 +1663,7 @@ ParametricObject_setPointIndex(ParametricObject_t* po,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof ParametricObject_t
  */
@@ -1386,6 +1684,9 @@ ParametricObject_setPointIndexLength(ParametricObject_t * po,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_parametricobject_compression
  *
  * @memberof ParametricObject_t
  */
@@ -1405,6 +1706,9 @@ ParametricObject_setCompression(ParametricObject_t * po,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_parametricobject_compression
  *
  * @memberof ParametricObject_t
  */
@@ -1424,6 +1728,9 @@ ParametricObject_setCompressionAsString(ParametricObject_t * po,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_parametricobject_dataType
  *
  * @memberof ParametricObject_t
  */
@@ -1442,6 +1749,9 @@ ParametricObject_setDataType(ParametricObject_t * po, DataKind_t dataType);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_parametricobject_dataType
  *
  * @memberof ParametricObject_t
  */
@@ -1459,6 +1769,7 @@ ParametricObject_setDataTypeAsString(ParametricObject_t * po,
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof ParametricObject_t
  */
@@ -1468,13 +1779,32 @@ ParametricObject_unsetId(ParametricObject_t * po);
 
 
 /**
- * Unsets the value of the "polygonType" attribute of this ParametricObject_t.
+ * Unsets the value of the "name" attribute of this ParametricObject_t.
  *
  * @param po the ParametricObject_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_unsetName(ParametricObject_t * po);
+
+
+/**
+ * Unsets the value of the "polygonType" attribute of this ParametricObject_t.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_parametricobject_polygonType
  *
  * @memberof ParametricObject_t
  */
@@ -1491,6 +1821,7 @@ ParametricObject_unsetPolygonType(ParametricObject_t * po);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof ParametricObject_t
  */
@@ -1507,6 +1838,7 @@ ParametricObject_unsetDomainType(ParametricObject_t * po);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof ParametricObject_t
  */
@@ -1524,6 +1856,7 @@ ParametricObject_unsetPointIndex(ParametricObject_t * po);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof ParametricObject_t
  */
@@ -1539,7 +1872,9 @@ ParametricObject_unsetPointIndexLength(ParametricObject_t * po);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_parametricobject_compression
  *
  * @memberof ParametricObject_t
  */
@@ -1555,7 +1890,9 @@ ParametricObject_unsetCompression(ParametricObject_t * po);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_parametricobject_dataType
  *
  * @memberof ParametricObject_t
  */
@@ -1565,13 +1902,13 @@ ParametricObject_unsetDataType(ParametricObject_t * po);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this
+ * Predicate returning @c 1 (true) if all the required attributes for this
  * ParametricObject_t object have been set.
  *
  * @param po the ParametricObject_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this
- * ParametricObject_t have been set, otherwise @c 0 is returned.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * ParametricObject_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the ParametricObject_t object are:
