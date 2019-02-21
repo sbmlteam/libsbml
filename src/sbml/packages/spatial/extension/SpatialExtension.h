@@ -467,7 +467,7 @@ BoundaryKind_toString(BoundaryKind_t bk);
  */
 LIBSBML_EXTERN
 BoundaryKind_t
-BoundaryConditionKind_parse(const char* code);
+BoundaryKind_parse(const char* code);
 
 /**
  * Returns the #BoundaryKind_t enumeration corresponding to the given string or
