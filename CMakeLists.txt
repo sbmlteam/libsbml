@@ -854,7 +854,76 @@ invalid. It should contain the file check.h, but it does not.")
       set(MEMCHECK_COMMAND
          "${CMAKE_MEMORYCHECK_COMMAND} ${CMAKE_MEMORYCHECK_COMMAND_OPTIONS}")
       separate_arguments(MEMCHECK_COMMAND)
-  endif()
+
+      # check that check compiles/links - needs cmake 3+
+
+      if(${CMAKE_VERSION} VERSION_GREATER 3.0.0)
+        set(CHECK_CHECK_CODE
+        "
+        #include <check.h>
+        
+        START_TEST (sanity_check)
+        {
+            fail_unless(5 == 5, \"this should succeed\");
+            fail_unless(6 == 5, \"this should fail\");
+        }
+        END_TEST
+        
+        int 
+        main(void)
+        {
+            Suite *s1 = suite_create(\"Core\");
+            TCase *tc1_1 = tcase_create(\"Core\");
+            SRunner *sr = srunner_create(s1);
+            int nf;
+        
+            suite_add_tcase(s1, tc1_1);
+            tcase_add_test(tc1_1, sanity_check);
+        
+            srunner_run_all(sr, CK_ENV);
+            nf = srunner_ntests_failed(sr);
+            srunner_free(sr);
+            ;
+            return nf == 0 ? 0 : 1;
+        }
+        " 
+        )
+
+        set(CMAKE_REQUIRED_LIBRARIES_CACHE ${CMAKE_REQUIRED_LIBRARIES})
+        unset(CHECK_CHECK_TEST CACHE)
+        unset(CHECK_CHECK_TEST2 CACHE)
+
+        set(CHECK_CHECK_TEST)
+        set(CMAKE_REQUIRED_LIBRARIES "-lcheck -lm ${EXTRA_LIBS}")
+        CHECK_C_SOURCE_COMPILES("${CHECK_CHECK_CODE}" CHECK_CHECK_TEST)
+
+        if (NOT CHECK_CHECK_TEST)
+            set(CHECK_CHECK_TEST2)
+            set(CMAKE_REQUIRED_LIBRARIES "-lcheck -lm -pthread -lrt -lsubunit ${EXTRA_LIBS}")
+            CHECK_C_SOURCE_COMPILES("${CHECK_CHECK_CODE}" CHECK_CHECK_TEST2)
+            
+            if (CHECK_CHECK_TEST2)
+                set(CHECK_TMP_LIBS "-pthread -lrt -lsubunit ${EXTRA_LIBS}")
+                string(STRIP "${CHECK_TMP_LIBS}" CHECK_TMP_LIBS)
+                set(EXTRA_LIBS "${CHECK_TMP_LIBS}" CACHE STRING
+                "List of additional libraries to link against.  Separate multiple
+                names using semicolons." FORCE)                
+                unset(CHECK_TMP_LIBS)
+                message(STATUS "Check requires the following EXTRA_LIBS : ${EXTRA_LIBS}")
+            else ()
+                message(WARNING
+"Check cannot compile tests, please specify the correct EXTRA_LIBS for your operating system.")            
+            endif (CHECK_CHECK_TEST2)
+            unset(CHECK_CHECK_TEST2 CACHE)
+
+        endif (NOT CHECK_CHECK_TEST)
+
+        unset(CHECK_CHECK_TEST CACHE)
+        set(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_FLAGS_CACHE})
+
+      endif(${CMAKE_VERSION} VERSION_GREATER 3.0.0)
+
+  endif(UNIX)
 
     include(CTest)
 
@@ -980,6 +1049,33 @@ other operating systems.)" OFF)
         set(BUILD_DEFINITIONS "${BUILD_DEFINITIONS} -DLINUX")
     endif(APPLE)
 
+    if(WITH_CHECK)
+        if(CMAKE_VERSION VERSION_GREATER "3.0.0")
+            # https://cmake.org/cmake/help/v3.0/module/CheckCXXSourceCompiles.html
+            # CMAKE_REQUIRED_FLAGS = string of compile command line flags
+            # CMAKE_REQUIRED_DEFINITIONS = list of macros to define (-DFOO=bar)
+            # CMAKE_REQUIRED_INCLUDES = list of include directories
+            # CMAKE_REQUIRED_LIBRARIES = list of libraries to link
+            
+            # <code>       - source code to try to compile, must define 'main'
+            # <var>        - variable to store whether the source code compiled
+            # <fail-regex> - fail if test output matches this regex
+
+            # set(CMAKE_REQUIRED_LIBRARIES "${EXTRA_LIBS}")
+            # CHECK_CXX_SOURCE_COMPILES(<code> <var> [FAIL_REGEX <fail-regex>])
+
+            # set(CMAKE_REQUIRED_LIBRARIES "-lrt -lpthread -lsubunit")
+            # CHECK_CXX_SOURCE_COMPILES(<code> <var> [FAIL_REGEX <fail-regex>])
+
+            # set(CMAKE_REQUIRED_LIBRARIES "-lrt -lpthread")
+            # CHECK_CXX_SOURCE_COMPILES(<code> <var> [FAIL_REGEX <fail-regex>])
+        endif(CMAKE_VERSION VERSION_GREATER "3.0.0")
+        # plan A now extinct
+        #add_subdirectory(dev/utilities/linux-check-libs)
+        #target_link_libraries(${LIBSBML_LIBRARY} ${LIBSBML_LIBS} ${EXTRA_LIBS})
+    endif(WITH_CHECK)
+
+    
     # not needing these defines, and they do cause warnings
     # add_definitions( -DPACKAGE_VERSION=\"${PACKAGE_VERSION}\"  -DPACKAGE_NAME=\"${PROJECT_NAME}\")
     # set(BUILD_DEFINITIONS "${BUILD_DEFINITIONS} -DPACKAGE_VERSION=\"${PACKAGE_VERSION}\"  -DPACKAGE_NAME=\"${PROJECT_NAME}\"")
