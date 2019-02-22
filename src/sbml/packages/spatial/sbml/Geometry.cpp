@@ -2569,6 +2569,19 @@ Geometry::writeAttributes(XMLOutputStream& stream) const
 /** @endcond */
 
 
+CoordinateComponent* 
+Geometry::getCoordinateComponentByKind(CoordinateKind_t kind)
+{
+  size_t i = mCoordinateComponents.size();
+  for (size_t i = 0; i < mCoordinateComponents.size(); ++i)
+  {
+    CoordinateComponent* current = mCoordinateComponents.get(i);
+    if (current->getType() == kind)
+      return current;
+  }
+  return NULL;
+}
+
 
 
 #endif /* __cplusplus */
