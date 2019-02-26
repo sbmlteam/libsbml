@@ -7,10 +7,6 @@
  * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
- *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
  * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
@@ -42,12 +38,11 @@
 #include <sbml/packages/distrib/extension/DistribExtension.h>
 #include <sbml/packages/distrib/extension/DistribSBMLDocumentPlugin.h>
 #include <sbml/packages/distrib/validator/DistribSBMLErrorTable.h>
-#include <sbml/packages/distrib/extension/DistribFunctionDefinitionPlugin.h>
 #include <sbml/packages/distrib/extension/DistribSBasePlugin.h>
 #include <sbml/packages/distrib/extension/DistribASTPlugin.h>
-
 #include <sbml/packages/distrib/util/DistribAnnotationConverter.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
+
 
 using namespace std;
 
@@ -89,7 +84,7 @@ DistribExtension::getDefaultLevel()
 unsigned int
 DistribExtension::getDefaultVersion()
 {
-  return 2;
+  return 1;
 }
 
 
@@ -117,19 +112,6 @@ DistribExtension::getXmlnsL3V1V1()
 }
 
 
-/*
- * Returns the XML namespace URI of the SBML Level&nbsp;3 package implemented
- * by this libSBML extension.
- */
-const std::string&
-DistribExtension::getXmlnsL3V2V1()
-{
-  static const std::string xmlns =
-    "http://www.sbml.org/sbml/level3/version2/distrib/version1";
-  return xmlns;
-}
-
-
 /**
  *
  * Adds this DistribExtension to the SBMLExtensionRegistry class
@@ -140,45 +122,11 @@ static SBMLExtensionRegister<DistribExtension> distribExtensionRegistry;
 static
 const char* SBML_DISTRIB_TYPECODE_STRINGS[] =
 {
-    "DistribDrawFromDistribution"
-  , "DistribInput"
-  , "DistribDistribution"
-  , "DistribUnivariateDistribution"
-  , "DistribMultivariateDistribution"
-  , "DistribContinuousUnivariateDistribution"
-  , "DistribDiscreteUnivariateDistribution"
-  , "DistribCategoricalUnivariateDistribution"
-  , "DistribUncertValue"
-  , "DistribUncertBound"
-  , "DistribExternalDistribution"
-  , "DistribExternalParameter"
-  , "DistribNormalDistribution"
-  , "DistribUniformDistribution"
-  , "DistribCategoricalDistribution"
-  , "DistribCategory"
-  , "DistribBernoulliDistribution"
-  , "DistribBetaDistribution"
-  , "DistribBinomialDistribution"
-  , "DistribCauchyDistribution"
-  , "DistribChiSquareDistribution"
-  , "DistribExponentialDistribution"
-  , "DistribFDistribution"
-  , "DistribGammaDistribution"
-  , "DistribGeometricDistribution"
-  , "DistribHypergeometricDistribution"
-  , "DistribInverseGammaDistribution"
-  , "DistribLaPlaceDistribution"
-  , "DistribLogNormalDistribution"
-  , "DistribLogisticDistribution"
-  , "DistribNegativeBinomialDistribution"
-  , "DistribParetoDistribution"
-  , "DistribPoissonDistribution"
-  , "DistribRayleighDistribution"
-  , "DistribStudentTDistribution"
-  , "DistribWeibullDistribution"
-  , "DistribUncertainty"
-  , "DistribUncertStatistics"
-  , "DistribUncertStatisticSpan"
+    "Distribution"
+  , "UncertValue"
+  , "ExternalParameter"
+  , "Uncertainty"
+  , "UncertStatisticSpan"
   , "DistribBase"
 };
 
@@ -261,24 +209,10 @@ DistribExtension::getURI(unsigned int sbmlLevel,
 {
   if (sbmlLevel == 3)
   {
-    if (sbmlVersion == 1)
-    {
       if (pkgVersion == 1)
       {
         return getXmlnsL3V1V1();
       }
-    }
-  }
-
-  if (sbmlLevel == 3)
-  {
-    if (sbmlVersion == 2)
-    {
-      if (pkgVersion == 1)
-      {
-        return getXmlnsL3V2V1();
-      }
-    }
   }
 
   static std::string empty = "";
@@ -293,11 +227,6 @@ unsigned int
 DistribExtension::getLevel(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
-  {
-    return 3;
-  }
-
-  if (uri == getXmlnsL3V2V1())
   {
     return 3;
   }
@@ -317,11 +246,6 @@ DistribExtension::getVersion(const std::string& uri) const
     return 1;
   }
 
-  if (uri == getXmlnsL3V2V1())
-  {
-    return 2;
-  }
-
   return 0;
 }
 
@@ -334,11 +258,6 @@ unsigned int
 DistribExtension::getPackageVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
-  {
-    return 1;
-  }
-
-  if (uri == getXmlnsL3V2V1())
   {
     return 1;
   }
@@ -360,11 +279,6 @@ DistribExtension::getSBMLExtensionNamespaces(const std::string& uri) const
     pkgns = new DistribPkgNamespaces(3, 1, 1);
   }
 
-  if (uri == getXmlnsL3V2V1())
-  {
-    pkgns = new DistribPkgNamespaces(3, 2, 1);
-  }
-
   return pkgns;
 }
 
@@ -376,7 +290,7 @@ DistribExtension::getSBMLExtensionNamespaces(const std::string& uri) const
 const char*
 DistribExtension::getStringFromTypeCode(int typeCode) const
 {
-  int min = SBML_DISTRIB_DRAWFROMDISTRIBUTION;
+  int min = SBML_DISTRIB_DISTRIBUTION;
   int max = SBML_DISTRIB_DISTRIBBASE;
 
   if (typeCode < min || typeCode > max)
@@ -450,21 +364,6 @@ DistribExtension::getErrorIdOffset() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Returns true if the package has multiple versions.
- */
-bool
-DistribExtension::hasMultiplePackageVersions() const
-{
-  return false;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Initializes distrib extension by creating an object of this class with the
  * required SBasePlugin derived objects and registering the object to the
  * SBMLExtensionRegistry class
@@ -484,22 +383,15 @@ DistribExtension::init()
 
   packageURIs.push_back(getXmlnsL3V1V1());
 
-  packageURIs.push_back(getXmlnsL3V2V1());
-
   SBaseExtensionPoint sbmldocExtPoint("core", SBML_DOCUMENT);
-  SBaseExtensionPoint functiondefinitionExtPoint("core",
-    SBML_FUNCTION_DEFINITION);
   SBaseExtensionPoint sbaseExtPoint("all", SBML_GENERIC_SBASE);
 
   SBasePluginCreator<DistribSBMLDocumentPlugin, DistribExtension>
     sbmldocPluginCreator(sbmldocExtPoint, packageURIs);
-  SBasePluginCreator<DistribFunctionDefinitionPlugin, DistribExtension>
-    functiondefinitionPluginCreator(functiondefinitionExtPoint, packageURIs);
   SBasePluginCreator<DistribSBasePlugin, DistribExtension>
     sbasePluginCreator(sbaseExtPoint, packageURIs);
 
   distribExtension.addSBasePluginCreator(&sbmldocPluginCreator);
-  distribExtension.addSBasePluginCreator(&functiondefinitionPluginCreator);
   distribExtension.addSBasePluginCreator(&sbasePluginCreator);
 
   DistribASTPlugin math(getXmlnsL3V1V1());

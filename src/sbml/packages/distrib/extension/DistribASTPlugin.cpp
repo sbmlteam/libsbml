@@ -237,10 +237,10 @@ bool DistribASTPlugin::hasCorrectNamespace(SBMLNamespaces * namespaces) const
     return false;
   }
   DistribExtension ext;
-  const string distribns1 = ext.getXmlnsL3V1V1(), distribns2 = ext.getXmlnsL3V2V1();
+  const string distribns = ext.getXmlnsL3V1V1();
 
   XMLNamespaces* xmlns = namespaces->getNamespaces();
-  if (xmlns->hasURI(distribns1) || xmlns->hasURI(distribns2))
+  if (xmlns->hasURI(distribns))
   {
     return true;
   }

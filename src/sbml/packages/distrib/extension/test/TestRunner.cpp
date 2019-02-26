@@ -52,9 +52,9 @@ LIBSBML_CPP_NAMESPACE_USE
 CK_CPPSTART
 #endif
 
-//Suite *create_suite_DistribExtension (void);
-//Suite *create_suite_WriteDistribExtension (void);
-//Suite *create_suite_ReadDistribExtension (void);
+Suite *create_suite_DistribExtension (void);
+Suite *create_suite_WriteDistribExtension (void);
+Suite *create_suite_ReadDistribExtension (void);
 Suite *create_suite_DistribExtensionMath (void);
 Suite *create_suite_ReadMathML (void);
 Suite *create_suite_WriteMathMLFromAST(void);
@@ -99,11 +99,10 @@ main (int argc, char* argv[])
   int num_failed = 0;
   setTestDataDirectory();
   
-  //SRunner *runner = srunner_create(create_suite_DistribExtension());
-  //srunner_add_suite(runner, create_suite_WriteDistribExtension());
-  //srunner_add_suite(runner, create_suite_ReadDistribExtension());
-    
-  SRunner *runner = srunner_create(create_suite_DistribExtensionMath());
+  SRunner *runner = srunner_create(create_suite_DistribExtension());
+  srunner_add_suite(runner, create_suite_WriteDistribExtension());
+  srunner_add_suite(runner, create_suite_ReadDistribExtension());
+  srunner_add_suite(runner, create_suite_DistribExtensionMath());
   srunner_add_suite(runner, create_suite_ReadMathML());
   srunner_add_suite(runner, create_suite_WriteMathMLFromAST());
 

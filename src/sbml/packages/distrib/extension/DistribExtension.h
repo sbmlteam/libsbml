@@ -7,10 +7,6 @@
  * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
- *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
  * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
@@ -68,11 +64,6 @@
 #ifndef DISTRIB_CREATE_NS
 #define DISTRIB_CREATE_NS(variable, sbmlns)\
 EXTENSION_CREATE_NS(DistribPkgNamespaces, variable, sbmlns);
-#endif
-
-#ifndef DISTRIB_CREATE_NS_WITH_VERSION
-#define DISTRIB_CREATE_NS_WITH_VERSION(variable, sbmlns, version)\
-  EXTENSION_CREATE_NS_WITH_VERSION(DistribPkgNamespaces, variable, sbmlns, version);
 #endif
 
 #include <vector>
@@ -137,17 +128,6 @@ public:
    * @copydetails doc_note_static_methods
    */
   static const std::string& getXmlnsL3V1V1();
-
-
-  /**
-   * Returns the XML namespace URI of the SBML Level&nbsp;3 package implemented
-   * by this libSBML extension.
-   *
-   * @return the XML namespace, as a string.
-   *
-   * @copydetails doc_note_static_methods
-   */
-  static const std::string& getXmlnsL3V2V1();
 
 
   /**
@@ -336,19 +316,6 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Returns true if the package has multiple versions.
-   *
-   * @return true if multiple versions, false otherwise.
-   */
-  virtual bool hasMultiplePackageVersions() const;
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
    * Initializes distrib extension by creating an object of this class with the
    * required SBasePlugin derived objects and registering the object to the
    * SBMLExtensionRegistry class
@@ -403,46 +370,12 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 typedef enum
 {
-  SBML_DISTRIB_DRAWFROMDISTRIBUTION                  =  1500  /*!<DistribDrawFromDistribution */
-, SBML_DISTRIB_DISTRIBINPUT                          =  1501  /*!<DistribInput */
-, SBML_DISTRIB_DISTRIBUTION                          =  1502  /*!<DistribDistribution */
-, SBML_DISTRIB_UNIVARIATEDISTRIBUTION                =  1503  /*!<DistribUnivariateDistribution */
-, SBML_DISTRIB_MULTIVARIATEDISTRIBUTION              =  1504  /*!<DistribMultivariateDistribution */
-, SBML_DISTRIB_CONTINUOUSUNIVARIATEDISTRIBUTION      =  1505  /*!<DistribContinuousUnivariateDistribution */
-, SBML_DISTRIB_DISCRETEUNIVARIATEDISTRIBUTION        =  1506  /*!<DistribDiscreteUnivariateDistribution */
-, SBML_DISTRIB_CATEGORICALUNIVARIATEDISTRIBUTION     =  1507  /*!<DistribCategoricalUnivariateDistribution */
-, SBML_DISTRIB_UNCERTVALUE                           =  1508  /*!<DistribUncertValue */
-, SBML_DISTRIB_UNCERTBOUND                           =  1509  /*!<DistribUncertBound */
-, SBML_DISTRIB_EXTERNALDISTRIBUTION                  =  1510  /*!<DistribExternalDistribution */
-, SBML_DISTRIB_EXTERNALPARAMETER                     =  1511  /*!<DistribExternalParameter */
-, SBML_DISTRIB_NORMALDISTRIBUTION                    =  1512  /*!<DistribNormalDistribution */
-, SBML_DISTRIB_UNIFORMDISTRIBUTION                   =  1513  /*!<DistribUniformDistribution */
-, SBML_DISTRIB_CATEGORICALDISTRIBUTION               =  1514  /*!<DistribCategoricalDistribution */
-, SBML_DISTRIB_CATEGORY                              =  1515  /*!<DistribCategory */
-, SBML_DISTRIB_BERNOULLIDISTRIBUTION                 =  1516  /*!<DistribBernoulliDistribution */
-, SBML_DISTRIB_BETADISTRIBUTION                      =  1517  /*!<DistribBetaDistribution */
-, SBML_DISTRIB_BINOMIALDISTRIBUTION                  =  1518  /*!<DistribBinomialDistribution */
-, SBML_DISTRIB_CAUCHYDISTRIBUTION                    =  1519  /*!<DistribCauchyDistribution */
-, SBML_DISTRIB_CHISQUAREDISTRIBUTION                 =  1520  /*!<DistribChiSquareDistribution */
-, SBML_DISTRIB_EXPONENTIALDISTRIBUTION               =  1521  /*!<DistribExponentialDistribution */
-, SBML_DISTRIB_FDISTRIBUTION                         =  1522  /*!<DistribFDistribution */
-, SBML_DISTRIB_GAMMADISTRIBUTION                     =  1523  /*!<DistribGammaDistribution */
-, SBML_DISTRIB_GEOMETRICLDISTRIBUTION                =  1524  /*!<DistribGeometricDistribution */
-, SBML_DISTRIB_HYPERGEOMETRICDISTRIBUTION            =  1525  /*!<DistribHypergeometricDistribution */
-, SBML_DISTRIB_INVERSEGAMMADISTRIBUTION              =  1526  /*!<DistribInverseGammaDistribution */
-, SBML_DISTRIB_LAPLACEDISTRIBUTION                   =  1527  /*!<DistribLaPlaceDistribution */
-, SBML_DISTRIB_LOGNORMALDISTRIBUTION                 =  1528  /*!<DistribLogNormalDistribution */
-, SBML_DISTRIB_LOGISTICDISTRIBUTION                  =  1529  /*!<DistribLogisticDistribution */
-, SBML_DISTRIB_NEGATIVEBINOMIALDISTRIBUTION          =  1530  /*!<DistribNegativeBinomialDistribution */
-, SBML_DISTRIB_PARETODISTRIBUTION                    =  1531  /*!<DistribParetoDistribution */
-, SBML_DISTRIB_POISSONDISTRIBUTION                   =  1532  /*!<DistribPoissonDistribution */
-, SBML_DISTRIB_RAYLEIGHDISTRIBUTION                  =  1533  /*!<DistribRayleighDistribution */
-, SBML_DISTRIB_STUDENTTDISTRIBUTION                  =  1534  /*!<DistribStudentTDistribution */
-, SBML_DISTRIB_WEIBULLDISTRIBUTION                   =  1535  /*!<DistribWeibullDistribution */
-, SBML_DISTRIB_UNCERTAINTY                           =  1536  /*!<DistribUncertainty */
-, SBML_DISTRIB_UNCERTSTATISTICS                      =  1537  /*!<DistribUncertStatistics */
-, SBML_DISTRIB_UNCERTSTATISTICSPAN                   =  1538  /*!<DistribUncertStatisticSpan */
-, SBML_DISTRIB_DISTRIBBASE                           =  1539  /*!<DistribBase */
+  SBML_DISTRIB_DISTRIBUTION            =  1500  /*!<Distribution */
+, SBML_DISTRIB_UNCERTVALUE             =  1501  /*!<UncertValue */
+, SBML_DISTRIB_EXTERNALPARAMETER       =  1502  /*!<ExternalParameter */
+, SBML_DISTRIB_UNCERTAINTY             =  1503  /*!<Uncertainty */
+, SBML_DISTRIB_UNCERTSTATISTICSPAN     =  1504  /*!<UncertStatisticSpan */
+, SBML_DISTRIB_DISTRIBBASE             =  1505  /*!<DistribBase */
 } SBMLDistribTypeCode_t;
 
 

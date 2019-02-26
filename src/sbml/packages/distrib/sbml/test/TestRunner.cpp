@@ -52,7 +52,6 @@ LIBSBML_CPP_NAMESPACE_USE
 CK_CPPSTART
 #endif
 
-Suite *create_suite_test_UncertBound (void);
 Suite *create_suite_test_ExternalParameters(void);
 Suite *create_suite_test_UncertStats(void);
 Suite *create_suite_test_IdName(void);
@@ -97,8 +96,7 @@ main (int argc, char* argv[])
   int num_failed = 0;
   setTestDataDirectory();
 
-  SRunner *runner = srunner_create(create_suite_test_UncertBound());
-  srunner_add_suite(runner, create_suite_test_ExternalParameters());
+  SRunner *runner = srunner_create(create_suite_test_ExternalParameters());
   srunner_add_suite(runner, create_suite_test_UncertStats());
   srunner_add_suite(runner, create_suite_test_IdName());
 

@@ -60,7 +60,6 @@ extern char *TestDataDirectory;
 static DistribExtension* G; 
 static DistribPkgNamespaces* GNS;
 static string DISTRIB_XMLNS_L3V1V1;
-static string DISTRIB_XMLNS_L3V2V1;
 static string CORE_XMLNS_L2V4;
 static string DISTRIB_PACKAGE_NAME;
 
@@ -72,7 +71,7 @@ DistribExtensionTest_setup (void)
     G = new DistribExtension();
     GNS = new DistribPkgNamespaces();
     DISTRIB_PACKAGE_NAME = G->getName();
-    DISTRIB_XMLNS_L3V2V1 = GNS->getURI();
+    DISTRIB_XMLNS_L3V1V1 = GNS->getURI();
     DISTRIB_XMLNS_L3V1V1 = G->getURI(3,1,1);
     CORE_XMLNS_L2V4 = SBMLNamespaces::getSBMLNamespaceURI(2, 4);
   }
@@ -102,7 +101,7 @@ END_TEST
 START_TEST (test_DistribExtension_getURI)
 {
   fail_unless(G->getURI(3,1,1) == DISTRIB_XMLNS_L3V1V1);
-  fail_unless(G->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V2V1);
+  fail_unless(G->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V1V1);
   fail_unless(G->getURI(2,1,1) == "");
   fail_unless(G->getURI(4,1,1) == "");
 }
@@ -112,17 +111,14 @@ END_TEST
 START_TEST (test_DistribExtension_getLevelVersion)
 {
   fail_unless(G->getLevel(DISTRIB_XMLNS_L3V1V1) == 3);
-  fail_unless(G->getLevel(DISTRIB_XMLNS_L3V2V1) == 3);
   fail_unless(G->getLevel(CORE_XMLNS_L2V4)             == 0);
   fail_unless(G->getLevel("")                          == 0);
 
   fail_unless(G->getVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(G->getVersion(DISTRIB_XMLNS_L3V2V1) == 2);
   fail_unless(G->getVersion(CORE_XMLNS_L2V4)             == 0);
   fail_unless(G->getVersion("")                          == 0);
 
   fail_unless(G->getPackageVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(G->getPackageVersion(DISTRIB_XMLNS_L3V2V1) == 1);
   fail_unless(G->getPackageVersion(CORE_XMLNS_L2V4)             == 0);
   fail_unless(G->getPackageVersion("")                          == 0);
 }
@@ -136,13 +132,6 @@ START_TEST (test_DistribExtension_getSBMLExtensionNamespaces)
 
   fail_unless(Distribns->getLevel()          == 3);
   fail_unless(Distribns->getVersion()        == 1);
-  fail_unless(Distribns->getPackageVersion() == 1);
-
-  delete Distribns;
-  Distribns = static_cast<DistribPkgNamespaces*>(G->getSBMLExtensionNamespaces(DISTRIB_XMLNS_L3V2V1));
-
-  fail_unless(Distribns->getLevel() == 3);
-  fail_unless(Distribns->getVersion() == 2);
   fail_unless(Distribns->getPackageVersion() == 1);
 
   delete Distribns;
@@ -161,22 +150,19 @@ START_TEST(test_DistribExtension_copy)
   fail_unless(g2->getName() == DISTRIB_PACKAGE_NAME);
 
   fail_unless(g2->getURI(3,1,1) == DISTRIB_XMLNS_L3V1V1);
-  fail_unless(g2->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V2V1);
+  fail_unless(g2->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V1V1);
   fail_unless(g2->getURI(2,1,1) == "");
   fail_unless(g2->getURI(4,1,1) == "");
 
   fail_unless(g2->getLevel(DISTRIB_XMLNS_L3V1V1) == 3);
-  fail_unless(g2->getLevel(DISTRIB_XMLNS_L3V2V1) == 3);
   fail_unless(g2->getLevel(CORE_XMLNS_L2V4)             == 0);
   fail_unless(g2->getLevel("")                          == 0);
 
   fail_unless(g2->getVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(g2->getVersion(DISTRIB_XMLNS_L3V2V1) == 2);
   fail_unless(g2->getVersion(CORE_XMLNS_L2V4)             == 0);
   fail_unless(g2->getVersion("")                          == 0);
 
   fail_unless(g2->getPackageVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(g2->getPackageVersion(DISTRIB_XMLNS_L3V2V1) == 1);
   fail_unless(g2->getPackageVersion(CORE_XMLNS_L2V4)             == 0);
   fail_unless(g2->getPackageVersion("")                          == 0);
 
@@ -195,22 +181,19 @@ START_TEST(test_DistribExtension_assignment)
   fail_unless(g2->getName() == DISTRIB_PACKAGE_NAME);
 
   fail_unless(g2->getURI(3, 1, 1) == DISTRIB_XMLNS_L3V1V1);
-  fail_unless(g2->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V2V1);
+  fail_unless(g2->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V1V1);
   fail_unless(g2->getURI(2, 1, 1) == "");
   fail_unless(g2->getURI(4, 1, 1) == "");
 
   fail_unless(g2->getLevel(DISTRIB_XMLNS_L3V1V1) == 3);
-  fail_unless(g2->getLevel(DISTRIB_XMLNS_L3V2V1) == 3);
   fail_unless(g2->getLevel(CORE_XMLNS_L2V4) == 0);
   fail_unless(g2->getLevel("") == 0);
 
   fail_unless(g2->getVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(g2->getVersion(DISTRIB_XMLNS_L3V2V1) == 2);
   fail_unless(g2->getVersion(CORE_XMLNS_L2V4) == 0);
   fail_unless(g2->getVersion("") == 0);
 
   fail_unless(g2->getPackageVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(g2->getPackageVersion(DISTRIB_XMLNS_L3V2V1) == 1);
   fail_unless(g2->getPackageVersion(CORE_XMLNS_L2V4) == 0);
   fail_unless(g2->getPackageVersion("") == 0);
 
@@ -227,22 +210,19 @@ START_TEST(test_DistribExtension_clone)
   fail_unless(g2->getName() == DISTRIB_PACKAGE_NAME);
 
   fail_unless(g2->getURI(3, 1, 1) == DISTRIB_XMLNS_L3V1V1);
-  fail_unless(g2->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V2V1);
+  fail_unless(g2->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V1V1);
   fail_unless(g2->getURI(2, 1, 1) == "");
   fail_unless(g2->getURI(4, 1, 1) == "");
 
   fail_unless(g2->getLevel(DISTRIB_XMLNS_L3V1V1) == 3);
-  fail_unless(g2->getLevel(DISTRIB_XMLNS_L3V2V1) == 3);
   fail_unless(g2->getLevel(CORE_XMLNS_L2V4) == 0);
   fail_unless(g2->getLevel("") == 0);
 
   fail_unless(g2->getVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(g2->getVersion(DISTRIB_XMLNS_L3V2V1) == 2);
   fail_unless(g2->getVersion(CORE_XMLNS_L2V4) == 0);
   fail_unless(g2->getVersion("") == 0);
 
   fail_unless(g2->getPackageVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(g2->getPackageVersion(DISTRIB_XMLNS_L3V2V1) == 1);
   fail_unless(g2->getPackageVersion(CORE_XMLNS_L2V4) == 0);
   fail_unless(g2->getPackageVersion("") == 0);
 
@@ -261,22 +241,19 @@ START_TEST(test_DistribExtension_registry)
   fail_unless(sbext->getName() == DISTRIB_PACKAGE_NAME);
 
   fail_unless(sbext->getURI(3,1,1) == DISTRIB_XMLNS_L3V1V1);
-  fail_unless(sbext->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V2V1);
+  fail_unless(sbext->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V1V1);
   fail_unless(sbext->getURI(2,1,1) == "");
   fail_unless(sbext->getURI(4,1,1) == "");
 
   fail_unless(sbext->getLevel(DISTRIB_XMLNS_L3V1V1) == 3);
-  fail_unless(sbext->getLevel(DISTRIB_XMLNS_L3V2V1) == 3);
   fail_unless(sbext->getLevel(CORE_XMLNS_L2V4)             == 0);
   fail_unless(sbext->getLevel("")                          == 0);
 
   fail_unless(sbext->getVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(sbext->getVersion(DISTRIB_XMLNS_L3V2V1) == 2);
   fail_unless(sbext->getVersion(CORE_XMLNS_L2V4)             == 0);
   fail_unless(sbext->getVersion("")                          == 0);
 
   fail_unless(sbext->getPackageVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(sbext->getPackageVersion(DISTRIB_XMLNS_L3V2V1) == 1);
   fail_unless(sbext->getPackageVersion(CORE_XMLNS_L2V4)             == 0);
   fail_unless(sbext->getPackageVersion("")                          == 0);
 
@@ -290,13 +267,9 @@ START_TEST(test_DistribExtension_typecode)
   const SBMLExtension* sbext = SBMLExtensionRegistry::getInstance().getExtension("distrib");
 
   fail_unless(sbext != NULL);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_DRAWFROMDISTRIBUTION), "DistribDrawFromDistribution") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_DISTRIBINPUT), "DistribInput") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_DISTRIBUTION), "DistribDistribution") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_UNIVARIATEDISTRIBUTION), "DistribUnivariateDistribution") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_EXTERNALPARAMETER), "DistribExternalParameter") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_HYPERGEOMETRICDISTRIBUTION), "DistribHypergeometricDistribution") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_UNCERTSTATISTICSPAN), "DistribUncertStatisticSpan") == 0);
+  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_DISTRIBUTION), "Distribution") == 0);
+  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_EXTERNALPARAMETER), "ExternalParameter") == 0);
+  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_UNCERTSTATISTICSPAN), "UncertStatisticSpan") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_DISTRIBBASE), "DistribBase") == 0); //39  /*!<DistribUncertStatisticSpan */
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_DISTRIBBASE +1), "(Unknown SBML Distrib Type)") == 0);
 
@@ -306,13 +279,9 @@ END_TEST
 
 START_TEST(test_DistribExtension_SBMLtypecode)
 {	
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_DRAWFROMDISTRIBUTION, "distrib"), "DistribDrawFromDistribution") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_DISTRIBINPUT, "distrib"), "DistribInput") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_DISTRIBUTION, "distrib"), "DistribDistribution") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_UNIVARIATEDISTRIBUTION, "distrib"), "DistribUnivariateDistribution") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_EXTERNALPARAMETER, "distrib"), "DistribExternalParameter") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_HYPERGEOMETRICDISTRIBUTION, "distrib"), "DistribHypergeometricDistribution") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_UNCERTSTATISTICSPAN, "distrib"), "DistribUncertStatisticSpan") == 0);
+  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_DISTRIBUTION, "distrib"), "Distribution") == 0);
+  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_EXTERNALPARAMETER, "distrib"), "ExternalParameter") == 0);
+  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_UNCERTSTATISTICSPAN, "distrib"), "UncertStatisticSpan") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_DISTRIBBASE, "distrib"), "DistribBase") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_DISTRIBBASE + 1, "distrib"), "(Unknown SBML Distrib Type)") == 0);
 }

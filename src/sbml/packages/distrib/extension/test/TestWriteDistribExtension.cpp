@@ -139,9 +139,8 @@ START_TEST(test_DistribExtension_create_and_write_L3V1V1)
   DistribSBasePlugin* mplugin = static_cast<DistribSBasePlugin*>(species->getPlugin("distrib"));
 
   fail_unless(mplugin != NULL);
-  DistribUncertainty * uncert = mplugin->createDistribUncertainty();
-  DistribUncertStatistics *stats = uncert->createUncertStatistics();
-  DistribUncertValue * sd = stats->createStandardDeviation();
+  Uncertainty * uncert = mplugin->createUncertainty();
+  UncertValue * sd = uncert->createStandardDeviation();
   sd->setValue(0.3);
 
   // createParameter
@@ -156,9 +155,8 @@ START_TEST(test_DistribExtension_create_and_write_L3V1V1)
   DistribSBasePlugin* pplugin = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
 
   fail_unless(pplugin != NULL);
-  DistribUncertainty * puncert = pplugin->createDistribUncertainty();
-  DistribUncertStatistics *pstats = puncert->createUncertStatistics();
-  DistribUncertStatisticSpan * span = pstats->createConfidenceInterval();
+  Uncertainty * puncert = pplugin->createUncertainty();
+  UncertStatisticSpan * span = puncert->createConfidenceInterval();
   span->setValueLower(5);
   span->setValueUpper(5.32);
 

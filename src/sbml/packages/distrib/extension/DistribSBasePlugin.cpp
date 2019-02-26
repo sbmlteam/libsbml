@@ -7,10 +7,6 @@
  * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
- *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
  * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
@@ -60,7 +56,7 @@ DistribSBasePlugin::DistribSBasePlugin(const std::string& uri,
                                        const std::string& prefix,
                                        DistribPkgNamespaces* distribns)
   : SBasePlugin(uri, prefix, distribns)
-  , mDistribUncertainty (NULL)
+  , mUncertainty (NULL)
 {
   connectToChild();
 }
@@ -71,11 +67,11 @@ DistribSBasePlugin::DistribSBasePlugin(const std::string& uri,
  */
 DistribSBasePlugin::DistribSBasePlugin(const DistribSBasePlugin& orig)
   : SBasePlugin( orig )
-  , mDistribUncertainty ( NULL )
+  , mUncertainty ( NULL )
 {
-  if (orig.mDistribUncertainty != NULL)
+  if (orig.mUncertainty != NULL)
   {
-    mDistribUncertainty = orig.mDistribUncertainty->clone();
+    mUncertainty = orig.mUncertainty->clone();
   }
 
   connectToChild();
@@ -91,14 +87,14 @@ DistribSBasePlugin::operator=(const DistribSBasePlugin& rhs)
   if (&rhs != this)
   {
     SBasePlugin::operator=(rhs);
-    delete mDistribUncertainty;
-    if (rhs.mDistribUncertainty != NULL)
+    delete mUncertainty;
+    if (rhs.mUncertainty != NULL)
     {
-      mDistribUncertainty = rhs.mDistribUncertainty->clone();
+      mUncertainty = rhs.mUncertainty->clone();
     }
     else
     {
-      mDistribUncertainty = NULL;
+      mUncertainty = NULL;
     }
 
     connectToChild();
@@ -123,77 +119,72 @@ DistribSBasePlugin::clone() const
  */
 DistribSBasePlugin::~DistribSBasePlugin()
 {
-  delete mDistribUncertainty;
-  mDistribUncertainty = NULL;
+  delete mUncertainty;
+  mUncertainty = NULL;
 }
 
 
 /*
- * Returns the value of the "distribUncertainty" element of this
- * DistribSBasePlugin.
+ * Returns the value of the "uncertainty" element of this DistribSBasePlugin.
  */
-const DistribUncertainty*
-DistribSBasePlugin::getDistribUncertainty() const
+const Uncertainty*
+DistribSBasePlugin::getUncertainty() const
 {
-  return mDistribUncertainty;
+  return mUncertainty;
 }
 
 
 /*
- * Returns the value of the "distribUncertainty" element of this
- * DistribSBasePlugin.
+ * Returns the value of the "uncertainty" element of this DistribSBasePlugin.
  */
-DistribUncertainty*
-DistribSBasePlugin::getDistribUncertainty()
+Uncertainty*
+DistribSBasePlugin::getUncertainty()
 {
-  return mDistribUncertainty;
+  return mUncertainty;
 }
 
 
 /*
- * Predicate returning @c true if this DistribSBasePlugin's
- * "distribUncertainty" element is set.
+ * Predicate returning @c true if this DistribSBasePlugin's "uncertainty"
+ * element is set.
  */
 bool
-DistribSBasePlugin::isSetDistribUncertainty() const
+DistribSBasePlugin::isSetUncertainty() const
 {
-  return (mDistribUncertainty != NULL);
+  return (mUncertainty != NULL);
 }
 
 
 /*
- * Sets the value of the "distribUncertainty" element of this
- * DistribSBasePlugin.
+ * Sets the value of the "uncertainty" element of this DistribSBasePlugin.
  */
 int
-DistribSBasePlugin::setDistribUncertainty(const DistribUncertainty*
-  distribUncertainty)
+DistribSBasePlugin::setUncertainty(const Uncertainty* uncertainty)
 {
-  if (distribUncertainty == NULL)
+  if (uncertainty == NULL)
   {
     return LIBSBML_OPERATION_FAILED;
   }
-  else if (distribUncertainty->hasRequiredElements() == false)
+  else if (uncertainty->hasRequiredElements() == false)
   {
     return LIBSBML_INVALID_OBJECT;
   }
-  else if (getLevel() != distribUncertainty->getLevel())
+  else if (getLevel() != uncertainty->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != distribUncertainty->getVersion())
+  else if (getVersion() != uncertainty->getVersion())
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (getPackageVersion() != distribUncertainty->getPackageVersion())
+  else if (getPackageVersion() != uncertainty->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;
   }
   else
   {
-    delete mDistribUncertainty;
-    mDistribUncertainty =
-      static_cast<DistribUncertainty*>(distribUncertainty->clone());
+    delete mUncertainty;
+    mUncertainty = static_cast<Uncertainty*>(uncertainty->clone());
     connectToChild();
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -201,39 +192,38 @@ DistribSBasePlugin::setDistribUncertainty(const DistribUncertainty*
 
 
 /*
- * Creates a new DistribUncertainty object, adds it to this DistribSBasePlugin
- * object and returns the DistribUncertainty object created.
+ * Creates a new Uncertainty object, adds it to this DistribSBasePlugin object
+ * and returns the Uncertainty object created.
  */
-DistribUncertainty*
-DistribSBasePlugin::createDistribUncertainty()
+Uncertainty*
+DistribSBasePlugin::createUncertainty()
 {
-  if (mDistribUncertainty != NULL)
+  if (mUncertainty != NULL)
   {
-    delete mDistribUncertainty;
+    delete mUncertainty;
   }
 
   DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
-  mDistribUncertainty = new DistribUncertainty(distribns);
+  mUncertainty = new Uncertainty(distribns);
 
-  mDistribUncertainty->setSBMLDocument(this->getSBMLDocument());
+  mUncertainty->setSBMLDocument(this->getSBMLDocument());
 
   delete distribns;
 
   connectToChild();
 
-  return mDistribUncertainty;
+  return mUncertainty;
 }
 
 
 /*
- * Unsets the value of the "distribUncertainty" element of this
- * DistribSBasePlugin.
+ * Unsets the value of the "uncertainty" element of this DistribSBasePlugin.
  */
 int
-DistribSBasePlugin::unsetDistribUncertainty()
+DistribSBasePlugin::unsetUncertainty()
 {
-  delete mDistribUncertainty;
-  mDistribUncertainty = NULL;
+  delete mUncertainty;
+  mUncertainty = NULL;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -247,9 +237,9 @@ DistribSBasePlugin::unsetDistribUncertainty()
 void
 DistribSBasePlugin::writeElements(XMLOutputStream& stream) const
 {
-  if (isSetDistribUncertainty() == true)
+  if (isSetUncertainty() == true)
   {
-    mDistribUncertainty->write(stream);
+    mUncertainty->write(stream);
   }
 }
 
@@ -269,9 +259,9 @@ DistribSBasePlugin::accept(SBMLVisitor& v) const
   v.visit(*sb);
   v.leave(*sb);
 
-  if (mDistribUncertainty != NULL)
+  if (mUncertainty != NULL)
   {
-    mDistribUncertainty->accept(v);
+    mUncertainty->accept(v);
   }
 
   return true;
@@ -291,9 +281,9 @@ DistribSBasePlugin::setSBMLDocument(SBMLDocument* d)
 {
   SBasePlugin::setSBMLDocument(d);
 
-  if (mDistribUncertainty != NULL)
+  if (mUncertainty != NULL)
   {
-    mDistribUncertainty->setSBMLDocument(d);
+    mUncertainty->setSBMLDocument(d);
   }
 }
 
@@ -326,9 +316,9 @@ DistribSBasePlugin::connectToParent(SBase* base)
 {
   SBasePlugin::connectToParent(base);
 
-  if (mDistribUncertainty != NULL)
+  if (mUncertainty != NULL)
   {
-    mDistribUncertainty->connectToParent(base);
+    mUncertainty->connectToParent(base);
   }
 }
 
@@ -346,9 +336,9 @@ DistribSBasePlugin::enablePackageInternal(const std::string& pkgURI,
                                           const std::string& pkgPrefix,
                                           bool flag)
 {
-  if (isSetDistribUncertainty())
+  if (isSetUncertainty())
   {
-    mDistribUncertainty->enablePackageInternal(pkgURI, pkgPrefix, flag);
+    mUncertainty->enablePackageInternal(pkgURI, pkgPrefix, flag);
   }
 }
 
@@ -368,9 +358,9 @@ DistribSBasePlugin::updateSBMLNamespace(const std::string& package,
 {
   SBasePlugin::updateSBMLNamespace(package, level, version);
 
-  if (mDistribUncertainty != NULL)
+  if (mUncertainty != NULL)
   {
-    mDistribUncertainty->updateSBMLNamespace(package, level, version);
+    mUncertainty->updateSBMLNamespace(package, level, version);
   }
 }
 
@@ -602,9 +592,9 @@ DistribSBasePlugin::createChildObject(const std::string& elementName)
 {
   SBase* obj = NULL;
 
-  if (elementName == "distribUncertainty")
+  if (elementName == "uncertainty")
   {
-    return createDistribUncertainty();
+    return createUncertainty();
   }
 
   return obj;
@@ -623,10 +613,10 @@ int
 DistribSBasePlugin::addChildObject(const std::string& elementName,
                                    const SBase* element)
 {
-  if (elementName == "distribUncertainty" && element->getTypeCode() ==
+  if (elementName == "uncertainty" && element->getTypeCode() ==
     SBML_DISTRIB_UNCERTAINTY)
   {
-    return setDistribUncertainty((const DistribUncertainty*)(element));
+    return setUncertainty((const Uncertainty*)(element));
   }
 
   return LIBSBML_OPERATION_FAILED;
@@ -646,10 +636,10 @@ SBase*
 DistribSBasePlugin::removeChildObject(const std::string& elementName,
                                       const std::string& id)
 {
-  if (elementName == "distribUncertainty")
+  if (elementName == "uncertainty")
   {
-    DistribUncertainty * obj = getDistribUncertainty();
-    if (unsetDistribUncertainty() == LIBSBML_OPERATION_SUCCESS) return obj;
+    Uncertainty * obj = getUncertainty();
+    if (unsetUncertainty() == LIBSBML_OPERATION_SUCCESS) return obj;
   }
 
   return NULL;
@@ -669,9 +659,9 @@ DistribSBasePlugin::getNumObjects(const std::string& elementName)
 {
   unsigned int n = 0;
 
-  if (elementName == "distribUncertainty")
+  if (elementName == "uncertainty")
   {
-    if (isSetDistribUncertainty())
+    if (isSetUncertainty())
     {
       return 1;
     }
@@ -695,9 +685,9 @@ DistribSBasePlugin::getObject(const std::string& elementName,
 {
   SBase* obj = NULL;
 
-  if (elementName == "distribUncertainty")
+  if (elementName == "uncertainty")
   {
-    return getDistribUncertainty();
+    return getUncertainty();
   }
 
   return obj;
@@ -720,14 +710,14 @@ DistribSBasePlugin::getElementBySId(const std::string& id)
 
   SBase* obj = NULL;
 
-  if (mDistribUncertainty != NULL)
+  if (mUncertainty != NULL)
   {
-    if (mDistribUncertainty->getId() == id)
+    if (mUncertainty->getId() == id)
     {
-      return mDistribUncertainty;
+      return mUncertainty;
     }
 
-    obj = mDistribUncertainty->getElementBySId(id);
+    obj = mUncertainty->getElementBySId(id);
     if (obj != NULL)
     {
       return obj;
@@ -752,14 +742,14 @@ DistribSBasePlugin::getElementByMetaId(const std::string& metaid)
 
   SBase* obj = NULL;
 
-  if (mDistribUncertainty != NULL)
+  if (mUncertainty != NULL)
   {
-    if (mDistribUncertainty->getMetaId() == metaid)
+    if (mUncertainty->getMetaId() == metaid)
     {
-      return mDistribUncertainty;
+      return mUncertainty;
     }
 
-    obj = mDistribUncertainty->getElementByMetaId(metaid);
+    obj = mUncertainty->getElementByMetaId(metaid);
     if (obj != NULL)
     {
       return obj;
@@ -780,7 +770,7 @@ DistribSBasePlugin::getAllElements(ElementFilter* filter)
   List* ret = new List();
   List* sublist = NULL;
 
-  ADD_FILTERED_POINTER(ret, sublist, mDistribUncertainty, filter);
+  ADD_FILTERED_POINTER(ret, sublist, mUncertainty, filter);
 
 
   return ret;
@@ -848,15 +838,15 @@ DistribSBasePlugin::createObject(XMLInputStream& stream)
   {
     if (name == "uncertainty")
     {
-      if (isSetDistribUncertainty())
+      if (isSetUncertainty())
       {
         getErrorLog()->logPackageError("distrib", DistribSBaseAllowedElements,
           getPackageVersion(), getLevel(), getVersion());
       }
 
-      delete mDistribUncertainty;
-      mDistribUncertainty = new DistribUncertainty(distribns);
-      obj = mDistribUncertainty;
+      delete mUncertainty;
+      mUncertainty = new Uncertainty(distribns);
+      obj = mUncertainty;
     }
   }
 
@@ -876,78 +866,71 @@ DistribSBasePlugin::createObject(XMLInputStream& stream)
 
 
 /*
- * Returns the value of the "distribUncertainty" element of this
- * DistribSBasePlugin_t.
+ * Returns the value of the "uncertainty" element of this DistribSBasePlugin_t.
  */
 LIBSBML_EXTERN
-const DistribUncertainty_t*
-DistribSBasePlugin_getDistribUncertainty(const DistribSBasePlugin_t * dsbp)
+const Uncertainty_t*
+DistribSBasePlugin_getUncertainty(const DistribSBasePlugin_t * dsbp)
 {
   if (dsbp == NULL)
   {
     return NULL;
   }
 
-  return (DistribUncertainty_t*)(dsbp->getDistribUncertainty());
+  return (Uncertainty_t*)(dsbp->getUncertainty());
 }
 
 
 /*
- * Predicate returning @c 1 (true) if this DistribSBasePlugin_t's
- * "distribUncertainty" element is set.
+ * Predicate returning @c 1 (true) if this DistribSBasePlugin_t's "uncertainty"
+ * element is set.
  */
 LIBSBML_EXTERN
 int
-DistribSBasePlugin_isSetDistribUncertainty(const DistribSBasePlugin_t * dsbp)
+DistribSBasePlugin_isSetUncertainty(const DistribSBasePlugin_t * dsbp)
 {
-  return (dsbp != NULL) ? static_cast<int>(dsbp->isSetDistribUncertainty()) :
-    0;
+  return (dsbp != NULL) ? static_cast<int>(dsbp->isSetUncertainty()) : 0;
 }
 
 
 /*
- * Sets the value of the "distribUncertainty" element of this
- * DistribSBasePlugin_t.
+ * Sets the value of the "uncertainty" element of this DistribSBasePlugin_t.
  */
 LIBSBML_EXTERN
 int
-DistribSBasePlugin_setDistribUncertainty(DistribSBasePlugin_t * dsbp,
-                                         const DistribUncertainty_t*
-                                           distribUncertainty)
+DistribSBasePlugin_setUncertainty(DistribSBasePlugin_t * dsbp,
+                                  const Uncertainty_t* uncertainty)
 {
-  return (dsbp != NULL) ? dsbp->setDistribUncertainty(distribUncertainty) :
+  return (dsbp != NULL) ? dsbp->setUncertainty(uncertainty) :
     LIBSBML_INVALID_OBJECT;
 }
 
 
 /*
- * Creates a new DistribUncertainty_t object, adds it to this
- * DistribSBasePlugin_t object and returns the DistribUncertainty_t object
- * created.
+ * Creates a new Uncertainty_t object, adds it to this DistribSBasePlugin_t
+ * object and returns the Uncertainty_t object created.
  */
 LIBSBML_EXTERN
-DistribUncertainty_t*
-DistribSBasePlugin_createDistribUncertainty(DistribSBasePlugin_t* dsbp)
+Uncertainty_t*
+DistribSBasePlugin_createUncertainty(DistribSBasePlugin_t* dsbp)
 {
   if (dsbp == NULL)
   {
     return NULL;
   }
 
-  return (DistribUncertainty_t*)(dsbp->createDistribUncertainty());
+  return (Uncertainty_t*)(dsbp->createUncertainty());
 }
 
 
 /*
- * Unsets the value of the "distribUncertainty" element of this
- * DistribSBasePlugin_t.
+ * Unsets the value of the "uncertainty" element of this DistribSBasePlugin_t.
  */
 LIBSBML_EXTERN
 int
-DistribSBasePlugin_unsetDistribUncertainty(DistribSBasePlugin_t * dsbp)
+DistribSBasePlugin_unsetUncertainty(DistribSBasePlugin_t * dsbp)
 {
-  return (dsbp != NULL) ? dsbp->unsetDistribUncertainty() :
-    LIBSBML_INVALID_OBJECT;
+  return (dsbp != NULL) ? dsbp->unsetUncertainty() : LIBSBML_INVALID_OBJECT;
 }
 
 

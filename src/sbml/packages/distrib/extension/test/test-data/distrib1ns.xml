@@ -8,9 +8,7 @@
       <species id="S1" compartment="C" initialAmount="5.2" hasOnlySubstanceUnits="false" 
         boundaryCondition="false" constant="false" substanceUnits="mole">
         <distrib:uncertainty>
-          <distrib:uncertStatistics>
-            <distrib:standardDeviation distrib:value="0.3"/>
-          </distrib:uncertStatistics>
+          <distrib:standardDeviation distrib:value="0.3"/>
         </distrib:uncertainty>
       </species>
       
@@ -20,9 +18,7 @@
     <listOfParameters>
       <parameter id="P1" value="5.13" constant="true" units="dimensionless">
         <distrib:uncertainty>
-          <distrib:uncertStatistics>
-            <distrib:confidenceInterval distrib:valueLower="5" distrib:valueUpper="5.32"/>
-          </distrib:uncertStatistics>
+          <distrib:confidenceInterval distrib:valueLower="5" distrib:valueUpper="5.32"/>
         </distrib:uncertainty>
       </parameter>
       

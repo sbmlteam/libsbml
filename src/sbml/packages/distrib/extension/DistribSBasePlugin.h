@@ -7,10 +7,6 @@
  * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
- *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
  * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
@@ -50,7 +46,7 @@
 
 
 #include <sbml/extension/SBasePlugin.h>
-#include <sbml/packages/distrib/sbml/DistribUncertainty.h>
+#include <sbml/packages/distrib/sbml/Uncertainty.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -62,7 +58,7 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  DistribUncertainty* mDistribUncertainty;
+  Uncertainty* mUncertainty;
 
   /** @endcond */
 
@@ -122,69 +118,64 @@ public:
 
 
   /**
-   * Returns the value of the "distribUncertainty" element of this
-   * DistribSBasePlugin.
+   * Returns the value of the "uncertainty" element of this DistribSBasePlugin.
    *
-   * @return the value of the "distribUncertainty" element of this
-   * DistribSBasePlugin as a DistribUncertainty*.
+   * @return the value of the "uncertainty" element of this DistribSBasePlugin
+   * as a Uncertainty*.
    */
-  const DistribUncertainty* getDistribUncertainty() const;
+  const Uncertainty* getUncertainty() const;
 
 
   /**
-   * Returns the value of the "distribUncertainty" element of this
-   * DistribSBasePlugin.
+   * Returns the value of the "uncertainty" element of this DistribSBasePlugin.
    *
-   * @return the value of the "distribUncertainty" element of this
-   * DistribSBasePlugin as a DistribUncertainty*.
+   * @return the value of the "uncertainty" element of this DistribSBasePlugin
+   * as a Uncertainty*.
    */
-  DistribUncertainty* getDistribUncertainty();
+  Uncertainty* getUncertainty();
 
 
   /**
-   * Predicate returning @c true if this DistribSBasePlugin's
-   * "distribUncertainty" element is set.
+   * Predicate returning @c true if this DistribSBasePlugin's "uncertainty"
+   * element is set.
    *
-   * @return @c true if this DistribSBasePlugin's "distribUncertainty" element
-   * has been set, otherwise @c false is returned.
+   * @return @c true if this DistribSBasePlugin's "uncertainty" element has
+   * been set, otherwise @c false is returned.
    */
-  bool isSetDistribUncertainty() const;
+  bool isSetUncertainty() const;
 
 
   /**
-   * Sets the value of the "distribUncertainty" element of this
-   * DistribSBasePlugin.
+   * Sets the value of the "uncertainty" element of this DistribSBasePlugin.
    *
-   * @param distribUncertainty DistribUncertainty* value of the
-   * "distribUncertainty" element to be set.
+   * @param uncertainty Uncertainty* value of the "uncertainty" element to be
+   * set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
-  int setDistribUncertainty(const DistribUncertainty* distribUncertainty);
+  int setUncertainty(const Uncertainty* uncertainty);
 
 
   /**
-   * Creates a new DistribUncertainty object, adds it to this
-   * DistribSBasePlugin object and returns the DistribUncertainty object
-   * created.
+   * Creates a new Uncertainty object, adds it to this DistribSBasePlugin
+   * object and returns the Uncertainty object created.
    *
-   * @return a new DistribUncertainty object instance.
+   * @return a new Uncertainty object instance.
    */
-  DistribUncertainty* createDistribUncertainty();
+  Uncertainty* createUncertainty();
 
 
   /**
-   * Unsets the value of the "distribUncertainty" element of this
-   * DistribSBasePlugin.
+   * Unsets the value of the "uncertainty" element of this DistribSBasePlugin.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetDistribUncertainty();
+  int unsetUncertainty();
 
 
 
@@ -700,46 +691,43 @@ BEGIN_C_DECLS
 
 
 /**
- * Returns the value of the "distribUncertainty" element of this
- * DistribSBasePlugin_t.
+ * Returns the value of the "uncertainty" element of this DistribSBasePlugin_t.
  *
- * @param dsbp the DistribSBasePlugin_t structure whose distribUncertainty is
- * sought.
+ * @param dsbp the DistribSBasePlugin_t structure whose uncertainty is sought.
  *
- * @return the value of the "distribUncertainty" element of this
- * DistribSBasePlugin_t as a DistribUncertainty*.
+ * @return the value of the "uncertainty" element of this DistribSBasePlugin_t
+ * as a Uncertainty*.
  *
  * @memberof DistribSBasePlugin_t
  */
 LIBSBML_EXTERN
-const DistribUncertainty_t*
-DistribSBasePlugin_getDistribUncertainty(const DistribSBasePlugin_t * dsbp);
+const Uncertainty_t*
+DistribSBasePlugin_getUncertainty(const DistribSBasePlugin_t * dsbp);
 
 
 /**
- * Predicate returning @c 1 (true) if this DistribSBasePlugin_t's
- * "distribUncertainty" element is set.
+ * Predicate returning @c 1 (true) if this DistribSBasePlugin_t's "uncertainty"
+ * element is set.
  *
  * @param dsbp the DistribSBasePlugin_t structure.
  *
- * @return @c 1 (true) if this DistribSBasePlugin_t's "distribUncertainty"
- * element has been set, otherwise @c 0 (false) is returned.
+ * @return @c 1 (true) if this DistribSBasePlugin_t's "uncertainty" element has
+ * been set, otherwise @c 0 (false) is returned.
  *
  * @memberof DistribSBasePlugin_t
  */
 LIBSBML_EXTERN
 int
-DistribSBasePlugin_isSetDistribUncertainty(const DistribSBasePlugin_t * dsbp);
+DistribSBasePlugin_isSetUncertainty(const DistribSBasePlugin_t * dsbp);
 
 
 /**
- * Sets the value of the "distribUncertainty" element of this
- * DistribSBasePlugin_t.
+ * Sets the value of the "uncertainty" element of this DistribSBasePlugin_t.
  *
  * @param dsbp the DistribSBasePlugin_t structure.
  *
- * @param distribUncertainty DistribUncertainty_t* value of the
- * "distribUncertainty" element to be set.
+ * @param uncertainty Uncertainty_t* value of the "uncertainty" element to be
+ * set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -750,31 +738,28 @@ DistribSBasePlugin_isSetDistribUncertainty(const DistribSBasePlugin_t * dsbp);
  */
 LIBSBML_EXTERN
 int
-DistribSBasePlugin_setDistribUncertainty(DistribSBasePlugin_t * dsbp,
-                                         const DistribUncertainty_t*
-                                           distribUncertainty);
+DistribSBasePlugin_setUncertainty(DistribSBasePlugin_t * dsbp,
+                                  const Uncertainty_t* uncertainty);
 
 
 /**
- * Creates a new DistribUncertainty_t object, adds it to this
- * DistribSBasePlugin_t object and returns the DistribUncertainty_t object
- * created.
+ * Creates a new Uncertainty_t object, adds it to this DistribSBasePlugin_t
+ * object and returns the Uncertainty_t object created.
  *
- * @param dsbp the DistribSBasePlugin_t structure to which the
- * DistribUncertainty_t should be added.
+ * @param dsbp the DistribSBasePlugin_t structure to which the Uncertainty_t
+ * should be added.
  *
- * @return a new DistribUncertainty_t object instance.
+ * @return a new Uncertainty_t object instance.
  *
  * @memberof DistribSBasePlugin_t
  */
 LIBSBML_EXTERN
-DistribUncertainty_t*
-DistribSBasePlugin_createDistribUncertainty(DistribSBasePlugin_t* dsbp);
+Uncertainty_t*
+DistribSBasePlugin_createUncertainty(DistribSBasePlugin_t* dsbp);
 
 
 /**
- * Unsets the value of the "distribUncertainty" element of this
- * DistribSBasePlugin_t.
+ * Unsets the value of the "uncertainty" element of this DistribSBasePlugin_t.
  *
  * @param dsbp the DistribSBasePlugin_t structure.
  *
@@ -787,7 +772,7 @@ DistribSBasePlugin_createDistribUncertainty(DistribSBasePlugin_t* dsbp);
  */
 LIBSBML_EXTERN
 int
-DistribSBasePlugin_unsetDistribUncertainty(DistribSBasePlugin_t * dsbp);
+DistribSBasePlugin_unsetUncertainty(DistribSBasePlugin_t * dsbp);
 
 
 

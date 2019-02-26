@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" xmlns:distrib="http://www.sbml.org/sbml/level3/version2/distrib/version1" level="3" version="2" distrib:required="true">
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" xmlns:distrib="http://www.sbml.org/sbml/level3/version1/distrib/version1" level="3" version="2" distrib:required="true">
   <model id="__main" name="__main">
     <listOfParameters>
       <parameter id="a" constant="true"/>

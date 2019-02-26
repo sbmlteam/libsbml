@@ -75,11 +75,9 @@ START_TEST(test_IdName_prefix_read_write_l3v1)
 {
   std::string expected =
     "<distrib:uncertainty distrib:id=\"u1\">\n"
-    "  <distrib:uncertStatistics distrib:name=\"us\">\n"
-    "    <distrib:listOfExternalParameters distrib:id=\"loep\">\n"
-    "      <distrib:externalParameter distrib:name=\"Beta\" distrib:var=\"beta\" distrib:definitionURL=\"http://www.probonto.org/ontology#PROB_k0000362\"/>\n"
-    "    </distrib:listOfExternalParameters>\n" 
-    "  </distrib:uncertStatistics>\n"
+    "  <distrib:listOfExternalParameters distrib:id=\"loep\">\n"
+    "    <distrib:externalParameter distrib:name=\"Beta\" distrib:var=\"beta\" distrib:definitionURL=\"http://www.probonto.org/ontology#PROB_k0000362\"/>\n"
+    "  </distrib:listOfExternalParameters>\n" 
     "</distrib:uncertainty>";
     
   std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_statistics.xml");
@@ -87,12 +85,10 @@ START_TEST(test_IdName_prefix_read_write_l3v1)
   Parameter* p = doc->getModel()->getParameter(2);
 
   DistribSBasePlugin * plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
-  DistribUncertainty * uncert = plug->getDistribUncertainty();
-  DistribUncertStatistics * stats = uncert->getUncertStatistics();
-  ListOfDistribExternalParameters * loep = stats->getListOfDistribExternalParameters();
+  Uncertainty * uncert = plug->getUncertainty();
+  ListOfExternalParameters * loep = uncert->getListOfExternalParameters();
 
   fail_unless(uncert->setId("u1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(stats->setName("us") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(loep->setId("loep") == LIBSBML_OPERATION_SUCCESS);
 
   ostringstream oss;
@@ -110,12 +106,10 @@ END_TEST
 START_TEST(test_IdName_prefix_read_write_l3v2)
 {
   std::string expected =
-    "<distrib:uncertainty id=\"u1\">\n"
-    "  <distrib:uncertStatistics name=\"us\">\n"
-    "    <distrib:listOfExternalParameters id=\"loep\">\n"
-    "      <distrib:externalParameter name=\"Beta\" distrib:var=\"beta\" distrib:definitionURL=\"http://www.probonto.org/ontology#PROB_k0000362\"/>\n"
-    "    </distrib:listOfExternalParameters>\n"
-    "  </distrib:uncertStatistics>\n"
+    "<distrib:uncertainty distrib:id=\"u1\">\n"
+    "  <distrib:listOfExternalParameters distrib:id=\"loep\">\n"
+    "    <distrib:externalParameter distrib:name=\"Beta\" distrib:var=\"beta\" distrib:definitionURL=\"http://www.probonto.org/ontology#PROB_k0000362\"/>\n"
+    "  </distrib:listOfExternalParameters>\n"
     "</distrib:uncertainty>";
 
   std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_statistics_l3v2.xml");
@@ -123,12 +117,10 @@ START_TEST(test_IdName_prefix_read_write_l3v2)
   Parameter* p = doc->getModel()->getParameter(2);
 
   DistribSBasePlugin * plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
-  DistribUncertainty * uncert = plug->getDistribUncertainty();
-  DistribUncertStatistics * stats = uncert->getUncertStatistics();
-  ListOfDistribExternalParameters * loep = stats->getListOfDistribExternalParameters();
+  Uncertainty * uncert = plug->getUncertainty();
+  ListOfExternalParameters * loep = uncert->getListOfExternalParameters();
 
   fail_unless(uncert->setId("u1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(stats->setName("us") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(loep->setId("loep") == LIBSBML_OPERATION_SUCCESS);
 
   ostringstream oss;

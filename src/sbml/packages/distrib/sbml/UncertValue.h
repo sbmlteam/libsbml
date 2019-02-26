@@ -1,6 +1,6 @@
 /**
- * @file DistribBase.h
- * @brief Definition of the DistribBase class.
+ * @file UncertValue.h
+ * @brief Definition of the UncertValue class.
  * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
@@ -30,13 +30,13 @@
  * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  *
- * @class DistribBase
- * @sbmlbrief{distrib} TODO:Definition of the DistribBase class.
+ * @class UncertValue
+ * @sbmlbrief{distrib} TODO:Definition of the UncertValue class.
  */
 
 
-#ifndef DistribBase_H__
-#define DistribBase_H__
+#ifndef UncertValue_H__
+#define UncertValue_H__
 
 
 #include <sbml/common/extern.h>
@@ -50,52 +50,54 @@
 #include <string>
 
 
-#include <sbml/SBase.h>
+#include <sbml/packages/distrib/sbml/DistribBase.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class Distribution;
 class ExternalParameter;
-class Uncertainty;
-class UncertStatisticSpan;
 
-class LIBSBML_EXTERN DistribBase : public SBase
+class LIBSBML_EXTERN UncertValue : public DistribBase
 {
 protected:
 
   /** @cond doxygenLibsbmlInternal */
 
+  double mValue;
+  bool mIsSetValue;
+  std::string mVar;
+  std::string mUnits;
+  std::string mElementName;
 
   /** @endcond */
 
 public:
 
   /**
-   * Creates a new DistribBase using the given SBML Level, Version and
+   * Creates a new UncertValue using the given SBML Level, Version and
    * &ldquo;distrib&rdquo; package version.
    *
    * @param level an unsigned int, the SBML Level to assign to this
-   * DistribBase.
+   * UncertValue.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * DistribBase.
+   * UncertValue.
    *
    * @param pkgVersion an unsigned int, the SBML Distrib Version to assign to
-   * this DistribBase.
+   * this UncertValue.
    *
    * @copydetails doc_note_setting_lv_pkg
    */
-  DistribBase(unsigned int level = DistribExtension::getDefaultLevel(),
+  UncertValue(unsigned int level = DistribExtension::getDefaultLevel(),
               unsigned int version = DistribExtension::getDefaultVersion(),
               unsigned int pkgVersion =
                 DistribExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new DistribBase using the given DistribPkgNamespaces object.
+   * Creates a new UncertValue using the given DistribPkgNamespaces object.
    *
    * @copydetails doc_what_are_sbml_package_namespaces
    *
@@ -103,181 +105,209 @@ public:
    *
    * @copydetails doc_note_setting_lv_pkg
    */
-  DistribBase(DistribPkgNamespaces *distribns);
+  UncertValue(DistribPkgNamespaces *distribns);
 
 
   /**
-   * Copy constructor for DistribBase.
+   * Copy constructor for UncertValue.
    *
-   * @param orig the DistribBase instance to copy.
+   * @param orig the UncertValue instance to copy.
    */
-  DistribBase(const DistribBase& orig);
+  UncertValue(const UncertValue& orig);
 
 
   /**
-   * Assignment operator for DistribBase.
+   * Assignment operator for UncertValue.
    *
-   * @param rhs the DistribBase object whose values are to be used as the basis
+   * @param rhs the UncertValue object whose values are to be used as the basis
    * of the assignment.
    */
-  DistribBase& operator=(const DistribBase& rhs);
+  UncertValue& operator=(const UncertValue& rhs);
 
 
   /**
-   * Creates and returns a deep copy of this DistribBase object.
+   * Creates and returns a deep copy of this UncertValue object.
    *
-   * @return a (deep) copy of this DistribBase object.
+   * @return a (deep) copy of this UncertValue object.
    */
-  virtual DistribBase* clone() const;
+  virtual UncertValue* clone() const;
 
 
   /**
-   * Destructor for DistribBase.
+   * Destructor for UncertValue.
    */
-  virtual ~DistribBase();
+  virtual ~UncertValue();
 
 
   /**
-   * Returns the value of the "id" attribute of this DistribBase.
+   * Returns the value of the "value" attribute of this UncertValue.
    *
-   * @return the value of the "id" attribute of this DistribBase as a string.
+   * @return the value of the "value" attribute of this UncertValue as a
+   * double.
    */
-  virtual const std::string& getId() const;
+  double getValue() const;
 
 
   /**
-   * Returns the value of the "name" attribute of this DistribBase.
+   * Returns the value of the "var" attribute of this UncertValue.
    *
-   * @return the value of the "name" attribute of this DistribBase as a string.
+   * @return the value of the "var" attribute of this UncertValue as a string.
    */
-  virtual const std::string& getName() const;
+  const std::string& getVar() const;
 
 
   /**
-   * Predicate returning @c true if this DistribBase's "id" attribute is set.
+   * Returns the value of the "units" attribute of this UncertValue.
    *
-   * @return @c true if this DistribBase's "id" attribute has been set,
+   * @return the value of the "units" attribute of this UncertValue as a
+   * string.
+   */
+  const std::string& getUnits() const;
+
+
+  /**
+   * Predicate returning @c true if this UncertValue's "value" attribute is
+   * set.
+   *
+   * @return @c true if this UncertValue's "value" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetId() const;
+  bool isSetValue() const;
 
 
   /**
-   * Predicate returning @c true if this DistribBase's "name" attribute is set.
+   * Predicate returning @c true if this UncertValue's "var" attribute is set.
    *
-   * @return @c true if this DistribBase's "name" attribute has been set,
+   * @return @c true if this UncertValue's "var" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetName() const;
+  bool isSetVar() const;
 
 
   /**
-   * Sets the value of the "id" attribute of this DistribBase.
+   * Predicate returning @c true if this UncertValue's "units" attribute is
+   * set.
    *
-   * @param id std::string& value of the "id" attribute to be set.
+   * @return @c true if this UncertValue's "units" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  bool isSetUnits() const;
+
+
+  /**
+   * Sets the value of the "value" attribute of this UncertValue.
+   *
+   * @param value double value of the "value" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
-   *
-   * Calling this function with @p id = @c NULL or an empty string is
-   * equivalent to calling unsetId().
    */
-  virtual int setId(const std::string& id);
+  int setValue(double value);
 
 
   /**
-   * Sets the value of the "name" attribute of this DistribBase.
+   * Sets the value of the "var" attribute of this UncertValue.
    *
-   * @param name std::string& value of the "name" attribute to be set.
+   * @param var std::string& value of the "var" attribute to be set.
    *
-   * @copydetails doc_returns_one_success_code
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * Calling this function with @p name = @c NULL or an empty string is
-   * equivalent to calling unsetName().
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
    */
-  virtual int setName(const std::string& name);
+  int setVar(const std::string& var);
 
 
   /**
-   * Unsets the value of the "id" attribute of this DistribBase.
+   * Sets the value of the "units" attribute of this UncertValue.
+   *
+   * @param units std::string& value of the "units" attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setUnits(const std::string& units);
+
+
+  /**
+   * Unsets the value of the "value" attribute of this UncertValue.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  virtual int unsetId();
+  int unsetValue();
 
 
   /**
-   * Unsets the value of the "name" attribute of this DistribBase.
+   * Unsets the value of the "var" attribute of this UncertValue.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  virtual int unsetName();
+  int unsetVar();
 
 
   /**
-   * Predicate returning @c true if this abstract "DistribBase" is of type
-   * Distribution
+   * Unsets the value of the "units" attribute of this UncertValue.
    *
-   * @return @c true if this abstract "DistribBase" is of type Distribution,
-   * @c false otherwise
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  virtual bool isDistribution() const;
+  int unsetUnits();
 
 
   /**
-   * Predicate returning @c true if this abstract "DistribBase" is of type
+   * Predicate returning @c true if this abstract "UncertValue" is of type
    * ExternalParameter
    *
-   * @return @c true if this abstract "DistribBase" is of type
+   * @return @c true if this abstract "UncertValue" is of type
    * ExternalParameter, @c false otherwise
    */
   virtual bool isExternalParameter() const;
 
 
   /**
-   * Predicate returning @c true if this abstract "DistribBase" is of type
-   * Uncertainty
-   *
-   * @return @c true if this abstract "DistribBase" is of type Uncertainty,
-   * @c false otherwise
+   * @copydoc doc_renamesidref_common
    */
-  virtual bool isUncertainty() const;
+  virtual void renameSIdRefs(const std::string& oldid,
+                             const std::string& newid);
 
 
   /**
-   * Predicate returning @c true if this abstract "DistribBase" is of type
-   * UncertStatisticSpan
+   * Returns the XML element name of this UncertValue object.
    *
-   * @return @c true if this abstract "DistribBase" is of type
-   * UncertStatisticSpan, @c false otherwise
-   */
-  virtual bool isUncertStatisticSpan() const;
-
-
-  /**
-   * Returns the XML element name of this DistribBase object.
+   * For UncertValue, the XML element name is always @c "uncertValue".
    *
-   * For DistribBase, the XML element name is always @c "distribBase".
-   *
-   * @return the name of this element, i.e. @c "distribBase".
+   * @return the name of this element, i.e. @c "uncertValue".
    */
   virtual const std::string& getElementName() const;
 
 
+
+  /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Returns the libSBML type code for this DistribBase object.
+   * Sets the XML name of this UncertValue object.
+   */
+  virtual void setElementName(const std::string& name);
+
+  /** @endcond */
+
+
+  /**
+   * Returns the libSBML type code for this UncertValue object.
    *
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_DISTRIB_DISTRIBBASE, SBMLDistribTypeCode_t}.
+   * @sbmlconstant{SBML_DISTRIB_UNCERTVALUE, SBMLDistribTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -289,10 +319,10 @@ public:
 
   /**
    * Predicate returning @c true if all the required attributes for this
-   * DistribBase object have been set.
+   * UncertValue object have been set.
    *
    * @return @c true to indicate that all the required attributes of this
-   * DistribBase have been set, otherwise @c false is returned.
+   * UncertValue have been set, otherwise @c false is returned.
    */
   virtual bool hasRequiredAttributes() const;
 
@@ -352,7 +382,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this DistribBase.
+   * Gets the value of the "attributeName" attribute of this UncertValue.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -372,7 +402,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this DistribBase.
+   * Gets the value of the "attributeName" attribute of this UncertValue.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -391,7 +421,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this DistribBase.
+   * Gets the value of the "attributeName" attribute of this UncertValue.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -411,7 +441,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this DistribBase.
+   * Gets the value of the "attributeName" attribute of this UncertValue.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -431,7 +461,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this DistribBase.
+   * Gets the value of the "attributeName" attribute of this UncertValue.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -451,12 +481,12 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Predicate returning @c true if this DistribBase's attribute
+   * Predicate returning @c true if this UncertValue's attribute
    * "attributeName" is set.
    *
    * @param attributeName, the name of the attribute to query.
    *
-   * @return @c true if this DistribBase's attribute "attributeName" has been
+   * @return @c true if this UncertValue's attribute "attributeName" has been
    * set, otherwise @c false is returned.
    */
   virtual bool isSetAttribute(const std::string& attributeName) const;
@@ -468,7 +498,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this DistribBase.
+   * Sets the value of the "attributeName" attribute of this UncertValue.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -487,7 +517,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this DistribBase.
+   * Sets the value of the "attributeName" attribute of this UncertValue.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -506,7 +536,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this DistribBase.
+   * Sets the value of the "attributeName" attribute of this UncertValue.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -525,7 +555,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this DistribBase.
+   * Sets the value of the "attributeName" attribute of this UncertValue.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -545,7 +575,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this DistribBase.
+   * Sets the value of the "attributeName" attribute of this UncertValue.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -565,7 +595,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Unsets the value of the "attributeName" attribute of this DistribBase.
+   * Unsets the value of the "attributeName" attribute of this UncertValue.
    *
    * @param attributeName, the name of the attribute to query.
    *
@@ -584,6 +614,17 @@ public:
 
 
 protected:
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Creates a new object from the next XMLToken on the XMLInputStream
+   */
+  virtual SBase* createObject(XMLInputStream& stream);
+
+  /** @endcond */
+
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -647,354 +688,294 @@ BEGIN_C_DECLS
 
 
 /**
- * Creates a new Distribution (DistribBase_t) using the given SBML Level,
- * Version and &ldquo;distrib&rdquo; package version.
+ * Creates a new UncertValue_t using the given SBML Level, Version and
+ * &ldquo;distrib&rdquo; package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * DistribBase_t.
+ * UncertValue_t.
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * DistribBase_t.
+ * UncertValue_t.
  *
  * @param pkgVersion an unsigned int, the SBML Distrib Version to assign to
- * this DistribBase_t.
+ * this UncertValue_t.
  *
  * @copydetails doc_note_setting_lv_pkg
  *
  * @copydetails doc_returned_owned_pointer
  *
- * @memberof DistribBase_t
+ * @memberof UncertValue_t
  */
 LIBSBML_EXTERN
-DistribBase_t *
-DistribBase_createDistribution(unsigned int level,
-                               unsigned int version,
-                               unsigned int pkgVersion);
+UncertValue_t *
+UncertValue_create(unsigned int level,
+                   unsigned int version,
+                   unsigned int pkgVersion);
 
 
 /**
- * Creates a new ExternalParameter (DistribBase_t) using the given SBML Level,
- * Version and &ldquo;distrib&rdquo; package version.
+ * Creates and returns a deep copy of this UncertValue_t object.
  *
- * @param level an unsigned int, the SBML Level to assign to this
- * DistribBase_t.
+ * @param uv the UncertValue_t structure.
  *
- * @param version an unsigned int, the SBML Version to assign to this
- * DistribBase_t.
- *
- * @param pkgVersion an unsigned int, the SBML Distrib Version to assign to
- * this DistribBase_t.
- *
- * @copydetails doc_note_setting_lv_pkg
+ * @return a (deep) copy of this UncertValue_t object.
  *
  * @copydetails doc_returned_owned_pointer
  *
- * @memberof DistribBase_t
+ * @memberof UncertValue_t
  */
 LIBSBML_EXTERN
-DistribBase_t *
-DistribBase_createExternalParameter(unsigned int level,
-                                    unsigned int version,
-                                    unsigned int pkgVersion);
+UncertValue_t*
+UncertValue_clone(const UncertValue_t* uv);
 
 
 /**
- * Creates a new Uncertainty (DistribBase_t) using the given SBML Level,
- * Version and &ldquo;distrib&rdquo; package version.
+ * Frees this UncertValue_t object.
  *
- * @param level an unsigned int, the SBML Level to assign to this
- * DistribBase_t.
+ * @param uv the UncertValue_t structure.
  *
- * @param version an unsigned int, the SBML Version to assign to this
- * DistribBase_t.
- *
- * @param pkgVersion an unsigned int, the SBML Distrib Version to assign to
- * this DistribBase_t.
- *
- * @copydetails doc_note_setting_lv_pkg
- *
- * @copydetails doc_returned_owned_pointer
- *
- * @memberof DistribBase_t
- */
-LIBSBML_EXTERN
-DistribBase_t *
-DistribBase_createUncertainty(unsigned int level,
-                              unsigned int version,
-                              unsigned int pkgVersion);
-
-
-/**
- * Creates a new UncertStatisticSpan (DistribBase_t) using the given SBML
- * Level, Version and &ldquo;distrib&rdquo; package version.
- *
- * @param level an unsigned int, the SBML Level to assign to this
- * DistribBase_t.
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * DistribBase_t.
- *
- * @param pkgVersion an unsigned int, the SBML Distrib Version to assign to
- * this DistribBase_t.
- *
- * @copydetails doc_note_setting_lv_pkg
- *
- * @copydetails doc_returned_owned_pointer
- *
- * @memberof DistribBase_t
- */
-LIBSBML_EXTERN
-DistribBase_t *
-DistribBase_createUncertStatisticSpan(unsigned int level,
-                                      unsigned int version,
-                                      unsigned int pkgVersion);
-
-
-/**
- * Creates and returns a deep copy of this DistribBase_t object.
- *
- * @param db the DistribBase_t structure.
- *
- * @return a (deep) copy of this DistribBase_t object.
- *
- * @copydetails doc_returned_owned_pointer
- *
- * @memberof DistribBase_t
- */
-LIBSBML_EXTERN
-DistribBase_t*
-DistribBase_clone(const DistribBase_t* db);
-
-
-/**
- * Frees this DistribBase_t object.
- *
- * @param db the DistribBase_t structure.
- *
- * @memberof DistribBase_t
+ * @memberof UncertValue_t
  */
 LIBSBML_EXTERN
 void
-DistribBase_free(DistribBase_t* db);
+UncertValue_free(UncertValue_t* uv);
 
 
 /**
- * Returns the value of the "id" attribute of this DistribBase_t.
+ * Returns the value of the "value" attribute of this UncertValue_t.
  *
- * @param db the DistribBase_t structure whose id is sought.
+ * @param uv the UncertValue_t structure whose value is sought.
  *
- * @return the value of the "id" attribute of this DistribBase_t as a pointer
+ * @return the value of the "value" attribute of this UncertValue_t as a
+ * double.
+ *
+ * @memberof UncertValue_t
+ */
+LIBSBML_EXTERN
+double
+UncertValue_getValue(const UncertValue_t * uv);
+
+
+/**
+ * Returns the value of the "var" attribute of this UncertValue_t.
+ *
+ * @param uv the UncertValue_t structure whose var is sought.
+ *
+ * @return the value of the "var" attribute of this UncertValue_t as a pointer
  * to a string.
  *
  * @copydetails doc_returned_owned_char
  *
- * @memberof DistribBase_t
+ * @memberof UncertValue_t
  */
 LIBSBML_EXTERN
 char *
-DistribBase_getId(const DistribBase_t * db);
+UncertValue_getVar(const UncertValue_t * uv);
 
 
 /**
- * Returns the value of the "name" attribute of this DistribBase_t.
+ * Returns the value of the "units" attribute of this UncertValue_t.
  *
- * @param db the DistribBase_t structure whose name is sought.
+ * @param uv the UncertValue_t structure whose units is sought.
  *
- * @return the value of the "name" attribute of this DistribBase_t as a pointer
- * to a string.
+ * @return the value of the "units" attribute of this UncertValue_t as a
+ * pointer to a string.
  *
  * @copydetails doc_returned_owned_char
  *
- * @memberof DistribBase_t
+ * @memberof UncertValue_t
  */
 LIBSBML_EXTERN
 char *
-DistribBase_getName(const DistribBase_t * db);
+UncertValue_getUnits(const UncertValue_t * uv);
 
 
 /**
- * Predicate returning @c 1 (true) if this DistribBase_t's "id" attribute is
+ * Predicate returning @c 1 (true) if this UncertValue_t's "value" attribute is
  * set.
  *
- * @param db the DistribBase_t structure.
+ * @param uv the UncertValue_t structure.
  *
- * @return @c 1 (true) if this DistribBase_t's "id" attribute has been set,
+ * @return @c 1 (true) if this UncertValue_t's "value" attribute has been set,
  * otherwise @c 0 (false) is returned.
  *
- * @memberof DistribBase_t
+ * @memberof UncertValue_t
  */
 LIBSBML_EXTERN
 int
-DistribBase_isSetId(const DistribBase_t * db);
+UncertValue_isSetValue(const UncertValue_t * uv);
 
 
 /**
- * Predicate returning @c 1 (true) if this DistribBase_t's "name" attribute is
+ * Predicate returning @c 1 (true) if this UncertValue_t's "var" attribute is
  * set.
  *
- * @param db the DistribBase_t structure.
+ * @param uv the UncertValue_t structure.
  *
- * @return @c 1 (true) if this DistribBase_t's "name" attribute has been set,
+ * @return @c 1 (true) if this UncertValue_t's "var" attribute has been set,
  * otherwise @c 0 (false) is returned.
  *
- * @memberof DistribBase_t
+ * @memberof UncertValue_t
  */
 LIBSBML_EXTERN
 int
-DistribBase_isSetName(const DistribBase_t * db);
+UncertValue_isSetVar(const UncertValue_t * uv);
 
 
 /**
- * Sets the value of the "id" attribute of this DistribBase_t.
+ * Predicate returning @c 1 (true) if this UncertValue_t's "units" attribute is
+ * set.
  *
- * @param db the DistribBase_t structure.
+ * @param uv the UncertValue_t structure.
  *
- * @param id const char * value of the "id" attribute to be set.
+ * @return @c 1 (true) if this UncertValue_t's "units" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof UncertValue_t
+ */
+LIBSBML_EXTERN
+int
+UncertValue_isSetUnits(const UncertValue_t * uv);
+
+
+/**
+ * Sets the value of the "value" attribute of this UncertValue_t.
+ *
+ * @param uv the UncertValue_t structure.
+ *
+ * @param value double value of the "value" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * Calling this function with @p id = @c NULL or an empty string is equivalent
- * to calling DistribBase_unsetId().
- *
- * @memberof DistribBase_t
+ * @memberof UncertValue_t
  */
 LIBSBML_EXTERN
 int
-DistribBase_setId(DistribBase_t * db, const char * id);
+UncertValue_setValue(UncertValue_t * uv, double value);
 
 
 /**
- * Sets the value of the "name" attribute of this DistribBase_t.
+ * Sets the value of the "var" attribute of this UncertValue_t.
  *
- * @param db the DistribBase_t structure.
+ * @param uv the UncertValue_t structure.
  *
- * @param name const char * value of the "name" attribute to be set.
+ * @param var const char * value of the "var" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * Calling this function with @p name = @c NULL or an empty string is
- * equivalent to calling DistribBase_unsetName().
- *
- * @memberof DistribBase_t
+ * @memberof UncertValue_t
  */
 LIBSBML_EXTERN
 int
-DistribBase_setName(DistribBase_t * db, const char * name);
+UncertValue_setVar(UncertValue_t * uv, const char * var);
 
 
 /**
- * Unsets the value of the "id" attribute of this DistribBase_t.
+ * Sets the value of the "units" attribute of this UncertValue_t.
  *
- * @param db the DistribBase_t structure.
+ * @param uv the UncertValue_t structure.
+ *
+ * @param units const char * value of the "units" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @memberof DistribBase_t
+ * @memberof UncertValue_t
  */
 LIBSBML_EXTERN
 int
-DistribBase_unsetId(DistribBase_t * db);
+UncertValue_setUnits(UncertValue_t * uv, const char * units);
 
 
 /**
- * Unsets the value of the "name" attribute of this DistribBase_t.
+ * Unsets the value of the "value" attribute of this UncertValue_t.
  *
- * @param db the DistribBase_t structure.
+ * @param uv the UncertValue_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @memberof DistribBase_t
+ * @memberof UncertValue_t
  */
 LIBSBML_EXTERN
 int
-DistribBase_unsetName(DistribBase_t * db);
+UncertValue_unsetValue(UncertValue_t * uv);
 
 
 /**
- * Predicate returning @c 1 if this DistribBase_t is of type Distribution_t
+ * Unsets the value of the "var" attribute of this UncertValue_t.
  *
- * @param db the DistribBase_t structure.
+ * @param uv the UncertValue_t structure.
  *
- * @return @c 1 if this DistribBase_t is of type Distribution_t, @c 0 otherwise
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @memberof DistribBase_t
+ * @memberof UncertValue_t
  */
 LIBSBML_EXTERN
 int
-DistribBase_isDistribution(const DistribBase_t * db);
+UncertValue_unsetVar(UncertValue_t * uv);
 
 
 /**
- * Predicate returning @c 1 if this DistribBase_t is of type
+ * Unsets the value of the "units" attribute of this UncertValue_t.
+ *
+ * @param uv the UncertValue_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof UncertValue_t
+ */
+LIBSBML_EXTERN
+int
+UncertValue_unsetUnits(UncertValue_t * uv);
+
+
+/**
+ * Predicate returning @c 1 if this UncertValue_t is of type
  * ExternalParameter_t
  *
- * @param db the DistribBase_t structure.
+ * @param uv the UncertValue_t structure.
  *
- * @return @c 1 if this DistribBase_t is of type ExternalParameter_t, @c 0
+ * @return @c 1 if this UncertValue_t is of type ExternalParameter_t, @c 0
  * otherwise
  *
- * @memberof DistribBase_t
+ * @memberof UncertValue_t
  */
 LIBSBML_EXTERN
 int
-DistribBase_isExternalParameter(const DistribBase_t * db);
-
-
-/**
- * Predicate returning @c 1 if this DistribBase_t is of type Uncertainty_t
- *
- * @param db the DistribBase_t structure.
- *
- * @return @c 1 if this DistribBase_t is of type Uncertainty_t, @c 0 otherwise
- *
- * @memberof DistribBase_t
- */
-LIBSBML_EXTERN
-int
-DistribBase_isUncertainty(const DistribBase_t * db);
-
-
-/**
- * Predicate returning @c 1 if this DistribBase_t is of type
- * UncertStatisticSpan_t
- *
- * @param db the DistribBase_t structure.
- *
- * @return @c 1 if this DistribBase_t is of type UncertStatisticSpan_t, @c 0
- * otherwise
- *
- * @memberof DistribBase_t
- */
-LIBSBML_EXTERN
-int
-DistribBase_isUncertStatisticSpan(const DistribBase_t * db);
+UncertValue_isExternalParameter(const UncertValue_t * uv);
 
 
 /**
  * Predicate returning @c 1 (true) if all the required attributes for this
- * DistribBase_t object have been set.
+ * UncertValue_t object have been set.
  *
- * @param db the DistribBase_t structure.
+ * @param uv the UncertValue_t structure.
  *
  * @return @c 1 (true) to indicate that all the required attributes of this
- * DistribBase_t have been set, otherwise @c 0 (false) is returned.
+ * UncertValue_t have been set, otherwise @c 0 (false) is returned.
  *
- * @memberof DistribBase_t
+ * @memberof UncertValue_t
  */
 LIBSBML_EXTERN
 int
-DistribBase_hasRequiredAttributes(const DistribBase_t * db);
+UncertValue_hasRequiredAttributes(const UncertValue_t * uv);
 
 
 
@@ -1014,6 +995,6 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 
-#endif /* !DistribBase_H__ */
+#endif /* !UncertValue_H__ */
 
 

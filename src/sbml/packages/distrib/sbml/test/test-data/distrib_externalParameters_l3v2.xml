@@ -1,30 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" xmlns:distrib="http://www.sbml.org/sbml/level3/version2/distrib/version1" level="3" version="2" distrib:required="true">
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" xmlns:distrib="http://www.sbml.org/sbml/level3/version1/distrib/version1" level="3" version="2" distrib:required="true">
   <model>
-    <listOfFunctionDefinitions>
-      <functionDefinition id="Exponential2">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <lambda>
-            <bvar>
-              <ci> x </ci>
-            </bvar>
-            <bvar>
-              <ci> y </ci>
-            </bvar>
-            <notanumber/>
-          </lambda>
-        </math>
-        <distrib:drawFromDistribution>
-          <distrib:externalDistribution name="Exponential 2" distrib:definitionURL="http://www.probonto.org/ontology#PROB_k0000353">
-            <distrib:listOfExternalParameters>
-              <distrib:externalParameter name="Beta" distrib:var="beta" distrib:definitionURL="http://www.probonto.org/ontology#PROB_k0000362"/>
-            </distrib:listOfExternalParameters>
-          </distrib:externalDistribution>
-          <distrib:listOfDistribInputs>
-            <distrib:distribInput id="beta" distrib:index="0"/>
-          </distrib:listOfDistribInputs>
-        </distrib:drawFromDistribution>
-      </functionDefinition>
-    </listOfFunctionDefinitions>
+    <listOfParameters>
+      <parameter id="P1" value="5.13" constant="true">
+        <distrib:uncertainty>
+          <distrib:listOfExternalParameters>
+            <distrib:externalParameter distrib:name="Beta" distrib:var="beta" distrib:definitionURL="http://www.probonto.org/ontology#PROB_k0000362"/>
+          </distrib:listOfExternalParameters>
+        </distrib:uncertainty>
+      </parameter>
+    </listOfParameters>
   </model>
 </sbml>
