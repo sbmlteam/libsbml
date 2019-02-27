@@ -7,6 +7,10 @@
  * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2019 jointly by the following organizations:
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
+ *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
  * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
@@ -647,8 +651,8 @@ BEGIN_C_DECLS
 
 
 /**
- * Creates a new Distribution (DistribBase_t) using the given SBML Level,
- * Version and &ldquo;distrib&rdquo; package version.
+ * Creates a new Distribution using the given SBML Level, Version and
+ * &ldquo;distrib&rdquo; package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
  * DistribBase_t.
@@ -666,15 +670,15 @@ BEGIN_C_DECLS
  * @memberof DistribBase_t
  */
 LIBSBML_EXTERN
-DistribBase_t *
+Distribution_t *
 DistribBase_createDistribution(unsigned int level,
                                unsigned int version,
                                unsigned int pkgVersion);
 
 
 /**
- * Creates a new ExternalParameter (DistribBase_t) using the given SBML Level,
- * Version and &ldquo;distrib&rdquo; package version.
+ * Creates a new ExternalParameter using the given SBML Level, Version and
+ * &ldquo;distrib&rdquo; package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
  * DistribBase_t.
@@ -692,15 +696,15 @@ DistribBase_createDistribution(unsigned int level,
  * @memberof DistribBase_t
  */
 LIBSBML_EXTERN
-DistribBase_t *
+ExternalParameter_t *
 DistribBase_createExternalParameter(unsigned int level,
                                     unsigned int version,
                                     unsigned int pkgVersion);
 
 
 /**
- * Creates a new Uncertainty (DistribBase_t) using the given SBML Level,
- * Version and &ldquo;distrib&rdquo; package version.
+ * Creates a new Uncertainty using the given SBML Level, Version and
+ * &ldquo;distrib&rdquo; package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
  * DistribBase_t.
@@ -718,15 +722,15 @@ DistribBase_createExternalParameter(unsigned int level,
  * @memberof DistribBase_t
  */
 LIBSBML_EXTERN
-DistribBase_t *
+Uncertainty_t *
 DistribBase_createUncertainty(unsigned int level,
                               unsigned int version,
                               unsigned int pkgVersion);
 
 
 /**
- * Creates a new UncertStatisticSpan (DistribBase_t) using the given SBML
- * Level, Version and &ldquo;distrib&rdquo; package version.
+ * Creates a new UncertStatisticSpan using the given SBML Level, Version and
+ * &ldquo;distrib&rdquo; package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
  * DistribBase_t.
@@ -744,7 +748,7 @@ DistribBase_createUncertainty(unsigned int level,
  * @memberof DistribBase_t
  */
 LIBSBML_EXTERN
-DistribBase_t *
+UncertStatisticSpan_t *
 DistribBase_createUncertStatisticSpan(unsigned int level,
                                       unsigned int version,
                                       unsigned int pkgVersion);
