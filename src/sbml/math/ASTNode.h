@@ -1906,7 +1906,7 @@ setValue(value, 0);
     ASTBasePlugin * getASTPlugin(ASTNodeType_t type);
 
   LIBSBML_EXTERN
-    ASTBasePlugin * getASTPlugin(const std::string& name, bool isCsymbol = false);
+    ASTBasePlugin * getASTPlugin(const std::string& name, bool isCsymbol = false, bool strCmpIsCaseSensitive = false);
 
   LIBSBML_EXTERN
     const ASTBasePlugin * getASTPlugin(const SBMLNamespaces * sbmlns) const;
@@ -1915,7 +1915,7 @@ setValue(value, 0);
     const ASTBasePlugin * getASTPlugin(ASTNodeType_t type) const;
 
   LIBSBML_EXTERN
-    const ASTBasePlugin * getASTPlugin(const std::string& name, bool isCsymbol = false) const;
+    const ASTBasePlugin * getASTPlugin(const std::string& name, bool isCsymbol = false, bool strCmpIsCaseSensitive = false) const;
 
 
   /** @cond doxygenLibsbmlInternal */

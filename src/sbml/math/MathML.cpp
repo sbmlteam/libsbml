@@ -406,7 +406,7 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
       else if (url == URL_AVOGADRO) node.setType(AST_NAME_AVOGADRO);
       else {
         ASTNodeType_t type = AST_UNKNOWN;
-        const ASTBasePlugin* baseplugin = node.getASTPlugin(url, true);
+        const ASTBasePlugin* baseplugin = node.getASTPlugin(url, true, true);
         if (baseplugin != NULL)
         {
           type = baseplugin->getASTNodeTypeForCSymbolURL(url);
@@ -441,7 +441,7 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
       else
       {
         ASTNodeType_t type = AST_UNKNOWN;
-        const ASTBasePlugin* baseplugin = node.getASTPlugin(url, true);
+        const ASTBasePlugin* baseplugin = node.getASTPlugin(url, true, true);
         if (baseplugin != NULL)
         {
           if (baseplugin->hasCorrectNamespace(stream.getSBMLNamespaces()))
@@ -660,7 +660,7 @@ setTypeOther (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
     std::string    strName = element.getName();
     //while (type == AST_UNKNOWN && i < node.getNumPlugins())
     //{
-    const ASTBasePlugin* baseplugin = node.getASTPlugin(strName);
+    const ASTBasePlugin* baseplugin = node.getASTPlugin(strName, false, true);
     if (baseplugin != NULL)
     {
       type = baseplugin->getASTNodeTypeFor(strName);
@@ -741,7 +741,7 @@ isMathMLNodeTag(const string& name)
     //for (unsigned int p = 0; p < astn.getNumPlugins(); p++)
     //{
     //  const ASTBasePlugin* plugin = astn.getPlugin(p);
-      if (astn.getASTPlugin(name) != NULL && astn.getASTPlugin(name)->isMathMLNodeTag(name))
+      if (astn.getASTPlugin(name, false, true) != NULL && astn.getASTPlugin(name, false, true)->isMathMLNodeTag(name))
       {
         return true;
       }
@@ -809,7 +809,7 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
     // are we using L3 - so we might have an extension
     if (level > 2)
     {
-      thisPlugin = node.getASTPlugin(name);
+      thisPlugin = node.getASTPlugin(name, false, false);
       if (thisPlugin != NULL)
       {
         SBMLNamespaces* ns = stream.getSBMLNamespaces();

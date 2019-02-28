@@ -232,7 +232,7 @@ ASTNodeType_t
 L3ParserSettings::getPackageFunctionFor(const std::string& name) const
 {
   ASTNode * temp = new ASTNode();
-  const ASTBasePlugin * baseplugin = temp->getASTPlugin(name);
+  const ASTBasePlugin * baseplugin = temp->getASTPlugin(name, false, mStrCmpIsCaseSensitive);
   delete temp;
   if (baseplugin != NULL)
   {
@@ -244,7 +244,7 @@ L3ParserSettings::getPackageFunctionFor(const std::string& name) const
     {
       return AST_UNKNOWN;
     }
-    ASTNodeType_t ret = baseplugin->getPackageFunctionFor(name);
+    ASTNodeType_t ret = baseplugin->getPackageFunctionFor(name, mStrCmpIsCaseSensitive);
     if (ret != AST_UNKNOWN)
     {
       return ret;

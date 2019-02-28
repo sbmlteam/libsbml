@@ -3472,7 +3472,7 @@ ASTNode::getASTPlugin(ASTNodeType_t type)
 
 LIBSBML_EXTERN
 ASTBasePlugin * 
-ASTNode::getASTPlugin(const std::string& name, bool isCsymbol)
+ASTNode::getASTPlugin(const std::string& name, bool isCsymbol, bool strCmpIsCaseSensitive)
 {
   unsigned int numPkgs = SBMLExtensionRegistry::getInstance().getNumASTPlugins();
 
@@ -3488,7 +3488,7 @@ ASTNode::getASTPlugin(const std::string& name, bool isCsymbol)
     }
     else
     {
-      if (baseplugin->defines(name))
+      if (baseplugin->defines(name, strCmpIsCaseSensitive))
       {
         return const_cast<ASTBasePlugin*>(baseplugin);
       }
@@ -3547,7 +3547,7 @@ ASTNode::getASTPlugin(ASTNodeType_t type) const
 
 LIBSBML_EXTERN
 const ASTBasePlugin * 
-ASTNode::getASTPlugin(const std::string& name, bool isCsymbol) const
+ASTNode::getASTPlugin(const std::string& name, bool isCsymbol, bool strCmpIsCaseSensitive) const
 {
   unsigned int numPkgs = SBMLExtensionRegistry::getInstance().getNumASTPlugins();
 
@@ -3563,7 +3563,7 @@ ASTNode::getASTPlugin(const std::string& name, bool isCsymbol) const
     }
     else
     {
-      if (baseplugin->defines(name))
+      if (baseplugin->defines(name, strCmpIsCaseSensitive))
       {
         return const_cast<ASTBasePlugin*>(baseplugin);
       }

@@ -62,11 +62,11 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 // from extended math
-bool emStrCmp(const string& lhs, const string& rhs)
+bool emStrCmp(const string& lhs, const string& rhs, bool strCmpIsCaseSensitive=false)
 {
-  //if (strCmpIsCaseSensitive) {
-  //  return lhs==rhs;
-  //}
+  if (strCmpIsCaseSensitive) {
+    return lhs==rhs;
+  }
   if (lhs.size() != rhs.size()) return false;
 
   for (size_t i = 0; i < lhs.size(); ++i)
@@ -187,11 +187,11 @@ bool ASTBasePlugin::defines(ASTNodeType_t type) const
   return false;
 }
 
-bool ASTBasePlugin::defines(const std::string& name) const
+bool ASTBasePlugin::defines(const std::string& name, bool strCmpIsCaseSensitive) const
 {
   for (size_t t = 0; t < mPkgASTNodeValues.size(); t++)
   {
-    if (mPkgASTNodeValues[t].name == name)
+    if (emStrCmp(mPkgASTNodeValues[t].name, name, strCmpIsCaseSensitive))
     {
       return true;
     }
@@ -691,11 +691,11 @@ ASTBasePlugin::parsePackageInfix(L3ParserGrammarLineType_t,
 
 
 ASTNodeType_t
-ASTBasePlugin::getPackageFunctionFor(const std::string& function) const
+ASTBasePlugin::getPackageFunctionFor(const std::string& function, bool strCmpIsCaseSensitive) const
 {
   for (size_t t = 0; t < mPkgASTNodeValues.size(); t++)
   {
-    if (emStrCmp(mPkgASTNodeValues[t].name, function))
+    if (emStrCmp(mPkgASTNodeValues[t].name, function, strCmpIsCaseSensitive))
     {
       ASTNodeType_t ret = mPkgASTNodeValues[t].type;
       if (mPkgASTNodeValues[t].isFunction)

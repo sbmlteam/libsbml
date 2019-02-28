@@ -94,7 +94,7 @@ public:
   virtual ASTNodeType_t getASTNodeTypeForCSymbolURL(const std::string& url) const;
   virtual bool hasCorrectNamespace(SBMLNamespaces* namespaces) const;
   virtual bool defines(ASTNodeType_t type) const;
-  virtual bool defines(const std::string& name) const;
+  virtual bool defines(const std::string& name, bool strCmpIsCaseSensitive = false) const;
   virtual bool isFunction(ASTNodeType_t type) const;
   virtual bool isLogical(ASTNodeType_t type) const;
   virtual bool isMathMLNodeTag(const std::string& node) const;
@@ -436,7 +436,7 @@ protected:
   * caseless string comparison.  Return the type of the function, or @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}
   * if nothing found.
   */
-  virtual ASTNodeType_t getPackageFunctionFor(const std::string& name) const;
+  virtual ASTNodeType_t getPackageFunctionFor(const std::string& name, bool strCmpIsCaseSensitive = false) const;
 
   /*-- data members --*/
 
