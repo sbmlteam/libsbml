@@ -648,7 +648,6 @@ DistribBase::readAttributes(const XMLAttributes& attributes,
   unsigned int level = getLevel();
   unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
-  unsigned int numErrs;
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
