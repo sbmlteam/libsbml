@@ -52,6 +52,7 @@ CK_CPPSTART
 Suite *create_suite_L3v2EMExtension (void);
 Suite *create_suite_WriteL3v2EMExtension (void);
 Suite *create_suite_ReadL3v2EMExtension (void);
+Suite *create_suite_L3v2EMExtensionReadWriteInfix (void);
 
 /**
  * Global.
@@ -94,6 +95,7 @@ main (int argc, char* argv[])
   SRunner *runner = srunner_create(create_suite_L3v2EMExtension());
   srunner_add_suite(runner, create_suite_WriteL3v2EMExtension());
   srunner_add_suite(runner, create_suite_ReadL3v2EMExtension());
+  srunner_add_suite(runner, create_suite_L3v2EMExtensionReadWriteInfix());
 
   if (argc > 1 && !strcmp(argv[1], "-nofork"))
   {
