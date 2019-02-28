@@ -55,7 +55,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 void
 L3v2extendedmathASTPlugin::populateNodeTypes()
 {
-  vector<unsigned int> one, two;
+  vector<unsigned int> zero, one, two;
+  zero.push_back(0);
   one.push_back(1);
   two.push_back(2);
 
@@ -64,8 +65,8 @@ L3v2extendedmathASTPlugin::populateNodeTypes()
   node.name = "max";
   node.csymbolURL = "";
   node.isFunction = true;
-  node.allowedChildrenType = ALLOWED_CHILDREN_ATLEAST;
-  node.numAllowedChildren = one;
+  node.allowedChildrenType = ALLOWED_CHILDREN_ANY;
+  node.numAllowedChildren = zero;
 
   mPkgASTNodeValues.push_back(node);
 
@@ -73,8 +74,8 @@ L3v2extendedmathASTPlugin::populateNodeTypes()
   node.name = "min";
   node.csymbolURL = "";
   node.isFunction = true;
-  node.allowedChildrenType = ALLOWED_CHILDREN_ATLEAST;
-  node.numAllowedChildren = one;
+  node.allowedChildrenType = ALLOWED_CHILDREN_ANY;
+  node.numAllowedChildren = zero;
 
   mPkgASTNodeValues.push_back(node);
 
