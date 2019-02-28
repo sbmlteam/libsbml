@@ -164,7 +164,7 @@ void setupDistribWithVals(Model* model, string distname, string id, vector<strin
       allargs += args[a];
       if (!isnum(args[a][0])) {
         if (args[a] == "variance") {
-          addVariance(model, to_string(vals[a]) + "^2");
+          addVariance(model, to_string((long double)(vals[a])) + "^2");
         }
         else {
           Parameter* param = model->createParameter();
