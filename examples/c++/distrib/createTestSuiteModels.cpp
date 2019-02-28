@@ -28,12 +28,15 @@
  */
 
 #include <string>
+#include <limits>
 #include <sbml/SBMLTypes.h>
 #include <sbml/packages/distrib/common/DistribExtensionTypes.h>
 
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_USE
+
+double VALUE_FLAG = 9999999;
 
 SBMLDocument* createBasicSBMLDocument()
 {
@@ -47,109 +50,218 @@ SBMLDocument* createBasicSBMLDocument()
   s->setId("X");
   s->setConstant(false);
   s->setBoundaryCondition(false);
-  s->setHasOnlySubstanceUnits(true);
-  s->setCompartment("C");
-  s->setInitialAmount(0);
+s->setHasOnlySubstanceUnits(true);
+s->setCompartment("C");
+s->setInitialAmount(0);
 
-  //Give it a compartment in which to live
-  Compartment* c = model->createCompartment();
-  c->setId("C");
-  c->setConstant(true);
-  c->setSize(1);
-  c->setSpatialDimensions(3.0);
+//Give it a compartment in which to live
+Compartment* c = model->createCompartment();
+c->setId("C");
+c->setConstant(true);
+c->setSize(1);
+c->setSpatialDimensions(3.0);
 
-  //Our parameter 't' is what triggers an event every second:
-  Parameter* param = model->createParameter();
-  param->setId("t");
-  param->setConstant(false);
-  param->setValue(0);
+//Our parameter 't' is what triggers an event every second:
+Parameter* param = model->createParameter();
+param->setId("t");
+param->setConstant(false);
+param->setValue(0);
 
-  //A rate rule to increase t
-  RateRule* rr = model->createRateRule();
-  rr->setVariable("t");
-  ASTNode* astn = SBML_parseL3Formula("1");
-  rr->setMath(astn);
-  delete astn;
+//A rate rule to increase t
+RateRule* rr = model->createRateRule();
+rr->setVariable("t");
+ASTNode* astn = SBML_parseL3Formula("1");
+rr->setMath(astn);
+delete astn;
 
-  //An event to constantly reset X to another call from the distribution.  Since this is generic, we don't set the actual math yet.
-  Event* e = model->createEvent();
-  e->setId("E0");
-  e->setUseValuesFromTriggerTime(true);
-  Trigger* t = e->createTrigger();
-  t->setPersistent(true);
-  t->setInitialValue(true);
-  astn = SBML_parseL3Formula("t >= 0.5");
-  t->setMath(astn);
-  delete astn;
-  EventAssignment* ea = e->createEventAssignment();
-  ea->setVariable("X");
-  //leave the math clear for now.
-  ea = e->createEventAssignment();
-  ea->setVariable("t");
-  astn = SBML_parseL3Formula("-0.5");
-  ea->setMath(astn);
+//An event to constantly reset X to another call from the distribution.  Since this is generic, we don't set the actual math yet.
+Event* e = model->createEvent();
+e->setId("E0");
+e->setUseValuesFromTriggerTime(true);
+Trigger* t = e->createTrigger();
+t->setPersistent(true);
+t->setInitialValue(true);
+astn = SBML_parseL3Formula("t >= 0.5");
+t->setMath(astn);
+delete astn;
+EventAssignment* ea = e->createEventAssignment();
+ea->setVariable("X");
+//leave the math clear for now.
+ea = e->createEventAssignment();
+ea->setVariable("t");
+astn = SBML_parseL3Formula("-0.5");
+ea->setMath(astn);
+delete astn;
 
-  return document;
+return document;
 }
 
 void setupDistrib(Model* model, string distname, vector<string> argvec, string formargs)
 {
   string id = argvec[0];
+  string args = "";
+  for (size_t a = 1; a < argvec.size(); a++) {
+    if (a > 1) {
+      args += ", ";
+    }
+    args += argvec[a];
+  }
+
   EventAssignment* ea = model->getEvent(0)->getEventAssignment(0);
   ASTNode* astn = SBML_parseL3Formula((id + "(" + formargs + ")").c_str());
+  cout << "Formula: " << id << "(" << formargs << ")" << endl;
   ea->setMath(astn);
   delete astn;
 }
 
-void setupDistribWithVals(Model* model, string distname, string id, vector<string> args, vector<string> vals, vector<string> types, string formargs)
+bool isnum(char x)
 {
-  //assert(args.size() == vals.size() && vals.size() == types.size());
-  //string calledargs = "";
-  //string allargs = "";
-  //string allvals = "";
-  //string alltypes = "";
-  //vector<string> argvec;
-  //for (size_t a=0; a<args.size(); a++) {
-  //  if (a>0) {
-  //    allargs += ", ";
-  //    allvals += ", ";
-  //    alltypes += ", ";
-  //  }
-  //  if (types[a] == "varId") {
-  //    if (!calledargs.empty()) {
-  //      calledargs += ", ";
-  //    }
-  //    calledargs += args[a];
-  //    argvec.push_back(args[a]);
-  //  }
-  //  allargs += args[a];
-  //  allvals += vals[a];
-  //  alltypes += types[a];
-  //}
-
-  //FunctionDefinition* fd = addFunctionDefinition(model, calledargs);
-  //fd->setId(id);
-  //DistribFunctionDefinitionPlugin* dfdp = static_cast<DistribFunctionDefinitionPlugin*>(fd->getPlugin("distrib"));
-  //DistribDrawFromDistribution* dfd = dfdp->createDistribDrawFromDistribution();
-  //for (size_t a=0; a<argvec.size(); a++) {
-  //  DistribInput* di = dfd->createDistribInput();
-  //  di->setId(argvec[a]);
-  //  di->setIndex(a);
-  //}
-  //SBase* dist = dfd->createChildObject(distname);
-  //for (size_t a = 0; a < argvec.size(); a++) {
-  //  SBase* arg_a = dist->createChildObject(argvec[a]);
-  //  arg_a->setAttribute("value", vals[a]);
-  //  if (arg_a->getTypeCode() == SBML_DISTRIB_UNCERTBOUND) {
-  //    arg_a->setAttribute("inclusive", true);
-  //  }
-  //}
-
-  //EventAssignment* ea = model->getEvent(0)->getEventAssignment(0);
-  //ASTNode* astn = SBML_parseL3Formula((id + "(" + formargs + ")").c_str());
-  //ea->setMath(astn);
-  //delete astn;
+  if (x >= '0' && x <= '9') {
+    return true;
+  }
+  return false;
 }
+
+void addVariance(Model* model, string formula)
+{
+  Parameter* variance = model->createParameter();
+  variance->setId("variance");
+  variance->setConstant(true);
+  InitialAssignment* ia = model->createInitialAssignment();
+  ia->setSymbol("variance");
+  ASTNode* astn = SBML_parseL3Formula(formula.c_str());
+  ia->setMath(astn);
+  delete astn;
+}
+
+void setupDistribWithVals(Model* model, string distname, string id, vector<string> args, vector<double> vals, vector<string> types, string formargs)
+{
+  assert(args.size() == vals.size() && vals.size() == types.size());
+  string calledargs = "";
+  string allargs = "";
+  vector<string> argvec;
+  bool used_formarg = false;
+  for (size_t a = 0; a < args.size(); a++) {
+    if (a > 0) {
+      allargs += ", ";
+    }
+    if (vals[a] == VALUE_FLAG)
+    {
+      if (!used_formarg)
+      {
+        allargs += formargs;
+      }
+      else
+      {
+        //Remove the comma
+        allargs.pop_back();
+        allargs.pop_back();
+      }
+      used_formarg = true;
+    }
+    else
+    {
+      allargs += args[a];
+      if (!isnum(args[a][0])) {
+        if (args[a] == "variance") {
+          addVariance(model, to_string(vals[a]) + "^2");
+        }
+        else {
+          Parameter* param = model->createParameter();
+          param->setId(args[a]);
+          param->setConstant(true);
+          param->setValue(vals[a]);
+        }
+      }
+    }
+  }
+
+  EventAssignment* ea = model->getEvent(0)->getEventAssignment(0);
+  ASTNode* astn = SBML_parseL3Formula((id + "(" + allargs + ")").c_str());
+  cout << "Formula: " << id << "(" << allargs << ")" << endl;
+  ea->setMath(astn);
+  delete astn;
+}
+
+//UncertMLNode* createMixtureNode(std::string name, vector<string> weights)
+//{
+//  UncertMLNode *node = new UncertMLNode();
+//  node->setElementName(name);
+//
+//  XMLAttributes attr = XMLAttributes();
+//  /* really the url should be specific to the distribution
+//  * but whilst the attribue is required in uncertML it does not require
+//  * it to be an exact match
+//  */
+//  attr.add("definition", "http://www.uncertml.org/distributions");
+//  node->setAttributes(attr);
+//
+//  for (unsigned int i = 0; i < weights.size(); i++)
+//  {
+//    UncertMLNode * child = new UncertMLNode();
+//    child->setElementName("component");
+//    XMLAttributes attributes = XMLAttributes();
+//    attributes.add("weight", weights[i]);
+//    child->setAttributes(attributes);
+//    node->addChild(child);
+//  }
+//
+//  return node;
+//}
+//
+//
+//void setupMixedDistrib(Model* model, vector<string> distributions, vector<string> weights, string id, vector<vector<string>> argvec, string formargs)
+//{
+//  assert(distributions.size() == argvec.size()+1);
+//  string argstring = "";
+//  vector<string> numberedvec;
+//  vector<string> straightvec;
+//  vector<string> numvec;
+//  stringstream str;
+//  for (size_t sub=0; sub<argvec.size(); sub++) {
+//    vector<string> args = argvec[sub];
+//    string numcommas = "";
+//    string straightcommas = "";
+//    for (size_t a=0; a<args.size(); a++) {
+//      if (a>0 || sub>0) {
+//        argstring += ", ";
+//      }
+//      if (a>0) {
+//        numcommas += ", ";
+//        straightcommas += ", ";
+//      }
+//      straightcommas += args[a];
+//      str.str("");
+//      str << args[a] << sub;
+//      numberedvec.push_back(str.str());
+//      argstring += str.str();
+//      numcommas += str.str();
+//    }
+//    straightvec.push_back(straightcommas);
+//    numvec.push_back(numcommas);
+//  }
+//  FunctionDefinition* fd = addFunctionDefinition(model, argstring);
+//  fd->setId(id);
+//  DistribFunctionDefinitionPlugin* dfdp = static_cast<DistribFunctionDefinitionPlugin*>(fd->getPlugin("distrib"));
+//  DrawFromDistribution* dfd = dfdp->createDrawFromDistribution();
+//  for (size_t a=0; a<numberedvec.size(); a++) {
+//    DistribInput* di = dfd->createDistribInput();
+//    di->setId(numberedvec[a]);
+//    di->setIndex(a);
+//  }
+//
+//  UncertMLNode* mixedRoot = createMixtureNode(distributions[0], weights);
+//  for (size_t d=1; d<distributions.size(); d++) {
+//    UncertMLNode* dist = UncertMLNode::createDistributionNode(distributions[d], straightvec[d-1], numvec[d-1]);
+//    mixedRoot->getChild(d-1)->addChild(dist);
+//  }
+//  dfd->setUncertML(mixedRoot);
+//
+//  EventAssignment* ea = model->getEvent(0)->getEventAssignment(0);
+//  ASTNode* astn = SBML_parseL3Formula((id + "(" + formargs + ")").c_str());
+//  ea->setMath(astn);
+//  delete astn;
+//}
 
 void CreateStandardDistributions()
 {
@@ -169,17 +281,19 @@ void CreateStandardDistributions()
   writeSBML(document,testid.str().c_str());
   delete document;
  
-  //document = createBasicSBMLDocument();
-  //args.clear();
-  //testid.str("");
+  document = createBasicSBMLDocument();
+  args.clear();
+  testid.str("");
   testnum++;
-  //testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  //args.push_back("normal_with_variance");
-  //args.push_back("mean");
-  //args.push_back("variance");
-  //setupDistrib(document->getModel(), "normalDistribution", args, "0, 1.5");
-  //writeSBML(document,testid.str().c_str());
-  //delete document;
+  testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
+  args.push_back("normal");
+  args.push_back("mean");
+  args.push_back("variance");
+  Model* model = document->getModel();
+  setupDistrib(model, "normalDistribution", args, "0, variance");
+  addVariance(model, "1.5^2");
+  writeSBML(document,testid.str().c_str());
+  delete document;
  
   document = createBasicSBMLDocument();
   args.clear();
@@ -469,7 +583,7 @@ void CreateStandardDistributions()
   //document = createBasicSBMLDocument();
   //args.clear();
   //testid.str("");
-  testnum++;
+  //testnum++;
   //testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
   //args.push_back("geometric");
   //args.push_back("probability");
@@ -480,7 +594,7 @@ void CreateStandardDistributions()
   //document = createBasicSBMLDocument();
   //args.clear();
   //testid.str("");
-  testnum++;
+  //testnum++;
   //testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
   //args.push_back("hypergeometric");
   //args.push_back("numberOfSuccesses");
@@ -493,7 +607,7 @@ void CreateStandardDistributions()
   //document = createBasicSBMLDocument();
   //args.clear();
   //testid.str("");
-  testnum++;
+  //testnum++;
   //testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
   //args.push_back("negative_binomial");
   //args.push_back("numberOfFailures");
@@ -519,20 +633,8 @@ void CreateTruncatedDistributions()
   args.push_back("mean");
   args.push_back("stddev");
   args.push_back("truncationLowerBound");
-  setupDistrib(document->getModel(), "normalDistribution", args, "0, 1.5, -0.5, INF");
-  writeSBML(document,testid.str().c_str());
-  delete document;
- 
-  document = createBasicSBMLDocument();
-  args.clear();
-  testid.str("");
-  testnum++;
-  testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  args.push_back("normal");
-  args.push_back("mean");
-  args.push_back("stddev");
   args.push_back("truncationUpperBound");
-  setupDistrib(document->getModel(), "normalDistribution", args, "0, 1.5, -INF, 0.5");
+  setupDistrib(document->getModel(), "normalDistribution", args, "0, 1.5, -0.5, infinity");
   writeSBML(document,testid.str().c_str());
   delete document;
  
@@ -545,7 +647,8 @@ void CreateTruncatedDistributions()
   args.push_back("mean");
   args.push_back("stddev");
   args.push_back("truncationLowerBound");
-  setupDistrib(document->getModel(), "normalDistribution", args, "0, 1.5, 0.5, INF");
+  args.push_back("truncationUpperBound");
+  setupDistrib(document->getModel(), "normalDistribution", args, "0, 1.5, -infinity, 0.5");
   writeSBML(document,testid.str().c_str());
   delete document;
  
@@ -557,8 +660,23 @@ void CreateTruncatedDistributions()
   args.push_back("normal");
   args.push_back("mean");
   args.push_back("stddev");
+  args.push_back("truncationLowerBound");
   args.push_back("truncationUpperBound");
-  setupDistrib(document->getModel(), "normalDistribution", args, "0, 1.5, -INF, -0.5");
+  setupDistrib(document->getModel(), "normalDistribution", args, "0, 1.5, 0.5, infinity");
+  writeSBML(document,testid.str().c_str());
+  delete document;
+ 
+  document = createBasicSBMLDocument();
+  args.clear();
+  testid.str("");
+  testnum++;
+  testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
+  args.push_back("normal");
+  args.push_back("mean");
+  args.push_back("stddev");
+  args.push_back("truncationLowerBound");
+  args.push_back("truncationUpperBound");
+  setupDistrib(document->getModel(), "normalDistribution", args, "0, 1.5, -infinity, -0.5");
   writeSBML(document,testid.str().c_str());
   delete document;
  
@@ -576,19 +694,20 @@ void CreateTruncatedDistributions()
   writeSBML(document,testid.str().c_str());
   delete document;
  
-  //document = createBasicSBMLDocument();
-  //args.clear();
-  //testid.str("");
+  document = createBasicSBMLDocument();
+  args.clear();
+  testid.str("");
   testnum++;
-  //testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  //args.push_back("normal_with_variance");
-  //args.push_back("mean");
-  //args.push_back("variance");
-  //args.push_back("truncationLowerBound");
-  //args.push_back("truncationUpperBound");
-  //setupDistrib(document->getModel(), "normalDistribution", args, "0, 0.25, -0.5, 0.5");
-  //writeSBML(document,testid.str().c_str());
-  //delete document;
+  testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
+  args.push_back("normal");
+  args.push_back("mean");
+  args.push_back("variance");
+  args.push_back("truncationLowerBound");
+  args.push_back("truncationUpperBound");
+  setupDistrib(document->getModel(), "normalDistribution", args, "0, variance, -0.5, 0.5");
+  addVariance(document->getModel(), "0.25^2");
+  writeSBML(document,testid.str().c_str());
+  delete document;
  
   document = createBasicSBMLDocument();
   args.clear();
@@ -626,7 +745,8 @@ void CreateTruncatedDistributions()
   args.push_back("exponential");
   args.push_back("rate");
   args.push_back("truncationLowerBound");
-  setupDistrib(document->getModel(), "exponentialDistribution", args, "1, 0.25, INF");
+  args.push_back("truncationUpperBound");
+  setupDistrib(document->getModel(), "exponentialDistribution", args, "1, 0.25, infinity");
   writeSBML(document,testid.str().c_str());
   delete document;
  
@@ -637,8 +757,9 @@ void CreateTruncatedDistributions()
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
   args.push_back("exponential");
   args.push_back("rate");
+  args.push_back("truncationLowerBound");
   args.push_back("truncationUpperBound");
-  setupDistrib(document->getModel(), "exponentialDistribution", args, "1, -INF, 0.75");
+  setupDistrib(document->getModel(), "exponentialDistribution", args, "1, -infinity, 0.75");
   writeSBML(document,testid.str().c_str());
   delete document;
  
@@ -674,7 +795,7 @@ void CreateUncommonTruncatedDistributions()
   args.push_back("scale");
   args.push_back("truncationLowerBound");
   args.push_back("truncationUpperBound");
-  setupDistrib(document->getModel(), "gammaDistribution", args, "1, 2, 0.5");
+  setupDistrib(document->getModel(), "gammaDistribution", args, "1, 2, 0.5, 10");
   writeSBML(document,testid.str().c_str());
   delete document;
  
@@ -922,7 +1043,7 @@ void CreateDistributionsWithValues()
   stringstream testid;
   string id;
   vector<string> internalargs;
-  vector<string> internalvals;
+  vector<double> internalvals;
   vector<string> internaltypes;
   SBMLDocument* document;
 
@@ -933,12 +1054,12 @@ void CreateDistributionsWithValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "predefined_normal";
+  id = "normal";
   internalargs.push_back("mean");
-  internalvals.push_back("0");
+  internalvals.push_back(0);
   internaltypes.push_back("rVal");
   internalargs.push_back("stddev");
-  internalvals.push_back("1.5");
+  internalvals.push_back(1.5);
   internaltypes.push_back("prVal");
   setupDistribWithVals(document->getModel(), "normalDistribution", id, internalargs, internalvals, internaltypes, "");
   writeSBML(document,testid.str().c_str());
@@ -951,12 +1072,12 @@ void CreateDistributionsWithValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "predefined_normal_with_variance";
+  id = "normal";
   internalargs.push_back("mean");
-  internalvals.push_back("0");
+  internalvals.push_back(0);
   internaltypes.push_back("rVal");
   internalargs.push_back("variance");
-  internalvals.push_back("1.5");
+  internalvals.push_back(1.5);
   internaltypes.push_back("prVal");
   setupDistribWithVals(document->getModel(), "normalDistribution", id, internalargs, internalvals, internaltypes, "");
   writeSBML(document,testid.str().c_str());
@@ -969,12 +1090,12 @@ void CreateDistributionsWithValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "predefined_uniform";
+  id = "uniform";
   internalargs.push_back("minimum");
-  internalvals.push_back("0");
+  internalvals.push_back(0);
   internaltypes.push_back("rVal");
   internalargs.push_back("maximum");
-  internalvals.push_back("1");
+  internalvals.push_back(1);
   internaltypes.push_back("rVal");
   setupDistribWithVals(document->getModel(), "uniformDistribution", id, internalargs, internalvals, internaltypes, "");
   writeSBML(document,testid.str().c_str());
@@ -987,9 +1108,9 @@ void CreateDistributionsWithValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "predefined_exponential";
+  id = "exponential";
   internalargs.push_back("rate");
-  internalvals.push_back("1");
+  internalvals.push_back(1);
   internaltypes.push_back("prVal");
   setupDistribWithVals(document->getModel(), "exponentialDistribution", id, internalargs, internalvals, internaltypes, "");
   writeSBML(document,testid.str().c_str());
@@ -1002,9 +1123,9 @@ void CreateDistributionsWithValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "predefined_exponential";
+  id = "exponential";
   internalargs.push_back("rate");
-  internalvals.push_back("0.5");
+  internalvals.push_back(0.5);
   internaltypes.push_back("prVal");
   setupDistribWithVals(document->getModel(), "exponentialDistribution", id, internalargs, internalvals, internaltypes, "");
   writeSBML(document,testid.str().c_str());
@@ -1017,12 +1138,12 @@ void CreateDistributionsWithValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "predefined_gamma";
+  id = "gamma";
   internalargs.push_back("shape");
-  internalvals.push_back("1");
+  internalvals.push_back(1);
   internaltypes.push_back("prVal");
   internalargs.push_back("scale");
-  internalvals.push_back("2");
+  internalvals.push_back(2);
   internaltypes.push_back("prVal");
   setupDistribWithVals(document->getModel(), "gammaDistribution", id, internalargs, internalvals, internaltypes, "");
   writeSBML(document,testid.str().c_str());
@@ -1035,12 +1156,12 @@ void CreateDistributionsWithValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "predefined_gamma";
+  id = "gamma";
   internalargs.push_back("shape");
-  internalvals.push_back("2");
+  internalvals.push_back(2);
   internaltypes.push_back("prVal");
   internalargs.push_back("scale");
-  internalvals.push_back("1.1");
+  internalvals.push_back(1.1);
   internaltypes.push_back("prVal");
   setupDistribWithVals(document->getModel(), "gammaDistribution", id, internalargs, internalvals, internaltypes, "");
   writeSBML(document,testid.str().c_str());
@@ -1053,9 +1174,9 @@ void CreateDistributionsWithValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "predefined_poisson";
+  id = "poisson";
   internalargs.push_back("rate");
-  internalvals.push_back("1.5");
+  internalvals.push_back(1.5);
   internaltypes.push_back("prVal");
   setupDistribWithVals(document->getModel(), "poissonDistribution", id, internalargs, internalvals, internaltypes, "");
   writeSBML(document,testid.str().c_str());
@@ -1069,7 +1190,7 @@ void CreateDistributionsWithMixedValues()
   stringstream testid;
   string id = "";
   vector<string> internalargs;
-  vector<string> internalvals;
+  vector<double> internalvals;
   vector<string> internaltypes;
 
   SBMLDocument* document = createBasicSBMLDocument();
@@ -1079,12 +1200,12 @@ void CreateDistributionsWithMixedValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "predefined_normal";
+  id = "normal";
   internalargs.push_back("mean");
-  internalvals.push_back("mean");
+  internalvals.push_back(VALUE_FLAG);
   internaltypes.push_back("varId");
   internalargs.push_back("stddev");
-  internalvals.push_back("1.5");
+  internalvals.push_back(1.5);
   internaltypes.push_back("prVal");
   setupDistribWithVals(document->getModel(), "normalDistribution", id, internalargs, internalvals, internaltypes, "0");
   writeSBML(document,testid.str().c_str());
@@ -1097,12 +1218,12 @@ void CreateDistributionsWithMixedValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "predefined_normal_with_variance";
+  id = "normal";
   internalargs.push_back("mean");
-  internalvals.push_back("mean");
+  internalvals.push_back(VALUE_FLAG);
   internaltypes.push_back("varId");
   internalargs.push_back("variance");
-  internalvals.push_back("1.5");
+  internalvals.push_back(1.5);
   internaltypes.push_back("prVal");
   setupDistribWithVals(document->getModel(), "normalDistribution", id, internalargs, internalvals, internaltypes, "0");
   writeSBML(document,testid.str().c_str());
@@ -1115,12 +1236,12 @@ void CreateDistributionsWithMixedValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "predefined_normal";
+  id = "normal";
   internalargs.push_back("mean");
-  internalvals.push_back("0");
+  internalvals.push_back(0);
   internaltypes.push_back("rVal");
   internalargs.push_back("stddev");
-  internalvals.push_back("stddev");
+  internalvals.push_back(VALUE_FLAG);
   internaltypes.push_back("varId");
   setupDistribWithVals(document->getModel(), "normalDistribution", id, internalargs, internalvals, internaltypes, "1.5");
   writeSBML(document,testid.str().c_str());
@@ -1133,12 +1254,12 @@ void CreateDistributionsWithMixedValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "predefined_normal_with_variance";
+  id = "normal";
   internalargs.push_back("mean");
-  internalvals.push_back("0");
+  internalvals.push_back(0);
   internaltypes.push_back("rVal");
   internalargs.push_back("variance");
-  internalvals.push_back("variance");
+  internalvals.push_back(VALUE_FLAG);
   internaltypes.push_back("varId");
   setupDistribWithVals(document->getModel(), "normalDistribution", id, internalargs, internalvals, internaltypes, "1.5");
   writeSBML(document,testid.str().c_str());
@@ -1151,12 +1272,12 @@ void CreateDistributionsWithMixedValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "predefined_uniform";
+  id = "uniform";
   internalargs.push_back("minimum");
-  internalvals.push_back("minimum");
+  internalvals.push_back(VALUE_FLAG);
   internaltypes.push_back("varId");
   internalargs.push_back("maximum");
-  internalvals.push_back("1");
+  internalvals.push_back(1);
   internaltypes.push_back("rVal");
   setupDistribWithVals(document->getModel(), "uniformDistribution", id, internalargs, internalvals, internaltypes, "0");
   writeSBML(document,testid.str().c_str());
@@ -1169,12 +1290,12 @@ void CreateDistributionsWithMixedValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "predefined_uniform";
+  id = "uniform";
   internalargs.push_back("minimum");
-  internalvals.push_back("0");
+  internalvals.push_back(0);
   internaltypes.push_back("rVal");
   internalargs.push_back("maximum");
-  internalvals.push_back("maximum");
+  internalvals.push_back(VALUE_FLAG);
   internaltypes.push_back("varId");
   setupDistribWithVals(document->getModel(), "uniformDistribution", id, internalargs, internalvals, internaltypes, "1");
   writeSBML(document,testid.str().c_str());
@@ -1187,12 +1308,12 @@ void CreateDistributionsWithMixedValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "predefined_gamma";
+  id = "gamma";
   internalargs.push_back("shape");
-  internalvals.push_back("shape");
+  internalvals.push_back(VALUE_FLAG);
   internaltypes.push_back("varId");
   internalargs.push_back("scale");
-  internalvals.push_back("2");
+  internalvals.push_back(2);
   internaltypes.push_back("prVal");
   setupDistribWithVals(document->getModel(), "gammaDistribution", id, internalargs, internalvals, internaltypes, "1");
   writeSBML(document,testid.str().c_str());
@@ -1205,12 +1326,12 @@ void CreateDistributionsWithMixedValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "predefined_gamma";
+  id = "gamma";
   internalargs.push_back("shape");
-  internalvals.push_back("1");
+  internalvals.push_back(1);
   internaltypes.push_back("prVal");
   internalargs.push_back("scale");
-  internalvals.push_back("scale");
+  internalvals.push_back(VALUE_FLAG);
   internaltypes.push_back("varId");
   setupDistribWithVals(document->getModel(), "gammaDistribution", id, internalargs, internalvals, internaltypes, "2");
   writeSBML(document,testid.str().c_str());
@@ -1224,7 +1345,7 @@ void CreateTruncatedDistributionsWithValues()
   stringstream testid;
   string id = "";
   vector<string> internalargs;
-  vector<string> internalvals;
+  vector<double> internalvals;
   vector<string> internaltypes;
   SBMLDocument* document;
   
@@ -1235,15 +1356,18 @@ void CreateTruncatedDistributionsWithValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "lower_truncated_normal";
+  id = "normal";
   internalargs.push_back("mean");
-  internalvals.push_back("0");
+  internalvals.push_back(0);
   internaltypes.push_back("rVal");
   internalargs.push_back("stddev");
-  internalvals.push_back("1.5");
+  internalvals.push_back(1.5);
   internaltypes.push_back("prVal");
+  internalargs.push_back("truncationUpperBound");
+  internalvals.push_back(std::numeric_limits<double>::infinity());
+  internaltypes.push_back("rVal");
   internalargs.push_back("truncationLowerBound");
-  internalvals.push_back("-0.5");
+  internalvals.push_back(-0.5);
   internaltypes.push_back("rVal");
   setupDistribWithVals(document->getModel(), "normalDistribution", id, internalargs, internalvals, internaltypes, "");
   writeSBML(document,testid.str().c_str());
@@ -1256,15 +1380,18 @@ void CreateTruncatedDistributionsWithValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "lower_truncated_normal";
+  id = "normal";
   internalargs.push_back("mean");
-  internalvals.push_back("mean");
+  internalvals.push_back(VALUE_FLAG);
   internaltypes.push_back("varId");
   internalargs.push_back("stddev");
-  internalvals.push_back("stddev");
+  internalvals.push_back(VALUE_FLAG);
   internaltypes.push_back("varId");
   internalargs.push_back("truncationLowerBound");
-  internalvals.push_back("-0.5");
+  internalvals.push_back(-0.5);
+  internaltypes.push_back("rVal");
+  internalargs.push_back("truncationUpperBound");
+  internalvals.push_back(std::numeric_limits<double>::infinity());
   internaltypes.push_back("rVal");
   setupDistribWithVals(document->getModel(), "normalDistribution", id, internalargs, internalvals, internaltypes, "0,1.5");
   writeSBML(document,testid.str().c_str());
@@ -1277,15 +1404,18 @@ void CreateTruncatedDistributionsWithValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "upper_truncated_normal";
+  id = "normal";
   internalargs.push_back("mean");
-  internalvals.push_back("0");
+  internalvals.push_back(0);
   internaltypes.push_back("rVal");
   internalargs.push_back("stddev");
-  internalvals.push_back("1.5");
+  internalvals.push_back(1.5);
   internaltypes.push_back("prVal");
+  internalargs.push_back("truncationLowerBound");
+  internalvals.push_back(-std::numeric_limits<double>::infinity());
+  internaltypes.push_back("rVal");
   internalargs.push_back("truncationUpperBound");
-  internalvals.push_back("0.5");
+  internalvals.push_back(0.5);
   internaltypes.push_back("rVal");
   setupDistribWithVals(document->getModel(), "normalDistribution", id, internalargs, internalvals, internaltypes, "");
   writeSBML(document,testid.str().c_str());
@@ -1298,15 +1428,18 @@ void CreateTruncatedDistributionsWithValues()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  id = "upper_truncated_normal";
+  id = "normal";
   internalargs.push_back("mean");
-  internalvals.push_back("mean");
+  internalvals.push_back(VALUE_FLAG);
   internaltypes.push_back("varId");
   internalargs.push_back("stddev");
-  internalvals.push_back("stddev");
+  internalvals.push_back(VALUE_FLAG);
   internaltypes.push_back("varId");
+  internalargs.push_back("truncationLowerBound");
+  internalvals.push_back(-std::numeric_limits<double>::infinity());
+  internaltypes.push_back("rVal");
   internalargs.push_back("truncationUpperBound");
-  internalvals.push_back("0.5");
+  internalvals.push_back(0.5);
   internaltypes.push_back("rVal");
   setupDistribWithVals(document->getModel(), "normalDistribution", id, internalargs, internalvals, internaltypes, "0,1.5");
   writeSBML(document,testid.str().c_str());
@@ -1319,18 +1452,18 @@ void CreateTruncatedDistributionsWithValues()
   testid.str("");
   testnum++;
   testid << "00" << testnum << "/00" << testnum << "-sbml-l3v1.xml";
-  id = "lower_truncated_normal";
+  id = "normal";
   internalargs.push_back("mean");
-  internalvals.push_back("0");
+  internalvals.push_back(0);
   internaltypes.push_back("rVal");
   internalargs.push_back("stddev");
-  internalvals.push_back("0.5");
+  internalvals.push_back(0.5);
   internaltypes.push_back("prVal");
   internalargs.push_back("truncationLowerBound");
-  internalvals.push_back("-0.5");
+  internalvals.push_back(-0.5);
   internaltypes.push_back("rVal");
   internalargs.push_back("truncationUpperBound");
-  internalvals.push_back("0.5");
+  internalvals.push_back(0.5);
   internaltypes.push_back("rVal");
   setupDistribWithVals(document->getModel(), "normalDistribution", id, internalargs, internalvals, internaltypes, "");
   writeSBML(document,testid.str().c_str());
@@ -1343,18 +1476,18 @@ void CreateTruncatedDistributionsWithValues()
   testid.str("");
   testnum++;
   testid << "00" << testnum << "/00" << testnum << "-sbml-l3v1.xml";
-  id = "upper_truncated_normal";
+  id = "normal";
   internalargs.push_back("mean");
-  internalvals.push_back("mean");
+  internalvals.push_back(VALUE_FLAG);
   internaltypes.push_back("varId");
   internalargs.push_back("stddev");
-  internalvals.push_back("stddev");
+  internalvals.push_back(VALUE_FLAG);
   internaltypes.push_back("varId");
   internalargs.push_back("truncationLowerBound");
-  internalvals.push_back("-0.5");
+  internalvals.push_back(-0.5);
   internaltypes.push_back("rVal");
   internalargs.push_back("truncationUpperBound");
-  internalvals.push_back("0.5");
+  internalvals.push_back(0.5);
   internaltypes.push_back("rVal");
   setupDistribWithVals(document->getModel(), "normalDistribution", id, internalargs, internalvals, internaltypes, "0, 0.5");
   writeSBML(document,testid.str().c_str());
@@ -1369,13 +1502,13 @@ void CreateTruncatedDistributionsWithValues()
   testid << "00" << testnum << "/00" << testnum << "-sbml-l3v1.xml";
   id = "exponential";
   internalargs.push_back("rate");
-  internalvals.push_back("1");
+  internalvals.push_back(1);
   internaltypes.push_back("prVal");
   internalargs.push_back("truncationLowerBound");
-  internalvals.push_back("0.25");
+  internalvals.push_back(0.25);
   internaltypes.push_back("prVal");
   internalargs.push_back("truncationUpperBound");
-  internalvals.push_back("0.75");
+  internalvals.push_back(0.75);
   internaltypes.push_back("prVal");
   setupDistribWithVals(document->getModel(), "exponentialDistribution", id, internalargs, internalvals, internaltypes, "");
   writeSBML(document,testid.str().c_str());
@@ -1390,13 +1523,13 @@ void CreateTruncatedDistributionsWithValues()
   testid << "00" << testnum << "/00" << testnum << "-sbml-l3v1.xml";
   id = "exponential";
   internalargs.push_back("rate");
-  internalvals.push_back("rate");
+  internalvals.push_back(VALUE_FLAG);
   internaltypes.push_back("varId");
   internalargs.push_back("truncationLowerBound");
-  internalvals.push_back("0.25");
+  internalvals.push_back(0.25);
   internaltypes.push_back("prVal");
   internalargs.push_back("truncationUpperBound");
-  internalvals.push_back("0.75");
+  internalvals.push_back(0.75);
   internaltypes.push_back("prVal");
   setupDistribWithVals(document->getModel(), "exponentialDistribution", id, internalargs, internalvals, internaltypes, "1");
   writeSBML(document,testid.str().c_str());
@@ -1404,127 +1537,13 @@ void CreateTruncatedDistributionsWithValues()
  
 }
 
-void CreateMixtureDistribution()
-{
-  int testnum = 103;
-  stringstream testid;
-  vector<string> args;
-  vector<vector<string> > allargs;
-  vector<string> distributions;
-  vector<string> weights;
-  SBMLDocument* document;
-
-  //document = createBasicSBMLDocument();
-  //args.clear();
-  //allargs.clear();
-  //distributions.clear();
-  //weights.clear();
-  //testid.str("");
-  //testnum++;
-  //testid << "00" << testnum << "/00" << testnum << "-sbml-l3v1.xml";
-  //distributions.push_back("ContinuousUnivariateMixtureModel");
-  //distributions.push_back("NormalDistribution");
-  //weights.push_back("0.5");
-  //args.push_back("mean");
-  //args.push_back("stddev");
-  //allargs.push_back(args);
-  //args.clear();
-  //distributions.push_back("NormalDistribution");
-  //weights.push_back("0.5");
-  //args.push_back("mean");
-  //args.push_back("stddev");
-  //allargs.push_back(args);
-  //args.clear();
-  //setupMixedDistrib(document->getModel(), distributions, weights, "two_mixed_normals", allargs, "-1, 0.5, 1, 0.5");
-  //writeSBML(document,testid.str().c_str());
-  //delete document;
- 
-  //document = createBasicSBMLDocument();
-  //args.clear();
-  //allargs.clear();
-  //distributions.clear();
-  //weights.clear();
-  //testid.str("");
-  //testnum++;
-  //testid << "00" << testnum << "/00" << testnum << "-sbml-l3v1.xml";
-  //distributions.push_back("ContinuousUnivariateMixtureModel");
-  //distributions.push_back("NormalDistribution");
-  //weights.push_back("0.5");
-  //args.push_back("mean");
-  //args.push_back("stddev");
-  //allargs.push_back(args);
-  //args.clear();
-  //distributions.push_back("NormalDistribution");
-  //weights.push_back("0.5");
-  //args.push_back("mean");
-  //args.push_back("stddev");
-  //allargs.push_back(args);
-  //args.clear();
-  //setupMixedDistrib(document->getModel(), distributions, weights, "two_mixed_normals", allargs, "0, 1, 1, 0.5");
-  //writeSBML(document,testid.str().c_str());
-  //delete document;
- 
-  //document = createBasicSBMLDocument();
-  //args.clear();
-  //allargs.clear();
-  //distributions.clear();
-  //weights.clear();
-  //testid.str("");
-  //testnum++;
-  //testid << "00" << testnum << "/00" << testnum << "-sbml-l3v1.xml";
-  //distributions.push_back("ContinuousUnivariateMixtureModel");
-  //distributions.push_back("NormalDistribution");
-  //weights.push_back("0.5");
-  //args.push_back("mean");
-  //args.push_back("stddev");
-  //allargs.push_back(args);
-  //args.clear();
-  //distributions.push_back("NormalDistribution");
-  //weights.push_back("0.5");
-  //args.push_back("mean");
-  //args.push_back("stddev");
-  //allargs.push_back(args);
-  //args.clear();
-  //setupMixedDistrib(document->getModel(), distributions, weights, "two_mixed_normals", allargs, "0, 1, 0, 0.5");
-  //writeSBML(document,testid.str().c_str());
-  //delete document;
- 
-  //document = createBasicSBMLDocument();
-  //args.clear();
-  //allargs.clear();
-  //distributions.clear();
-  //weights.clear();
-  //testid.str("");
-  //testnum++;
-  //testid << "00" << testnum << "/00" << testnum << "-sbml-l3v1.xml";
-  //distributions.push_back("ContinuousUnivariateMixtureModel");
-  //distributions.push_back("NormalDistribution");
-  //weights.push_back("1");
-  //args.push_back("mean");
-  //args.push_back("stddev");
-  //allargs.push_back(args);
-  //args.clear();
-  //distributions.push_back("NormalDistribution");
-  //weights.push_back("0");
-  //args.push_back("mean");
-  //args.push_back("stddev");
-  //allargs.push_back(args);
-  //args.clear();
-  //setupMixedDistrib(document->getModel(), distributions, weights, "two_mixed_normals", allargs, "0, 1, 5, 0.5");
-  //writeSBML(document,testid.str().c_str());
-  //delete document;
- 
-}
-
 int main(int argc,char** argv)
 {
   CreateStandardDistributions();
   CreateTruncatedDistributions();
-  CreateUncommonTruncatedDistributions();
-  //CreateDistributionsWithValues();
-  //CreateDistributionsWithMixedValues();
-  //CreateTruncatedDistributionsWithValues();
-  //CreateMixtureDistribution();
+  CreateDistributionsWithValues();
+  CreateDistributionsWithMixedValues();
+  CreateTruncatedDistributionsWithValues();
 
 
   //CreateUncommonTruncatedDistributions();

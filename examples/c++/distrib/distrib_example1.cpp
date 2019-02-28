@@ -68,15 +68,15 @@ SBMLDocument * setupBasicModel()
   return document;
 }
 
-//InitialAssignment* addParamAndIA(Model* model)
-//{
-//  Parameter* param = model->createParameter();
-//  param->setId("P1");
-//  param->setConstant(true);
-//  InitialAssignment* ia = model->createInitialAssignment();
-//  ia->setSymbol("P1");
-//  return ia;
-//}
+InitialAssignment* addParamAndIA(Model* model)
+{
+  Parameter* param = model->createParameter();
+  param->setId("P1");
+  param->setConstant(true);
+  InitialAssignment* ia = model->createInitialAssignment();
+  ia->setSymbol("P1");
+  return ia;
+}
 
 //void setupArguments(DistribDrawFromDistribution* dfd, InitialAssignment* ia, Model* model, vector<string> arguments)
 //{
@@ -120,39 +120,38 @@ SBMLDocument * setupBasicModel()
 //  dfd->setDistribution(&normal);
 //}
 
-//void createExample1()
-//{
-//  DistribDrawFromDistribution* dfd = setupBasicModel();
-//  SBMLDocument* doc = dfd->getSBMLDocument();
-//  Model* model = doc->getModel();
-//  InitialAssignment* ia = addParamAndIA(model);
-//  vector<string> arguments;
-//  arguments.push_back("mean");
-//  arguments.push_back("stddev");
-//  setupArguments(dfd, ia, model, arguments);
-//  addNormal(dfd);
-//  Parameter* mean = model->getParameter("mean");
-//  mean->setValue(5.2);
-//  Parameter* stddev = model->getParameter("stddev");
-//  stddev->setValue(1.3);
-//
-//  writeSBMLToFile(doc, "distrib_example1.xml");
-//  delete doc;
-//}
+void createExample1()
+{
+  SBMLDocument* doc = setupBasicModel();
+  Model* model = doc->getModel();
+  InitialAssignment* ia = addParamAndIA(model);
+  ASTNode* astn = SBML_parseL3Formula("normal(3,2)");
+  ia->setMath(astn);
+  delete astn;
 
-//void createExample2()
-//{
-//  DistribDrawFromDistribution* dfd = setupBasicModel();
-//  SBMLDocument* doc = dfd->getSBMLDocument();
-//  Model* model = doc->getModel();
-//  InitialAssignment* ia = addParamAndIA(model);
-//  vector<string> arguments;
-//  setupArguments(dfd, ia, model, arguments);
-//  addNormalWithValues(dfd);
-//
-//  writeSBMLToFile(doc, "distrib_example2.xml");
-//  delete doc;
-//}
+  writeSBMLToFile(doc, "distrib_example1.xml");
+  delete doc;
+}
+
+void createExample2()
+{
+  SBMLDocument* doc = setupBasicModel();
+  Model* model = doc->getModel();
+  InitialAssignment* ia = addParamAndIA(model);
+  Parameter* param = model->createParameter();
+  param->setConstant("true");
+  param->setId("x");
+  param = model->createParameter();
+  param->setConstant("true");
+  param->setId("y");
+
+  ASTNode* astn = SBML_parseL3Formula("normal(x,y)");
+  ia->setMath(astn);
+  delete astn;
+
+  writeSBMLToFile(doc, "distrib_example2.xml");
+  delete doc;
+}
 
 //void createDistribUncertaintyExample()
 //{
@@ -649,8 +648,8 @@ int
 main (int argc, char* argv[])
 {
   coreVersion = 1;
-  //createExample1();
-  //createExample2();
+  createExample1();
+  createExample2();
   //createDistribUncertaintyExample();
   //createDistribUncertaintyExample2();
   //createDistribUncertaintyExample3();
