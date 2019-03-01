@@ -421,6 +421,240 @@ START_TEST (test_SBML_parseL3Formula_distrib_functions_errors)
 END_TEST
 
 
+START_TEST(test_SBML_parseL3Formula_distrib_functions_case_insensitive)
+{
+  ASTNode_t *r = SBML_parseL3Formula("Normal(x,y)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_NORMAL, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("NORMAL(x,y,p,q)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_NORMAL, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 4, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("uniForM(x,y)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_UNIFORM, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("BERNoulli(x)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_BERNOULLI, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 1, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("binOMial(x,y)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_BINOMIAL, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("binomIAL(x,y,p,q)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_BINOMIAL, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 4, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("caUchy(x,y)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_CAUCHY, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("caucHy(x,y,p,q)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_CAUCHY, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 4, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("chiSquare(x)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_CHISQUARE, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 1, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("CHIsquare(x,y,p)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_CHISQUARE, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 3, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("eXponential(x)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_EXPONENTIAL, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 1, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("exponEntial(x,y,p)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_EXPONENTIAL, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 3, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("Gamma(x,y)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_GAMMA, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("GAMMa(x,y,p,q)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_GAMMA, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 4, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("laPlace(x,y)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_LAPLACE, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("LaPlace(x,y,p,q)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_LAPLACE, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 4, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("logNormal(x,y)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_LOGNORMAL, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("LOGnormal(x,y,p,q)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_LOGNORMAL, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 4, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("poiSson(y)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_POISSON, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 1, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("pOISSON(y,p,q)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_POISSON, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 3, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("raYleigh(x)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_RAYLEIGH, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 1, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("RAYLEIGH(x,p,q)");
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_RAYLEIGH, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 3, NULL);
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST(test_SBML_parseL3Formula_distrib_functions_case_sensitive)
+{
+  L3ParserSettings l3ps;
+  l3ps.setComparisonCaseSensitivity(true);
+
+  ASTNode_t *r = SBML_parseL3FormulaWithSettings("Normal(x,y)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("NORMAL(x,y,p,q)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 4, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("uniForm(x,y)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("bernouLLI(x)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 1, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("BiNomial(x,y)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("binOMial(x,y,p,q)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 4, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("CAUCHY(x,y)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("cauchy(x,y,p,q)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_CAUCHY, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 4, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("chiSquare(x)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 1, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("CHIsquare(x,y,p)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 3, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("eXponential(x)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 1, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("exponEntial(x,y,p)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 3, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("Gamma(x,y)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("gammA(x,y,p,q)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 4, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("laPlace(x,y)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("LaPlace(x,y,p,q)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 4, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("logNormal(x,y)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("LOGnormal(x,y,p,q)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 4, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("Poisson(y)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 1, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("poiSSon(y,p,q)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 3, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("rayLeigh(x)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 1, NULL);
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("rayleigh(x,p,q)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_DISTRIB_FUNCTION_RAYLEIGH, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 3, NULL);
+  ASTNode_free(r);
+
+}
+END_TEST
+
 Suite *
 create_suite_DistribExtensionMath (void)
 {
@@ -430,6 +664,8 @@ create_suite_DistribExtensionMath (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_distrib_functions         );
   tcase_add_test( tcase, test_SBML_parseL3Formula_distrib_functions_generic );
   tcase_add_test( tcase, test_SBML_parseL3Formula_distrib_functions_errors  );
+  tcase_add_test(tcase, test_SBML_parseL3Formula_distrib_functions_case_insensitive);
+  tcase_add_test(tcase, test_SBML_parseL3Formula_distrib_functions_case_sensitive);
 
   suite_add_tcase(suite, tcase);
 
