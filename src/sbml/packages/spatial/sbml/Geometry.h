@@ -992,13 +992,13 @@ public:
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addAdjacentDomain(const AdjacentDomains* object)
-   * @see createAdjacentDomain()
-   * @see getAdjacentDomain(const std::string& sid)
-   * @see getAdjacentDomain(unsigned int n)
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see createAdjacentDomains()
+   * @see getAdjacentDomains(const std::string& sid)
+   * @see getAdjacentDomains(unsigned int n)
    * @see getNumAdjacentDomains()
-   * @see removeAdjacentDomain(const std::string& sid)
-   * @see removeAdjacentDomain(unsigned int n)
+   * @see removeAdjacentDomains(const std::string& sid)
+   * @see removeAdjacentDomains(unsigned int n)
    */
   const ListOfAdjacentDomains* getListOfAdjacentDomains() const;
 
@@ -1010,13 +1010,13 @@ public:
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addAdjacentDomain(const AdjacentDomains* object)
-   * @see createAdjacentDomain()
-   * @see getAdjacentDomain(const std::string& sid)
-   * @see getAdjacentDomain(unsigned int n)
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see createAdjacentDomains()
+   * @see getAdjacentDomains(const std::string& sid)
+   * @see getAdjacentDomains(unsigned int n)
    * @see getNumAdjacentDomains()
-   * @see removeAdjacentDomain(const std::string& sid)
-   * @see removeAdjacentDomain(unsigned int n)
+   * @see removeAdjacentDomains(const std::string& sid)
+   * @see removeAdjacentDomains(unsigned int n)
    */
   ListOfAdjacentDomains* getListOfAdjacentDomains();
 
@@ -1032,12 +1032,12 @@ public:
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addAdjacentDomain(const AdjacentDomains* object)
-   * @see createAdjacentDomain()
-   * @see getAdjacentDomain(const std::string& sid)
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see createAdjacentDomains()
+   * @see getAdjacentDomains(const std::string& sid)
    * @see getNumAdjacentDomains()
-   * @see removeAdjacentDomain(const std::string& sid)
-   * @see removeAdjacentDomain(unsigned int n)
+   * @see removeAdjacentDomains(const std::string& sid)
+   * @see removeAdjacentDomains(unsigned int n)
    */
   AdjacentDomains* getAdjacentDomains(unsigned int n);
 
@@ -1053,12 +1053,12 @@ public:
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addAdjacentDomain(const AdjacentDomains* object)
-   * @see createAdjacentDomain()
-   * @see getAdjacentDomain(const std::string& sid)
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see createAdjacentDomains()
+   * @see getAdjacentDomains(const std::string& sid)
    * @see getNumAdjacentDomains()
-   * @see removeAdjacentDomain(const std::string& sid)
-   * @see removeAdjacentDomain(unsigned int n)
+   * @see removeAdjacentDomains(const std::string& sid)
+   * @see removeAdjacentDomains(unsigned int n)
    */
   const AdjacentDomains* getAdjacentDomains(unsigned int n) const;
 
@@ -1075,12 +1075,12 @@ public:
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addAdjacentDomain(const AdjacentDomains* object)
-   * @see createAdjacentDomain()
-   * @see getAdjacentDomain(unsigned int n)
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see createAdjacentDomains()
+   * @see getAdjacentDomains(unsigned int n)
    * @see getNumAdjacentDomains()
-   * @see removeAdjacentDomain(const std::string& sid)
-   * @see removeAdjacentDomain(unsigned int n)
+   * @see removeAdjacentDomains(const std::string& sid)
+   * @see removeAdjacentDomains(unsigned int n)
    */
   AdjacentDomains* getAdjacentDomains(const std::string& sid);
 
@@ -1097,12 +1097,12 @@ public:
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addAdjacentDomain(const AdjacentDomains* object)
-   * @see createAdjacentDomain()
-   * @see getAdjacentDomain(unsigned int n)
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see createAdjacentDomains()
+   * @see getAdjacentDomains(unsigned int n)
    * @see getNumAdjacentDomains()
-   * @see removeAdjacentDomain(const std::string& sid)
-   * @see removeAdjacentDomain(unsigned int n)
+   * @see removeAdjacentDomains(const std::string& sid)
+   * @see removeAdjacentDomains(unsigned int n)
    */
   const AdjacentDomains* getAdjacentDomains(const std::string& sid) const;
 
@@ -1185,12 +1185,12 @@ public:
    *
    * @copydetails doc_note_object_is_copied
    *
-   * @see createAdjacentDomain()
-   * @see getAdjacentDomain(const std::string& sid)
-   * @see getAdjacentDomain(unsigned int n)
+   * @see createAdjacentDomains()
+   * @see getAdjacentDomains(const std::string& sid)
+   * @see getAdjacentDomains(unsigned int n)
    * @see getNumAdjacentDomains()
-   * @see removeAdjacentDomain(const std::string& sid)
-   * @see removeAdjacentDomain(unsigned int n)
+   * @see removeAdjacentDomains(const std::string& sid)
+   * @see removeAdjacentDomains(unsigned int n)
    */
   int addAdjacentDomains(const AdjacentDomains* ad);
 
@@ -1200,12 +1200,12 @@ public:
    *
    * @return the number of AdjacentDomains objects in this Geometry.
    *
-   * @see addAdjacentDomain(const AdjacentDomains* object)
-   * @see createAdjacentDomain()
-   * @see getAdjacentDomain(const std::string& sid)
-   * @see getAdjacentDomain(unsigned int n)
-   * @see removeAdjacentDomain(const std::string& sid)
-   * @see removeAdjacentDomain(unsigned int n)
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see createAdjacentDomains()
+   * @see getAdjacentDomains(const std::string& sid)
+   * @see getAdjacentDomains(unsigned int n)
+   * @see removeAdjacentDomains(const std::string& sid)
+   * @see removeAdjacentDomains(unsigned int n)
    */
   unsigned int getNumAdjacentDomains() const;
 
@@ -1218,12 +1218,12 @@ public:
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addAdjacentDomain(const AdjacentDomains* object)
-   * @see getAdjacentDomain(const std::string& sid)
-   * @see getAdjacentDomain(unsigned int n)
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see getAdjacentDomains(const std::string& sid)
+   * @see getAdjacentDomains(unsigned int n)
    * @see getNumAdjacentDomains()
-   * @see removeAdjacentDomain(const std::string& sid)
-   * @see removeAdjacentDomain(unsigned int n)
+   * @see removeAdjacentDomains(const std::string& sid)
+   * @see removeAdjacentDomains(unsigned int n)
    */
   AdjacentDomains* createAdjacentDomains();
 
@@ -1239,12 +1239,12 @@ public:
    *
    * @copydetails doc_returned_owned_pointer
    *
-   * @see addAdjacentDomain(const AdjacentDomains* object)
-   * @see createAdjacentDomain()
-   * @see getAdjacentDomain(const std::string& sid)
-   * @see getAdjacentDomain(unsigned int n)
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see createAdjacentDomains()
+   * @see getAdjacentDomains(const std::string& sid)
+   * @see getAdjacentDomains(unsigned int n)
    * @see getNumAdjacentDomains()
-   * @see removeAdjacentDomain(const std::string& sid)
+   * @see removeAdjacentDomains(const std::string& sid)
    */
   AdjacentDomains* removeAdjacentDomains(unsigned int n);
 
@@ -1261,12 +1261,12 @@ public:
    *
    * @copydetails doc_returned_owned_pointer
    *
-   * @see addAdjacentDomain(const AdjacentDomains* object)
-   * @see createAdjacentDomain()
-   * @see getAdjacentDomain(const std::string& sid)
-   * @see getAdjacentDomain(unsigned int n)
+   * @see addAdjacentDomains(const AdjacentDomains* object)
+   * @see createAdjacentDomains()
+   * @see getAdjacentDomains(const std::string& sid)
+   * @see getAdjacentDomains(unsigned int n)
    * @see getNumAdjacentDomains()
-   * @see removeAdjacentDomain(unsigned int n)
+   * @see removeAdjacentDomains(unsigned int n)
    */
   AdjacentDomains* removeAdjacentDomains(const std::string& sid);
 
@@ -2334,6 +2334,7 @@ public:
    */
   CoordinateComponent* getCoordinateComponentByKind(CoordinateKind_t kind);
 
+
 };
 
 
@@ -3116,13 +3117,13 @@ Geometry_removeDomainById(Geometry_t* g, const char* sid);
  *
  * @copydetails doc_returned_unowned_pointer
  *
- * @see Geometry_addAdjacentDomain()
- * @see Geometry_createAdjacentDomain()
- * @see Geometry_getAdjacentDomainById()
- * @see Geometry_getAdjacentDomain()
+ * @see Geometry_addAdjacentDomains()
+ * @see Geometry_createAdjacentDomains()
+ * @see Geometry_getAdjacentDomainsById()
+ * @see Geometry_getAdjacentDomains()
  * @see Geometry_getNumAdjacentDomains()
- * @see Geometry_removeAdjacentDomainById()
- * @see Geometry_removeAdjacentDomain()
+ * @see Geometry_removeAdjacentDomainsById()
+ * @see Geometry_removeAdjacentDomains()
  *
  * @memberof Geometry_t
  */
