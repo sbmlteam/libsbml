@@ -15,7 +15,11 @@
       <parameter id="x" value="8" constant="true"/>
     </listOfParameters>
     <listOfReactions>
-      <reaction id="rxn1" reversible="false" fast="false" compartment="cytosol"/>
+      <reaction id="rxn1" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference species="ATPc" constant="true"/>
+        </listOfReactants>
+      </reaction>
     </listOfReactions>
   </model>
 </sbml>

@@ -184,6 +184,9 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   SpatialReactionPlugin* rplugin = static_cast<SpatialReactionPlugin*>(reaction->getPlugin("spatial"));
   fail_unless(rplugin != NULL);
   fail_unless(rplugin->setIsLocal(true) == LIBSBML_OPERATION_SUCCESS);
+  SpeciesReference *sr = reaction->createReactant();
+  sr->setSpecies("ATPc");
+  sr->setConstant(true);
 
   //
   // Get a SpatialModelPlugin object plugged in the model object.
@@ -203,7 +206,7 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   CoordinateComponent* coordX = geometry->createCoordinateComponent();
   fail_unless(coordX->setId("coordComp1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(coordX->setType(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(coordX->setUnit("umeter") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(coordX->setUnit("metre") == LIBSBML_OPERATION_SUCCESS);
   Boundary* minX = coordX->createBoundaryMin();
   fail_unless(minX->setId("Xmin") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(minX->setValue(0.0) == LIBSBML_OPERATION_SUCCESS);
@@ -254,6 +257,7 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
 
   AnalyticGeometry* analyticGeom = geometry->createAnalyticGeometry();
   fail_unless(analyticGeom->setId("analyticGeom1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticGeom->setIsActive(true) == LIBSBML_OPERATION_SUCCESS);
   AnalyticVolume* analyticVol = analyticGeom->createAnalyticVolume();
   fail_unless(analyticVol->setId("analyticVol1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(analyticVol->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);
@@ -265,7 +269,8 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
 
   SampledFieldGeometry* sfg = geometry->createSampledFieldGeometry();
   fail_unless(sfg->setId("sampledFieldGeom1") == LIBSBML_OPERATION_SUCCESS);
-  
+  fail_unless(sfg->setIsActive(false) == LIBSBML_OPERATION_SUCCESS);
+
   SampledField* sampledField = geometry->createSampledField();
   fail_unless(sampledField->setId("sampledField1") == LIBSBML_OPERATION_SUCCESS);
   sfg->setSampledField(sampledField->getId());
@@ -442,6 +447,13 @@ START_TEST (test_SpatialExtension_create_add_and_write_L3V1V1)
   reaction.setFast(false);
   reaction.setCompartment("cytosol");
 
+  SpeciesReference sr(&sbmlns);
+  sr.setSpecies("ATPc");
+  sr.setConstant(true);
+  fail_unless(reaction.addReactant(&sr) == LIBSBML_OPERATION_SUCCESS);
+
+
+
   SpatialReactionPlugin* rplugin = static_cast<SpatialReactionPlugin*>(reaction.getPlugin("spatial"));
   fail_unless(rplugin != NULL);
   fail_unless(rplugin->setIsLocal(true) == LIBSBML_OPERATION_SUCCESS);
@@ -467,7 +479,7 @@ START_TEST (test_SpatialExtension_create_add_and_write_L3V1V1)
   CoordinateComponent coordX(&sbmlns);
   fail_unless(coordX.setId("coordComp1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(coordX.setType(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(coordX.setUnit("umeter") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(coordX.setUnit("metre") == LIBSBML_OPERATION_SUCCESS);
   Boundary minX(&sbmlns);
   fail_unless(minX.setId("Xmin") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(minX.setValue(0.0) == LIBSBML_OPERATION_SUCCESS);
@@ -645,6 +657,7 @@ END_TEST
   DiffusionCoefficient* diffCoeff = pplugin->createDiffusionCoefficient();
   fail_unless(diffCoeff->setVariable(species->getId()) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(diffCoeff->setCoordinateReference1(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(diffCoeff->setType("isotropic") == LIBSBML_OPERATION_SUCCESS);
 
   // add parameter for advection coeff of species
   paramSp = model->createParameter();
@@ -697,7 +710,7 @@ END_TEST
   CoordinateComponent* coordX = geometry->createCoordinateComponent();
   fail_unless(coordX->setId("coordComp1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(coordX->setType(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(coordX->setUnit("umeter") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(coordX->setUnit("metre") == LIBSBML_OPERATION_SUCCESS);
   Boundary* minX = coordX->createBoundaryMin();
   fail_unless(minX->setId("Xmin") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(minX->setValue(0.0) == LIBSBML_OPERATION_SUCCESS);
@@ -751,6 +764,7 @@ END_TEST
 
   AnalyticGeometry* analyticGeom = geometry->createAnalyticGeometry();
   fail_unless(analyticGeom->setId("analyticGeom1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticGeom->setIsActive(false) == LIBSBML_OPERATION_SUCCESS);
   AnalyticVolume* analyticVol = analyticGeom->createAnalyticVolume();
   fail_unless(analyticVol->setId("analyticVol1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(analyticVol->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);
@@ -762,6 +776,7 @@ END_TEST
 
   SampledFieldGeometry* sfg = geometry->createSampledFieldGeometry();
   fail_unless(sfg->setId("sampledFieldGeom1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sfg->setIsActive(false) == LIBSBML_OPERATION_SUCCESS);
   SampledField* sampledField = geometry->createSampledField();
   fail_unless(sampledField->setId("sampledField1") == LIBSBML_OPERATION_SUCCESS);
   sfg->setSampledField(sampledField->getId());
@@ -848,7 +863,7 @@ END_TEST
 END_TEST
 
 
-  START_TEST (test_SpatialExtension_read_enable_via_sbmldocument_and_write_L3V1V1)
+START_TEST (test_SpatialExtension_read_enable_via_sbmldocument_and_write_L3V1V1)
 {
 
   string file = TestDataDirectory;
@@ -892,6 +907,7 @@ END_TEST
   DiffusionCoefficient* diffCoeff = pplugin->createDiffusionCoefficient();
   fail_unless(diffCoeff->setVariable(species->getId()) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(diffCoeff->setCoordinateReference1(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(diffCoeff->setType("isotropic") == LIBSBML_OPERATION_SUCCESS);
 
   // add parameter for advection coeff of species
   paramSp = model->createParameter();
@@ -942,7 +958,7 @@ END_TEST
   CoordinateComponent* coordX = geometry->createCoordinateComponent();
   fail_unless(coordX->setId("coordComp1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(coordX->setType(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(coordX->setUnit("umeter") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(coordX->setUnit("metre") == LIBSBML_OPERATION_SUCCESS);
   Boundary* minX = coordX->createBoundaryMin();
   fail_unless(minX->setId("Xmin") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(minX->setValue(0.0) == LIBSBML_OPERATION_SUCCESS);
@@ -995,6 +1011,7 @@ END_TEST
 
   AnalyticGeometry* analyticGeom = geometry->createAnalyticGeometry();
   fail_unless(analyticGeom->setId("analyticGeom1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticGeom->setIsActive(false) == LIBSBML_OPERATION_SUCCESS);
   AnalyticVolume* analyticVol = analyticGeom->createAnalyticVolume();
   fail_unless(analyticVol->setId("analyticVol1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(analyticVol->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);
@@ -1009,6 +1026,7 @@ END_TEST
   SampledField* sampledField = geometry->createSampledField();
   fail_unless(sampledField->setId("sampledField1") == LIBSBML_OPERATION_SUCCESS);
   sfg->setSampledField(sampledField->getId());
+  fail_unless(sfg->setIsActive(false) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples1(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples2(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples3(2) == LIBSBML_OPERATION_SUCCESS);

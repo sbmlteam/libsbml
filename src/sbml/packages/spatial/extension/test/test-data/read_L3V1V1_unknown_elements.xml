@@ -26,11 +26,15 @@
 	  <parameter id="x2" value="8" constant="true" />
     </listOfParameters>
     <listOfReactions>
-      <reaction id="rxn1" reversible="false" fast="false" compartment="cytosol" spatial:isLocal="true"/>
+      <reaction id="rxn1" reversible="false" fast="false" compartment="cytosol" spatial:isLocal="true">
+        <listOfReactants>
+          <speciesReference species="ATPc" constant="true"/>
+        </listOfReactants>
+      </reaction>
     </listOfReactions>
     <spatial:geometry spatial:coordinateSystem="cartesian" spatial:unknown="unknown">
       <spatial:listOfCoordinateComponents>
-        <spatial:coordinateComponent spatial:id="coordComp1" spatial:type="cartesianX" spatial:unit="umeter">
+        <spatial:coordinateComponent spatial:id="coordComp1" spatial:type="cartesianX" spatial:unit="metre">
           <spatial:boundaryMin spatial:id="Xmin" spatial:value="0"/>
           <spatial:boundaryMax spatial:id="Xmax" spatial:value="10"/>
         </spatial:coordinateComponent>

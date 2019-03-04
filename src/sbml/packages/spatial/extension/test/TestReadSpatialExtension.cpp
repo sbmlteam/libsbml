@@ -171,7 +171,7 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   CoordinateComponent* coordComp = geometry->getCoordinateComponent(0);
   fail_unless(coordComp->getId()        == "coordComp1");
   fail_unless(coordComp->getType()	==  SPATIAL_COORDINATEKIND_CARTESIAN_X );
-  fail_unless(coordComp->getUnit()			== "umeter");
+  fail_unless(coordComp->getUnit()			== "metre");
   fail_unless(coordComp->getPackageName()		== "spatial");
 
   // boundaryMin and boundayMax within coordinateComponent
@@ -419,7 +419,7 @@ END_TEST
   CoordinateComponent* coordComp = geometry->getCoordinateComponent(0);
   fail_unless(coordComp->getId()        == "coordComp1");
   fail_unless(coordComp->getType()	== SPATIAL_COORDINATEKIND_CARTESIAN_X);
-  fail_unless(coordComp->getUnit()			== "umeter");
+  fail_unless(coordComp->getUnit()			== "metre");
   fail_unless(coordComp->getPackageName()		== "spatial");
 
   // boundaryMin and boundayMax within coordinateComponent
