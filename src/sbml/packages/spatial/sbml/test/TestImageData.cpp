@@ -154,7 +154,7 @@ START_TEST (test_SampledField_samples)
 }
 END_TEST
 
-#if (0)
+
 START_TEST (test_SampledField_samples_mismatchLength_1)
 {
   fail_unless(G->isSetSamples() == false);
@@ -208,7 +208,7 @@ START_TEST (test_SampledField_samples_mismatchLength_2)
   fail_unless(G->isSetSamplesLength() == false);
 }
 END_TEST
-#endif
+
 
 START_TEST (test_SampledField_dataType)
 {
@@ -254,8 +254,8 @@ create_suite_SampledField (void)
 
   tcase_add_test( tcase, test_SampledField_samplesLength   );
   tcase_add_test( tcase, test_SampledField_samples         );
-  //tcase_add_test( tcase, test_SampledField_samples_mismatchLength_1  );
-  //tcase_add_test( tcase, test_SampledField_samples_mismatchLength_2  );
+  tcase_add_test( tcase, test_SampledField_samples_mismatchLength_1  );
+  tcase_add_test( tcase, test_SampledField_samples_mismatchLength_2  );
   tcase_add_test( tcase, test_SampledField_dataType        );
   tcase_add_test( tcase, test_SampledField_output         );
 

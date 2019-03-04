@@ -153,7 +153,7 @@ START_TEST (test_TransformationComponent_components)
 }
 END_TEST
 
-#if (0)
+
 START_TEST (test_TransformationComponent_components_mismatchLength_1)
 {
   fail_unless(G->isSetComponents() == false);
@@ -207,7 +207,7 @@ START_TEST (test_TransformationComponent_components_mismatchLength_2)
   fail_unless(G->isSetComponentsLength() == false);
 }
 END_TEST
-#endif
+
 
 START_TEST (test_TransformationComponent_output)
 {
@@ -235,8 +235,8 @@ create_suite_TransformationComponent (void)
 
   tcase_add_test( tcase, test_TransformationComponent_componentsLength   );
   tcase_add_test( tcase, test_TransformationComponent_components         );
-  //tcase_add_test( tcase, test_TransformationComponent_components_mismatchLength_1  );
-  //tcase_add_test( tcase, test_TransformationComponent_components_mismatchLength_2  );
+  tcase_add_test( tcase, test_TransformationComponent_components_mismatchLength_1  );
+  tcase_add_test( tcase, test_TransformationComponent_components_mismatchLength_2  );
   tcase_add_test( tcase, test_TransformationComponent_output         );
 
   suite_add_tcase(suite, tcase);
