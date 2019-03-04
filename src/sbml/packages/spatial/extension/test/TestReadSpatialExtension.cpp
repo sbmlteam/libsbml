@@ -56,8 +56,7 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
 
   fail_unless(model != NULL);
   fail_unless(model->getPackageName() == "core");
-  //document->printErrors();
-  //fail_unless(document->getNumErrors() == 0);
+  fail_unless(document->getNumErrors() == 0);
 
   // model : compartment
   fail_unless(model->getNumCompartments() == 1);
@@ -202,8 +201,6 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   Domain* domain = geometry->getDomain(0);
   fail_unless(domain->getId()   == "domain1");
   fail_unless(domain->getDomainType() == "dtype1");
-  //fail_unless(domain->getImplicit()    == false);
-  //fail_unless(domain->getShapeId()     == "circle");
   fail_unless(domain->getPackageName() == "spatial");
 
   // interiorPoints in Domain
@@ -218,8 +215,6 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   domain = geometry->getDomain(1);
   fail_unless(domain->getId()   == "domain2");
   fail_unless(domain->getDomainType() == "dtype1");
-  //fail_unless(domain->getImplicit()    == false);
-  //fail_unless(domain->getShapeId()     == "square");
   fail_unless(domain->getPackageName() == "spatial");
 
   // Domain : interiorPoints
@@ -260,7 +255,11 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   fail_unless(av->getFunctionType() == SPATIAL_FUNCTIONKIND_LAYERED);
   fail_unless(av->getOrdinal()      == 1);
   fail_unless(av->getPackageName()  == "spatial");
-  // ??????Math????
+  fail_unless(av->isSetMath() == true);
+  const char * math = SBML_formulaToL3String(av->getMath());
+  std::string strMath = "x * x + -1";
+  fail_unless(strcmp(math, strMath.c_str()) == 0);
+  safe_free((void*)(math));
 
   // geometry : sampledFieldGeometry
   gd = geometry->getGeometryDefinition(1);
@@ -318,10 +317,8 @@ END_TEST
   string sbmlDoc = writeSBMLToStdString(document);
   Model *model = document->getModel();
 
-  //document->printErrors();
-
   fail_unless(model != NULL);
-  //fail_unless(document->getNumErrors() == 0);
+  fail_unless(document->getNumErrors() == 0);
 
   // model : compartment
   fail_unless(model->getNumCompartments() == 1);
@@ -452,8 +449,6 @@ END_TEST
   Domain* domain = geometry->getDomain(0);
   fail_unless(domain->getId()   == "domain1");
   fail_unless(domain->getDomainType() == "dtype1");
-  //fail_unless(domain->getImplicit()    == false);
-  //fail_unless(domain->getShapeId()     == "circle");
   fail_unless(domain->getPackageName() == "spatial");
 
   // interiorPoints in Domain
@@ -468,8 +463,6 @@ END_TEST
   domain = geometry->getDomain(1);
   fail_unless(domain->getId()   == "domain2");
   fail_unless(domain->getDomainType() == "dtype1");
-  //fail_unless(domain->getImplicit()    == false);
-  //fail_unless(domain->getShapeId()     == "square");
   fail_unless(domain->getPackageName() == "spatial");
 
   // Domain : interiorPoints
@@ -509,7 +502,10 @@ END_TEST
   fail_unless(av->getFunctionType() == SPATIAL_FUNCTIONKIND_LAYERED);
   fail_unless(av->getOrdinal()      == 1);
   fail_unless(av->getPackageName()  == "spatial");
-  // ??????Math????
+  const char * math = SBML_formulaToL3String(av->getMath());
+  std::string strMath = "x * x + -1";
+  fail_unless(strcmp(math, strMath.c_str()) == 0);
+  safe_free((void*)(math));
 
   // geometry : sampledFieldGeometry
   gd = geometry->getGeometryDefinition(1);
@@ -565,10 +561,8 @@ END_TEST
   SBMLDocument *document = readSBMLFromFile(file.c_str());
   Model *model = document->getModel();
 
-  //   document->printErrors();
-
   fail_unless(model != NULL);
-  //fail_unless(document->getNumErrors() == 3);
+  fail_unless(document->getNumErrors() == 1);
 
   delete document;
 }
@@ -810,94 +804,12 @@ END_TEST
 }
 END_TEST
 
-/*
-START_TEST (test_SpatialExtension_readwrite_meshonly)
-{
-
-  string file = TestDataDirectory;
-  file += "/MeshOnly.xml";
-
-  SBMLDocument *document = readSBMLFromFile(file.c_str());
-  SBMLErrorLog* errors = document->getErrorLog();
-  if (errors->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) != 0) {
-    fail_unless(false);
-    for (unsigned long e=0; e<errors->getNumErrors(); e++) {
-      const SBMLError* error = errors->getError(e);
-      if (error->getSeverity() == LIBSBML_SEV_ERROR) {
-        cout << error->getMessage() << endl;
-      }
-    }
-  }
-  file = TestDataDirectory;
-  file += "/MeshOnly_rt.xml";
-  writeSBMLToFile(document, file.c_str());
-
-  delete document;
-}
-END_TEST
-
-
-START_TEST (test_SpatialExtension_readwrite_mixedonly)
-{
-
-  string file = TestDataDirectory;
-  file += "/MixedOnly.xml";
-
-  SBMLDocument *document = readSBMLFromFile(file.c_str());
-  SBMLErrorLog* errors = document->getErrorLog();
-  if (errors->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) != 0) {
-    fail_unless(false);
-    for (unsigned long e=0; e<errors->getNumErrors(); e++) {
-      const SBMLError* error = errors->getError(e);
-      if (error->getSeverity() == LIBSBML_SEV_ERROR) {
-        cout << error->getMessage() << endl;
-      }
-    }
-  }
-  file = TestDataDirectory;
-  file += "/MixedOnly_rt.xml";
-  writeSBMLToFile(document, file.c_str());
-
-  delete document;
-}
-END_TEST
-
-
-START_TEST (test_SpatialExtension_readwrite_csgonly)
-{
-
-  string file = TestDataDirectory;
-  file += "/CSGOnly.xml";
-
-  SBMLDocument *document = readSBMLFromFile(file.c_str());
-  SBMLErrorLog* errors = document->getErrorLog();
-  if (errors->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) != 0) {
-    fail_unless(false);
-    for (unsigned long e=0; e<errors->getNumErrors(); e++) {
-      const SBMLError* error = errors->getError(e);
-      if (error->getSeverity() == LIBSBML_SEV_ERROR) {
-        cout << error->getMessage() << endl;
-      }
-    }
-  }
-  file = TestDataDirectory;
-  file += "/CSGOnly_rt.xml";
-  writeSBMLToFile(document, file.c_str());
-
-  delete document;
-}
-END_TEST
-*/
 
 Suite *
   create_suite_ReadSpatialExtension (void)
 {
   Suite *suite = suite_create("ReadSpatialExtension");
   TCase *tcase = tcase_create("ReadSpatialExtension");
-
-  //tcase_add_test( tcase, test_SpatialExtension_readwrite_meshonly);
-  //tcase_add_test( tcase, test_SpatialExtension_readwrite_csgonly);
-  //tcase_add_test( tcase, test_SpatialExtension_readwrite_mixedonly);
 
   tcase_add_test( tcase, test_SpatialExtension_read_L3V1V1);
   tcase_add_test( tcase, test_SpatialExtension_read_L3V1V1_defaultNS);

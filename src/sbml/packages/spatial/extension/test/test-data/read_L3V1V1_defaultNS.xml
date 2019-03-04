@@ -12,7 +12,7 @@
     </listOfSpecies>
     <listOfParameters>
       <parameter id="ATPc_dc" value="1" constant="true">
-        <spatial:diffusionCoefficient spatial:variable="ATPc" spatial:coordinateReference1="cartesianX"/>
+        <spatial:diffusionCoefficient spatial:variable="ATPc" spatial:coordinateReference1="cartesianX" spatial:type="isotropic"/>
       </parameter>
       <parameter id="ATPc_ac" value="1.5" constant="true">
         <spatial:advectionCoefficient spatial:variable="ATPc" spatial:coordinate="cartesianX"/>
@@ -54,7 +54,7 @@
         <spatial:adjacentDomains spatial:id="adjDomain1" spatial:domain1="domain1" spatial:domain2="domain2"/>
       </spatial:listOfAdjacentDomains>
       <spatial:listOfGeometryDefinitions>
-        <spatial:analyticGeometry spatial:id="analyticGeom1">
+        <spatial:analyticGeometry spatial:id="analyticGeom1" spatial:isActive="false">
           <spatial:listOfAnalyticVolumes>
             <spatial:analyticVolume spatial:id="analyticVol1" spatial:functionType="layered" spatial:ordinal="1" spatial:domainType="dtype1">
               <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -74,7 +74,7 @@
             </spatial:analyticVolume>
           </spatial:listOfAnalyticVolumes>
         </spatial:analyticGeometry>
-        <spatial:sampledFieldGeometry spatial:id="sampledFieldGeom1" spatial:sampledField="sampledField1">
+        <spatial:sampledFieldGeometry spatial:id="sampledFieldGeom1" spatial:sampledField="sampledField1" spatial:isActive="false">
           <spatial:listOfSampledVolumes>
             <spatial:sampledVolume spatial:id="sv_1" spatial:domainType="dtype1" spatial:sampledValue="128" spatial:minValue="0" spatial:maxValue="255"/>
           </spatial:listOfSampledVolumes>
