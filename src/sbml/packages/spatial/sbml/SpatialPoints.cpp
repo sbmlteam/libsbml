@@ -147,6 +147,26 @@ SpatialPoints::~SpatialPoints()
 
 
 /*
+ * Returns the value of the "id" attribute of this SpatialPoints.
+ */
+const std::string&
+SpatialPoints::getId() const
+{
+  return mId;
+}
+
+
+/*
+ * Returns the value of the "name" attribute of this SpatialPoints.
+ */
+const std::string&
+SpatialPoints::getName() const
+{
+  return mName;
+}
+
+
+/*
  * Returns the value of the "compression" attribute of this SpatialPoints.
  */
 CompressionKind_t
@@ -214,6 +234,26 @@ SpatialPoints::getDataTypeAsString() const
 
 
 /*
+ * Predicate returning @c true if this SpatialPoints's "id" attribute is set.
+ */
+bool
+SpatialPoints::isSetId() const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true if this SpatialPoints's "name" attribute is set.
+ */
+bool
+SpatialPoints::isSetName() const
+{
+  return (mName.empty() == false);
+}
+
+
+/*
  * Predicate returning @c true if this SpatialPoints's "compression" attribute
  * is set.
  */
@@ -254,6 +294,27 @@ bool
 SpatialPoints::isSetDataType() const
 {
   return (mDataType != SPATIAL_DATAKIND_INVALID);
+}
+
+
+/*
+ * Sets the value of the "id" attribute of this SpatialPoints.
+ */
+int
+SpatialPoints::setId(const std::string& id)
+{
+  return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Sets the value of the "name" attribute of this SpatialPoints.
+ */
+int
+SpatialPoints::setName(const std::string& name)
+{
+  mName = name;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -365,6 +426,44 @@ SpatialPoints::setDataType(const std::string& dataType)
   }
 
   return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the value of the "id" attribute of this SpatialPoints.
+ */
+int
+SpatialPoints::unsetId()
+{
+  mId.erase();
+
+  if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "name" attribute of this SpatialPoints.
+ */
+int
+SpatialPoints::unsetName()
+{
+  mName.erase();
+
+  if (mName.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -666,7 +765,17 @@ SpatialPoints::getAttribute(const std::string& attributeName,
     return return_value;
   }
 
-  if (attributeName == "compression")
+  if (attributeName == "id")
+  {
+    value = getId();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "name")
+  {
+    value = getName();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "compression")
   {
     value = getCompressionAsString();
     return_value = LIBSBML_OPERATION_SUCCESS;
@@ -695,7 +804,15 @@ SpatialPoints::isSetAttribute(const std::string& attributeName) const
 {
   bool value = SBase::isSetAttribute(attributeName);
 
-  if (attributeName == "compression")
+  if (attributeName == "id")
+  {
+    value = isSetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = isSetName();
+  }
+  else if (attributeName == "compression")
   {
     value = isSetCompression();
   }
@@ -804,7 +921,15 @@ SpatialPoints::setAttribute(const std::string& attributeName,
 {
   int return_value = SBase::setAttribute(attributeName, value);
 
-  if (attributeName == "compression")
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "name")
+  {
+    return_value = setName(value);
+  }
+  else if (attributeName == "compression")
   {
     return_value = setCompression(value);
   }
@@ -830,7 +955,15 @@ SpatialPoints::unsetAttribute(const std::string& attributeName)
 {
   int value = SBase::unsetAttribute(attributeName);
 
-  if (attributeName == "compression")
+  if (attributeName == "id")
+  {
+    value = unsetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = unsetName();
+  }
+  else if (attributeName == "compression")
   {
     value = unsetCompression();
   }
@@ -863,6 +996,10 @@ void
 SpatialPoints::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   SBase::addExpectedAttributes(attributes);
+
+  attributes.add("id");
+
+  attributes.add("name");
 
   attributes.add("compression");
 
@@ -914,6 +1051,40 @@ SpatialPoints::readAttributes(const XMLAttributes& attributes,
           SpatialSpatialPointsAllowedCoreAttributes, pkgVersion, level, version,
             details);
       }
+    }
+  }
+
+  // 
+  // id SId (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("id", mId);
+
+  if (assigned == true)
+  {
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, level, version, "<SpatialPoints>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+    {
+      log->logPackageError("spatial", SpatialIdSyntaxRule, pkgVersion, level,
+        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+          "which does not conform to the syntax.", getLine(), getColumn());
+    }
+  }
+
+  // 
+  // name string (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("name", mName);
+
+  if (assigned == true)
+  {
+    if (mName.empty() == true)
+    {
+      logEmptyString(mName, level, version, "<SpatialPoints>");
     }
   }
 
@@ -1037,6 +1208,16 @@ SpatialPoints::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  if (isSetId() == true)
+  {
+    stream.writeAttribute("id", getPrefix(), mId);
+  }
+
+  if (isSetName() == true)
+  {
+    stream.writeAttribute("name", getPrefix(), mName);
+  }
+
   if (isSetCompression() == true)
   {
     stream.writeAttribute("compression", getPrefix(),
@@ -1148,6 +1329,38 @@ SpatialPoints_free(SpatialPoints_t* sp)
 
 
 /*
+ * Returns the value of the "id" attribute of this SpatialPoints_t.
+ */
+LIBSBML_EXTERN
+char *
+SpatialPoints_getId(const SpatialPoints_t * sp)
+{
+  if (sp == NULL)
+  {
+    return NULL;
+  }
+
+  return sp->getId().empty() ? NULL : safe_strdup(sp->getId().c_str());
+}
+
+
+/*
+ * Returns the value of the "name" attribute of this SpatialPoints_t.
+ */
+LIBSBML_EXTERN
+char *
+SpatialPoints_getName(const SpatialPoints_t * sp)
+{
+  if (sp == NULL)
+  {
+    return NULL;
+  }
+
+  return sp->getName().empty() ? NULL : safe_strdup(sp->getName().c_str());
+}
+
+
+/*
  * Returns the value of the "compression" attribute of this SpatialPoints_t.
  */
 LIBSBML_EXTERN
@@ -1214,6 +1427,30 @@ SpatialPoints_getDataTypeAsString(const SpatialPoints_t * sp)
 
 
 /*
+ * Predicate returning @c 1 (true) if this SpatialPoints_t's "id" attribute is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_isSetId(const SpatialPoints_t * sp)
+{
+  return (sp != NULL) ? static_cast<int>(sp->isSetId()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this SpatialPoints_t's "name" attribute
+ * is set.
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_isSetName(const SpatialPoints_t * sp)
+{
+  return (sp != NULL) ? static_cast<int>(sp->isSetName()) : 0;
+}
+
+
+/*
  * Predicate returning @c 1 (true) if this SpatialPoints_t's "compression"
  * attribute is set.
  */
@@ -1258,6 +1495,28 @@ int
 SpatialPoints_isSetDataType(const SpatialPoints_t * sp)
 {
   return (sp != NULL) ? static_cast<int>(sp->isSetDataType()) : 0;
+}
+
+
+/*
+ * Sets the value of the "id" attribute of this SpatialPoints_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_setId(SpatialPoints_t * sp, const char * id)
+{
+  return (sp != NULL) ? sp->setId(id) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "name" attribute of this SpatialPoints_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_setName(SpatialPoints_t * sp, const char * name)
+{
+  return (sp != NULL) ? sp->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1332,6 +1591,28 @@ int
 SpatialPoints_setDataTypeAsString(SpatialPoints_t * sp, const char * dataType)
 {
   return (sp != NULL) ? sp->setDataType(dataType): LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "id" attribute of this SpatialPoints_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_unsetId(SpatialPoints_t * sp)
+{
+  return (sp != NULL) ? sp->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "name" attribute of this SpatialPoints_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_unsetName(SpatialPoints_t * sp)
+{
+  return (sp != NULL) ? sp->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 

@@ -190,6 +190,23 @@ public:
 
 
   /**
+   * Returns the value of the "id" attribute of this SpatialPoints.
+   *
+   * @return the value of the "id" attribute of this SpatialPoints as a string.
+   */
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this SpatialPoints.
+   *
+   * @return the value of the "name" attribute of this SpatialPoints as a
+   * string.
+   */
+  virtual const std::string& getName() const;
+
+
+  /**
    * Returns the value of the "compression" attribute of this SpatialPoints.
    *
    * @return the value of the "compression" attribute of this SpatialPoints as
@@ -281,6 +298,25 @@ public:
 
 
   /**
+   * Predicate returning @c true if this SpatialPoints's "id" attribute is set.
+   *
+   * @return @c true if this SpatialPoints's "id" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true if this SpatialPoints's "name" attribute is
+   * set.
+   *
+   * @return @c true if this SpatialPoints's "name" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
+
+
+  /**
    * Predicate returning @c true if this SpatialPoints's "compression"
    * attribute is set.
    *
@@ -322,6 +358,36 @@ public:
    * @copydetails doc_spatialpoints_dataType
    */
   bool isSetDataType() const;
+
+
+  /**
+   * Sets the value of the "id" attribute of this SpatialPoints.
+   *
+   * @param id std::string& value of the "id" attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   *
+   * Calling this function with @p id = @c NULL or an empty string is
+   * equivalent to calling unsetId().
+   */
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "name" attribute of this SpatialPoints.
+   *
+   * @param name std::string& value of the "name" attribute to be set.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p name = @c NULL or an empty string is
+   * equivalent to calling unsetName().
+   */
+  virtual int setName(const std::string& name);
 
 
   /**
@@ -414,6 +480,26 @@ public:
    * @copydetails doc_spatialpoints_dataType
    */
   int setDataType(const std::string& dataType);
+
+
+  /**
+   * Unsets the value of the "id" attribute of this SpatialPoints.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this SpatialPoints.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetName();
 
 
   /**
@@ -926,6 +1012,40 @@ SpatialPoints_free(SpatialPoints_t* sp);
 
 
 /**
+ * Returns the value of the "id" attribute of this SpatialPoints_t.
+ *
+ * @param sp the SpatialPoints_t structure whose id is sought.
+ *
+ * @return the value of the "id" attribute of this SpatialPoints_t as a pointer
+ * to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof SpatialPoints_t
+ */
+LIBSBML_EXTERN
+char *
+SpatialPoints_getId(const SpatialPoints_t * sp);
+
+
+/**
+ * Returns the value of the "name" attribute of this SpatialPoints_t.
+ *
+ * @param sp the SpatialPoints_t structure whose name is sought.
+ *
+ * @return the value of the "name" attribute of this SpatialPoints_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof SpatialPoints_t
+ */
+LIBSBML_EXTERN
+char *
+SpatialPoints_getName(const SpatialPoints_t * sp);
+
+
+/**
  * Returns the value of the "compression" attribute of this SpatialPoints_t.
  *
  * @param sp the SpatialPoints_t structure whose compression is sought.
@@ -1039,6 +1159,38 @@ SpatialPoints_getDataTypeAsString(const SpatialPoints_t * sp);
 
 
 /**
+ * Predicate returning @c 1 (true) if this SpatialPoints_t's "id" attribute is
+ * set.
+ *
+ * @param sp the SpatialPoints_t structure.
+ *
+ * @return @c 1 (true) if this SpatialPoints_t's "id" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof SpatialPoints_t
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_isSetId(const SpatialPoints_t * sp);
+
+
+/**
+ * Predicate returning @c 1 (true) if this SpatialPoints_t's "name" attribute
+ * is set.
+ *
+ * @param sp the SpatialPoints_t structure.
+ *
+ * @return @c 1 (true) if this SpatialPoints_t's "name" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof SpatialPoints_t
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_isSetName(const SpatialPoints_t * sp);
+
+
+/**
  * Predicate returning @c 1 (true) if this SpatialPoints_t's "compression"
  * attribute is set.
  *
@@ -1104,6 +1256,49 @@ SpatialPoints_isSetArrayDataLength(const SpatialPoints_t * sp);
 LIBSBML_EXTERN
 int
 SpatialPoints_isSetDataType(const SpatialPoints_t * sp);
+
+
+/**
+ * Sets the value of the "id" attribute of this SpatialPoints_t.
+ *
+ * @param sp the SpatialPoints_t structure.
+ *
+ * @param id const char * value of the "id" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling SpatialPoints_unsetId().
+ *
+ * @memberof SpatialPoints_t
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_setId(SpatialPoints_t * sp, const char * id);
+
+
+/**
+ * Sets the value of the "name" attribute of this SpatialPoints_t.
+ *
+ * @param sp the SpatialPoints_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling SpatialPoints_unsetName().
+ *
+ * @memberof SpatialPoints_t
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_setName(SpatialPoints_t * sp, const char * name);
 
 
 /**
@@ -1235,6 +1430,40 @@ LIBSBML_EXTERN
 int
 SpatialPoints_setDataTypeAsString(SpatialPoints_t * sp,
                                   const char * dataType);
+
+
+/**
+ * Unsets the value of the "id" attribute of this SpatialPoints_t.
+ *
+ * @param sp the SpatialPoints_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpatialPoints_t
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_unsetId(SpatialPoints_t * sp);
+
+
+/**
+ * Unsets the value of the "name" attribute of this SpatialPoints_t.
+ *
+ * @param sp the SpatialPoints_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpatialPoints_t
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_unsetName(SpatialPoints_t * sp);
 
 
 /**

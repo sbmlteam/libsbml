@@ -296,7 +296,8 @@ typedef enum
 , SpatialSpatialPointsCompressionMustBeCompressionKindEnum    = 1224004
 , SpatialSpatialPointsArrayDataMustBeString                   = 1224005
 , SpatialSpatialPointsArrayDataLengthMustBeInteger            = 1224006
-, SpatialSpatialPointsDataTypeMustBeDataKindEnum              = 1224007
+, SpatialSpatialPointsNameMustBeString                        = 1224007
+, SpatialSpatialPointsDataTypeMustBeDataKindEnum              = 1224008
 } SpatialSBMLErrorCode_t;
 
 

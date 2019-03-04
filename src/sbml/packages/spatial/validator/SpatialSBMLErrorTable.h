@@ -2863,9 +2863,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <spatialPoints> object must have the required attributes "
     "'spatial:compression', 'spatial:arrayData' and 'spatial:arrayDataLength', "
-    "and may have the optional attribute 'spatial:dataType'. No other "
-    "attributes from the SBML Level 3 Spatial Processes namespaces are "
-    "permitted on a <spatialPoints> object. ",
+    "and may have the optional attributes 'spatial:id', 'spatial:name' and "
+    "'spatial:dataType'. No other attributes from the SBML Level 3 Spatial "
+    "Processes namespaces are permitted on a <spatialPoints> object. ",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2907,6 +2907,17 @@ static const packageErrorTableEntry spatialErrorTable[] =
   },
 
   // 1224007
+  { SpatialSpatialPointsNameMustBeString,
+    "The 'name' attribute must be String.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'spatial:name' on a <spatialPoints> must have a value of "
+    "data type 'string'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1224008
   { SpatialSpatialPointsDataTypeMustBeDataKindEnum,
     "The 'dataType' attribute must be DataKindEnum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
