@@ -199,7 +199,7 @@ START_TEST (test_TransformationComponent_components_mismatchLength_2)
   fail_unless(util_isEqual(componentsRet[0], 1.3));
   // really just making sure we dont crash
   fail_unless(util_isEqual(componentsRet[1], 2.4) == 0);
-  fail_unless(componentsRet[2] != 0);
+  fail_unless(util_isEqual(componentsRet[2], componentsRet[2]) == 1);
 
   G->unsetComponents();
 
