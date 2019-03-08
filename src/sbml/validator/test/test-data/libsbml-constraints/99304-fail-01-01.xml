@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model metaid="_case00001" id="case00001" name="case00001">
+    <listOfFunctionDefinitions>
+      <functionDefinition id="my_plus">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <cn> 3 </cn>
+            </bvar>
+            <bvar>
+              <ci> y </ci>
+            </bvar>
+            <apply>
+              <plus/>
+              <cn> 3 </cn>
+              <ci> y </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      </listOfFunctionDefinitions>
+      
+    
+    
+    
+    
+  </model>
+</sbml>

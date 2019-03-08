@@ -616,6 +616,7 @@ typedef enum
 , InvalidFunctionDefReturnType          = 20305 /*!< A function's return type must be either a number or a Boolean. */
 , OneMathElementPerFunc                 = 20306 /*!< A FunctionDefinition object may contain one <code>&lt;math&gt;</code> element. */
 , AllowedAttributesOnFunc               = 20307 /*!< Invalid attribute found on the FunctionDefinition object. */
+, OnlyCiInsideBVar                      = 99304
 , InvalidUnitDefId                      = 20401 /*!< Invalid 'id' attribute value for a UnitDefinition object. */
 , InvalidSubstanceRedefinition          = 20402 /*!< Invalid redefinition of built-in type 'substance'. */
 , InvalidLengthRedefinition             = 20403 /*!< Invalid redefinition of built-in type 'length'. */

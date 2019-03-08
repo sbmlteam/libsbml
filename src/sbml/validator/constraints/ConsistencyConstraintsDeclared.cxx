@@ -60,6 +60,8 @@ addConstraint(new VConstraintFunctionDefinition99301(*this));
 
 addConstraint(new VConstraintFunctionDefinition99302(*this));
 
+addConstraint(new VConstraintFunctionDefinition99304(*this));
+
 addConstraint(new VConstraintUnitDefinition20401(*this));
 
 addConstraint(new VConstraintUnitDefinition20402(*this));

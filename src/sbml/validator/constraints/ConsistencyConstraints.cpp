@@ -422,6 +422,36 @@ START_CONSTRAINT (99302, FunctionDefinition, fd)
 END_CONSTRAINT
 
 
+START_CONSTRAINT(99304, FunctionDefinition, fd)
+{
+
+  pre(fd.getLevel() > 1);
+  pre(fd.isSetMath());
+  pre(fd.getMath()->isLambda());
+  const ASTNode* math = fd.getMath();
+  unsigned int n = math->getNumBvars();
+
+  bool fail = false;
+
+  unsigned int i = 0;
+  while (i < n && fail == false)
+  {
+    const ASTNode * child = math->getChild(i);
+    if (child->getType() != AST_NAME)
+    {
+      msg = "The <functionDefinition> with id '" + fd.getId() + "' contains"
+        " a <bvar> element " + SBML_formulaToL3String(child) + " that is not a <ci> element.";
+      fail = true;
+    }
+
+    i++;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 // Unit and UnitDefinition validation
 
 START_CONSTRAINT (20401, UnitDefinition, ud)

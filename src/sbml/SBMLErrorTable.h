@@ -4027,7 +4027,34 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V2 Section 4.3"}
   },
 
-  //20401
+      //20308 (currently 
+  {
+    OnlyCiInsideBVar,
+    "Invalid element found in <bvar> element",
+      LIBSBML_CAT_GENERAL_CONSISTENCY,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_ERROR,
+      "Inside the lambda MathML element within a FunctionDefinition any bvar "
+      "elements must contain one instance of a <ci> element. No other elements "
+      "are permitted within a bvar element.",
+      { "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "L3V1 Section 4.3",
+      "L3V2 Section 4.3" }
+  },
+
+      //20401
   {
     InvalidUnitDefId,
     "Invalid 'id' attribute value for a UnitDefinition object",

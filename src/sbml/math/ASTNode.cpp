@@ -2593,6 +2593,8 @@ unsigned int
 ASTNode::getNumBvars() const
 {
   unsigned int num = getNumChildren();
+  if (num == 0)
+    return num;
   if (getChild(num - 1)->isBvar())
     return num;
   else
