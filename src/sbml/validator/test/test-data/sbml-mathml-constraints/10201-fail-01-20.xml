@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="case00983" name="case00983">
+    <listOfParameters>
+      <parameter id="x" value="0" constant="false"/>
+      <parameter id="temp" constant="false"/>
+      <parameter id="y" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="y">
+        <math>
+          <semantics>
+            <apply>
+              <times/>
+              <ci> x </ci>
+              <ci> temp </ci>
+            </apply>
+           <annotation encoding="a"> ss </annotation>
+            <annotation encodeing="b"> ss </annotation>
+          </semantics>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>

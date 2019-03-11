@@ -1183,9 +1183,20 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
     {
       node.setDefinitionURL(tempAtt);
     }
+    stream.skipText();
     /* need to look for any annotation on the semantics element **/
     while ( stream.isGood() && !stream.peek().isEndFor(elem))
     {
+      // here need to check that there is not an incorrect top-level tag
+      const XMLToken element1 = stream.peek();
+      const string&  name = element1.getName();
+      if (isMathMLNodeTag(name) && element1.isStart())
+      {
+        std::string message = "Unexpected element encountered. The element <" +
+          name + "> should not be encountered here.";
+        logError(stream, element1, InvalidMathElement, message);
+      }
+      stream.skipPastEnd(element1);
       if (stream.peek().getName() == "annotation"
         || stream.peek().getName() == "annotation-xml")
       {
