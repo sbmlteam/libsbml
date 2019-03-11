@@ -261,13 +261,13 @@ Replacing::readAttributes (const XMLAttributes& attributes,
     {
       std::string message = "Comp attribute 'submodelRef' is missing.";
       getErrorLog()->logPackageError("comp", CompReplacedElementAllowedAttributes, 
-        getPackageVersion(), sbmlLevel, sbmlVersion, message);
+        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
     }
     else
     {
       std::string message = "Comp attribute 'submodelRef' is missing.";
       getErrorLog()->logPackageError("comp", CompReplacedByAllowedAttributes, 
-        getPackageVersion(), sbmlLevel, sbmlVersion, message);
+        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
     }
   }
   else

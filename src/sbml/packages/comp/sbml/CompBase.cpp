@@ -203,7 +203,7 @@ CompBase::readAttributes (const XMLAttributes& attributes,
     {
       string message = "Comp attribute 'comp:id' is missing.";
       getErrorLog()->logPackageError("comp", errcode,
-        pkgVersion, sbmlLevel, sbmlVersion, message);
+        pkgVersion, sbmlLevel, sbmlVersion, message, getLine(), getColumn());
     }
     else if (!assigned && !coreid.empty())
     {
@@ -211,7 +211,7 @@ CompBase::readAttributes (const XMLAttributes& attributes,
       details += getElementName() + "> element with the 'id' with value '"
         + coreid + "' must use 'comp:id' instead.";
       log->logPackageError("comp", errcode,
-        pkgVersion, sbmlLevel, sbmlVersion, details);
+        pkgVersion, sbmlLevel, sbmlVersion, details, getLine(), getColumn());
     }
     else if (!coreid.empty())
     {
@@ -221,7 +221,7 @@ CompBase::readAttributes (const XMLAttributes& attributes,
         + coreid + "' and the 'comp:id' with value '"
         + compid + "' must only use the 'comp:id' attribute.";
       log->logPackageError("comp", errcode,
-        pkgVersion, sbmlLevel, sbmlVersion, details);
+        pkgVersion, sbmlLevel, sbmlVersion, details, getLine(), getColumn());
     }
 
     if (assigned && !SyntaxChecker::isValidSBMLSId(mId)) {
@@ -236,7 +236,7 @@ CompBase::readAttributes (const XMLAttributes& attributes,
       details += getElementName() + "> element with the 'name' with value '"
         + corename + "' must use 'comp:name' instead.";
       log->logPackageError("comp", errcode,
-        pkgVersion, sbmlLevel, sbmlVersion, details);
+        pkgVersion, sbmlLevel, sbmlVersion, details, getLine(), getColumn());
     }
     else if (!corename.empty())
     {
@@ -246,7 +246,7 @@ CompBase::readAttributes (const XMLAttributes& attributes,
         + corename + "' and the 'comp:name' with value '"
         + compname + "' must only use the 'comp:name' attribute.";
       log->logPackageError("comp", errcode,
-        pkgVersion, sbmlLevel, sbmlVersion, details);
+        pkgVersion, sbmlLevel, sbmlVersion, details, getLine(), getColumn());
     }
     if (assigned && mName.empty()) {
       logInvalidId("comp:name", mName);
@@ -264,7 +264,7 @@ CompBase::readAttributes (const XMLAttributes& attributes,
       }
       details += "' must not use the 'comp:id' attribute.";
       log->logPackageError("comp", errcode,
-        pkgVersion, sbmlLevel, sbmlVersion, details);
+        pkgVersion, sbmlLevel, sbmlVersion, details, getLine(), getColumn());
     }
     if (!compname.empty())
     {
@@ -276,7 +276,7 @@ CompBase::readAttributes (const XMLAttributes& attributes,
       }
       details += "' must not use the 'comp:name' attribute.";
       log->logPackageError("comp", errcode,
-        pkgVersion, sbmlLevel, sbmlVersion, details);
+        pkgVersion, sbmlLevel, sbmlVersion, details, getLine(), getColumn());
     }
   }
 }

@@ -135,7 +135,8 @@ CompSBasePlugin::createObject(XMLInputStream& stream)
       if (mListOfReplacedElements != NULL)
       {
         getErrorLog()->logPackageError("comp", CompOneListOfReplacedElements, 
-          getPackageVersion(), getLevel(), getVersion(), message + "may only have one <listOfReplacedElements>");
+          getPackageVersion(), getLevel(), getVersion(), 
+          message + "may only have one <listOfReplacedElements>", getLine(), getColumn());
       }
       createListOfReplacedElements();
       object = mListOfReplacedElements;
@@ -160,7 +161,8 @@ CompSBasePlugin::createObject(XMLInputStream& stream)
         if (mSBML != NULL && getErrorLog() != NULL)
         {
           getErrorLog()->logPackageError("comp", CompOneReplacedByElement, 
-                          getPackageVersion(), getLevel(), getVersion(), message + "may only have one <replacedBy> child.");
+                          getPackageVersion(), getLevel(), getVersion(), 
+            message + "may only have one <replacedBy> child.", getLine(), getColumn());
         }
       }
       delete mReplacedBy;

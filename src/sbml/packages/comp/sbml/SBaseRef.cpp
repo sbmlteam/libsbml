@@ -663,7 +663,7 @@ SBaseRef::createObject (XMLInputStream& stream)
     if (mSBaseRef != NULL && (name =="sBaseRef" || name=="sbaseRef")) {
       if (errlog != NULL) {
           errlog->logPackageError(getPackageName(), CompOneSBaseRefOnly, 
-            getPackageVersion(), getLevel(), getVersion());
+            getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
       }
       object = mSBaseRef;
     }
@@ -677,7 +677,7 @@ SBaseRef::createObject (XMLInputStream& stream)
     else if ( name == "sbaseRef" ) {
       if (errlog != NULL) {
           errlog->logPackageError(getPackageName(), CompDeprecatedSBaseRefSpelling, 
-            getPackageVersion(), getLevel(), getVersion());
+            getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
       }
       COMP_CREATE_NS(compns, getSBMLNamespaces());
       mSBaseRef = new SBaseRef(compns);

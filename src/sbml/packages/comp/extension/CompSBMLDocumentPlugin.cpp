@@ -138,7 +138,7 @@ CompSBMLDocumentPlugin::createObject(XMLInputStream& stream)
       if (mListOfModelDefinitions.size() != 0)
       {
         getErrorLog()->logPackageError("comp", CompOneListOfModelDefinitions, 
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
       }
      
       object = &mListOfModelDefinitions;
@@ -162,7 +162,7 @@ CompSBMLDocumentPlugin::createObject(XMLInputStream& stream)
       if (mListOfExternalModelDefinitions.size() != 0)
       {
         getErrorLog()->logPackageError("comp", CompOneListOfExtModelDefinitions, 
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
       }
      
       object = &mListOfExternalModelDefinitions;
@@ -275,12 +275,12 @@ CompSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->contains(XMLAttributeTypeMismatch))
     {
       getErrorLog()->logPackageError("comp", CompAttributeRequiredMustBeBoolean,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
     else
     {
       getErrorLog()->logPackageError("comp", CompAttributeRequiredMissing,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
   }
   else
@@ -289,7 +289,7 @@ CompSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
     if (mRequired == false) 
     {
       getErrorLog()->logPackageError("comp", CompAttributeRequiredMustBeTrue,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
   }
 }

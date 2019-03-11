@@ -423,7 +423,7 @@ ExternalModelDefinition::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("comp", CompLOExtModDefsAllowedAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       } 
       else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -431,7 +431,7 @@ ExternalModelDefinition::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("comp", CompLOExtModDefsAllowedAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       } 
     }
   }
@@ -451,7 +451,7 @@ ExternalModelDefinition::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("comp", CompExtModDefAllowedAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       } 
       else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -459,7 +459,7 @@ ExternalModelDefinition::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("comp", CompExtModDefAllowedCoreAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       } 
     }
   }
@@ -479,7 +479,9 @@ ExternalModelDefinition::readAttributes (const XMLAttributes& attributes,
       if (!SyntaxChecker::isValidXMLanyURI(mSource)) 
       {
         getErrorLog()->logPackageError("comp", CompInvalidSourceSyntax,
-          getPackageVersion(), getLevel(), getVersion(), "The source attribute value '" + mSource + "' does not conform to the anyURI syntax.");
+          getPackageVersion(), getLevel(), getVersion(), 
+          "The source attribute value '" + mSource + "' does not conform to the anyURI syntax.", 
+          getLine(), getColumn());
       }
     }
     
