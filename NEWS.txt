@@ -25,6 +25,13 @@ STABLE RELEASE
     on the relevant <cn> element explicitly.  This may cause an 
     apparent difference in models if reading and then writing. 
 
+  - In MathML a <bvar> element within a <lambda> can only contain a 
+    <ci> child element. Validation was failing to spot when this was 
+    not the case. This has been corrected.
+
+  - MathML within a <semantics> element was not being properly validated.
+    This has been improved.
+
   - 'comp' package-specific bug fixes:
   - 'fbc' package-specific bug fixes:
   - 'groups' package-specific bug fixes:
@@ -35,8 +42,13 @@ STABLE RELEASE
 
 * Configuration/build system changes
 
+  - The cmake files that enable using the check library on 
+    a Linux OS have been updated to make this easier.
+
 
 * Miscellaneous
+ 
+  - Several obscure memory leaks have been plugged.
 
 
 EXPERIMENTAL RELEASE
@@ -48,6 +60,17 @@ EXPERIMENTAL RELEASE
   - 'dyn' package-specific updates:
   - 'req' package-specific updates:
   - 'spatial' package-specific updates:
+
+    - The code has been updated to reflect the specification 
+      version 0.93.
+
+    - Attributes 'id' and 'name' have been added to the SpatialPoints
+      class in anticipation of these being added to the specification.
+
+    - Plugin code has changed so that child element class members are
+      initialised to NULL.  This saves memory but may cause existing
+      code to hit an issue when using a getAbc function; which may now
+      return a NULL object when previously it did not.
 
  * Bug fixes
  
