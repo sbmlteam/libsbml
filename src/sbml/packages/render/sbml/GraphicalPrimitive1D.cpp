@@ -1164,7 +1164,7 @@ GraphicalPrimitive1D::readAttributes(const XMLAttributes& attributes,
     {
       log->remove(XMLAttributeTypeMismatch);
       std::string message = "Render attribute 'stroke-width' from the "
-        "<GraphicalPrimitive1D> element must be an integer.";
+        "<GraphicalPrimitive1D> element must be a double.";
       log->logPackageError("render",
         RenderGraphicalPrimitive1DStrokeWidthMustBeDouble, pkgVersion, level,
           version, message);
