@@ -100,6 +100,8 @@
 
 #include "RateOfCycles.h"
 
+#include "math/L3FormulaFormatter.h"
+
 #endif
 
 #include <sbml/validator/ConstraintMacros.h>
