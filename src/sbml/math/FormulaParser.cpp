@@ -40,6 +40,8 @@
 
 #include <sbml/math/FormulaTokenizer.h>
 
+#include <set>
+
 #ifdef _MSC_VER
 #pragma warning( disable: 4311)
 #pragma warning( disable: 4312)
@@ -305,6 +307,82 @@ static const StateActionPair_t Action[] =
   {24, -11},  /* TT_END:    151 */
 };
 
+//Helper functions
+void FormulaParser_makeConstantIntoName(ASTNodeType_t type, ASTNode* function)
+{
+  if (function->getType() == type) {
+    function->setType(AST_NAME);
+    switch(type) {
+    case AST_CONSTANT_TRUE:
+      function->setName("true");
+      break;
+    case AST_CONSTANT_FALSE:
+      function->setName("false");
+      break;
+    case AST_CONSTANT_PI:
+      function->setName("pi");
+      break;
+    case AST_CONSTANT_E:
+      function->setName("exponentiale");
+      break;
+    default:
+      break;
+    }
+  }
+  for (unsigned int c=0; c<function->getNumChildren(); c++) {
+    FormulaParser_makeConstantIntoName(type, function->getChild(c));
+  }
+}
+
+//Helper functions
+void FormulaParser_fixLambdaArguments(const ASTNode* function)
+{
+  if (function==NULL || function->getType() != AST_LAMBDA) {
+    return;
+  }
+  unsigned int nchildren = function->getNumChildren();
+  if (nchildren==0) {
+    return;
+  }
+  std::set<ASTNodeType_t> fixList;
+  for (unsigned int c=0; c<nchildren-1; c++) {
+    ASTNode* child = function->getChild(c);
+    ASTNodeType_t ctype = child->getType(); 
+    switch(ctype) {
+    case AST_CONSTANT_TRUE:
+    case AST_CONSTANT_FALSE:
+    case AST_CONSTANT_PI:
+    case AST_CONSTANT_E:
+    case AST_NAME_AVOGADRO:
+    case AST_NAME_TIME:
+      child->setType(AST_NAME);
+      switch(ctype) {
+      case AST_CONSTANT_TRUE:
+        child->setName("true");
+        break;
+      case AST_CONSTANT_FALSE:
+        child->setName("false");
+        break;
+      case AST_CONSTANT_PI:
+        child->setName("pi");
+        break;
+      case AST_CONSTANT_E:
+        child->setName("exponentiale");
+        break;
+      default:
+        break;
+      }
+      fixList.insert(ctype);
+      break;
+    default:
+      break;
+    }
+  }
+  for (std::set<ASTNodeType_t>::iterator ftype = fixList.begin(); ftype != fixList.end(); ftype++) {
+    FormulaParser_makeConstantIntoName(*ftype, function->getChild(nchildren-1));
+  }
+}
+
 
 /** @endcond */
 
@@ -391,6 +469,7 @@ SBML_parseFormula (const char *formula)
   Stack_free(stack);
   Token_free(token);
 
+  FormulaParser_fixLambdaArguments(node);
   return node;
 }
 
