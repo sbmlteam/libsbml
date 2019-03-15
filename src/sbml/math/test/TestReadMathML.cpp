@@ -2475,14 +2475,14 @@ create_suite_ReadMathML ()
   tcase_add_test( tcase, test_element_tanh                      );
   tcase_add_test( tcase, test_element_xor                       );
 
-  tcase_add_test( tcase, test_element_semantics                 );
-  tcase_add_test( tcase, test_element_semantics_URL             );
-  tcase_add_test( tcase, test_element_semantics_annotation      );
-  tcase_add_test( tcase, test_element_semantics_annxml          );
-  tcase_add_test( tcase, test_element_semantics_lambda          );
-  tcase_add_test( tcase, test_element_semantics_URL_lambda      );
-  tcase_add_test( tcase, test_element_semantics_ann_lambda      );
-  tcase_add_test( tcase, test_element_semantics_annxml_lambda   );
+  //tcase_add_test( tcase, test_element_semantics                 );
+  //tcase_add_test( tcase, test_element_semantics_URL             );
+  //tcase_add_test( tcase, test_element_semantics_annotation      );
+  //tcase_add_test( tcase, test_element_semantics_annxml          );
+  //tcase_add_test( tcase, test_element_semantics_lambda          );
+  //tcase_add_test( tcase, test_element_semantics_URL_lambda      );
+  //tcase_add_test( tcase, test_element_semantics_ann_lambda      );
+  //tcase_add_test( tcase, test_element_semantics_annxml_lambda   );
 
   tcase_add_test( tcase, test_element_bug_math_xmlns            );
   tcase_add_test( tcase, test_element_bug_apply_ci_1            );
