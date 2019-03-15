@@ -312,6 +312,7 @@ void FormulaParser_makeConstantIntoName(ASTNodeType_t type, ASTNode* function)
 {
   if (function->getType() == type) {
     function->setType(AST_NAME);
+    function->setDefinitionURL("");
     switch(type) {
     case AST_CONSTANT_TRUE:
       function->setName("true");
@@ -356,6 +357,7 @@ void FormulaParser_fixLambdaArguments(const ASTNode* function)
     case AST_NAME_AVOGADRO:
     case AST_NAME_TIME:
       child->setType(AST_NAME);
+      child->setDefinitionURL("");
       switch(ctype) {
       case AST_CONSTANT_TRUE:
         child->setName("true");
