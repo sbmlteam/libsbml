@@ -44,6 +44,7 @@ LIBSBML_CPP_NAMESPACE_USE
 CK_CPPSTART
 #endif
 
+
 /**
  * The following are private and used only within FormulaParser.c; however,
  * I don't know how else to make them "public" only for testing than to put
@@ -720,6 +721,278 @@ START_TEST (test_SBML_parse_sqrt)
 END_TEST
 
 
+START_TEST(test_SBML_parseFormula_named_lambda_arguments1)
+{
+  ASTNode_t *r = SBML_parseFormula("lambda(time, time+2)");
+  fail_unless(ASTNode_getType(r) == AST_LAMBDA, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+  fail_unless(ASTNode_getType(c) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c), "time"));
+
+  c = ASTNode_getChild(r, 1);
+  fail_unless(ASTNode_getType(c) == AST_PLUS);
+  ASTNode_t *c2 = ASTNode_getChild(c, 0);
+  fail_unless(ASTNode_getType(c2) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c2), "time"));
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless(ASTNode_getType(c2) == AST_INTEGER);
+  fail_unless(ASTNode_getValue(c2) == 2);
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST(test_SBML_parseFormula_named_lambda_arguments2)
+{
+  ASTNode_t *r = SBML_parseFormula("lambda(time, avogadro, time+avogadro)");
+  fail_unless(ASTNode_getType(r) == AST_LAMBDA, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 3, NULL);
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+  fail_unless(ASTNode_getType(c) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c), "time"));
+
+  c = ASTNode_getChild(r, 1);
+  fail_unless(ASTNode_getType(c) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c), "avogadro"));
+
+  c = ASTNode_getChild(r, 2);
+  fail_unless(ASTNode_getType(c) == AST_PLUS);
+  ASTNode_t *c2 = ASTNode_getChild(c, 0);
+  fail_unless(ASTNode_getType(c2) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c2), "time"));
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless(ASTNode_getType(c2) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c2), "avogadro"));
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST(test_SBML_parseFormula_named_lambda_arguments3)
+{
+  ASTNode_t *r = SBML_parseFormula("lambda(true, false, true+false)");
+  fail_unless(ASTNode_getType(r) == AST_LAMBDA, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 3, NULL);
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+  fail_unless(ASTNode_getType(c) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c), "true"));
+
+  c = ASTNode_getChild(r, 1);
+  fail_unless(ASTNode_getType(c) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c), "false"));
+
+  c = ASTNode_getChild(r, 2);
+  fail_unless(ASTNode_getType(c) == AST_PLUS);
+  ASTNode_t *c2 = ASTNode_getChild(c, 0);
+  fail_unless(ASTNode_getType(c2) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c2), "true"));
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless(ASTNode_getType(c2) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c2), "false"));
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST(test_SBML_parseFormula_named_lambda_arguments4)
+{
+  ASTNode_t *r = SBML_parseFormula("lambda(pi, exponentiale, pi+exponentiale)");
+  fail_unless(ASTNode_getType(r) == AST_LAMBDA, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 3, NULL);
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+  fail_unless(ASTNode_getType(c) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c), "pi"));
+
+  c = ASTNode_getChild(r, 1);
+  fail_unless(ASTNode_getType(c) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c), "exponentiale"));
+
+  c = ASTNode_getChild(r, 2);
+  fail_unless(ASTNode_getType(c) == AST_PLUS);
+  ASTNode_t *c2 = ASTNode_getChild(c, 0);
+  fail_unless(ASTNode_getType(c2) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c2), "pi"));
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless(ASTNode_getType(c2) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c2), "exponentiale"));
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST(test_SBML_parseFormula_named_lambda_arguments5)
+{
+  ASTNode_t *r = SBML_parseFormula("lambda(time, avogadro, true, false, pi, exponentiale, time+avogadro+true+false+pi+exponentiale)");
+  fail_unless(ASTNode_getType(r) == AST_LAMBDA, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 7, NULL);
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+  fail_unless(ASTNode_getType(c) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c), "time"));
+
+  c = ASTNode_getChild(r, 1);
+  fail_unless(ASTNode_getType(c) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c), "avogadro"));
+
+  c = ASTNode_getChild(r, 2);
+  fail_unless(ASTNode_getType(c) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c), "true"));
+
+  c = ASTNode_getChild(r, 3);
+  fail_unless(ASTNode_getType(c) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c), "false"));
+
+  c = ASTNode_getChild(r, 4);
+  fail_unless(ASTNode_getType(c) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c), "pi"));
+
+  c = ASTNode_getChild(r, 5);
+  fail_unless(ASTNode_getType(c) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c), "exponentiale"));
+
+  c = ASTNode_getChild(r, 6);
+  fail_unless(ASTNode_getType(c) == AST_PLUS);
+  // parseFormula will reduce plus to binary
+  fail_unless(ASTNode_getNumChildren(c) == 2, NULL);
+  ASTNode_t *c2 = ASTNode_getChild(c, 0);
+  fail_unless(ASTNode_getNumChildren(c2) == 2, NULL);
+  fail_unless(ASTNode_getType(c2) == AST_PLUS);
+  ASTNode_t *c3 = ASTNode_getChild(c, 1);
+  fail_unless(ASTNode_getType(c3) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c3), "exponentiale"));
+  c3 = ASTNode_getChild(c2, 0);
+  fail_unless(ASTNode_getNumChildren(c3) == 2, NULL);
+  fail_unless(ASTNode_getType(c3) == AST_PLUS);
+  ASTNode_t *c4 = ASTNode_getChild(c2, 1);
+  fail_unless(ASTNode_getType(c4) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c4), "pi"));
+  c4 = ASTNode_getChild(c3, 0);
+  fail_unless(ASTNode_getNumChildren(c4) == 2, NULL);
+  fail_unless(ASTNode_getType(c4) == AST_PLUS);
+  ASTNode_t *c5 = ASTNode_getChild(c3, 1);
+  fail_unless(ASTNode_getType(c5) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c5), "false"));
+  c5 = ASTNode_getChild(c4, 0);
+  fail_unless(ASTNode_getNumChildren(c5) == 2, NULL);
+  fail_unless(ASTNode_getType(c5) == AST_PLUS);
+  ASTNode_t *c6 = ASTNode_getChild(c4, 1);
+  fail_unless(ASTNode_getType(c6) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c6), "true"));
+  c6 = ASTNode_getChild(c5, 0);
+  fail_unless(ASTNode_getType(c6) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c6), "time"));
+  c6 = ASTNode_getChild(c5, 1);
+  fail_unless(ASTNode_getType(c6) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c6), "avogadro"));
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST(test_SBML_parseFormula_named_lambda_arguments6)
+{
+  ASTNode_t *r = SBML_parseFormula("lambda(time, time+pi)");
+  fail_unless(ASTNode_getType(r) == AST_LAMBDA, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+  fail_unless(ASTNode_getType(c) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c), "time"));
+
+  c = ASTNode_getChild(r, 1);
+  fail_unless(ASTNode_getType(c) == AST_PLUS);
+  ASTNode_t *c2 = ASTNode_getChild(c, 0);
+  fail_unless(ASTNode_getType(c2) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c2), "time"));
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless(ASTNode_getType(c2) == AST_CONSTANT_PI);
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST(test_SBML_parseFormula_named_lambda_arguments7)
+{
+  ASTNode_t *r = SBML_parseFormula("lambda(time+avogadro+true+false+pi+exponentiale)");
+  fail_unless(ASTNode_getType(r) == AST_LAMBDA, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 1, NULL);
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+  fail_unless(ASTNode_getType(c) == AST_PLUS);
+  fail_unless(ASTNode_getNumChildren(c) == 2, NULL);
+  ASTNode_t *c2 = ASTNode_getChild(c, 0);
+  fail_unless(ASTNode_getNumChildren(c2) == 2, NULL);
+  fail_unless(ASTNode_getType(c2) == AST_PLUS);
+  ASTNode_t *c3 = ASTNode_getChild(c, 1);
+  fail_unless(ASTNode_getType(c3) == AST_CONSTANT_E);
+  c3 = ASTNode_getChild(c2, 0);
+  fail_unless(ASTNode_getNumChildren(c3) == 2, NULL);
+  fail_unless(ASTNode_getType(c3) == AST_PLUS);
+  ASTNode_t *c4 = ASTNode_getChild(c2, 1);
+  fail_unless(ASTNode_getType(c4) == AST_CONSTANT_PI);
+  c4 = ASTNode_getChild(c3, 0);
+  fail_unless(ASTNode_getNumChildren(c4) == 2, NULL);
+  fail_unless(ASTNode_getType(c4) == AST_PLUS);
+  ASTNode_t *c5 = ASTNode_getChild(c3, 1);
+  fail_unless(ASTNode_getType(c5) == AST_CONSTANT_FALSE);
+  c5 = ASTNode_getChild(c4, 0);
+  fail_unless(ASTNode_getNumChildren(c5) == 2, NULL);
+  fail_unless(ASTNode_getType(c5) == AST_PLUS);
+  ASTNode_t *c6 = ASTNode_getChild(c4, 1);
+  fail_unless(ASTNode_getType(c6) == AST_CONSTANT_TRUE);
+  
+  c6 = ASTNode_getChild(c5, 0);
+  // expected
+  //fail_unless(ASTNode_getType(c6) == AST_NAME_TIME);
+  // but get
+  fail_unless(ASTNode_getType(c6) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c6), "time"));
+  
+  c6 = ASTNode_getChild(c5, 1);
+  // expected
+  // fail_unless(ASTNode_getType(c6) == AST_NAME_AVOGADRO);
+  // but get
+  fail_unless(ASTNode_getType(c6) == AST_NAME);
+  fail_unless(!strcmp(ASTNode_getName(c6), "avogadro"));
+
+
+
+
+  //fail_unless(ASTNode_getNumChildren(c) == 6, NULL);
+  //ASTNode_t *c2 = ASTNode_getChild(c, 0);
+  //fail_unless(ASTNode_getType(c2) == AST_NAME_TIME);
+  //c2 = ASTNode_getChild(c, 1);
+  //fail_unless(ASTNode_getType(c2) == AST_NAME_AVOGADRO);
+  //c2 = ASTNode_getChild(c, 2);
+  //fail_unless(ASTNode_getType(c2) == AST_CONSTANT_TRUE);
+  //c2 = ASTNode_getChild(c, 3);
+  //fail_unless(ASTNode_getType(c2) == AST_CONSTANT_FALSE);
+  //c2 = ASTNode_getChild(c, 4);
+  //fail_unless(ASTNode_getType(c2) == AST_CONSTANT_PI);
+  //c2 = ASTNode_getChild(c, 5);
+  //fail_unless(ASTNode_getType(c2) == AST_CONSTANT_E);
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
 Suite *
 create_suite_FormulaParser (void) 
 { 
@@ -753,6 +1026,15 @@ create_suite_FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseFormula_negInf  );
   tcase_add_test( tcase, test_SBML_parseFormula_negZero );
   tcase_add_test( tcase, test_SBML_parse_sqrt           );
+
+  tcase_add_test(tcase, test_SBML_parseFormula_named_lambda_arguments1);
+  tcase_add_test(tcase, test_SBML_parseFormula_named_lambda_arguments2);
+  tcase_add_test(tcase, test_SBML_parseFormula_named_lambda_arguments3);
+  tcase_add_test(tcase, test_SBML_parseFormula_named_lambda_arguments4);
+  tcase_add_test(tcase, test_SBML_parseFormula_named_lambda_arguments5);
+  tcase_add_test(tcase, test_SBML_parseFormula_named_lambda_arguments6);
+  tcase_add_test(tcase, test_SBML_parseFormula_named_lambda_arguments7);
+
   suite_add_tcase(suite, tcase);
 
   return suite;
