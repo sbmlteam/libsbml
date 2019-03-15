@@ -454,7 +454,8 @@ START_TEST(test_ValidASTNode_L3V2)
   delete n;
 
   n = new ASTNode(AST_FUNCTION_MIN);
-  fail_unless(!(n->isWellFormedASTNode()));
+  // zero arguments are now allowed
+  //fail_unless(!(n->isWellFormedASTNode()));
 
   n->addChild(c->deepCopy());
   fail_unless((n->isWellFormedASTNode()));

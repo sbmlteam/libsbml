@@ -1427,17 +1427,18 @@ START_TEST (test_SBML_parseL3Formula_arguments)
   fail_unless( !strcmp(error, "Error when parsing input 'power()' at position 7:  The function 'power' takes exactly two arguments, but 0 were found."), NULL );
   safe_free(error);
 
-  r = SBML_parseL3Formula("max()");
-  fail_unless(r == NULL, NULL);
-  error = SBML_getLastParseL3Error();
-  fail_unless( !strcmp(error, "Error when parsing input 'max()' at position 5:  The function 'max' takes at least one argument, but 0 were found."), NULL );
-  safe_free(error);
+  // max and min can have zero arguments
+  //r = SBML_parseL3Formula("max()");
+  //fail_unless(r == NULL, NULL);
+  //error = SBML_getLastParseL3Error();
+  //fail_unless( !strcmp(error, "Error when parsing input 'max()' at position 5:  The function 'max' takes at least one argument, but 0 were found."), NULL );
+  //safe_free(error);
 
-  r = SBML_parseL3Formula("min()");
-  fail_unless(r == NULL, NULL);
-  error = SBML_getLastParseL3Error();
-  fail_unless( !strcmp(error, "Error when parsing input 'min()' at position 5:  The function 'min' takes at least one argument, but 0 were found."), NULL );
-  safe_free(error);
+  //r = SBML_parseL3Formula("min()");
+  //fail_unless(r == NULL, NULL);
+  //error = SBML_getLastParseL3Error();
+  //fail_unless( !strcmp(error, "Error when parsing input 'min()' at position 5:  The function 'min' takes at least one argument, but 0 were found."), NULL );
+  //safe_free(error);
 
   r = SBML_parseL3Formula("rateOf()");
   fail_unless(r == NULL, NULL);
