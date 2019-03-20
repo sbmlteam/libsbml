@@ -176,7 +176,7 @@ A version of <code>example1.cs</code> for SBML Level&nbsp;3.
 @subsection package-qual-examples Package: Qualitative Models
 
 The <a href="group__qual.html">Qualitative Models package</a> has the
-nickname &ldquo;layout&rdquo;. The libSBML classes that implement this
+nickname &ldquo;qual&rdquo;. The libSBML classes that implement this
 package are marked with the symbol @htmlinclude
 pkg-marker-qual.html@~ in the libSBML documentation.
 
