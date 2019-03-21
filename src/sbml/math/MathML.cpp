@@ -1195,8 +1195,9 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
         std::string message = "Unexpected element encountered. The element <" +
           name + "> should not be encountered here.";
         logError(stream, element1, InvalidMathElement, message);
+
+        stream.skipPastEnd(element1);
       }
-      stream.skipPastEnd(element1);
       if (stream.peek().getName() == "annotation"
         || stream.peek().getName() == "annotation-xml")
       {
@@ -2062,6 +2063,15 @@ readMathML (XMLInputStream& stream, std::string reqd_prefix, bool inRead)
     stream.skipText();
     const XMLToken element1 = stream.peek();
     const string&  name = element1.getName();
+    // if name is empty we may have a node that is not start/end/text 
+    // that has not been skipped
+    if (name.empty())
+    {
+      stream.skipPastEnd(element1);
+      const XMLToken element1 = stream.peek();
+      const string& name = element1.getName();
+
+    }
     if (element1.isEndFor(elem) == false && !stream.getErrorLog()->contains(BadMathML))
     {
       std::string message = "Unexpected element encountered. The element <" +
