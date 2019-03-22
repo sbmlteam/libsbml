@@ -186,7 +186,7 @@ LayoutModelPlugin::createObject(XMLInputStream& stream)
       if (mLayouts.size() != 0)
       {
         getErrorLog()->logPackageError("layout", LayoutOnlyOneLOLayouts, 
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
       }
 
       //cout << "[DEBUG] LayoutModelPlugin::createObject create listOfLayouts" << endl;

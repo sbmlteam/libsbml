@@ -413,7 +413,7 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
         {
           getErrorLog()->logPackageError("layout", 
             LayoutLOCompGlyphAllowedAttributes,
-            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
       }
     }

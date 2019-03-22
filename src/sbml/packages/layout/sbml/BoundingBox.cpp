@@ -721,7 +721,7 @@ void BoundingBox::readAttributes (const XMLAttributes& attributes,
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
       getErrorLog()->logPackageError("layout", LayoutSIdSyntax, 
-        getPackageVersion(), sbmlLevel, sbmlVersion);
+        getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
     }
   }
 }

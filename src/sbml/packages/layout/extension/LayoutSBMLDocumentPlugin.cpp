@@ -121,12 +121,12 @@ LayoutSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
     {
       getErrorLog()->remove(XMLAttributeTypeMismatch);
       getErrorLog()->logPackageError("layout", LayoutAttributeRequiredMustBeBoolean,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
     else
     {
       getErrorLog()->logPackageError("layout", LayoutAttributeRequiredMissing,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
   }
   else
@@ -136,7 +136,7 @@ LayoutSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
     if (mRequired == true)
     {
       getErrorLog()->logPackageError("layout", LayoutRequiredFalse,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
   }
 }
