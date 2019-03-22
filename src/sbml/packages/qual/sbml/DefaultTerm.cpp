@@ -534,7 +534,7 @@ DefaultTerm::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("qual", QualDefaultTermAllowedAttributes,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -542,7 +542,7 @@ DefaultTerm::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("qual", QualDefaultTermAllowedCoreAttributes,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
@@ -562,13 +562,13 @@ DefaultTerm::readAttributes (const XMLAttributes& attributes,
       {
         getErrorLog()->remove(XMLAttributeTypeMismatch);
         getErrorLog()->logPackageError("qual", QualDefaultTermResultMustBeInteger,
-                     getPackageVersion(), sbmlLevel, sbmlVersion);
+                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
       }
       else
       {
         std::string message = "Qual attribute 'resultLevel' is missing.";
         getErrorLog()->logPackageError("qual", QualDefaultTermAllowedAttributes,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
       }
     }
   }
@@ -583,7 +583,7 @@ DefaultTerm::readAttributes (const XMLAttributes& attributes,
       }
       msg << "is '" << mResultLevel << "', which is negative.";
       getErrorLog()->logPackageError("qual", QualDefaultTermResultMustBeNonNeg,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
+                   getPackageVersion(), sbmlLevel, sbmlVersion, msg.str(), getLine(), getColumn());
     }
   }
 

@@ -854,7 +854,7 @@ Output::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("qual", QualTransitionLOOutputAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       } 
       else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -862,7 +862,7 @@ Output::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("qual", QualTransitionLOOutputAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       } 
     }
   }
@@ -881,7 +881,7 @@ Output::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("qual", QualOutputAllowedAttributes,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -889,7 +889,7 @@ Output::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("qual", QualOutputAllowedCoreAttributes,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
@@ -939,7 +939,7 @@ Output::readAttributes (const XMLAttributes& attributes,
   {
     std::string message = "Qual attribute 'qualitativeSpecies' is missing.";
     getErrorLog()->logPackageError("qual", QualOutputAllowedAttributes,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
   //
@@ -967,7 +967,7 @@ Output::readAttributes (const XMLAttributes& attributes,
           }
           msg += "is '" + effect + "', which is not a valid option.";
           getErrorLog()->logPackageError("qual", QualOutputTransEffectMustBeOutput,
-                         getPackageVersion(), sbmlLevel, sbmlVersion, msg);
+                         getPackageVersion(), sbmlLevel, sbmlVersion, msg, getLine(), getColumn());
        }
     }
   }
@@ -975,7 +975,7 @@ Output::readAttributes (const XMLAttributes& attributes,
   {
     std::string message = "Qual attribute 'transitionEffect' is missing.";
     getErrorLog()->logPackageError("qual", QualOutputAllowedAttributes,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
   //
@@ -1008,7 +1008,7 @@ Output::readAttributes (const XMLAttributes& attributes,
       {
         getErrorLog()->remove(XMLAttributeTypeMismatch);
         getErrorLog()->logPackageError("qual", QualOutputLevelMustBeInteger,
-                     getPackageVersion(), sbmlLevel, sbmlVersion);
+                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
       }
     }
   }
@@ -1023,7 +1023,7 @@ Output::readAttributes (const XMLAttributes& attributes,
       }
       msg << "is '" << mOutputLevel << "', which is negative.";
       getErrorLog()->logPackageError("qual", QualOutputLevelMustBeNonNegative,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
+                   getPackageVersion(), sbmlLevel, sbmlVersion, msg.str(), getLine(), getColumn());
     }
   }
 

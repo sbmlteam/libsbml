@@ -657,7 +657,7 @@ FunctionTerm::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("qual", QualTransitionLOFuncTermAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       } 
       else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -665,7 +665,7 @@ FunctionTerm::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("qual", QualTransitionLOFuncTermAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       } 
     }
   }
@@ -684,7 +684,7 @@ FunctionTerm::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("qual", QualFuncTermAllowedAttributes,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -692,7 +692,7 @@ FunctionTerm::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("qual", QualFuncTermAllowedCoreAttributes,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
@@ -723,7 +723,7 @@ FunctionTerm::readAttributes (const XMLAttributes& attributes,
         }
         msg << "is not an integer.";
         getErrorLog()->logPackageError("qual", QualFuncTermResultMustBeInteger,
-                     getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
+                     getPackageVersion(), sbmlLevel, sbmlVersion, msg.str(), getLine(), getColumn());
       }
       else
       {
@@ -739,7 +739,7 @@ FunctionTerm::readAttributes (const XMLAttributes& attributes,
         }
         msg << ".";
         getErrorLog()->logPackageError("qual", QualFuncTermAllowedAttributes,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
+                       getPackageVersion(), sbmlLevel, sbmlVersion, msg.str(), getLine(), getColumn());
       }
     }
   }
@@ -754,7 +754,7 @@ FunctionTerm::readAttributes (const XMLAttributes& attributes,
       }
       msg << "is '" << mResultLevel << "', which is negative.";
       getErrorLog()->logPackageError("qual", QualFuncTermResultMustBeNonNeg,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
+                   getPackageVersion(), sbmlLevel, sbmlVersion, msg.str(), getLine(), getColumn());
     }
   }
 
@@ -780,7 +780,7 @@ FunctionTerm::readOtherXML (XMLInputStream& stream)
     if (mMath != NULL)
     {
       getErrorLog()->logPackageError("qual", QualFuncTermOnlyOneMath,
-                   getPackageVersion(), getLevel(), getVersion());
+                   getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
     /* check for MathML namespace 
      * this may be explicitly declared here
