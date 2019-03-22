@@ -510,7 +510,8 @@ PossibleSpeciesFeatureValue::readAttributes (const XMLAttributes& attributes,
   {
     std::string message = "Multi attribute 'id' is missing.";
     getErrorLog()->logPackageError("multi", MultiPsbSpeFtrVal_AllowedMultiAtts,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message,
+                   getLine(), getColumn());
   }
 
   //

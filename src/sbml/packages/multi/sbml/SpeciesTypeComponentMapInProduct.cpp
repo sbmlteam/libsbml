@@ -682,7 +682,7 @@ SpeciesTypeComponentMapInProduct::readAttributes (const XMLAttributes& attribute
   {
     std::string message = "Multi attribute 'reactant' is missing.";
     getErrorLog()->logPackageError("multi", MultiSptCpoMapInPro_AllowedMultiAtts,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
   //
@@ -711,7 +711,7 @@ SpeciesTypeComponentMapInProduct::readAttributes (const XMLAttributes& attribute
   {
     std::string message = "Multi attribute 'reactantComponent' is missing.";
     getErrorLog()->logPackageError("multi", MultiSptCpoMapInPro_AllowedMultiAtts,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
   //
@@ -739,7 +739,7 @@ SpeciesTypeComponentMapInProduct::readAttributes (const XMLAttributes& attribute
   {
     std::string message = "Multi attribute 'productComponent' is missing.";
     getErrorLog()->logPackageError("multi", MultiSptCpoMapInPro_AllowedMultiAtts,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
 }

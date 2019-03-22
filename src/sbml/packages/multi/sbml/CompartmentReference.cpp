@@ -470,7 +470,8 @@ CompartmentReference::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("multi", MultiCpaRef_AllowedMultiAtts,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, 
+                       getLine(), getColumn());
       }
       else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -478,7 +479,8 @@ CompartmentReference::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("multi", MultiCpaRef_AllowedCoreAtts,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details,
+                       getLine(), getColumn());
       }
     }
   }
@@ -548,7 +550,8 @@ CompartmentReference::readAttributes (const XMLAttributes& attributes,
   {
     std::string message = "The attribute 'compartment' is missing in the <compartmentReference> element.";
     getErrorLog()->logPackageError("multi", MultiCpaRef_AllowedMultiAtts,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, 
+                   getLine(), getColumn());
   }
 
 }

@@ -402,7 +402,7 @@ SpeciesFeatureValue::readAttributes (const XMLAttributes& attributes,
   {
     std::string message = "Multi attribute 'value' is missing.";
     getErrorLog()->logPackageError("multi", MultiSpeFtrVal_AllowedMultiAtts,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
 }

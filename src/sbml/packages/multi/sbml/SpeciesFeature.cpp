@@ -945,7 +945,8 @@ SpeciesFeature::readAttributes (const XMLAttributes& attributes,
   {
     std::string message = "Multi attribute 'speciesFeatureType' is missing.";
     getErrorLog()->logPackageError("multi", MultiSpeFtr_AllowedMultiAtts,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, 
+                   getLine(), getColumn());
   }
 
   //
@@ -963,13 +964,15 @@ SpeciesFeature::readAttributes (const XMLAttributes& attributes,
       {
         getErrorLog()->remove(XMLAttributeTypeMismatch);
         getErrorLog()->logPackageError("multi", MultiUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion);
+                     getPackageVersion(), sbmlLevel, sbmlVersion, "", 
+                     getLine(), getColumn());
       }
       else
       {
         std::string message = "Multi attribute 'occur' is missing.";
         getErrorLog()->logPackageError("multi", MultiSpeFtr_AllowedMultiAtts,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message, 
+                       getLine(), getColumn());
       }
     }
   }
