@@ -798,7 +798,7 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("fbc", FbcObjectiveLOFluxObjAllowedAttribs,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -806,7 +806,7 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("fbc", FbcObjectiveLOFluxObjAllowedAttribs,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
@@ -825,7 +825,7 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("fbc", FbcFluxObjectRequiredAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -833,7 +833,7 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("fbc", FbcFluxObjectAllowedL3Attributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
@@ -862,7 +862,7 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
       // conform to the SBML type SId.
       //
       getErrorLog()->logPackageError("fbc", FbcSBMLSIdSyntax,
-        getPackageVersion(), sbmlLevel, sbmlVersion);
+        getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
     }
   }
 
@@ -873,7 +873,7 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
   {
     std::string message = "Fbc attribute 'reaction' is missing.";
     getErrorLog()->logPackageError("fbc", FbcFluxObjectRequiredAttributes,
-      getPackageVersion(), sbmlLevel, sbmlVersion, message);
+      getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
   else
   {
@@ -891,7 +891,7 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
       // conform to the SBML type SId.
       //
       getErrorLog()->logPackageError("fbc", FbcFluxObjectReactionMustBeSIdRef,
-        getPackageVersion(), sbmlLevel, sbmlVersion);
+        getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
     }
   }
 
@@ -906,13 +906,13 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
     {
       getErrorLog()->remove(XMLAttributeTypeMismatch);
       getErrorLog()->logPackageError("fbc", FbcFluxObjectCoefficientMustBeDouble,
-        getPackageVersion(), sbmlLevel, sbmlVersion);
+        getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
     }
     else
     {
       std::string message = "Fbc attribute 'coefficient' is missing.";
       getErrorLog()->logPackageError("fbc", FbcFluxObjectRequiredAttributes,
-        getPackageVersion(), sbmlLevel, sbmlVersion, message);
+        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
     }
   }
 

@@ -200,7 +200,7 @@ FbcModelPlugin::createObject (XMLInputStream& stream)
       if (mBounds.size() != 0)
       {
         getErrorLog()->logPackageError("fbc", FbcOnlyOneEachListOf, 
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
       }
       
       object = &mBounds;
@@ -215,7 +215,7 @@ FbcModelPlugin::createObject (XMLInputStream& stream)
       if (mObjectives.size() != 0)
       {
         getErrorLog()->logPackageError("fbc", FbcOnlyOneEachListOf, 
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
       }
       
       object = &mObjectives;
@@ -230,7 +230,7 @@ FbcModelPlugin::createObject (XMLInputStream& stream)
       if (mAssociations.size() != 0)
       {
         getErrorLog()->logPackageError("fbc", FbcOnlyOneEachListOf, 
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
       }
       
       object = &mAssociations;
@@ -245,7 +245,7 @@ FbcModelPlugin::createObject (XMLInputStream& stream)
       if (mGeneProducts.size() != 0)
       {
         getErrorLog()->logPackageError("fbc", FbcOnlyOneEachListOf, 
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
       }
       
       object = &mGeneProducts;

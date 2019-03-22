@@ -329,7 +329,7 @@ FbcSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
     if (!expectedAttributes.hasAttribute(name))
     {  
       getErrorLog()->logPackageError("fbc", FbcSpeciesAllowedL3Attributes,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }      
   }
   

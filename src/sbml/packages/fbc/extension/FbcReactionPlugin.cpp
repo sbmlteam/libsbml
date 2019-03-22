@@ -151,7 +151,7 @@ FbcReactionPlugin::createObject (XMLInputStream& stream)
       if (mGeneProductAssociation != NULL)
       {
         getErrorLog()->logPackageError("fbc", FbcReactionOnlyOneGeneProdAss, 
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
       }
 
       delete mGeneProductAssociation;

@@ -797,7 +797,7 @@ FluxBound::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("fbc", FbcLOFluxBoundsAllowedAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       } 
       else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -805,7 +805,7 @@ FluxBound::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("fbc", FbcLOFluxBoundsAllowedAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       } 
     }
   }
@@ -824,7 +824,7 @@ FluxBound::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("fbc", FbcFluxBoundRequiredAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       } 
       else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -832,7 +832,7 @@ FluxBound::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("fbc", FbcFluxBoundAllowedL3Attributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       } 
     }
   }
@@ -861,7 +861,7 @@ FluxBound::readAttributes (const XMLAttributes& attributes,
       // conform to the SBML type SId.
       //
       getErrorLog()->logPackageError("fbc", FbcSBMLSIdSyntax, 
-        getPackageVersion(), sbmlLevel, sbmlVersion);
+        getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
     }
   }
 
@@ -872,7 +872,7 @@ FluxBound::readAttributes (const XMLAttributes& attributes,
   {
     std::string message = "Fbc attribute 'reaction' is missing.";
     getErrorLog()->logPackageError("fbc", FbcFluxBoundRequiredAttributes, 
-      getPackageVersion(), sbmlLevel, sbmlVersion, message);
+      getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
   else
   {
@@ -890,7 +890,7 @@ FluxBound::readAttributes (const XMLAttributes& attributes,
       // conform to the SBML type SId.
       //
       getErrorLog()->logPackageError("fbc", FbcFluxBoundRectionMustBeSIdRef, 
-        getPackageVersion(), sbmlLevel, sbmlVersion);
+        getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
     }
   }
 
@@ -914,7 +914,7 @@ FluxBound::readAttributes (const XMLAttributes& attributes,
        if (FluxBoundOperation_isValidFluxBoundOperation(mOperation) == 0)
        {
           getErrorLog()->logPackageError("fbc", FbcFluxBoundOperationMustBeEnum, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
+            getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
        }
     }
   }
@@ -922,7 +922,7 @@ FluxBound::readAttributes (const XMLAttributes& attributes,
   {
     std::string message = "Fbc attribute 'operation' is missing.";
     getErrorLog()->logPackageError("fbc", FbcFluxBoundRequiredAttributes, 
-      getPackageVersion(), sbmlLevel, sbmlVersion, message);
+      getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
   unsigned int numErrs = getErrorLog()->getNumErrors();
@@ -935,13 +935,13 @@ FluxBound::readAttributes (const XMLAttributes& attributes,
     {
       getErrorLog()->remove(XMLAttributeTypeMismatch);
       getErrorLog()->logPackageError("fbc", FbcFluxBoundValueMustBeDouble,
-        getPackageVersion(), sbmlLevel, sbmlVersion);
+        getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
     }
     else
     {
       std::string message = "Fbc attribute 'value' is missing.";
       getErrorLog()->logPackageError("fbc", FbcFluxBoundRequiredAttributes, 
-        getPackageVersion(), sbmlLevel, sbmlVersion, message);
+        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
     }
   }
 }

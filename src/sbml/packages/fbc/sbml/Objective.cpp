@@ -1008,7 +1008,7 @@ Objective::createObject(XMLInputStream& stream)
     if (mFluxObjectives.size() != 0)
     {
       getErrorLog()->logPackageError("fbc", FbcObjectiveOneListOfObjectives,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     object = &mFluxObjectives;
@@ -1069,7 +1069,7 @@ Objective::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("fbc", FbcLOObjectivesAllowedAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       } 
       else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1077,7 +1077,7 @@ Objective::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("fbc", FbcLOObjectivesAllowedAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       } 
     }
   }
@@ -1096,7 +1096,7 @@ Objective::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("fbc", FbcObjectiveRequiredAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       } 
       else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1104,7 +1104,7 @@ Objective::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("fbc", FbcObjectiveAllowedL3Attributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       } 
     }
   }
@@ -1133,14 +1133,14 @@ Objective::readAttributes (const XMLAttributes& attributes,
       // conform to the SBML type SId.
       //
       getErrorLog()->logPackageError("fbc", FbcSBMLSIdSyntax, 
-        getPackageVersion(), sbmlLevel, sbmlVersion);
+        getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
     }
   }
   else
   {
     std::string message = "Fbc attribute 'id' is missing.";
     getErrorLog()->logPackageError("fbc", FbcObjectiveRequiredAttributes, 
-      getPackageVersion(), sbmlLevel, sbmlVersion, message);
+      getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
   attributes.readInto("name", mName);
@@ -1165,7 +1165,7 @@ Objective::readAttributes (const XMLAttributes& attributes,
        if (ObjectiveType_isValidObjectiveType((ObjectiveType_t)(int)mType) == 0)
        {
           getErrorLog()->logPackageError("fbc", FbcObjectiveTypeMustBeEnum, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
+            getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
        }
     }
   }
@@ -1173,7 +1173,7 @@ Objective::readAttributes (const XMLAttributes& attributes,
   {
     std::string message = "Fbc attribute 'type' is missing.";
     getErrorLog()->logPackageError("fbc", FbcObjectiveRequiredAttributes, 
-      getPackageVersion(), sbmlLevel, sbmlVersion, message);
+      getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 }
 
@@ -1569,7 +1569,7 @@ const ExpectedAttributes& expectedAttributes)
     if (!SyntaxChecker::isValidSBMLSId(mActiveObjective))
     {
       getErrorLog()->logPackageError("fbc", FbcActiveObjectiveSyntax,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
   }
