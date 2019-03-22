@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -163,19 +163,13 @@ Group::getKind() const
 /*
  * Returns the value of the "kind" attribute of this Group.
  */
-
-//const std::string&
-//Group::getKindAsString() const
-//{
-//  static const std::string code_str = GroupKind_toString(mKind);
-//  return code_str;
-//}
 std::string
 Group::getKindAsString() const
 {
   std::string code_str = GroupKind_toString(mKind);
   return code_str;
 }
+
 
 /*
  * Predicate returning @c true if this Group's "id" attribute is set.
@@ -253,21 +247,13 @@ Group::setKind(const GroupKind_t kind)
 int
 Group::setKind(const std::string& kind)
 {
-  //if (GroupKind_isValidString(kind.c_str()) == 0)
-  //{
-  //  mKind = GROUP_KIND_UNKNOWN;
-  //  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  //}
-  //else
-  //{
-  //  mKind = GroupKind_fromString(kind.c_str());
-  //  return LIBSBML_OPERATION_SUCCESS;
-  //}
   mKind = GroupKind_fromString(kind.c_str());
+
   if (mKind == GROUP_KIND_UNKNOWN)
   {
-      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
+
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -627,6 +613,25 @@ Group::enablePackageInternal(const std::string& pkgURI,
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 
   mMembers.enablePackageInternal(pkgURI, pkgPrefix, flag);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Updates the namespaces when setLevelVersion is used
+ */
+void
+Group::updateSBMLNamespace(const std::string& package,
+                           unsigned int level,
+                           unsigned int version)
+{
+  SBase::updateSBMLNamespace(package, level, version);
+
+  mMembers.updateSBMLNamespace(package, level, version);
 }
 
 /** @endcond */
@@ -1105,7 +1110,8 @@ Group::createObject(XMLInputStream& stream)
     if (mMembers.size() != 0)
     {
       getErrorLog()->logPackageError("groups", GroupsGroupAllowedElements,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), 
+          getColumn());
     }
 
     obj = &mMembers;
@@ -1157,7 +1163,8 @@ Group::readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  if (static_cast<ListOfGroups*>(getParentSBMLObject())->size() < 2)
+  if (log && getParentSBMLObject() &&
+    static_cast<ListOfGroups*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
@@ -1167,7 +1174,7 @@ Group::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("groups", GroupsGroupAllowedAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1175,29 +1182,33 @@ Group::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("groups",
           GroupsModelLOGroupsAllowedCoreAttributes, pkgVersion, level, version,
-            details);
+            details, getLine(), getColumn());
       }
     }
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("groups", GroupsGroupAllowedAttributes, pkgVersion,
-        level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("groups", GroupsGroupAllowedCoreAttributes,
-        pkgVersion, level, version, details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("groups", GroupsGroupAllowedAttributes,
+          pkgVersion, level, version, details, getLine(), getColumn());
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("groups", GroupsGroupAllowedCoreAttributes,
+          pkgVersion, level, version, details, getLine(), getColumn());
+      }
     }
   }
 
@@ -1216,8 +1227,8 @@ Group::readAttributes(const XMLAttributes& attributes,
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
       log->logPackageError("groups", GroupsIdSyntaxRule, pkgVersion, level,
-        version, "The id on the <" + getElementName() + "> is '" + mId + "', which "
-          "does not conform to the syntax.", getLine(), getColumn());
+        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+          "which does not conform to the syntax.", getLine(), getColumn());
     }
   }
 
@@ -1414,10 +1425,10 @@ Group_getKind(const Group_t * g)
  * Returns the value of the "kind" attribute of this Group_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 Group_getKindAsString(const Group_t * g)
 {
-  return GroupKind_toString(g->getKind());
+  return (char*)(GroupKind_toString(g->getKind()));
 }
 
 

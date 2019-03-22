@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -269,6 +269,7 @@ GroupsModelPlugin::removeGroup(const std::string& sid)
 }
 
 
+
 /** @cond doxygenLibsbmlInternal */
 
 /*
@@ -368,6 +369,25 @@ GroupsModelPlugin::enablePackageInternal(const std::string& pkgURI,
                                          bool flag)
 {
   mGroups.enablePackageInternal(pkgURI, pkgPrefix, flag);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Updates the namespaces when setLevelVersion is used
+ */
+void
+GroupsModelPlugin::updateSBMLNamespace(const std::string& package,
+                                       unsigned int level,
+                                       unsigned int version)
+{
+  SBasePlugin::updateSBMLNamespace(package, level, version);
+
+  mGroups.updateSBMLNamespace(package, level, version);
 }
 
 /** @endcond */
@@ -837,7 +857,8 @@ GroupsModelPlugin::createObject(XMLInputStream& stream)
       if (mGroups.size() != 0)
       {
         getErrorLog()->logPackageError("groups", GroupsModelAllowedElements,
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), 
+            getColumn());
       }
 
       obj = &mGroups;

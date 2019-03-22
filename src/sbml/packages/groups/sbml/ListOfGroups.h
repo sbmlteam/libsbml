@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -295,7 +295,6 @@ public:
    * Get the number of Group objects in this ListOfGroups.
    *
    * @return the number of Group objects in this ListOfGroups.
-   *
    *
    * @see addGroup(const Group* object)
    * @see createGroup()

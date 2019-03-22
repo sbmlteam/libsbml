@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -776,7 +776,8 @@ Member::readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  if (static_cast<ListOfMembers*>(getParentSBMLObject())->size() < 2)
+  if (log && getParentSBMLObject() &&
+    static_cast<ListOfMembers*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
@@ -786,7 +787,7 @@ Member::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("groups", GroupsGroupLOMembersAllowedAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -794,29 +795,33 @@ Member::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("groups",
           GroupsGroupLOMembersAllowedCoreAttributes, pkgVersion, level, version,
-            details);
+            details, getLine(), getColumn());
       }
     }
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
+  if (log)
   {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("groups", GroupsMemberAllowedAttributes, pkgVersion,
-        level, version, details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("groups", GroupsMemberAllowedCoreAttributes,
-        pkgVersion, level, version, details);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("groups", GroupsMemberAllowedAttributes,
+          pkgVersion, level, version, details, getLine(), getColumn());
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("groups", GroupsMemberAllowedCoreAttributes,
+          pkgVersion, level, version, details, getLine(), getColumn());
+      }
     }
   }
 

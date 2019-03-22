@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -417,7 +417,6 @@ public:
    *
    * @return the number of Member objects in this ListOfMembers.
    *
-   *
    * @see addMember(const Member* object)
    * @see createMember()
    * @see get(const std::string& sid)
@@ -492,7 +491,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}
+   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    */
@@ -506,7 +505,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML typecode for the objects contained in this ListOfMembers:
-   * @sbmlconstant{SBML_GROUPS_MEMBER, SBMLGroupsTypeCode_t}
+   * @sbmlconstant{SBML_GROUPS_MEMBER, SBMLGroupsTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *

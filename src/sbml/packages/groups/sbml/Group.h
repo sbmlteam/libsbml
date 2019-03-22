@@ -8,8 +8,8 @@
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2019 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
@@ -471,8 +471,8 @@ public:
    *
    * @param n an unsigned int representing the index of the Member to retrieve.
    *
-   * @return the nth Member in the ListOfMembers within this Group.
-   * If the index @p n is invalid, @c NULL is returned.
+   * @return the nth Member in the ListOfMembers within this Group or @c NULL
+   * if no such object exists..
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -491,8 +491,8 @@ public:
    *
    * @param n an unsigned int representing the index of the Member to retrieve.
    *
-   * @return the nth Member in the ListOfMembers within this Group.
-   * If the index @p n is invalid, @c NULL is returned.
+   * @return the nth Member in the ListOfMembers within this Group or @c NULL
+   * if no such object exists..
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -605,7 +605,6 @@ public:
    *
    * @return the number of Member objects in this Group.
    *
-   *
    * @see addMember(const Member* object)
    * @see createMember()
    * @see getMember(const std::string& sid)
@@ -690,7 +689,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_GROUPS_GROUP, SBMLGroupsTypeCode_t}
+   * @sbmlconstant{SBML_GROUPS_GROUP, SBMLGroupsTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -767,6 +766,19 @@ public:
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix,
                                      bool flag);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Updates the namespaces when setLevelVersion is used
+   */
+  virtual void updateSBMLNamespace(const std::string& package,
+                                   unsigned int level,
+                                   unsigned int version);
 
   /** @endcond */
 
@@ -1327,7 +1339,7 @@ Group_getKind(const Group_t * g);
  * @memberof Group_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 Group_getKindAsString(const Group_t * g);
 
 
