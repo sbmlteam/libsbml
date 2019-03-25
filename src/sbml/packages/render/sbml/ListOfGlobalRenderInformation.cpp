@@ -909,7 +909,7 @@ ListOfGlobalRenderInformation::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownPackageAttribute);
         log->logPackageError("render",
           RenderListOfLayoutsLOGlobalRenderInformationAllowedAttributes,
-            pkgVersion, level, version, details);
+            pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -917,7 +917,7 @@ ListOfGlobalRenderInformation::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("render",
           RenderListOfLayoutsLOGlobalRenderInformationAllowedCoreAttributes,
-            pkgVersion, level, version, details);
+            pkgVersion, level, version, details, getLine(), getColumn());
       }
     }
   }
@@ -942,8 +942,7 @@ ListOfGlobalRenderInformation::readAttributes(const XMLAttributes& attributes,
         "<ListOfGlobalRenderInformation> element must be an integer.";
       log->logPackageError("render", 
         RenderListOfLayoutsVersionMajorMustBeNonNegativeInteger, pkgVersion, 
-        level, version,
-        message);
+        level, version, message, getLine(), getColumn());
     }
   }
 
@@ -967,8 +966,7 @@ ListOfGlobalRenderInformation::readAttributes(const XMLAttributes& attributes,
         "<ListOfGlobalRenderInformation> element must be an integer.";
       log->logPackageError("render", 
         RenderListOfLayoutsVersionMinorMustBeNonNegativeInteger, pkgVersion, 
-        level, version,
-        message);
+        level, version, message, getLine(), getColumn());
     }
   }
 }

@@ -1333,7 +1333,7 @@ LineEnding::createObject(XMLInputStream& stream)
     if (isSetBoundingBox() && mBoundingBox->getDimensionsExplicitlySet() && getErrorLog() != NULL)
     {
       getErrorLog()->logPackageError("render", RenderLineEndingAllowedElements,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     delete mBoundingBox;
@@ -1400,7 +1400,7 @@ LineEnding::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("render", RenderLineEndingAllowedAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1408,7 +1408,7 @@ LineEnding::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("render",
           RenderRenderInformationBaseLOLineEndingsAllowedCoreAttributes,
-            pkgVersion, level, version, details);
+            pkgVersion, level, version, details, getLine(), getColumn());
       }
     }
   }
@@ -1426,14 +1426,14 @@ LineEnding::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("render", RenderLineEndingAllowedAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownCoreAttribute);
         log->logPackageError("render", RenderLineEndingAllowedCoreAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
     }
   }
@@ -1464,7 +1464,7 @@ LineEnding::readAttributes(const XMLAttributes& attributes,
     if (log)
     {
       log->logPackageError("render", RenderLineEndingAllowedAttributes,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
     }
   }
 
@@ -1487,7 +1487,7 @@ LineEnding::readAttributes(const XMLAttributes& attributes,
       log->remove(XMLAttributeTypeMismatch);
       log->logPackageError("render",
         RenderLineEndingEnableRotationalMappingMustBeBoolean, pkgVersion, level,
-          version);
+          version, "", getLine(), getColumn());
     }
     else
     {

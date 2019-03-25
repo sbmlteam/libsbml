@@ -2273,7 +2273,7 @@ RenderGroup::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownCoreAttribute);
         log->logPackageError("render", RenderRenderGroupAllowedCoreAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
     }
   }
@@ -2380,7 +2380,7 @@ RenderGroup::readAttributes(const XMLAttributes& attributes,
 
         log->logPackageError("render",
           RenderRenderGroupFontWeightMustBeFontWeightEnum, pkgVersion, level,
-            version, msg);
+            version, msg, getLine(), getColumn());
       }
     }
   }
@@ -2419,7 +2419,7 @@ RenderGroup::readAttributes(const XMLAttributes& attributes,
 
         log->logPackageError("render",
           RenderRenderGroupFontStyleMustBeFontStyleEnum, pkgVersion, level,
-            version, msg);
+            version, msg, getLine(), getColumn());
       }
     }
   }
@@ -2458,7 +2458,7 @@ RenderGroup::readAttributes(const XMLAttributes& attributes,
 
         log->logPackageError("render",
           RenderRenderGroupTextAnchorMustBeHTextAnchorEnum, pkgVersion, level,
-            version, msg);
+            version, msg, getLine(), getColumn());
       }
     }
   }
@@ -2497,7 +2497,7 @@ RenderGroup::readAttributes(const XMLAttributes& attributes,
 
         log->logPackageError("render",
           RenderRenderGroupVtextAnchorMustBeVTextAnchorEnum, pkgVersion, level,
-            version, msg);
+            version, msg, getLine(), getColumn());
       }
     }
   }
@@ -2531,7 +2531,7 @@ RenderGroup::readAttributes(const XMLAttributes& attributes,
         }
         message += " does not conform to the syntax of a RelAbsVector type.";
         log->logPackageError("render", RenderRenderGroupFontSizeMustBeRelAbsVector,
-          pkgVersion, level, version, message);
+          pkgVersion, level, version, message, getLine(), getColumn());
       }
 
     }

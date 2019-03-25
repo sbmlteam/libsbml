@@ -1167,7 +1167,7 @@ GraphicalPrimitive1D::readAttributes(const XMLAttributes& attributes,
         "<GraphicalPrimitive1D> element must be a double.";
       log->logPackageError("render",
         RenderGraphicalPrimitive1DStrokeWidthMustBeDouble, pkgVersion, level,
-          version, message);
+          version, message, getLine(), getColumn());
     }
     mStrokeWidth = std::numeric_limits<double>::quiet_NaN();
   }

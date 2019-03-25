@@ -1312,14 +1312,14 @@ GradientBase::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("render", RenderGradientBaseAllowedAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownCoreAttribute);
         log->logPackageError("render", RenderUnknown, pkgVersion, level,
-          version, details);
+          version, details, getLine(), getColumn());
       }
     }
   }
@@ -1337,14 +1337,14 @@ GradientBase::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("render", RenderGradientBaseAllowedAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownCoreAttribute);
         log->logPackageError("render", RenderGradientBaseAllowedCoreAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
     }
   }
@@ -1375,7 +1375,7 @@ GradientBase::readAttributes(const XMLAttributes& attributes,
     if (log)
     {
       log->logPackageError("render", RenderGradientBaseAllowedAttributes,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
     }
   }
 
@@ -1423,7 +1423,7 @@ GradientBase::readAttributes(const XMLAttributes& attributes,
 
         log->logPackageError("render",
           RenderGradientBaseSpreadMethodMustBeGradientSpreadMethodEnum,
-            pkgVersion, level, version, msg);
+            pkgVersion, level, version, msg, getLine(), getColumn());
       }
     }
   }

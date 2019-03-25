@@ -230,12 +230,12 @@ RenderSBMLDocumentPlugin::readAttributes(const XMLAttributes& attributes,
     {
       log->remove(XMLAttributeTypeMismatch);
       log->logPackageError("render", RenderAttributeRequiredMustBeBoolean,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
     else
     {
       log->logPackageError("render", RenderAttributeRequiredMissing,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
   }
   else
@@ -244,7 +244,7 @@ RenderSBMLDocumentPlugin::readAttributes(const XMLAttributes& attributes,
     if (mRequired != false)
     {
       log->logPackageError("render", RenderAttributeRequiredMustHaveValue,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
   }
 }

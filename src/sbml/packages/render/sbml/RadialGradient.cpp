@@ -887,7 +887,7 @@ RadialGradient::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("render", RenderRadialGradientAllowedAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -895,7 +895,7 @@ RadialGradient::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("render",
           RenderRadialGradientAllowedCoreAttributes, pkgVersion, level, version,
-            details);
+            details, getLine(), getColumn());
       }
     }
   }
@@ -926,7 +926,7 @@ RadialGradient::readAttributes(const XMLAttributes& attributes,
       std::string message = "The syntax '" + s + "' of the attribute 'x1' on the "
         + elplusid + " does not conform to the syntax of a RelAbsVector type.";
       log->logPackageError("render", RenderRadialGradientCxMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
 
     }
     else
@@ -956,7 +956,7 @@ RadialGradient::readAttributes(const XMLAttributes& attributes,
       std::string message = "The syntax '" + s + "' of the attribute 'y1' on the "
         + elplusid + " does not conform to the syntax of a RelAbsVector type.";
       log->logPackageError("render", RenderRadialGradientCyMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
 
     }
     else
@@ -985,7 +985,7 @@ RadialGradient::readAttributes(const XMLAttributes& attributes,
       std::string message = "The syntax '" + s + "' of the attribute 'z1' on the "
         + elplusid + " does not conform to the syntax of a RelAbsVector type.";
       log->logPackageError("render", RenderRadialGradientCzMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
 
     }
     else
@@ -1015,7 +1015,7 @@ RadialGradient::readAttributes(const XMLAttributes& attributes,
       std::string message = "The syntax '" + s + "' of the attribute 'z1' on the "
         + elplusid + " does not conform to the syntax of a RelAbsVector type.";
       log->logPackageError("render", RenderRadialGradientRMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
 
     }
     else
@@ -1045,7 +1045,7 @@ RadialGradient::readAttributes(const XMLAttributes& attributes,
       std::string message = "The syntax '" + s + "' of the attribute 'x2' on the "
         + elplusid + " does not conform to the syntax of a RelAbsVector type.";
       log->logPackageError("render", RenderRadialGradientFxMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
 
     }
     else
@@ -1074,7 +1074,7 @@ RadialGradient::readAttributes(const XMLAttributes& attributes,
       std::string message = "The syntax '" + s + "' of the attribute 'y2' on the "
         + elplusid + " does not conform to the syntax of a RelAbsVector type.";
       log->logPackageError("render", RenderRadialGradientFyMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
 
     }
     else
@@ -1103,7 +1103,7 @@ RadialGradient::readAttributes(const XMLAttributes& attributes,
       std::string message = "The syntax '" + s + "' of the attribute 'z2' on the "
         + elplusid + " does not conform to the syntax of a RelAbsVector type.";
       log->logPackageError("render", RenderRadialGradientFzMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
 
     }
     else

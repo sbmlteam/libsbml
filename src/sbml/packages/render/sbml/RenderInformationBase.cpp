@@ -1959,7 +1959,7 @@ RenderInformationBase::createObject(XMLInputStream& stream)
     {
       getErrorLog()->logPackageError("render",
         RenderRenderInformationBaseAllowedElements, getPackageVersion(),
-          getLevel(), getVersion());
+          getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     obj = &mColorDefinitions;
@@ -1970,7 +1970,7 @@ RenderInformationBase::createObject(XMLInputStream& stream)
     {
       getErrorLog()->logPackageError("render",
         RenderRenderInformationBaseAllowedElements, getPackageVersion(),
-          getLevel(), getVersion());
+          getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     obj = &mGradientBases;
@@ -1981,7 +1981,7 @@ RenderInformationBase::createObject(XMLInputStream& stream)
     {
       getErrorLog()->logPackageError("render",
         RenderRenderInformationBaseAllowedElements, getPackageVersion(),
-          getLevel(), getVersion());
+          getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     obj = &mLineEndings;
@@ -2053,7 +2053,7 @@ RenderInformationBase::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownPackageAttribute);
         log->logPackageError("render",
           RenderRenderInformationBaseAllowedAttributes, pkgVersion, level, version,
-          details);
+          details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -2061,7 +2061,7 @@ RenderInformationBase::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("render",
           RenderRenderInformationBaseAllowedCoreAttributes, pkgVersion, level,
-          version, details);
+          version, details, getLine(), getColumn());
       }
     }
   }
@@ -2092,7 +2092,7 @@ RenderInformationBase::readAttributes(const XMLAttributes& attributes,
         "<RenderInformationBase> element.";
       log->logPackageError("render",
         RenderRenderInformationBaseAllowedAttributes, pkgVersion, level, version,
-        message);
+        message, getLine(), getColumn());
     }
   }
   // 

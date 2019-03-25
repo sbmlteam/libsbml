@@ -241,13 +241,13 @@ L3v2extendedmathSBMLDocumentPlugin::readAttributes(
       log->remove(XMLAttributeTypeMismatch);
       log->logPackageError("l3v2extendedmath",
         L3v2extendedmathAttributeRequiredMustBeBoolean, getPackageVersion(),
-          getLevel(), getVersion());
+          getLevel(), getVersion(), "", getLine(), getColumn());
     }
     else
     {
       log->logPackageError("l3v2extendedmath",
         L3v2extendedmathAttributeRequiredMissing, getPackageVersion(),
-          getLevel(), getVersion());
+          getLevel(), getVersion(), "", getLine(), getColumn());
     }
   }
   else
@@ -257,7 +257,7 @@ L3v2extendedmathSBMLDocumentPlugin::readAttributes(
     {
       log->logPackageError("l3v2extendedmath",
         L3v2extendedmathAttributeRequiredMustHaveValue, getPackageVersion(),
-          getLevel(), getVersion());
+          getLevel(), getVersion(), "", getLine(), getColumn());
     }
   }
 }

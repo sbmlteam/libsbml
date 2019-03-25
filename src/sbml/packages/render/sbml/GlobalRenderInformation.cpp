@@ -795,7 +795,7 @@ GlobalRenderInformation::createObject(XMLInputStream& stream)
     {
       getErrorLog()->logPackageError("render",
         RenderGlobalRenderInformationAllowedElements, getPackageVersion(),
-          getLevel(), getVersion());
+          getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     obj = &mGlobalStyles;
@@ -853,7 +853,7 @@ GlobalRenderInformation::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownPackageAttribute);
         log->logPackageError("render",
           RenderListOfLayoutsLOGlobalRenderInformationAllowedAttributes,
-            pkgVersion, level, version, details);
+            pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -861,7 +861,7 @@ GlobalRenderInformation::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("render",
           RenderListOfLayoutsLOGlobalRenderInformationAllowedCoreAttributes,
-            pkgVersion, level, version, details);
+            pkgVersion, level, version, details, getLine(), getColumn());
       }
     }
   }
@@ -879,7 +879,7 @@ GlobalRenderInformation::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("render", RenderUnknown, pkgVersion, level,
-          version, details);
+          version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -887,7 +887,7 @@ GlobalRenderInformation::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("render",
           RenderGlobalRenderInformationAllowedCoreAttributes, pkgVersion, level,
-            version, details);
+            version, details, getLine(), getColumn());
       }
     }
   }

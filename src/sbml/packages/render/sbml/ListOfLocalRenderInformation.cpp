@@ -859,7 +859,7 @@ ListOfLocalRenderInformation::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownPackageAttribute);
         log->logPackageError("render",
           RenderLayoutLOLocalRenderInformationAllowedAttributes, pkgVersion,
-            level, version, details);
+            level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -867,7 +867,7 @@ ListOfLocalRenderInformation::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("render",
           RenderLayoutLOLocalRenderInformationAllowedCoreAttributes, pkgVersion,
-            level, version, details);
+            level, version, details, getLine(), getColumn());
       }
     }
   }
@@ -892,7 +892,7 @@ ListOfLocalRenderInformation::readAttributes(const XMLAttributes& attributes,
         "<ListOfLocalRenderInformation> element must be an integer.";
       log->logPackageError("render", 
         RenderLayoutVersionMajorMustBeNonNegativeInteger, pkgVersion, level, version,
-        message);
+        message, getLine(), getColumn());
     }
   }
 
@@ -916,7 +916,7 @@ ListOfLocalRenderInformation::readAttributes(const XMLAttributes& attributes,
         "<ListOfLocalRenderInformation> element must be an integer.";
       log->logPackageError("render", 
         RenderLayoutVersionMinorMustBeNonNegativeInteger, pkgVersion, level, version,
-        message);
+        message, getLine(), getColumn());
     }
   }
 }

@@ -675,14 +675,14 @@ GradientStop::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("render", RenderGradientStopAllowedAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownCoreAttribute);
         log->logPackageError("render", RenderUnknown, pkgVersion, level,
-          version, details);
+          version, details, getLine(), getColumn());
       }
     }
   }
@@ -700,14 +700,14 @@ GradientStop::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("render", RenderGradientStopAllowedAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownCoreAttribute);
         log->logPackageError("render", RenderGradientStopAllowedCoreAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
     }
   }
@@ -732,7 +732,7 @@ GradientStop::readAttributes(const XMLAttributes& attributes,
     if (log)
     {
       log->logPackageError("render", RenderGradientStopAllowedAttributes,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
     }
   }
 
@@ -751,7 +751,7 @@ GradientStop::readAttributes(const XMLAttributes& attributes,
     std::string message = "Render attribute 'offset' is missing from the "
       "<GradientStop> element.";
     log->logPackageError("render", RenderGradientStopAllowedAttributes,
-      pkgVersion, level, version, message);
+      pkgVersion, level, version, message, getLine(), getColumn());
   }
   else
   {
@@ -761,7 +761,7 @@ GradientStop::readAttributes(const XMLAttributes& attributes,
       std::string message = "The syntax '" + s + "' of the attribute 'offset' on the "
         "<GradientStop> does not conform to the syntax of a RelAbsVector type.";
       log->logPackageError("render", RenderGradientStopOffsetMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
 
     }
     else

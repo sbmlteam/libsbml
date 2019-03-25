@@ -665,7 +665,7 @@ void RenderPoint::readAttributes (const XMLAttributes& attributes, const Expecte
         log->remove(UnknownCoreAttribute);
         log->logPackageError("render",
           RenderRenderPointAllowedCoreAttributes, pkgVersion, level, version,
-          details);
+          details, getLine(), getColumn());
       }
     }
   }
@@ -689,7 +689,7 @@ void RenderPoint::readAttributes (const XMLAttributes& attributes, const Expecte
       std::string message = "The required attribute 'x' is missing from the "
         + elplusid + ".";
       log->logPackageError("render", RenderRenderPointAllowedAttributes,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
     }
     setX(RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN()));
   }
@@ -703,7 +703,7 @@ void RenderPoint::readAttributes (const XMLAttributes& attributes, const Expecte
         std::string message = "The syntax '" + s + "' of the attribute 'x' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
         log->logPackageError("render", RenderEllipseCxMustBeRelAbsVector,
-          pkgVersion, level, version, message);
+          pkgVersion, level, version, message, getLine(), getColumn());
       }
       setX(RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN()));
     }
@@ -725,7 +725,7 @@ void RenderPoint::readAttributes (const XMLAttributes& attributes, const Expecte
       std::string message = "The required attribute 'y' is missing from the "
         + elplusid + ".";
       log->logPackageError("render", RenderRenderPointAllowedAttributes,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
     }
     setY(RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN()));
   }
@@ -739,7 +739,7 @@ void RenderPoint::readAttributes (const XMLAttributes& attributes, const Expecte
         std::string message = "The syntax '" + s + "' of the attribute 'y' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
         log->logPackageError("render", RenderEllipseCyMustBeRelAbsVector,
-          pkgVersion, level, version, message);
+          pkgVersion, level, version, message, getLine(), getColumn());
       }
       setY(RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN()));
     }
@@ -768,7 +768,7 @@ void RenderPoint::readAttributes (const XMLAttributes& attributes, const Expecte
       std::string message = "The syntax '" + s + "' of the attribute 'c' on the "
         + elplusid + " does not conform to the syntax of a RelAbsVector type.";
       log->logPackageError("render", RenderEllipseCzMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
 
     }
     else

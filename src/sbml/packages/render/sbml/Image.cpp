@@ -812,14 +812,14 @@ Image::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("render", RenderImageAllowedAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownCoreAttribute);
         log->logPackageError("render", RenderImageAllowedCoreAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
     }
   }
@@ -869,7 +869,7 @@ Image::readAttributes(const XMLAttributes& attributes,
       std::string message = "Render attribute 'href' is missing from the "
         + elplusid + ".";
       log->logPackageError("render", RenderImageAllowedAttributes, pkgVersion,
-        level, version, message);
+        level, version, message, getLine(), getColumn());
     }
   }
  
@@ -885,7 +885,7 @@ Image::readAttributes(const XMLAttributes& attributes,
     std::string message = "The required attribute 'x' is missing from the "
       + elplusid + ".";
     log->logPackageError("render", RenderImageAllowedAttributes,
-      pkgVersion, level, version, message);
+      pkgVersion, level, version, message, getLine(), getColumn());
   }
   else
   {
@@ -895,7 +895,7 @@ Image::readAttributes(const XMLAttributes& attributes,
       std::string message = "The syntax '" + s + "' of the attribute 'x' on the "
         + elplusid + " does not conform to the syntax of a RelAbsVector type.";
       log->logPackageError("render", RenderImageXMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
 
     }
     else
@@ -914,7 +914,7 @@ Image::readAttributes(const XMLAttributes& attributes,
     std::string message = "The required attribute 'y' is missing from the "
       + elplusid + ".";
     log->logPackageError("render", RenderImageAllowedAttributes,
-      pkgVersion, level, version, message);
+      pkgVersion, level, version, message, getLine(), getColumn());
   }
   else
   {
@@ -924,7 +924,7 @@ Image::readAttributes(const XMLAttributes& attributes,
       std::string message = "The syntax '" + s + "' of the attribute 'y' on the "
         + elplusid + " does not conform to the syntax of a RelAbsVector type.";
       log->logPackageError("render", RenderImageYMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
 
     }
     else
@@ -952,7 +952,7 @@ Image::readAttributes(const XMLAttributes& attributes,
       std::string message = "The syntax '" + s + "' of the attribute 'z' on the "
         + elplusid + " does not conform to the syntax of a RelAbsVector type.";
       log->logPackageError("render", RenderImageZMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
 
     }
     else
@@ -971,7 +971,7 @@ Image::readAttributes(const XMLAttributes& attributes,
     std::string message = "The required attribute 'width' is missing from the "
       + elplusid + ".";
     log->logPackageError("render", RenderImageAllowedAttributes,
-      pkgVersion, level, version, message);
+      pkgVersion, level, version, message, getLine(), getColumn());
   }
   else
   {
@@ -981,7 +981,7 @@ Image::readAttributes(const XMLAttributes& attributes,
       std::string message = "The syntax '" + s + "' of the attribute 'width' on the "
         + elplusid + " does not conform to the syntax of a RelAbsVector type.";
       log->logPackageError("render", RenderImageWidthMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
 
     }
     else
@@ -1000,7 +1000,7 @@ Image::readAttributes(const XMLAttributes& attributes,
     std::string message = "The required attribute 'height' is missing from the "
       + elplusid + ".";
     log->logPackageError("render", RenderImageAllowedAttributes,
-      pkgVersion, level, version, message);
+      pkgVersion, level, version, message, getLine(), getColumn());
   }
   else
   {
@@ -1010,7 +1010,7 @@ Image::readAttributes(const XMLAttributes& attributes,
       std::string message = "The syntax '" + s + "' of the attribute 'heigth' on the "
         + elplusid + " does not conform to the syntax of a RelAbsVector type.";
       log->logPackageError("render", RenderImageHeightMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
 
     }
     else

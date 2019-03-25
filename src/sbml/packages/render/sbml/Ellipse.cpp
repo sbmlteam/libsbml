@@ -963,14 +963,14 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
           const std::string details = log->getError(n)->getMessage();
           log->remove(UnknownPackageAttribute);
           log->logPackageError("render", RenderEllipseAllowedAttributes,
-            pkgVersion, level, version, details);
+            pkgVersion, level, version, details, getLine(), getColumn());
         }
         else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
         {
           const std::string details = log->getError(n)->getMessage();
           log->remove(UnknownCoreAttribute);
           log->logPackageError("render", RenderEllipseAllowedCoreAttributes,
-            pkgVersion, level, version, details);
+            pkgVersion, level, version, details, getLine(), getColumn());
         }
       }
     }
@@ -995,7 +995,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
         std::string message = "Render attribute 'ratio' from the " + elplusid +
           " must be a double.";
         log->logPackageError("render", RenderEllipseRatioMustBeDouble,
-          pkgVersion, level, version, message);
+          pkgVersion, level, version, message, getLine(), getColumn());
       }
     }
 
@@ -1011,7 +1011,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
       std::string message = "The required attribute 'cx' is missing from the "
         + elplusid + ".";
       log->logPackageError("render", RenderEllipseAllowedAttributes,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
     }
     else
     {
@@ -1021,7 +1021,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
         std::string message = "The syntax '" + s + "' of the attribute 'cx' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
         log->logPackageError("render", RenderEllipseCxMustBeRelAbsVector,
-          pkgVersion, level, version, message);
+          pkgVersion, level, version, message, getLine(), getColumn());
 
       }
       else
@@ -1040,7 +1040,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
       std::string message = "The required attribute 'cy' is missing from the "
         + elplusid + ".";
       log->logPackageError("render", RenderEllipseAllowedAttributes,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
     }
     else
     {
@@ -1050,7 +1050,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
         std::string message = "The syntax '" + s + "' of the attribute 'cy' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
         log->logPackageError("render", RenderEllipseCyMustBeRelAbsVector,
-          pkgVersion, level, version, message);
+          pkgVersion, level, version, message, getLine(), getColumn());
 
       }
       else
@@ -1078,7 +1078,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
         std::string message = "The syntax '" + s + "' of the attribute 'cz' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
         log->logPackageError("render", RenderEllipseCzMustBeRelAbsVector,
-          pkgVersion, level, version, message);
+          pkgVersion, level, version, message, getLine(), getColumn());
 
       }
       else
@@ -1099,7 +1099,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
       std::string message = "The required attribute 'rx' is missing from the "
         + elplusid + ".";
       log->logPackageError("render", RenderEllipseAllowedAttributes,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
     }
     else
     {    
@@ -1109,7 +1109,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
           std::string message = "The syntax '" + s + "' of the attribute 'rx' on the "
             + elplusid + " does not conform to the syntax of a RelAbsVector type.";
           log->logPackageError("render", RenderEllipseRxMustBeRelAbsVector,
-            pkgVersion, level, version, message);
+            pkgVersion, level, version, message, getLine(), getColumn());
 
         }
         else
@@ -1144,7 +1144,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
         std::string message = "The syntax '" + s + "' of the attribute 'ry' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
         log->logPackageError("render", RenderEllipseRyMustBeRelAbsVector,
-          pkgVersion, level, version, message);
+          pkgVersion, level, version, message, getLine(), getColumn());
 
       }
       else
