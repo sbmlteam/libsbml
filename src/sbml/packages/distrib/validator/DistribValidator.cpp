@@ -142,11 +142,9 @@ struct DistribValidatorConstraints
 
   ConstraintSet<SBMLDocument>                   mSBMLDocument;
   ConstraintSet<Model>                          mModel;
-  ConstraintSet<Distribution>                   mDistribution;
-  ConstraintSet<UncertValue>                    mUncertValue;
-  ConstraintSet<ExternalParameter>              mExternalParameter;
+  ConstraintSet<UncertParameter>                mUncertParameter;
   ConstraintSet<Uncertainty>                    mUncertainty;
-  ConstraintSet<UncertStatisticSpan>            mUncertStatisticSpan;
+  ConstraintSet<UncertSpan>                     mUncertSpan;
   ConstraintSet<DistribBase>                    mDistribBase;
 
   map<VConstraint*, bool> ptrMap;
@@ -199,21 +197,9 @@ DistribValidatorConstraints::add(VConstraint* c)
     return;
   }
 
-  if (dynamic_cast< TConstraint<Distribution>* >(c) != NULL)
+  if (dynamic_cast< TConstraint<UncertParameter>* >(c) != NULL)
   {
-    mDistribution.add(static_cast< TConstraint<Distribution>* >(c) );
-    return;
-  }
-
-  if (dynamic_cast< TConstraint<UncertValue>* >(c) != NULL)
-  {
-    mUncertValue.add(static_cast< TConstraint<UncertValue>* >(c) );
-    return;
-  }
-
-  if (dynamic_cast< TConstraint<ExternalParameter>* >(c) != NULL)
-  {
-    mExternalParameter.add(static_cast< TConstraint<ExternalParameter>* >(c) );
+    mUncertParameter.add(static_cast< TConstraint<UncertParameter>* >(c) );
     return;
   }
 
@@ -223,10 +209,9 @@ DistribValidatorConstraints::add(VConstraint* c)
     return;
   }
 
-  if (dynamic_cast< TConstraint<UncertStatisticSpan>* >(c) != NULL)
+  if (dynamic_cast< TConstraint<UncertSpan>* >(c) != NULL)
   {
-    mUncertStatisticSpan.add(static_cast< TConstraint<UncertStatisticSpan>*
-      >(c) );
+    mUncertSpan.add(static_cast< TConstraint<UncertSpan>* >(c) );
     return;
   }
 
@@ -256,26 +241,10 @@ public:
   using SBMLVisitor::visit;
 
   bool
-  visit(const Distribution& x)
+  visit(const UncertParameter& x)
   {
-    v.mDistribConstraints->mDistribution.applyTo(m, x);
-    return !v.mDistribConstraints->mDistribution.empty();
-  }
-
-
-  bool
-  visit(const UncertValue& x)
-  {
-    v.mDistribConstraints->mUncertValue.applyTo(m, x);
-    return !v.mDistribConstraints->mUncertValue.empty();
-  }
-
-
-  bool
-  visit(const ExternalParameter& x)
-  {
-    v.mDistribConstraints->mExternalParameter.applyTo(m, x);
-    return !v.mDistribConstraints->mExternalParameter.empty();
+    v.mDistribConstraints->mUncertParameter.applyTo(m, x);
+    return !v.mDistribConstraints->mUncertParameter.empty();
   }
 
 
@@ -288,10 +257,10 @@ public:
 
 
   bool
-  visit(const UncertStatisticSpan& x)
+  visit(const UncertSpan& x)
   {
-    v.mDistribConstraints->mUncertStatisticSpan.applyTo(m, x);
-    return !v.mDistribConstraints->mUncertStatisticSpan.empty();
+    v.mDistribConstraints->mUncertSpan.applyTo(m, x);
+    return !v.mDistribConstraints->mUncertSpan.empty();
   }
 
 
@@ -321,17 +290,9 @@ public:
     }
     else
     {
-      if (code == SBML_DISTRIB_DISTRIBUTION)
+      if (code == SBML_DISTRIB_UNCERTPARAMETER)
       {
-        return visit((const Distribution&)x);
-      }
-      else if (code == SBML_DISTRIB_UNCERTVALUE)
-      {
-        return visit((const UncertValue&)x);
-      }
-      else if (code == SBML_DISTRIB_EXTERNALPARAMETER)
-      {
-        return visit((const ExternalParameter&)x);
+        return visit((const UncertParameter&)x);
       }
       else if (code == SBML_DISTRIB_UNCERTAINTY)
       {
@@ -339,7 +300,7 @@ public:
       }
       else if (code == SBML_DISTRIB_UNCERTSTATISTICSPAN)
       {
-        return visit((const UncertStatisticSpan&)x);
+        return visit((const UncertSpan&)x);
       }
       else if (code == SBML_DISTRIB_DISTRIBBASE)
       {

@@ -374,13 +374,184 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 typedef enum
 {
-  SBML_DISTRIB_DISTRIBUTION            =  1500  /*!<Distribution */
-, SBML_DISTRIB_UNCERTVALUE             =  1501  /*!<UncertValue */
-, SBML_DISTRIB_EXTERNALPARAMETER       =  1502  /*!<ExternalParameter */
-, SBML_DISTRIB_UNCERTAINTY             =  1503  /*!<Uncertainty */
-, SBML_DISTRIB_UNCERTSTATISTICSPAN     =  1504  /*!<UncertStatisticSpan */
-, SBML_DISTRIB_DISTRIBBASE             =  1505  /*!<DistribBase */
+  SBML_DISTRIB_UNCERTPARAMETER         =  1500  /*!<UncertParameter */
+, SBML_DISTRIB_UNCERTAINTY             =  1501  /*!<Uncertainty */
+, SBML_DISTRIB_UNCERTSTATISTICSPAN     =  1502  /*!<UncertSpan */
+, SBML_DISTRIB_DISTRIBBASE             =  1503  /*!<DistribBase */
 } SBMLDistribTypeCode_t;
+
+
+/**
+ * @enum UncertType_t
+ * @brief Enumeration of values permitted as the value of the "uncerttype"
+ * attribute on Distrib objects.
+ *
+ * @if conly
+ * @see Distrib_getUncerttype()
+ * @see Distrib_setUncerttype()
+ * @elseif java
+ * @see Distrib::getUncerttype()
+ * @see Distrib::setUncerttype(long)
+ * @else
+ * @see Distrib::getUncerttype()
+ * @see Distrib::setUncerttype()
+ * @endif
+ */
+typedef enum
+{
+  DISTRIB_UNCERTTYPE_DISTRIBUTION               /*!< The distrib uncerttype is @c "distribution". */
+, DISTRIB_UNCERTTYPE_EXTERNALPARAMETER          /*!< The distrib uncerttype is @c "externalParameter". */
+, DISTRIB_UNCERTTYPE_COEFFIENTOFVARIATION       /*!< The distrib uncerttype is @c "coeffientOfVariation". */
+, DISTRIB_UNCERTTYPE_KURTOSIS                   /*!< The distrib uncerttype is @c "kurtosis". */
+, DISTRIB_UNCERTTYPE_MEAN                       /*!< The distrib uncerttype is @c "mean". */
+, DISTRIB_UNCERTTYPE_MEDIAN                     /*!< The distrib uncerttype is @c "median". */
+, DISTRIB_UNCERTTYPE_MODE                       /*!< The distrib uncerttype is @c "mode". */
+, DISTRIB_UNCERTTYPE_SAMPLESIZE                 /*!< The distrib uncerttype is @c "sampleSize". */
+, DISTRIB_UNCERTTYPE_SKEWNESS                   /*!< The distrib uncerttype is @c "skewness". */
+, DISTRIB_UNCERTTYPE_STANDARDDEVIATION          /*!< The distrib uncerttype is @c "standardDeviation". */
+, DISTRIB_UNCERTTYPE_STANDARDERROR              /*!< The distrib uncerttype is @c "standardError". */
+, DISTRIB_UNCERTTYPE_VARIANCE                   /*!< The distrib uncerttype is @c "variance". */
+, DISTRIB_UNCERTTYPE_CONFIDENCEINTERVAL         /*!< The distrib uncerttype is @c "confidenceInterval". */
+, DISTRIB_UNCERTTYPE_CREDIBLEINTERVAL           /*!< The distrib uncerttype is @c "credibleInterval". */
+, DISTRIB_UNCERTTYPE_INTERQUARTILERANGE         /*!< The distrib uncerttype is @c "interquartileRange". */
+, DISTRIB_UNCERTTYPE_RANGE                      /*!< The distrib uncerttype is @c "range". */
+, DISTRIB_UNCERTTYPE_INVALID                    /*!< Invalid UncertType value. */
+} UncertType_t;
+
+
+/**
+ * Returns the string version of the provided #UncertType_t enumeration.
+ *
+ * @param ut the #UncertType_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "distribution",
+ * "externalParameter",
+ * "coeffientOfVariation",
+ * "kurtosis",
+ * "mean",
+ * "median",
+ * "mode",
+ * "sampleSize",
+ * "skewness",
+ * "standardDeviation",
+ * "standardError",
+ * "variance",
+ * "confidenceInterval",
+ * "credibleInterval",
+ * "interquartileRange",
+ * "range",
+ * "invalid UncertType value",
+ * or @c NULL if the value is @sbmlconstant{DISTRIB_UNCERTTYPE_INVALID,
+ * UncertType_t} or another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof Distrib_t
+ * @endif
+ */
+LIBSBML_EXTERN
+const char*
+UncertType_toString(UncertType_t ut);
+
+
+/**
+ * Returns the #UncertType_t enumeration corresponding to the given string or
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_INVALID, UncertType_t} if there is no such
+ * match.
+ *
+ * @param code the string to convert to a #UncertType_t.
+ *
+ * @return the corresponding #UncertType_t or
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_INVALID, UncertType_t} if no match is
+ * found.
+ *
+ * @note The matching is case-sensitive: "distribution" will return
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_DISTRIBUTION, UncertType_t}, but
+ * "Distribution" will return @sbmlconstant{DISTRIB_UNCERTTYPE_INVALID,
+ * UncertType_t}.
+ *
+ * @if conly
+ * @memberof Distrib_t
+ * @endif
+ */
+LIBSBML_EXTERN
+UncertType_t
+UncertType_fromString(const char* code);
+
+
+/**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #UncertType_t is valid.
+ *
+ * @param ut the #UncertType_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #UncertType_t is
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_DISTRIBUTION, UncertType_t},
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_EXTERNALPARAMETER, UncertType_t},
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_COEFFIENTOFVARIATION, UncertType_t},
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_KURTOSIS, UncertType_t},
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_MEAN, UncertType_t},
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_MEDIAN, UncertType_t},
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_MODE, UncertType_t},
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_SAMPLESIZE, UncertType_t},
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_SKEWNESS, UncertType_t},
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_STANDARDDEVIATION, UncertType_t},
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_STANDARDERROR, UncertType_t},
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_VARIANCE, UncertType_t},
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_CONFIDENCEINTERVAL, UncertType_t},
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_CREDIBLEINTERVAL, UncertType_t},
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_INTERQUARTILERANGE, UncertType_t}, or
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_RANGE, UncertType_t};
+ * @c 0 (false) otherwise (including @sbmlconstant{DISTRIB_UNCERTTYPE_INVALID,
+ * UncertType_t}).
+ *
+ * @if conly
+ * @memberof Distrib_t
+ * @endif
+ */
+LIBSBML_EXTERN
+int
+UncertType_isValid(UncertType_t ut);
+
+
+/**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #UncertType_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "distribution",
+ * "externalParameter",
+ * "coeffientOfVariation",
+ * "kurtosis",
+ * "mean",
+ * "median",
+ * "mode",
+ * "sampleSize",
+ * "skewness",
+ * "standardDeviation",
+ * "standardError",
+ * "variance",
+ * "confidenceInterval",
+ * "credibleInterval",
+ * "interquartileRange",
+ * "range", or
+ * "invalid UncertType value";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "distribution" will return @c 1
+ * (true), but "Distribution" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof Distrib_t
+ * @endif
+ */
+LIBSBML_EXTERN
+int
+UncertType_isValidString(const char* code);
 
 
 

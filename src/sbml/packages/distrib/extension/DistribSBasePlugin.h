@@ -50,6 +50,7 @@
 
 
 #include <sbml/extension/SBasePlugin.h>
+#include <sbml/packages/distrib/sbml/ListOfUncertainties.h>
 #include <sbml/packages/distrib/sbml/Uncertainty.h>
 
 
@@ -62,7 +63,7 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  Uncertainty* mUncertainty;
+  ListOfUncertainties mUncertainties;
 
   /** @endcond */
 
@@ -122,45 +123,122 @@ public:
 
 
   /**
-   * Returns the value of the "uncertainty" element of this DistribSBasePlugin.
+   * Returns the ListOfUncertainties from this DistribSBasePlugin.
    *
-   * @return the value of the "uncertainty" element of this DistribSBasePlugin
-   * as a Uncertainty*.
+   * @return the ListOfUncertainties from this DistribSBasePlugin.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addUncertainty(const Uncertainty* object)
+   * @see createUncertainty()
+   * @see getUncertainty(const std::string& sid)
+   * @see getUncertainty(unsigned int n)
+   * @see getNumUncertainties()
+   * @see removeUncertainty(const std::string& sid)
+   * @see removeUncertainty(unsigned int n)
    */
-  const Uncertainty* getUncertainty() const;
+  const ListOfUncertainties* getListOfUncertainties() const;
 
 
   /**
-   * Returns the value of the "uncertainty" element of this DistribSBasePlugin.
+   * Returns the ListOfUncertainties from this DistribSBasePlugin.
    *
-   * @return the value of the "uncertainty" element of this DistribSBasePlugin
-   * as a Uncertainty*.
+   * @return the ListOfUncertainties from this DistribSBasePlugin.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addUncertainty(const Uncertainty* object)
+   * @see createUncertainty()
+   * @see getUncertainty(const std::string& sid)
+   * @see getUncertainty(unsigned int n)
+   * @see getNumUncertainties()
+   * @see removeUncertainty(const std::string& sid)
+   * @see removeUncertainty(unsigned int n)
    */
-  Uncertainty* getUncertainty();
+  ListOfUncertainties* getListOfUncertainties();
 
 
   /**
-   * Predicate returning @c true if this DistribSBasePlugin's "uncertainty"
-   * element is set.
+   * Get an Uncertainty from the DistribSBasePlugin.
    *
-   * @return @c true if this DistribSBasePlugin's "uncertainty" element has
-   * been set, otherwise @c false is returned.
+   * @param n an unsigned int representing the index of the Uncertainty to
+   * retrieve.
+   *
+   * @return the nth Uncertainty in the ListOfUncertainties within this
+   * DistribSBasePlugin or @c NULL if no such object exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addUncertainty(const Uncertainty* object)
+   * @see createUncertainty()
+   * @see getUncertainty(const std::string& sid)
+   * @see getNumUncertainties()
+   * @see removeUncertainty(const std::string& sid)
+   * @see removeUncertainty(unsigned int n)
    */
-  bool isSetUncertainty() const;
+  Uncertainty* getUncertainty(unsigned int n);
 
 
   /**
-   * Sets the value of the "uncertainty" element of this DistribSBasePlugin.
+   * Get an Uncertainty from the DistribSBasePlugin.
    *
-   * @param uncertainty Uncertainty* value of the "uncertainty" element to be
-   * set.
+   * @param n an unsigned int representing the index of the Uncertainty to
+   * retrieve.
+   *
+   * @return the nth Uncertainty in the ListOfUncertainties within this
+   * DistribSBasePlugin or @c NULL if no such object exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addUncertainty(const Uncertainty* object)
+   * @see createUncertainty()
+   * @see getUncertainty(const std::string& sid)
+   * @see getNumUncertainties()
+   * @see removeUncertainty(const std::string& sid)
+   * @see removeUncertainty(unsigned int n)
+   */
+  const Uncertainty* getUncertainty(unsigned int n) const;
+
+
+  /**
+   * Adds a copy of the given Uncertainty to this DistribSBasePlugin.
+   *
+   * @param u the Uncertainty object to add.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+   *
+   * @copydetails doc_note_object_is_copied
+   *
+   * @see createUncertainty()
+   * @see getUncertainty(const std::string& sid)
+   * @see getUncertainty(unsigned int n)
+   * @see getNumUncertainties()
+   * @see removeUncertainty(const std::string& sid)
+   * @see removeUncertainty(unsigned int n)
    */
-  int setUncertainty(const Uncertainty* uncertainty);
+  int addUncertainty(const Uncertainty* u);
+
+
+  /**
+   * Get the number of Uncertainty objects in this DistribSBasePlugin.
+   *
+   * @return the number of Uncertainty objects in this DistribSBasePlugin.
+   *
+   * @see addUncertainty(const Uncertainty* object)
+   * @see createUncertainty()
+   * @see getUncertainty(const std::string& sid)
+   * @see getUncertainty(unsigned int n)
+   * @see removeUncertainty(const std::string& sid)
+   * @see removeUncertainty(unsigned int n)
+   */
+  unsigned int getNumUncertainties() const;
 
 
   /**
@@ -168,18 +246,38 @@ public:
    * object and returns the Uncertainty object created.
    *
    * @return a new Uncertainty object instance.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addUncertainty(const Uncertainty* object)
+   * @see getUncertainty(const std::string& sid)
+   * @see getUncertainty(unsigned int n)
+   * @see getNumUncertainties()
+   * @see removeUncertainty(const std::string& sid)
+   * @see removeUncertainty(unsigned int n)
    */
   Uncertainty* createUncertainty();
 
 
   /**
-   * Unsets the value of the "uncertainty" element of this DistribSBasePlugin.
+   * Removes the nth Uncertainty from this DistribSBasePlugin and returns a
+   * pointer to it.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @param n an unsigned int representing the index of the Uncertainty to
+   * remove.
+   *
+   * @return a pointer to the nth Uncertainty in this DistribSBasePlugin.
+   *
+   * @copydetails doc_warning_returns_owned_pointer
+   *
+   * @see addUncertainty(const Uncertainty* object)
+   * @see createUncertainty()
+   * @see getUncertainty(const std::string& sid)
+   * @see getUncertainty(unsigned int n)
+   * @see getNumUncertainties()
+   * @see removeUncertainty(const std::string& sid)
    */
-  int unsetUncertainty();
+  Uncertainty* removeUncertainty(unsigned int n);
 
 
 
@@ -634,7 +732,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the objects
    * to be retrieved.
    *
-   * @return a List* pointer of pointers to all SBase child objects with any
+   * @return a List pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -695,55 +793,89 @@ BEGIN_C_DECLS
 
 
 /**
- * Returns the value of the "uncertainty" element of this DistribSBasePlugin_t.
+ * Returns a ListOf_t * containing Uncertainty_t objects from this
+ * DistribSBasePlugin_t.
  *
- * @param dsbp the DistribSBasePlugin_t structure whose uncertainty is sought.
+ * @param dsbp the DistribSBasePlugin_t structure whose ListOfUncertainties is
+ * sought.
  *
- * @return the value of the "uncertainty" element of this DistribSBasePlugin_t
- * as a Uncertainty*.
+ * @return the ListOfUncertainties from this DistribSBasePlugin_t as a ListOf_t
+ * *.
  *
- * @memberof DistribSBasePlugin_t
- */
-LIBSBML_EXTERN
-const Uncertainty_t*
-DistribSBasePlugin_getUncertainty(const DistribSBasePlugin_t * dsbp);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribSBasePlugin_t's "uncertainty"
- * element is set.
+ * @copydetails doc_returned_unowned_pointer
  *
- * @param dsbp the DistribSBasePlugin_t structure.
- *
- * @return @c 1 (true) if this DistribSBasePlugin_t's "uncertainty" element has
- * been set, otherwise @c 0 (false) is returned.
+ * @see DistribSBasePlugin_addUncertainty()
+ * @see DistribSBasePlugin_createUncertainty()
+ * @see DistribSBasePlugin_getUncertaintyById()
+ * @see DistribSBasePlugin_getUncertainty()
+ * @see DistribSBasePlugin_getNumUncertainties()
+ * @see DistribSBasePlugin_removeUncertaintyById()
+ * @see DistribSBasePlugin_removeUncertainty()
  *
  * @memberof DistribSBasePlugin_t
  */
 LIBSBML_EXTERN
-int
-DistribSBasePlugin_isSetUncertainty(const DistribSBasePlugin_t * dsbp);
+ListOf_t*
+DistribSBasePlugin_getListOfUncertainties(DistribSBasePlugin_t* dsbp);
 
 
 /**
- * Sets the value of the "uncertainty" element of this DistribSBasePlugin_t.
+ * Get an Uncertainty_t from the DistribSBasePlugin_t.
  *
- * @param dsbp the DistribSBasePlugin_t structure.
+ * @param dsbp the DistribSBasePlugin_t structure to search.
  *
- * @param uncertainty Uncertainty_t* value of the "uncertainty" element to be
- * set.
+ * @param n an unsigned int representing the index of the Uncertainty_t to
+ * retrieve.
+ *
+ * @return the nth Uncertainty_t in the ListOfUncertainties within this
+ * DistribSBasePlugin or @c NULL if no such object exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof DistribSBasePlugin_t
+ */
+LIBSBML_EXTERN
+Uncertainty_t*
+DistribSBasePlugin_getUncertainty(DistribSBasePlugin_t* dsbp, unsigned int n);
+
+
+/**
+ * Adds a copy of the given Uncertainty_t to this DistribSBasePlugin_t.
+ *
+ * @param dsbp the DistribSBasePlugin_t structure to which the Uncertainty_t
+ * should be added.
+ *
+ * @param u the Uncertainty_t object to add.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
  *
  * @memberof DistribSBasePlugin_t
  */
 LIBSBML_EXTERN
 int
-DistribSBasePlugin_setUncertainty(DistribSBasePlugin_t * dsbp,
-                                  const Uncertainty_t* uncertainty);
+DistribSBasePlugin_addUncertainty(DistribSBasePlugin_t* dsbp,
+                                  const Uncertainty_t* u);
+
+
+/**
+ * Get the number of Uncertainty_t objects in this DistribSBasePlugin_t.
+ *
+ * @param dsbp the DistribSBasePlugin_t structure to query.
+ *
+ * @return the number of Uncertainty_t objects in this DistribSBasePlugin_t.
+ *
+ * @memberof DistribSBasePlugin_t
+ */
+LIBSBML_EXTERN
+unsigned int
+DistribSBasePlugin_getNumUncertainties(DistribSBasePlugin_t* dsbp);
 
 
 /**
@@ -755,6 +887,8 @@ DistribSBasePlugin_setUncertainty(DistribSBasePlugin_t * dsbp,
  *
  * @return a new Uncertainty_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof DistribSBasePlugin_t
  */
 LIBSBML_EXTERN
@@ -763,20 +897,24 @@ DistribSBasePlugin_createUncertainty(DistribSBasePlugin_t* dsbp);
 
 
 /**
- * Unsets the value of the "uncertainty" element of this DistribSBasePlugin_t.
+ * Removes the nth Uncertainty_t from this DistribSBasePlugin_t and returns a
+ * pointer to it.
  *
- * @param dsbp the DistribSBasePlugin_t structure.
+ * @param dsbp the DistribSBasePlugin_t structure to search.
  *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @param n an unsigned int representing the index of the Uncertainty_t to
+ * remove.
+ *
+ * @return a pointer to the nth Uncertainty_t in this DistribSBasePlugin_t.
+ *
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof DistribSBasePlugin_t
  */
 LIBSBML_EXTERN
-int
-DistribSBasePlugin_unsetUncertainty(DistribSBasePlugin_t * dsbp);
+Uncertainty_t*
+DistribSBasePlugin_removeUncertainty(DistribSBasePlugin_t* dsbp,
+                                     unsigned int n);
 
 
 

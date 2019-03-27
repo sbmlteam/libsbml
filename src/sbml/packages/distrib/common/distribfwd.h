@@ -59,13 +59,11 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-typedef CLASS_OR_STRUCT Distribution        Distribution_t;
-typedef CLASS_OR_STRUCT UncertValue         UncertValue_t;
-typedef CLASS_OR_STRUCT ExternalParameter   ExternalParameter_t;
-typedef CLASS_OR_STRUCT Uncertainty         Uncertainty_t;
-typedef CLASS_OR_STRUCT UncertStatisticSpan UncertStatisticSpan_t;
-typedef CLASS_OR_STRUCT DistribBase         DistribBase_t;
-typedef CLASS_OR_STRUCT DistribSBasePlugin  DistribSBasePlugin_t;
+typedef CLASS_OR_STRUCT UncertParameter    UncertParameter_t;
+typedef CLASS_OR_STRUCT Uncertainty        Uncertainty_t;
+typedef CLASS_OR_STRUCT UncertSpan         UncertSpan_t;
+typedef CLASS_OR_STRUCT DistribBase        DistribBase_t;
+typedef CLASS_OR_STRUCT DistribSBasePlugin DistribSBasePlugin_t;
 
 
 LIBSBML_CPP_NAMESPACE_END

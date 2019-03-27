@@ -37,10 +37,7 @@
 #include <sbml/packages/distrib/sbml/DistribBase.h>
 #include <sbml/packages/distrib/validator/DistribSBMLError.h>
 
-#include <sbml/packages/distrib/sbml/Distribution.h>
-#include <sbml/packages/distrib/sbml/ExternalParameter.h>
 #include <sbml/packages/distrib/sbml/Uncertainty.h>
-#include <sbml/packages/distrib/sbml/UncertStatisticSpan.h>
 
 
 using namespace std;
@@ -63,6 +60,7 @@ DistribBase::DistribBase(unsigned int level,
                          unsigned int version,
                          unsigned int pkgVersion)
   : SBase(level, version)
+  , mElementName("distribBase")
 {
   setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version,
     pkgVersion));
@@ -74,6 +72,7 @@ DistribBase::DistribBase(unsigned int level,
  */
 DistribBase::DistribBase(DistribPkgNamespaces *distribns)
   : SBase(distribns)
+  , mElementName("distribBase")
 {
   setElementNamespace(distribns->getURI());
   loadPlugins(distribns);
@@ -85,6 +84,7 @@ DistribBase::DistribBase(DistribPkgNamespaces *distribns)
  */
 DistribBase::DistribBase(const DistribBase& orig)
   : SBase( orig )
+  , mElementName ( orig.mElementName )
 {
 }
 
@@ -98,6 +98,7 @@ DistribBase::operator=(const DistribBase& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
+    mElementName = rhs.mElementName;
   }
 
   return *this;
@@ -223,28 +224,6 @@ DistribBase::unsetName()
 
 /*
  * Predicate returning @c true if this abstract "DistribBase" is of type
- * Distribution
- */
-bool
-DistribBase::isDistribution() const
-{
-  return dynamic_cast<const Distribution*>(this) != NULL;
-}
-
-
-/*
- * Predicate returning @c true if this abstract "DistribBase" is of type
- * ExternalParameter
- */
-bool
-DistribBase::isExternalParameter() const
-{
-  return dynamic_cast<const ExternalParameter*>(this) != NULL;
-}
-
-
-/*
- * Predicate returning @c true if this abstract "DistribBase" is of type
  * Uncertainty
  */
 bool
@@ -255,25 +234,28 @@ DistribBase::isUncertainty() const
 
 
 /*
- * Predicate returning @c true if this abstract "DistribBase" is of type
- * UncertStatisticSpan
- */
-bool
-DistribBase::isUncertStatisticSpan() const
-{
-  return dynamic_cast<const UncertStatisticSpan*>(this) != NULL;
-}
-
-
-/*
  * Returns the XML element name of this DistribBase object.
  */
 const std::string&
 DistribBase::getElementName() const
 {
-  static const string name = "distribBase";
-  return name;
+  return mElementName;
 }
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the XML name of this DistribBase object.
+ */
+void
+DistribBase::setElementName(const std::string& name)
+{
+  mElementName = name;
+}
+
+/** @endcond */
 
 
 /*
@@ -648,11 +630,35 @@ DistribBase::readAttributes(const XMLAttributes& attributes,
   unsigned int level = getLevel();
   unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
   SBase::readAttributes(attributes, expectedAttributes);
 
+  if (log)
+  {
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("distrib", DistribDistribBaseAllowedAttributes,
+          pkgVersion, level, version, details, getLine(), getColumn());
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("distrib",
+          DistribDistribBaseAllowedCoreAttributes, pkgVersion, level, version,
+            details, getLine(), getColumn());
+      }
+    }
+  }
 
   // 
   // id SId (use = "optional" )
@@ -669,7 +675,7 @@ DistribBase::readAttributes(const XMLAttributes& attributes,
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
       log->logPackageError("distrib", DistribIdSyntaxRule, pkgVersion, level,
-        version, "The distrib:id on the <" + getElementName() + "> is '" + mId + "', "
+        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
           "which does not conform to the syntax.", getLine(), getColumn());
     }
   }
@@ -725,34 +731,6 @@ DistribBase::writeAttributes(XMLOutputStream& stream) const
 
 
 /*
- * Creates a new Distribution using the given SBML Level, Version and
- * &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-Distribution_t *
-DistribBase_createDistribution(unsigned int level,
-                               unsigned int version,
-                               unsigned int pkgVersion)
-{
-  return new Distribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new ExternalParameter using the given SBML Level, Version and
- * &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-ExternalParameter_t *
-DistribBase_createExternalParameter(unsigned int level,
-                                    unsigned int version,
-                                    unsigned int pkgVersion)
-{
-  return new ExternalParameter(level, version, pkgVersion);
-}
-
-
-/*
  * Creates a new Uncertainty using the given SBML Level, Version and
  * &ldquo;distrib&rdquo; package version.
  */
@@ -763,20 +741,6 @@ DistribBase_createUncertainty(unsigned int level,
                               unsigned int pkgVersion)
 {
   return new Uncertainty(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new UncertStatisticSpan using the given SBML Level, Version and
- * &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-UncertStatisticSpan_t *
-DistribBase_createUncertStatisticSpan(unsigned int level,
-                                      unsigned int version,
-                                      unsigned int pkgVersion)
-{
-  return new UncertStatisticSpan(level, version, pkgVersion);
 }
 
 
@@ -913,29 +877,6 @@ DistribBase_unsetName(DistribBase_t * db)
 
 
 /*
- * Predicate returning @c 1 if this DistribBase_t is of type Distribution_t
- */
-LIBSBML_EXTERN
-int
-DistribBase_isDistribution(const DistribBase_t * db)
-{
-  return (db != NULL) ? static_cast<int>(db->isDistribution()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 if this DistribBase_t is of type
- * ExternalParameter_t
- */
-LIBSBML_EXTERN
-int
-DistribBase_isExternalParameter(const DistribBase_t * db)
-{
-  return (db != NULL) ? static_cast<int>(db->isExternalParameter()) : 0;
-}
-
-
-/*
  * Predicate returning @c 1 if this DistribBase_t is of type Uncertainty_t
  */
 LIBSBML_EXTERN
@@ -943,18 +884,6 @@ int
 DistribBase_isUncertainty(const DistribBase_t * db)
 {
   return (db != NULL) ? static_cast<int>(db->isUncertainty()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 if this DistribBase_t is of type
- * UncertStatisticSpan_t
- */
-LIBSBML_EXTERN
-int
-DistribBase_isUncertStatisticSpan(const DistribBase_t * db)
-{
-  return (db != NULL) ? static_cast<int>(db->isUncertStatisticSpan()) : 0;
 }
 
 

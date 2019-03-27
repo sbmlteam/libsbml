@@ -61,10 +61,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class Distribution;
-class ExternalParameter;
 class Uncertainty;
-class UncertStatisticSpan;
 
 class LIBSBML_EXTERN DistribBase : public SBase
 {
@@ -72,6 +69,7 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
+  std::string mElementName;
 
   /** @endcond */
 
@@ -227,42 +225,12 @@ public:
 
   /**
    * Predicate returning @c true if this abstract "DistribBase" is of type
-   * Distribution
-   *
-   * @return @c true if this abstract "DistribBase" is of type Distribution,
-   * @c false otherwise
-   */
-  virtual bool isDistribution() const;
-
-
-  /**
-   * Predicate returning @c true if this abstract "DistribBase" is of type
-   * ExternalParameter
-   *
-   * @return @c true if this abstract "DistribBase" is of type
-   * ExternalParameter, @c false otherwise
-   */
-  virtual bool isExternalParameter() const;
-
-
-  /**
-   * Predicate returning @c true if this abstract "DistribBase" is of type
    * Uncertainty
    *
    * @return @c true if this abstract "DistribBase" is of type Uncertainty,
    * @c false otherwise
    */
   virtual bool isUncertainty() const;
-
-
-  /**
-   * Predicate returning @c true if this abstract "DistribBase" is of type
-   * UncertStatisticSpan
-   *
-   * @return @c true if this abstract "DistribBase" is of type
-   * UncertStatisticSpan, @c false otherwise
-   */
-  virtual bool isUncertStatisticSpan() const;
 
 
   /**
@@ -273,6 +241,17 @@ public:
    * @return the name of this element, i.e. @c "distribBase".
    */
   virtual const std::string& getElementName() const;
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the XML name of this DistribBase object.
+   */
+  virtual void setElementName(const std::string& name);
+
+  /** @endcond */
 
 
   /**
@@ -651,58 +630,6 @@ BEGIN_C_DECLS
 
 
 /**
- * Creates a new Distribution using the given SBML Level, Version and
- * &ldquo;distrib&rdquo; package version.
- *
- * @param level an unsigned int, the SBML Level to assign to this
- * DistribBase_t.
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * DistribBase_t.
- *
- * @param pkgVersion an unsigned int, the SBML Distrib Version to assign to
- * this DistribBase_t.
- *
- * @copydetails doc_note_setting_lv_pkg
- *
- * @copydetails doc_returned_owned_pointer
- *
- * @memberof DistribBase_t
- */
-LIBSBML_EXTERN
-Distribution_t *
-DistribBase_createDistribution(unsigned int level,
-                               unsigned int version,
-                               unsigned int pkgVersion);
-
-
-/**
- * Creates a new ExternalParameter using the given SBML Level, Version and
- * &ldquo;distrib&rdquo; package version.
- *
- * @param level an unsigned int, the SBML Level to assign to this
- * DistribBase_t.
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * DistribBase_t.
- *
- * @param pkgVersion an unsigned int, the SBML Distrib Version to assign to
- * this DistribBase_t.
- *
- * @copydetails doc_note_setting_lv_pkg
- *
- * @copydetails doc_returned_owned_pointer
- *
- * @memberof DistribBase_t
- */
-LIBSBML_EXTERN
-ExternalParameter_t *
-DistribBase_createExternalParameter(unsigned int level,
-                                    unsigned int version,
-                                    unsigned int pkgVersion);
-
-
-/**
  * Creates a new Uncertainty using the given SBML Level, Version and
  * &ldquo;distrib&rdquo; package version.
  *
@@ -726,32 +653,6 @@ Uncertainty_t *
 DistribBase_createUncertainty(unsigned int level,
                               unsigned int version,
                               unsigned int pkgVersion);
-
-
-/**
- * Creates a new UncertStatisticSpan using the given SBML Level, Version and
- * &ldquo;distrib&rdquo; package version.
- *
- * @param level an unsigned int, the SBML Level to assign to this
- * DistribBase_t.
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * DistribBase_t.
- *
- * @param pkgVersion an unsigned int, the SBML Distrib Version to assign to
- * this DistribBase_t.
- *
- * @copydetails doc_note_setting_lv_pkg
- *
- * @copydetails doc_returned_owned_pointer
- *
- * @memberof DistribBase_t
- */
-LIBSBML_EXTERN
-UncertStatisticSpan_t *
-DistribBase_createUncertStatisticSpan(unsigned int level,
-                                      unsigned int version,
-                                      unsigned int pkgVersion);
 
 
 /**
@@ -926,36 +827,6 @@ DistribBase_unsetName(DistribBase_t * db);
 
 
 /**
- * Predicate returning @c 1 if this DistribBase_t is of type Distribution_t
- *
- * @param db the DistribBase_t structure.
- *
- * @return @c 1 if this DistribBase_t is of type Distribution_t, @c 0 otherwise
- *
- * @memberof DistribBase_t
- */
-LIBSBML_EXTERN
-int
-DistribBase_isDistribution(const DistribBase_t * db);
-
-
-/**
- * Predicate returning @c 1 if this DistribBase_t is of type
- * ExternalParameter_t
- *
- * @param db the DistribBase_t structure.
- *
- * @return @c 1 if this DistribBase_t is of type ExternalParameter_t, @c 0
- * otherwise
- *
- * @memberof DistribBase_t
- */
-LIBSBML_EXTERN
-int
-DistribBase_isExternalParameter(const DistribBase_t * db);
-
-
-/**
  * Predicate returning @c 1 if this DistribBase_t is of type Uncertainty_t
  *
  * @param db the DistribBase_t structure.
@@ -967,22 +838,6 @@ DistribBase_isExternalParameter(const DistribBase_t * db);
 LIBSBML_EXTERN
 int
 DistribBase_isUncertainty(const DistribBase_t * db);
-
-
-/**
- * Predicate returning @c 1 if this DistribBase_t is of type
- * UncertStatisticSpan_t
- *
- * @param db the DistribBase_t structure.
- *
- * @return @c 1 if this DistribBase_t is of type UncertStatisticSpan_t, @c 0
- * otherwise
- *
- * @memberof DistribBase_t
- */
-LIBSBML_EXTERN
-int
-DistribBase_isUncertStatisticSpan(const DistribBase_t * db);
 
 
 /**

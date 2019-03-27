@@ -148,229 +148,173 @@ static const packageErrorTableEntry distribErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "A 'SBase' object may contain one and only one instance of the "
-    "<uncertainty> element. No other elements from the SBML Level 3 "
+    "<listOfUncertainties> element. No other elements from the SBML Level 3 "
     "Distributions namespaces are permitted on a 'SBase' object. ",
     { "L3V1 Distrib V1 Section"
     }
   },
 
-  // 1520301
-  { DistribDistributionAllowedCoreAttributes,
-    "Core attributes allowed on <distribution>.",
+  // 1520202
+  { DistribSBaseLOUncertaintiesAllowedCoreElements,
+    "Core elements allowed on <sBase>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <distribution> object may have the optional SBML Level 3 Core attributes "
-    "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
-    "namespaces are permitted on a <distribution>.",
+    "Apart from the general notes and annotations subobjects permitted on all "
+    "SBML objects, a <listOfUncertainties> container object may only contain "
+    "<uncertainty> objects.",
+    { "L3V1 Distrib V1 Section"
+    }
+  },
+
+  // 1520203
+  { DistribSBaseLOUncertaintiesAllowedCoreAttributes,
+    "Core attributes allowed on <sBase>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <listOfUncertainties> object may have the optional SBML Level 3 Core "
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
+    "3 Core namespaces are permitted on a <listOfUncertainties> object.",
+    { "L3V1 Distrib V1 Section"
+    }
+  },
+
+  // 1520301
+  { DistribUncertParameterAllowedCoreAttributes,
+    "Core attributes allowed on <uncertParameter>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "An <uncertParameter> object may have the optional SBML Level 3 Core "
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
+    "3 Core namespaces are permitted on an <uncertParameter>.",
     { "L3V1 Distrib V1 Section"
     }
   },
 
   // 1520302
-  { DistribDistributionAllowedCoreElements,
-    "Core elements allowed on <distribution>.",
+  { DistribUncertParameterAllowedCoreElements,
+    "Core elements allowed on <uncertParameter>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <distribution> object may have the optional SBML Level 3 Core subobjects "
-    "for notes and annotations. No other elements from the SBML Level 3 Core "
-    "namespaces are permitted on a <distribution>.",
+    "An <uncertParameter> object may have the optional SBML Level 3 Core "
+    "subobjects for notes and annotations. No other elements from the SBML "
+    "Level 3 Core namespaces are permitted on an <uncertParameter>.",
     { "L3V1 Distrib V1 Section"
     }
   },
 
   // 1520303
-  { DistribDistributionAllowedElements,
-    "Elements allowed on <distribution>.",
+  { DistribUncertParameterAllowedAttributes,
+    "Attributes allowed on <uncertParameter>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <distribution> object may contain one and only one instance of the "
-    "ASTNode element. No other elements from the SBML Level 3 Distributions "
-    "namespaces are permitted on a <distribution> object. ",
+    "An <uncertParameter> object may have the optional attributes "
+    "'distrib:value', 'distrib:var', 'distrib:units', 'distrib:type' and "
+    "'distrib:definitionURL'. No other attributes from the SBML Level 3 "
+    "Distributions namespaces are permitted on an <uncertParameter> object. ",
     { "L3V1 Distrib V1 Section"
     }
   },
 
-  // 1520401
-  { DistribUncertValueAllowedCoreAttributes,
-    "Core attributes allowed on <uncertValue>.",
+  // 1520304
+  { DistribUncertParameterAllowedElements,
+    "Elements allowed on <uncertParameter>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "An <uncertValue> object may have the optional SBML Level 3 Core attributes "
-    "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
-    "namespaces are permitted on an <uncertValue>.",
+    "An <uncertParameter> object may contain one and only one instance of the "
+    "<listOfUncertParameters> element. No other elements from the SBML Level 3 "
+    "Distributions namespaces are permitted on an <uncertParameter> object. ",
     { "L3V1 Distrib V1 Section"
     }
   },
 
-  // 1520402
-  { DistribUncertValueAllowedCoreElements,
-    "Core elements allowed on <uncertValue>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "An <uncertValue> object may have the optional SBML Level 3 Core subobjects "
-    "for notes and annotations. No other elements from the SBML Level 3 Core "
-    "namespaces are permitted on an <uncertValue>.",
-    { "L3V1 Distrib V1 Section"
-    }
-  },
-
-  // 1520403
-  { DistribUncertValueAllowedAttributes,
-    "Attributes allowed on <uncertValue>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "An <uncertValue> object may have the optional attributes 'distrib:value', "
-    "'distrib:var' and 'distrib:units'. No other attributes from the SBML Level "
-    "3 Distributions namespaces are permitted on an <uncertValue> object. ",
-    { "L3V1 Distrib V1 Section"
-    }
-  },
-
-  // 1520404
-  { DistribUncertValueValueMustBeDouble,
+  // 1520305
+  { DistribUncertParameterValueMustBeDouble,
     "The 'value' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'distrib:value' on an <uncertValue> must have a value of "
+    "The attribute 'distrib:value' on an <uncertParameter> must have a value of "
     "data type 'double'.",
     { "L3V1 Distrib V1 Section"
     }
   },
 
-  // 1520405
-  { DistribUncertValueVarMustBeSBase,
+  // 1520306
+  { DistribUncertParameterVarMustBeSBase,
     "The attribute 'var' must point to SBase object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'distrib:var' of an <uncertValue> object must "
-    "be the identifier of an existing object derived from the 'SBase' class and "
-    "defined in the enclosing <model> object.",
+    "The value of the attribute 'distrib:var' of an <uncertParameter> object "
+    "must be the identifier of an existing object derived from the 'SBase' "
+    "class and defined in the enclosing <model> object.",
     { "L3V1 Distrib V1 Section"
     }
   },
 
-  // 1520406
-  { DistribUncertValueUnitsMustBeUnitSId,
+  // 1520307
+  { DistribUncertParameterUnitsMustBeUnitSId,
     "The 'units' attribute must be UnitSId.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'distrib:units' on an <uncertValue> must have a "
-    "taken from the following: the identifier of a <unitDefinition> object in "
-    "the enclosing <model,> or one of the base units in SBML.",
+    "The value of the attribute 'distrib:units' on an <uncertParameter> must "
+    "have a taken from the following: the identifier of a <unitDefinition> "
+    "object in the enclosing <model,> or one of the base units in SBML.",
     { "L3V1 Distrib V1 Section"
     }
   },
 
-  // 1520501
-  { DistribExternalParameterAllowedCoreAttributes,
-    "Core attributes allowed on <externalParameter>.",
+  // 1520308
+  { DistribUncertParameterTypeMustBeUncertTypeEnum,
+    "The 'type' attribute must be UncertTypeEnum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "An <externalParameter> object may have the optional SBML Level 3 Core "
-    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
-    "3 Core namespaces are permitted on an <externalParameter>.",
+    "The value of the attribute 'distrib:type' of an <uncertParameter> object "
+    "must conform to the syntax of SBML data type 'UncertType' and may only "
+    "take on the allowed values of 'UncertType' defined in SBML; that is, the "
+    "value must be one of the following: 'distribution', 'externalParameter', "
+    "'coeffientOfVariation', 'kurtosis', 'mean', 'median', 'mode', "
+    "'sampleSize', 'skewness', 'standardDeviation', 'standardError', "
+    "'variance', 'confidenceInterval', 'credibleInterval', 'interquartileRange' "
+    "or 'range'.",
     { "L3V1 Distrib V1 Section"
     }
   },
 
-  // 1520502
-  { DistribExternalParameterAllowedCoreElements,
-    "Core elements allowed on <externalParameter>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "An <externalParameter> object may have the optional SBML Level 3 Core "
-    "subobjects for notes and annotations. No other elements from the SBML "
-    "Level 3 Core namespaces are permitted on an <externalParameter>.",
-    { "L3V1 Distrib V1 Section"
-    }
-  },
-
-  // 1520503
-  { DistribExternalParameterAllowedAttributes,
-    "Attributes allowed on <externalParameter>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "An <externalParameter> object must have the required attribute "
-    "'distrib:definitionURL'. No other attributes from the SBML Level 3 "
-    "Distributions namespaces are permitted on an <externalParameter> object. ",
-    { "L3V1 Distrib V1 Section"
-    }
-  },
-
-  // 1520504
-  { DistribExternalParameterAllowedElements,
-    "Elements allowed on <externalParameter>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "An <externalParameter> object may contain one and only one instance of the "
-    "<listOfExternalParameters> element. No other elements from the SBML Level "
-    "3 Distributions namespaces are permitted on an <externalParameter> object. "
-    "",
-    { "L3V1 Distrib V1 Section"
-    }
-  },
-
-  // 1520505
-  { DistribExternalParameterDefinitionURLMustBeString,
+  // 1520309
+  { DistribUncertParameterDefinitionURLMustBeString,
     "The 'definitionURL' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'distrib:definitionURL' on an <externalParameter> must have "
-    "a value of data type 'string'.",
-    { "L3V1 Distrib V1 Section"
-    }
-  },
-
-  // 1520506
-  { DistribExternalParameterLOExternalParametersAllowedCoreElements,
-    "Core elements allowed on <listOfExternalParameters>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "Apart from the general notes and annotations subobjects permitted on all "
-    "SBML objects, a <listOfExternalParameters> container object may only "
-    "contain <externalParameter> objects.",
-    { "L3V1 Distrib V1 Section"
-    }
-  },
-
-  // 1520507
-  { DistribExternalParameterLOExternalParametersAllowedCoreAttributes,
-    "Core attributes allowed on <listOfExternalParameters>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "A <listOfExternalParameters> object may have the optional SBML Level 3 "
-    "Core attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
-    "Level 3 Core namespaces are permitted on a <listOfExternalParameters> "
-    "object.",
-    { "L3V1 Distrib V1 Section"
-    }
-  },
-
-  // 1520508
-  { DistribExternalParameterLOExternalParametersAllowedAttributes,
-    "Attributes allowed on <listOfExternalParameters>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "An <listOfExternalParameters> object may have the optional attributes "
-    "'distrib:id' and 'distrib:name'. No other attributes from the SBML Level 3 "
-    "Distributions namespaces are permitted on an <listOfExternalParameters> "
-    "object. ",
-    { "L3V1 Distrib V1 Section"
-    }
-  },
-
-  // 1520509
-  { DistribLOExternalParametersNameMustBeString,
-    "The 'name' attribute must be String.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "The attribute 'distrib:name' on an <listOfExternalParameters> must have a "
+    "The attribute 'distrib:definitionURL' on an <uncertParameter> must have a "
     "value of data type 'string'.",
     { "L3V1 Distrib V1 Section"
     }
   },
 
-  // 1520601
+  // 1520310
+  { DistribUncertParameterLOUncertParametersAllowedCoreElements,
+    "Core elements allowed on <listOfUncertParameters>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotations subobjects permitted on all "
+    "SBML objects, a <listOfUncertParameters> container object may only contain "
+    "<uncertParameter> objects.",
+    { "L3V1 Distrib V1 Section"
+    }
+  },
+
+  // 1520311
+  { DistribUncertParameterLOUncertParametersAllowedCoreAttributes,
+    "Core attributes allowed on <listOfUncertParameters>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <listOfUncertParameters> object may have the optional SBML Level 3 Core "
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
+    "3 Core namespaces are permitted on a <listOfUncertParameters> object.",
+    { "L3V1 Distrib V1 Section"
+    }
+  },
+
+  // 1520401
   { DistribUncertaintyAllowedCoreAttributes,
     "Core attributes allowed on <uncertainty>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -382,7 +326,7 @@ static const packageErrorTableEntry distribErrorTable[] =
     }
   },
 
-  // 1520602
+  // 1520402
   { DistribUncertaintyAllowedCoreElements,
     "Core elements allowed on <uncertainty>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -394,145 +338,102 @@ static const packageErrorTableEntry distribErrorTable[] =
     }
   },
 
-  // 1520603
+  // 1520403
   { DistribUncertaintyAllowedElements,
     "Elements allowed on <uncertainty>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "An <uncertainty> object may contain one and only one instance of each of "
-    "the UncertValue, UncertValue, UncertValue, UncertValue, UncertValue, "
-    "UncertValue, UncertValue, UncertValue, UncertValue, UncertValue, "
-    "UncertStatisticSpan, UncertStatisticSpan, UncertStatisticSpan, "
-    "UncertStatisticSpan, <listOfExternalParameters> and Distribution elements. "
-    "No other elements from the SBML Level 3 Distributions namespaces are "
-    "permitted on an <uncertainty> object. ",
+    "An <uncertainty> object may contain one and only one instance of the "
+    "<listOfUncertParameters> element. No other elements from the SBML Level 3 "
+    "Distributions namespaces are permitted on an <uncertainty> object. ",
     { "L3V1 Distrib V1 Section"
     }
   },
 
-  // 1520604
-  { DistribUncertaintyLOExternalParametersAllowedCoreElements,
-    "Core elements allowed on <listOfExternalParameters>.",
+  // 1520501
+  { DistribUncertSpanAllowedCoreAttributes,
+    "Core attributes allowed on <uncertSpan>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "Apart from the general notes and annotations subobjects permitted on all "
-    "SBML objects, a <listOfExternalParameters> container object may only "
-    "contain <externalParameter> objects.",
+    "An <uncertSpan> object may have the optional SBML Level 3 Core attributes "
+    "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
+    "namespaces are permitted on an <uncertSpan>.",
     { "L3V1 Distrib V1 Section"
     }
   },
 
-  // 1520605
-  { DistribUncertaintyLOExternalParametersAllowedCoreAttributes,
-    "Core attributes allowed on <listOfExternalParameters>.",
+  // 1520502
+  { DistribUncertSpanAllowedCoreElements,
+    "Core elements allowed on <uncertSpan>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <listOfExternalParameters> object may have the optional SBML Level 3 "
-    "Core attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
-    "Level 3 Core namespaces are permitted on a <listOfExternalParameters> "
-    "object.",
+    "An <uncertSpan> object may have the optional SBML Level 3 Core subobjects "
+    "for notes and annotations. No other elements from the SBML Level 3 Core "
+    "namespaces are permitted on an <uncertSpan>.",
     { "L3V1 Distrib V1 Section"
     }
   },
 
-  // 1520606
-  { DistribUncertaintyLOExternalParametersAllowedAttributes,
-    "Attributes allowed on <listOfExternalParameters>.",
+  // 1520503
+  { DistribUncertSpanAllowedAttributes,
+    "Attributes allowed on <uncertSpan>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "An <listOfExternalParameters> object may have the optional attributes "
-    "'distrib:id' and 'distrib:name'. No other attributes from the SBML Level 3 "
-    "Distributions namespaces are permitted on an <listOfExternalParameters> "
-    "object. ",
-    { "L3V1 Distrib V1 Section"
-    }
-  },
-
-  // 1520701
-  { DistribUncertStatisticSpanAllowedCoreAttributes,
-    "Core attributes allowed on <uncertStatisticSpan>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "An <uncertStatisticSpan> object may have the optional SBML Level 3 Core "
-    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
-    "3 Core namespaces are permitted on an <uncertStatisticSpan>.",
-    { "L3V1 Distrib V1 Section"
-    }
-  },
-
-  // 1520702
-  { DistribUncertStatisticSpanAllowedCoreElements,
-    "Core elements allowed on <uncertStatisticSpan>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "An <uncertStatisticSpan> object may have the optional SBML Level 3 Core "
-    "subobjects for notes and annotations. No other elements from the SBML "
-    "Level 3 Core namespaces are permitted on an <uncertStatisticSpan>.",
-    { "L3V1 Distrib V1 Section"
-    }
-  },
-
-  // 1520703
-  { DistribUncertStatisticSpanAllowedAttributes,
-    "Attributes allowed on <uncertStatisticSpan>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "An <uncertStatisticSpan> object may have the optional attributes "
+    "An <uncertSpan> object may have the optional attributes "
     "'distrib:varLower', 'distrib:valueLower', 'distrib:varUpper' and "
     "'distrib:valueUpper'. No other attributes from the SBML Level 3 "
-    "Distributions namespaces are permitted on an <uncertStatisticSpan> object. "
-    "",
+    "Distributions namespaces are permitted on an <uncertSpan> object. ",
     { "L3V1 Distrib V1 Section"
     }
   },
 
-  // 1520704
-  { DistribUncertStatisticSpanVarLowerMustBeSBase,
+  // 1520504
+  { DistribUncertSpanVarLowerMustBeSBase,
     "The attribute 'varLower' must point to SBase object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'distrib:varLower' of an <uncertStatisticSpan> "
-    "object must be the identifier of an existing object derived from the "
-    "'SBase' class and defined in the enclosing <model> object.",
+    "The value of the attribute 'distrib:varLower' of an <uncertSpan> object "
+    "must be the identifier of an existing object derived from the 'SBase' "
+    "class and defined in the enclosing <model> object.",
     { "L3V1 Distrib V1 Section"
     }
   },
 
-  // 1520705
-  { DistribUncertStatisticSpanValueLowerMustBeDouble,
+  // 1520505
+  { DistribUncertSpanValueLowerMustBeDouble,
     "The 'valueLower' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'distrib:valueLower' on an <uncertStatisticSpan> must have a "
-    "value of data type 'double'.",
+    "The attribute 'distrib:valueLower' on an <uncertSpan> must have a value of "
+    "data type 'double'.",
     { "L3V1 Distrib V1 Section"
     }
   },
 
-  // 1520706
-  { DistribUncertStatisticSpanVarUpperMustBeSBase,
+  // 1520506
+  { DistribUncertSpanVarUpperMustBeSBase,
     "The attribute 'varUpper' must point to SBase object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'distrib:varUpper' of an <uncertStatisticSpan> "
-    "object must be the identifier of an existing object derived from the "
-    "'SBase' class and defined in the enclosing <model> object.",
+    "The value of the attribute 'distrib:varUpper' of an <uncertSpan> object "
+    "must be the identifier of an existing object derived from the 'SBase' "
+    "class and defined in the enclosing <model> object.",
     { "L3V1 Distrib V1 Section"
     }
   },
 
-  // 1520707
-  { DistribUncertStatisticSpanValueUpperMustBeDouble,
+  // 1520507
+  { DistribUncertSpanValueUpperMustBeDouble,
     "The 'valueUpper' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'distrib:valueUpper' on an <uncertStatisticSpan> must have a "
-    "value of data type 'double'.",
+    "The attribute 'distrib:valueUpper' on an <uncertSpan> must have a value of "
+    "data type 'double'.",
     { "L3V1 Distrib V1 Section"
     }
   },
 
-  // 1520801
+  // 1520601
   { DistribDistribBaseAllowedCoreAttributes,
     "Core attributes allowed on <distribBase>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -544,7 +445,7 @@ static const packageErrorTableEntry distribErrorTable[] =
     }
   },
 
-  // 1520802
+  // 1520602
   { DistribDistribBaseAllowedCoreElements,
     "Core elements allowed on <distribBase>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -556,7 +457,7 @@ static const packageErrorTableEntry distribErrorTable[] =
     }
   },
 
-  // 1520803
+  // 1520603
   { DistribDistribBaseAllowedAttributes,
     "Attributes allowed on <distribBase>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -568,7 +469,7 @@ static const packageErrorTableEntry distribErrorTable[] =
     }
   },
 
-  // 1520804
+  // 1520604
   { DistribDistribBaseNameMustBeString,
     "The 'name' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,

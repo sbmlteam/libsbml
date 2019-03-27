@@ -46,11 +46,9 @@
 #include <sbml/packages/distrib/extension/DistribSBMLDocumentPlugin.h>
 #include <sbml/packages/distrib/extension/DistribSBasePlugin.h>
 
-#include <sbml/packages/distrib/sbml/Distribution.h>
-#include <sbml/packages/distrib/sbml/UncertValue.h>
-#include <sbml/packages/distrib/sbml/ExternalParameter.h>
+#include <sbml/packages/distrib/sbml/UncertParameter.h>
 #include <sbml/packages/distrib/sbml/Uncertainty.h>
-#include <sbml/packages/distrib/sbml/UncertStatisticSpan.h>
+#include <sbml/packages/distrib/sbml/UncertSpan.h>
 #include <sbml/packages/distrib/sbml/DistribBase.h>
 
 

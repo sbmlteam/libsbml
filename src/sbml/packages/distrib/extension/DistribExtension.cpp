@@ -126,11 +126,9 @@ static SBMLExtensionRegister<DistribExtension> distribExtensionRegistry;
 static
 const char* SBML_DISTRIB_TYPECODE_STRINGS[] =
 {
-    "Distribution"
-  , "UncertValue"
-  , "ExternalParameter"
+    "UncertParameter"
   , "Uncertainty"
-  , "UncertStatisticSpan"
+  , "UncertSpan"
   , "DistribBase"
 };
 
@@ -294,7 +292,7 @@ DistribExtension::getSBMLExtensionNamespaces(const std::string& uri) const
 const char*
 DistribExtension::getStringFromTypeCode(int typeCode) const
 {
-  int min = SBML_DISTRIB_DISTRIBUTION;
+  int min = SBML_DISTRIB_UNCERTPARAMETER;
   int max = SBML_DISTRIB_DISTRIBBASE;
 
   if (typeCode < min || typeCode > max)
@@ -413,6 +411,107 @@ DistribExtension::init()
 
 
 #endif /* __cplusplus */
+
+
+static
+const char* SBML_UNCERT_TYPE_STRINGS[] =
+{
+  "distribution"
+, "externalParameter"
+, "coeffientOfVariation"
+, "kurtosis"
+, "mean"
+, "median"
+, "mode"
+, "sampleSize"
+, "skewness"
+, "standardDeviation"
+, "standardError"
+, "variance"
+, "confidenceInterval"
+, "credibleInterval"
+, "interquartileRange"
+, "range"
+, "invalid UncertType value"
+};
+
+
+/*
+ * Returns the string version of the provided #UncertType_t enumeration.
+ */
+LIBSBML_EXTERN
+const char*
+UncertType_toString(UncertType_t ut)
+{
+  int min = DISTRIB_UNCERTTYPE_DISTRIBUTION;
+  int max = DISTRIB_UNCERTTYPE_INVALID;
+
+  if (ut < min || ut > max)
+  {
+    return "(Unknown UncertType value)";
+  }
+
+  return SBML_UNCERT_TYPE_STRINGS[ut - min];
+}
+
+
+/*
+ * Returns the #UncertType_t enumeration corresponding to the given string or
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_INVALID, UncertType_t} if there is no such
+ * match.
+ */
+LIBSBML_EXTERN
+UncertType_t
+UncertType_fromString(const char* code)
+{
+  static int size =
+    sizeof(SBML_UNCERT_TYPE_STRINGS)/sizeof(SBML_UNCERT_TYPE_STRINGS[0]);
+  std::string type(code);
+
+  for (int i = 0; i < size; i++)
+  {
+    if (type == SBML_UNCERT_TYPE_STRINGS[i])
+    {
+      return (UncertType_t)(i);
+    }
+  }
+
+  return DISTRIB_UNCERTTYPE_INVALID;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #UncertType_t is valid.
+ */
+LIBSBML_EXTERN
+int
+UncertType_isValid(UncertType_t ut)
+{
+  int min = DISTRIB_UNCERTTYPE_DISTRIBUTION;
+  int max = DISTRIB_UNCERTTYPE_INVALID;
+
+  if (ut < min || ut >= max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #UncertType_t.
+ */
+LIBSBML_EXTERN
+int
+UncertType_isValidString(const char* code)
+{
+  return UncertType_isValid(UncertType_fromString(code));
+}
 
 
 

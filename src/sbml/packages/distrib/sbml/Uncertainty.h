@@ -56,10 +56,7 @@
 
 #include <sbml/packages/distrib/sbml/DistribBase.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
-#include <sbml/packages/distrib/sbml/UncertValue.h>
-#include <sbml/packages/distrib/sbml/UncertStatisticSpan.h>
-#include <sbml/packages/distrib/sbml/Distribution.h>
-#include <sbml/packages/distrib/sbml/ListOfExternalParameters.h>
+#include <sbml/packages/distrib/sbml/ListOfUncertParameters.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -71,22 +68,7 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  UncertValue* mCoefficientOfVariation;
-  UncertValue* mKurtosis;
-  UncertValue* mMean;
-  UncertValue* mMedian;
-  UncertValue* mMode;
-  UncertValue* mSampleSize;
-  UncertValue* mSkewness;
-  UncertValue* mStandardDeviation;
-  UncertValue* mStandardError;
-  UncertValue* mVariance;
-  UncertStatisticSpan* mConfidenceInterval;
-  UncertStatisticSpan* mCredibleInterval;
-  UncertStatisticSpan* mInterquartileRange;
-  UncertStatisticSpan* mRange;
-  ListOfExternalParameters mExternalParameters;
-  Distribution* mDistribution;
+  ListOfUncertParameters mUncertParameters;
 
   /** @endcond */
 
@@ -157,995 +139,117 @@ public:
 
 
   /**
-   * Returns the value of the "coefficientOfVariation" element of this
-   * Uncertainty.
+   * Returns the ListOfUncertParameters from this Uncertainty.
    *
-   * @return the value of the "coefficientOfVariation" element of this
-   * Uncertainty as a UncertValue*.
-   */
-  const UncertValue* getCoefficientOfVariation() const;
-
-
-  /**
-   * Returns the value of the "coefficientOfVariation" element of this
-   * Uncertainty.
-   *
-   * @return the value of the "coefficientOfVariation" element of this
-   * Uncertainty as a UncertValue*.
-   */
-  UncertValue* getCoefficientOfVariation();
-
-
-  /**
-   * Returns the value of the "kurtosis" element of this Uncertainty.
-   *
-   * @return the value of the "kurtosis" element of this Uncertainty as a
-   * UncertValue*.
-   */
-  const UncertValue* getKurtosis() const;
-
-
-  /**
-   * Returns the value of the "kurtosis" element of this Uncertainty.
-   *
-   * @return the value of the "kurtosis" element of this Uncertainty as a
-   * UncertValue*.
-   */
-  UncertValue* getKurtosis();
-
-
-  /**
-   * Returns the value of the "mean" element of this Uncertainty.
-   *
-   * @return the value of the "mean" element of this Uncertainty as a
-   * UncertValue*.
-   */
-  const UncertValue* getMean() const;
-
-
-  /**
-   * Returns the value of the "mean" element of this Uncertainty.
-   *
-   * @return the value of the "mean" element of this Uncertainty as a
-   * UncertValue*.
-   */
-  UncertValue* getMean();
-
-
-  /**
-   * Returns the value of the "median" element of this Uncertainty.
-   *
-   * @return the value of the "median" element of this Uncertainty as a
-   * UncertValue*.
-   */
-  const UncertValue* getMedian() const;
-
-
-  /**
-   * Returns the value of the "median" element of this Uncertainty.
-   *
-   * @return the value of the "median" element of this Uncertainty as a
-   * UncertValue*.
-   */
-  UncertValue* getMedian();
-
-
-  /**
-   * Returns the value of the "mode" element of this Uncertainty.
-   *
-   * @return the value of the "mode" element of this Uncertainty as a
-   * UncertValue*.
-   */
-  const UncertValue* getMode() const;
-
-
-  /**
-   * Returns the value of the "mode" element of this Uncertainty.
-   *
-   * @return the value of the "mode" element of this Uncertainty as a
-   * UncertValue*.
-   */
-  UncertValue* getMode();
-
-
-  /**
-   * Returns the value of the "sampleSize" element of this Uncertainty.
-   *
-   * @return the value of the "sampleSize" element of this Uncertainty as a
-   * UncertValue*.
-   */
-  const UncertValue* getSampleSize() const;
-
-
-  /**
-   * Returns the value of the "sampleSize" element of this Uncertainty.
-   *
-   * @return the value of the "sampleSize" element of this Uncertainty as a
-   * UncertValue*.
-   */
-  UncertValue* getSampleSize();
-
-
-  /**
-   * Returns the value of the "skewness" element of this Uncertainty.
-   *
-   * @return the value of the "skewness" element of this Uncertainty as a
-   * UncertValue*.
-   */
-  const UncertValue* getSkewness() const;
-
-
-  /**
-   * Returns the value of the "skewness" element of this Uncertainty.
-   *
-   * @return the value of the "skewness" element of this Uncertainty as a
-   * UncertValue*.
-   */
-  UncertValue* getSkewness();
-
-
-  /**
-   * Returns the value of the "standardDeviation" element of this Uncertainty.
-   *
-   * @return the value of the "standardDeviation" element of this Uncertainty
-   * as a UncertValue*.
-   */
-  const UncertValue* getStandardDeviation() const;
-
-
-  /**
-   * Returns the value of the "standardDeviation" element of this Uncertainty.
-   *
-   * @return the value of the "standardDeviation" element of this Uncertainty
-   * as a UncertValue*.
-   */
-  UncertValue* getStandardDeviation();
-
-
-  /**
-   * Returns the value of the "standardError" element of this Uncertainty.
-   *
-   * @return the value of the "standardError" element of this Uncertainty as a
-   * UncertValue*.
-   */
-  const UncertValue* getStandardError() const;
-
-
-  /**
-   * Returns the value of the "standardError" element of this Uncertainty.
-   *
-   * @return the value of the "standardError" element of this Uncertainty as a
-   * UncertValue*.
-   */
-  UncertValue* getStandardError();
-
-
-  /**
-   * Returns the value of the "variance" element of this Uncertainty.
-   *
-   * @return the value of the "variance" element of this Uncertainty as a
-   * UncertValue*.
-   */
-  const UncertValue* getVariance() const;
-
-
-  /**
-   * Returns the value of the "variance" element of this Uncertainty.
-   *
-   * @return the value of the "variance" element of this Uncertainty as a
-   * UncertValue*.
-   */
-  UncertValue* getVariance();
-
-
-  /**
-   * Returns the value of the "confidenceInterval" element of this Uncertainty.
-   *
-   * @return the value of the "confidenceInterval" element of this Uncertainty
-   * as a UncertStatisticSpan*.
-   */
-  const UncertStatisticSpan* getConfidenceInterval() const;
-
-
-  /**
-   * Returns the value of the "confidenceInterval" element of this Uncertainty.
-   *
-   * @return the value of the "confidenceInterval" element of this Uncertainty
-   * as a UncertStatisticSpan*.
-   */
-  UncertStatisticSpan* getConfidenceInterval();
-
-
-  /**
-   * Returns the value of the "credibleInterval" element of this Uncertainty.
-   *
-   * @return the value of the "credibleInterval" element of this Uncertainty as
-   * a UncertStatisticSpan*.
-   */
-  const UncertStatisticSpan* getCredibleInterval() const;
-
-
-  /**
-   * Returns the value of the "credibleInterval" element of this Uncertainty.
-   *
-   * @return the value of the "credibleInterval" element of this Uncertainty as
-   * a UncertStatisticSpan*.
-   */
-  UncertStatisticSpan* getCredibleInterval();
-
-
-  /**
-   * Returns the value of the "interquartileRange" element of this Uncertainty.
-   *
-   * @return the value of the "interquartileRange" element of this Uncertainty
-   * as a UncertStatisticSpan*.
-   */
-  const UncertStatisticSpan* getInterquartileRange() const;
-
-
-  /**
-   * Returns the value of the "interquartileRange" element of this Uncertainty.
-   *
-   * @return the value of the "interquartileRange" element of this Uncertainty
-   * as a UncertStatisticSpan*.
-   */
-  UncertStatisticSpan* getInterquartileRange();
-
-
-  /**
-   * Returns the value of the "range" element of this Uncertainty.
-   *
-   * @return the value of the "range" element of this Uncertainty as a
-   * UncertStatisticSpan*.
-   */
-  const UncertStatisticSpan* getRange() const;
-
-
-  /**
-   * Returns the value of the "range" element of this Uncertainty.
-   *
-   * @return the value of the "range" element of this Uncertainty as a
-   * UncertStatisticSpan*.
-   */
-  UncertStatisticSpan* getRange();
-
-
-  /**
-   * Returns the value of the "distribution" element of this Uncertainty.
-   *
-   * @return the value of the "distribution" element of this Uncertainty as a
-   * Distribution*.
-   */
-  const Distribution* getDistribution() const;
-
-
-  /**
-   * Returns the value of the "distribution" element of this Uncertainty.
-   *
-   * @return the value of the "distribution" element of this Uncertainty as a
-   * Distribution*.
-   */
-  Distribution* getDistribution();
-
-
-  /**
-   * Predicate returning @c true if this Uncertainty's "coefficientOfVariation"
-   * element is set.
-   *
-   * @return @c true if this Uncertainty's "coefficientOfVariation" element has
-   * been set, otherwise @c false is returned.
-   */
-  bool isSetCoefficientOfVariation() const;
-
-
-  /**
-   * Predicate returning @c true if this Uncertainty's "kurtosis" element is
-   * set.
-   *
-   * @return @c true if this Uncertainty's "kurtosis" element has been set,
-   * otherwise @c false is returned.
-   */
-  bool isSetKurtosis() const;
-
-
-  /**
-   * Predicate returning @c true if this Uncertainty's "mean" element is set.
-   *
-   * @return @c true if this Uncertainty's "mean" element has been set,
-   * otherwise @c false is returned.
-   */
-  bool isSetMean() const;
-
-
-  /**
-   * Predicate returning @c true if this Uncertainty's "median" element is set.
-   *
-   * @return @c true if this Uncertainty's "median" element has been set,
-   * otherwise @c false is returned.
-   */
-  bool isSetMedian() const;
-
-
-  /**
-   * Predicate returning @c true if this Uncertainty's "mode" element is set.
-   *
-   * @return @c true if this Uncertainty's "mode" element has been set,
-   * otherwise @c false is returned.
-   */
-  bool isSetMode() const;
-
-
-  /**
-   * Predicate returning @c true if this Uncertainty's "sampleSize" element is
-   * set.
-   *
-   * @return @c true if this Uncertainty's "sampleSize" element has been set,
-   * otherwise @c false is returned.
-   */
-  bool isSetSampleSize() const;
-
-
-  /**
-   * Predicate returning @c true if this Uncertainty's "skewness" element is
-   * set.
-   *
-   * @return @c true if this Uncertainty's "skewness" element has been set,
-   * otherwise @c false is returned.
-   */
-  bool isSetSkewness() const;
-
-
-  /**
-   * Predicate returning @c true if this Uncertainty's "standardDeviation"
-   * element is set.
-   *
-   * @return @c true if this Uncertainty's "standardDeviation" element has been
-   * set, otherwise @c false is returned.
-   */
-  bool isSetStandardDeviation() const;
-
-
-  /**
-   * Predicate returning @c true if this Uncertainty's "standardError" element
-   * is set.
-   *
-   * @return @c true if this Uncertainty's "standardError" element has been
-   * set, otherwise @c false is returned.
-   */
-  bool isSetStandardError() const;
-
-
-  /**
-   * Predicate returning @c true if this Uncertainty's "variance" element is
-   * set.
-   *
-   * @return @c true if this Uncertainty's "variance" element has been set,
-   * otherwise @c false is returned.
-   */
-  bool isSetVariance() const;
-
-
-  /**
-   * Predicate returning @c true if this Uncertainty's "confidenceInterval"
-   * element is set.
-   *
-   * @return @c true if this Uncertainty's "confidenceInterval" element has
-   * been set, otherwise @c false is returned.
-   */
-  bool isSetConfidenceInterval() const;
-
-
-  /**
-   * Predicate returning @c true if this Uncertainty's "credibleInterval"
-   * element is set.
-   *
-   * @return @c true if this Uncertainty's "credibleInterval" element has been
-   * set, otherwise @c false is returned.
-   */
-  bool isSetCredibleInterval() const;
-
-
-  /**
-   * Predicate returning @c true if this Uncertainty's "interquartileRange"
-   * element is set.
-   *
-   * @return @c true if this Uncertainty's "interquartileRange" element has
-   * been set, otherwise @c false is returned.
-   */
-  bool isSetInterquartileRange() const;
-
-
-  /**
-   * Predicate returning @c true if this Uncertainty's "range" element is set.
-   *
-   * @return @c true if this Uncertainty's "range" element has been set,
-   * otherwise @c false is returned.
-   */
-  bool isSetRange() const;
-
-
-  /**
-   * Predicate returning @c true if this Uncertainty's "distribution" element
-   * is set.
-   *
-   * @return @c true if this Uncertainty's "distribution" element has been set,
-   * otherwise @c false is returned.
-   */
-  bool isSetDistribution() const;
-
-
-  /**
-   * Sets the value of the "coefficientOfVariation" element of this
-   * Uncertainty.
-   *
-   * @param coefficientOfVariation UncertValue* value of the
-   * "coefficientOfVariation" element to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setCoefficientOfVariation(const UncertValue* coefficientOfVariation);
-
-
-  /**
-   * Sets the value of the "kurtosis" element of this Uncertainty.
-   *
-   * @param kurtosis UncertValue* value of the "kurtosis" element to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setKurtosis(const UncertValue* kurtosis);
-
-
-  /**
-   * Sets the value of the "mean" element of this Uncertainty.
-   *
-   * @param mean UncertValue* value of the "mean" element to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setMean(const UncertValue* mean);
-
-
-  /**
-   * Sets the value of the "median" element of this Uncertainty.
-   *
-   * @param median UncertValue* value of the "median" element to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setMedian(const UncertValue* median);
-
-
-  /**
-   * Sets the value of the "mode" element of this Uncertainty.
-   *
-   * @param mode UncertValue* value of the "mode" element to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setMode(const UncertValue* mode);
-
-
-  /**
-   * Sets the value of the "sampleSize" element of this Uncertainty.
-   *
-   * @param sampleSize UncertValue* value of the "sampleSize" element to be
-   * set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setSampleSize(const UncertValue* sampleSize);
-
-
-  /**
-   * Sets the value of the "skewness" element of this Uncertainty.
-   *
-   * @param skewness UncertValue* value of the "skewness" element to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setSkewness(const UncertValue* skewness);
-
-
-  /**
-   * Sets the value of the "standardDeviation" element of this Uncertainty.
-   *
-   * @param standardDeviation UncertValue* value of the "standardDeviation"
-   * element to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setStandardDeviation(const UncertValue* standardDeviation);
-
-
-  /**
-   * Sets the value of the "standardError" element of this Uncertainty.
-   *
-   * @param standardError UncertValue* value of the "standardError" element to
-   * be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setStandardError(const UncertValue* standardError);
-
-
-  /**
-   * Sets the value of the "variance" element of this Uncertainty.
-   *
-   * @param variance UncertValue* value of the "variance" element to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setVariance(const UncertValue* variance);
-
-
-  /**
-   * Sets the value of the "confidenceInterval" element of this Uncertainty.
-   *
-   * @param confidenceInterval UncertStatisticSpan* value of the
-   * "confidenceInterval" element to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setConfidenceInterval(const UncertStatisticSpan* confidenceInterval);
-
-
-  /**
-   * Sets the value of the "credibleInterval" element of this Uncertainty.
-   *
-   * @param credibleInterval UncertStatisticSpan* value of the
-   * "credibleInterval" element to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setCredibleInterval(const UncertStatisticSpan* credibleInterval);
-
-
-  /**
-   * Sets the value of the "interquartileRange" element of this Uncertainty.
-   *
-   * @param interquartileRange UncertStatisticSpan* value of the
-   * "interquartileRange" element to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setInterquartileRange(const UncertStatisticSpan* interquartileRange);
-
-
-  /**
-   * Sets the value of the "range" element of this Uncertainty.
-   *
-   * @param range UncertStatisticSpan* value of the "range" element to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setRange(const UncertStatisticSpan* range);
-
-
-  /**
-   * Sets the value of the "distribution" element of this Uncertainty.
-   *
-   * @param distribution Distribution* value of the "distribution" element to
-   * be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setDistribution(const Distribution* distribution);
-
-
-  /**
-   * Creates a new UncertValue object, adds it to this Uncertainty object and
-   * returns the UncertValue object created.
-   *
-   * @return a new UncertValue object instance.
-   */
-  UncertValue* createCoefficientOfVariation();
-
-
-  /**
-   * Creates a new UncertValue object, adds it to this Uncertainty object and
-   * returns the UncertValue object created.
-   *
-   * @return a new UncertValue object instance.
-   */
-  UncertValue* createKurtosis();
-
-
-  /**
-   * Creates a new UncertValue object, adds it to this Uncertainty object and
-   * returns the UncertValue object created.
-   *
-   * @return a new UncertValue object instance.
-   */
-  UncertValue* createMean();
-
-
-  /**
-   * Creates a new UncertValue object, adds it to this Uncertainty object and
-   * returns the UncertValue object created.
-   *
-   * @return a new UncertValue object instance.
-   */
-  UncertValue* createMedian();
-
-
-  /**
-   * Creates a new UncertValue object, adds it to this Uncertainty object and
-   * returns the UncertValue object created.
-   *
-   * @return a new UncertValue object instance.
-   */
-  UncertValue* createMode();
-
-
-  /**
-   * Creates a new UncertValue object, adds it to this Uncertainty object and
-   * returns the UncertValue object created.
-   *
-   * @return a new UncertValue object instance.
-   */
-  UncertValue* createSampleSize();
-
-
-  /**
-   * Creates a new UncertValue object, adds it to this Uncertainty object and
-   * returns the UncertValue object created.
-   *
-   * @return a new UncertValue object instance.
-   */
-  UncertValue* createSkewness();
-
-
-  /**
-   * Creates a new UncertValue object, adds it to this Uncertainty object and
-   * returns the UncertValue object created.
-   *
-   * @return a new UncertValue object instance.
-   */
-  UncertValue* createStandardDeviation();
-
-
-  /**
-   * Creates a new UncertValue object, adds it to this Uncertainty object and
-   * returns the UncertValue object created.
-   *
-   * @return a new UncertValue object instance.
-   */
-  UncertValue* createStandardError();
-
-
-  /**
-   * Creates a new UncertValue object, adds it to this Uncertainty object and
-   * returns the UncertValue object created.
-   *
-   * @return a new UncertValue object instance.
-   */
-  UncertValue* createVariance();
-
-
-  /**
-   * Creates a new UncertStatisticSpan object, adds it to this Uncertainty
-   * object and returns the UncertStatisticSpan object created.
-   *
-   * @return a new UncertStatisticSpan object instance.
-   */
-  UncertStatisticSpan* createConfidenceInterval();
-
-
-  /**
-   * Creates a new UncertStatisticSpan object, adds it to this Uncertainty
-   * object and returns the UncertStatisticSpan object created.
-   *
-   * @return a new UncertStatisticSpan object instance.
-   */
-  UncertStatisticSpan* createCredibleInterval();
-
-
-  /**
-   * Creates a new UncertStatisticSpan object, adds it to this Uncertainty
-   * object and returns the UncertStatisticSpan object created.
-   *
-   * @return a new UncertStatisticSpan object instance.
-   */
-  UncertStatisticSpan* createInterquartileRange();
-
-
-  /**
-   * Creates a new UncertStatisticSpan object, adds it to this Uncertainty
-   * object and returns the UncertStatisticSpan object created.
-   *
-   * @return a new UncertStatisticSpan object instance.
-   */
-  UncertStatisticSpan* createRange();
-
-
-  /**
-   * Creates a new Distribution object, adds it to this Uncertainty object and
-   * returns the Distribution object created.
-   *
-   * @return a new Distribution object instance.
-   */
-  Distribution* createDistribution();
-
-
-  /**
-   * Unsets the value of the "coefficientOfVariation" element of this
-   * Uncertainty.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetCoefficientOfVariation();
-
-
-  /**
-   * Unsets the value of the "kurtosis" element of this Uncertainty.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetKurtosis();
-
-
-  /**
-   * Unsets the value of the "mean" element of this Uncertainty.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetMean();
-
-
-  /**
-   * Unsets the value of the "median" element of this Uncertainty.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetMedian();
-
-
-  /**
-   * Unsets the value of the "mode" element of this Uncertainty.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetMode();
-
-
-  /**
-   * Unsets the value of the "sampleSize" element of this Uncertainty.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetSampleSize();
-
-
-  /**
-   * Unsets the value of the "skewness" element of this Uncertainty.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetSkewness();
-
-
-  /**
-   * Unsets the value of the "standardDeviation" element of this Uncertainty.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetStandardDeviation();
-
-
-  /**
-   * Unsets the value of the "standardError" element of this Uncertainty.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetStandardError();
-
-
-  /**
-   * Unsets the value of the "variance" element of this Uncertainty.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetVariance();
-
-
-  /**
-   * Unsets the value of the "confidenceInterval" element of this Uncertainty.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetConfidenceInterval();
-
-
-  /**
-   * Unsets the value of the "credibleInterval" element of this Uncertainty.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetCredibleInterval();
-
-
-  /**
-   * Unsets the value of the "interquartileRange" element of this Uncertainty.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetInterquartileRange();
-
-
-  /**
-   * Unsets the value of the "range" element of this Uncertainty.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetRange();
-
-
-  /**
-   * Unsets the value of the "distribution" element of this Uncertainty.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetDistribution();
-
-
-  /**
-   * Returns the ListOfExternalParameters from this Uncertainty.
-   *
-   * @return the ListOfExternalParameters from this Uncertainty.
+   * @return the ListOfUncertParameters from this Uncertainty.
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addExternalParameter(const ExternalParameter* object)
-   * @see createExternalParameter()
-   * @see getExternalParameter(const std::string& sid)
-   * @see getExternalParameter(unsigned int n)
-   * @see getNumExternalParameters()
-   * @see removeExternalParameter(const std::string& sid)
-   * @see removeExternalParameter(unsigned int n)
+   * @see addUncertParameter(const UncertParameter* object)
+   * @see createUncertParameter()
+   * @see getUncertParameter(const std::string& sid)
+   * @see getUncertParameter(unsigned int n)
+   * @see getNumUncertParameters()
+   * @see removeUncertParameter(const std::string& sid)
+   * @see removeUncertParameter(unsigned int n)
    */
-  const ListOfExternalParameters* getListOfExternalParameters() const;
+  const ListOfUncertParameters* getListOfUncertParameters() const;
 
 
   /**
-   * Returns the ListOfExternalParameters from this Uncertainty.
+   * Returns the ListOfUncertParameters from this Uncertainty.
    *
-   * @return the ListOfExternalParameters from this Uncertainty.
+   * @return the ListOfUncertParameters from this Uncertainty.
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addExternalParameter(const ExternalParameter* object)
-   * @see createExternalParameter()
-   * @see getExternalParameter(const std::string& sid)
-   * @see getExternalParameter(unsigned int n)
-   * @see getNumExternalParameters()
-   * @see removeExternalParameter(const std::string& sid)
-   * @see removeExternalParameter(unsigned int n)
+   * @see addUncertParameter(const UncertParameter* object)
+   * @see createUncertParameter()
+   * @see getUncertParameter(const std::string& sid)
+   * @see getUncertParameter(unsigned int n)
+   * @see getNumUncertParameters()
+   * @see removeUncertParameter(const std::string& sid)
+   * @see removeUncertParameter(unsigned int n)
    */
-  ListOfExternalParameters* getListOfExternalParameters();
+  ListOfUncertParameters* getListOfUncertParameters();
 
 
   /**
-   * Get an ExternalParameter from the Uncertainty.
+   * Get an UncertParameter from the Uncertainty.
    *
-   * @param n an unsigned int representing the index of the ExternalParameter
-   * to retrieve.
+   * @param n an unsigned int representing the index of the UncertParameter to
+   * retrieve.
    *
-   * @return the nth ExternalParameter in the ListOfExternalParameters within
-   * this Uncertainty.
+   * @return the nth UncertParameter in the ListOfUncertParameters within this
+   * Uncertainty or @c NULL if no such object exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addExternalParameter(const ExternalParameter* object)
-   * @see createExternalParameter()
-   * @see getExternalParameter(const std::string& sid)
-   * @see getNumExternalParameters()
-   * @see removeExternalParameter(const std::string& sid)
-   * @see removeExternalParameter(unsigned int n)
+   * @see addUncertParameter(const UncertParameter* object)
+   * @see createUncertParameter()
+   * @see getUncertParameter(const std::string& sid)
+   * @see getNumUncertParameters()
+   * @see removeUncertParameter(const std::string& sid)
+   * @see removeUncertParameter(unsigned int n)
    */
-  ExternalParameter* getExternalParameter(unsigned int n);
+  UncertParameter* getUncertParameter(unsigned int n);
 
 
   /**
-   * Get an ExternalParameter from the Uncertainty.
+   * Get an UncertParameter from the Uncertainty.
    *
-   * @param n an unsigned int representing the index of the ExternalParameter
-   * to retrieve.
+   * @param n an unsigned int representing the index of the UncertParameter to
+   * retrieve.
    *
-   * @return the nth ExternalParameter in the ListOfExternalParameters within
-   * this Uncertainty.
+   * @return the nth UncertParameter in the ListOfUncertParameters within this
+   * Uncertainty or @c NULL if no such object exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addExternalParameter(const ExternalParameter* object)
-   * @see createExternalParameter()
-   * @see getExternalParameter(const std::string& sid)
-   * @see getNumExternalParameters()
-   * @see removeExternalParameter(const std::string& sid)
-   * @see removeExternalParameter(unsigned int n)
+   * @see addUncertParameter(const UncertParameter* object)
+   * @see createUncertParameter()
+   * @see getUncertParameter(const std::string& sid)
+   * @see getNumUncertParameters()
+   * @see removeUncertParameter(const std::string& sid)
+   * @see removeUncertParameter(unsigned int n)
    */
-  const ExternalParameter* getExternalParameter(unsigned int n) const;
+  const UncertParameter* getUncertParameter(unsigned int n) const;
 
 
   /**
-   * Adds a copy of the given ExternalParameter to this Uncertainty.
+   * Get an UncertParameter from the Uncertainty based on the element to which
+   * it refers.
    *
-   * @param ep the ExternalParameter object to add.
+   * @param sid a string representing the "var" attribute of the
+   * UncertParameter object to retrieve.
+   *
+   * @return the first UncertParameter in this Uncertainty based on the given
+   * var attribute or NULL if no such UncertParameter exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   */
+  const UncertParameter* getUncertParameterByVar(const std::string& sid) const;
+
+
+  /**
+   * Get an UncertParameter from the Uncertainty based on the element to which
+   * it refers.
+   *
+   * @param sid a string representing the "var" attribute of the
+   * UncertParameter object to retrieve.
+   *
+   * @return the first UncertParameter in this Uncertainty based on the given
+   * var attribute or NULL if no such UncertParameter exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   */
+  UncertParameter* getUncertParameterByVar(const std::string& sid);
+
+
+  /**
+   * Adds a copy of the given UncertParameter to this Uncertainty.
+   *
+   * @param up the UncertParameter object to add.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1158,68 +262,53 @@ public:
    *
    * @copydetails doc_note_object_is_copied
    *
-   * @see createExternalParameter()
-   * @see getExternalParameter(const std::string& sid)
-   * @see getExternalParameter(unsigned int n)
-   * @see getNumExternalParameters()
-   * @see removeExternalParameter(const std::string& sid)
-   * @see removeExternalParameter(unsigned int n)
+   * @see createUncertParameter()
+   * @see getUncertParameter(const std::string& sid)
+   * @see getUncertParameter(unsigned int n)
+   * @see getNumUncertParameters()
+   * @see removeUncertParameter(const std::string& sid)
+   * @see removeUncertParameter(unsigned int n)
    */
-  int addExternalParameter(const ExternalParameter* ep);
+  int addUncertParameter(const UncertParameter* up);
 
 
   /**
-   * Get the number of ExternalParameter objects in this Uncertainty.
+   * Get the number of UncertParameter objects in this Uncertainty.
    *
-   * @return the number of ExternalParameter objects in this Uncertainty.
+   * @return the number of UncertParameter objects in this Uncertainty.
    *
-   * @see addExternalParameter(const ExternalParameter* object)
-   * @see createExternalParameter()
-   * @see getExternalParameter(const std::string& sid)
-   * @see getExternalParameter(unsigned int n)
-   * @see removeExternalParameter(const std::string& sid)
-   * @see removeExternalParameter(unsigned int n)
+   * @see addUncertParameter(const UncertParameter* object)
+   * @see createUncertParameter()
+   * @see getUncertParameter(const std::string& sid)
+   * @see getUncertParameter(unsigned int n)
+   * @see removeUncertParameter(const std::string& sid)
+   * @see removeUncertParameter(unsigned int n)
    */
-  unsigned int getNumExternalParameters() const;
+  unsigned int getNumUncertParameters() const;
 
+
+  UncertParameter* createUncertParameter();
+    
 
   /**
-   * Creates a new ExternalParameter object, adds it to this Uncertainty object
-   * and returns the ExternalParameter object created.
-   *
-   * @return a new ExternalParameter object instance.
-   *
-   * @copydetails doc_returned_unowned_pointer
-   *
-   * @see addExternalParameter(const ExternalParameter* object)
-   * @see getExternalParameter(const std::string& sid)
-   * @see getExternalParameter(unsigned int n)
-   * @see getNumExternalParameters()
-   * @see removeExternalParameter(const std::string& sid)
-   * @see removeExternalParameter(unsigned int n)
-   */
-  ExternalParameter* createExternalParameter();
-
-
-  /**
-   * Removes the nth ExternalParameter from this Uncertainty and returns a
+   * Removes the nth UncertParameter from this Uncertainty and returns a
    * pointer to it.
    *
-   * @param n an unsigned int representing the index of the ExternalParameter
-   * to remove.
+   * @param n an unsigned int representing the index of the UncertParameter to
+   * remove.
    *
-   * @return a pointer to the nth ExternalParameter in this Uncertainty.
+   * @return a pointer to the nth UncertParameter in this Uncertainty.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
-   * @see addExternalParameter(const ExternalParameter* object)
-   * @see createExternalParameter()
-   * @see getExternalParameter(const std::string& sid)
-   * @see getExternalParameter(unsigned int n)
-   * @see getNumExternalParameters()
-   * @see removeExternalParameter(const std::string& sid)
+   * @see addUncertParameter(const UncertParameter* object)
+   * @see createUncertParameter()
+   * @see getUncertParameter(const std::string& sid)
+   * @see getUncertParameter(unsigned int n)
+   * @see getNumUncertParameters()
+   * @see removeUncertParameter(const std::string& sid)
    */
-  ExternalParameter* removeExternalParameter(unsigned int n);
+  UncertParameter* removeUncertParameter(unsigned int n);
 
 
   /**
@@ -1700,7 +789,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the objects
    * to be retrieved.
    *
-   * @return a List* pointer of pointers to all SBase child objects with any
+   * @return a List pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -1835,1325 +924,78 @@ Uncertainty_free(Uncertainty_t* u);
 
 
 /**
- * Returns the value of the "coefficientOfVariation" element of this
+ * Returns a ListOf_t * containing UncertParameter_t objects from this
  * Uncertainty_t.
  *
- * @param u the Uncertainty_t structure whose coefficientOfVariation is sought.
+ * @param u the Uncertainty_t structure whose ListOfUncertParameters is sought.
  *
- * @return the value of the "coefficientOfVariation" element of this
- * Uncertainty_t as a UncertValue*.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-const UncertValue_t*
-Uncertainty_getCoefficientOfVariation(const Uncertainty_t * u);
-
-
-/**
- * Returns the value of the "kurtosis" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure whose kurtosis is sought.
- *
- * @return the value of the "kurtosis" element of this Uncertainty_t as a
- * UncertValue*.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-const UncertValue_t*
-Uncertainty_getKurtosis(const Uncertainty_t * u);
-
-
-/**
- * Returns the value of the "mean" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure whose mean is sought.
- *
- * @return the value of the "mean" element of this Uncertainty_t as a
- * UncertValue*.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-const UncertValue_t*
-Uncertainty_getMean(const Uncertainty_t * u);
-
-
-/**
- * Returns the value of the "median" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure whose median is sought.
- *
- * @return the value of the "median" element of this Uncertainty_t as a
- * UncertValue*.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-const UncertValue_t*
-Uncertainty_getMedian(const Uncertainty_t * u);
-
-
-/**
- * Returns the value of the "mode" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure whose mode is sought.
- *
- * @return the value of the "mode" element of this Uncertainty_t as a
- * UncertValue*.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-const UncertValue_t*
-Uncertainty_getMode(const Uncertainty_t * u);
-
-
-/**
- * Returns the value of the "sampleSize" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure whose sampleSize is sought.
- *
- * @return the value of the "sampleSize" element of this Uncertainty_t as a
- * UncertValue*.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-const UncertValue_t*
-Uncertainty_getSampleSize(const Uncertainty_t * u);
-
-
-/**
- * Returns the value of the "skewness" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure whose skewness is sought.
- *
- * @return the value of the "skewness" element of this Uncertainty_t as a
- * UncertValue*.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-const UncertValue_t*
-Uncertainty_getSkewness(const Uncertainty_t * u);
-
-
-/**
- * Returns the value of the "standardDeviation" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure whose standardDeviation is sought.
- *
- * @return the value of the "standardDeviation" element of this Uncertainty_t
- * as a UncertValue*.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-const UncertValue_t*
-Uncertainty_getStandardDeviation(const Uncertainty_t * u);
-
-
-/**
- * Returns the value of the "standardError" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure whose standardError is sought.
- *
- * @return the value of the "standardError" element of this Uncertainty_t as a
- * UncertValue*.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-const UncertValue_t*
-Uncertainty_getStandardError(const Uncertainty_t * u);
-
-
-/**
- * Returns the value of the "variance" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure whose variance is sought.
- *
- * @return the value of the "variance" element of this Uncertainty_t as a
- * UncertValue*.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-const UncertValue_t*
-Uncertainty_getVariance(const Uncertainty_t * u);
-
-
-/**
- * Returns the value of the "confidenceInterval" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure whose confidenceInterval is sought.
- *
- * @return the value of the "confidenceInterval" element of this Uncertainty_t
- * as a UncertStatisticSpan*.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-const UncertStatisticSpan_t*
-Uncertainty_getConfidenceInterval(const Uncertainty_t * u);
-
-
-/**
- * Returns the value of the "credibleInterval" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure whose credibleInterval is sought.
- *
- * @return the value of the "credibleInterval" element of this Uncertainty_t as
- * a UncertStatisticSpan*.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-const UncertStatisticSpan_t*
-Uncertainty_getCredibleInterval(const Uncertainty_t * u);
-
-
-/**
- * Returns the value of the "interquartileRange" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure whose interquartileRange is sought.
- *
- * @return the value of the "interquartileRange" element of this Uncertainty_t
- * as a UncertStatisticSpan*.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-const UncertStatisticSpan_t*
-Uncertainty_getInterquartileRange(const Uncertainty_t * u);
-
-
-/**
- * Returns the value of the "range" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure whose range is sought.
- *
- * @return the value of the "range" element of this Uncertainty_t as a
- * UncertStatisticSpan*.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-const UncertStatisticSpan_t*
-Uncertainty_getRange(const Uncertainty_t * u);
-
-
-/**
- * Returns the value of the "distribution" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure whose distribution is sought.
- *
- * @return the value of the "distribution" element of this Uncertainty_t as a
- * Distribution*.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-const Distribution_t*
-Uncertainty_getDistribution(const Uncertainty_t * u);
-
-
-/**
- * Predicate returning @c 1 (true) if this Uncertainty_t's
- * "coefficientOfVariation" element is set.
- *
- * @param u the Uncertainty_t structure.
- *
- * @return @c 1 (true) if this Uncertainty_t's "coefficientOfVariation" element
- * has been set, otherwise @c 0 (false) is returned.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_isSetCoefficientOfVariation(const Uncertainty_t * u);
-
-
-/**
- * Predicate returning @c 1 (true) if this Uncertainty_t's "kurtosis" element
- * is set.
- *
- * @param u the Uncertainty_t structure.
- *
- * @return @c 1 (true) if this Uncertainty_t's "kurtosis" element has been set,
- * otherwise @c 0 (false) is returned.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_isSetKurtosis(const Uncertainty_t * u);
-
-
-/**
- * Predicate returning @c 1 (true) if this Uncertainty_t's "mean" element is
- * set.
- *
- * @param u the Uncertainty_t structure.
- *
- * @return @c 1 (true) if this Uncertainty_t's "mean" element has been set,
- * otherwise @c 0 (false) is returned.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_isSetMean(const Uncertainty_t * u);
-
-
-/**
- * Predicate returning @c 1 (true) if this Uncertainty_t's "median" element is
- * set.
- *
- * @param u the Uncertainty_t structure.
- *
- * @return @c 1 (true) if this Uncertainty_t's "median" element has been set,
- * otherwise @c 0 (false) is returned.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_isSetMedian(const Uncertainty_t * u);
-
-
-/**
- * Predicate returning @c 1 (true) if this Uncertainty_t's "mode" element is
- * set.
- *
- * @param u the Uncertainty_t structure.
- *
- * @return @c 1 (true) if this Uncertainty_t's "mode" element has been set,
- * otherwise @c 0 (false) is returned.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_isSetMode(const Uncertainty_t * u);
-
-
-/**
- * Predicate returning @c 1 (true) if this Uncertainty_t's "sampleSize" element
- * is set.
- *
- * @param u the Uncertainty_t structure.
- *
- * @return @c 1 (true) if this Uncertainty_t's "sampleSize" element has been
- * set, otherwise @c 0 (false) is returned.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_isSetSampleSize(const Uncertainty_t * u);
-
-
-/**
- * Predicate returning @c 1 (true) if this Uncertainty_t's "skewness" element
- * is set.
- *
- * @param u the Uncertainty_t structure.
- *
- * @return @c 1 (true) if this Uncertainty_t's "skewness" element has been set,
- * otherwise @c 0 (false) is returned.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_isSetSkewness(const Uncertainty_t * u);
-
-
-/**
- * Predicate returning @c 1 (true) if this Uncertainty_t's "standardDeviation"
- * element is set.
- *
- * @param u the Uncertainty_t structure.
- *
- * @return @c 1 (true) if this Uncertainty_t's "standardDeviation" element has
- * been set, otherwise @c 0 (false) is returned.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_isSetStandardDeviation(const Uncertainty_t * u);
-
-
-/**
- * Predicate returning @c 1 (true) if this Uncertainty_t's "standardError"
- * element is set.
- *
- * @param u the Uncertainty_t structure.
- *
- * @return @c 1 (true) if this Uncertainty_t's "standardError" element has been
- * set, otherwise @c 0 (false) is returned.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_isSetStandardError(const Uncertainty_t * u);
-
-
-/**
- * Predicate returning @c 1 (true) if this Uncertainty_t's "variance" element
- * is set.
- *
- * @param u the Uncertainty_t structure.
- *
- * @return @c 1 (true) if this Uncertainty_t's "variance" element has been set,
- * otherwise @c 0 (false) is returned.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_isSetVariance(const Uncertainty_t * u);
-
-
-/**
- * Predicate returning @c 1 (true) if this Uncertainty_t's "confidenceInterval"
- * element is set.
- *
- * @param u the Uncertainty_t structure.
- *
- * @return @c 1 (true) if this Uncertainty_t's "confidenceInterval" element has
- * been set, otherwise @c 0 (false) is returned.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_isSetConfidenceInterval(const Uncertainty_t * u);
-
-
-/**
- * Predicate returning @c 1 (true) if this Uncertainty_t's "credibleInterval"
- * element is set.
- *
- * @param u the Uncertainty_t structure.
- *
- * @return @c 1 (true) if this Uncertainty_t's "credibleInterval" element has
- * been set, otherwise @c 0 (false) is returned.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_isSetCredibleInterval(const Uncertainty_t * u);
-
-
-/**
- * Predicate returning @c 1 (true) if this Uncertainty_t's "interquartileRange"
- * element is set.
- *
- * @param u the Uncertainty_t structure.
- *
- * @return @c 1 (true) if this Uncertainty_t's "interquartileRange" element has
- * been set, otherwise @c 0 (false) is returned.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_isSetInterquartileRange(const Uncertainty_t * u);
-
-
-/**
- * Predicate returning @c 1 (true) if this Uncertainty_t's "range" element is
- * set.
- *
- * @param u the Uncertainty_t structure.
- *
- * @return @c 1 (true) if this Uncertainty_t's "range" element has been set,
- * otherwise @c 0 (false) is returned.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_isSetRange(const Uncertainty_t * u);
-
-
-/**
- * Predicate returning @c 1 (true) if this Uncertainty_t's "distribution"
- * element is set.
- *
- * @param u the Uncertainty_t structure.
- *
- * @return @c 1 (true) if this Uncertainty_t's "distribution" element has been
- * set, otherwise @c 0 (false) is returned.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_isSetDistribution(const Uncertainty_t * u);
-
-
-/**
- * Sets the value of the "coefficientOfVariation" element of this
- * Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @param coefficientOfVariation UncertValue_t* value of the
- * "coefficientOfVariation" element to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_setCoefficientOfVariation(Uncertainty_t * u,
-                                      const UncertValue_t*
-                                        coefficientOfVariation);
-
-
-/**
- * Sets the value of the "kurtosis" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @param kurtosis UncertValue_t* value of the "kurtosis" element to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_setKurtosis(Uncertainty_t * u, const UncertValue_t* kurtosis);
-
-
-/**
- * Sets the value of the "mean" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @param mean UncertValue_t* value of the "mean" element to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_setMean(Uncertainty_t * u, const UncertValue_t* mean);
-
-
-/**
- * Sets the value of the "median" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @param median UncertValue_t* value of the "median" element to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_setMedian(Uncertainty_t * u, const UncertValue_t* median);
-
-
-/**
- * Sets the value of the "mode" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @param mode UncertValue_t* value of the "mode" element to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_setMode(Uncertainty_t * u, const UncertValue_t* mode);
-
-
-/**
- * Sets the value of the "sampleSize" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @param sampleSize UncertValue_t* value of the "sampleSize" element to be
- * set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_setSampleSize(Uncertainty_t * u, const UncertValue_t* sampleSize);
-
-
-/**
- * Sets the value of the "skewness" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @param skewness UncertValue_t* value of the "skewness" element to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_setSkewness(Uncertainty_t * u, const UncertValue_t* skewness);
-
-
-/**
- * Sets the value of the "standardDeviation" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @param standardDeviation UncertValue_t* value of the "standardDeviation"
- * element to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_setStandardDeviation(Uncertainty_t * u,
-                                 const UncertValue_t* standardDeviation);
-
-
-/**
- * Sets the value of the "standardError" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @param standardError UncertValue_t* value of the "standardError" element to
- * be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_setStandardError(Uncertainty_t * u,
-                             const UncertValue_t* standardError);
-
-
-/**
- * Sets the value of the "variance" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @param variance UncertValue_t* value of the "variance" element to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_setVariance(Uncertainty_t * u, const UncertValue_t* variance);
-
-
-/**
- * Sets the value of the "confidenceInterval" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @param confidenceInterval UncertStatisticSpan_t* value of the
- * "confidenceInterval" element to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_setConfidenceInterval(Uncertainty_t * u,
-                                  const UncertStatisticSpan_t*
-                                    confidenceInterval);
-
-
-/**
- * Sets the value of the "credibleInterval" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @param credibleInterval UncertStatisticSpan_t* value of the
- * "credibleInterval" element to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_setCredibleInterval(Uncertainty_t * u,
-                                const UncertStatisticSpan_t* credibleInterval);
-
-
-/**
- * Sets the value of the "interquartileRange" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @param interquartileRange UncertStatisticSpan_t* value of the
- * "interquartileRange" element to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_setInterquartileRange(Uncertainty_t * u,
-                                  const UncertStatisticSpan_t*
-                                    interquartileRange);
-
-
-/**
- * Sets the value of the "range" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @param range UncertStatisticSpan_t* value of the "range" element to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_setRange(Uncertainty_t * u, const UncertStatisticSpan_t* range);
-
-
-/**
- * Sets the value of the "distribution" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @param distribution Distribution_t* value of the "distribution" element to
- * be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_setDistribution(Uncertainty_t * u,
-                            const Distribution_t* distribution);
-
-
-/**
- * Creates a new UncertValue_t object, adds it to this Uncertainty_t object and
- * returns the UncertValue_t object created.
- *
- * @param u the Uncertainty_t structure to which the UncertValue_t should be
- * added.
- *
- * @return a new UncertValue_t object instance.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-UncertValue_t*
-Uncertainty_createCoefficientOfVariation(Uncertainty_t* u);
-
-
-/**
- * Creates a new UncertValue_t object, adds it to this Uncertainty_t object and
- * returns the UncertValue_t object created.
- *
- * @param u the Uncertainty_t structure to which the UncertValue_t should be
- * added.
- *
- * @return a new UncertValue_t object instance.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-UncertValue_t*
-Uncertainty_createKurtosis(Uncertainty_t* u);
-
-
-/**
- * Creates a new UncertValue_t object, adds it to this Uncertainty_t object and
- * returns the UncertValue_t object created.
- *
- * @param u the Uncertainty_t structure to which the UncertValue_t should be
- * added.
- *
- * @return a new UncertValue_t object instance.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-UncertValue_t*
-Uncertainty_createMean(Uncertainty_t* u);
-
-
-/**
- * Creates a new UncertValue_t object, adds it to this Uncertainty_t object and
- * returns the UncertValue_t object created.
- *
- * @param u the Uncertainty_t structure to which the UncertValue_t should be
- * added.
- *
- * @return a new UncertValue_t object instance.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-UncertValue_t*
-Uncertainty_createMedian(Uncertainty_t* u);
-
-
-/**
- * Creates a new UncertValue_t object, adds it to this Uncertainty_t object and
- * returns the UncertValue_t object created.
- *
- * @param u the Uncertainty_t structure to which the UncertValue_t should be
- * added.
- *
- * @return a new UncertValue_t object instance.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-UncertValue_t*
-Uncertainty_createMode(Uncertainty_t* u);
-
-
-/**
- * Creates a new UncertValue_t object, adds it to this Uncertainty_t object and
- * returns the UncertValue_t object created.
- *
- * @param u the Uncertainty_t structure to which the UncertValue_t should be
- * added.
- *
- * @return a new UncertValue_t object instance.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-UncertValue_t*
-Uncertainty_createSampleSize(Uncertainty_t* u);
-
-
-/**
- * Creates a new UncertValue_t object, adds it to this Uncertainty_t object and
- * returns the UncertValue_t object created.
- *
- * @param u the Uncertainty_t structure to which the UncertValue_t should be
- * added.
- *
- * @return a new UncertValue_t object instance.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-UncertValue_t*
-Uncertainty_createSkewness(Uncertainty_t* u);
-
-
-/**
- * Creates a new UncertValue_t object, adds it to this Uncertainty_t object and
- * returns the UncertValue_t object created.
- *
- * @param u the Uncertainty_t structure to which the UncertValue_t should be
- * added.
- *
- * @return a new UncertValue_t object instance.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-UncertValue_t*
-Uncertainty_createStandardDeviation(Uncertainty_t* u);
-
-
-/**
- * Creates a new UncertValue_t object, adds it to this Uncertainty_t object and
- * returns the UncertValue_t object created.
- *
- * @param u the Uncertainty_t structure to which the UncertValue_t should be
- * added.
- *
- * @return a new UncertValue_t object instance.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-UncertValue_t*
-Uncertainty_createStandardError(Uncertainty_t* u);
-
-
-/**
- * Creates a new UncertValue_t object, adds it to this Uncertainty_t object and
- * returns the UncertValue_t object created.
- *
- * @param u the Uncertainty_t structure to which the UncertValue_t should be
- * added.
- *
- * @return a new UncertValue_t object instance.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-UncertValue_t*
-Uncertainty_createVariance(Uncertainty_t* u);
-
-
-/**
- * Creates a new UncertStatisticSpan_t object, adds it to this Uncertainty_t
- * object and returns the UncertStatisticSpan_t object created.
- *
- * @param u the Uncertainty_t structure to which the UncertStatisticSpan_t
- * should be added.
- *
- * @return a new UncertStatisticSpan_t object instance.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-UncertStatisticSpan_t*
-Uncertainty_createConfidenceInterval(Uncertainty_t* u);
-
-
-/**
- * Creates a new UncertStatisticSpan_t object, adds it to this Uncertainty_t
- * object and returns the UncertStatisticSpan_t object created.
- *
- * @param u the Uncertainty_t structure to which the UncertStatisticSpan_t
- * should be added.
- *
- * @return a new UncertStatisticSpan_t object instance.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-UncertStatisticSpan_t*
-Uncertainty_createCredibleInterval(Uncertainty_t* u);
-
-
-/**
- * Creates a new UncertStatisticSpan_t object, adds it to this Uncertainty_t
- * object and returns the UncertStatisticSpan_t object created.
- *
- * @param u the Uncertainty_t structure to which the UncertStatisticSpan_t
- * should be added.
- *
- * @return a new UncertStatisticSpan_t object instance.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-UncertStatisticSpan_t*
-Uncertainty_createInterquartileRange(Uncertainty_t* u);
-
-
-/**
- * Creates a new UncertStatisticSpan_t object, adds it to this Uncertainty_t
- * object and returns the UncertStatisticSpan_t object created.
- *
- * @param u the Uncertainty_t structure to which the UncertStatisticSpan_t
- * should be added.
- *
- * @return a new UncertStatisticSpan_t object instance.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-UncertStatisticSpan_t*
-Uncertainty_createRange(Uncertainty_t* u);
-
-
-/**
- * Creates a new Distribution_t object, adds it to this Uncertainty_t object
- * and returns the Distribution_t object created.
- *
- * @param u the Uncertainty_t structure to which the Distribution_t should be
- * added.
- *
- * @return a new Distribution_t object instance.
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-Distribution_t*
-Uncertainty_createDistribution(Uncertainty_t* u);
-
-
-/**
- * Unsets the value of the "coefficientOfVariation" element of this
- * Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_unsetCoefficientOfVariation(Uncertainty_t * u);
-
-
-/**
- * Unsets the value of the "kurtosis" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_unsetKurtosis(Uncertainty_t * u);
-
-
-/**
- * Unsets the value of the "mean" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_unsetMean(Uncertainty_t * u);
-
-
-/**
- * Unsets the value of the "median" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_unsetMedian(Uncertainty_t * u);
-
-
-/**
- * Unsets the value of the "mode" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_unsetMode(Uncertainty_t * u);
-
-
-/**
- * Unsets the value of the "sampleSize" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_unsetSampleSize(Uncertainty_t * u);
-
-
-/**
- * Unsets the value of the "skewness" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_unsetSkewness(Uncertainty_t * u);
-
-
-/**
- * Unsets the value of the "standardDeviation" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_unsetStandardDeviation(Uncertainty_t * u);
-
-
-/**
- * Unsets the value of the "standardError" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_unsetStandardError(Uncertainty_t * u);
-
-
-/**
- * Unsets the value of the "variance" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_unsetVariance(Uncertainty_t * u);
-
-
-/**
- * Unsets the value of the "confidenceInterval" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_unsetConfidenceInterval(Uncertainty_t * u);
-
-
-/**
- * Unsets the value of the "credibleInterval" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_unsetCredibleInterval(Uncertainty_t * u);
-
-
-/**
- * Unsets the value of the "interquartileRange" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_unsetInterquartileRange(Uncertainty_t * u);
-
-
-/**
- * Unsets the value of the "range" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_unsetRange(Uncertainty_t * u);
-
-
-/**
- * Unsets the value of the "distribution" element of this Uncertainty_t.
- *
- * @param u the Uncertainty_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-int
-Uncertainty_unsetDistribution(Uncertainty_t * u);
-
-
-/**
- * Returns a ListOf_t * containing ExternalParameter_t objects from this
- * Uncertainty_t.
- *
- * @param u the Uncertainty_t structure whose ListOfExternalParameters is
- * sought.
- *
- * @return the ListOfExternalParameters from this Uncertainty_t as a ListOf_t
- * *.
+ * @return the ListOfUncertParameters from this Uncertainty_t as a ListOf_t *.
  *
  * @copydetails doc_returned_unowned_pointer
  *
- * @see Uncertainty_addExternalParameter()
- * @see Uncertainty_createExternalParameter()
- * @see Uncertainty_getExternalParameterById()
- * @see Uncertainty_getExternalParameter()
- * @see Uncertainty_getNumExternalParameters()
- * @see Uncertainty_removeExternalParameterById()
- * @see Uncertainty_removeExternalParameter()
+ * @see Uncertainty_addUncertParameter()
+ * @see Uncertainty_createUncertParameter()
+ * @see Uncertainty_getUncertParameterById()
+ * @see Uncertainty_getUncertParameter()
+ * @see Uncertainty_getNumUncertParameters()
+ * @see Uncertainty_removeUncertParameterById()
+ * @see Uncertainty_removeUncertParameter()
  *
  * @memberof Uncertainty_t
  */
 LIBSBML_EXTERN
 ListOf_t*
-Uncertainty_getListOfExternalParameters(Uncertainty_t* u);
+Uncertainty_getListOfUncertParameters(Uncertainty_t* u);
 
 
 /**
- * Get an ExternalParameter_t from the Uncertainty_t.
+ * Get an UncertParameter_t from the Uncertainty_t.
  *
  * @param u the Uncertainty_t structure to search.
  *
- * @param n an unsigned int representing the index of the ExternalParameter_t
- * to retrieve.
+ * @param n an unsigned int representing the index of the UncertParameter_t to
+ * retrieve.
  *
- * @return the nth ExternalParameter_t in the ListOfExternalParameters within
- * this Uncertainty.
+ * @return the nth UncertParameter_t in the ListOfUncertParameters within this
+ * Uncertainty or @c NULL if no such object exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Uncertainty_t
  */
 LIBSBML_EXTERN
-ExternalParameter_t*
-Uncertainty_getExternalParameter(Uncertainty_t* u, unsigned int n);
+UncertParameter_t*
+Uncertainty_getUncertParameter(Uncertainty_t* u, unsigned int n);
 
 
 /**
- * Adds a copy of the given ExternalParameter_t to this Uncertainty_t.
+ * Get an UncertParameter_t from the Uncertainty_t based on the element to
+ * which it refers.
  *
- * @param u the Uncertainty_t structure to which the ExternalParameter_t should
+ * @param u the Uncertainty_t structure to search.
+ *
+ * @param sid a string representing the "var" attribute of the
+ * UncertParameter_t object to retrieve.
+ *
+ * @return the first UncertParameter_t in this Uncertainty_t based on the given
+ * var attribute or NULL if no such UncertParameter_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof Uncertainty_t
+ */
+LIBSBML_EXTERN
+UncertParameter_t*
+Uncertainty_getUncertParameterByVar(Uncertainty_t* u, const char *sid);
+
+
+/**
+ * Adds a copy of the given UncertParameter_t to this Uncertainty_t.
+ *
+ * @param u the Uncertainty_t structure to which the UncertParameter_t should
  * be added.
  *
- * @param ep the ExternalParameter_t object to add.
+ * @param up the UncertParameter_t object to add.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -3168,60 +1010,41 @@ Uncertainty_getExternalParameter(Uncertainty_t* u, unsigned int n);
  */
 LIBSBML_EXTERN
 int
-Uncertainty_addExternalParameter(Uncertainty_t* u,
-                                 const ExternalParameter_t* ep);
+Uncertainty_addUncertParameter(Uncertainty_t* u, const UncertParameter_t* up);
 
 
 /**
- * Get the number of ExternalParameter_t objects in this Uncertainty_t.
+ * Get the number of UncertParameter_t objects in this Uncertainty_t.
  *
  * @param u the Uncertainty_t structure to query.
  *
- * @return the number of ExternalParameter_t objects in this Uncertainty_t.
+ * @return the number of UncertParameter_t objects in this Uncertainty_t.
  *
  * @memberof Uncertainty_t
  */
 LIBSBML_EXTERN
 unsigned int
-Uncertainty_getNumExternalParameters(Uncertainty_t* u);
+Uncertainty_getNumUncertParameters(Uncertainty_t* u);
 
 
 /**
- * Creates a new ExternalParameter_t object, adds it to this Uncertainty_t
- * object and returns the ExternalParameter_t object created.
- *
- * @param u the Uncertainty_t structure to which the ExternalParameter_t should
- * be added.
- *
- * @return a new ExternalParameter_t object instance.
- *
- * @copydetails doc_returned_unowned_pointer
- *
- * @memberof Uncertainty_t
- */
-LIBSBML_EXTERN
-ExternalParameter_t*
-Uncertainty_createExternalParameter(Uncertainty_t* u);
-
-
-/**
- * Removes the nth ExternalParameter_t from this Uncertainty_t and returns a
+ * Removes the nth UncertParameter_t from this Uncertainty_t and returns a
  * pointer to it.
  *
  * @param u the Uncertainty_t structure to search.
  *
- * @param n an unsigned int representing the index of the ExternalParameter_t
- * to remove.
+ * @param n an unsigned int representing the index of the UncertParameter_t to
+ * remove.
  *
- * @return a pointer to the nth ExternalParameter_t in this Uncertainty_t.
+ * @return a pointer to the nth UncertParameter_t in this Uncertainty_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Uncertainty_t
  */
 LIBSBML_EXTERN
-ExternalParameter_t*
-Uncertainty_removeExternalParameter(Uncertainty_t* u, unsigned int n);
+UncertParameter_t*
+Uncertainty_removeUncertParameter(Uncertainty_t* u, unsigned int n);
 
 
 /**

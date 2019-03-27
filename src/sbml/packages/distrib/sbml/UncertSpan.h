@@ -1,6 +1,6 @@
 /**
- * @file UncertStatisticSpan.h
- * @brief Definition of the UncertStatisticSpan class.
+ * @file UncertSpan.h
+ * @brief Definition of the UncertSpan class.
  * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
@@ -34,13 +34,13 @@
  * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  *
- * @class UncertStatisticSpan
- * @sbmlbrief{distrib} TODO:Definition of the UncertStatisticSpan class.
+ * @class UncertSpan
+ * @sbmlbrief{distrib} TODO:Definition of the UncertSpan class.
  */
 
 
-#ifndef UncertStatisticSpan_H__
-#define UncertStatisticSpan_H__
+#ifndef UncertSpan_H__
+#define UncertSpan_H__
 
 
 #include <sbml/common/extern.h>
@@ -54,14 +54,14 @@
 #include <string>
 
 
-#include <sbml/packages/distrib/sbml/DistribBase.h>
+#include <sbml/packages/distrib/sbml/UncertParameter.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class LIBSBML_EXTERN UncertStatisticSpan : public DistribBase
+class LIBSBML_EXTERN UncertSpan : public UncertParameter
 {
 protected:
 
@@ -73,37 +73,33 @@ protected:
   std::string mVarUpper;
   double mValueUpper;
   bool mIsSetValueUpper;
-  std::string mElementName;
 
   /** @endcond */
 
 public:
 
   /**
-   * Creates a new UncertStatisticSpan using the given SBML Level, Version and
+   * Creates a new UncertSpan using the given SBML Level, Version and
    * &ldquo;distrib&rdquo; package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this
-   * UncertStatisticSpan.
+   * @param level an unsigned int, the SBML Level to assign to this UncertSpan.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * UncertStatisticSpan.
+   * UncertSpan.
    *
    * @param pkgVersion an unsigned int, the SBML Distrib Version to assign to
-   * this UncertStatisticSpan.
+   * this UncertSpan.
    *
    * @copydetails doc_note_setting_lv_pkg
    */
-  UncertStatisticSpan(unsigned int level = DistribExtension::getDefaultLevel(),
-                      unsigned int version =
-                        DistribExtension::getDefaultVersion(),
-                      unsigned int pkgVersion =
-                        DistribExtension::getDefaultPackageVersion());
+  UncertSpan(unsigned int level = DistribExtension::getDefaultLevel(),
+             unsigned int version = DistribExtension::getDefaultVersion(),
+             unsigned int pkgVersion =
+               DistribExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new UncertStatisticSpan using the given DistribPkgNamespaces
-   * object.
+   * Creates a new UncertSpan using the given DistribPkgNamespaces object.
    *
    * @copydetails doc_what_are_sbml_package_namespaces
    *
@@ -111,120 +107,118 @@ public:
    *
    * @copydetails doc_note_setting_lv_pkg
    */
-  UncertStatisticSpan(DistribPkgNamespaces *distribns);
+  UncertSpan(DistribPkgNamespaces *distribns);
 
 
   /**
-   * Copy constructor for UncertStatisticSpan.
+   * Copy constructor for UncertSpan.
    *
-   * @param orig the UncertStatisticSpan instance to copy.
+   * @param orig the UncertSpan instance to copy.
    */
-  UncertStatisticSpan(const UncertStatisticSpan& orig);
+  UncertSpan(const UncertSpan& orig);
 
 
   /**
-   * Assignment operator for UncertStatisticSpan.
+   * Assignment operator for UncertSpan.
    *
-   * @param rhs the UncertStatisticSpan object whose values are to be used as
-   * the basis of the assignment.
+   * @param rhs the UncertSpan object whose values are to be used as the basis
+   * of the assignment.
    */
-  UncertStatisticSpan& operator=(const UncertStatisticSpan& rhs);
+  UncertSpan& operator=(const UncertSpan& rhs);
 
 
   /**
-   * Creates and returns a deep copy of this UncertStatisticSpan object.
+   * Creates and returns a deep copy of this UncertSpan object.
    *
-   * @return a (deep) copy of this UncertStatisticSpan object.
+   * @return a (deep) copy of this UncertSpan object.
    */
-  virtual UncertStatisticSpan* clone() const;
+  virtual UncertSpan* clone() const;
 
 
   /**
-   * Destructor for UncertStatisticSpan.
+   * Destructor for UncertSpan.
    */
-  virtual ~UncertStatisticSpan();
+  virtual ~UncertSpan();
 
 
   /**
-   * Returns the value of the "varLower" attribute of this UncertStatisticSpan.
+   * Returns the value of the "varLower" attribute of this UncertSpan.
    *
-   * @return the value of the "varLower" attribute of this UncertStatisticSpan
-   * as a string.
+   * @return the value of the "varLower" attribute of this UncertSpan as a
+   * string.
    */
   const std::string& getVarLower() const;
 
 
   /**
-   * Returns the value of the "valueLower" attribute of this
-   * UncertStatisticSpan.
+   * Returns the value of the "valueLower" attribute of this UncertSpan.
    *
-   * @return the value of the "valueLower" attribute of this
-   * UncertStatisticSpan as a double.
+   * @return the value of the "valueLower" attribute of this UncertSpan as a
+   * double.
    */
   double getValueLower() const;
 
 
   /**
-   * Returns the value of the "varUpper" attribute of this UncertStatisticSpan.
+   * Returns the value of the "varUpper" attribute of this UncertSpan.
    *
-   * @return the value of the "varUpper" attribute of this UncertStatisticSpan
-   * as a string.
+   * @return the value of the "varUpper" attribute of this UncertSpan as a
+   * string.
    */
   const std::string& getVarUpper() const;
 
 
   /**
-   * Returns the value of the "valueUpper" attribute of this
-   * UncertStatisticSpan.
+   * Returns the value of the "valueUpper" attribute of this UncertSpan.
    *
-   * @return the value of the "valueUpper" attribute of this
-   * UncertStatisticSpan as a double.
+   * @return the value of the "valueUpper" attribute of this UncertSpan as a
+   * double.
    */
   double getValueUpper() const;
 
 
   /**
-   * Predicate returning @c true if this UncertStatisticSpan's "varLower"
-   * attribute is set.
+   * Predicate returning @c true if this UncertSpan's "varLower" attribute is
+   * set.
    *
-   * @return @c true if this UncertStatisticSpan's "varLower" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this UncertSpan's "varLower" attribute has been set,
+   * otherwise @c false is returned.
    */
   bool isSetVarLower() const;
 
 
   /**
-   * Predicate returning @c true if this UncertStatisticSpan's "valueLower"
-   * attribute is set.
+   * Predicate returning @c true if this UncertSpan's "valueLower" attribute is
+   * set.
    *
-   * @return @c true if this UncertStatisticSpan's "valueLower" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this UncertSpan's "valueLower" attribute has been set,
+   * otherwise @c false is returned.
    */
   bool isSetValueLower() const;
 
 
   /**
-   * Predicate returning @c true if this UncertStatisticSpan's "varUpper"
-   * attribute is set.
+   * Predicate returning @c true if this UncertSpan's "varUpper" attribute is
+   * set.
    *
-   * @return @c true if this UncertStatisticSpan's "varUpper" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this UncertSpan's "varUpper" attribute has been set,
+   * otherwise @c false is returned.
    */
   bool isSetVarUpper() const;
 
 
   /**
-   * Predicate returning @c true if this UncertStatisticSpan's "valueUpper"
-   * attribute is set.
+   * Predicate returning @c true if this UncertSpan's "valueUpper" attribute is
+   * set.
    *
-   * @return @c true if this UncertStatisticSpan's "valueUpper" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this UncertSpan's "valueUpper" attribute has been set,
+   * otherwise @c false is returned.
    */
   bool isSetValueUpper() const;
 
 
   /**
-   * Sets the value of the "varLower" attribute of this UncertStatisticSpan.
+   * Sets the value of the "varLower" attribute of this UncertSpan.
    *
    * @param varLower std::string& value of the "varLower" attribute to be set.
    *
@@ -237,7 +231,7 @@ public:
 
 
   /**
-   * Sets the value of the "valueLower" attribute of this UncertStatisticSpan.
+   * Sets the value of the "valueLower" attribute of this UncertSpan.
    *
    * @param valueLower double value of the "valueLower" attribute to be set.
    *
@@ -250,7 +244,7 @@ public:
 
 
   /**
-   * Sets the value of the "varUpper" attribute of this UncertStatisticSpan.
+   * Sets the value of the "varUpper" attribute of this UncertSpan.
    *
    * @param varUpper std::string& value of the "varUpper" attribute to be set.
    *
@@ -263,7 +257,7 @@ public:
 
 
   /**
-   * Sets the value of the "valueUpper" attribute of this UncertStatisticSpan.
+   * Sets the value of the "valueUpper" attribute of this UncertSpan.
    *
    * @param valueUpper double value of the "valueUpper" attribute to be set.
    *
@@ -276,7 +270,7 @@ public:
 
 
   /**
-   * Unsets the value of the "varLower" attribute of this UncertStatisticSpan.
+   * Unsets the value of the "varLower" attribute of this UncertSpan.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -286,8 +280,7 @@ public:
 
 
   /**
-   * Unsets the value of the "valueLower" attribute of this
-   * UncertStatisticSpan.
+   * Unsets the value of the "valueLower" attribute of this UncertSpan.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -297,7 +290,7 @@ public:
 
 
   /**
-   * Unsets the value of the "varUpper" attribute of this UncertStatisticSpan.
+   * Unsets the value of the "varUpper" attribute of this UncertSpan.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -307,8 +300,7 @@ public:
 
 
   /**
-   * Unsets the value of the "valueUpper" attribute of this
-   * UncertStatisticSpan.
+   * Unsets the value of the "valueUpper" attribute of this UncertSpan.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -325,29 +317,17 @@ public:
 
 
   /**
-   * Returns the XML element name of this UncertStatisticSpan object.
+   * Returns the XML element name of this UncertSpan object.
    *
-   * For UncertStatisticSpan, the XML element name is always
-   * @c "uncertStatisticSpan".
+   * For UncertSpan, the XML element name is always @c "uncertSpan".
    *
-   * @return the name of this element, i.e. @c "uncertStatisticSpan".
+   * @return the name of this element, i.e. @c "uncertSpan".
    */
   virtual const std::string& getElementName() const;
 
 
-
-  /** @cond doxygenLibsbmlInternal */
-
   /**
-   * Sets the XML name of this UncertStatisticSpan object.
-   */
-  virtual void setElementName(const std::string& name);
-
-  /** @endcond */
-
-
-  /**
-   * Returns the libSBML type code for this UncertStatisticSpan object.
+   * Returns the libSBML type code for this UncertSpan object.
    *
    * @copydetails doc_what_are_typecodes
    *
@@ -364,10 +344,10 @@ public:
 
   /**
    * Predicate returning @c true if all the required attributes for this
-   * UncertStatisticSpan object have been set.
+   * UncertSpan object have been set.
    *
    * @return @c true to indicate that all the required attributes of this
-   * UncertStatisticSpan have been set, otherwise @c false is returned.
+   * UncertSpan have been set, otherwise @c false is returned.
    */
   virtual bool hasRequiredAttributes() const;
 
@@ -427,8 +407,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this
-   * UncertStatisticSpan.
+   * Gets the value of the "attributeName" attribute of this UncertSpan.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -448,8 +427,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this
-   * UncertStatisticSpan.
+   * Gets the value of the "attributeName" attribute of this UncertSpan.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -468,8 +446,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this
-   * UncertStatisticSpan.
+   * Gets the value of the "attributeName" attribute of this UncertSpan.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -489,8 +466,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this
-   * UncertStatisticSpan.
+   * Gets the value of the "attributeName" attribute of this UncertSpan.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -510,8 +486,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this
-   * UncertStatisticSpan.
+   * Gets the value of the "attributeName" attribute of this UncertSpan.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -531,13 +506,13 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Predicate returning @c true if this UncertStatisticSpan's attribute
-   * "attributeName" is set.
+   * Predicate returning @c true if this UncertSpan's attribute "attributeName"
+   * is set.
    *
    * @param attributeName, the name of the attribute to query.
    *
-   * @return @c true if this UncertStatisticSpan's attribute "attributeName"
-   * has been set, otherwise @c false is returned.
+   * @return @c true if this UncertSpan's attribute "attributeName" has been
+   * set, otherwise @c false is returned.
    */
   virtual bool isSetAttribute(const std::string& attributeName) const;
 
@@ -548,8 +523,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this
-   * UncertStatisticSpan.
+   * Sets the value of the "attributeName" attribute of this UncertSpan.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -568,8 +542,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this
-   * UncertStatisticSpan.
+   * Sets the value of the "attributeName" attribute of this UncertSpan.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -588,8 +561,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this
-   * UncertStatisticSpan.
+   * Sets the value of the "attributeName" attribute of this UncertSpan.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -608,8 +580,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this
-   * UncertStatisticSpan.
+   * Sets the value of the "attributeName" attribute of this UncertSpan.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -629,8 +600,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this
-   * UncertStatisticSpan.
+   * Sets the value of the "attributeName" attribute of this UncertSpan.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -650,8 +620,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Unsets the value of the "attributeName" attribute of this
-   * UncertStatisticSpan.
+   * Unsets the value of the "attributeName" attribute of this UncertSpan.
    *
    * @param attributeName, the name of the attribute to query.
    *
@@ -744,193 +713,190 @@ BEGIN_C_DECLS
 
 
 /**
- * Creates a new UncertStatisticSpan_t using the given SBML Level, Version and
+ * Creates a new UncertSpan_t using the given SBML Level, Version and
  * &ldquo;distrib&rdquo; package version.
  *
- * @param level an unsigned int, the SBML Level to assign to this
- * UncertStatisticSpan_t.
+ * @param level an unsigned int, the SBML Level to assign to this UncertSpan_t.
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * UncertStatisticSpan_t.
+ * UncertSpan_t.
  *
  * @param pkgVersion an unsigned int, the SBML Distrib Version to assign to
- * this UncertStatisticSpan_t.
+ * this UncertSpan_t.
  *
  * @copydetails doc_note_setting_lv_pkg
  *
  * @copydetails doc_returned_owned_pointer
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
-UncertStatisticSpan_t *
-UncertStatisticSpan_create(unsigned int level,
-                           unsigned int version,
-                           unsigned int pkgVersion);
+UncertSpan_t *
+UncertSpan_create(unsigned int level,
+                  unsigned int version,
+                  unsigned int pkgVersion);
 
 
 /**
- * Creates and returns a deep copy of this UncertStatisticSpan_t object.
+ * Creates and returns a deep copy of this UncertSpan_t object.
  *
- * @param uss the UncertStatisticSpan_t structure.
+ * @param us the UncertSpan_t structure.
  *
- * @return a (deep) copy of this UncertStatisticSpan_t object.
+ * @return a (deep) copy of this UncertSpan_t object.
  *
  * @copydetails doc_returned_owned_pointer
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
-UncertStatisticSpan_t*
-UncertStatisticSpan_clone(const UncertStatisticSpan_t* uss);
+UncertSpan_t*
+UncertSpan_clone(const UncertSpan_t* us);
 
 
 /**
- * Frees this UncertStatisticSpan_t object.
+ * Frees this UncertSpan_t object.
  *
- * @param uss the UncertStatisticSpan_t structure.
+ * @param us the UncertSpan_t structure.
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 void
-UncertStatisticSpan_free(UncertStatisticSpan_t* uss);
+UncertSpan_free(UncertSpan_t* us);
 
 
 /**
- * Returns the value of the "varLower" attribute of this UncertStatisticSpan_t.
+ * Returns the value of the "varLower" attribute of this UncertSpan_t.
  *
- * @param uss the UncertStatisticSpan_t structure whose varLower is sought.
+ * @param us the UncertSpan_t structure whose varLower is sought.
  *
- * @return the value of the "varLower" attribute of this UncertStatisticSpan_t
- * as a pointer to a string.
+ * @return the value of the "varLower" attribute of this UncertSpan_t as a
+ * pointer to a string.
  *
  * @copydetails doc_returned_owned_char
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 char *
-UncertStatisticSpan_getVarLower(const UncertStatisticSpan_t * uss);
+UncertSpan_getVarLower(const UncertSpan_t * us);
 
 
 /**
- * Returns the value of the "valueLower" attribute of this
- * UncertStatisticSpan_t.
+ * Returns the value of the "valueLower" attribute of this UncertSpan_t.
  *
- * @param uss the UncertStatisticSpan_t structure whose valueLower is sought.
+ * @param us the UncertSpan_t structure whose valueLower is sought.
  *
- * @return the value of the "valueLower" attribute of this
- * UncertStatisticSpan_t as a double.
+ * @return the value of the "valueLower" attribute of this UncertSpan_t as a
+ * double.
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 double
-UncertStatisticSpan_getValueLower(const UncertStatisticSpan_t * uss);
+UncertSpan_getValueLower(const UncertSpan_t * us);
 
 
 /**
- * Returns the value of the "varUpper" attribute of this UncertStatisticSpan_t.
+ * Returns the value of the "varUpper" attribute of this UncertSpan_t.
  *
- * @param uss the UncertStatisticSpan_t structure whose varUpper is sought.
+ * @param us the UncertSpan_t structure whose varUpper is sought.
  *
- * @return the value of the "varUpper" attribute of this UncertStatisticSpan_t
- * as a pointer to a string.
+ * @return the value of the "varUpper" attribute of this UncertSpan_t as a
+ * pointer to a string.
  *
  * @copydetails doc_returned_owned_char
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 char *
-UncertStatisticSpan_getVarUpper(const UncertStatisticSpan_t * uss);
+UncertSpan_getVarUpper(const UncertSpan_t * us);
 
 
 /**
- * Returns the value of the "valueUpper" attribute of this
- * UncertStatisticSpan_t.
+ * Returns the value of the "valueUpper" attribute of this UncertSpan_t.
  *
- * @param uss the UncertStatisticSpan_t structure whose valueUpper is sought.
+ * @param us the UncertSpan_t structure whose valueUpper is sought.
  *
- * @return the value of the "valueUpper" attribute of this
- * UncertStatisticSpan_t as a double.
+ * @return the value of the "valueUpper" attribute of this UncertSpan_t as a
+ * double.
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 double
-UncertStatisticSpan_getValueUpper(const UncertStatisticSpan_t * uss);
+UncertSpan_getValueUpper(const UncertSpan_t * us);
 
 
 /**
- * Predicate returning @c 1 (true) if this UncertStatisticSpan_t's "varLower"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this UncertSpan_t's "varLower" attribute
+ * is set.
  *
- * @param uss the UncertStatisticSpan_t structure.
+ * @param us the UncertSpan_t structure.
  *
- * @return @c 1 (true) if this UncertStatisticSpan_t's "varLower" attribute has
- * been set, otherwise @c 0 (false) is returned.
+ * @return @c 1 (true) if this UncertSpan_t's "varLower" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 int
-UncertStatisticSpan_isSetVarLower(const UncertStatisticSpan_t * uss);
+UncertSpan_isSetVarLower(const UncertSpan_t * us);
 
 
 /**
- * Predicate returning @c 1 (true) if this UncertStatisticSpan_t's "valueLower"
+ * Predicate returning @c 1 (true) if this UncertSpan_t's "valueLower"
  * attribute is set.
  *
- * @param uss the UncertStatisticSpan_t structure.
+ * @param us the UncertSpan_t structure.
  *
- * @return @c 1 (true) if this UncertStatisticSpan_t's "valueLower" attribute
- * has been set, otherwise @c 0 (false) is returned.
+ * @return @c 1 (true) if this UncertSpan_t's "valueLower" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 int
-UncertStatisticSpan_isSetValueLower(const UncertStatisticSpan_t * uss);
+UncertSpan_isSetValueLower(const UncertSpan_t * us);
 
 
 /**
- * Predicate returning @c 1 (true) if this UncertStatisticSpan_t's "varUpper"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this UncertSpan_t's "varUpper" attribute
+ * is set.
  *
- * @param uss the UncertStatisticSpan_t structure.
+ * @param us the UncertSpan_t structure.
  *
- * @return @c 1 (true) if this UncertStatisticSpan_t's "varUpper" attribute has
- * been set, otherwise @c 0 (false) is returned.
+ * @return @c 1 (true) if this UncertSpan_t's "varUpper" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 int
-UncertStatisticSpan_isSetVarUpper(const UncertStatisticSpan_t * uss);
+UncertSpan_isSetVarUpper(const UncertSpan_t * us);
 
 
 /**
- * Predicate returning @c 1 (true) if this UncertStatisticSpan_t's "valueUpper"
+ * Predicate returning @c 1 (true) if this UncertSpan_t's "valueUpper"
  * attribute is set.
  *
- * @param uss the UncertStatisticSpan_t structure.
+ * @param us the UncertSpan_t structure.
  *
- * @return @c 1 (true) if this UncertStatisticSpan_t's "valueUpper" attribute
- * has been set, otherwise @c 0 (false) is returned.
+ * @return @c 1 (true) if this UncertSpan_t's "valueUpper" attribute has been
+ * set, otherwise @c 0 (false) is returned.
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 int
-UncertStatisticSpan_isSetValueUpper(const UncertStatisticSpan_t * uss);
+UncertSpan_isSetValueUpper(const UncertSpan_t * us);
 
 
 /**
- * Sets the value of the "varLower" attribute of this UncertStatisticSpan_t.
+ * Sets the value of the "varLower" attribute of this UncertSpan_t.
  *
- * @param uss the UncertStatisticSpan_t structure.
+ * @param us the UncertSpan_t structure.
  *
  * @param varLower const char * value of the "varLower" attribute to be set.
  *
@@ -939,18 +905,17 @@ UncertStatisticSpan_isSetValueUpper(const UncertStatisticSpan_t * uss);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 int
-UncertStatisticSpan_setVarLower(UncertStatisticSpan_t * uss,
-                                const char * varLower);
+UncertSpan_setVarLower(UncertSpan_t * us, const char * varLower);
 
 
 /**
- * Sets the value of the "valueLower" attribute of this UncertStatisticSpan_t.
+ * Sets the value of the "valueLower" attribute of this UncertSpan_t.
  *
- * @param uss the UncertStatisticSpan_t structure.
+ * @param us the UncertSpan_t structure.
  *
  * @param valueLower double value of the "valueLower" attribute to be set.
  *
@@ -959,18 +924,17 @@ UncertStatisticSpan_setVarLower(UncertStatisticSpan_t * uss,
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 int
-UncertStatisticSpan_setValueLower(UncertStatisticSpan_t * uss,
-                                  double valueLower);
+UncertSpan_setValueLower(UncertSpan_t * us, double valueLower);
 
 
 /**
- * Sets the value of the "varUpper" attribute of this UncertStatisticSpan_t.
+ * Sets the value of the "varUpper" attribute of this UncertSpan_t.
  *
- * @param uss the UncertStatisticSpan_t structure.
+ * @param us the UncertSpan_t structure.
  *
  * @param varUpper const char * value of the "varUpper" attribute to be set.
  *
@@ -979,18 +943,17 @@ UncertStatisticSpan_setValueLower(UncertStatisticSpan_t * uss,
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 int
-UncertStatisticSpan_setVarUpper(UncertStatisticSpan_t * uss,
-                                const char * varUpper);
+UncertSpan_setVarUpper(UncertSpan_t * us, const char * varUpper);
 
 
 /**
- * Sets the value of the "valueUpper" attribute of this UncertStatisticSpan_t.
+ * Sets the value of the "valueUpper" attribute of this UncertSpan_t.
  *
- * @param uss the UncertStatisticSpan_t structure.
+ * @param us the UncertSpan_t structure.
  *
  * @param valueUpper double value of the "valueUpper" attribute to be set.
  *
@@ -999,98 +962,95 @@ UncertStatisticSpan_setVarUpper(UncertStatisticSpan_t * uss,
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 int
-UncertStatisticSpan_setValueUpper(UncertStatisticSpan_t * uss,
-                                  double valueUpper);
+UncertSpan_setValueUpper(UncertSpan_t * us, double valueUpper);
 
 
 /**
- * Unsets the value of the "varLower" attribute of this UncertStatisticSpan_t.
+ * Unsets the value of the "varLower" attribute of this UncertSpan_t.
  *
- * @param uss the UncertStatisticSpan_t structure.
+ * @param us the UncertSpan_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 int
-UncertStatisticSpan_unsetVarLower(UncertStatisticSpan_t * uss);
+UncertSpan_unsetVarLower(UncertSpan_t * us);
 
 
 /**
- * Unsets the value of the "valueLower" attribute of this
- * UncertStatisticSpan_t.
+ * Unsets the value of the "valueLower" attribute of this UncertSpan_t.
  *
- * @param uss the UncertStatisticSpan_t structure.
+ * @param us the UncertSpan_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 int
-UncertStatisticSpan_unsetValueLower(UncertStatisticSpan_t * uss);
+UncertSpan_unsetValueLower(UncertSpan_t * us);
 
 
 /**
- * Unsets the value of the "varUpper" attribute of this UncertStatisticSpan_t.
+ * Unsets the value of the "varUpper" attribute of this UncertSpan_t.
  *
- * @param uss the UncertStatisticSpan_t structure.
+ * @param us the UncertSpan_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 int
-UncertStatisticSpan_unsetVarUpper(UncertStatisticSpan_t * uss);
+UncertSpan_unsetVarUpper(UncertSpan_t * us);
 
 
 /**
- * Unsets the value of the "valueUpper" attribute of this
- * UncertStatisticSpan_t.
+ * Unsets the value of the "valueUpper" attribute of this UncertSpan_t.
  *
- * @param uss the UncertStatisticSpan_t structure.
+ * @param us the UncertSpan_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 int
-UncertStatisticSpan_unsetValueUpper(UncertStatisticSpan_t * uss);
+UncertSpan_unsetValueUpper(UncertSpan_t * us);
 
 
 /**
  * Predicate returning @c 1 (true) if all the required attributes for this
- * UncertStatisticSpan_t object have been set.
+ * UncertSpan_t object have been set.
  *
- * @param uss the UncertStatisticSpan_t structure.
+ * @param us the UncertSpan_t structure.
  *
  * @return @c 1 (true) to indicate that all the required attributes of this
- * UncertStatisticSpan_t have been set, otherwise @c 0 (false) is returned.
+ * UncertSpan_t have been set, otherwise @c 0 (false) is returned.
  *
- * @memberof UncertStatisticSpan_t
+ * @memberof UncertSpan_t
  */
 LIBSBML_EXTERN
 int
-UncertStatisticSpan_hasRequiredAttributes(const UncertStatisticSpan_t * uss);
+UncertSpan_hasRequiredAttributes(const UncertSpan_t * us);
 
 
 
@@ -1110,6 +1070,6 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 
-#endif /* !UncertStatisticSpan_H__ */
+#endif /* !UncertSpan_H__ */
 
 
