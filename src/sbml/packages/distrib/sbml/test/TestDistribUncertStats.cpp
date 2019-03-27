@@ -73,71 +73,66 @@ equals(std::string& expected, std::string& actual)
 
 
 
-//START_TEST(test_UncertStats_create_l3v1v1)
-//{
-//  DistribPkgNamespaces *sbmlns = new DistribPkgNamespaces(3, 1, 1);
-//
-//  // create the document
-//
-//  SBMLDocument* document = new SBMLDocument(sbmlns);
-//
-//  // mark distrib required
-//
-//  document->setPackageRequired("distrib", true);
-//
-//  // create the Model
-//
-//  Model* model = document->createModel();
-//
-//  Parameter * p = model->createParameter();
-//  p->setId("P1");
-//  p->setValue(5.13);
-//  p->setConstant(true);
-//
-//  DistribSBasePlugin * plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
-//  Uncertainty * uncert = plug->createUncertainty();
-//  UncertStatisticSpan * span = uncert->createConfidenceInterval();
-//  span->setValueLower(5);
-//  span->setValueUpper(5.32);
-//
-//  p = model->createParameter();
-//  p->setId("P2");
-//  p->setValue(15);
-//  p->setConstant(true);
-//
-//  plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
-//  uncert = plug->createUncertainty();
-//  UncertValue * uv = uncert->createStandardDeviation();
-//  uv->setValue(0.3);
-//
-//
-//  p = model->createParameter();
-//  p->setId("P3");
-//  p->setValue(15);
-//  p->setConstant(true);
-//
-//  plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
-//  uncert = plug->createUncertainty();
-//  ExternalParameter *ep = uncert->createExternalParameter();
-//  ep->setName("Beta");
-//  ep->setVar("beta");
-//  ep->setDefinitionURL("http://www.probonto.org/ontology#PROB_k0000362");
-//
-//
-//  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_statistics.xml");
-//  SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
-//  std::string expected = writeSBMLToStdString(doc);
-//  delete doc;
-//
-//  std::string actual = writeSBMLToStdString(document);
-//
-//  fail_unless(equals(expected, actual));
-//
-//  delete document;
-//}
-//END_TEST
-//
-//
+START_TEST(test_UncertStats_create_l3v1v1)
+{
+  DistribPkgNamespaces *sbmlns = new DistribPkgNamespaces(3, 1, 1);
+
+  // create the document
+
+  SBMLDocument* document = new SBMLDocument(sbmlns);
+
+  // mark distrib required
+
+  document->setPackageRequired("distrib", true);
+
+  // create the Model
+
+  Model* model = document->createModel();
+
+  Parameter * p = model->createParameter();
+  p->setId("P1");
+  p->setValue(5.13);
+  p->setConstant(true);
+
+  DistribSBasePlugin * plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
+  Uncertainty * uncert = plug->createUncertainty();
+  UncertSpan * span = uncert->createUncertSpan();
+  span->setType("confidenceInterval");
+  span->setValueLower(5);
+  span->setValueUpper(5.32);
+
+  UncertParameter * uv = uncert->createUncertParameter();
+  uv->setType("standardDeviation");
+  uv->setValue(0.3);
+
+
+  p = model->createParameter();
+  p->setId("P3");
+  p->setValue(15);
+  p->setConstant(true);
+
+  plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
+  uncert = plug->createUncertainty();
+  UncertParameter *ep = uncert->createUncertParameter();
+  ep->setVar("beta");
+  ep->setType("distribution");
+  ep->setDefinitionURL("http://www.probonto.org/ontology#PROB_k0000362");
+
+
+  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_statistics.xml");
+  SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
+  std::string expected = writeSBMLToStdString(doc);
+  delete doc;
+
+  std::string actual = writeSBMLToStdString(document);
+
+  fail_unless(equals(expected, actual));
+
+  delete document;
+}
+END_TEST
+
+
 //START_TEST(test_UncertStats_create_l3v2v1)
 //{
 //  DistribPkgNamespaces *sbmlns = new DistribPkgNamespaces(3, 2, 1);
@@ -248,7 +243,7 @@ create_suite_test_UncertStats(void)
   Suite *suite = suite_create("TestUncertStats");
   TCase *tcase = tcase_create("TestUncertStats");
 
-  //tcase_add_test(tcase, test_UncertStats_create_l3v1v1);
+  tcase_add_test(tcase, test_UncertStats_create_l3v1v1);
   //tcase_add_test(tcase, test_UncertStats_create_l3v2v1);
   //tcase_add_test(tcase, test_UncertStats_testSetLevelVersion);
   //tcase_add_test(tcase, test_UncertStats_testSetLevelVersion_2to1);

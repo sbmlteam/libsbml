@@ -57,6 +57,7 @@
 #include <sbml/ListOf.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
 #include <sbml/packages/distrib/sbml/UncertParameter.h>
+#include <sbml/packages/distrib/sbml/UncertSpan.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -432,6 +433,7 @@ protected:
 
   /** @endcond */
 
+  virtual bool isValidTypeForList(SBase * item);
 
 };
 

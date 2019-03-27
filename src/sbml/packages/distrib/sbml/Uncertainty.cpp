@@ -224,6 +224,40 @@ Uncertainty::addUncertParameter(const UncertParameter* up)
 
 
 /*
+* Adds a copy of the given UncertParameter to this Uncertainty.
+*/
+int
+Uncertainty::addUncertSpan(const UncertSpan* up)
+{
+  if (up == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (up->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != up->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != up->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
+    SBase*>(up)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
+  else
+  {
+    return mUncertParameters.append((UncertParameter*)(up));
+  }
+}
+
+
+/*
  * Get the number of UncertParameter objects in this Uncertainty.
  */
 unsigned int
@@ -249,6 +283,27 @@ Uncertainty::createUncertParameter()
   }
 
   if (up != NULL) mUncertParameters.appendAndOwn(up);
+
+  return up;
+}
+
+
+UncertSpan*
+Uncertainty::createUncertSpan()
+{
+  UncertSpan* up = NULL;
+
+  try
+  {
+    DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
+    up = new UncertSpan(distribns);
+    delete distribns;
+  }
+  catch (...)
+  {
+  }
+
+  if (up != NULL) mUncertParameters.appendAndOwn((UncertParameter*)(up));
 
   return up;
 }
@@ -841,6 +896,10 @@ Uncertainty::createObject(XMLInputStream& stream)
   const std::string& name = stream.peek().getName();
 
   if (name == "uncertParameter")
+  {
+    obj = mUncertParameters.createObject(stream);
+  }
+  else if (name == "uncertSpan")
   {
     obj = mUncertParameters.createObject(stream);
   }

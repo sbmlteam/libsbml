@@ -342,6 +342,15 @@ ListOfUncertParameters::getItemTypeCode() const
   return SBML_DISTRIB_UNCERTPARAMETER;
 }
 
+/** @cond doxygenLibsbmlInternal */
+bool
+ListOfUncertParameters::isValidTypeForList(SBase * item)
+{
+  int tc = item->getTypeCode();
+  return ((tc == SBML_DISTRIB_UNCERTPARAMETER)
+    || (tc == SBML_DISTRIB_UNCERTSTATISTICSPAN));
+}
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -361,6 +370,12 @@ ListOfUncertParameters::createObject(XMLInputStream& stream)
     object = new UncertParameter(distribns);
     appendAndOwn(object);
   }
+  else if (name == "uncertSpan")
+  {
+    object = new UncertSpan(distribns);
+    appendAndOwn(object);
+  }
+
 
   delete distribns;
   return object;
