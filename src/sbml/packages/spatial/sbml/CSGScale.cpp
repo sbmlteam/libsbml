@@ -738,14 +738,14 @@ CSGScale::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("spatial", SpatialCSGScaleAllowedAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownCoreAttribute);
         log->logPackageError("spatial", SpatialCSGScaleAllowedCoreAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
     }
   }
@@ -766,14 +766,14 @@ CSGScale::readAttributes(const XMLAttributes& attributes,
       std::string message = "Spatial attribute 'scaleX' from the <CSGScale> "
         "element must be an integer.";
       log->logPackageError("spatial", SpatialCSGScaleScaleXMustBeDouble,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
     }
     else
     {
       std::string message = "Spatial attribute 'scaleX' is missing from the "
         "<CSGScale> element.";
       log->logPackageError("spatial", SpatialCSGScaleAllowedAttributes,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
     }
   }
 
@@ -793,7 +793,7 @@ CSGScale::readAttributes(const XMLAttributes& attributes,
       std::string message = "Spatial attribute 'scaleY' from the <CSGScale> "
         "element must be an integer.";
       log->logPackageError("spatial", SpatialCSGScaleScaleYMustBeDouble,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
     }
   }
 
@@ -813,7 +813,7 @@ CSGScale::readAttributes(const XMLAttributes& attributes,
       std::string message = "Spatial attribute 'scaleZ' from the <CSGScale> "
         "element must be an integer.";
       log->logPackageError("spatial", SpatialCSGScaleScaleZMustBeDouble,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
     }
   }
 }

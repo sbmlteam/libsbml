@@ -830,7 +830,7 @@ CSGRotation::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("spatial", SpatialCSGRotationAllowedAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -838,7 +838,7 @@ CSGRotation::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("spatial",
           SpatialCSGRotationAllowedCoreAttributes, pkgVersion, level, version,
-            details);
+            details, getLine(), getColumn());
       }
     }
   }
@@ -859,14 +859,14 @@ CSGRotation::readAttributes(const XMLAttributes& attributes,
       std::string message = "Spatial attribute 'rotateX' from the <CSGRotation> "
         "element must be an integer.";
       log->logPackageError("spatial", SpatialCSGRotationRotateXMustBeDouble,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
     }
     else
     {
       std::string message = "Spatial attribute 'rotateX' is missing from the "
         "<CSGRotation> element.";
       log->logPackageError("spatial", SpatialCSGRotationAllowedAttributes,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
     }
   }
 
@@ -886,7 +886,7 @@ CSGRotation::readAttributes(const XMLAttributes& attributes,
       std::string message = "Spatial attribute 'rotateY' from the <CSGRotation> "
         "element must be an integer.";
       log->logPackageError("spatial", SpatialCSGRotationRotateYMustBeDouble,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
     }
   }
 
@@ -906,7 +906,7 @@ CSGRotation::readAttributes(const XMLAttributes& attributes,
       std::string message = "Spatial attribute 'rotateZ' from the <CSGRotation> "
         "element must be an integer.";
       log->logPackageError("spatial", SpatialCSGRotationRotateZMustBeDouble,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
     }
   }
 
@@ -928,14 +928,14 @@ CSGRotation::readAttributes(const XMLAttributes& attributes,
         "<CSGRotation> element must be an integer.";
       log->logPackageError("spatial",
         SpatialCSGRotationRotateAngleInRadiansMustBeDouble, pkgVersion, level,
-          version, message);
+          version, message, getLine(), getColumn());
     }
     else
     {
       std::string message = "Spatial attribute 'rotateAngleInRadians' is "
         "missing from the <CSGRotation> element.";
       log->logPackageError("spatial", SpatialCSGRotationAllowedAttributes,
-        pkgVersion, level, version, message);
+        pkgVersion, level, version, message, getLine(), getColumn());
     }
   }
 }

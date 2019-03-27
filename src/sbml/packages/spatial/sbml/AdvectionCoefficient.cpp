@@ -696,6 +696,7 @@ AdvectionCoefficient::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   SBase::readAttributes(attributes, expectedAttributes);
+
   if (log)
   {
     numErrs = log->getNumErrors();
@@ -708,7 +709,7 @@ AdvectionCoefficient::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownPackageAttribute);
         log->logPackageError("spatial",
           SpatialAdvectionCoefficientAllowedAttributes, pkgVersion, level,
-            version, details);
+            version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -716,7 +717,7 @@ AdvectionCoefficient::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("spatial",
           SpatialAdvectionCoefficientAllowedCoreAttributes, pkgVersion, level,
-            version, details);
+            version, details, getLine(), getColumn());
       }
     }
   }
@@ -754,7 +755,7 @@ AdvectionCoefficient::readAttributes(const XMLAttributes& attributes,
       "<AdvectionCoefficient> element.";
     log->logPackageError("spatial",
       SpatialAdvectionCoefficientAllowedAttributes, pkgVersion, level, version,
-        message);
+        message, getLine(), getColumn());
   }
 
   // 
@@ -787,7 +788,7 @@ AdvectionCoefficient::readAttributes(const XMLAttributes& attributes,
 
         log->logPackageError("spatial",
           SpatialAdvectionCoefficientCoordinateMustBeCoordinateKindEnum,
-            pkgVersion, level, version, msg);
+            pkgVersion, level, version, msg, getLine(), getColumn());
       }
     }
   }
@@ -796,7 +797,7 @@ AdvectionCoefficient::readAttributes(const XMLAttributes& attributes,
     std::string message = "Spatial attribute 'coordinate' is missing.";
     log->logPackageError("spatial",
       SpatialAdvectionCoefficientAllowedAttributes, pkgVersion, level, version,
-        message);
+        message, getLine(), getColumn());
   }
 }
 

@@ -815,7 +815,7 @@ AdjacentDomains::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownPackageAttribute);
         log->logPackageError("spatial",
           SpatialAdjacentDomainsAllowedAttributes, pkgVersion, level, version,
-            details);
+            details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -823,7 +823,7 @@ AdjacentDomains::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("spatial",
           SpatialGeometryLOAdjacentDomainsAllowedCoreAttributes, pkgVersion,
-            level, version, details);
+            level, version, details, getLine(), getColumn());
       }
     }
   }
@@ -842,7 +842,7 @@ AdjacentDomains::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownPackageAttribute);
         log->logPackageError("spatial",
           SpatialAdjacentDomainsAllowedAttributes, pkgVersion, level, version,
-            details);
+            details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -850,7 +850,7 @@ AdjacentDomains::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("spatial",
           SpatialAdjacentDomainsAllowedCoreAttributes, pkgVersion, level,
-            version, details);
+            version, details, getLine(), getColumn());
       }
     }
   }
@@ -879,7 +879,7 @@ AdjacentDomains::readAttributes(const XMLAttributes& attributes,
     std::string message = "Spatial attribute 'id' is missing from the "
       "<AdjacentDomains> element.";
     log->logPackageError("spatial", SpatialAdjacentDomainsAllowedAttributes,
-      pkgVersion, level, version, message);
+      pkgVersion, level, version, message, getLine(), getColumn());
   }
 
   // 
@@ -928,7 +928,7 @@ AdjacentDomains::readAttributes(const XMLAttributes& attributes,
     std::string message = "Spatial attribute 'domain1' is missing from the "
       "<AdjacentDomains> element.";
     log->logPackageError("spatial", SpatialAdjacentDomainsAllowedAttributes,
-      pkgVersion, level, version, message);
+      pkgVersion, level, version, message, getLine(), getColumn());
   }
 
   // 
@@ -963,7 +963,7 @@ AdjacentDomains::readAttributes(const XMLAttributes& attributes,
     std::string message = "Spatial attribute 'domain2' is missing from the "
       "<AdjacentDomains> element.";
     log->logPackageError("spatial", SpatialAdjacentDomainsAllowedAttributes,
-      pkgVersion, level, version, message);
+      pkgVersion, level, version, message, getLine(), getColumn());
   }
 }
 

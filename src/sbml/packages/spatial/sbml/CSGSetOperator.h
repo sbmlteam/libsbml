@@ -386,7 +386,8 @@ public:
    * @param n an unsigned int representing the index of the CSGNode to
    * retrieve.
    *
-   * @return the nth CSGNode in the ListOfCSGNodes within this CSGSetOperator.
+   * @return the nth CSGNode in the ListOfCSGNodes within this CSGSetOperator
+   * or @c NULL if no such object exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -406,7 +407,8 @@ public:
    * @param n an unsigned int representing the index of the CSGNode to
    * retrieve.
    *
-   * @return the nth CSGNode in the ListOfCSGNodes within this CSGSetOperator.
+   * @return the nth CSGNode in the ListOfCSGNodes within this CSGSetOperator
+   * or @c NULL if no such object exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -620,7 +622,7 @@ public:
    *
    * @return a pointer to the nth CSGNode in this CSGSetOperator.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addCSGNode(const CSGNode* object)
    * @see createCSGNode()
@@ -641,7 +643,7 @@ public:
    * @return the CSGNode in this CSGSetOperator based on the identifier or NULL
    * if no such CSGNode exists.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addCSGNode(const CSGNode* object)
    * @see createCSGNode()
@@ -1142,7 +1144,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the objects
    * to be retrieved.
    *
-   * @return a List* pointer of pointers to all SBase child objects with any
+   * @return a List pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -1580,7 +1582,8 @@ CSGSetOperator_getListOfCSGNodes(CSGSetOperator_t* csgso);
  * @param n an unsigned int representing the index of the CSGNode_t to
  * retrieve.
  *
- * @return the nth CSGNode_t in the ListOfCSGNodes within this CSGSetOperator.
+ * @return the nth CSGNode_t in the ListOfCSGNodes within this CSGSetOperator
+ * or @c NULL if no such object exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -1768,7 +1771,7 @@ CSGSetOperator_createCSGSetOperator(CSGSetOperator_t* csgso);
  *
  * @return a pointer to the nth CSGNode_t in this CSGSetOperator_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof CSGSetOperator_t
  */
@@ -1788,7 +1791,7 @@ CSGSetOperator_removeCSGNode(CSGSetOperator_t* csgso, unsigned int n);
  * @return the CSGNode_t in this CSGSetOperator_t based on the identifier or
  * NULL if no such CSGNode_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof CSGSetOperator_t
  */

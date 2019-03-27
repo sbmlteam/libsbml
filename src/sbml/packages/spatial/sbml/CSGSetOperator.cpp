@@ -1364,7 +1364,7 @@ CSGSetOperator::createObject(XMLInputStream& stream)
     {
       getErrorLog()->logPackageError("spatial",
         SpatialCSGSetOperatorAllowedElements, getPackageVersion(), getLevel(),
-          getVersion());
+          getVersion(), "", getLine(), getColumn());
     }
 
     obj = &mCSGNodes;
@@ -1429,7 +1429,7 @@ CSGSetOperator::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("spatial", SpatialCSGSetOperatorAllowedAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1437,7 +1437,7 @@ CSGSetOperator::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("spatial",
           SpatialCSGSetOperatorAllowedCoreAttributes, pkgVersion, level, version,
-            details);
+            details, getLine(), getColumn());
       }
     }
   }
@@ -1472,7 +1472,7 @@ CSGSetOperator::readAttributes(const XMLAttributes& attributes,
 
         log->logPackageError("spatial",
           SpatialCSGSetOperatorOperationTypeMustBeSetOperationEnum, pkgVersion,
-            level, version, msg);
+            level, version, msg, getLine(), getColumn());
       }
     }
   }
@@ -1480,7 +1480,7 @@ CSGSetOperator::readAttributes(const XMLAttributes& attributes,
   {
     std::string message = "Spatial attribute 'operationType' is missing.";
     log->logPackageError("spatial", SpatialCSGSetOperatorAllowedAttributes,
-      pkgVersion, level, version, message);
+      pkgVersion, level, version, message, getLine(), getColumn());
   }
 
   // 

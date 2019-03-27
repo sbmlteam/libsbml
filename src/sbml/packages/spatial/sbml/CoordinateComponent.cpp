@@ -1415,7 +1415,7 @@ CoordinateComponent::createObject(XMLInputStream& stream)
     {
       getErrorLog()->logPackageError("spatial",
         SpatialCoordinateComponentAllowedElements, getPackageVersion(),
-          getLevel(), getVersion());
+          getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     delete mBoundaryMin;
@@ -1430,7 +1430,7 @@ CoordinateComponent::createObject(XMLInputStream& stream)
     {
       getErrorLog()->logPackageError("spatial",
         SpatialCoordinateComponentAllowedElements, getPackageVersion(),
-          getLevel(), getVersion());
+          getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     delete mBoundaryMax;
@@ -1503,7 +1503,7 @@ CoordinateComponent::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownPackageAttribute);
         log->logPackageError("spatial",
           SpatialCoordinateComponentAllowedAttributes, pkgVersion, level,
-            version, details);
+            version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1511,7 +1511,7 @@ CoordinateComponent::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("spatial",
           SpatialGeometryLOCoordinateComponentsAllowedCoreAttributes, pkgVersion,
-            level, version, details);
+            level, version, details, getLine(), getColumn());
       }
     }
   }
@@ -1530,7 +1530,7 @@ CoordinateComponent::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownPackageAttribute);
         log->logPackageError("spatial",
           SpatialCoordinateComponentAllowedAttributes, pkgVersion, level,
-            version, details);
+            version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1538,7 +1538,7 @@ CoordinateComponent::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("spatial",
           SpatialCoordinateComponentAllowedCoreAttributes, pkgVersion, level,
-            version, details);
+            version, details, getLine(), getColumn());
       }
     }
   }
@@ -1568,7 +1568,7 @@ CoordinateComponent::readAttributes(const XMLAttributes& attributes,
       "<CoordinateComponent> element.";
     log->logPackageError("spatial",
       SpatialCoordinateComponentAllowedAttributes, pkgVersion, level, version,
-        message);
+        message, getLine(), getColumn());
   }
 
   // 
@@ -1615,7 +1615,7 @@ CoordinateComponent::readAttributes(const XMLAttributes& attributes,
 
         log->logPackageError("spatial",
           SpatialCoordinateComponentTypeMustBeCoordinateKindEnum, pkgVersion,
-            level, version, msg);
+            level, version, msg, getLine(), getColumn());
       }
     }
   }
@@ -1624,7 +1624,7 @@ CoordinateComponent::readAttributes(const XMLAttributes& attributes,
     std::string message = "Spatial attribute 'type' is missing.";
     log->logPackageError("spatial",
       SpatialCoordinateComponentAllowedAttributes, pkgVersion, level, version,
-        message);
+        message, getLine(), getColumn());
   }
 
   // 

@@ -183,7 +183,7 @@ public:
    * retrieve.
    *
    * @return the nth AnalyticVolume in the ListOfAnalyticVolumes within this
-   * AnalyticGeometry.
+   * AnalyticGeometry or @c NULL if no such object exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -204,7 +204,7 @@ public:
    * retrieve.
    *
    * @return the nth AnalyticVolume in the ListOfAnalyticVolumes within this
-   * AnalyticGeometry.
+   * AnalyticGeometry or @c NULL if no such object exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -361,7 +361,7 @@ public:
    *
    * @return a pointer to the nth AnalyticVolume in this AnalyticGeometry.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addAnalyticVolume(const AnalyticVolume* object)
    * @see createAnalyticVolume()
@@ -383,7 +383,7 @@ public:
    * @return the AnalyticVolume in this AnalyticGeometry based on the
    * identifier or NULL if no such AnalyticVolume exists.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addAnalyticVolume(const AnalyticVolume* object)
    * @see createAnalyticVolume()
@@ -875,7 +875,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the objects
    * to be retrieved.
    *
-   * @return a List* pointer of pointers to all SBase child objects with any
+   * @return a List pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -1045,7 +1045,7 @@ AnalyticGeometry_getListOfAnalyticVolumes(AnalyticGeometry_t* ag);
  * retrieve.
  *
  * @return the nth AnalyticVolume_t in the ListOfAnalyticVolumes within this
- * AnalyticGeometry.
+ * AnalyticGeometry or @c NULL if no such object exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -1168,7 +1168,7 @@ AnalyticGeometry_createAnalyticVolume(AnalyticGeometry_t* ag);
  *
  * @return a pointer to the nth AnalyticVolume_t in this AnalyticGeometry_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof AnalyticGeometry_t
  */
@@ -1189,7 +1189,7 @@ AnalyticGeometry_removeAnalyticVolume(AnalyticGeometry_t* ag, unsigned int n);
  * @return the AnalyticVolume_t in this AnalyticGeometry_t based on the
  * identifier or NULL if no such AnalyticVolume_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof AnalyticGeometry_t
  */

@@ -822,7 +822,7 @@ CompartmentMapping::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownPackageAttribute);
         log->logPackageError("spatial",
           SpatialCompartmentMappingAllowedAttributes, pkgVersion, level, version,
-            details);
+            details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -830,7 +830,7 @@ CompartmentMapping::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("spatial",
           SpatialCompartmentMappingAllowedCoreAttributes, pkgVersion, level,
-            version, details);
+            version, details, getLine(), getColumn());
       }
     }
   }
@@ -859,7 +859,7 @@ CompartmentMapping::readAttributes(const XMLAttributes& attributes,
     std::string message = "Spatial attribute 'id' is missing from the "
       "<CompartmentMapping> element.";
     log->logPackageError("spatial", SpatialCompartmentMappingAllowedAttributes,
-      pkgVersion, level, version, message);
+      pkgVersion, level, version, message, getLine(), getColumn());
   }
 
   // 
@@ -909,7 +909,7 @@ CompartmentMapping::readAttributes(const XMLAttributes& attributes,
     std::string message = "Spatial attribute 'domainType' is missing from the "
       "<CompartmentMapping> element.";
     log->logPackageError("spatial", SpatialCompartmentMappingAllowedAttributes,
-      pkgVersion, level, version, message);
+      pkgVersion, level, version, message, getLine(), getColumn());
   }
 
   // 
@@ -929,7 +929,7 @@ CompartmentMapping::readAttributes(const XMLAttributes& attributes,
         "<CompartmentMapping> element must be an integer.";
       log->logPackageError("spatial",
         SpatialCompartmentMappingUnitSizeMustBeDouble, pkgVersion, level,
-          version, message);
+          version, message, getLine(), getColumn());
     }
     else
     {
@@ -937,7 +937,7 @@ CompartmentMapping::readAttributes(const XMLAttributes& attributes,
         "<CompartmentMapping> element.";
       log->logPackageError("spatial",
         SpatialCompartmentMappingAllowedAttributes, pkgVersion, level, version,
-          message);
+          message, getLine(), getColumn());
     }
   }
 }

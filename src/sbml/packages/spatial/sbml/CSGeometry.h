@@ -179,7 +179,8 @@ public:
    * @param n an unsigned int representing the index of the CSGObject to
    * retrieve.
    *
-   * @return the nth CSGObject in the ListOfCSGObjects within this CSGeometry.
+   * @return the nth CSGObject in the ListOfCSGObjects within this CSGeometry
+   * or @c NULL if no such object exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -199,7 +200,8 @@ public:
    * @param n an unsigned int representing the index of the CSGObject to
    * retrieve.
    *
-   * @return the nth CSGObject in the ListOfCSGObjects within this CSGeometry.
+   * @return the nth CSGObject in the ListOfCSGObjects within this CSGeometry
+   * or @c NULL if no such object exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -353,7 +355,7 @@ public:
    *
    * @return a pointer to the nth CSGObject in this CSGeometry.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addCSGObject(const CSGObject* object)
    * @see createCSGObject()
@@ -375,7 +377,7 @@ public:
    * @return the CSGObject in this CSGeometry based on the identifier or NULL
    * if no such CSGObject exists.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addCSGObject(const CSGObject* object)
    * @see createCSGObject()
@@ -865,7 +867,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the objects
    * to be retrieved.
    *
-   * @return a List* pointer of pointers to all SBase child objects with any
+   * @return a List pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -1030,7 +1032,8 @@ CSGeometry_getListOfCSGObjects(CSGeometry_t* csg);
  * @param n an unsigned int representing the index of the CSGObject_t to
  * retrieve.
  *
- * @return the nth CSGObject_t in the ListOfCSGObjects within this CSGeometry.
+ * @return the nth CSGObject_t in the ListOfCSGObjects within this CSGeometry
+ * or @c NULL if no such object exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -1149,7 +1152,7 @@ CSGeometry_createCSGObject(CSGeometry_t* csg);
  *
  * @return a pointer to the nth CSGObject_t in this CSGeometry_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof CSGeometry_t
  */
@@ -1170,7 +1173,7 @@ CSGeometry_removeCSGObject(CSGeometry_t* csg, unsigned int n);
  * @return the CSGObject_t in this CSGeometry_t based on the identifier or NULL
  * if no such CSGObject_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof CSGeometry_t
  */

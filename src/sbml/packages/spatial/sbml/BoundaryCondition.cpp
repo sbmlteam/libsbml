@@ -870,7 +870,7 @@ BoundaryCondition::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownPackageAttribute);
         log->logPackageError("spatial",
           SpatialBoundaryConditionAllowedAttributes, pkgVersion, level, version,
-            details);
+            details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -878,7 +878,7 @@ BoundaryCondition::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("spatial",
           SpatialBoundaryConditionAllowedCoreAttributes, pkgVersion, level,
-            version, details);
+            version, details, getLine(), getColumn());
       }
     }
   }
@@ -915,7 +915,7 @@ BoundaryCondition::readAttributes(const XMLAttributes& attributes,
     std::string message = "Spatial attribute 'variable' is missing from the "
       "<BoundaryCondition> element.";
     log->logPackageError("spatial", SpatialBoundaryConditionAllowedAttributes,
-      pkgVersion, level, version, message);
+      pkgVersion, level, version, message, getLine(), getColumn());
   }
 
   // 
@@ -948,7 +948,7 @@ BoundaryCondition::readAttributes(const XMLAttributes& attributes,
 
         log->logPackageError("spatial",
           SpatialBoundaryConditionTypeMustBeBoundaryKindEnum, pkgVersion, level,
-            version, msg);
+            version, msg, getLine(), getColumn());
       }
     }
   }
@@ -956,7 +956,7 @@ BoundaryCondition::readAttributes(const XMLAttributes& attributes,
   {
     std::string message = "Spatial attribute 'type' is missing.";
     log->logPackageError("spatial", SpatialBoundaryConditionAllowedAttributes,
-      pkgVersion, level, version, message);
+      pkgVersion, level, version, message, getLine(), getColumn());
   }
 
   // 
