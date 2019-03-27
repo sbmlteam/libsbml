@@ -90,202 +90,202 @@ DistribExtensionTest_teardown (void)
 }
 
 
-START_TEST (test_DistribExtension_getName)
-{
-  fail_unless(G->getName() == "distrib");
-  fail_unless(G->getName() == DISTRIB_PACKAGE_NAME);
-}
-END_TEST
-
-
-START_TEST (test_DistribExtension_getURI)
-{
-  fail_unless(G->getURI(3,1,1) == DISTRIB_XMLNS_L3V1V1);
-  fail_unless(G->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V1V1);
-  fail_unless(G->getURI(2,1,1) == "");
-  fail_unless(G->getURI(4,1,1) == "");
-}
-END_TEST
-
-
-START_TEST (test_DistribExtension_getLevelVersion)
-{
-  fail_unless(G->getLevel(DISTRIB_XMLNS_L3V1V1) == 3);
-  fail_unless(G->getLevel(CORE_XMLNS_L2V4)             == 0);
-  fail_unless(G->getLevel("")                          == 0);
-
-  fail_unless(G->getVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(G->getVersion(CORE_XMLNS_L2V4)             == 0);
-  fail_unless(G->getVersion("")                          == 0);
-
-  fail_unless(G->getPackageVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(G->getPackageVersion(CORE_XMLNS_L2V4)             == 0);
-  fail_unless(G->getPackageVersion("")                          == 0);
-}
-END_TEST
-
-
-START_TEST (test_DistribExtension_getSBMLExtensionNamespaces)
-{
-  DistribPkgNamespaces *Distribns;
-  Distribns = static_cast<DistribPkgNamespaces*>(G->getSBMLExtensionNamespaces(DISTRIB_XMLNS_L3V1V1));
-
-  fail_unless(Distribns->getLevel()          == 3);
-  fail_unless(Distribns->getVersion()        == 1);
-  fail_unless(Distribns->getPackageVersion() == 1);
-
-  delete Distribns;
-  Distribns = static_cast<DistribPkgNamespaces*>(G->getSBMLExtensionNamespaces(""));
-
-  fail_unless(Distribns == NULL);
-}
-END_TEST
-
-
-START_TEST(test_DistribExtension_copy)
-{
-  DistribExtension *g2 = new DistribExtension(*G);
-
-  fail_unless(g2->getName() == "distrib");
-  fail_unless(g2->getName() == DISTRIB_PACKAGE_NAME);
-
-  fail_unless(g2->getURI(3,1,1) == DISTRIB_XMLNS_L3V1V1);
-  fail_unless(g2->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V1V1);
-  fail_unless(g2->getURI(2,1,1) == "");
-  fail_unless(g2->getURI(4,1,1) == "");
-
-  fail_unless(g2->getLevel(DISTRIB_XMLNS_L3V1V1) == 3);
-  fail_unless(g2->getLevel(CORE_XMLNS_L2V4)             == 0);
-  fail_unless(g2->getLevel("")                          == 0);
-
-  fail_unless(g2->getVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(g2->getVersion(CORE_XMLNS_L2V4)             == 0);
-  fail_unless(g2->getVersion("")                          == 0);
-
-  fail_unless(g2->getPackageVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(g2->getPackageVersion(CORE_XMLNS_L2V4)             == 0);
-  fail_unless(g2->getPackageVersion("")                          == 0);
-
-  delete g2;
-}
-END_TEST
-
-
-START_TEST(test_DistribExtension_assignment)
-{
-  DistribExtension* g2 = new DistribExtension();
-
-  (*g2) = (*G);
-
-  fail_unless(g2->getName() == "distrib");
-  fail_unless(g2->getName() == DISTRIB_PACKAGE_NAME);
-
-  fail_unless(g2->getURI(3, 1, 1) == DISTRIB_XMLNS_L3V1V1);
-  fail_unless(g2->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V1V1);
-  fail_unless(g2->getURI(2, 1, 1) == "");
-  fail_unless(g2->getURI(4, 1, 1) == "");
-
-  fail_unless(g2->getLevel(DISTRIB_XMLNS_L3V1V1) == 3);
-  fail_unless(g2->getLevel(CORE_XMLNS_L2V4) == 0);
-  fail_unless(g2->getLevel("") == 0);
-
-  fail_unless(g2->getVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(g2->getVersion(CORE_XMLNS_L2V4) == 0);
-  fail_unless(g2->getVersion("") == 0);
-
-  fail_unless(g2->getPackageVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(g2->getPackageVersion(CORE_XMLNS_L2V4) == 0);
-  fail_unless(g2->getPackageVersion("") == 0);
-
-  delete g2;
-}
-END_TEST
-
-
-START_TEST(test_DistribExtension_clone)
-{
-  DistribExtension* g2 = G->clone();
-
-  fail_unless(g2->getName() == "distrib");
-  fail_unless(g2->getName() == DISTRIB_PACKAGE_NAME);
-
-  fail_unless(g2->getURI(3, 1, 1) == DISTRIB_XMLNS_L3V1V1);
-  fail_unless(g2->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V1V1);
-  fail_unless(g2->getURI(2, 1, 1) == "");
-  fail_unless(g2->getURI(4, 1, 1) == "");
-
-  fail_unless(g2->getLevel(DISTRIB_XMLNS_L3V1V1) == 3);
-  fail_unless(g2->getLevel(CORE_XMLNS_L2V4) == 0);
-  fail_unless(g2->getLevel("") == 0);
-
-  fail_unless(g2->getVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(g2->getVersion(CORE_XMLNS_L2V4) == 0);
-  fail_unless(g2->getVersion("") == 0);
-
-  fail_unless(g2->getPackageVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(g2->getPackageVersion(CORE_XMLNS_L2V4) == 0);
-  fail_unless(g2->getPackageVersion("") == 0);
-
-  delete g2;
-}
-END_TEST
-
-
-START_TEST(test_DistribExtension_registry)
-{
-  const SBMLExtension* sbext = SBMLExtensionRegistry::getInstance().getExtension("distrib");
-
-  fail_unless(sbext != NULL);
-
-  fail_unless(sbext->getName() == "distrib");
-  fail_unless(sbext->getName() == DISTRIB_PACKAGE_NAME);
-
-  fail_unless(sbext->getURI(3,1,1) == DISTRIB_XMLNS_L3V1V1);
-  fail_unless(sbext->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V1V1);
-  fail_unless(sbext->getURI(2,1,1) == "");
-  fail_unless(sbext->getURI(4,1,1) == "");
-
-  fail_unless(sbext->getLevel(DISTRIB_XMLNS_L3V1V1) == 3);
-  fail_unless(sbext->getLevel(CORE_XMLNS_L2V4)             == 0);
-  fail_unless(sbext->getLevel("")                          == 0);
-
-  fail_unless(sbext->getVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(sbext->getVersion(CORE_XMLNS_L2V4)             == 0);
-  fail_unless(sbext->getVersion("")                          == 0);
-
-  fail_unless(sbext->getPackageVersion(DISTRIB_XMLNS_L3V1V1) == 1);
-  fail_unless(sbext->getPackageVersion(CORE_XMLNS_L2V4)             == 0);
-  fail_unless(sbext->getPackageVersion("")                          == 0);
-
-  delete sbext;
-}
-END_TEST
-
-
-START_TEST(test_DistribExtension_typecode)
-{
-  const SBMLExtension* sbext = SBMLExtensionRegistry::getInstance().getExtension("distrib");
-
-  fail_unless(sbext != NULL);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_DISTRIBUTION), "Distribution") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_EXTERNALPARAMETER), "ExternalParameter") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_UNCERTSTATISTICSPAN), "UncertStatisticSpan") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_DISTRIBBASE), "DistribBase") == 0); //39  /*!<DistribUncertStatisticSpan */
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_DISTRIBBASE +1), "(Unknown SBML Distrib Type)") == 0);
-
-  delete sbext;
-}
-END_TEST
-
-START_TEST(test_DistribExtension_SBMLtypecode)
-{	
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_DISTRIBUTION, "distrib"), "Distribution") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_EXTERNALPARAMETER, "distrib"), "ExternalParameter") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_UNCERTSTATISTICSPAN, "distrib"), "UncertStatisticSpan") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_DISTRIBBASE, "distrib"), "DistribBase") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_DISTRIBBASE + 1, "distrib"), "(Unknown SBML Distrib Type)") == 0);
-}
-END_TEST
+//START_TEST (test_DistribExtension_getName)
+//{
+//  fail_unless(G->getName() == "distrib");
+//  fail_unless(G->getName() == DISTRIB_PACKAGE_NAME);
+//}
+//END_TEST
+//
+//
+//START_TEST (test_DistribExtension_getURI)
+//{
+//  fail_unless(G->getURI(3,1,1) == DISTRIB_XMLNS_L3V1V1);
+//  fail_unless(G->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V1V1);
+//  fail_unless(G->getURI(2,1,1) == "");
+//  fail_unless(G->getURI(4,1,1) == "");
+//}
+//END_TEST
+//
+//
+//START_TEST (test_DistribExtension_getLevelVersion)
+//{
+//  fail_unless(G->getLevel(DISTRIB_XMLNS_L3V1V1) == 3);
+//  fail_unless(G->getLevel(CORE_XMLNS_L2V4)             == 0);
+//  fail_unless(G->getLevel("")                          == 0);
+//
+//  fail_unless(G->getVersion(DISTRIB_XMLNS_L3V1V1) == 1);
+//  fail_unless(G->getVersion(CORE_XMLNS_L2V4)             == 0);
+//  fail_unless(G->getVersion("")                          == 0);
+//
+//  fail_unless(G->getPackageVersion(DISTRIB_XMLNS_L3V1V1) == 1);
+//  fail_unless(G->getPackageVersion(CORE_XMLNS_L2V4)             == 0);
+//  fail_unless(G->getPackageVersion("")                          == 0);
+//}
+//END_TEST
+//
+//
+//START_TEST (test_DistribExtension_getSBMLExtensionNamespaces)
+//{
+//  DistribPkgNamespaces *Distribns;
+//  Distribns = static_cast<DistribPkgNamespaces*>(G->getSBMLExtensionNamespaces(DISTRIB_XMLNS_L3V1V1));
+//
+//  fail_unless(Distribns->getLevel()          == 3);
+//  fail_unless(Distribns->getVersion()        == 1);
+//  fail_unless(Distribns->getPackageVersion() == 1);
+//
+//  delete Distribns;
+//  Distribns = static_cast<DistribPkgNamespaces*>(G->getSBMLExtensionNamespaces(""));
+//
+//  fail_unless(Distribns == NULL);
+//}
+//END_TEST
+//
+//
+//START_TEST(test_DistribExtension_copy)
+//{
+//  DistribExtension *g2 = new DistribExtension(*G);
+//
+//  fail_unless(g2->getName() == "distrib");
+//  fail_unless(g2->getName() == DISTRIB_PACKAGE_NAME);
+//
+//  fail_unless(g2->getURI(3,1,1) == DISTRIB_XMLNS_L3V1V1);
+//  fail_unless(g2->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V1V1);
+//  fail_unless(g2->getURI(2,1,1) == "");
+//  fail_unless(g2->getURI(4,1,1) == "");
+//
+//  fail_unless(g2->getLevel(DISTRIB_XMLNS_L3V1V1) == 3);
+//  fail_unless(g2->getLevel(CORE_XMLNS_L2V4)             == 0);
+//  fail_unless(g2->getLevel("")                          == 0);
+//
+//  fail_unless(g2->getVersion(DISTRIB_XMLNS_L3V1V1) == 1);
+//  fail_unless(g2->getVersion(CORE_XMLNS_L2V4)             == 0);
+//  fail_unless(g2->getVersion("")                          == 0);
+//
+//  fail_unless(g2->getPackageVersion(DISTRIB_XMLNS_L3V1V1) == 1);
+//  fail_unless(g2->getPackageVersion(CORE_XMLNS_L2V4)             == 0);
+//  fail_unless(g2->getPackageVersion("")                          == 0);
+//
+//  delete g2;
+//}
+//END_TEST
+//
+//
+//START_TEST(test_DistribExtension_assignment)
+//{
+//  DistribExtension* g2 = new DistribExtension();
+//
+//  (*g2) = (*G);
+//
+//  fail_unless(g2->getName() == "distrib");
+//  fail_unless(g2->getName() == DISTRIB_PACKAGE_NAME);
+//
+//  fail_unless(g2->getURI(3, 1, 1) == DISTRIB_XMLNS_L3V1V1);
+//  fail_unless(g2->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V1V1);
+//  fail_unless(g2->getURI(2, 1, 1) == "");
+//  fail_unless(g2->getURI(4, 1, 1) == "");
+//
+//  fail_unless(g2->getLevel(DISTRIB_XMLNS_L3V1V1) == 3);
+//  fail_unless(g2->getLevel(CORE_XMLNS_L2V4) == 0);
+//  fail_unless(g2->getLevel("") == 0);
+//
+//  fail_unless(g2->getVersion(DISTRIB_XMLNS_L3V1V1) == 1);
+//  fail_unless(g2->getVersion(CORE_XMLNS_L2V4) == 0);
+//  fail_unless(g2->getVersion("") == 0);
+//
+//  fail_unless(g2->getPackageVersion(DISTRIB_XMLNS_L3V1V1) == 1);
+//  fail_unless(g2->getPackageVersion(CORE_XMLNS_L2V4) == 0);
+//  fail_unless(g2->getPackageVersion("") == 0);
+//
+//  delete g2;
+//}
+//END_TEST
+//
+//
+//START_TEST(test_DistribExtension_clone)
+//{
+//  DistribExtension* g2 = G->clone();
+//
+//  fail_unless(g2->getName() == "distrib");
+//  fail_unless(g2->getName() == DISTRIB_PACKAGE_NAME);
+//
+//  fail_unless(g2->getURI(3, 1, 1) == DISTRIB_XMLNS_L3V1V1);
+//  fail_unless(g2->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V1V1);
+//  fail_unless(g2->getURI(2, 1, 1) == "");
+//  fail_unless(g2->getURI(4, 1, 1) == "");
+//
+//  fail_unless(g2->getLevel(DISTRIB_XMLNS_L3V1V1) == 3);
+//  fail_unless(g2->getLevel(CORE_XMLNS_L2V4) == 0);
+//  fail_unless(g2->getLevel("") == 0);
+//
+//  fail_unless(g2->getVersion(DISTRIB_XMLNS_L3V1V1) == 1);
+//  fail_unless(g2->getVersion(CORE_XMLNS_L2V4) == 0);
+//  fail_unless(g2->getVersion("") == 0);
+//
+//  fail_unless(g2->getPackageVersion(DISTRIB_XMLNS_L3V1V1) == 1);
+//  fail_unless(g2->getPackageVersion(CORE_XMLNS_L2V4) == 0);
+//  fail_unless(g2->getPackageVersion("") == 0);
+//
+//  delete g2;
+//}
+//END_TEST
+//
+//
+//START_TEST(test_DistribExtension_registry)
+//{
+//  const SBMLExtension* sbext = SBMLExtensionRegistry::getInstance().getExtension("distrib");
+//
+//  fail_unless(sbext != NULL);
+//
+//  fail_unless(sbext->getName() == "distrib");
+//  fail_unless(sbext->getName() == DISTRIB_PACKAGE_NAME);
+//
+//  fail_unless(sbext->getURI(3,1,1) == DISTRIB_XMLNS_L3V1V1);
+//  fail_unless(sbext->getURI(3, 2, 1) == DISTRIB_XMLNS_L3V1V1);
+//  fail_unless(sbext->getURI(2,1,1) == "");
+//  fail_unless(sbext->getURI(4,1,1) == "");
+//
+//  fail_unless(sbext->getLevel(DISTRIB_XMLNS_L3V1V1) == 3);
+//  fail_unless(sbext->getLevel(CORE_XMLNS_L2V4)             == 0);
+//  fail_unless(sbext->getLevel("")                          == 0);
+//
+//  fail_unless(sbext->getVersion(DISTRIB_XMLNS_L3V1V1) == 1);
+//  fail_unless(sbext->getVersion(CORE_XMLNS_L2V4)             == 0);
+//  fail_unless(sbext->getVersion("")                          == 0);
+//
+//  fail_unless(sbext->getPackageVersion(DISTRIB_XMLNS_L3V1V1) == 1);
+//  fail_unless(sbext->getPackageVersion(CORE_XMLNS_L2V4)             == 0);
+//  fail_unless(sbext->getPackageVersion("")                          == 0);
+//
+//  delete sbext;
+//}
+//END_TEST
+//
+//
+//START_TEST(test_DistribExtension_typecode)
+//{
+//  const SBMLExtension* sbext = SBMLExtensionRegistry::getInstance().getExtension("distrib");
+//
+//  fail_unless(sbext != NULL);
+//  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_DISTRIBUTION), "Distribution") == 0);
+//  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_EXTERNALPARAMETER), "ExternalParameter") == 0);
+//  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_UNCERTSTATISTICSPAN), "UncertStatisticSpan") == 0);
+//  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_DISTRIBBASE), "DistribBase") == 0); //39  /*!<DistribUncertStatisticSpan */
+//  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_DISTRIBBASE +1), "(Unknown SBML Distrib Type)") == 0);
+//
+//  delete sbext;
+//}
+//END_TEST
+//
+//START_TEST(test_DistribExtension_SBMLtypecode)
+//{	
+//  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_DISTRIBUTION, "distrib"), "Distribution") == 0);
+//  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_EXTERNALPARAMETER, "distrib"), "ExternalParameter") == 0);
+//  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_UNCERTSTATISTICSPAN, "distrib"), "UncertStatisticSpan") == 0);
+//  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_DISTRIBBASE, "distrib"), "DistribBase") == 0);
+//  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_DISTRIBBASE + 1, "distrib"), "(Unknown SBML Distrib Type)") == 0);
+//}
+//END_TEST
 
 Suite *
 create_suite_DistribExtension (void)
@@ -295,16 +295,16 @@ create_suite_DistribExtension (void)
 
   tcase_add_checked_fixture(tcase, DistribExtensionTest_setup, DistribExtensionTest_teardown);
  
-  tcase_add_test( tcase, test_DistribExtension_getName         );
-  tcase_add_test( tcase, test_DistribExtension_getURI          );
-  tcase_add_test( tcase, test_DistribExtension_getLevelVersion );
-  tcase_add_test( tcase, test_DistribExtension_getSBMLExtensionNamespaces);
-  tcase_add_test( tcase, test_DistribExtension_copy            );
-  tcase_add_test( tcase, test_DistribExtension_assignment      );
-  tcase_add_test( tcase, test_DistribExtension_clone           );
-  tcase_add_test( tcase, test_DistribExtension_registry        );
-  tcase_add_test( tcase, test_DistribExtension_typecode        );
-  tcase_add_test( tcase, test_DistribExtension_SBMLtypecode    );
+  //tcase_add_test( tcase, test_DistribExtension_getName         );
+  //tcase_add_test( tcase, test_DistribExtension_getURI          );
+  //tcase_add_test( tcase, test_DistribExtension_getLevelVersion );
+  //tcase_add_test( tcase, test_DistribExtension_getSBMLExtensionNamespaces);
+  //tcase_add_test( tcase, test_DistribExtension_copy            );
+  //tcase_add_test( tcase, test_DistribExtension_assignment      );
+  //tcase_add_test( tcase, test_DistribExtension_clone           );
+  //tcase_add_test( tcase, test_DistribExtension_registry        );
+  //tcase_add_test( tcase, test_DistribExtension_typecode        );
+  //tcase_add_test( tcase, test_DistribExtension_SBMLtypecode    );
 
   suite_add_tcase(suite, tcase);
 

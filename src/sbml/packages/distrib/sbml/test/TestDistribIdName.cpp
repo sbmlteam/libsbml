@@ -71,68 +71,68 @@ equals(std::string& expected, std::string& actual)
 }
 
 
-START_TEST(test_IdName_prefix_read_write_l3v1)
-{
-  std::string expected =
-    "<distrib:uncertainty distrib:id=\"u1\">\n"
-    "  <distrib:listOfExternalParameters distrib:id=\"loep\">\n"
-    "    <distrib:externalParameter distrib:name=\"Beta\" distrib:var=\"beta\" distrib:definitionURL=\"http://www.probonto.org/ontology#PROB_k0000362\"/>\n"
-    "  </distrib:listOfExternalParameters>\n" 
-    "</distrib:uncertainty>";
-    
-  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_statistics.xml");
-  SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
-  Parameter* p = doc->getModel()->getParameter(2);
-
-  DistribSBasePlugin * plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
-  Uncertainty * uncert = plug->getUncertainty();
-  ListOfExternalParameters * loep = uncert->getListOfExternalParameters();
-
-  fail_unless(uncert->setId("u1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(loep->setId("loep") == LIBSBML_OPERATION_SUCCESS);
-
-  ostringstream oss;
-  oss << uncert->toSBML();
-
-  std::string actual = oss.str();
-
-  fail_unless(equals(expected, actual));
-
-  delete doc;
-}
-END_TEST
-
-
-START_TEST(test_IdName_prefix_read_write_l3v2)
-{
-  std::string expected =
-    "<distrib:uncertainty distrib:id=\"u1\">\n"
-    "  <distrib:listOfExternalParameters distrib:id=\"loep\">\n"
-    "    <distrib:externalParameter distrib:name=\"Beta\" distrib:var=\"beta\" distrib:definitionURL=\"http://www.probonto.org/ontology#PROB_k0000362\"/>\n"
-    "  </distrib:listOfExternalParameters>\n"
-    "</distrib:uncertainty>";
-
-  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_statistics_l3v2.xml");
-  SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
-  Parameter* p = doc->getModel()->getParameter(2);
-
-  DistribSBasePlugin * plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
-  Uncertainty * uncert = plug->getUncertainty();
-  ListOfExternalParameters * loep = uncert->getListOfExternalParameters();
-
-  fail_unless(uncert->setId("u1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(loep->setId("loep") == LIBSBML_OPERATION_SUCCESS);
-
-  ostringstream oss;
-  oss << uncert->toSBML();
-
-  std::string actual = oss.str();
-
-  fail_unless(equals(expected, actual));
-
-  delete doc;
-}
-END_TEST
+//START_TEST(test_IdName_prefix_read_write_l3v1)
+//{
+//  std::string expected =
+//    "<distrib:uncertainty distrib:id=\"u1\">\n"
+//    "  <distrib:listOfExternalParameters distrib:id=\"loep\">\n"
+//    "    <distrib:externalParameter distrib:name=\"Beta\" distrib:var=\"beta\" distrib:definitionURL=\"http://www.probonto.org/ontology#PROB_k0000362\"/>\n"
+//    "  </distrib:listOfExternalParameters>\n" 
+//    "</distrib:uncertainty>";
+//    
+//  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_statistics.xml");
+//  SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
+//  Parameter* p = doc->getModel()->getParameter(2);
+//
+//  DistribSBasePlugin * plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
+//  Uncertainty * uncert = plug->getUncertainty();
+//  ListOfExternalParameters * loep = uncert->getListOfExternalParameters();
+//
+//  fail_unless(uncert->setId("u1") == LIBSBML_OPERATION_SUCCESS);
+//  fail_unless(loep->setId("loep") == LIBSBML_OPERATION_SUCCESS);
+//
+//  ostringstream oss;
+//  oss << uncert->toSBML();
+//
+//  std::string actual = oss.str();
+//
+//  fail_unless(equals(expected, actual));
+//
+//  delete doc;
+//}
+//END_TEST
+//
+//
+//START_TEST(test_IdName_prefix_read_write_l3v2)
+//{
+//  std::string expected =
+//    "<distrib:uncertainty distrib:id=\"u1\">\n"
+//    "  <distrib:listOfExternalParameters distrib:id=\"loep\">\n"
+//    "    <distrib:externalParameter distrib:name=\"Beta\" distrib:var=\"beta\" distrib:definitionURL=\"http://www.probonto.org/ontology#PROB_k0000362\"/>\n"
+//    "  </distrib:listOfExternalParameters>\n"
+//    "</distrib:uncertainty>";
+//
+//  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_statistics_l3v2.xml");
+//  SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
+//  Parameter* p = doc->getModel()->getParameter(2);
+//
+//  DistribSBasePlugin * plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
+//  Uncertainty * uncert = plug->getUncertainty();
+//  ListOfExternalParameters * loep = uncert->getListOfExternalParameters();
+//
+//  fail_unless(uncert->setId("u1") == LIBSBML_OPERATION_SUCCESS);
+//  fail_unless(loep->setId("loep") == LIBSBML_OPERATION_SUCCESS);
+//
+//  ostringstream oss;
+//  oss << uncert->toSBML();
+//
+//  std::string actual = oss.str();
+//
+//  fail_unless(equals(expected, actual));
+//
+//  delete doc;
+//}
+//END_TEST
 
 
 Suite *
@@ -141,8 +141,8 @@ create_suite_test_IdName(void)
   Suite *suite = suite_create("TestIdName");
   TCase *tcase = tcase_create("TestIdName");
 
-  tcase_add_test(tcase, test_IdName_prefix_read_write_l3v1);
-  tcase_add_test(tcase, test_IdName_prefix_read_write_l3v2);
+  //tcase_add_test(tcase, test_IdName_prefix_read_write_l3v1);
+  //tcase_add_test(tcase, test_IdName_prefix_read_write_l3v2);
 
 
   suite_add_tcase(suite, tcase);

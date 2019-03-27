@@ -1042,36 +1042,36 @@ create_suite_TestDistribAnnotationConverter (void)
   TCase *tcase = tcase_create("SBMLDistribAnnotationConverter");
   Suite *suite = suite_create("SBMLDistribAnnotationConverter");
   
-  tcase_add_test(tcase, test_distrib_annotation_converter_normal_l3v2);
-  tcase_add_test(tcase, test_distrib_annotation_converter_normal_l3v1);
-  tcase_add_test(tcase, test_distrib_annotation_converter_normal_l2v4);
-  tcase_add_test(tcase, test_distrib_annotation_converter_normal_l3v1b);
-  tcase_add_test(tcase, test_distrib_annotation_converter_normal_event_assignment);
-  tcase_add_test(tcase, test_distrib_annotation_converter_normal_delay);
-  tcase_add_test(tcase, test_distrib_annotation_converter_normal_priority);
-#ifdef USE_COMP
-  tcase_add_test(tcase, test_distrib_annotation_converter_normal_submodel);
-#endif
-  tcase_add_test(tcase, test_distrib_annotation_converter_truncated_normal);
-  tcase_add_test(tcase, test_distrib_annotation_converter_uniform);
-  tcase_add_test(tcase, test_distrib_annotation_converter_uniformb);
-  tcase_add_test(tcase, test_distrib_annotation_converter_exponential);
-  tcase_add_test(tcase, test_distrib_annotation_converter_truncated_exponential);
-  tcase_add_test(tcase, test_distrib_annotation_converter_gamma);
-  tcase_add_test(tcase, test_distrib_annotation_converter_truncated_gamma);
-  tcase_add_test(tcase, test_distrib_annotation_converter_poisson);
-  tcase_add_test(tcase, test_distrib_annotation_converter_truncated_poisson);
-  tcase_add_test(tcase, test_distrib_annotation_converter_lognormal);
-  tcase_add_test(tcase, test_distrib_annotation_converter_chisquare);
-  tcase_add_test(tcase, test_distrib_annotation_converter_laplace);
-  tcase_add_test(tcase, test_distrib_annotation_converter_cauchy);
-  tcase_add_test(tcase, test_distrib_annotation_converter_rayleigh);
-  tcase_add_test(tcase, test_distrib_annotation_converter_binomial);
-  tcase_add_test(tcase, test_distrib_annotation_converter_bernoulli);
-  tcase_add_test(tcase, test_distrib_annotation_converter_none);
-
-
-  tcase_add_test(tcase, test_distrib_annotation_converter_chisquare_wrongargs);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_normal_l3v2);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_normal_l3v1);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_normal_l2v4);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_normal_l3v1b);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_normal_event_assignment);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_normal_delay);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_normal_priority);
+//#ifdef USE_COMP
+//  tcase_add_test(tcase, test_distrib_annotation_converter_normal_submodel);
+//#endif
+//  tcase_add_test(tcase, test_distrib_annotation_converter_truncated_normal);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_uniform);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_uniformb);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_exponential);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_truncated_exponential);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_gamma);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_truncated_gamma);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_poisson);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_truncated_poisson);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_lognormal);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_chisquare);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_laplace);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_cauchy);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_rayleigh);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_binomial);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_bernoulli);
+//  tcase_add_test(tcase, test_distrib_annotation_converter_none);
+//
+//
+//  tcase_add_test(tcase, test_distrib_annotation_converter_chisquare_wrongargs);
 
   suite_add_tcase(suite, tcase);
 
