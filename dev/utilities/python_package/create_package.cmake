@@ -69,81 +69,154 @@ endif()
 # create base dir
 file (MAKE_DIRECTORY ${OUT_DIR}/base)
 
-# list directories to copy files from 
-set(DIRECTORIES
+  # # list directories to copy files from (old way)
+  # set(DIRECTORIES
 
-  sbml
-  sbml/annotation
-  sbml/common
-  sbml/compress
-  sbml/conversion
-  sbml/extension
-  sbml/math
-  sbml/packages
-  
-  sbml/packages/comp/common
-  sbml/packages/comp/extension
-  sbml/packages/comp/sbml
-  sbml/packages/comp/util
-  sbml/packages/comp/validator
-  sbml/packages/comp/validator/constraints
-  
-  sbml/packages/fbc/common
-  sbml/packages/fbc/extension
-  sbml/packages/fbc/sbml
-  sbml/packages/fbc/util
-  sbml/packages/fbc/validator
-  sbml/packages/fbc/validator/constraints
-  
-  sbml/packages/layout/common
-  sbml/packages/layout/extension
-  sbml/packages/layout/sbml
-  sbml/packages/layout/util
-  sbml/packages/layout/validator
-  sbml/packages/layout/validator/constraints
-  
-  sbml/packages/render/common
-  sbml/packages/render/extension
-  sbml/packages/render/sbml
-  sbml/packages/render/util
-  sbml/packages/render/validator
-  sbml/packages/render/validator/constraints
-  
-  sbml/packages/qual/common
-  sbml/packages/qual/extension
-  sbml/packages/qual/sbml
-  sbml/packages/qual/util
-  sbml/packages/qual/validator
-  sbml/packages/qual/validator/constraints
-  
-  sbml/packages/groups/common
-  sbml/packages/groups/extension
-  sbml/packages/groups/sbml
-  sbml/packages/groups/validator
-  sbml/packages/groups/validator/constraints
+  #   sbml
+  #   sbml/annotation
+  #   sbml/common
+  #   sbml/compress
+  #   sbml/conversion
+  #   sbml/extension
+  #   sbml/math
+  #   sbml/packages
+    
+  #   sbml/packages/comp/common
+  #   sbml/packages/comp/extension
+  #   sbml/packages/comp/sbml
+  #   sbml/packages/comp/util
+  #   sbml/packages/comp/validator
+  #   sbml/packages/comp/validator/constraints
+    
+  #   sbml/packages/fbc/common
+  #   sbml/packages/fbc/extension
+  #   sbml/packages/fbc/sbml
+  #   sbml/packages/fbc/util
+  #   sbml/packages/fbc/validator
+  #   sbml/packages/fbc/validator/constraints
+    
+  #   sbml/packages/layout/common
+  #   sbml/packages/layout/extension
+  #   sbml/packages/layout/sbml
+  #   sbml/packages/layout/util
+  #   sbml/packages/layout/validator
+  #   sbml/packages/layout/validator/constraints
+    
+  #   sbml/packages/render/common
+  #   sbml/packages/render/extension
+  #   sbml/packages/render/sbml
+  #   sbml/packages/render/util
+  #   sbml/packages/render/validator
+  #   sbml/packages/render/validator/constraints
+    
+  #   sbml/packages/qual/common
+  #   sbml/packages/qual/extension
+  #   sbml/packages/qual/sbml
+  #   sbml/packages/qual/util
+  #   sbml/packages/qual/validator
+  #   sbml/packages/qual/validator/constraints
+    
+  #   sbml/packages/multi/common
+  #   sbml/packages/multi/extension
+  #   sbml/packages/multi/sbml
+  #   sbml/packages/multi/validator
+  #   sbml/packages/multi/validator/constraints  
 
-  sbml/packages/multi/common
-  sbml/packages/multi/extension
-  sbml/packages/multi/sbml
-  sbml/packages/multi/validator
-  sbml/packages/multi/validator/constraints
-  
-  sbml/packages/l3v2extendedmath/common
-  sbml/packages/l3v2extendedmath/extension
-  sbml/packages/l3v2extendedmath/validator
-  sbml/packages/l3v2extendedmath/validator/constraints
+  #   sbml/packages/groups/common
+  #   sbml/packages/groups/extension
+  #   sbml/packages/groups/sbml
+  #   sbml/packages/groups/util
+  #   sbml/packages/groups/validator
+  #   sbml/packages/groups/validator/constraints  
 
-  sbml/units
-  sbml/util
-  sbml/validator
-  sbml/validator/constraints
-  sbml/xml
-  
-)
+  #   sbml/packages/l3v2extendedmath/common
+  #   sbml/packages/l3v2extendedmath/extension
+  #   sbml/packages/l3v2extendedmath/validator
+  #   sbml/packages/l3v2extendedmath/validator/constraints
+    
+  #   sbml/units
+  #   sbml/util
+  #   sbml/validator
+  #   sbml/validator/constraints
+  #   sbml/xml
+  # )
+
+# new way to list directories
+IF (${CMAKE_VERSION} VERSION_GREATER 3.2.3)
+  MACRO(GET_SBML_SRC_TREE result curdir)
+    FILE(GLOB_RECURSE children LIST_DIRECTORIES true RELATIVE ${curdir} ${curdir}/*)
+    SET(dirlist "sbml")
+    FOREACH(subdir ${children})
+      IF(IS_DIRECTORY ${curdir}/${subdir})
+        IF(subdir MATCHES "test$" OR subdir MATCHES "test-data$"
+          OR subdir MATCHES "/test/" OR  subdir  MATCHES "/test-data/")
+          #message("${subdir}")
+        ELSE()
+          #message("sbml/${subdir}")
+          LIST(APPEND dirlist "sbml/${subdir}")
+        ENDIF()
+      ENDIF()
+    ENDFOREACH()
+    SET(${result} ${dirlist})
+  ENDMACRO()
+
+  GET_SBML_SRC_TREE(DIRECTORIES "${SRC_DIR}/sbml")
+
+ELSE ()
+  message("\n\nUsing new directory generating code.\n\n")
+  MACRO(SUBDIRLIST result curdir)
+    FILE(GLOB children ABSOLUTE ${curdir} ${curdir}/*)
+    SET(dirlist "")
+    FOREACH(subdir ${children})
+      IF(IS_DIRECTORY ${subdir})
+        IF(subdir MATCHES "test$" OR subdir MATCHES "test-data$"
+          OR subdir MATCHES "/test/" OR  subdir  MATCHES "/test-data/")
+          #message("${subdir}")
+        ELSE()
+          LIST(APPEND dirlist ${subdir})
+        ENDIF()
+      ENDIF()
+    ENDFOREACH()
+    LIST(APPEND "${result}" ${dirlist})
+  ENDMACRO()
+
+  MACRO(ADD_SUBDIR outlist inlist)
+    FOREACH(subdir ${inlist})
+      SUBDIRLIST(temp_dirs "${subdir}")
+      LIST(APPEND "${outlist}" ${temp_dirs})
+    ENDFOREACH()
+    list(REMOVE_DUPLICATES ${outlist})
+  ENDMACRO()
+
+  # get the actual list
+  SUBDIRLIST(DIRECTORIES "${SRC_DIR}/sbml")
+  # get 3 subdirectory levels 
+  ADD_SUBDIR(DIRECTORIES "${DIRECTORIES}")
+  ADD_SUBDIR(DIRECTORIES "${DIRECTORIES}")
+  ADD_SUBDIR(DIRECTORIES "${DIRECTORIES}")
+
+  # postprocess
+  SET(ALL_DIRS)
+  STRING(LENGTH "${SRC_DIR}/sbml" SRC_DIR_LEN)
+  MATH(EXPR SRC_DIR_LEN_FIXED "${SRC_DIR_LEN} - 4")
+  FOREACH(dir ${DIRECTORIES})
+    STRING(SUBSTRING ${dir} ${SRC_DIR_LEN_FIXED} -1 dirfix)
+    LIST(APPEND ALL_DIRS ${dirfix})
+  ENDFOREACH()
+  SET(DIRECTORIES ${ALL_DIRS})
+
+ENDIF(${CMAKE_VERSION} VERSION_LESS 3.2.3)
+
+list(SORT DIRECTORIES)
+
+# # DEBUG
+# message("${SRC_DIR}/sbml")
+# FOREACH(sdir ${DIRECTORIES})
+#   message("${sdir}")  
+# ENDFOREACH()
 
 # copy files 
 foreach( directory ${DIRECTORIES} )
-  
   file (MAKE_DIRECTORY ${OUT_DIR}/base/${directory})
   
   file (GLOB SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}  
@@ -165,9 +238,8 @@ file (GLOB SOURCE_FILES
         ${OUT_DIR}/base/sbml/xml/Expat*.* 
         ${OUT_DIR}/base/sbml/xml/Xerces*.* 
 )
+
 file(REMOVE ${SOURCE_FILES})
-
-
 
 # copy swigable files
 file (GLOB SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
