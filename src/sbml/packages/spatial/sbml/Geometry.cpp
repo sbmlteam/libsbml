@@ -2351,7 +2351,8 @@ Geometry::createObject(XMLInputStream& stream)
     if (mCoordinateComponents.size() != 0)
     {
       getErrorLog()->logPackageError("spatial", SpatialGeometryAllowedElements,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(),
+          getColumn());
     }
 
     obj = &mCoordinateComponents;
@@ -2361,7 +2362,8 @@ Geometry::createObject(XMLInputStream& stream)
     if (mDomainTypes.size() != 0)
     {
       getErrorLog()->logPackageError("spatial", SpatialGeometryAllowedElements,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(),
+          getColumn());
     }
 
     obj = &mDomainTypes;
@@ -2371,7 +2373,8 @@ Geometry::createObject(XMLInputStream& stream)
     if (mDomains.size() != 0)
     {
       getErrorLog()->logPackageError("spatial", SpatialGeometryAllowedElements,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(),
+          getColumn());
     }
 
     obj = &mDomains;
@@ -2381,7 +2384,8 @@ Geometry::createObject(XMLInputStream& stream)
     if (mAdjacentDomains.size() != 0)
     {
       getErrorLog()->logPackageError("spatial", SpatialGeometryAllowedElements,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(),
+          getColumn());
     }
 
     obj = &mAdjacentDomains;
@@ -2391,7 +2395,8 @@ Geometry::createObject(XMLInputStream& stream)
     if (mGeometryDefinitions.size() != 0)
     {
       getErrorLog()->logPackageError("spatial", SpatialGeometryAllowedElements,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(),
+          getColumn());
     }
 
     obj = &mGeometryDefinitions;
@@ -2401,7 +2406,8 @@ Geometry::createObject(XMLInputStream& stream)
     if (mSampledFields.size() != 0)
     {
       getErrorLog()->logPackageError("spatial", SpatialGeometryAllowedElements,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(),
+          getColumn());
     }
 
     obj = &mSampledFields;
@@ -2464,14 +2470,14 @@ Geometry::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("spatial", SpatialGeometryAllowedAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownCoreAttribute);
         log->logPackageError("spatial", SpatialGeometryAllowedCoreAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
     }
   }
@@ -2526,7 +2532,7 @@ Geometry::readAttributes(const XMLAttributes& attributes,
 
         log->logPackageError("spatial",
           SpatialGeometryCoordinateSystemMustBeGeometryKindEnum, pkgVersion,
-            level, version, msg);
+            level, version, msg, getLine(), getColumn());
       }
     }
   }
@@ -2534,7 +2540,7 @@ Geometry::readAttributes(const XMLAttributes& attributes,
   {
     std::string message = "Spatial attribute 'coordinateSystem' is missing.";
     log->logPackageError("spatial", SpatialGeometryAllowedAttributes,
-      pkgVersion, level, version, message);
+      pkgVersion, level, version, message, getLine(), getColumn());
   }
 }
 

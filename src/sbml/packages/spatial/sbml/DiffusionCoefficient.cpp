@@ -928,7 +928,7 @@ DiffusionCoefficient::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownPackageAttribute);
         log->logPackageError("spatial",
           SpatialDiffusionCoefficientAllowedAttributes, pkgVersion, level,
-            version, details);
+            version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -936,7 +936,7 @@ DiffusionCoefficient::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("spatial",
           SpatialDiffusionCoefficientAllowedCoreAttributes, pkgVersion, level,
-            version, details);
+            version, details, getLine(), getColumn());
       }
     }
   }
@@ -974,7 +974,7 @@ DiffusionCoefficient::readAttributes(const XMLAttributes& attributes,
       "<DiffusionCoefficient> element.";
     log->logPackageError("spatial",
       SpatialDiffusionCoefficientAllowedAttributes, pkgVersion, level, version,
-        message);
+        message, getLine(), getColumn());
   }
 
   // 
@@ -1007,7 +1007,7 @@ DiffusionCoefficient::readAttributes(const XMLAttributes& attributes,
 
         log->logPackageError("spatial",
           SpatialDiffusionCoefficientTypeMustBeDiffusionKindEnum, pkgVersion,
-            level, version, msg);
+            level, version, msg, getLine(), getColumn());
       }
     }
   }
@@ -1016,7 +1016,7 @@ DiffusionCoefficient::readAttributes(const XMLAttributes& attributes,
     std::string message = "Spatial attribute 'type' is missing.";
     log->logPackageError("spatial",
       SpatialDiffusionCoefficientAllowedAttributes, pkgVersion, level, version,
-        message);
+        message, getLine(), getColumn());
   }
 
   // 
@@ -1052,7 +1052,7 @@ DiffusionCoefficient::readAttributes(const XMLAttributes& attributes,
           "option.";
 
         log->logPackageError("spatial", SpatialDiffusionCoefficientCoordinateReference1MustBeCoordinateKindEnum,
-          pkgVersion, level, version, msg);
+          pkgVersion, level, version, msg, getLine(), getColumn());
       }
     }
   }
@@ -1090,7 +1090,7 @@ DiffusionCoefficient::readAttributes(const XMLAttributes& attributes,
           "option.";
 
         log->logPackageError("spatial", SpatialDiffusionCoefficientCoordinateReference2MustBeCoordinateKindEnum,
-          pkgVersion, level, version, msg);
+          pkgVersion, level, version, msg, getLine(), getColumn());
       }
     }
   }

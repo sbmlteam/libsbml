@@ -307,7 +307,7 @@ public:
    * retrieve.
    *
    * @return the nth InteriorPoint in the ListOfInteriorPoints within this
-   * Domain.
+   * Domain or @c NULL if no such object exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -328,7 +328,7 @@ public:
    * retrieve.
    *
    * @return the nth InteriorPoint in the ListOfInteriorPoints within this
-   * Domain.
+   * Domain or @c NULL if no such object exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -410,7 +410,7 @@ public:
    *
    * @return a pointer to the nth InteriorPoint in this Domain.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addInteriorPoint(const InteriorPoint* object)
    * @see createInteriorPoint()
@@ -899,7 +899,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the objects
    * to be retrieved.
    *
-   * @return a List* pointer of pointers to all SBase child objects with any
+   * @return a List pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -1275,7 +1275,7 @@ Domain_getListOfInteriorPoints(Domain_t* d);
  * retrieve.
  *
  * @return the nth InteriorPoint_t in the ListOfInteriorPoints within this
- * Domain.
+ * Domain or @c NULL if no such object exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -1353,7 +1353,7 @@ Domain_createInteriorPoint(Domain_t* d);
  *
  * @return a pointer to the nth InteriorPoint_t in this Domain_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Domain_t
  */

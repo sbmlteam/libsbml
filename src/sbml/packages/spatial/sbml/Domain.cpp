@@ -1055,7 +1055,8 @@ Domain::createObject(XMLInputStream& stream)
     if (mInteriorPoints.size() != 0)
     {
       getErrorLog()->logPackageError("spatial", SpatialDomainAllowedElements,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(),
+          getColumn());
     }
 
     obj = &mInteriorPoints;
@@ -1118,7 +1119,7 @@ Domain::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("spatial", SpatialDomainAllowedAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1126,7 +1127,7 @@ Domain::readAttributes(const XMLAttributes& attributes,
         log->remove(UnknownCoreAttribute);
         log->logPackageError("spatial",
           SpatialGeometryLODomainsAllowedCoreAttributes, pkgVersion, level,
-            version, details);
+            version, details, getLine(), getColumn());
       }
     }
   }
@@ -1144,14 +1145,14 @@ Domain::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("spatial", SpatialDomainAllowedAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownCoreAttribute);
         log->logPackageError("spatial", SpatialDomainAllowedCoreAttributes,
-          pkgVersion, level, version, details);
+          pkgVersion, level, version, details, getLine(), getColumn());
       }
     }
   }
@@ -1180,7 +1181,7 @@ Domain::readAttributes(const XMLAttributes& attributes,
     std::string message = "Spatial attribute 'id' is missing from the <Domain> "
       "element.";
     log->logPackageError("spatial", SpatialDomainAllowedAttributes, pkgVersion,
-      level, version, message);
+      level, version, message, getLine(), getColumn());
   }
 
   // 
@@ -1229,7 +1230,7 @@ Domain::readAttributes(const XMLAttributes& attributes,
     std::string message = "Spatial attribute 'domainType' is missing from the "
       "<Domain> element.";
     log->logPackageError("spatial", SpatialDomainAllowedAttributes, pkgVersion,
-      level, version, message);
+      level, version, message, getLine(), getColumn());
   }
 }
 
