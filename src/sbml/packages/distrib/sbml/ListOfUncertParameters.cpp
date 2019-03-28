@@ -232,6 +232,40 @@ ListOfUncertParameters::addUncertParameter(const UncertParameter* up)
 
 
 /*
+* Adds a copy of the given UncertParameter to this ListOfUncertParameters.
+*/
+int
+ListOfUncertParameters::addUncertSpan(const UncertSpan* up)
+{
+  if (up == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (up->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != up->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != up->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
+    SBase*>(up)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
+  else
+  {
+    return append(up);
+  }
+}
+
+
+/*
  * Get the number of UncertParameter objects in this ListOfUncertParameters.
  */
 unsigned int
@@ -254,6 +288,34 @@ ListOfUncertParameters::createUncertParameter()
   {
     DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
     up = new UncertParameter(distribns);
+    delete distribns;
+  }
+  catch (...)
+  {
+  }
+
+  if (up != NULL)
+  {
+    appendAndOwn(up);
+  }
+
+  return up;
+}
+
+
+/*
+* Creates a new UncertSpan object, adds it to this ListOfUncertSpans
+* object and returns the UncertSpan object created.
+*/
+UncertSpan*
+ListOfUncertParameters::createUncertSpan()
+{
+  UncertSpan* up = NULL;
+
+  try
+  {
+    DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
+    up = new UncertSpan(distribns);
     delete distribns;
   }
   catch (...)

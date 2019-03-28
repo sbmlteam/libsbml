@@ -97,10 +97,7 @@ main (int argc, char* argv[])
   setTestDataDirectory();
 
   SRunner *runner = srunner_create(create_suite_test_UncertStats());
-
-  //SRunner *runner = srunner_create(create_suite_test_ExternalParameters());
-  //srunner_add_suite(runner, create_suite_test_UncertStats());
-  //srunner_add_suite(runner, create_suite_test_IdName());
+  srunner_add_suite(runner, create_suite_test_IdName());
 
 
 

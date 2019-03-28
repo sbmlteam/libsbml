@@ -669,6 +669,7 @@ public:
    */
   int addUncertParameter(const UncertParameter* up1);
 
+  int addUncertSpan(const UncertSpan* us1);
 
   /**
    * Get the number of UncertParameter objects in this UncertParameter.
@@ -703,6 +704,7 @@ public:
   UncertParameter* createUncertParameter();
 
 
+  UncertSpan* createUncertSpan();
   /**
    * Removes the nth UncertParameter from this UncertParameter and returns a
    * pointer to it.

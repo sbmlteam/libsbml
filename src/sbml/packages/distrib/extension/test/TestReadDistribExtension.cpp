@@ -57,28 +57,28 @@ CK_CPPSTART
 
 extern char *TestDataDirectory;
 
-//START_TEST(test_DistribExtension_read_and_validate)
-//{
-//  
-//  const char* files[4] = { "distrib1-defaultns.xml",  "distrib1ns.xml", 
-//    "distrib2-defaultns.xml", "distrib2ns.xml" };
-//  
-//  
-//
-//  for (int i = 0; i < 4; ++ i)
-//  {
-//    std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string(files[i]);
-//    SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
-//    fail_unless(doc != NULL);
-//    fail_unless(doc->getModel() != NULL);
-//    doc->setConsistencyChecks(LIBSBML_CAT_UNITS_CONSISTENCY, false);
-//    unsigned int nerrors = doc->checkConsistency();
-//    fail_unless(nerrors == 0);
-//    delete doc;
-//  }
-//
-//}
-//END_TEST
+START_TEST(test_DistribExtension_read_and_validate)
+{
+  
+  const char* files[4] = { "distrib1-defaultns.xml",  "distrib1ns.xml", 
+    "distrib2-defaultns.xml", "distrib2ns.xml" };
+  
+  
+
+  for (int i = 0; i < 4; ++ i)
+  {
+    std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string(files[i]);
+    SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
+    fail_unless(doc != NULL);
+    fail_unless(doc->getModel() != NULL);
+    doc->setConsistencyChecks(LIBSBML_CAT_UNITS_CONSISTENCY, false);
+    unsigned int nerrors = doc->checkConsistency();
+    fail_unless(nerrors == 0);
+    delete doc;
+  }
+
+}
+END_TEST
 
 Suite *
 create_suite_ReadDistribExtension(void)
@@ -86,8 +86,8 @@ create_suite_ReadDistribExtension(void)
   Suite *suite = suite_create("ReadDistribExtension");
   TCase *tcase = tcase_create("ReadDistribExtension");
 
-  //tcase_add_test(tcase, test_DistribExtension_read_and_validate);
-  //suite_add_tcase(suite, tcase);
+  tcase_add_test(tcase, test_DistribExtension_read_and_validate);
+  suite_add_tcase(suite, tcase);
 
   return suite;
 }

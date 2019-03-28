@@ -291,6 +291,7 @@ public:
    */
   int addUncertParameter(const UncertParameter* up);
 
+  int addUncertSpan(const UncertSpan* up);
 
   /**
    * Get the number of UncertParameter objects in this ListOfUncertParameters.
@@ -326,6 +327,7 @@ public:
    */
   UncertParameter* createUncertParameter();
 
+  UncertSpan* createUncertSpan();
 
   /**
    * Get an UncertParameter from the ListOfUncertParameters based on the
