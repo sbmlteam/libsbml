@@ -93,13 +93,17 @@ KineticLawVars::check_ (const Model& m, const Reaction& r)
 
   if ( r.isSetKineticLaw() && r.getKineticLaw()->isSetMath() )
   {
-    const ASTNode* math  = r.getKineticLaw()->getMath();
+    const KineticLaw* kl = r.getKineticLaw();
+    const ASTNode* math  = kl->getMath();
     List*    names = math->getListOfNodes( ASTNode_isName );
 
     for (n = 0; n < names->getSize(); ++n)
     {
       ASTNode*    node = static_cast<ASTNode*>( names->get(n) );
       string   name = node->getName() ? node->getName() : "";
+
+      if (kl->getParameter(name) != NULL)
+        continue;
 
       if (m.getSpecies(name) != NULL && !mSpecies.contains(name) )
         logUndefined(r, name);

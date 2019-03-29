@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="COPASI0" id="New_Model" name="New Model">
+    
+    <listOfUnitDefinitions>
+      <unitDefinition id="volume" name="volume">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="substance" name="substance">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment metaid="COPASI1" id="compartment" name="compartment" spatialDimensions="3" size="1" constant="true">
+        
+      </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species metaid="COPASI2" id="A" name="A" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false" hasOnlySubstanceUnits="false">
+        
+      </species>
+      <species metaid="COPASI3" id="B" name="B" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false" hasOnlySubstanceUnits="false">
+        
+      </species>
+      <species metaid="COPASI4" id="k1" name="k1" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false" hasOnlySubstanceUnits="false">
+        
+      </species>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction metaid="COPASI5" id="reaction" name="reaction" reversible="false">
+        
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="B" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <ci> k1 </ci>
+              <ci> A </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k1" name="k1" value="0.1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
