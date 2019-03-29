@@ -348,6 +348,9 @@ UnitDefinition * L3v2extendedmathASTPlugin::getUnitDefinitionFromPackage(UnitFor
   case AST_LOGICAL_IMPLIES:
     ud = uff->getUnitDefinitionFromDimensionlessReturnFunction(node, inKL, reactNo);
     break;
+
+  default:
+    break;
   }
   return ud;
 }
