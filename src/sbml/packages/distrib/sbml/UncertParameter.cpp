@@ -38,6 +38,7 @@
 #include <sbml/packages/distrib/sbml/ListOfUncertParameters.h>
 #include <sbml/packages/distrib/validator/DistribSBMLError.h>
 #include <sbml/util/ElementFilter.h>
+#include <sbml/math/MathML.h>
 
 
 using namespace std;
