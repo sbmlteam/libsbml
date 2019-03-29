@@ -154,8 +154,11 @@ void setupDistribWithVals(Model* model, string distname, string id, vector<strin
       else
       {
         //Remove the comma
-        allargs.pop_back();
-        allargs.pop_back();
+        // these are c++11 - may not work on some linux
+        //allargs.pop_back();
+        //allargs.pop_back();
+        allargs.erase(allargs.size() - 1);
+        allargs.erase(allargs.size() - 1);
       }
       used_formarg = true;
     }
@@ -164,7 +167,10 @@ void setupDistribWithVals(Model* model, string distname, string id, vector<strin
       allargs += args[a];
       if (!isnum(args[a][0])) {
         if (args[a] == "variance") {
-          addVariance(model, to_string((long double)(vals[a])) + "^2");
+          stringstream ss;
+          ss << vals[a];
+          string str = ss.str();
+          addVariance(model, str + "^2");
         }
         else {
           Parameter* param = model->createParameter();
