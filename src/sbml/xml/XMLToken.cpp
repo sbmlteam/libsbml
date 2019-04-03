@@ -653,7 +653,7 @@ XMLToken::getAttrValue (int index) const
  * documentation.
  */
 std::string 
-XMLToken::getAttrValue (const std::string name, const std::string uri) const
+XMLToken::getAttrValue (const std::string& name, const std::string& uri) const
 {
   return mAttributes.getValue(name, uri);
 }
@@ -709,7 +709,7 @@ XMLToken::hasAttr (int index) const
  * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
  */
 bool 
-XMLToken::hasAttr (const std::string name, const std::string uri) const
+XMLToken::hasAttr (const std::string& name, const std::string& uri) const
 {
   return mAttributes.hasAttribute(name, uri);
 }

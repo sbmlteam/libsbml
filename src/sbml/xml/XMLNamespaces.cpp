@@ -210,7 +210,7 @@ XMLNamespaces::clear ()
  * @return the index of the given declaration, or @c -1 if not present.
  */
 int
-XMLNamespaces::getIndex (const std::string uri) const
+XMLNamespaces::getIndex (const std::string& uri) const
 {
   for (int index = 0; index < getLength(); ++index)
   {
@@ -224,7 +224,7 @@ XMLNamespaces::getIndex (const std::string uri) const
  * Tests whether the given uri is contained in this set of namespaces. 
  */
 bool 
-XMLNamespaces::containsUri(const std::string uri) const
+XMLNamespaces::containsUri(const std::string& uri) const
 {
   return getIndex(uri) != -1;
 }
@@ -235,7 +235,7 @@ XMLNamespaces::containsUri(const std::string uri) const
  * @return the index of the given declaration, or @c -1 if not present.
  */
 int
-XMLNamespaces::getIndexByPrefix (const std::string prefix) const
+XMLNamespaces::getIndexByPrefix (const std::string& prefix) const
 {
   for (int index = 0; index < getLength(); ++index)
   {

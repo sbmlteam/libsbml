@@ -1358,7 +1358,7 @@ public:
    * If no compartment glyph has been removed, @c NULL is returned.
    */
   CompartmentGlyph*
-  removeCompartmentGlyph(const std::string id);
+  removeCompartmentGlyph(const std::string& id);
 
 
   /**
@@ -1367,7 +1367,7 @@ public:
    * If no species glyph has been removed, @c NULL is returned.
    */
   SpeciesGlyph*
-  removeSpeciesGlyph(const std::string id);
+  removeSpeciesGlyph(const std::string& id);
 
 
   /**
@@ -1376,7 +1376,7 @@ public:
    * If no reaction glyph has been removed, @c NULL is returned.
    */
   ReactionGlyph*
-  removeReactionGlyph(const std::string id);
+  removeReactionGlyph(const std::string& id);
 
 
   /**
@@ -1385,7 +1385,7 @@ public:
    * If no species reference glyph has been removed, @c NULL is returned.
    */
   SpeciesReferenceGlyph*
-  removeSpeciesReferenceGlyph(const std::string id);
+  removeSpeciesReferenceGlyph(const std::string& id);
 
 
   /**
@@ -1394,7 +1394,7 @@ public:
    * If no text glyph has been removed, @c NULL is returned.
    */
   TextGlyph*
-  removeTextGlyph(const std::string id);
+  removeTextGlyph(const std::string& id);
 
 
   /**
@@ -1403,7 +1403,7 @@ public:
    * If no graphical object has been removed, @c NULL is returned.
    */
   GraphicalObject*
-  removeAdditionalGraphicalObject(const std::string id);
+  removeAdditionalGraphicalObject(const std::string& id);
 
   /** @cond doxygenLibsbmlInternal */
   /**

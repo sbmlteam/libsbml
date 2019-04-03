@@ -662,7 +662,7 @@ public:
    * @see hasAttribute(const std::string name, const std::string uri) const
    * @see hasAttribute(const XMLTriple& triple) const
    */
-  std::string getValue (const std::string name) const;
+  std::string getValue (const std::string& name) const;
 
 
   /**
@@ -682,7 +682,7 @@ public:
    * @see hasAttribute(const std::string name, const std::string uri) const
    * @see hasAttribute(const XMLTriple& triple) const
    */
-  std::string getValue (const std::string name, const std::string uri) const;
+  std::string getValue (const std::string& name, const std::string& uri) const;
 
 
   /**
@@ -731,7 +731,7 @@ public:
    * @see add(const std::string& name, const std::string& value, const std::string& namespaceURI, const std::string& prefix)
    * @see add(const XMLTriple& triple, const std::string& value)
    */
-   bool hasAttribute (const std::string name, const std::string uri="") const;
+   bool hasAttribute (const std::string& name, const std::string& uri="") const;
 
 
   /**

@@ -808,7 +808,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  SBase* getAncestorOfType(int type, const std::string pkgName = "core");
+  SBase* getAncestorOfType(int type, const std::string& pkgName = "core");
 
 
   /**
@@ -856,7 +856,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  const SBase* getAncestorOfType(int type, const std::string pkgName = "core") const;
+  const SBase* getAncestorOfType(int type, const std::string& pkgName = "core") const;
 
 
   /**
@@ -1389,8 +1389,8 @@ public:
    * @see replaceTopLevelAnnotationElement(const XMLNode *)
    * @see replaceTopLevelAnnotationElement(const std::string&)
    */
-  int removeTopLevelAnnotationElement(const std::string elementName, 
-    const std::string elementURI = "", bool removeEmpty = true);
+  int removeTopLevelAnnotationElement(const std::string& elementName, 
+    const std::string& elementURI = "", bool removeEmpty = true);
 
 
   /**

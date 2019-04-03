@@ -1620,8 +1620,8 @@ SBase::appendAnnotation (const std::string& annotation)
 
 
 int
-SBase::removeTopLevelAnnotationElement(const std::string elementName,
-    const std::string elementURI, bool removeEmpty)
+SBase::removeTopLevelAnnotationElement(const std::string& elementName,
+    const std::string& elementURI, bool removeEmpty)
 {
 
   int success = LIBSBML_OPERATION_FAILED;
@@ -2391,7 +2391,7 @@ SBase::connectToChild()
 /** @endcond */
 
 SBase*
-SBase::getAncestorOfType(int type, const std::string pkgName)
+SBase::getAncestorOfType(int type, const std::string& pkgName)
 {
   if (pkgName == "core" && type == SBML_DOCUMENT)
     return getSBMLDocument();
@@ -2420,7 +2420,7 @@ SBase::getAncestorOfType(int type, const std::string pkgName)
 
 
 const SBase*
-SBase::getAncestorOfType(int type, const std::string pkgName) const
+SBase::getAncestorOfType(int type, const std::string& pkgName) const
 {
   if (pkgName == "core" && type == SBML_DOCUMENT)
     return getSBMLDocument();

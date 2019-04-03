@@ -397,7 +397,7 @@ XMLAttributes::getValue (int index) const
  * hasAttribute(name) to test for attribute existence.
  */
 std::string
-XMLAttributes::getValue (const std::string name) const
+XMLAttributes::getValue (const std::string& name) const
 {
   return getValue( getIndex(name) );
 }
@@ -411,7 +411,7 @@ XMLAttributes::getValue (const std::string name) const
  * hasAttribute(name,uri) to test for attribute existence.
  */
 std::string
-XMLAttributes::getValue (const std::string name, const std::string uri) const
+XMLAttributes::getValue (const std::string& name, const std::string& uri) const
 {
   return getValue( getIndex(name,uri) );
 }
@@ -455,7 +455,7 @@ XMLAttributes::hasAttribute (int index) const
  *
  */
 bool 
-XMLAttributes::hasAttribute (const std::string name, const std::string uri) const 
+XMLAttributes::hasAttribute (const std::string& name, const std::string& uri) const 
 { 
   return ( getIndex(name,uri) != -1 ); 
 }

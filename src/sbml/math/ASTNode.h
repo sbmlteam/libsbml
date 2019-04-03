@@ -1611,7 +1611,7 @@ setValue(value, 0);
    * @param arg an ASTNode representing the name/value/formula to substitute
    */
   LIBSBML_EXTERN
-  void replaceArgument(const std::string bvar, ASTNode * arg);
+  void replaceArgument(const std::string& bvar, ASTNode * arg);
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -1996,7 +1996,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   LIBSBML_EXTERN
-  bool containsVariable(const std::string id) const;
+  bool containsVariable(const std::string& id) const;
 
   LIBSBML_EXTERN
   unsigned int getNumVariablesWithUndeclaredUnits(Model * m = NULL) const;

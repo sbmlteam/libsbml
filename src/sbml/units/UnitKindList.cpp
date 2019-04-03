@@ -52,7 +52,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * @return @c true if UnitKind is already in this UnitKindList, false otherwise.
  */
 bool
-UnitKindList::contains (const std::string UnitKind) const
+UnitKindList::contains (const std::string& UnitKind) const
 {
   UnitKindList::const_iterator end = mKinds.end();
   
@@ -64,7 +64,7 @@ UnitKindList::contains (const std::string UnitKind) const
  * Removes the first occurence of this UnitKind in this UnitKindList.
  */
 void
-UnitKindList::removeUnitKind (const std::string UnitKind)
+UnitKindList::removeUnitKind (const std::string& UnitKind)
 {
   UnitKindList::iterator end = mKinds.end();
   UnitKindList::iterator pos = std::find(mKinds.begin(), end, UnitKind);

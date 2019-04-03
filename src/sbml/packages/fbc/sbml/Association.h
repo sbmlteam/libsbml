@@ -367,7 +367,7 @@ public:
    *
    * @return a new Association object.
    */
-  virtual Association* createGene(const std::string reference = "" );
+  virtual Association* createGene(const std::string& reference = "" );
 
 
   /**

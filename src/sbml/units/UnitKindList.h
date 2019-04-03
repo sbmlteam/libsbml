@@ -59,19 +59,19 @@ public:
   /**
    * Appends UnitKind to the list of UnitKinds.
    */
-  void append (const std::string UnitKind) { mKinds.push_back(UnitKind); }
+  void append (const std::string& UnitKind) { mKinds.push_back(UnitKind); }
 
   /**
    * Returns @c true if @p UnitKind is already in this UnitKindList, @c false otherwise.
    *
    * @return @c true if UnitKind is already in this UnitKindList, @c false otherwise.
    */
-  bool contains (const std::string UnitKind) const;
+  bool contains (const std::string& UnitKind) const;
 
   /**
    * Removes the first occurence of this UnitKind in this UnitKindList.
    */
-  void removeUnitKind (const std::string UnitKind);
+  void removeUnitKind (const std::string& UnitKind);
 
   /**
    * Returns the number of UnitKinds in this UnitKindList.

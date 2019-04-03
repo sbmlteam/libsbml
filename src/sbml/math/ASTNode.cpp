@@ -2752,7 +2752,7 @@ ASTNode::isWellFormedASTNode() const
 
 LIBSBML_EXTERN
 void
-ASTNode::replaceArgument(const std::string bvar, ASTNode * arg)
+ASTNode::replaceArgument(const std::string& bvar, ASTNode * arg)
 {
   if (arg == NULL)
     return;
@@ -3009,7 +3009,7 @@ ASTNode::isSetUserData() const
 
 /** @cond doxygenLibsbmlInternal */
 LIBSBML_EXTERN
-bool ASTNode::containsVariable(const std::string id) const
+bool ASTNode::containsVariable(const std::string& id) const
 {
   bool found = false;
 

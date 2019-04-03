@@ -577,7 +577,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  std::string getAttrValue (const std::string name, const std::string uri="") const;
+  std::string getAttrValue (const std::string& name, const std::string& uri="") const;
 
 
   /**
@@ -623,7 +623,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  bool hasAttr (const std::string name, const std::string uri="") const;
+  bool hasAttr (const std::string& name, const std::string& uri="") const;
 
 
   /**

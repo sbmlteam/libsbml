@@ -935,7 +935,7 @@ GraphicalObject* Layout::removeAdditionalGraphicalObject(unsigned int index)
  * If no compartment glyph has been removed, @c NULL is returned.
  */
 CompartmentGlyph*
-Layout::removeCompartmentGlyph(const std::string id)
+Layout::removeCompartmentGlyph(const std::string& id)
 {
     return dynamic_cast<CompartmentGlyph*>(this->removeObjectWithId(this->getListOfCompartmentGlyphs(),id));
 }
@@ -946,7 +946,7 @@ Layout::removeCompartmentGlyph(const std::string id)
  * If no species glyph has been removed, @c NULL is returned.
  */
 SpeciesGlyph*
-Layout::removeSpeciesGlyph(const std::string id)
+Layout::removeSpeciesGlyph(const std::string& id)
 {
     return dynamic_cast<SpeciesGlyph*>(this->removeObjectWithId(this->getListOfSpeciesGlyphs(),id));
 }
@@ -957,7 +957,7 @@ Layout::removeSpeciesGlyph(const std::string id)
  * If no species glyph has been removed, @c NULL is returned.
  */
 SpeciesReferenceGlyph*
-Layout::removeSpeciesReferenceGlyph(const std::string id)
+Layout::removeSpeciesReferenceGlyph(const std::string& id)
 {
     SpeciesReferenceGlyph *srg=NULL;
     unsigned int i,iMax=this->getNumReactionGlyphs();
@@ -980,7 +980,7 @@ Layout::removeSpeciesReferenceGlyph(const std::string id)
  * If no reaction glyph has been removed, @c NULL is returned.
  */
 ReactionGlyph*
-Layout::removeReactionGlyph(const std::string id)
+Layout::removeReactionGlyph(const std::string& id)
 {
     return dynamic_cast<ReactionGlyph*>(this->removeObjectWithId(this->getListOfReactionGlyphs(),id));
 }
@@ -991,7 +991,7 @@ Layout::removeReactionGlyph(const std::string id)
  * If no text glyph has been removed, @c NULL is returned.
  */
 TextGlyph*
-Layout::removeTextGlyph(const std::string id)
+Layout::removeTextGlyph(const std::string& id)
 {
     return dynamic_cast<TextGlyph*>(this->removeObjectWithId(this->getListOfTextGlyphs(),id));
 }
@@ -1002,7 +1002,7 @@ Layout::removeTextGlyph(const std::string id)
  * If no graphical object has been removed, @c NULL is returned.
  */
 GraphicalObject*
-Layout::removeAdditionalGraphicalObject(const std::string id)
+Layout::removeAdditionalGraphicalObject(const std::string& id)
 {
     return this->removeObjectWithId(this->getListOfAdditionalGraphicalObjects(),id);
 }
