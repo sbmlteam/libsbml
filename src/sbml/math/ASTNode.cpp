@@ -35,7 +35,6 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <new>
-#include <cmath>
 #include <stdlib.h>
 #include <limits.h>
 

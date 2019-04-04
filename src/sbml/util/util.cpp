@@ -59,9 +59,6 @@
 
 
 #include <math.h>
-#ifdef __cplusplus
-#include <cmath>
-#endif
 
 #if defined(_MSC_VER) || defined(__BORLANDC__)
 #  include <float.h>
