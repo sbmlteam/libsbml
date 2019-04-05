@@ -101,6 +101,7 @@
 
 #include <sbml/util/IdentifierTransformer.h>
 #include <sbml/util/ElementFilter.h>
+#include <sbml/util/CallbackRegistry.h>
 
 /* also include the extension types so they don't have to be added */
 /*

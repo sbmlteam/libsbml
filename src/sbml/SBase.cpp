@@ -61,7 +61,7 @@
 #include <sbml/extension/ISBMLExtensionNamespaces.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/extension/SBMLExtensionException.h>
-
+#include <sbml/util/CallbackRegistry.h>
 
 /** @cond doxygenIgnored */
 using namespace std;
@@ -4531,6 +4531,13 @@ SBase::read (XMLInputStream& stream)
 
   while ( stream.isGood() )
   {
+    if (CallbackRegistry::invokeCallbacks(getSBMLDocument()) != LIBSBML_OPERATION_SUCCESS)
+    {
+      if (getErrorLog() != NULL && !getErrorLog()->contains(OperationInterrupted))
+        logError(OperationInterrupted, getLevel(), getVersion());
+      break;
+    }
+
     // this used to skip the text
     //    stream.skipText();
     // instead, read text and store in variable

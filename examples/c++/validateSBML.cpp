@@ -57,6 +57,28 @@ bool validateSBML(const string& filename, bool enableUnitCheck=true);
 const string usage = "Usage: validateSBML [-u] filename [...]\n"
                      " -u : disable unit consistency check";
 
+#ifdef WIN32
+
+#include <conio.h>
+
+/**
+ * Basic callback class that interrupts reading the document upon a keypress
+ */
+class ProcessingCB : public Callback
+{
+public:
+  virtual int process(SBMLDocument* doc)
+  {
+    if (kbhit())
+      return LIBSBML_OPERATION_FAILED;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+
+};
+
+#endif // WIN32
+
+
 int
 main (int argc, char* argv[])
 {
@@ -75,6 +97,13 @@ main (int argc, char* argv[])
       return 1;
     }       
   }
+
+# ifdef WIN32
+  ProcessingCB cb;
+  CallbackRegistry::addCallback(&cb);
+  cout << "(Registered callback, press any key to interrupt validation)" << endl;
+
+#endif
 
   int  argIndex = 1;
   

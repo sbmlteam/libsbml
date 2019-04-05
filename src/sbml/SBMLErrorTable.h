@@ -12120,7 +12120,30 @@ static const sbmlErrorTableEntry errorTable[] =
      ""}
    },
 
-
+	//99950
+	{
+		OperationInterrupted ,
+		"The operation was interrupted by the user.",
+		LIBSBML_CAT_INTERNAL_CONSISTENCY,
+		LIBSBML_SEV_ERROR,
+		LIBSBML_SEV_ERROR,
+		LIBSBML_SEV_ERROR,
+		LIBSBML_SEV_ERROR,
+		LIBSBML_SEV_ERROR,
+		LIBSBML_SEV_ERROR,
+		LIBSBML_SEV_ERROR,
+		LIBSBML_SEV_ERROR,
+		LIBSBML_SEV_ERROR,
+		"The operation was interrupted by the user.",
+		{"",
+		 "",
+		 "",
+		 "",
+		 "",
+		 "",
+		 "",
+		 ""}
+	},
 
       /* Explanation about 99994 and 99995:
 
