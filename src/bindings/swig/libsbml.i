@@ -36,10 +36,11 @@
 
 %module(directors="1") libsbml
 
-%feature("director") SBMLValidator;  
-%feature("director") SBMLConverter;  
-%feature("director") ElementFilter;  
-%feature("director") IdentifierTransformer;  
+%feature("director") SBMLValidator;
+%feature("director") SBMLConverter;
+%feature("director") ElementFilter;
+%feature("director") IdentifierTransformer;
+%feature("director") Callback;
 %ignore IdentifierTransformer::transform(const SBase* element);
 
 #pragma SWIG nowarn=473,401,844
@@ -850,6 +851,8 @@ as a comment in the output stream.
 %include sbml/extension/SBMLExtensionException.h
 %include sbml/extension/SBMLExtensionNamespaces.h
 %include sbml/extension/SBMLExtensionRegistry.h
+
+%include sbml/util/CallbackRegistry.h
 
 %include ASTNodes.i
 

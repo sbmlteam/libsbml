@@ -77,6 +77,10 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
 
+Callback::~Callback()
+{
+}
+
 int Callback::process(SBMLDocument* doc)
 {
 	return LIBSBML_OPERATION_SUCCESS;

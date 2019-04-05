@@ -15,6 +15,9 @@ class SBMLDocument;
 class LIBSBML_EXTERN Callback
 {
 public:
+
+  virtual ~Callback();
+
 	/**
 	 * The processing function to be implemented by the callback
 	 * 

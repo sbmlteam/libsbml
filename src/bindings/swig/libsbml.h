@@ -135,5 +135,7 @@
 #include <sbml/extension/SBMLExtensionNamespaces.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
 
+#include <sbml/util/CallbackRegistry.h>
+
 #include "ListWrapper.h"
 
