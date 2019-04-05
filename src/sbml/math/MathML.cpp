@@ -47,6 +47,7 @@
 
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
+#include <sbml/math/DefinitionURLRegistry.h>
 
 #include <algorithm>
 
@@ -393,73 +394,114 @@ static void
 setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 {
 
+  unsigned int n = DefinitionURLRegistry::getInstance().getNumDefinitionURLs();
   if (element.getName() == "csymbol")
   {
+
+    ////////////////////
+    // new
     string url;
     element.getAttributes().readInto("definitionURL", url);
 
-    if (stream.getSBMLNamespaces() == NULL)
-    {
-      // non sbml
-      if (url == URL_DELAY) node.setType(AST_FUNCTION_DELAY);
-      else if (url == URL_TIME) node.setType(AST_NAME_TIME);
-      else if (url == URL_AVOGADRO) node.setType(AST_NAME_AVOGADRO);
-      else {
-        ASTNodeType_t type = AST_UNKNOWN;
-        const ASTBasePlugin* baseplugin = node.getASTPlugin(url, true, true);
-        if (baseplugin != NULL)
-        {
-          type = baseplugin->getASTNodeTypeForCSymbolURL(url);
-          if (type != AST_UNKNOWN)
-          {
-            node.setType(type);
-          }
-        }
-        if (type == AST_UNKNOWN)
-        {
-          node.setType(AST_CSYMBOL_FUNCTION);
-        }
-        node.setDefinitionURL(url);
-      }
+    ASTNodeType_t type = DefinitionURLRegistry::getInstance().getType(url);
 
-    }
-    else if (stream.getSBMLNamespaces()->getLevel() < 3)
+    // old behaviour where an unknown type was logged as just csymbol
+    if (stream.getSBMLNamespaces() == NULL && type == AST_UNKNOWN)
     {
-      if ( url == URL_DELAY ) node.setType(AST_FUNCTION_DELAY);
-      else if ( url == URL_TIME  ) node.setType(AST_NAME_TIME);
-      else 
-      {
-        logError(stream, element, BadCsymbolDefinitionURLValue);      
-      }
+      node.setType(AST_CSYMBOL_FUNCTION);
+      node.setDefinitionURL(url);
     }
     else
     {
-      /* level 3 */
-      if ( url == URL_DELAY ) node.setType(AST_FUNCTION_DELAY);
-      else if ( url == URL_TIME  ) node.setType(AST_NAME_TIME);
-      else if ( url == URL_AVOGADRO  ) node.setType(AST_NAME_AVOGADRO);
+      if (type == AST_UNKNOWN)
+      {
+        logError(stream, element, BadCsymbolDefinitionURLValue);
+      }
       else
       {
-        ASTNodeType_t type = AST_UNKNOWN;
-        const ASTBasePlugin* baseplugin = node.getASTPlugin(url, true, true);
-        if (baseplugin != NULL)
+        node.setType(type);
+        if (type == AST_CSYMBOL_FUNCTION)
         {
-          if (baseplugin->hasCorrectNamespace(stream.getSBMLNamespaces()))
-          {
-            type = baseplugin->getASTNodeTypeForCSymbolURL(url);
-            if (type != AST_UNKNOWN)
-            {
-              node.setType(type);
-            }
-          }
-        }
-        if (type == AST_UNKNOWN)
-        {
-          node.setType(AST_FUNCTION);
-          logError(stream, element, BadCsymbolDefinitionURLValue);
+          node.setDefinitionURL(url);
         }
       }
     }
+
+    // original
+    /////////////////////
+    //string url;
+    //element.getAttributes().readInto("definitionURL", url);
+
+    //if (stream.getSBMLNamespaces() == NULL)
+    //{
+    //  // non sbml
+    //  if (url == URL_DELAY) 
+    //    node.setType(AST_FUNCTION_DELAY);
+    //  else if (url == URL_TIME) 
+    //    node.setType(AST_NAME_TIME);
+    //  else if (url == URL_AVOGADRO) 
+    //    node.setType(AST_NAME_AVOGADRO);
+    //  else {
+    //    ASTNodeType_t type = AST_UNKNOWN;
+    //    const ASTBasePlugin* baseplugin = node.getASTPlugin(url, true, true);
+    //    if (baseplugin != NULL)
+    //    {
+    //      type = baseplugin->getASTNodeTypeForCSymbolURL(url);
+    //      if (type != AST_UNKNOWN)
+    //      {
+    //        node.setType(type);
+    //      }
+    //    }
+    //    if (type == AST_UNKNOWN)
+    //    {
+    //      node.setType(AST_CSYMBOL_FUNCTION);
+    //    }
+    //    node.setDefinitionURL(url);
+    //  }
+
+    //}
+    //else if (stream.getSBMLNamespaces()->getLevel() < 3)
+    //{
+    //  if ( url == URL_DELAY ) 
+    //    node.setType(AST_FUNCTION_DELAY);
+    //  else if ( url == URL_TIME  ) 
+    //    node.setType(AST_NAME_TIME);
+    //  else 
+    //  {
+    //    logError(stream, element, BadCsymbolDefinitionURLValue);      
+    //  }
+    //}
+    //else
+    //{
+    //  /* level 3 */
+    //  if (url == URL_DELAY) 
+    //    node.setType(AST_FUNCTION_DELAY);
+    //  else if (url == URL_TIME) 
+    //    node.setType(AST_NAME_TIME);
+    //  else if (url == URL_AVOGADRO) 
+    //    node.setType(AST_NAME_AVOGADRO);
+    //  else
+    //  {
+    //    ASTNodeType_t type = AST_UNKNOWN;
+    //    const ASTBasePlugin* baseplugin = node.getASTPlugin(url, true, true);
+    //    if (baseplugin != NULL)
+    //    {
+    //      if (baseplugin->hasCorrectNamespace(stream.getSBMLNamespaces()))
+    //      {
+    //        type = baseplugin->getASTNodeTypeForCSymbolURL(url);
+    //        if (type != AST_UNKNOWN)
+    //        {
+    //          node.setType(type);
+    //        }
+    //      }
+    //    }
+    //    if (type == AST_UNKNOWN)
+    //    {
+    //      node.setType(AST_FUNCTION);
+    //      logError(stream, element, BadCsymbolDefinitionURLValue);
+    //    }
+    //  }
+    //}
   }
   else if (element.getName() == "ci")
   {
@@ -1984,12 +2026,41 @@ writeNode (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 
 #endif /* __cplusplus */
 
+void
+setSBMLDefinitionURLs(XMLInputStream& stream)
+{
+  if (!DefinitionURLRegistry::getInstance().getCoreDefinitionsAdded())
+  {
+    DefinitionURLRegistry::getInstance().addSBMLDefinitions(
+      stream.getSBMLNamespaces());
+  }
+  ASTNode*      temp = new ASTNode;
+  temp->loadASTPlugins(stream.getSBMLNamespaces());
+  for (unsigned int n = 0; n < temp->getNumPlugins(); ++n)
+  {
+    ASTBasePlugin * astPlug = temp->getPlugin(n);
+    unsigned int i = 0;
+    const ASTNodeValues_t* values = astPlug->getASTNodeValue(i);
+    while (values != NULL)
+    {
+      if (!values->csymbolURL.empty())
+      {
+        DefinitionURLRegistry::getInstance().addDefinitionURL(values->csymbolURL, values->type);
+      }
+      i++;
+      values = astPlug->getASTNodeValue(i);
+    }
+  }
+  delete temp;
+}
+
 
 /** @cond doxygenLibsbmlInternal */
 LIBSBML_EXTERN
 ASTNode*
 readMathML (XMLInputStream& stream, std::string reqd_prefix, bool inRead)
 {
+  setSBMLDefinitionURLs(stream);
 
   std::string prefix;
   bool prefix_reqd = false;

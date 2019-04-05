@@ -105,6 +105,17 @@ ASTBasePlugin::getConstCharFor(ASTNodeType_t type) const
   return name;
 }
 
+const ASTNodeValues_t *
+ASTBasePlugin::getASTNodeValue(unsigned int n) const
+{
+  if (n < mPkgASTNodeValues.size())
+  {
+    return &(mPkgASTNodeValues[n]);
+  }
+  return NULL;
+}
+
+
 
 const char* 
 ASTBasePlugin::getConstCharCsymbolURLFor(ASTNodeType_t type) const

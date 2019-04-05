@@ -58,6 +58,7 @@ thisdir = src/sbml/math
 headers =            \
   ASTNode.h          \
   ASTNodeType.h      \
+  DefinitionURLRegistry.h \
   FormulaFormatter.h \
   FormulaParser.h    \
   FormulaTokenizer.h \
@@ -70,6 +71,7 @@ header_inst_prefix = math
 
 sources =            \
   ASTNode.cpp        \
+  DefinitionURLRegistry.cpp \
   FormulaFormatter.cpp \
   FormulaParser.cpp    \
   FormulaTokenizer.cpp \

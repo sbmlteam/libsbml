@@ -51,6 +51,7 @@
 #include <sbml/ModifierSpeciesReference.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/SBMLReader.h>
+#include <sbml/math/DefinitionURLRegistry.h>
 
 /** @cond doxygenIgnored */
 using namespace std;
@@ -914,6 +915,9 @@ unsigned int
 Validator::validate (const std::string& filename)
 {
   SBMLReader    reader;
+  // if we are doing a read following another read need to reset
+  // the DefinitionURLRegistry
+  DefinitionURLRegistry::getInstance().clearDefinitions();
   SBMLDocument* d = reader.readSBML(filename);
 
 

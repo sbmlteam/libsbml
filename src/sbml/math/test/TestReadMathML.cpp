@@ -44,6 +44,7 @@
 #include <sbml/math/FormulaParser.h>
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
+#include <sbml/math/DefinitionURLRegistry.h>
 
 #include <sbml/xml/XMLNode.h>
 
@@ -2311,6 +2312,38 @@ START_TEST(test_element_csymbol_other_withNS)
 END_TEST
 
 
+START_TEST(test_element_csymbol_other_withNS_1)
+{
+  const char* s = wrapMathML
+    ( "<apply>"
+      "<csymbol encoding='text' "
+      "definitionURL='http://www.other/symbols/foo'> NA </csymbol>"
+      "  <ci> y </ci>"
+      "</apply>\n"
+      );
+
+  XMLNamespaces* xmlns = new XMLNamespaces();
+  xmlns->add("any_uri");
+
+  DefinitionURLRegistry::getInstance().addDefinitionURL("http://www.other/symbols/foo", AST_CSYMBOL_FUNCTION);
+
+  N = readMathMLFromStringWithNamespaces(s, xmlns);
+
+  fail_unless(N != NULL);
+
+  fail_unless(N->getType() == AST_CSYMBOL_FUNCTION);
+  fail_unless(!strcmp(N->getName(), "NA"));
+  fail_unless(!strcmp(N->getDefinitionURLString().c_str(), "http://www.other/symbols/foo"));
+
+  F = SBML_formulaToString(N);
+  fail_unless(!strcmp(F, "NA(y)"));
+
+  delete xmlns;
+  DefinitionURLRegistry::getInstance().clearDefinitions();
+}
+END_TEST
+
+
 START_TEST (test_element_generic_csymbol_1)
 {
   const char* s = wrapMathML
@@ -2515,6 +2548,7 @@ create_suite_ReadMathML ()
 
   tcase_add_test(tcase, test_element_csymbol_other);
   tcase_add_test(tcase, test_element_csymbol_other_withNS);
+  tcase_add_test(tcase, test_element_csymbol_other_withNS_1);
   tcase_add_test(tcase, test_element_generic_csymbol_1);
   tcase_add_test(tcase, test_element_generic_csymbol_2);
   tcase_add_test(tcase, test_element_generic_csymbol_3);

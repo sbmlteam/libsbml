@@ -83,10 +83,10 @@ class LIBSBML_EXTERN ASTBasePlugin
 {
 public:
 
-#ifndef SWIG
-  typedef std::pair<double, bool>   ValueSet;
-  typedef std::map<const std::string, ValueSet> IdValueMap;
-#endif
+//#ifndef SWIG
+//  typedef std::pair<double, bool>   ValueSet;
+//  typedef std::map<const std::string, ValueSet> IdValueMap;
+//#endif
   virtual const std::string& getStringFor(ASTNodeType_t type) const;
   virtual const char* getConstCharFor(ASTNodeType_t type) const;
   virtual const char* getConstCharCsymbolURLFor(ASTNodeType_t type) const;
@@ -103,6 +103,7 @@ public:
   virtual double evaluateASTNode(const ASTNode * node, const Model * m = NULL) const;
   virtual UnitDefinition * getUnitDefinitionFromPackage(UnitFormulaFormatter* uff, const ASTNode * node, bool inKL, int reactNo) const;
 
+  const ASTNodeValues_t* getASTNodeValue(unsigned int n) const;
   /**
    * Check if the node type is known to be allowed inside function definitions.
    *
