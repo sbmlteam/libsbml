@@ -78,7 +78,7 @@ public:
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   static XMLParser* create (  XMLHandler&       handler
-                            , const std::string& library = "" );
+                            , const std::string library = "" );
 
 
   /**

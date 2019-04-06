@@ -155,7 +155,7 @@ private:
    */
 
  void reportError (  const XMLErrorCode_t code
-		    , const std::string& extraMsg     = ""
+		    , const std::string extraMsg     = ""
 		    , const unsigned int lineNumber   = 0
 		    , const unsigned int columnNumber = 0 );
 

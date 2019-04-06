@@ -333,8 +333,8 @@ public:
    */
   int addAttr (  const std::string& name
                , const std::string& value
-               , const std::string& namespaceURI = ""
-               , const std::string& prefix = "");
+               , const std::string namespaceURI = ""
+               , const std::string prefix = "");
 
 
   /**
@@ -400,7 +400,7 @@ public:
    *
    * @see hasAttr(const std::string name, const std::string uri) const
    */
-  int removeAttr (const std::string& name, const std::string& uri = "");
+  int removeAttr (const std::string& name, const std::string uri = "");
 
 
   /**
@@ -448,7 +448,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  int getAttrIndex (const std::string& name, const std::string& uri="") const;
+  int getAttrIndex (const std::string& name, const std::string uri="") const;
 
 
   /**
@@ -577,7 +577,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  std::string getAttrValue (const std::string& name, const std::string& uri="") const;
+  std::string getAttrValue (const std::string& name, const std::string uri="") const;
 
 
   /**
@@ -623,7 +623,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  bool hasAttr (const std::string& name, const std::string& uri="") const;
+  bool hasAttr (const std::string& name, const std::string uri="") const;
 
 
   /**
@@ -695,7 +695,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  int addNamespace (const std::string& uri, const std::string& prefix = "");
+  int addNamespace (const std::string& uri, const std::string prefix = "");
 
 
   /**
@@ -846,7 +846,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  std::string getNamespaceURI (const std::string& prefix = "") const;
+  std::string getNamespaceURI (const std::string prefix = "") const;
 
 
   /**

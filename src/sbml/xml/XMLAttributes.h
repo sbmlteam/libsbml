@@ -318,8 +318,8 @@ public:
    */
   int add (  const std::string& name
            , const std::string& value
-           , const std::string& namespaceURI = ""
-           , const std::string& prefix = "");
+           , const std::string namespaceURI = ""
+           , const std::string prefix = "");
 
 
   /**
@@ -437,7 +437,7 @@ public:
    * @see remove(int n)
    * @see remove(const XMLTriple& triple)
    */
-  int remove (const std::string& name, const std::string& uri = "");
+  int remove (const std::string& name, const std::string uri = "");
 
 
   /**
@@ -731,7 +731,7 @@ public:
    * @see add(const std::string& name, const std::string& value, const std::string& namespaceURI, const std::string& prefix)
    * @see add(const XMLTriple& triple, const std::string& value)
    */
-   bool hasAttribute (const std::string& name, const std::string& uri="") const;
+   bool hasAttribute (const std::string& name, const std::string uri="") const;
 
 
   /**

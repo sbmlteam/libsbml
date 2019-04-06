@@ -151,7 +151,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  int add (const std::string& uri, const std::string& prefix = "");
+  int add (const std::string& uri, const std::string prefix = "");
 
 
   /**
@@ -320,7 +320,7 @@ public:
    * 
    * @see getURI()
    */
-  std::string getURI (const std::string& prefix = "") const;
+  std::string getURI (const std::string prefix = "") const;
 
 
   /**

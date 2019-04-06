@@ -244,7 +244,7 @@ public:
   /**
    * Writes sboTerm as an XMLAttribute with the given prefix to the given XMLOutputStream.
    */
-  static void writeTerm (XMLOutputStream& stream, int sboTerm, const std::string& prefix = "");
+  static void writeTerm (XMLOutputStream& stream, int sboTerm, const std::string prefix = "");
 
   /** @endcond */
 

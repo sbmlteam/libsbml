@@ -734,7 +734,7 @@ public:
    * @see getModel()
    * @see SBMLDocument::setModel(@if java Model@endif)
    */
-  Model* createModel (const std::string& sid = "");
+  Model* createModel (const std::string sid = "");
 
 
   /**

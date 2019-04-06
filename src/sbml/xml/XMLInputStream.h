@@ -327,7 +327,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  unsigned int determineNumberChildren(const std::string& elementName = "");
+  unsigned int determineNumberChildren(const std::string elementName = "");
 
 
   /**

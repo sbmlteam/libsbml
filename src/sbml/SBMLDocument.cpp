@@ -640,7 +640,7 @@ SBMLDocument::setModel (const Model* m)
  * SBMLDocument and returns it.
  */
 Model*
-SBMLDocument::createModel (const std::string& sid)
+SBMLDocument::createModel (const std::string sid)
 {
   if (mModel != NULL) delete mModel;
 

@@ -175,7 +175,7 @@ public:
 protected:
 
   unsigned int determineNumberChildren(bool & valid, 
-                                       const std::string& element = "");
+                                       const std::string element = "");
 
   unsigned int determineNumSpecificChildren(bool & valid, 
                const std::string& qualifier,  const std::string& container);

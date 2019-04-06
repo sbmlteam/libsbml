@@ -91,7 +91,7 @@ SBMLFileResolver::clone () const
 
 
 SBMLDocument*
-SBMLFileResolver::resolve(const std::string &sUri, const std::string& sBaseUri/*=""*/) const
+SBMLFileResolver::resolve(const std::string &sUri, const std::string sBaseUri/*=""*/) const
 {
   // leave the actual work of resolving to the other function call that is 
   // needed for the caching mechanism in CompSBMLDocumentPlugin
@@ -138,7 +138,7 @@ bool directoryExists( const char* path )
 
 
 SBMLUri* 
-SBMLFileResolver::resolveUri(const std::string &sUri, const std::string& sBaseUri/*=""*/) const
+SBMLFileResolver::resolveUri(const std::string &sUri, const std::string sBaseUri/*=""*/) const
 {
   string fileName = sUri;
 

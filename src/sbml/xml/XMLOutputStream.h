@@ -270,10 +270,10 @@ public:
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLOutputStream (std::ostream&       stream
-                   , const std::string&  encoding       = "UTF-8"
+                   , const std::string  encoding       = "UTF-8"
                    , bool                writeXMLDecl   = true
-                   , const std::string&  programName    = ""
-                   , const std::string&  programVersion = "");
+                   , const std::string  programName    = ""
+                   , const std::string  programVersion = "");
 
 
   /**
@@ -293,7 +293,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  void endElement (const std::string& name, const std::string& prefix = "");
+  void endElement (const std::string& name, const std::string prefix = "");
 
 
   /**
@@ -324,7 +324,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  void startElement (const std::string& name, const std::string& prefix = "");
+  void startElement (const std::string& name, const std::string prefix = "");
 
 
   /**
@@ -347,7 +347,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  void startEndElement (const std::string& name, const std::string& prefix = "");
+  void startEndElement (const std::string& name, const std::string prefix = "");
 
 
   /**
@@ -817,7 +817,7 @@ protected:
   /**
    * Outputs name.
    */
-  void writeName (const std::string& name, const std::string& prefix = "");
+  void writeName (const std::string& name, const std::string prefix = "");
 
 
   /**
@@ -917,10 +917,10 @@ public:
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLOutputStringStream (  std::ostringstream& stream
-                         , const std::string&  encoding     = "UTF-8"
+                         , const std::string  encoding     = "UTF-8"
                          , bool                writeXMLDecl = true
-                         , const std::string&  programName  = ""
-                         , const std::string&  programVersion = "");
+                         , const std::string  programName  = ""
+                         , const std::string  programVersion = "");
 
   std::ostringstream& getString();
 
@@ -941,10 +941,10 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  XMLOwningOutputStringStream (  const std::string&  encoding     = "UTF-8"
+  XMLOwningOutputStringStream (  const std::string  encoding     = "UTF-8"
                                , bool                writeXMLDecl = true
-                               , const std::string&  programName  = ""
-                               , const std::string&  programVersion = "");
+                               , const std::string  programName  = ""
+                               , const std::string  programVersion = "");
 
   virtual ~XMLOwningOutputStringStream();
 
@@ -962,10 +962,10 @@ public:
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLOutputFileStream (  std::ofstream&      stream
-                       , const std::string&  encoding     = "UTF-8"
+                       , const std::string  encoding     = "UTF-8"
                        , bool                writeXMLDecl = true
-                       , const std::string&  programName  = ""
-                       , const std::string&  programVersion = "");
+                       , const std::string  programName  = ""
+                       , const std::string  programVersion = "");
 
 };
 /** @endcond */
@@ -982,10 +982,10 @@ public:
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLOwningOutputFileStream (const std::string&  filename
-                             , const std::string&  encoding     = "UTF-8"
+                             , const std::string  encoding     = "UTF-8"
                              , bool                writeXMLDecl = true
-                             , const std::string&  programName  = ""
-                             , const std::string&  programVersion = "");
+                             , const std::string  programName  = ""
+                             , const std::string  programVersion = "");
 
   virtual ~XMLOwningOutputFileStream();
 

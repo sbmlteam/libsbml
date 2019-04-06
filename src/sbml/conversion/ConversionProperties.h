@@ -205,9 +205,9 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  virtual void addOption(const std::string& key, const std::string& value="",
+  virtual void addOption(const std::string& key, const std::string value="",
                          ConversionOptionType_t type=CNV_TYPE_STRING,
-                         const std::string& description="");
+                         const std::string description="");
 
 
   /**
@@ -220,7 +220,7 @@ public:
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   virtual void addOption(const std::string& key, const char* value,
-                         const std::string& description="");
+                         const std::string description="");
 
 
   /**
@@ -233,7 +233,7 @@ public:
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   virtual void addOption(const std::string& key, bool value,
-                         const std::string& description="");
+                         const std::string description="");
 
 
   /**
@@ -246,7 +246,7 @@ public:
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   virtual void addOption(const std::string& key, double value,
-                         const std::string& description="");
+                         const std::string description="");
 
 
   /**
@@ -259,7 +259,7 @@ public:
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   virtual void addOption(const std::string& key, float value,
-                         const std::string& description="");
+                         const std::string description="");
 
 
   /**
@@ -272,7 +272,7 @@ public:
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   virtual void addOption(const std::string& key, int value,
-                         const std::string& description="");
+                         const std::string description="");
 
 
   /**

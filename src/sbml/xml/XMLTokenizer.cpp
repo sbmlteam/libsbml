@@ -266,7 +266,7 @@ XMLTokenizer::characters (const XMLToken& data)
 }
 
 unsigned int
-XMLTokenizer::determineNumberChildren(bool & valid, const std::string& element)
+XMLTokenizer::determineNumberChildren(bool & valid, const std::string element)
 {
   valid = false;
   unsigned int numChildren = 0;

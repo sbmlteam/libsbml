@@ -111,7 +111,7 @@ XMLNamespaces::clone () const
  * then the existing XML namespace will be overwritten by the new one.
  */
 int
-XMLNamespaces::add (const std::string& uri, const std::string& prefix)
+XMLNamespaces::add (const std::string& uri, const std::string prefix)
 {
   //
   // avoids duplicate prefix
@@ -307,7 +307,7 @@ XMLNamespaces::getURI (int index) const
  * If prefix does not exist, an empty string will be returned.
  */
 std::string
-XMLNamespaces::getURI (const std::string& prefix) const
+XMLNamespaces::getURI (const std::string prefix) const
 {
   for (int index = 0; index < getLength(); ++index)
   {

@@ -192,12 +192,12 @@ std::string SBMLError::stringForCategory(unsigned int code) const
 SBMLError::SBMLError (  const unsigned int errorId
                       , const unsigned int level
                       , const unsigned int version 
-                      , const std::string& details
+                      , const std::string details
                       , const unsigned int line
                       , const unsigned int column
                       , const unsigned int severity
                       , const unsigned int category 
-                      , const std::string& package
+                      , const std::string package
                       , const unsigned int pkgVersion) :
     XMLError((int)errorId, details, line, column, severity, category)
 {

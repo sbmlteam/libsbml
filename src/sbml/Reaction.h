@@ -686,7 +686,7 @@ public:
    */
   int addReactant(const Species* species,
                   double stoichiometry = 1.0,
-                  const std::string& id = "",
+                  const std::string id = "",
                   bool constant = true);
 
   /**
@@ -737,7 +737,7 @@ public:
    */
   int addProduct(const Species* species,
                  double stoichiometry = 1.0,
-                 const std::string& id = "",
+                 const std::string id = "",
                  bool constant = true);
 
   /**
@@ -784,7 +784,7 @@ public:
    * @see createModifier()
    */
   int addModifier(const Species *species,
-                  const std::string &id = "");
+                  const std::string id = "");
 
   /**
    * Creates a new SpeciesReference, adds it to this Reaction's list of

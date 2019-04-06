@@ -666,7 +666,7 @@ public:
   XMLError
   (
       const int errorId           = 0
-    , const std::string& details  = ""
+    , const std::string details  = ""
     , const unsigned int line     = 0
     , const unsigned int column   = 0
     , const unsigned int severity = LIBSBML_SEV_FATAL

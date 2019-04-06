@@ -48,9 +48,9 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-ConversionOption::ConversionOption(const std::string& key, const std::string& value, 
+ConversionOption::ConversionOption(const std::string& key, const std::string value, 
     ConversionOptionType_t type, 
-    const std::string& description) : 
+    const std::string description) : 
     mKey(key)
   , mValue(value)
   , mType(type)
@@ -59,7 +59,7 @@ ConversionOption::ConversionOption(const std::string& key, const std::string& va
 }
 
 ConversionOption::ConversionOption(const std::string& key, const char* value, 
-  const std::string& description) : 
+  const std::string description) : 
     mKey(key)
   , mValue(value)
   , mType(CNV_TYPE_STRING)
@@ -68,7 +68,7 @@ ConversionOption::ConversionOption(const std::string& key, const char* value,
 }
 
 ConversionOption::ConversionOption(const std::string& key, bool value, 
-  const std::string& description) : 
+  const std::string description) : 
     mKey(key)
   , mValue("")
   , mType(CNV_TYPE_STRING)
@@ -78,7 +78,7 @@ ConversionOption::ConversionOption(const std::string& key, bool value,
 }
 
 ConversionOption::ConversionOption(const std::string& key, double value, 
-  const std::string& description): 
+  const std::string description): 
     mKey(key)
   , mValue("")
   , mType(CNV_TYPE_STRING)
@@ -88,7 +88,7 @@ ConversionOption::ConversionOption(const std::string& key, double value,
 }
 
 ConversionOption::ConversionOption(const std::string& key, float value, 
-  const std::string& description) : 
+  const std::string description) : 
     mKey(key)
   , mValue("")
   , mType(CNV_TYPE_STRING)
@@ -98,7 +98,7 @@ ConversionOption::ConversionOption(const std::string& key, float value,
 }
 
 ConversionOption::ConversionOption(const std::string& key, int value, 
-  const std::string& description) : 
+  const std::string description) : 
     mKey(key)
   , mValue("")
   , mType(CNV_TYPE_STRING)

@@ -129,7 +129,7 @@ translateError(const int expatCode)
  */
 void
 ExpatParser::reportError (const XMLErrorCode_t code,
-			  const string&        extraMsg,
+			  const string        extraMsg,
 			  const unsigned int   line,
 			  const unsigned int   column)
 {

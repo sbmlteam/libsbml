@@ -126,7 +126,7 @@ void
 SBMLErrorLog::logError ( const unsigned int errorId
                        , const unsigned int level
                        , const unsigned int version
-                       , const std::string& details
+                       , const std::string details
                        , const unsigned int line
                        , const unsigned int column
                        , const unsigned int severity
@@ -138,12 +138,12 @@ SBMLErrorLog::logError ( const unsigned int errorId
 
 
 void
-SBMLErrorLog::logPackageError ( const std::string& package
+SBMLErrorLog::logPackageError ( const std::string package
                        , const unsigned int errorId
                        , const unsigned int pkgVersion
                        , const unsigned int level
                        , const unsigned int version
-                       , const std::string& details
+                       , const std::string details
                        , const unsigned int line
                        , const unsigned int column
                        , const unsigned int severity

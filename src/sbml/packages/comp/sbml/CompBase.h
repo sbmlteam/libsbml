@@ -190,7 +190,7 @@ protected:
    */
   virtual void logInvalidId(const std::string& attribute,
                             const std::string& wrongattribute,
-                            const std::string& object = "");
+                            const std::string object = "");
 
 
 

@@ -134,8 +134,8 @@ XMLAttributes::clone () const
 int
 XMLAttributes::add (const std::string& name,
 		    const std::string& value,
-		    const std::string& namespaceURI,
-		    const std::string& prefix)
+		    const std::string namespaceURI,
+		    const std::string prefix)
 {
 
   int index = getIndex(name, namespaceURI);
@@ -227,7 +227,7 @@ XMLAttributes::remove (int n)
  * XMLAttributes set.
  */
 int 
-XMLAttributes::remove (const std::string& name, const std::string& uri)
+XMLAttributes::remove (const std::string& name, const std::string uri)
 {
   return remove(getIndex(name,uri));
 }
@@ -455,7 +455,7 @@ XMLAttributes::hasAttribute (int index) const
  *
  */
 bool 
-XMLAttributes::hasAttribute (const std::string& name, const std::string& uri) const 
+XMLAttributes::hasAttribute (const std::string& name, const std::string uri) const 
 { 
   return ( getIndex(name,uri) != -1 ); 
 }

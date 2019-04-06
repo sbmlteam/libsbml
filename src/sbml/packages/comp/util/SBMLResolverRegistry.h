@@ -160,7 +160,7 @@ public:
    *
    * @return  the document, if this resolver can resolve the document or @c NULL.
    */
-  virtual SBMLDocument* resolve(const std::string &uri, const std::string& baseUri="") const;
+  virtual SBMLDocument* resolve(const std::string &uri, const std::string baseUri="") const;
 
   
   /**
@@ -172,7 +172,7 @@ public:
    *
    * @return  the full URI to the document, if this resolver can resolve the document or @c NULL.
    */
-  virtual SBMLUri* resolveUri(const std::string &uri, const std::string& baseUri="") const;
+  virtual SBMLUri* resolveUri(const std::string &uri, const std::string baseUri="") const;
 
   /**
    * deletes the static resolver registry instance

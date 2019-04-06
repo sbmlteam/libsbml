@@ -65,7 +65,7 @@ public:
                            unsigned int version, 
                            const std::string &pkgName,
                            unsigned int pkgVersion, 
-                           const std::string& pkgPrefix = "");
+                           const std::string pkgPrefix = "");
 
   ISBMLExtensionNamespaces(const ISBMLExtensionNamespaces& orig);   
    

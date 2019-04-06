@@ -503,7 +503,7 @@ Association::createOr()
 }
 
 Association* 
-Association::createGene(const std::string& reference /*= "" */)
+Association::createGene(const std::string reference /*= "" */)
 {
   Association* gene = new Association();
   gene ->setType(AND_ASSOCIATION);

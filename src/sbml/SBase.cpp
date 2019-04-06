@@ -1621,7 +1621,7 @@ SBase::appendAnnotation (const std::string& annotation)
 
 int
 SBase::removeTopLevelAnnotationElement(const std::string& elementName,
-    const std::string& elementURI, bool removeEmpty)
+    const std::string elementURI, bool removeEmpty)
 {
 
   int success = LIBSBML_OPERATION_FAILED;
@@ -2420,7 +2420,7 @@ SBase::getAncestorOfType(int type, const std::string& pkgName)
 
 
 const SBase*
-SBase::getAncestorOfType(int type, const std::string& pkgName) const
+SBase::getAncestorOfType(int type, const std::string pkgName) const
 {
   if (pkgName == "core" && type == SBML_DOCUMENT)
     return getSBMLDocument();
@@ -5048,7 +5048,7 @@ SBase::logUnknownAttribute( const string& attribute,
                             const unsigned int level,
                             const unsigned int version,
                             const string& element,
-                            const string& prefix)
+                            const string prefix)
 {
   ostringstream msg;
 
@@ -5508,7 +5508,7 @@ void
 SBase::logError (  unsigned int       id
                  , const unsigned int 
                  , const unsigned int 
-                 , const std::string& details )
+                 , const std::string details )
 {
   //
   // (TODO) Needs to be fixed so that error can be added when
@@ -6737,7 +6737,7 @@ SBase::checkMathMLNamespace(const XMLToken elem)
 void
 SBase::checkDefaultNamespace(const XMLNamespaces* xmlns,
                              const std::string& elementName,
-                             const std::string& prefix)
+                             const std::string prefix)
 {
   //
   // checks if the given default namespace (if any) is a valid

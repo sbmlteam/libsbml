@@ -115,7 +115,7 @@ public:
    * @return the document, if this resolver can resolve the document or @c NULL.
    */
   virtual SBMLDocument* resolve(const std::string &uri,
-                                const std::string& baseUri="") const;
+                                const std::string baseUri="") const;
 
 
   /**
@@ -129,7 +129,7 @@ public:
    * document or @c NULL.
    */
   virtual SBMLUri* resolveUri(const std::string &uri, 
-                              const std::string& baseUri="") const;
+                              const std::string baseUri="") const;
 
 
   /**

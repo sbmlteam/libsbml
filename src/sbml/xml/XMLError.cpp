@@ -320,7 +320,7 @@ const char * xmlCategoryStringTable[] =
  * purposefully doesn't do that.
  */
 XMLError::XMLError (  const int errorId
-                    , const std::string& details
+                    , const std::string details
                     , const unsigned int line
                     , const unsigned int column
                     , const unsigned int severity

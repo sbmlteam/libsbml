@@ -232,9 +232,9 @@ ConversionProperties::addOption(const ConversionOption &option)
 }
 
 void 
-ConversionProperties::addOption(const std::string& key, const std::string& value, 
+ConversionProperties::addOption(const std::string& key, const std::string value, 
     ConversionOptionType_t type, 
-    const std::string& description)
+    const std::string description)
 {
   ConversionOption *old = removeOption(key);
   if (old != NULL) delete old;
@@ -243,7 +243,7 @@ ConversionProperties::addOption(const std::string& key, const std::string& value
 }
 void 
 ConversionProperties::addOption(const std::string& key, const char* value, 
-    const std::string& description)
+    const std::string description)
 {
   ConversionOption *old = removeOption(key);
   if (old != NULL) delete old;
@@ -252,7 +252,7 @@ ConversionProperties::addOption(const std::string& key, const char* value,
 }
 void 
 ConversionProperties::addOption(const std::string& key, bool value, 
-    const std::string& description)
+    const std::string description)
 {
   ConversionOption *old = removeOption(key);
   if (old != NULL) delete old;
@@ -261,7 +261,7 @@ ConversionProperties::addOption(const std::string& key, bool value,
 }
 void 
 ConversionProperties::addOption(const std::string& key, double value, 
-    const std::string& description)
+    const std::string description)
 {
   ConversionOption *old = removeOption(key);
   if (old != NULL) delete old;
@@ -270,7 +270,7 @@ ConversionProperties::addOption(const std::string& key, double value,
 }
 void 
 ConversionProperties::addOption(const std::string& key, float value, 
-    const std::string& description)
+    const std::string description)
 {
   ConversionOption *old = removeOption(key);
   if (old != NULL) delete old;
@@ -279,7 +279,7 @@ ConversionProperties::addOption(const std::string& key, float value,
 }
 void 
 ConversionProperties::addOption(const std::string& key, int value, 
-    const std::string& description)
+    const std::string description)
 {
   ConversionOption *old = removeOption(key);
   if (old != NULL) delete old;

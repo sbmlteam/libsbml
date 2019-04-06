@@ -58,7 +58,7 @@ ISBMLExtensionNamespaces::ISBMLExtensionNamespaces(unsigned int level,
                  unsigned int version, 
                  const std::string &pkgName,
                  unsigned int pkgVersion, 
-                 const std::string& pkgPrefix) 
+                 const std::string pkgPrefix) 
   : SBMLNamespaces( level, version, pkgName, pkgVersion,  pkgPrefix )
 {
   if (level == 2)

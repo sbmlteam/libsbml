@@ -371,7 +371,7 @@ CompBase::logEmptyString(const std::string &attribute,
 void 
 CompBase::logInvalidId(const std::string& attribute,
                        const std::string& wrongattribute,
-                       const std::string& object)
+                       const std::string object)
 {
 
   std::ostringstream msg;

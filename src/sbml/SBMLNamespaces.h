@@ -174,7 +174,7 @@ public:
    * package version has not been registered with libSBML.
    */
   SBMLNamespaces(unsigned int level, unsigned int version, const std::string &pkgName,
-                 unsigned int pkgVersion, const std::string& pkgPrefix = ""); 
+                 unsigned int pkgVersion, const std::string pkgPrefix = ""); 
   
 
   /**

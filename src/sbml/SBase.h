@@ -856,7 +856,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  const SBase* getAncestorOfType(int type, const std::string& pkgName = "core") const;
+  const SBase* getAncestorOfType(int type, const std::string pkgName = "core") const;
 
 
   /**
@@ -1390,7 +1390,7 @@ public:
    * @see replaceTopLevelAnnotationElement(const std::string&)
    */
   int removeTopLevelAnnotationElement(const std::string& elementName, 
-    const std::string& elementURI = "", bool removeEmpty = true);
+    const std::string elementURI = "", bool removeEmpty = true);
 
 
   /**
@@ -3366,7 +3366,7 @@ protected:
   void logError (  unsigned int       id
                  , const unsigned int level   = 2
                  , const unsigned int version = 3
-                 , const std::string& details = "" );
+                 , const std::string details = "" );
 
 
   /**
@@ -3376,7 +3376,7 @@ protected:
           const unsigned int level,
           const unsigned int version,
           const std::string& element,
-          const std::string& prefix="");
+          const std::string prefix="");
 
 
   /**
@@ -3489,7 +3489,7 @@ protected:
    * If the given default namespace is not valid, an error is logged.
    */
   void checkDefaultNamespace(const XMLNamespaces* xmlns, 
-    const std::string& elementName, const std::string& prefix = "");
+    const std::string& elementName, const std::string prefix = "");
 
   /**
    * Checks the annotation does not declare an sbml namespace.

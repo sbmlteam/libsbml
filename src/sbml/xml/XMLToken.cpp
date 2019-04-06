@@ -352,8 +352,8 @@ XMLToken::setAttributes(const XMLAttributes& attributes)
 int 
 XMLToken::addAttr (  const std::string& name
                    , const std::string& value
-                   , const std::string& namespaceURI
-                   , const std::string& prefix      )
+                   , const std::string namespaceURI
+                   , const std::string prefix      )
 {
   if (mIsStart) 
   {
@@ -421,7 +421,7 @@ XMLToken::removeAttr (int n)
  * @param uri    a string, the namespace URI of the attribute.
  */
 int 
-XMLToken::removeAttr (const std::string& name, const std::string& uri)
+XMLToken::removeAttr (const std::string& name, const std::string uri)
 {
   if (mIsStart) 
   {
@@ -495,7 +495,7 @@ XMLToken::clearAttributes()
  * documentation.
  */
 int 
-XMLToken::getAttrIndex (const std::string& name, const std::string& uri) const
+XMLToken::getAttrIndex (const std::string& name, const std::string uri) const
 {
   return mAttributes.getIndex(name, uri);
 }
@@ -653,7 +653,7 @@ XMLToken::getAttrValue (int index) const
  * documentation.
  */
 std::string 
-XMLToken::getAttrValue (const std::string& name, const std::string& uri) const
+XMLToken::getAttrValue (const std::string& name, const std::string uri) const
 {
   return mAttributes.getValue(name, uri);
 }
@@ -709,7 +709,7 @@ XMLToken::hasAttr (int index) const
  * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
  */
 bool 
-XMLToken::hasAttr (const std::string& name, const std::string& uri) const
+XMLToken::hasAttr (const std::string& name, const std::string uri) const
 {
   return mAttributes.hasAttribute(name, uri);
 }
@@ -799,7 +799,7 @@ XMLToken::setNamespaces(const XMLNamespaces& namespaces)
  * Nothing will be done if this XMLToken is not a start element.
  */
 int 
-XMLToken::addNamespace (const std::string& uri, const std::string& prefix)
+XMLToken::addNamespace (const std::string& uri, const std::string prefix)
 {
 
    if (mIsStart)  
@@ -962,7 +962,7 @@ XMLToken::getNamespaceURI (int index) const
  * @return the URI of an XML namespace declaration given its prefix.  
  */
 std::string 
-XMLToken::getNamespaceURI (const std::string& prefix) const
+XMLToken::getNamespaceURI (const std::string prefix) const
 {
   return mNamespaces.getURI(prefix);
 }

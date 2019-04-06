@@ -129,7 +129,7 @@ SBMLNamespaces::SBMLNamespaces(unsigned int level, unsigned int version)
  */
 SBMLNamespaces::SBMLNamespaces(unsigned int level, unsigned int version, 
                                const std::string &pkgName, unsigned int pkgVersion, 
-                               const std::string& pkgPrefix)
+                               const std::string pkgPrefix)
  : mLevel(level)
   ,mVersion(version)
 {

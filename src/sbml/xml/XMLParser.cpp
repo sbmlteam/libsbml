@@ -88,7 +88,7 @@ XMLParser::~XMLParser ()
  * XML library, the library parameter is ignored.
  */
 XMLParser*
-XMLParser::create (XMLHandler& handler, const string& library)
+XMLParser::create (XMLHandler& handler, const string library)
 {
 #ifdef USE_EXPAT
   if (library.empty() || library == "expat")  return new ExpatParser(handler);

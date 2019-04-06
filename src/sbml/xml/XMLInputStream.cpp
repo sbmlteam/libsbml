@@ -312,7 +312,7 @@ XMLInputStream::setSBMLNamespaces(SBMLNamespaces * sbmlns)
 }
 
 unsigned int
-XMLInputStream::determineNumberChildren(const std::string& elementName)
+XMLInputStream::determineNumberChildren(const std::string elementName)
 {
   bool valid = false;
   unsigned int num = this->mTokenizer.determineNumberChildren(valid, elementName);
