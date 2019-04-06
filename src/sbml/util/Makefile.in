@@ -67,6 +67,7 @@ headers   = \
 	ElementFilter.h \
 	IdentifierTransformer.h \
 	PrefixTransformer.h \
+  CallbackRegistry.h \
 	util.h
 
 header_inst_prefix = util
@@ -83,6 +84,7 @@ sources   = \
 	ElementFilter.cpp \
 	IdentifierTransformer.cpp \
 	PrefixTransformer.cpp \
+  CallbackRegistry.cpp \
 	util.cpp
 
 extra_CPPFLAGS = -DPACKAGE_NAME=\"$(PACKAGE_NAME)\"
