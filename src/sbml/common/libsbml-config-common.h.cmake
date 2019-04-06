@@ -107,4 +107,9 @@
    application in case of an allocation / file system error. */
 #cmakedefine EXIT_ON_ERROR 1
 
+/* Define to specify that the legacy math implementation ought to be used. */
+/* This is no longer an option but in case other programs compiling against
+   libsbml have used the flag it is always on */
+#cmakedefine LIBSBML_USE_LEGACY_MATH 1
+
 #include <sbml/common/libsbml-config-packages.h>

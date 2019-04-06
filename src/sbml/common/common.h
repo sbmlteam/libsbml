@@ -109,6 +109,8 @@ static const int SBML_INT_MIN = -2147483647 - 1;
 #define LIBSBML_UNKNOWN_LINE	SBML_INT_MAX
 #define LIBSBML_UNKNOWN_COLUMN	SBML_INT_MAX
 
+#define LIBSBML_USE_LEGACY_MATH 1
+
 
 #include <sbml/common/extern.h>
 #include <sbml/util/memory.h>
