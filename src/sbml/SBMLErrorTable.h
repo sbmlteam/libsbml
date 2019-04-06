@@ -293,7 +293,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "In the SBML subset of MathML 2.0, the MathML attribute "
     "'encoding' is only permitted on <csymbol>. No other MathML elements may "
-    "have an 'encoding' attribute. ",
+    "have an 'encoding' attribute. An SBML L3 Package may allow the 'encoding' "
+    "attribute in other places, and if so, the package must define "
+    "required = 'true' on the SBML container element <sbml>.",
     {"",
      "",
      "L2V2 Section 3.5.1",
@@ -328,7 +330,10 @@ static const sbmlErrorTableEntry errorTable[] =
     "In the SBML subset of MathML 2.0, the MathML attribute "
     "'definitionURL' is only permitted on <csymbol>, <semantics> or <ci> "
     "(Level 2 Version 5 and Level 3 only). "
-    "No other MathML elements may have a 'definitionURL' attribute. ",
+    "No other MathML elements may have a 'definitionURL' attribute. "
+    "An SBML L3 Package may allow the 'definitionURL' "
+    "attribute in other places, and if so, the package must define "
+    "required = 'true' on the SBML container element <sbml>.",
     {"",
      "",
      "L2V2 Section 3.5.1",
@@ -357,7 +362,10 @@ static const sbmlErrorTableEntry errorTable[] =
     "a <csymbol> element are \"http://www.sbml.org/sbml/symbols/time\" "
     "and \"http://www.sbml.org/sbml/symbols/delay\". SBML Level 3 added "
     "\"http://www.sbml.org/sbml/symbols/avogadro\". SBML Level 3 Version 2 "
-    "added \"http://www.sbml.org/sbml/symbols/rateOf\"", 
+    "added \"http://www.sbml.org/sbml/symbols/rateOf\" An SBML L3 Package "
+    "may allow new values for the 'definitionURL' attribute of a csymbol, "
+    "and if so, the package must define "
+    "required = 'true' on the SBML container element <sbml>.",
     {"",
      "",
      "L2V2 Section 3.5.5",
@@ -384,7 +392,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "In the SBML subset of MathML 2.0, the MathML attribute "
     "'type' is only permitted on the <cn> construct. No other MathML elements "
-    "may have a 'type' attribute.",
+    "may have a 'type' attribute. An SBML L3 Package may allow the 'type' "
+    "attribute in other places, and if so, the package must define "
+    "required = 'true' on the SBML container element <sbml>.",
     {"",
      "",
      "L2V2 Section 3.5.1",
@@ -410,7 +420,10 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The only permitted values for the 'type' attribute on MathML <cn> "
-    "elements are 'e-notation', 'real', 'integer', and 'rational'. ",
+    "elements are 'e-notation', 'real', 'integer', and 'rational'. An SBML L3 " 
+      "Package may allow new values for the 'type' "
+    "attribute, and if so, the package must define "
+    "required = 'true' on the SBML container element <sbml>.",
     {"",
      "",
      "L2V2 Section 3.5.2",
@@ -439,7 +452,9 @@ static const sbmlErrorTableEntry errorTable[] =
     "the 'math' element of a <functionDefinition> or as the first element "
     "of a semantics element immediately inside inside the math element "
     "of a <functionDefinition>; they may not be used "
-    "elsewhere in an SBML model.",
+    "elsewhere in an SBML model. An SBML L3 Package may allow the lambda "
+    "element in other places, and if so, the package must define "
+    "required = 'true' on the SBML container element <sbml>.",
     {"",
      "",
      "L2V2 Sections 3.5.1 and 4.3",
@@ -772,7 +787,10 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The SBML attribute 'units' may only be added to MathML <cn> elements; "
-    "no other MathML elements are permitted to have the 'units' attribute. ",
+    "no other MathML elements are permitted to have the 'units' attribute.  "
+    "An SBML L3 Package may allow the 'units' "
+    "attribute in other places, and if so, the package must define "
+    "required = 'true' on the SBML container element <sbml>.",
     {"",
      "",
      "",
