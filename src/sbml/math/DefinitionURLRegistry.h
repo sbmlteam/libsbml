@@ -72,8 +72,8 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 #ifndef SWIG
-typedef std::map <const std::string, ASTNodeType_t > UrlMap;
-typedef std::map <const std::string, ASTNodeType_t >::iterator UrlIt;
+typedef std::map <const std::string, int > UrlMap;
+typedef std::map <const std::string, int >::iterator UrlIt;
 #endif
 
 class LIBSBML_EXTERN DefinitionURLRegistry
@@ -99,7 +99,7 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    */
-  int addDefinitionURL (const std::string& url, ASTNodeType_t type);
+  int addDefinitionURL (const std::string& url, int type);
 
 
   /**
@@ -121,7 +121,7 @@ public:
 
   bool getCoreDefinitionsAdded();
 
-  ASTNodeType_t getType(const std::string& url);
+  int getType(const std::string& url);
 
   void clearDefinitions();
 

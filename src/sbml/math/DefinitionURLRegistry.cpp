@@ -80,20 +80,20 @@ DefinitionURLRegistry::addSBMLDefinitions(SBMLNamespaces* sbmlns)
 }
 
 int 
-DefinitionURLRegistry::addDefinitionURL (const std::string& url, ASTNodeType_t type)
+DefinitionURLRegistry::addDefinitionURL (const std::string& url, int type)
 {
   unsigned int n = getNumDefinitionURLs();
-  mDefinitionURLs.insert(std::pair<std::string, ASTNodeType_t>(url, type));
+  mDefinitionURLs.insert(std::pair<std::string, int>(url, type));
   if (getNumDefinitionURLs() == n + 1)
     return LIBSBML_OPERATION_SUCCESS;
   else
     return LIBSBML_OPERATION_FAILED;
 }
 
-ASTNodeType_t
+int
 DefinitionURLRegistry::getType(const std::string& url)
 {
-  ASTNodeType_t type = AST_UNKNOWN;
+  int type = AST_UNKNOWN;
   UrlIt it = mDefinitionURLs.find(url);
   if (it != mDefinitionURLs.end())
   {

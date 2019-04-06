@@ -403,7 +403,7 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
     string url;
     element.getAttributes().readInto("definitionURL", url);
 
-    ASTNodeType_t type = DefinitionURLRegistry::getInstance().getType(url);
+    int type = DefinitionURLRegistry::getInstance().getType(url);
 
     // old behaviour where an unknown type was logged as just csymbol
     if (stream.getSBMLNamespaces() == NULL && type == AST_UNKNOWN)
@@ -419,8 +419,8 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
       }
       else
       {
-        node.setType(type);
-        if (type == AST_CSYMBOL_FUNCTION)
+        node.setType((ASTNodeType_t)(type));
+        if (type == AST_CSYMBOL_FUNCTION || type > AST_UNKNOWN)
         {
           node.setDefinitionURL(url);
         }
