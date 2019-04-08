@@ -125,7 +125,7 @@ void createExample1()
   SBMLDocument* doc = setupBasicModel();
   Model* model = doc->getModel();
   InitialAssignment* ia = addParamAndIA(model);
-  ASTNode* astn = SBML_parseL3Formula("normal(3,2)");
+  ASTNode* astn = SBML_parseL3Formula("normal(5.2,1.3)");
   ia->setMath(astn);
   delete astn;
 
@@ -141,9 +141,11 @@ void createExample2()
   Parameter* param = model->createParameter();
   param->setConstant("true");
   param->setId("x");
+  param->setValue(5.2);
   param = model->createParameter();
   param->setConstant("true");
   param->setId("y");
+  param->setValue(1.3);
 
   ASTNode* astn = SBML_parseL3Formula("normal(x,y)");
   ia->setMath(astn);
@@ -155,169 +157,177 @@ void createExample2()
 
 void createDistribUncertaintyExample()
 {
-  //SBMLNamespaces sbmlns(3, coreVersion, "distrib", 1);
+  SBMLNamespaces sbmlns(3, coreVersion, "distrib", 1);
 
-  //// create the document
-  //SBMLDocument *document = new SBMLDocument(&sbmlns);
-  //DistribSBMLDocumentPlugin* distdoc
-  //  = static_cast<DistribSBMLDocumentPlugin*>(document->getPlugin("distrib"));
-  //distdoc->setRequired(true);
-  //Model* model = document->createModel();
-  //Species* s1 = model->createSpecies();
-  //DistribSBasePlugin* dsbp = static_cast<DistribSBasePlugin*>(s1->getPlugin("distrib"));
-  //Uncertainty* uncertainty = dsbp->createUncertainty();
-  //UncertValue* sdev = uncertainty->createStandardDeviation();
-  //sdev->setValue(0.3);
-  //s1->setInitialAmount(3.22);
-  //s1->setId("s1");
-  //s1->setCompartment("C");
-  //s1->setHasOnlySubstanceUnits(true);
-  //s1->setBoundaryCondition(false);
-  //s1->setConstant(false);
-  //Compartment* c = model->createCompartment();
-  //c->setId("C");
-  //c->setConstant(true);
-  //c->setSize(1);
-  //c->setSpatialDimensions(3.0);
+  // create the document
+  SBMLDocument *document = new SBMLDocument(&sbmlns);
+  DistribSBMLDocumentPlugin* distdoc
+    = static_cast<DistribSBMLDocumentPlugin*>(document->getPlugin("distrib"));
+  distdoc->setRequired(true);
+  Model* model = document->createModel();
+  Species* s1 = model->createSpecies();
+  DistribSBasePlugin* dsbp = static_cast<DistribSBasePlugin*>(s1->getPlugin("distrib"));
+  Uncertainty* uncertainty = dsbp->createUncertainty();
+  UncertParameter* sdev = uncertainty->createUncertParameter();
+  sdev->setType("standardDeviation");
+  sdev->setValue(0.3);
+  s1->setInitialAmount(3.22);
+  s1->setId("s1");
+  s1->setCompartment("C");
+  s1->setHasOnlySubstanceUnits(true);
+  s1->setBoundaryCondition(false);
+  s1->setConstant(false);
+  Compartment* c = model->createCompartment();
+  c->setId("C");
+  c->setConstant(true);
+  c->setSize(1);
+  c->setSpatialDimensions(3.0);
 
-  //writeSBMLToFile(document, "distrib_example3.xml");
-  //delete document;
+  writeSBMLToFile(document, "distrib_example3.xml");
+  delete document;
 }
 
 void createDistribUncertaintyExample2()
 {
-  //SBMLNamespaces sbmlns(3, coreVersion, "distrib", 1);
+  SBMLNamespaces sbmlns(3, coreVersion, "distrib", 1);
 
-  //// create the document
-  //SBMLDocument *document = new SBMLDocument(&sbmlns);
-  //DistribSBMLDocumentPlugin* distdoc
-  //  = static_cast<DistribSBMLDocumentPlugin*>(document->getPlugin("distrib"));
-  //distdoc->setRequired(true);
-  //Model* model = document->createModel();
-  //Species* s1 = model->createSpecies();
-  //DistribSBasePlugin* dsbp = static_cast<DistribSBasePlugin*>(s1->getPlugin("distrib"));
-  //Uncertainty* uncertainty = dsbp->createUncertainty();
-  //UncertValue* sdev = uncertainty->createStandardDeviation();
-  //sdev->setValue(0.3);
-  //UncertValue* mean = uncertainty->createMean();
-  //mean->setValue(3.2);
-  //UncertValue* var = uncertainty->createVariance();
-  //var->setValue(0.09);
-  //s1->setInitialAmount(3.22);
-  //s1->setId("s1");
-  //s1->setCompartment("C");
-  //s1->setHasOnlySubstanceUnits(true);
-  //s1->setBoundaryCondition(false);
-  //s1->setConstant(false);
-  //Compartment* c = model->createCompartment();
-  //c->setId("C");
-  //c->setConstant(true);
-  //c->setSize(1);
-  //c->setSpatialDimensions(3.0);
+  // create the document
+  SBMLDocument *document = new SBMLDocument(&sbmlns);
+  DistribSBMLDocumentPlugin* distdoc
+    = static_cast<DistribSBMLDocumentPlugin*>(document->getPlugin("distrib"));
+  distdoc->setRequired(true);
+  Model* model = document->createModel();
+  Species* s1 = model->createSpecies();
+  DistribSBasePlugin* dsbp = static_cast<DistribSBasePlugin*>(s1->getPlugin("distrib"));
+  Uncertainty* uncertainty = dsbp->createUncertainty();
+  UncertParameter* sdev = uncertainty->createUncertParameter();
+  sdev->setType("standardDeviation");
+  sdev->setValue(0.3);
+  UncertParameter* mean = uncertainty->createUncertParameter();
+  mean->setType("mean");
+  mean->setValue(3.2);
+  UncertParameter* var = uncertainty->createUncertParameter();
+  var->setType("variance");
+  var->setValue(0.09);
+  s1->setInitialAmount(3.22);
+  s1->setId("s1");
+  s1->setCompartment("C");
+  s1->setHasOnlySubstanceUnits(true);
+  s1->setBoundaryCondition(false);
+  s1->setConstant(false);
+  Compartment* c = model->createCompartment();
+  c->setId("C");
+  c->setConstant(true);
+  c->setSize(1);
+  c->setSpatialDimensions(3.0);
 
-  //writeSBMLToFile(document, "distrib_example4.xml");
-  //delete document;
+  writeSBMLToFile(document, "distrib_example4.xml");
+  delete document;
 }
 
 void createDistribUncertaintyExample3()
 {
-  //SBMLNamespaces sbmlns(3, coreVersion, "distrib", 1);
+  SBMLNamespaces sbmlns(3, coreVersion, "distrib", 1);
 
-  //// create the document
-  //SBMLDocument *document = new SBMLDocument(&sbmlns);
-  //DistribSBMLDocumentPlugin* distdoc
-  //  = static_cast<DistribSBMLDocumentPlugin*>(document->getPlugin("distrib"));
-  //distdoc->setRequired(true);
-  //Model* model = document->createModel();
-  //Parameter* p1 = model->createParameter();
-  //p1->setId("mu_Z");
-  //p1->setValue(10);
-  //p1->setConstant(true);
-  //p1 = model->createParameter();
-  //p1->setId("var_Z");
-  //p1->setValue(0.1);
-  //p1->setConstant(true);
-  //p1 = model->createParameter();
-  //p1->setId("Z");
-  //p1->setConstant(true);
-  //DistribSBasePlugin* dsbp = static_cast<DistribSBasePlugin*>(p1->getPlugin("distrib"));
-  //Uncertainty* uncertainty = dsbp->createUncertainty();
-  //Distribution* dist = uncertainty->createDistribution();
-  //UncertValue* mean = uncertainty->createMean();
-  //mean->setVar("mu_Z");
-  //UncertValue* var = uncertainty->createVariance();
-  //var->setVar("var_Z");
-  //ASTNode* astn = SBML_parseL3Formula("normal(mu_Z, var_Z)");
-  //dist->setMath(astn);
-  //delete astn;
+  // create the document
+  SBMLDocument *document = new SBMLDocument(&sbmlns);
+  DistribSBMLDocumentPlugin* distdoc
+    = static_cast<DistribSBMLDocumentPlugin*>(document->getPlugin("distrib"));
+  distdoc->setRequired(true);
+  Model* model = document->createModel();
+  Parameter* p1 = model->createParameter();
+  p1->setId("mu_Z");
+  p1->setValue(10);
+  p1->setConstant(true);
+  p1 = model->createParameter();
+  p1->setId("var_Z");
+  p1->setValue(0.1);
+  p1->setConstant(true);
+  p1 = model->createParameter();
+  p1->setId("Z");
+  p1->setConstant(true);
+  DistribSBasePlugin* dsbp = static_cast<DistribSBasePlugin*>(p1->getPlugin("distrib"));
+  Uncertainty* uncertainty = dsbp->createUncertainty();
+  UncertParameter* dist = uncertainty->createUncertParameter();
+  dist->setType("distribution");
+  UncertParameter* mean = dist->createUncertParameter();
+  mean->setType("standardDeviation");
+  mean->setVar("mu_Z");
+  UncertParameter* var = dist->createUncertParameter();
+  var->setType("variance");
+  var->setVar("var_Z");
+  ASTNode* astn = SBML_parseL3Formula("normal(mu_Z, var_Z)");
+  dist->setMath(astn);
+  delete astn;
 
-  //writeSBMLToFile(document, "distrib_example5.xml");
-  //delete document;
+  writeSBMLToFile(document, "distrib_example5.xml");
+  delete document;
 }
 
 void createDistribUncertaintyExample4()
 {
-  //SBMLNamespaces sbmlns(3, coreVersion, "distrib", 1);
+  SBMLNamespaces sbmlns(3, coreVersion, "distrib", 1);
 
-  //// create the document
-  //SBMLDocument *document = new SBMLDocument(&sbmlns);
-  //DistribSBMLDocumentPlugin* distdoc
-  //  = static_cast<DistribSBMLDocumentPlugin*>(document->getPlugin("distrib"));
-  //distdoc->setRequired(true);
-  //Model* model = document->createModel();
-  //Species* s1 = model->createSpecies();
-  //DistribSBasePlugin* dsbp = static_cast<DistribSBasePlugin*>(s1->getPlugin("distrib"));
-  //Uncertainty* uncertainty = dsbp->createUncertainty();
-  //Distribution* dist = uncertainty->createDistribution();
-  //dist->setName("CategoricalDistribution");
-  ////  dist->setDefinitionURL("http://www.probonto.org/ontology#PROB_k0000248"); // Categorical Nonordered
-  //ExternalParameter* p = uncertainty->createExternalParameter();
-  //p->setId("patient1");
-  //p->setDefinitionURL("http://purl.obolibrary.org/obo/OBI_0001930"); // categorical value specification
-  //ExternalParameter * pp = ((ExternalParameter*)(p))->createExternalParameter();
-  //pp->setVar("probability");
-  //pp->setValue(0.5);
-  //pp->setDefinitionURL("http://www.probonto.org/ontology#PROB_k0000255"); //category probabilities of Categorical-Nonordered-1
-  //pp = ((ExternalParameter*)(p))->createExternalParameter();
-  //pp->setVar("value");
-  //pp->setValue(1.01);
-  //pp->setDefinitionURL("http://www.probonto.org/ontology#PROB_c0000019"); //random variable
-  //p = uncertainty->createExternalParameter();
-  //p->setId("patient2"); 
-  //p->setDefinitionURL("http://purl.obolibrary.org/obo/OBI_0001930"); // categorical value specification
-  //pp = ((ExternalParameter*)(p))->createExternalParameter();
-  //pp->setVar("probability");
-  //pp->setValue(0.25);
-  //pp->setDefinitionURL("http://www.probonto.org/ontology#PROB_k0000255"); //category probabilities of Categorical-Nonordered-1
-  //pp = ((ExternalParameter*)(p))->createExternalParameter();
-  //pp->setVar("value");
-  //pp->setValue(2.24);  
-  //pp->setDefinitionURL("http://www.probonto.org/ontology#PROB_c0000019"); //random variable
-  //p = uncertainty->createExternalParameter();
-  //p->setId("patient3"); 
-  //p->setDefinitionURL("http://purl.obolibrary.org/obo/OBI_0001930"); // categorical value specification
-  //pp = ((ExternalParameter*)(p))->createExternalParameter();
-  //pp->setVar("value");
-  //pp->setValue(1.72);  
-  //pp->setDefinitionURL("http://www.probonto.org/ontology#PROB_c0000019"); //random variable
+  // create the document
+  SBMLDocument *document = new SBMLDocument(&sbmlns);
+  DistribSBMLDocumentPlugin* distdoc
+    = static_cast<DistribSBMLDocumentPlugin*>(document->getPlugin("distrib"));
+  distdoc->setRequired(true);
+  Model* model = document->createModel();
+  Species* s1 = model->createSpecies();
+  DistribSBasePlugin* dsbp = static_cast<DistribSBasePlugin*>(s1->getPlugin("distrib"));
+  Uncertainty* uncertainty = dsbp->createUncertainty();
+  UncertParameter* dist = uncertainty->createUncertParameter();
+  dist->setType("distribution");
+  dist->setName("CategoricalDistribution");
+  dist->setDefinitionURL("http://www.probonto.org/ontology#PROB_k0000248"); // Categorical Nonordered
+  UncertParameter* p1 = dist->createUncertParameter();
+  p1->setType("externalParameter");
+  p1->setId("patient1");
+  UncertParameter* pp = p1->createUncertParameter();
+  pp->setType("externalParameter");
+  pp->setVar("probability");
+  pp->setValue(0.5);
+  pp = p1->createUncertParameter();
+  pp->setType("externalParameter");
+  pp->setVar("value");
+  pp->setValue(1.01);
+  p1 = dist->createUncertParameter();
+  p1->setType("externalParameter");
+  p1->setId("patient2");
+  pp = p1->createUncertParameter();
+  pp->setType("externalParameter");
+  pp->setVar("probability");
+  pp->setValue(0.25);
+  pp = p1->createUncertParameter();
+  pp->setType("externalParameter");
+  pp->setVar("value");
+  pp->setValue(2.24);  
+  p1 = dist->createUncertParameter();
+  p1->setType("externalParameter");
+  p1->setId("patient3");
+  pp = p1->createUncertParameter();
+  pp->setType("externalParameter");
+  pp->setVar("value");
+  pp->setValue(1.72);  
 
-  //s1->setId("s1");
-  //s1->setCompartment("C");
-  //s1->setHasOnlySubstanceUnits(true);
-  //s1->setBoundaryCondition(false);
-  //s1->setConstant(false);
-  //Compartment* c = model->createCompartment();
-  //c->setId("C");
-  //c->setConstant(true);
-  //c->setSize(1);
-  //c->setSpatialDimensions(3.0);
+  s1->setId("s1");
+  s1->setCompartment("C");
+  s1->setHasOnlySubstanceUnits(true);
+  s1->setBoundaryCondition(false);
+  s1->setConstant(false);
+  Compartment* c = model->createCompartment();
+  c->setId("C");
+  c->setConstant(true);
+  c->setSize(1);
+  c->setSpatialDimensions(3.0);
 
-  //writeSBMLToFile(document, "distrib_example6.xml");
-  //delete document;
+  writeSBMLToFile(document, "distrib_example6.xml");
+  delete document;
 }
 
-void createUncertainGender()
-{
+//void createUncertainGender()
+//{
 //  SBMLNamespaces sbmlns(3, coreVersion, "distrib", 1);
 //
 //  // create the document
@@ -359,7 +369,7 @@ void createUncertainGender()
 //
 //  writeSBMLToFile(document, "distrib_example7.xml");
 //  delete document;
-}
+//}
 
 void createPkPd()
 {
@@ -541,107 +551,66 @@ void createPkPd()
 //  delete doc;
 //}
 
-//void createConfidenceIntervalEx()
-//{
-//  SBMLNamespaces sbmlns(3, coreVersion, "distrib", 1);
-//  // create the document
-//  SBMLDocument *document = new SBMLDocument(&sbmlns);
-//  DistribSBMLDocumentPlugin* distdoc
-//    = static_cast<DistribSBMLDocumentPlugin*>(document->getPlugin("distrib"));
-//  distdoc->setRequired(true);
-//  Model* model = document->createModel();
-//  Parameter param(&sbmlns);
-//  param.setConstant(true);
-//  DistribSBasePlugin* dsbp = static_cast<DistribSBasePlugin*>(param.getPlugin("distrib"));
-//  DistribUncertainty* uncert = dsbp->createDistribUncertainty();
-//  DistribUncertStatistics* stats = uncert->createUncertStatistics();
-//  DistribUncertStatisticSpan uss(3, coreVersion, 1);
-//  param.setId("P1");
-//  param.setValue(5.13);
-//  uss.setValueLower(5.0);
-//  uss.setValueUpper(5.32);
-//  stats->setConfidenceInterval(&uss);
-//  model->addParameter(&param);
-//
-//  param.setId("P2");
-//  param.setValue(15.0);
-//  uss.setValueLower(10.22);
-//  uss.setValueUpper(15.02);
-//  stats->setConfidenceInterval(&uss);
-//  model->addParameter(&param);
-//
-//  param.setId("P3");
-//  param.setValue(0.003);
-//  uss.setValueLower(-0.001);
-//  uss.setValueUpper(0.0041);
-//  stats->setConfidenceInterval(&uss);
-//  model->addParameter(&param);
-//
-//  param.setId("P4");
-//  param.setValue(.34);
-//  uss.setValueLower(.22);
-//  uss.setValueUpper(.51);
-//  stats->setConfidenceInterval(&uss);
-//  model->addParameter(&param);
-//
-//  param.setId("P5");
-//  param.setValue(92);
-//  uss.setValueLower(90);
-//  uss.setValueUpper(99);
-//  stats->setConfidenceInterval(&uss);
-//  model->addParameter(&param);
-//
-//  param.setId("P6");
-//  param.setValue(40.002);
-//  uss.setValueLower(40.0018);
-//  uss.setValueUpper(40.0021);
-//  stats->setConfidenceInterval(&uss);
-//  model->addParameter(&param);
-//
-//  Compartment* c = model->createCompartment();
-//  c->setId("C");
-//  c->setConstant(true);
-//  c->setSize(1);
-//  c->setSpatialDimensions(3.0);
-//
-//  Species s(&sbmlns);
-//  s.setConstant(false);
-//  s.setBoundaryCondition(false);
-//  s.setHasOnlySubstanceUnits(false);
-//  s.setCompartment("C");
-//  dsbp = static_cast<DistribSBasePlugin*>(s.getPlugin("distrib"));
-//  uncert = dsbp->createDistribUncertainty();
-//  stats = uncert->createUncertStatistics();
-//  DistribUncertValue uv(3, coreVersion, 1);
-//  
-//  s.setId("S1");
-//  s.setInitialAmount(5.2);
-//  uv.setValue(0.3);
-//  stats->setStandardDeviation(&uv);
-//  model->addSpecies(&s);
-//
-//  s.setId("S2");
-//  s.setInitialAmount(8.7);
-//  uv.setValue(0.01);
-//  stats->setStandardDeviation(&uv);
-//  model->addSpecies(&s);
-//
-//  s.setId("S3");
-//  s.setInitialAmount(1102);
-//  uv.setValue(53);
-//  stats->setStandardDeviation(&uv);
-//  model->addSpecies(&s);
-//
-//  s.setId("S4");
-//  s.setInitialAmount(0.026);
-//  uv.setValue(0.004);
-//  stats->setStandardDeviation(&uv);
-//  model->addSpecies(&s);
-//
-//
-//  writeSBMLToFile(document, "confidence-intervals.xml");
-//  delete document;
-//}
+void createConfidenceIntervalEx()
+{
+  SBMLNamespaces sbmlns(3, coreVersion, "distrib", 1);
+  // create the document
+  SBMLDocument *document = new SBMLDocument(&sbmlns);
+  DistribSBMLDocumentPlugin* distdoc
+    = static_cast<DistribSBMLDocumentPlugin*>(document->getPlugin("distrib"));
+  distdoc->setRequired(true);
+  Model* model = document->createModel();
+  Parameter param(&sbmlns);
+  param.setConstant(true);
+  DistribSBasePlugin* dsbp = static_cast<DistribSBasePlugin*>(param.getPlugin("distrib"));
+  Uncertainty* uncert = dsbp->createUncertainty();
+  UncertSpan* span = uncert->createUncertSpan();
+  param.setId("P1");
+  param.setValue(5.13);
+  span->setType("confidenceInterval");
+  span->setValueLower(5.0);
+  span->setValueUpper(5.32);
+  model->addParameter(&param);
+
+  param.setId("P2");
+  param.setValue(15.0);
+  span->setType("confidenceInterval");
+  span->setValueLower(10.22);
+  span->setValueUpper(15.02);
+  model->addParameter(&param);
+
+  param.setId("P3");
+  param.setValue(0.003);
+  span->setType("confidenceInterval");
+  span->setValueLower(-0.001);
+  span->setValueUpper(0.0041);
+  model->addParameter(&param);
+
+  param.setId("P4");
+  param.setValue(.34);
+  span->setType("confidenceInterval");
+  span->setValueLower(0.22);
+  span->setValueUpper(0.51);
+  model->addParameter(&param);
+
+  param.setId("P5");
+  param.setValue(92);
+  span->setType("confidenceInterval");
+  span->setValueLower(90);
+  span->setValueUpper(99);
+  model->addParameter(&param);
+
+
+  Compartment* c = model->createCompartment();
+  c->setId("C");
+  c->setConstant(true);
+  c->setSize(1);
+  c->setSpatialDimensions(3.0);
+
+
+  writeSBMLToFile(document, "confidence-intervals.xml");
+  delete document;
+}
 
 
 
@@ -655,9 +624,9 @@ main (int argc, char* argv[])
   createDistribUncertaintyExample2();
   createDistribUncertaintyExample3();
   createDistribUncertaintyExample4();
-  createUncertainGender();
+  //createUncertainGender();
   createPkPd();
   //createExternalExponential();
   //createUserDefined();
-  //createConfidenceIntervalEx();
+  createConfidenceIntervalEx();
 }
