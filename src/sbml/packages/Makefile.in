@@ -72,6 +72,9 @@ ifneq "$(MAKECMDGOALS)" "dist"
   ifdef USE_RENDER
     subdirs += render
   endif
+  ifdef USE_L3V2EXTENDEDMATH
+    subdirs += l3v2extendedmath
+  endif
 else
   # If `make dist' was given, include all subdirectories.
   # subdirs = comp fbc layout qual
