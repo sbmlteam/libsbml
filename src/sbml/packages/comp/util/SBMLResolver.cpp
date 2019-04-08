@@ -87,13 +87,13 @@ SBMLResolver::clone () const
 
 
 SBMLDocument*
-SBMLResolver::resolve(const std::string &, const std::string /*=""*/) const
+SBMLResolver::resolve(const std::string &, const std::string& /*=""*/) const
 {
   return NULL;
 }
 
 SBMLUri* 
-SBMLResolver::resolveUri(const std::string &, const std::string /*=""*/) const
+SBMLResolver::resolveUri(const std::string &, const std::string& /*=""*/) const
 {
   return NULL;
 }
