@@ -673,7 +673,7 @@ int ASTBasePlugin::checkNumArguments(const ASTNode* node, std::stringstream& err
     error << ", but " << numChildren << " were found.";
     return -1;
   default:
-    return 1;
+    return 0;
   }
   return 0;
 }
