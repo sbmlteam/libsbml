@@ -141,6 +141,7 @@ file (MAKE_DIRECTORY ${OUT_DIR}/src)
 
 # new way to list directories  
 IF(${CMAKE_VERSION} VERSION_GREATER 3.2.3)
+  message("\nCMake ${CMAKE_VERSION} detected using sane directory tree strategy.")
   MACRO(GET_SBML_SRC_TREE result curdir)
     FILE(GLOB_RECURSE children LIST_DIRECTORIES true RELATIVE ${curdir} ${curdir}/*)
     SET(dirlist "sbml")
@@ -160,6 +161,7 @@ IF(${CMAKE_VERSION} VERSION_GREATER 3.2.3)
 
   GET_SBML_SRC_TREE(DIRECTORIES "${SRC_DIR}/sbml")
 ELSE()
+  message("\nCMake ${CMAKE_VERSION} detected using directory tree hack.")
   MACRO(SUBDIRLIST result curdir)
     FILE(GLOB children ABSOLUTE ${curdir} ${curdir}/*)
     SET(dirlist "")
