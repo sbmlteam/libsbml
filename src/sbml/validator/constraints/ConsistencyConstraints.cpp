@@ -100,7 +100,7 @@
 
 #include "RateOfCycles.h"
 
-#include "math/L3FormulaFormatter.h"
+#include <sbml/math/L3FormulaFormatter.h>
 
 #endif
 
