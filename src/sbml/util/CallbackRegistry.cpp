@@ -1,5 +1,6 @@
 #ifdef __cplusplus
 
+#include <algorithm>
 
 #include <sbml/common/operationReturnValues.h>
 #include <sbml/util/CallbackRegistry.h>
