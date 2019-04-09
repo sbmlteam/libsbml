@@ -56,17 +56,11 @@ void CallbackRegistry::removeCallback(Callback* cb)
 {
   std::vector<Callback*>& cbs = getInstance().mCallbacks;
 
-  std::vector<Callback*>::iterator it = cbs.begin();
-  int i = 0;
-  for (; it != cbs.end(); ++it, ++i)
-  {
-    Callback* cbdata = *it;
-    if (cbdata == cb)
-    {
-      removeCallback(i);
-      break;
-    }
-  }
+  std::vector<Callback*>::iterator it = std::find(cbs.begin(), cbs.end(), cb);
+  if (it == cbs.end())
+    return;
+
+  cbs.erase(it);
 }
 
 CallbackRegistry::CallbackRegistry()
