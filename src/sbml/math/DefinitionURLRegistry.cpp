@@ -57,25 +57,15 @@ DefinitionURLRegistry::getInstance()
 
 
 void 
-DefinitionURLRegistry::addSBMLDefinitions(SBMLNamespaces* sbmlns)
+DefinitionURLRegistry::addSBMLDefinitions()
 {
   // old behaviour when a stream may not know sbmlns
   addDefinitionURL("http://www.sbml.org/sbml/symbols/time", AST_NAME_TIME);
   addDefinitionURL("http://www.sbml.org/sbml/symbols/delay", AST_FUNCTION_DELAY);
-  if (sbmlns == NULL)
-  {
-    addDefinitionURL("http://www.sbml.org/sbml/symbols/avogadro", AST_NAME_AVOGADRO);
-  }
-  else
-  {
-    unsigned int level = sbmlns->getLevel();
-    if (level > 2)
-    {
-      addDefinitionURL("http://www.sbml.org/sbml/symbols/avogadro", AST_NAME_AVOGADRO);
-    }
-
-
-  }
+  addDefinitionURL("http://www.sbml.org/sbml/symbols/avogadro", AST_NAME_AVOGADRO);
+#ifdef USE_L3V2EXTENDEDMATH
+  addDefinitionURL("http://www.sbml.org/sbml/symbols/rateOf", AST_FUNCTION_RATE_OF);
+#endif
   setCoreDefinitionsAdded();
 }
 
@@ -83,7 +73,7 @@ int
 DefinitionURLRegistry::addDefinitionURL (const std::string& url, int type)
 {
   unsigned int n = getNumDefinitionURLs();
-  mDefinitionURLs.insert(std::pair<std::string, int>(url, type));
+  getInstance().mDefinitionURLs.insert(std::pair<std::string, int>(url, type));
   if (getNumDefinitionURLs() == n + 1)
     return LIBSBML_OPERATION_SUCCESS;
   else
@@ -94,8 +84,8 @@ int
 DefinitionURLRegistry::getType(const std::string& url)
 {
   int type = AST_UNKNOWN;
-  UrlIt it = mDefinitionURLs.find(url);
-  if (it != mDefinitionURLs.end())
+  UrlIt it = getInstance().mDefinitionURLs.find(url);
+  if (it != getInstance().mDefinitionURLs.end())
   {
     type = it->second;
   }
@@ -105,8 +95,8 @@ DefinitionURLRegistry::getType(const std::string& url)
 
 std::string DefinitionURLRegistry::getDefinitionUrlByIndex(int index)
 {
-  UrlMap::const_iterator beg = mDefinitionURLs.begin();
-  for (size_t i = 0; i < mDefinitionURLs.size(); ++i)
+  UrlMap::const_iterator beg = getInstance().mDefinitionURLs.begin();
+  for (size_t i = 0; i < getInstance().mDefinitionURLs.size(); ++i)
   {
     if (i == index)
       return beg->first;
@@ -116,9 +106,9 @@ std::string DefinitionURLRegistry::getDefinitionUrlByIndex(int index)
 }
 
 int
-DefinitionURLRegistry::getNumDefinitionURLs() const
+DefinitionURLRegistry::getNumDefinitionURLs()
 {
-  return (int)mDefinitionURLs.size();
+  return (int)(getInstance().mDefinitionURLs.size());
 }
 
 /** @cond doxygenLibsbmlInternal */
@@ -135,21 +125,22 @@ DefinitionURLRegistry::~DefinitionURLRegistry()
 void 
 DefinitionURLRegistry::setCoreDefinitionsAdded()
 {
-  mCoreInit = true;
+  getInstance().mCoreInit = true;
 }
 
 bool
 DefinitionURLRegistry::getCoreDefinitionsAdded()
 {
-  return mCoreInit;
+  return getInstance().mCoreInit;
 }
 
 void
 DefinitionURLRegistry::clearDefinitions()
 {
-  mDefinitionURLs.clear();
-  mCoreInit = false;
+  getInstance().mDefinitionURLs.clear();
+  getInstance().mCoreInit = false;
 }
+
 
 /** @endcond */
 

@@ -99,7 +99,7 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    */
-  int addDefinitionURL (const std::string& url, int type);
+  static int addDefinitionURL (const std::string& url, int type);
 
 
   /**
@@ -109,23 +109,24 @@ public:
    *
    * @see getDefinitionURLByIndex(@if java int@endif)
    */
-  int getNumDefinitionURLs() const;
+  static int getNumDefinitionURLs();
 
 
-  void addSBMLDefinitions(SBMLNamespaces* sbmlns);
+  static void addSBMLDefinitions();
 
   /**
    * Destructor
    */
   virtual ~DefinitionURLRegistry();
 
-  bool getCoreDefinitionsAdded();
+  static bool getCoreDefinitionsAdded();
 
-  int getType(const std::string& url);
+  static int getType(const std::string& url);
 
-  std::string getDefinitionUrlByIndex(int index);
+  static std::string getDefinitionUrlByIndex(int index);
 
-  void clearDefinitions();
+  static void clearDefinitions();
+
 
 protected:
   /** @cond doxygenLibsbmlInternal */
@@ -134,7 +135,7 @@ protected:
    */
   DefinitionURLRegistry();
 
-  void setCoreDefinitionsAdded();
+  static void setCoreDefinitionsAdded();
 
   /** @endcond */
 

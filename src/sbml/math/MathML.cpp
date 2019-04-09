@@ -386,6 +386,28 @@ reduceBinary (ASTNode& node)
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
+bool
+isValidCSymbol(SBMLNamespaces* sbmlns, ASTNodeType_t type)
+{
+  if (sbmlns == NULL)
+  {
+    return true;
+  }
+  else
+  {
+    unsigned int level = sbmlns->getLevel();
+    unsigned int version = sbmlns->getVersion();
+    if (level < 2)
+    {
+      return false;
+    }
+    else if (level < 3 && (type == AST_NAME_AVOGADRO || type == AST_FUNCTION_RATE_OF))
+    {
+      return false;
+    }
+  }
+  return true;
+}
 /*
  * Sets the type of an ASTNode based on the given MathML &lt;ci&gt; element.
  * Errors will be logged in the stream's SBMLErrorLog object.
@@ -413,7 +435,7 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
     }
     else
     {
-      if (type == AST_UNKNOWN)
+      if (type == AST_UNKNOWN || !isValidCSymbol(stream.getSBMLNamespaces(), (ASTNodeType_t)(type)))
       {
         logError(stream, element, BadCsymbolDefinitionURLValue);
       }
@@ -2029,23 +2051,26 @@ writeNode (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 void
 setSBMLDefinitionURLs(XMLInputStream& stream)
 {
-  if (!DefinitionURLRegistry::getInstance().getCoreDefinitionsAdded())
+  if (!DefinitionURLRegistry::getCoreDefinitionsAdded())
   {
-    DefinitionURLRegistry::getInstance().addSBMLDefinitions(
-      stream.getSBMLNamespaces());
+    DefinitionURLRegistry::addSBMLDefinitions();
   }
   ASTNode*      temp = new ASTNode;
   temp->loadASTPlugins(stream.getSBMLNamespaces());
   for (unsigned int n = 0; n < temp->getNumPlugins(); ++n)
   {
     ASTBasePlugin * astPlug = temp->getPlugin(n);
+    // already added as this can be a core package
+    if (astPlug->getPackageName() == "l3v2extendedmath")
+      continue;
+
     unsigned int i = 0;
     const ASTNodeValues_t* values = astPlug->getASTNodeValue(i);
     while (values != NULL)
     {
       if (!values->csymbolURL.empty())
       {
-        DefinitionURLRegistry::getInstance().addDefinitionURL(values->csymbolURL, values->type);
+        DefinitionURLRegistry::addDefinitionURL(values->csymbolURL, values->type);
       }
       i++;
       values = astPlug->getASTNodeValue(i);
