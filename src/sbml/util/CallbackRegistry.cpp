@@ -52,19 +52,21 @@ void CallbackRegistry::removeCallback(int index)
 	cbs.erase(cbs.begin() + index, cbs.begin() + 1 + index);
 }
 
-void CallbackRegistry::removeCallback(Callback *cb)
+void CallbackRegistry::removeCallback(Callback* cb)
 {
-	std::vector<Callback*>& cbs = getInstance().mCallbacks;
-	int nMax = getNumCallbacks();
-	for (int i = nMax - 1; i >= 0; --i)
-	{
-		Callback* cbdata = getInstance().mCallbacks[(size_t)i];
-		if (cbdata == cb)
-		{
-			removeCallback(i);
-			break;
-		}
-	}
+  std::vector<Callback*>& cbs = getInstance().mCallbacks;
+
+  std::vector<Callback*>::iterator it = cbs.begin();
+  int i = 0;
+  for (; it != cbs.end(); ++it, ++i)
+  {
+    Callback* cbdata = *it;
+    if (cbdata == cb)
+    {
+      removeCallback(i);
+      break;
+    }
+  }
 }
 
 CallbackRegistry::CallbackRegistry()
