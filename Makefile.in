@@ -297,7 +297,8 @@ examples =                                                          \
   examples/python/inlineInitialAssignments.py                       \
   examples/python/replaceOneFD.py                                   \
   examples/python/evaluateCustomMath.py                             \
-  examples/python/inlineFunctionDefinitions.py                       \
+  examples/python/inlineFunctionDefinitions.py                      \
+  examples/python/validateSBMLWithCallback.py                       \
   examples/php/createExampleSBML.php                                \
   examples/php/echoSBML.php                                         \
   examples/php/validateSBML.php                                     \

@@ -50,6 +50,7 @@ test_sources =		    \
   TestL3v2EMExtension.cpp	    \
   TestReadL3v2EMExtension.cpp \
   TestRunner.c		    \
+  TestReadWriteInfix.cpp  \
   TestWriteL3v2EMExtension.cpp
 
 test_headers =
