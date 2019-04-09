@@ -105,8 +105,8 @@ DefinitionURLRegistry::getType(const std::string& url)
 
 std::string DefinitionURLRegistry::getDefinitionUrlByIndex(int index)
 {
-  auto beg = mDefinitionURLs.begin();
-  for (int i = 0; i < mDefinitionURLs.size(); ++i)
+  UrlMap::const_iterator beg = mDefinitionURLs.begin();
+  for (size_t i = 0; i < mDefinitionURLs.size(); ++i)
   {
     if (i == index)
       return beg->first;
