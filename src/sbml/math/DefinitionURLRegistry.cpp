@@ -99,7 +99,20 @@ DefinitionURLRegistry::getType(const std::string& url)
   {
     type = it->second;
   }
+
   return type;
+}
+
+std::string DefinitionURLRegistry::getDefinitionUrlByIndex(int index)
+{
+  auto beg = mDefinitionURLs.begin();
+  for (int i = 0; i < mDefinitionURLs.size(); ++i)
+  {
+    if (i == index)
+      return beg->first;
+    ++beg;
+  }
+  return std::string();
 }
 
 int

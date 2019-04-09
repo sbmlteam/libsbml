@@ -123,6 +123,8 @@ public:
 
   int getType(const std::string& url);
 
+  std::string getDefinitionUrlByIndex(int index);
+
   void clearDefinitions();
 
 protected:
