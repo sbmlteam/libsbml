@@ -1,22 +1,35 @@
 ﻿           libSBML NEWS -- History of user-visible changes
 
 ====================================================================
-5.17.3 (Current SVN)
+5.18.0 (2019-04-18)
 ====================================================================
 
 STABLE RELEASE
 
 * New features
+
+  - LibSBML now defines a DefinitionURLRegistry to allow a user to log
+    their own values of the 'definitionURL' attribute on a math <csymbol>
+    element. Once logged these definitionURL values will not trigger the
+    unknown csymbol error when reading a model that uses them. 
+
+  - LibSBML now defines a CallbackRegistry which allows a user to register
+    a callback to interrupt a long running read operation. Examples for C++
+    and Python are included. In future it would be anticipated that would
+    have callbacks to interrupt long running validation or conversion 
+    processes.
 	
-  - 'comp' package-specific updates:
-  - 'fbc' package-specific updates:
-  - 'groups' package-specific updates:
-  - 'layout' package-specific updates:
-  - 'multi' package-specific updates:
-  - 'qual' package-specific updates:
-  - 'render' package-specific updates:
 
 * Bug fixes
+
+  - Validation was incorrectly stating that the id of a <localParameter>
+    that mirrorred the id of a <species> should be listed as a 
+    <modifierSpeciesReference> in the enclosing <reaction>. It no longer
+    issue an incorrect error.
+
+  - The string to MathML parser was failing to identify known constants
+    as arguments to a lambda function. lambda(pi, pi*2) should treat 'pi'
+    as an unknown argument not the constant pi. This has been fixed.
 
   - The MathML parser adds logbase and degree to log and root elements 
     respectively. These are dimensionless integers and but unit
@@ -32,13 +45,11 @@ STABLE RELEASE
   - MathML within a <semantics> element was not being properly validated.
     This has been improved.
 
-  - 'comp' package-specific bug fixes:
-  - 'fbc' package-specific bug fixes:
-  - 'groups' package-specific bug fixes:
   - 'layout' package-specific bug fixes:
-  - 'multi' package-specific bug fixes:
-  - 'qual' package-specific bug fixes:
-  - 'render' package-specific bug fixes:
+
+    - Code was failing to roundtrip glyphs that contained both a <curve>
+      and a <boundingBox> element. This has been fixed.
+
 
 * Configuration/build system changes
 
@@ -55,10 +66,11 @@ EXPERIMENTAL RELEASE
 
 * New features
 
-  - 'arrays' package-specific updates:
   - 'distrib' package-specific updates:
-  - 'dyn' package-specific updates:
-  - 'req' package-specific updates:
+
+     - The code has been updated to reflect the specification
+       agreed during HARMONY 2019 version 0.24.
+        
   - 'spatial' package-specific updates:
 
     - The code has been updated to reflect the specification 
@@ -72,13 +84,6 @@ EXPERIMENTAL RELEASE
       code to hit an issue when using a getAbc function; which may now
       return a NULL object when previously it did not.
 
- * Bug fixes
- 
-  - 'arrays' package-specific bug fixes:
-  - 'distrib' package-specific bug fixes:
-  - 'dyn' package-specific bug fixes:
-  - 'req' package-specific bug fixes:
-  - 'spatial' package-specific bug fixes:
 
 ====================================================================
 5.17.2-experimental (2018-12-06)
