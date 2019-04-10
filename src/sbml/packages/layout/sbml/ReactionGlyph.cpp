@@ -783,12 +783,17 @@ ReactionGlyph::writeElements (XMLOutputStream& stream) const
     //
   }
   
-  if(this->getBoundingBoxExplicitlySet())
+  if(this->getBoundingBoxExplicitlySet() || !isSetCurve())
   {
     //
     // SBase::writeElements(stream) is invoked in the function below.
     //
     GraphicalObject::writeElements(stream);
+  }
+  else if (!isSetCurve())
+  {
+    GraphicalObject::writeElements(stream);
+
   }
 
   if ( getNumSpeciesReferenceGlyphs() > 0 ) mSpeciesReferenceGlyphs.write(stream);
