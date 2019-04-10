@@ -783,7 +783,7 @@ ReactionGlyph::writeElements (XMLOutputStream& stream) const
     //
   }
   
-  if(this->getBoundingBoxExplicitlySet() || !isSetCurve())
+  if(this->getBoundingBoxExplicitlySet())
   {
     //
     // SBase::writeElements(stream) is invoked in the function below.
