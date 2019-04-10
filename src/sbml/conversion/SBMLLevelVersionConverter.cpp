@@ -1227,6 +1227,10 @@ void
 SBMLLevelVersionConverter::populateMathElements()
 {
   MathFilter *mfilter = new MathFilter();
+  if (mMathElements != NULL)
+  {
+    delete mMathElements;
+  }
   mMathElements = mDocument->getAllElements(mfilter);
   delete mfilter;
 
