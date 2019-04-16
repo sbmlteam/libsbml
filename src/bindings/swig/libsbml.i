@@ -39,6 +39,7 @@
 %feature("director") SBMLValidator;
 %feature("director") SBMLConverter;
 %feature("director") ElementFilter;
+%feature("director") MathFilter;
 %feature("director") IdentifierTransformer;
 %feature("director") Callback;
 %ignore IdentifierTransformer::transform(const SBase* element);

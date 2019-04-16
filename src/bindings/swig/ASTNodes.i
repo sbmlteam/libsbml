@@ -14,6 +14,7 @@
 #include <sbml/math/L3Parser.h>
 #include <sbml/math/L3ParserSettings.h>
 #include <sbml/math/DefinitionURLRegistry.h>
+#include <sbml/util/MathFilter.h>
 
 
 %}
@@ -28,5 +29,6 @@
   %include sbml/math/L3Parser.h
   %include sbml/math/L3ParserSettings.h
   %include sbml/math/DefinitionURLRegistry.h
+  %include sbml/util/MathFilter.h
 
   %include <sbml/extension/ASTBasePlugin.h>  
