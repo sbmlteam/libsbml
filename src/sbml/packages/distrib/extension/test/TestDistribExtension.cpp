@@ -287,6 +287,17 @@ START_TEST(test_DistribExtension_SBMLtypecode)
 }
 END_TEST
 
+START_TEST(test_DistribExtension_enablePackage)
+{	
+  SBMLDocument doc(3, 1);
+  doc.createModel();
+  DistribExtension de;
+  string uri = de.getURI(doc.getLevel(), doc.getVersion(), 1);
+  doc.enablePackage(uri, "distrib", true);
+  //No fail_unless:  we're just making sure the above doesn't infinitely recurse.
+}
+END_TEST
+
 Suite *
 create_suite_DistribExtension (void)
 {
@@ -305,6 +316,7 @@ create_suite_DistribExtension (void)
   tcase_add_test( tcase, test_DistribExtension_registry        );
   tcase_add_test( tcase, test_DistribExtension_typecode        );
   tcase_add_test( tcase, test_DistribExtension_SBMLtypecode    );
+  tcase_add_test( tcase, test_DistribExtension_enablePackage    );
 
   suite_add_tcase(suite, tcase);
 
