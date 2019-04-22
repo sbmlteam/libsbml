@@ -333,7 +333,7 @@ DistribSBasePlugin::enablePackageInternal(const std::string& pkgURI,
                                           const std::string& pkgPrefix,
                                           bool flag)
 {
-  mUncertainties.enablePackageInternal(pkgURI, pkgPrefix, flag);
+  //mUncertainties.enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
 /** @endcond */
