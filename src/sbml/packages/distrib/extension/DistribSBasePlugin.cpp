@@ -333,7 +333,19 @@ DistribSBasePlugin::enablePackageInternal(const std::string& pkgURI,
                                           const std::string& pkgPrefix,
                                           bool flag)
 {
-  //mUncertainties.enablePackageInternal(pkgURI, pkgPrefix, flag);
+  //We can't enable this package on mUncertainties itself, as this will cause an infinite loop.
+  if (pkgURI != mURI)
+  {
+    mUncertainties.enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
+  else
+  {
+  //So, only enable the package on the children of mUncertainties.
+    for (unsigned int u = 0; u < mUncertainties.getNumUncertainties(); u++)
+    {
+      mUncertainties.get(u)->enablePackageInternal(pkgURI, pkgPrefix, flag);
+    }
+  }
 }
 
 /** @endcond */
