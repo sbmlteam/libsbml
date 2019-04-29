@@ -256,52 +256,11 @@ SBMLCONSTRUCTOR_EXCEPTION(Polygon)
 SBMLCONSTRUCTOR_EXCEPTION(RadialGradient)
 
 //
-// Convert GradientBase objects into the most specific object possible.
+// Convert Render objects into the most specific object possible.
 //
-%typemap("csout") GradientBase*
+%typemap("csout") GradientBase*, GraphicalPrimitive1D*, GraphicalPrimitive2D*, RenderInformationBase*, Style*, RenderPoint*, Transformation*, Transformation2D*
 {
-  return (GradientBase) libsbml.DowncastSBase($imcall, $owner);
-}
-
-//
-// Convert GraphicalPrimitive1D objects into the most specific object possible.
-//
-%typemap("csout") GraphicalPrimitive1D*
-{
-  return (GraphicalPrimitive1D) libsbml.DowncastSBase($imcall, $owner);
-}
-
-//
-// Convert GraphicalPrimitive2D objects into the most specific object possible.
-//
-%typemap("csout") GraphicalPrimitive2D*
-{
-  return (GraphicalPrimitive2D) libsbml.DowncastSBase($imcall, $owner);
-}
-
-
-//
-// Convert RenderInformationBase objects into the most specific object possible.
-//
-%typemap("csout") RenderInformationBase*
-{
-  return (RenderInformationBase) libsbml.DowncastSBase($imcall, $owner);
-}
-
-//
-// Convert Style objects into the most specific object possible.
-//
-%typemap("csout") Style*
-{
-  return (Style) libsbml.DowncastSBase($imcall, $owner);
-}
-
-//
-// Convert RenderPoint objects into the most specific object possible.
-//
-%typemap("csout") RenderPoint*
-{
-  return (RenderPoint) libsbml.DowncastSBase($imcall, $owner);
+  return ($csclassname) libsbml.DowncastSBase($imcall, $owner);
 }
 
 #endif  /* USE_RENDER */

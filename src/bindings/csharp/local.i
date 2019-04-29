@@ -91,9 +91,10 @@
         ) TYPENAME "string"
 %enddef
 
-SWIGCSHARP_IMTYPE_WSTRING(std::string)
+//SWIGCSHARP_IMTYPE_WSTRING(std::string)
 SWIGCSHARP_IMTYPE_WSTRING(std::string&)
 SWIGCSHARP_IMTYPE_WSTRING(const std::string&)
+//SWIGCSHARP_IMTYPE_WSTRING(const std::string)
 SWIGCSHARP_IMTYPE_WSTRING(std::string*)
 SWIGCSHARP_IMTYPE_WSTRING(const std::string*)
 SWIGCSHARP_IMTYPE_WSTRING(char*)

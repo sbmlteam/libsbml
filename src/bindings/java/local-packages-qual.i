@@ -41,23 +41,23 @@
 		{
 			case (int) libsbml.SBML_LIST_OF:
 				String name = sb.getElementName();
-		       if(name =="listOfFunctionTerms")
+		       if(name.equals("listOfFunctionTerms"))
 			     {
 		           return new ListOfFunctionTerms(cPtr, owner);
            }
-		       else if(name =="listOfInputs")
+		       else if(name.equals("listOfInputs"))
 			     {
 		           return new ListOfInputs(cPtr, owner);
            }
-		       else if(name =="listOfOutputs")
+		       else if(name.equals("listOfOutputs"))
 			     {
 		           return new ListOfOutputs(cPtr, owner);
            }
-		       else if(name =="listOfQualitativeSpecies")
+		       else if(name.equals("listOfQualitativeSpecies"))
 			     {
 		           return new ListOfQualitativeSpecies(cPtr, owner);
            }
-		       else if(name =="listOfTransitions")
+		       else if(name.equals("listOfTransitions"))
 			     {
 		           return new ListOfTransitions(cPtr, owner);
            }

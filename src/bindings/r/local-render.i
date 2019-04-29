@@ -44,56 +44,12 @@ SBMLCONSTRUCTOR_EXCEPTION(RadialGradient)
 
 
 /**
- * Convert GradientBase objects into the most specific type possible.
+ * Convert render objects into the most specific type possible.
  */
-%typemap(out) GradientBase*
+%typemap(out) GradientBase*, GraphicalPrimitive1D*, GraphicalPrimitive2D*, RenderInformationBase*, Style*, RenderPoint*, Transformation*, Transformation2D*
 {
   $result = SWIG_NewPointerObj($1, GetDowncastSwigTypeForPackage($1, "render"), $owner | %newpointer_flags);
 }
-
-/**
- * Convert GraphicalPrimitive1D objects into the most specific type possible.
- */
-%typemap(out) GraphicalPrimitive1D*
-{
-  $result = SWIG_NewPointerObj($1, GetDowncastSwigTypeForPackage($1, "render"), $owner | %newpointer_flags);
-}
-
-/**
- * Convert GraphicalPrimitive2D objects into the most specific type possible.
- */
-%typemap(out) GraphicalPrimitive2D*
-{
-  $result = SWIG_NewPointerObj($1, GetDowncastSwigTypeForPackage($1, "render"), $owner | %newpointer_flags);
-}
-
-
-/**
- * Convert RenderInformationBase objects into the most specific type possible.
- */
-%typemap(out) RenderInformationBase*
-{
-  $result = SWIG_NewPointerObj($1, GetDowncastSwigTypeForPackage($1, "render"), $owner | %newpointer_flags);
-}
-
-
-/**
- * Convert Style objects into the most specific type possible.
- */
-%typemap(out) Style*
-{
-  $result = SWIG_NewPointerObj($1, GetDowncastSwigTypeForPackage($1, "render"), $owner | %newpointer_flags);
-}
-
-
-/**
- * Convert RenderPoint objects into the most specific type possible.
- */
-%typemap(out) RenderPoint*
-{
-  $result = SWIG_NewPointerObj($1, GetDowncastSwigTypeForPackage($1, "render"), $owner | %newpointer_flags);
-}
-
 
 #endif
 

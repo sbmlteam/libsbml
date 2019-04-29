@@ -7,7 +7,7 @@
 %pragma(java) modulecode =
 %{
     if (pkgName.equals("render"))
-		return new RenderExtension(cPtr, owner);
-	%}
-#endif // USE_RENDER		
+      return new RenderExtension(cPtr, owner);
+%}
+#endif // USE_RENDER
 

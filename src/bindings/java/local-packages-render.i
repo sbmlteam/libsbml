@@ -5,141 +5,141 @@
  */
 %typemap(javacode) RenderExtension
 %{
-	public SBasePlugin DowncastSBasePlugin(long cPtr, boolean owner)
-	{
-		if (cPtr == 0) return null;
-		
-		SBasePlugin sbp = new SBasePlugin(cPtr, false);
-		SBase sb = sbp.getParentSBMLObject();
-		
-		switch( sb.getTypeCode() )
-		{
-			case (int) libsbml.SBML_LIST_OF:
-			     String name = sb.getElementName();
-		         if(name =="listOfLayouts")
-			     {
-					return new RenderListOfLayoutsPlugin(cPtr, owner);
-                 }
-				return new SBasePlugin(cPtr,owner);
-			case (int) libsbml.SBML_DOCUMENT:
-				return new SBMLDocumentPlugin(cPtr, owner);
-			case (int) libsbml.SBML_LAYOUT_LAYOUT:
-				return new RenderLayoutPlugin(cPtr, owner);
-			case (int) libsbml.SBML_LAYOUT_GRAPHICALOBJECT:
-				return new RenderGraphicalObjectPlugin(cPtr, owner);
-			default:
-				return new SBasePlugin(cPtr,owner);
-		}
-	}
-	
-	public SBase DowncastSBase(long cPtr, boolean owner)
-	{
-		if (cPtr == 0) return null;
-		
-		SBase sb = new SBase(cPtr, false);
-		switch( sb.getTypeCode() )
-		{
-			case (int) libsbml.SBML_LIST_OF:
-			     String name = sb.getElementName();
-				 int itemType = ((ListOf)sb).getItemTypeCode();
-		         if(name =="listOfColorDefinitions")
-			     {
-					return new ListOfColorDefinitions(cPtr, owner);
-                 }
-		         else if(name =="listOfGlobalRenderInformation")
-			     {
-		            return new ListOfGlobalRenderInformation(cPtr, owner);
-                 }
-				 else if(name =="listOfStyles")
-			     {
-				    if (itemType == libsbml.SBML_RENDER_LOCALSTYLE)
-					  return new ListOfLocalStyles(cPtr, owner);
-					else 
-		              return new ListOfGlobalStyles(cPtr, owner);
-                 }
-				 else if(name =="listOfGradientDefinitions")
-			     {
-		            return new ListOfGradientDefinitions(cPtr, owner);
-                 }
-				 else if(name =="listOfLineEndings")
-			     {
-		            return new ListOfLineEndings(cPtr, owner);
-                 }
-				 else if(name =="listOfElements")
-			     {
-		            return new ListOfCurveElements(cPtr, owner);
-                 }
-				 else if(name =="listOfRenderInformation")
-			     {
-		            return new ListOfLocalRenderInformation(cPtr, owner);
-                 }
-				 else if(name =="listOfDrawables")
-			     {
-		            return new ListOfDrawables(cPtr, owner);
-                 }
-				 else if(name =="listOfGradientStops")
-			     {
-		            return new ListOfGradientStops(cPtr, owner);
-                 }
-		         return new ListOf(cPtr, owner);
-				
-			case (int) libsbml.SBML_RENDER_COLORDEFINITION:
-				return new ColorDefinition(cPtr, owner);
-				
-			case (int) libsbml.SBML_RENDER_ELLIPSE:
-				return new Ellipse(cPtr, owner);
+  public SBasePlugin DowncastSBasePlugin(long cPtr, boolean owner)
+  {
+    if (cPtr == 0) return null;
+    
+    SBasePlugin sbp = new SBasePlugin(cPtr, false);
+    SBase sb = sbp.getParentSBMLObject();
+    
+    switch( sb.getTypeCode() )
+    {
+      case (int) libsbml.SBML_LIST_OF:
+           String name = sb.getElementName();
+           if(name.equals("listOfLayouts"))
+           {
+             return new RenderListOfLayoutsPlugin(cPtr, owner);
+           }
+        return new SBasePlugin(cPtr,owner);
+      case (int) libsbml.SBML_DOCUMENT:
+        return new SBMLDocumentPlugin(cPtr, owner);
+      case (int) libsbml.SBML_LAYOUT_LAYOUT:
+        return new RenderLayoutPlugin(cPtr, owner);
+      case (int) libsbml.SBML_LAYOUT_GRAPHICALOBJECT:
+        return new RenderGraphicalObjectPlugin(cPtr, owner);
+      default:
+        return new SBasePlugin(cPtr,owner);
+    }
+  }
+  
+  public SBase DowncastSBase(long cPtr, boolean owner)
+  {
+    if (cPtr == 0) return null;
+    
+    SBase sb = new SBase(cPtr, false);
+    switch( sb.getTypeCode() )
+    {
+      case (int) libsbml.SBML_LIST_OF:
+           String name = sb.getElementName();
+           int itemType = ((ListOf)sb).getItemTypeCode();
+           if(name.equals("listOfColorDefinitions"))
+           {
+             return new ListOfColorDefinitions(cPtr, owner);
+           }
+           else if(name.equals("listOfGlobalRenderInformation"))
+           {
+             return new ListOfGlobalRenderInformation(cPtr, owner);
+           }
+           else if(name.equals("listOfStyles"))
+           {
+            if (itemType == libsbml.SBML_RENDER_LOCALSTYLE)
+              return new ListOfLocalStyles(cPtr, owner);
+            else 
+              return new ListOfGlobalStyles(cPtr, owner);
+           }
+           else if(name.equals("listOfGradientDefinitions"))
+           {
+             return new ListOfGradientDefinitions(cPtr, owner);
+           }
+           else if(name.equals("listOfLineEndings"))
+           {
+                return new ListOfLineEndings(cPtr, owner);
+           }
+           else if(name.equals("listOfElements"))
+           {
+                return new ListOfCurveElements(cPtr, owner);
+           }
+           else if(name.equals("listOfRenderInformation"))
+           {
+                return new ListOfLocalRenderInformation(cPtr, owner);
+           }
+           else if(name.equals("listOfDrawables"))
+           {
+                return new ListOfDrawables(cPtr, owner);
+           }
+           else if(name.equals("listOfGradientStops"))
+           {
+                return new ListOfGradientStops(cPtr, owner);
+           }
+           return new ListOf(cPtr, owner);
+        
+      case (int) libsbml.SBML_RENDER_COLORDEFINITION:
+        return new ColorDefinition(cPtr, owner);
+        
+      case (int) libsbml.SBML_RENDER_ELLIPSE:
+        return new Ellipse(cPtr, owner);
 
-			case (int) libsbml.SBML_RENDER_GLOBALRENDERINFORMATION:
-				return new GlobalRenderInformation(cPtr, owner);
-				
-			case (int) libsbml.SBML_RENDER_GLOBALSTYLE:
-				return new GlobalStyle(cPtr, owner);
-			
-			case (int) libsbml.SBML_RENDER_GROUP:
-				return new RenderGroup(cPtr, owner);
-			
-			case (int) libsbml.SBML_RENDER_IMAGE:
-				return new Image(cPtr, owner);
-			
-			case (int) libsbml.SBML_RENDER_LINEENDING:
-				return new LineEnding(cPtr, owner);
-			
-			case (int) libsbml.SBML_RENDER_LINEARGRADIENT:
-				return new LinearGradient(cPtr, owner);
-			
-			case (int) libsbml.SBML_RENDER_LOCALRENDERINFORMATION:
-				return new LocalRenderInformation(cPtr, owner);
-			
-			case (int) libsbml.SBML_RENDER_LOCALSTYLE:
-				return new LocalStyle(cPtr, owner);
-			
-			case (int) libsbml.SBML_RENDER_POLYGON:
-				return new Polygon(cPtr, owner);
-			
-			case (int) libsbml.SBML_RENDER_RADIALGRADIENT:
-				return new RadialGradient(cPtr, owner);
-			
-			case (int) libsbml.SBML_RENDER_RECTANGLE:
-				return new Rectangle(cPtr, owner);
-			
-			case (int) libsbml.SBML_RENDER_CUBICBEZIER:
-				return new RenderCubicBezier(cPtr, owner);
-			
-			case (int) libsbml.SBML_RENDER_CURVE:
-				return new RenderCurve(cPtr, owner);
-			
-			case (int) libsbml.SBML_RENDER_POINT:
-				return new RenderPoint(cPtr, owner);
-			
-			case (int) libsbml.SBML_RENDER_TEXT:
-				return new Text(cPtr, owner);
-			
-			default:
-				return new SBase(cPtr, owner);
-		}
-	}
-	
-	%}
+      case (int) libsbml.SBML_RENDER_GLOBALRENDERINFORMATION:
+        return new GlobalRenderInformation(cPtr, owner);
+        
+      case (int) libsbml.SBML_RENDER_GLOBALSTYLE:
+        return new GlobalStyle(cPtr, owner);
+      
+      case (int) libsbml.SBML_RENDER_GROUP:
+        return new RenderGroup(cPtr, owner);
+      
+      case (int) libsbml.SBML_RENDER_IMAGE:
+        return new Image(cPtr, owner);
+      
+      case (int) libsbml.SBML_RENDER_LINEENDING:
+        return new LineEnding(cPtr, owner);
+      
+      case (int) libsbml.SBML_RENDER_LINEARGRADIENT:
+        return new LinearGradient(cPtr, owner);
+      
+      case (int) libsbml.SBML_RENDER_LOCALRENDERINFORMATION:
+        return new LocalRenderInformation(cPtr, owner);
+      
+      case (int) libsbml.SBML_RENDER_LOCALSTYLE:
+        return new LocalStyle(cPtr, owner);
+      
+      case (int) libsbml.SBML_RENDER_POLYGON:
+        return new Polygon(cPtr, owner);
+      
+      case (int) libsbml.SBML_RENDER_RADIALGRADIENT:
+        return new RadialGradient(cPtr, owner);
+      
+      case (int) libsbml.SBML_RENDER_RECTANGLE:
+        return new Rectangle(cPtr, owner);
+      
+      case (int) libsbml.SBML_RENDER_CUBICBEZIER:
+        return new RenderCubicBezier(cPtr, owner);
+      
+      case (int) libsbml.SBML_RENDER_CURVE:
+        return new RenderCurve(cPtr, owner);
+      
+      case (int) libsbml.SBML_RENDER_POINT:
+        return new RenderPoint(cPtr, owner);
+      
+      case (int) libsbml.SBML_RENDER_TEXT:
+        return new Text(cPtr, owner);
+      
+      default:
+        return new SBase(cPtr, owner);
+    }
+  }
+  
+  %}
 
 COVARIANT_RTYPE_CLONE(ListOfGlobalRenderInformation)
 COVARIANT_RTYPE_CLONE(ListOfLocalStyles)
@@ -228,51 +228,12 @@ SBMLCONSTRUCTOR_EXCEPTION(Polygon)
 SBMLCONSTRUCTOR_EXCEPTION(RadialGradient)
 
 //
-// Convert GradientBase objects into the most specific object possible.
+// Convert Render objects into the most specific object possible.
 //
-%typemap("javaout") GradientBase*
+%typemap("javaout") GradientBase*, GraphicalPrimitive1D*, GraphicalPrimitive2D*, RenderInformationBase*, Style*, RenderPoint*, Transformation*, Transformation2D*
 {
-  return (GradientBase) libsbml.DowncastSBase($jnicall, $owner);
+  return ($javaclassname) libsbml.DowncastSBase($jnicall, $owner);
 }
 
-//
-// Convert GraphicalPrimitive1D objects into the most specific object possible.
-//
-%typemap("javaout") GraphicalPrimitive1D*
-{
-  return (GraphicalPrimitive1D) libsbml.DowncastSBase($jnicall, $owner);
-}
-
-//
-// Convert GraphicalPrimitive2D objects into the most specific object possible.
-//
-%typemap("javaout") GraphicalPrimitive2D*
-{
-  return (GraphicalPrimitive2D) libsbml.DowncastSBase($jnicall, $owner);
-}
-
-//
-// Convert RenderInformationBase objects into the most specific object possible.
-//
-%typemap("javaout") RenderInformationBase*
-{
-  return (RenderInformationBase) libsbml.DowncastSBase($jnicall, $owner);
-}
-
-//
-// Convert Style objects into the most specific object possible.
-//
-%typemap("javaout") Style*
-{
-  return (Style) libsbml.DowncastSBase($jnicall, $owner);
-}
-
-//
-// Convert RenderPoint objects into the most specific object possible.
-//
-%typemap("javaout") RenderPoint*
-{
-  return (RenderPoint) libsbml.DowncastSBase($jnicall, $owner);
-}
 
 #endif  /* USE_RENDER */
