@@ -31,9 +31,9 @@ public class cs_printRenderInformation
         }
 
 
-        var inputFile = args[0];
+        string inputFile = args[0];
 
-        var doc = libsbml.readSBMLFromFile(inputFile);
+        SBMLDocument doc = libsbml.readSBMLFromFile(inputFile);
 
         Console.WriteLine("Using libSBML: {0} supporting packages for:", libsbml.getLibSBMLDottedVersion());
         for (int i = 0; i < SBMLExtensionRegistry.getNumRegisteredPackages(); ++i)
@@ -45,7 +45,7 @@ public class cs_printRenderInformation
 
         Console.WriteLine("\n");
 
-        var numErrors = doc.getNumErrors(libsbml.LIBSBML_SEV_ERROR);
+        long numErrors = doc.getNumErrors(libsbml.LIBSBML_SEV_ERROR);
 
         if (numErrors > 0)
         {
@@ -55,9 +55,9 @@ public class cs_printRenderInformation
             return 2;
         }
 
-        var model = doc.getModel();
+        Model model = doc.getModel();
 
-        var plugin = (LayoutModelPlugin) model.getPlugin("layout");
+        LayoutModelPlugin plugin = (LayoutModelPlugin) model.getPlugin("layout");
 
         if (plugin == null || plugin.getNumLayouts() == 0)
         {
@@ -65,28 +65,28 @@ public class cs_printRenderInformation
             return 3;
         }
 
-        var lolPlugin = (RenderListOfLayoutsPlugin)plugin.getListOfLayouts().getPlugin("render");
+        RenderListOfLayoutsPlugin lolPlugin = (RenderListOfLayoutsPlugin)plugin.getListOfLayouts().getPlugin("render");
         if (lolPlugin != null && lolPlugin.getNumGlobalRenderInformationObjects() > 0)
         {
             Console.WriteLine("The loaded model contains global Render information: ");
 
             for (int i = 0; i < lolPlugin.getNumGlobalRenderInformationObjects(); ++i)
             {
-                var info = lolPlugin.getRenderInformation(i);
+                GlobalRenderInformation info = lolPlugin.getRenderInformation(i);
                 print_render_info(info);
             }
         }
 
-        var layout = plugin.getLayout(0);
+        Layout layout = plugin.getLayout(0);
 
-        var rPlugin = (RenderLayoutPlugin)layout.getPlugin("render");
+        RenderLayoutPlugin rPlugin = (RenderLayoutPlugin)layout.getPlugin("render");
         if (rPlugin != null && rPlugin.getNumLocalRenderInformationObjects() > 0)
         {
             Console.WriteLine("The loaded model contains local Render information. ");
             // here we would do the same as above for the local render information ...
             for (int i = 0; i < rPlugin.getNumLocalRenderInformationObjects(); ++i)
             {
-            var info = rPlugin.getRenderInformation(i);
+            LocalRenderInformation info = rPlugin.getRenderInformation(i);
             print_render_info(info);
             }
         }
@@ -102,7 +102,7 @@ public class cs_printRenderInformation
         Console.WriteLine("\nStyles: ");
         for (int j = 0; j < info.getNumGlobalStyles(); ++j)
         {
-            var style = info.getGlobalStyle(j);
+            GlobalStyle style = info.getGlobalStyle(j);
             print_style(style, j);
         }
     }
@@ -115,7 +115,7 @@ public class cs_printRenderInformation
         Console.WriteLine("\nStyles: ");
         for (int j = 0; j < info.getNumLocalStyles(); ++j)
         {
-            var style = info.getLocalStyle(j);
+            LocalStyle style = info.getLocalStyle(j);
             print_style(style, j);
         }
     }
@@ -136,7 +136,7 @@ public class cs_printRenderInformation
         Console.WriteLine("\nColor Definitions:");
         for (int j = 0; j < info.getNumColorDefinitions(); ++j)
         {
-            var color = info.getColorDefinition(j);
+            ColorDefinition color = info.getColorDefinition(j);
             Console.WriteLine("\tcolor: " + j.ToString() +
                               " id: " + color.getId() +
                               " color: " + color.getValue());
@@ -145,7 +145,7 @@ public class cs_printRenderInformation
         Console.WriteLine("\nGradientDefinitions: ");
         for (int j = 0; j < info.getNumGradientDefinitions(); ++j)
         {
-            var grad = info.getGradientDefinition(j);
+            GradientBase grad = info.getGradientDefinition(j);
 
             print_gradient_definition(grad);
         }
@@ -163,7 +163,7 @@ public class cs_printRenderInformation
         if (!style.isSetGroup())
             return;
 
-        var group = style.getGroup();
+        RenderGroup group = style.getGroup();
         if (group.isSetStroke())
             Console.WriteLine("\t\tstroke: {0}",group.getStroke());
 
@@ -172,11 +172,11 @@ public class cs_printRenderInformation
 
         for (int j = 0; j < group.getNumElements(); ++j)
         {
-            var element = group.getElement(j);
+            object element = group.getElement(j);
             if (element is GraphicalPrimitive2D)
-                Console.WriteLine("\t\tsub element {0} stroke {1}, fill {2}", element.getElementName(), ((GraphicalPrimitive2D)element).getStroke(), ((GraphicalPrimitive2D)element).getFill());
+                Console.WriteLine("\t\tsub element {0} stroke {1}, fill {2}", ((GraphicalPrimitive2D)element).getElementName(), ((GraphicalPrimitive2D)element).getStroke(), ((GraphicalPrimitive2D)element).getFill());
             else if (element is GraphicalPrimitive1D)
-                Console.WriteLine("\t\tsub element {0} stroke {1}", element.getElementName(), ((GraphicalPrimitive1D)element).getStroke());
+                Console.WriteLine("\t\tsub element {0} stroke {1}", ((GraphicalPrimitive1D)element).getElementName(), ((GraphicalPrimitive1D)element).getStroke());
         }
 
     }
@@ -206,7 +206,7 @@ public class cs_printRenderInformation
 
         for (int k = 0; k < element.getNumGradientStops(); ++k)
         {
-            var stop = element.getGradientStop(k);
+            GradientStop stop = element.getGradientStop(k);
             if (stop == null)
             {
                 continue;
