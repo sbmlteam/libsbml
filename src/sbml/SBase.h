@@ -2465,12 +2465,6 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
      /** @cond doxygenLibsbmlInternal */
 
-   virtual int setMath(const ASTNode* math);
-
-  /** @endcond */
-
-     /** @cond doxygenLibsbmlInternal */
-
   virtual int setMessage (const std::string& message, bool addXHTMLMarkup = false);
 
   /** @endcond */
