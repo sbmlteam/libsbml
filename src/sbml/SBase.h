@@ -2475,17 +2475,50 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /** @endcond */
 
-       /** @cond doxygenLibsbmlInternal */
-
-   virtual const ASTNode* getMath() const;
-
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Returns @c NULL.  SBase subclasses that define a child Math object
+   * will override this function to return that child.
+   * 
+   * @return @c NULL.
+   */
+  virtual const ASTNode* getMath () const;
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
+  /**
+  * Returns @c NULL.  SBase subclasses that define a child Math object
+  * will override this function to return that child.
+  * 
+  * @return @c NULL.
+  */
+  virtual ASTNode* getMath ();
+  /** @endcond */
 
-   virtual bool isSetMath() const;
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Returns @c false.  SBase subclasses that define a child Math object
+   * will override this function and return whether or not that Math
+   * object is set.
+   *
+   * @return @c false.
+   */
+  bool isSetMath () const;
+  /** @endcond */
 
-   /** @endcond */
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Does nothing and returns @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}.
+   * SBase subclasses that define a child Math object
+   * will override this function to set that Math child.
+   *
+   * @param math an ASTNode representing a formula tree.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   */
+  virtual int setMath (const ASTNode* math);
+  /** @endcond */
 
    /** @cond doxygenLibsbmlInternal */
    virtual std::string getMessageString () const;
