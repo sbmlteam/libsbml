@@ -1262,10 +1262,12 @@ SBMLLevelVersionConverter::speciesReferenceIdUsed()
   while (!used && i < mMathElements->getSize())
   {
     const ASTNode* ast = static_cast<SBase*>(mMathElements->get(i))->getMath();
-    for (unsigned int j = 0; j < mSRIds->size(); j++)
-    {
-      used = containsId(ast, mSRIds->at(j));
-      if (used) break;
+    if (ast != NULL) {
+      for (unsigned int j = 0; j < mSRIds->size(); j++)
+      {
+        used = containsId(ast, mSRIds->at(j));
+        if (used) break;
+      }
     }
     i++;
   }
