@@ -3367,13 +3367,6 @@ SBase::getMath() const
 }
 
 
-ASTNode*
-SBase::getMath()
-{
-  return NULL;
-}
-
-
 bool
 SBase::isSetMath() const
 {

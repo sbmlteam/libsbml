@@ -2481,16 +2481,6 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /** @cond doxygenLibsbmlInternal */
   /**
-  * Returns @c NULL.  SBase subclasses that define a child Math object
-  * will override this function to return that child.
-  * 
-  * @return @c NULL.
-  */
-  virtual ASTNode* getMath ();
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
    * Returns @c false.  SBase subclasses that define a child Math object
    * will override this function and return whether or not that Math
    * object is set.
