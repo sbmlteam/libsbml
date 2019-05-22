@@ -2545,7 +2545,7 @@ ASTNodeType_t L3Parser::getSymbolFor(string name) const
   if (l3StrCmp(name, "nan"))          return AST_REAL;
   if (l3StrCmp(name, "notanumber"))   return AST_REAL;
  
-  return currentSettings->getPackageFunctionFor(name);
+  return currentSettings->getPackageSymbolFor(name);
 }
 
 ASTNodeType_t L3Parser::getFunctionFor(string name) const

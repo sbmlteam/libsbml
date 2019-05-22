@@ -255,6 +255,33 @@ L3ParserSettings::getPackageFunctionFor(const std::string& name) const
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
+ASTNodeType_t
+L3ParserSettings::getPackageSymbolFor(const std::string& name) const
+{
+  ASTNode * temp = new ASTNode();
+  const ASTBasePlugin * baseplugin = temp->getASTPlugin(name, false, mStrCmpIsCaseSensitive);
+  delete temp;
+  if (baseplugin != NULL)
+  {
+
+    /* If the plugin is the l3v2 plugin, but we have been asked not to use l3v2, continue*/
+    ExtendedMathType_t emp = baseplugin->getExtendedMathType();
+    std::map<ExtendedMathType_t, bool>::const_iterator found_emp = mParsePackages.find(emp);
+    if (found_emp != mParsePackages.end() && found_emp->second == false)
+    {
+      return AST_UNKNOWN;
+    }
+    ASTNodeType_t ret = baseplugin->getPackageSymbolFor(name, mStrCmpIsCaseSensitive);
+    if (ret != AST_UNKNOWN)
+    {
+      return ret;
+    }
+  }
+  return AST_UNKNOWN;
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
 void L3ParserSettings::visitPackageInfixSyntax(const ASTNode_t *parent,
                                           const ASTNode_t *node,
                                           StringBuffer_t  *sb) const

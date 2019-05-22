@@ -222,6 +222,19 @@ bool ASTBasePlugin::isFunction(ASTNodeType_t type) const
   return false;
 }
 
+vector<unsigned int> ASTBasePlugin::getNumAllowedChildren(ASTNodeType_t type) const
+{
+  for (size_t t = 0; t < mPkgASTNodeValues.size(); t++)
+  {
+    if (mPkgASTNodeValues[t].type == type)
+    {
+      return mPkgASTNodeValues[t].numAllowedChildren;
+    }
+  }
+  vector<unsigned int> empty;
+  return empty;
+}
+
 bool ASTBasePlugin::isLogical(ASTNodeType_t type) const
 {
   return false;
@@ -712,6 +725,25 @@ ASTBasePlugin::getPackageFunctionFor(const std::string& function, bool strCmpIsC
     {
       ASTNodeType_t ret = mPkgASTNodeValues[t].type;
       if (mPkgASTNodeValues[t].isFunction)
+      {
+        return ret;
+      }
+      return AST_UNKNOWN;
+    }
+  }
+  return AST_UNKNOWN;
+}
+
+
+ASTNodeType_t
+ASTBasePlugin::getPackageSymbolFor(const std::string& function, bool strCmpIsCaseSensitive) const
+{
+  for (size_t t = 0; t < mPkgASTNodeValues.size(); t++)
+  {
+    if (emStrCmp(mPkgASTNodeValues[t].name, function, strCmpIsCaseSensitive))
+    {
+      ASTNodeType_t ret = mPkgASTNodeValues[t].type;
+      if (!mPkgASTNodeValues[t].isFunction)
       {
         return ret;
       }

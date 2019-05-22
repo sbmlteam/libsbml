@@ -96,6 +96,7 @@ public:
   virtual bool defines(ASTNodeType_t type) const;
   virtual bool defines(const std::string& name, bool strCmpIsCaseSensitive = false) const;
   virtual bool isFunction(ASTNodeType_t type) const;
+  virtual std::vector<unsigned int> getNumAllowedChildren(ASTNodeType_t type) const;
   virtual bool isLogical(ASTNodeType_t type) const;
   virtual bool isMathMLNodeTag(const std::string& node) const;
   virtual bool isMathMLNodeTag(ASTNodeType_t type) const;
@@ -438,6 +439,15 @@ protected:
   * if nothing found.
   */
   virtual ASTNodeType_t getPackageFunctionFor(const std::string& name, bool strCmpIsCaseSensitive = false) const;
+
+  /**
+  * The user input a string of the form "name" with no parentheses, and we want to know if
+  * 'name' is recognized by a package as being a particular symbol.  We already
+  * know that it is not used in the Model as the id of a mathematically-meaningful element.  Should do
+  * caseless string comparison.  Return the type of the symbol, or @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}
+  * if nothing found.
+  */
+  virtual ASTNodeType_t getPackageSymbolFor(const std::string& name, bool strCmpIsCaseSensitive = false) const;
 
   /*-- data members --*/
 

@@ -1009,6 +1009,16 @@ private:
   ASTNodeType_t getPackageFunctionFor(const std::string& name) const;
 
 
+  /**
+   * The user input a string of the form "name" with no parentheses, and we want to know if
+   * 'name' is recognized by a package as being a particular function.  We
+   * already know that it is not used in the Model as the id of an element with mathematical meaning.
+   * Should do caseless string comparison.  Return the type of the symbol,
+   * or AST_UNKNOWN if nothing found.
+   */
+  ASTNodeType_t getPackageSymbolFor(const std::string& name) const;
+
+
 };
 
 

@@ -322,6 +322,42 @@ START_TEST (test_L3v2EMExtension_infix_parser_roundtrip)
 END_TEST
 
 
+START_TEST (test_L3v2EMExtension_infix_parser_symbols)
+{
+  ASTNode* math = SBML_parseL3Formula("max");
+  fail_unless(math->getType() == AST_NAME);
+  fail_unless( strcmp(math->getName(), "max") == 0);
+  delete math;
+
+  math = SBML_parseL3Formula("min");
+  fail_unless(math->getType() == AST_NAME);
+  fail_unless( strcmp(math->getName(), "min") == 0);
+  delete math;
+
+  math = SBML_parseL3Formula("quotient");
+  fail_unless(math->getType() == AST_NAME);
+  fail_unless( strcmp(math->getName(), "quotient") == 0);
+  delete math;
+
+  math = SBML_parseL3Formula("rateof");
+  fail_unless(math->getType() == AST_NAME);
+  fail_unless( strcmp(math->getName(), "rateof") == 0);
+  delete math;
+
+  math = SBML_parseL3Formula("rem");
+  fail_unless(math->getType() == AST_NAME);
+  fail_unless( strcmp(math->getName(), "rem") == 0);
+  delete math;
+
+  math = SBML_parseL3Formula("implies");
+  fail_unless(math->getType() == AST_NAME);
+  fail_unless( strcmp(math->getName(), "implies") == 0);
+  delete math;
+
+}
+END_TEST
+
+
 Suite *
 create_suite_L3v2EMExtensionReadWriteInfix (void)
 {
@@ -333,6 +369,7 @@ create_suite_L3v2EMExtensionReadWriteInfix (void)
   tcase_add_test( tcase, test_L3v2EMExtension_infix_parser_capitalization);
   tcase_add_test( tcase, test_L3v2EMExtension_infix_parser_no_capitalization);
   tcase_add_test( tcase, test_L3v2EMExtension_infix_parser_roundtrip);
+  tcase_add_test( tcase, test_L3v2EMExtension_infix_parser_symbols);
 
   suite_add_tcase(suite, tcase);
 
