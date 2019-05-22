@@ -1,6 +1,6 @@
 /**
- * @file    DistribAnnotationConverter.h
- * @brief   Converts Frank's distrib annotation scheme to the Distributions package.
+ * @file    DistribToAnnotationConverter.h
+ * @brief   Converts an SBML Distributions package file to Frank's annotation scheme.
  * @author  Lucian Smith
  * 
  * <!--------------------------------------------------------------------------
@@ -27,7 +27,7 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->
  *
- * @class DistribAnnotationConverter
+ * @class DistribToAnnotationConverter
  * @sbmlbrief{arrays} Converts a model with custom annotations for distributions into distrib.
  *
  * @htmlinclude libsbml-facility-only-warning.html
@@ -35,8 +35,8 @@
  */
 
 
-#ifndef DistribAnnotationConverter_h
-#define DistribAnnotationConverter_h
+#ifndef DistribToAnnotationConverter_h
+#define DistribToAnnotationConverter_h
 
 #include <sbml/math/ASTNode.h>
 #include <sbml/SBMLNamespaces.h>
@@ -44,13 +44,14 @@
 #include <sbml/conversion/SBMLConverterRegister.h>
 
 #include <set>
+#include <map>
 
 #ifdef __cplusplus
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-class LIBSBML_EXTERN DistribAnnotationConverter : public SBMLConverter
+class LIBSBML_EXTERN DistribToAnnotationConverter : public SBMLConverter
 {
 public:
 
@@ -64,46 +65,46 @@ public:
 
 
   /**
-   * Creates a new DistribAnnotationConverter object.
+   * Creates a new DistribToAnnotationConverter object.
    */
-  DistribAnnotationConverter();
+  DistribToAnnotationConverter();
 
 
   /**
    * Copy constructor.
    *
-   * This creates a copy of a DistribAnnotationConverter object.
+   * This creates a copy of a DistribToAnnotationConverter object.
    *
-   * @param orig the DistribAnnotationConverter instance to copy.
+   * @param orig the DistribToAnnotationConverter instance to copy.
    */
-  DistribAnnotationConverter(const DistribAnnotationConverter& orig);
+  DistribToAnnotationConverter(const DistribToAnnotationConverter& orig);
 
 
   /**
-   * Creates and returns a deep copy of this DistribAnnotationConverter.
+   * Creates and returns a deep copy of this DistribToAnnotationConverter.
    *
-   * @return a (deep) copy of this DistribAnnotationConverter.
+   * @return a (deep) copy of this DistribToAnnotationConverter.
    */
-  virtual DistribAnnotationConverter* clone() const;
+  virtual DistribToAnnotationConverter* clone() const;
 
 
   /**
-   * Destroy this DistribAnnotationConverter object.
+   * Destroy this DistribToAnnotationConverter object.
    */
-  virtual ~DistribAnnotationConverter ();
+  virtual ~DistribToAnnotationConverter ();
 
 
   /**
    * Returns @c true if this converter matches the given properties.
    *
    * Given a ConversionProperties object @p props, this method checks that @p
-   * props possesses an option value to enable the DistribAnnotationConverter.  If
+   * props possesses an option value to enable the DistribToAnnotationConverter.  If
    * it does, this method returns @c true.
    *
    * @param props the properties to match.
    *
    * @return @c true if the properties @p props would match the necessary
-   * properties for DistribAnnotationConverter type of converter, @c false
+   * properties for DistribToAnnotationConverter type of converter, @c false
    * otherwise.
    */
   virtual bool matchesProperties(const ConversionProperties &props) const;
@@ -112,7 +113,7 @@ public:
   /**
    * Performs the conversion.
    *
-   * This method causes DistribAnnotationConverter to do the actual conversion
+   * This method causes DistribToAnnotationConverter to do the actual conversion
    * work, that is, to convert the SBMLDocument object set by
    * SBMLConverter::setDocument(@if java const SBMLDocument@endif) and with
    * the configuration options set by SBMLConverter::setProperties(@if java
@@ -125,12 +126,14 @@ public:
    */
   virtual int convert();
 
+  bool getWriteMeans();
+
 
   /** @cond doxygenLibsbmlInternal */
   /**
    * Performs the conversion.
    *
-   * This method causes DistribAnnotationConverter to do the actual conversion
+   * This method causes DistribToAnnotationConverter to do the actual conversion
    * work, that is, to convert the SBMLDocument object set by
    * SBMLConverter::setDocument(@if java const SBMLDocument@endif) and with
    * the configuration options set by SBMLConverter::setProperties(@if java
@@ -150,14 +153,14 @@ public:
    *
    * A given converter exposes one or more properties that can be adjusted in
    * order to influence the behavior of the converter.  This method returns
-   * the @em default property settings for DistribAnnotationConverter.  It is
+   * the @em default property settings for DistribToAnnotationConverter.  It is
    * meant to be called in order to be able to programmatically discover all
    * the settings for the converter object.
    *
    * @return the ConversionProperties object describing the default properties
    * for this converter.
    *
-   * @note Previously, DistribAnnotationConverter also offered an @em
+   * @note Previously, DistribToAnnotationConverter also offered an @em
    * "ignorePackages" option, whose name proved to be confusing.  This option
    * has been deprecated and replaced by the @em "stripUnflattenablePackages"
    * option.
@@ -167,10 +170,15 @@ public:
 
 private:
   bool convertModel(Model* model);
-  void adjustMath(SBase* element, const std::string& function, ASTNodeType_t type);
-  bool replaceAnnotatedFunctionWith(ASTNode * astn, const std::string & function, ASTNodeType_t type);
+  std::string getUnusedIDFor(ASTNodeType_t type, Model * model);
 
-  std::set<std::string> mKeepFunctions;
+  bool replaceDistribWithFunctionCalls(ASTNode * astn, Model* model);
+  std::string getWikipediaURLFor(ASTNodeType_t type);
+  bool addFunctionDefinitionWith(Model * model, const std::string& id, ASTNodeType_t type, unsigned int nargs);
+
+  //Member variables
+  std::map<ASTNodeType_t, std::string> mCreatedFunctions;
+  bool mWriteMeans;
 
 };
 
@@ -189,5 +197,5 @@ END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
-#endif  /* DistribAnnotationConverter_h*/
+#endif  /* DistribToAnnotationConverter_h*/
 

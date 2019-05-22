@@ -45,6 +45,7 @@
 #include <sbml/packages/distrib/extension/DistribSBasePlugin.h>
 #include <sbml/packages/distrib/extension/DistribASTPlugin.h>
 #include <sbml/packages/distrib/util/DistribAnnotationConverter.h>
+#include <sbml/packages/distrib/util/DistribToAnnotationConverter.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
 
 
@@ -403,6 +404,9 @@ DistribExtension::init()
 
   DistribAnnotationConverter c1;
   SBMLConverterRegistry::getInstance().addConverter(&c1);
+
+  DistribToAnnotationConverter c2;
+  SBMLConverterRegistry::getInstance().addConverter(&c2);
 }
 
 /** @endcond */

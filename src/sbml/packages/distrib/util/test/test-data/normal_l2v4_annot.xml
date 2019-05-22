@@ -13,7 +13,7 @@
               <ci> mean </ci>
             </bvar>
             <bvar>
-              <ci> stddev </ci>
+              <ci> stdev </ci>
             </bvar>
             <notanumber/>
           </lambda>

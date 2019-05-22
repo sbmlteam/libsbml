@@ -9,7 +9,7 @@
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
             <bvar>
-              <ci> s </ci>
+              <ci> scale </ci>
             </bvar>
             <notanumber/>
           </lambda>

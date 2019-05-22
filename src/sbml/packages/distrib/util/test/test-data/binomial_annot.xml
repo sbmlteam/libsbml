@@ -9,10 +9,10 @@
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
             <bvar>
-              <ci> p </ci>
+              <ci> nTrials </ci>
             </bvar>
             <bvar>
-              <ci> n </ci>
+              <ci> probabilityOfSuccess </ci>
             </bvar>
             <notanumber/>
           </lambda>

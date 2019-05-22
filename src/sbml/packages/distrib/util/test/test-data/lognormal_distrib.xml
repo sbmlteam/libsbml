@@ -8,7 +8,7 @@
       <initialAssignment symbol="a">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/distrib/lognormal"> ln </csymbol>
+            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/distrib/lognormal"> lognormal </csymbol>
             <cn type="integer"> 3 </cn>
             <cn type="integer"> 4 </cn>
           </apply>

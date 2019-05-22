@@ -9,10 +9,10 @@
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
             <bvar>
-              <ci> a </ci>
+              <ci> location </ci>
             </bvar>
             <bvar>
-              <ci> b </ci>
+              <ci> scale </ci>
             </bvar>
             <notanumber/>
           </lambda>

@@ -14,7 +14,7 @@
         <initialAssignment symbol="a">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/distrib/normal"> normal </csymbol>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/distrib/normal"> myNormal </csymbol>
               <cn type="integer"> 1 </cn>
               <cn type="integer"> 2 </cn>
             </apply>

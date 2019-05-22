@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.10.0 with libSBML version 5.17.1. -->
 <sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
   <model id="__main" name="__main">
     <listOfFunctionDefinitions>
-      <functionDefinition id="bernoulli">
+      <functionDefinition id="gamma">
         <annotation>
-          <distribution xmlns="http://sbml.org/annotations/distribution" definition="http://en.wikipedia.org/wiki/Bernoulli_distribution"/>
+          <distribution xmlns="http://sbml.org/annotations/distribution" definition="http://en.wikipedia.org/wiki/Gamma_distribution"/>
         </annotation>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
             <bvar>
-              <ci> prob </ci>
+              <ci> shape </ci>
             </bvar>
-            <notanumber/>
+            <bvar>
+              <ci> scale </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> shape </ci>
+              <ci> scale </ci>
+            </apply>
           </lambda>
         </math>
       </functionDefinition>
@@ -23,8 +31,9 @@
       <initialAssignment symbol="a">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <ci> bernoulli </ci>
-            <cn type="integer"> 7 </cn>
+            <ci> gamma </ci>
+            <cn type="integer"> 3 </cn>
+            <cn type="integer"> 2 </cn>
           </apply>
         </math>
       </initialAssignment>

@@ -11,7 +11,7 @@
             <bvar>
               <ci> prob </ci>
             </bvar>
-            <notanumber/>
+            <ci> prob </ci>
           </lambda>
         </math>
       </functionDefinition>

@@ -2,16 +2,30 @@
 <sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
   <model id="__main" name="__main">
     <listOfFunctionDefinitions>
-      <functionDefinition id="bernoulli">
+      <functionDefinition id="rayleigh">
         <annotation>
-          <distribution xmlns="http://sbml.org/annotations/distribution" definition="http://en.wikipedia.org/wiki/Bernoulli_distribution"/>
+          <distribution xmlns="http://sbml.org/annotations/distribution" definition="http://en.wikipedia.org/wiki/Rayleigh_distribution"/>
         </annotation>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
             <bvar>
-              <ci> prob </ci>
+              <ci> scale </ci>
             </bvar>
-            <notanumber/>
+            <apply>
+              <times/>
+              <ci> scale </ci>
+              <apply>
+                <root/>
+                <degree>
+                  <cn type="integer"> 2 </cn>
+                </degree>
+                <apply>
+                  <divide/>
+                  <pi/>
+                  <cn type="integer"> 2 </cn>
+                </apply>
+              </apply>
+            </apply>
           </lambda>
         </math>
       </functionDefinition>
@@ -23,8 +37,8 @@
       <initialAssignment symbol="a">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <ci> bernoulli </ci>
-            <cn type="integer"> 7 </cn>
+            <ci> rayleigh </ci>
+            <cn type="integer"> 4 </cn>
           </apply>
         </math>
       </initialAssignment>

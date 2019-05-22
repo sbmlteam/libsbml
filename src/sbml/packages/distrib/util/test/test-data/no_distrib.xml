@@ -3,13 +3,10 @@
   <model id="__main" name="__main">
     <listOfFunctionDefinitions>
       <functionDefinition id="bernoulli">
-        <annotation>
-          <distribution xmlns="http://sbml.org/annotations/distribution" definition="http://en.wikipedia.org/wiki/Bernoulli_distribution"/>
-        </annotation>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
             <bvar>
-              <ci> prob </ci>
+              <ci> p </ci>
             </bvar>
             <notanumber/>
           </lambda>

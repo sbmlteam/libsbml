@@ -9,17 +9,17 @@
   <comp:listOfModelDefinitions>
     <comp:modelDefinition id="foo" name="foo">
       <listOfFunctionDefinitions>
-        <functionDefinition id="normal">
+        <functionDefinition id="myNormal">
           <annotation>
             <distribution xmlns="http://sbml.org/annotations/distribution" definition="http://en.wikipedia.org/wiki/Normal_distribution"/>
           </annotation>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <lambda>
               <bvar>
-                <ci> mean </ci>
+                <ci> x </ci>
               </bvar>
               <bvar>
-                <ci> stdev </ci>
+                <ci> y </ci>
               </bvar>
               <notanumber/>
             </lambda>
@@ -33,7 +33,7 @@
         <initialAssignment symbol="a">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <ci> normal </ci>
+              <ci> myNormal </ci>
               <cn type="integer"> 1 </cn>
               <cn type="integer"> 2 </cn>
             </apply>

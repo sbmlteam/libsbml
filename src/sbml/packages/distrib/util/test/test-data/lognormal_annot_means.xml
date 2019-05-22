@@ -3,9 +3,9 @@
 <sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
   <model id="__main" name="__main">
     <listOfFunctionDefinitions>
-      <functionDefinition id="normal">
+      <functionDefinition id="lognormal">
         <annotation>
-          <distribution xmlns="http://sbml.org/annotations/distribution" definition="http://en.wikipedia.org/wiki/Normal_distribution"/>
+          <distribution xmlns="http://sbml.org/annotations/distribution" definition="http://en.wikipedia.org/wiki/Log-normal_distribution"/>
         </annotation>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
@@ -15,7 +15,22 @@
             <bvar>
               <ci> stdev </ci>
             </bvar>
-            <notanumber/>
+            <apply>
+              <exp/>
+              <apply>
+                <plus/>
+                <ci> mean </ci>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <power/>
+                    <ci> stdev </ci>
+                    <cn type="integer"> 2 </cn>
+                  </apply>
+                  <cn type="integer"> 2 </cn>
+                </apply>
+              </apply>
+            </apply>
           </lambda>
         </math>
       </functionDefinition>
@@ -27,9 +42,9 @@
       <initialAssignment symbol="a">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <ci> normal </ci>
-            <cn type="integer"> 1 </cn>
-            <cn type="integer"> 2 </cn>
+            <ci> lognormal </ci>
+            <cn type="integer"> 3 </cn>
+            <cn type="integer"> 4 </cn>
           </apply>
         </math>
       </initialAssignment>

@@ -48,7 +48,7 @@ BEGIN_C_DECLS
 
 extern char *TestDataDirectory;
 
-START_TEST(test_distrib_annotation_converter_normal_l3v2)
+void TestAnnotationToDistrib(string filebase)
 {
   string filename(TestDataDirectory);
 
@@ -59,7 +59,7 @@ START_TEST(test_distrib_annotation_converter_normal_l3v2)
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
 
   // load document
-  string cfile = filename + "normal_l3v2_annot.xml";
+  string cfile = filename + filebase + "_annot.xml";
   SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
 
   // fail if there is no model (readSBMLFromFile always returns a valid document)
@@ -73,7 +73,7 @@ START_TEST(test_distrib_annotation_converter_normal_l3v2)
 
   string newModel = writeSBMLToStdString(doc);
 
-  string ffile = filename + "normal_l3v2_distrib.xml";
+  string ffile = filename + filebase + "_distrib.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
   string flatModel = writeSBMLToStdString(fdoc);
 
@@ -82,348 +82,168 @@ START_TEST(test_distrib_annotation_converter_normal_l3v2)
   delete doc;
   delete fdoc;
   delete converter;
+}
+
+
+void TestDistribToAnnotation(string filebase)
+{
+  string filename(TestDataDirectory);
+
+  ConversionProperties props;
+
+  props.addOption("convert distrib to annotations");
+
+  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
+
+  // load document
+  string cfile = filename + filebase + "_distrib.xml";
+  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
+
+  // fail if there is no model (readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  // fail if conversion was not valid
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+
+  string newModel = writeSBMLToStdString(doc);
+
+  string ffile = filename + filebase + "_annot.xml";
+  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
+  string flatModel = writeSBMLToStdString(fdoc);
+
+  fail_unless(flatModel == newModel);
+
+  delete doc;
+  delete fdoc;
+  delete converter;
+}
+
+
+void TestDistribToAnnotationWithMeans(string filebase)
+{
+  string filename(TestDataDirectory);
+
+  ConversionProperties props;
+
+  props.addOption("convert distrib to annotations");
+  props.addOption("writeMeans", true);
+
+  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
+
+  // load document
+  string cfile = filename + filebase + "_distrib.xml";
+  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
+
+  // fail if there is no model (readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  // fail if conversion was not valid
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+
+  string newModel = writeSBMLToStdString(doc);
+
+  string ffile = filename + filebase + "_annot_means.xml";
+  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
+  string flatModel = writeSBMLToStdString(fdoc);
+
+  fail_unless(flatModel == newModel);
+
+  delete doc;
+  delete fdoc;
+  delete converter;
+}
+
+
+START_TEST(test_distrib_annotation_converter_normal_l3v2)
+{
+  TestAnnotationToDistrib("normal_l3v2");
+  TestDistribToAnnotation("normal_l3v2");
+  TestDistribToAnnotationWithMeans("normal_l3v2");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_normal_l3v1)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "normal_l3v1_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "normal_l3v1_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("normal_l3v1");
+  TestDistribToAnnotation("normal_l3v1");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_normal_l2v4)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "normal_l2v4_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "normal_l2v4_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("normal_l2v4");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_normal_l3v1b)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "normal_l3v1b_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "normal_l3v1b_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("normal_l3v1b");
+  TestDistribToAnnotation("normal_l3v1b");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_normal_event_assignment)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "normal_event_assignment_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "normal_event_assignment_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("normal_event_assignment");
+  TestDistribToAnnotation("normal_event_assignment");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_normal_delay)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "normal_delay_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "normal_delay_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("normal_delay");
+  TestDistribToAnnotation("normal_delay");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_normal_priority)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "normal_priority_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "normal_priority_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("normal_priority");
+  TestDistribToAnnotation("normal_priority");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_normal_submodel)
 {
-  string filename(TestDataDirectory);
+  TestAnnotationToDistrib("normal_submodel");
+  TestDistribToAnnotation("normal_submodel");
+  TestDistribToAnnotationWithMeans("normal_submodel");
+}
+END_TEST
 
-  ConversionProperties props;
 
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "normal_submodel_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "normal_submodel_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+START_TEST(test_distrib_annotation_converter_normal_submodel2)
+{
+  TestAnnotationToDistrib("normal_submodel2");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_truncated_normal)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "truncated_normal_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "truncated_normal_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("truncated_normal");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_uniform)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "uniform_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "uniform_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("uniform");
+  TestDistribToAnnotation("uniform");
+  TestDistribToAnnotationWithMeans("uniform");
 }
 END_TEST
 
@@ -468,532 +288,119 @@ END_TEST
 
 START_TEST(test_distrib_annotation_converter_exponential)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "exponential_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "exponential_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("exponential");
+  TestDistribToAnnotation("exponential");
+  TestDistribToAnnotationWithMeans("exponential");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_truncated_exponential)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "truncated_exponential_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "truncated_exponential_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("truncated_exponential");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_gamma)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "gamma_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "gamma_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("gamma");
+  TestDistribToAnnotation("gamma");
+  TestDistribToAnnotationWithMeans("gamma");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_truncated_gamma)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "truncated_gamma_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "truncated_gamma_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("truncated_gamma");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_poisson)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "poisson_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "poisson_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("poisson");
+  TestDistribToAnnotation("poisson");
+  TestDistribToAnnotationWithMeans("poisson");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_truncated_poisson)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "truncated_poisson_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "truncated_poisson_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("truncated_poisson");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_lognormal)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "lognormal_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "lognormal_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("lognormal");
+  TestDistribToAnnotation("lognormal");
+  TestDistribToAnnotationWithMeans("lognormal");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_chisquare)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "chisquare_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "chisquare_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("chisquare");
+  TestDistribToAnnotation("chisquare");
+  TestDistribToAnnotationWithMeans("chisquare");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_laplace)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "laplace_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "laplace_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("laplace");
+  TestDistribToAnnotation("laplace");
+  TestDistribToAnnotationWithMeans("laplace");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_cauchy)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "cauchy_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-    string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "cauchy_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("cauchy");
+  TestDistribToAnnotation("cauchy");
+  TestDistribToAnnotationWithMeans("cauchy");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_rayleigh)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "rayleigh_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "rayleigh_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("rayleigh");
+  TestDistribToAnnotation("rayleigh");
+  TestDistribToAnnotationWithMeans("rayleigh");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_binomial)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "binomial_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "binomial_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("binomial");
+  TestDistribToAnnotation("binomial");
+  TestDistribToAnnotationWithMeans("binomial");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_bernoulli)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "bernoulli_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "bernoulli_distrib.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("bernoulli");
+  TestDistribToAnnotation("bernoulli");
+  TestDistribToAnnotationWithMeans("bernoulli");
 }
 END_TEST
 
 
 START_TEST(test_distrib_annotation_converter_none)
 {
-  string filename(TestDataDirectory);
-
-  ConversionProperties props;
-
-  props.addOption("convert distrib annotations");
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-
-  // load document
-  string cfile = filename + "no_annot.xml";
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(doc);
-
-  string ffile = filename + "no_annot.xml";
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToStdString(fdoc);
-
-  fail_unless(flatModel == newModel);
-
-  delete doc;
-  delete fdoc;
-  delete converter;
+  TestAnnotationToDistrib("no");
+  TestDistribToAnnotation("no");
 }
 END_TEST
 
@@ -1042,36 +449,37 @@ create_suite_TestDistribAnnotationConverter (void)
   TCase *tcase = tcase_create("SBMLDistribAnnotationConverter");
   Suite *suite = suite_create("SBMLDistribAnnotationConverter");
   
-//  tcase_add_test(tcase, test_distrib_annotation_converter_normal_l3v2);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_normal_l3v1);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_normal_l2v4);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_normal_l3v1b);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_normal_event_assignment);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_normal_delay);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_normal_priority);
-//#ifdef USE_COMP
-//  tcase_add_test(tcase, test_distrib_annotation_converter_normal_submodel);
-//#endif
-//  tcase_add_test(tcase, test_distrib_annotation_converter_truncated_normal);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_uniform);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_uniformb);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_exponential);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_truncated_exponential);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_gamma);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_truncated_gamma);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_poisson);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_truncated_poisson);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_lognormal);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_chisquare);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_laplace);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_cauchy);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_rayleigh);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_binomial);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_bernoulli);
-//  tcase_add_test(tcase, test_distrib_annotation_converter_none);
-//
-//
-//  tcase_add_test(tcase, test_distrib_annotation_converter_chisquare_wrongargs);
+  tcase_add_test(tcase, test_distrib_annotation_converter_normal_l3v2);
+  tcase_add_test(tcase, test_distrib_annotation_converter_normal_l3v1);
+  tcase_add_test(tcase, test_distrib_annotation_converter_normal_l2v4);
+  tcase_add_test(tcase, test_distrib_annotation_converter_normal_l3v1b);
+  tcase_add_test(tcase, test_distrib_annotation_converter_normal_event_assignment);
+  tcase_add_test(tcase, test_distrib_annotation_converter_normal_delay);
+  tcase_add_test(tcase, test_distrib_annotation_converter_normal_priority);
+#ifdef USE_COMP
+  tcase_add_test(tcase, test_distrib_annotation_converter_normal_submodel);
+  tcase_add_test(tcase, test_distrib_annotation_converter_normal_submodel2);
+#endif
+  tcase_add_test(tcase, test_distrib_annotation_converter_truncated_normal);
+  tcase_add_test(tcase, test_distrib_annotation_converter_uniform);
+  tcase_add_test(tcase, test_distrib_annotation_converter_uniformb);
+  tcase_add_test(tcase, test_distrib_annotation_converter_exponential);
+  tcase_add_test(tcase, test_distrib_annotation_converter_truncated_exponential);
+  tcase_add_test(tcase, test_distrib_annotation_converter_gamma);
+  tcase_add_test(tcase, test_distrib_annotation_converter_truncated_gamma);
+  tcase_add_test(tcase, test_distrib_annotation_converter_poisson);
+  tcase_add_test(tcase, test_distrib_annotation_converter_truncated_poisson);
+  tcase_add_test(tcase, test_distrib_annotation_converter_lognormal);
+  tcase_add_test(tcase, test_distrib_annotation_converter_chisquare);
+  tcase_add_test(tcase, test_distrib_annotation_converter_laplace);
+  tcase_add_test(tcase, test_distrib_annotation_converter_cauchy);
+  tcase_add_test(tcase, test_distrib_annotation_converter_rayleigh);
+  tcase_add_test(tcase, test_distrib_annotation_converter_binomial);
+  tcase_add_test(tcase, test_distrib_annotation_converter_bernoulli);
+  tcase_add_test(tcase, test_distrib_annotation_converter_none);
+
+
+  tcase_add_test(tcase, test_distrib_annotation_converter_chisquare_wrongargs);
 
   suite_add_tcase(suite, tcase);
 
