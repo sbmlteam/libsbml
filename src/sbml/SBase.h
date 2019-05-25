@@ -2487,7 +2487,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @return @c false.
    */
-  bool isSetMath () const;
+  virtual bool isSetMath () const;
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
