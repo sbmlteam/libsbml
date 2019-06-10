@@ -1579,6 +1579,101 @@ START_TEST (test_SyncAnnotation_nestedCV_invalid)
 END_TEST
 
 
+START_TEST(test_SyncAnnotation_ordering_bug_1)
+{
+  // report via libsbml team
+  // if addCVTerm and then appendAnnotation is used teh CVTerm gets lost
+  // but it works the other way round
+
+  Compartment* c = new Compartment(2, 3);
+  c->setMetaId("_000003");
+  c->setId("A");
+
+  CVTerm * cv = new CVTerm(BIOLOGICAL_QUALIFIER);
+  cv->setBiologicalQualifierType(BQB_IS);
+  cv->addResource("http://www.geneontology.org/#GO:0007274");
+
+
+  const char * addedAnn =
+    "<prA:other xmlns:prA=\"http://some\">This is additional</prA:other>";
+
+  // this way works even with the bug
+  c->appendAnnotation(addedAnn);
+  c->addCVTerm(cv);
+
+  const char * expected =
+    "<compartment metaid=\"_000003\" id=\"A\">\n"
+    "  <annotation>\n"
+    "    <prA:other xmlns:prA=\"http://some\">This is additional</prA:other>\n"
+    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+    "      <rdf:Description rdf:about=\"#_000003\">\n"
+    "        <bqbiol:is>\n"
+    "          <rdf:Bag>\n"
+    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+    "          </rdf:Bag>\n"
+    "        </bqbiol:is>\n"
+    "      </rdf:Description>\n"
+    "    </rdf:RDF>\n"
+    "  </annotation>\n"
+    "</compartment>";
+
+  char * sbml = c->toSBML();
+
+  fail_unless(equals(expected, sbml));
+
+  free(sbml);
+  delete c;
+}
+END_TEST
+
+
+START_TEST(test_SyncAnnotation_ordering_bug_2)
+{
+  // report via libsbml team
+  // if addCVTerm and then appendAnnotation is used teh CVTerm gets lost
+  // but it works the other way round
+
+  Compartment* c = new Compartment(2, 3);
+  c->setMetaId("_000003");
+  c->setId("A");
+
+  CVTerm * cv = new CVTerm(BIOLOGICAL_QUALIFIER);
+  cv->setBiologicalQualifierType(BQB_IS);
+  cv->addResource("http://www.geneontology.org/#GO:0007274");
+
+
+  const char * addedAnn =
+    "<prA:other xmlns:prA=\"http://some\">This is additional</prA:other>";
+
+  // this way did hit the bug and CVTerm was lost
+  c->addCVTerm(cv);
+  c->appendAnnotation(addedAnn);
+
+  const char * expected =
+    "<compartment metaid=\"_000003\" id=\"A\">\n"
+    "  <annotation>\n"
+    "    <prA:other xmlns:prA=\"http://some\">This is additional</prA:other>\n"
+    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+    "      <rdf:Description rdf:about=\"#_000003\">\n"
+    "        <bqbiol:is>\n"
+    "          <rdf:Bag>\n"
+    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+    "          </rdf:Bag>\n"
+    "        </bqbiol:is>\n"
+    "      </rdf:Description>\n"
+    "    </rdf:RDF>\n"
+    "  </annotation>\n"
+    "</compartment>";
+
+  char * sbml = c->toSBML();
+
+  fail_unless(equals(expected, sbml));
+
+  free(sbml);
+  delete c;
+}
+END_TEST
+
 
 Suite *
 create_suite_SyncAnnotation (void)
@@ -1616,6 +1711,9 @@ create_suite_SyncAnnotation (void)
   tcase_add_test(tcase, test_SyncAnnotation_stringChangesMetaid3 );
 
   tcase_add_test(tcase, test_SyncAnnotation_nestedCV_invalid );
+
+  tcase_add_test(tcase, test_SyncAnnotation_ordering_bug_1);
+  tcase_add_test(tcase, test_SyncAnnotation_ordering_bug_2);
 
   suite_add_tcase(suite, tcase);
 

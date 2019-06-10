@@ -1496,6 +1496,15 @@ SBase::appendAnnotation (const XMLNode* annotation)
   // syncAnnotation() doesn't need to be invoked in this function because
   // existing mCVTerm objects are properly merged in the following code.
   //
+  // except when they have not been updated (ie CVTerm has been added but not synced
+  // see bug reported via libsbml-team
+  // https://www.pivotaltracker.com/story/show/166576120
+
+  if (getNumCVTerms() > 0 && mAnnotation == NULL)
+  {
+    syncAnnotation();
+  }
+
 
   if(annotation == NULL)
     return LIBSBML_OPERATION_SUCCESS;
@@ -1596,6 +1605,14 @@ SBase::appendAnnotation (const std::string& annotation)
   // syncAnnotation() doesn't need to be invoked in this function because
   // existing mCVTerm objects are properly merged in the following code.
   //
+  // except when they have not been updated (ie CVTerm has been added but not synced
+  // see bug reported via libsbml-team
+  // https://www.pivotaltracker.com/story/show/166576120
+
+  if (getNumCVTerms() > 0 && mAnnotation == NULL)
+  {
+    syncAnnotation();
+  }
 
   int success = LIBSBML_OPERATION_FAILED;
   XMLNode* annt_xmln;
