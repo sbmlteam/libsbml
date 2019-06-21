@@ -820,6 +820,10 @@ Model::convertParametersToLocals(unsigned int level, unsigned int version)
         kl->getListOfLocalParameters()->appendAndOwn(lp);
 //        kl->addLocalParameter(lp);
       }
+
+      // remove old parameters (while they would not be written out, 
+      // (or used) the meta id validator would complain otherwise)
+      kl->getListOfParameters()->clear(true);
     }
   }
 }

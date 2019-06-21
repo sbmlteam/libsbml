@@ -317,6 +317,7 @@ class XMLError;
 
 class SBMLValidator;
 class SBMLInternalValidator;
+class SBMLLevelVersionConverter;
 
 /** @cond doxygenLibsbmlInternal */
 /* Internal constants for setting/unsetting particular consistency checks. */
@@ -1707,6 +1708,7 @@ protected:
 
   friend class SBase;
   friend class SBMLReader;
+  friend class SBMLLevelVersionConverter;
 
   /** @endcond */
 };
