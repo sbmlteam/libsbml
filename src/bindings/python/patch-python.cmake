@@ -25,7 +25,11 @@ file(WRITE "${WRAPPER_FILE}" "
 # import statement needed on some systems
 import sys
 import os.path
-sys.path.append(os.path.dirname(__file__))
+import inspect 
+filename = inspect.getframeinfo(inspect.currentframe()).filename
+path = os.path.dirname(os.path.abspath(filename))
+if not path in sys.path:
+  sys.path.append(path)
 ")
 
 if (PYTHON_USE_API2_WARNINGS)
