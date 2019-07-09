@@ -91,14 +91,16 @@
         ) TYPENAME "string"
 %enddef
 
-//SWIGCSHARP_IMTYPE_WSTRING(std::string)
 SWIGCSHARP_IMTYPE_WSTRING(std::string&)
 SWIGCSHARP_IMTYPE_WSTRING(const std::string&)
-//SWIGCSHARP_IMTYPE_WSTRING(const std::string)
 SWIGCSHARP_IMTYPE_WSTRING(std::string*)
 SWIGCSHARP_IMTYPE_WSTRING(const std::string*)
 SWIGCSHARP_IMTYPE_WSTRING(char*)
 SWIGCSHARP_IMTYPE_WSTRING(const char*)
+
+SWIGCSHARP_IMTYPE_WSTRING(const std::string)
+SWIGCSHARP_IMTYPE_WSTRING(std::string)
+
 
 //
 // In SWIG-1.3.35, a callback function for a returned wide string (implemented in 
