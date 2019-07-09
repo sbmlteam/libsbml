@@ -117,7 +117,7 @@
  {\
         variable = new type(sbmlns->getLevel(), 1, version);\
 }\
-       for (int i = 0; i < xmlns->getNumNamespaces(); i++)\
+       for (int i = 0; xmlns != NULL && i < xmlns->getNumNamespaces(); ++i)\
        {\
          if (!variable->getNamespaces()->hasURI(xmlns->getURI(i)))\
            variable->getNamespaces()->add(xmlns->getURI(i), xmlns->getPrefix(i));\

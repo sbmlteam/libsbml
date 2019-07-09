@@ -5823,7 +5823,7 @@ SBase::storeUnknownExtElement(XMLInputStream &stream)
   {
     return false;
   }
-  else if (mSBML->isIgnoredPackage(uri))
+  else if (mSBML != NULL && mSBML->isIgnoredPackage(uri))
   {
     //
     // Checks if the extension package with the uri is unknown
