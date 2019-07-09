@@ -41,9 +41,6 @@
 								<position x="0" y="0" />
 								<dimensions width="0" height="0" />
 							</boundingBox>
-							<curve>
-								<listOfCurveSegments />
-							</curve>
 							<listOfSpeciesReferenceGlyphs>
 								<speciesReferenceGlyph id="SpeciesReference_J0_0" speciesReference="Node1" speciesGlyph="sGlyph_1" role="product" objectRole="product">
 									<curve>
@@ -58,9 +55,6 @@
 									</curve>
 								</speciesReferenceGlyph>
 								<speciesReferenceGlyph id="SpeciesReference_J0_2" speciesReference="Node0" speciesGlyph="sGlyph_0" role="substrate" objectRole="substrate">
-									<curve>
-										<listOfCurveSegments />
-									</curve>
 								</speciesReferenceGlyph>
 							</listOfSpeciesReferenceGlyphs>
 						</reactionGlyph>

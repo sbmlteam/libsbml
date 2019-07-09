@@ -62,7 +62,7 @@
 								<listOfStyles>
 									<style idList="sGlyph_0">
 										<g font-size="0" font-style="normal" font-weight="normal" text-anchor="start" vtext-anchor="top">
-											<curve stroke="Color_0" stroke-width="2" fill="LinearGradient_0">
+											<polygon stroke="Color_0" stroke-width="2" fill="LinearGradient_0">
 												<listOfCurveSegments>
 													<curveSegment xsi:type="CubicBezier" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 														<start x="20" y="0" />
@@ -97,12 +97,12 @@
 														<end x="20" y="0" />
 													</curveSegment>
 												</listOfCurveSegments>
-											</curve>
+											</polygon>
 										</g>
 									</style>
 									<style idList="sGlyph_1">
 										<g font-size="0" font-style="normal" font-weight="normal" text-anchor="start" vtext-anchor="top">
-											<curve stroke="Color_0" stroke-width="2" fill="LinearGradient_0">
+											<polygon stroke="Color_0" stroke-width="2" fill="LinearGradient_0">
 												<listOfCurveSegments>
 													<curveSegment xsi:type="CubicBezier" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 														<start x="20" y="0" />
@@ -137,7 +137,7 @@
 														<end x="20" y="0" />
 													</curveSegment>
 												</listOfCurveSegments>
-											</curve>
+											</polygon>
 										</g>
 									</style>
 									<style idList="cGlyph_0">
@@ -190,9 +190,6 @@
 								<position x="0" y="0" />
 								<dimensions width="0" height="0" />
 							</boundingBox>
-							<curve>
-								<listOfCurveSegments />
-							</curve>
 							<listOfSpeciesReferenceGlyphs>
 								<speciesReferenceGlyph id="SpeciesReference_J0_0" speciesReference="Node1" speciesGlyph="sGlyph_1" role="product" objectRole="product">
 									<curve>
@@ -207,9 +204,6 @@
 									</curve>
 								</speciesReferenceGlyph>
 								<speciesReferenceGlyph id="SpeciesReference_J0_2" speciesReference="Node0" speciesGlyph="sGlyph_0" role="substrate" objectRole="substrate">
-									<curve>
-										<listOfCurveSegments />
-									</curve>
 								</speciesReferenceGlyph>
 							</listOfSpeciesReferenceGlyphs>
 						</reactionGlyph>
