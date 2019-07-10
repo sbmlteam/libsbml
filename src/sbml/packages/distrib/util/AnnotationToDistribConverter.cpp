@@ -1,5 +1,5 @@
 /**
- * @file    DistribAnnotationConverter.cpp
+ * @file    AnnotationToDistribConverter.cpp
  * @brief   Implementation of a first flattening converter.
  * @author  Sarah M Keating
  * 
@@ -29,7 +29,7 @@
  */
 
 
-#include <sbml/packages/distrib/util/DistribAnnotationConverter.h>
+#include <sbml/packages/distrib/util/AnnotationToDistribConverter.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
 #include <sbml/util/MathFilter.h>
@@ -51,46 +51,46 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * SBML Converter stuff below
  */
 
-void DistribAnnotationConverter::init()
+void AnnotationToDistribConverter::init()
 {
   //'addConverter' adds a clone, not the original.
-  DistribAnnotationConverter dac;
+  AnnotationToDistribConverter dac;
   SBMLConverterRegistry::getInstance().addConverter(&dac);
 }
 /** @endcond */
 
 
-DistribAnnotationConverter::DistribAnnotationConverter() 
+AnnotationToDistribConverter::AnnotationToDistribConverter() 
   : SBMLConverter("SBML Distributions Annotations Converter")
   , mKeepFunctions()
 {
 }
 
 
-DistribAnnotationConverter::DistribAnnotationConverter
-                         (const DistribAnnotationConverter& orig) :
+AnnotationToDistribConverter::AnnotationToDistribConverter
+                         (const AnnotationToDistribConverter& orig) :
 SBMLConverter(orig)
 , mKeepFunctions()
 {
 }
 
-DistribAnnotationConverter* 
-DistribAnnotationConverter::clone() const
+AnnotationToDistribConverter* 
+AnnotationToDistribConverter::clone() const
 {
-  return new DistribAnnotationConverter(*this);
+  return new AnnotationToDistribConverter(*this);
 }
 
 
 /*
  * Destroy this object.
  */
-DistribAnnotationConverter::~DistribAnnotationConverter ()
+AnnotationToDistribConverter::~AnnotationToDistribConverter ()
 {
 }
 
 
 ConversionProperties
-DistribAnnotationConverter::getDefaultProperties() const
+AnnotationToDistribConverter::getDefaultProperties() const
 {
   static ConversionProperties prop;
   prop.addOption("convert distrib annotations", true, "convert distrib annotations");
@@ -99,7 +99,7 @@ DistribAnnotationConverter::getDefaultProperties() const
 
 
 bool 
-DistribAnnotationConverter::matchesProperties
+AnnotationToDistribConverter::matchesProperties
                         (const ConversionProperties &props) const
 {
   if (!props.hasOption("convert distrib annotations"))
@@ -108,7 +108,7 @@ DistribAnnotationConverter::matchesProperties
 }
 
 int 
-DistribAnnotationConverter::convert()
+AnnotationToDistribConverter::convert()
 {  
 
   int result = performConversion();
@@ -118,7 +118,7 @@ DistribAnnotationConverter::convert()
 
 /** @cond doxygenLibsbmlInternal */
 int 
-DistribAnnotationConverter::performConversion()
+AnnotationToDistribConverter::performConversion()
 {
   Model* model = mDocument->getModel();
   bool converted = convertModel(model);
@@ -163,7 +163,7 @@ DistribAnnotationConverter::performConversion()
 
 
 bool 
-DistribAnnotationConverter::convertModel(Model* model)
+AnnotationToDistribConverter::convertModel(Model* model)
 {  
   if (model == NULL) 
   {
@@ -286,7 +286,7 @@ DistribAnnotationConverter::convertModel(Model* model)
 /** @endcond */
 
 void
-DistribAnnotationConverter::adjustMath(SBase* element, const string& function, ASTNodeType_t type)
+AnnotationToDistribConverter::adjustMath(SBase* element, const string& function, ASTNodeType_t type)
 {
   const ASTNode* astn = element->getMath();
   if (astn == NULL) {
@@ -300,7 +300,7 @@ DistribAnnotationConverter::adjustMath(SBase* element, const string& function, A
 }
 
 bool 
-DistribAnnotationConverter::replaceAnnotatedFunctionWith(ASTNode * astn, const std::string & function, ASTNodeType_t type)
+AnnotationToDistribConverter::replaceAnnotatedFunctionWith(ASTNode * astn, const std::string & function, ASTNodeType_t type)
 {
   bool replaced = false;
   if (astn->getType() == AST_FUNCTION && function == astn->getName())

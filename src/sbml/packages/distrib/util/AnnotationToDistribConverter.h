@@ -1,5 +1,5 @@
 /**
- * @file    DistribAnnotationConverter.h
+ * @file    AnnotationToDistribConverter.h
  * @brief   Converts Frank's distrib annotation scheme to the Distributions package.
  * @author  Lucian Smith
  * 
@@ -27,7 +27,7 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->
  *
- * @class DistribAnnotationConverter
+ * @class AnnotationToDistribConverter
  * @sbmlbrief{arrays} Converts a model with custom annotations for distributions into distrib.
  *
  * @htmlinclude libsbml-facility-only-warning.html
@@ -35,8 +35,8 @@
  */
 
 
-#ifndef DistribAnnotationConverter_h
-#define DistribAnnotationConverter_h
+#ifndef AnnotationToDistribConverter_h
+#define AnnotationToDistribConverter_h
 
 #include <sbml/math/ASTNode.h>
 #include <sbml/SBMLNamespaces.h>
@@ -50,7 +50,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-class LIBSBML_EXTERN DistribAnnotationConverter : public SBMLConverter
+class LIBSBML_EXTERN AnnotationToDistribConverter : public SBMLConverter
 {
 public:
 
@@ -64,46 +64,46 @@ public:
 
 
   /**
-   * Creates a new DistribAnnotationConverter object.
+   * Creates a new AnnotationToDistribConverter object.
    */
-  DistribAnnotationConverter();
+  AnnotationToDistribConverter();
 
 
   /**
    * Copy constructor.
    *
-   * This creates a copy of a DistribAnnotationConverter object.
+   * This creates a copy of a AnnotationToDistribConverter object.
    *
-   * @param orig the DistribAnnotationConverter instance to copy.
+   * @param orig the AnnotationToDistribConverter instance to copy.
    */
-  DistribAnnotationConverter(const DistribAnnotationConverter& orig);
+  AnnotationToDistribConverter(const AnnotationToDistribConverter& orig);
 
 
   /**
-   * Creates and returns a deep copy of this DistribAnnotationConverter.
+   * Creates and returns a deep copy of this AnnotationToDistribConverter.
    *
-   * @return a (deep) copy of this DistribAnnotationConverter.
+   * @return a (deep) copy of this AnnotationToDistribConverter.
    */
-  virtual DistribAnnotationConverter* clone() const;
+  virtual AnnotationToDistribConverter* clone() const;
 
 
   /**
-   * Destroy this DistribAnnotationConverter object.
+   * Destroy this AnnotationToDistribConverter object.
    */
-  virtual ~DistribAnnotationConverter ();
+  virtual ~AnnotationToDistribConverter ();
 
 
   /**
    * Returns @c true if this converter matches the given properties.
    *
    * Given a ConversionProperties object @p props, this method checks that @p
-   * props possesses an option value to enable the DistribAnnotationConverter.  If
+   * props possesses an option value to enable the AnnotationToDistribConverter.  If
    * it does, this method returns @c true.
    *
    * @param props the properties to match.
    *
    * @return @c true if the properties @p props would match the necessary
-   * properties for DistribAnnotationConverter type of converter, @c false
+   * properties for AnnotationToDistribConverter type of converter, @c false
    * otherwise.
    */
   virtual bool matchesProperties(const ConversionProperties &props) const;
@@ -112,7 +112,7 @@ public:
   /**
    * Performs the conversion.
    *
-   * This method causes DistribAnnotationConverter to do the actual conversion
+   * This method causes AnnotationToDistribConverter to do the actual conversion
    * work, that is, to convert the SBMLDocument object set by
    * SBMLConverter::setDocument(@if java const SBMLDocument@endif) and with
    * the configuration options set by SBMLConverter::setProperties(@if java
@@ -130,7 +130,7 @@ public:
   /**
    * Performs the conversion.
    *
-   * This method causes DistribAnnotationConverter to do the actual conversion
+   * This method causes AnnotationToDistribConverter to do the actual conversion
    * work, that is, to convert the SBMLDocument object set by
    * SBMLConverter::setDocument(@if java const SBMLDocument@endif) and with
    * the configuration options set by SBMLConverter::setProperties(@if java
@@ -150,14 +150,14 @@ public:
    *
    * A given converter exposes one or more properties that can be adjusted in
    * order to influence the behavior of the converter.  This method returns
-   * the @em default property settings for DistribAnnotationConverter.  It is
+   * the @em default property settings for AnnotationToDistribConverter.  It is
    * meant to be called in order to be able to programmatically discover all
    * the settings for the converter object.
    *
    * @return the ConversionProperties object describing the default properties
    * for this converter.
    *
-   * @note Previously, DistribAnnotationConverter also offered an @em
+   * @note Previously, AnnotationToDistribConverter also offered an @em
    * "ignorePackages" option, whose name proved to be confusing.  This option
    * has been deprecated and replaced by the @em "stripUnflattenablePackages"
    * option.
@@ -189,5 +189,5 @@ END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
-#endif  /* DistribAnnotationConverter_h*/
+#endif  /* AnnotationToDistribConverter_h*/
 

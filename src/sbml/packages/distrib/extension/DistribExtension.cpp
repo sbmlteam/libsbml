@@ -44,7 +44,7 @@
 #include <sbml/packages/distrib/validator/DistribSBMLErrorTable.h>
 #include <sbml/packages/distrib/extension/DistribSBasePlugin.h>
 #include <sbml/packages/distrib/extension/DistribASTPlugin.h>
-#include <sbml/packages/distrib/util/DistribAnnotationConverter.h>
+#include <sbml/packages/distrib/util/AnnotationToDistribConverter.h>
 #include <sbml/packages/distrib/util/DistribToAnnotationConverter.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
 
@@ -402,7 +402,7 @@ DistribExtension::init()
 
   SBMLExtensionRegistry::getInstance().addExtension(&distribExtension);
 
-  DistribAnnotationConverter c1;
+  AnnotationToDistribConverter c1;
   SBMLConverterRegistry::getInstance().addConverter(&c1);
 
   DistribToAnnotationConverter c2;
