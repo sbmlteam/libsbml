@@ -1,6 +1,84 @@
 ﻿           libSBML NEWS -- History of user-visible changes
 
 ====================================================================
+5.18.2-experimental (2019-07-18)
+====================================================================
+
+***                 Experimental only release                    ***
+
+This is an experimental only release, that is, a release of those
+files provided in the experimental folder of a full release. 
+
+This includes updates to all the SBML L3 packages that are not yet
+accepted and undergoing development.
+
+NOTE: An experimental release is not as rigorously tested as a 
+full release.  Any changes/fixes listed as either referring to
+stable or experimental code may change before the next full release.
+
+STABLE RELEASE
+
+* New features
+
+  - Functions get/set/isSetMath have been added to the SBase class.
+    These do not allow interacting with a non-existant <math> element 
+    but may facilitate using more generic functions.
+
+  - 'comp' package-specific updates:
+  - 'fbc' package-specific updates:
+  - 'groups' package-specific updates:
+  - 'layout' package-specific updates:
+  - 'multi' package-specific updates:
+  - 'qual' package-specific updates:
+  - 'render' package-specific updates:
+
+* Bug fixes
+
+  - The L3 infix parser has been improved to recognize the use of a 
+    name without parentheses as a misused function name or a csymbol,
+    if appropriate.
+    
+  - There was an anomaly when using the addCVTerm() and 
+    appendAnnotation() functions which meant that if used in a certain
+    order information could be lost. This has been corrected.  Thanks
+    to Colin Halupczok for the detailed report.
+    
+  - Converting a <localParameter> to a global <parameter> object was
+    failing if the metaid attribute was set. This has been changed to
+    produce the correct behavior.
+
+  - 'render' package-specific bug fixes:
+  
+    - Some render classes were not handled correctly by language
+      bindings. This has been fixed.
+
+* Configuration/build system changes
+
+ - Import of the python library has been sorted in line with recent Linux
+   changes to the location of the shared file.
+
+EXPERIMENTAL RELEASE
+
+* New features
+
+  - 'distrib' package-specific updates:
+  
+    - A new converter, AnnotationToDistribConverter, has been added 
+      to allow conversion from the existing annotation format used 
+      with <functionDefinitions> to the new 'distrib' format. This
+      complements the existing DistribToAnnotationConverter that converts
+      'distrib' to annotations.
+      
+
+ * Bug fixes
+ 
+  - 'distrib' package-specific bug fixes:
+
+    - There was unfortunately an infinite loop in the code using
+      the <uncertainty> element. This has been removed.
+      
+
+====================================================================
 5.18.0 (2019-04-18)
 ====================================================================
 
