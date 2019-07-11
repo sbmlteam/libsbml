@@ -1,20 +1,8 @@
 ﻿           libSBML NEWS -- History of user-visible changes
 
 ====================================================================
-5.18.2-experimental (2019-07-18)
+5.18.1 (Current svn)
 ====================================================================
-
-***                 Experimental only release                    ***
-
-This is an experimental only release, that is, a release of those
-files provided in the experimental folder of a full release. 
-
-This includes updates to all the SBML L3 packages that are not yet
-accepted and undergoing development.
-
-NOTE: An experimental release is not as rigorously tested as a 
-full release.  Any changes/fixes listed as either referring to
-stable or experimental code may change before the next full release.
 
 STABLE RELEASE
 
