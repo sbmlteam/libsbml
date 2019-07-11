@@ -340,9 +340,9 @@ LIBSBML_CPP_NAMESPACE_USE
  * Ignore internal implementation methods and some other methods
  * on SBMLNamespces.
  */
-%ignore SBMLNamespaces::setLevel;
-%ignore SBMLNamespaces::setVersion;
-%ignore SBMLNamespaces::setNamespaces;
+//%ignore SBMLNamespaces::setLevel;
+//%ignore SBMLNamespaces::setVersion;
+//%ignore SBMLNamespaces::setNamespaces;
 
 /**
  * Ignore internal implementation methods and some other methods
