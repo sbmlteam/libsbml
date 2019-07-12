@@ -55,7 +55,7 @@ template<typename type> std::string vectorToString(const std::vector<type>& vec)
 {
   std::stringstream str;
 
-  std::vector<type>::const_iterator it = vec.begin();
+  std::vector<type>::iterator it = vec.begin();
 
   for (; it != vec.end(); ++it)
   {
@@ -66,11 +66,11 @@ template<typename type> std::string vectorToString(const std::vector<type>& vec)
 }
 
 
-std::string vectorToString(const std::vector<double>& vec)
+std::string vectorToString(std::vector<double>& vec)
 {
   std::stringstream str;
 
-  std::vector<double>::const_iterator it = vec.begin();
+  std::vector<double>::iterator it = vec.begin();
 
   for (; it != vec.end(); ++it)
   {
