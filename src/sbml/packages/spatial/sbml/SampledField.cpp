@@ -55,9 +55,9 @@ template<typename type> std::string vectorToString(const std::vector<type>& vec)
 {
   std::stringstream str;
 
-  std::vector<type>::const_iterator it = vec.cbegin();
+  std::vector<type>::const_iterator it = vec.begin();
 
-  for (; it != vec.cend(); ++it)
+  for (; it != vec.end(); ++it)
   {
     str << *it << " ";
   }
@@ -70,9 +70,9 @@ std::string vectorToString(const std::vector<double>& vec)
 {
   std::stringstream str;
 
-  std::vector<double>::const_iterator it = vec.cbegin();
+  std::vector<double>::const_iterator it = vec.begin();
 
-  for (; it != vec.cend(); ++it)
+  for (; it != vec.end(); ++it)
   {
     str << setprecision(17) << *it << " ";
   }
