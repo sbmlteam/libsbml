@@ -116,7 +116,7 @@
 
 
 #include <string>
-
+#include <vector>
 
 #include <sbml/SBase.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
@@ -140,7 +140,7 @@ protected:
   bool mIsSetNumSamples3;
   InterpolationKind_t mInterpolationType;
   CompressionKind_t mCompression;
-  int* mSamples;
+  std::string mSamples;
   int mSamplesLength;
   bool mIsSetSamplesLength;
 
@@ -371,6 +371,36 @@ public:
    */
   void getSamples(int* outArray) const;
 
+  void getSamples(std::vector<int>& outVector) const;
+
+  void getSamples(std::vector<float>& outVector) const;
+
+  void getSamples(std::vector<double>& outVector) const;
+
+
+  const std::string& getSamples() const;
+
+  /**
+   * Returns the value of the "samples" attribute of this SampledField.
+   *
+   * @param outArray double* array that will be used to return the value of the
+   * "samples" attribute of this SampledField.
+   *
+   * @note the value of the "samples" attribute of this SampledField is
+   * returned in the argument array.
+   */
+  void getSamples(double* outArray) const;
+
+  /**
+   * Returns the value of the "samples" attribute of this SampledField.
+   *
+   * @param outArray float* array that will be used to return the value of the
+   * "samples" attribute of this SampledField.
+   *
+   * @note the value of the "samples" attribute of this SampledField is
+   * returned in the argument array.
+   */
+  void getSamples(float* outArray) const;
 
   /**
    * Returns the value of the "samplesLength" attribute of this SampledField.
@@ -663,6 +693,58 @@ public:
    * OperationReturnValues_t}
    */
   int setSamples(int* inArray, int arrayLength);
+
+  int setSamples(unsigned int* inArray, int arrayLength);
+
+  int setSamples(unsigned char* inArray, int arrayLength);
+
+  /**
+   * Sets the value of the "samples" attribute of this SampledField.
+   *
+   * @param samples the preformatted samples string to be set
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setSamples(const std::string& samples);
+
+  int setSamples(const std::vector<double>& samples);
+
+  int setSamples(const std::vector<float>& samples);
+
+  int setSamples(const std::vector<int>& samples);
+
+  /**
+   * Sets the value of the "samples" attribute of this SampledField.
+   *
+   * @param inArray double* array value of the "samples" attribute to be set.
+   *
+   * @param arrayLength int value for the length of the "samples" attribute to
+   * be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setSamples(double* inArray, int arrayLength);
+
+  /**
+   * Sets the value of the "samples" attribute of this SampledField.
+   *
+   * @param inArray float* array value of the "samples" attribute to be set.
+   *
+   * @param arrayLength int value for the length of the "samples" attribute to
+   * be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setSamples(float* inArray, int arrayLength);
 
 
   /**
@@ -1177,7 +1259,9 @@ protected:
   int mUncompressedLength;
 
   static void copySampleArrays(int* &target, int& targetLength, int* source, int sourceLength);
-  static void uncompress_data(void *data, size_t length, int*& result, int& outLength);
+  static std::string uncompress_data(void *data, size_t length);
+  static void compress_data(void* data, size_t length, int level, unsigned char*& result, int& outLength);
+  static void uncompress_data(void* data, size_t length, int*& result, int& outLength);
 
 public:
 
@@ -1204,15 +1288,39 @@ public:
   
   /** 
    * utility function uncompressing samples
+   * 
+   * WARNING: this function assumes that the input data is unit8, and decompresses
+   *          that data for direct access for getUncompressed / getUncompressedData
+   * 
    */
-  void uncompress();
+  void uncompressLegacy();
+
+  /** 
+   * if the samples stored are compressed (i.e: the flag set to DEFLATED), then
+   * this function decompresses the samples and alters the samples, changing the 
+   * compression flag to uncompressed. 
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int uncompress();
+
+  /**
+   * compresses the samples stored, if the flag is set to UNCOMPRESSED, then 
+   * changes the flag to compressed. 
+   * 
+   * @param compression level 0 (store) ... 9 (max compression)
+   * 
+   */
+  int compress(int level);
 
   /**  
    *  Returns the data of this image as uncompressed array of integers
    * 
    * @param data the output array of integers (it will be allocated using
    *             malloc and will have to be freed using free)
-   * @param length the output lenght of the array
+   * @param length the output length of the array
    *
    */
   void getUncompressedData(int* &data, int& length);

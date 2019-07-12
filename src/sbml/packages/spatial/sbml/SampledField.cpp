@@ -51,6 +51,111 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
 
+template<typename type> std::string vectorToString(const std::vector<type>& vec)
+{
+  std::stringstream str;
+
+  std::vector<type>::const_iterator it = vec.cbegin();
+
+  for (; it != vec.cend(); ++it)
+  {
+    str << *it << " ";
+  }
+
+  return str.str();
+}
+
+
+std::string vectorToString(const std::vector<double>& vec)
+{
+  std::stringstream str;
+
+  std::vector<double>::const_iterator it = vec.cbegin();
+
+  for (; it != vec.cend(); ++it)
+  {
+    str << setprecision(17) << *it << " ";
+  }
+
+  return str.str();
+}
+
+template<typename type> void readSamplesFromString(const std::string& str, std::vector<type>& valuesVector)
+{
+  valuesVector.clear();
+  stringstream strStream(str);
+  type val;
+
+  while (strStream >> val)
+  {
+    valuesVector.push_back(val);
+  }
+}
+
+template<typename type> type* readSamplesFromString(const std::string& str, unsigned int& length)
+{
+  stringstream strStream(str);
+  type val;
+  vector<type> valuesVector;
+
+  while (strStream >> val)
+  {
+    valuesVector.push_back(val);
+  }
+
+  length = (unsigned int)valuesVector.size();
+
+  if (length > 0)
+  {
+    type* data = new type[length];
+    for (unsigned int i = 0; i < length; ++i)
+    {
+      data[i] = valuesVector.at(i);
+    }
+    return data;
+  }
+
+  return NULL;
+}
+
+template<typename type> std::string arrayToString(const type* array, unsigned int length)
+{
+  std::stringstream str;
+
+  for (unsigned int i = 0; i < length; ++i)
+  {
+    str << (type)array[i] << " ";
+  }
+
+  return str.str();
+}
+
+
+std::string arrayToString(const unsigned char* array, unsigned int length)
+{
+  std::stringstream str;
+
+  for (unsigned int i = 0; i < length; ++i)
+  {
+    str << (int)array[i] << " ";
+  }
+
+  return str.str();
+}
+
+
+std::string arrayToString(const double* array, unsigned int length)
+{
+  std::stringstream str;
+
+  for (unsigned int i = 0; i < length; ++i)
+  {
+    str << std::setprecision(17) << (double)array[i] << " ";
+  }
+
+  return str.str();
+}
+
 /*
  * Creates a new SampledField using the given SBML Level, Version and
  * &ldquo;spatial&rdquo; package version.
@@ -60,16 +165,16 @@ SampledField::SampledField(unsigned int level,
                            unsigned int pkgVersion)
   : SBase(level, version)
   , mDataType (SPATIAL_DATAKIND_INVALID)
-  , mNumSamples1 (SBML_INT_MAX)
+  , mNumSamples1 (0)
   , mIsSetNumSamples1 (false)
-  , mNumSamples2 (SBML_INT_MAX)
+  , mNumSamples2 (0)
   , mIsSetNumSamples2 (false)
-  , mNumSamples3 (SBML_INT_MAX)
+  , mNumSamples3 (0)
   , mIsSetNumSamples3 (false)
   , mInterpolationType (SPATIAL_INTERPOLATIONKIND_INVALID)
   , mCompression (SPATIAL_COMPRESSIONKIND_INVALID)
-  , mSamples (NULL)
-  , mSamplesLength (SBML_INT_MAX)
+  , mSamples ()
+  , mSamplesLength (0)
   , mIsSetSamplesLength (false)
 , mUncompressedSamples(NULL)
 , mUncompressedLength(0)
@@ -85,16 +190,16 @@ SampledField::SampledField(unsigned int level,
 SampledField::SampledField(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
   , mDataType (SPATIAL_DATAKIND_INVALID)
-  , mNumSamples1 (SBML_INT_MAX)
+  , mNumSamples1 (0)
   , mIsSetNumSamples1 (false)
-  , mNumSamples2 (SBML_INT_MAX)
+  , mNumSamples2 (0)
   , mIsSetNumSamples2 (false)
-  , mNumSamples3 (SBML_INT_MAX)
+  , mNumSamples3 (0)
   , mIsSetNumSamples3 (false)
   , mInterpolationType (SPATIAL_INTERPOLATIONKIND_INVALID)
   , mCompression (SPATIAL_COMPRESSIONKIND_INVALID)
-  , mSamples (NULL)
-  , mSamplesLength (SBML_INT_MAX)
+  , mSamples ()
+  , mSamplesLength (0)
   , mIsSetSamplesLength (false)
 , mUncompressedSamples(NULL)
 , mUncompressedLength(0)
@@ -121,14 +226,12 @@ SampledField::SampledField(const SampledField& orig)
   , mIsSetNumSamples3 ( orig.mIsSetNumSamples3 )
   , mInterpolationType ( orig.mInterpolationType )
   , mCompression ( orig.mCompression )
-  , mSamples ( NULL )
+  , mSamples ( orig.mSamples )
   , mSamplesLength ( orig.mSamplesLength )
   , mIsSetSamplesLength ( orig.mIsSetSamplesLength )
   , mUncompressedSamples ( NULL)
   , mUncompressedLength ( 0)
 {
-  setSamples(orig.mSamples, orig.mSamplesLength);
-
   // connect to child objects
   connectToChild();
 }
@@ -152,8 +255,7 @@ SampledField::operator=(const SampledField& rhs)
     mIsSetNumSamples3 = rhs.mIsSetNumSamples3;
     mInterpolationType = rhs.mInterpolationType;
     mCompression = rhs.mCompression;
-    mSamples = NULL;
-    setSamples(rhs.mSamples, rhs.mSamplesLength);
+    mSamples = rhs.mSamples;
     mSamplesLength = rhs.mSamplesLength;
     mIsSetSamplesLength = rhs.mIsSetSamplesLength;
     mUncompressedSamples = NULL;
@@ -180,14 +282,7 @@ SampledField::clone() const
  * Destructor for SampledField.
  */
 SampledField::~SampledField()
-{
-  if (mSamples != NULL)
-  {
-    delete [] mSamples;
-  }
-
-  mSamples = NULL;
-  
+{  
   freeUncompressed();
 }
 
@@ -311,15 +406,65 @@ SampledField::getCompressionAsString() const
 void
 SampledField::getSamples(int* outArray) const
 {
-  if (outArray == NULL || mSamples == NULL)
+  if (outArray == NULL)
   {
     return;
   }
 
-  memcpy(outArray, mSamples, sizeof(int)*mSamplesLength);
+  unsigned int length;
+  int* samples = readSamplesFromString<int>(mSamples, length);
+
+  memcpy(outArray, samples, sizeof(int)*length);
+}
+
+void SampledField::getSamples(std::vector<int>& outVector) const
+{
+  readSamplesFromString<int>(mSamples, outVector);
+}
+
+void SampledField::getSamples(std::vector<float>& outVector) const
+{
+  readSamplesFromString<float>(mSamples, outVector);
+}
+
+void SampledField::getSamples(std::vector<double>& outVector) const
+{
+  readSamplesFromString<double>(mSamples, outVector);
+}
+
+const std::string& SampledField::getSamples() const
+{
+  return mSamples;
+}
+
+void
+SampledField::getSamples(double* outArray) const
+{
+  if (outArray == NULL)
+  {
+    return;
+  }
+
+  unsigned int length;
+  double* samples = readSamplesFromString<double>(mSamples, length);
+
+  memcpy(outArray, samples, sizeof(double) * length);
 }
 
 
+void
+SampledField::getSamples(float* outArray) const
+{
+  if (outArray == NULL)
+  {
+    return;
+  }
+
+  unsigned int length;
+  float* samples = readSamplesFromString<float>(mSamples, length);
+
+  memcpy(outArray, samples, sizeof(float) * length);
+}
 /*
  * Returns the value of the "samplesLength" attribute of this SampledField.
  */
@@ -423,7 +568,7 @@ SampledField::isSetCompression() const
 bool
 SampledField::isSetSamples() const
 {
-  return (mSamples != NULL);
+  return (!mSamples.empty());
 }
 
 
@@ -623,19 +768,102 @@ SampledField::setSamples(int* inArray, int arrayLength)
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
 
-  if (mSamples != NULL)
-  {
-    delete[] mSamples;
-  }
-
-  mSamples = new int[arrayLength];
-  memcpy(mSamples, inArray, sizeof(int)*arrayLength);
+  mSamples = arrayToString(inArray, arrayLength);
   mIsSetSamplesLength = true;
   mSamplesLength = arrayLength;
 
   return LIBSBML_OPERATION_SUCCESS;
 }
 
+int SampledField::setSamples(unsigned int* inArray, int arrayLength)
+{
+  if (inArray == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+
+  mSamples = arrayToString(inArray, arrayLength);
+  mIsSetSamplesLength = true;
+  mSamplesLength = arrayLength;
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+int SampledField::setSamples(unsigned char* inArray, int arrayLength)
+{
+  if (inArray == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+
+  mSamples = arrayToString(inArray, arrayLength);
+  mIsSetSamplesLength = true;
+  mSamplesLength = arrayLength;
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+int
+SampledField::setSamples(double* inArray, int arrayLength)
+{
+  if (inArray == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+
+  mSamples = arrayToString(inArray, arrayLength);
+  mIsSetSamplesLength = true;
+  mSamplesLength = arrayLength;
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+int
+SampledField::setSamples(float* inArray, int arrayLength)
+{
+  if (inArray == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+
+  mSamples = arrayToString(inArray, arrayLength);
+  mIsSetSamplesLength = true;
+  mSamplesLength = arrayLength;
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+int SampledField::setSamples(const std::string& samples)
+{
+  mSamples = samples;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+int SampledField::setSamples(const std::vector<double>& samples)
+{
+  mSamples = vectorToString(samples);
+  mIsSetSamplesLength = true;
+  mSamplesLength = samples.size();
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+int SampledField::setSamples(const std::vector<int>& samples)
+{
+  mSamples = vectorToString(samples);
+  mIsSetSamplesLength = true;
+  mSamplesLength = samples.size();
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+int SampledField::setSamples(const std::vector<float>& samples)
+{
+  mSamples = vectorToString(samples);
+  mIsSetSamplesLength = true;
+  mSamplesLength = samples.size();
+  return LIBSBML_OPERATION_SUCCESS;
+}
 
 /*
  * Sets the value of the "samplesLength" attribute of this SampledField.
@@ -786,12 +1014,7 @@ SampledField::unsetCompression()
 int
 SampledField::unsetSamples()
 {
-  if (mSamples != NULL)
-  {
-    delete[] mSamples;
-  }
-
-  mSamples = NULL;
+  mSamples.clear();
 
   return unsetSamplesLength();
 }
@@ -947,10 +1170,12 @@ SampledField::write(XMLOutputStream& stream) const
 
   if (isSetSamples())
   {
-    for (int i = 0; i < mSamplesLength; ++i)
-    {
-      stream << (long)mSamples[i] << " ";
-    }
+    //for (int i = 0; i < mSamplesLength; ++i)
+    //{
+    //  stream << (long)mSamples[i] << " ";
+    //}
+
+    stream << mSamples;
   }
 
   stream.endElement(getElementName(), getPrefix());
@@ -1470,7 +1695,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
 
   assigned = attributes.readInto("id", mId);
 
-  if (assigned == true)
+  if (assigned == true && log)
   {
     if (mId.empty() == true)
     {
@@ -1483,7 +1708,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
           "which does not conform to the syntax.", getLine(), getColumn());
     }
   }
-  else
+  else if (log)
   {
     std::string message = "Spatial attribute 'id' is missing from the "
       "<SampledField> element.";
@@ -1497,7 +1722,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
 
   assigned = attributes.readInto("name", mName);
 
-  if (assigned == true)
+  if (assigned == true && log)
   {
     if (mName.empty() == true)
     {
@@ -1512,7 +1737,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
   std::string dataType;
   assigned = attributes.readInto("dataType", dataType);
 
-  if (assigned == true)
+  if (assigned == true && log)
   {
     if (dataType.empty() == true)
     {
@@ -1539,7 +1764,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
       }
     }
   }
-  else
+  else if(log)
   {
     std::string message = "Spatial attribute 'dataType' is missing.";
     log->logPackageError("spatial", SpatialSampledFieldAllowedAttributes,
@@ -1550,10 +1775,10 @@ SampledField::readAttributes(const XMLAttributes& attributes,
   // numSamples1 int (use = "required" )
   // 
 
-  numErrs = log->getNumErrors();
+  numErrs = log == NULL ? 0 : log->getNumErrors();
   mIsSetNumSamples1 = attributes.readInto("numSamples1", mNumSamples1);
 
-  if ( mIsSetNumSamples1 == false)
+  if ( mIsSetNumSamples1 == false && log)
   {
     if (log->getNumErrors() == numErrs + 1 &&
       log->contains(XMLAttributeTypeMismatch))
@@ -1578,10 +1803,10 @@ SampledField::readAttributes(const XMLAttributes& attributes,
   // numSamples2 int (use = "optional" )
   // 
 
-  numErrs = log->getNumErrors();
+  numErrs = log == NULL ? 0 : log->getNumErrors();
   mIsSetNumSamples2 = attributes.readInto("numSamples2", mNumSamples2);
 
-  if ( mIsSetNumSamples2 == false)
+  if ( mIsSetNumSamples2 == false && log)
   {
     if (log->getNumErrors() == numErrs + 1 &&
       log->contains(XMLAttributeTypeMismatch))
@@ -1599,10 +1824,10 @@ SampledField::readAttributes(const XMLAttributes& attributes,
   // numSamples3 int (use = "optional" )
   // 
 
-  numErrs = log->getNumErrors();
+  numErrs = log == NULL ? 0 : log->getNumErrors();
   mIsSetNumSamples3 = attributes.readInto("numSamples3", mNumSamples3);
 
-  if ( mIsSetNumSamples3 == false)
+  if ( mIsSetNumSamples3 == false && log)
   {
     if (log->getNumErrors() == numErrs + 1 &&
       log->contains(XMLAttributeTypeMismatch))
@@ -1623,7 +1848,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
   std::string interpolationType;
   assigned = attributes.readInto("interpolationType", interpolationType);
 
-  if (assigned == true)
+  if (assigned == true && log)
   {
     if (interpolationType.empty() == true)
     {
@@ -1651,7 +1876,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
       }
     }
   }
-  else
+  else if(log)
   {
     std::string message = "Spatial attribute 'interpolationType' is missing.";
     log->logPackageError("spatial", SpatialSampledFieldAllowedAttributes,
@@ -1665,7 +1890,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
   std::string compression;
   assigned = attributes.readInto("compression", compression);
 
-  if (assigned == true)
+  if (assigned == true && log)
   {
     if (compression.empty() == true)
     {
@@ -1692,7 +1917,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
       }
     }
   }
-  else
+  else if(log)
   {
     std::string message = "Spatial attribute 'compression' is missing.";
     log->logPackageError("spatial", SpatialSampledFieldAllowedAttributes,
@@ -1703,10 +1928,10 @@ SampledField::readAttributes(const XMLAttributes& attributes,
   // samplesLength int (use = "required" )
   // 
 
-  numErrs = log->getNumErrors();
+  numErrs = log == NULL ? 0 : log->getNumErrors();
   mIsSetSamplesLength = attributes.readInto("samplesLength", mSamplesLength);
 
-  if ( mIsSetSamplesLength == false)
+  if ( mIsSetSamplesLength == false && log)
   {
     if (log->getNumErrors() == numErrs + 1 &&
       log->contains(XMLAttributeTypeMismatch))
@@ -1805,28 +2030,7 @@ SampledField::writeAttributes(XMLOutputStream& stream) const
 void
 SampledField::setElementText(const std::string& text)
 {
-  stringstream strStream(text);
-  int val;
-  vector<int> valuesVector;
-
-  while (strStream >> val)
-  {
-    valuesVector.push_back(val);
-  }
-
-  unsigned int length = (unsigned int)valuesVector.size();
-
-  if (length > 0)
-  {
-    int* data = new int[length];
-    for (unsigned int i = 0; i < length; ++i)
-    {
-      data[i] = valuesVector.at(i);
-    }
-
-    setSamples(data, length);
-    delete[] data;
-  }
+  setSamples(text);
 }
 
 /** @endcond */
@@ -1851,7 +2055,7 @@ SampledField::getUncompressedData(int* &data, int& length)
 {
   if (mUncompressedSamples == NULL)
   {
-    uncompress();
+    uncompressLegacy();
   }
 
   copySampleArrays(data, length, mUncompressedSamples, mUncompressedLength);
@@ -1860,32 +2064,72 @@ SampledField::getUncompressedData(int* &data, int& length)
 }
 
 void 
-SampledField::uncompress()
+SampledField::uncompressLegacy()
 {
   freeUncompressed();
+
+  unsigned int length;
+  int* samples = readSamplesFromString<int>(mSamples, length);
+  if (samples == NULL) return;
   if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
   {
-    char* csamples = (char*)malloc(sizeof(char)*mSamplesLength);
-    for (int i = 0 ; i < mSamplesLength; ++i)
-      csamples[i] = mSamples[i];
-    SampledField::uncompress_data(csamples, mSamplesLength, mUncompressedSamples, mUncompressedLength);
+    char* csamples = (char*)malloc(sizeof(char) * length);
+    for (int i = 0; i < mSamplesLength; ++i)
+      csamples[i] = (char)samples[i];
+    SampledField::uncompress_data(csamples, length, mUncompressedSamples, mUncompressedLength);
     free(csamples);
 
     if (mUncompressedSamples == 0)
-      copySampleArrays(mUncompressedSamples, mUncompressedLength, mSamples, mSamplesLength);
+      copySampleArrays(mUncompressedSamples, mUncompressedLength, samples, length);
   }
   else
   {
-    copySampleArrays(mUncompressedSamples, mUncompressedLength, mSamples, mSamplesLength);
+    copySampleArrays(mUncompressedSamples, mUncompressedLength, samples, mSamplesLength);
   }
 
+  delete[] samples;
+
+}
+
+int 
+SampledField::uncompress()
+{
+  if (mCompression != SPATIAL_COMPRESSIONKIND_DEFLATED)
+    return LIBSBML_OPERATION_SUCCESS;
+
+  unsigned int length;
+  int* samples = readSamplesFromString<int>(mSamples, length);
+  if (samples == NULL) 
+    return LIBSBML_OPERATION_SUCCESS;
+
+  char* csamples = (char*)malloc(sizeof(char) * length);
+  for (int i = 0; i < mSamplesLength; ++i)
+    csamples[i] = (char)samples[i];
+  
+  mSamples = SampledField::uncompress_data(csamples, length);
+  mCompression = SPATIAL_COMPRESSIONKIND_UNCOMPRESSED;
+  free(csamples);
+  delete[] samples;
+
+}
+
+int SampledField::compress(int level)
+{
+  unsigned char* result; int length;
+  compress_data(const_cast<char*>(mSamples.c_str()), mSamples.length(), level, result, length);
+
+  setSamples(result, length);
+  free(result);
+
+  mCompression = SPATIAL_COMPRESSIONKIND_DEFLATED;
+  return 0;
 }
 
 unsigned int 
 SampledField::getUncompressedLength()
 {
   if (mUncompressedSamples == NULL)
-    uncompress();
+    uncompressLegacy();
   return mUncompressedLength;
 }
 
@@ -1894,7 +2138,9 @@ SampledField::getUncompressed(int* outputSamples)
 {
   if (outputSamples == NULL) return;
   if (mUncompressedSamples == NULL)
-    uncompress();
+    uncompressLegacy();
+  if (mUncompressedSamples == NULL)
+    return;
   memcpy(outputSamples , mUncompressedSamples, sizeof(int)*mUncompressedLength);   
 }
 
@@ -1908,17 +2154,15 @@ SampledField::freeUncompressed()
 }
 
 
-void 
-SampledField::uncompress_data(void *data, size_t length, int*& result, int& outLength)
+std::string 
+SampledField::uncompress_data(void *data, size_t length)
 {
+  std::stringstream str;
 #ifndef USE_ZLIB
   // throwing an exception won't help our users, better set the result array and length to NULL. 
   // throw ZlibNotLinked();
-  outLength = 0;
-  result = NULL;  
+  return "";
 #else
-  std::vector<char> buffer;
-
  const size_t BUFSIZE = 128 * 1024;
  Bytef temp_buffer[BUFSIZE];
 
@@ -1937,13 +2181,11 @@ SampledField::uncompress_data(void *data, size_t length, int*& result, int& outL
   res = inflate(&strm, Z_NO_FLUSH);
   if (res < 0)
   {
-    outLength = 0;
-    result = NULL;
-    break;
+    return "";
   }
   if (strm.avail_out == 0)
   {
-   buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE);
+   str << std::string(temp_buffer, temp_buffer + BUFSIZE);
    strm.next_out = reinterpret_cast<Bytef *>(temp_buffer);
    strm.avail_out = BUFSIZE;
   }
@@ -1954,25 +2196,21 @@ SampledField::uncompress_data(void *data, size_t length, int*& result, int& outL
  {
   if (strm.avail_out == 0)
   {
-   buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE);
+   str << std::string(temp_buffer, temp_buffer + BUFSIZE);
    strm.next_out = reinterpret_cast<Bytef *>(temp_buffer);
    strm.avail_out = BUFSIZE;
   }
   res = inflate(&strm, Z_FINISH);
   if (res < 0)
   {
-    outLength = 0;
-    result = NULL;
+    return "";
   }
  }
 
- buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE - strm.avail_out);
+ str << std::string(temp_buffer, temp_buffer + BUFSIZE - strm.avail_out);
  inflateEnd(&strm);
 
- outLength = buffer.size();
- result = (int*) malloc(sizeof(int)*outLength);
- for (int i = 0; i < outLength; i++)
-   result[i] = buffer[i];
+ return str.str();
 #endif
 }
 
@@ -1985,6 +2223,144 @@ SampledField::copySampleArrays(int* &target, int& targetLength, int* source, int
     memcpy(target, source, sizeof(int)*sourceLength);
 }
 
+void SampledField::uncompress_data(void* data, size_t length, int*& result, int& outLength)
+{
+#ifndef USE_ZLIB
+  // throwing an exception won't help our users, better set the result array and length to NULL. 
+  // throw ZlibNotLinked();
+  outLength = 0;
+  result = NULL;
+#else
+  std::vector<char> buffer;
+
+  const size_t BUFSIZE = 128 * 1024;
+  Bytef temp_buffer[BUFSIZE];
+
+  z_stream strm;
+  strm.zalloc = 0;
+  strm.zfree = 0;
+  strm.next_in = reinterpret_cast<Bytef*>(data);
+  strm.avail_in = length;
+  strm.next_out = reinterpret_cast<Bytef*>(temp_buffer);
+  strm.avail_out = BUFSIZE;
+
+  int res = inflateInit(&strm);
+
+  while (strm.avail_in != 0)
+  {
+    res = inflate(&strm, Z_NO_FLUSH);
+    if (res < 0)
+    {
+      outLength = 0;
+      result = NULL;
+      break;
+    }
+    if (strm.avail_out == 0)
+    {
+      buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE);
+      strm.next_out = reinterpret_cast<Bytef*>(temp_buffer);
+      strm.avail_out = BUFSIZE;
+    }
+  }
+
+  res = Z_OK;
+  while (res == Z_OK)
+  {
+    if (strm.avail_out == 0)
+    {
+      buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE);
+      strm.next_out = reinterpret_cast<Bytef*>(temp_buffer);
+      strm.avail_out = BUFSIZE;
+    }
+    res = inflate(&strm, Z_FINISH);
+    if (res < 0)
+    {
+      outLength = 0;
+      result = NULL;
+    }
+  }
+
+  buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE - strm.avail_out);
+  inflateEnd(&strm);
+
+  outLength = buffer.size();
+  result = (int*)malloc(sizeof(int) * outLength);
+  if (result == NULL)
+    return;
+  for (int i = 0; i < outLength; i++)
+    result[i] = buffer[i];
+#endif
+}
+
+
+void SampledField::compress_data(void* data, size_t length,int level, unsigned char*& result, int& outLength)
+{
+#ifndef USE_ZLIB
+  // throwing an exception won't help our users, better set the result array and length to NULL. 
+  // throw ZlibNotLinked();
+  outLength = 0;
+  result = NULL;
+#else
+  std::vector<char> buffer;
+
+  const size_t BUFSIZE = 128 * 1024;
+  Bytef temp_buffer[BUFSIZE];
+
+  z_stream strm;
+  strm.zalloc = 0;
+  strm.zfree = 0;
+  strm.next_in = reinterpret_cast<Bytef*>(data);
+  strm.avail_in = length;
+  strm.next_out = reinterpret_cast<Bytef*>(temp_buffer);
+  strm.avail_out = BUFSIZE;
+
+  int res = deflateInit(&strm, level);
+
+  while (strm.avail_in != 0)
+  {
+    res = deflate(&strm, Z_NO_FLUSH);
+    if (res < 0)
+    {
+      outLength = 0;
+      result = NULL;
+      break;
+    }
+    if (strm.avail_out == 0)
+    {
+      buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE);
+      strm.next_out = reinterpret_cast<Bytef*>(temp_buffer);
+      strm.avail_out = BUFSIZE;
+    }
+  }
+
+  res = Z_OK;
+  while (res == Z_OK)
+  {
+    if (strm.avail_out == 0)
+    {
+      buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE);
+      strm.next_out = reinterpret_cast<Bytef*>(temp_buffer);
+      strm.avail_out = BUFSIZE;
+    }
+    res = deflate(&strm, Z_FINISH);
+    if (res < 0)
+    {
+      outLength = 0;
+      result = NULL;
+    }
+  }
+
+  buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE - strm.avail_out);
+  deflateEnd(&strm);
+
+  outLength = buffer.size();
+  result = (unsigned char*)malloc(sizeof(int) * outLength);
+  if (result == NULL)
+    return;
+  for (int i = 0; i < outLength; i++)
+    result[i] = (unsigned char) buffer[i];
+#endif
+}
 
 
 #endif /* __cplusplus */
