@@ -2074,7 +2074,7 @@ SampledField::uncompressLegacy()
   if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
   {
     char* csamples = (char*)malloc(sizeof(char) * length);
-    for (int i = 0; i < mSamplesLength; ++i)
+    for (int i = 0; i < length; ++i)
       csamples[i] = (char)samples[i];
     SampledField::uncompress_data(csamples, length, mUncompressedSamples, mUncompressedLength);
     free(csamples);
@@ -2103,7 +2103,7 @@ SampledField::uncompress()
     return LIBSBML_OPERATION_SUCCESS;
 
   char* csamples = (char*)malloc(sizeof(char) * length);
-  for (int i = 0; i < mSamplesLength; ++i)
+  for (int i = 0; i < length; ++i)
     csamples[i] = (char)samples[i];
 
   mSamples = SampledField::uncompress_data(csamples, length);
