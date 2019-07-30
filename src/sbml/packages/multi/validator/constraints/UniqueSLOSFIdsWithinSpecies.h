@@ -1,7 +1,7 @@
 /**
  * @cond doxygenLibsbmlInternal
  *
- * @file    UniqueSubListOfSpeciesFeaturesIdsWithinSpecies.h
+ * @file    UniqueSLOSFIdsWithinSpecies.h
  * @brief   Ensures the SpeciesFeature ids within a Species are unique
  * @author  Fengkai Zhang
  * 

@@ -1,7 +1,7 @@
   /** @cond doxygenLibsbmlInternal */
 
 /**
- * @file:   MultiConsistencyConstraints.cpp
+ * @file:   MultiMathMLConsistencyConstraints.cpp
  * @brief:  Implementation of the MultiConsistencyConstraints class
  * @author: Fengkai Zhang
  *

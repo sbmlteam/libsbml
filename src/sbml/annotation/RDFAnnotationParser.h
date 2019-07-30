@@ -1,5 +1,5 @@
 /**
- * @file    RDFAnnotation.h
+ * @file    RDFAnnotationParser.h
  * @brief   RDFAnnotation I/O
  * @author  Sarah Keating
  * 

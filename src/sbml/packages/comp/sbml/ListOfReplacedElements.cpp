@@ -1,6 +1,6 @@
 /**
- * @file    ReplacedElement.cpp
- * @brief   Implementation of ReplacedElement, the Subelement derived class of replacedElements package.
+ * @file    ListOfReplacedElements.cpp
+ * @brief   Implementation of ListOfReplacedElements from the comp package.
  * @author  Lucian Smith
  *
  *<!---------------------------------------------------------------------------

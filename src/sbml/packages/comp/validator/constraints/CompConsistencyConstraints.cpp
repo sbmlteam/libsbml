@@ -1,7 +1,7 @@
 /**
  * @cond doxygenLibsbmlInternal
  *
- * @file    IdentifierConsistencyConstraints.cpp
+ * @file    CompConsistencyConstraints.cpp
  * @brief   IdentifierConsistency check constraints.  See SBML Wiki
  * @author  Sarah Keating
  * 

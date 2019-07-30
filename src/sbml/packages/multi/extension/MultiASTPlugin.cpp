@@ -129,6 +129,7 @@ MultiASTPlugin::writeElements (XMLOutputStream& stream) const
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBML object of this plugin object to
  * this object and child elements (if any).
@@ -141,6 +142,7 @@ MultiASTPlugin::connectToParent(ASTNode* astbase)
   ASTBasePlugin::connectToParent(astbase);
 
 }
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal *//*

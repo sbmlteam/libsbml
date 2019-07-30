@@ -1,5 +1,5 @@
 /**
- * @file    DefinitionURLRegistry.h
+ * @file    DefinitionURLRegistry.cpp
  * @brief   Implementation of DefinitionURLRegistry, a registry of available DefinitionURLs.
  * @author  Frank Bergmann
  * 

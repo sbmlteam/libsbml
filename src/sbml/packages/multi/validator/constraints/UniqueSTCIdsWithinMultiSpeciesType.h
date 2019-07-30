@@ -1,7 +1,7 @@
 /**
  * @cond doxygenLibsbmlInternal
  *
- * @file    UniqueSpeciesTypeComponentIndexIdsWithinMultiSpeciesType.h
+ * @file    UniqueSTCIdsWithinMultiSpeciesType.h
  * @brief   Ensures the SpeciesTypeComponentIndex ids within a SpeciesType are unique
  * @author  Fengkai Zhang
  * 

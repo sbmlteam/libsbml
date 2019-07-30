@@ -1,7 +1,7 @@
 /**
  * @cond doxygenLibsbmlInternal
  *
- * @file    CompatibilityConstraints.cpp
+ * @file    CompatibilityConstraints.cxx
  * @brief   Compability constraint code
  * @author  Sarah Keating
  * 

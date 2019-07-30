@@ -329,7 +329,6 @@ bool L3ParserSettings::getParseL3v2Functions() const
   return true;
 }
 
-
 void L3ParserSettings::setParsePackageMath(ExtendedMathType_t package, bool parsepackage)
 {
   mParsePackages[package] = parsepackage;

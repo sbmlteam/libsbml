@@ -1,6 +1,6 @@
 
 /**
- * @file    SBMLLevelVersionConverter.cpp
+ * @file    SBMLRuleConverter.cpp
  * @brief   Implementation of SBMLRuleConverter, a converter sorting rules
  * @author  Frank Bergmann 
  * 

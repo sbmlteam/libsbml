@@ -1,5 +1,5 @@
 /**
- * @file    L3FormulaFormatter.c
+ * @file    L3FormulaFormatter.cpp
  * @brief   Formats an AST formula tree as an SBML L3 formula string.
  * @author  Lucian Smith (from FormulaFormatter, by Ben Bornstein)
  *

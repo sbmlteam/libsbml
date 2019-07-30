@@ -1,5 +1,5 @@
 /**
- * @file    SBMLConverterRegistry.h
+ * @file    SBMLConverterRegistry.cpp
  * @brief   Implementation of SBMLConverterRegistry, a registry of available converters.
  * @author  Frank Bergmann
  * 

@@ -1,7 +1,7 @@
 /**
  * @cond doxygenLibsbmlInternal
  *
- * @file    UniqueInSpeciesTypeBondIdsWithinMultiSpeciesType.cpp
+ * @file    UniqueISTBIdsWithinMultiSpeciesType.cpp
  * @brief   Ensures the InSpeciesTypeBond ids within a MultiSpeciesType are unique
  * @author  Fengkai Zhang
  * 

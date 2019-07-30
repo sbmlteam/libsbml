@@ -544,7 +544,14 @@ public:
    * @sbmlconstant{L3P_COMPARE_BUILTINS_CASE_SENSITIVE,}, symbols are
    * interpreted in a case-sensitive manner.
    *
-   * @param modulol3v2 ("modulo l3v2") a flag that controls how the
+   * @param sbmlns ("SBML namespaces") an SBML namespaces object.  The
+   * namespaces identify the SBML Level&nbsp;3 packages that can extend the
+   * syntax understood by the formula parser.  When non-@c NULL, the parser
+   * will interpret additional syntax defined by the packages; for example,
+   * it may understand vector/array extensions introduced by the SBML
+   * Level&nbsp;3 @em Arrays package.
+   *
+   * @param moduloL3v2 ("modulo l3v2") a flag that controls how the
    * parser will handle the '%' ('modulo') symbol in formulas.  By default, 
    * the parser will convert 'a % b' to a piecewise function that properly
    * calculates the remainder of a with respect to be, but the parser can
@@ -555,12 +562,13 @@ public:
    * @sbmlconstant{L3P_MODULO_IS_PIECEWISE,} (to parse '%' as a piecewise function) and
    * @sbmlconstant{L3P_MODULO_IS_REM,} (to parse '%' as @c rem).
    *
-   * @param sbmlns ("SBML namespaces") an SBML namespaces object.  The
-   * namespaces identify the SBML Level&nbsp;3 packages that can extend the
-   * syntax understood by the formula parser.  When non-@c NULL, the parser
-   * will interpret additional syntax defined by the packages; for example,
-   * it may understand vector/array extensions introduced by the SBML
-   * Level&nbsp;3 @em Arrays package.
+   * @param l3v2functions ("l3v2 functions") a flag that controls how the
+   * parser will handle the functions added to SBML Level~3 Version~2 (namely,
+   * 'rateOf', 'implies', 'max', 'min', 'quotient', and 'rem').  By 
+   * default, the parser will convert them to FunctionDefinitions with those names,
+   * but if set to @c true (
+   * (@sbmlconstant{L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY,}), the parser will convert
+   * them to their respective L3v2 equivalents.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    *
@@ -914,7 +922,7 @@ public:
   * values are as follows:
   * @copydetails doc_l3v2_function_values
   *
-  * @see setParsePackageMath(@if java boolean@endif)
+  * @see setParseL3v2Functions(@if java boolean@endif)
   */
   bool getParseL3v2Functions() const;
 
@@ -932,12 +940,14 @@ public:
   *
   * @copydetails doc_package_math_values
   *
-  * @param l3v2functions a boolean value (one of the constants
+  * @param package an ExtendedMathType_t indicating the extended math package
+  * to be queried.
+  * @param parsepackage a boolean value (one of the constants
   * @sbmlconstant{L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY,} or
   * @sbmlconstant{L3P_PARSE_L3V2_FUNCTIONS_AS_GENERIC,})
   * indicating how to interpret those function names.
   *
-  * @see getParsePackageMath()
+  * @see getParsePackageMath(@if java ExtendedMathType_t@endif)
   */
   void setParsePackageMath(ExtendedMathType_t package, bool parsepackage);
 
@@ -948,11 +958,14 @@ public:
   *
   * @copydetails doc_package_math_settings
   *
+  * @param package an ExtendedMathType_t indicating the extended math package
+  * to be set.
+  *
   * @return A boolean indicating the behavior currently set.  The possible
   * values are as follows:
   * @copydetails doc_package_math_values
   *
-  * @see setParsePackageMath(@if java boolean@endif)
+  * @see setParsePackageMath(@if java ExtendedMathType_t, boolean@endif)
   */
   bool getParsePackageMath(ExtendedMathType_t package) const;
 
@@ -975,7 +988,6 @@ public:
 
 private:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * This function checks the provided ASTNode function to see if it is a
    * known function with the wrong number of arguments.  If so, the error is
@@ -985,8 +997,10 @@ private:
    */
   bool checkNumArgumentsForPackage(const ASTNode* function,
                                    std::stringstream& error) const;
+  /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * The generic parsing function for grammar lines that packages recognize,
    * but not core.  When a package recognizes the 'type', it will parse and
@@ -997,8 +1011,10 @@ private:
                                      std::vector<ASTNode*> *nodeList = NULL,
                                      std::vector<std::string*> *stringList = NULL,
                                      std::vector<double> *doubleList = NULL) const;
+  /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * The user input a string of the form "name(...)", and we want to know if
    * 'name' is recognized by a package as being a particular function.  We
@@ -1007,8 +1023,10 @@ private:
    * or AST_UNKNOWN if nothing found.
    */
   ASTNodeType_t getPackageFunctionFor(const std::string& name) const;
+  /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * The user input a string of the form "name" with no parentheses, and we want to know if
    * 'name' is recognized by a package as being a particular function.  We
@@ -1017,6 +1035,7 @@ private:
    * or AST_UNKNOWN if nothing found.
    */
   ASTNodeType_t getPackageSymbolFor(const std::string& name) const;
+  /** @endcond */
 
 
 };
@@ -1252,6 +1271,8 @@ L3ParserSettings_getParseAvogadroCsymbol (const L3ParserSettings_t * settings);
 * represented using the following constants:
 *
 * @copydetails doc_modulo_l3v2_values
+*
+* @param settings the L3ParserSettings_t structure from which to get the option.
 *
 * @param modulol3v2 a boolean value (one of the constants
 * @sbmlconstant{L3P_MODULO_IS_PIECEWISE,} or

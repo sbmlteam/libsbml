@@ -30,7 +30,6 @@
 
 #include <sbml/packages/render/util/RenderLayoutConverter.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
-#include <sbml/conversion/SBMLConverterRegister.h>
 
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/extension/SBasePlugin.h>

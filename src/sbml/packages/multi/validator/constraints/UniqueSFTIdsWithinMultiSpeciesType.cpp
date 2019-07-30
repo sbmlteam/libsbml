@@ -1,7 +1,7 @@
 /**
  * @cond doxygenLibsbmlInternal
  *
- * @file    UniqueSpeciesFeatureTypeIdsWithinMultiSpeciesType.cpp
+ * @file    UniqueSFTIdsWithinMultiSpeciesType.cpp
  * @brief   Ensures the SpeciesFeatureType ids within a MultiSpeciesType are unique
  * @author  Fengkai Zhang
  * 

@@ -1,5 +1,5 @@
 /**
- * @file    SBMLResolverRegistry.h
+ * @file    SBMLResolverRegistry.cpp
  * @brief   Implementation of SBMLResolverRegistry, a registry of available resolvers.
  * @author  Frank Bergmann
  *

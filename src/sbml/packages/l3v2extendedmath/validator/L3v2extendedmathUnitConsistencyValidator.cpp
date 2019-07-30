@@ -2,8 +2,8 @@
 /** @cond doxygenLibsbmlInternal */
 
 /**
- * @file L3v2extendedmathConsistencyValidator.cpp
- * @brief Definition of L3v2extendedmathConsistencyValidator.
+ * @file L3v2extendedmathUnitConsistencyValidator.cpp
+ * @brief Definition of L3v2extendedmathUnitConsistencyValidator.
  * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------

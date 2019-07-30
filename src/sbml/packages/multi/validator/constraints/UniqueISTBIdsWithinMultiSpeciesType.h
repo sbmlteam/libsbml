@@ -1,7 +1,7 @@
 /**
  * @cond doxygenLibsbmlInternal
  *
- * @file    UniqueInSpeciesTypeBondIdsWithinMultiSpeciesType.h
+ * @file    UniqueISTBIdsWithinMultiSpeciesType.h
  * @brief   Ensures the InSpeciesTypeBond ids within a MultiSpeciesType are unique
  * @author  Fengkai Zhang
  * 

@@ -1341,7 +1341,7 @@ GradientBase_getName(const GradientBase_t * gb);
  *
  * @copydetails doc_gradientbase_spreadMethod
  * @if clike The value is drawn from the enumeration
- * GradientSpreadMethod_t.@~
+ * GradientSpreadMethod_t. @endif@~
  * The possible values returned by this method are:
  * @li @sbmlconstant{GRADIENT_SPREADMETHOD_PAD, GradientSpreadMethod_t}
  * @li @sbmlconstant{GRADIENT_SPREADMETHOD_REFLECT, GradientSpreadMethod_t}

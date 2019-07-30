@@ -1,7 +1,7 @@
 /**
  * @cond doxygenLibsbmlInternal
  *
- * @file    MetaIdFilterFilter.h
+ * @file    MetaIdFilter.cpp
  * @brief   Filter to return only elements with a metaid set
  * @author  Sarah Keating
  * 

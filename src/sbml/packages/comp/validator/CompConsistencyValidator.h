@@ -1,7 +1,7 @@
 /**
  * @cond doxygenLibsbmlInternal
  *
- * @file    IdentifierConsistencyValidator.h
+ * @file    CompConsistencyValidator.h
  * @brief   Performs consistency checks on an SBML model
  * @author  Sarah Keating
  * 

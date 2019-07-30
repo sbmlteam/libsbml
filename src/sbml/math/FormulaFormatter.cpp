@@ -1,5 +1,5 @@
 /**
- * @file    FormulaFormatter.c
+ * @file    FormulaFormatter.cpp
  * @brief   Formats an AST formula tree as an SBML formula string.
  * @author  Ben Bornstein
  * 

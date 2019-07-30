@@ -1,7 +1,7 @@
 /**
  * @cond doxygenLibsbmlInternal
  *
- * @file    IdentifierConsistencyValidator.cpp
+ * @file    CompUnitConsistencyValidator.cpp
  * @brief   Checks an SBML model for structural consistency
  * @author  Sarah Keating
  * 

@@ -1,6 +1,6 @@
 /**
- * @file    ModelDefinition.cpp
- * @brief   Implementation of ModelDefinition, the Subelement derived class of modelDefinitions package.
+ * @file    ListOfModelDefinitions.cpp
+ * @brief   Implementation of ListOfModelDefinitions from the comp package.
  * @author  Lucian Smith
  *
  *<!---------------------------------------------------------------------------

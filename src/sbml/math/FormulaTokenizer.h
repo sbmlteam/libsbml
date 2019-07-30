@@ -64,7 +64,7 @@
  * tokenizer system, such as FormulaTokenizer_createFromFormula() and
  * FormulaTokenizer_getName().
  * 
- * @copydetails doc_warning_L1_math_string_syntax
+ * @copydetails doc_note_l3_parser_encouraged
  */
 
 #ifndef FormulaTokenizer_h
@@ -217,7 +217,7 @@ typedef struct
  * @see FormulaTokenizer_nextToken()
  * @see FormulaTokenizer_free()
  *
- * @copydetails doc_warning_L1_math_string_syntax
+ * @copydetails doc_note_l3_parser_encouraged
  *
  * @if conly
  * @memberof FormulaTokenizer_t
@@ -272,7 +272,7 @@ FormulaTokenizer_free (FormulaTokenizer_t *ft);
  * @see FormulaTokenizer_free()
  * @see FormulaTokenizer_createFromFormula()
  *
- * @copydetails doc_warning_L1_math_string_syntax
+ * @copydetails doc_note_l3_parser_encouraged
  *
  * @if conly
  * @memberof FormulaTokenizer_t

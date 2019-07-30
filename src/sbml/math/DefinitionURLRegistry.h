@@ -93,7 +93,8 @@ public:
   /**
    * Adds the given DefinitionURL to the registry of SBML DefinitionURLs.
    *
-   * @param DefinitionURL the DefinitionURL to add to the registry.
+   * @param url the DefinitionURL to add to the registry.
+   * @param type the ASTNodeType_t of the URL to add to the registry.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

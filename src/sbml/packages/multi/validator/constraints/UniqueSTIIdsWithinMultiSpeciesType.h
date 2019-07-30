@@ -1,7 +1,7 @@
 /**
  * @cond doxygenLibsbmlInternal
  *
- * @file    UniqueSpeciesTypeInstanceIdsWithinMultiSpeciesType.h
+ * @file    UniqueSTIIdsWithinMultiSpeciesType.h
  * @brief   Ensures the SpeciesTypeInstance ids within a MultiSpeciesType are unique
  * @author  Fengkai Zhang
  * 

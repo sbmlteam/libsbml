@@ -1077,8 +1077,8 @@
  * @li <code>unsigned int @link ASTNode::getNumChildren() getNumChildren()
  * @endlink</code> returns the number of children of this AST node or
  * <code>0</code> is this node has no children.
- * @li <code>void @link ASTNode::addChild(ASTNode* child) addChild(ASTNode*
- * child)@endlink</code> adds the given node as a child of this AST node.
+ * @li <code>void @link ASTNode::addChild(ASTNode* child, bool inRead) addChild(ASTNode*
+ * child, bool inRead)@endlink</code> adds the given node as a child of this AST node.
  * Child nodes are added in left-to-right order.
  * @li <code>void @link ASTNode::prependChild(ASTNode* child)
  * prependChild(ASTNode* child)@endlink</code> adds the given node as a child
@@ -3929,6 +3929,22 @@ if (lmp != null)
  * <li> @c "ANY": The style is to be applied to any and all glyphs and 
  * graphical objects.  Equivalent to explicitly listing all other keywords.
  *
+ * </ul>
+ * <!-- ------------------------------------------------------------------- -->
+ *
+ * @class doc_render_spreadMethod
+ *
+ * @par
+ * The attribute "spreadMethod" for GradientBase objects defines how gradients 
+ * propagate over the whole element they are applied to. It is an enumeration 
+ * consisting of the following three values called pad, reflect or repeat:
+ * <ul>
+ * <li> @c "PAD": the gradient color at the endpoint of the vector defines 
+ * how the gradient is continued beyond that point (default value).
+ * <li> @c "REFLECT": the gradient continues from end to start and then from 
+ * start to end again and again.
+ * <li> @c "REPEAT": the gradient pattern is repeated from start to end over 
+ * and over again.
  * </ul>
  * <!-- ------------------------------------------------------------------- -->
  *

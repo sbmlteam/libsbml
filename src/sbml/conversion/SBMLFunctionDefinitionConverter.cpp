@@ -1,6 +1,6 @@
 
 /**
- * @file    SBMLLevelVersionConverter.cpp
+ * @file    SBMLFunctionDefinitionConverter.cpp
  * @brief   Implementation of SBMLFunctionDefinitionConverter, a converter replacing function definitions
  * @author  Frank Bergmann 
  * 

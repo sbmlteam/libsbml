@@ -1,6 +1,6 @@
 /**
- * @file:   SpeciesFeature.cpp
- * @brief:  Implementation of the SpeciesFeature class
+ * @file:   SubListOfSpeciesFeatures.cpp
+ * @brief:  Implementation of the SubListOfSpeciesFeatures class
  * @author: SBMLTeam
  *
  * <!--------------------------------------------------------------------------

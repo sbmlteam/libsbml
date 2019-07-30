@@ -1,7 +1,7 @@
 /**
  * @cond doxygenLibsbmlInternal
  *
- * @file    UniqueCompartmentReferenceIdsWithinCompartment.h
+ * @file    UniqueCRefIdsWithinCompartment.h
  * @brief   Ensures the CompartmentReference ids within a Compartment are unique
  * @author  Fengkai Zhang
  * 

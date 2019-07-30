@@ -2,7 +2,7 @@
 /** @cond doxygenLibsbmlInternal */
 
 /**
- * @file L3v2extendedmathConsistencyConstraints.cpp
+ * @file L3v2extendedmathMathMLConsistencyConstraints.cpp
  * @brief Definition of L3v2extendedmathConsistencyConstraints.
  * @author SBMLTeam
  *

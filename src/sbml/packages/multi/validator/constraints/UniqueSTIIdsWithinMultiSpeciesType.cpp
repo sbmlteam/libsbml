@@ -1,7 +1,7 @@
 /**
  * @cond doxygenLibsbmlInternal
  *
- * @file    UniqueSpeciesTypeInstanceIdsWithinMultiSpeciesType.cpp
+ * @file    UniqueSTIIdsWithinMultiSpeciesType.cpp
  * @brief   Ensures the SpeciesTypeInstance ids within a MultiSpeciesType are unique
  * @author  Fengkai Zhang
  * 

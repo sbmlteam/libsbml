@@ -1,5 +1,5 @@
 /**
- * @file    FormulaTokenizer.c
+ * @file    FormulaTokenizer.cpp
  * @brief   Tokenizes an SBML formula string
  * @author  Ben Bornstein
  * 

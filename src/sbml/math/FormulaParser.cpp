@@ -1,5 +1,5 @@
 /**
- * @file    FormulaParser.c
+ * @file    FormulaParser.cpp
  * @brief   Parses an SBML formula string into an AST.
  * @author  Ben Bornstein
  * 

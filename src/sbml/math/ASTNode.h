@@ -123,7 +123,7 @@
  * 
  * @htmlinclude math-functions.html
  * 
- * @copydetails doc_warning_L1_math_string_syntax
+ * @copydetails doc_note_l3_parser_encouraged
  *
  * @if clike @see SBML_parseL3Formula()@endif@~
  * @if csharp @see SBML_parseL3Formula()@endif@~
@@ -313,6 +313,9 @@ public:
    * Child nodes are added in-order, from left to right.
    *
    * @param disownedChild the ASTNode instance to add
+   * @param inRead @c false by default; may be set to @c true when 
+   * reading XML where there may be a lambda function with no
+   * bvar arguments.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -553,8 +556,8 @@ getChild( getNumChildren() - 1 );
    *
    * For portability between different programming languages, the predicate
    * is passed in as a pointer to a function.  @if clike The function
-   * definition must have the type @sbmlconstant{AST_PLUS, ASTNode.h::ASTNodePredicate
-   * ASTNodePredicate@endlink, which is defined as
+   * definition must have the type 
+   * @link ASTNode.h::ASTNodePredicate ASTNodePredicate@endlink, which is defined as
    * @verbatim
 int (*ASTNodePredicate) (const ASTNode *node);
 @endverbatim

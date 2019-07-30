@@ -1,7 +1,7 @@
 /**
  * @cond doxygenLibsbmlInternal
  *
- * @file    IdFilterFilter.cpp
+ * @file    IdFilter.cpp
  * @brief   Filter to return only elements with an id set
  * @author  Sarah Keating
  * 

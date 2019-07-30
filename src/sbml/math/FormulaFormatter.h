@@ -53,7 +53,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_summary_of_string_math 
  *
- * @copydetails doc_warning_L1_math_string_syntax 
+ * @copydetails doc_note_l3_parser_encouraged 
  *
  * @param tree the AST to be converted.
  * 

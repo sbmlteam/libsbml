@@ -1,5 +1,5 @@
 /**
- * @file    SBaseExtensionPoint.h
+ * @file    SBaseExtensionPoint.cpp
  * @brief   Implementation of SBaseExtensionPoint
  * @author  Akiya Jouraku
  * 
