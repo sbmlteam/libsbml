@@ -345,33 +345,6 @@ double util_epsilon();
 LIBSBML_EXTERN
 int util_isEqual(double a, double b);
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Function prototypes to supress gcc compiler warnings about implicit
- * declaration of isnan and finite which occur despite the inclusion of
- * math.h where they are defined.  In fact, even a simple example
- * triggers this warning:
- *
- * #include <math.h>
- *
- * int main (int argc, char **argv) { return isnan(1.0); }
- *
- *  % gcc -ansi -Wall test.c
- *  test.c:3: warning: implicit declaration of function `isnan'
- */
-#ifndef __cplusplus
-
-#if !defined(isnan)
-  int isnan  (double d);
-#endif
-
-#if !defined(finite)
-  int finite (double d);
-#endif
-
-#endif
-/** @endcond */
-
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
