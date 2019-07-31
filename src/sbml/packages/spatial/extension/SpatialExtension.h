@@ -1556,6 +1556,8 @@ typedef enum
 , SPATIAL_DATAKIND_UINT8         /*!< The spatial datakind is @c "uint8". */
 , SPATIAL_DATAKIND_UINT16        /*!< The spatial datakind is @c "uint16". */
 , SPATIAL_DATAKIND_UINT32        /*!< The spatial datakind is @c "uint32". */
+, SPATIAL_DATAKIND_UINT          /*!< The spatial datakind is @c "uint". */
+, SPATIAL_DATAKIND_INT           /*!< The spatial datakind is @c "int". */
 , SPATIAL_DATAKIND_INVALID       /*!< Invalid DataKind value. */
 } DataKind_t;
 
@@ -1566,6 +1568,8 @@ typedef enum
  * @param dk the #DataKind_t enumeration value to convert.
  *
  * @return A string corresponding to the given type:
+ * "uint",
+ * "int",
  * "double",
  * "float",
  * "uint8",
@@ -1615,6 +1619,8 @@ DataKind_fromString(const char* code);
  * @param dk the #DataKind_t enumeration to query.
  *
  * @return @c 1 (true) if the #DataKind_t is
+ * @sbmlconstant{SPATIAL_DATAKIND_UINT, DataKind_t}
+ * @sbmlconstant{SPATIAL_DATAKIND_INT, DataKind_t}
  * @sbmlconstant{SPATIAL_DATAKIND_DOUBLE, DataKind_t},
  * @sbmlconstant{SPATIAL_DATAKIND_FLOAT, DataKind_t},
  * @sbmlconstant{SPATIAL_DATAKIND_UINT8, DataKind_t},
@@ -1639,6 +1645,8 @@ DataKind_isValid(DataKind_t dk);
  * @param code the string to query.
  *
  * @return @c 1 (true) if the string is
+ * "uint",
+ * "int",
  * "double",
  * "float",
  * "uint8",

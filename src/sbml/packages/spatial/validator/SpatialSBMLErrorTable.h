@@ -934,7 +934,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The value of the attribute 'spatial:dataType' of a <sampledField> object "
     "must conform to the syntax of SBML data type 'DataKind' and may only take "
     "on the allowed values of 'DataKind' defined in SBML; that is, the value "
-    "must be one of the following: 'double', 'float', 'uint8', 'uint16' or "
+    "must be one of the following: 'uint', 'int', 'double', 'float', 'uint8', 'uint16' or "
     "'uint32'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1466,7 +1466,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The value of the attribute 'spatial:dataType' of a <parametricObject> "
     "object must conform to the syntax of SBML data type 'DataKind' and may "
     "only take on the allowed values of 'DataKind' defined in SBML; that is, "
-    "the value must be one of the following: 'double', 'float', 'uint8', "
+    "the value must be one of the following: 'uint', 'int', 'double', 'float', 'uint8', "
     "'uint16' or 'uint32'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -2925,7 +2925,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The value of the attribute 'spatial:dataType' of a <spatialPoints> object "
     "must conform to the syntax of SBML data type 'DataKind' and may only take "
     "on the allowed values of 'DataKind' defined in SBML; that is, the value "
-    "must be one of the following: 'double', 'float', 'uint8', 'uint16' or "
+    "must be one of the following: 'uint', 'int', 'double', 'float', 'uint8', 'uint16' or "
     "'uint32'.",
     { "L3V1 Spatial V1 Section"
     }

@@ -1311,6 +1311,8 @@ const char* SBML_DATA_KIND_STRINGS[] =
 , "uint8"
 , "uint16"
 , "uint32"
+, "uint"
+, "int"
 , "invalid DataKind value"
 };
 

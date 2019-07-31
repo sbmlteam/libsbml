@@ -331,6 +331,8 @@ public:
    * @copydetails doc_parametricobject_dataType
    * @if clike The value is drawn from the enumeration @ref DataKind_t @endif
    * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_DATAKIND_UINT, DataKind_t}
+   * @li @sbmlconstant{SPATIAL_DATAKIND_INT, DataKind_t}
    * @li @sbmlconstant{SPATIAL_DATAKIND_DOUBLE, DataKind_t}
    * @li @sbmlconstant{SPATIAL_DATAKIND_FLOAT, DataKind_t}
    * @li @sbmlconstant{SPATIAL_DATAKIND_UINT8, DataKind_t}
@@ -349,6 +351,8 @@ public:
    *
    * @copydetails doc_parametricobject_dataType
    * The possible values returned by this method are:
+   * @li @c "uint"
+   * @li @c "int"
    * @li @c "double"
    * @li @c "float"
    * @li @c "uint8"
@@ -1345,6 +1349,8 @@ ParametricObject_getCompressionAsString(const ParametricObject_t * po);
  * @copydetails doc_parametricobject_dataType
  * @if clike The value is drawn from the enumeration @ref DataKind_t @endif
  * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_DATAKIND_UINT, DataKind_t}
+ * @li @sbmlconstant{SPATIAL_DATAKIND_INT, DataKind_t}
  * @li @sbmlconstant{SPATIAL_DATAKIND_DOUBLE, DataKind_t}
  * @li @sbmlconstant{SPATIAL_DATAKIND_FLOAT, DataKind_t}
  * @li @sbmlconstant{SPATIAL_DATAKIND_UINT8, DataKind_t}
@@ -1371,6 +1377,8 @@ ParametricObject_getDataType(const ParametricObject_t * po);
  *
  * @copydetails doc_parametricobject_dataType
  * The possible values returned by this method are:
+ * @li @c "uint"
+ * @li @c "int"
  * @li @c "double"
  * @li @c "float"
  * @li @c "uint8"

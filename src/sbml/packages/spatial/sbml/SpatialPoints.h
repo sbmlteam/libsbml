@@ -73,16 +73,19 @@
  * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
  * allowable values for "dataType":
  * <ul>
- * <li> @c "double", TODO:add description
+ * <li> @c "uint", unsigned integer
  *
- * <li> @c "float", TODO:add description
+ * <li> @c "int", signed integer
  *
- * <li> @c "uint8", TODO:add description
+ * <li> @c "double", double-precision floating value
  *
- * <li> @c "uint16", TODO:add description
+ * <li> @c "float", single-precision floating value
  *
- * <li> @c "uint32", TODO:add description
+ * <li> @c "uint8", 8-bit unsigned integer
  *
+ * <li> @c "uint16", 16-bit unsigned integer
+ *
+ * <li> @c "uint32", 32-bit unsigned integer
  * </ul>
  */
 
@@ -269,6 +272,8 @@ public:
    * @copydetails doc_spatialpoints_dataType
    * @if clike The value is drawn from the enumeration @ref DataKind_t @endif
    * The possible values returned by this method are:
+   * @li @sbmlconstant{SPATIAL_DATAKIND_UINT, DataKind_t}
+   * @li @sbmlconstant{SPATIAL_DATAKIND_INT, DataKind_t}
    * @li @sbmlconstant{SPATIAL_DATAKIND_DOUBLE, DataKind_t}
    * @li @sbmlconstant{SPATIAL_DATAKIND_FLOAT, DataKind_t}
    * @li @sbmlconstant{SPATIAL_DATAKIND_UINT8, DataKind_t}
@@ -287,6 +292,8 @@ public:
    *
    * @copydetails doc_spatialpoints_dataType
    * The possible values returned by this method are:
+   * @li @c "uint"
+   * @li @c "int"
    * @li @c "double"
    * @li @c "float"
    * @li @c "uint8"
@@ -1118,6 +1125,8 @@ SpatialPoints_getArrayDataLength(const SpatialPoints_t * sp);
  * @copydetails doc_spatialpoints_dataType
  * @if clike The value is drawn from the enumeration @ref DataKind_t @endif
  * The possible values returned by this method are:
+ * @li @sbmlconstant{SPATIAL_DATAKIND_UINT, DataKind_t}
+ * @li @sbmlconstant{SPATIAL_DATAKIND_INT, DataKind_t}
  * @li @sbmlconstant{SPATIAL_DATAKIND_DOUBLE, DataKind_t}
  * @li @sbmlconstant{SPATIAL_DATAKIND_FLOAT, DataKind_t}
  * @li @sbmlconstant{SPATIAL_DATAKIND_UINT8, DataKind_t}
@@ -1144,6 +1153,8 @@ SpatialPoints_getDataType(const SpatialPoints_t * sp);
  *
  * @copydetails doc_spatialpoints_dataType
  * The possible values returned by this method are:
+ * @li @c "uint"
+ * @li @c "int"
  * @li @c "double"
  * @li @c "float"
  * @li @c "uint8"
