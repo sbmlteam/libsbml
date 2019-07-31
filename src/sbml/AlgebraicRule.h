@@ -222,7 +222,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this AlgebraicRule.
+   * Returns the value of the "attributeName" attribute of this AlgebraicRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -242,7 +242,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this AlgebraicRule.
+   * Returns the value of the "attributeName" attribute of this AlgebraicRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -261,7 +261,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this AlgebraicRule.
+   * Returns the value of the "attributeName" attribute of this AlgebraicRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -281,7 +281,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this AlgebraicRule.
+   * Returns the value of the "attributeName" attribute of this AlgebraicRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -301,7 +301,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this AlgebraicRule.
+   * Returns the value of the "attributeName" attribute of this AlgebraicRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -321,7 +321,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this AlgebraicRule.
+   * Returns the value of the "attributeName" attribute of this AlgebraicRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -599,7 +599,7 @@ AlgebraicRule_clone(AlgebraicRule_t * ar);
 
 
 /**
- * Gets the mathematical expression of this AlgebraicRule_t structure as an
+ * Returns the mathematical expression of this AlgebraicRule_t structure as an
  * ASTNode_t structure.
  *
  * @param ar the AlgebraicRule_t structure.

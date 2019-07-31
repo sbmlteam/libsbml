@@ -144,7 +144,7 @@ AlgebraicRule::getInternalIdOnly() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this AlgebraicRule.
+ * Returns the value of the "attributeName" attribute of this AlgebraicRule.
  */
 int
 AlgebraicRule::getAttribute(const std::string& attributeName,
@@ -162,7 +162,7 @@ AlgebraicRule::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this AlgebraicRule.
+ * Returns the value of the "attributeName" attribute of this AlgebraicRule.
  */
 int
 AlgebraicRule::getAttribute(const std::string& attributeName,
@@ -180,7 +180,7 @@ AlgebraicRule::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this AlgebraicRule.
+ * Returns the value of the "attributeName" attribute of this AlgebraicRule.
  */
 int
 AlgebraicRule::getAttribute(const std::string& attributeName,
@@ -198,7 +198,7 @@ AlgebraicRule::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this AlgebraicRule.
+ * Returns the value of the "attributeName" attribute of this AlgebraicRule.
  */
 int
 AlgebraicRule::getAttribute(const std::string& attributeName,
@@ -216,7 +216,7 @@ AlgebraicRule::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this AlgebraicRule.
+ * Returns the value of the "attributeName" attribute of this AlgebraicRule.
  */
 int
 AlgebraicRule::getAttribute(const std::string& attributeName,
@@ -234,7 +234,7 @@ AlgebraicRule::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this AlgebraicRule.
+ * Returns the value of the "attributeName" attribute of this AlgebraicRule.
  */
 //int
 //AlgebraicRule::getAttribute(const std::string& attributeName,

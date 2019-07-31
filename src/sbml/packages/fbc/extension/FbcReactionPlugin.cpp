@@ -631,7 +631,7 @@ FbcReactionPlugin::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcReactionPlugin.
+ * Returns the value of the "attributeName" attribute of this FbcReactionPlugin.
  */
 int
 FbcReactionPlugin::getAttribute(const std::string& attributeName,
@@ -649,7 +649,7 @@ FbcReactionPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcReactionPlugin.
+ * Returns the value of the "attributeName" attribute of this FbcReactionPlugin.
  */
 int
 FbcReactionPlugin::getAttribute(const std::string& attributeName,
@@ -667,7 +667,7 @@ FbcReactionPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcReactionPlugin.
+ * Returns the value of the "attributeName" attribute of this FbcReactionPlugin.
  */
 int
 FbcReactionPlugin::getAttribute(const std::string& attributeName,
@@ -685,7 +685,7 @@ FbcReactionPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcReactionPlugin.
+ * Returns the value of the "attributeName" attribute of this FbcReactionPlugin.
  */
 int
 FbcReactionPlugin::getAttribute(const std::string& attributeName,
@@ -703,7 +703,7 @@ FbcReactionPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcReactionPlugin.
+ * Returns the value of the "attributeName" attribute of this FbcReactionPlugin.
  */
 int
 FbcReactionPlugin::getAttribute(const std::string& attributeName,

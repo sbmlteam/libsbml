@@ -1628,7 +1628,7 @@ FbcModelPlugin::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcModelPlugin.
+ * Returns the value of the "attributeName" attribute of this FbcModelPlugin.
  */
 int
 FbcModelPlugin::getAttribute(const std::string& attributeName,
@@ -1657,7 +1657,7 @@ FbcModelPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcModelPlugin.
+ * Returns the value of the "attributeName" attribute of this FbcModelPlugin.
  */
 int
 FbcModelPlugin::getAttribute(const std::string& attributeName,
@@ -1675,7 +1675,7 @@ FbcModelPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcModelPlugin.
+ * Returns the value of the "attributeName" attribute of this FbcModelPlugin.
  */
 int
 FbcModelPlugin::getAttribute(const std::string& attributeName,
@@ -1693,7 +1693,7 @@ FbcModelPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcModelPlugin.
+ * Returns the value of the "attributeName" attribute of this FbcModelPlugin.
  */
 int
 FbcModelPlugin::getAttribute(const std::string& attributeName,
@@ -1711,7 +1711,7 @@ FbcModelPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcModelPlugin.
+ * Returns the value of the "attributeName" attribute of this FbcModelPlugin.
  */
 int
 FbcModelPlugin::getAttribute(const std::string& attributeName,

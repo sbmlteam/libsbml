@@ -382,7 +382,7 @@ GradientStop::accept(SBMLVisitor& v) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GradientStop.
+ * Returns the value of the "attributeName" attribute of this GradientStop.
  */
 int
 GradientStop::getAttribute(const std::string& attributeName,
@@ -400,7 +400,7 @@ GradientStop::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GradientStop.
+ * Returns the value of the "attributeName" attribute of this GradientStop.
  */
 int
 GradientStop::getAttribute(const std::string& attributeName, int& value) const
@@ -417,7 +417,7 @@ GradientStop::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GradientStop.
+ * Returns the value of the "attributeName" attribute of this GradientStop.
  */
 int
 GradientStop::getAttribute(const std::string& attributeName,
@@ -435,7 +435,7 @@ GradientStop::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GradientStop.
+ * Returns the value of the "attributeName" attribute of this GradientStop.
  */
 int
 GradientStop::getAttribute(const std::string& attributeName,
@@ -453,7 +453,7 @@ GradientStop::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GradientStop.
+ * Returns the value of the "attributeName" attribute of this GradientStop.
  */
 int
 GradientStop::getAttribute(const std::string& attributeName,

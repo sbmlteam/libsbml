@@ -3199,7 +3199,7 @@ newModel.addSpecies(s1);
 
 
   /**
-   * Gets the namespace URI to which this element belongs to.
+   * Returns the namespace URI to which this element belongs to.
    *
    * For example, all elements that belong to SBML Level&nbsp;3 Version&nbsp;1 Core
    * must would have the URI <code>"http://www.sbml.org/sbml/level3/version1/core"</code>;
@@ -3570,7 +3570,7 @@ protected:
 
 
   /**
-   * Gets the XML namespace (URI) to which this element belongs to.
+   * Returns the XML namespace (URI) to which this element belongs to.
    */
   const std::string& getElementNamespace() const;
 

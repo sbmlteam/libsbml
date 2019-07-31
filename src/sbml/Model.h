@@ -3133,7 +3133,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Model.
+   * Returns the value of the "attributeName" attribute of this Model.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -3153,7 +3153,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Model.
+   * Returns the value of the "attributeName" attribute of this Model.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -3172,7 +3172,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Model.
+   * Returns the value of the "attributeName" attribute of this Model.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -3192,7 +3192,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Model.
+   * Returns the value of the "attributeName" attribute of this Model.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -3212,7 +3212,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Model.
+   * Returns the value of the "attributeName" attribute of this Model.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -3232,7 +3232,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Model.
+   * Returns the value of the "attributeName" attribute of this Model.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *

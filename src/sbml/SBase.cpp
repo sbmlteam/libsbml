@@ -7397,7 +7397,7 @@ SBase::updateSBMLNamespace(const std::string& package, unsigned int level,
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * Gets the XML namespace to which this element belongs to.
+ * Returns the XML namespace to which this element belongs to.
  */
 const std::string&
 SBase::getElementNamespace() const

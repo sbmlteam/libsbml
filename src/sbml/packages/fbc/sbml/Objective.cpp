@@ -661,7 +661,7 @@ Objective::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Objective.
+ * Returns the value of the "attributeName" attribute of this Objective.
  */
 int
 Objective::getAttribute(const std::string& attributeName, bool& value) const
@@ -678,7 +678,7 @@ Objective::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Objective.
+ * Returns the value of the "attributeName" attribute of this Objective.
  */
 int
 Objective::getAttribute(const std::string& attributeName, int& value) const
@@ -695,7 +695,7 @@ Objective::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Objective.
+ * Returns the value of the "attributeName" attribute of this Objective.
  */
 int
 Objective::getAttribute(const std::string& attributeName, double& value) const
@@ -712,7 +712,7 @@ Objective::getAttribute(const std::string& attributeName, double& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Objective.
+ * Returns the value of the "attributeName" attribute of this Objective.
  */
 int
 Objective::getAttribute(const std::string& attributeName,
@@ -730,7 +730,7 @@ Objective::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Objective.
+ * Returns the value of the "attributeName" attribute of this Objective.
  */
 int
 Objective::getAttribute(const std::string& attributeName,

@@ -431,7 +431,7 @@ public:
 
 
   /**
-   * Gets a child of this node according to its index number.
+   * Returns a child of this node according to its index number.
    *
    * @param n the index of the child to get
    *
@@ -449,7 +449,7 @@ public:
 
 
   /**
-   * Gets the left child of this node.
+   * Returns the left child of this node.
    *
    * @return the left child of this ASTNode.  This is equivalent to calling
    * @if clike getChild()@else ASTNode::getChild(unsigned int)@endif@~
@@ -464,7 +464,7 @@ public:
 
 
   /**
-   * Gets the right child of this node.
+   * Returns the right child of this node.
    *
    * @return the right child of this ASTNode, or @c NULL if this node has no
    * right child.  If
@@ -483,7 +483,7 @@ getChild( getNumChildren() - 1 );
 
 
   /**
-   * Gets the number of children that this node has.
+   * Returns the number of children that this node has.
    *
    * @return the number of children of this ASTNode, or 0 is this node has
    * no children.
@@ -519,7 +519,7 @@ getChild( getNumChildren() - 1 );
 
 
   /**
-   * Gets the number of <em>semantic annotation</em> elements inside this node.
+   * Returns the number of <em>semantic annotation</em> elements inside this node.
    *
    * @htmlinclude about-semantic-annotations.html
    * 
@@ -532,7 +532,7 @@ getChild( getNumChildren() - 1 );
 
 
   /**
-   * Gets the nth semantic annotation of this node.
+   * Returns the nth semantic annotation of this node.
    *
    * @htmlinclude about-semantic-annotations.html
    * 
@@ -609,7 +609,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Gets the value of this node as a single character.
+   * Returns the value of this node as a single character.
    *
    * This function should be called only when
    * @if clike getType()@else ASTNode::getType()@endif@~ returns
@@ -626,7 +626,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Gets the id of this ASTNode.
+   * Returns the id of this ASTNode.
    *
    * @return the MathML id of this ASTNode.
    */
@@ -635,7 +635,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Gets the class of this ASTNode.
+   * Returns the class of this ASTNode.
    *
    * @return the MathML class of this ASTNode.
    */
@@ -644,7 +644,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Gets the style of this ASTNode.
+   * Returns the style of this ASTNode.
    *
    * @return the MathML style of this ASTNode.
    */
@@ -653,7 +653,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Gets the value of this node as an integer.
+   * Returns the value of this node as an integer.
    *
    * This function should be called only when @if clike getType()@else
    * ASTNode::getType()@endif@~ <code>== @sbmlconstant{AST_INTEGER, ASTNodeType_t}</code>.
@@ -665,7 +665,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Gets the value of this node as a string.
+   * Returns the value of this node as a string.
    *
    * This function may be called on nodes that (1) are not operators, i.e.,
    * nodes for which @if clike isOperator()@else
@@ -680,7 +680,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Gets the value of this operator node as a string.  This function may be called
+   * Returns the value of this operator node as a string.  This function may be called
    * on nodes that are operators, i.e., nodes for which
    * @if clike isOperator()@else ASTNode::isOperator()@endif@~
    * returns @c true.
@@ -692,7 +692,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Gets the value of the numerator of this node.  This function should be
+   * Returns the value of the numerator of this node.  This function should be
    * called only when
    * @if clike getType()@else ASTNode::getType()@endif@~
    * <code>== @sbmlconstant{AST_RATIONAL, ASTNodeType_t}</code>.
@@ -704,7 +704,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Gets the value of the denominator of this node.  This function should
+   * Returns the value of the denominator of this node.  This function should
    * be called only when
    * @if clike getType()@else ASTNode::getType()@endif@~
    * <code>== @sbmlconstant{AST_RATIONAL, ASTNodeType_t}</code>.
@@ -716,7 +716,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Gets the real-numbered value of this node.  This function
+   * Returns the real-numbered value of this node.  This function
    * should be called only when
    * @if clike isReal()@else ASTNode::isReal()@endif@~
    * <code>== true</code>.
@@ -732,7 +732,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Gets the mantissa value of this node.  This function should be called
+   * Returns the mantissa value of this node.  This function should be called
    * only when @if clike getType()@else ASTNode::getType()@endif@~
    * returns @sbmlconstant{AST_REAL_E, ASTNodeType_t}
    * or @sbmlconstant{AST_REAL, ASTNodeType_t}.
@@ -748,7 +748,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Gets the exponent value of this ASTNode.  This function should be
+   * Returns the exponent value of this ASTNode.  This function should be
    * called only when
    * @if clike getType()@else ASTNode::getType()@endif@~
    * returns @sbmlconstant{AST_REAL_E, ASTNodeType_t}
@@ -783,7 +783,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
   double getValue () const;
 
   /**
-   * Gets the precedence of this node in the infix math syntax of SBML
+   * Returns the precedence of this node in the infix math syntax of SBML
    * Level&nbsp;1.  For more information about the infix syntax, see the
    * discussion about <a href="#math-convert">text string formulas</a> at
    * the top of the documentation for ASTNode.
@@ -795,7 +795,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Gets the type of this ASTNode.  The value returned is one of the
+   * Returns the type of this ASTNode.  The value returned is one of the
    * enumeration values such as @sbmlconstant{AST_LAMBDA, ASTNodeType_t}, @sbmlconstant{AST_PLUS, ASTNodeType_t},
    * etc.
    * 
@@ -806,7 +806,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Gets the units of this ASTNode.  
+   * Returns the units of this ASTNode.  
    *
    * @htmlinclude about-sbml-units-attrib.html
    * 
@@ -1551,7 +1551,7 @@ setValue(value, 0);
 
 
   /**
-   * Gets the flag indicating that this ASTNode has semantics attached.
+   * Returns the flag indicating that this ASTNode has semantics attached.
    *
    * @htmlinclude about-semantic-annotations.html
    *
@@ -1592,7 +1592,7 @@ setValue(value, 0);
 
 
   /**
-   * Gets the MathML "definitionURL" attribute value.
+   * Returns the MathML "definitionURL" attribute value.
    *
    * @return the value of the @c definitionURL attribute, in the form of
    * a libSBML XMLAttributes object.
@@ -2384,7 +2384,7 @@ ASTNode_deepCopy (const ASTNode_t *node);
 
 
 /**
- * Gets a child of a node according to its index number.
+ * Returns a child of a node according to its index number.
  *
  * @param node the node whose child should be obtained.
  * @param n the index of the desired child node.
@@ -2533,7 +2533,7 @@ ASTNode_fillListOfNodes ( const ASTNode_t  *node,
 
 
 /**
- * Gets the value of a node as a single character.
+ * Returns the value of a node as a single character.
  *
  * This function should be called only when ASTNode_getType() returns
  * @sbmlconstant{AST_PLUS, ASTNodeType_t},
@@ -2556,7 +2556,7 @@ ASTNode_getCharacter (const ASTNode_t *node);
 
 
 /**
- * Gets the value of a node as an integer.
+ * Returns the value of a node as an integer.
  *
  * This function should be called only when ASTNode_getType() returns @sbmlconstant{AST_INTEGER, ASTNodeType_t} for the given @p node.
  *
@@ -2573,7 +2573,7 @@ ASTNode_getInteger (const ASTNode_t *node);
 
 
 /**
- * Gets the value of a node as a string.
+ * Returns the value of a node as a string.
  *
  * This function may be called on nodes that (1) are not operators, i.e.,
  * nodes for which ASTNode_isOperator() returns false (@c 0), and (2) are not
@@ -2591,7 +2591,7 @@ ASTNode_getName (const ASTNode_t *node);
 
 
 /**
- * Gets the numerator value of a node representing a rational number.
+ * Returns the numerator value of a node representing a rational number.
  *
  * This function should be called only when ASTNode_getType() returns @sbmlconstant{AST_RATIONAL, ASTNodeType_t} for the given @p node.
  *
@@ -2610,7 +2610,7 @@ ASTNode_getNumerator (const ASTNode_t *node);
 
 
 /**
- * Gets the numerator value of a node representing a rational number.
+ * Returns the numerator value of a node representing a rational number.
  *
  * This function should be called only when ASTNode_getType() returns @sbmlconstant{AST_RATIONAL, ASTNodeType_t} for the given @p node.
  *
@@ -2709,7 +2709,7 @@ ASTNode_getValue(const ASTNode_t *node);
   
   
 /**
- * Gets the precedence of a node in the infix math syntax of SBML
+ * Returns the precedence of a node in the infix math syntax of SBML
  * Level&nbsp;1.
  *
  * @copydetails doc_summary_of_string_math

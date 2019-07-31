@@ -3793,7 +3793,7 @@ Model::removeEvent (const std::string& sid)
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Model.
+ * Returns the value of the "attributeName" attribute of this Model.
  */
 int
 Model::getAttribute(const std::string& attributeName, bool& value) const
@@ -3810,7 +3810,7 @@ Model::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Model.
+ * Returns the value of the "attributeName" attribute of this Model.
  */
 int
 Model::getAttribute(const std::string& attributeName, int& value) const
@@ -3827,7 +3827,7 @@ Model::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Model.
+ * Returns the value of the "attributeName" attribute of this Model.
  */
 int
 Model::getAttribute(const std::string& attributeName, double& value) const
@@ -3844,7 +3844,7 @@ Model::getAttribute(const std::string& attributeName, double& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Model.
+ * Returns the value of the "attributeName" attribute of this Model.
  */
 int
 Model::getAttribute(const std::string& attributeName,
@@ -3862,7 +3862,7 @@ Model::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Model.
+ * Returns the value of the "attributeName" attribute of this Model.
  */
 int
 Model::getAttribute(const std::string& attributeName,
@@ -3921,7 +3921,7 @@ Model::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Model.
+ * Returns the value of the "attributeName" attribute of this Model.
  */
 //int
 //Model::getAttribute(const std::string& attributeName, const char* value) const

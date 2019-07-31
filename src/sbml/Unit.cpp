@@ -1019,7 +1019,7 @@ Unit::hasRequiredAttributes() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Unit.
+ * Returns the value of the "attributeName" attribute of this Unit.
  */
 int
 Unit::getAttribute(const std::string& attributeName, bool& value) const
@@ -1036,7 +1036,7 @@ Unit::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Unit.
+ * Returns the value of the "attributeName" attribute of this Unit.
  */
 int
 Unit::getAttribute(const std::string& attributeName, int& value) const
@@ -1069,7 +1069,7 @@ Unit::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Unit.
+ * Returns the value of the "attributeName" attribute of this Unit.
  */
 int
 Unit::getAttribute(const std::string& attributeName, double& value) const
@@ -1112,7 +1112,7 @@ Unit::getAttribute(const std::string& attributeName, double& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Unit.
+ * Returns the value of the "attributeName" attribute of this Unit.
  */
 int
 Unit::getAttribute(const std::string& attributeName,
@@ -1130,7 +1130,7 @@ Unit::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Unit.
+ * Returns the value of the "attributeName" attribute of this Unit.
  */
 int
 Unit::getAttribute(const std::string& attributeName, std::string& value) const
@@ -1151,7 +1151,7 @@ Unit::getAttribute(const std::string& attributeName, std::string& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Unit.
+ * Returns the value of the "attributeName" attribute of this Unit.
  */
 //int
 //Unit::getAttribute(const std::string& attributeName, const char* value) const

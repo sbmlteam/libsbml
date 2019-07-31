@@ -250,7 +250,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this RateRule.
+   * Returns the value of the "attributeName" attribute of this RateRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -270,7 +270,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this RateRule.
+   * Returns the value of the "attributeName" attribute of this RateRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -289,7 +289,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this RateRule.
+   * Returns the value of the "attributeName" attribute of this RateRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -309,7 +309,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this RateRule.
+   * Returns the value of the "attributeName" attribute of this RateRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -329,7 +329,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this RateRule.
+   * Returns the value of the "attributeName" attribute of this RateRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -349,7 +349,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this RateRule.
+   * Returns the value of the "attributeName" attribute of this RateRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -641,7 +641,7 @@ RateRule_getVariable(const RateRule_t * rr);
 
 
 /**
- * Gets the mathematical expression of this RateRule_t structure as an
+ * Returns the mathematical expression of this RateRule_t structure as an
  * ASTNode_t structure.
  *
  * @param rr the RateRule_t structure.

@@ -456,7 +456,7 @@ Transformation2D::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Transformation2D.
+ * Returns the value of the "attributeName" attribute of this Transformation2D.
  */
 int
 Transformation2D::getAttribute(const std::string& attributeName,
@@ -474,7 +474,7 @@ Transformation2D::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Transformation2D.
+ * Returns the value of the "attributeName" attribute of this Transformation2D.
  */
 int
 Transformation2D::getAttribute(const std::string& attributeName,
@@ -492,7 +492,7 @@ Transformation2D::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Transformation2D.
+ * Returns the value of the "attributeName" attribute of this Transformation2D.
  */
 int
 Transformation2D::getAttribute(const std::string& attributeName,
@@ -510,7 +510,7 @@ Transformation2D::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Transformation2D.
+ * Returns the value of the "attributeName" attribute of this Transformation2D.
  */
 int
 Transformation2D::getAttribute(const std::string& attributeName,
@@ -528,7 +528,7 @@ Transformation2D::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Transformation2D.
+ * Returns the value of the "attributeName" attribute of this Transformation2D.
  */
 int
 Transformation2D::getAttribute(const std::string& attributeName,

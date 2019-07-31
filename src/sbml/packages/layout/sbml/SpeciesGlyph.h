@@ -344,7 +344,7 @@ void
 SpeciesGlyph_setSpeciesId (SpeciesGlyph_t *sg, const char *id);
 
 /**
- * Gets the the id of the associated species.
+ * Returns the the id of the associated species.
  * 
  * @param sg the SpeciesGlyph_t structure.
  *

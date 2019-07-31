@@ -549,7 +549,7 @@ Input::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Input.
+ * Returns the value of the "attributeName" attribute of this Input.
  */
 int
 Input::getAttribute(const std::string& attributeName, bool& value) const
@@ -566,7 +566,7 @@ Input::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Input.
+ * Returns the value of the "attributeName" attribute of this Input.
  */
 int
 Input::getAttribute(const std::string& attributeName, int& value) const
@@ -583,7 +583,7 @@ Input::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Input.
+ * Returns the value of the "attributeName" attribute of this Input.
  */
 int
 Input::getAttribute(const std::string& attributeName, double& value) const
@@ -600,7 +600,7 @@ Input::getAttribute(const std::string& attributeName, double& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Input.
+ * Returns the value of the "attributeName" attribute of this Input.
  */
 int
 Input::getAttribute(const std::string& attributeName,
@@ -629,7 +629,7 @@ Input::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Input.
+ * Returns the value of the "attributeName" attribute of this Input.
  */
 int
 Input::getAttribute(const std::string& attributeName,

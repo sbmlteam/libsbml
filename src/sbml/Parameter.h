@@ -328,7 +328,7 @@ public:
 
 
   /**
-   * Gets the numerical value of this Parameter.
+   * Returns the numerical value of this Parameter.
    * 
    * @return the value of the "value" attribute of this Parameter, as a
    * number of type @c double.
@@ -350,7 +350,7 @@ public:
 
 
   /**
-   * Gets the units defined for this Parameter.
+   * Returns the units defined for this Parameter.
    *
    * The value of an SBML parameter's "units" attribute establishes the
    * unit of measurement associated with the parameter's value.
@@ -368,7 +368,7 @@ public:
 
 
   /**
-   * Gets the value of the "constant" attribute of this Parameter instance.
+   * Returns the value of the "constant" attribute of this Parameter instance.
    * 
    * @return @c true if this Parameter is declared as being constant,
    * @c false otherwise.
@@ -722,7 +722,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Parameter.
+   * Returns the value of the "attributeName" attribute of this Parameter.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -742,7 +742,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Parameter.
+   * Returns the value of the "attributeName" attribute of this Parameter.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -761,7 +761,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Parameter.
+   * Returns the value of the "attributeName" attribute of this Parameter.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -781,7 +781,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Parameter.
+   * Returns the value of the "attributeName" attribute of this Parameter.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -801,7 +801,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Parameter.
+   * Returns the value of the "attributeName" attribute of this Parameter.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -821,7 +821,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Parameter.
+   * Returns the value of the "attributeName" attribute of this Parameter.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1261,7 +1261,7 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
   /**
-   * Gets the ordinal position of this element in the containing object
+   * Returns the ordinal position of this element in the containing object
    * (which in this case is the Model object).
    *
    * The ordering of elements in the XML form of SBML is generally fixed

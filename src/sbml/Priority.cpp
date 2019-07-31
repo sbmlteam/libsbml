@@ -306,7 +306,7 @@ Priority::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Priority.
+ * Returns the value of the "attributeName" attribute of this Priority.
  */
 int
 Priority::getAttribute(const std::string& attributeName, bool& value) const
@@ -323,7 +323,7 @@ Priority::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Priority.
+ * Returns the value of the "attributeName" attribute of this Priority.
  */
 int
 Priority::getAttribute(const std::string& attributeName, int& value) const
@@ -340,7 +340,7 @@ Priority::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Priority.
+ * Returns the value of the "attributeName" attribute of this Priority.
  */
 int
 Priority::getAttribute(const std::string& attributeName, double& value) const
@@ -357,7 +357,7 @@ Priority::getAttribute(const std::string& attributeName, double& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Priority.
+ * Returns the value of the "attributeName" attribute of this Priority.
  */
 int
 Priority::getAttribute(const std::string& attributeName,
@@ -375,7 +375,7 @@ Priority::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Priority.
+ * Returns the value of the "attributeName" attribute of this Priority.
  */
 int
 Priority::getAttribute(const std::string& attributeName,
@@ -393,7 +393,7 @@ Priority::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Priority.
+ * Returns the value of the "attributeName" attribute of this Priority.
  */
 //int
 //Priority::getAttribute(const std::string& attributeName,

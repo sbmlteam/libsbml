@@ -390,7 +390,7 @@ void
 CompartmentGlyph_setCompartmentId (CompartmentGlyph_t *cg, const char *id);
 
 /**
- * Gets the reference compartments id for the given compartment glyph.
+ * Returns the reference compartments id for the given compartment glyph.
  *
  * @param cg the CompartmentGlyph_t structure.
  *

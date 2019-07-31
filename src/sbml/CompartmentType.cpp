@@ -312,7 +312,7 @@ CompartmentType::hasRequiredAttributes() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this CompartmentType.
+ * Returns the value of the "attributeName" attribute of this CompartmentType.
  */
 int
 CompartmentType::getAttribute(const std::string& attributeName,
@@ -330,7 +330,7 @@ CompartmentType::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this CompartmentType.
+ * Returns the value of the "attributeName" attribute of this CompartmentType.
  */
 int
 CompartmentType::getAttribute(const std::string& attributeName,
@@ -348,7 +348,7 @@ CompartmentType::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this CompartmentType.
+ * Returns the value of the "attributeName" attribute of this CompartmentType.
  */
 int
 CompartmentType::getAttribute(const std::string& attributeName,
@@ -366,7 +366,7 @@ CompartmentType::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this CompartmentType.
+ * Returns the value of the "attributeName" attribute of this CompartmentType.
  */
 int
 CompartmentType::getAttribute(const std::string& attributeName,
@@ -384,7 +384,7 @@ CompartmentType::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this CompartmentType.
+ * Returns the value of the "attributeName" attribute of this CompartmentType.
  */
 int
 CompartmentType::getAttribute(const std::string& attributeName,
@@ -402,7 +402,7 @@ CompartmentType::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this CompartmentType.
+ * Returns the value of the "attributeName" attribute of this CompartmentType.
  */
 //int
 //CompartmentType::getAttribute(const std::string& attributeName,

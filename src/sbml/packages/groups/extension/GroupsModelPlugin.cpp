@@ -397,7 +397,7 @@ GroupsModelPlugin::updateSBMLNamespace(const std::string& package,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GroupsModelPlugin.
+ * Returns the value of the "attributeName" attribute of this GroupsModelPlugin.
  */
 int
 GroupsModelPlugin::getAttribute(const std::string& attributeName,
@@ -415,7 +415,7 @@ GroupsModelPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GroupsModelPlugin.
+ * Returns the value of the "attributeName" attribute of this GroupsModelPlugin.
  */
 int
 GroupsModelPlugin::getAttribute(const std::string& attributeName,
@@ -433,7 +433,7 @@ GroupsModelPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GroupsModelPlugin.
+ * Returns the value of the "attributeName" attribute of this GroupsModelPlugin.
  */
 int
 GroupsModelPlugin::getAttribute(const std::string& attributeName,
@@ -451,7 +451,7 @@ GroupsModelPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GroupsModelPlugin.
+ * Returns the value of the "attributeName" attribute of this GroupsModelPlugin.
  */
 int
 GroupsModelPlugin::getAttribute(const std::string& attributeName,
@@ -469,7 +469,7 @@ GroupsModelPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GroupsModelPlugin.
+ * Returns the value of the "attributeName" attribute of this GroupsModelPlugin.
  */
 int
 GroupsModelPlugin::getAttribute(const std::string& attributeName,

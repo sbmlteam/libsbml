@@ -641,7 +641,7 @@ Group::updateSBMLNamespace(const std::string& package,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Group.
+ * Returns the value of the "attributeName" attribute of this Group.
  */
 int
 Group::getAttribute(const std::string& attributeName, bool& value) const
@@ -658,7 +658,7 @@ Group::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Group.
+ * Returns the value of the "attributeName" attribute of this Group.
  */
 int
 Group::getAttribute(const std::string& attributeName, int& value) const
@@ -675,7 +675,7 @@ Group::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Group.
+ * Returns the value of the "attributeName" attribute of this Group.
  */
 int
 Group::getAttribute(const std::string& attributeName, double& value) const
@@ -692,7 +692,7 @@ Group::getAttribute(const std::string& attributeName, double& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Group.
+ * Returns the value of the "attributeName" attribute of this Group.
  */
 int
 Group::getAttribute(const std::string& attributeName,
@@ -710,7 +710,7 @@ Group::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Group.
+ * Returns the value of the "attributeName" attribute of this Group.
  */
 int
 Group::getAttribute(const std::string& attributeName,

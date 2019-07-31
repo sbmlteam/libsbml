@@ -413,7 +413,7 @@ Trigger::hasRequiredAttributes() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Trigger.
+ * Returns the value of the "attributeName" attribute of this Trigger.
  */
 int
 Trigger::getAttribute(const std::string& attributeName, bool& value) const
@@ -446,7 +446,7 @@ Trigger::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Trigger.
+ * Returns the value of the "attributeName" attribute of this Trigger.
  */
 int
 Trigger::getAttribute(const std::string& attributeName, int& value) const
@@ -463,7 +463,7 @@ Trigger::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Trigger.
+ * Returns the value of the "attributeName" attribute of this Trigger.
  */
 int
 Trigger::getAttribute(const std::string& attributeName, double& value) const
@@ -480,7 +480,7 @@ Trigger::getAttribute(const std::string& attributeName, double& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Trigger.
+ * Returns the value of the "attributeName" attribute of this Trigger.
  */
 int
 Trigger::getAttribute(const std::string& attributeName,
@@ -498,7 +498,7 @@ Trigger::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Trigger.
+ * Returns the value of the "attributeName" attribute of this Trigger.
  */
 int
 Trigger::getAttribute(const std::string& attributeName,
@@ -516,7 +516,7 @@ Trigger::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Trigger.
+ * Returns the value of the "attributeName" attribute of this Trigger.
  */
 //int
 //Trigger::getAttribute(const std::string& attributeName,

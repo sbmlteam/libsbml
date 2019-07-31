@@ -226,7 +226,7 @@ public:
 
 
   /**
-  * Gets the URI to which this element belongs to.
+  * Returns the URI to which this element belongs to.
   * For example, all elements that belong to SBML Level&nbsp;3 Version&nbsp;1 Core
   * must would have the URI "http://www.sbml.org/sbml/level3/version1/core";
   * all elements that belong to Layout Extension Version&nbsp;1 for SBML Level&nbsp;3

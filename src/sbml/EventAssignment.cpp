@@ -485,7 +485,7 @@ EventAssignment::hasRequiredElements() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this EventAssignment.
+ * Returns the value of the "attributeName" attribute of this EventAssignment.
  */
 int
 EventAssignment::getAttribute(const std::string& attributeName,
@@ -503,7 +503,7 @@ EventAssignment::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this EventAssignment.
+ * Returns the value of the "attributeName" attribute of this EventAssignment.
  */
 int
 EventAssignment::getAttribute(const std::string& attributeName,
@@ -521,7 +521,7 @@ EventAssignment::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this EventAssignment.
+ * Returns the value of the "attributeName" attribute of this EventAssignment.
  */
 int
 EventAssignment::getAttribute(const std::string& attributeName,
@@ -539,7 +539,7 @@ EventAssignment::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this EventAssignment.
+ * Returns the value of the "attributeName" attribute of this EventAssignment.
  */
 int
 EventAssignment::getAttribute(const std::string& attributeName,
@@ -557,7 +557,7 @@ EventAssignment::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this EventAssignment.
+ * Returns the value of the "attributeName" attribute of this EventAssignment.
  */
 int
 EventAssignment::getAttribute(const std::string& attributeName,
@@ -586,7 +586,7 @@ EventAssignment::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this EventAssignment.
+ * Returns the value of the "attributeName" attribute of this EventAssignment.
  */
 //int
 //EventAssignment::getAttribute(const std::string& attributeName,

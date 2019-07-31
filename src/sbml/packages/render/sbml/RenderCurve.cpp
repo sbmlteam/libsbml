@@ -704,7 +704,7 @@ RenderCurve::setParentSBMLObject(SBase* sb)
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this RenderCurve.
+ * Returns the value of the "attributeName" attribute of this RenderCurve.
  */
 int
 RenderCurve::getAttribute(const std::string& attributeName, bool& value) const
@@ -721,7 +721,7 @@ RenderCurve::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this RenderCurve.
+ * Returns the value of the "attributeName" attribute of this RenderCurve.
  */
 int
 RenderCurve::getAttribute(const std::string& attributeName, int& value) const
@@ -738,7 +738,7 @@ RenderCurve::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this RenderCurve.
+ * Returns the value of the "attributeName" attribute of this RenderCurve.
  */
 int
 RenderCurve::getAttribute(const std::string& attributeName,
@@ -756,7 +756,7 @@ RenderCurve::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this RenderCurve.
+ * Returns the value of the "attributeName" attribute of this RenderCurve.
  */
 int
 RenderCurve::getAttribute(const std::string& attributeName,
@@ -774,7 +774,7 @@ RenderCurve::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this RenderCurve.
+ * Returns the value of the "attributeName" attribute of this RenderCurve.
  */
 int
 RenderCurve::getAttribute(const std::string& attributeName,

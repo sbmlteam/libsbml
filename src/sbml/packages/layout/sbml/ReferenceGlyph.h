@@ -482,7 +482,7 @@ ReferenceGlyph_setReferenceId (ReferenceGlyph_t *rg,
                                const char *id);
 
 /**
- * Gets the reference id for the given  glyph.
+ * Returns the reference id for the given  glyph.
  *
  * @param rg the ReferenceGlyph_t structure.
  *
@@ -518,7 +518,7 @@ ReferenceGlyph_setGlyphId (ReferenceGlyph_t *rg,
                            const char *id);
 
 /**
- * Gets the reference id for the given glyph.
+ * Returns the reference id for the given glyph.
  *
  * @param rg the ReferenceGlyph_t structure.
  *
@@ -554,7 +554,7 @@ void
 ReferenceGlyph_setCurve (ReferenceGlyph_t *rg, Curve_t *c);
 
 /**
- * Gets the Curve_t for the given reference glyph.
+ * Returns the Curve_t for the given reference glyph.
  *
  * @param rg the ReferenceGlyph_t structure.
  *

@@ -471,7 +471,7 @@ void
 Point_setZ (Point_t *p, double z);
 
 /**
- * Gets the x offset.
+ * Returns the x offset.
  *
  * @param p the Point_t structure.
  *
@@ -482,7 +482,7 @@ double
 Point_x (const Point_t *p);
 
 /**
- * Gets the y offset.
+ * Returns the y offset.
  *
  * @param p the Point_t structure.
  *
@@ -493,7 +493,7 @@ double
 Point_y (const Point_t *p);
 
 /**
- * Gets the z offset.
+ * Returns the z offset.
  *
  * @param p the Point_t structure.
  *
@@ -541,7 +541,7 @@ void
 Point_setZOffset (Point_t *p, double z);
 
 /**
- * Gets the x offset.
+ * Returns the x offset.
  *
  * @param p the Point_t structure.
  *
@@ -552,7 +552,7 @@ double
 Point_getXOffset (const Point_t *p);
 
 /**
- * Gets the y offset.
+ * Returns the y offset.
  *
  * @param p the Point_t structure.
  *
@@ -563,7 +563,7 @@ double
 Point_getYOffset (const Point_t *p);
 
 /**
- * Gets the z offset.
+ * Returns the z offset.
  *
  * @param p the Point_t structure.
  *

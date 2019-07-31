@@ -1321,7 +1321,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this RenderGroup.
+   * Returns the value of the "attributeName" attribute of this RenderGroup.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1341,7 +1341,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this RenderGroup.
+   * Returns the value of the "attributeName" attribute of this RenderGroup.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1360,7 +1360,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this RenderGroup.
+   * Returns the value of the "attributeName" attribute of this RenderGroup.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1380,7 +1380,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this RenderGroup.
+   * Returns the value of the "attributeName" attribute of this RenderGroup.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1400,7 +1400,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this RenderGroup.
+   * Returns the value of the "attributeName" attribute of this RenderGroup.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *

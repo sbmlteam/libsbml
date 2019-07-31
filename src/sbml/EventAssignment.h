@@ -663,7 +663,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this EventAssignment.
+   * Returns the value of the "attributeName" attribute of this EventAssignment.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -683,7 +683,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this EventAssignment.
+   * Returns the value of the "attributeName" attribute of this EventAssignment.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -702,7 +702,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this EventAssignment.
+   * Returns the value of the "attributeName" attribute of this EventAssignment.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -722,7 +722,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this EventAssignment.
+   * Returns the value of the "attributeName" attribute of this EventAssignment.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -742,7 +742,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this EventAssignment.
+   * Returns the value of the "attributeName" attribute of this EventAssignment.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -762,7 +762,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this EventAssignment.
+   * Returns the value of the "attributeName" attribute of this EventAssignment.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1294,7 +1294,7 @@ EventAssignment_getNamespaces(EventAssignment_t *ea);
 
 
 /**
- * Gets the value of the "variable" attribute of this EventAssignment_t
+ * Returns the value of the "variable" attribute of this EventAssignment_t
  * structure.
  *
  * @param ea the EventAssignment_t structure to query.
@@ -1309,7 +1309,7 @@ EventAssignment_getVariable (const EventAssignment_t *ea);
 
 
 /**
- * Gets the mathematical formula stored in the given EventAssignment_t
+ * Returns the mathematical formula stored in the given EventAssignment_t
  * structure.
  *
  * @param ea the EventAssignment_t structure to query.

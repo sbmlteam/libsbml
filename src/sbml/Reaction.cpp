@@ -1588,7 +1588,7 @@ Reaction::createObject (XMLInputStream& stream)
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Reaction.
+ * Returns the value of the "attributeName" attribute of this Reaction.
  */
 int
 Reaction::getAttribute(const std::string& attributeName, bool& value) const
@@ -1621,7 +1621,7 @@ Reaction::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Reaction.
+ * Returns the value of the "attributeName" attribute of this Reaction.
  */
 int
 Reaction::getAttribute(const std::string& attributeName, int& value) const
@@ -1638,7 +1638,7 @@ Reaction::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Reaction.
+ * Returns the value of the "attributeName" attribute of this Reaction.
  */
 int
 Reaction::getAttribute(const std::string& attributeName, double& value) const
@@ -1655,7 +1655,7 @@ Reaction::getAttribute(const std::string& attributeName, double& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Reaction.
+ * Returns the value of the "attributeName" attribute of this Reaction.
  */
 int
 Reaction::getAttribute(const std::string& attributeName,
@@ -1673,7 +1673,7 @@ Reaction::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Reaction.
+ * Returns the value of the "attributeName" attribute of this Reaction.
  */
 int
 Reaction::getAttribute(const std::string& attributeName,
@@ -1702,7 +1702,7 @@ Reaction::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Reaction.
+ * Returns the value of the "attributeName" attribute of this Reaction.
  */
 //int
 //Reaction::getAttribute(const std::string& attributeName,

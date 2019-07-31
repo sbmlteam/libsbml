@@ -783,7 +783,7 @@ XMLNode ListOfGradientDefinitions::toXML() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GradientBase.
+ * Returns the value of the "attributeName" attribute of this GradientBase.
  */
 int
 GradientBase::getAttribute(const std::string& attributeName,
@@ -801,7 +801,7 @@ GradientBase::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GradientBase.
+ * Returns the value of the "attributeName" attribute of this GradientBase.
  */
 int
 GradientBase::getAttribute(const std::string& attributeName, int& value) const
@@ -818,7 +818,7 @@ GradientBase::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GradientBase.
+ * Returns the value of the "attributeName" attribute of this GradientBase.
  */
 int
 GradientBase::getAttribute(const std::string& attributeName,
@@ -836,7 +836,7 @@ GradientBase::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GradientBase.
+ * Returns the value of the "attributeName" attribute of this GradientBase.
  */
 int
 GradientBase::getAttribute(const std::string& attributeName,
@@ -854,7 +854,7 @@ GradientBase::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GradientBase.
+ * Returns the value of the "attributeName" attribute of this GradientBase.
  */
 int
 GradientBase::getAttribute(const std::string& attributeName,

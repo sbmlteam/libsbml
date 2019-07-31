@@ -793,7 +793,7 @@ ColorDefinition::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this ColorDefinition.
+ * Returns the value of the "attributeName" attribute of this ColorDefinition.
  */
 int
 ColorDefinition::getAttribute(const std::string& attributeName,
@@ -811,7 +811,7 @@ ColorDefinition::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this ColorDefinition.
+ * Returns the value of the "attributeName" attribute of this ColorDefinition.
  */
 int
 ColorDefinition::getAttribute(const std::string& attributeName,
@@ -829,7 +829,7 @@ ColorDefinition::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this ColorDefinition.
+ * Returns the value of the "attributeName" attribute of this ColorDefinition.
  */
 int
 ColorDefinition::getAttribute(const std::string& attributeName,
@@ -847,7 +847,7 @@ ColorDefinition::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this ColorDefinition.
+ * Returns the value of the "attributeName" attribute of this ColorDefinition.
  */
 int
 ColorDefinition::getAttribute(const std::string& attributeName,
@@ -865,7 +865,7 @@ ColorDefinition::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this ColorDefinition.
+ * Returns the value of the "attributeName" attribute of this ColorDefinition.
  */
 int
 ColorDefinition::getAttribute(const std::string& attributeName,

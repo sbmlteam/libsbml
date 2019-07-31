@@ -776,7 +776,7 @@ LineEnding::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this LineEnding.
+ * Returns the value of the "attributeName" attribute of this LineEnding.
  */
 int
 LineEnding::getAttribute(const std::string& attributeName, bool& value) const
@@ -804,7 +804,7 @@ LineEnding::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this LineEnding.
+ * Returns the value of the "attributeName" attribute of this LineEnding.
  */
 int
 LineEnding::getAttribute(const std::string& attributeName, int& value) const
@@ -821,7 +821,7 @@ LineEnding::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this LineEnding.
+ * Returns the value of the "attributeName" attribute of this LineEnding.
  */
 int
 LineEnding::getAttribute(const std::string& attributeName,
@@ -839,7 +839,7 @@ LineEnding::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this LineEnding.
+ * Returns the value of the "attributeName" attribute of this LineEnding.
  */
 int
 LineEnding::getAttribute(const std::string& attributeName,
@@ -857,7 +857,7 @@ LineEnding::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this LineEnding.
+ * Returns the value of the "attributeName" attribute of this LineEnding.
  */
 int
 LineEnding::getAttribute(const std::string& attributeName,

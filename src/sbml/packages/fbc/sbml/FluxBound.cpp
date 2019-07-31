@@ -451,7 +451,7 @@ FluxBound::createObject (XMLInputStream&)
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FluxBound.
+ * Returns the value of the "attributeName" attribute of this FluxBound.
  */
 int
 FluxBound::getAttribute(const std::string& attributeName, bool& value) const
@@ -468,7 +468,7 @@ FluxBound::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FluxBound.
+ * Returns the value of the "attributeName" attribute of this FluxBound.
  */
 int
 FluxBound::getAttribute(const std::string& attributeName, int& value) const
@@ -485,7 +485,7 @@ FluxBound::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FluxBound.
+ * Returns the value of the "attributeName" attribute of this FluxBound.
  */
 int
 FluxBound::getAttribute(const std::string& attributeName, double& value) const
@@ -513,7 +513,7 @@ FluxBound::getAttribute(const std::string& attributeName, double& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FluxBound.
+ * Returns the value of the "attributeName" attribute of this FluxBound.
  */
 int
 FluxBound::getAttribute(const std::string& attributeName,
@@ -531,7 +531,7 @@ FluxBound::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FluxBound.
+ * Returns the value of the "attributeName" attribute of this FluxBound.
  */
 int
 FluxBound::getAttribute(const std::string& attributeName,

@@ -1269,7 +1269,7 @@ Species::hasRequiredAttributes() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Species.
+ * Returns the value of the "attributeName" attribute of this Species.
  */
 int
 Species::getAttribute(const std::string& attributeName, bool& value) const
@@ -1307,7 +1307,7 @@ Species::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Species.
+ * Returns the value of the "attributeName" attribute of this Species.
  */
 int
 Species::getAttribute(const std::string& attributeName, int& value) const
@@ -1335,7 +1335,7 @@ Species::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Species.
+ * Returns the value of the "attributeName" attribute of this Species.
  */
 int
 Species::getAttribute(const std::string& attributeName, double& value) const
@@ -1368,7 +1368,7 @@ Species::getAttribute(const std::string& attributeName, double& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Species.
+ * Returns the value of the "attributeName" attribute of this Species.
  */
 int
 Species::getAttribute(const std::string& attributeName,
@@ -1386,7 +1386,7 @@ Species::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Species.
+ * Returns the value of the "attributeName" attribute of this Species.
  */
 int
 Species::getAttribute(const std::string& attributeName,
@@ -1440,7 +1440,7 @@ Species::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Species.
+ * Returns the value of the "attributeName" attribute of this Species.
  */
 //int
 //Species::getAttribute(const std::string& attributeName,

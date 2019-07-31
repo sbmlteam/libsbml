@@ -695,7 +695,7 @@ Parameter::hasRequiredAttributes() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Parameter.
+ * Returns the value of the "attributeName" attribute of this Parameter.
  */
 int
 Parameter::getAttribute(const std::string& attributeName, bool& value) const
@@ -723,7 +723,7 @@ Parameter::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Parameter.
+ * Returns the value of the "attributeName" attribute of this Parameter.
  */
 int
 Parameter::getAttribute(const std::string& attributeName, int& value) const
@@ -740,7 +740,7 @@ Parameter::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Parameter.
+ * Returns the value of the "attributeName" attribute of this Parameter.
  */
 int
 Parameter::getAttribute(const std::string& attributeName, double& value) const
@@ -768,7 +768,7 @@ Parameter::getAttribute(const std::string& attributeName, double& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Parameter.
+ * Returns the value of the "attributeName" attribute of this Parameter.
  */
 int
 Parameter::getAttribute(const std::string& attributeName,
@@ -786,7 +786,7 @@ Parameter::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Parameter.
+ * Returns the value of the "attributeName" attribute of this Parameter.
  */
 int
 Parameter::getAttribute(const std::string& attributeName,
@@ -815,7 +815,7 @@ Parameter::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Parameter.
+ * Returns the value of the "attributeName" attribute of this Parameter.
  */
 //int
 //Parameter::getAttribute(const std::string& attributeName,

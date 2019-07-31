@@ -230,7 +230,7 @@ QualSBMLDocumentPlugin::accept(SBMLVisitor& v) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * QualSBMLDocumentPlugin.
  */
 int
@@ -249,7 +249,7 @@ QualSBMLDocumentPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * QualSBMLDocumentPlugin.
  */
 int
@@ -268,7 +268,7 @@ QualSBMLDocumentPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * QualSBMLDocumentPlugin.
  */
 int
@@ -287,7 +287,7 @@ QualSBMLDocumentPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * QualSBMLDocumentPlugin.
  */
 int
@@ -306,7 +306,7 @@ QualSBMLDocumentPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * QualSBMLDocumentPlugin.
  */
 int

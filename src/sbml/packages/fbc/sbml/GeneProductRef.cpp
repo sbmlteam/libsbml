@@ -427,7 +427,7 @@ GeneProductRef::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GeneProductRef.
+ * Returns the value of the "attributeName" attribute of this GeneProductRef.
  */
 int
 GeneProductRef::getAttribute(const std::string& attributeName,
@@ -445,7 +445,7 @@ GeneProductRef::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GeneProductRef.
+ * Returns the value of the "attributeName" attribute of this GeneProductRef.
  */
 int
 GeneProductRef::getAttribute(const std::string& attributeName,
@@ -463,7 +463,7 @@ GeneProductRef::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GeneProductRef.
+ * Returns the value of the "attributeName" attribute of this GeneProductRef.
  */
 int
 GeneProductRef::getAttribute(const std::string& attributeName,
@@ -481,7 +481,7 @@ GeneProductRef::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GeneProductRef.
+ * Returns the value of the "attributeName" attribute of this GeneProductRef.
  */
 int
 GeneProductRef::getAttribute(const std::string& attributeName,
@@ -499,7 +499,7 @@ GeneProductRef::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GeneProductRef.
+ * Returns the value of the "attributeName" attribute of this GeneProductRef.
  */
 int
 GeneProductRef::getAttribute(const std::string& attributeName,

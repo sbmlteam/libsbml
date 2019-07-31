@@ -2093,7 +2093,7 @@ DefaultValues::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this DefaultValues.
+ * Returns the value of the "attributeName" attribute of this DefaultValues.
  */
 int
 DefaultValues::getAttribute(const std::string& attributeName,
@@ -2122,7 +2122,7 @@ DefaultValues::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this DefaultValues.
+ * Returns the value of the "attributeName" attribute of this DefaultValues.
  */
 int
 DefaultValues::getAttribute(const std::string& attributeName,
@@ -2140,7 +2140,7 @@ DefaultValues::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this DefaultValues.
+ * Returns the value of the "attributeName" attribute of this DefaultValues.
  */
 int
 DefaultValues::getAttribute(const std::string& attributeName,
@@ -2164,7 +2164,7 @@ DefaultValues::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this DefaultValues.
+ * Returns the value of the "attributeName" attribute of this DefaultValues.
  */
 int
 DefaultValues::getAttribute(const std::string& attributeName,
@@ -2182,7 +2182,7 @@ DefaultValues::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this DefaultValues.
+ * Returns the value of the "attributeName" attribute of this DefaultValues.
  */
 int
 DefaultValues::getAttribute(const std::string& attributeName,

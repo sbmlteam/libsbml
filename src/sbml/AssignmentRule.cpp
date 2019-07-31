@@ -136,7 +136,7 @@ AssignmentRule::renameSIdRefs(const std::string& oldid, const std::string& newid
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this AssignmentRule.
+ * Returns the value of the "attributeName" attribute of this AssignmentRule.
  */
 int
 AssignmentRule::getAttribute(const std::string& attributeName,
@@ -154,7 +154,7 @@ AssignmentRule::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this AssignmentRule.
+ * Returns the value of the "attributeName" attribute of this AssignmentRule.
  */
 int
 AssignmentRule::getAttribute(const std::string& attributeName,
@@ -172,7 +172,7 @@ AssignmentRule::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this AssignmentRule.
+ * Returns the value of the "attributeName" attribute of this AssignmentRule.
  */
 int
 AssignmentRule::getAttribute(const std::string& attributeName,
@@ -190,7 +190,7 @@ AssignmentRule::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this AssignmentRule.
+ * Returns the value of the "attributeName" attribute of this AssignmentRule.
  */
 int
 AssignmentRule::getAttribute(const std::string& attributeName,
@@ -208,7 +208,7 @@ AssignmentRule::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this AssignmentRule.
+ * Returns the value of the "attributeName" attribute of this AssignmentRule.
  */
 int
 AssignmentRule::getAttribute(const std::string& attributeName,
@@ -252,7 +252,7 @@ AssignmentRule::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this AssignmentRule.
+ * Returns the value of the "attributeName" attribute of this AssignmentRule.
  */
 //int
 //AssignmentRule::getAttribute(const std::string& attributeName,

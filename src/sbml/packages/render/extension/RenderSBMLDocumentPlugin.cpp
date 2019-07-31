@@ -256,7 +256,7 @@ RenderSBMLDocumentPlugin::readAttributes(const XMLAttributes& attributes,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * RenderSBMLDocumentPlugin.
  */
 int
@@ -275,7 +275,7 @@ RenderSBMLDocumentPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * RenderSBMLDocumentPlugin.
  */
 int
@@ -294,7 +294,7 @@ RenderSBMLDocumentPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * RenderSBMLDocumentPlugin.
  */
 int
@@ -313,7 +313,7 @@ RenderSBMLDocumentPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * RenderSBMLDocumentPlugin.
  */
 int
@@ -332,7 +332,7 @@ RenderSBMLDocumentPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * RenderSBMLDocumentPlugin.
  */
 int

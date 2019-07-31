@@ -116,7 +116,7 @@ RateRule::hasRequiredAttributes() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this RateRule.
+ * Returns the value of the "attributeName" attribute of this RateRule.
  */
 int
 RateRule::getAttribute(const std::string& attributeName, bool& value) const
@@ -133,7 +133,7 @@ RateRule::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this RateRule.
+ * Returns the value of the "attributeName" attribute of this RateRule.
  */
 int
 RateRule::getAttribute(const std::string& attributeName, int& value) const
@@ -150,7 +150,7 @@ RateRule::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this RateRule.
+ * Returns the value of the "attributeName" attribute of this RateRule.
  */
 int
 RateRule::getAttribute(const std::string& attributeName, double& value) const
@@ -167,7 +167,7 @@ RateRule::getAttribute(const std::string& attributeName, double& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this RateRule.
+ * Returns the value of the "attributeName" attribute of this RateRule.
  */
 int
 RateRule::getAttribute(const std::string& attributeName,
@@ -185,7 +185,7 @@ RateRule::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this RateRule.
+ * Returns the value of the "attributeName" attribute of this RateRule.
  */
 int
 RateRule::getAttribute(const std::string& attributeName,
@@ -229,7 +229,7 @@ RateRule::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this RateRule.
+ * Returns the value of the "attributeName" attribute of this RateRule.
  */
 //int
 //RateRule::getAttribute(const std::string& attributeName,

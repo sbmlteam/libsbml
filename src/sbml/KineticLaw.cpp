@@ -1166,7 +1166,7 @@ int KineticLaw::removeFromParentAndDelete()
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this KineticLaw.
+ * Returns the value of the "attributeName" attribute of this KineticLaw.
  */
 int
 KineticLaw::getAttribute(const std::string& attributeName, bool& value) const
@@ -1183,7 +1183,7 @@ KineticLaw::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this KineticLaw.
+ * Returns the value of the "attributeName" attribute of this KineticLaw.
  */
 int
 KineticLaw::getAttribute(const std::string& attributeName, int& value) const
@@ -1200,7 +1200,7 @@ KineticLaw::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this KineticLaw.
+ * Returns the value of the "attributeName" attribute of this KineticLaw.
  */
 int
 KineticLaw::getAttribute(const std::string& attributeName,
@@ -1218,7 +1218,7 @@ KineticLaw::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this KineticLaw.
+ * Returns the value of the "attributeName" attribute of this KineticLaw.
  */
 int
 KineticLaw::getAttribute(const std::string& attributeName,
@@ -1236,7 +1236,7 @@ KineticLaw::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this KineticLaw.
+ * Returns the value of the "attributeName" attribute of this KineticLaw.
  */
 int
 KineticLaw::getAttribute(const std::string& attributeName,
@@ -1270,7 +1270,7 @@ KineticLaw::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this KineticLaw.
+ * Returns the value of the "attributeName" attribute of this KineticLaw.
  */
 //int
 //KineticLaw::getAttribute(const std::string& attributeName,

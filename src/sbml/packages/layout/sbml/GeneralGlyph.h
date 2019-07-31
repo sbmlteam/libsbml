@@ -768,7 +768,7 @@ GeneralGlyph_setReferenceId (GeneralGlyph_t *gg,const char *id);
 
 
 /**
- * Gets the reference id for the given glyph.
+ * Returns the reference id for the given glyph.
  *
  * @param gg the GeneralGlyph_t structure.
  *
@@ -870,7 +870,7 @@ GeneralGlyph_setCurve (GeneralGlyph_t *gg, Curve_t *c);
 
 
 /**
- * Gets the Curve_t for the given reaction glyph.
+ * Returns the Curve_t for the given reaction glyph.
  *
  * @param gg the GeneralGlyph_t structure.
  *

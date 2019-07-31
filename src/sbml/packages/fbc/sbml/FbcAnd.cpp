@@ -546,7 +546,7 @@ FbcAnd::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcAnd.
+ * Returns the value of the "attributeName" attribute of this FbcAnd.
  */
 int
 FbcAnd::getAttribute(const std::string& attributeName, bool& value) const
@@ -563,7 +563,7 @@ FbcAnd::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcAnd.
+ * Returns the value of the "attributeName" attribute of this FbcAnd.
  */
 int
 FbcAnd::getAttribute(const std::string& attributeName, int& value) const
@@ -580,7 +580,7 @@ FbcAnd::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcAnd.
+ * Returns the value of the "attributeName" attribute of this FbcAnd.
  */
 int
 FbcAnd::getAttribute(const std::string& attributeName, double& value) const
@@ -597,7 +597,7 @@ FbcAnd::getAttribute(const std::string& attributeName, double& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcAnd.
+ * Returns the value of the "attributeName" attribute of this FbcAnd.
  */
 int
 FbcAnd::getAttribute(const std::string& attributeName,
@@ -615,7 +615,7 @@ FbcAnd::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcAnd.
+ * Returns the value of the "attributeName" attribute of this FbcAnd.
  */
 int
 FbcAnd::getAttribute(const std::string& attributeName,

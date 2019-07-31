@@ -312,7 +312,7 @@ SpeciesType::hasRequiredAttributes() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this SpeciesType.
+ * Returns the value of the "attributeName" attribute of this SpeciesType.
  */
 int
 SpeciesType::getAttribute(const std::string& attributeName, bool& value) const
@@ -329,7 +329,7 @@ SpeciesType::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this SpeciesType.
+ * Returns the value of the "attributeName" attribute of this SpeciesType.
  */
 int
 SpeciesType::getAttribute(const std::string& attributeName, int& value) const
@@ -346,7 +346,7 @@ SpeciesType::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this SpeciesType.
+ * Returns the value of the "attributeName" attribute of this SpeciesType.
  */
 int
 SpeciesType::getAttribute(const std::string& attributeName,
@@ -364,7 +364,7 @@ SpeciesType::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this SpeciesType.
+ * Returns the value of the "attributeName" attribute of this SpeciesType.
  */
 int
 SpeciesType::getAttribute(const std::string& attributeName,
@@ -382,7 +382,7 @@ SpeciesType::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this SpeciesType.
+ * Returns the value of the "attributeName" attribute of this SpeciesType.
  */
 int
 SpeciesType::getAttribute(const std::string& attributeName,
@@ -400,7 +400,7 @@ SpeciesType::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this SpeciesType.
+ * Returns the value of the "attributeName" attribute of this SpeciesType.
  */
 //int
 //SpeciesType::getAttribute(const std::string& attributeName,

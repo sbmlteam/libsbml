@@ -334,7 +334,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this FunctionTerm.
+   * Returns the value of the "attributeName" attribute of this FunctionTerm.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -354,7 +354,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this FunctionTerm.
+   * Returns the value of the "attributeName" attribute of this FunctionTerm.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -373,7 +373,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this FunctionTerm.
+   * Returns the value of the "attributeName" attribute of this FunctionTerm.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -393,7 +393,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this FunctionTerm.
+   * Returns the value of the "attributeName" attribute of this FunctionTerm.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -413,7 +413,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this FunctionTerm.
+   * Returns the value of the "attributeName" attribute of this FunctionTerm.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *

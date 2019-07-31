@@ -590,7 +590,7 @@ SpeciesReference::hasRequiredAttributes() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this SpeciesReference.
+ * Returns the value of the "attributeName" attribute of this SpeciesReference.
  */
 int
 SpeciesReference::getAttribute(const std::string& attributeName,
@@ -620,7 +620,7 @@ SpeciesReference::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this SpeciesReference.
+ * Returns the value of the "attributeName" attribute of this SpeciesReference.
  */
 int
 SpeciesReference::getAttribute(const std::string& attributeName,
@@ -650,7 +650,7 @@ SpeciesReference::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this SpeciesReference.
+ * Returns the value of the "attributeName" attribute of this SpeciesReference.
  */
 int
 SpeciesReference::getAttribute(const std::string& attributeName,
@@ -680,7 +680,7 @@ SpeciesReference::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this SpeciesReference.
+ * Returns the value of the "attributeName" attribute of this SpeciesReference.
  */
 int
 SpeciesReference::getAttribute(const std::string& attributeName,
@@ -704,7 +704,7 @@ SpeciesReference::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this SpeciesReference.
+ * Returns the value of the "attributeName" attribute of this SpeciesReference.
  */
 int
 SpeciesReference::getAttribute(const std::string& attributeName,
@@ -723,7 +723,7 @@ SpeciesReference::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this SpeciesReference.
+ * Returns the value of the "attributeName" attribute of this SpeciesReference.
  */
 //int
 //SpeciesReference::getAttribute(const std::string& attributeName,

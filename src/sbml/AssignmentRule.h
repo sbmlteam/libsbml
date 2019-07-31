@@ -284,7 +284,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this AssignmentRule.
+   * Returns the value of the "attributeName" attribute of this AssignmentRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -304,7 +304,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this AssignmentRule.
+   * Returns the value of the "attributeName" attribute of this AssignmentRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -323,7 +323,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this AssignmentRule.
+   * Returns the value of the "attributeName" attribute of this AssignmentRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -343,7 +343,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this AssignmentRule.
+   * Returns the value of the "attributeName" attribute of this AssignmentRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -363,7 +363,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this AssignmentRule.
+   * Returns the value of the "attributeName" attribute of this AssignmentRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -383,7 +383,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this AssignmentRule.
+   * Returns the value of the "attributeName" attribute of this AssignmentRule.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -673,7 +673,7 @@ AssignmentRule_getVariable(const AssignmentRule_t * ar);
 
 
 /**
- * Gets the mathematical expression of this AssignmentRule_t structure as an
+ * Returns the mathematical expression of this AssignmentRule_t structure as an
  * ASTNode_t structure.
  *
  * @param ar the AssignmentRule_t structure.

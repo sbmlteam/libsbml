@@ -631,7 +631,7 @@ FunctionDefinition::renameUnitSIdRefs(const std::string& oldid, const std::strin
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FunctionDefinition.
+ * Returns the value of the "attributeName" attribute of this FunctionDefinition.
  */
 int
 FunctionDefinition::getAttribute(const std::string& attributeName,
@@ -649,7 +649,7 @@ FunctionDefinition::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FunctionDefinition.
+ * Returns the value of the "attributeName" attribute of this FunctionDefinition.
  */
 int
 FunctionDefinition::getAttribute(const std::string& attributeName,
@@ -667,7 +667,7 @@ FunctionDefinition::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FunctionDefinition.
+ * Returns the value of the "attributeName" attribute of this FunctionDefinition.
  */
 int
 FunctionDefinition::getAttribute(const std::string& attributeName,
@@ -685,7 +685,7 @@ FunctionDefinition::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FunctionDefinition.
+ * Returns the value of the "attributeName" attribute of this FunctionDefinition.
  */
 int
 FunctionDefinition::getAttribute(const std::string& attributeName,
@@ -703,7 +703,7 @@ FunctionDefinition::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FunctionDefinition.
+ * Returns the value of the "attributeName" attribute of this FunctionDefinition.
  */
 int
 FunctionDefinition::getAttribute(const std::string& attributeName,
@@ -721,7 +721,7 @@ FunctionDefinition::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FunctionDefinition.
+ * Returns the value of the "attributeName" attribute of this FunctionDefinition.
  */
 //int
 //FunctionDefinition::getAttribute(const std::string& attributeName,

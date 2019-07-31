@@ -528,7 +528,7 @@ Transformation::accept(SBMLVisitor& v) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Transformation.
+ * Returns the value of the "attributeName" attribute of this Transformation.
  */
 int
 Transformation::getAttribute(const std::string& attributeName,
@@ -546,7 +546,7 @@ Transformation::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Transformation.
+ * Returns the value of the "attributeName" attribute of this Transformation.
  */
 int
 Transformation::getAttribute(const std::string& attributeName,
@@ -564,7 +564,7 @@ Transformation::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Transformation.
+ * Returns the value of the "attributeName" attribute of this Transformation.
  */
 int
 Transformation::getAttribute(const std::string& attributeName,
@@ -582,7 +582,7 @@ Transformation::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Transformation.
+ * Returns the value of the "attributeName" attribute of this Transformation.
  */
 int
 Transformation::getAttribute(const std::string& attributeName,
@@ -600,7 +600,7 @@ Transformation::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Transformation.
+ * Returns the value of the "attributeName" attribute of this Transformation.
  */
 int
 Transformation::getAttribute(const std::string& attributeName,

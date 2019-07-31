@@ -459,7 +459,7 @@ FluxObjective::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FluxObjective.
+ * Returns the value of the "attributeName" attribute of this FluxObjective.
  */
 int
 FluxObjective::getAttribute(const std::string& attributeName,
@@ -477,7 +477,7 @@ FluxObjective::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FluxObjective.
+ * Returns the value of the "attributeName" attribute of this FluxObjective.
  */
 int
 FluxObjective::getAttribute(const std::string& attributeName,
@@ -495,7 +495,7 @@ FluxObjective::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FluxObjective.
+ * Returns the value of the "attributeName" attribute of this FluxObjective.
  */
 int
 FluxObjective::getAttribute(const std::string& attributeName,
@@ -524,7 +524,7 @@ FluxObjective::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FluxObjective.
+ * Returns the value of the "attributeName" attribute of this FluxObjective.
  */
 int
 FluxObjective::getAttribute(const std::string& attributeName,
@@ -542,7 +542,7 @@ FluxObjective::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FluxObjective.
+ * Returns the value of the "attributeName" attribute of this FluxObjective.
  */
 int
 FluxObjective::getAttribute(const std::string& attributeName,

@@ -763,7 +763,7 @@ Style::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Style.
+ * Returns the value of the "attributeName" attribute of this Style.
  */
 int
 Style::getAttribute(const std::string& attributeName, bool& value) const
@@ -780,7 +780,7 @@ Style::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Style.
+ * Returns the value of the "attributeName" attribute of this Style.
  */
 int
 Style::getAttribute(const std::string& attributeName, int& value) const
@@ -797,7 +797,7 @@ Style::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Style.
+ * Returns the value of the "attributeName" attribute of this Style.
  */
 int
 Style::getAttribute(const std::string& attributeName, double& value) const
@@ -814,7 +814,7 @@ Style::getAttribute(const std::string& attributeName, double& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Style.
+ * Returns the value of the "attributeName" attribute of this Style.
  */
 int
 Style::getAttribute(const std::string& attributeName,
@@ -832,7 +832,7 @@ Style::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Style.
+ * Returns the value of the "attributeName" attribute of this Style.
  */
 int
 Style::getAttribute(const std::string& attributeName,

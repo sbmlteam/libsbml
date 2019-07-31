@@ -504,7 +504,7 @@ SpeciesReferenceGlyph_setSpeciesReferenceId (SpeciesReferenceGlyph_t *srg,
                                              const char *id);
 
 /**
- * Gets the reference species id for the given species glyph.
+ * Returns the reference species id for the given species glyph.
  *
  * @param srg the SpeciesReferenceGlyph_t structure.
  *
@@ -540,7 +540,7 @@ SpeciesReferenceGlyph_setSpeciesGlyphId (SpeciesReferenceGlyph_t *srg,
                                          const char *id);
 
 /**
- * Gets the reference species id for the given species glyph.
+ * Returns the reference species id for the given species glyph.
  *
  * @param srg the SpeciesReferenceGlyph_t structure.
  *
@@ -576,7 +576,7 @@ void
 SpeciesReferenceGlyph_setCurve (SpeciesReferenceGlyph_t *srg, Curve_t *c);
 
 /**
- * Gets the Curve_t for the given species reference glyph.
+ * Returns the Curve_t for the given species reference glyph.
  *
  * @param srg the SpeciesReferenceGlyph_t structure.
  *

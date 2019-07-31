@@ -222,7 +222,7 @@ QualModelPlugin::writeElements (XMLOutputStream& stream) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this QualModelPlugin.
+ * Returns the value of the "attributeName" attribute of this QualModelPlugin.
  */
 int
 QualModelPlugin::getAttribute(const std::string& attributeName,
@@ -240,7 +240,7 @@ QualModelPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this QualModelPlugin.
+ * Returns the value of the "attributeName" attribute of this QualModelPlugin.
  */
 int
 QualModelPlugin::getAttribute(const std::string& attributeName,
@@ -258,7 +258,7 @@ QualModelPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this QualModelPlugin.
+ * Returns the value of the "attributeName" attribute of this QualModelPlugin.
  */
 int
 QualModelPlugin::getAttribute(const std::string& attributeName,
@@ -276,7 +276,7 @@ QualModelPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this QualModelPlugin.
+ * Returns the value of the "attributeName" attribute of this QualModelPlugin.
  */
 int
 QualModelPlugin::getAttribute(const std::string& attributeName,
@@ -294,7 +294,7 @@ QualModelPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this QualModelPlugin.
+ * Returns the value of the "attributeName" attribute of this QualModelPlugin.
  */
 int
 QualModelPlugin::getAttribute(const std::string& attributeName,

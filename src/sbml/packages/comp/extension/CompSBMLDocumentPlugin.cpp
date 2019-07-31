@@ -570,7 +570,7 @@ CompSBMLDocumentPlugin::removeExternalModelDefinition(unsigned int index)
 
 
 /*
- * Gets the model with the given sid, whether from <model>, <listOfModelDefinitions>, or <externalModelDefinitions>
+ * Returns the model with the given sid, whether from <model>, <listOfModelDefinitions>, or <externalModelDefinitions>
  */
 const SBase* CompSBMLDocumentPlugin::getModel(const string& sid) const
 {
@@ -584,7 +584,7 @@ const SBase* CompSBMLDocumentPlugin::getModel(const string& sid) const
 
 
 /*
- * Gets the model with the given sid, whether from <model>, <listOfModelDefinitions>, or <externalModelDefinitions>
+ * Returns the model with the given sid, whether from <model>, <listOfModelDefinitions>, or <externalModelDefinitions>
  */
 SBase* CompSBMLDocumentPlugin::getModel(const string& sid)
 {

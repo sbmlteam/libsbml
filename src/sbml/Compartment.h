@@ -1328,7 +1328,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Compartment.
+   * Returns the value of the "attributeName" attribute of this Compartment.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1348,7 +1348,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Compartment.
+   * Returns the value of the "attributeName" attribute of this Compartment.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1367,7 +1367,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Compartment.
+   * Returns the value of the "attributeName" attribute of this Compartment.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1387,7 +1387,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Compartment.
+   * Returns the value of the "attributeName" attribute of this Compartment.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1407,7 +1407,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Compartment.
+   * Returns the value of the "attributeName" attribute of this Compartment.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1427,7 +1427,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Compartment.
+   * Returns the value of the "attributeName" attribute of this Compartment.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *

@@ -433,7 +433,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Priority.
+   * Returns the value of the "attributeName" attribute of this Priority.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -453,7 +453,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Priority.
+   * Returns the value of the "attributeName" attribute of this Priority.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -472,7 +472,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Priority.
+   * Returns the value of the "attributeName" attribute of this Priority.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -492,7 +492,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Priority.
+   * Returns the value of the "attributeName" attribute of this Priority.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -512,7 +512,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Priority.
+   * Returns the value of the "attributeName" attribute of this Priority.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -532,7 +532,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Priority.
+   * Returns the value of the "attributeName" attribute of this Priority.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *

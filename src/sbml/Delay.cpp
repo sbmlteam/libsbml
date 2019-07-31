@@ -447,7 +447,7 @@ Delay::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Delay.
+ * Returns the value of the "attributeName" attribute of this Delay.
  */
 int
 Delay::getAttribute(const std::string& attributeName, bool& value) const
@@ -464,7 +464,7 @@ Delay::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Delay.
+ * Returns the value of the "attributeName" attribute of this Delay.
  */
 int
 Delay::getAttribute(const std::string& attributeName, int& value) const
@@ -481,7 +481,7 @@ Delay::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Delay.
+ * Returns the value of the "attributeName" attribute of this Delay.
  */
 int
 Delay::getAttribute(const std::string& attributeName, double& value) const
@@ -498,7 +498,7 @@ Delay::getAttribute(const std::string& attributeName, double& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Delay.
+ * Returns the value of the "attributeName" attribute of this Delay.
  */
 int
 Delay::getAttribute(const std::string& attributeName,
@@ -516,7 +516,7 @@ Delay::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Delay.
+ * Returns the value of the "attributeName" attribute of this Delay.
  */
 int
 Delay::getAttribute(const std::string& attributeName,
@@ -534,7 +534,7 @@ Delay::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Delay.
+ * Returns the value of the "attributeName" attribute of this Delay.
  */
 //int
 //Delay::getAttribute(const std::string& attributeName, const char* value) const

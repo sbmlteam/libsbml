@@ -1070,7 +1070,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this KineticLaw.
+   * Returns the value of the "attributeName" attribute of this KineticLaw.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1090,7 +1090,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this KineticLaw.
+   * Returns the value of the "attributeName" attribute of this KineticLaw.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1109,7 +1109,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this KineticLaw.
+   * Returns the value of the "attributeName" attribute of this KineticLaw.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1129,7 +1129,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this KineticLaw.
+   * Returns the value of the "attributeName" attribute of this KineticLaw.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1149,7 +1149,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this KineticLaw.
+   * Returns the value of the "attributeName" attribute of this KineticLaw.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1169,7 +1169,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this KineticLaw.
+   * Returns the value of the "attributeName" attribute of this KineticLaw.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1599,7 +1599,7 @@ KineticLaw_getNamespaces(KineticLaw_t *kl);
 
 
 /**
- * Gets the mathematical expression of this KineticLaw_t structure as a
+ * Returns the mathematical expression of this KineticLaw_t structure as a
  * formula in text-string form.
  *
  * This is fundamentally equivalent to KineticLaw_getMath().  It is
@@ -1630,7 +1630,7 @@ KineticLaw_getFormula (const KineticLaw_t *kl);
 
 
 /**
- * Gets the mathematical expression of this KineticLaw_t structure as an
+ * Returns the mathematical expression of this KineticLaw_t structure as an
  * ASTNode_t structure.
  *
  * This is fundamentally equivalent to KineticLaw_getFormula().  The latter
@@ -1651,7 +1651,7 @@ KineticLaw_getMath (const KineticLaw_t *kl);
 
 
 /**
- * Gets the value of the "timeUnits" attribute of the given
+ * Returns the value of the "timeUnits" attribute of the given
  * KineticLaw_t structure.
  *
  * @param kl the KineticLaw_t structure.
@@ -1670,7 +1670,7 @@ KineticLaw_getTimeUnits (const KineticLaw_t *kl);
 
 
 /**
- * Gets the value of the "substanceUnits" attribute of the given
+ * Returns the value of the "substanceUnits" attribute of the given
  * KineticLaw_t structure.
  *
  * @param kl the KineticLaw_t structure.

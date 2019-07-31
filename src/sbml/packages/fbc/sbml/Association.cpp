@@ -687,7 +687,7 @@ Association::accept (SBMLVisitor&) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Association.
+ * Returns the value of the "attributeName" attribute of this Association.
  */
 int
 Association::getAttribute(const std::string& attributeName, bool& value) const
@@ -704,7 +704,7 @@ Association::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Association.
+ * Returns the value of the "attributeName" attribute of this Association.
  */
 int
 Association::getAttribute(const std::string& attributeName, int& value) const
@@ -721,7 +721,7 @@ Association::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Association.
+ * Returns the value of the "attributeName" attribute of this Association.
  */
 int
 Association::getAttribute(const std::string& attributeName,
@@ -739,7 +739,7 @@ Association::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Association.
+ * Returns the value of the "attributeName" attribute of this Association.
  */
 int
 Association::getAttribute(const std::string& attributeName,
@@ -757,7 +757,7 @@ Association::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Association.
+ * Returns the value of the "attributeName" attribute of this Association.
  */
 int
 Association::getAttribute(const std::string& attributeName,

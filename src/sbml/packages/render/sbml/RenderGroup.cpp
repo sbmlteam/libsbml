@@ -1525,7 +1525,7 @@ RenderGroup::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this RenderGroup.
+ * Returns the value of the "attributeName" attribute of this RenderGroup.
  */
 int
 RenderGroup::getAttribute(const std::string& attributeName, bool& value) const
@@ -1542,7 +1542,7 @@ RenderGroup::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this RenderGroup.
+ * Returns the value of the "attributeName" attribute of this RenderGroup.
  */
 int
 RenderGroup::getAttribute(const std::string& attributeName, int& value) const
@@ -1559,7 +1559,7 @@ RenderGroup::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this RenderGroup.
+ * Returns the value of the "attributeName" attribute of this RenderGroup.
  */
 int
 RenderGroup::getAttribute(const std::string& attributeName,
@@ -1577,7 +1577,7 @@ RenderGroup::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this RenderGroup.
+ * Returns the value of the "attributeName" attribute of this RenderGroup.
  */
 int
 RenderGroup::getAttribute(const std::string& attributeName,
@@ -1595,7 +1595,7 @@ RenderGroup::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this RenderGroup.
+ * Returns the value of the "attributeName" attribute of this RenderGroup.
  */
 int
 RenderGroup::getAttribute(const std::string& attributeName,

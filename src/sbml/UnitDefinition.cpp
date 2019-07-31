@@ -1601,7 +1601,7 @@ UnitDefinition::printUnits(const UnitDefinition * ud, bool compact)
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this UnitDefinition.
+ * Returns the value of the "attributeName" attribute of this UnitDefinition.
  */
 int
 UnitDefinition::getAttribute(const std::string& attributeName,
@@ -1619,7 +1619,7 @@ UnitDefinition::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this UnitDefinition.
+ * Returns the value of the "attributeName" attribute of this UnitDefinition.
  */
 int
 UnitDefinition::getAttribute(const std::string& attributeName,
@@ -1637,7 +1637,7 @@ UnitDefinition::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this UnitDefinition.
+ * Returns the value of the "attributeName" attribute of this UnitDefinition.
  */
 int
 UnitDefinition::getAttribute(const std::string& attributeName,
@@ -1655,7 +1655,7 @@ UnitDefinition::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this UnitDefinition.
+ * Returns the value of the "attributeName" attribute of this UnitDefinition.
  */
 int
 UnitDefinition::getAttribute(const std::string& attributeName,
@@ -1673,7 +1673,7 @@ UnitDefinition::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this UnitDefinition.
+ * Returns the value of the "attributeName" attribute of this UnitDefinition.
  */
 int
 UnitDefinition::getAttribute(const std::string& attributeName,
@@ -1691,7 +1691,7 @@ UnitDefinition::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this UnitDefinition.
+ * Returns the value of the "attributeName" attribute of this UnitDefinition.
  */
 //int
 //UnitDefinition::getAttribute(const std::string& attributeName,

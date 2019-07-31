@@ -266,7 +266,7 @@ LocalParameter::hasRequiredAttributes() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this LocalParameter.
+ * Returns the value of the "attributeName" attribute of this LocalParameter.
  */
 int
 LocalParameter::getAttribute(const std::string& attributeName,
@@ -284,7 +284,7 @@ LocalParameter::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this LocalParameter.
+ * Returns the value of the "attributeName" attribute of this LocalParameter.
  */
 int
 LocalParameter::getAttribute(const std::string& attributeName,
@@ -302,7 +302,7 @@ LocalParameter::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this LocalParameter.
+ * Returns the value of the "attributeName" attribute of this LocalParameter.
  */
 int
 LocalParameter::getAttribute(const std::string& attributeName,
@@ -331,7 +331,7 @@ LocalParameter::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this LocalParameter.
+ * Returns the value of the "attributeName" attribute of this LocalParameter.
  */
 int
 LocalParameter::getAttribute(const std::string& attributeName,
@@ -349,7 +349,7 @@ LocalParameter::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this LocalParameter.
+ * Returns the value of the "attributeName" attribute of this LocalParameter.
  */
 int
 LocalParameter::getAttribute(const std::string& attributeName,
@@ -378,7 +378,7 @@ LocalParameter::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this LocalParameter.
+ * Returns the value of the "attributeName" attribute of this LocalParameter.
  */
 //int
 //LocalParameter::getAttribute(const std::string& attributeName,

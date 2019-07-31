@@ -408,7 +408,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this FbcReactionPlugin.
+   * Returns the value of the "attributeName" attribute of this FbcReactionPlugin.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -428,7 +428,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this FbcReactionPlugin.
+   * Returns the value of the "attributeName" attribute of this FbcReactionPlugin.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -447,7 +447,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this FbcReactionPlugin.
+   * Returns the value of the "attributeName" attribute of this FbcReactionPlugin.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -467,7 +467,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this FbcReactionPlugin.
+   * Returns the value of the "attributeName" attribute of this FbcReactionPlugin.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -487,7 +487,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this FbcReactionPlugin.
+   * Returns the value of the "attributeName" attribute of this FbcReactionPlugin.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *

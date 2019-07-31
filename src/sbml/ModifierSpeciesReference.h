@@ -191,7 +191,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this
+   * Returns the value of the "attributeName" attribute of this
    * ModifierSpeciesReference.
    *
    * @param attributeName, the name of the attribute to retrieve.
@@ -212,7 +212,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this
+   * Returns the value of the "attributeName" attribute of this
    * ModifierSpeciesReference.
    *
    * @param attributeName, the name of the attribute to retrieve.
@@ -232,7 +232,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this
+   * Returns the value of the "attributeName" attribute of this
    * ModifierSpeciesReference.
    *
    * @param attributeName, the name of the attribute to retrieve.
@@ -253,7 +253,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this
+   * Returns the value of the "attributeName" attribute of this
    * ModifierSpeciesReference.
    *
    * @param attributeName, the name of the attribute to retrieve.
@@ -274,7 +274,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this
+   * Returns the value of the "attributeName" attribute of this
    * ModifierSpeciesReference.
    *
    * @param attributeName, the name of the attribute to retrieve.
@@ -295,7 +295,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this
+   * Returns the value of the "attributeName" attribute of this
    * ModifierSpeciesReference.
    *
    * @param attributeName, the name of the attribute to retrieve.

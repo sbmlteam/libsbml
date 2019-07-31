@@ -930,7 +930,7 @@ Rule::hasRequiredAttributes() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Rule.
+ * Returns the value of the "attributeName" attribute of this Rule.
  */
 int
 Rule::getAttribute(const std::string& attributeName, bool& value) const
@@ -947,7 +947,7 @@ Rule::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Rule.
+ * Returns the value of the "attributeName" attribute of this Rule.
  */
 int
 Rule::getAttribute(const std::string& attributeName, int& value) const
@@ -964,7 +964,7 @@ Rule::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Rule.
+ * Returns the value of the "attributeName" attribute of this Rule.
  */
 int
 Rule::getAttribute(const std::string& attributeName, double& value) const
@@ -981,7 +981,7 @@ Rule::getAttribute(const std::string& attributeName, double& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Rule.
+ * Returns the value of the "attributeName" attribute of this Rule.
  */
 int
 Rule::getAttribute(const std::string& attributeName,
@@ -999,7 +999,7 @@ Rule::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Rule.
+ * Returns the value of the "attributeName" attribute of this Rule.
  */
 int
 Rule::getAttribute(const std::string& attributeName, std::string& value) const
@@ -1016,7 +1016,7 @@ Rule::getAttribute(const std::string& attributeName, std::string& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Rule.
+ * Returns the value of the "attributeName" attribute of this Rule.
  */
 //int
 //Rule::getAttribute(const std::string& attributeName, const char* value) const

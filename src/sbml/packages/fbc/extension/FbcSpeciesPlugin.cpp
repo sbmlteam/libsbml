@@ -565,7 +565,7 @@ FbcSpeciesPlugin::accept(SBMLVisitor&) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ * Returns the value of the "attributeName" attribute of this FbcSpeciesPlugin.
  */
 int
 FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
@@ -583,7 +583,7 @@ FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ * Returns the value of the "attributeName" attribute of this FbcSpeciesPlugin.
  */
 int
 FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
@@ -612,7 +612,7 @@ FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ * Returns the value of the "attributeName" attribute of this FbcSpeciesPlugin.
  */
 int
 FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
@@ -630,7 +630,7 @@ FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ * Returns the value of the "attributeName" attribute of this FbcSpeciesPlugin.
  */
 int
 FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
@@ -648,7 +648,7 @@ FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ * Returns the value of the "attributeName" attribute of this FbcSpeciesPlugin.
  */
 int
 FbcSpeciesPlugin::getAttribute(const std::string& attributeName,

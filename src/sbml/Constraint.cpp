@@ -482,7 +482,7 @@ Constraint::hasRequiredElements() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Constraint.
+ * Returns the value of the "attributeName" attribute of this Constraint.
  */
 int
 Constraint::getAttribute(const std::string& attributeName, bool& value) const
@@ -499,7 +499,7 @@ Constraint::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Constraint.
+ * Returns the value of the "attributeName" attribute of this Constraint.
  */
 int
 Constraint::getAttribute(const std::string& attributeName, int& value) const
@@ -516,7 +516,7 @@ Constraint::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Constraint.
+ * Returns the value of the "attributeName" attribute of this Constraint.
  */
 int
 Constraint::getAttribute(const std::string& attributeName,
@@ -534,7 +534,7 @@ Constraint::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Constraint.
+ * Returns the value of the "attributeName" attribute of this Constraint.
  */
 int
 Constraint::getAttribute(const std::string& attributeName,
@@ -552,7 +552,7 @@ Constraint::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Constraint.
+ * Returns the value of the "attributeName" attribute of this Constraint.
  */
 int
 Constraint::getAttribute(const std::string& attributeName,
@@ -570,7 +570,7 @@ Constraint::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Constraint.
+ * Returns the value of the "attributeName" attribute of this Constraint.
  */
 //int
 //Constraint::getAttribute(const std::string& attributeName,

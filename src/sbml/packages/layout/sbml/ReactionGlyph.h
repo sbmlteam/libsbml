@@ -724,7 +724,7 @@ void
 ReactionGlyph_setReactionId (ReactionGlyph_t *rg,const char *id);
 
 /**
- * Gets the reference reactions id for the given reaction glyph.
+ * Returns the reference reactions id for the given reaction glyph.
  *
  * @param rg the ReactionGlyph_t structure.
  *
@@ -820,7 +820,7 @@ void
 ReactionGlyph_setCurve (ReactionGlyph_t *rg, Curve_t *c);
 
 /**
- * Gets the Curve_t for the given reaction glyph.
+ * Returns the Curve_t for the given reaction glyph.
  *
  * @param rg the ReactionGlyph_t structure.
  *

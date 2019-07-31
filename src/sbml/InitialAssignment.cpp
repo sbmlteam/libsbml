@@ -464,7 +464,7 @@ InitialAssignment::hasRequiredElements() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this InitialAssignment.
+ * Returns the value of the "attributeName" attribute of this InitialAssignment.
  */
 int
 InitialAssignment::getAttribute(const std::string& attributeName,
@@ -482,7 +482,7 @@ InitialAssignment::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this InitialAssignment.
+ * Returns the value of the "attributeName" attribute of this InitialAssignment.
  */
 int
 InitialAssignment::getAttribute(const std::string& attributeName,
@@ -500,7 +500,7 @@ InitialAssignment::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this InitialAssignment.
+ * Returns the value of the "attributeName" attribute of this InitialAssignment.
  */
 int
 InitialAssignment::getAttribute(const std::string& attributeName,
@@ -518,7 +518,7 @@ InitialAssignment::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this InitialAssignment.
+ * Returns the value of the "attributeName" attribute of this InitialAssignment.
  */
 int
 InitialAssignment::getAttribute(const std::string& attributeName,
@@ -536,7 +536,7 @@ InitialAssignment::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this InitialAssignment.
+ * Returns the value of the "attributeName" attribute of this InitialAssignment.
  */
 int
 InitialAssignment::getAttribute(const std::string& attributeName,
@@ -565,7 +565,7 @@ InitialAssignment::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this InitialAssignment.
+ * Returns the value of the "attributeName" attribute of this InitialAssignment.
  */
 //int
 //InitialAssignment::getAttribute(const std::string& attributeName,

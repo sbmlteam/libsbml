@@ -566,7 +566,7 @@ QualitativeSpecies::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this QualitativeSpecies.
+ * Returns the value of the "attributeName" attribute of this QualitativeSpecies.
  */
 int
 QualitativeSpecies::getAttribute(const std::string& attributeName,
@@ -595,7 +595,7 @@ QualitativeSpecies::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this QualitativeSpecies.
+ * Returns the value of the "attributeName" attribute of this QualitativeSpecies.
  */
 int
 QualitativeSpecies::getAttribute(const std::string& attributeName,
@@ -613,7 +613,7 @@ QualitativeSpecies::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this QualitativeSpecies.
+ * Returns the value of the "attributeName" attribute of this QualitativeSpecies.
  */
 int
 QualitativeSpecies::getAttribute(const std::string& attributeName,
@@ -631,7 +631,7 @@ QualitativeSpecies::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this QualitativeSpecies.
+ * Returns the value of the "attributeName" attribute of this QualitativeSpecies.
  */
 int
 QualitativeSpecies::getAttribute(const std::string& attributeName,
@@ -665,7 +665,7 @@ QualitativeSpecies::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this QualitativeSpecies.
+ * Returns the value of the "attributeName" attribute of this QualitativeSpecies.
  */
 int
 QualitativeSpecies::getAttribute(const std::string& attributeName,

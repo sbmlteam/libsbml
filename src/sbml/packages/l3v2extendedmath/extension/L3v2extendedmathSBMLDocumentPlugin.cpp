@@ -269,7 +269,7 @@ L3v2extendedmathSBMLDocumentPlugin::readAttributes(
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * L3v2extendedmathSBMLDocumentPlugin.
  */
 int
@@ -290,7 +290,7 @@ L3v2extendedmathSBMLDocumentPlugin::getAttribute(
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * L3v2extendedmathSBMLDocumentPlugin.
  */
 int
@@ -311,7 +311,7 @@ L3v2extendedmathSBMLDocumentPlugin::getAttribute(
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * L3v2extendedmathSBMLDocumentPlugin.
  */
 int
@@ -332,7 +332,7 @@ L3v2extendedmathSBMLDocumentPlugin::getAttribute(
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * L3v2extendedmathSBMLDocumentPlugin.
  */
 int
@@ -353,7 +353,7 @@ L3v2extendedmathSBMLDocumentPlugin::getAttribute(
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * L3v2extendedmathSBMLDocumentPlugin.
  */
 int

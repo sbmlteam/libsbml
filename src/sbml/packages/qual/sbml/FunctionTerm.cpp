@@ -379,7 +379,7 @@ FunctionTerm::enablePackageInternal(const std::string& pkgURI,
 
   /** @cond doxygenLibsbmlInternal */
 /*
- * Gets the value of the "attributeName" attribute of this FunctionTerm.
+ * Returns the value of the "attributeName" attribute of this FunctionTerm.
  */
 int
 FunctionTerm::getAttribute(const std::string& attributeName,
@@ -397,7 +397,7 @@ FunctionTerm::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FunctionTerm.
+ * Returns the value of the "attributeName" attribute of this FunctionTerm.
  */
 int
 FunctionTerm::getAttribute(const std::string& attributeName, int& value) const
@@ -414,7 +414,7 @@ FunctionTerm::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FunctionTerm.
+ * Returns the value of the "attributeName" attribute of this FunctionTerm.
  */
 int
 FunctionTerm::getAttribute(const std::string& attributeName,
@@ -432,7 +432,7 @@ FunctionTerm::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FunctionTerm.
+ * Returns the value of the "attributeName" attribute of this FunctionTerm.
  */
 int
 FunctionTerm::getAttribute(const std::string& attributeName,
@@ -461,7 +461,7 @@ FunctionTerm::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FunctionTerm.
+ * Returns the value of the "attributeName" attribute of this FunctionTerm.
  */
 int
 FunctionTerm::getAttribute(const std::string& attributeName,

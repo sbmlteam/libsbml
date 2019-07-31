@@ -392,7 +392,7 @@ SimpleSpeciesReference::hasRequiredAttributes() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * SimpleSpeciesReference.
  */
 int
@@ -411,7 +411,7 @@ SimpleSpeciesReference::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * SimpleSpeciesReference.
  */
 int
@@ -430,7 +430,7 @@ SimpleSpeciesReference::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * SimpleSpeciesReference.
  */
 int
@@ -449,7 +449,7 @@ SimpleSpeciesReference::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * SimpleSpeciesReference.
  */
 int
@@ -468,7 +468,7 @@ SimpleSpeciesReference::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * SimpleSpeciesReference.
  */
 int
@@ -498,7 +498,7 @@ SimpleSpeciesReference::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
+ * Returns the value of the "attributeName" attribute of this
  * SimpleSpeciesReference.
  */
 //int

@@ -558,7 +558,7 @@ FbcOr::enablePackageInternal(const std::string& pkgURI,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcOr.
+ * Returns the value of the "attributeName" attribute of this FbcOr.
  */
 int
 FbcOr::getAttribute(const std::string& attributeName, bool& value) const
@@ -575,7 +575,7 @@ FbcOr::getAttribute(const std::string& attributeName, bool& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcOr.
+ * Returns the value of the "attributeName" attribute of this FbcOr.
  */
 int
 FbcOr::getAttribute(const std::string& attributeName, int& value) const
@@ -592,7 +592,7 @@ FbcOr::getAttribute(const std::string& attributeName, int& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcOr.
+ * Returns the value of the "attributeName" attribute of this FbcOr.
  */
 int
 FbcOr::getAttribute(const std::string& attributeName, double& value) const
@@ -609,7 +609,7 @@ FbcOr::getAttribute(const std::string& attributeName, double& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcOr.
+ * Returns the value of the "attributeName" attribute of this FbcOr.
  */
 int
 FbcOr::getAttribute(const std::string& attributeName,
@@ -627,7 +627,7 @@ FbcOr::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcOr.
+ * Returns the value of the "attributeName" attribute of this FbcOr.
  */
 int
 FbcOr::getAttribute(const std::string& attributeName,

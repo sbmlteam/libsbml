@@ -475,7 +475,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Association.
+   * Returns the value of the "attributeName" attribute of this Association.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -495,7 +495,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Association.
+   * Returns the value of the "attributeName" attribute of this Association.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -514,7 +514,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Association.
+   * Returns the value of the "attributeName" attribute of this Association.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -534,7 +534,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Association.
+   * Returns the value of the "attributeName" attribute of this Association.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -554,7 +554,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this Association.
+   * Returns the value of the "attributeName" attribute of this Association.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
