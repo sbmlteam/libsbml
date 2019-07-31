@@ -41,9 +41,7 @@
 #include <sbml/packages/fbc/extension//FbcExtension.h>
 #include <sbml/packages/fbc/validator/FbcSBMLError.h>
 
-#if defined(WIN32) && !defined(CYGWIN)
-#define isnan _isnan
-#endif
+#include <sbml/util/util.h>
 
 
 using namespace std;
@@ -401,7 +399,7 @@ FluxBound::getValue () const
 bool
 FluxBound::isSetValue () const
 {
-  return (!isnan(mValue));
+  return (!util_isNaN(mValue));
 }
 
 
