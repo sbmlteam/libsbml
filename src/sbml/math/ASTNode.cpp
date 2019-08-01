@@ -1084,7 +1084,7 @@ ASTNode::getSemanticsAnnotation (unsigned int n) const
  *
  *   int (*ASTNodePredicate) (const ASTNode_t *node);
  *
- * where a return value of non-zero represents true and zero represents
+ * where a return value of nonzero represents true and zero represents
  * false.
  *
  * The List returned is owned by the caller and should be deleted.  The

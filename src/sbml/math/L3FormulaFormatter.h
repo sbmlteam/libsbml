@@ -155,7 +155,7 @@ SBML_formulaToL3StringWithSettings (const ASTNode_t *tree, const L3ParserSetting
 
 
 /**
- * @return true (non-zero) if the given ASTNode is to be 
+ * @return true (nonzero) if the given ASTNode is to be 
  * formatted as a function.
  */
 int
@@ -163,7 +163,7 @@ L3FormulaFormatter_isFunction (const ASTNode_t *node, const L3ParserSettings_t *
 
 
 /**
- * @return true (non-zero) if the given child ASTNode should be grouped
+ * @return true (nonzero) if the given child ASTNode should be grouped
  * (with parenthesis), false (0) otherwise.
  *
  * A node should be group if it is not an argument to a function and
