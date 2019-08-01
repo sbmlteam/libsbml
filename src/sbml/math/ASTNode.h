@@ -1460,11 +1460,12 @@ LIBSBML_EXTERN
    *
    * As a side effect, this ASTNode object's type will be reset to
    * @sbmlconstant{AST_NAME, ASTNodeType_t} if (and <em>only
-   * if</em>) the ASTNode was previously an operator (i.e. 
-   * @sbmlfunction{isOperator} <code>== true</code>), number (
-   * @sbmlfunction{isNumber} <code>== true</code>), or unknown.
-   * This allows names to be set for @sbmlconstant{AST_FUNCTION,
-   * ASTNodeType_t} nodes and the like.
+   * if</em>) the ASTNode was previously an operator (
+   * @if clike isOperator()@else ASTNode::isOperator()@endif@~
+   * <code>== true</code>), number (
+   * @if clike isNumber()@else ASTNode::isNumber()@endif@~
+   * <code>== true</code>), or unknown.
+   * This allows names to be set for @sbmlconstant{AST_FUNCTION, ASTNodeType_t} nodes and the like.
    *
    * @param name the string containing the name to which this node's value
    * should be set.
