@@ -115,7 +115,7 @@ getLibSBMLVersionString ();
  *        "expat", "libxml", "xerces-c", "bzip2", "zip"
  * 
  * @return 0 in case the libSBML has not been compiled against 
- *         that library and non-zero otherwise (for libraries 
+ *         that library and nonzero otherwise (for libraries 
  *         that define an integer version number that number will 
  *         be returned).
  *

@@ -61,10 +61,9 @@
  *
  * <h3><a class="anchor" name="math-convert">Converting between ASTs and text strings</a></h3>
  *
- * The text-string form of mathematical formulas produced by @if clike SBML_formulaToString()@endif@if csharp SBML_formulaToString()@endif@if python libsbml.formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif@~ and
- * read by @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String formula)</a></code>@endif@~
- * and
- * @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
+ * The text-string form of mathematical formulas produced by 
+ * @sbmlfunction{formulaToString,ASTNode_t} and @sbmlfunction{formulaToL3String,ASTNode_t}, 
+ * and read by @sbmlfunction{parseFormula,String} and @sbmlfunction{parseL3Formula,String}
  * are in a simple C-inspired infix notation.  A
  * formula in this text-string form can be handed to a program that
  * understands SBML mathematical expressions, or used as part
@@ -2096,35 +2095,92 @@ setValue(value, 0);
 
   /** @endcond */
 
-  //LIBSBML_EXTERN
-  //const ASTBasePlugin * getASTPlugin(const SBMLNamespaces * sbmlns, const std::string& name);
 
-  //LIBSBML_EXTERN
-  //  const ASTBasePlugin * getASTPlugin(const SBMLNamespaces * sbmlns = NULL, 
-  //                                     ASTNodeType_t type = AST_UNKNOWN, 
-  //                                     const std::string& name = std::string(),
-  //const std::string& csymbolURL = std::string()) const;
-
-  //LIBSBML_EXTERN
-  //ASTBasePlugin * getASTPlugin(const SBMLNamespaces * sbmlns = NULL, ASTNodeType_t type = AST_UNKNOWN,
-  //  const std::string& name = std::string(),
-  //  const std::string& csymbolURL = std::string());
-
+  /**
+   * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
+   * package extension with the given @p sbmlns.
+   *
+   * @param sbmlns the namespace of the plugin to return.
+   *
+   * @return the plug-in object (the libSBML extension interface) of
+   * a package extension with the given package name or URI, or @c NULL
+   * if none exist.
+   */
   LIBSBML_EXTERN
     ASTBasePlugin * getASTPlugin(const SBMLNamespaces * sbmlns);
 
+  /**
+   * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
+   * package extension for the package that defines the given @p type.
+   *
+   * @param type the @if clike #ASTNodeType_t@else type@endif@~ that is defined by the given plugin.
+   *
+   * @return the plug-in object (the libSBML extension interface) of
+   * a package extension that defines the given @p type, or @c NULL
+   * if none exist.
+   */
   LIBSBML_EXTERN
     ASTBasePlugin * getASTPlugin(ASTNodeType_t type);
 
+  /**
+   * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
+   * package extension for the package with the given constraints.
+   *
+   * @param name the type or csymbol defined by the returned plugin.
+   * @param isCsymbol Boolean indicator of whether the @p name is a csymbol
+   * (if @c true) or type (if @c false).
+   * @param strCmpIsCaseSensitive whether to search for the matching type
+   * or csymbol in case-sensitve manner (if @c true) or case-insensitive
+   * manner (if @c false).
+   *
+   * @return the plug-in object (the libSBML extension interface) of
+   * a package extension that defines the given @p name, or @c NULL
+   * if none exist.
+   */
   LIBSBML_EXTERN
     ASTBasePlugin * getASTPlugin(const std::string& name, bool isCsymbol = false, bool strCmpIsCaseSensitive = false);
 
+  /**
+   * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
+   * package extension with the given @p sbmlns.
+   *
+   * @param sbmlns the namespace of the plugin to return.
+   *
+   * @return the plug-in object (the libSBML extension interface) of
+   * a package extension with the given package name or URI, or @c NULL
+   * if none exist.
+   */
   LIBSBML_EXTERN
     const ASTBasePlugin * getASTPlugin(const SBMLNamespaces * sbmlns) const;
 
+  /**
+   * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
+   * package extension for the package that defines the given @p type.
+   *
+   * @param type the @if clike #ASTNodeType_t@else type@endif@~ that is defined by the given plugin.
+   *
+   * @return the plug-in object (the libSBML extension interface) of
+   * a package extension that defines the given @p type, or @c NULL
+   * if none exist.
+   */
   LIBSBML_EXTERN
     const ASTBasePlugin * getASTPlugin(ASTNodeType_t type) const;
 
+  /**
+   * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
+   * package extension for the package with the given constraints.
+   *
+   * @param name the type or csymbol defined by the returned plugin.
+   * @param isCsymbol Boolean indicator of whether the @p name is a csymbol
+   * (if @c true) or type (if @c false).
+   * @param strCmpIsCaseSensitive whether to search for the matching type
+   * or csymbol in case-sensitve manner (if @c true) or case-insensitive
+   * manner (if @c false).
+   *
+   * @return the plug-in object (the libSBML extension interface) of
+   * a package extension that defines the given @p name, or @c NULL
+   * if none exist.
+   */
   LIBSBML_EXTERN
     const ASTBasePlugin * getASTPlugin(const std::string& name, bool isCsymbol = false, bool strCmpIsCaseSensitive = false) const;
 
