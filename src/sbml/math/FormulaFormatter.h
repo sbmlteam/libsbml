@@ -56,39 +56,18 @@ BEGIN_C_DECLS
  * @copydetails doc_note_l3_parser_encouraged 
  *
  * @param tree the AST to be converted.
- * 
+ *
  * @return the formula from the given AST as an SBML Level 1 text-string
  * mathematical formula.  The caller owns the returned string and is
  * responsible for freeing it when it is no longer needed.
  *
- * @if clike @see SBML_formulaToString()
- * @see SBML_parseL3FormulaWithSettings()
- * @see SBML_parseL3Formula()
- * @see SBML_parseL3FormulaWithModel()
- * @see SBML_getLastParseL3Error()
- * @see SBML_getDefaultL3ParserSettings()
- * @endif@~
- * @if csharp @see SBML_formulaToString()
- * @see SBML_parseL3FormulaWithSettings()
- * @see SBML_parseL3Formula()
- * @see SBML_parseL3FormulaWithModel()
- * @see SBML_getLastParseL3Error()
- * @see SBML_getDefaultL3ParserSettings()
- * @endif@~
- * @if python @see libsbml.formulaToString()
- * @see libsbml.parseL3FormulaWithSettings()
- * @see libsbml.parseL3Formula()
- * @see libsbml.parseL3FormulaWithModel()
- * @see libsbml.getLastParseL3Error()
- * @see libsbml.getDefaultL3ParserSettings()
- * @endif@~
- * @if java @see <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode tree)">libsbml.formulaToString(ASTNode tree)</a></code>
- * @see <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String, org.sbml.libsbml.L3ParserSettings)">libsbml.parseL3FormulaWithSettings(String formula, L3ParserSettings settings)</a></code>
- * @see <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>
- * @see <code><a href="libsbml.html#parseL3FormulaWithModel(java.lang.String, org.sbml.libsbml.Model)">parseL3FormulaWithModel(String formula, Model model)</a></code>
- * @see <code><a href="libsbml.html#getLastParseL3Error()">getLastParseL3Error()</a></code>
- * @see <code><a href="libsbml.html#getDefaultL3ParserSettings()">getDefaultL3ParserSettings()</a></code>
- * @endif@~
+ * @see @sbmlfunction{formulaToL3String, ASTNode}
+ * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode\, L3ParserSettings}
+ * @see @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings}
+ * @see @sbmlfunction{parseL3FormulaWithModel, String\, Model}
+ * @see @sbmlfunction{parseFormula, String}
+ *
+ * @copydetails doc_note_math_string_syntax
  *
  * @if conly
  * @memberof ASTNode_t
@@ -105,7 +84,7 @@ SBML_formulaToString (const ASTNode_t *tree);
 
 
 /**
- * @return true (nonzero) if the given ASTNode is to formatted as a
+ * @return @c 1 (true) if the given ASTNode_t is to formatted as a
  * function.
  */
 int
@@ -113,8 +92,8 @@ FormulaFormatter_isFunction (const ASTNode_t *node);
 
 
 /**
- * @return true (nonzero) if the given child ASTNode should be grouped
- * (with parenthesis), false (0) otherwise.
+ * @return @c 1 (true) if the given child ASTNode should be grouped
+ * (with parenthesis), @c 0 (false) otherwise.
  *
  * A node should be group if it is not an argument to a function and
  * either:
@@ -130,32 +109,32 @@ FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *child);
 
 
 /**
- * Formats the given ASTNode as an SBML L1 token and appends the result to
- * the given StringBuffer.
+ * Formats the given ASTNode_t as an SBML L1 token and appends the result to
+ * the given StringBuffer_t.
  */
 void
 FormulaFormatter_format (StringBuffer_t *sb, const ASTNode_t *node);
 
 
 /**
- * Formats the given ASTNode as an SBML L1 function name and appends the
- * result to the given StringBuffer.
+ * Formats the given ASTNode_t as an SBML L1 function name and appends the
+ * result to the given StringBuffer_t.
  */
 void
 FormulaFormatter_formatFunction (StringBuffer_t *sb, const ASTNode_t *node);
 
 
 /**
- * Formats the given ASTNode as an SBML L1 operator and appends the result
- * to the given StringBuffer.
+ * Formats the given ASTNode_t as an SBML L1 operator and appends the result
+ * to the given StringBuffer_t.
  */
 void
 FormulaFormatter_formatOperator (StringBuffer_t *sb, const ASTNode_t *node);
 
 
 /**
- * Formats the given ASTNode as a rational number and appends the result to
- * the given StringBuffer.  For SBML L1 this amounts to:
+ * Formats the given ASTNode_t as a rational number and appends the result to
+ * the given StringBuffer_t.  For SBML L1 this amounts to:
  *
  *   "(numerator/denominator)"
  */
@@ -164,15 +143,15 @@ FormulaFormatter_formatRational (StringBuffer_t *sb, const ASTNode_t *node);
 
 
 /**
- * Formats the given ASTNode as a real number and appends the result to
- * the given StringBuffer.
+ * Formats the given ASTNode_t as a real number and appends the result to
+ * the given StringBuffer_t.
  */
 void
 FormulaFormatter_formatReal (StringBuffer_t *sb, const ASTNode_t *node);
 
 
 /**
- * Visits the given ASTNode node.  This function is really just a
+ * Visits the given ASTNode_t node.  This function is really just a
  * dispatcher to either SBML_formulaToString_visitFunction() or
  * SBML_formulaToString_visitOther().
  */
@@ -183,7 +162,7 @@ FormulaFormatter_visit ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode as a function.  For this node only the
+ * Visits the given ASTNode_t as a function.  For this node only the
  * traversal is preorder.
  */
 void
@@ -193,7 +172,7 @@ FormulaFormatter_visitFunction ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode as the function "log(10, x)" and in doing so,
+ * Visits the given ASTNode_t as the function "log(10, x)" and in doing so,
  * formats it as "log10(x)" (where x is any subexpression).
  */
 void
@@ -203,7 +182,7 @@ FormulaFormatter_visitLog10 ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode as the function "root(2, x)" and in doing so,
+ * Visits the given ASTNode_t as the function "root(2, x)" and in doing so,
  * formats it as "sqrt(x)" (where x is any subexpression).
  */
 void
@@ -213,7 +192,7 @@ FormulaFormatter_visitSqrt ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode as a unary minus.  For this node only the
+ * Visits the given ASTNode_t as a unary minus.  For this node only the
  * traversal is preorder.
  */
 void
@@ -223,7 +202,7 @@ FormulaFormatter_visitUMinus ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode and continues the inorder traversal.
+ * Visits the given ASTNode_t and continues the inorder traversal.
  */
 void
 FormulaFormatter_visitOther ( const ASTNode_t *parent,
@@ -235,7 +214,6 @@ FormulaFormatter_visitOther ( const ASTNode_t *parent,
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 
 #endif  /* FormulaFormatter_h */
