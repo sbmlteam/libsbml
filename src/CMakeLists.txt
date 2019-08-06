@@ -526,6 +526,8 @@ endif()
   
 endif()
 
+
+if (NOT LIBSBML_SKIP_STATIC_LIBRARY)
 add_library (${LIBSBML_LIBRARY}-static STATIC ${LIBSBML_SOURCES} )
 
 if (WIN32 AND NOT CYGWIN)
@@ -560,6 +562,8 @@ INSTALL(FILES
   DESTINATION ${PACKAGE_CONFIG_DIR}
 )
 endif()
+
+endif (NOT LIBSBML_SKIP_STATIC_LIBRARY)
 
 ##############################################################################
 #
