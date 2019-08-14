@@ -343,6 +343,25 @@ public:
    */
   const UncertParameter* getByVar(const std::string& sid) const;
 
+  /**
+   * Get an UncertParameter from the ListOfUncertParameters based on
+   * its type.
+   *
+   * @param utype the UncertType representing the "type" attribute of the
+   * UncertParameter object to retrieve.
+   *
+   * @return the first UncertParameter in this ListOfUncertParameters based on
+   * the given var attribute or NULL if no such UncertParameter exists.
+   *
+   * Note that while most types must be unique in any ListOfUncertParameters,
+   * the exception is external parameters 
+   * (@sbmlconstant{DISTRIB_UNCERTTYPE_EXTERNALPARAMETER, UncerType_t}), 
+   * which there many be several of.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   */
+  const UncertParameter * getByType(UncertType_t utype) const;
+
 
   /**
    * Get an UncertParameter from the ListOfUncertParameters based on the
@@ -357,6 +376,26 @@ public:
    * @copydetails doc_returned_unowned_pointer
    */
   UncertParameter* getByVar(const std::string& sid);
+
+
+  /**
+   * Get an UncertParameter from the ListOfUncertParameters based on
+   * its type.
+   *
+   * @param utype the UncertType representing the "type" attribute of the
+   * UncertParameter object to retrieve.
+   *
+   * @return the first UncertParameter in this ListOfUncertParameters based on
+   * the given var attribute or NULL if no such UncertParameter exists.
+   *
+   * Note that while most types must be unique in any ListOfUncertParameters,
+   * the exception is external parameters 
+   * (@sbmlconstant{DISTRIB_UNCERTTYPE_EXTERNALPARAMETER, UncerType_t}), 
+   * which there many be several of.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   */
+  UncertParameter * getByType(UncertType_t utype);
 
 
   /**

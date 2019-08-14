@@ -347,6 +347,18 @@ struct IdEqV : public std::unary_function<SBase*, bool>
 };
 
 
+struct UTypeEqV : public std::unary_function<SBase*, bool>
+{
+  const UncertType_t utype;
+
+  UTypeEqV (const UncertType_t utype) : utype(utype) { }
+  bool operator() (SBase* sb)
+  {
+    return (static_cast<UncertParameter*>(sb)->getType() == utype);
+  }
+};
+
+
 /*
  * Get an UncertParameter from the ListOfUncertParameters based on the element
  * to which it refers.
@@ -361,6 +373,16 @@ ListOfUncertParameters::getByVar(const std::string& sid) const
 }
 
 
+const UncertParameter*
+ListOfUncertParameters::getByType(UncertType_t utype) const
+{
+  vector<SBase*>::const_iterator result;
+  result = find_if(mItems.begin(), mItems.end(), UTypeEqV(utype));
+  return (result == mItems.end()) ? 0 : static_cast <const UncertParameter*>
+    (*result);
+}
+
+
 /*
  * Get an UncertParameter from the ListOfUncertParameters based on the element
  * to which it refers.
@@ -370,6 +392,16 @@ ListOfUncertParameters::getByVar(const std::string& sid)
 {
   return const_cast<UncertParameter*>(static_cast<const
     ListOfUncertParameters&>(*this).getByVar(sid));
+}
+
+
+UncertParameter*
+ListOfUncertParameters::getByType(UncertType_t utype)
+{
+  vector<SBase*>::const_iterator result;
+  result = find_if(mItems.begin(), mItems.end(), UTypeEqV(utype));
+  return (result == mItems.end()) ? 0 : static_cast <UncertParameter*>
+    (*result);
 }
 
 

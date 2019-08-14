@@ -178,6 +178,13 @@ Uncertainty::getUncertParameterByVar(const std::string& sid) const
 }
 
 
+const UncertParameter*
+Uncertainty::getUncertParameterByType(UncertType_t utype) const
+{
+  return mUncertParameters.getByType(utype);
+}
+
+
 /*
  * Get an UncertParameter from the Uncertainty based on the element to which it
  * refers.
@@ -186,6 +193,13 @@ UncertParameter*
 Uncertainty::getUncertParameterByVar(const std::string& sid)
 {
   return mUncertParameters.getByVar(sid);
+}
+
+
+UncertParameter*
+Uncertainty::getUncertParameterByType(UncertType_t utype)
+{
+  return mUncertParameters.getByType(utype);
 }
 
 
