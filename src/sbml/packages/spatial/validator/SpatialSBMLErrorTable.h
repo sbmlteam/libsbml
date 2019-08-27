@@ -225,6 +225,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1220650
+  { SpatialLocalReactionMustDefineCompartment,
+    "Local spatial reactions must define compartment.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the attribute 'spatial:isLocal' on a <reaction> is 'true', it must also have a defined 'compartment' attribute.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1220701
   { SpatialDomainTypeAllowedCoreAttributes,
     "Core attributes allowed on <domainType>.",
@@ -280,6 +290,36 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_SEV_ERROR,
     "The attribute 'spatial:name' on a <domainType> must have a value of data "
     "type 'string'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1220750
+  { SpatialDomainTypeDimensionsMustMatch3DGeometry,
+    "Dimensions of domainType must match 3D geometry.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the <geometry> of the <model> has exactly three <coordinateComponent> children, the 'spatial:spatialDimensions' attribute of a <domainType> may only have a value of '2' or '3'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1220751
+  { SpatialDomainTypeDimensionsMustMatch2DGeometry,
+    "Dimensions of domainType must match 2D geometry.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the <geometry> of the <model> has exactly two <coordinateComponent> children, the 'spatial:spatialDimensions' attribute of a <domainType> may only have a value of '1' or '2'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1220752
+  { SpatialDomainTypeDimensionsMustMatch1DGeometry,
+    "Dimensions of domainType must match 1D geometry.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the <geometry> of the <model> has exactly one <coordinateComponent> childr, the 'spatial:spatialDimensions' attribute of a <domainType> may only have a value of '0' or '1'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1034,6 +1074,36 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1221650
+  { SpatialSampledFieldOneSampleIn1DGeometry,
+    "Only one 'numSamples' attribute in 1D geometry.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the <geometry> of the <model> has exactly one <coordinateComponent> child, a <sampledField> object must define the 'spatial:numSamples1' attribute, and must not define the 'spatial:numSamples2' and 'spatial:numSamples3' attributes.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1221651
+  { SpatialSampledFieldTwoSamplesIn2DGeometry,
+    "Two 'numSamples' attributes in 2D geometry.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the <geometry> of the <model> has exactly two <coordinateComponent> children, a <sampledField> object must define the 'spatial:numSamples1' and 'spatial:numSamples2' attributes, and must not define the 'spatial:numSamples3' attribute.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1221652
+  { SpatialSampledFieldThreeSamplesIn3DGeometry,
+    "Three 'numSamples' attributes in 3D geometry.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the <geometry> of the <model> has exactly three <coordinateComponent> children, a <sampledField> object must define the 'spatial:numSamples1', 'spatial:numSamples2', and 'spatial:numSamples3' attributes.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1221701
   { SpatialSampledVolumeAllowedCoreAttributes,
     "Core attributes allowed on <sampledVolume>.",
@@ -1124,6 +1194,56 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_SEV_ERROR,
     "The attribute 'spatial:maxValue' on a <sampledVolume> must have a value of "
     "data type 'double'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1221750
+  { SpatialSampledVolumeNeedsMinWithMax,
+    "A 'minValue' attribute goes with the 'maxValue' attribute.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <sampledVolume> with a defined 'spatial:minValue' attribute must also define the 'spatial:maxValue' attribute.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1221751
+  { SpatialSampledVolumeNeedsMaxWithMin,
+    "A 'maxValue' attribute goes with the 'minValue' attribute.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <sampledVolume> with a defined 'spatial:maxValue' attribute must also define the 'spatial:minValue' attribute.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1221752
+  { SpatialSampledVolumeNoSampledValueWithMinMax,
+    "No 'sampledValue' attribute with min and max.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <sampledVolume> with defined 'spatial:minValue' and 'spatial:maxValue' attributes must not define the 'spatial:sampledValue' attribute.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1221753
+  { SpatialSampledVolumeNoMinMaxWithSampledValue,
+    "No 'minValue' nor 'maxValue' attributes with 'sampledValue'.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <sampledVolume> with a defined 'spatial:sampledValue' attribute may not define the 'spatial:minValue' nor the 'spatial:maxValue' attribute.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1221754
+  { SpatialSampledVolumeMinMaxOrSampledValue,
+    "SampledVolume must have 'sampledVolume' or 'minValue' and 'maxValue'.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <sampledVolume> must either define its 'spatial:sampledValue' attribute or must define both the 'spatial:minValue' and 'spatial:maxValue' attributes.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1282,6 +1402,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_SEV_ERROR,
     "The attribute 'spatial:ordinal' on an <analyticVolume> must have a value "
     "of data type 'integer'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1221950
+  { SpatialAnalyticVolumeOrdinalShouldBeUnique,
+    "The 'ordinal' attribute should be unique.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_WARNING,
+    "No <analyticVolume? should have a 'spatial:ordinal' attribute with the same value as a different <analyticVolume>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1477,9 +1607,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core attributes allowed on <csGeometry>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGeometry> object may have the optional SBML Level 3 Core attributes "
+    "A <csGeometry> object may have the optional SBML Level 3 Core attributes "
     "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
-    "namespaces are permitted on a <cSGeometry>.",
+    "namespaces are permitted on a <csGeometry>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1489,9 +1619,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core elements allowed on <csGeometry>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGeometry> object may have the optional SBML Level 3 Core subobjects "
+    "A <csGeometry> object may have the optional SBML Level 3 Core subobjects "
     "for notes and annotations. No other elements from the SBML Level 3 Core "
-    "namespaces are permitted on a <cSGeometry>.",
+    "namespaces are permitted on a <csGeometry>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1501,9 +1631,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Elements allowed on <csGeometry>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGeometry> object may contain one and only one instance of the "
+    "A <csGeometry> object may contain one and only one instance of the "
     "<listOfCSGObjects> element. No other elements from the SBML Level 3 "
-    "Spatial Processes namespaces are permitted on a <cSGeometry> object. ",
+    "Spatial Processes namespaces are permitted on a <csGeometry> object. ",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1515,7 +1645,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_SEV_ERROR,
     "Apart from the general notes and annotations subobjects permitted on all "
     "SBML objects, a <listOfCSGObjects> container object may only contain "
-    "<cSGObject> objects.",
+    "<csgObject> objects.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1537,9 +1667,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core attributes allowed on <csgObject>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGObject> object may have the optional SBML Level 3 Core attributes "
+    "A <csgObject> object may have the optional SBML Level 3 Core attributes "
     "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
-    "namespaces are permitted on a <cSGObject>.",
+    "namespaces are permitted on a <csgObject>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1549,9 +1679,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core elements allowed on <csgObject>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGObject> object may have the optional SBML Level 3 Core subobjects "
+    "A <csgObject> object may have the optional SBML Level 3 Core subobjects "
     "for notes and annotations. No other elements from the SBML Level 3 Core "
-    "namespaces are permitted on a <cSGObject>.",
+    "namespaces are permitted on a <csgObject>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1561,10 +1691,10 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Attributes allowed on <csgObject>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGObject> object must have the required attributes 'spatial:id' and "
+    "A <csgObject> object must have the required attributes 'spatial:id' and "
     "'spatial:domainType', and may have the optional attributes 'spatial:name' "
     "and 'spatial:ordinal'. No other attributes from the SBML Level 3 Spatial "
-    "Processes namespaces are permitted on a <cSGObject> object. ",
+    "Processes namespaces are permitted on a <csgObject> object. ",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1574,9 +1704,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Elements allowed on <csgObject>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGObject> object must contain one and only one instance of the CSGNode "
+    "A <csgObject> object must contain one and only one instance of the CSGNode "
     "element. No other elements from the SBML Level 3 Spatial Processes "
-    "namespaces are permitted on a <cSGObject> object. ",
+    "namespaces are permitted on a <csgObject> object. ",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1586,7 +1716,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The attribute 'domainType' must point to DomainType object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'spatial:domainType' of a <cSGObject> object "
+    "The value of the attribute 'spatial:domainType' of a <csgObject> object "
     "must be the identifier of an existing <domainType> object defined in the "
     "enclosing <model> object.",
     { "L3V1 Spatial V1 Section"
@@ -1598,7 +1728,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'name' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:name' on a <cSGObject> must have a value of data "
+    "The attribute 'spatial:name' on a <csgObject> must have a value of data "
     "type 'string'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1609,8 +1739,18 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'ordinal' attribute must be Integer.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:ordinal' on a <cSGObject> must have a value of data "
+    "The attribute 'spatial:ordinal' on a <csgObject> must have a value of data "
     "type 'integer'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1222350
+  { SpatialCSGObjectOrdinalShouldBeUnique,
+    "The 'ordinal' attribute should be unique.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_WARNING,
+    "No <csgObject> should have a 'spatial:ordinal' attribute with the same value as a different <csgObject>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1620,9 +1760,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core attributes allowed on <csgNode>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGNode> object may have the optional SBML Level 3 Core attributes "
+    "A <csgNode> object may have the optional SBML Level 3 Core attributes "
     "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
-    "namespaces are permitted on a <cSGNode>.",
+    "namespaces are permitted on a <csgNode>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1632,9 +1772,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core elements allowed on <csgNode>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGNode> object may have the optional SBML Level 3 Core subobjects for "
+    "A <csgNode> object may have the optional SBML Level 3 Core subobjects for "
     "notes and annotations. No other elements from the SBML Level 3 Core "
-    "namespaces are permitted on a <cSGNode>.",
+    "namespaces are permitted on a <csgNode>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1644,9 +1784,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Attributes allowed on <csgNode>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGNode> object may have the optional attributes 'spatial:id' and "
+    "A <csgNode> object may have the optional attributes 'spatial:id' and "
     "'spatial:name'. No other attributes from the SBML Level 3 Spatial "
-    "Processes namespaces are permitted on a <cSGNode> object. ",
+    "Processes namespaces are permitted on a <csgNode> object. ",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1656,7 +1796,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'name' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:name' on a <cSGNode> must have a value of data type "
+    "The attribute 'spatial:name' on a <csgNode> must have a value of data type "
     "'string'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1667,9 +1807,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core attributes allowed on <csgTransformation>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGTransformation> object may have the optional SBML Level 3 Core "
+    "A <csgTransformation> object may have the optional SBML Level 3 Core "
     "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
-    "3 Core namespaces are permitted on a <cSGTransformation>.",
+    "3 Core namespaces are permitted on a <csgTransformation>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1679,9 +1819,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core elements allowed on <csgTransformation>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGTransformation> object may have the optional SBML Level 3 Core "
+    "A <csgTransformation> object may have the optional SBML Level 3 Core "
     "subobjects for notes and annotations. No other elements from the SBML "
-    "Level 3 Core namespaces are permitted on a <cSGTransformation>.",
+    "Level 3 Core namespaces are permitted on a <csgTransformation>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1691,9 +1831,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Elements allowed on <csgTransformation>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGTransformation> object may contain one and only one instance of the "
+    "A <csgTransformation> object may contain one and only one instance of the "
     "CSGNode element. No other elements from the SBML Level 3 Spatial Processes "
-    "namespaces are permitted on a <cSGTransformation> object. ",
+    "namespaces are permitted on a <csgTransformation> object. ",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1703,9 +1843,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core attributes allowed on <csgTranslation>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGTranslation> object may have the optional SBML Level 3 Core "
+    "A <csgTranslation> object may have the optional SBML Level 3 Core "
     "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
-    "3 Core namespaces are permitted on a <cSGTranslation>.",
+    "3 Core namespaces are permitted on a <csgTranslation>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1715,9 +1855,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core elements allowed on <csgTranslation>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGTranslation> object may have the optional SBML Level 3 Core "
+    "A <csgTranslation> object may have the optional SBML Level 3 Core "
     "subobjects for notes and annotations. No other elements from the SBML "
-    "Level 3 Core namespaces are permitted on a <cSGTranslation>.",
+    "Level 3 Core namespaces are permitted on a <csgTranslation>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1727,11 +1867,11 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Attributes allowed on <csgTranslation>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGTranslation> object must have the required attribute "
+    "A <csgTranslation> object must have the required attribute "
     "'spatial:translateX', and may have the optional attributes "
     "'spatial:translateY' and 'spatial:translateZ'. No other attributes from "
     "the SBML Level 3 Spatial Processes namespaces are permitted on a "
-    "<cSGTranslation> object. ",
+    "<csgTranslation> object. ",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1741,7 +1881,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'translateX' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:translateX' on a <cSGTranslation> must have a value "
+    "The attribute 'spatial:translateX' on a <csgTranslation> must have a value "
     "of data type 'double'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1752,7 +1892,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'translateY' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:translateY' on a <cSGTranslation> must have a value "
+    "The attribute 'spatial:translateY' on a <csgTranslation> must have a value "
     "of data type 'double'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1763,7 +1903,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'translateZ' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:translateZ' on a <cSGTranslation> must have a value "
+    "The attribute 'spatial:translateZ' on a <csgTranslation> must have a value "
     "of data type 'double'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1774,9 +1914,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core attributes allowed on <csgRotation>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGRotation> object may have the optional SBML Level 3 Core attributes "
+    "A <csgRotation> object may have the optional SBML Level 3 Core attributes "
     "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
-    "namespaces are permitted on a <cSGRotation>.",
+    "namespaces are permitted on a <csgRotation>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1786,9 +1926,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core elements allowed on <csgRotation>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGRotation> object may have the optional SBML Level 3 Core subobjects "
+    "A <csgRotation> object may have the optional SBML Level 3 Core subobjects "
     "for notes and annotations. No other elements from the SBML Level 3 Core "
-    "namespaces are permitted on a <cSGRotation>.",
+    "namespaces are permitted on a <csgRotation>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1798,10 +1938,10 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Attributes allowed on <csgRotation>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGRotation> object must have the required attributes 'spatial:rotateX' "
+    "A <csgRotation> object must have the required attributes 'spatial:rotateX' "
     "and 'spatial:rotateAngleInRadians', and may have the optional attributes "
     "'spatial:rotateY' and 'spatial:rotateZ'. No other attributes from the SBML "
-    "Level 3 Spatial Processes namespaces are permitted on a <cSGRotation> "
+    "Level 3 Spatial Processes namespaces are permitted on a <csgRotation> "
     "object. ",
     { "L3V1 Spatial V1 Section"
     }
@@ -1812,7 +1952,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'rotateX' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:rotateX' on a <cSGRotation> must have a value of "
+    "The attribute 'spatial:rotateX' on a <csgRotation> must have a value of "
     "data type 'double'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1823,7 +1963,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'rotateAngleInRadians' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:rotateAngleInRadians' on a <cSGRotation> must have "
+    "The attribute 'spatial:rotateAngleInRadians' on a <csgRotation> must have "
     "a value of data type 'double'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1834,7 +1974,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'rotateY' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:rotateY' on a <cSGRotation> must have a value of "
+    "The attribute 'spatial:rotateY' on a <csgRotation> must have a value of "
     "data type 'double'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1845,7 +1985,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'rotateZ' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:rotateZ' on a <cSGRotation> must have a value of "
+    "The attribute 'spatial:rotateZ' on a <csgRotation> must have a value of "
     "data type 'double'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1856,9 +1996,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core attributes allowed on <csgScale>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGScale> object may have the optional SBML Level 3 Core attributes "
+    "A <csgScale> object may have the optional SBML Level 3 Core attributes "
     "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
-    "namespaces are permitted on a <cSGScale>.",
+    "namespaces are permitted on a <csgScale>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1868,9 +2008,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core elements allowed on <csgScale>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGScale> object may have the optional SBML Level 3 Core subobjects for "
+    "A <csgScale> object may have the optional SBML Level 3 Core subobjects for "
     "notes and annotations. No other elements from the SBML Level 3 Core "
-    "namespaces are permitted on a <cSGScale>.",
+    "namespaces are permitted on a <csgScale>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1880,10 +2020,10 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Attributes allowed on <csgScale>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGScale> object must have the required attribute 'spatial:scaleX', and "
+    "A <csgScale> object must have the required attribute 'spatial:scaleX', and "
     "may have the optional attributes 'spatial:scaleY' and 'spatial:scaleZ'. No "
     "other attributes from the SBML Level 3 Spatial Processes namespaces are "
-    "permitted on a <cSGScale> object. ",
+    "permitted on a <csgScale> object. ",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1893,7 +2033,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'scaleX' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:scaleX' on a <cSGScale> must have a value of data "
+    "The attribute 'spatial:scaleX' on a <csgScale> must have a value of data "
     "type 'double'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1904,7 +2044,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'scaleY' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:scaleY' on a <cSGScale> must have a value of data "
+    "The attribute 'spatial:scaleY' on a <csgScale> must have a value of data "
     "type 'double'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1915,7 +2055,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'scaleZ' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:scaleZ' on a <cSGScale> must have a value of data "
+    "The attribute 'spatial:scaleZ' on a <csgScale> must have a value of data "
     "type 'double'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1926,10 +2066,10 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core attributes allowed on <csgHomogeneousTransformation>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGHomogeneousTransformation> object may have the optional SBML Level 3 "
+    "A <csgHomogeneousTransformation> object may have the optional SBML Level 3 "
     "Core attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
     "Level 3 Core namespaces are permitted on a "
-    "<cSGHomogeneousTransformation>.",
+    "<csgHomogeneousTransformation>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1939,10 +2079,10 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core elements allowed on <csgHomogeneousTransformation>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGHomogeneousTransformation> object may have the optional SBML Level 3 "
+    "A <csgHomogeneousTransformation> object may have the optional SBML Level 3 "
     "Core subobjects for notes and annotations. No other elements from the SBML "
     "Level 3 Core namespaces are permitted on a "
-    "<cSGHomogeneousTransformation>.",
+    "<csgHomogeneousTransformation>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1952,10 +2092,10 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Elements allowed on <csgHomogeneousTransformation>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGHomogeneousTransformation> object must contain one and only one "
+    "A <csgHomogeneousTransformation> object must contain one and only one "
     "instance of the TransformationComponent element. No other elements from "
     "the SBML Level 3 Spatial Processes namespaces are permitted on a "
-    "<cSGHomogeneousTransformation> object. ",
+    "<csgHomogeneousTransformation> object. ",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2025,9 +2165,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core attributes allowed on <csgPrimitive>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGPrimitive> object may have the optional SBML Level 3 Core attributes "
+    "A <csgPrimitive> object may have the optional SBML Level 3 Core attributes "
     "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
-    "namespaces are permitted on a <cSGPrimitive>.",
+    "namespaces are permitted on a <csgPrimitive>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2037,9 +2177,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core elements allowed on <csgPrimitive>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGPrimitive> object may have the optional SBML Level 3 Core subobjects "
+    "A <csgPrimitive> object may have the optional SBML Level 3 Core subobjects "
     "for notes and annotations. No other elements from the SBML Level 3 Core "
-    "namespaces are permitted on a <cSGPrimitive>.",
+    "namespaces are permitted on a <csgPrimitive>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2049,9 +2189,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Attributes allowed on <csgPrimitive>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGPrimitive> object must have the required attribute "
+    "A <csgPrimitive> object must have the required attribute "
     "'spatial:primitiveType'. No other attributes from the SBML Level 3 Spatial "
-    "Processes namespaces are permitted on a <cSGPrimitive> object. ",
+    "Processes namespaces are permitted on a <csgPrimitive> object. ",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2061,7 +2201,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'primitiveType' attribute must be PrimitiveKindEnum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'spatial:primitiveType' of a <cSGPrimitive> "
+    "The value of the attribute 'spatial:primitiveType' of a <csgPrimitive> "
     "object must conform to the syntax of SBML data type 'PrimitiveKind' and "
     "may only take on the allowed values of 'PrimitiveKind' defined in SBML; "
     "that is, the value must be one of the following: 'sphere', 'cube', "
@@ -2075,9 +2215,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core attributes allowed on <csgSetOperator>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGSetOperator> object may have the optional SBML Level 3 Core "
+    "A <csgSetOperator> object may have the optional SBML Level 3 Core "
     "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
-    "3 Core namespaces are permitted on a <cSGSetOperator>.",
+    "3 Core namespaces are permitted on a <csgSetOperator>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2087,9 +2227,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core elements allowed on <csgSetOperator>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGSetOperator> object may have the optional SBML Level 3 Core "
+    "A <csgSetOperator> object may have the optional SBML Level 3 Core "
     "subobjects for notes and annotations. No other elements from the SBML "
-    "Level 3 Core namespaces are permitted on a <cSGSetOperator>.",
+    "Level 3 Core namespaces are permitted on a <csgSetOperator>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2099,11 +2239,11 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Attributes allowed on <csgSetOperator>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGSetOperator> object must have the required attribute "
+    "A <csgSetOperator> object must have the required attribute "
     "'spatial:operationType', and may have the optional attributes "
     "'spatial:complementA' and 'spatial:complementB'. No other attributes from "
     "the SBML Level 3 Spatial Processes namespaces are permitted on a "
-    "<cSGSetOperator> object. ",
+    "<csgSetOperator> object. ",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2113,9 +2253,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Elements allowed on <csgSetOperator>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <cSGSetOperator> object may contain one and only one instance of the "
+    "A <csgSetOperator> object may contain one and only one instance of the "
     "<listOfCSGNodes> element. No other elements from the SBML Level 3 Spatial "
-    "Processes namespaces are permitted on a <cSGSetOperator> object. ",
+    "Processes namespaces are permitted on a <csgSetOperator> object. ",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2125,7 +2265,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'operationType' attribute must be SetOperationEnum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'spatial:operationType' of a <cSGSetOperator> "
+    "The value of the attribute 'spatial:operationType' of a <csgSetOperator> "
     "object must conform to the syntax of SBML data type 'SetOperation' and may "
     "only take on the allowed values of 'SetOperation' defined in SBML; that "
     "is, the value must be one of the following: 'union', 'intersection' or "
@@ -2139,8 +2279,8 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The attribute 'complementA' must point to CSGNode object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'spatial:complementA' of a <cSGSetOperator> "
-    "object must be the identifier of an existing <cSGNode> object defined in "
+    "The value of the attribute 'spatial:complementA' of a <csgSetOperator> "
+    "object must be the identifier of an existing <csgNode> object defined in "
     "the enclosing <model> object.",
     { "L3V1 Spatial V1 Section"
     }
@@ -2151,8 +2291,8 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The attribute 'complementB' must point to CSGNode object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'spatial:complementB' of a <cSGSetOperator> "
-    "object must be the identifier of an existing <cSGNode> object defined in "
+    "The value of the attribute 'spatial:complementB' of a <csgSetOperator> "
+    "object must be the identifier of an existing <csgNode> object defined in "
     "the enclosing <model> object.",
     { "L3V1 Spatial V1 Section"
     }
@@ -2165,7 +2305,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_SEV_ERROR,
     "Apart from the general notes and annotations subobjects permitted on all "
     "SBML objects, a <listOfCSGNodes> container object may only contain "
-    "<cSGNode> objects.",
+    "<csgNode> objects.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2178,6 +2318,26 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "A <listOfCSGNodes> object may have the optional SBML Level 3 Core "
     "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
     "3 Core namespaces are permitted on a <listOfCSGNodes> object.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223250
+  { SpatialCSGSetOperatorTwoComponentsForDifference,
+    "Need two components for 'difference' type.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the 'spatial:operationType' attribute of a <csgSetOperator> has the value 'difference', it must also define the 'spatial:componentA' and 'spatial:componentB' attributes.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223251
+  { SpatialCSGSetOperatorNoComponentsUnionIntersection,
+    "No components for 'union' or 'intersection' types.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the 'spatial:operationType' attribute of a <csgSetOperator> has the value 'union' or 'intersection', it must not define the 'spatial:componentA' nor the 'spatial:componentB' attributes",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2319,6 +2479,36 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "'CoordinateKind' and may only take on the allowed values of "
     "'CoordinateKind' defined in SBML; that is, the value must be one of the "
     "following: 'cartesianX', 'cartesianY' or 'cartesianZ'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223450
+  { SpatialDiffusionCoefficientNoCoordinateReferencesForIsotropic,
+    "No coordinate references for 'isotropic' type.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <diffusionCoefficient> with an attribute 'type' with the value 'isotropic' may not define the 'spatial:coordinateReference1' nor 'spatial:coordinateReference2' attributes.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223451
+  { SpatialDiffusionCoefficientTwoCoordinateReferencesForTensor,
+    "Two coordinate references for 'tensor' type.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <diffusionCoefficient> with an attribute 'type' with the value 'tensor' must define the 'spatial:coordinateReference1' and 'spatial:coordinateReference2' attributes.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223452
+  { SpatialDiffusionCoefficientOneCoordinateReferencesForAnisotropic,
+    "One coordinate references for 'anisotropic' type.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <diffusionCoefficient> with an attribute 'type' with the value 'anisotropic” must define the 'spatial:coordinateReference1' attribute, and must not define the 'spatial:coordinateReference2' attribute.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2471,6 +2661,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The value of the attribute 'spatial:boundaryDomainType' of a "
     "<boundaryCondition> object must be the identifier of an existing "
     "<domainType> object defined in the enclosing <model> object.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223650
+  { SpatialBoundaryConditionBoundaryDomainTypeOrCoordinateBoundary,
+    "A BoundaryCondition must have 'boundaryDomainType' or 'coordinateBoundary' attribute.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <boundaryCondition> must have a defined 'spatial:coordinateBoundary' or 'spatial:boundaryDomainType' attribute, but may not define both.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2685,6 +2885,56 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1223750
+  { SpatialGeometryLOCoordinateComponentsRequired,
+    "A <geometry> must have a <listOfCoordinateComponents>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <geometry> must have a child <listOfCoordinateComponents> object.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223751
+  { SpatialGeometryLOCoordinateComponentsOneToThreeChildren,
+    "A <listOfCoordinateComponents> must have one to three children.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <listOfCoordinateComponents> must have exactly one, two, or three children.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223752
+  { SpatialGeometryCoordinateComponent1DisX,
+    "Solitary <coordinateComponents> must be 'cartesianX'.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If a <listOfCoordinateComponents> object has exactly one <coordinateComponents> child, that child must have a 'spatial:type' with the value 'cartesianX'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223753
+  { SpatialGeometryCoordinateComponent2DisXY,
+    "Paired <coordinateComponents> must be 'cartesianX' and 'cartesianY'.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If a <listOfCoordinateComponents> object has exactly two <coordinateComponents> children, one of them must have a 'spatial:type' with the value 'cartesianX', and the other must have a 'spatial:type' with the value 'cartesianY'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223754
+  { SpatialGeometryCoordinateComponent3DisXYZ,
+    "Three <coordinateComponents> must be cartesian X, Y, and Z.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If a <listOfCoordinateComponents> object has exactly three <coordinateComponents> children, one of them must have a 'spatial:type' with the value 'cartesianX', one must have a 'spatial:type' with the value 'cartesianY', and one must have a 'spatial:type' with the value 'cartesianZ'",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1223801
   { SpatialMixedGeometryAllowedCoreAttributes,
     "Core attributes allowed on <mixedGeometry>.",
@@ -2767,6 +3017,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "A <listOfOrdinalMappings> object may have the optional SBML Level 3 Core "
     "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
     "3 Core namespaces are permitted on a <listOfOrdinalMappings> object.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223850
+  { SpatialMixedGeometryChildrenNotActive,
+    "Mixed geometry children are not active.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "Every <geometryDefinition> child of a <mixedGeometry> must have a 'spatial:isActive' attribute with a value of 'false'.",
     { "L3V1 Spatial V1 Section"
     }
   },

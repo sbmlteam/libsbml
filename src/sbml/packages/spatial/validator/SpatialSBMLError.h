@@ -76,11 +76,15 @@ typedef enum
 , SpatialParameterAllowedElements                             = 1220501
 , SpatialReactionAllowedAttributes                            = 1220601
 , SpatialReactionIsLocalMustBeBoolean                         = 1220602
+, SpatialLocalReactionMustDefineCompartment                   = 1220650
 , SpatialDomainTypeAllowedCoreAttributes                      = 1220701
 , SpatialDomainTypeAllowedCoreElements                        = 1220702
 , SpatialDomainTypeAllowedAttributes                          = 1220703
 , SpatialDomainTypeSpatialDimensionsMustBeInteger             = 1220704
 , SpatialDomainTypeNameMustBeString                           = 1220705
+, SpatialDomainTypeDimensionsMustMatch3DGeometry              = 1220750
+, SpatialDomainTypeDimensionsMustMatch2DGeometry              = 1220751
+, SpatialDomainTypeDimensionsMustMatch1DGeometry              = 1220752
 , SpatialDomainAllowedCoreAttributes                          = 1220801
 , SpatialDomainAllowedCoreElements                            = 1220802
 , SpatialDomainAllowedAttributes                              = 1220803
@@ -143,6 +147,9 @@ typedef enum
 , SpatialSampledFieldNameMustBeString                         = 1221610
 , SpatialSampledFieldNumSamples2MustBeInteger                 = 1221611
 , SpatialSampledFieldNumSamples3MustBeInteger                 = 1221612
+, SpatialSampledFieldOneSampleIn1DGeometry                    = 1221650
+, SpatialSampledFieldTwoSamplesIn2DGeometry                   = 1221651
+, SpatialSampledFieldThreeSamplesIn3DGeometry                 = 1221652
 , SpatialSampledVolumeAllowedCoreAttributes                   = 1221701
 , SpatialSampledVolumeAllowedCoreElements                     = 1221702
 , SpatialSampledVolumeAllowedAttributes                       = 1221703
@@ -151,6 +158,11 @@ typedef enum
 , SpatialSampledVolumeSampledValueMustBeDouble                = 1221706
 , SpatialSampledVolumeMinValueMustBeDouble                    = 1221707
 , SpatialSampledVolumeMaxValueMustBeDouble                    = 1221708
+, SpatialSampledVolumeNeedsMinWithMax                         = 1221750
+, SpatialSampledVolumeNeedsMaxWithMin                         = 1221751
+, SpatialSampledVolumeNoSampledValueWithMinMax                = 1221752
+, SpatialSampledVolumeNoMinMaxWithSampledValue                = 1221753
+, SpatialSampledVolumeMinMaxOrSampledValue                    = 1221754
 , SpatialAnalyticGeometryAllowedCoreAttributes                = 1221801
 , SpatialAnalyticGeometryAllowedCoreElements                  = 1221802
 , SpatialAnalyticGeometryAllowedElements                      = 1221803
@@ -164,6 +176,7 @@ typedef enum
 , SpatialAnalyticVolumeDomainTypeMustBeDomainType             = 1221906
 , SpatialAnalyticVolumeNameMustBeString                       = 1221907
 , SpatialAnalyticVolumeOrdinalMustBeInteger                   = 1221908
+, SpatialAnalyticVolumeOrdinalShouldBeUnique                  = 1221950
 , SpatialParametricGeometryAllowedCoreAttributes              = 1222001
 , SpatialParametricGeometryAllowedCoreElements                = 1222002
 , SpatialParametricGeometryAllowedElements                    = 1222003
@@ -191,6 +204,7 @@ typedef enum
 , SpatialCSGObjectDomainTypeMustBeDomainType                  = 1222305
 , SpatialCSGObjectNameMustBeString                            = 1222306
 , SpatialCSGObjectOrdinalMustBeInteger                        = 1222307
+, SpatialCSGObjectOrdinalShouldBeUnique                       = 1222350
 , SpatialCSGNodeAllowedCoreAttributes                         = 1222401
 , SpatialCSGNodeAllowedCoreElements                           = 1222402
 , SpatialCSGNodeAllowedAttributes                             = 1222403
@@ -238,6 +252,8 @@ typedef enum
 , SpatialCSGSetOperatorComplementBMustBeCSGNode               = 1223207
 , SpatialCSGSetOperatorLOCSGNodesAllowedCoreElements          = 1223208
 , SpatialCSGSetOperatorLOCSGNodesAllowedCoreAttributes        = 1223209
+, SpatialCSGSetOperatorTwoComponentsForDifference             = 1223250
+, SpatialCSGSetOperatorNoComponentsUnionIntersection          = 1223251
 , SpatialSpatialSymbolReferenceAllowedCoreAttributes          = 1223301
 , SpatialSpatialSymbolReferenceAllowedCoreElements            = 1223302
 , SpatialSpatialSymbolReferenceAllowedAttributes              = 1223303
@@ -249,6 +265,9 @@ typedef enum
 , SpatialDiffusionCoefficientTypeMustBeDiffusionKindEnum      = 1223405
 , SpatialDiffusionCoefficientCoordinateReference1MustBeCoordinateKindEnum= 1223406
 , SpatialDiffusionCoefficientCoordinateReference2MustBeCoordinateKindEnum= 1223407
+, SpatialDiffusionCoefficientNoCoordinateReferencesForIsotropic = 1223450
+, SpatialDiffusionCoefficientTwoCoordinateReferencesForTensor = 1223451
+, SpatialDiffusionCoefficientOneCoordinateReferencesForAnisotropic = 1223452
 , SpatialAdvectionCoefficientAllowedCoreAttributes            = 1223501
 , SpatialAdvectionCoefficientAllowedCoreElements              = 1223502
 , SpatialAdvectionCoefficientAllowedAttributes                = 1223503
@@ -261,6 +280,7 @@ typedef enum
 , SpatialBoundaryConditionTypeMustBeBoundaryKindEnum          = 1223605
 , SpatialBoundaryConditionCoordinateBoundaryMustBeBoundary    = 1223606
 , SpatialBoundaryConditionBoundaryDomainTypeMustBeDomainType  = 1223607
+, SpatialBoundaryConditionBoundaryDomainTypeOrCoordinateBoundary = 1223650
 , SpatialGeometryAllowedCoreAttributes                        = 1223701
 , SpatialGeometryAllowedCoreElements                          = 1223702
 , SpatialGeometryAllowedAttributes                            = 1223703
@@ -278,6 +298,11 @@ typedef enum
 , SpatialGeometryLOAdjacentDomainsAllowedCoreAttributes       = 1223715
 , SpatialGeometryLOGeometryDefinitionsAllowedCoreAttributes   = 1223716
 , SpatialGeometryLOSampledFieldsAllowedCoreAttributes         = 1223717
+, SpatialGeometryLOCoordinateComponentsRequired               = 1223750
+, SpatialGeometryLOCoordinateComponentsOneToThreeChildren     = 1223751
+, SpatialGeometryCoordinateComponent1DisX                     = 1223752
+, SpatialGeometryCoordinateComponent2DisXY                    = 1223753
+, SpatialGeometryCoordinateComponent3DisXYZ                   = 1223754
 , SpatialMixedGeometryAllowedCoreAttributes                   = 1223801
 , SpatialMixedGeometryAllowedCoreElements                     = 1223802
 , SpatialMixedGeometryAllowedElements                         = 1223803
@@ -285,6 +310,7 @@ typedef enum
 , SpatialMixedGeometryLOOrdinalMappingsAllowedCoreElements    = 1223805
 , SpatialMixedGeometryLOGeometryDefinitionsAllowedCoreAttributes= 1223806
 , SpatialMixedGeometryLOOrdinalMappingsAllowedCoreAttributes  = 1223807
+, SpatialMixedGeometryChildrenNotActive                       = 1223850
 , SpatialOrdinalMappingAllowedCoreAttributes                  = 1223901
 , SpatialOrdinalMappingAllowedCoreElements                    = 1223902
 , SpatialOrdinalMappingAllowedAttributes                      = 1223903
