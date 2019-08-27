@@ -362,19 +362,19 @@ string(REPLACE
 string(REPLACE 
   "class SBase(object):"
   "class SBase(object, metaclass=AutoProperty):"
-  init3_script ${init_script}
+  init3_script ${init3_script}
 )
 
 string(REPLACE 
   "class SBasePlugin(_object):"
   "class SBasePlugin(_object, metaclass=AutoProperty):"
-  init3_script ${init_script}
+  init3_script ${init3_script}
 )
 
 string(REPLACE 
   "class SBasePlugin(object):"
   "class SBasePlugin(object, metaclass=AutoProperty):"
-  init3_script ${init_script}
+  init3_script ${init3_script}
 )
 
 
