@@ -489,5 +489,39 @@ START_CONSTRAINT(SpatialSampledFieldTwoSamplesIn2DGeometry, SampledField, sfield
 END_CONSTRAINT
 
 
+// 1221652
+START_CONSTRAINT(SpatialSampledFieldThreeSamplesIn3DGeometry, SampledField, sfield)
+{
+  const Geometry* geometry = static_cast<const Geometry*>(sfield.getParentSBMLObject()->getParentSBMLObject());
+  pre(geometry->getNumCoordinateComponents()==3);
+
+  bool fail = false;
+  stringstream wrongvals;
+  if (!sfield.isSetNumSamples2()) {
+    fail = true;
+    wrongvals << " doesn't define the numSamples2 attribute";
+  }
+  if (!sfield.isSetNumSamples3()) {
+    if (fail) {
+      wrongvals << ", and also";
+    }
+    wrongvals << " doesn't define the numSamples3 attribute";
+    fail = true;
+  }
+  if (fail) {
+    msg = "A SampledField";
+    if (sfield.isSetId())
+    {
+      msg += " with id '" + sfield.getId() + "'";
+    }
+    msg += wrongvals.str();
+    msg += ", but the ListOfCoordinateComponents has exactly three children.";
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 /** @endcond */
 
