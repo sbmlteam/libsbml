@@ -54,6 +54,7 @@ addConstraint(new VConstraintSampledFieldSpatialSampledFieldTwoSamplesIn2DGeomet
 addConstraint(new VConstraintSampledFieldSpatialSampledFieldThreeSamplesIn3DGeometry(*this));
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNeedsMaxWithMin(*this));
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNeedsMinWithMax(*this));
+addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNoSampledValueWithMinMax(*this));
 
 /** @endcond */
 

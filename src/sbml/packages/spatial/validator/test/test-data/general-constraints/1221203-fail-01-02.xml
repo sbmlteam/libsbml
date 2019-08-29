@@ -39,7 +39,7 @@
                 </spatial:analyticGeometry>
                 <spatial:sampledFieldGeometry spatial:id="geometryDefinition_1" spatial:isActive="false" spatial:sampledField="sampledField_1">
                     <spatial:listOfSampledVolumes>
-                        <spatial:sampledVolume spatial:domainType="domainType_1" spatial:id="sampledVolume_1" spatial:maxValue="0" spatial:minValue="0" spatial:sampledValue="0"/>
+                        <spatial:sampledVolume spatial:domainType="domainType_1" spatial:id="sampledVolume_1" spatial:maxValue="0" spatial:minValue="0"/>
                     </spatial:listOfSampledVolumes>
                 </spatial:sampledFieldGeometry>
                 <spatial:parametricGeometry spatial:id="geometryDefinition_2" spatial:isActive="false">

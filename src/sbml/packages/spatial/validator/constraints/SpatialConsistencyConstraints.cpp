@@ -565,5 +565,28 @@ START_CONSTRAINT(SpatialSampledVolumeNeedsMinWithMax, SampledVolume, svol)
 END_CONSTRAINT
 
 
+// 1221751
+START_CONSTRAINT(SpatialSampledVolumeNoSampledValueWithMinMax, SampledVolume, svol)
+{
+  bool fail = false;
+  if (svol.isSetMaxValue() && svol.isSetMinValue() && svol.isSetSampledValue()) {
+    fail = true;
+    stringstream ss_msg;
+    ss_msg << "A SampledVolume";
+    if (svol.isSetId())
+    {
+      ss_msg << " with id '" << svol.getId() << "'";
+    }
+    ss_msg << " has a minValue of '" << svol.getMinValue() << "'";
+    ss_msg << " and a maxValue of '" << svol.getMaxValue() << "',";
+    ss_msg << " but also has a sampledValue of '" << svol.getSampledValue() << "'.  Either use the sampledValue, or the minValue with the maxValue.";
+    msg = ss_msg.str();
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 /** @endcond */
 
