@@ -200,26 +200,6 @@ SpatialReactionPlugin::writeElements(XMLOutputStream& stream) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Accepts the given SBMLVisitor
- */
-bool
-SpatialReactionPlugin::accept(SBMLVisitor& v) const
-{
-  const Reaction* r = static_cast<const
-    Reaction*>(this->getParentSBMLObject());
-  v.visit(*r);
-  v.leave(*r);
-
-  return true;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Sets the parent SBMLDocument
  */
 void

@@ -195,17 +195,6 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Accepts the given SBMLVisitor
-   */
-  virtual bool accept(SBMLVisitor& v) const;
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
    * Sets the parent SBMLDocument
    */
   virtual void setSBMLDocument(SBMLDocument* d);

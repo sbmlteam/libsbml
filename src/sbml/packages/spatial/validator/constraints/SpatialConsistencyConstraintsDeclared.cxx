@@ -38,7 +38,6 @@
  * ------------------------------------------------------------------------ -->
  */
 
-
 addConstraint(new VConstraintDomainSpatialDomainDomainTypeMustBeDomainType(*this));
 addConstraint(new VConstraintAdjacentDomainsSpatialAdjacentDomainsDomain1MustBeDomain(*this));
 addConstraint(new VConstraintAdjacentDomainsSpatialAdjacentDomainsDomain2MustBeDomain(*this));
@@ -46,6 +45,10 @@ addConstraint(new VConstraintCompartmentMappingSpatialCompartmentMappingDomainTy
 addConstraint(new VConstraintCoordinateComponentSpatialCoordinateComponentAllowedElements(*this));
 addConstraint(new VConstraintCoordinateComponentSpatialCoordinateComponentUnitMustBeUnitSId(*this));
 addConstraint(new VConstraintSampledFieldGeometrySpatialSampledFieldGeometrySampledFieldMustBeSampledField(*this));
+addConstraint(new VConstraintReactionSpatialLocalReactionMustDefineCompartment(*this));
+addConstraint(new VConstraintDomainTypeSpatialDomainTypeDimensionsMustMatch3DGeometry(*this));
+addConstraint(new VConstraintDomainTypeSpatialDomainTypeDimensionsMustMatch2DGeometry(*this));
+addConstraint(new VConstraintDomainTypeSpatialDomainTypeDimensionsMustMatch1DGeometry(*this));
 
 /** @endcond */
 

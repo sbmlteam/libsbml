@@ -42,7 +42,7 @@
             </parameter>
         </listOfParameters>
         <listOfReactions>
-            <reaction id="J0" reversible="false" fast="false" spatial:isLocal="true" spatial:foo="x">
+            <reaction id="J0" reversible="false" fast="false" spatial:isLocal="true" spatial:foo="x" compartment="compartment">
                 <listOfProducts>
                     <speciesReference species="id_10" stoichiometry="1" constant="true"/>
                 </listOfProducts>

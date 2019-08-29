@@ -43,6 +43,7 @@
 
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
 #include <sbml/packages/spatial/common/SpatialExtensionTypes.h>
+#include <sbml/packages/spatial/sbml/Geometry.h>
 
 #endif /* AddingConstraintsToValidator */
 
@@ -288,6 +289,122 @@ START_CONSTRAINT(SpatialSampledFieldGeometrySampledFieldMustBeSampledField, Samp
   if (plug->getGeometry()->getSampledField(sf) == NULL)
   {
     fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1220650
+START_CONSTRAINT(SpatialLocalReactionMustDefineCompartment, Reaction, rxn)
+{
+  const SpatialReactionPlugin* rxnplugin = static_cast<const SpatialReactionPlugin*>(rxn.getPlugin("spatial"));
+
+  pre(rxnplugin != NULL);
+
+  pre(rxnplugin->isSetIsLocal());
+  pre(rxnplugin->getIsLocal() == true);
+
+  bool fail = false;
+
+  if (!rxn.isSetCompartment())
+  {
+    fail = true;
+    msg = "A Reaction";
+    if (rxn.isSetId())
+    {
+      msg += " with id '";
+      msg += rxn.getId();
+      msg += "'";
+    }
+    msg += " has a 'spatial:isLocal' attribute of 'true', but does not define the 'compartment' attribute.";
+  }
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1220750
+START_CONSTRAINT(SpatialDomainTypeDimensionsMustMatch3DGeometry, DomainType, domaintype)
+{
+  pre(domaintype.isSetSpatialDimensions());
+
+  const Geometry* geometry = static_cast<const Geometry*>(domaintype.getParentSBMLObject()->getParentSBMLObject());
+  pre(geometry->getNumCoordinateComponents()==3);
+
+  int dim = domaintype.getSpatialDimensions();
+  bool fail = false;
+  if (dim < 2 || dim > 3) {
+    fail = true;
+    stringstream ss_msg;
+    ss_msg << "A DomainType";
+    if (domaintype.isSetId())
+    {
+      ss_msg << " with id '" << domaintype.getId() << "'";
+    }
+    ss_msg << " has a 'spatial:spatialDimensions' attribute of '";
+    ss_msg << dim;
+    ss_msg << "', but the ListOfCoordinateComponents has exactly three children.";
+    msg = ss_msg.str();
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1220751
+START_CONSTRAINT(SpatialDomainTypeDimensionsMustMatch2DGeometry, DomainType, domaintype)
+{
+  pre(domaintype.isSetSpatialDimensions());
+
+  const Geometry* geometry = static_cast<const Geometry*>(domaintype.getParentSBMLObject()->getParentSBMLObject());
+  pre(geometry->getNumCoordinateComponents()==2);
+
+  int dim = domaintype.getSpatialDimensions();
+  bool fail = false;
+  if (dim < 1 || dim > 2) {
+    fail = true;
+    stringstream ss_msg;
+    ss_msg << "A DomainType";
+    if (domaintype.isSetId())
+    {
+      ss_msg << " with id '" << domaintype.getId() << "'";
+    }
+    ss_msg << " has a 'spatial:spatialDimensions' attribute of '";
+    ss_msg << dim;
+    ss_msg << "', but the ListOfCoordinateComponents has exactly two children.";
+    msg = ss_msg.str();
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1220752
+START_CONSTRAINT(SpatialDomainTypeDimensionsMustMatch1DGeometry, DomainType, domaintype)
+{
+  pre(domaintype.isSetSpatialDimensions());
+
+  const Geometry* geometry = static_cast<const Geometry*>(domaintype.getParentSBMLObject()->getParentSBMLObject());
+  pre(geometry->getNumCoordinateComponents()==1);
+
+  int dim = domaintype.getSpatialDimensions();
+  bool fail = false;
+  if (dim < 0 || dim > 1) {
+    fail = true;
+    stringstream ss_msg;
+    ss_msg << "A DomainType";
+    if (domaintype.isSetId())
+    {
+      ss_msg << " with id '" << domaintype.getId() << "'";
+    }
+    ss_msg << " has a 'spatial:spatialDimensions' attribute of '";
+    ss_msg << dim;
+    ss_msg << "', but the ListOfCoordinateComponents has exactly one child.";
+    msg = ss_msg.str();
   }
 
   inv(fail == false);
