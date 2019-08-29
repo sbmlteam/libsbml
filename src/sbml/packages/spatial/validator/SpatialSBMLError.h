@@ -158,8 +158,8 @@ typedef enum
 , SpatialSampledVolumeSampledValueMustBeDouble                = 1221706
 , SpatialSampledVolumeMinValueMustBeDouble                    = 1221707
 , SpatialSampledVolumeMaxValueMustBeDouble                    = 1221708
-, SpatialSampledVolumeNeedsMinWithMax                         = 1221750
-, SpatialSampledVolumeNeedsMaxWithMin                         = 1221751
+, SpatialSampledVolumeNeedsMaxWithMin                         = 1221750
+, SpatialSampledVolumeNeedsMinWithMax                         = 1221751
 , SpatialSampledVolumeNoSampledValueWithMinMax                = 1221752
 , SpatialSampledVolumeNoMinMaxWithSampledValue                = 1221753
 , SpatialSampledVolumeMinMaxOrSampledValue                    = 1221754

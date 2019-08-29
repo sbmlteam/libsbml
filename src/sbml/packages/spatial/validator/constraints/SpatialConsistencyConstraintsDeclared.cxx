@@ -52,6 +52,7 @@ addConstraint(new VConstraintDomainTypeSpatialDomainTypeDimensionsMustMatch1DGeo
 addConstraint(new VConstraintSampledFieldSpatialSampledFieldOneSampleIn1DGeometry(*this));
 addConstraint(new VConstraintSampledFieldSpatialSampledFieldTwoSamplesIn2DGeometry(*this));
 addConstraint(new VConstraintSampledFieldSpatialSampledFieldThreeSamplesIn3DGeometry(*this));
+addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNeedsMaxWithMin(*this));
 
 /** @endcond */
 

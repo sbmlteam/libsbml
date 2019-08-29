@@ -523,5 +523,26 @@ START_CONSTRAINT(SpatialSampledFieldThreeSamplesIn3DGeometry, SampledField, sfie
 END_CONSTRAINT
 
 
+// 1221750
+START_CONSTRAINT(SpatialSampledVolumeNeedsMaxWithMin, SampledVolume, svol)
+{
+  bool fail = false;
+  if (svol.isSetMinValue() && !svol.isSetMaxValue()) {
+    fail = true;
+    stringstream ss_msg;
+    ss_msg << "A SampledVolume";
+    if (svol.isSetId())
+    {
+      ss_msg << " with id '" << svol.getId() << "'";
+    }
+    ss_msg << " has a minValue of '" << svol.getMinValue() << "', but does not set the maxValue attribute.";
+    msg = ss_msg.str();
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 /** @endcond */
 

@@ -1199,7 +1199,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
   },
 
   // 1221750
-  { SpatialSampledVolumeNeedsMinWithMax,
+  { SpatialSampledVolumeNeedsMaxWithMin,
     "A 'minValue' attribute goes with the 'maxValue' attribute.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -1209,7 +1209,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
   },
 
   // 1221751
-  { SpatialSampledVolumeNeedsMaxWithMin,
+  { SpatialSampledVolumeNeedsMinWithMax,
     "A 'maxValue' attribute goes with the 'minValue' attribute.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
