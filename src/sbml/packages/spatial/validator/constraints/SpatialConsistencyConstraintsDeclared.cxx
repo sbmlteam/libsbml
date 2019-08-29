@@ -50,6 +50,7 @@ addConstraint(new VConstraintDomainTypeSpatialDomainTypeDimensionsMustMatch3DGeo
 addConstraint(new VConstraintDomainTypeSpatialDomainTypeDimensionsMustMatch2DGeometry(*this));
 addConstraint(new VConstraintDomainTypeSpatialDomainTypeDimensionsMustMatch1DGeometry(*this));
 addConstraint(new VConstraintSampledFieldSpatialSampledFieldOneSampleIn1DGeometry(*this));
+addConstraint(new VConstraintSampledFieldSpatialSampledFieldTwoSamplesIn2DGeometry(*this));
 
 /** @endcond */
 
