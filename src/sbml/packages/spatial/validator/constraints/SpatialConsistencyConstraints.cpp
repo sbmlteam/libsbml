@@ -412,5 +412,43 @@ START_CONSTRAINT(SpatialDomainTypeDimensionsMustMatch1DGeometry, DomainType, dom
 END_CONSTRAINT
 
 
+// 1221650
+START_CONSTRAINT(SpatialSampledFieldOneSampleIn1DGeometry, SampledField, sfield)
+{
+  const Geometry* geometry = static_cast<const Geometry*>(sfield.getParentSBMLObject()->getParentSBMLObject());
+  pre(geometry->getNumCoordinateComponents()==1);
+
+  bool fail = false;
+  stringstream wrongvals;
+  if (sfield.isSetNumSamples2()) {
+    fail = true;
+    wrongvals << "numSamples2 with a value of '";
+    wrongvals << sfield.getNumSamples2();
+    wrongvals << "'";
+  }
+  if (sfield.isSetNumSamples3()) {
+    if (fail) {
+      wrongvals << ", and a ";
+    }
+    wrongvals << "numSamples3 with a value of '";
+    wrongvals << sfield.getNumSamples3();
+    wrongvals << "'";
+    fail = true;
+  }
+  if (fail) {
+    msg = "A SampledField";
+    if (sfield.isSetId())
+    {
+      msg += " with id '" + sfield.getId() + "'";
+    }
+    msg += " defines a " + wrongvals.str();
+    msg += ", but the ListOfCoordinateComponents has exactly one child.";
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 /** @endcond */
 

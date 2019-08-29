@@ -646,6 +646,9 @@ SampledField::setDataType(const std::string& dataType)
 int
 SampledField::setNumSamples1(int numSamples1)
 {
+  if (numSamples1 < 1) {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
   mNumSamples1 = numSamples1;
   mIsSetNumSamples1 = true;
   return LIBSBML_OPERATION_SUCCESS;
@@ -658,6 +661,9 @@ SampledField::setNumSamples1(int numSamples1)
 int
 SampledField::setNumSamples2(int numSamples2)
 {
+  if (numSamples2 < 1) {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
   mNumSamples2 = numSamples2;
   mIsSetNumSamples2 = true;
   return LIBSBML_OPERATION_SUCCESS;
@@ -670,6 +676,9 @@ SampledField::setNumSamples2(int numSamples2)
 int
 SampledField::setNumSamples3(int numSamples3)
 {
+  if (numSamples3 < 1) {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
   mNumSamples3 = numSamples3;
   mIsSetNumSamples3 = true;
   return LIBSBML_OPERATION_SUCCESS;
