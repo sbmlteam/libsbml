@@ -56,7 +56,7 @@
                 </spatial:mixedGeometry>
             </spatial:listOfGeometryDefinitions>
             <spatial:listOfSampledFields>
-                <spatial:sampledField spatial:compression="uncompressed" spatial:dataType="double" spatial:id="sampledField_1" spatial:interpolationType="nearestNeighbor" spatial:numSamples1="0" spatial:numSamples2="0" spatial:numSamples3="0" spatial:samplesLength="0"/>
+                <spatial:sampledField spatial:compression="uncompressed" spatial:dataType="double" spatial:id="sampledField_1" spatial:interpolationType="nearestNeighbor" spatial:numSamples1="3" spatial:numSamples2="1" spatial:numSamples3="1" spatial:samplesLength="3"/>
             </spatial:listOfSampledFields>
         </spatial:geometry>
     </model>
