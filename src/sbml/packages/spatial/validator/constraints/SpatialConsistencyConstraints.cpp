@@ -527,7 +527,7 @@ END_CONSTRAINT
 START_CONSTRAINT(SpatialSampledVolumeNeedsMaxWithMin, SampledVolume, svol)
 {
   bool fail = false;
-  if (svol.isSetMinValue() && !svol.isSetMaxValue()) {
+  if (svol.isSetMinValue() && !svol.isSetMaxValue() && !svol.isSetSampledValue()) {
     fail = true;
     stringstream ss_msg;
     ss_msg << "A SampledVolume";
@@ -548,7 +548,7 @@ END_CONSTRAINT
 START_CONSTRAINT(SpatialSampledVolumeNeedsMinWithMax, SampledVolume, svol)
 {
   bool fail = false;
-  if (svol.isSetMaxValue() && !svol.isSetMinValue()) {
+  if (svol.isSetMaxValue() && !svol.isSetMinValue() && !svol.isSetSampledValue()) {
     fail = true;
     stringstream ss_msg;
     ss_msg << "A SampledVolume";
@@ -565,7 +565,7 @@ START_CONSTRAINT(SpatialSampledVolumeNeedsMinWithMax, SampledVolume, svol)
 END_CONSTRAINT
 
 
-// 1221751
+// 1221752
 START_CONSTRAINT(SpatialSampledVolumeNoSampledValueWithMinMax, SampledVolume, svol)
 {
   bool fail = false;
@@ -580,6 +580,41 @@ START_CONSTRAINT(SpatialSampledVolumeNoSampledValueWithMinMax, SampledVolume, sv
     ss_msg << " has a minValue of '" << svol.getMinValue() << "'";
     ss_msg << " and a maxValue of '" << svol.getMaxValue() << "',";
     ss_msg << " but also has a sampledValue of '" << svol.getSampledValue() << "'.  Either use the sampledValue, or the minValue with the maxValue.";
+    msg = ss_msg.str();
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1221753
+START_CONSTRAINT(SpatialSampledVolumeNoMinMaxWithSampledValue, SampledVolume, svol)
+{
+  bool fail = false;
+  if (svol.isSetMaxValue() && !svol.isSetMinValue() && svol.isSetSampledValue()) {
+    fail = true;
+    stringstream ss_msg;
+    ss_msg << "A SampledVolume";
+    if (svol.isSetId())
+    {
+      ss_msg << " with id '" << svol.getId() << "'";
+    }
+    ss_msg << " has a sampledValue of '" << svol.getSampledValue() << "'";
+    ss_msg << " but also has a maxValue of '" << svol.getMaxValue() << "'.  Either use the sampledValue, or a minValue with the maxValue.";
+    msg = ss_msg.str();
+  }
+
+  else if (!svol.isSetMaxValue() && svol.isSetMinValue() && svol.isSetSampledValue()) {
+    fail = true;
+    stringstream ss_msg;
+    ss_msg << "A SampledVolume";
+    if (svol.isSetId())
+    {
+      ss_msg << " with id '" << svol.getId() << "'";
+    }
+    ss_msg << " has a sampledValue of '" << svol.getSampledValue() << "'";
+    ss_msg << " but also has a minValue of '" << svol.getMinValue() << "'.  Either use the sampledValue, or a maxValue with the minValue.";
     msg = ss_msg.str();
   }
 
