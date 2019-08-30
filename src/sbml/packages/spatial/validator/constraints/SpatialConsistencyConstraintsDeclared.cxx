@@ -56,6 +56,7 @@ addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNeedsMaxWithMin(*t
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNeedsMinWithMax(*this));
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNoSampledValueWithMinMax(*this));
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNoMinMaxWithSampledValue(*this));
+addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeMinMaxOrSampledValue(*this));
 
 /** @endcond */
 
