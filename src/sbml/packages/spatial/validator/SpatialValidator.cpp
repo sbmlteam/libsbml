@@ -743,7 +743,7 @@ public:
   visit(const Reaction& x)
   {
     v.mSpatialConstraints->mReaction.applyTo(m, x);
-    return !v.mSpatialConstraints->mSpatialPoints.empty();
+    return !v.mSpatialConstraints->mReaction.empty();
   }
 
 
