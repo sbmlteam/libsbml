@@ -1263,11 +1263,21 @@ SBMLLevelVersionConverter::speciesReferenceIdUsed()
   unsigned int i = 0;
   while (!used && i < mMathElements->getSize())
   {
-    const ASTNode* ast = static_cast<SBase*>(mMathElements->get(i))->getMath();
+    SBase* element = static_cast<SBase*>(mMathElements->get(i));
+    const ASTNode* ast = element->getMath();
+    KineticLaw* kl = NULL;
+    if (element->getTypeCode() == SBML_KINETIC_LAW) {
+      kl = static_cast<KineticLaw*>(element);
+    }
     if (ast != NULL) {
       for (unsigned int j = 0; j < mSRIds->size(); j++)
       {
-        used = containsId(ast, mSRIds->at(j));
+        string id = mSRIds->at(j);
+        if (kl != NULL && kl->getParameter(id) != NULL)
+        {
+          continue;
+        }
+        used = containsId(ast, id);
         if (used) break;
       }
     }
