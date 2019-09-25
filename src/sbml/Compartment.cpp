@@ -1450,6 +1450,19 @@ Compartment::unsetAttribute(const std::string& attributeName)
 
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+bool Compartment::isExplicitlySetSpatialDimensions() const 
+{
+    return mExplicitlySetSpatialDimensions; 
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+bool Compartment::isExplicitlySetConstant() const 
+{
+    return mExplicitlySetConstant;
+}
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -1770,6 +1783,7 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
   //
   mIsSetConstant = attributes.readInto("constant", mConstant, 
                                           getErrorLog(), false, getLine(), getColumn());
+  mExplicitlySetConstant = mIsSetConstant;
   if (!mIsSetConstant)
   {
     logError(AllowedAttributesOnCompartment, level, version, 

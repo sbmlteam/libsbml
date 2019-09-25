@@ -1024,6 +1024,12 @@ Parameter::unsetAttribute(const std::string& attributeName)
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
+bool Parameter::isExplicitlySetConstant() const 
+{ 
+    return mExplicitlySetConstant; 
+}
+/** @endcond */
 
 
 void 
@@ -1326,9 +1332,10 @@ Parameter::readL3Attributes (const XMLAttributes& attributes)
   }
   if (this->getTypeCode() == SBML_PARAMETER)
   {
-    mIsSetConstant = attributes.readInto("constant", mConstant,
+    mExplicitlySetConstant = attributes.readInto("constant", mConstant,
                                           getErrorLog(), false, getLine(), getColumn());
-    if (!mIsSetConstant)
+    mIsSetConstant = mExplicitlySetConstant;
+    if (!mExplicitlySetConstant)
     {
       logError(AllowedAttributesOnParameter, level, version, 
         "The required attribute 'constant' is missing from the "

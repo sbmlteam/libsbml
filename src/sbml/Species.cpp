@@ -1800,7 +1800,21 @@ Species::unsetAttribute(const std::string& attributeName)
   return value;
 }
 
-/** @endcond */
+bool Species::isExplicitlySetBoundaryCondition() const
+{
+    return mExplicitlySetBoundaryCondition;
+}
+
+bool Species::isExplicitlySetConstant() const
+{
+    return mExplicitlySetConstant;
+}
+
+bool Species::isExplicitlySetHasOnlySubsUnits() const
+{
+    return mExplicitlySetHasOnlySubsUnits;
+}
+ /** @endcond */
 
 
 
@@ -2185,6 +2199,7 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   mIsSetBoundaryCondition = attributes.readInto("boundaryCondition", 
                                mBoundaryCondition, getErrorLog(), false, 
                                                    getLine(), getColumn());
+  mExplicitlySetBoundaryCondition = mIsSetBoundaryCondition;
   if (!mIsSetBoundaryCondition)
   {
     logError(AllowedAttributesOnSpecies, level, version, 
@@ -2215,6 +2230,7 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   mIsSetHasOnlySubstanceUnits = attributes.readInto(
                          "hasOnlySubstanceUnits", mHasOnlySubstanceUnits,
                           getErrorLog(), false, getLine(), getColumn());
+  mExplicitlySetHasOnlySubsUnits = mIsSetHasOnlySubstanceUnits;
   if (!mIsSetHasOnlySubstanceUnits)
   {
     logError(AllowedAttributesOnSpecies, level, version, 
@@ -2227,6 +2243,7 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   //
   mIsSetConstant = attributes.readInto("constant", mConstant, getErrorLog(), 
                                             false, getLine(), getColumn());
+  mExplicitlySetConstant = mIsSetConstant;
   if (!mIsSetConstant)
   {
     logError(AllowedAttributesOnSpecies, level, version, 

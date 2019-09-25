@@ -1594,6 +1594,12 @@ public:
   /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
+  bool isExplicitlySetSpatialDimensions() const;
+
+  bool isExplicitlySetConstant() const;
+  /** @endcond */
+
 
 
   #endif /* !SWIG */
@@ -1632,11 +1638,6 @@ protected:
    * of this method as well.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
-
-  bool isExplicitlySetSpatialDimensions() const {
-    return mExplicitlySetSpatialDimensions; };
-
-  bool isExplicitlySetConstant() const { return mExplicitlySetConstant; } ;
 
 
   //std::string   mId;

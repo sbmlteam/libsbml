@@ -1466,6 +1466,10 @@ public:
 
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+  bool isExplicitlySetUVFTT() const;
+  /** @endcond */
+
 
 
 
@@ -1513,8 +1517,6 @@ protected:
    * of this method as well.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
-
-  bool isExplicitlySetUVFTT() const { return mExplicitlySetUVFTT; } ;
 
 
   //std::string             mId;

@@ -1619,6 +1619,14 @@ public:
 
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+  bool isExplicitlySetBoundaryCondition() const;
+
+  bool isExplicitlySetConstant() const;
+
+  bool isExplicitlySetHasOnlySubsUnits() const;
+  /** @endcond */
+
 
 
 
@@ -1657,15 +1665,6 @@ protected:
    * of this method as well.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
-
-  bool isExplicitlySetBoundaryCondition() const 
-                            { return mExplicitlySetBoundaryCondition; } ;
-
-  bool isExplicitlySetConstant() const 
-                            { return mExplicitlySetConstant; } ;
-
-  bool isExplicitlySetHasOnlySubsUnits() const 
-                            { return mExplicitlySetHasOnlySubsUnits; } ;
 
   //std::string  mId;
   //std::string  mName;

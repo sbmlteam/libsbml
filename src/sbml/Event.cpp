@@ -1853,6 +1853,12 @@ Event::getObject(const std::string& elementName, unsigned int index)
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
+bool Event::isExplicitlySetUVFTT() const 
+{ 
+  return mExplicitlySetUVFTT; 
+}
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -2039,6 +2045,7 @@ Event::readL3Attributes (const XMLAttributes& attributes)
   mIsSetUseValuesFromTriggerTime = attributes.readInto(
       "useValuesFromTriggerTime", mUseValuesFromTriggerTime, 
        getErrorLog(),false, getLine(), getColumn());
+  mExplicitlySetUVFTT = mIsSetUseValuesFromTriggerTime;
  
   if (!mIsSetUseValuesFromTriggerTime)
   {
