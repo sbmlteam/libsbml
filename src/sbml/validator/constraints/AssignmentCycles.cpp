@@ -175,10 +175,15 @@ AssignmentCycles::addReactionDependencies(const Model& m, const Reaction& object
     */
   List* variables = object.getKineticLaw()->getMath()
                                       ->getListOfNodes( ASTNode_isName );
+  const KineticLaw* kl = object.getKineticLaw();
   for (ns = 0; ns < variables->getSize(); ns++)
   {
     ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
     string   name = node->getName() ? node->getName() : "";
+    if (kl->getLocalParameter(name) != NULL)
+    {
+        continue;
+    }
 
     if (m.getReaction(name))
     {
