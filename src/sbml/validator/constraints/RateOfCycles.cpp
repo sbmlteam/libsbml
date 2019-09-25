@@ -154,7 +154,7 @@ RateOfCycles::addReactionDependencies(const Model& m, const Reaction& object)
     {
       ASTNode * child = node->getChild(0);
       string   name = child->getName() ? child->getName() : "";
-      if (kl->getLocalParameter(name) != NULL)
+      if (kl->getParameter(name) != NULL)
       {
         continue;
       }
@@ -180,7 +180,7 @@ RateOfCycles::addReactionDependencies(const Model& m, const Reaction& object)
   {
     ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
     string   name = node->getName() ? node->getName() : "";
-    if (kl->getLocalParameter(name) != NULL)
+    if (kl->getParameter(name) != NULL)
     {
        continue;
     }
