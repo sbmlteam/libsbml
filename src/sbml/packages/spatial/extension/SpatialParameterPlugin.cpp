@@ -1504,59 +1504,136 @@ SpatialParameterPlugin::createObject(XMLInputStream& stream)
 
   if (prefix == targetPrefix)
   {
+    string err = "A <parameter> ";
+    Parameter* param = static_cast<Parameter*>(getParentSBMLObject());
+    if (param->isSetId()) {
+      err += "with the id '" + param->getIdAttribute() + "' ";
+    }
     if (name == "spatialSymbolReference")
     {
       if (isSetSpatialSymbolReference())
       {
         getErrorLog()->logPackageError("spatial",
           SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
-            getVersion());
+            getVersion(), err + "has multiple <spatialSymbolReference> children.");
+      }
+      else if (isSetAdvectionCoefficient())
+      {
+        getErrorLog()->logPackageError("spatial",
+          SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
+          getVersion(), err + "has both a <spatialSymbolReference> and an <advectionCoefficient> child.");
+      }
+      else if (isSetBoundaryCondition())
+      {
+        getErrorLog()->logPackageError("spatial",
+          SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
+          getVersion(), err + "has both a <spatialSymbolReference> and a <boundaryCondition> child.");
+      }
+      else if (isSetDiffusionCoefficient())
+      {
+        getErrorLog()->logPackageError("spatial",
+          SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
+          getVersion(), err + "has both a <spatialSymbolReference> and a <diffusionCoefficient> child.");
       }
 
       delete mSpatialSymbolReference;
-        mSpatialSymbolReference = NULL;
+      mSpatialSymbolReference = NULL;
       mSpatialSymbolReference = new SpatialSymbolReference(spatialns);
       obj = mSpatialSymbolReference;
     }
     else if (name == "advectionCoefficient")
     {
-      if (isSetAdvectionCoefficient())
+      if (isSetSpatialSymbolReference())
       {
         getErrorLog()->logPackageError("spatial",
           SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
-            getVersion());
+          getVersion(), err + "has both an <advectionCoefficient> and a <spatialSymbolReference> child.");
+      }
+      else if (isSetAdvectionCoefficient())
+      {
+        getErrorLog()->logPackageError("spatial",
+          SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
+          getVersion(), err + "has multiple <advectionCoefficient> children.");
+      }
+      else if (isSetBoundaryCondition())
+      {
+        getErrorLog()->logPackageError("spatial",
+          SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
+          getVersion(), err + "has both an <advectionCoefficient> and a <boundaryCondition> child.");
+      }
+      else if (isSetDiffusionCoefficient())
+      {
+        getErrorLog()->logPackageError("spatial",
+          SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
+          getVersion(), err + "has both an <advectionCoefficient> and a <diffusionCoefficient> child.");
       }
 
       delete mAdvectionCoefficient;
-        mAdvectionCoefficient = NULL;
+      mAdvectionCoefficient = NULL;
       mAdvectionCoefficient = new AdvectionCoefficient(spatialns);
       obj = mAdvectionCoefficient;
     }
     else if (name == "boundaryCondition")
     {
-      if (isSetBoundaryCondition())
+      if (isSetSpatialSymbolReference())
       {
         getErrorLog()->logPackageError("spatial",
           SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
-            getVersion());
+          getVersion(), err + "has both a <boundaryCondition> and a <spatialSymbolReference> child.");
+      }
+      else if (isSetAdvectionCoefficient())
+      {
+        getErrorLog()->logPackageError("spatial",
+          SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
+          getVersion(), err + "has both a <boundaryCondition> and an <advectionCoefficient> child.");
+      }
+      else if (isSetBoundaryCondition())
+      {
+        getErrorLog()->logPackageError("spatial",
+          SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
+          getVersion(), err + "has multiple <boundaryCondition> children.");
+      }
+      else if (isSetDiffusionCoefficient())
+      {
+        getErrorLog()->logPackageError("spatial",
+          SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
+          getVersion(), err + "has both a <boundaryCondition> and a <diffusionCoefficient> child.");
       }
 
       delete mBoundaryCondition;
-        mBoundaryCondition = NULL;
+      mBoundaryCondition = NULL;
       mBoundaryCondition = new BoundaryCondition(spatialns);
       obj = mBoundaryCondition;
     }
     else if (name == "diffusionCoefficient")
     {
-      if (isSetDiffusionCoefficient())
+      if (isSetSpatialSymbolReference())
       {
         getErrorLog()->logPackageError("spatial",
           SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
-            getVersion());
+          getVersion(), err + "has both a <diffusionCoefficient> and a <spatialSymbolReference> child.");
+      }
+      else if (isSetAdvectionCoefficient())
+      {
+        getErrorLog()->logPackageError("spatial",
+          SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
+          getVersion(), err + "has both a <diffusionCoefficient> and an <advectionCoefficient> child.");
+      }
+      else if (isSetBoundaryCondition())
+      {
+        getErrorLog()->logPackageError("spatial",
+          SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
+          getVersion(), err + "has both a <diffusionCoefficient> and a <boundaryCondition> child.");
+      }
+      else if (isSetDiffusionCoefficient())
+      {
+        getErrorLog()->logPackageError("spatial",
+          SpatialParameterAllowedElements, getPackageVersion(), getLevel(),
+          getVersion(), err + "has multiple <diffusionCoefficient> children.");
       }
 
       delete mDiffusionCoefficient;
-        mDiffusionCoefficient = NULL;
+      mDiffusionCoefficient = NULL;
       mDiffusionCoefficient = new DiffusionCoefficient(spatialns);
       obj = mDiffusionCoefficient;
     }

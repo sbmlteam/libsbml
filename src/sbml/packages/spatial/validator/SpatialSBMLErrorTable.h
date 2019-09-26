@@ -194,10 +194,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Elements allowed on <parameter>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <parameter> object may contain one and only one instance of each of the "
-    "<spatialSymbolReference,> <advectionCoefficient,> <boundaryCondition> and "
-    "<diffusionCoefficient> elements. No other elements from the SBML Level 3 "
-    "Spatial Processes namespaces are permitted on a <parameter> object. ",
+    "A <parameter> object may contain up to one child element from the SBML "
+    "Level 3 Spatial Processes namespace:  a <spatialSymbolReference>, an "
+    "<advectionCoefficient>, a <boundaryCondition>, or a <diffusionCoefficient>.",
     { "L3V1 Spatial V1 Section"
     }
   },

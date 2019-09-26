@@ -33,14 +33,6 @@
         <listOfSpecies>
             <species boundaryCondition="false" compartment="compartment" constant="false" hasOnlySubstanceUnits="false" id="id_10" spatial:isSpatial="false"/>
         </listOfSpecies>
-        <listOfParameters>
-            <parameter constant="false" id="id_11">
-                <spatial:spatialSymbolReference spatial:spatialRef="someString"/>
-                <spatial:advectionCoefficient spatial:coordinate="cartesianX" spatial:variable="someString"/>
-                <spatial:boundaryCondition spatial:boundaryDomainType="someString" spatial:coordinateBoundary="someString" spatial:type="Robin_valueCoefficient" spatial:variable="someString"/>
-                <spatial:diffusionCoefficient spatial:coordinateReference1="cartesianX" spatial:coordinateReference2="cartesianX" spatial:type="isotropic" spatial:variable="someString"/>
-            </parameter>
-        </listOfParameters>
     </model>
 </sbml>
 
