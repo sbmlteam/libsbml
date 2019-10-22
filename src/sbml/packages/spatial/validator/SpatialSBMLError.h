@@ -121,6 +121,9 @@ typedef enum
 , SpatialCompartmentMappingDomainTypeMustBeDomainType         = 1221304
 , SpatialCompartmentMappingUnitSizeMustBeDouble               = 1221305
 , SpatialCompartmentMappingNameMustBeString                   = 1221306
+, SpatialCompartmentMappingUnitSizeMustBeFraction             = 1221350
+, SpatialCompartmentMappingUnitSizesSum                       = 1221351
+, SpatialCompartmentMappingUnitConsistency                    = 1221352
 , SpatialCoordinateComponentAllowedCoreAttributes             = 1221401
 , SpatialCoordinateComponentAllowedCoreElements               = 1221402
 , SpatialCoordinateComponentAllowedAttributes                 = 1221403
@@ -160,9 +163,7 @@ typedef enum
 , SpatialSampledVolumeMaxValueMustBeDouble                    = 1221708
 , SpatialSampledVolumeNeedsMaxWithMin                         = 1221750
 , SpatialSampledVolumeNeedsMinWithMax                         = 1221751
-, SpatialSampledVolumeNoSampledValueWithMinMax                = 1221752
-, SpatialSampledVolumeNoMinMaxWithSampledValue                = 1221753
-, SpatialSampledVolumeMinMaxOrSampledValue                    = 1221754
+, SpatialSampledVolumeSampledValueMinMax                      = 1221752
 , SpatialAnalyticGeometryAllowedCoreAttributes                = 1221801
 , SpatialAnalyticGeometryAllowedCoreElements                  = 1221802
 , SpatialAnalyticGeometryAllowedElements                      = 1221803

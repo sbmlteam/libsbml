@@ -54,9 +54,8 @@ addConstraint(new VConstraintSampledFieldSpatialSampledFieldTwoSamplesIn2DGeomet
 addConstraint(new VConstraintSampledFieldSpatialSampledFieldThreeSamplesIn3DGeometry(*this));
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNeedsMaxWithMin(*this));
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNeedsMinWithMax(*this));
-addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNoSampledValueWithMinMax(*this));
-addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNoMinMaxWithSampledValue(*this));
-addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeMinMaxOrSampledValue(*this));
+addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeSampledValueMinMax(*this));
+addConstraint(new VConstraintCompartmentMappingSpatialCompartmentMappingUnitSizeMustBeFraction(*this));
 
 /** @endcond */
 

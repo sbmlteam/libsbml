@@ -753,6 +753,37 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1221350
+  { SpatialCompartmentMappingUnitSizeMustBeFraction,
+    "The 'unitSize' attribute must be between 0 and 1.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'spatial:unitSize' on a <compartmentMapping> must have a value "
+    "between 0 and 1.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1221351
+  { SpatialCompartmentMappingUnitSizesSum,
+    "The 'unitSize' attributes should sum to 1.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_WARNING,
+    "The values of the 'spatial:unitSize' attributes of every <compartmentMapping> with the same 'spatial:domainType' should sum to 1.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1221352
+  { SpatialCompartmentMappingUnitConsistency,
+    "The units of a compartmentMapping should be compartment units over domain units.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_WARNING,
+    "If a <parameter> has a child <spatialSymbolReference> that points to a <compartmentMapping>, the units of that <parameter> should be equivalent to the units of the parent <compartment> of the <compartmentMapping>, divided by the units of the <domainType> referenced by the <compartmentMapping>.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1221401
   { SpatialCoordinateComponentAllowedCoreAttributes,
     "Core attributes allowed on <coordinateComponent>.",
@@ -1218,31 +1249,11 @@ static const packageErrorTableEntry spatialErrorTable[] =
   },
 
   // 1221752
-  { SpatialSampledVolumeNoSampledValueWithMinMax,
-    "No 'sampledValue' attribute with min and max.",
+  { SpatialSampledVolumeSampledValueMinMax,
+    "Every <sampleVolume> must have a 'sampledValue' attribute or the 'min' and 'max' attributes.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <sampledVolume> with defined 'spatial:minValue' and 'spatial:maxValue' attributes must not define the 'spatial:sampledValue' attribute.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1221753
-  { SpatialSampledVolumeNoMinMaxWithSampledValue,
-    "No 'minValue' nor 'maxValue' attributes with 'sampledValue'.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "A <sampledVolume> with a defined 'spatial:sampledValue' attribute may not define the 'spatial:minValue' nor the 'spatial:maxValue' attribute.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1221754
-  { SpatialSampledVolumeMinMaxOrSampledValue,
-    "SampledVolume must have 'sampledVolume' or 'minValue' and 'maxValue'.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "A <sampledVolume> must either define its 'spatial:sampledValue' attribute or must define both the 'spatial:minValue' and 'spatial:maxValue' attributes.",
+    "A <sampledVolume> must either define the attribute 'spatial:sampledValue' or must define both the 'spatial:minValue' and 'spatial:maxValue' attributes, but may not define any other combination of those three attributes.",
     { "L3V1 Spatial V1 Section"
     }
   },
