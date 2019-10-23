@@ -2,8 +2,8 @@
 * @cond doxygenLibsbmlInternal
 *
 * @file    SpatialCompartmentMappingUnitSizesCheck.h
-* @brief   Ensures the appropriate ids within a Model are unique
-* @author  Sarah Keating
+* @brief   Ensure that spatial compartment mappings' unit sizes sum to one.
+* @author  Sarah Keating, Lucian Smith
 * 
 * <!--------------------------------------------------------------------------
 * This file is part of libSBML.  Please visit http://sbml.org for more

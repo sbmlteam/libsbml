@@ -2,8 +2,8 @@
 * @cond doxygenLibsbmlInternal
 *
 * @file    SpatialCompartmentMappingUnitSizesCheck.cpp
-* @brief   Ensures unique variables assigned by rules and events
-* @author  Sarah Keating
+* @brief   Ensure that spatial compartment mappings' unit sizes sum to one.
+* @author  Sarah Keating, Lucian Smith
 * 
 * <!--------------------------------------------------------------------------
 * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -36,14 +36,8 @@
 * and also available online as http://sbml.org/software/libsbml/license.html
 * ---------------------------------------------------------------------- -->*/
 
-#include <sbml/Model.h>
-#include <sbml/Rule.h>
-#include <sbml/Event.h>
-#include <sbml/EventAssignment.h>
-
 #include "SpatialCompartmentMappingUnitSizesCheck.h"
 #include <sbml/packages/spatial/extension/SpatialCompartmentPlugin.h>
-#include <sbml/util/IdList.h>
 
 #include <set>
 
