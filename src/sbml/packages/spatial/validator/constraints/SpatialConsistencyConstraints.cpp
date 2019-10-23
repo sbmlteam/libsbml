@@ -45,6 +45,7 @@
 #include <sbml/packages/spatial/common/SpatialExtensionTypes.h>
 #include <sbml/packages/spatial/sbml/Geometry.h>
 #include <sbml/packages/spatial/validator/SpatialCompartmentMappingUnitSizesCheck.h>
+#include <sbml/Species.h>
 
 #endif /* AddingConstraintsToValidator */
 
@@ -644,6 +645,46 @@ START_CONSTRAINT(SpatialCompartmentMappingUnitSizeMustBeFraction, CompartmentMap
       ss_msg << " with id '" << cmap.getId() << "'";
     }
     ss_msg << " has a unitSize of " << cmap.getUnitSize() << ".";
+    msg = ss_msg.str();
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1220450
+START_CONSTRAINT(SpatialCompartmentsMustHaveCompartmentMapping, Species, species)
+{
+  bool fail = false;
+  if (!species.isSetCompartment()) {
+    return;
+  }
+  const SpatialSpeciesPlugin* ssp = static_cast<const SpatialSpeciesPlugin*>(species.getPlugin("spatial"));
+  if (ssp == NULL || !ssp->isSetIsSpatial()  || !ssp->getIsSpatial()) {
+    return;
+  }
+  if (species.getParentSBMLObject() == NULL) {
+    return;
+  }
+  const Model* model = static_cast<const Model*>(species.getParentSBMLObject()->getParentSBMLObject());
+  if (model == NULL) {
+    return;
+  }
+  const Compartment* compartment = model->getCompartment(species.getCompartment());
+  if (compartment == NULL) {
+    return;
+  }
+  const SpatialCompartmentPlugin* scp = static_cast<const SpatialCompartmentPlugin*>(compartment->getPlugin("spatial"));
+  if (scp == NULL || scp->isSetCompartmentMapping() == false) {
+    fail = true;
+    stringstream ss_msg;
+    ss_msg << "A species";
+    if (species.isSetId())
+    {
+      ss_msg << " with id '" << species.getId() << "'";
+    }
+    ss_msg << " is set 'isSpatial=true', but its compartment ('" << species.getCompartment() << "') does not have a child <compartmentMapping>.";
     msg = ss_msg.str();
   }
 

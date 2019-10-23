@@ -189,6 +189,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1220450
+  { SpatialCompartmentsMustHaveCompartmentMapping,
+    "Spatial species compartments must have compartment mapping.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The <compartment> of any <species> that has a value of 'true' for the 'spatial:isSpatial' attribute must have a child <compartmentMapping>.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1220501
   { SpatialParameterAllowedElements,
     "Elements allowed on <parameter>.",

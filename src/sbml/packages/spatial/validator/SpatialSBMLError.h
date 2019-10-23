@@ -73,6 +73,7 @@ typedef enum
 , SpatialCompartmentAllowedElements                           = 1220301
 , SpatialSpeciesAllowedAttributes                             = 1220401
 , SpatialSpeciesIsSpatialMustBeBoolean                        = 1220402
+, SpatialCompartmentsMustHaveCompartmentMapping               = 1220450
 , SpatialParameterAllowedElements                             = 1220501
 , SpatialReactionAllowedAttributes                            = 1220601
 , SpatialReactionIsLocalMustBeBoolean                         = 1220602

@@ -58,6 +58,7 @@ addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNeedsMaxWithMin(*t
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNeedsMinWithMax(*this));
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeSampledValueMinMax(*this));
 addConstraint(new VConstraintCompartmentMappingSpatialCompartmentMappingUnitSizeMustBeFraction(*this));
+addConstraint(new VConstraintSpeciesSpatialCompartmentsMustHaveCompartmentMapping(*this));
 
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(1221351, *this));
 
