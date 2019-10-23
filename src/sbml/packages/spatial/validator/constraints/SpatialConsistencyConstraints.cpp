@@ -44,12 +44,17 @@
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
 #include <sbml/packages/spatial/common/SpatialExtensionTypes.h>
 #include <sbml/packages/spatial/sbml/Geometry.h>
+#include <sbml/packages/spatial/validator/SpatialCompartmentMappingUnitSizesCheck.h>
 
 #endif /* AddingConstraintsToValidator */
 
 #include <sbml/validator/ConstraintMacros.h>
 
 using namespace std;
+
+EXTERN_CONSTRAINT(ErrorEnumValue, SpatialCompartmentMappingUnitSizesCheck);
+
+
 
 // 1220805
 START_CONSTRAINT(SpatialDomainDomainTypeMustBeDomainType, Domain, domain)

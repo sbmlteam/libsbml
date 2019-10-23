@@ -38,6 +38,8 @@
  * ------------------------------------------------------------------------ -->
  */
 
+#include "sbml\packages\spatial\validator\SpatialCompartmentMappingUnitSizesCheck.h"
+
 addConstraint(new VConstraintDomainSpatialDomainDomainTypeMustBeDomainType(*this));
 addConstraint(new VConstraintAdjacentDomainsSpatialAdjacentDomainsDomain1MustBeDomain(*this));
 addConstraint(new VConstraintAdjacentDomainsSpatialAdjacentDomainsDomain2MustBeDomain(*this));
@@ -56,6 +58,8 @@ addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNeedsMaxWithMin(*t
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNeedsMinWithMax(*this));
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeSampledValueMinMax(*this));
 addConstraint(new VConstraintCompartmentMappingSpatialCompartmentMappingUnitSizeMustBeFraction(*this));
+
+addConstraint(new SpatialCompartmentMappingUnitSizesCheck(1221351, *this));
 
 /** @endcond */
 

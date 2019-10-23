@@ -14,7 +14,7 @@
         </spatial:geometry>
         <listOfCompartments>
             <compartment constant="false" id="compartment">
-                <spatial:compartmentMapping spatial:domainType="domainType_1" spatial:id="compartmentMapping_1" spatial:unitSize="0"/>
+                <spatial:compartmentMapping spatial:domainType="domainType_1" spatial:id="compartmentMapping_1" spatial:unitSize="1"/>
             </compartment>
         </listOfCompartments>
     </model>
