@@ -229,7 +229,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Local spatial reactions must define compartment.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If the attribute 'spatial:isLocal' on a <reaction> is 'true', it must also have a defined 'compartment' attribute.",
+    "If the attribute 'spatial:isLocal' of a <reaction> has the value 'true', the <reaction> must also define a value for the 'compartment' attribute.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -298,7 +298,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Dimensions of domainType must match 3D geometry.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If the <geometry> of the <model> has exactly three <coordinateComponent> children, the 'spatial:spatialDimensions' attribute of a <domainType> may only have a value of '2' or '3'.",
+    "If the <geometry> of the <model> has exactly three <coordinateComponent> children, the attribute 'spatial:spatialDimensions' of a <domainType> may only have a value of '2' or '3'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -308,7 +308,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Dimensions of domainType must match 2D geometry.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If the <geometry> of the <model> has exactly two <coordinateComponent> children, the 'spatial:spatialDimensions' attribute of a <domainType> may only have a value of '1' or '2'.",
+    "If the <geometry> of the <model> has exactly two <coordinateComponent> children, the attribute 'spatial:spatialDimensions' of a <domainType> may only have a value of '1' or '2'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -318,7 +318,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Dimensions of domainType must match 1D geometry.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If the <geometry> of the <model> has exactly one <coordinateComponent> childr, the 'spatial:spatialDimensions' attribute of a <domainType> may only have a value of '0' or '1'.",
+    "If the <geometry> of the <model> has exactly one <coordinateComponent> childr, the attribute 'spatial:spatialDimensions' of a <domainType> may only have a value of '0' or '1'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1109,7 +1109,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Only one 'numSamples' attribute in 1D geometry.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If the <geometry> of the <model> has exactly one <coordinateComponent> child, a <sampledField> object must define the 'spatial:numSamples1' attribute, and must not define the 'spatial:numSamples2' and 'spatial:numSamples3' attributes.",
+    "If the <geometry> of the <model> has exactly one <coordinateComponent> child, a <sampledField> object must define the attribute 'spatial:numSamples1', and must not define the attributes 'spatial:numSamples2' nor 'spatial:numSamples3'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1119,7 +1119,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Two 'numSamples' attributes in 2D geometry.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If the <geometry> of the <model> has exactly two <coordinateComponent> children, a <sampledField> object must define the 'spatial:numSamples1' and 'spatial:numSamples2' attributes, and must not define the 'spatial:numSamples3' attribute.",
+    "If the <geometry> of the <model> has exactly two <coordinateComponent> children, a <sampledField> object must define the attributes 'spatial:numSamples1' and 'spatial:numSamples2', and must not define the attribute 'spatial:numSamples3'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1129,7 +1129,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Three 'numSamples' attributes in 3D geometry.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If the <geometry> of the <model> has exactly three <coordinateComponent> children, a <sampledField> object must define the 'spatial:numSamples1', 'spatial:numSamples2', and 'spatial:numSamples3' attributes.",
+    "If the <geometry> of the <model> has exactly three <coordinateComponent> children, a <sampledField> object must define the attributes 'spatial:numSamples1', 'spatial:numSamples2', and 'spatial:numSamples3'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2337,7 +2337,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Need two components for 'difference' type.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If the 'spatial:operationType' attribute of a <csgSetOperator> has the value 'difference', it must also define the 'spatial:componentA' and 'spatial:componentB' attributes.",
+    "If the attribute 'spatial:operationType' of a <csgSetOperator> has the value 'difference', it must also define values for the attributes 'spatial:componentA' and 'spatial:componentB'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2347,7 +2347,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "No components for 'union' or 'intersection' types.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If the 'spatial:operationType' attribute of a <csgSetOperator> has the value 'union' or 'intersection', it must not define the 'spatial:componentA' nor the 'spatial:componentB' attributes",
+    "If the attribute 'spatial:operationType' of a <csgSetOperator> has the value 'union' or 'intersection', it must not define values for the attributes 'spatial:componentA' nor 'spatial:componentB'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2498,7 +2498,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "No coordinate references for 'isotropic' type.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <diffusionCoefficient> with an attribute 'type' with the value 'isotropic' may not define the 'spatial:coordinateReference1' nor 'spatial:coordinateReference2' attributes.",
+    "A <diffusionCoefficient> with an attribute 'type' value of 'isotropic' may not define the attributes 'spatial:coordinateReference1' nor 'spatial:coordinateReference2'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2508,7 +2508,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Two coordinate references for 'tensor' type.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <diffusionCoefficient> with an attribute 'type' with the value 'tensor' must define the 'spatial:coordinateReference1' and 'spatial:coordinateReference2' attributes.",
+    "A <diffusionCoefficient> with an attribute 'type' value of 'tensor' must define the attributes 'spatial:coordinateReference1' and 'spatial:coordinateReference2'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2518,7 +2518,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "One coordinate references for 'anisotropic' type.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <diffusionCoefficient> with an attribute 'type' with the value 'anisotropic” must define the 'spatial:coordinateReference1' attribute, and must not define the 'spatial:coordinateReference2' attribute.",
+    "A <diffusionCoefficient> with an attribute 'type' value of 'anisotropic” must define the attribute 'spatial:coordinateReference1', and must not define the attribute 'spatial:coordinateReference2'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2680,7 +2680,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "A BoundaryCondition must have 'boundaryDomainType' or 'coordinateBoundary' attribute.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <boundaryCondition> must have a defined 'spatial:coordinateBoundary' or 'spatial:boundaryDomainType' attribute, but may not define both.",
+    "A <boundaryCondition> must define a value for either the attribute 'spatial:coordinateBoundary' or 'spatial:boundaryDomainType', but not both.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2920,7 +2920,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Solitary <coordinateComponents> must be 'cartesianX'.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If a <listOfCoordinateComponents> object has exactly one <coordinateComponents> child, that child must have a 'spatial:type' with the value 'cartesianX'.",
+    "If a <listOfCoordinateComponents> object has exactly one <coordinateComponents> child, that child must have a 'spatial:type' attribute with the value 'cartesianX'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2930,7 +2930,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Paired <coordinateComponents> must be 'cartesianX' and 'cartesianY'.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If a <listOfCoordinateComponents> object has exactly two <coordinateComponents> children, one of them must have a 'spatial:type' with the value 'cartesianX', and the other must have a 'spatial:type' with the value 'cartesianY'.",
+    "If a <listOfCoordinateComponents> object has exactly two <coordinateComponents> children, one of them must have a 'spatial:type' attribute with the value 'cartesianX', and the other must have a 'spatial:type' attribute with the value 'cartesianY'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2940,7 +2940,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Three <coordinateComponents> must be cartesian X, Y, and Z.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If a <listOfCoordinateComponents> object has exactly three <coordinateComponents> children, one of them must have a 'spatial:type' with the value 'cartesianX', one must have a 'spatial:type' with the value 'cartesianY', and one must have a 'spatial:type' with the value 'cartesianZ'",
+    "If a <listOfCoordinateComponents> object has exactly three <coordinateComponents> children, one of them must have a 'spatial:type' attribute with the value 'cartesianX', one must have a 'spatial:type' attribute with the value 'cartesianY', and one must have a 'spatial:type' attribute with the value 'cartesianZ'",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -3036,7 +3036,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Mixed geometry children are not active.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "Every <geometryDefinition> child of a <mixedGeometry> must have a 'spatial:isActive' attribute with a value of 'false'.",
+    "Every <geometryDefinition> child of a <mixedGeometry> must have a 'spatial:isActive' attribute value of 'false'.",
     { "L3V1 Spatial V1 Section"
     }
   },
