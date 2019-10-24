@@ -216,12 +216,17 @@ CompBase::readAttributes (const XMLAttributes& attributes,
     else if (!coreid.empty())
     {
       //Both core and comp id's
+      unsigned int severity = LIBSBML_SEV_ERROR;
+      if (coreid == compid) {
+        severity = LIBSBML_SEV_WARNING;
+      }
       string details = "The <comp:";
       details += getElementName() + "> element with the 'id' with value '"
         + coreid + "' and the 'comp:id' with value '"
         + compid + "' must only use the 'comp:id' attribute.";
       log->logPackageError("comp", errcode,
-        pkgVersion, sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        pkgVersion, sbmlLevel, sbmlVersion, details, getLine(), getColumn(), severity);
+      //log->getError(log->getNumErrors() - 1)->setSeverity(severity);
     }
 
     if (assigned && !SyntaxChecker::isValidSBMLSId(mId)) {
@@ -241,12 +246,16 @@ CompBase::readAttributes (const XMLAttributes& attributes,
     else if (!corename.empty())
     {
       //Both core and comp name's
+      unsigned int severity = LIBSBML_SEV_ERROR;
+      if (corename == compname) {
+        severity = LIBSBML_SEV_WARNING;
+      }
       string details = "The <comp:";
       details += getElementName() + "> element with the 'name' with value '"
         + corename + "' and the 'comp:name' with value '"
         + compname + "' must only use the 'comp:name' attribute.";
       log->logPackageError("comp", errcode,
-        pkgVersion, sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        pkgVersion, sbmlLevel, sbmlVersion, details, getLine(), getColumn(), severity);
     }
     if (assigned && mName.empty()) {
       logInvalidId("comp:name", mName);

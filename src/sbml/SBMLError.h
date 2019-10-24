@@ -1075,6 +1075,9 @@ typedef enum
      * for errors that have relevance to some
      * versions of SBML but not others. */
 
+  , LIBSBML_SEV_UNKNOWN
+  /*!< This error code is used as the default argument to the SBMLError constructor, so the constructor can know if the caller deliberately set the severity or not. */
+
   /** @endcond **/
 } SBMLErrorSeverity_t;
 
@@ -1205,7 +1208,7 @@ public:
    , const std::string details  = ""
    , const unsigned int line     = 0
    , const unsigned int column   = 0
-   , const unsigned int severity = LIBSBML_SEV_ERROR
+   , const unsigned int severity = LIBSBML_SEV_UNKNOWN
    , const unsigned int category = LIBSBML_CAT_SBML
    , const std::string package  = "core"
    , const unsigned int pkgVersion = 1

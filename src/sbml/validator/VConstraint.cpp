@@ -158,7 +158,7 @@ VConstraint::logFailure (const SBase& object, const std::string& message)
 
   SBMLError error = SBMLError( mId, level, version,
 			       message, object.getLine(), object.getColumn(),
-             LIBSBML_SEV_ERROR, LIBSBML_CAT_SBML, pkg, pkgVersion);
+             LIBSBML_SEV_UNKNOWN, LIBSBML_CAT_SBML, pkg, pkgVersion);
 
   if (error.getSeverity() != LIBSBML_SEV_NOT_APPLICABLE)
     mValidator.logFailure(error);
