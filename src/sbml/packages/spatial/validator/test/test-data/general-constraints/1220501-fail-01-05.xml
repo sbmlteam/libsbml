@@ -7,11 +7,11 @@
                     <spatial:boundaryMin spatial:id="boundary_1" spatial:value="0"/>
                     <spatial:boundaryMax spatial:id="boundary_2" spatial:value="1"/>
                 </spatial:coordinateComponent>
-                <spatial:coordinateComponent spatial:id="coordinateComponent_1" spatial:type="cartesianY" spatial:unit="dimensionless">
+                <spatial:coordinateComponent spatial:id="coordinateComponent_2" spatial:type="cartesianY" spatial:unit="dimensionless">
                     <spatial:boundaryMin spatial:id="boundary_3" spatial:value="0"/>
                     <spatial:boundaryMax spatial:id="boundary_4" spatial:value="1"/>
                 </spatial:coordinateComponent>
-                <spatial:coordinateComponent spatial:id="coordinateComponent_1" spatial:type="cartesianZ" spatial:unit="dimensionless">
+                <spatial:coordinateComponent spatial:id="coordinateComponent_3" spatial:type="cartesianZ" spatial:unit="dimensionless">
                     <spatial:boundaryMin spatial:id="boundary_5" spatial:value="0"/>
                     <spatial:boundaryMax spatial:id="boundary_6" spatial:value="1"/>
                 </spatial:coordinateComponent>
@@ -68,7 +68,7 @@
         </listOfSpecies>
         <listOfParameters>
             <parameter constant="false" id="id_3">
-                <spatial:spatialSymbolReference spatial:spatialRef="geometry_1"/>
+                <spatial:spatialSymbolReference spatial:spatialRef="coordinateComponent_2"/>
                 <spatial:advectionCoefficient spatial:coordinate="cartesianX" spatial:variable="species_1"/>
             </parameter>
         </listOfParameters>

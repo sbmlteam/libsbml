@@ -659,24 +659,20 @@ END_CONSTRAINT
 START_CONSTRAINT(SpatialCompartmentsMustHaveCompartmentMapping, Species, species)
 {
   bool fail = false;
-  if (!species.isSetCompartment()) {
-    return;
-  }
+  pre(species.isSetCompartment());
+
   const SpatialSpeciesPlugin* ssp = static_cast<const SpatialSpeciesPlugin*>(species.getPlugin("spatial"));
-  if (ssp == NULL || !ssp->isSetIsSpatial()  || !ssp->getIsSpatial()) {
-    return;
-  }
-  if (species.getParentSBMLObject() == NULL) {
-    return;
-  }
+  pre(ssp != NULL);
+  pre(ssp->isSetIsSpatial());
+  pre(ssp->getIsSpatial());
+  pre(species.getParentSBMLObject() != NULL);
+
   const Model* model = static_cast<const Model*>(species.getParentSBMLObject()->getParentSBMLObject());
-  if (model == NULL) {
-    return;
-  }
+  pre(model != NULL);
+
   const Compartment* compartment = model->getCompartment(species.getCompartment());
-  if (compartment == NULL) {
-    return;
-  }
+  pre(compartment != NULL);
+
   const SpatialCompartmentPlugin* scp = static_cast<const SpatialCompartmentPlugin*>(compartment->getPlugin("spatial"));
   if (scp == NULL || scp->isSetCompartmentMapping() == false) {
     fail = true;
@@ -693,6 +689,50 @@ START_CONSTRAINT(SpatialCompartmentsMustHaveCompartmentMapping, Species, species
   inv(fail == false);
 }
 END_CONSTRAINT
+
+// 1223304
+START_CONSTRAINT(SpatialSpatialSymbolReferenceSpatialRefMustReferenceMath, SpatialSymbolReference, ssr)
+{
+  pre(ssr.isSetSpatialRef());
+  msg = "A <spatialSymbolReference>";
+  if (ssr.isSetId()) {
+    msg += " with the id '" + ssr.getId() + "'";
+  }
+  msg += " has a 'spatialRef' value of '" + ssr.getSpatialRef() + "'";
+  bool fail = false;
+
+  const SBase* parent = ssr.getParentSBMLObject(); //The Parameter
+  pre(parent != NULL);
+  parent = parent->getParentSBMLObject(); //The ListOfParameters
+  pre(parent != NULL);
+  parent = parent->getParentSBMLObject(); //The Model
+  pre(parent != NULL);
+  SBase* ncparent = const_cast<SBase*>(parent); //Need non-const version for 'getElementBySId'.
+  Model* model = static_cast<Model*>(ncparent);
+  pre(model != NULL);
+  const SBase* ref = model->getElementBySId(ssr.getSpatialRef());
+  if (ref == NULL) {
+    fail = true;
+    msg += ", but no object with that ID could be found.";
+  }
+  else {
+    switch (ref->getTypeCode()) {
+    case SBML_SPATIAL_COMPARTMENTMAPPING:
+    case SBML_SPATIAL_COORDINATECOMPONENT:
+    case SBML_SPATIAL_BOUNDARY:
+    case SBML_SPATIAL_DOMAINTYPE:
+    case SBML_SPATIAL_DOMAIN:
+    case SBML_SPATIAL_SAMPLEDFIELD:
+      return;
+    }
+    fail = true;
+    msg += ", which is not a spatial element with mathematical meaning.";
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
 
 
 /** @endcond */

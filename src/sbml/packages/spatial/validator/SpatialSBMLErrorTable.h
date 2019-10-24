@@ -2399,13 +2399,13 @@ static const packageErrorTableEntry spatialErrorTable[] =
   },
 
   // 1223304
-  { SpatialSpatialSymbolReferenceSpatialRefMustBeGeometry,
-    "The attribute 'spatialRef' must point to Geometry object.",
+  { SpatialSpatialSymbolReferenceSpatialRefMustReferenceMath,
+    "The attribute 'spatialRef' must point to a spatial object with mathematical meaning.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'spatial:spatialRef' of a "
     "<spatialSymbolReference> object must be the identifier of an existing "
-    "<geometry> object defined in the enclosing <model> object.",
+    "<compartmentMapping>, <coordinateComponent>, <boundary>, <domainType>, <domain>, or <sampledField> object defined in the enclosing <model> object.",
     { "L3V1 Spatial V1 Section"
     }
   },

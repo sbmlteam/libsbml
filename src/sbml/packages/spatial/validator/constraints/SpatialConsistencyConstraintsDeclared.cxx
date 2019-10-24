@@ -60,6 +60,8 @@ addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNeedsMinWithMax(*t
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeSampledValueMinMax(*this));
 addConstraint(new VConstraintCompartmentMappingSpatialCompartmentMappingUnitSizeMustBeFraction(*this));
 addConstraint(new VConstraintSpeciesSpatialCompartmentsMustHaveCompartmentMapping(*this));
+addConstraint(new VConstraintSpatialSymbolReferenceSpatialSpatialSymbolReferenceSpatialRefMustReferenceMath(*this));
+
 
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(1221351, *this));
 addConstraint(new SpatialSpatialSymbolReferenceUniqueRefCheck(SpatialSpatialSymbolReferenceUniqueRef, *this));

@@ -638,7 +638,7 @@ SpatialSymbolReference::readAttributes(const XMLAttributes& attributes,
       msg += " is '" + mSpatialRef + "', which does not conform to the "
         "syntax.";
       log->logPackageError("spatial",
-        SpatialSpatialSymbolReferenceSpatialRefMustBeGeometry, pkgVersion, level,
+        SpatialSpatialSymbolReferenceSpatialRefMustReferenceMath, pkgVersion, level,
           version, msg, getLine(), getColumn());
     }
   }

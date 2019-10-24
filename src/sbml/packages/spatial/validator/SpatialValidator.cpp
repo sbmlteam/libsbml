@@ -1018,6 +1018,16 @@ SpatialValidator::validate(const SBMLDocument& d)
         m->getReaction(i)->accept(vv);
       }
     }
+
+    for (i = 0; i < m->getNumParameters(); i++)
+    {
+      const SpatialParameterPlugin* spPlug = static_cast<const
+        SpatialParameterPlugin*>(m->getParameter(i)->getPlugin("spatial"));
+      if (spPlug != NULL)
+      {
+        spPlug->accept(vv);
+      }
+    }
   }
 
   return (unsigned int)(mFailures.size());
