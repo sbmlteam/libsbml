@@ -260,6 +260,7 @@ typedef enum
 , SpatialSpatialSymbolReferenceAllowedCoreElements            = 1223302
 , SpatialSpatialSymbolReferenceAllowedAttributes              = 1223303
 , SpatialSpatialSymbolReferenceSpatialRefMustBeGeometry       = 1223304
+, SpatialSpatialSymbolReferenceUniqueRef                      = 1223350
 , SpatialDiffusionCoefficientAllowedCoreAttributes            = 1223401
 , SpatialDiffusionCoefficientAllowedCoreElements              = 1223402
 , SpatialDiffusionCoefficientAllowedAttributes                = 1223403

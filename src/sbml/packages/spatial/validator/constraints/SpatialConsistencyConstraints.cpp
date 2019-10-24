@@ -45,6 +45,7 @@
 #include <sbml/packages/spatial/common/SpatialExtensionTypes.h>
 #include <sbml/packages/spatial/sbml/Geometry.h>
 #include <sbml/packages/spatial/validator/SpatialCompartmentMappingUnitSizesCheck.h>
+#include <sbml/packages/spatial/validator/SpatialSpatialSymbolReferenceUniqueRefCheck.h>
 #include <sbml/Species.h>
 
 #endif /* AddingConstraintsToValidator */
@@ -54,6 +55,7 @@
 using namespace std;
 
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialCompartmentMappingUnitSizesCheck);
+EXTERN_CONSTRAINT(ErrorEnumValue, SpatialSpatialSymbolReferenceUniqueRefCheck);
 
 
 

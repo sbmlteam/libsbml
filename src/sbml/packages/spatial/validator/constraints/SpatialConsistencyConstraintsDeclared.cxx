@@ -39,6 +39,7 @@
  */
 
 #include "sbml\packages\spatial\validator\SpatialCompartmentMappingUnitSizesCheck.h"
+#include "sbml\packages\spatial\validator\SpatialSpatialSymbolReferenceUniqueRefCheck.h"
 
 addConstraint(new VConstraintDomainSpatialDomainDomainTypeMustBeDomainType(*this));
 addConstraint(new VConstraintAdjacentDomainsSpatialAdjacentDomainsDomain1MustBeDomain(*this));
@@ -61,6 +62,7 @@ addConstraint(new VConstraintCompartmentMappingSpatialCompartmentMappingUnitSize
 addConstraint(new VConstraintSpeciesSpatialCompartmentsMustHaveCompartmentMapping(*this));
 
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(1221351, *this));
+addConstraint(new SpatialSpatialSymbolReferenceUniqueRefCheck(SpatialSpatialSymbolReferenceUniqueRef, *this));
 
 /** @endcond */
 

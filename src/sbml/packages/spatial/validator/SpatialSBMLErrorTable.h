@@ -2410,6 +2410,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1223350
+  { SpatialSpatialSymbolReferenceUniqueRef,
+    "Every <spatialSymbolReference> must point to unique object.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "Every <spatialSymbolReference> in a <model> must reference a unique spatial element.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1223401
   { SpatialDiffusionCoefficientAllowedCoreAttributes,
     "Core attributes allowed on <diffusionCoefficient>.",
