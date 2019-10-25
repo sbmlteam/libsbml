@@ -662,15 +662,9 @@ START_CONSTRAINT(SpatialCompartmentsMustHaveCompartmentMapping, Species, species
   pre(species.isSetCompartment());
 
   const SpatialSpeciesPlugin* ssp = static_cast<const SpatialSpeciesPlugin*>(species.getPlugin("spatial"));
-  pre(ssp != NULL);
-  pre(ssp->isSetIsSpatial());
-  pre(ssp->getIsSpatial());
-  pre(species.getParentSBMLObject() != NULL);
+  pre(ssp->isSetIsSpatial() && ssp->getIsSpatial());
 
-  const Model* model = static_cast<const Model*>(species.getParentSBMLObject()->getParentSBMLObject());
-  pre(model != NULL);
-
-  const Compartment* compartment = model->getCompartment(species.getCompartment());
+  const Compartment* compartment = m.getCompartment(species.getCompartment());
   pre(compartment != NULL);
 
   const SpatialCompartmentPlugin* scp = static_cast<const SpatialCompartmentPlugin*>(compartment->getPlugin("spatial"));
@@ -701,15 +695,7 @@ START_CONSTRAINT(SpatialSpatialSymbolReferenceSpatialRefMustReferenceMath, Spati
   msg += " has a 'spatialRef' value of '" + ssr.getSpatialRef() + "'";
   bool fail = false;
 
-  const SBase* parent = ssr.getParentSBMLObject(); //The Parameter
-  pre(parent != NULL);
-  parent = parent->getParentSBMLObject(); //The ListOfParameters
-  pre(parent != NULL);
-  parent = parent->getParentSBMLObject(); //The Model
-  pre(parent != NULL);
-  SBase* ncparent = const_cast<SBase*>(parent); //Need non-const version for 'getElementBySId'.
-  Model* model = static_cast<Model*>(ncparent);
-  pre(model != NULL);
+  Model* model = const_cast<Model*>(&m);
   const SBase* ref = model->getElementBySId(ssr.getSpatialRef());
   if (ref == NULL) {
     fail = true;
@@ -732,6 +718,216 @@ START_CONSTRAINT(SpatialSpatialSymbolReferenceSpatialRefMustReferenceMath, Spati
   inv(fail == false);
 }
 END_CONSTRAINT
+
+// 1223450
+START_CONSTRAINT(SpatialDiffusionCoefficientNoCoordinateReferencesForIsotropic, DiffusionCoefficient, dc)
+{
+  bool fail = false;
+  pre(dc.getType() == SPATIAL_DIFFUSIONKIND_ISOTROPIC);
+  if (dc.isSetCoordinateReference1() && dc.isSetCoordinateReference2()) {
+    fail = true;
+    msg = "A <diffusionCoefficient>";
+    if (dc.isSetId()) {
+      msg += " with the id '" + dc.getId() + "'";
+    }
+    msg += " has a 'type' of 'isotropic', but defines both 'coordinateReference1' and 'coordinateReference2'.";
+  }
+  else if (dc.isSetCoordinateReference1()) {
+    fail = true;
+    msg = "A <diffusionCoefficient>";
+    if (dc.isSetId()) {
+      msg += " with the id '" + dc.getId() + "'";
+    }
+    msg += " has a 'type' of 'isotropic', but defines 'coordinateReference1'.";
+  }
+  else if (dc.isSetCoordinateReference2()) {
+    fail = true;
+    msg = "A <diffusionCoefficient>";
+    if (dc.isSetId()) {
+      msg += " with the id '" + dc.getId() + "'";
+    }
+    msg += " has a 'type' of 'isotropic', but defines 'coordinateReference2'.";
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 1223451
+START_CONSTRAINT(SpatialDiffusionCoefficientTwoCoordinateReferencesForTensor, DiffusionCoefficient, dc)
+{
+  bool fail = false;
+  pre(dc.getType() == SPATIAL_DIFFUSIONKIND_TENSOR);
+  if (!dc.isSetCoordinateReference1() && !dc.isSetCoordinateReference2()) {
+    fail = true;
+    msg = "A <diffusionCoefficient>";
+    if (dc.isSetId()) {
+      msg += " with the id '" + dc.getId() + "'";
+    }
+    msg += " has a 'type' of 'tensor', but doesn't define 'coordinateReference1' or 'coordinateReference2'.";
+  }
+  else if (!dc.isSetCoordinateReference1()) {
+    fail = true;
+    msg = "A <diffusionCoefficient>";
+    if (dc.isSetId()) {
+      msg += " with the id '" + dc.getId() + "'";
+    }
+    msg += " has a 'type' of 'tensor', but doesn't define 'coordinateReference1'.";
+  }
+  else if (!dc.isSetCoordinateReference2()) {
+    fail = true;
+    msg = "A <diffusionCoefficient>";
+    if (dc.isSetId()) {
+      msg += " with the id '" + dc.getId() + "'";
+    }
+    msg += " has a 'type' of 'tensor', but doesn't define 'coordinateReference2'.";
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 1223452
+START_CONSTRAINT(SpatialDiffusionCoefficientOneCoordinateReferencesForAnisotropic, DiffusionCoefficient, dc)
+{
+  bool fail = false;
+  pre(dc.getType() == SPATIAL_DIFFUSIONKIND_ANISOTROPIC);
+  if (!dc.isSetCoordinateReference1() && dc.isSetCoordinateReference2()) {
+    fail = true;
+    msg = "A <diffusionCoefficient>";
+    if (dc.isSetId()) {
+      msg += " with the id '" + dc.getId() + "'";
+    }
+    msg += " has a 'type' of 'anisotropic', but defines 'coordinateReference2' instead of 'coordinateReference2'.";
+  }
+  else if (!dc.isSetCoordinateReference1()) {
+    fail = true;
+    msg = "A <diffusionCoefficient>";
+    if (dc.isSetId()) {
+      msg += " with the id '" + dc.getId() + "'";
+    }
+    msg += " has a 'type' of 'anisotropic', but doesn't define 'coordinateReference1'.";
+  }
+  else if (dc.isSetCoordinateReference2()) {
+    fail = true;
+    msg = "A <diffusionCoefficient>";
+    if (dc.isSetId()) {
+      msg += " with the id '" + dc.getId() + "'";
+    }
+    msg += " has a 'type' of 'anisotropic', but defines 'coordinateReference2'.";
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 1223454
+START_CONSTRAINT(SpatialDiffusionCoefficientCoordinateReferenceDifference, DiffusionCoefficient, dc)
+{
+  bool fail = false;
+  pre(dc.isSetCoordinateReference1());
+  pre(dc.isSetCoordinateReference2());
+  if (dc.getCoordinateReference1() == dc.getCoordinateReference2()) {
+    fail = true;
+    msg = "A <diffusionCoefficient>";
+    if (dc.isSetId()) {
+      msg += " with the id '" + dc.getId() + "'";
+    }
+    msg += " has a value of '" + dc.getCoordinateReference1AsString() + "' for both 'coordinateReference1' and 'coordinateReference2'.";
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 1223455
+START_CONSTRAINT(SpatialDiffusionCoefficientCoordinateReferenceNoYIn1D, DiffusionCoefficient, dc)
+{
+  bool fail = false;
+
+  SpatialModelPlugin *mplug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(mplug != NULL);
+  Geometry* geom = mplug->getGeometry();
+  pre(geom != NULL);
+  pre(geom->getNumCoordinateComponents()==1);
+  
+  if (dc.isSetCoordinateReference1() && dc.getCoordinateReference1() == SPATIAL_COORDINATEKIND_CARTESIAN_Y) {
+    fail = true;
+    msg = "A <diffusionCoefficient>";
+    if (dc.isSetId()) {
+      msg += " with the id '" + dc.getId() + "'";
+    }
+    msg += " has a value of 'cartesianY' for 'coordinateReference1', but the <geometry> only has one <coordinateComponent> child.";
+  }
+
+  else if (dc.isSetCoordinateReference2() && dc.getCoordinateReference2() == SPATIAL_COORDINATEKIND_CARTESIAN_Y) {
+    fail = true;
+    msg = "A <diffusionCoefficient>";
+    if (dc.isSetId()) {
+      msg += " with the id '" + dc.getId() + "'";
+    }
+    msg += " has a value of 'cartesianY' for 'coordinateReference2', but the <geometry> only has one <coordinateComponent> child.";
+  }
+
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 1223455
+START_CONSTRAINT(SpatialDiffusionCoefficientCoordinateReferenceNoZIn2D, DiffusionCoefficient, dc)
+{
+  bool fail = false;
+
+  SpatialModelPlugin *mplug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(mplug != NULL);
+  Geometry* geom = mplug->getGeometry();
+  pre(geom != NULL);
+  pre(geom->getNumCoordinateComponents()<3);
+  stringstream ncc;
+  ncc << geom->getNumCoordinateComponents();
+
+  if (dc.isSetCoordinateReference1() && dc.getCoordinateReference1() == SPATIAL_COORDINATEKIND_CARTESIAN_Z) {
+    fail = true;
+    msg = "A <diffusionCoefficient>";
+    if (dc.isSetId()) {
+      msg += " with the id '" + dc.getId() + "'";
+    }
+    msg += " has a value of 'cartesianZ' for 'coordinateReference1', but the <geometry> only has " + ncc.str() + " <coordinateComponent> child";
+    if (geom->getNumCoordinateComponents() == 2) {
+      msg += "ren";
+    }
+    msg += ".";
+  }
+
+  else if (dc.isSetCoordinateReference2() && dc.getCoordinateReference2() == SPATIAL_COORDINATEKIND_CARTESIAN_Z) {
+    fail = true;
+    msg = "A <diffusionCoefficient>";
+    if (dc.isSetId()) {
+      msg += " with the id '" + dc.getId() + "'";
+    }
+    msg += " has a value of 'cartesianZ' for 'coordinateReference2', but the <geometry> only has " + ncc.str() + " <coordinateComponent> child";
+    if (geom->getNumCoordinateComponents() == 2) {
+      msg += "ren";
+    }
+    msg += ".";
+  }
+
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 122__
+//START_CONSTRAINT(Spatial, Class, class)
+//{
+//  bool fail = false;
+//
+//  inv(fail == false);
+//}
+//END_CONSTRAINT
+
 
 
 

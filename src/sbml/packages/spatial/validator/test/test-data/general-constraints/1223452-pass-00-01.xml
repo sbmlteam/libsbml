@@ -64,12 +64,11 @@
             </compartment>
         </listOfCompartments>
         <listOfSpecies>
-            <species boundaryCondition="false" compartment="compartment" constant="false" hasOnlySubstanceUnits="false" id="id_2" spatial:isSpatial="false"/>
+            <species boundaryCondition="false" compartment="compartment" constant="false" hasOnlySubstanceUnits="false" id="id_2" spatial:isSpatial="true"/>
         </listOfSpecies>
         <listOfParameters>
             <parameter constant="false" id="id_3">
-                <spatial:diffusionCoefficient spatial:coordinateReference1="cartesianX" spatial:coordinateReference2="cartesianY" spatial:type="tensor" spatial:variable="species_1"/>
-                <spatial:diffusionCoefficient spatial:coordinateReference1="cartesianX" spatial:coordinateReference2="cartesianY" spatial:type="tensor" spatial:variable="species_1"/>
+                <spatial:diffusionCoefficient spatial:coordinateReference1="cartesianX" spatial:type="anisotropic" spatial:variable="species_1"/>
             </parameter>
         </listOfParameters>
     </model>

@@ -787,7 +787,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
   // 1221352
   { SpatialCompartmentMappingUnitConsistency,
     "The units of a compartmentMapping should be compartment units over domain units.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_WARNING,
     "If a <parameter> has a child <spatialSymbolReference> that points to a <compartmentMapping>, the units of that <parameter> should be equivalent to the units of the parent <compartment> of the <compartmentMapping>, divided by the units of the <domainType> referenced by the <compartmentMapping>.",
     { "L3V1 Spatial V1 Section"
@@ -2538,12 +2538,51 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "One coordinate references for 'anisotropic' type.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <diffusionCoefficient> with an attribute 'type' value of 'anisotropic” must define the attribute 'spatial:coordinateReference1', and must not define the attribute 'spatial:coordinateReference2'.",
+    "A <diffusionCoefficient> with an attribute 'type' value of 'anisotropic' must define the attribute 'spatial:coordinateReference1', and must not define the attribute 'spatial:coordinateReference2'.",
     { "L3V1 Spatial V1 Section"
     }
   },
 
-  // 1223501
+  // 1223453
+  { SpatialDiffusionCoefficientUnits,
+    "Diffusion coefficient units should be length^2/time.",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_WARNING,
+    "The units of a <parameter> with a <diffusionCoefficient> child should be length^2/time.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223454
+  { SpatialDiffusionCoefficientCoordinateReferenceDifference,
+    "Coordinate references must be different from each other.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'spatial:coordinateReference2' of a <diffusionCoefficient>, if defined, must have a value different from that of the attribute 'spatial:coordinateReference1'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223455
+  { SpatialDiffusionCoefficientCoordinateReferenceNoYIn1D,
+    "Coordinate references must not be 'cartesianY' in 1D geometries.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The <diffusionCoefficient> attributes 'spatial:coordinateReference1' and 'spatial:coordinateReference2' may not have a value of 'cartesianY' if the <geometry> has exactly one <coordinateComponent> child.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223455
+  { SpatialDiffusionCoefficientCoordinateReferenceNoZIn2D,
+    "Coordinate references must not be 'cartesianZ' in 1- or 2-D geometries.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The <diffusionCoefficient> attributes 'spatial:coordinateReference1' and 'spatial:coordinateReference2' may not have a value of 'cartesianZ' if the <geometry> has exactly one or two <coordinateComponent> children.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   { SpatialAdvectionCoefficientAllowedCoreAttributes,
     "Core attributes allowed on <advectionCoefficient>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,

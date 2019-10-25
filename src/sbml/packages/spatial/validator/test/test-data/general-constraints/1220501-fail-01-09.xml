@@ -69,7 +69,7 @@
         <listOfParameters>
             <parameter constant="false" id="id_3">
                 <spatial:advectionCoefficient spatial:coordinate="cartesianX" spatial:variable="species_1"/>
-                <spatial:diffusionCoefficient spatial:coordinateReference1="cartesianX" spatial:coordinateReference2="cartesianX" spatial:type="isotropic" spatial:variable="species_1"/>
+                <spatial:diffusionCoefficient spatial:coordinateReference1="cartesianX" spatial:coordinateReference2="cartesianY" spatial:type="tensor" spatial:variable="species_1"/>
             </parameter>
         </listOfParameters>
     </model>

@@ -41,6 +41,7 @@
 #include "sbml\packages\spatial\validator\SpatialCompartmentMappingUnitSizesCheck.h"
 #include "sbml\packages\spatial\validator\SpatialSpatialSymbolReferenceUniqueRefCheck.h"
 
+//Constraints declared in SpatialConsistencyConstraints.cpp
 addConstraint(new VConstraintDomainSpatialDomainDomainTypeMustBeDomainType(*this));
 addConstraint(new VConstraintAdjacentDomainsSpatialAdjacentDomainsDomain1MustBeDomain(*this));
 addConstraint(new VConstraintAdjacentDomainsSpatialAdjacentDomainsDomain2MustBeDomain(*this));
@@ -61,8 +62,14 @@ addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeSampledValueMinMax
 addConstraint(new VConstraintCompartmentMappingSpatialCompartmentMappingUnitSizeMustBeFraction(*this));
 addConstraint(new VConstraintSpeciesSpatialCompartmentsMustHaveCompartmentMapping(*this));
 addConstraint(new VConstraintSpatialSymbolReferenceSpatialSpatialSymbolReferenceSpatialRefMustReferenceMath(*this));
+addConstraint(new VConstraintDiffusionCoefficientSpatialDiffusionCoefficientNoCoordinateReferencesForIsotropic(*this));
+addConstraint(new VConstraintDiffusionCoefficientSpatialDiffusionCoefficientTwoCoordinateReferencesForTensor(*this));
+addConstraint(new VConstraintDiffusionCoefficientSpatialDiffusionCoefficientOneCoordinateReferencesForAnisotropic(*this));
+addConstraint(new VConstraintDiffusionCoefficientSpatialDiffusionCoefficientCoordinateReferenceDifference(*this));
+addConstraint(new VConstraintDiffusionCoefficientSpatialDiffusionCoefficientCoordinateReferenceNoYIn1D(*this));
+addConstraint(new VConstraintDiffusionCoefficientSpatialDiffusionCoefficientCoordinateReferenceNoZIn2D(*this));
 
-
+//Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(1221351, *this));
 addConstraint(new SpatialSpatialSymbolReferenceUniqueRefCheck(SpatialSpatialSymbolReferenceUniqueRef, *this));
 
