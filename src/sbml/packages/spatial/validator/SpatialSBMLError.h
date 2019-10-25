@@ -275,6 +275,7 @@ typedef enum
 , SpatialDiffusionCoefficientCoordinateReferenceDifference    = 1223454
 , SpatialDiffusionCoefficientCoordinateReferenceNoYIn1D       = 1223455
 , SpatialDiffusionCoefficientCoordinateReferenceNoZIn2D       = 1223456
+, SpatialNoDiffusionCoefficientOverlap                        = 1223457
 , SpatialAdvectionCoefficientAllowedCoreAttributes            = 1223501
 , SpatialAdvectionCoefficientAllowedCoreElements              = 1223502
 , SpatialAdvectionCoefficientAllowedAttributes                = 1223503

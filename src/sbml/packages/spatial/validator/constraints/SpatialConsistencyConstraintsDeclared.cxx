@@ -40,6 +40,7 @@
 
 #include "sbml\packages\spatial\validator\SpatialCompartmentMappingUnitSizesCheck.h"
 #include "sbml\packages\spatial\validator\SpatialSpatialSymbolReferenceUniqueRefCheck.h"
+#include "sbml\packages\spatial\validator\SpatialUniqueDiffusionCoefficientsCheck.h"
 
 //Constraints declared in SpatialConsistencyConstraints.cpp
 addConstraint(new VConstraintDomainSpatialDomainDomainTypeMustBeDomainType(*this));
@@ -72,6 +73,7 @@ addConstraint(new VConstraintDiffusionCoefficientSpatialDiffusionCoefficientCoor
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(1221351, *this));
 addConstraint(new SpatialSpatialSymbolReferenceUniqueRefCheck(SpatialSpatialSymbolReferenceUniqueRef, *this));
+addConstraint(new SpatialUniqueDiffusionCoefficientsCheck(SpatialNoDiffusionCoefficientOverlap, *this));
 
 /** @endcond */
 

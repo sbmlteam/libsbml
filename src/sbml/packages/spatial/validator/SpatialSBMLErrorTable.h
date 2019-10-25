@@ -2558,7 +2558,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Coordinate references must be different from each other.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:coordinateReference2' of a <diffusionCoefficient>, if defined, must have a value different from that of the attribute 'spatial:coordinateReference1'.",
+    "The <diffusionCoefficient> attribute 'spatial:coordinateReference2', if defined, must have a value different from that of the attribute 'spatial:coordinateReference1'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2573,12 +2573,22 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223455
+  // 1223456
   { SpatialDiffusionCoefficientCoordinateReferenceNoZIn2D,
     "Coordinate references must not be 'cartesianZ' in 1- or 2-D geometries.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The <diffusionCoefficient> attributes 'spatial:coordinateReference1' and 'spatial:coordinateReference2' may not have a value of 'cartesianZ' if the <geometry> has exactly one or two <coordinateComponent> children.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223457
+  { SpatialNoDiffusionCoefficientOverlap,
+    "No overlapping diffusion coefficients for the same species.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "Any <species> may only have a single <diffusionCoefficient> that applies to any given axis or plane.  A <diffusionCoefficient> of type 'anisotropic' applies to the axis it references, and any plane in the <geometry> that contains that axis.  A <diffusionCoefficient> of type 'tensor' applies to the plane defined by the two axes it references.  A <diffusionCoefficient> of type 'isotropic' applies to all axes and planes in the <geometry>.",
     { "L3V1 Spatial V1 Section"
     }
   },
