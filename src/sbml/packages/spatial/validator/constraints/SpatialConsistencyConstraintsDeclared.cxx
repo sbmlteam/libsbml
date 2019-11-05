@@ -38,9 +38,9 @@
  * ------------------------------------------------------------------------ -->
  */
 
-#include "sbml\packages\spatial\validator\SpatialCompartmentMappingUnitSizesCheck.h"
-#include "sbml\packages\spatial\validator\SpatialSpatialSymbolReferenceUniqueRefCheck.h"
-#include "sbml\packages\spatial\validator\SpatialUniqueDiffusionCoefficientsCheck.h"
+#include "sbml/packages/spatial/validator/SpatialCompartmentMappingUnitSizesCheck.h"
+#include "sbml/packages/spatial/validator/SpatialSpatialSymbolReferenceUniqueRefCheck.h"
+#include "sbml/packages/spatial/validator/SpatialUniqueDiffusionCoefficientsCheck.h"
 
 //Constraints declared in SpatialConsistencyConstraints.cpp
 addConstraint(new VConstraintDomainSpatialDomainDomainTypeMustBeDomainType(*this));
