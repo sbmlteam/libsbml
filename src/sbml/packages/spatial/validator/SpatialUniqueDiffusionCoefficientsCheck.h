@@ -38,9 +38,9 @@
 #include <sbml/validator/VConstraint.h>
 #include <sbml/packages/spatial/validator/SpatialValidator.h>
 
-class DiffusionCoefficient;
-
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+class DiffusionCoefficient;
 
 class SpatialUniqueDiffusionCoefficientsCheck: public TConstraint<Model>
 {
