@@ -41,6 +41,7 @@
 #include "sbml/packages/spatial/validator/SpatialCompartmentMappingUnitSizesCheck.h"
 #include "sbml/packages/spatial/validator/SpatialSpatialSymbolReferenceUniqueRefCheck.h"
 #include "sbml/packages/spatial/validator/SpatialUniqueDiffusionCoefficientsCheck.h"
+#include "sbml/packages/spatial/validator/SpatialUniqueAdvectionCoefficientsCheck.h"
 
 //Constraints declared in SpatialConsistencyConstraints.cpp
 addConstraint(new VConstraintDomainSpatialDomainDomainTypeMustBeDomainType(*this));
@@ -69,11 +70,13 @@ addConstraint(new VConstraintDiffusionCoefficientSpatialDiffusionCoefficientOneC
 addConstraint(new VConstraintDiffusionCoefficientSpatialDiffusionCoefficientCoordinateReferenceDifference(*this));
 addConstraint(new VConstraintDiffusionCoefficientSpatialDiffusionCoefficientCoordinateReferenceNoYIn1D(*this));
 addConstraint(new VConstraintDiffusionCoefficientSpatialDiffusionCoefficientCoordinateReferenceNoZIn2D(*this));
+addConstraint(new VConstraintAdvectionCoefficientSpatialAdvectionCoefficientVariableMustBeSpecies(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(1221351, *this));
 addConstraint(new SpatialSpatialSymbolReferenceUniqueRefCheck(SpatialSpatialSymbolReferenceUniqueRef, *this));
 addConstraint(new SpatialUniqueDiffusionCoefficientsCheck(SpatialNoDiffusionCoefficientOverlap, *this));
+addConstraint(new SpatialUniqueAdvectionCoefficientsCheck(SpatialAdvectionCoefficientsMustBeUnique, *this));
 
 /** @endcond */
 

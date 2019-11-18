@@ -47,6 +47,7 @@
 #include <sbml/packages/spatial/validator/SpatialCompartmentMappingUnitSizesCheck.h>
 #include <sbml/packages/spatial/validator/SpatialSpatialSymbolReferenceUniqueRefCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueDiffusionCoefficientsCheck.h>
+#include <sbml/packages/spatial/validator/SpatialUniqueAdvectionCoefficientsCheck.h>
 #include <sbml/Species.h>
 
 #endif /* AddingConstraintsToValidator */
@@ -58,6 +59,7 @@ using namespace std;
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialCompartmentMappingUnitSizesCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialSpatialSymbolReferenceUniqueRefCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueDiffusionCoefficientsCheck);
+EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueAdvectionCoefficientsCheck);
 
 
 
@@ -915,6 +917,28 @@ START_CONSTRAINT(SpatialDiffusionCoefficientCoordinateReferenceNoZIn2D, Diffusio
     msg += ".";
   }
 
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 1223504
+START_CONSTRAINT(SpatialAdvectionCoefficientVariableMustBeSpecies, AdvectionCoefficient, ac)
+{
+  bool fail = false;
+  pre(ac.isSetVariable());
+
+  if (m.getSpecies(ac.getVariable()) == NULL) {
+    fail = true;
+    stringstream ss_msg;
+    ss_msg << "An <advectionCoefficient>";
+    if (ac.isSetId())
+    {
+      ss_msg << " with id '" << ac.getId() << "'";
+    }
+    ss_msg << " references a variable '" << ac.getVariable() << "', which is not the ID of a <species> in the <model>.";
+    msg = ss_msg.str();
+  }
 
   inv(fail == false);
 }

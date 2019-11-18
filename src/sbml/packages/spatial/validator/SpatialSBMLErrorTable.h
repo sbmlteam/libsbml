@@ -2655,6 +2655,26 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1223550
+  { SpatialAdvectionCoefficientUnits,
+    "The units of an advection coefficient should be length/time.",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_WARNING,
+    "The units of a <parameter> with an <advectionCoefficient> child should be length/time.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223551
+  { SpatialAdvectionCoefficientsMustBeUnique,
+    "The 'coordinate' attribute must be CoordinateKindEnum.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "No two <advectionCoefficient> elements in the same <model> may have the same values for the attributes 'species:variable' and 'species:coordinate'.  Only one advection coefficient may be defined per species per axis.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1223601
   { SpatialBoundaryConditionAllowedCoreAttributes,
     "Core attributes allowed on <boundaryCondition>.",

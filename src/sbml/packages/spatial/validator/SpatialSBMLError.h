@@ -281,6 +281,8 @@ typedef enum
 , SpatialAdvectionCoefficientAllowedAttributes                = 1223503
 , SpatialAdvectionCoefficientVariableMustBeSpecies            = 1223504
 , SpatialAdvectionCoefficientCoordinateMustBeCoordinateKindEnum= 1223505
+, SpatialAdvectionCoefficientUnits                            = 1223550
+, SpatialAdvectionCoefficientsMustBeUnique                    = 1223551
 , SpatialBoundaryConditionAllowedCoreAttributes               = 1223601
 , SpatialBoundaryConditionAllowedCoreElements                 = 1223602
 , SpatialBoundaryConditionAllowedAttributes                   = 1223603

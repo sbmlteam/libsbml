@@ -68,8 +68,7 @@
         </listOfSpecies>
         <listOfParameters>
             <parameter constant="false" id="id_3">
-                <spatial:spatialSymbolReference spatial:spatialRef="coordinateComponent_2"/>
-                <spatial:advectionCoefficient spatial:coordinate="cartesianX" spatial:variable="species_1"/>
+                <spatial:advectionCoefficient spatial:coordinate="cartesianX" spatial:variable="species_2"/>
             </parameter>
         </listOfParameters>
     </model>
