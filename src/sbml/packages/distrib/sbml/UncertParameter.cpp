@@ -234,8 +234,7 @@ UncertParameter::getType() const
 std::string
 UncertParameter::getTypeAsString() const
 {
-  std::string code_str = UncertType_toString(mType);
-  return code_str;
+  return UncertType_toString(mType);
 }
 
 
