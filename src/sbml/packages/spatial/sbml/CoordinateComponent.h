@@ -220,7 +220,7 @@ public:
    * @li @c "cartesianZ"
    * @li @c "invalid CoordinateKind value"
    */
-  const std::string& getTypeAsString() const;
+  std::string getTypeAsString() const;
 
 
   /**

@@ -205,11 +205,10 @@ CoordinateComponent::getType() const
 /*
  * Returns the value of the "type" attribute of this CoordinateComponent.
  */
-const std::string&
+std::string
 CoordinateComponent::getTypeAsString() const
 {
-  static const std::string code_str = CoordinateKind_toString(mType);
-  return code_str;
+  return CoordinateKind_toString(mType);
 }
 
 

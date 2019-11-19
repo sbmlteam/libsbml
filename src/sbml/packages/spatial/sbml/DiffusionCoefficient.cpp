@@ -160,8 +160,7 @@ DiffusionCoefficient::getType() const
 std::string
 DiffusionCoefficient::getTypeAsString() const
 {
-  std::string code_str = DiffusionKind_toString(mType);
-  return code_str;
+  return DiffusionKind_toString(mType);
 }
 
 

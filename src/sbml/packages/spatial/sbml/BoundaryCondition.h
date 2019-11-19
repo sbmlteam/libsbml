@@ -220,7 +220,7 @@ public:
    * @li @c "Dirichlet"
    * @li @c "invalid BoundaryKind value"
    */
-  const std::string& getTypeAsString() const;
+  std::string getTypeAsString() const;
 
 
   /**
