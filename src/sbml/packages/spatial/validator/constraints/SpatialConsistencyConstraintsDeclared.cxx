@@ -42,6 +42,7 @@
 #include "sbml/packages/spatial/validator/SpatialSpatialSymbolReferenceUniqueRefCheck.h"
 #include "sbml/packages/spatial/validator/SpatialUniqueDiffusionCoefficientsCheck.h"
 #include "sbml/packages/spatial/validator/SpatialUniqueAdvectionCoefficientsCheck.h"
+#include "sbml/packages/spatial/validator/SpatialUniqueBoundaryConditionsCheck.h"
 
 //Constraints declared in SpatialConsistencyConstraints.cpp
 addConstraint(new VConstraintDomainSpatialDomainDomainTypeMustBeDomainType(*this));
@@ -78,6 +79,7 @@ addConstraint(new SpatialCompartmentMappingUnitSizesCheck(1221351, *this));
 addConstraint(new SpatialSpatialSymbolReferenceUniqueRefCheck(SpatialSpatialSymbolReferenceUniqueRef, *this));
 addConstraint(new SpatialUniqueDiffusionCoefficientsCheck(SpatialNoDiffusionCoefficientOverlap, *this));
 addConstraint(new SpatialUniqueAdvectionCoefficientsCheck(SpatialAdvectionCoefficientsMustBeUnique, *this));
+addConstraint(new SpatialUniqueBoundaryConditionsCheck(SpatialBoundaryConditionsMustBeUnique, *this));
 
 /** @endcond */
 

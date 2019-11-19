@@ -48,6 +48,7 @@
 #include <sbml/packages/spatial/validator/SpatialSpatialSymbolReferenceUniqueRefCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueDiffusionCoefficientsCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueAdvectionCoefficientsCheck.h>
+#include <sbml/packages/spatial/validator/SpatialUniqueBoundaryConditionsCheck.h>
 #include <sbml/Species.h>
 
 #endif /* AddingConstraintsToValidator */
@@ -60,6 +61,7 @@ EXTERN_CONSTRAINT(ErrorEnumValue, SpatialCompartmentMappingUnitSizesCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialSpatialSymbolReferenceUniqueRefCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueDiffusionCoefficientsCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueAdvectionCoefficientsCheck);
+EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueBoundaryConditionsCheck);
 
 
 

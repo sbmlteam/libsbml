@@ -68,8 +68,10 @@
         </listOfSpecies>
         <listOfParameters>
             <parameter constant="false" id="id_3">
-                <spatial:advectionCoefficient spatial:coordinate="cartesianX" spatial:variable="species_1"/>
                 <spatial:boundaryCondition spatial:boundaryDomainType="domainType_1" spatial:coordinateBoundary="boundary_2" spatial:type="Neumann" spatial:variable="species_1"/>
+            </parameter>
+            <parameter constant="false" id="id_4">
+                <spatial:boundaryCondition spatial:boundaryDomainType="domainType_1" spatial:coordinateBoundary="boundary_2" spatial:type="Robin_sum" spatial:variable="species_1"/>
             </parameter>
         </listOfParameters>
     </model>

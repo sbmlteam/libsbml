@@ -2774,6 +2774,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1223651
+  { SpatialBoundaryConditionsMustBeUnique,
+    "For every combination of species and boundary, there must be at most exactly one <boundaryCondition> of type 'Neumann', or exactly one <boundaryCondition> of type 'Dirichlet', or exactly three <boundaryCondition> elements, one of each of the three 'Robin' types.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    ".",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1223701
   { SpatialGeometryAllowedCoreAttributes,
     "Core attributes allowed on <geometry>.",

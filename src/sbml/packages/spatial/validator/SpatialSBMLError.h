@@ -291,6 +291,7 @@ typedef enum
 , SpatialBoundaryConditionCoordinateBoundaryMustBeBoundary    = 1223606
 , SpatialBoundaryConditionBoundaryDomainTypeMustBeDomainType  = 1223607
 , SpatialBoundaryConditionBoundaryDomainTypeOrCoordinateBoundary = 1223650
+, SpatialBoundaryConditionsMustBeUnique                       = 1223651
 , SpatialGeometryAllowedCoreAttributes                        = 1223701
 , SpatialGeometryAllowedCoreElements                          = 1223702
 , SpatialGeometryAllowedAttributes                            = 1223703
