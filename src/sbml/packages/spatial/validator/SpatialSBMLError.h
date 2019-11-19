@@ -292,6 +292,11 @@ typedef enum
 , SpatialBoundaryConditionBoundaryDomainTypeMustBeDomainType  = 1223607
 , SpatialBoundaryConditionBoundaryDomainTypeOrCoordinateBoundary = 1223650
 , SpatialBoundaryConditionsMustBeUnique                       = 1223651
+, SpatialDirichletUnits                                       = 1223652
+, SpatialNeumannUnits                                         = 1223653
+, SpatialRobinValueCoefficientUnits                           = 1223654
+, SpatialInwardNormalGradientCoefficientUnits                 = 1223655
+, SpatialRobinSumUnits                                        = 1223656
 , SpatialGeometryAllowedCoreAttributes                        = 1223701
 , SpatialGeometryAllowedCoreElements                          = 1223702
 , SpatialGeometryAllowedAttributes                            = 1223703

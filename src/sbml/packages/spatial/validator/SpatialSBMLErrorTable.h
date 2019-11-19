@@ -2776,10 +2776,60 @@ static const packageErrorTableEntry spatialErrorTable[] =
 
   // 1223651
   { SpatialBoundaryConditionsMustBeUnique,
-    "For every combination of species and boundary, there must be at most exactly one <boundaryCondition> of type 'Neumann', or exactly one <boundaryCondition> of type 'Dirichlet', or exactly three <boundaryCondition> elements, one of each of the three 'Robin' types.",
+    "Each BoundaryCondition must define only one boundary.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    ".",
+    "For every combination of species and boundary, there must be at most exactly one <boundaryCondition> of type 'Neumann', or exactly one <boundaryCondition> of type 'Dirichlet', or exactly three <boundaryCondition> elements, one of each of the three 'Robin' types.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223652
+  { SpatialDirichletUnits,
+    "A 'Dirichlet' BoundaryCondition's units should be concentration.",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_WARNING,
+    "The units of a <parameter> with a <boundaryCondition> child of type 'Dirichlet' should be the units of concentration of the referenced <species>.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223653
+  { SpatialNeumannUnits,
+    "A 'Neumann' BoundaryCondition's units should be concentration*length/time.",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_WARNING,
+    "The units of a <parameter> with a <boundaryCondition> child of type 'Neumann' should be the units of concentration of the referenced <species>, times length/time.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223654
+  { SpatialRobinValueCoefficientUnits,
+    "A 'Robin_valueCoefficient' BoundaryCondition's units should scale with dimensionless.",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_WARNING,
+    "The units of a <parameter> with a <boundaryCondition> child of type 'Robin_valueCoefficient' should should scale with the other 'Robin' boundary conditions for the same species and boundary, with suggested base units of dimensionless.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223655
+  { SpatialInwardNormalGradientCoefficientUnits,
+    "A 'Robin_inwardNormalGradientCoefficient' BoundaryCondition's units should scale with 1/length.",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_WARNING,
+    "The units of a <parameter> with a <boundaryCondition> child of type 'Robin_inwardNormalGradientCoefficient' should should scale with the other 'Robin' boundary conditions for the same species and boundary, with suggested base units of 1/length.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223656
+  { SpatialRobinSumUnits,
+    "A 'Robin_sum' BoundaryCondition's units should scale with concentration.",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_WARNING,
+    "The units of a <parameter> with a <boundaryCondition> child of type 'Robin_sum' should should scale with the other 'Robin' boundary conditions for the same species and boundary, with suggested base units of the concentration of the referenced <species>.",
     { "L3V1 Spatial V1 Section"
     }
   },
