@@ -71,6 +71,7 @@ addConstraint(new VConstraintDiffusionCoefficientSpatialDiffusionCoefficientCoor
 addConstraint(new VConstraintDiffusionCoefficientSpatialDiffusionCoefficientCoordinateReferenceNoYIn1D(*this));
 addConstraint(new VConstraintDiffusionCoefficientSpatialDiffusionCoefficientCoordinateReferenceNoZIn2D(*this));
 addConstraint(new VConstraintAdvectionCoefficientSpatialAdvectionCoefficientVariableMustBeSpecies(*this));
+addConstraint(new VConstraintBoundaryConditionSpatialBoundaryConditionVariableMustBeSpecies(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(1221351, *this));

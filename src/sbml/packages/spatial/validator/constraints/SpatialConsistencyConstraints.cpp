@@ -945,6 +945,29 @@ START_CONSTRAINT(SpatialAdvectionCoefficientVariableMustBeSpecies, AdvectionCoef
 END_CONSTRAINT
 
 
+// 1223604
+START_CONSTRAINT(SpatialBoundaryConditionVariableMustBeSpecies, BoundaryCondition, bc)
+{
+  bool fail = false;
+  pre(bc.isSetVariable());
+
+  if (m.getSpecies(bc.getVariable()) == NULL) {
+    fail = true;
+    stringstream ss_msg;
+    ss_msg << "A <boundaryCondition>";
+    if (bc.isSetId())
+    {
+      ss_msg << " with id '" << bc.getId() << "'";
+    }
+    ss_msg << " references a variable '" << bc.getVariable() << "', which is not the ID of a <species> in the <model>.";
+    msg = ss_msg.str();
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{
