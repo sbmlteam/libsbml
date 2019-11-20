@@ -489,8 +489,8 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "An <interiorPoint> object must have the required attribute "
-    "'spatial:coordOne', and may have the optional attributes "
-    "'spatial:coordTwo' and 'spatial:coordThree'. No other attributes from the "
+    "'spatial:coord1', and may have the optional attributes "
+    "'spatial:coord2' and 'spatial:coord3'. No other attributes from the "
     "SBML Level 3 Spatial Processes namespaces are permitted on an "
     "<interiorPoint> object. ",
     { "L3V1 Spatial V1 Section"
@@ -502,7 +502,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'coord1' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:coordOne' on an <interiorPoint> must have a value "
+    "The attribute 'spatial:coord1' on an <interiorPoint> must have a value "
     "of data type 'double'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -513,7 +513,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'coord2' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:coordTwo' on an <interiorPoint> must have a value "
+    "The attribute 'spatial:coord2' on an <interiorPoint> must have a value "
     "of data type 'double'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -524,7 +524,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'coord3' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:coordThree' on an <interiorPoint> must have a value "
+    "The attribute 'spatial:coord3' on an <interiorPoint> must have a value "
     "of data type 'double'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -649,7 +649,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "An <adjacentDomains> object must have the required attributes "
-    "'spatial:id', 'spatial:domainOne' and 'spatial:domainTwo', and may have "
+    "'spatial:id', 'spatial:domain1' and 'spatial:domain2', and may have "
     "the optional attribute 'spatial:name'. No other attributes from the SBML "
     "Level 3 Spatial Processes namespaces are permitted on an <adjacentDomains> "
     "object. ",
@@ -662,7 +662,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The attribute 'domain1' must point to Domain object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'spatial:domainOne' of an <adjacentDomains> "
+    "The value of the attribute 'spatial:domain1' of an <adjacentDomains> "
     "object must be the identifier of an existing <domain> object defined in "
     "the enclosing <model> object.",
     { "L3V1 Spatial V1 Section"
@@ -674,7 +674,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The attribute 'domain2' must point to Domain object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'spatial:domainTwo' of an <adjacentDomains> "
+    "The value of the attribute 'spatial:domain2' of an <adjacentDomains> "
     "object must be the identifier of an existing <domain> object defined in "
     "the enclosing <model> object.",
     { "L3V1 Spatial V1 Section"
@@ -1057,10 +1057,10 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "A <sampledField> object must have the required attributes 'spatial:id', "
-    "'spatial:dataType', 'spatial:numSamplesOne', 'spatial:interpolationType', "
+    "'spatial:dataType', 'spatial:numSamples1', 'spatial:interpolationType', "
     "'spatial:compression', 'spatial:samples' and 'spatial:samplesLength', and "
-    "may have the optional attributes 'spatial:name', 'spatial:numSamplesTwo' "
-    "and 'spatial:numSamplesThree'. No other attributes from the SBML Level 3 "
+    "may have the optional attributes 'spatial:name', 'spatial:numSamples2' "
+    "and 'spatial:numSamples3'. No other attributes from the SBML Level 3 "
     "Spatial Processes namespaces are permitted on a <sampledField> object. ",
     { "L3V1 Spatial V1 Section"
     }
@@ -1085,7 +1085,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'numSamples1' attribute must be Integer.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:numSamplesOne' on a <sampledField> must have a "
+    "The attribute 'spatial:numSamples1' on a <sampledField> must have a "
     "value of data type 'integer'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1157,7 +1157,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'numSamples2' attribute must be Integer.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:numSamplesTwo' on a <sampledField> must have a "
+    "The attribute 'spatial:numSamples2' on a <sampledField> must have a "
     "value of data type 'integer'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1168,7 +1168,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'numSamples3' attribute must be Integer.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:numSamplesThree' on a <sampledField> must have a "
+    "The attribute 'spatial:numSamples3' on a <sampledField> must have a "
     "value of data type 'integer'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -2511,8 +2511,8 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <diffusionCoefficient> object must have the required attributes "
     "'spatial:variable' and 'spatial:type', and may have the optional "
-    "attributes 'spatial:coordinateReferenceOne' and "
-    "'spatial:coordinateReferenceTwo'. No other attributes from the SBML Level "
+    "attributes 'spatial:coordinateReference1' and "
+    "'spatial:coordinateReference2'. No other attributes from the SBML Level "
     "3 Spatial Processes namespaces are permitted on a <diffusionCoefficient> "
     "object. ",
     { "L3V1 Spatial V1 Section"
@@ -2550,7 +2550,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'coordinateReference1' attribute must be CoordinateKindEnum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'spatial:coordinateReferenceOne' of a "
+    "The value of the attribute 'spatial:coordinateReference1' of a "
     "<diffusionCoefficient> object must conform to the syntax of SBML data type "
     "'CoordinateKind' and may only take on the allowed values of "
     "'CoordinateKind' defined in SBML; that is, the value must be one of the "
@@ -2564,7 +2564,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'coordinateReference2' attribute must be CoordinateKindEnum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'spatial:coordinateReferenceTwo' of a "
+    "The value of the attribute 'spatial:coordinateReference2' of a "
     "<diffusionCoefficient> object must conform to the syntax of SBML data type "
     "'CoordinateKind' and may only take on the allowed values of "
     "'CoordinateKind' defined in SBML; that is, the value must be one of the "
