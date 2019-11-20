@@ -589,6 +589,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1221051
+  { SpatialBoundaryUnitsShouldMatchCoordinateComponent,
+    "Any Boundary must be constant.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If a <parameter> has a child <spatialSymbolReference> that points to a Boundary, the units of that <parameter> should be equal to the units of the Boundary's parent <coordinateComponent>.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1221101
   { SpatialAdjacentDomainsAllowedCoreAttributes,
     "Core attributes allowed on <adjacentDomains>.",

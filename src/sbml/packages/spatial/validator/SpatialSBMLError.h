@@ -108,6 +108,7 @@ typedef enum
 , SpatialBoundaryNameMustBeString                             = 1221005
 , SpatialBoundaryMinLessThanMax                               = 1221050
 , SpatialBoundaryMustBeConstant                               = 1221051
+, SpatialBoundaryUnitsShouldMatchCoordinateComponent          = 1221052
 , SpatialAdjacentDomainsAllowedCoreAttributes                 = 1221101
 , SpatialAdjacentDomainsAllowedCoreElements                   = 1221102
 , SpatialAdjacentDomainsAllowedAttributes                     = 1221103
