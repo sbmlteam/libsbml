@@ -970,6 +970,45 @@ START_CONSTRAINT(SpatialBoundaryConditionVariableMustBeSpecies, BoundaryConditio
 END_CONSTRAINT
 
 
+// 1221050
+START_CONSTRAINT(SpatialBoundaryMinLessThanMax, CoordinateComponent, cc)
+{
+  bool fail = false;
+  pre(cc.isSetBoundaryMax());
+  pre(cc.isSetBoundaryMin());
+  const Boundary* boundary = cc.getBoundaryMax();
+  pre(boundary->isSetValue());
+  double maxval = boundary->getValue();
+  boundary = cc.getBoundaryMin();
+  pre(boundary->isSetValue());
+  double minval = boundary->getValue();
+  if (minval > maxval) {
+    fail = true;
+    stringstream ss_msg;
+    ss_msg << "A <coordinateComponent>";
+    if (cc.isSetId())
+    {
+      ss_msg << " with id '" << cc.getId() << "'";
+    }
+    ss_msg << " has a child <maxBoundary> with a value of " << maxval << ", which is less than the child <maxBoundary> value of " << minval << ".";
+    msg = ss_msg.str();
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 122__
+//START_CONSTRAINT(Spatial, Class, class)
+//{
+//  bool fail = false;
+//
+//  inv(fail == false);
+//}
+//END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

@@ -569,6 +569,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1221050
+  { SpatialBoundaryMinLessThanMax,
+    "The 'boundaryMin' must be less than or equal to 'boundaryMax'.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If set, the 'value' attribute of a <boundaryMin> must be less than or equal to the 'value' attribute of the <boundaryMax> of the same CoordinateComponent.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1221101
   { SpatialAdjacentDomainsAllowedCoreAttributes,
     "Core attributes allowed on <adjacentDomains>.",
