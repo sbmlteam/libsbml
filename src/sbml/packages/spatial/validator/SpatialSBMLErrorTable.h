@@ -244,6 +244,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1220651
+  { SpatialLocalReactionUnits,
+    "Local spatial reactions should have units of concentration/time.",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_WARNING,
+    "The units of a <kineticLaw> of a <reaction> with a 'spatial:isLocal' attribute value of 'true' should be concentration/time instead of substance/time.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1220701
   { SpatialDomainTypeAllowedCoreAttributes,
     "Core attributes allowed on <domainType>.",

@@ -78,6 +78,7 @@ typedef enum
 , SpatialReactionAllowedAttributes                            = 1220601
 , SpatialReactionIsLocalMustBeBoolean                         = 1220602
 , SpatialLocalReactionMustDefineCompartment                   = 1220650
+, SpatialLocalReactionUnits                                   = 1220651
 , SpatialDomainTypeAllowedCoreAttributes                      = 1220701
 , SpatialDomainTypeAllowedCoreElements                        = 1220702
 , SpatialDomainTypeAllowedAttributes                          = 1220703
