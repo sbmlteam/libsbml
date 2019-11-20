@@ -104,6 +104,8 @@ typedef enum
 , SpatialInteriorPointCoord2MustBeDouble                      = 1220905
 , SpatialInteriorPointCoord3MustBeDouble                      = 1220906
 , SpatialInteriorPointOneCoordIn1DGeometry                    = 1220950
+, SpatialInteriorPointTwoCoordsIn2DGeometry                   = 1220951
+, SpatialInteriorPointThreeCoordsIn3DGeometry                 = 1220952
 , SpatialBoundaryAllowedCoreAttributes                        = 1221001
 , SpatialBoundaryAllowedCoreElements                          = 1221002
 , SpatialBoundaryAllowedAttributes                            = 1221003

@@ -1181,7 +1181,7 @@ START_CONSTRAINT(SpatialDomainNoAssignment, Parameter, param)
 END_CONSTRAINT
 
 
-// 1221650
+// 1220950
 START_CONSTRAINT(SpatialInteriorPointOneCoordIn1DGeometry, InteriorPoint, ipoint)
 {
   SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
@@ -1215,6 +1215,85 @@ START_CONSTRAINT(SpatialInteriorPointOneCoordIn1DGeometry, InteriorPoint, ipoint
     }
     msg += " defines a " + wrongvals.str();
     msg += ", but the <listOfCoordinateComponents> has exactly one child.";
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1220951
+START_CONSTRAINT(SpatialInteriorPointTwoCoordsIn2DGeometry, InteriorPoint, ipoint)
+{
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  pre(geometry->getNumCoordinateComponents()==2);
+
+  bool fail = false;
+  stringstream wrongvals;
+  if (!ipoint.isSetCoord2()) {
+    fail = true;
+    wrongvals << " doesn't define the coord2 attribute";
+  }
+  if (ipoint.isSetCoord3()) {
+    if (fail) {
+      wrongvals << ", and has a ";
+    }
+    else {
+      wrongvals << " defines a ";
+    }
+    wrongvals << "coord3 with a value of '";
+    wrongvals << ipoint.getCoord3();
+    wrongvals << "'";
+    fail = true;
+  }
+  if (fail) {
+    msg = "An <interiorPoint>";
+    if (ipoint.isSetId())
+    {
+      msg += " with id '" + ipoint.getId() + "'";
+    }
+    msg += wrongvals.str();
+    msg += ", but the <listOfCoordinateComponents> has exactly two children.";
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1220952
+START_CONSTRAINT(SpatialInteriorPointThreeCoordsIn3DGeometry, InteriorPoint, ipoint)
+{
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  pre(geometry->getNumCoordinateComponents()==3);
+
+  bool fail = false;
+  stringstream wrongvals;
+  if (!ipoint.isSetCoord2()) {
+    fail = true;
+    wrongvals << " doesn't define the coord2 attribute";
+  }
+  if (!ipoint.isSetCoord3()) {
+    if (fail) {
+      wrongvals << ", and also";
+    }
+    wrongvals << " doesn't define the coord3 attribute";
+    fail = true;
+  }
+  if (fail) {
+    msg = "An <interiorPoint>";
+    if (ipoint.isSetId())
+    {
+      msg += " with id '" + ipoint.getId() + "'";
+    }
+    msg += wrongvals.str();
+    msg += ", but the <listOfCoordinateComponents> has exactly three children.";
   }
 
   inv(fail == false);
