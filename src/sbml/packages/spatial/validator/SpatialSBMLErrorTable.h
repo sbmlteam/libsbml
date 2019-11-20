@@ -345,7 +345,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
 
   // 1220753
   { SpatialDomainTypeNoAssignment,
-    "DomainTypes can't be assigned.",
+    "DomainTypes can't be assigned values.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "If a <parameter> has a child <spatialSymbolReference> that points to a <domainType>, that <parameter> may not be the target of an <initialAssignment>, <eventAssignment>, <rateRule>, or <assignmentRule>, may not be determined by an <algebraicRule>, and may not have the 'value' attribute.",
@@ -451,7 +451,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
 
   // 1220753
   { SpatialDomainNoAssignment,
-    "Domains can't be assigned.",
+    "Domains can't be assigned values.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "If a <parameter> has a child <spatialSymbolReference> that points to a <domain>, that <parameter> may not be the target of an <initialAssignment>, <eventAssignment>, <rateRule>, or <assignmentRule>, may not be determined by an <algebraicRule>, and may not have the 'value' attribute.",
