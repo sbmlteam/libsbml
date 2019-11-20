@@ -999,6 +999,36 @@ START_CONSTRAINT(SpatialBoundaryMinLessThanMax, CoordinateComponent, cc)
 END_CONSTRAINT
 
 
+// 1221051
+START_CONSTRAINT(SpatialBoundaryMustBeConstant, Parameter, param)
+{
+  bool fail = false;
+  const SpatialParameterPlugin* spp = static_cast<const SpatialParameterPlugin*>(param.getPlugin("spatial"));
+  pre(spp != NULL);
+  pre(spp->isSetSpatialSymbolReference());
+  const SpatialSymbolReference* ssr = spp->getSpatialSymbolReference();
+  pre(ssr != NULL);
+  pre(ssr->isSetSpatialRef());
+  string refstr = ssr->getSpatialRef();
+  Model* modvar = const_cast<Model*>(&m);
+  const SBase* ref = modvar->getElementBySId(refstr);
+  pre(ref != NULL);
+  pre(ref->getTypeCode() == SBML_SPATIAL_BOUNDARY);
+  if (!param.isSetConstant() || param.getConstant() == false) {
+    fail = true;
+    msg = "A <spatialSymbolReference> has a spatialRef of '";
+    msg += refstr + "', which points to a boundary, but its parent <parameter>";
+    if (param.isSetId()) {
+      msg += " (with the id '" + param.getId() + "')";
+    }
+    msg += " is not set 'constant=true'.";
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

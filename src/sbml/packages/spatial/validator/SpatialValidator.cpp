@@ -144,6 +144,7 @@ struct SpatialValidatorConstraints
   ConstraintSet<Model>                          mModel;
   ConstraintSet<Reaction>                       mReaction;
   ConstraintSet<Species>                        mSpecies;
+  ConstraintSet<Parameter>                      mParameters;
   ConstraintSet<DomainType>                     mDomainType;
   ConstraintSet<Domain>                         mDomain;
   ConstraintSet<InteriorPoint>                  mInteriorPoint;
@@ -238,6 +239,12 @@ SpatialValidatorConstraints::add(VConstraint* c)
   if (dynamic_cast< TConstraint<Species>* >(c) != NULL)
   {
     mSpecies.add(static_cast< TConstraint<Species>* >(c) );
+    return;
+  }
+
+  if (dynamic_cast< TConstraint<Parameter>* >(c) != NULL)
+  {
+    mParameters.add(static_cast< TConstraint<Parameter>* >(c) );
     return;
   }
 
@@ -759,6 +766,14 @@ public:
   {
     v.mSpatialConstraints->mSpecies.applyTo(m, x);
     return !v.mSpatialConstraints->mSpecies.empty();
+  }
+
+
+  bool
+  visit(const Parameter& x)
+  {
+    v.mSpatialConstraints->mParameters.applyTo(m, x);
+    return !v.mSpatialConstraints->mParameters.empty();
   }
 
 

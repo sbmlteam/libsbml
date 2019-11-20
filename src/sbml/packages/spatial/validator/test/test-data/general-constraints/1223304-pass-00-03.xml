@@ -67,7 +67,7 @@
             <species boundaryCondition="false" compartment="compartment" constant="false" hasOnlySubstanceUnits="false" id="id_2" spatial:isSpatial="false"/>
         </listOfSpecies>
         <listOfParameters>
-            <parameter constant="false" id="id_3">
+            <parameter constant="true" id="id_3">
                 <spatial:spatialSymbolReference spatial:spatialRef="boundary_1"/>
             </parameter>
         </listOfParameters>
