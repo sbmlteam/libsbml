@@ -14,7 +14,7 @@
             <spatial:listOfDomains>
                 <spatial:domain spatial:domainType="domainType_1" spatial:id="domain_1">
                     <spatial:listOfInteriorPoints>
-                        <spatial:interiorPoint spatial:coord1="0" spatial:coord2="0" spatial:coord3="0"/>
+                        <spatial:interiorPoint spatial:coord1="0"/>
                     </spatial:listOfInteriorPoints>
                 </spatial:domain>
             </spatial:listOfDomains>

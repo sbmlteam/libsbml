@@ -77,6 +77,7 @@ addConstraint(new VConstraintCoordinateComponentSpatialBoundaryMinLessThanMax(*t
 addConstraint(new VConstraintParameterSpatialBoundaryMustBeConstant(*this));
 addConstraint(new VConstraintParameterSpatialDomainTypeNoAssignment(*this));
 addConstraint(new VConstraintParameterSpatialDomainNoAssignment(*this));
+addConstraint(new VConstraintInteriorPointSpatialInteriorPointOneCoordIn1DGeometry(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(1221351, *this));

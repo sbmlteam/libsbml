@@ -530,6 +530,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1220950
+  { SpatialInteriorPointOneCoordIn1DGeometry,
+    "The 'coord3' attribute must be Double.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the <geometry> of the <model> has exactly one <coordinateComponent> child, an <interiorPoint> object must define the attribute 'coord1', and must not define the attributes 'coord2' and 'coord3'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1221001
   { SpatialBoundaryAllowedCoreAttributes,
     "Core attributes allowed on <boundary>.",

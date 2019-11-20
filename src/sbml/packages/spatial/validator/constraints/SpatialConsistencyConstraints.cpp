@@ -1181,6 +1181,47 @@ START_CONSTRAINT(SpatialDomainNoAssignment, Parameter, param)
 END_CONSTRAINT
 
 
+// 1221650
+START_CONSTRAINT(SpatialInteriorPointOneCoordIn1DGeometry, InteriorPoint, ipoint)
+{
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  pre(geometry->getNumCoordinateComponents()==1);
+
+  bool fail = false;
+  stringstream wrongvals;
+  if (ipoint.isSetCoord2()) {
+    fail = true;
+    wrongvals << "coord2 with a value of '";
+    wrongvals << ipoint.getCoord2();
+    wrongvals << "'";
+  }
+  if (ipoint.isSetCoord3()) {
+    if (fail) {
+      wrongvals << ", and a ";
+    }
+    wrongvals << "coord3 with a value of '";
+    wrongvals << ipoint.getCoord3();
+    wrongvals << "'";
+    fail = true;
+  }
+  if (fail) {
+    msg = "An <interiorPoint>";
+    if (ipoint.isSetId())
+    {
+      msg += " with id '" + ipoint.getId() + "'";
+    }
+    msg += " defines a " + wrongvals.str();
+    msg += ", but the <listOfCoordinateComponents> has exactly one child.";
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{
