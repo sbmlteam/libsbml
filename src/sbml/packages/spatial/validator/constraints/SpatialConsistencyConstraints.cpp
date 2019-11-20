@@ -1010,8 +1010,14 @@ START_CONSTRAINT(SpatialBoundaryMustBeConstant, Parameter, param)
   pre(ssr != NULL);
   pre(ssr->isSetSpatialRef());
   string refstr = ssr->getSpatialRef();
-  Model* modvar = const_cast<Model*>(&m);
-  const SBase* ref = modvar->getElementBySId(refstr);
+  const SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geom = plug->getGeometry();
+  pre(geom != NULL);
+  ListOfCoordinateComponents* locc = const_cast<ListOfCoordinateComponents*>(geom->getListOfCoordinateComponents());
+  pre(locc != NULL);
+  const SBase* ref = locc->getElementBySId(refstr);
   pre(ref != NULL);
   pre(ref->getTypeCode() == SBML_SPATIAL_BOUNDARY);
   if (!param.isSetConstant() || param.getConstant() == false) {
@@ -1023,6 +1029,79 @@ START_CONSTRAINT(SpatialBoundaryMustBeConstant, Parameter, param)
     }
     msg += " is not set 'constant=true'.";
   }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1220753
+START_CONSTRAINT(SpatialDomainTypeNoAssignment, Parameter, param)
+{
+  bool fail = false;
+  pre(param.isSetId());
+  string paramid = param.getId();
+  const SpatialParameterPlugin* spp = static_cast<const SpatialParameterPlugin*>(param.getPlugin("spatial"));
+  pre(spp != NULL);
+  pre(spp->isSetSpatialSymbolReference());
+  const SpatialSymbolReference* ssr = spp->getSpatialSymbolReference();
+  pre(ssr != NULL);
+  pre(ssr->isSetSpatialRef());
+  string refstr = ssr->getSpatialRef();
+  const SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geom = plug->getGeometry();
+  pre(geom != NULL);
+  ListOfDomainTypes* lodt = const_cast<ListOfDomainTypes*>(geom->getListOfDomainTypes());
+  pre(lodt != NULL);
+  const SBase* ref = lodt->getElementBySId(refstr);
+  pre(ref != NULL);
+  pre(ref->getTypeCode() == SBML_SPATIAL_DOMAINTYPE);
+
+  msg = "A <spatialSymbolReference> has a spatialRef of '";
+  msg += refstr + "', which points to a domainType, but its parent <parameter>";
+  if (param.isSetId()) {
+    msg += " (with the id '" + param.getId() + "')";
+  }
+
+  if (param.isSetValue()) {
+    msg += " sets its 'value' attribute.";
+    fail = true;
+  }
+
+  else if (m.getInitialAssignment(paramid) != NULL) {
+    msg += " is set by an <initialAssignment>.";
+    fail = true;
+  }
+
+  else if (m.getRateRule(paramid) != NULL) {
+    msg += " is set by a <rateRule>.";
+    fail = true;
+  }
+
+  else if (m.getAssignmentRule(paramid) != NULL) {
+    msg += " is set by an <assignmentRule>.";
+    fail = true;
+  }
+
+  else {
+    for (unsigned long e = 0; e < m.getNumEvents(); e++) {
+      const Event* event = m.getEvent(e);
+      if (event->getEventAssignment(paramid) != NULL) {
+        msg += " is set by an <eventAssignment>";
+        if (event->isSetId()) {
+          msg += " in the <event> with an id of '";
+          msg += event->getId() + "'";
+        }
+        msg += ".";
+        fail = true;
+        break;
+      }
+    }
+  }
+
+  //NOTE:  we don't check if it's determined by an algebraic rule, because that's too expensive and unlikely.
 
   inv(fail == false);
 }

@@ -87,6 +87,7 @@ typedef enum
 , SpatialDomainTypeDimensionsMustMatch3DGeometry              = 1220750
 , SpatialDomainTypeDimensionsMustMatch2DGeometry              = 1220751
 , SpatialDomainTypeDimensionsMustMatch1DGeometry              = 1220752
+, SpatialDomainTypeNoAssignment                               = 1220753
 , SpatialDomainAllowedCoreAttributes                          = 1220801
 , SpatialDomainAllowedCoreElements                            = 1220802
 , SpatialDomainAllowedAttributes                              = 1220803

@@ -75,6 +75,7 @@ addConstraint(new VConstraintAdvectionCoefficientSpatialAdvectionCoefficientVari
 addConstraint(new VConstraintBoundaryConditionSpatialBoundaryConditionVariableMustBeSpecies(*this));
 addConstraint(new VConstraintCoordinateComponentSpatialBoundaryMinLessThanMax(*this));
 addConstraint(new VConstraintParameterSpatialBoundaryMustBeConstant(*this));
+addConstraint(new VConstraintParameterSpatialDomainTypeNoAssignment(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(1221351, *this));

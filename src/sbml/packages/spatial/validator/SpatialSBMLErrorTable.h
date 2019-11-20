@@ -343,6 +343,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1220753
+  { SpatialDomainTypeNoAssignment,
+    "DomainTypes can't be assigned.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If a <parameter> has a child <spatialSymbolReference> that points to a <domainType>, that <parameter> may not be the target of an <initialAssignment>, <eventAssignment>, <rateRule>, or <assignmentRule>, may not be determined by an <algebraicRule>, and may not have the 'value' attribute.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1220801
   { SpatialDomainAllowedCoreAttributes,
     "Core attributes allowed on <domain>.",
@@ -591,7 +601,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
 
   // 1221051
   { SpatialBoundaryUnitsShouldMatchCoordinateComponent,
-    "Any Boundary must be constant.",
+    "Boundary units should match their CoordinateComponent.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "If a <parameter> has a child <spatialSymbolReference> that points to a Boundary, the units of that <parameter> should be equal to the units of the Boundary's parent <coordinateComponent>.",
