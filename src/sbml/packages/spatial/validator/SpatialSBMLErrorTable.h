@@ -2902,8 +2902,8 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'spatial:coordinateSystem' of a <geometry> "
     "object must conform to the syntax of SBML data type 'GeometryKind' and may "
-    "only take on the allowed values of 'GeometryKind' defined in SBML; that "
-    "is, the value must be one of the following: 'cartesian'.",
+    "only take on the allowed value of 'GeometryKind' defined in SBML; that "
+    "is, the value must be 'cartesian'.",
     { "L3V1 Spatial V1 Section"
     }
   },
