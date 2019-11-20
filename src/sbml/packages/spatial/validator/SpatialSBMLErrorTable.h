@@ -449,6 +449,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1220753
+  { SpatialDomainNoAssignment,
+    "Domains can't be assigned.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If a <parameter> has a child <spatialSymbolReference> that points to a <domain>, that <parameter> may not be the target of an <initialAssignment>, <eventAssignment>, <rateRule>, or <assignmentRule>, may not be determined by an <algebraicRule>, and may not have the 'value' attribute.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1220901
   { SpatialInteriorPointAllowedCoreAttributes,
     "Core attributes allowed on <interiorPoint>.",

@@ -96,6 +96,7 @@ typedef enum
 , SpatialDomainNameMustBeString                               = 1220806
 , SpatialDomainLOInteriorPointsAllowedCoreElements            = 1220807
 , SpatialDomainLOInteriorPointsAllowedCoreAttributes          = 1220808
+, SpatialDomainNoAssignment                                   = 1220850
 , SpatialInteriorPointAllowedCoreAttributes                   = 1220901
 , SpatialInteriorPointAllowedCoreElements                     = 1220902
 , SpatialInteriorPointAllowedAttributes                       = 1220903
