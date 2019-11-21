@@ -1368,6 +1368,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1221753
+  { SpatialSampledVolumeValuesNotInOtherRange,
+    "Every <sampleVolume> 'sampledValue' must not fall in another's range.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A 'sampledValue' from one <sampledVolume> may not be less than the value of the attribute 'maxValue' and greater than or equal to the value of the attribute 'minValue' of a different <sampledVolume> from the same <sampledFieldGeometry>.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1221801
   { SpatialAnalyticGeometryAllowedCoreAttributes,
     "Core attributes allowed on <analyticGeometry>.",

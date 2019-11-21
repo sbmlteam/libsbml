@@ -51,6 +51,7 @@
 #include <sbml/packages/spatial/validator/SpatialUniqueAdvectionCoefficientsCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueBoundaryConditionsCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueSampledVolumeValueCheck.h>
+#include <sbml/packages/spatial/validator/SpatialSampledVolumeValueNotInRangeCheck.h>
 #include <sbml/Species.h>
 
 #endif /* AddingConstraintsToValidator */
@@ -65,6 +66,7 @@ EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueDiffusionCoefficientsCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueAdvectionCoefficientsCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueBoundaryConditionsCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueSampledVolumeValueCheck);
+EXTERN_CONSTRAINT(ErrorEnumValue, SpatialSampledVolumeValueNotInRangeCheck);
 
 
 

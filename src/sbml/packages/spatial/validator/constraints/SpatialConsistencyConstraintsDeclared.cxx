@@ -44,6 +44,7 @@
 #include "sbml/packages/spatial/validator/SpatialUniqueAdvectionCoefficientsCheck.h"
 #include "sbml/packages/spatial/validator/SpatialUniqueBoundaryConditionsCheck.h"
 #include "sbml/packages/spatial/validator/SpatialUniqueSampledVolumeValueCheck.h"
+#include "sbml/packages/spatial/validator/SpatialSampledVolumeValueNotInRangeCheck.h"
 
 //Constraints declared in SpatialConsistencyConstraints.cpp
 addConstraint(new VConstraintDomainSpatialDomainDomainTypeMustBeDomainType(*this));
@@ -89,6 +90,7 @@ addConstraint(new SpatialUniqueDiffusionCoefficientsCheck(SpatialNoDiffusionCoef
 addConstraint(new SpatialUniqueAdvectionCoefficientsCheck(SpatialAdvectionCoefficientsMustBeUnique, *this));
 addConstraint(new SpatialUniqueBoundaryConditionsCheck(SpatialBoundaryConditionsMustBeUnique, *this));
 addConstraint(new SpatialUniqueSampledVolumeValueCheck(SpatialSampledVolumeValuesMustDiffer, *this));
+addConstraint(new SpatialSampledVolumeValueNotInRangeCheck(SpatialSampledVolumeValuesNotInOtherRange, *this));
 
 /** @endcond */
 
