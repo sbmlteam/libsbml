@@ -50,6 +50,7 @@
 #include <sbml/packages/spatial/validator/SpatialUniqueDiffusionCoefficientsCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueAdvectionCoefficientsCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueBoundaryConditionsCheck.h>
+#include <sbml/packages/spatial/validator/SpatialUniqueSampledVolumeValueCheck.h>
 #include <sbml/Species.h>
 
 #endif /* AddingConstraintsToValidator */
@@ -63,6 +64,7 @@ EXTERN_CONSTRAINT(ErrorEnumValue, SpatialSpatialSymbolReferenceUniqueRefCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueDiffusionCoefficientsCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueAdvectionCoefficientsCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueBoundaryConditionsCheck);
+EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueSampledVolumeValueCheck);
 
 
 
@@ -1333,46 +1335,6 @@ START_CONSTRAINT(SpatialSampledVolumeMinLessThanMax, SampledVolume, svol)
     fail = true;
 
   }
-
-  inv(fail == false);
-}
-END_CONSTRAINT
-
-
-// 1221751
-START_CONSTRAINT(SpatialSampledVolumeValuesMustDiffer, SampledFieldGeometry, sfg)
-{
-  bool fail = false;
-  set<double> values;
-  msg = "";
-  for (unsigned long sv = 0; sv < sfg.getNumSampledVolumes(); sv++) {
-    const SampledVolume* svol = sfg.getSampledVolume(sv);
-    if (svol->isSetSampledValue()) {
-      double val = svol->getSampledValue();
-      if (values.find(val) != values.end()) {
-        stringstream ss_msg;
-        if (!msg.empty()) {
-          ss_msg << endl << "Also: a";
-        }
-        else {
-          ss_msg << "A";
-        }
-        ss_msg << " <sampledVolume>";
-        if (svol->isSetId())
-        {
-          ss_msg << " with id '" << svol->getId() << "'";
-        }
-        ss_msg << " has a 'spatial:sampledValue' attribute of '";
-        ss_msg << svol->getSampledValue();
-        ss_msg << "', which another <sampledVolume> already has.";
-        msg = ss_msg.str();
-        fail = true;
-
-      }
-      values.insert(val);
-    }
-  }
-
 
   inv(fail == false);
 }

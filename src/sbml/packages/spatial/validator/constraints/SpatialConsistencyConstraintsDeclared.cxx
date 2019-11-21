@@ -43,6 +43,7 @@
 #include "sbml/packages/spatial/validator/SpatialUniqueDiffusionCoefficientsCheck.h"
 #include "sbml/packages/spatial/validator/SpatialUniqueAdvectionCoefficientsCheck.h"
 #include "sbml/packages/spatial/validator/SpatialUniqueBoundaryConditionsCheck.h"
+#include "sbml/packages/spatial/validator/SpatialUniqueSampledVolumeValueCheck.h"
 
 //Constraints declared in SpatialConsistencyConstraints.cpp
 addConstraint(new VConstraintDomainSpatialDomainDomainTypeMustBeDomainType(*this));
@@ -80,7 +81,6 @@ addConstraint(new VConstraintInteriorPointSpatialInteriorPointTwoCoordsIn2DGeome
 addConstraint(new VConstraintInteriorPointSpatialInteriorPointThreeCoordsIn3DGeometry(*this));
 addConstraint(new VConstraintAdjacentDomainsSpatialAdjacentDomainsMustBeAdjacent(*this));
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeMinLessThanMax(*this));
-addConstraint(new VConstraintSampledFieldGeometrySpatialSampledVolumeValuesMustDiffer(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));
@@ -88,6 +88,7 @@ addConstraint(new SpatialSpatialSymbolReferenceUniqueRefCheck(SpatialSpatialSymb
 addConstraint(new SpatialUniqueDiffusionCoefficientsCheck(SpatialNoDiffusionCoefficientOverlap, *this));
 addConstraint(new SpatialUniqueAdvectionCoefficientsCheck(SpatialAdvectionCoefficientsMustBeUnique, *this));
 addConstraint(new SpatialUniqueBoundaryConditionsCheck(SpatialBoundaryConditionsMustBeUnique, *this));
+addConstraint(new SpatialUniqueSampledVolumeValueCheck(SpatialSampledVolumeValuesMustDiffer, *this));
 
 /** @endcond */
 
