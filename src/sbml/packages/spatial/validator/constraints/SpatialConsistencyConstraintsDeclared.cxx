@@ -59,8 +59,6 @@ addConstraint(new VConstraintDomainTypeSpatialDomainTypeDimensionsMustMatch1DGeo
 addConstraint(new VConstraintSampledFieldSpatialSampledFieldOneSampleIn1DGeometry(*this));
 addConstraint(new VConstraintSampledFieldSpatialSampledFieldTwoSamplesIn2DGeometry(*this));
 addConstraint(new VConstraintSampledFieldSpatialSampledFieldThreeSamplesIn3DGeometry(*this));
-addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNeedsMaxWithMin(*this));
-addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeNeedsMinWithMax(*this));
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeSampledValueMinMax(*this));
 addConstraint(new VConstraintCompartmentMappingSpatialCompartmentMappingUnitSizeMustBeFraction(*this));
 addConstraint(new VConstraintSpeciesSpatialCompartmentsMustHaveCompartmentMapping(*this));
@@ -82,6 +80,7 @@ addConstraint(new VConstraintInteriorPointSpatialInteriorPointTwoCoordsIn2DGeome
 addConstraint(new VConstraintInteriorPointSpatialInteriorPointThreeCoordsIn3DGeometry(*this));
 addConstraint(new VConstraintAdjacentDomainsSpatialAdjacentDomainsMustBeAdjacent(*this));
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeMinLessThanMax(*this));
+addConstraint(new VConstraintSampledFieldGeometrySpatialSampledVolumeValuesMustDiffer(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));

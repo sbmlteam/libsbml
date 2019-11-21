@@ -1339,26 +1339,6 @@ static const packageErrorTableEntry spatialErrorTable[] =
   },
 
   // 1221750
-  { SpatialSampledVolumeNeedsMaxWithMin,
-    "A 'minValue' attribute goes with the 'maxValue' attribute.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "A <sampledVolume> with a defined 'spatial:minValue' attribute must also define the 'spatial:maxValue' attribute.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1221751
-  { SpatialSampledVolumeNeedsMinWithMax,
-    "A 'maxValue' attribute goes with the 'minValue' attribute.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "A <sampledVolume> with a defined 'spatial:maxValue' attribute must also define the 'spatial:minValue' attribute.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1221752
   { SpatialSampledVolumeSampledValueMinMax,
     "Every <sampleVolume> must have a 'sampledValue' attribute or the 'min' and 'max' attributes.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1368,12 +1348,22 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1221753
+  // 1221751
   { SpatialSampledVolumeMinLessThanMax,
     "A <sampleVolume> 'minValue' must be less than or equal to the 'maxValue'.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The attribute 'minValue' of a <sampledVolume> must have a value less than or equal to the value of the 'maxValue' attribute of that <sampledVolume>.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1221752
+  { SpatialSampledVolumeValuesMustDiffer,
+    "Every <sampleVolume> 'sampledValue' must be unique.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A 'sampledValue' from one <sampledVolume> may not be the same as a different 'sampledValue' from another <sampledVolume> from the same <sampledFieldGeometry>.",
     { "L3V1 Spatial V1 Section"
     }
   },

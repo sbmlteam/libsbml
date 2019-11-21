@@ -38,6 +38,7 @@
  * ------------------------------------------------------------------------ -->
  */
 #ifndef AddingConstraintsToValidator
+#include <set>
 
 #include <sbml/validator/VConstraint.h>
 
@@ -538,7 +539,7 @@ END_CONSTRAINT
 
 
 // 1221750
-START_CONSTRAINT(SpatialSampledVolumeNeedsMaxWithMin, SampledVolume, svol)
+START_CONSTRAINT(SpatialSampledVolumeSampledValueMinMax, SampledVolume, svol)
 {
   bool fail = false;
   if (svol.isSetMinValue() && !svol.isSetMaxValue() && !svol.isSetSampledValue()) {
@@ -553,16 +554,7 @@ START_CONSTRAINT(SpatialSampledVolumeNeedsMaxWithMin, SampledVolume, svol)
     msg = ss_msg.str();
   }
 
-  inv(fail == false);
-}
-END_CONSTRAINT
-
-
-// 1221751
-START_CONSTRAINT(SpatialSampledVolumeNeedsMinWithMax, SampledVolume, svol)
-{
-  bool fail = false;
-  if (svol.isSetMaxValue() && !svol.isSetMinValue() && !svol.isSetSampledValue()) {
+  else if (svol.isSetMaxValue() && !svol.isSetMinValue() && !svol.isSetSampledValue()) {
     fail = true;
     stringstream ss_msg;
     ss_msg << "A SampledVolume";
@@ -574,16 +566,7 @@ START_CONSTRAINT(SpatialSampledVolumeNeedsMinWithMax, SampledVolume, svol)
     msg = ss_msg.str();
   }
 
-  inv(fail == false);
-}
-END_CONSTRAINT
-
-
-// 1221752
-START_CONSTRAINT(SpatialSampledVolumeSampledValueMinMax, SampledVolume, svol)
-{
-  bool fail = false;
-  if (svol.isSetMaxValue() && svol.isSetMinValue() && svol.isSetSampledValue()) {
+  else if (svol.isSetMaxValue() && svol.isSetMinValue() && svol.isSetSampledValue()) {
     fail = true;
     stringstream ss_msg;
     ss_msg << "A SampledVolume";
@@ -1345,11 +1328,51 @@ START_CONSTRAINT(SpatialSampledVolumeMinLessThanMax, SampledVolume, svol)
     ss_msg << svol.getMaxValue();
     ss_msg << "', which is less than '";
     ss_msg << svol.getMinValue();
-    ss_msg << "', the value of the attribute 'spatial:minValue'";
+    ss_msg << "', the value of the attribute 'spatial:minValue'.";
     msg = ss_msg.str();
     fail = true;
 
   }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1221751
+START_CONSTRAINT(SpatialSampledVolumeValuesMustDiffer, SampledFieldGeometry, sfg)
+{
+  bool fail = false;
+  set<double> values;
+  msg = "";
+  for (unsigned long sv = 0; sv < sfg.getNumSampledVolumes(); sv++) {
+    const SampledVolume* svol = sfg.getSampledVolume(sv);
+    if (svol->isSetSampledValue()) {
+      double val = svol->getSampledValue();
+      if (values.find(val) != values.end()) {
+        stringstream ss_msg;
+        if (!msg.empty()) {
+          ss_msg << endl << "Also: a";
+        }
+        else {
+          ss_msg << "A";
+        }
+        ss_msg << " <sampledVolume>";
+        if (svol->isSetId())
+        {
+          ss_msg << " with id '" << svol->getId() << "'";
+        }
+        ss_msg << " has a 'spatial:sampledValue' attribute of '";
+        ss_msg << svol->getSampledValue();
+        ss_msg << "', which another <sampledVolume> already has.";
+        msg = ss_msg.str();
+        fail = true;
+
+      }
+      values.insert(val);
+    }
+  }
+
 
   inv(fail == false);
 }
