@@ -1486,8 +1486,8 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'spatial:functionType' of an <analyticVolume> "
     "object must conform to the syntax of SBML data type 'FunctionKind' and may "
-    "only take on the allowed values of 'FunctionKind' defined in SBML; that "
-    "is, the value must be one of the following: 'layered'.",
+    "only take on the allowed value of 'FunctionKind' defined in SBML; that "
+    "is, the value must be 'layered'.",
     { "L3V1 Spatial V1 Section"
     }
   },
