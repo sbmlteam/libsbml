@@ -1378,6 +1378,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1221754
+  { SpatialSampledVolumeRangesCantOverlap,
+    "No two <sampleVolume> ranges may overlap.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The 'minValue' and 'maxValue' attribute values from one <sampledVolume> may not define a range that overlaps the 'minValue' and 'maxValue' attribute values of a different <sampledVolume> from the same <sampledFieldGeometry>, with the exception that the 'maxValue' of one <sampledVolume> may equal the 'minValue' of another <sampledVolume> from the same SampledFieldGeometry.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1221801
   { SpatialAnalyticGeometryAllowedCoreAttributes,
     "Core attributes allowed on <analyticGeometry>.",
