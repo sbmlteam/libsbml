@@ -26,9 +26,9 @@
                     </spatial:listOfInteriorPoints>
                 </spatial:domain>
             </spatial:listOfDomains>
-            <spatial:listOfAdjacentDomains>
-                <spatial:adjacentDomains spatial:domain1="domain_1" spatial:domain2="domain_1" spatial:id="adjacentDomains_1"/>
-            </spatial:listOfAdjacentDomains>
+            
+                
+            
             <spatial:listOfGeometryDefinitions>
                 <spatial:analyticGeometry spatial:id="geometryDefinition_1" spatial:isActive="someString">
                     <spatial:listOfAnalyticVolumes>

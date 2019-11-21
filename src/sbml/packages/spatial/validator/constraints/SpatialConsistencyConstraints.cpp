@@ -1301,6 +1301,33 @@ START_CONSTRAINT(SpatialInteriorPointThreeCoordsIn3DGeometry, InteriorPoint, ipo
 END_CONSTRAINT
 
 
+// 1221150
+START_CONSTRAINT(SpatialAdjacentDomainsMustBeAdjacent, AdjacentDomains, adom)
+{
+  bool fail = false;
+  pre(adom.isSetDomain1());
+  pre(adom.isSetDomain2());
+  if (adom.getDomain1() == adom.getDomain2()) {
+    msg = "An <adjacentDomain>";
+    if (adom.isSetId())
+    {
+      msg += " with id '" + adom.getId() + "'";
+    }
+    msg += " defines both 'domain1' and 'domain2' to be '";
+    msg += adom.getDomain1() + "'.";
+    fail = true;
+  }
+
+  //NOTE:  It would be fantastic if we could actually measure space and figure out if these
+  // domains were adjacent, but that's well well beyond the capabilities of this 
+  // software.  Other spatially-aware simulators can test this themselves and use this error
+  // ID to report it, if they want.
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

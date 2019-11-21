@@ -25,9 +25,14 @@
                         <spatial:interiorPoint spatial:coord1="0" spatial:coord2="0" spatial:coord3="0"/>
                     </spatial:listOfInteriorPoints>
                 </spatial:domain>
+                <spatial:domain spatial:domainType="domainType_1" spatial:id="domain_2">
+                    <spatial:listOfInteriorPoints>
+                        <spatial:interiorPoint spatial:coord1="0.5" spatial:coord2="0.5" spatial:coord3="0.5"/>
+                    </spatial:listOfInteriorPoints>
+                </spatial:domain>
             </spatial:listOfDomains>
             <spatial:listOfAdjacentDomains>
-                <spatial:adjacentDomains spatial:domain1="domain_1" spatial:domain2="domain_1"/>
+                <spatial:adjacentDomains spatial:domain1="domain_1" spatial:domain2="domain_2"/>
             </spatial:listOfAdjacentDomains>
         </spatial:geometry>
     </model>

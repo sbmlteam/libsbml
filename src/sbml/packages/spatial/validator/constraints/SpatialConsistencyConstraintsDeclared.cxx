@@ -80,9 +80,10 @@ addConstraint(new VConstraintParameterSpatialDomainNoAssignment(*this));
 addConstraint(new VConstraintInteriorPointSpatialInteriorPointOneCoordIn1DGeometry(*this));
 addConstraint(new VConstraintInteriorPointSpatialInteriorPointTwoCoordsIn2DGeometry(*this));
 addConstraint(new VConstraintInteriorPointSpatialInteriorPointThreeCoordsIn3DGeometry(*this));
+addConstraint(new VConstraintAdjacentDomainsSpatialAdjacentDomainsMustBeAdjacent(*this));
 
 //Constraints defined in their own class ('global constraints')
-addConstraint(new SpatialCompartmentMappingUnitSizesCheck(1221351, *this));
+addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));
 addConstraint(new SpatialSpatialSymbolReferenceUniqueRefCheck(SpatialSpatialSymbolReferenceUniqueRef, *this));
 addConstraint(new SpatialUniqueDiffusionCoefficientsCheck(SpatialNoDiffusionCoefficientOverlap, *this));
 addConstraint(new SpatialUniqueAdvectionCoefficientsCheck(SpatialAdvectionCoefficientsMustBeUnique, *this));

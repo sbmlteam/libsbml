@@ -722,6 +722,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1221150
+  { SpatialAdjacentDomainsMustBeAdjacent,
+    "The domains in AdjacentDomains must be adjacent.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attributes 'domain1' and 'domain2' of an <adjacentDomains> must reference two different domains that are spatially adjacent.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1221201
   { SpatialGeometryDefinitionAllowedCoreAttributes,
     "Core attributes allowed on <geometryDefinition>.",

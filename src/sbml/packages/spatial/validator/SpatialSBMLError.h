@@ -120,6 +120,7 @@ typedef enum
 , SpatialAdjacentDomainsDomain1MustBeDomain                   = 1221104
 , SpatialAdjacentDomainsDomain2MustBeDomain                   = 1221105
 , SpatialAdjacentDomainsNameMustBeString                      = 1221106
+, SpatialAdjacentDomainsMustBeAdjacent                        = 1221150
 , SpatialGeometryDefinitionAllowedCoreAttributes              = 1221201
 , SpatialGeometryDefinitionAllowedCoreElements                = 1221202
 , SpatialGeometryDefinitionAllowedAttributes                  = 1221203

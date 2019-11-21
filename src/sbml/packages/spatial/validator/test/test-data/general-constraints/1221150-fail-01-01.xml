@@ -32,7 +32,7 @@
                 </spatial:domain>
             </spatial:listOfDomains>
             <spatial:listOfAdjacentDomains>
-                <spatial:adjacentDomains foo="someString" spatial:domain1="domain_1" spatial:domain2="domain_2" spatial:id="adjacentDomains_1"/>
+                <spatial:adjacentDomains spatial:domain1="domain_1" spatial:domain2="domain_1" spatial:id="adjacentDomains_1"/>
             </spatial:listOfAdjacentDomains>
         </spatial:geometry>
     </model>
