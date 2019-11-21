@@ -1368,6 +1368,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1221753
+  { SpatialSampledVolumeMinLessThanMax,
+    "A <sampleVolume> 'minValue' must be less than or equal to the 'maxValue'.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'minValue' of a <sampledVolume> must have a value less than or equal to the value of the 'maxValue' attribute of that <sampledVolume>.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1221801
   { SpatialAnalyticGeometryAllowedCoreAttributes,
     "Core attributes allowed on <analyticGeometry>.",

@@ -81,6 +81,7 @@ addConstraint(new VConstraintInteriorPointSpatialInteriorPointOneCoordIn1DGeomet
 addConstraint(new VConstraintInteriorPointSpatialInteriorPointTwoCoordsIn2DGeometry(*this));
 addConstraint(new VConstraintInteriorPointSpatialInteriorPointThreeCoordsIn3DGeometry(*this));
 addConstraint(new VConstraintAdjacentDomainsSpatialAdjacentDomainsMustBeAdjacent(*this));
+addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeMinLessThanMax(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));

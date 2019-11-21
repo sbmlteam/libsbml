@@ -175,6 +175,7 @@ typedef enum
 , SpatialSampledVolumeNeedsMaxWithMin                         = 1221750
 , SpatialSampledVolumeNeedsMinWithMax                         = 1221751
 , SpatialSampledVolumeSampledValueMinMax                      = 1221752
+, SpatialSampledVolumeMinLessThanMax                          = 1221753
 , SpatialAnalyticGeometryAllowedCoreAttributes                = 1221801
 , SpatialAnalyticGeometryAllowedCoreElements                  = 1221802
 , SpatialAnalyticGeometryAllowedElements                      = 1221803

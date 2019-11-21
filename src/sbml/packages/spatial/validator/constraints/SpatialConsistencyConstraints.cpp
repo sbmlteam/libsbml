@@ -1328,6 +1328,34 @@ START_CONSTRAINT(SpatialAdjacentDomainsMustBeAdjacent, AdjacentDomains, adom)
 END_CONSTRAINT
 
 
+// 1221753
+START_CONSTRAINT(SpatialSampledVolumeMinLessThanMax, SampledVolume, svol)
+{
+  bool fail = false;
+  pre(svol.isSetMinValue());
+  pre(svol.isSetMaxValue());
+  if (svol.getMaxValue() < svol.getMinValue()) {
+    stringstream ss_msg;
+    ss_msg << "A <sampledVolume>";
+    if (svol.isSetId())
+    {
+      ss_msg << " with id '" << svol.getId() << "'";
+    }
+    ss_msg << " has a 'spatial:maxValue' attribute of '";
+    ss_msg << svol.getMaxValue();
+    ss_msg << "', which is less than '";
+    ss_msg << svol.getMinValue();
+    ss_msg << "', the value of the attribute 'spatial:minValue'";
+    msg = ss_msg.str();
+    fail = true;
+
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{
