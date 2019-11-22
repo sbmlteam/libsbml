@@ -2493,7 +2493,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
   },
 
   // 1223250
-  { SpatialCSGSetOperatorTwoComponentsForDifference,
+  { SpatialCSGSetOperatorTwoComplementsForDifference,
     "Need two components for 'difference' type.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -2503,7 +2503,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
   },
 
   // 1223251
-  { SpatialCSGSetOperatorNoComponentsUnionIntersection,
+  { SpatialCSGSetOperatorNoComplementsUnionIntersection,
     "No components for 'union' or 'intersection' types.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,

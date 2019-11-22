@@ -85,7 +85,8 @@ addConstraint(new VConstraintAdjacentDomainsSpatialAdjacentDomainsMustBeAdjacent
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeMinLessThanMax(*this));
 addConstraint(new VConstraintCSGPrimitiveSpatialCSGPrimitive3DShapes(*this));
 addConstraint(new VConstraintCSGPrimitiveSpatialCSGPrimitive2DShapes(*this));
-addConstraint(new VConstraintCSGSetOperatorSpatialCSGSetOperatorTwoComponentsForDifference(*this));
+addConstraint(new VConstraintCSGSetOperatorSpatialCSGSetOperatorTwoComplementsForDifference(*this));
+addConstraint(new VConstraintCSGSetOperatorSpatialCSGSetOperatorNoComplementsUnionIntersection(*this));
 addConstraint(new VConstraintCSGSetOperatorSpatialCSGSetOperatorDifferenceMustHaveTwoChildren(*this));
 addConstraint(new VConstraintCSGSetOperatorSpatialCSGSetOperatorComplementsMustReferenceChildren(*this));
 
