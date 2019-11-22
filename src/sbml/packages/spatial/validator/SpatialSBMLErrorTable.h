@@ -2360,6 +2360,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1223150
+  { SpatialCSGPrimitive2DShapes,
+    "Any <csgPrimitive> with a 2D shape must be in 2D or 3D geometry.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The 'spatial:primitiveType' attribute of a <csgPrimitive> may have the values 'circle' or 'square' only if the <geometry> of the model has exactly two or three <coordinateComponent> children.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1223201
   { SpatialCSGSetOperatorAllowedCoreAttributes,
     "Core attributes allowed on <csgSetOperator>.",
