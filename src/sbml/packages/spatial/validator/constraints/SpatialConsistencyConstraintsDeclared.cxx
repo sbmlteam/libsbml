@@ -85,6 +85,8 @@ addConstraint(new VConstraintAdjacentDomainsSpatialAdjacentDomainsMustBeAdjacent
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeMinLessThanMax(*this));
 addConstraint(new VConstraintCSGPrimitiveSpatialCSGPrimitive3DShapes(*this));
 addConstraint(new VConstraintCSGPrimitiveSpatialCSGPrimitive2DShapes(*this));
+addConstraint(new VConstraintCSGSetOperatorSpatialCSGSetOperatorDifferenceMustHaveTwoChildren(*this));
+addConstraint(new VConstraintCSGSetOperatorSpatialCSGSetOperatorComplementsMustReferenceChildren(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));

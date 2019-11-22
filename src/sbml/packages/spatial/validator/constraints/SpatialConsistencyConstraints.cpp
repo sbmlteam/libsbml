@@ -1421,6 +1421,55 @@ START_CONSTRAINT(SpatialCSGPrimitive2DShapes, CSGPrimitive, csgp)
 END_CONSTRAINT
 
 
+// 1223252
+START_CONSTRAINT(SpatialCSGSetOperatorDifferenceMustHaveTwoChildren, CSGSetOperator, setop)
+{
+  bool fail = false;
+  pre(setop.getOperationType() == SPATIAL_SETOPERATION_DIFFERENCE);
+  unsigned int nchildren = setop.getNumCSGNodes();
+  if (nchildren != 2) {
+    stringstream ss_msg;
+    ss_msg << "A <csgSetOperator>";
+    if (setop.isSetId())
+    {
+      ss_msg << " with id '" << setop.getId() << "'";
+    }
+    ss_msg << " has a 'spatial:operationType' attribute of 'difference', but has ";
+    ss_msg << nchildren << " children.";
+    msg = ss_msg.str();
+
+    fail = true;
+  }
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1223253
+START_CONSTRAINT(SpatialCSGSetOperatorComplementsMustReferenceChildren, CSGSetOperator, setop)
+{
+  pre(setop.getOperationType() == SPATIAL_SETOPERATION_DIFFERENCE);
+  pre(setop.getNumCSGNodes()==2);
+  pre(setop.isSetComplementA());
+  pre(setop.isSetComplementB());
+  string child1 = setop.getCSGNode(0)->getId();
+  string child2 = setop.getCSGNode(1)->getId();
+  string compA = setop.getComplementA();
+  string compB = setop.getComplementB();
+  pre(!((child1 == compA && child2 == compB) || (child1 == compB && child2 == compA)));
+  msg = "A <csgSetOperator>";
+  if (setop.isSetId()) {
+    msg += " with the id '" + setop.getId() + "'";
+  }
+  msg += " has as 'complementA' value of '";
+  msg += compA + "', and a 'complementB' value of '" + compB;
+  msg += "', which are not the two IDs of its two children: '";
+  msg += child1 + "' and '" + child2 + "'.";
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

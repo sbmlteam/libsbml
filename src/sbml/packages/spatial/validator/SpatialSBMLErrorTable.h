@@ -2512,7 +2512,26 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223301
+  // 1223252
+  { SpatialCSGSetOperatorDifferenceMustHaveTwoChildren,
+    "A <csgSetOperator> difference must have two children.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the 'operationType' of a <csgSetOperator> is 'difference', it must have exactly two <csgNode> children.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223253
+  { SpatialCSGSetOperatorComplementsMustReferenceChildren,
+    "The 'complement' attributes of a <csgSetOperator> must reference its children.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attributes 'complementA' and 'complementB' of a <csgSetOperator> must reference its two <csgNode> children.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   { SpatialSpatialSymbolReferenceAllowedCoreAttributes,
     "Core attributes allowed on <spatialSymbolReference>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,

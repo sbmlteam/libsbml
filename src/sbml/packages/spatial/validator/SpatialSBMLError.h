@@ -271,6 +271,8 @@ typedef enum
 , SpatialCSGSetOperatorLOCSGNodesAllowedCoreAttributes        = 1223209
 , SpatialCSGSetOperatorTwoComponentsForDifference             = 1223250
 , SpatialCSGSetOperatorNoComponentsUnionIntersection          = 1223251
+, SpatialCSGSetOperatorDifferenceMustHaveTwoChildren          = 1223252
+, SpatialCSGSetOperatorComplementsMustReferenceChildren       = 1223253
 , SpatialSpatialSymbolReferenceAllowedCoreAttributes          = 1223301
 , SpatialSpatialSymbolReferenceAllowedCoreElements            = 1223302
 , SpatialSpatialSymbolReferenceAllowedAttributes              = 1223303
