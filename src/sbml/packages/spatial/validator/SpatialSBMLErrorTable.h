@@ -1895,6 +1895,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1222351
+  { SpatialCSGObjectMustEncompassInteriorPoints,
+    "CSGObjects must encompass their domainType's interior points.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_WARNING,
+    "Any <interiorPoint> of the <domainType> referenced by a <csgObject> must be inside the geometry the <csgObject> describes.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1222401
   { SpatialCSGNodeAllowedCoreAttributes,
     "Core attributes allowed on <csgNode>.",

@@ -219,6 +219,7 @@ typedef enum
 , SpatialCSGObjectNameMustBeString                            = 1222306
 , SpatialCSGObjectOrdinalMustBeInteger                        = 1222307
 , SpatialCSGObjectOrdinalShouldBeUnique                       = 1222350
+, SpatialCSGObjectMustEncompassInteriorPoints                 = 1222351
 , SpatialCSGNodeAllowedCoreAttributes                         = 1222401
 , SpatialCSGNodeAllowedCoreElements                           = 1222402
 , SpatialCSGNodeAllowedAttributes                             = 1222403
