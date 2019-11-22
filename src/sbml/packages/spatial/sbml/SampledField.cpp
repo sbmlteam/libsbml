@@ -323,8 +323,7 @@ SampledField::getDataType() const
 std::string
 SampledField::getDataTypeAsString() const
 {
-  std::string code_str = DataKind_toString(mDataType);
-  return code_str;
+  return DataKind_toString(mDataType);
 }
 
 
@@ -374,8 +373,7 @@ SampledField::getInterpolationType() const
 std::string
 SampledField::getInterpolationTypeAsString() const
 {
-  std::string code_str = InterpolationKind_toString(mInterpolationType);
-  return code_str;
+  return InterpolationKind_toString(mInterpolationType);
 }
 
 

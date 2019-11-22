@@ -228,8 +228,7 @@ SpatialPoints::getDataType() const
 std::string
 SpatialPoints::getDataTypeAsString() const
 {
-  std::string code_str = DataKind_toString(mDataType);
-  return code_str;
+  return DataKind_toString(mDataType);
 }
 
 

@@ -191,8 +191,7 @@ ParametricObject::getPolygonType() const
 std::string
 ParametricObject::getPolygonTypeAsString() const
 {
-  std::string code_str = PolygonKind_toString(mPolygonType);
-  return code_str;
+  return PolygonKind_toString(mPolygonType);
 }
 
 
@@ -269,8 +268,7 @@ ParametricObject::getDataType() const
 std::string
 ParametricObject::getDataTypeAsString() const
 {
-  std::string code_str = DataKind_toString(mDataType);
-  return code_str;
+  return DataKind_toString(mDataType);
 }
 
 

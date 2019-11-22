@@ -161,8 +161,7 @@ CSGSetOperator::getOperationType() const
 std::string
 CSGSetOperator::getOperationTypeAsString() const
 {
-  std::string code_str = SetOperation_toString(mOperationType);
-  return code_str;
+  return SetOperation_toString(mOperationType);
 }
 
 

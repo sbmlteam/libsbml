@@ -192,11 +192,10 @@ AnalyticVolume::getFunctionType() const
 /*
  * Returns the value of the "functionType" attribute of this AnalyticVolume.
  */
-const std::string&
+std::string
 AnalyticVolume::getFunctionTypeAsString() const
 {
-  static const std::string code_str = FunctionKind_toString(mFunctionType);
-  return code_str;
+  return FunctionKind_toString(mFunctionType);
 }
 
 

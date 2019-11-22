@@ -211,7 +211,7 @@ public:
    * @li @c "layered"
    * @li @c "invalid FunctionKind value"
    */
-  const std::string& getFunctionTypeAsString() const;
+  std::string getFunctionTypeAsString() const;
 
 
   /**
