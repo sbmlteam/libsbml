@@ -1345,6 +1345,47 @@ START_CONSTRAINT(SpatialSampledVolumeMinLessThanMax, SampledVolume, svol)
 END_CONSTRAINT
 
 
+// 1223150
+START_CONSTRAINT(SpatialCSGPrimitive3DShapes, CSGPrimitive, csgp)
+{
+  bool fail = false;
+
+  SpatialModelPlugin *mplug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(mplug != NULL);
+  Geometry* geom = mplug->getGeometry();
+  pre(geom != NULL);
+  unsigned int dim = geom->getNumCoordinateComponents();
+  pre(dim < 3);
+  switch(csgp.getPrimitiveType()){
+  case SPATIAL_PRIMITIVEKIND_SPHERE:
+  case SPATIAL_PRIMITIVEKIND_CUBE:
+  case SPATIAL_PRIMITIVEKIND_CYLINDER:
+  case SPATIAL_PRIMITIVEKIND_CONE:
+    msg = "A <csgPrimitive>";
+    if (csgp.isSetId()) {
+      msg += " with the id '" + csgp.getId() + "'";
+    }
+    msg += " has as 'primitiveType' of '";
+    msg += csgp.getPrimitiveTypeAsString() + "', but the <geometry> only has ";
+    if (dim == 1) {
+      msg += "one <coordinateComponent> child.";
+    }
+    else {
+      msg += "two <coordinateComponent> children.";
+    }
+    fail = true;
+    break;
+  case SPATIAL_PRIMITIVEKIND_CIRCLE:
+  case SPATIAL_PRIMITIVEKIND_SQUARE:
+  case SPATIAL_PRIMITIVEKIND_INVALID:
+    break;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

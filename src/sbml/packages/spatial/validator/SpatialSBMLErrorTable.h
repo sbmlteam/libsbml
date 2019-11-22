@@ -1383,7 +1383,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "No two <sampleVolume> ranges may overlap.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The 'minValue' and 'maxValue' attribute values from one <sampledVolume> may not define a range that overlaps the 'minValue' and 'maxValue' attribute values of a different <sampledVolume> from the same <sampledFieldGeometry>, with the exception that the 'maxValue' of one <sampledVolume> may equal the 'minValue' of another <sampledVolume> from the same SampledFieldGeometry.",
+    "The 'minValue' and 'maxValue' attribute values from one <sampledVolume> may not define a range that overlaps the 'minValue' and 'maxValue' attribute values of a different <sampledVolume> from the same <sampledFieldGeometry>, with the exception that the 'maxValue' of one <sampledVolume> may equal the 'minValue' of another <sampledVolume> from the same <sampledFieldGeometry>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2346,6 +2346,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "may only take on the allowed values of 'PrimitiveKind' defined in SBML; "
     "that is, the value must be one of the following: 'sphere', 'cube', "
     "'cylinder', 'cone', 'circle' or 'square'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223150
+  { SpatialCSGPrimitive3DShapes,
+    "Any <csgPrimitive> with a 3D shape must be in 3D geometry.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The 'spatial:primitiveType' attribute of a <csgPrimitive> may have the values 'sphere', 'cube', 'cylinder', or 'cone' only if the <geometry> of the model has exactly three <coordinateComponent> children.",
     { "L3V1 Spatial V1 Section"
     }
   },

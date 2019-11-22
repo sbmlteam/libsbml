@@ -134,11 +134,10 @@ CSGPrimitive::getPrimitiveType() const
 /*
  * Returns the value of the "primitiveType" attribute of this CSGPrimitive.
  */
-const std::string&
+std::string
 CSGPrimitive::getPrimitiveTypeAsString() const
 {
-  static const std::string code_str = PrimitiveKind_toString(mPrimitiveType);
-  return code_str;
+  return PrimitiveKind_toString(mPrimitiveType);
 }
 
 

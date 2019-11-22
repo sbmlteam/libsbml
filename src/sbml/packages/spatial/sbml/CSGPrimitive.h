@@ -208,7 +208,7 @@ public:
    * @li @c "square"
    * @li @c "invalid PrimitiveKind value"
    */
-  const std::string& getPrimitiveTypeAsString() const;
+  std::string getPrimitiveTypeAsString() const;
 
 
   /**

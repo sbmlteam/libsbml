@@ -257,6 +257,7 @@ typedef enum
 , SpatialCSGPrimitiveAllowedCoreElements                      = 1223102
 , SpatialCSGPrimitiveAllowedAttributes                        = 1223103
 , SpatialCSGPrimitivePrimitiveTypeMustBePrimitiveKindEnum     = 1223104
+, SpatialCSGPrimitive3DShapes                                 = 1223150
 , SpatialCSGSetOperatorAllowedCoreAttributes                  = 1223201
 , SpatialCSGSetOperatorAllowedCoreElements                    = 1223202
 , SpatialCSGSetOperatorAllowedAttributes                      = 1223203
