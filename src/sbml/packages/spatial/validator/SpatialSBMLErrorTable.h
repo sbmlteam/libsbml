@@ -2497,7 +2497,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Need two components for 'difference' type.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If the attribute 'spatial:operationType' of a <csgSetOperator> has the value 'difference', it must also define values for the attributes 'spatial:componentA' and 'spatial:componentB'.",
+    "If the attribute 'spatial:operationType' of a <csgSetOperator> has the value 'difference', it must also define values for the attributes 'spatial:complementA' and 'spatial:complementB'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2507,7 +2507,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "No components for 'union' or 'intersection' types.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If the attribute 'spatial:operationType' of a <csgSetOperator> has the value 'union' or 'intersection', it must not define values for the attributes 'spatial:componentA' nor 'spatial:componentB'.",
+    "If the attribute 'spatial:operationType' of a <csgSetOperator> has the value 'union' or 'intersection', it must not define values for the attributes 'spatial:complementA' nor 'spatial:complementB'.",
     { "L3V1 Spatial V1 Section"
     }
   },

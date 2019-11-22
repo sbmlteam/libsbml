@@ -1421,6 +1421,33 @@ START_CONSTRAINT(SpatialCSGPrimitive2DShapes, CSGPrimitive, csgp)
 END_CONSTRAINT
 
 
+// 1223250
+START_CONSTRAINT(SpatialCSGSetOperatorTwoComponentsForDifference, CSGSetOperator, setop)
+{
+  bool fail = false;
+  pre(setop.getOperationType() == SPATIAL_SETOPERATION_DIFFERENCE);
+  unsigned int nchildren = setop.getNumCSGNodes();
+  msg = "A <csgSetOperator>";
+  if (setop.isSetId()) {
+    msg += " with the id '" + setop.getId() + "' has an 'operationType' of 'difference', but";
+  }
+  if (setop.isSetComplementA() == false) {
+    fail = true;
+    msg += " does not have a value for its 'complementA' attribute";
+  }
+  if (setop.isSetComplementB() == false) {
+    if (fail) {
+      msg += ", and also";
+    }
+    fail = true;
+    msg += " does not have a value for its 'complementB' attribute";
+  }
+  msg += ".";
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 // 1223252
 START_CONSTRAINT(SpatialCSGSetOperatorDifferenceMustHaveTwoChildren, CSGSetOperator, setop)
 {
