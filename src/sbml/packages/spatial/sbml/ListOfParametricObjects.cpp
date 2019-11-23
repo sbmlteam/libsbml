@@ -275,11 +275,11 @@ ListOfParametricObjects::createParametricObject()
  * Used by ListOfParametricObjects::get() to lookup a ParametricObject based on
  * its DomainType.
  */
-struct IdEqDT : public std::unary_function<SBase*, bool>
+struct IdEqDT4 : public std::unary_function<SBase*, bool>
 {
   const string& id;
    
-  IdEqDT (const string& id) : id(id) { }
+  IdEqDT4 (const string& id) : id(id) { }
   bool operator() (SBase* sb)
   {
   return (static_cast<ParametricObject*>(sb)->getDomainType() == id);
@@ -295,7 +295,7 @@ const ParametricObject*
 ListOfParametricObjects::getByDomainType(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
-  result = find_if(mItems.begin(), mItems.end(), IdEqDT(sid));
+  result = find_if(mItems.begin(), mItems.end(), IdEqDT4(sid));
   return (result == mItems.end()) ? 0 : static_cast <const ParametricObject*>
     (*result);
 }

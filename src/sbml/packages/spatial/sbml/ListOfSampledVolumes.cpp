@@ -270,11 +270,11 @@ ListOfSampledVolumes::createSampledVolume()
  * Used by ListOfSampledVolumes::get() to lookup a SampledVolume based on its
  * DomainType.
  */
-struct IdEqDT : public std::unary_function<SBase*, bool>
+struct IdEqDT5 : public std::unary_function<SBase*, bool>
 {
   const string& id;
    
-  IdEqDT (const string& id) : id(id) { }
+  IdEqDT5 (const string& id) : id(id) { }
   bool operator() (SBase* sb)
   {
   return (static_cast<SampledVolume*>(sb)->getDomainType() == id);
@@ -290,7 +290,7 @@ const SampledVolume*
 ListOfSampledVolumes::getByDomainType(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
-  result = find_if(mItems.begin(), mItems.end(), IdEqDT(sid));
+  result = find_if(mItems.begin(), mItems.end(), IdEqDT5(sid));
   return (result == mItems.end()) ? 0 : static_cast <const SampledVolume*>
     (*result);
 }

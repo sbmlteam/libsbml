@@ -270,11 +270,11 @@ ListOfDomains::createDomain()
 /*
  * Used by ListOfDomains::get() to lookup a Domain based on its DomainType.
  */
-struct IdEqDT : public std::unary_function<SBase*, bool>
+struct IdEqDT3 : public std::unary_function<SBase*, bool>
 {
   const string& id;
    
-  IdEqDT (const string& id) : id(id) { }
+  IdEqDT3 (const string& id) : id(id) { }
   bool operator() (SBase* sb)
   {
   return (static_cast<Domain*>(sb)->getDomainType() == id);
@@ -290,7 +290,7 @@ const Domain*
 ListOfDomains::getByDomainType(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
-  result = find_if(mItems.begin(), mItems.end(), IdEqDT(sid));
+  result = find_if(mItems.begin(), mItems.end(), IdEqDT3(sid));
   return (result == mItems.end()) ? 0 : static_cast <const Domain*> (*result);
 }
 

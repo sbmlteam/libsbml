@@ -273,11 +273,11 @@ ListOfCSGObjects::createCSGObject()
  * Used by ListOfCSGObjects::get() to lookup a CSGObject based on its
  * DomainType.
  */
-struct IdEqDT : public std::unary_function<SBase*, bool>
+struct IdEqDT2 : public std::unary_function<SBase*, bool>
 {
   const string& id;
    
-  IdEqDT (const string& id) : id(id) { }
+  IdEqDT2 (const string& id) : id(id) { }
   bool operator() (SBase* sb)
   {
   return (static_cast<CSGObject*>(sb)->getDomainType() == id);
@@ -293,7 +293,7 @@ const CSGObject*
 ListOfCSGObjects::getByDomainType(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
-  result = find_if(mItems.begin(), mItems.end(), IdEqDT(sid));
+  result = find_if(mItems.begin(), mItems.end(), IdEqDT2(sid));
   return (result == mItems.end()) ? 0 : static_cast <const CSGObject*>
     (*result);
 }

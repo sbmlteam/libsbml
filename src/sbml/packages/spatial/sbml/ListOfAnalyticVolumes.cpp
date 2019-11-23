@@ -277,11 +277,11 @@ ListOfAnalyticVolumes::createAnalyticVolume()
  * Used by ListOfAnalyticVolumes::get() to lookup an AnalyticVolume based on
  * its DomainType.
  */
-struct IdEqDT : public std::unary_function<SBase*, bool>
+struct IdEqDT1 : public std::unary_function<SBase*, bool>
 {
   const string& id;
    
-  IdEqDT (const string& id) : id(id) { }
+  IdEqDT1 (const string& id) : id(id) { }
   bool operator() (SBase* sb)
   {
   return (static_cast<AnalyticVolume*>(sb)->getDomainType() == id);
@@ -297,7 +297,7 @@ const AnalyticVolume*
 ListOfAnalyticVolumes::getByDomainType(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
-  result = find_if(mItems.begin(), mItems.end(), IdEqDT(sid));
+  result = find_if(mItems.begin(), mItems.end(), IdEqDT1(sid));
   return (result == mItems.end()) ? 0 : static_cast <const AnalyticVolume*>
     (*result);
 }
