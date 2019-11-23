@@ -1952,42 +1952,6 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1222501
-  { SpatialCSGTransformationAllowedCoreAttributes,
-    "Core attributes allowed on <csgTransformation>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "A <csgTransformation> object may have the optional SBML Level 3 Core "
-    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
-    "3 Core namespaces are permitted on a <csgTransformation>.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1222502
-  { SpatialCSGTransformationAllowedCoreElements,
-    "Core elements allowed on <csgTransformation>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "A <csgTransformation> object may have the optional SBML Level 3 Core "
-    "subobjects for notes and annotations. No other elements from the SBML "
-    "Level 3 Core namespaces are permitted on a <csgTransformation>.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1222503
-  { SpatialCSGTransformationAllowedElements,
-    "Elements allowed on <csgTransformation>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "A <csgTransformation> object may contain one and only one instance of the "
-    "CSGNode element. No other elements from the SBML Level 3 Spatial Processes "
-    "namespaces are permitted on a <csgTransformation> object. ",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
   // 1222601
   { SpatialCSGTranslationAllowedCoreAttributes,
     "Core attributes allowed on <csgTranslation>.",
@@ -2055,6 +2019,18 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_SEV_ERROR,
     "The attribute 'spatial:translateZ' on a <csgTranslation> must have a value "
     "of data type 'double'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1222650
+  { SpatialCSGTranslationAllowedElements,
+    "Elements allowed on <csgTranslation>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <csgTranslation> object may contain one and only one child "
+    "CSGNode element. No other elements from the SBML Level 3 Spatial Processes "
+    "namespaces are permitted on a <csgTransformation> object. ",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2141,6 +2117,18 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1222750
+  { SpatialCSGRotationAllowedElements,
+    "Elements allowed on <csgRotation>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <csgRotation> object may contain one and only one child "
+    "CSGNode element. No other elements from the SBML Level 3 Spatial Processes "
+    "namespaces are permitted on a <csgRotation> object. ",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1222801
   { SpatialCSGScaleAllowedCoreAttributes,
     "Core attributes allowed on <csgScale>.",
@@ -2211,6 +2199,18 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1222850
+  { SpatialCSGScaleAllowedElements,
+    "Elements allowed on <csgScale>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <csgScale> object may contain one and only one child "
+    "CSGNode element. No other elements from the SBML Level 3 Spatial Processes "
+    "namespaces are permitted on a <csgScale> object. ",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1222901
   { SpatialCSGHomogeneousTransformationAllowedCoreAttributes,
     "Core attributes allowed on <csgHomogeneousTransformation>.",
@@ -2243,7 +2243,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "A <csgHomogeneousTransformation> object must contain one and only one "
-    "instance of the TransformationComponent element. No other elements from "
+    "child <forwardTransformation> element of type 'TransformationComponent', and may additionally contain one and only one child CSGNode element. No other elements from "
     "the SBML Level 3 Spatial Processes namespaces are permitted on a "
     "<csgHomogeneousTransformation> object. ",
     { "L3V1 Spatial V1 Section"

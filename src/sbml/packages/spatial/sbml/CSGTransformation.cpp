@@ -1100,7 +1100,7 @@ CSGTransformation::createObject(XMLInputStream& stream)
     if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGTransformationAllowedElements, getPackageVersion(), getLevel(),
+        SpatialCSGPrimitiveAllowedCoreElements, getPackageVersion(), getLevel(),
           getVersion(), "", getLine(), getColumn());
     }
 
@@ -1114,7 +1114,7 @@ CSGTransformation::createObject(XMLInputStream& stream)
     if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGTransformationAllowedElements, getPackageVersion(), getLevel(),
+        SpatialCSGTranslationAllowedElements, getPackageVersion(), getLevel(),
           getVersion(), "", getLine(), getColumn());
     }
 
@@ -1128,7 +1128,7 @@ CSGTransformation::createObject(XMLInputStream& stream)
     if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGTransformationAllowedElements, getPackageVersion(), getLevel(),
+        SpatialCSGRotationAllowedElements, getPackageVersion(), getLevel(),
           getVersion(), "", getLine(), getColumn());
     }
 
@@ -1142,7 +1142,7 @@ CSGTransformation::createObject(XMLInputStream& stream)
     if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGTransformationAllowedElements, getPackageVersion(), getLevel(),
+        SpatialCSGScaleAllowedElements, getPackageVersion(), getLevel(),
           getVersion(), "", getLine(), getColumn());
     }
 
@@ -1156,7 +1156,7 @@ CSGTransformation::createObject(XMLInputStream& stream)
     if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGTransformationAllowedElements, getPackageVersion(), getLevel(),
+        SpatialCSGHomogeneousTransformationAllowedElements, getPackageVersion(), getLevel(),
           getVersion(), "", getLine(), getColumn());
     }
 
@@ -1170,7 +1170,7 @@ CSGTransformation::createObject(XMLInputStream& stream)
     if (isSetCSGNode())
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGTransformationAllowedElements, getPackageVersion(), getLevel(),
+        SpatialCSGSetOperatorAllowedElements, getPackageVersion(), getLevel(),
           getVersion(), "", getLine(), getColumn());
     }
 
@@ -1227,6 +1227,21 @@ CSGTransformation::readAttributes(const XMLAttributes& attributes,
   if (log)
   {
     numErrs = log->getNumErrors();
+    SpatialSBMLErrorCode_t errcode = SpatialCSGTranslationAllowedAttributes;
+    switch (getTypeCode()) {
+    case SBML_SPATIAL_CSGTRANSLATION:
+      errcode = SpatialCSGTranslationAllowedCoreAttributes;
+      break;
+    case SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION:
+      errcode = SpatialCSGHomogeneousTransformationAllowedCoreAttributes;
+      break;
+    case SBML_SPATIAL_CSGSCALE:
+      errcode = SpatialCSGScaleAllowedCoreAttributes;
+      break;
+    case SBML_SPATIAL_CSGROTATION:
+      errcode = SpatialCSGRotationAllowedCoreAttributes;
+      break;
+    }
 
     for (int n = numErrs-1; n >= 0; n--)
     {
@@ -1242,7 +1257,7 @@ CSGTransformation::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownCoreAttribute);
         log->logPackageError("spatial",
-          SpatialCSGTransformationAllowedCoreAttributes, pkgVersion, level,
+          errcode, pkgVersion, level,
             version, details, getLine(), getColumn());
       }
     }
