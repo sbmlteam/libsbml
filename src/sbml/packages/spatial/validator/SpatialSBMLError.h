@@ -273,6 +273,7 @@ typedef enum
 , SpatialCSGSetOperatorNoComplementsUnionIntersection          = 1223251
 , SpatialCSGSetOperatorDifferenceMustHaveTwoChildren          = 1223252
 , SpatialCSGSetOperatorComplementsMustReferenceChildren       = 1223253
+, SpatialCSGSetOperatorShouldHaveTwoPlusChildren              = 1223254
 , SpatialSpatialSymbolReferenceAllowedCoreAttributes          = 1223301
 , SpatialSpatialSymbolReferenceAllowedCoreElements            = 1223302
 , SpatialSpatialSymbolReferenceAllowedAttributes              = 1223303

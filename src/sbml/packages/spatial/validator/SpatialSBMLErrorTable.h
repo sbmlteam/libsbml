@@ -2532,6 +2532,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1223254
+  { SpatialCSGSetOperatorShouldHaveTwoPlusChildren,
+    "The <csgSetOperator> should have two or more children.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_INFO,
+    "A <csgSetOperator> should usually have at least two children, as operations involving zero or one child can be accomplished more efficiently in other ways.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   { SpatialSpatialSymbolReferenceAllowedCoreAttributes,
     "Core attributes allowed on <spatialSymbolReference>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,

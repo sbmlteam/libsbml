@@ -1528,6 +1528,33 @@ START_CONSTRAINT(SpatialCSGSetOperatorComplementsMustReferenceChildren, CSGSetOp
 END_CONSTRAINT
 
 
+// 1223254
+START_CONSTRAINT(SpatialCSGSetOperatorShouldHaveTwoPlusChildren, CSGSetOperator, setop)
+{
+  SetOperation_t type = setop.getOperationType();
+  pre(type == SPATIAL_SETOPERATION_INTERSECTION || type == SPATIAL_SETOPERATION_UNION);
+  unsigned long nchildren = setop.getNumCSGNodes();
+  pre(nchildren < 2);
+  stringstream ss_msg;
+  ss_msg << "A <csgSetOperator>";
+  if (setop.isSetId())
+  {
+    ss_msg << " with id '" << setop.getId() << "'";
+  }
+  ss_msg <<  " has an 'operationType' of '";
+  ss_msg << setop.getOperationTypeAsString() + "', but has ";
+  if (nchildren == 0) {
+    ss_msg << "no children.  This is equivalent to not including the <csgSetOperator> at all.";
+  }
+  else if (nchildren == 1) {
+    ss_msg << "one child.  This is equivalent to replacing the <csgSetOperator> with its single child.";
+  }
+  msg = ss_msg.str();
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

@@ -89,6 +89,7 @@ addConstraint(new VConstraintCSGSetOperatorSpatialCSGSetOperatorTwoComplementsFo
 addConstraint(new VConstraintCSGSetOperatorSpatialCSGSetOperatorNoComplementsUnionIntersection(*this));
 addConstraint(new VConstraintCSGSetOperatorSpatialCSGSetOperatorDifferenceMustHaveTwoChildren(*this));
 addConstraint(new VConstraintCSGSetOperatorSpatialCSGSetOperatorComplementsMustReferenceChildren(*this));
+addConstraint(new VConstraintCSGSetOperatorSpatialCSGSetOperatorShouldHaveTwoPlusChildren(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));
