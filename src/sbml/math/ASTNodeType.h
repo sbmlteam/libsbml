@@ -47,19 +47,20 @@ BEGIN_C_DECLS
 
 typedef enum
 {
-  EM_L3V2       /*!< Extended math added in l3v2 */
-  , EM_DISTRIB  /*!< Extended math added by the 'distrib' package */
-  , EM_ARRAYS   /*!< Extended math added by the 'arrays' package */
+  EM_L3V2        /*!< Extended math added in l3v2 */
+  , EM_DISTRIB   /*!< Extended math added by the 'distrib' package */
+  , EM_ARRAYS    /*!< Extended math added by the 'arrays' package */
+  , EM_REMAINING /*!< Extended math not added by any other package */
 
   , EM_UNKNOWN /*!< Unknown node:  will not produce any MathML */
 } ExtendedMathType_t;
 
 typedef enum
 {
-  ALLOWED_CHILDREN_ANY       /*!< Extended math added in l3v2 */
-  , ALLOWED_CHILDREN_ATLEAST  /*!< Extended math added by the 'distrib' package */
+  ALLOWED_CHILDREN_ANY       /*!< Any number of children (0+) are allowed */
+  , ALLOWED_CHILDREN_ATLEAST  /*!< Any number of children above some minimum are allowed */
 
-  , ALLOWED_CHILDREN_EXACTLY /*!< Unknown node:  will not produce any MathML */
+  , ALLOWED_CHILDREN_EXACTLY /*!< Only specific number(s) of children are allowed */
   , ALLOWED_CHILDREN_UNKNOWN
 } AllowedChildrenType_t;
 
@@ -173,10 +174,10 @@ typedef enum
   , AST_DISTRIB_FUNCTION_RAYLEIGH
 
   /* Arrays */
-  , AST_LINEAR_ALGEBRA_VECTOR
+  , AST_LINEAR_ALGEBRA_VECTOR = 600
   , AST_LINEAR_ALGEBRA_SELECTOR
 
-  /* Other arrays-associated things that are not (yet?) in the 'arrays' package */
+  /* Other linear algebra elements that are not (yet?) in the 'arrays' package */
   , AST_LINEAR_ALGEBRA_MATRIX
   , AST_LINEAR_ALGEBRA_MATRIXROW
   , AST_LINEAR_ALGEBRA_DETERMINANT
@@ -184,18 +185,89 @@ typedef enum
   , AST_LINEAR_ALGEBRA_VECTOR_PRODUCT
   , AST_LINEAR_ALGEBRA_SCALAR_PRODUCT
   , AST_LINEAR_ALGEBRA_OUTER_PRODUCT
-  , AST_LOGICAL_EXISTS
+
+  /* Arithmetic logic */
+  , AST_LOGICAL_EXISTS = 700
   , AST_LOGICAL_FORALL
-  , AST_STATISTICS_MEAN
+
+  /* Statistics*/
+  , AST_STATISTICS_MEAN = 800
   , AST_STATISTICS_MEDIAN
   , AST_STATISTICS_MODE
   , AST_STATISTICS_MOMENT
-  , AST_SERIES_PRODUCT
   , AST_STATISTICS_SDEV
-  , AST_SERIES_SUM
   , AST_STATISTICS_VARIANCE
+  , AST_STATISTICS_MOMENTABOUT
 
-  , AST_UNKNOWN /*!< Unknown node:  will not produce any MathML */
+  /* Sequences and Series*/
+  , AST_SERIES_PRODUCT = 900
+  , AST_SERIES_SUM
+  , AST_SERIES_LIMIT
+  , AST_SERIES_TENDSTO
+
+  /* Arithmetic algebra */
+  , AST_ALGEBRA_GCD = 1000
+  , AST_ALGEBRA_CONJUGATE
+  , AST_ALGEBRA_ARG
+  , AST_ALGEBRA_REAL
+  , AST_ALGEBRA_IMAGINARY
+  , AST_ALGEBRA_LCM
+
+  /* Relations */
+  , AST_RELATIONS_EQUIVALENT = 1100
+  , AST_RELATIONS_APPROX
+  , AST_RELATIONS_FACTOROF
+
+  /* Calculus and vector calculus*/
+  , AST_CALCULUS_INT = 1200
+  , AST_CALCULUS_DIFF
+  , AST_CALCULUS_PARTIALDIFF
+  , AST_CALCULUS_LOWLIMIT
+  , AST_CALCULUS_UPLIMIT
+  , AST_CALCULUS_DIVERGENCE
+  , AST_CALCULUS_GRAD
+  , AST_CALCULUS_CURL
+  , AST_CALCULUS_LAPLACIAN
+
+  /* Set Theory */
+  , AST_SET_THEORY_SET = 1300
+  , AST_SET_THEORY_LIST
+  , AST_SET_THEORY_UNION
+  , AST_SET_THEORY_INTERSECT
+  , AST_SET_THEORY_IN
+  , AST_SET_THEORY_NOTIN
+  , AST_SET_THEORY_SUBSET
+  , AST_SET_THEORY_PRSUBSET
+  , AST_SET_THEORY_NOTSUBSET
+  , AST_SET_THEORY_NOTPRSUBSET
+  , AST_SET_THEORY_SETDIFF
+  , AST_SET_THEORY_CARD
+  , AST_SET_THEORY_CARTESIANPRODUCT
+
+  /* Constants and symbol elements*/
+  , AST_CONSTANT_IMAGINARYI = 1400
+  , AST_CONSTANTS_INTEGERS
+  , AST_CONSTANTS_REALS
+  , AST_CONSTANTS_RATIONALS
+  , AST_CONSTANTS_NATURALNUMBERS
+  , AST_CONSTANTS_COMPLEXES
+  , AST_CONSTANTS_PRIMES
+  , AST_CONSTANTS_EMPTYSET
+  , AST_CONSTANTS_EULERGAMMA
+
+  /* Basic MathML Content elements*/
+  , AST_BASIC_CONTENT_INTERVAL = 1500
+  , AST_BASIC_CONTENT_INVERSE
+  , AST_BASIC_CONTENT_CONDITION
+  , AST_BASIC_CONTENT_DECLARE
+  , AST_BASIC_CONTENT_COMPOSE
+  , AST_BASIC_CONTENT_IDENT
+  , AST_BASIC_CONTENT_DOMAIN
+  , AST_BASIC_CONTENT_CODOMAIN
+  , AST_BASIC_CONTENT_IMAGE
+  , AST_BASIC_CONTENT_DOMAINOFAPPLICATION
+
+  , AST_UNKNOWN  = 9999/*!< Unknown node:  will not produce any MathML */
 } ASTNodeType_t;
 
 END_C_DECLS
