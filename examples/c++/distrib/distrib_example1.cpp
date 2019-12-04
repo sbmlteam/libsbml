@@ -78,48 +78,6 @@ InitialAssignment* addParamAndIA(Model* model)
   return ia;
 }
 
-//void setupArguments(DistribDrawFromDistribution* dfd, InitialAssignment* ia, Model* model, vector<string> arguments)
-//{
-//  string infix = "distribution(";
-//  for (size_t i = 0; i < arguments.size(); i++) {
-//    string arg = arguments[i];
-//    Parameter* param = model->createParameter();
-//    param->setConstant(true);
-//    param->setId(arg);
-//    DistribInput* di = dfd->createDistribInput();
-//    di->setId(arg);
-//    di->setIndex(i);
-//    if (i > 0) {
-//      infix += ", ";
-//    }
-//    infix += arg;
-//  }
-//  infix += ")";
-//  ASTNode* math = SBML_parseL3Formula(infix.c_str());
-//  ia->setMath(math);
-//  delete math;
-//}
-
-//void addNormal(DistribDrawFromDistribution* dfd)
-//{
-//  DistribNormalDistribution normal(3, coreVersion, 1);
-//  DistribUncertValue* mean = normal.createMean();
-//  mean->setVar("mean");
-//  DistribUncertValue* stddev = normal.createStddev();
-//  stddev->setVar("stddev");
-//  dfd->setDistribution(&normal);
-//}
-
-//void addNormalWithValues(DistribDrawFromDistribution* dfd)
-//{
-//  DistribNormalDistribution normal(3, coreVersion, 1);
-//  DistribUncertValue* mean = normal.createMean();
-//  mean->setValue(5.2);
-//  DistribUncertValue* stddev = normal.createStddev();
-//  stddev->setValue(1.3);
-//  dfd->setDistribution(&normal);
-//}
-
 void createExample1()
 {
   SBMLDocument* doc = setupBasicModel();
@@ -495,61 +453,42 @@ void createPkPd()
 //  delete document;
 //}
 
-//void createUserDefined()
-//{
-//  DistribDrawFromDistribution* dfd = setupBasicModel();
-//  SBMLDocument* doc = dfd->getSBMLDocument();
-//  Model* model = doc->getModel();
-//  InitialAssignment* ia = addParamAndIA(model);
-//  addNormal(dfd);
-//
-//  vector<string> arguments;
-//  arguments.push_back("mean");
-//  arguments.push_back("stddev");
-//  setupArguments(dfd, ia, model, arguments);
-//  Parameter* param = model->createParameter();
-//  param->setConstant(true);
-//  param->setId("V_pop");
-//  param->setValue(100);
-//  param = model->createParameter();
-//  param->setConstant(true);
-//  param->setId("V_omega");
-//  param->setValue(0.25);
-//  ASTNode* astn = SBML_parseL3Formula("normal(V_pop, V_omega)");
-//  ia->setMath(astn);
-//  param = model->getParameter("P1");
-//  param->setId("V");
-//  ia->setSymbol("V");
-//  delete astn;
-//  DistribSBasePlugin* dsbp = static_cast<DistribSBasePlugin*>(ia->getPlugin("distrib"));
-//  DistribUncertainty* uncert = dsbp->createDistribUncertainty();
-//  DistribUncertStatistics* stats = uncert->createUncertStatistics();
-//  DistribUncertValue uv(3, coreVersion, 1);
-//  uv.setVar("V_pop");
-//  stats->setMean(&uv);
-//  uv.setVar("V_omega");
-//  stats->setStandardDeviation(&uv);
-//
-//  dsbp = static_cast<DistribSBasePlugin*>(param->getPlugin("distrib"));
-//  dsbp->setDistribUncertainty(uncert);
-//
-//  model->removeParameter("mean");
-//  model->removeParameter("stddev");
-//  FunctionDefinition* fd = model->getFunctionDefinition(0);
-//  fd->setId("normal");
-//  if (coreVersion == 1)
-//  {
-//    ASTNode* math = SBML_parseL3Formula("lambda(x, y, notanumber)");
-//    fd->setMath(math);
-//    delete math;
-//  }
-//  else
-//  {
-//    fd->setMath(NULL);
-//  }
-//  writeSBMLToFile(doc, "user-defined.xml");
-//  delete doc;
-//}
+void createUserDefined()
+{
+  SBMLDocument* doc = setupBasicModel();
+  Model* model = doc->getModel();
+  InitialAssignment* ia = addParamAndIA(model);
+
+  ASTNode* astn = SBML_parseL3Formula("normal(V_pop, V_omega)");
+  ia->setMath(astn);
+  delete astn;
+
+  Parameter* param = model->createParameter();
+  param->setId("V_pop");
+  param->setValue(100);
+  param->setConstant(true);
+
+  param = model->createParameter();
+  param->setId("V_omega");
+  param->setValue(0.25);
+  param->setConstant(true);
+
+  param = model->getParameter("P1");
+  DistribSBasePlugin* dsbp = static_cast<DistribSBasePlugin*>(param->getPlugin("distrib"));
+  Uncertainty* uncert = dsbp->createUncertainty();
+  UncertParameter* uparam = uncert->createUncertParameter();
+  uparam->setType(DISTRIB_UNCERTTYPE_MEAN);
+  uparam->setVar("V_pop");
+  uparam = uncert->createUncertParameter();
+  uparam->setType(DISTRIB_UNCERTTYPE_STANDARDDEVIATION);
+  uparam->setVar("V_omega");
+
+  dsbp = static_cast<DistribSBasePlugin*>(ia->getPlugin("distrib"));
+  dsbp->addUncertainty(uncert);
+
+  writeSBMLToFile(doc, "user-defined.xml");
+  delete doc;
+}
 
 void createConfidenceIntervalEx()
 {
@@ -560,42 +499,71 @@ void createConfidenceIntervalEx()
     = static_cast<DistribSBMLDocumentPlugin*>(document->getPlugin("distrib"));
   distdoc->setRequired(true);
   Model* model = document->createModel();
+
+  Species species(&sbmlns);
+  species.setConstant(false);
+  species.setBoundaryCondition(false);
+  species.setHasOnlySubstanceUnits(false);
+  species.setCompartment("C");
+  DistribSBasePlugin* dsbp = static_cast<DistribSBasePlugin*>(species.getPlugin("distrib"));
+  Uncertainty* uncert = dsbp->createUncertainty();
+  UncertParameter* uparam = uncert->createUncertParameter();
+  uparam->setType(DISTRIB_UNCERTTYPE_STANDARDDEVIATION);
+  species.setId("S1");
+  species.setInitialAmount(5.2);
+  uparam->setValue(0.3);
+  model->addSpecies(&species);
+
+  species.setId("S2");
+  species.setInitialAmount(8.7);
+  uparam->setValue(0.01);
+  model->addSpecies(&species);
+
+  species.setId("S3");
+  species.setInitialAmount(1102);
+  uparam->setValue(53);
+  model->addSpecies(&species);
+
+  species.setId("S4");
+  species.setInitialAmount(0.026);
+  uparam->setValue(0.004);
+  model->addSpecies(&species);
+
+
+
+
   Parameter param(&sbmlns);
   param.setConstant(true);
-  DistribSBasePlugin* dsbp = static_cast<DistribSBasePlugin*>(param.getPlugin("distrib"));
-  Uncertainty* uncert = dsbp->createUncertainty();
+  dsbp = static_cast<DistribSBasePlugin*>(param.getPlugin("distrib"));
+  uncert = dsbp->createUncertainty();
   UncertSpan* span = uncert->createUncertSpan();
+  span->setType(DISTRIB_UNCERTTYPE_CONFIDENCEINTERVAL);
   param.setId("P1");
   param.setValue(5.13);
-  span->setType("confidenceInterval");
   span->setValueLower(5.0);
   span->setValueUpper(5.32);
   model->addParameter(&param);
 
   param.setId("P2");
   param.setValue(15.0);
-  span->setType("confidenceInterval");
   span->setValueLower(10.22);
   span->setValueUpper(15.02);
   model->addParameter(&param);
 
   param.setId("P3");
   param.setValue(0.003);
-  span->setType("confidenceInterval");
   span->setValueLower(-0.001);
   span->setValueUpper(0.0041);
   model->addParameter(&param);
 
   param.setId("P4");
   param.setValue(.34);
-  span->setType("confidenceInterval");
   span->setValueLower(0.22);
   span->setValueUpper(0.51);
   model->addParameter(&param);
 
   param.setId("P5");
   param.setValue(92);
-  span->setType("confidenceInterval");
   span->setValueLower(90);
   span->setValueUpper(99);
   model->addParameter(&param);
@@ -627,6 +595,6 @@ main (int argc, char* argv[])
   //createUncertainGender();
   createPkPd();
   //createExternalExponential();
-  //createUserDefined();
+  createUserDefined();
   createConfidenceIntervalEx();
 }

@@ -468,7 +468,7 @@ void CreateStandardDistributions()
   testid.str("");
   testnum++;
   testid << "000" << testnum << "/000" << testnum << "-sbml-l3v1.xml";
-  args.push_back("lognormal");
+  args.push_back("logNormal");
   args.push_back("logScale");
   args.push_back("shape");
   setupDistrib(document->getModel(), "logNormalDistribution", args, "1, 2");
