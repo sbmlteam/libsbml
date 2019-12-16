@@ -351,7 +351,10 @@ START_CONSTRAINT(SpatialDomainTypeDimensionsMustMatch3DGeometry, DomainType, dom
 {
   pre(domaintype.isSetSpatialDimensions());
 
-  const Geometry* geometry = static_cast<const Geometry*>(domaintype.getParentSBMLObject()->getParentSBMLObject());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
   pre(geometry->getNumCoordinateComponents()==3);
 
   int dim = domaintype.getSpatialDimensions();
@@ -380,7 +383,10 @@ START_CONSTRAINT(SpatialDomainTypeDimensionsMustMatch2DGeometry, DomainType, dom
 {
   pre(domaintype.isSetSpatialDimensions());
 
-  const Geometry* geometry = static_cast<const Geometry*>(domaintype.getParentSBMLObject()->getParentSBMLObject());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
   pre(geometry->getNumCoordinateComponents()==2);
 
   int dim = domaintype.getSpatialDimensions();
@@ -409,7 +415,10 @@ START_CONSTRAINT(SpatialDomainTypeDimensionsMustMatch1DGeometry, DomainType, dom
 {
   pre(domaintype.isSetSpatialDimensions());
 
-  const Geometry* geometry = static_cast<const Geometry*>(domaintype.getParentSBMLObject()->getParentSBMLObject());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
   pre(geometry->getNumCoordinateComponents()==1);
 
   int dim = domaintype.getSpatialDimensions();
@@ -436,7 +445,10 @@ END_CONSTRAINT
 // 1221650
 START_CONSTRAINT(SpatialSampledFieldOneSampleIn1DGeometry, SampledField, sfield)
 {
-  const Geometry* geometry = static_cast<const Geometry*>(sfield.getParentSBMLObject()->getParentSBMLObject());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
   pre(geometry->getNumCoordinateComponents()==1);
 
   bool fail = false;
@@ -474,7 +486,10 @@ END_CONSTRAINT
 // 1221651
 START_CONSTRAINT(SpatialSampledFieldTwoSamplesIn2DGeometry, SampledField, sfield)
 {
-  const Geometry* geometry = static_cast<const Geometry*>(sfield.getParentSBMLObject()->getParentSBMLObject());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
   pre(geometry->getNumCoordinateComponents()==2);
 
   bool fail = false;
@@ -513,7 +528,10 @@ END_CONSTRAINT
 // 1221652
 START_CONSTRAINT(SpatialSampledFieldThreeSamplesIn3DGeometry, SampledField, sfield)
 {
-  const Geometry* geometry = static_cast<const Geometry*>(sfield.getParentSBMLObject()->getParentSBMLObject());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
   pre(geometry->getNumCoordinateComponents()==3);
 
   bool fail = false;
@@ -1550,6 +1568,98 @@ START_CONSTRAINT(SpatialCSGSetOperatorShouldHaveTwoPlusChildren, CSGSetOperator,
     ss_msg << "one child.  This is equivalent to replacing the <csgSetOperator> with its single child.";
   }
   msg = ss_msg.str();
+  inv(false);
+}
+END_CONSTRAINT
+
+
+// 1222651
+START_CONSTRAINT(SpatialCSGTranslationTranslateYRequiredIn2D, CSGTranslation, translation)
+{
+  bool fail = false;
+  pre(!translation.isSetTranslateY());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  for (unsigned long cc = 0; cc < geometry->getNumCoordinateComponents(); cc++) {
+    if (geometry->getCoordinateComponent(cc)->getType() == SPATIAL_COORDINATEKIND_CARTESIAN_Y) {
+      msg = "A <csgTranslation>";
+      if (translation.isSetId()) {
+        msg += " with the id '" + translation.getId() + "'";
+      }
+      msg += " has no 'translationY' value, but the <geometry> has a <coordinateComponent> child of type 'cartesianY'.";
+      fail = true;
+      break;
+    }
+  }
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1222652
+START_CONSTRAINT(SpatialCSGTranslationTranslateZRequiredIn3D, CSGTranslation, translation)
+{
+  bool fail = false;
+  pre(!translation.isSetTranslateZ());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  for (unsigned long cc = 0; cc < geometry->getNumCoordinateComponents(); cc++) {
+    if (geometry->getCoordinateComponent(cc)->getType() == SPATIAL_COORDINATEKIND_CARTESIAN_Z) {
+      msg = "A <csgTranslation>";
+      if (translation.isSetId()) {
+        msg += " with the id '" + translation.getId() + "'";
+      }
+      msg += " has no 'translationZ' value, but the <geometry> has a <coordinateComponent> child of type 'cartesianZ'.";
+      fail = true;
+      break;
+    }
+  }
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1222653
+START_CONSTRAINT(SpatialCSGTranslationNoTranslateYIn1D, CSGTranslation, translation)
+{
+  pre(translation.isSetTranslateY());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  for (unsigned long cc = 0; cc < geometry->getNumCoordinateComponents(); cc++) {
+    pre(geometry->getCoordinateComponent(cc)->getType() != SPATIAL_COORDINATEKIND_CARTESIAN_Y);
+  }
+  msg = "A <csgTranslation>";
+  if (translation.isSetId()) {
+    msg += " with the id '" + translation.getId() + "'";
+  }
+  msg += " has a 'translationY' value, but the <geometry> has no <coordinateComponent> child of type 'cartesianY'.";
+  inv(false);
+}
+END_CONSTRAINT
+
+
+// 1222654
+START_CONSTRAINT(SpatialCSGTranslationNoTranslateZIn2D, CSGTranslation, translation)
+{
+  pre(translation.isSetTranslateZ());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  for (unsigned long cc = 0; cc < geometry->getNumCoordinateComponents(); cc++) {
+    pre(geometry->getCoordinateComponent(cc)->getType() != SPATIAL_COORDINATEKIND_CARTESIAN_Z);
+  }
+  msg = "A <csgTranslation>";
+  if (translation.isSetId()) {
+    msg += " with the id '" + translation.getId() + "'";
+  }
+  msg += " has a 'translationZ' value, but the <geometry> has no <coordinateComponent> child of type 'cartesianZ'.";
   inv(false);
 }
 END_CONSTRAINT

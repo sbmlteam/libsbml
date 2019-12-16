@@ -1095,89 +1095,91 @@ CSGTransformation::createObject(XMLInputStream& stream)
 
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
 
-  if (name == "csgPrimitive")
+  if (isSetCSGNode())
   {
-    if (isSetCSGNode())
+    if (getTypeCode() == SBML_SPATIAL_CSGTRANSLATION)
     {
       getErrorLog()->logPackageError("spatial",
-        SpatialCSGPrimitiveAllowedCoreElements, getPackageVersion(), getLevel(),
-          getVersion(), "", getLine(), getColumn());
+        SpatialCSGTranslationAllowedElements, getPackageVersion(), getLevel(),
+        getVersion(), "", getLine(), getColumn());
     }
+    else if (getTypeCode() == SBML_SPATIAL_CSGROTATION)
+    {
+      getErrorLog()->logPackageError("spatial",
+        SpatialCSGRotationAllowedElements, getPackageVersion(), getLevel(),
+        getVersion(), "", getLine(), getColumn());
+    }
+    else if (getTypeCode() == SBML_SPATIAL_CSGSCALE)
+    {
+      getErrorLog()->logPackageError("spatial",
+        SpatialCSGScaleAllowedElements, getPackageVersion(), getLevel(),
+        getVersion(), "", getLine(), getColumn());
+    }
+    else if (getTypeCode() == SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION)
+    {
+      getErrorLog()->logPackageError("spatial",
+        SpatialCSGHomogeneousTransformationAllowedElements, getPackageVersion(), getLevel(),
+        getVersion(), "", getLine(), getColumn());
+    }
+    delete obj;
+    return NULL;
+  }
 
-    delete mCSGNode;
-      mCSGNode = NULL;
+  if (name == "csgPrimitive")
+  {
     mCSGNode = new CSGPrimitive(spatialns);
     obj = mCSGNode;
   }
   else if (name == "csgTranslation")
   {
-    if (isSetCSGNode())
-    {
-      getErrorLog()->logPackageError("spatial",
-        SpatialCSGTranslationAllowedElements, getPackageVersion(), getLevel(),
-          getVersion(), "", getLine(), getColumn());
-    }
-
-    delete mCSGNode;
-      mCSGNode = NULL;
     mCSGNode = new CSGTranslation(spatialns);
     obj = mCSGNode;
   }
   else if (name == "csgRotation")
   {
-    if (isSetCSGNode())
-    {
-      getErrorLog()->logPackageError("spatial",
-        SpatialCSGRotationAllowedElements, getPackageVersion(), getLevel(),
-          getVersion(), "", getLine(), getColumn());
-    }
-
-    delete mCSGNode;
-      mCSGNode = NULL;
     mCSGNode = new CSGRotation(spatialns);
     obj = mCSGNode;
   }
   else if (name == "csgScale")
   {
-    if (isSetCSGNode())
-    {
-      getErrorLog()->logPackageError("spatial",
-        SpatialCSGScaleAllowedElements, getPackageVersion(), getLevel(),
-          getVersion(), "", getLine(), getColumn());
-    }
-
-    delete mCSGNode;
-      mCSGNode = NULL;
     mCSGNode = new CSGScale(spatialns);
     obj = mCSGNode;
   }
   else if (name == "csgHomogeneousTransformation")
   {
-    if (isSetCSGNode())
-    {
-      getErrorLog()->logPackageError("spatial",
-        SpatialCSGHomogeneousTransformationAllowedElements, getPackageVersion(), getLevel(),
-          getVersion(), "", getLine(), getColumn());
-    }
-
-    delete mCSGNode;
-      mCSGNode = NULL;
     mCSGNode = new CSGHomogeneousTransformation(spatialns);
     obj = mCSGNode;
   }
   else if (name == "csgSetOperator")
   {
-    if (isSetCSGNode())
-    {
-      getErrorLog()->logPackageError("spatial",
-        SpatialCSGSetOperatorAllowedElements, getPackageVersion(), getLevel(),
-          getVersion(), "", getLine(), getColumn());
-    }
-
-    delete mCSGNode;
-      mCSGNode = NULL;
     mCSGNode = new CSGSetOperator(spatialns);
     obj = mCSGNode;
+  }
+  else {
+    if (getTypeCode() == SBML_SPATIAL_CSGTRANSLATION)
+    {
+      getErrorLog()->logPackageError("spatial",
+        SpatialCSGTranslationAllowedElements, getPackageVersion(), getLevel(),
+        getVersion(), "", getLine(), getColumn());
+    }
+    else if (getTypeCode() == SBML_SPATIAL_CSGROTATION)
+    {
+      getErrorLog()->logPackageError("spatial",
+        SpatialCSGRotationAllowedElements, getPackageVersion(), getLevel(),
+        getVersion(), "", getLine(), getColumn());
+    }
+    else if (getTypeCode() == SBML_SPATIAL_CSGSCALE)
+    {
+      getErrorLog()->logPackageError("spatial",
+        SpatialCSGScaleAllowedElements, getPackageVersion(), getLevel(),
+        getVersion(), "", getLine(), getColumn());
+    }
+    else if (getTypeCode() == SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION)
+    {
+      getErrorLog()->logPackageError("spatial",
+        SpatialCSGHomogeneousTransformationAllowedElements, getPackageVersion(), getLevel(),
+        getVersion(), "", getLine(), getColumn());
+    }
   }
 
   delete spatialns;

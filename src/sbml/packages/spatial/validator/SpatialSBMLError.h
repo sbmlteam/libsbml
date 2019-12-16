@@ -231,6 +231,10 @@ typedef enum
 , SpatialCSGTranslationTranslateYMustBeDouble                 = 1222605
 , SpatialCSGTranslationTranslateZMustBeDouble                 = 1222606
 , SpatialCSGTranslationAllowedElements                        = 1222650
+, SpatialCSGTranslationTranslateYRequiredIn2D                 = 1222651
+, SpatialCSGTranslationTranslateZRequiredIn3D                 = 1222652
+, SpatialCSGTranslationNoTranslateYIn1D                       = 1222653
+, SpatialCSGTranslationNoTranslateZIn2D                       = 1222654
 , SpatialCSGRotationAllowedCoreAttributes                     = 1222701
 , SpatialCSGRotationAllowedCoreElements                       = 1222702
 , SpatialCSGRotationAllowedAttributes                         = 1222703

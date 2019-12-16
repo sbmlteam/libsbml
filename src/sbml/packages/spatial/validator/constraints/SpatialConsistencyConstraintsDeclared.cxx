@@ -90,6 +90,10 @@ addConstraint(new VConstraintCSGSetOperatorSpatialCSGSetOperatorNoComplementsUni
 addConstraint(new VConstraintCSGSetOperatorSpatialCSGSetOperatorDifferenceMustHaveTwoChildren(*this));
 addConstraint(new VConstraintCSGSetOperatorSpatialCSGSetOperatorComplementsMustReferenceChildren(*this));
 addConstraint(new VConstraintCSGSetOperatorSpatialCSGSetOperatorShouldHaveTwoPlusChildren(*this));
+addConstraint(new VConstraintCSGTranslationSpatialCSGTranslationTranslateYRequiredIn2D(*this));
+addConstraint(new VConstraintCSGTranslationSpatialCSGTranslationTranslateZRequiredIn3D(*this));
+addConstraint(new VConstraintCSGTranslationSpatialCSGTranslationNoTranslateYIn1D(*this));
+addConstraint(new VConstraintCSGTranslationSpatialCSGTranslationNoTranslateZIn2D(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));

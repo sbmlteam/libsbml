@@ -2035,6 +2035,46 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1222651
+  { SpatialCSGTranslationTranslateYRequiredIn2D,
+    "A <csgTranslation> must have 'translateY' in 2D or 3D geometries.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'spatial:translateY' on a <csgTranslation> is required if the <geometry> of the model has a <coordinateComponent> child of type 'cartesianY'. ",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1222652
+  { SpatialCSGTranslationTranslateZRequiredIn3D,
+    "A <csgTranslation> must have 'translateZ' in 3D geometries.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'spatial:translateZ' on a <csgTranslation> is required if the <geometry> of the model has a <coordinateComponent> child of type 'cartesianZ'. ",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1222653
+  { SpatialCSGTranslationNoTranslateYIn1D,
+    "A <csgTranslation> must not have 'translateY' in 1D geometries.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'spatial:translateY' on a <csgTranslation> must not be defined if the <geometry> of the model has no <coordinateComponent> child of type 'cartesianY'. ",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1222654
+  { SpatialCSGTranslationNoTranslateZIn2D,
+    "A <csgTranslation> must not have 'translateZ' in 1D or 2D geometries.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'spatial:translateZ' on a <csgTranslation> must not be defined if the <geometry> of the model has no <coordinateComponent> child of type 'cartesianZ'. ",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1222701
   { SpatialCSGRotationAllowedCoreAttributes,
     "Core attributes allowed on <csgRotation>.",
