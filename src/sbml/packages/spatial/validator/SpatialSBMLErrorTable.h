@@ -2164,7 +2164,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <csgRotation> object may contain one and only one child "
     "CSGNode element. No other elements from the SBML Level 3 Spatial Processes "
-    "namespaces are permitted on a <csgRotation> object. ",
+    "namespaces are permitted on a <csgRotation> object.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2174,7 +2174,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "A <csgRotation> must have 'rotateY' in 2D or 3D geometries.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:rotateY' on a <csgRotation> is required if the <geometry> of the model has a <coordinateComponent> child of type 'cartesianY'. ",
+    "The attribute 'spatial:rotateY' on a <csgRotation> is required if the <geometry> of the model has a <coordinateComponent> child of type 'cartesianY'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2184,7 +2184,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "A <csgRotation> must have 'rotateZ' in 3D geometries.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:rotateZ' on a <csgRotation> is required if the <geometry> of the model has a <coordinateComponent> child of type 'cartesianZ'. ",
+    "The attribute 'spatial:rotateZ' on a <csgRotation> is required if the <geometry> of the model has a <coordinateComponent> child of type 'cartesianZ'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2194,7 +2194,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "A <csgRotation> must not have 'rotateY' in 1D geometries.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:rotateY' on a <csgRotation> must not be defined if the <geometry> of the model has no <coordinateComponent> child of type 'cartesianY'. ",
+    "The attribute 'spatial:rotateY' on a <csgRotation> must not be defined if the <geometry> of the model has no <coordinateComponent> child of type 'cartesianY'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2204,12 +2204,22 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "A <csgRotation> must not have 'rotateZ' in 2D geometries.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:rotateZ' on a <csgRotation> must not be defined if the <geometry> of the model has no <coordinateComponent> child of type 'cartesianZ'. ",
+    "The attribute 'spatial:rotateZ' on a <csgRotation> must not be defined if the <geometry> of the model has no <coordinateComponent> child of type 'cartesianZ'.",
     { "L3V1 Spatial V1 Section"
     }
   },
 
-  // 1222801
+  // 1222755
+  { SpatialCSGRotationNoOriginIn3D,
+    "A <csgRotation> must have a non-zero 'rotate' attribute in 3D geometries.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the <geometry> of the model has exactly three <coordinateComponent> children, at least one of the attributes 'spatial:rotateX', 'spatial:rotateY', or 'spatial:rotateZ' of a <csgRotation> must not be equal to zero.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+    // 1222801
   { SpatialCSGScaleAllowedCoreAttributes,
     "Core attributes allowed on <csgScale>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,

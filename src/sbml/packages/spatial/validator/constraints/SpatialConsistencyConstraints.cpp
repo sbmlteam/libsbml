@@ -1757,6 +1757,30 @@ START_CONSTRAINT(SpatialCSGRotationNoRotateZIn2D, CSGRotation, rotation)
 END_CONSTRAINT
 
 
+// 1222655
+START_CONSTRAINT(SpatialCSGRotationNoOriginIn3D, CSGRotation, rotation)
+{
+  pre(rotation.isSetRotateX());
+  pre(rotation.isSetRotateY());
+  pre(rotation.isSetRotateZ());
+  pre(rotation.getRotateX() == 0);
+  pre(rotation.getRotateY() == 0);
+  pre(rotation.getRotateZ() == 0);
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  pre(geometry->getNumCoordinateComponents() == 3);
+  msg = "A <csgTranslation>";
+  if (rotation.isSetId()) {
+    msg += " with the id '" + rotation.getId() + "'";
+  }
+  msg += " has values of '0' for its 'rotateX', 'rotateY', and 'rotateZ' attributes, but the <geometry> has three <coordinateComponent> children.";
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{
