@@ -1665,6 +1665,98 @@ START_CONSTRAINT(SpatialCSGTranslationNoTranslateZIn2D, CSGTranslation, translat
 END_CONSTRAINT
 
 
+// 1222651
+START_CONSTRAINT(SpatialCSGRotationRotateYRequiredIn2D, CSGRotation, rotation)
+{
+  bool fail = false;
+  pre(!rotation.isSetRotateY());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  for (unsigned long cc = 0; cc < geometry->getNumCoordinateComponents(); cc++) {
+    if (geometry->getCoordinateComponent(cc)->getType() == SPATIAL_COORDINATEKIND_CARTESIAN_Y) {
+      msg = "A <csgTranslation>";
+      if (rotation.isSetId()) {
+        msg += " with the id '" + rotation.getId() + "'";
+      }
+      msg += " has no 'rotateY' value, but the <geometry> has a <coordinateComponent> child of type 'cartesianY'.";
+      fail = true;
+      break;
+    }
+  }
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1222652
+START_CONSTRAINT(SpatialCSGRotationRotateZRequiredIn3D, CSGRotation, rotation)
+{
+  bool fail = false;
+  pre(!rotation.isSetRotateZ());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  for (unsigned long cc = 0; cc < geometry->getNumCoordinateComponents(); cc++) {
+    if (geometry->getCoordinateComponent(cc)->getType() == SPATIAL_COORDINATEKIND_CARTESIAN_Z) {
+      msg = "A <csgTranslation>";
+      if (rotation.isSetId()) {
+        msg += " with the id '" + rotation.getId() + "'";
+      }
+      msg += " has no 'rotateZ' value, but the <geometry> has a <coordinateComponent> child of type 'cartesianY'.";
+      fail = true;
+      break;
+    }
+  }
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1222653
+START_CONSTRAINT(SpatialCSGRotationNoRotateYIn1D, CSGRotation, rotation)
+{
+  pre(rotation.isSetRotateY());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  for (unsigned long cc = 0; cc < geometry->getNumCoordinateComponents(); cc++) {
+    pre(geometry->getCoordinateComponent(cc)->getType() != SPATIAL_COORDINATEKIND_CARTESIAN_Y);
+  }
+  msg = "A <csgTranslation>";
+  if (rotation.isSetId()) {
+    msg += " with the id '" + rotation.getId() + "'";
+  }
+  msg += " has a 'rotateY' value, but the <geometry> has no <coordinateComponent> child of type 'cartesianY'.";
+  inv(false);
+}
+END_CONSTRAINT
+
+
+// 1222654
+START_CONSTRAINT(SpatialCSGRotationNoRotateZIn2D, CSGRotation, rotation)
+{
+  pre(rotation.isSetRotateZ());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  for (unsigned long cc = 0; cc < geometry->getNumCoordinateComponents(); cc++) {
+    pre(geometry->getCoordinateComponent(cc)->getType() != SPATIAL_COORDINATEKIND_CARTESIAN_Z);
+  }
+  msg = "A <csgTranslation>";
+  if (rotation.isSetId()) {
+    msg += " with the id '" + rotation.getId() + "'";
+  }
+  msg += " has a 'rotateZ' value, but the <geometry> has no <coordinateComponent> child of type 'cartesianZ'.";
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

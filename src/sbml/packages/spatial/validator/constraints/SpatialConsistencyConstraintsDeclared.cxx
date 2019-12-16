@@ -94,6 +94,10 @@ addConstraint(new VConstraintCSGTranslationSpatialCSGTranslationTranslateYRequir
 addConstraint(new VConstraintCSGTranslationSpatialCSGTranslationTranslateZRequiredIn3D(*this));
 addConstraint(new VConstraintCSGTranslationSpatialCSGTranslationNoTranslateYIn1D(*this));
 addConstraint(new VConstraintCSGTranslationSpatialCSGTranslationNoTranslateZIn2D(*this));
+addConstraint(new VConstraintCSGRotationSpatialCSGRotationRotateYRequiredIn2D(*this));
+addConstraint(new VConstraintCSGRotationSpatialCSGRotationRotateZRequiredIn3D(*this));
+addConstraint(new VConstraintCSGRotationSpatialCSGRotationNoRotateYIn1D(*this));
+addConstraint(new VConstraintCSGRotationSpatialCSGRotationNoRotateZIn2D(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));
