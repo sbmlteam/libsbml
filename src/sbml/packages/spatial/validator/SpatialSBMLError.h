@@ -377,6 +377,8 @@ typedef enum
 , SpatialSpatialPointsDataLengthMustMatchCompressed           = 1224051
 , SpatialSpatialPointsArrayDataMultipleOfDimensions           = 1224052
 , SpatialSpatialPointsFloatArrayDataMustMatch                 = 1224053
+, SpatialSpatialPointsUIntArrayDataNotNegative                = 1224054
+, SpatialSpatialPointsIntArrayDataIntegers                    = 1224055
 } SpatialSBMLErrorCode_t;
 
 

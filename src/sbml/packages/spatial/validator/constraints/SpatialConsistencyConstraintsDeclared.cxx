@@ -108,6 +108,8 @@ addConstraint(new VConstraintParametricGeometrySpatialParametricGeometryNotIn1D(
 addConstraint(new VConstraintSpatialPointsSpatialSpatialPointsDataLengthMustMatchUncompressed(*this));
 addConstraint(new VConstraintSpatialPointsSpatialSpatialPointsArrayDataMultipleOfDimensions(*this));
 addConstraint(new VConstraintSpatialPointsSpatialSpatialPointsFloatArrayDataMustMatch(*this));
+addConstraint(new VConstraintSpatialPointsSpatialSpatialPointsUIntArrayDataNotNegative(*this));
+addConstraint(new VConstraintSpatialPointsSpatialSpatialPointsIntArrayDataIntegers(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));

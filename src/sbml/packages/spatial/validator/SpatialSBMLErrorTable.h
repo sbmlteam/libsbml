@@ -3720,6 +3720,26 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1224054
+  { SpatialSpatialPointsUIntArrayDataNotNegative,
+    "The <spatialPoints> entries in 'uint' must be positive.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the 'spatial:dataType' attribute of a <spatialPoints> has the value 'uint', none of the uncompressed entries in the ArrayData child of the <spatialPoints> may be negative.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1224055
+  { SpatialSpatialPointsIntArrayDataIntegers,
+    "The <spatialPoints> entries in 'uint' and 'int' must be integers.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the 'spatial:dataType' attribute of a <spatialPoints> has the value 'uint' or 'int', all of the uncompressed entries in the ArrayData child of the <spatialPoints> must be integers.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
 };
 
 /** @endcond */

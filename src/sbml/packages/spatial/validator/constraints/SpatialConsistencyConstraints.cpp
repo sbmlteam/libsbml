@@ -1987,6 +1987,69 @@ START_CONSTRAINT(SpatialSpatialPointsFloatArrayDataMustMatch, SpatialPoints, sp)
 END_CONSTRAINT
 
 
+// 1224054
+START_CONSTRAINT(SpatialSpatialPointsUIntArrayDataNotNegative, SpatialPoints, sp)
+{
+  bool fail = false;
+  pre(sp.isSetDataType());
+  pre(sp.getDataType() == SPATIAL_DATAKIND_UINT);
+  size_t len = sp.getNumArrayDataEntries();
+  double* data = new double[len];
+  sp.getArrayData(data);
+  for (size_t d = 0; d < len; d++) {
+    double val = data[d];
+    if (val < 0) {
+      stringstream ss_msg;
+      ss_msg << "A <spatialPoints>";
+      if (sp.isSetId())
+      {
+        ss_msg << " with id '" << sp.getId() << "'";
+      }
+      ss_msg << " has a data type of 'uint', but has an entry with the value '" << val;
+      ss_msg << "', which is negative.";
+      msg = ss_msg.str();
+      fail = true;
+      break;
+    }
+  }
+  delete[] data;
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1224055
+START_CONSTRAINT(SpatialSpatialPointsIntArrayDataIntegers, SpatialPoints, sp)
+{
+  bool fail = false;
+  pre(sp.isSetDataType());
+  pre(sp.getDataType() == SPATIAL_DATAKIND_UINT || sp.getDataType() == SPATIAL_DATAKIND_INT);
+  size_t len = sp.getNumArrayDataEntries();
+  double* data = new double[len];
+  sp.getArrayData(data);
+  for (size_t d = 0; d < len; d++) {
+    double val = data[d];
+    if (trunc(val) != val) {
+      stringstream ss_msg;
+      ss_msg << "A <spatialPoints>";
+      if (sp.isSetId())
+      {
+        ss_msg << " with id '" << sp.getId() << "'";
+      }
+      ss_msg << " has a data type of '" << sp.getDataTypeAsString();
+      ss_msg << "', but has an entry with the value '" << val;
+      ss_msg << "', which is not an integer.";
+      msg = ss_msg.str();
+      fail = true;
+      break;
+    }
+  }
+  delete[] data;
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{
