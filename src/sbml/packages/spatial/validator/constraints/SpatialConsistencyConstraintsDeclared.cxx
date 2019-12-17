@@ -107,6 +107,7 @@ addConstraint(new VConstraintTransformationComponentSpatialTransformationCompone
 addConstraint(new VConstraintParametricGeometrySpatialParametricGeometryNotIn1D(*this));
 addConstraint(new VConstraintSpatialPointsSpatialSpatialPointsDataLengthMustMatchUncompressed(*this));
 addConstraint(new VConstraintSpatialPointsSpatialSpatialPointsArrayDataMultipleOfDimensions(*this));
+addConstraint(new VConstraintSpatialPointsSpatialSpatialPointsFloatArrayDataMustMatch(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));

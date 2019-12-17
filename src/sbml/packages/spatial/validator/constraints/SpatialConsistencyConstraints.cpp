@@ -1956,6 +1956,37 @@ START_CONSTRAINT(SpatialSpatialPointsArrayDataMultipleOfDimensions, SpatialPoint
 END_CONSTRAINT
 
 
+// 1224053
+START_CONSTRAINT(SpatialSpatialPointsFloatArrayDataMustMatch, SpatialPoints, sp)
+{
+  bool fail = false;
+  pre(sp.isSetDataType());
+  pre(sp.getDataType() == SPATIAL_DATAKIND_FLOAT);
+  size_t len = sp.getNumArrayDataEntries();
+  double* data = new double[len];
+  sp.getArrayData(data);
+  for (size_t d = 0; d < len; d++) {
+    double val = data[d];
+    if (val > 3.4028235e38 || val < -3.4028235e38 || (val > 0 && val < 1.17549e-38) || val < 0 && val > -1.17549e-38) {
+      stringstream ss_msg;
+      ss_msg << "A <spatialPoints>";
+      if (sp.isSetId())
+      {
+        ss_msg << " with id '" << sp.getId() << "'";
+      }
+      ss_msg << " has an entry with the value '" << val;
+      ss_msg << "', which is outside the range of single-precision 'float' values.";
+      msg = ss_msg.str();
+      fail = true;
+      break;
+    }
+  }
+  delete[] data;
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{
