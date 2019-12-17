@@ -207,6 +207,7 @@ typedef enum
 , SpatialParametricObjectCompressionMustBeCompressionKindEnum = 1222108
 , SpatialParametricObjectNameMustBeString                     = 1222109
 , SpatialParametricObjectDataTypeMustBeDataKindEnum           = 1222110
+, SpatialParametricObjectPointIndexLengthMustMatchUncompressed = 1222150
 , SpatialCSGeometryAllowedCoreAttributes                      = 1222201
 , SpatialCSGeometryAllowedCoreElements                        = 1222202
 , SpatialCSGeometryAllowedElements                            = 1222203

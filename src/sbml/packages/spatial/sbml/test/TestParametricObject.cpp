@@ -160,6 +160,7 @@ START_TEST (test_ParametricObject_output)
   G->setId("i");
   G->setPolygonType("triangle");
   G->setDomainType("p");
+  G->setPointIndexLength(3);
   
   G->setPointIndex(points, 3);  
 

@@ -134,6 +134,7 @@ protected:
   PolygonKind_t mPolygonType;
   std::string mDomainType;
   int* mPointIndex;
+  size_t mNumPointIndexEntries;
   int mPointIndexLength;
   bool mIsSetPointIndexLength;
   CompressionKind_t mCompression;
@@ -288,6 +289,17 @@ public:
    * ParametricObject as a integer.
    */
   int getPointIndexLength() const;
+
+
+  /**
+   * Returns the number of entries of the child vector of this
+   * ParametricObject.  In the uncompressed case, this should equal
+   * the 'pointIndexLength' attribute.
+   *
+   * @return the number of entries of the child vector of this
+   * ParametricObject. 
+   */
+  size_t getNumPointIndexEntries() const;
 
 
   /**
@@ -537,7 +549,7 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
-  int setPointIndex(int* inArray, int arrayLength);
+  int setPointIndex(int* inArray, size_t arrayLength);
 
 
   /**

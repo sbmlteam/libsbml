@@ -2051,6 +2051,28 @@ START_CONSTRAINT(SpatialSpatialPointsIntArrayDataIntegers, SpatialPoints, sp)
 END_CONSTRAINT
 
 
+// 122150
+START_CONSTRAINT(SpatialParametricObjectPointIndexLengthMustMatchUncompressed, ParametricObject, po)
+{
+  pre(po.isSetCompression());
+  pre(po.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
+  pre(po.getPointIndexLength() != po.getNumPointIndexEntries());
+  stringstream ss_msg;
+  ss_msg << "A <parametricObject>";
+  if (po.isSetId())
+  {
+    ss_msg << " with id '" << po.getId() << "'";
+  }
+  ss_msg <<  " is set 'uncompressed' and has an 'arrayDataLength' of '";
+  ss_msg << po.getPointIndexLength() << "', but actually contains ";
+  ss_msg << po.getNumPointIndexEntries() << " entries.";
+  msg = ss_msg.str();
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

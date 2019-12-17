@@ -62,6 +62,7 @@ ParametricObject::ParametricObject(unsigned int level,
   , mPolygonType (SPATIAL_POLYGONKIND_INVALID)
   , mDomainType ("")
   , mPointIndex (NULL)
+  , mNumPointIndexEntries (0)
   , mPointIndexLength (SBML_INT_MAX)
   , mIsSetPointIndexLength (false)
   , mCompression (SPATIAL_COMPRESSIONKIND_INVALID)
@@ -80,6 +81,7 @@ ParametricObject::ParametricObject(SpatialPkgNamespaces *spatialns)
   , mPolygonType (SPATIAL_POLYGONKIND_INVALID)
   , mDomainType ("")
   , mPointIndex (NULL)
+  , mNumPointIndexEntries (0)
   , mPointIndexLength (SBML_INT_MAX)
   , mIsSetPointIndexLength (false)
   , mCompression (SPATIAL_COMPRESSIONKIND_INVALID)
@@ -98,12 +100,13 @@ ParametricObject::ParametricObject(const ParametricObject& orig)
   , mPolygonType ( orig.mPolygonType )
   , mDomainType ( orig.mDomainType )
   , mPointIndex ( NULL )
+  , mNumPointIndexEntries (orig.mNumPointIndexEntries)
   , mPointIndexLength ( orig.mPointIndexLength )
   , mIsSetPointIndexLength ( orig.mIsSetPointIndexLength )
   , mCompression ( orig.mCompression )
   , mDataType ( orig.mDataType )
 {
-  setPointIndex(orig.mPointIndex, orig.mPointIndexLength);
+  setPointIndex(orig.mPointIndex, orig.mNumPointIndexEntries);
 
 }
 
@@ -120,7 +123,8 @@ ParametricObject::operator=(const ParametricObject& rhs)
     mPolygonType = rhs.mPolygonType;
     mDomainType = rhs.mDomainType;
     mPointIndex = NULL;
-    setPointIndex(rhs.mPointIndex, rhs.mPointIndexLength);
+    mNumPointIndexEntries = rhs.mNumPointIndexEntries;
+    setPointIndex(rhs.mPointIndex, rhs.mNumPointIndexEntries);
     mPointIndexLength = rhs.mPointIndexLength;
     mIsSetPointIndexLength = rhs.mIsSetPointIndexLength;
     mCompression = rhs.mCompression;
@@ -216,7 +220,7 @@ ParametricObject::getPointIndex(int* outArray) const
     return;
   }
 
-  memcpy(outArray, mPointIndex, sizeof(int)*mPointIndexLength);
+  memcpy(outArray, mPointIndex, sizeof(int)*mNumPointIndexEntries);
 }
 
 
@@ -228,6 +232,13 @@ int
 ParametricObject::getPointIndexLength() const
 {
   return mPointIndexLength;
+}
+
+
+size_t
+ParametricObject::getNumPointIndexEntries() const
+{
+  return mNumPointIndexEntries;
 }
 
 
@@ -441,7 +452,7 @@ ParametricObject::setDomainType(const std::string& domainType)
  * Sets the value of the "pointIndex" attribute of this ParametricObject.
  */
 int
-ParametricObject::setPointIndex(int* inArray, int arrayLength)
+ParametricObject::setPointIndex(int* inArray, size_t arrayLength)
 {
   if (inArray == NULL)
   {
@@ -455,8 +466,7 @@ ParametricObject::setPointIndex(int* inArray, int arrayLength)
 
   mPointIndex = new int[arrayLength];
   memcpy(mPointIndex, inArray, sizeof(int)*arrayLength);
-  mIsSetPointIndexLength = true;
-  mPointIndexLength = arrayLength;
+  mNumPointIndexEntries = arrayLength;
 
   return LIBSBML_OPERATION_SUCCESS;
 }
@@ -813,7 +823,7 @@ ParametricObject::write(XMLOutputStream& stream) const
 
   if (isSetPointIndex())
   {
-    for (int i = 0; i < mPointIndexLength; ++i)
+    for (int i = 0; i < mNumPointIndexEntries; ++i)
     {
       stream << (long)mPointIndex[i] << " ";
     }
@@ -1593,6 +1603,12 @@ ParametricObject::setElementText(const std::string& text)
   while (strStream >> val)
   {
     valuesVector.push_back(val);
+    if (strStream.peek() == ',') {
+      strStream.get();
+    }
+    if (strStream.peek() == ';') {
+      strStream.get();
+    }
   }
 
   unsigned int length = (unsigned int)valuesVector.size();

@@ -1752,6 +1752,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1222150
+  { SpatialParametricObjectPointIndexLengthMustMatchUncompressed,
+    "The 'dataType' attribute must be DataKindEnum.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the 'spatial:compression' attribute of a ParametricObject has the value 'uncompressed', the 'spatial:pointIndexLength' attribute of the same ParametricObject must equal the number of entries in the ArrayData child of the ParametricObject.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1222201
   { SpatialCSGeometryAllowedCoreAttributes,
     "Core attributes allowed on <csGeometry>.",
