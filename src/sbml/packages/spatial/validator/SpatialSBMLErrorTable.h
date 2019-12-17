@@ -1586,7 +1586,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "A <parametricGeometry> object may contain one and only one instance of "
-    "each of the SpatialPoints and <listOfParametricObjects> elements. No other "
+    "each of the <spatialPoints> and <listOfParametricObjects> elements. No other "
     "elements from the SBML Level 3 Spatial Processes namespaces are permitted "
     "on a <parametricGeometry> object. ",
     { "L3V1 Spatial V1 Section"
