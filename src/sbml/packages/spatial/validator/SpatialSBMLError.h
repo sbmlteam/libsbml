@@ -255,6 +255,10 @@ typedef enum
 , SpatialCSGScaleScaleYMustBeDouble                           = 1222805
 , SpatialCSGScaleScaleZMustBeDouble                           = 1222806
 , SpatialCSGScaleAllowedElements                              = 1222850
+, SpatialCSGScaleScaleYRequiredIn2D                           = 1222851
+, SpatialCSGScaleScaleZRequiredIn3D                           = 1222852
+, SpatialCSGScaleNoScaleYIn1D                                 = 1222853
+, SpatialCSGScaleNoScaleZIn2D                                 = 1222854
 , SpatialCSGHomogeneousTransformationAllowedCoreAttributes    = 1222901
 , SpatialCSGHomogeneousTransformationAllowedCoreElements      = 1222902
 , SpatialCSGHomogeneousTransformationAllowedElements          = 1222903

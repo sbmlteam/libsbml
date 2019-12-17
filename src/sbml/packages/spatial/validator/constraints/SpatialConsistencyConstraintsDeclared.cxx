@@ -99,6 +99,10 @@ addConstraint(new VConstraintCSGRotationSpatialCSGRotationRotateZRequiredIn3D(*t
 addConstraint(new VConstraintCSGRotationSpatialCSGRotationNoRotateYIn1D(*this));
 addConstraint(new VConstraintCSGRotationSpatialCSGRotationNoRotateZIn2D(*this));
 addConstraint(new VConstraintCSGRotationSpatialCSGRotationNoOriginIn3D(*this));
+addConstraint(new VConstraintCSGScaleSpatialCSGScaleScaleYRequiredIn2D(*this));
+addConstraint(new VConstraintCSGScaleSpatialCSGScaleScaleZRequiredIn3D(*this));
+addConstraint(new VConstraintCSGScaleSpatialCSGScaleNoScaleYIn1D(*this));
+addConstraint(new VConstraintCSGScaleSpatialCSGScaleNoScaleZIn2D(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));

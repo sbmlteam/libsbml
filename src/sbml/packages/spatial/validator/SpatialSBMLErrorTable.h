@@ -2301,6 +2301,46 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1222751
+  { SpatialCSGScaleScaleYRequiredIn2D,
+    "A <csgScale> must have 'scaleY' in 2D or 3D geometries.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'spatial:scaleY' on a <csgScale> is required if the <geometry> of the model has a <coordinateComponent> child of type 'cartesianY'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1222752
+  { SpatialCSGScaleScaleZRequiredIn3D,
+    "A <csgScale> must have 'scaleZ' in 3D geometries.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'spatial:scaleZ' on a <csgScale> is required if the <geometry> of the model has a <coordinateComponent> child of type 'cartesianZ'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1222753
+  { SpatialCSGScaleNoScaleYIn1D,
+    "A <csgScale> must not have 'scaleY' in 1D geometries.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'spatial:scaleY' on a <csgScale> must not be defined if the <geometry> of the model has no <coordinateComponent> child of type 'cartesianY'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1222754
+  { SpatialCSGScaleNoScaleZIn2D,
+    "A <csgScale> must not have 'scaleZ' in 1D or 2D geometries.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'spatial:scaleZ' on a <csgScale> must not be defined if the <geometry> of the model has no <coordinateComponent> child of type 'cartesian'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1222901
   { SpatialCSGHomogeneousTransformationAllowedCoreAttributes,
     "Core attributes allowed on <csgHomogeneousTransformation>.",

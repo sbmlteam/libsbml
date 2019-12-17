@@ -1665,7 +1665,7 @@ START_CONSTRAINT(SpatialCSGTranslationNoTranslateZIn2D, CSGTranslation, translat
 END_CONSTRAINT
 
 
-// 1222651
+// 1222751
 START_CONSTRAINT(SpatialCSGRotationRotateYRequiredIn2D, CSGRotation, rotation)
 {
   bool fail = false;
@@ -1690,7 +1690,7 @@ START_CONSTRAINT(SpatialCSGRotationRotateYRequiredIn2D, CSGRotation, rotation)
 END_CONSTRAINT
 
 
-// 1222652
+// 1222752
 START_CONSTRAINT(SpatialCSGRotationRotateZRequiredIn3D, CSGRotation, rotation)
 {
   bool fail = false;
@@ -1715,7 +1715,7 @@ START_CONSTRAINT(SpatialCSGRotationRotateZRequiredIn3D, CSGRotation, rotation)
 END_CONSTRAINT
 
 
-// 1222653
+// 1222753
 START_CONSTRAINT(SpatialCSGRotationNoRotateYIn1D, CSGRotation, rotation)
 {
   pre(rotation.isSetRotateY());
@@ -1736,7 +1736,7 @@ START_CONSTRAINT(SpatialCSGRotationNoRotateYIn1D, CSGRotation, rotation)
 END_CONSTRAINT
 
 
-// 1222654
+// 1222754
 START_CONSTRAINT(SpatialCSGRotationNoRotateZIn2D, CSGRotation, rotation)
 {
   pre(rotation.isSetRotateZ());
@@ -1757,7 +1757,7 @@ START_CONSTRAINT(SpatialCSGRotationNoRotateZIn2D, CSGRotation, rotation)
 END_CONSTRAINT
 
 
-// 1222655
+// 1222755
 START_CONSTRAINT(SpatialCSGRotationNoOriginIn3D, CSGRotation, rotation)
 {
   pre(rotation.isSetRotateX());
@@ -1776,6 +1776,98 @@ START_CONSTRAINT(SpatialCSGRotationNoOriginIn3D, CSGRotation, rotation)
     msg += " with the id '" + rotation.getId() + "'";
   }
   msg += " has values of '0' for its 'rotateX', 'rotateY', and 'rotateZ' attributes, but the <geometry> has three <coordinateComponent> children.";
+  inv(false);
+}
+END_CONSTRAINT
+
+
+// 1222851
+START_CONSTRAINT(SpatialCSGScaleScaleYRequiredIn2D, CSGScale, scale)
+{
+  bool fail = false;
+  pre(!scale.isSetScaleY());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  for (unsigned long cc = 0; cc < geometry->getNumCoordinateComponents(); cc++) {
+    if (geometry->getCoordinateComponent(cc)->getType() == SPATIAL_COORDINATEKIND_CARTESIAN_Y) {
+      msg = "A <csgTranslation>";
+      if (scale.isSetId()) {
+        msg += " with the id '" + scale.getId() + "'";
+      }
+      msg += " has no 'scaleY' value, but the <geometry> has a <coordinateComponent> child of type 'cartesianY'.";
+      fail = true;
+      break;
+    }
+  }
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1222852
+START_CONSTRAINT(SpatialCSGScaleScaleZRequiredIn3D, CSGScale, scale)
+{
+  bool fail = false;
+  pre(!scale.isSetScaleZ());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  for (unsigned long cc = 0; cc < geometry->getNumCoordinateComponents(); cc++) {
+    if (geometry->getCoordinateComponent(cc)->getType() == SPATIAL_COORDINATEKIND_CARTESIAN_Z) {
+      msg = "A <csgTranslation>";
+      if (scale.isSetId()) {
+        msg += " with the id '" + scale.getId() + "'";
+      }
+      msg += " has no 'scaleZ' value, but the <geometry> has a <coordinateComponent> child of type 'cartesianZ'.";
+      fail = true;
+      break;
+    }
+  }
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1222853
+START_CONSTRAINT(SpatialCSGScaleNoScaleYIn1D, CSGScale, scale)
+{
+  pre(scale.isSetScaleY());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  for (unsigned long cc = 0; cc < geometry->getNumCoordinateComponents(); cc++) {
+    pre(geometry->getCoordinateComponent(cc)->getType() != SPATIAL_COORDINATEKIND_CARTESIAN_Y);
+  }
+  msg = "A <csgTranslation>";
+  if (scale.isSetId()) {
+    msg += " with the id '" + scale.getId() + "'";
+  }
+  msg += " has a 'scaleY' value, but the <geometry> has no <coordinateComponent> child of type 'cartesianY'.";
+  inv(false);
+}
+END_CONSTRAINT
+
+
+// 1222854
+START_CONSTRAINT(SpatialCSGScaleNoScaleZIn2D, CSGScale, scale)
+{
+  pre(scale.isSetScaleZ());
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  for (unsigned long cc = 0; cc < geometry->getNumCoordinateComponents(); cc++) {
+    pre(geometry->getCoordinateComponent(cc)->getType() != SPATIAL_COORDINATEKIND_CARTESIAN_Z);
+  }
+  msg = "A <csgTranslation>";
+  if (scale.isSetId()) {
+    msg += " with the id '" + scale.getId() + "'";
+  }
+  msg += " has a 'scaleZ' value, but the <geometry> has no <coordinateComponent> child of type 'cartesianZ'.";
   inv(false);
 }
 END_CONSTRAINT
