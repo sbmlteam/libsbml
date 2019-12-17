@@ -60,6 +60,7 @@ SpatialPoints::SpatialPoints(unsigned int level,
   : SBase(level, version)
   , mCompression (SPATIAL_COMPRESSIONKIND_INVALID)
   , mArrayData (NULL)
+  , mNumArrayDataEntries (0)
   , mArrayDataLength (SBML_INT_MAX)
   , mIsSetArrayDataLength (false)
   , mDataType (SPATIAL_DATAKIND_INVALID)
@@ -76,6 +77,7 @@ SpatialPoints::SpatialPoints(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
   , mCompression (SPATIAL_COMPRESSIONKIND_INVALID)
   , mArrayData (NULL)
+  , mNumArrayDataEntries (0)
   , mArrayDataLength (SBML_INT_MAX)
   , mIsSetArrayDataLength (false)
   , mDataType (SPATIAL_DATAKIND_INVALID)
@@ -92,11 +94,12 @@ SpatialPoints::SpatialPoints(const SpatialPoints& orig)
   : SBase( orig )
   , mCompression ( orig.mCompression )
   , mArrayData ( NULL )
+  , mNumArrayDataEntries (orig.mNumArrayDataEntries)
   , mArrayDataLength ( orig.mArrayDataLength )
   , mIsSetArrayDataLength ( orig.mIsSetArrayDataLength )
   , mDataType ( orig.mDataType )
 {
-  setArrayData(orig.mArrayData, orig.mArrayDataLength);
+  setArrayData(orig.mArrayData, orig.mNumArrayDataEntries);
 
 }
 
@@ -112,7 +115,8 @@ SpatialPoints::operator=(const SpatialPoints& rhs)
     SBase::operator=(rhs);
     mCompression = rhs.mCompression;
     mArrayData = NULL;
-    setArrayData(rhs.mArrayData, rhs.mArrayDataLength);
+    mNumArrayDataEntries = rhs.mNumArrayDataEntries;
+    setArrayData(rhs.mArrayData, rhs.mNumArrayDataEntries);
     mArrayDataLength = rhs.mArrayDataLength;
     mIsSetArrayDataLength = rhs.mIsSetArrayDataLength;
     mDataType = rhs.mDataType;
@@ -198,7 +202,7 @@ SpatialPoints::getArrayData(double* outArray) const
     return;
   }
 
-  memcpy(outArray, mArrayData, sizeof(double)*mArrayDataLength);
+  memcpy(outArray, mArrayData, sizeof(double)*mNumArrayDataEntries);
 }
 
 
@@ -210,6 +214,11 @@ SpatialPoints::getArrayDataLength() const
 {
   return mArrayDataLength;
 }
+
+ size_t SpatialPoints::getNumArrayDataEntries() const
+ {
+   return mNumArrayDataEntries;
+ }
 
 
 /*
@@ -359,7 +368,7 @@ SpatialPoints::setCompression(const std::string& compression)
  * Sets the value of the "arrayData" attribute of this SpatialPoints.
  */
 int
-SpatialPoints::setArrayData(double* inArray, int arrayLength)
+SpatialPoints::setArrayData(double* inArray, size_t arrayLength)
 {
   if (inArray == NULL)
   {
@@ -373,8 +382,7 @@ SpatialPoints::setArrayData(double* inArray, int arrayLength)
 
   mArrayData = new double[arrayLength];
   memcpy(mArrayData, inArray, sizeof(double)*arrayLength);
-  mIsSetArrayDataLength = true;
-  mArrayDataLength = arrayLength;
+  mNumArrayDataEntries = arrayLength;
 
   return LIBSBML_OPERATION_SUCCESS;
 }
@@ -635,7 +643,7 @@ SpatialPoints::write(XMLOutputStream& stream) const
 
   if (isSetArrayData())
   {
-    for (int i = 0; i < mArrayDataLength; ++i)
+    for (int i = 0; i < mNumArrayDataEntries; ++i)
     {
       stream << (double)mArrayData[i] << " ";
     }
@@ -1256,9 +1264,15 @@ SpatialPoints::setElementText(const std::string& text)
   while (strStream >> val)
   {
     valuesVector.push_back(val);
+    if (strStream.peek() == ',') {
+      strStream.get();
+    }
+    if (strStream.peek() == ';') {
+      strStream.get();
+    }
   }
 
-  unsigned int length = (unsigned int)valuesVector.size();
+  size_t length = valuesVector.size();
 
   if (length > 0)
   {
@@ -1552,7 +1566,7 @@ LIBSBML_EXTERN
 int
 SpatialPoints_setArrayData(SpatialPoints_t* sp,
                            double* arrayData,
-                           int arrayLength)
+                           size_t arrayLength)
 {
   return (sp != NULL) ? sp->setArrayData(arrayData, arrayLength) :
     LIBSBML_INVALID_OBJECT;

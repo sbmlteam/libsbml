@@ -3680,6 +3680,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1224050
+  { SpatialSpatialPointsDataLengthMustMatchUncompressed,
+    "The 'arrayDataLength' attribute must match the entries when uncompressed.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the 'spatial:compression' attribute of a <spatialPoints> has the value 'uncompressed', the 'spatial:arrayDataLength' attribute of the same <spatialPoints> must equal the number of entries in the ArrayData child of the <spatialPoints>.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
 };
 
 /** @endcond */

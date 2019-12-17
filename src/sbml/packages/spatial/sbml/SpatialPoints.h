@@ -120,6 +120,7 @@ protected:
 
   CompressionKind_t mCompression;
   double* mArrayData;
+  size_t mNumArrayDataEntries;
   int mArrayDataLength;
   bool mIsSetArrayDataLength;
   DataKind_t mDataType;
@@ -261,6 +262,17 @@ public:
    * as a integer.
    */
   int getArrayDataLength() const;
+
+
+  /**
+   * Returns the number of entries in the "arrayData" child of this
+   * SpatialPoints.  When uncompressed, this value should match the
+   * 'arrayDataLength' attribute.
+   *
+   * @return the number of entries in the "arrayData" child of this SpatialPoints
+   * as a size_t.
+   */
+  size_t getNumArrayDataEntries() const;
 
 
   /**
@@ -441,7 +453,7 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
-  int setArrayData(double* inArray, int arrayLength);
+  int setArrayData(double* inArray, size_t arrayLength);
 
 
   /**
@@ -1377,7 +1389,7 @@ LIBSBML_EXTERN
 int
 SpatialPoints_setArrayData(SpatialPoints_t* sp,
                            double* arrayData,
-                           int arrayLength);
+                           size_t arrayLength);
 
 
 /**

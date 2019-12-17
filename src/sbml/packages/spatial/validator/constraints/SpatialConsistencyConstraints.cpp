@@ -1911,14 +1911,26 @@ START_CONSTRAINT(SpatialParametricGeometryNotIn1D, ParametricGeometry, pg)
 END_CONSTRAINT
 
 
-// 122__
-//START_CONSTRAINT(Spatial, Class, class)
-//{
-//  bool fail = false;
-//
-//  inv(fail == false);
-//}
-//END_CONSTRAINT
+// 1224050
+START_CONSTRAINT(SpatialSpatialPointsDataLengthMustMatchUncompressed, SpatialPoints, sp)
+{
+  pre(sp.isSetCompression());
+  pre(sp.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
+  pre(sp.getArrayDataLength() != sp.getNumArrayDataEntries());
+  stringstream ss_msg;
+  ss_msg << "A <spatialPoints>";
+  if (sp.isSetId())
+  {
+    ss_msg << " with id '" << sp.getId() << "'";
+  }
+  ss_msg <<  " is set 'uncompressed' and has an 'arrayDataLength' of '";
+  ss_msg << sp.getArrayDataLength() << "', but actually contains ";
+  ss_msg << sp.getNumArrayDataEntries() << " entries.";
+  msg = ss_msg.str();
+
+  inv(false);
+}
+END_CONSTRAINT
 
 
 // 122__
