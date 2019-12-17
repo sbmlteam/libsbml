@@ -3700,6 +3700,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1224052
+  { SpatialSpatialPointsArrayDataMultipleOfDimensions,
+    "The <spatialPoints> entries must match the dimensionality of the <geometry>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "When uncompressed, the number of entries in the ArrayData child of a <spatialPoints> must be evenly divisible by the number of <coordinateComponent> children of the <geometry> of the model (two or three).",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
 };
 
 /** @endcond */

@@ -1933,6 +1933,29 @@ START_CONSTRAINT(SpatialSpatialPointsDataLengthMustMatchUncompressed, SpatialPoi
 END_CONSTRAINT
 
 
+// 1224052
+START_CONSTRAINT(SpatialSpatialPointsArrayDataMultipleOfDimensions, SpatialPoints, sp)
+{
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  pre(sp.getNumArrayDataEntries() % geometry->getNumCoordinateComponents() != 0);
+  stringstream ss_msg;
+  ss_msg << "A <spatialPoints>";
+  if (sp.isSetId())
+  {
+    ss_msg << " with id '" << sp.getId() << "'";
+  }
+  ss_msg <<  " has " << sp.getNumArrayDataEntries() << " entries, which is not a multiple of ";
+  ss_msg << geometry->getNumCoordinateComponents() << ", the dimensionality of the <geometry>.";
+  msg = ss_msg.str();
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{
