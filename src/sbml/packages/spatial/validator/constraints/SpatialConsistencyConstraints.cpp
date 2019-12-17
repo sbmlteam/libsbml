@@ -1873,6 +1873,25 @@ START_CONSTRAINT(SpatialCSGScaleNoScaleZIn2D, CSGScale, scale)
 END_CONSTRAINT
 
 
+// 1223050
+START_CONSTRAINT(SpatialTransformationComponentComponentsLengthMustBe16, TransformationComponent, tc)
+{
+  pre(tc.isSetComponentsLength());
+  pre(tc.getComponentsLength() != 16);
+  stringstream ss_msg;
+  ss_msg << "A <csgTransformationComponent>";
+  if (tc.isSetId())
+  {
+    ss_msg << " with id '" << tc.getId() << "'";
+  }
+  ss_msg <<  " has a 'componentsLength' of '";
+  ss_msg << tc.getComponentsLength() + "', instead of a value of '16'.";
+  msg = ss_msg.str();
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

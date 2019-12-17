@@ -103,6 +103,7 @@ addConstraint(new VConstraintCSGScaleSpatialCSGScaleScaleYRequiredIn2D(*this));
 addConstraint(new VConstraintCSGScaleSpatialCSGScaleScaleZRequiredIn3D(*this));
 addConstraint(new VConstraintCSGScaleSpatialCSGScaleNoScaleYIn1D(*this));
 addConstraint(new VConstraintCSGScaleSpatialCSGScaleNoScaleZIn2D(*this));
+addConstraint(new VConstraintTransformationComponentSpatialTransformationComponentComponentsLengthMustBe16(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));

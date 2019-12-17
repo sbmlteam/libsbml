@@ -267,6 +267,7 @@ typedef enum
 , SpatialTransformationComponentAllowedAttributes             = 1223003
 , SpatialTransformationComponentComponentsMustBeString        = 1223004
 , SpatialTransformationComponentComponentsLengthMustBeInteger = 1223005
+, SpatialTransformationComponentComponentsLengthMustBe16      = 1223050
 , SpatialCSGPrimitiveAllowedCoreAttributes                    = 1223101
 , SpatialCSGPrimitiveAllowedCoreElements                      = 1223102
 , SpatialCSGPrimitiveAllowedAttributes                        = 1223103

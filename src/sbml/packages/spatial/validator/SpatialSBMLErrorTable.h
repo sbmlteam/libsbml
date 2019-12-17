@@ -2440,6 +2440,17 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1223050
+  { SpatialTransformationComponentComponentsLengthMustBe16,
+    "The 'componentsLength' attribute must be '16'.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'spatial:componentsLength' on a <transformationComponent> "
+    "must have a value of '16'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1223101
   { SpatialCSGPrimitiveAllowedCoreAttributes,
     "Core attributes allowed on <csgPrimitive>.",
