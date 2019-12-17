@@ -1617,6 +1617,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1222050
+  { SpatialParametricGeometryNotIn1D,
+    "No <parametricGeometry> allowed in 1D geometries.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A model may not have a <parametricGeometry> and a <geometry> with exactly one <coordinateComponent> child.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1222101
   { SpatialParametricObjectAllowedCoreAttributes,
     "Core attributes allowed on <parametricObject>.",

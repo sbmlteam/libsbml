@@ -196,6 +196,7 @@ typedef enum
 , SpatialParametricGeometryAllowedElements                    = 1222003
 , SpatialParametricGeometryLOParametricObjectsAllowedCoreElements= 1222004
 , SpatialParametricGeometryLOParametricObjectsAllowedCoreAttributes= 1222005
+, SpatialParametricGeometryNotIn1D                            = 1222050
 , SpatialParametricObjectAllowedCoreAttributes                = 1222101
 , SpatialParametricObjectAllowedCoreElements                  = 1222102
 , SpatialParametricObjectAllowedAttributes                    = 1222103

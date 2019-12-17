@@ -1892,6 +1892,25 @@ START_CONSTRAINT(SpatialTransformationComponentComponentsLengthMustBe16, Transfo
 END_CONSTRAINT
 
 
+// 1222050
+START_CONSTRAINT(SpatialParametricGeometryNotIn1D, ParametricGeometry, pg)
+{
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  pre(geometry->getNumCoordinateComponents() == 1);
+  msg = "A <parametricGeometry>";
+  if (pg.isSetId()) {
+    msg += " with the id '" + pg.getId() + "'";
+  }
+  msg += " was found in the model, but the <geometry> has exactly one <coordinateComponent> child.";
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{
