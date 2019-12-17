@@ -1992,7 +1992,7 @@ START_CONSTRAINT(SpatialSpatialPointsUIntArrayDataNotNegative, SpatialPoints, sp
 {
   bool fail = false;
   pre(sp.isSetDataType());
-  pre(sp.getDataType() == SPATIAL_DATAKIND_UINT);
+  pre(sp.getDataType() == SPATIAL_DATAKIND_UINT || sp.getDataType() == SPATIAL_DATAKIND_UINT8 || sp.getDataType() == SPATIAL_DATAKIND_UINT16 || sp.getDataType() == SPATIAL_DATAKIND_UINT32);
   size_t len = sp.getNumArrayDataEntries();
   double* data = new double[len];
   sp.getArrayData(data);
@@ -2005,7 +2005,8 @@ START_CONSTRAINT(SpatialSpatialPointsUIntArrayDataNotNegative, SpatialPoints, sp
       {
         ss_msg << " with id '" << sp.getId() << "'";
       }
-      ss_msg << " has a data type of 'uint', but has an entry with the value '" << val;
+      ss_msg << " has a data type of '" << sp.getDataTypeAsString();
+      ss_msg << "', but has an entry with the value '" << val;
       ss_msg << "', which is negative.";
       msg = ss_msg.str();
       fail = true;
@@ -2023,7 +2024,7 @@ START_CONSTRAINT(SpatialSpatialPointsIntArrayDataIntegers, SpatialPoints, sp)
 {
   bool fail = false;
   pre(sp.isSetDataType());
-  pre(sp.getDataType() == SPATIAL_DATAKIND_UINT || sp.getDataType() == SPATIAL_DATAKIND_INT);
+  pre(sp.getDataType() == SPATIAL_DATAKIND_INT || sp.getDataType() == SPATIAL_DATAKIND_UINT || sp.getDataType() == SPATIAL_DATAKIND_UINT8 || sp.getDataType() == SPATIAL_DATAKIND_UINT16 || sp.getDataType() == SPATIAL_DATAKIND_UINT32);
   size_t len = sp.getNumArrayDataEntries();
   double* data = new double[len];
   sp.getArrayData(data);
