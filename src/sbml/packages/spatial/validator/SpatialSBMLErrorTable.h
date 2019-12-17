@@ -1754,15 +1754,24 @@ static const packageErrorTableEntry spatialErrorTable[] =
 
   // 1222150
   { SpatialParametricObjectPointIndexLengthMustMatchUncompressed,
-    "The 'dataType' attribute must be DataKindEnum.",
+    "The 'pointIndexLength' attribute must match the entries when uncompressed.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If the 'spatial:compression' attribute of a ParametricObject has the value 'uncompressed', the 'spatial:pointIndexLength' attribute of the same ParametricObject must equal the number of entries in the ArrayData child of the ParametricObject.",
+    "If the 'spatial:compression' attribute of a <parametricObject> has the value 'uncompressed', the 'spatial:pointIndexLength' attribute of the same <parametricObject> must equal the number of entries in the ArrayData child of the <parametricObject>.",
     { "L3V1 Spatial V1 Section"
     }
   },
 
-  // 1222201
+  // 1222151
+  { SpatialParametricObjectPointIndexLengthMustMatchCompressed,
+    "The 'pointIndexLength' attribute must match the compressed data.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the 'spatial:compression' attribute of a <parametricObject> has the value 'deflated', the 'spatial:pointIndexLength' attribute of the same <parametricObject> must equal the number of non-whitespace characters of the ArrayData child of the <parametricObject>.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   { SpatialCSGeometryAllowedCoreAttributes,
     "Core attributes allowed on <csGeometry>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
