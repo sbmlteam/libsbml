@@ -3690,6 +3690,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1224051
+  { SpatialSpatialPointsDataLengthMustMatchCompressed,
+    "The 'arrayDataLength' attribute must match the compressed string.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the 'spatial:compression' attribute of a SpatialPoints has the value 'deflated', the 'spatial:arrayDataLength' attribute of the same SpatialPoints must equal the number of non-whitespace characters of the ArrayData child of the SpatialPoints.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
 };
 
 /** @endcond */
