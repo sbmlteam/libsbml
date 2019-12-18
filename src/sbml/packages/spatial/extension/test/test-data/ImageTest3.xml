@@ -245,9 +245,9 @@
       <spatial:listOfGeometryDefinitions>
         <spatial:sampledFieldGeometry spatial:id="BioModel1_Application0_20120725_161513" spatial:sampledField="img_20120725_161513" spatial:isActive="true">
           <spatial:listOfSampledVolumes>
-            <spatial:sampledVolume spatial:id="sv_background" spatial:domainType="background" spatial:sampledValue="0" spatial:minValue="0" spatial:maxValue="0"/>
-            <spatial:sampledVolume spatial:id="sv_237" spatial:domainType="roi_237" spatial:sampledValue="1" spatial:minValue="0" spatial:maxValue="0"/>
-            <spatial:sampledVolume spatial:id="sv_255" spatial:domainType="roi_255" spatial:sampledValue="2" spatial:minValue="0" spatial:maxValue="0"/>
+            <spatial:sampledVolume spatial:id="sv_background" spatial:domainType="background" spatial:sampledValue="0"/>
+            <spatial:sampledVolume spatial:id="sv_237" spatial:domainType="roi_237" spatial:sampledValue="1"/>
+            <spatial:sampledVolume spatial:id="sv_255" spatial:domainType="roi_255" spatial:sampledValue="2"/>
           </spatial:listOfSampledVolumes>
         </spatial:sampledFieldGeometry>
       </spatial:listOfGeometryDefinitions>
