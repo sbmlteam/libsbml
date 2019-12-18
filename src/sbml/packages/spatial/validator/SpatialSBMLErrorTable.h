@@ -1792,6 +1792,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1222154
+  { SpatialParametricObjectIndexesMustBePositiveIntegers,
+    "Every index in a <parametricObject> must be a non-negative integer.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "Every element of an uncompressed ArrayData child of a <parametricObject> must be a non-negative integer.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1222201
   { SpatialCSGeometryAllowedCoreAttributes,
     "Core attributes allowed on <csGeometry>.",

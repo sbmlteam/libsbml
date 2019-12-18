@@ -1597,8 +1597,8 @@ void
 ParametricObject::setElementText(const std::string& text)
 {
   stringstream strStream(text);
-  int val;
-  vector<int> valuesVector;
+  double val;
+  vector<double> valuesVector;
 
   while (strStream >> val)
   {
@@ -1618,9 +1618,27 @@ ParametricObject::setElementText(const std::string& text)
     int* data = new int[length];
     for (unsigned int i = 0; i < length; ++i)
     {
-      data[i] = valuesVector.at(i);
-    }
+      data[i] = lround(valuesVector.at(i));
+      if (data[i]<0 || trunc(valuesVector.at(i)) != valuesVector.at(i))
+      {
+        stringstream ss_msg;
+        ss_msg << "A <parametricObject>";
+        if (isSetId())
+        {
+          ss_msg << " with id '" << getId() << "'";
+        }
+        ss_msg << " has an entry with the value '" << valuesVector.at(i);
+        ss_msg << "', which is not a non-negative integer.";
+        SBMLErrorLog* log = getErrorLog();
 
+        if (log)
+        {
+          log->logPackageError("spatial",
+            SpatialParametricObjectIndexesMustBePositiveIntegers,
+            getPackageVersion(), getLevel(), getVersion(), ss_msg.str());
+        }
+      }
+    }
     setPointIndex(data, length);
     delete[] data;
   }
