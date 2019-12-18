@@ -114,6 +114,7 @@ addConstraint(new VConstraintParametricObjectSpatialParametricObjectPointIndexLe
 addConstraint(new VConstraintParametricObjectSpatialParametricObjectThreePointsForTriangles(*this));
 addConstraint(new VConstraintParametricObjectSpatialParametricObjectFourPointsForQuadrilaterals(*this));
 addConstraint(new VConstraintParametricObjectSpatialParametricObjectIndexesMustBePoints(*this));
+addConstraint(new VConstraintParametricObjectSpatialParametricObjectFacesSameChirality(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));

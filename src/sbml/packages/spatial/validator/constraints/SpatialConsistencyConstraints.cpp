@@ -2159,6 +2159,57 @@ START_CONSTRAINT(SpatialParametricObjectIndexesMustBePoints, ParametricObject, p
 END_CONSTRAINT
 
 
+// 122156
+START_CONSTRAINT(SpatialParametricObjectFacesSameChirality, ParametricObject, po)
+{
+  bool fail = false;
+  pre(po.isSetPolygonType());
+  int groupsize;
+  size_t len = po.getNumPointIndexEntries();
+  if (po.getPolygonType() == SPATIAL_POLYGONKIND_QUADRILATERAL)
+  {
+    groupsize = 4;
+    pre(len % 4 == 0);
+  }
+  else 
+  {
+    groupsize = 3;
+    pre(len % 3 == 0);
+  }
+  set<pair<int, int> > borders;
+
+  int* data = new int[len];
+  po.getPointIndex(data);
+  for (size_t d = 0; d < len; d++) 
+  {
+    pair<int, int> border;
+    if ((d + 1) % groupsize == 0) {
+      border = make_pair(data[d], data[d - groupsize + 1]);
+    }
+    else {
+      border = make_pair(data[d], data[d + 1]);
+    }
+    if (borders.find(border) != borders.end())
+    {
+      stringstream ss_msg;
+      ss_msg << "A <parametricObject>";
+      if (po.isSetId())
+      {
+        ss_msg << " with id '" << po.getId() << "'";
+      }
+      ss_msg << " has a shared border (" << border.first;
+      ss_msg << ", " << border.second << ") in the same order in two shapes.  This means that one of them is clockwise and the other is counter-clockwise.";
+      msg = ss_msg.str();
+      fail = true;
+      break;
+    }
+    borders.insert(border);
+  }
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

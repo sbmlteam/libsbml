@@ -1812,6 +1812,36 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1222156
+  { SpatialParametricObjectFacesSameChirality,
+    "Every face in a <parametricObject> should be the same chirality.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_WARNING,
+    "Every face defined in the ArrayData child of a <parametricObject> should be consistently defined in a clockwise or counter-clockwise fashion across all faces in the same <parametricObject>.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1222157
+  { SpatialParametricObjectMaxTwoPointBorders,
+    "No two faces in a <parametricObject> may share more than one border.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "No two faces defined in the ArrayData child of a <parametricObject> may share more than two coordinates.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1222158
+  { SpatialParametricObjectMaxOnePointJunctions,
+    "No three faces in a <parametricObject> may share more than one junction.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "No three faces defined in the ArrayData child of a <parametricObject> may share more than one coordinate.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1222201
   { SpatialCSGeometryAllowedCoreAttributes,
     "Core attributes allowed on <csGeometry>.",
