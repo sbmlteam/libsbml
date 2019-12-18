@@ -208,7 +208,9 @@ typedef enum
 , SpatialParametricObjectNameMustBeString                     = 1222109
 , SpatialParametricObjectDataTypeMustBeDataKindEnum           = 1222110
 , SpatialParametricObjectPointIndexLengthMustMatchUncompressed = 1222150
-, SpatialParametricObjectPointIndexLengthMustMatchCompressed  = 1222152
+, SpatialParametricObjectPointIndexLengthMustMatchCompressed  = 1222151
+, SpatialParametricObjectThreePointsForTriangles              = 1222152
+, SpatialParametricObjectFourPointsForQuadrilaterals          = 1222153
 , SpatialCSGeometryAllowedCoreAttributes                      = 1222201
 , SpatialCSGeometryAllowedCoreElements                        = 1222202
 , SpatialCSGeometryAllowedElements                            = 1222203

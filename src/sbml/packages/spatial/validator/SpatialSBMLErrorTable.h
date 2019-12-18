@@ -1772,6 +1772,27 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1222152
+  { SpatialParametricObjectThreePointsForTriangles,
+    "The number of point indexes must be divisible by three if polygonType is 'triangle'.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the attribute 'spatial:polygonType' of a <parametricObject> has the value 'triangle', the number of uncompressed entries in its ArrayData child must be evenly divisible by three.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1222153
+  { SpatialParametricObjectFourPointsForQuadrilaterals,
+    "The number of point indexes must be divisible by four if polygonType is 'quadrilateral'.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the attribute 'spatial:polygonType' of a <parametricObject> has the value 'quadrilateral', the number of uncompressed entries in its ArrayData child must be evenly divisible by four.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1222201
   { SpatialCSGeometryAllowedCoreAttributes,
     "Core attributes allowed on <csGeometry>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,

@@ -2073,6 +2073,46 @@ START_CONSTRAINT(SpatialParametricObjectPointIndexLengthMustMatchUncompressed, P
 END_CONSTRAINT
 
 
+// 122152
+START_CONSTRAINT(SpatialParametricObjectThreePointsForTriangles, ParametricObject, po)
+{
+  pre(po.getPolygonType() == SPATIAL_POLYGONKIND_TRIANGLE);
+  pre(po.getNumPointIndexEntries() % 3 != 0);
+  stringstream ss_msg;
+  ss_msg << "A <parametricObject>";
+  if (po.isSetId())
+  {
+    ss_msg << " with id '" << po.getId() << "'";
+  }
+  ss_msg << " has a polygonType of 'triangle' but " << po.getNumPointIndexEntries();
+  ss_msg << " entries, which is not a multiple of three.";
+  msg = ss_msg.str();
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
+// 122153
+START_CONSTRAINT(SpatialParametricObjectFourPointsForQuadrilaterals, ParametricObject, po)
+{
+  pre(po.getPolygonType() == SPATIAL_POLYGONKIND_QUADRILATERAL);
+  pre(po.getNumPointIndexEntries() % 4 != 0);
+  stringstream ss_msg;
+  ss_msg << "A <parametricObject>";
+  if (po.isSetId())
+  {
+    ss_msg << " with id '" << po.getId() << "'";
+  }
+  ss_msg << " has a polygonType of 'quadrilateral' but " << po.getNumPointIndexEntries();
+  ss_msg << " entries, which is not a multiple of four.";
+  msg = ss_msg.str();
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

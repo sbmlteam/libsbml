@@ -111,6 +111,8 @@ addConstraint(new VConstraintSpatialPointsSpatialSpatialPointsFloatArrayDataMust
 addConstraint(new VConstraintSpatialPointsSpatialSpatialPointsUIntArrayDataNotNegative(*this));
 addConstraint(new VConstraintSpatialPointsSpatialSpatialPointsIntArrayDataIntegers(*this));
 addConstraint(new VConstraintParametricObjectSpatialParametricObjectPointIndexLengthMustMatchUncompressed(*this));
+addConstraint(new VConstraintParametricObjectSpatialParametricObjectThreePointsForTriangles(*this));
+addConstraint(new VConstraintParametricObjectSpatialParametricObjectFourPointsForQuadrilaterals(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));
