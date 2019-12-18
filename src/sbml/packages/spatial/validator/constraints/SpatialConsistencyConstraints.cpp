@@ -2210,6 +2210,89 @@ START_CONSTRAINT(SpatialParametricObjectFacesSameChirality, ParametricObject, po
 END_CONSTRAINT
 
 
+// 122157
+START_CONSTRAINT(SpatialParametricObjectMaxTwoPointBorders, ParametricObject, po)
+{
+  bool fail = false;
+  pre(po.isSetPolygonType());
+  int groupsize;
+  size_t len = po.getNumPointIndexEntries();
+  if (po.getPolygonType() == SPATIAL_POLYGONKIND_QUADRILATERAL)
+  {
+    groupsize = 4;
+    pre(len % 4 == 0);
+  }
+  else 
+  {
+    groupsize = 3;
+    pre(len % 3 == 0);
+  }
+  set<set<int> > triples;
+
+  int* data = new int[len];
+  po.getPointIndex(data);
+  for (size_t d = 0; d < len; d += groupsize)
+  {
+    vector<set<int> > localtriples;
+    set<int> triple;
+    triple.insert(data[d]);
+    triple.insert(data[d + 1]);
+    triple.insert(data[d + 2]);
+    localtriples.push_back(triple);
+    if (groupsize == 4)
+    {
+      triple.clear();
+      triple.insert(data[d + 1]);
+      triple.insert(data[d + 2]);
+      triple.insert(data[d + 3]);
+      localtriples.push_back(triple);
+
+      triple.clear();
+      triple.insert(data[d]);
+      triple.insert(data[d + 2]);
+      triple.insert(data[d + 3]);
+      localtriples.push_back(triple);
+
+      triple.clear();
+      triple.insert(data[d]);
+      triple.insert(data[d + 1]);
+      triple.insert(data[d + 3]);
+      localtriples.push_back(triple);
+    }
+
+    for (size_t lt = 0; lt < localtriples.size(); lt++)
+    {
+      triple = localtriples[lt];
+      if (triples.find(triple) != triples.end())
+      {
+        stringstream ss_msg;
+        ss_msg << "A <parametricObject>";
+        if (po.isSetId())
+        {
+          ss_msg << " with id '" << po.getId() << "'";
+        }
+        ss_msg << " has three points ( ";
+        for (set<int>::iterator ti = triple.begin(); ti != triple.end(); ti++)
+        {
+          ss_msg << *ti;
+          ss_msg << " ";
+        }
+        ss_msg << ") in two different faces.";
+        msg = ss_msg.str();
+        fail = true;
+        break;
+      }
+      triples.insert(triple);
+    }
+    if (fail) {
+      break;
+    }
+  }
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{
