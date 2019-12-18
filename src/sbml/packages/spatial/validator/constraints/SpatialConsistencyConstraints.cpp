@@ -2113,6 +2113,52 @@ START_CONSTRAINT(SpatialParametricObjectFourPointsForQuadrilaterals, ParametricO
 END_CONSTRAINT
 
 
+// 122155
+START_CONSTRAINT(SpatialParametricObjectIndexesMustBePoints, ParametricObject, po)
+{
+  bool fail = false;
+  const SBase* parent = po.getParentSBMLObject();
+  pre(parent != NULL);
+  parent = parent->getParentSBMLObject();
+  pre(parent != NULL);
+  const ParametricGeometry* pg = static_cast<const ParametricGeometry*>(parent);
+  const SpatialPoints* sp = pg->getSpatialPoints();
+  size_t numPoints = sp->getNumArrayDataEntries();
+
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  pre(plug->isSetGeometry());
+  const Geometry* geometry = plug->getGeometry();
+  pre(geometry->getNumCoordinateComponents() != 0);
+  pre(numPoints % geometry->getNumCoordinateComponents() == 0);
+  numPoints = numPoints/(geometry->getNumCoordinateComponents());
+
+  size_t len = po.getNumPointIndexEntries();
+  int* data = new int[len];
+  po.getPointIndex(data);
+  for (size_t d = 0; d < len; d++) 
+  {
+    if (data[d] >= (int)numPoints)
+    {
+      stringstream ss_msg;
+      ss_msg << "A <parametricObject>";
+      if (po.isSetId())
+      {
+        ss_msg << " with id '" << po.getId() << "'";
+      }
+      ss_msg << " has a point index value of '" << data[d];
+      ss_msg << "', which is too large for the number of points in the <spatialPoints> object (";
+      ss_msg << numPoints << ").";
+      msg = ss_msg.str();
+      fail = true;
+      break;
+    }
+  }
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

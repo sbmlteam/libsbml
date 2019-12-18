@@ -212,6 +212,7 @@ typedef enum
 , SpatialParametricObjectThreePointsForTriangles              = 1222152
 , SpatialParametricObjectFourPointsForQuadrilaterals          = 1222153
 , SpatialParametricObjectIndexesMustBePositiveIntegers        = 1222154
+, SpatialParametricObjectIndexesMustBePoints                  = 1222155
 , SpatialCSGeometryAllowedCoreAttributes                      = 1222201
 , SpatialCSGeometryAllowedCoreElements                        = 1222202
 , SpatialCSGeometryAllowedElements                            = 1222203

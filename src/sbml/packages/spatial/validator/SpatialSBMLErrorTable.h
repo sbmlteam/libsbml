@@ -1802,6 +1802,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1222155
+  { SpatialParametricObjectIndexesMustBePoints,
+    "Every index in a <parametricObject> must be a defined point.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "Every element of an uncompressed ArrayData child of a <parametricObject> must be less than the number of points described by the <spatialPoints> object in the same <parametricGeometry>.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1222201
   { SpatialCSGeometryAllowedCoreAttributes,
     "Core attributes allowed on <csGeometry>.",
