@@ -1832,15 +1832,15 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1222158
-  { SpatialParametricObjectMaxOnePointJunctions,
-    "No three faces in a <parametricObject> may share more than one junction.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "No three faces defined in the ArrayData child of a <parametricObject> may share more than one coordinate.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
+  //// 1222158
+  //{ SpatialParametricObjectMaxOnePointJunctions,
+  //  "No three faces in a <parametricObject> may share more than one junction.",
+  //  LIBSBML_CAT_GENERAL_CONSISTENCY,
+  //  LIBSBML_SEV_ERROR,
+  //  "No three faces defined in the ArrayData child of a <parametricObject> may share more than one coordinate.",
+  //  { "L3V1 Spatial V1 Section"
+  //  }
+  //},
 
   // 1222201
   { SpatialCSGeometryAllowedCoreAttributes,
