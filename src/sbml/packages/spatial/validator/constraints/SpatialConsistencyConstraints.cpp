@@ -52,6 +52,7 @@
 #include <sbml/packages/spatial/validator/SpatialUniqueBoundaryConditionsCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueCSGObjectOrdinalsCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueOrdinalMappingOrdinalsCheck.h>
+#include <sbml/packages/spatial/validator/SpatialOrdinalMappingGeometryDefinitionCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueSampledVolumeValueCheck.h>
 #include <sbml/packages/spatial/validator/SpatialSampledVolumeValueNotInRangeCheck.h>
 #include <sbml/packages/spatial/validator/SpatialSampledVolumeRangeOverlapCheck.h>
@@ -69,6 +70,7 @@ EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueDiffusionCoefficientsCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueAdvectionCoefficientsCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueBoundaryConditionsCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueCSGObjectOrdinalsCheck);
+EXTERN_CONSTRAINT(ErrorEnumValue, SpatialOrdinalMappingGeometryDefinitionCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueOrdinalMappingOrdinalsCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueSampledVolumeValueCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialSampledVolumeValueNotInRangeCheck);

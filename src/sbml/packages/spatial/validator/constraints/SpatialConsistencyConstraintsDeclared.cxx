@@ -45,6 +45,7 @@
 #include "sbml/packages/spatial/validator/SpatialUniqueBoundaryConditionsCheck.h"
 #include "sbml/packages/spatial/validator/SpatialUniqueSampledVolumeValueCheck.h"
 #include "sbml/packages/spatial/validator/SpatialUniqueOrdinalMappingOrdinalsCheck.h"
+#include "sbml/packages/spatial/validator/SpatialOrdinalMappingGeometryDefinitionCheck.h"
 #include "sbml/packages/spatial/validator/SpatialSampledVolumeValueNotInRangeCheck.h"
 #include "sbml/packages/spatial/validator/SpatialSampledVolumeRangeOverlapCheck.h"
 #include "sbml/packages/spatial/validator/SpatialUniqueCSGObjectOrdinalsCheck.h"
@@ -130,6 +131,7 @@ addConstraint(new SpatialSampledVolumeValueNotInRangeCheck(SpatialSampledVolumeV
 addConstraint(new SpatialSampledVolumeRangeOverlapCheck(SpatialSampledVolumeRangesCantOverlap, *this));
 addConstraint(new SpatialUniqueCSGObjectOrdinalsCheck(SpatialCSGObjectOrdinalShouldBeUnique, *this));
 addConstraint(new SpatialUniqueOrdinalMappingOrdinalsCheck(SpatialOrdinalMappingOrdinalShouldBeUnique, *this));
+addConstraint(new SpatialOrdinalMappingGeometryDefinitionCheck(SpatialOrdinalMappingGeometryDefinitionMustBeGeometryDefinition, *this));
 
 /** @endcond */
 
