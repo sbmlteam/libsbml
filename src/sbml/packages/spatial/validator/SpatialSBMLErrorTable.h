@@ -3087,7 +3087,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
 
   // 1223551
   { SpatialAdvectionCoefficientsMustBeUnique,
-    "The 'coordinate' attribute must be CoordinateKindEnum.",
+    "The 'coordinate' and 'variable' attributes must be unique.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "No two <advectionCoefficient> elements in the same <model> may have the same values for the attributes 'species:variable' and 'species:coordinate'.  Only one advection coefficient may be defined per species per axis.",
@@ -3655,7 +3655,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'spatial:geometryDefinition' of an "
     "<ordinalMapping> object must be the identifier of an existing "
-    "<geometryDefinition> object defined in the enclosing <model> object.",
+    "<geometryDefinition> object defined in parent <mixedGeometry> object.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -3667,6 +3667,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_SEV_ERROR,
     "The attribute 'spatial:ordinal' on an <ordinalMapping> must have a value "
     "of data type 'integer'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223950
+  { SpatialOrdinalMappingOrdinalShouldBeUnique,
+    "The 'ordinal' attribute should be unique.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_WARNING,
+    "No <ordinalMapping> should have a 'spatial:ordinal' attribute with the same value as a different <ordinalMapping> child of the same <mixedGeometry>.",
     { "L3V1 Spatial V1 Section"
     }
   },

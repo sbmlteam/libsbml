@@ -50,6 +50,7 @@
 #include <sbml/packages/spatial/validator/SpatialUniqueDiffusionCoefficientsCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueAdvectionCoefficientsCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueBoundaryConditionsCheck.h>
+#include <sbml/packages/spatial/validator/SpatialUniqueCSGObjectOrdinalsCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueSampledVolumeValueCheck.h>
 #include <sbml/packages/spatial/validator/SpatialSampledVolumeValueNotInRangeCheck.h>
 #include <sbml/packages/spatial/validator/SpatialSampledVolumeRangeOverlapCheck.h>
@@ -66,6 +67,7 @@ EXTERN_CONSTRAINT(ErrorEnumValue, SpatialSpatialSymbolReferenceUniqueRefCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueDiffusionCoefficientsCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueAdvectionCoefficientsCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueBoundaryConditionsCheck);
+EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueCSGObjectOrdinalsCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueSampledVolumeValueCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialSampledVolumeValueNotInRangeCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialSampledVolumeRangeOverlapCheck);
@@ -2288,6 +2290,17 @@ START_CONSTRAINT(SpatialParametricObjectMaxTwoPointBorders, ParametricObject, po
       break;
     }
   }
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1223950
+START_CONSTRAINT(SpatialOrdinalMappingOrdinalShouldBeUnique, OrdinalMapping, om)
+{
+  bool fail = false;
+  pre(om.isSetOrdinal());
+
   inv(fail == false);
 }
 END_CONSTRAINT

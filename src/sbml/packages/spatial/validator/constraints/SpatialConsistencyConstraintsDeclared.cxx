@@ -46,6 +46,7 @@
 #include "sbml/packages/spatial/validator/SpatialUniqueSampledVolumeValueCheck.h"
 #include "sbml/packages/spatial/validator/SpatialSampledVolumeValueNotInRangeCheck.h"
 #include "sbml/packages/spatial/validator/SpatialSampledVolumeRangeOverlapCheck.h"
+#include "sbml/packages/spatial/validator/SpatialUniqueCSGObjectOrdinalsCheck.h"
 
 //Constraints declared in SpatialConsistencyConstraints.cpp
 addConstraint(new VConstraintDomainSpatialDomainDomainTypeMustBeDomainType(*this));
@@ -126,6 +127,7 @@ addConstraint(new SpatialUniqueBoundaryConditionsCheck(SpatialBoundaryConditions
 addConstraint(new SpatialUniqueSampledVolumeValueCheck(SpatialSampledVolumeValuesMustDiffer, *this));
 addConstraint(new SpatialSampledVolumeValueNotInRangeCheck(SpatialSampledVolumeValuesNotInOtherRange, *this));
 addConstraint(new SpatialSampledVolumeRangeOverlapCheck(SpatialSampledVolumeRangesCantOverlap, *this));
+addConstraint(new SpatialUniqueCSGObjectOrdinalsCheck(SpatialCSGObjectOrdinalShouldBeUnique, *this));
 
 /** @endcond */
 

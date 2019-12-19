@@ -374,6 +374,7 @@ typedef enum
 , SpatialOrdinalMappingAllowedAttributes                      = 1223903
 , SpatialOrdinalMappingGeometryDefinitionMustBeGeometryDefinition= 1223904
 , SpatialOrdinalMappingOrdinalMustBeInteger                   = 1223905
+, SpatialOrdinalMappingOrdinalShouldBeUnique                  = 1223950
 , SpatialSpatialPointsAllowedCoreAttributes                   = 1224001
 , SpatialSpatialPointsAllowedCoreElements                     = 1224002
 , SpatialSpatialPointsAllowedAttributes                       = 1224003
