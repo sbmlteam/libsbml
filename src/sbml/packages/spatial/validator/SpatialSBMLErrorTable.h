@@ -1244,6 +1244,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1221653
+  { SpatialSampledFieldSamplesLengthMustMatchUncompressed,
+    "The 'samplesLength' attribute must match the entries when uncompressed",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the 'spatial:compression' attribute of a <sampledField> has the value 'uncompressed', the 'spatial:samplesLength' attribute of the same <sampledField> must equal the number of entries in the ArrayData child of the <sampledField>.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1221701
   { SpatialSampledVolumeAllowedCoreAttributes,
     "Core attributes allowed on <sampledVolume>.",

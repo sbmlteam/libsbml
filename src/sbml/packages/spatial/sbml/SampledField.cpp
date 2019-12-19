@@ -174,7 +174,7 @@ SampledField::SampledField(unsigned int level,
   , mInterpolationType(SPATIAL_INTERPOLATIONKIND_INVALID)
   , mCompression(SPATIAL_COMPRESSIONKIND_INVALID)
   , mSamples()
-  , mSamplesLength(0)
+  , mSamplesLength(SBML_INT_MAX)
   , mIsSetSamplesLength(false)
   , mUncompressedSamples(NULL)
   , mUncompressedLength(0)
@@ -199,7 +199,7 @@ SampledField::SampledField(SpatialPkgNamespaces* spatialns)
   , mInterpolationType(SPATIAL_INTERPOLATIONKIND_INVALID)
   , mCompression(SPATIAL_COMPRESSIONKIND_INVALID)
   , mSamples()
-  , mSamplesLength(0)
+  , mSamplesLength(SBML_INT_MAX)
   , mIsSetSamplesLength(false)
   , mUncompressedSamples(NULL)
   , mUncompressedLength(0)
@@ -776,8 +776,6 @@ SampledField::setSamples(int* inArray, int arrayLength)
   }
 
   mSamples = arrayToString(inArray, arrayLength);
-  mIsSetSamplesLength = true;
-  mSamplesLength = arrayLength;
 
   return LIBSBML_OPERATION_SUCCESS;
 }
@@ -790,8 +788,6 @@ int SampledField::setSamples(unsigned int* inArray, int arrayLength)
   }
 
   mSamples = arrayToString(inArray, arrayLength);
-  mIsSetSamplesLength = true;
-  mSamplesLength = arrayLength;
 
   return LIBSBML_OPERATION_SUCCESS;
 }
@@ -804,8 +800,6 @@ int SampledField::setSamples(unsigned char* inArray, int arrayLength)
   }
 
   mSamples = arrayToString(inArray, arrayLength);
-  mIsSetSamplesLength = true;
-  mSamplesLength = arrayLength;
 
   return LIBSBML_OPERATION_SUCCESS;
 }
@@ -820,8 +814,6 @@ SampledField::setSamples(double* inArray, int arrayLength)
   }
 
   mSamples = arrayToString(inArray, arrayLength);
-  mIsSetSamplesLength = true;
-  mSamplesLength = arrayLength;
 
   return LIBSBML_OPERATION_SUCCESS;
 }
@@ -836,8 +828,6 @@ SampledField::setSamples(float* inArray, int arrayLength)
   }
 
   mSamples = arrayToString(inArray, arrayLength);
-  mIsSetSamplesLength = true;
-  mSamplesLength = arrayLength;
 
   return LIBSBML_OPERATION_SUCCESS;
 }
@@ -851,24 +841,18 @@ int SampledField::setSamples(const std::string& samples)
 int SampledField::setSamples(const std::vector<double>& samples)
 {
   mSamples = vectorToString(samples);
-  mIsSetSamplesLength = true;
-  mSamplesLength = samples.size();
   return LIBSBML_OPERATION_SUCCESS;
 }
 
 int SampledField::setSamples(const std::vector<int>& samples)
 {
   mSamples = vectorToString(samples);
-  mIsSetSamplesLength = true;
-  mSamplesLength = samples.size();
   return LIBSBML_OPERATION_SUCCESS;
 }
 
 int SampledField::setSamples(const std::vector<float>& samples)
 {
   mSamples = vectorToString(samples);
-  mIsSetSamplesLength = true;
-  mSamplesLength = samples.size();
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -2091,7 +2075,7 @@ SampledField::uncompressLegacy()
   }
   else
   {
-    copySampleArrays(mUncompressedSamples, mUncompressedLength, samples, mSamplesLength);
+    copySampleArrays(mUncompressedSamples, mUncompressedLength, samples, length);
   }
 
   delete[] samples;

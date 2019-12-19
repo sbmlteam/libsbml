@@ -1274,9 +1274,10 @@ protected:
 public:
 
  /**
-   * Returns the "samplesLength" attribute of this SampledField.
+   * Returns the number of uncompressed samples of this SampledField.
+   * Will uncompress the samples if need be.
    *
-   * @return the "samplesLength" attribute of this SampledField.
+   * @return the number of uncompressed samples of this SampledField.
    */
   unsigned int getUncompressedLength();
 

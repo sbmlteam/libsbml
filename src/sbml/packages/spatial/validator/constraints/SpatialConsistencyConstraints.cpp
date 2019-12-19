@@ -2301,13 +2301,25 @@ START_CONSTRAINT(SpatialParametricObjectMaxTwoPointBorders, ParametricObject, po
 END_CONSTRAINT
 
 
-// 1223950
-START_CONSTRAINT(SpatialOrdinalMappingOrdinalShouldBeUnique, OrdinalMapping, om)
+// 1221653
+START_CONSTRAINT(SpatialSampledFieldSamplesLengthMustMatchUncompressed, SampledField, sf)
 {
-  bool fail = false;
-  pre(om.isSetOrdinal());
+  pre(sf.isSetCompression());
+  pre(sf.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
+  SampledField* sf_nc = const_cast<SampledField*>(&sf);
+  pre(sf_nc->getSamplesLength() != (int) sf_nc->getUncompressedLength());
+  stringstream ss_msg;
+  ss_msg << "A <spatialPoints>";
+  if (sf.isSetId())
+  {
+    ss_msg << " with id '" << sf.getId() << "'";
+  }
+  ss_msg <<  " is set 'uncompressed' and has a 'samplesLength' of '";
+  ss_msg << sf.getSamplesLength() << "', but actually contains ";
+  ss_msg << sf_nc->getUncompressedLength() << " entries.";
+  msg = ss_msg.str();
 
-  inv(fail == false);
+  inv(false);
 }
 END_CONSTRAINT
 
