@@ -89,6 +89,12 @@ template<typename type> void readSamplesFromString(const std::string& str, std::
   while (strStream >> val)
   {
     valuesVector.push_back(val);
+    if (strStream.peek() == ',') {
+      strStream.get();
+    }
+    if (strStream.peek() == ';') {
+      strStream.get();
+    }
   }
 }
 
@@ -101,6 +107,12 @@ template<typename type> type* readSamplesFromString(const std::string& str, size
   while (strStream >> val)
   {
     valuesVector.push_back(val);
+    if (strStream.peek() == ',') {
+      strStream.get();
+    }
+    if (strStream.peek() == ';') {
+      strStream.get();
+    }
   }
 
   length = valuesVector.size();

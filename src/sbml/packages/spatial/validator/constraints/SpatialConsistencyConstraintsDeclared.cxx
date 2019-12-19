@@ -122,6 +122,7 @@ addConstraint(new VConstraintParametricObjectSpatialParametricObjectFacesSameChi
 addConstraint(new VConstraintParametricObjectSpatialParametricObjectMaxTwoPointBorders(*this));
 addConstraint(new VConstraintSampledFieldSpatialSampledFieldSamplesLengthMustMatchUncompressed(*this));
 addConstraint(new VConstraintSampledFieldSpatialSampledFieldFloatArrayDataMustMatch(*this));
+addConstraint(new VConstraintSampledFieldSpatialSampledFieldUIntArrayDataNotNegative(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));

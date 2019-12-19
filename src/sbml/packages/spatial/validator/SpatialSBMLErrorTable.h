@@ -1264,12 +1264,22 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1221654
+  // 1221655
   { SpatialSampledFieldFloatArrayDataMustMatch,
     "The <sampledField> entries in 'float' must be single precision.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "If the 'spatial:dataType' attribute of a <sampledField> has the value 'float', none of the uncompressed entries in the ArrayData child of the <sampledField> may have a value outside of the range of an IEEE 754-1985 single-precision floating point value (approximately +/-3.4028235e38, and +/-1.17549e-38).",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1221656
+  { SpatialSampledFieldUIntArrayDataNotNegative,
+    "The <sampledField> entries in 'uint' must not be negative.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the 'spatial:dataType' attribute of a <sampledField> has the value 'uint', none of the uncompressed entries in the ArrayData child of the <sampledField> may be negative.",
     { "L3V1 Spatial V1 Section"
     }
   },
