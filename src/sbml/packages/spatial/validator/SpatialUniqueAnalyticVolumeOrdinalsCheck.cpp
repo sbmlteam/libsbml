@@ -1,7 +1,7 @@
 /**
 * @cond doxygenLibsbmlInternal
 *
-* @file    SpatialUniqueCSGObjectOrdinalsCheck.cpp
+* @file    SpatialUniqueAnalyticVolumeOrdinalsCheck.cpp
 * @brief   Ensure that spatial compartment mappings' unit sizes sum to one.
 * @author  Sarah Keating, Lucian Smith
 * 
@@ -36,8 +36,9 @@
 * and also available online as http://sbml.org/software/libsbml/license.html
 * ---------------------------------------------------------------------- -->*/
 
-#include "SpatialUniqueCSGObjectOrdinalsCheck.h"
-#include <sbml/packages/spatial/sbml/CSGeometry.h>
+#include "SpatialUniqueAnalyticVolumeOrdinalsCheck.h"
+#include <sbml/packages/spatial/sbml/AnalyticGeometry.h>
+#include <sbml/packages/spatial/sbml/AnalyticVolume.h>
 
 #include <set>
 #include <map>
@@ -53,15 +54,15 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /*
 * Creates a new Constraint with the given constraint id.
 */
-SpatialUniqueCSGObjectOrdinalsCheck::SpatialUniqueCSGObjectOrdinalsCheck(unsigned int id, SpatialValidator & v):
-  TConstraint<CSGeometry>(id, v)
+SpatialUniqueAnalyticVolumeOrdinalsCheck::SpatialUniqueAnalyticVolumeOrdinalsCheck(unsigned int id, SpatialValidator & v):
+  TConstraint<AnalyticGeometry>(id, v)
 {
 }
 
 /*
 * Destroys this Constraint.
 */
-SpatialUniqueCSGObjectOrdinalsCheck::~SpatialUniqueCSGObjectOrdinalsCheck ()
+SpatialUniqueAnalyticVolumeOrdinalsCheck::~SpatialUniqueAnalyticVolumeOrdinalsCheck ()
 {
 }
 
@@ -71,25 +72,26 @@ SpatialUniqueCSGObjectOrdinalsCheck::~SpatialUniqueCSGObjectOrdinalsCheck ()
 * event assignments and assignment rules.
 */
 void
-SpatialUniqueCSGObjectOrdinalsCheck::check_ (const Model& m, const CSGeometry& object)
+SpatialUniqueAnalyticVolumeOrdinalsCheck::check_ (const Model& m, const AnalyticGeometry& object)
 {
   set<int> ordinals;
-  for (unsigned long c = 0; c < object.getNumCSGObjects(); c++)
+  for (unsigned long c = 0; c < object.getNumAnalyticVolumes(); c++)
   {
-    const CSGObject* csgo = object.getCSGObject(c);
-    if (!csgo->isSetOrdinal()) {
+    const AnalyticVolume* av = object.getAnalyticVolume(c);
+    if (!av->isSetOrdinal()) {
       continue;
     }
-    int ordinal = csgo->getOrdinal();
+    int ordinal = av->getOrdinal();
     if (ordinals.find(ordinal) != ordinals.end())
     {
       stringstream ss_msg;
-      ss_msg << "A <csgObject>";
-      if (csgo->isSetId())
+      ss_msg << "An <analyticVolume>";
+      if (av->isSetId())
       {
-        ss_msg << " with the id '" << csgo->getId() << "'";
+        ss_msg << " with the id '" << av->getId() << "'";
       }
-      ss_msg << " has an 'ordinal' value of '" << ordinal << "', which was already used by a different <csgObject>.";
+      ss_msg << " has an 'ordinal' value of '" << ordinal;
+      ss_msg << "', which was already used by a different <analyticVolume>.";
       msg = ss_msg.str();
       logFailure(m);
     }

@@ -42,6 +42,7 @@
 #include "sbml/packages/spatial/validator/SpatialSpatialSymbolReferenceUniqueRefCheck.h"
 #include "sbml/packages/spatial/validator/SpatialUniqueDiffusionCoefficientsCheck.h"
 #include "sbml/packages/spatial/validator/SpatialUniqueAdvectionCoefficientsCheck.h"
+#include "sbml/packages/spatial/validator/SpatialUniqueAnalyticVolumeOrdinalsCheck.h"
 #include "sbml/packages/spatial/validator/SpatialUniqueBoundaryConditionsCheck.h"
 #include "sbml/packages/spatial/validator/SpatialUniqueSampledVolumeValueCheck.h"
 #include "sbml/packages/spatial/validator/SpatialUniqueOrdinalMappingOrdinalsCheck.h"
@@ -132,6 +133,7 @@ addConstraint(new SpatialSampledVolumeRangeOverlapCheck(SpatialSampledVolumeRang
 addConstraint(new SpatialUniqueCSGObjectOrdinalsCheck(SpatialCSGObjectOrdinalShouldBeUnique, *this));
 addConstraint(new SpatialUniqueOrdinalMappingOrdinalsCheck(SpatialOrdinalMappingOrdinalShouldBeUnique, *this));
 addConstraint(new SpatialOrdinalMappingGeometryDefinitionCheck(SpatialOrdinalMappingGeometryDefinitionMustBeGeometryDefinition, *this));
+addConstraint(new SpatialUniqueAnalyticVolumeOrdinalsCheck(SpatialAnalyticVolumeOrdinalShouldBeUnique, *this));
 
 /** @endcond */
 

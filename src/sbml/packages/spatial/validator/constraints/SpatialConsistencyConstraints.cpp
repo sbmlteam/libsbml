@@ -46,16 +46,17 @@
 #include <sbml/packages/spatial/common/SpatialExtensionTypes.h>
 #include <sbml/packages/spatial/sbml/Geometry.h>
 #include <sbml/packages/spatial/validator/SpatialCompartmentMappingUnitSizesCheck.h>
+#include <sbml/packages/spatial/validator/SpatialOrdinalMappingGeometryDefinitionCheck.h>
+#include <sbml/packages/spatial/validator/SpatialSampledVolumeRangeOverlapCheck.h>
+#include <sbml/packages/spatial/validator/SpatialSampledVolumeValueNotInRangeCheck.h>
 #include <sbml/packages/spatial/validator/SpatialSpatialSymbolReferenceUniqueRefCheck.h>
-#include <sbml/packages/spatial/validator/SpatialUniqueDiffusionCoefficientsCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueAdvectionCoefficientsCheck.h>
+#include <sbml/packages/spatial/validator/SpatialUniqueAnalyticVolumeOrdinalsCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueBoundaryConditionsCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueCSGObjectOrdinalsCheck.h>
+#include <sbml/packages/spatial/validator/SpatialUniqueDiffusionCoefficientsCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueOrdinalMappingOrdinalsCheck.h>
-#include <sbml/packages/spatial/validator/SpatialOrdinalMappingGeometryDefinitionCheck.h>
 #include <sbml/packages/spatial/validator/SpatialUniqueSampledVolumeValueCheck.h>
-#include <sbml/packages/spatial/validator/SpatialSampledVolumeValueNotInRangeCheck.h>
-#include <sbml/packages/spatial/validator/SpatialSampledVolumeRangeOverlapCheck.h>
 #include <sbml/Species.h>
 
 #endif /* AddingConstraintsToValidator */
@@ -68,6 +69,7 @@ EXTERN_CONSTRAINT(ErrorEnumValue, SpatialCompartmentMappingUnitSizesCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialSpatialSymbolReferenceUniqueRefCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueDiffusionCoefficientsCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueAdvectionCoefficientsCheck);
+EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueAnalyticVolumeOrdinalsCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueBoundaryConditionsCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialUniqueCSGObjectOrdinalsCheck);
 EXTERN_CONSTRAINT(ErrorEnumValue, SpatialOrdinalMappingGeometryDefinitionCheck);

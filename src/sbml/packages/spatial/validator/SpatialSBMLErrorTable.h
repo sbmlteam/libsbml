@@ -1551,7 +1551,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'ordinal' attribute should be unique.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_WARNING,
-    "No <analyticVolume? should have a 'spatial:ordinal' attribute with the same value as a different <analyticVolume>.",
+    "No <analyticVolume> should have a 'spatial:ordinal' attribute with the same value as a different <analyticVolume>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -3815,7 +3815,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The <spatialPoints> entries in 'float' must be single precision.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If the 'spatial:dataType' attribute of a <spatialPoints> has the value 'float', none of the uncompressed entries in the ArrayData child of the <spatialPoints> may have a value outside of the range of an IEEE 754-1985 single-precision floating point value (approximately +/-3.4028235e38, and +/-1.17549e?38).",
+    "If the 'spatial:dataType' attribute of a <spatialPoints> has the value 'float', none of the uncompressed entries in the ArrayData child of the <spatialPoints> may have a value outside of the range of an IEEE 754-1985 single-precision floating point value (approximately +/-3.4028235e38, and +/-1.17549e-38).",
     { "L3V1 Spatial V1 Section"
     }
   },

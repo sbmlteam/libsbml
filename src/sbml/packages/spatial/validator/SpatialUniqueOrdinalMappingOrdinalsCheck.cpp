@@ -84,12 +84,12 @@ SpatialUniqueOrdinalMappingOrdinalsCheck::check_ (const Model& m, const MixedGeo
     if (ordinals.find(ordinal) != ordinals.end())
     {
       stringstream ss_msg;
-      ss_msg << "An <ordinalMapping> ";
+      ss_msg << "An <ordinalMapping>";
       if (om->isSetId())
       {
-        ss_msg << " with the id '" << om->getId() << "' ";
+        ss_msg << " with the id '" << om->getId() << "'";
       }
-      ss_msg << "has a 'geometryDefinition' value of '" << om->getGeometryDefinition();
+      ss_msg << " has a 'geometryDefinition' value of '" << om->getGeometryDefinition();
       ss_msg << "' and an 'ordinal' value of '" << ordinal;
       ss_msg << "', which was already used by a different <ordinalMapping>.";
       msg = ss_msg.str();
