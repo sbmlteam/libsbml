@@ -2324,6 +2324,38 @@ START_CONSTRAINT(SpatialSampledFieldSamplesLengthMustMatchUncompressed, SampledF
 END_CONSTRAINT
 
 
+// 1221655
+START_CONSTRAINT(SpatialSampledFieldFloatArrayDataMustMatch, SampledField, sf)
+{
+  bool fail = false;
+  pre(sf.isSetDataType());
+  pre(sf.getDataType() == SPATIAL_DATAKIND_FLOAT);
+  SampledField* sf_nc = const_cast<SampledField*>(&sf);
+  size_t len = sf_nc->getUncompressedLength();
+  double* data = new double[len];
+  sf_nc->getUncompressedData(data, len);
+  for (size_t d = 0; d < len; d++) {
+    double val = data[d];
+    if (val > 3.4028235e38 || val < -3.4028235e38 || (val > 0 && val < 1.17549e-38) || val < 0 && val > -1.17549e-38) {
+      stringstream ss_msg;
+      ss_msg << "A <spatialPoints>";
+      if (sf.isSetId())
+      {
+        ss_msg << " with id '" << sf.getId() << "'";
+      }
+      ss_msg << " has an entry with the value '" << val;
+      ss_msg << "', which is outside the range of single-precision 'float' values.";
+      msg = ss_msg.str();
+      fail = true;
+      break;
+    }
+  }
+  delete[] data;
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

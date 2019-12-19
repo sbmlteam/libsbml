@@ -92,7 +92,7 @@ template<typename type> void readSamplesFromString(const std::string& str, std::
   }
 }
 
-template<typename type> type* readSamplesFromString(const std::string& str, unsigned int& length)
+template<typename type> type* readSamplesFromString(const std::string& str, size_t& length)
 {
   stringstream strStream(str);
   type val;
@@ -103,12 +103,12 @@ template<typename type> type* readSamplesFromString(const std::string& str, unsi
     valuesVector.push_back(val);
   }
 
-  length = (unsigned int)valuesVector.size();
+  length = valuesVector.size();
 
   if (length > 0)
   {
     type* data = new type[length];
-    for (unsigned int i = 0; i < length; ++i)
+    for (size_t i = 0; i < length; ++i)
     {
       data[i] = valuesVector.at(i);
     }
@@ -118,11 +118,11 @@ template<typename type> type* readSamplesFromString(const std::string& str, unsi
   return NULL;
 }
 
-template<typename type> std::string arrayToString(const type* array, unsigned int length)
+template<typename type> std::string arrayToString(const type* array, size_t length)
 {
   std::stringstream str;
 
-  for (unsigned int i = 0; i < length; ++i)
+  for (size_t i = 0; i < length; ++i)
   {
     str << (type)array[i] << " ";
   }
@@ -131,11 +131,11 @@ template<typename type> std::string arrayToString(const type* array, unsigned in
 }
 
 
-std::string arrayToString(const unsigned char* array, unsigned int length)
+std::string arrayToString(const unsigned char* array, size_t length)
 {
   std::stringstream str;
 
-  for (unsigned int i = 0; i < length; ++i)
+  for (size_t i = 0; i < length; ++i)
   {
     str << (int)array[i] << " ";
   }
@@ -144,11 +144,11 @@ std::string arrayToString(const unsigned char* array, unsigned int length)
 }
 
 
-std::string arrayToString(const double* array, unsigned int length)
+std::string arrayToString(const double* array, size_t length)
 {
   std::stringstream str;
 
-  for (unsigned int i = 0; i < length; ++i)
+  for (size_t i = 0; i < length; ++i)
   {
     str << std::setprecision(17) << (double)array[i] << " ";
   }
@@ -409,7 +409,7 @@ SampledField::getSamples(int* outArray) const
     return;
   }
 
-  unsigned int length;
+  size_t length;
   int* samples = readSamplesFromString<int>(mSamples, length);
 
   memcpy(outArray, samples, sizeof(int) * length);
@@ -443,7 +443,7 @@ SampledField::getSamples(double* outArray) const
     return;
   }
 
-  unsigned int length;
+  size_t length;
   double* samples = readSamplesFromString<double>(mSamples, length);
 
   memcpy(outArray, samples, sizeof(double) * length);
@@ -458,7 +458,7 @@ SampledField::getSamples(float* outArray) const
     return;
   }
 
-  unsigned int length;
+  size_t length;
   float* samples = readSamplesFromString<float>(mSamples, length);
 
   memcpy(outArray, samples, sizeof(float) * length);
@@ -2042,7 +2042,7 @@ SampledField::setElementText(const std::string& text)
  *
  */
 void
-SampledField::getUncompressedData(int*& data, int& length)
+SampledField::getUncompressedData(double*& data, size_t& length)
 {
   if (mUncompressedSamples == NULL)
   {
@@ -2059,26 +2059,34 @@ SampledField::uncompressLegacy()
 {
   freeUncompressed();
 
-  unsigned int length;
-  int* samples = readSamplesFromString<int>(mSamples, length);
-  if (samples == NULL) return;
+  size_t length;
   if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
   {
+    int* samples = readSamplesFromString<int>(mSamples, length);
+    if (samples == NULL) return;
     char* csamples = (char*)malloc(sizeof(char) * length);
     for (unsigned int i = 0; i < length; ++i)
+    {
       csamples[i] = (char)samples[i];
-    SampledField::uncompress_data(csamples, length, mUncompressedSamples, mUncompressedLength);
+    }
+    uncompress_data(csamples, length, mUncompressedSamples, mUncompressedLength);
     free(csamples);
 
     if (mUncompressedSamples == 0)
-      copySampleArrays(mUncompressedSamples, mUncompressedLength, samples, length);
+    {
+      assert(false);
+//      copySampleArrays(mUncompressedSamples, mUncompressedLength, samples, length);
+    }
+    delete[] samples;
   }
   else
   {
+    double* samples = readSamplesFromString<double>(mSamples, length);
+    if (samples == NULL) return;
     copySampleArrays(mUncompressedSamples, mUncompressedLength, samples, length);
+    delete[] samples;
   }
 
-  delete[] samples;
 
 }
 
@@ -2088,8 +2096,8 @@ SampledField::uncompress()
   if (mCompression != SPATIAL_COMPRESSIONKIND_DEFLATED)
     return LIBSBML_OPERATION_SUCCESS;
 
-  unsigned int length;
-  int* samples = readSamplesFromString<int>(mSamples, length);
+  size_t length;
+  double* samples = readSamplesFromString<double>(mSamples, length);
   if (samples == NULL)
     return LIBSBML_OPERATION_SUCCESS;
 
@@ -2127,14 +2135,14 @@ SampledField::getUncompressedLength()
 }
 
 void
-SampledField::getUncompressed(int* outputSamples)
+SampledField::getUncompressed(double* outputSamples)
 {
   if (outputSamples == NULL) return;
   if (mUncompressedSamples == NULL)
     uncompressLegacy();
   if (mUncompressedSamples == NULL)
     return;
-  memcpy(outputSamples, mUncompressedSamples, sizeof(int) * mUncompressedLength);
+  memcpy(outputSamples, mUncompressedSamples, sizeof(double) * mUncompressedLength);
 }
 
 void
@@ -2208,15 +2216,15 @@ SampledField::uncompress_data(void* data, size_t length)
 }
 
 void
-SampledField::copySampleArrays(int*& target, int& targetLength, int* source, int sourceLength)
+SampledField::copySampleArrays(double*& target, size_t& targetLength, double* source, size_t sourceLength)
 {
   targetLength = sourceLength;
-  target = (int*)malloc(sizeof(int) * sourceLength);
-  memset(target, 0, sizeof(int) * sourceLength);
-  memcpy(target, source, sizeof(int) * sourceLength);
+  target = (double*)malloc(sizeof(double) * sourceLength);
+  memset(target, 0, sizeof(double) * sourceLength);
+  memcpy(target, source, sizeof(double) * sourceLength);
 }
 
-void SampledField::uncompress_data(void* data, size_t length, int*& result, int& outLength)
+void SampledField::uncompress_data(void* data, size_t length, double*& result, size_t& outLength)
 {
 #ifndef USE_ZLIB
   // throwing an exception won't help our users, better set the result array and length to NULL. 
@@ -2277,10 +2285,10 @@ void SampledField::uncompress_data(void* data, size_t length, int*& result, int&
   inflateEnd(&strm);
 
   outLength = buffer.size();
-  result = (int*)malloc(sizeof(int) * outLength);
+  result = (double*)malloc(sizeof(double) * outLength);
   if (result == NULL)
     return;
-  for (int i = 0; i < outLength; i++)
+  for (size_t i = 0; i < outLength; i++)
     result[i] = buffer[i];
 #endif
 }

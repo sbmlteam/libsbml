@@ -136,13 +136,14 @@ START_TEST (test_SampledField_samples)
 
   int samples [] = {1,2};
   G->setSamples(samples, 2);
+  G->setSamplesLength(2);
 
   fail_unless(G->isSetSamples() == true);
   fail_unless(G->isSetSamplesLength() == true);
 
   fail_unless(G->getSamplesLength() == 2);
 
-  int samplesRet [2];
+  double samplesRet [2];
   G->getSamples(samplesRet);
   fail_unless(samplesRet[0] == 1);
   fail_unless(samplesRet[1] == 2);
@@ -162,13 +163,14 @@ START_TEST (test_SampledField_samples_mismatchLength_1)
 
   int samples [] = {1,2};
   G->setSamples(samples, 3);
+  G->setSamplesLength(3);
 
   fail_unless(G->isSetSamples() == true);
   fail_unless(G->isSetSamplesLength() == true);
 
   fail_unless(G->getSamplesLength() == 3);
 
-  int samplesRet [] = {0, 0, 0};
+  double samplesRet [] = {0, 0, 0};
   G->getSamples(samplesRet);
   fail_unless(samplesRet[0] == 1);
   fail_unless(samplesRet[1] == 2);
@@ -189,6 +191,7 @@ START_TEST (test_SampledField_samples_mismatchLength_2)
 
   int samples [] = {1,2};
   G->setSamples(samples, 1);
+  G->setSamplesLength(1);
 
   fail_unless(G->isSetSamples() == true);
   fail_unless(G->isSetSamplesLength() == true);
@@ -233,6 +236,7 @@ START_TEST (test_SampledField_output)
 
   int points [] = {1,2,3};
   G->setSamples(points, 3);
+  G->setSamplesLength(3);
   G->setDataType("uint8");
 
   S = G->toSBML();

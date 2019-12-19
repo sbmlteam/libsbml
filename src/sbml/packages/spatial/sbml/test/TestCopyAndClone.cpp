@@ -132,6 +132,7 @@ START_TEST ( test_SampledField_copyConstructor )
   SampledField* o1=new SampledField(GNS);
   int points [] = {1,2,3};
   o1->setSamples(points, 3);
+  o1->setSamplesLength(3);
   
   fail_unless(o1->getSamplesLength() == 3);
 
@@ -159,7 +160,8 @@ START_TEST ( test_SampledField_assignmentOperator )
   SampledField* o1=new SampledField(GNS);
   int points [] = {1,2,3};
   o1->setSamples(points, 3);
-  
+  o1->setSamplesLength(3);
+
   fail_unless(o1->getSamplesLength() == 3);
   
   SampledField* o2 = new SampledField(GNS);;
@@ -187,7 +189,8 @@ START_TEST ( test_SampledField_clone )
   SampledField* o1=new SampledField(GNS);
   int points [] = {1,2,3};
   o1->setSamples(points, 3);
-  
+  o1->setSamplesLength(3);
+
   fail_unless(o1->getSamplesLength() == 3);
 
   SampledField* o2=o1->clone();

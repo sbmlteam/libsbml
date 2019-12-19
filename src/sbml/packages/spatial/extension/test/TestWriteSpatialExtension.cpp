@@ -277,6 +277,7 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   fail_unless(sampledField->setNumSamples1(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples2(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples3(2) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setSamplesLength(32) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setDataType(SPATIAL_DATAKIND_UINT8) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setInterpolationType(SPATIAL_INTERPOLATIONKIND_LINEAR) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED) == LIBSBML_OPERATION_SUCCESS);
@@ -560,6 +561,7 @@ START_TEST (test_SpatialExtension_create_add_and_write_L3V1V1)
   fail_unless(sampledField.setNumSamples1(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField.setNumSamples2(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField.setNumSamples3(2) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField.setSamplesLength(32) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField.setDataType("uint8") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField.setInterpolationType("linear") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField.setCompression("uncompressed") == LIBSBML_OPERATION_SUCCESS);
@@ -783,6 +785,7 @@ END_TEST
   fail_unless(sampledField->setNumSamples1(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples2(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples3(2) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setSamplesLength(32) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setDataType(SPATIAL_DATAKIND_UINT8) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setInterpolationType(SPATIAL_INTERPOLATIONKIND_LINEAR) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED) == LIBSBML_OPERATION_SUCCESS);
@@ -1030,6 +1033,7 @@ START_TEST (test_SpatialExtension_read_enable_via_sbmldocument_and_write_L3V1V1)
   fail_unless(sampledField->setNumSamples1(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples2(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples3(2) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setSamplesLength(32) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setDataType("double") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setInterpolationType("linear") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setCompression("uncompressed") == LIBSBML_OPERATION_SUCCESS);

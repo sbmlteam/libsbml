@@ -1263,13 +1263,13 @@ protected:
 
 
 protected:
-  int* mUncompressedSamples;
-  int mUncompressedLength;
+  double* mUncompressedSamples;
+  size_t mUncompressedLength;
 
-  static void copySampleArrays(int* &target, int& targetLength, int* source, int sourceLength);
+  static void copySampleArrays(double* &target, size_t& targetLength, double* source, size_t sourceLength);
   static std::string uncompress_data(void *data, size_t length);
   static void compress_data(void* data, size_t length, int level, unsigned char*& result, int& outLength);
-  static void uncompress_data(void* data, size_t length, int*& result, int& outLength);
+  static void uncompress_data(void* data, size_t length, double*& result, size_t& outLength);
 
 public:
 
@@ -1288,7 +1288,7 @@ public:
    *
    * @return void.
    */
-  void getUncompressed(int* outputSamples);
+  void getUncompressed(double* outputSamples);
 
   /** 
    * utility function freeing the uncompressed data. 
@@ -1332,7 +1332,7 @@ public:
    * @param length the output length of the array
    *
    */
-  void getUncompressedData(int* &data, int& length);
+  void getUncompressedData(double* &data, size_t& length);
 
 
 
