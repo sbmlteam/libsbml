@@ -2530,6 +2530,23 @@ START_CONSTRAINT(SpatialBoundaryConditionBoundaryDomainTypeMustBeDomainType, Bou
 END_CONSTRAINT
 
 
+// 1223404
+START_CONSTRAINT(SpatialDiffusionCoefficientVariableMustBeSpecies, DiffusionCoefficient, dc)
+{
+  pre(dc.isSetVariable());
+  string variable = dc.getVariable();
+  pre(m.getSpecies(variable)==NULL);
+  msg = "A <diffusionCoefficient>";
+  if (dc.isSetId()) {
+    msg += " with the id '" + dc.getId() + "'";
+  }
+  msg += " has a value of '" + variable + "' for its 'variable', but the model does not contain a <species> with that ID.";
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 1221250
 START_CONSTRAINT(SpatialOneGeometryDefinitionMustBeActive, Geometry, g)
 {

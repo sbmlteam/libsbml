@@ -5,7 +5,7 @@
             <compartment constant="false" id="compartment"/>
         </listOfCompartments>
         <listOfSpecies>
-            <species boundaryCondition="false" compartment="compartment" constant="false" hasOnlySubstanceUnits="false" id="id_2" spatial:isSpatial="false"/>
+            <species boundaryCondition="false" compartment="compartment" constant="false" hasOnlySubstanceUnits="false" id="species_1" spatial:isSpatial="false"/>
         </listOfSpecies>
     </model>
 </sbml>

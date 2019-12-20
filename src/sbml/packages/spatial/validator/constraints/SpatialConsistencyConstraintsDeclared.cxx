@@ -130,6 +130,7 @@ addConstraint(new VConstraintParametricObjectSpatialParametricObjectDomainTypeMu
 addConstraint(new VConstraintCSGObjectSpatialCSGObjectDomainTypeMustBeDomainType(*this));
 addConstraint(new VConstraintBoundaryConditionSpatialBoundaryConditionBoundaryDomainTypeMustBeDomainType(*this));
 addConstraint(new VConstraintGeometrySpatialOneGeometryDefinitionMustBeActive(*this));
+addConstraint(new VConstraintDiffusionCoefficientSpatialDiffusionCoefficientVariableMustBeSpecies(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));

@@ -32,7 +32,7 @@
             </compartment>
         </listOfCompartments>
         <listOfSpecies>
-            <species boundaryCondition="false" compartment="compartment" constant="false" hasOnlySubstanceUnits="false" id="id_2" spatial:isSpatial="true"/>
+            <species boundaryCondition="false" compartment="compartment" constant="false" hasOnlySubstanceUnits="false" id="species_1" spatial:isSpatial="true"/>
         </listOfSpecies>
         <listOfParameters>
             <parameter constant="false" id="id_3">
