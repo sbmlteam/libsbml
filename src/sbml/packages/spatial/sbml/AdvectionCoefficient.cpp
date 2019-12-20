@@ -732,7 +732,7 @@ AdvectionCoefficient::readAttributes(const XMLAttributes& attributes,
   {
     if (mVariable.empty() == true)
     {
-      logEmptyString(mVariable, level, version, "<AdvectionCoefficient>");
+      logEmptyString(mVariable, level, version, "<advectionCoefficient>");
     }
     else if (SyntaxChecker::isValidSBMLSId(mVariable) == false)
     {
@@ -752,7 +752,7 @@ AdvectionCoefficient::readAttributes(const XMLAttributes& attributes,
   else
   {
     std::string message = "Spatial attribute 'variable' is missing from the "
-      "<AdvectionCoefficient> element.";
+      "<advectionCoefficient> element.";
     log->logPackageError("spatial",
       SpatialAdvectionCoefficientAllowedAttributes, pkgVersion, level, version,
         message, getLine(), getColumn());
@@ -769,7 +769,7 @@ AdvectionCoefficient::readAttributes(const XMLAttributes& attributes,
   {
     if (coordinate.empty() == true)
     {
-      logEmptyString(coordinate, level, version, "<AdvectionCoefficient>");
+      logEmptyString(coordinate, level, version, "<advectionCoefficient>");
     }
     else
     {

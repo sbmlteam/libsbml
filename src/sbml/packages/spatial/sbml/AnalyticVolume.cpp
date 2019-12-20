@@ -1110,7 +1110,7 @@ AnalyticVolume::readAttributes(const XMLAttributes& attributes,
   {
     if (mId.empty() == true)
     {
-      logEmptyString(mId, level, version, "<AnalyticVolume>");
+      logEmptyString(mId, level, version, "<analyticVolume>");
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
@@ -1122,7 +1122,7 @@ AnalyticVolume::readAttributes(const XMLAttributes& attributes,
   else
   {
     std::string message = "Spatial attribute 'id' is missing from the "
-      "<AnalyticVolume> element.";
+      "<analyticVolume> element.";
     log->logPackageError("spatial", SpatialAnalyticVolumeAllowedAttributes,
       pkgVersion, level, version, message, getLine(), getColumn());
   }
@@ -1137,7 +1137,7 @@ AnalyticVolume::readAttributes(const XMLAttributes& attributes,
   {
     if (mName.empty() == true)
     {
-      logEmptyString(mName, level, version, "<AnalyticVolume>");
+      logEmptyString(mName, level, version, "<analyticVolume>");
     }
   }
 
@@ -1152,7 +1152,7 @@ AnalyticVolume::readAttributes(const XMLAttributes& attributes,
   {
     if (functionType.empty() == true)
     {
-      logEmptyString(functionType, level, version, "<AnalyticVolume>");
+      logEmptyString(functionType, level, version, "<analyticVolume>");
     }
     else
     {
@@ -1196,7 +1196,7 @@ AnalyticVolume::readAttributes(const XMLAttributes& attributes,
     {
       log->remove(XMLAttributeTypeMismatch);
       std::string message = "Spatial attribute 'ordinal' from the "
-        "<AnalyticVolume> element must be an integer.";
+        "<analyticVolume> element must be an integer.";
       log->logPackageError("spatial",
         SpatialAnalyticVolumeOrdinalMustBeInteger, pkgVersion, level, version,
           message, getLine(), getColumn());
@@ -1213,7 +1213,7 @@ AnalyticVolume::readAttributes(const XMLAttributes& attributes,
   {
     if (mDomainType.empty() == true)
     {
-      logEmptyString(mDomainType, level, version, "<AnalyticVolume>");
+      logEmptyString(mDomainType, level, version, "<analyticVolume>");
     }
     else if (SyntaxChecker::isValidSBMLSId(mDomainType) == false)
     {
@@ -1234,7 +1234,7 @@ AnalyticVolume::readAttributes(const XMLAttributes& attributes,
   else
   {
     std::string message = "Spatial attribute 'domainType' is missing from the "
-      "<AnalyticVolume> element.";
+      "<analyticVolume> element.";
     log->logPackageError("spatial", SpatialAnalyticVolumeAllowedAttributes,
       pkgVersion, level, version, message, getLine(), getColumn());
   }

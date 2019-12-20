@@ -2446,6 +2446,27 @@ START_CONSTRAINT(SpatialSampledVolumeDomainTypeMustBeDomainType, SampledVolume, 
 END_CONSTRAINT
 
 
+// 1221906
+START_CONSTRAINT(SpatialAnalyticVolumeDomainTypeMustBeDomainType, AnalyticVolume, av)
+{
+  pre(av.isSetDomainType());
+  string domaintype = av.getDomainType();
+  SpatialModelPlugin *mplug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(mplug != NULL);
+  Geometry* geom = mplug->getGeometry();
+  pre(geom != NULL);
+  pre(geom->getDomainType(domaintype)==NULL);
+  msg = "An <analyticVolume>";
+  if (av.isSetId()) {
+    msg += " with the id '" + av.getId() + "'";
+  }
+  msg += " has a value of '" + domaintype + "' for its 'domainType', but the <geometry> does not contain a <domainType> with that ID.";
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{
