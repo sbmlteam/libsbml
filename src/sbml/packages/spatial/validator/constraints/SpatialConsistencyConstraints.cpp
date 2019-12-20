@@ -2509,6 +2509,27 @@ START_CONSTRAINT(SpatialCSGObjectDomainTypeMustBeDomainType, CSGObject, csgo)
 END_CONSTRAINT
 
 
+// 1223607
+START_CONSTRAINT(SpatialBoundaryConditionBoundaryDomainTypeMustBeDomainType, BoundaryCondition, bc)
+{
+  pre(bc.isSetBoundaryDomainType());
+  string domaintype = bc.getBoundaryDomainType();
+  SpatialModelPlugin *mplug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(mplug != NULL);
+  Geometry* geom = mplug->getGeometry();
+  pre(geom != NULL);
+  pre(geom->getDomainType(domaintype)==NULL);
+  msg = "A <boundaryCondition>";
+  if (bc.isSetId()) {
+    msg += " with the id '" + bc.getId() + "'";
+  }
+  msg += " has a value of '" + domaintype + "' for its 'boundaryDomainType', but the <geometry> does not contain a <domainType> with that ID.";
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{
