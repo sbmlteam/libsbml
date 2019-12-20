@@ -763,7 +763,7 @@ CSGScale::readAttributes(const XMLAttributes& attributes,
       log->contains(XMLAttributeTypeMismatch))
     {
       log->remove(XMLAttributeTypeMismatch);
-      std::string message = "Spatial attribute 'scaleX' from the <CSGScale> "
+      std::string message = "Spatial attribute 'scaleX' from the <csgScale> "
         "element must be an integer.";
       log->logPackageError("spatial", SpatialCSGScaleScaleXMustBeDouble,
         pkgVersion, level, version, message, getLine(), getColumn());
@@ -771,7 +771,7 @@ CSGScale::readAttributes(const XMLAttributes& attributes,
     else
     {
       std::string message = "Spatial attribute 'scaleX' is missing from the "
-        "<CSGScale> element.";
+        "<csgScale> element.";
       log->logPackageError("spatial", SpatialCSGScaleAllowedAttributes,
         pkgVersion, level, version, message, getLine(), getColumn());
     }
@@ -790,7 +790,7 @@ CSGScale::readAttributes(const XMLAttributes& attributes,
       log->contains(XMLAttributeTypeMismatch))
     {
       log->remove(XMLAttributeTypeMismatch);
-      std::string message = "Spatial attribute 'scaleY' from the <CSGScale> "
+      std::string message = "Spatial attribute 'scaleY' from the <csgScale> "
         "element must be an integer.";
       log->logPackageError("spatial", SpatialCSGScaleScaleYMustBeDouble,
         pkgVersion, level, version, message, getLine(), getColumn());
@@ -810,7 +810,7 @@ CSGScale::readAttributes(const XMLAttributes& attributes,
       log->contains(XMLAttributeTypeMismatch))
     {
       log->remove(XMLAttributeTypeMismatch);
-      std::string message = "Spatial attribute 'scaleZ' from the <CSGScale> "
+      std::string message = "Spatial attribute 'scaleZ' from the <csgScale> "
         "element must be an integer.";
       log->logPackageError("spatial", SpatialCSGScaleScaleZMustBeDouble,
         pkgVersion, level, version, message, getLine(), getColumn());

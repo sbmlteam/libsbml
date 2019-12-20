@@ -772,7 +772,7 @@ CSGTranslation::readAttributes(const XMLAttributes& attributes,
     {
       log->remove(XMLAttributeTypeMismatch);
       std::string message = "Spatial attribute 'translateX' from the "
-        "<CSGTranslation> element must be an integer.";
+        "<csgTranslation> element must be an integer.";
       log->logPackageError("spatial",
         SpatialCSGTranslationTranslateXMustBeDouble, pkgVersion, level, version,
           message, getLine(), getColumn());
@@ -780,7 +780,7 @@ CSGTranslation::readAttributes(const XMLAttributes& attributes,
     else
     {
       std::string message = "Spatial attribute 'translateX' is missing from the "
-        "<CSGTranslation> element.";
+        "<csgTranslation> element.";
       log->logPackageError("spatial", SpatialCSGTranslationAllowedAttributes,
         pkgVersion, level, version, message, getLine(), getColumn());
     }
@@ -800,7 +800,7 @@ CSGTranslation::readAttributes(const XMLAttributes& attributes,
     {
       log->remove(XMLAttributeTypeMismatch);
       std::string message = "Spatial attribute 'translateY' from the "
-        "<CSGTranslation> element must be an integer.";
+        "<csgTranslation> element must be an integer.";
       log->logPackageError("spatial",
         SpatialCSGTranslationTranslateYMustBeDouble, pkgVersion, level, version,
           message, getLine(), getColumn());
@@ -821,7 +821,7 @@ CSGTranslation::readAttributes(const XMLAttributes& attributes,
     {
       log->remove(XMLAttributeTypeMismatch);
       std::string message = "Spatial attribute 'translateZ' from the "
-        "<CSGTranslation> element must be an integer.";
+        "<csgTranslation> element must be an integer.";
       log->logPackageError("spatial",
         SpatialCSGTranslationTranslateZMustBeDouble, pkgVersion, level, version,
           message, getLine(), getColumn());

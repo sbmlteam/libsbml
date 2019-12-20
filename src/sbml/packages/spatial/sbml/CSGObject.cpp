@@ -1553,7 +1553,7 @@ CSGObject::readAttributes(const XMLAttributes& attributes,
   {
     if (mId.empty() == true)
     {
-      logEmptyString(mId, level, version, "<CSGObject>");
+      logEmptyString(mId, level, version, "<csgObject>");
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
@@ -1565,7 +1565,7 @@ CSGObject::readAttributes(const XMLAttributes& attributes,
   else
   {
     std::string message = "Spatial attribute 'id' is missing from the "
-      "<CSGObject> element.";
+      "<csgObject> element.";
     log->logPackageError("spatial", SpatialCSGObjectAllowedAttributes,
       pkgVersion, level, version, message, getLine(), getColumn());
   }
@@ -1580,7 +1580,7 @@ CSGObject::readAttributes(const XMLAttributes& attributes,
   {
     if (mName.empty() == true)
     {
-      logEmptyString(mName, level, version, "<CSGObject>");
+      logEmptyString(mName, level, version, "<csgObject>");
     }
   }
 
@@ -1594,7 +1594,7 @@ CSGObject::readAttributes(const XMLAttributes& attributes,
   {
     if (mDomainType.empty() == true)
     {
-      logEmptyString(mDomainType, level, version, "<CSGObject>");
+      logEmptyString(mDomainType, level, version, "<csgObject>");
     }
     else if (SyntaxChecker::isValidSBMLSId(mDomainType) == false)
     {
@@ -1615,7 +1615,7 @@ CSGObject::readAttributes(const XMLAttributes& attributes,
   else
   {
     std::string message = "Spatial attribute 'domainType' is missing from the "
-      "<CSGObject> element.";
+      "<csgObject> element.";
     log->logPackageError("spatial", SpatialCSGObjectAllowedAttributes,
       pkgVersion, level, version, message, getLine(), getColumn());
   }
@@ -1633,7 +1633,7 @@ CSGObject::readAttributes(const XMLAttributes& attributes,
       log->contains(XMLAttributeTypeMismatch))
     {
       log->remove(XMLAttributeTypeMismatch);
-      std::string message = "Spatial attribute 'ordinal' from the <CSGObject> "
+      std::string message = "Spatial attribute 'ordinal' from the <csgObject> "
         "element must be an integer.";
       log->logPackageError("spatial", SpatialCSGObjectOrdinalMustBeInteger,
         pkgVersion, level, version, message, getLine(), getColumn());

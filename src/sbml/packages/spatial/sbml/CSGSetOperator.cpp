@@ -1452,7 +1452,7 @@ CSGSetOperator::readAttributes(const XMLAttributes& attributes,
   {
     if (operationType.empty() == true)
     {
-      logEmptyString(operationType, level, version, "<CSGSetOperator>");
+      logEmptyString(operationType, level, version, "<csgSetOperator>");
     }
     else
     {
@@ -1460,7 +1460,7 @@ CSGSetOperator::readAttributes(const XMLAttributes& attributes,
 
       if (SetOperation_isValid(mOperationType) == 0)
       {
-        std::string msg = "The operationType on the <CSGSetOperator> ";
+        std::string msg = "The operationType on the <csgSetOperator> ";
 
         if (isSetId())
         {
@@ -1492,7 +1492,7 @@ CSGSetOperator::readAttributes(const XMLAttributes& attributes,
   {
     if (mComplementA.empty() == true)
     {
-      logEmptyString(mComplementA, level, version, "<CSGSetOperator>");
+      logEmptyString(mComplementA, level, version, "<csgSetOperator>");
     }
     else if (SyntaxChecker::isValidSBMLSId(mComplementA) == false)
     {
@@ -1521,7 +1521,7 @@ CSGSetOperator::readAttributes(const XMLAttributes& attributes,
   {
     if (mComplementB.empty() == true)
     {
-      logEmptyString(mComplementB, level, version, "<CSGSetOperator>");
+      logEmptyString(mComplementB, level, version, "<csgSetOperator>");
     }
     else if (SyntaxChecker::isValidSBMLSId(mComplementB) == false)
     {

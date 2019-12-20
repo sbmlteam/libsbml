@@ -631,7 +631,7 @@ CSGPrimitive::readAttributes(const XMLAttributes& attributes,
   {
     if (primitiveType.empty() == true)
     {
-      logEmptyString(primitiveType, level, version, "<CSGPrimitive>");
+      logEmptyString(primitiveType, level, version, "<csgPrimitive>");
     }
     else
     {
@@ -639,7 +639,7 @@ CSGPrimitive::readAttributes(const XMLAttributes& attributes,
 
       if (PrimitiveKind_isValid(mPrimitiveType) == 0)
       {
-        std::string msg = "The primitiveType on the <CSGPrimitive> ";
+        std::string msg = "The primitiveType on the <csgPrimitive> ";
 
         if (isSetId())
         {

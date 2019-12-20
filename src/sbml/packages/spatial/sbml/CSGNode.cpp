@@ -750,7 +750,7 @@ CSGNode::readAttributes(const XMLAttributes& attributes,
   {
     if (mId.empty() == true)
     {
-      logEmptyString(mId, level, version, "<CSGNode>");
+      logEmptyString(mId, level, version, "<csgNode>");
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
@@ -770,7 +770,7 @@ CSGNode::readAttributes(const XMLAttributes& attributes,
   {
     if (mName.empty() == true)
     {
-      logEmptyString(mName, level, version, "<CSGNode>");
+      logEmptyString(mName, level, version, "<csgNode>");
     }
   }
 }

@@ -856,7 +856,7 @@ CSGRotation::readAttributes(const XMLAttributes& attributes,
       log->contains(XMLAttributeTypeMismatch))
     {
       log->remove(XMLAttributeTypeMismatch);
-      std::string message = "Spatial attribute 'rotateX' from the <CSGRotation> "
+      std::string message = "Spatial attribute 'rotateX' from the <csgRotation> "
         "element must be an integer.";
       log->logPackageError("spatial", SpatialCSGRotationRotateXMustBeDouble,
         pkgVersion, level, version, message, getLine(), getColumn());
@@ -864,7 +864,7 @@ CSGRotation::readAttributes(const XMLAttributes& attributes,
     else
     {
       std::string message = "Spatial attribute 'rotateX' is missing from the "
-        "<CSGRotation> element.";
+        "<csgRotation> element.";
       log->logPackageError("spatial", SpatialCSGRotationAllowedAttributes,
         pkgVersion, level, version, message, getLine(), getColumn());
     }
@@ -883,7 +883,7 @@ CSGRotation::readAttributes(const XMLAttributes& attributes,
       log->contains(XMLAttributeTypeMismatch))
     {
       log->remove(XMLAttributeTypeMismatch);
-      std::string message = "Spatial attribute 'rotateY' from the <CSGRotation> "
+      std::string message = "Spatial attribute 'rotateY' from the <csgRotation> "
         "element must be an integer.";
       log->logPackageError("spatial", SpatialCSGRotationRotateYMustBeDouble,
         pkgVersion, level, version, message, getLine(), getColumn());
@@ -903,7 +903,7 @@ CSGRotation::readAttributes(const XMLAttributes& attributes,
       log->contains(XMLAttributeTypeMismatch))
     {
       log->remove(XMLAttributeTypeMismatch);
-      std::string message = "Spatial attribute 'rotateZ' from the <CSGRotation> "
+      std::string message = "Spatial attribute 'rotateZ' from the <csgRotation> "
         "element must be an integer.";
       log->logPackageError("spatial", SpatialCSGRotationRotateZMustBeDouble,
         pkgVersion, level, version, message, getLine(), getColumn());
@@ -925,7 +925,7 @@ CSGRotation::readAttributes(const XMLAttributes& attributes,
     {
       log->remove(XMLAttributeTypeMismatch);
       std::string message = "Spatial attribute 'rotateAngleInRadians' from the "
-        "<CSGRotation> element must be an integer.";
+        "<csgRotation> element must be an integer.";
       log->logPackageError("spatial",
         SpatialCSGRotationRotateAngleInRadiansMustBeDouble, pkgVersion, level,
           version, message, getLine(), getColumn());
@@ -933,7 +933,7 @@ CSGRotation::readAttributes(const XMLAttributes& attributes,
     else
     {
       std::string message = "Spatial attribute 'rotateAngleInRadians' is "
-        "missing from the <CSGRotation> element.";
+        "missing from the <csgRotation> element.";
       log->logPackageError("spatial", SpatialCSGRotationAllowedAttributes,
         pkgVersion, level, version, message, getLine(), getColumn());
     }
