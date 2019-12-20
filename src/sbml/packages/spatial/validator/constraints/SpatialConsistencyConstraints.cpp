@@ -2389,6 +2389,39 @@ START_CONSTRAINT(SpatialSampledFieldUIntArrayDataNotNegative, SampledField, sf)
 END_CONSTRAINT
 
 
+// 1224057
+START_CONSTRAINT(SpatialSampledFieldIntArrayDataIntegers, SampledField, sf)
+{
+  bool fail = false;
+  pre(sf.isSetDataType());
+  pre(sf.getDataType() == SPATIAL_DATAKIND_INT || sf.getDataType() == SPATIAL_DATAKIND_UINT || sf.getDataType() == SPATIAL_DATAKIND_UINT8 || sf.getDataType() == SPATIAL_DATAKIND_UINT16 || sf.getDataType() == SPATIAL_DATAKIND_UINT32);
+  SampledField* sf_nc = const_cast<SampledField*>(&sf);
+  size_t len = sf_nc->getUncompressedLength();
+  double* data = new double[len];
+  sf_nc->getUncompressedData(data, len);
+  for (size_t d = 0; d < len; d++) {
+    double val = data[d];
+    if (trunc(val) != val) {
+      stringstream ss_msg;
+      ss_msg << "A <spatialPoints>";
+      if (sf.isSetId())
+      {
+        ss_msg << " with id '" << sf.getId() << "'";
+      }
+      ss_msg << " has a data type of '" << sf.getDataTypeAsString();
+      ss_msg << "', but has an entry with the value '" << val;
+      ss_msg << "', which is not an integer.";
+      msg = ss_msg.str();
+      fail = true;
+      break;
+    }
+  }
+  delete[] data;
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

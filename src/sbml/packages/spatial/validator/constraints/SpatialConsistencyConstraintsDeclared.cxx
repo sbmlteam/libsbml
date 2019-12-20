@@ -123,6 +123,7 @@ addConstraint(new VConstraintParametricObjectSpatialParametricObjectMaxTwoPointB
 addConstraint(new VConstraintSampledFieldSpatialSampledFieldSamplesLengthMustMatchUncompressed(*this));
 addConstraint(new VConstraintSampledFieldSpatialSampledFieldFloatArrayDataMustMatch(*this));
 addConstraint(new VConstraintSampledFieldSpatialSampledFieldUIntArrayDataNotNegative(*this));
+addConstraint(new VConstraintSampledFieldSpatialSampledFieldIntArrayDataIntegers(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));

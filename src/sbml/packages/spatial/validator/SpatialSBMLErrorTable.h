@@ -1284,6 +1284,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1221657
+  { SpatialSampledFieldIntArrayDataIntegers,
+    "The <sampledField> entries in 'uint' or 'int' must be integers.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "If the 'spatial:dataType' attribute of a <sampledField> has the value 'uint' or 'int', all of the uncompressed entries in the ArrayData child of the <sampledField> must be integers.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1221701
   { SpatialSampledVolumeAllowedCoreAttributes,
     "Core attributes allowed on <sampledVolume>.",

@@ -168,6 +168,7 @@ typedef enum
 , SpatialSampledFieldSamplesLengthMustMatchCompressed         = 1221654
 , SpatialSampledFieldFloatArrayDataMustMatch                  = 1221655
 , SpatialSampledFieldUIntArrayDataNotNegative                 = 1221656
+, SpatialSampledFieldIntArrayDataIntegers                     = 1221657
 , SpatialSampledVolumeAllowedCoreAttributes                   = 1221701
 , SpatialSampledVolumeAllowedCoreElements                     = 1221702
 , SpatialSampledVolumeAllowedAttributes                       = 1221703
