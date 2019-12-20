@@ -720,7 +720,7 @@ START_CONSTRAINT(SpatialSpatialSymbolReferenceSpatialRefMustReferenceMath, Spati
   const SBase* ref = model->getElementBySId(ssr.getSpatialRef());
   if (ref == NULL) {
     fail = true;
-    msg += ", but no object with that ID could be found.";
+    msg += ", but no object with that id could be found.";
   }
   else {
     switch (ref->getTypeCode()) {
@@ -2439,7 +2439,7 @@ START_CONSTRAINT(SpatialSampledVolumeDomainTypeMustBeDomainType, SampledVolume, 
   if (sv.isSetId()) {
     msg += " with the id '" + sv.getId() + "'";
   }
-  msg += " has a value of '" + domaintype + "' for its 'domainType', but the <geometry> does not contain a <domainType> with that ID.";
+  msg += " has a value of '" + domaintype + "' for its 'domainType', but the <geometry> does not contain a <domainType> with that id.";
 
   inv(false);
 }
@@ -2460,7 +2460,7 @@ START_CONSTRAINT(SpatialAnalyticVolumeDomainTypeMustBeDomainType, AnalyticVolume
   if (av.isSetId()) {
     msg += " with the id '" + av.getId() + "'";
   }
-  msg += " has a value of '" + domaintype + "' for its 'domainType', but the <geometry> does not contain a <domainType> with that ID.";
+  msg += " has a value of '" + domaintype + "' for its 'domainType', but the <geometry> does not contain a <domainType> with that id.";
 
   inv(false);
 }
@@ -2481,7 +2481,7 @@ START_CONSTRAINT(SpatialParametricObjectDomainTypeMustBeDomainType, ParametricOb
   if (po.isSetId()) {
     msg += " with the id '" + po.getId() + "'";
   }
-  msg += " has a value of '" + domaintype + "' for its 'domainType', but the <geometry> does not contain a <domainType> with that ID.";
+  msg += " has a value of '" + domaintype + "' for its 'domainType', but the <geometry> does not contain a <domainType> with that id.";
 
   inv(false);
 }
@@ -2502,7 +2502,7 @@ START_CONSTRAINT(SpatialCSGObjectDomainTypeMustBeDomainType, CSGObject, csgo)
   if (csgo.isSetId()) {
     msg += " with the id '" + csgo.getId() + "'";
   }
-  msg += " has a value of '" + domaintype + "' for its 'domainType', but the <geometry> does not contain a <domainType> with that ID.";
+  msg += " has a value of '" + domaintype + "' for its 'domainType', but the <geometry> does not contain a <domainType> with that id.";
 
   inv(false);
 }
@@ -2523,7 +2523,7 @@ START_CONSTRAINT(SpatialBoundaryConditionBoundaryDomainTypeMustBeDomainType, Bou
   if (bc.isSetId()) {
     msg += " with the id '" + bc.getId() + "'";
   }
-  msg += " has a value of '" + domaintype + "' for its 'boundaryDomainType', but the <geometry> does not contain a <domainType> with that ID.";
+  msg += " has a value of '" + domaintype + "' for its 'boundaryDomainType', but the <geometry> does not contain a <domainType> with that id.";
 
   inv(false);
 }
@@ -2540,7 +2540,34 @@ START_CONSTRAINT(SpatialDiffusionCoefficientVariableMustBeSpecies, DiffusionCoef
   if (dc.isSetId()) {
     msg += " with the id '" + dc.getId() + "'";
   }
-  msg += " has a value of '" + variable + "' for its 'variable', but the model does not contain a <species> with that ID.";
+  msg += " has a value of '" + variable + "' for its 'variable', but the model does not contain a <species> with that id.";
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
+// 1223606
+START_CONSTRAINT(SpatialBoundaryConditionCoordinateBoundaryMustBeBoundary, BoundaryCondition, bc)
+{
+  pre(bc.isSetVariable());
+  string boundary = bc.getCoordinateBoundary();
+  SpatialModelPlugin *mplug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(mplug != NULL);
+  Geometry* geom = mplug->getGeometry();
+  pre(geom != NULL);
+  for (unsigned long cc = 0; cc < geom->getNumCoordinateComponents(); cc++)
+  {
+    const CoordinateComponent* coord = geom->getCoordinateComponent(cc);
+    if (coord->isSetBoundaryMax()) {
+      pre(coord->getBoundaryMax()->getId() != boundary);
+    }
+  }
+  msg = "A <boundaryCondition>";
+  if (bc.isSetId()) {
+    msg += " with the id '" + bc.getId() + "'";
+  }
+  msg += " has a value of '" + boundary+ "' for its 'coordinateBoundary', but the <geometry> does not contain a <boundaryMax> or <boundaryMin> with that id.";
 
   inv(false);
 }
