@@ -2467,6 +2467,27 @@ START_CONSTRAINT(SpatialAnalyticVolumeDomainTypeMustBeDomainType, AnalyticVolume
 END_CONSTRAINT
 
 
+// 1222105
+START_CONSTRAINT(SpatialParametricObjectDomainTypeMustBeDomainType, ParametricObject, po)
+{
+  pre(po.isSetDomainType());
+  string domaintype = po.getDomainType();
+  SpatialModelPlugin *mplug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(mplug != NULL);
+  Geometry* geom = mplug->getGeometry();
+  pre(geom != NULL);
+  pre(geom->getDomainType(domaintype)==NULL);
+  msg = "A <parametricObject>";
+  if (po.isSetId()) {
+    msg += " with the id '" + po.getId() + "'";
+  }
+  msg += " has a value of '" + domaintype + "' for its 'domainType', but the <geometry> does not contain a <domainType> with that ID.";
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{
