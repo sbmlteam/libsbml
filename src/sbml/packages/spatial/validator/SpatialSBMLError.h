@@ -295,8 +295,6 @@ typedef enum
 , SpatialCSGSetOperatorAllowedAttributes                      = 1223203
 , SpatialCSGSetOperatorAllowedElements                        = 1223204
 , SpatialCSGSetOperatorOperationTypeMustBeSetOperationEnum    = 1223205
-, SpatialCSGSetOperatorComplementAMustBeCSGNode               = 1223206
-, SpatialCSGSetOperatorComplementBMustBeCSGNode               = 1223207
 , SpatialCSGSetOperatorLOCSGNodesAllowedCoreElements          = 1223208
 , SpatialCSGSetOperatorLOCSGNodesAllowedCoreAttributes        = 1223209
 , SpatialCSGSetOperatorTwoComplementsForDifference             = 1223250

@@ -1506,7 +1506,7 @@ CSGSetOperator::readAttributes(const XMLAttributes& attributes,
       msg += " is '" + mComplementA + "', which does not conform to the "
         "syntax.";
       log->logPackageError("spatial",
-        SpatialCSGSetOperatorComplementAMustBeCSGNode, pkgVersion, level,
+        SpatialCSGSetOperatorComplementsMustReferenceChildren, pkgVersion, level,
           version, msg, getLine(), getColumn());
     }
   }
@@ -1535,7 +1535,7 @@ CSGSetOperator::readAttributes(const XMLAttributes& attributes,
       msg += " is '" + mComplementB + "', which does not conform to the "
         "syntax.";
       log->logPackageError("spatial",
-        SpatialCSGSetOperatorComplementBMustBeCSGNode, pkgVersion, level,
+        SpatialCSGSetOperatorComplementsMustReferenceChildren, pkgVersion, level,
           version, msg, getLine(), getColumn());
     }
   }

@@ -2745,30 +2745,6 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223206
-  { SpatialCSGSetOperatorComplementAMustBeCSGNode,
-    "The attribute 'complementA' must point to CSGNode object.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "The value of the attribute 'spatial:complementA' of a <csgSetOperator> "
-    "object must be the identifier of an existing <csgNode> object defined in "
-    "the enclosing <model> object.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1223207
-  { SpatialCSGSetOperatorComplementBMustBeCSGNode,
-    "The attribute 'complementB' must point to CSGNode object.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "The value of the attribute 'spatial:complementB' of a <csgSetOperator> "
-    "object must be the identifier of an existing <csgNode> object defined in "
-    "the enclosing <model> object.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
   // 1223208
   { SpatialCSGSetOperatorLOCSGNodesAllowedCoreElements,
     "Core elements allowed on <listOfCSGNodes>.",
