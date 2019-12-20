@@ -2488,6 +2488,27 @@ START_CONSTRAINT(SpatialParametricObjectDomainTypeMustBeDomainType, ParametricOb
 END_CONSTRAINT
 
 
+// 1222305
+START_CONSTRAINT(SpatialCSGObjectDomainTypeMustBeDomainType, CSGObject, csgo)
+{
+  pre(csgo.isSetDomainType());
+  string domaintype = csgo.getDomainType();
+  SpatialModelPlugin *mplug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(mplug != NULL);
+  Geometry* geom = mplug->getGeometry();
+  pre(geom != NULL);
+  pre(geom->getDomainType(domaintype)==NULL);
+  msg = "A <csgObject>";
+  if (csgo.isSetId()) {
+    msg += " with the id '" + csgo.getId() + "'";
+  }
+  msg += " has a value of '" + domaintype + "' for its 'domainType', but the <geometry> does not contain a <domainType> with that ID.";
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

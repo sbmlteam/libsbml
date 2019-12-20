@@ -127,6 +127,7 @@ addConstraint(new VConstraintSampledFieldSpatialSampledFieldIntArrayDataIntegers
 addConstraint(new VConstraintSampledVolumeSpatialSampledVolumeDomainTypeMustBeDomainType(*this));
 addConstraint(new VConstraintAnalyticVolumeSpatialAnalyticVolumeDomainTypeMustBeDomainType(*this));
 addConstraint(new VConstraintParametricObjectSpatialParametricObjectDomainTypeMustBeDomainType(*this));
+addConstraint(new VConstraintCSGObjectSpatialCSGObjectDomainTypeMustBeDomainType(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));
