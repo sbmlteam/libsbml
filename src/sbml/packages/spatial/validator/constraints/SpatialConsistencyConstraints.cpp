@@ -2425,6 +2425,27 @@ START_CONSTRAINT(SpatialSampledFieldIntArrayDataIntegers, SampledField, sf)
 END_CONSTRAINT
 
 
+// 1221704
+START_CONSTRAINT(SpatialSampledVolumeDomainTypeMustBeDomainType, SampledVolume, sv)
+{
+  pre(sv.isSetDomainType());
+  string domaintype = sv.getDomainType();
+  SpatialModelPlugin *mplug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(mplug != NULL);
+  Geometry* geom = mplug->getGeometry();
+  pre(geom != NULL);
+  pre(geom->getDomainType(domaintype)==NULL);
+  msg = "A <sampledVolume>";
+  if (sv.isSetId()) {
+    msg += " with the id '" + sv.getId() + "'";
+  }
+  msg += " has a value of '" + domaintype + "' for its 'domainType', but the <geometry> does not contain a <domainType> with that ID.";
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{
