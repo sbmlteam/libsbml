@@ -27,7 +27,7 @@
                 </spatial:domain>
             </spatial:listOfDomains>
             <spatial:listOfGeometryDefinitions>
-                <spatial:mixedGeometry spatial:id="geometryDefinition_4" spatial:isActive="false">
+                <spatial:mixedGeometry spatial:id="geometryDefinition_4" spatial:isActive="true">
                     <spatial:listOfGeometryDefinitions>
                         <spatial:analyticGeometry spatial:id="geometryDefinition_1" spatial:isActive="false">
                             <spatial:listOfAnalyticVolumes>

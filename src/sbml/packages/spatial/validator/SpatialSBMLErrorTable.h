@@ -791,6 +791,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
+  // 1221250
+  { SpatialOneGeometryDefinitionMustBeActive,
+    "At least one <geometryDefinition> must be active.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "At least one <geometryDefinition> child of a <geometry> must have a 'spatial:isActive' attribute value of 'true'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
   // 1221301
   { SpatialCompartmentMappingAllowedCoreAttributes,
     "Core attributes allowed on <compartmentMapping>.",

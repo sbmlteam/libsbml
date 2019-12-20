@@ -30,19 +30,19 @@
                 
             
             <spatial:listOfGeometryDefinitions>
-                <spatial:analyticGeometry spatial:id="geometryDefinition_1" spatial:isActive="false">
+                <spatial:analyticGeometry spatial:id="geometryDefinition_1" spatial:isActive="true">
                     <spatial:listOfAnalyticVolumes>
                         <spatial:analyticVolume spatial:domainType="domainType_1" spatial:functionType="layered" spatial:id="analyticVolume_1" spatial:ordinal="0">
                             <math xmlns="http://www.w3.org/1998/Math/MathML"/>
                         </spatial:analyticVolume>
                     </spatial:listOfAnalyticVolumes>
                 </spatial:analyticGeometry>
-                <spatial:sampledFieldGeometry spatial:foo="someString" spatial:id="geometryDefinition_2" spatial:isActive="false" spatial:sampledField="sampledField_1">
+                <spatial:sampledFieldGeometry spatial:foo="someString" spatial:id="geometryDefinition_2" spatial:isActive="true" spatial:sampledField="sampledField_1">
                     <spatial:listOfSampledVolumes>
                         <spatial:sampledVolume spatial:domainType="domainType_1" spatial:id="sampledVolume_1" spatial:maxValue="0" spatial:minValue="0"/>
                     </spatial:listOfSampledVolumes>
                 </spatial:sampledFieldGeometry>
-                <spatial:parametricGeometry spatial:id="geometryDefinition_3" spatial:isActive="false">
+                <spatial:parametricGeometry spatial:id="geometryDefinition_3" spatial:isActive="true">
                     <spatial:spatialPoints spatial:arrayDataLength="0" spatial:compression="uncompressed" spatial:dataType="double" spatial:id="spatialPoints_1"/>
                     <spatial:listOfParametricObjects>
                         <spatial:parametricObject spatial:compression="uncompressed" spatial:dataType="double" spatial:domainType="domainType_1" spatial:id="parametricObject_1" spatial:pointIndexLength="0" spatial:polygonType="triangle"/>

@@ -12,7 +12,7 @@
                 <spatial:domainType spatial:id="domainType_1" spatial:spatialDimensions="1"/>
             </spatial:listOfDomainTypes>
             <spatial:listOfGeometryDefinitions>
-                <spatial:sampledFieldGeometry spatial:id="geometryDefinition_2" spatial:isActive="false" spatial:sampledField="sampledField_1">
+                <spatial:sampledFieldGeometry spatial:id="geometryDefinition_2" spatial:isActive="true" spatial:sampledField="sampledField_1">
                     <spatial:listOfSampledVolumes>
                         <spatial:sampledVolume spatial:domainType="domainType_56" spatial:id="sampledVolume_1" spatial:minValue="0" spatial:maxValue="0.5"/>
                     </spatial:listOfSampledVolumes>

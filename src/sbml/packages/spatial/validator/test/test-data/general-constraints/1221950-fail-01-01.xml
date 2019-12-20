@@ -27,7 +27,7 @@
                 </spatial:domain>
             </spatial:listOfDomains>
             <spatial:listOfGeometryDefinitions>
-                <spatial:analyticGeometry spatial:id="geometryDefinition_1" spatial:isActive="false">
+                <spatial:analyticGeometry spatial:id="geometryDefinition_1" spatial:isActive="true">
                     <spatial:listOfAnalyticVolumes>
                         <spatial:analyticVolume spatial:domainType="domainType_1" spatial:functionType="layered" spatial:id="analyticVolume_1" spatial:ordinal="0">
                             <math xmlns="http://www.w3.org/1998/Math/MathML"/>

@@ -2530,6 +2530,21 @@ START_CONSTRAINT(SpatialBoundaryConditionBoundaryDomainTypeMustBeDomainType, Bou
 END_CONSTRAINT
 
 
+// 1221250
+START_CONSTRAINT(SpatialOneGeometryDefinitionMustBeActive, Geometry, g)
+{
+  pre(g.getNumGeometryDefinitions() > 0);
+  for (unsigned long gdn = 0; gdn < g.getNumGeometryDefinitions(); gdn++)
+  {
+    const GeometryDefinition* gd = g.getGeometryDefinition(gdn);
+    pre(gd->getIsActive() == false);
+  }
+  msg = "No <geometryDefinition> was found with an 'isActive' value of 'true'.";
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

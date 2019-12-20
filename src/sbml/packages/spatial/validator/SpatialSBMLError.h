@@ -126,6 +126,7 @@ typedef enum
 , SpatialGeometryDefinitionAllowedAttributes                  = 1221203
 , SpatialGeometryDefinitionIsActiveMustBeBoolean              = 1221204
 , SpatialGeometryDefinitionNameMustBeString                   = 1221205
+, SpatialOneGeometryDefinitionMustBeActive                    = 1221250
 , SpatialCompartmentMappingAllowedCoreAttributes              = 1221301
 , SpatialCompartmentMappingAllowedCoreElements                = 1221302
 , SpatialCompartmentMappingAllowedAttributes                  = 1221303

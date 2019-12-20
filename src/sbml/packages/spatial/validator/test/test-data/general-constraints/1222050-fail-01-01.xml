@@ -19,7 +19,7 @@
                 </spatial:domain>
             </spatial:listOfDomains>
             <spatial:listOfGeometryDefinitions>
-                <spatial:parametricGeometry spatial:id="geometryDefinition_3" spatial:isActive="false">
+                <spatial:parametricGeometry spatial:id="geometryDefinition_3" spatial:isActive="true">
                     <spatial:spatialPoints spatial:arrayDataLength="0" spatial:compression="uncompressed" spatial:dataType="double" spatial:id="spatialPoints_1"/>
                     <spatial:listOfParametricObjects>
                         <spatial:parametricObject spatial:compression="uncompressed" spatial:dataType="double" spatial:domainType="domainType_1" spatial:id="parametricObject_1" spatial:pointIndexLength="0" spatial:polygonType="triangle"/>

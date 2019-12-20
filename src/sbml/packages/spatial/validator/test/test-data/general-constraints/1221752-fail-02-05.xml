@@ -18,7 +18,7 @@
                         <spatial:sampledVolume spatial:domainType="domainType_1" spatial:id="sampledVolume_2" spatial:sampledValue="0"/>
                     </spatial:listOfSampledVolumes>
                 </spatial:sampledFieldGeometry>
-                <spatial:sampledFieldGeometry spatial:id="geometryDefinition_2" spatial:isActive="false" spatial:sampledField="sampledField_1">
+                <spatial:sampledFieldGeometry spatial:id="geometryDefinition_2" spatial:isActive="true" spatial:sampledField="sampledField_1">
                     <spatial:listOfSampledVolumes>
                         <spatial:sampledVolume spatial:domainType="domainType_1" spatial:id="sampledVolume_3" spatial:sampledValue="0"/>
                         <spatial:sampledVolume spatial:domainType="domainType_1" spatial:id="sampledVolume_4" spatial:sampledValue="0"/>
