@@ -1924,6 +1924,7 @@ START_CONSTRAINT(SpatialSpatialPointsDataLengthMustMatchUncompressed, SpatialPoi
 {
   pre(sp.isSetCompression());
   pre(sp.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
+  pre(sp.isSetArrayDataLength());
   pre(sp.getArrayDataLength() != sp.getNumArrayDataEntries());
   stringstream ss_msg;
   ss_msg << "A <spatialPoints>";
@@ -2064,6 +2065,7 @@ START_CONSTRAINT(SpatialParametricObjectPointIndexLengthMustMatchUncompressed, P
 {
   pre(po.isSetCompression());
   pre(po.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
+  pre(po.isSetPointIndexLength());
   pre(po.getPointIndexLength() != po.getNumPointIndexEntries());
   stringstream ss_msg;
   ss_msg << "A <parametricObject>";
@@ -2306,6 +2308,7 @@ START_CONSTRAINT(SpatialSampledFieldSamplesLengthMustMatchUncompressed, SampledF
 {
   pre(sf.isSetCompression());
   pre(sf.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
+  pre(sf.isSetSamplesLength());
   SampledField* sf_nc = const_cast<SampledField*>(&sf);
   pre(sf_nc->getSamplesLength() != (int) sf_nc->getUncompressedLength());
   stringstream ss_msg;
