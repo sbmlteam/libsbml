@@ -2644,6 +2644,26 @@ START_CONSTRAINT(SpatialBoundaryConditionBoundaryDomainTypeOrCoordinateBoundary,
 END_CONSTRAINT
 
 
+// 1223751
+START_CONSTRAINT(SpatialGeometryLOCoordinateComponentsOneToThreeChildren, Geometry, geom)
+{
+  unsigned int naxes = geom.getNumCoordinateComponents();
+  pre(naxes < 1 || naxes>3);
+  stringstream ss_msg;
+  ss_msg << "The <geometry>";
+  if (geom.isSetId())
+  {
+    ss_msg << " with id '" << geom.getId() << "'";
+  }
+  ss_msg <<  " has " << naxes << " child <coordinateComponents>, but must have 1 to 3 instead.";
+  msg = ss_msg.str();
+
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

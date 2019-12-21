@@ -360,7 +360,6 @@ typedef enum
 , SpatialGeometryLOAdjacentDomainsAllowedCoreAttributes       = 1223715
 , SpatialGeometryLOGeometryDefinitionsAllowedCoreAttributes   = 1223716
 , SpatialGeometryLOSampledFieldsAllowedCoreAttributes         = 1223717
-, SpatialGeometryLOCoordinateComponentsRequired               = 1223750
 , SpatialGeometryLOCoordinateComponentsOneToThreeChildren     = 1223751
 , SpatialGeometryCoordinateComponent1DisX                     = 1223752
 , SpatialGeometryCoordinateComponent2DisXY                    = 1223753

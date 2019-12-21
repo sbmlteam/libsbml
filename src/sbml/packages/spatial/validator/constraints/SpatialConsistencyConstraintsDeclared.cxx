@@ -134,6 +134,7 @@ addConstraint(new VConstraintBoundaryConditionSpatialBoundaryConditionCoordinate
 addConstraint(new VConstraintGeometrySpatialOneGeometryDefinitionMustBeActive(*this));
 addConstraint(new VConstraintBoundaryConditionSpatialBoundaryConditionBoundaryDomainTypeOrCoordinateBoundary(*this));
 addConstraint(new VConstraintMixedGeometrySpatialMixedGeometryChildrenNotActive(*this));
+addConstraint(new VConstraintGeometrySpatialGeometryLOCoordinateComponentsOneToThreeChildren(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));

@@ -3500,16 +3500,6 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223750
-  { SpatialGeometryLOCoordinateComponentsRequired,
-    "A <geometry> must have a <listOfCoordinateComponents>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "A <geometry> must have a child <listOfCoordinateComponents> object.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
   // 1223751
   { SpatialGeometryLOCoordinateComponentsOneToThreeChildren,
     "A <listOfCoordinateComponents> must have one to three children.",
