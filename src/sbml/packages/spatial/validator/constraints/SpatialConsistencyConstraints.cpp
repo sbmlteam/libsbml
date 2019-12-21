@@ -2550,7 +2550,7 @@ END_CONSTRAINT
 // 1223606
 START_CONSTRAINT(SpatialBoundaryConditionCoordinateBoundaryMustBeBoundary, BoundaryCondition, bc)
 {
-  pre(bc.isSetVariable());
+  pre(bc.isSetCoordinateBoundary());
   string boundary = bc.getCoordinateBoundary();
   SpatialModelPlugin *mplug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
   pre(mplug != NULL);
@@ -2585,6 +2585,31 @@ START_CONSTRAINT(SpatialOneGeometryDefinitionMustBeActive, Geometry, g)
   }
   msg = "No <geometryDefinition> was found with an 'isActive' value of 'true'.";
   inv(false);
+}
+END_CONSTRAINT
+
+
+// 1223650
+START_CONSTRAINT(SpatialBoundaryConditionBoundaryDomainTypeOrCoordinateBoundary, BoundaryCondition, bc)
+{
+  bool fail = false;
+
+  msg = "A <boundaryCondition>";
+  if (bc.isSetId()) {
+    msg += " with the id '" + bc.getId() + "'";
+  }
+  if (bc.isSetBoundaryDomainType() && bc.isSetCoordinateBoundary()) 
+  {
+    msg += " has a value of '" + bc.getBoundaryDomainType() + "' for its 'boundaryDomainType', and a value of '" + bc.getCoordinateBoundary() + "' for its 'coordinateBoundary'.  It must instead have one or the other.";
+    fail = true;
+  }
+  else if (!bc.isSetBoundaryDomainType() && !bc.isSetCoordinateBoundary()) 
+  {
+    msg += " does not have a value for its 'boundaryDomainType' nor its 'coordinateBoundary' attributes.  It must have one or the other.";
+    fail = true;
+  }
+
+  inv(fail == false);
 }
 END_CONSTRAINT
 

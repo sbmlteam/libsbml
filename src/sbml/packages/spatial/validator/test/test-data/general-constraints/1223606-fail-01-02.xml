@@ -68,7 +68,7 @@
         </listOfSpecies>
         <listOfParameters>
             <parameter constant="false" id="id_3">
-                <spatial:boundaryCondition spatial:boundaryDomainType="domainType_1" spatial:coordinateBoundary="coordinateComponent_1" spatial:type="Neumann" spatial:variable="species_1"/>
+                <spatial:boundaryCondition spatial:coordinateBoundary="coordinateComponent_1" spatial:type="Neumann" spatial:variable="species_1"/>
             </parameter>
         </listOfParameters>
     </model>

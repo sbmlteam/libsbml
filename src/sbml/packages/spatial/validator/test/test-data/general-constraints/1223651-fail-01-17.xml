@@ -68,16 +68,16 @@
         </listOfSpecies>
         <listOfParameters>
             <parameter constant="false" id="id_3">
-                <spatial:boundaryCondition spatial:boundaryDomainType="domainType_1" spatial:coordinateBoundary="boundary_2" spatial:type="Robin_sum" spatial:variable="species_1"/>
+                <spatial:boundaryCondition spatial:coordinateBoundary="boundary_2" spatial:type="Robin_sum" spatial:variable="species_1"/>
             </parameter>
             <parameter constant="false" id="id_4">
-                <spatial:boundaryCondition spatial:boundaryDomainType="domainType_1" spatial:coordinateBoundary="boundary_2" spatial:type="Robin_valueCoefficient" spatial:variable="species_1"/>
+                <spatial:boundaryCondition spatial:coordinateBoundary="boundary_2" spatial:type="Robin_valueCoefficient" spatial:variable="species_1"/>
             </parameter>
             <parameter constant="false" id="id_6">
-                <spatial:boundaryCondition spatial:boundaryDomainType="domainType_1" spatial:coordinateBoundary="boundary_2" spatial:type="Robin_valueCoefficient" spatial:variable="species_1"/>
+                <spatial:boundaryCondition spatial:coordinateBoundary="boundary_2" spatial:type="Robin_valueCoefficient" spatial:variable="species_1"/>
             </parameter>
             <parameter constant="false" id="id_5">
-                <spatial:boundaryCondition spatial:boundaryDomainType="domainType_1" spatial:coordinateBoundary="boundary_2" spatial:type="Robin_inwardNormalGradientCoefficient" spatial:variable="species_1"/>
+                <spatial:boundaryCondition spatial:coordinateBoundary="boundary_2" spatial:type="Robin_inwardNormalGradientCoefficient" spatial:variable="species_1"/>
             </parameter>
         </listOfParameters>
     </model>

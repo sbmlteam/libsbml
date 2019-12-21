@@ -69,7 +69,7 @@
         <listOfParameters>
             <parameter constant="false" id="id_3">
                 <spatial:spatialSymbolReference spatial:spatialRef="coordinateComponent_2"/>
-                <spatial:boundaryCondition spatial:boundaryDomainType="domainType_1" spatial:coordinateBoundary="boundary_2" spatial:type="Neumann" spatial:variable="species_1"/>
+                <spatial:boundaryCondition spatial:coordinateBoundary="boundary_2" spatial:type="Neumann" spatial:variable="species_1"/>
             </parameter>
         </listOfParameters>
     </model>

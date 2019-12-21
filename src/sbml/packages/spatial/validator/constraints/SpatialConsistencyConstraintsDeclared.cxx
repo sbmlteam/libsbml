@@ -132,6 +132,7 @@ addConstraint(new VConstraintBoundaryConditionSpatialBoundaryConditionBoundaryDo
 addConstraint(new VConstraintDiffusionCoefficientSpatialDiffusionCoefficientVariableMustBeSpecies(*this));
 addConstraint(new VConstraintBoundaryConditionSpatialBoundaryConditionCoordinateBoundaryMustBeBoundary(*this));
 addConstraint(new VConstraintGeometrySpatialOneGeometryDefinitionMustBeActive(*this));
+addConstraint(new VConstraintBoundaryConditionSpatialBoundaryConditionBoundaryDomainTypeOrCoordinateBoundary(*this));
 
 //Constraints defined in their own class ('global constraints')
 addConstraint(new SpatialCompartmentMappingUnitSizesCheck(SpatialCompartmentMappingUnitSizesSum, *this));
