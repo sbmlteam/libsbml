@@ -2589,6 +2589,36 @@ START_CONSTRAINT(SpatialOneGeometryDefinitionMustBeActive, Geometry, g)
 END_CONSTRAINT
 
 
+// 1223850
+START_CONSTRAINT(SpatialMixedGeometryChildrenNotActive, MixedGeometry, mg)
+{
+  bool fail = false;
+  pre(mg.getNumGeometryDefinitions() > 0);
+  for (unsigned long gdn = 0; gdn < mg.getNumGeometryDefinitions(); gdn++)
+  {
+    const GeometryDefinition* gd = mg.getGeometryDefinition(gdn);
+    if (gd->getIsActive() == true)
+    {
+      msg = "A <mixedGeometry>";
+      if (mg.isSetId())
+      {
+        msg += " with the id '" + mg.getId() + "'";
+      }
+      msg += " has a child <" + gd->getElementName() + ">";
+      if (gd->isSetId())
+      {
+        msg += " with the id '" + gd->getId() + "'";
+      }
+      msg += " with an 'isActive' value of 'true'.";
+      fail = true;
+      break;
+    }
+  }
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 // 1223650
 START_CONSTRAINT(SpatialBoundaryConditionBoundaryDomainTypeOrCoordinateBoundary, BoundaryCondition, bc)
 {
