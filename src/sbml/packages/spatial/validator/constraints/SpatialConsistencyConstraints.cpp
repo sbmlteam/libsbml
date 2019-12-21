@@ -2664,6 +2664,103 @@ START_CONSTRAINT(SpatialGeometryLOCoordinateComponentsOneToThreeChildren, Geomet
 END_CONSTRAINT
 
 
+// 1223752
+START_CONSTRAINT(SpatialGeometryCoordinateComponent1DisX, Geometry, geom)
+{
+  unsigned int naxes = geom.getNumCoordinateComponents();
+  pre(naxes == 1);
+  const CoordinateComponent* cc = geom.getCoordinateComponent(0);
+  pre(cc->isSetType());
+  pre(cc->getType() != SPATIAL_COORDINATEKIND_CARTESIAN_X);
+  stringstream ss_msg;
+  ss_msg << "The <geometry>";
+  if (geom.isSetId())
+  {
+    ss_msg << " with id '" << geom.getId() << "'";
+  }
+  ss_msg << " has only one child <coordinateComponents>, but its type is '";
+  ss_msg << cc->getTypeAsString() << "' instead of 'cartesianX'.";
+  msg = ss_msg.str();
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
+// 1223753
+START_CONSTRAINT(SpatialGeometryCoordinateComponent2DisXY, Geometry, geom)
+{
+  unsigned int naxes = geom.getNumCoordinateComponents();
+  pre(naxes == 2);
+  const CoordinateComponent* cc1 = geom.getCoordinateComponent(0);
+  const CoordinateComponent* cc2 = geom.getCoordinateComponent(1);
+  pre(cc1->isSetType());
+  pre(cc2->isSetType());
+  CoordinateKind_t kind1 = cc1->getType();
+  CoordinateKind_t kind2 = cc2->getType();
+  std::set<CoordinateKind_t> kinds, rightkinds;
+  kinds.insert(kind1);
+  kinds.insert(kind2);
+  rightkinds.insert(SPATIAL_COORDINATEKIND_CARTESIAN_X);
+  rightkinds.insert(SPATIAL_COORDINATEKIND_CARTESIAN_Y);
+  pre(kinds != rightkinds);
+
+  stringstream ss_msg;
+  ss_msg << "The <geometry>";
+  if (geom.isSetId())
+  {
+    ss_msg << " with id '" << geom.getId() << "'";
+  }
+  ss_msg << " has two child <coordinateComponents>, but their two types are '";
+  ss_msg << cc1->getTypeAsString() << "' and '";
+  ss_msg << cc2->getTypeAsString() << "' instead of 'cartesianX' and 'cartesianY'.";
+  msg = ss_msg.str();
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
+// 1223754
+START_CONSTRAINT(SpatialGeometryCoordinateComponent3DisXYZ, Geometry, geom)
+{
+  unsigned int naxes = geom.getNumCoordinateComponents();
+  pre(naxes == 3);
+  const CoordinateComponent* cc1 = geom.getCoordinateComponent(0);
+  const CoordinateComponent* cc2 = geom.getCoordinateComponent(1);
+  const CoordinateComponent* cc3 = geom.getCoordinateComponent(2);
+  pre(cc1->isSetType());
+  pre(cc2->isSetType());
+  pre(cc3->isSetType());
+  CoordinateKind_t kind1 = cc1->getType();
+  CoordinateKind_t kind2 = cc2->getType();
+  CoordinateKind_t kind3 = cc3->getType();
+  std::set<CoordinateKind_t> kinds, rightkinds;
+  kinds.insert(kind1);
+  kinds.insert(kind2);
+  kinds.insert(kind3);
+  rightkinds.insert(SPATIAL_COORDINATEKIND_CARTESIAN_X);
+  rightkinds.insert(SPATIAL_COORDINATEKIND_CARTESIAN_Y);
+  rightkinds.insert(SPATIAL_COORDINATEKIND_CARTESIAN_Z);
+  pre(kinds != rightkinds);
+
+  stringstream ss_msg;
+  ss_msg << "The <geometry>";
+  if (geom.isSetId())
+  {
+    ss_msg << " with id '" << geom.getId() << "'";
+  }
+  ss_msg << " has two child <coordinateComponents>, but their two types are '";
+  ss_msg << cc1->getTypeAsString() << "', '";
+  ss_msg << cc2->getTypeAsString() << "', and '";
+  ss_msg << cc3->getTypeAsString() << "', instead of 'cartesianX', 'cartesianY', and 'cartesianZ'.";
+  msg = ss_msg.str();
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 122__
 //START_CONSTRAINT(Spatial, Class, class)
 //{

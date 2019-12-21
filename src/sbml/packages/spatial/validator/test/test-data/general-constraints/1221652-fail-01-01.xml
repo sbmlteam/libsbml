@@ -7,7 +7,7 @@
                     <spatial:boundaryMin spatial:id="boundary_1" spatial:value="0"/>
                     <spatial:boundaryMax spatial:id="boundary_2" spatial:value="1"/>
                 </spatial:coordinateComponent>
-                <spatial:coordinateComponent spatial:id="coordinateComponent_2" spatial:type="cartesianX">
+                <spatial:coordinateComponent spatial:id="coordinateComponent_2" spatial:type="cartesianY">
                     <spatial:boundaryMin spatial:id="boundary_3" spatial:value="0"/>
                     <spatial:boundaryMax spatial:id="boundary_4" spatial:value="1"/>
                 </spatial:coordinateComponent>
