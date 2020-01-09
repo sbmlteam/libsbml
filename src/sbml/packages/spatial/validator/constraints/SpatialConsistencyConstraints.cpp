@@ -1893,7 +1893,8 @@ START_CONSTRAINT(SpatialTransformationComponentComponentsLengthMustBe16, Transfo
     ss_msg << " with id '" << tc.getId() << "'";
   }
   ss_msg <<  " has a 'componentsLength' of '";
-  ss_msg << tc.getComponentsLength() + "', instead of a value of '16'.";
+  ss_msg << tc.getComponentsLength();
+  ss_msg << "', instead of a value of '16'.";
   msg = ss_msg.str();
   inv(false);
 }
@@ -2164,6 +2165,7 @@ START_CONSTRAINT(SpatialParametricObjectIndexesMustBePoints, ParametricObject, p
       break;
     }
   }
+  delete[] data;
   inv(fail == false);
 }
 END_CONSTRAINT
@@ -2215,6 +2217,7 @@ START_CONSTRAINT(SpatialParametricObjectFacesSameChirality, ParametricObject, po
     }
     borders.insert(border);
   }
+  delete[] data;
   inv(fail == false);
 }
 END_CONSTRAINT
@@ -2298,6 +2301,7 @@ START_CONSTRAINT(SpatialParametricObjectMaxTwoPointBorders, ParametricObject, po
       break;
     }
   }
+  delete[] data;
   inv(fail == false);
 }
 END_CONSTRAINT
@@ -2335,7 +2339,7 @@ START_CONSTRAINT(SpatialSampledFieldFloatArrayDataMustMatch, SampledField, sf)
   pre(sf.getDataType() == SPATIAL_DATAKIND_FLOAT);
   SampledField* sf_nc = const_cast<SampledField*>(&sf);
   size_t len = sf_nc->getUncompressedLength();
-  double* data = new double[len];
+  double* data;
   sf_nc->getUncompressedData(data, len);
   for (size_t d = 0; d < len; d++) {
     double val = data[d];
@@ -2353,7 +2357,7 @@ START_CONSTRAINT(SpatialSampledFieldFloatArrayDataMustMatch, SampledField, sf)
       break;
     }
   }
-  delete[] data;
+  free(data);
   inv(fail == false);
 }
 END_CONSTRAINT
@@ -2367,7 +2371,7 @@ START_CONSTRAINT(SpatialSampledFieldUIntArrayDataNotNegative, SampledField, sf)
   pre(sf.getDataType() == SPATIAL_DATAKIND_UINT || sf.getDataType() == SPATIAL_DATAKIND_UINT8 || sf.getDataType() == SPATIAL_DATAKIND_UINT16 || sf.getDataType() == SPATIAL_DATAKIND_UINT32);
   SampledField* sf_nc = const_cast<SampledField*>(&sf);
   size_t len = sf_nc->getUncompressedLength();
-  double* data = new double[len];
+  double* data;
   sf_nc->getUncompressedData(data, len);
   for (size_t d = 0; d < len; d++) {
     double val = data[d];
@@ -2386,7 +2390,7 @@ START_CONSTRAINT(SpatialSampledFieldUIntArrayDataNotNegative, SampledField, sf)
       break;
     }
   }
-  delete[] data;
+  free(data);
   inv(fail == false);
 }
 END_CONSTRAINT
@@ -2400,7 +2404,7 @@ START_CONSTRAINT(SpatialSampledFieldIntArrayDataIntegers, SampledField, sf)
   pre(sf.getDataType() == SPATIAL_DATAKIND_INT || sf.getDataType() == SPATIAL_DATAKIND_UINT || sf.getDataType() == SPATIAL_DATAKIND_UINT8 || sf.getDataType() == SPATIAL_DATAKIND_UINT16 || sf.getDataType() == SPATIAL_DATAKIND_UINT32);
   SampledField* sf_nc = const_cast<SampledField*>(&sf);
   size_t len = sf_nc->getUncompressedLength();
-  double* data = new double[len];
+  double* data;
   sf_nc->getUncompressedData(data, len);
   for (size_t d = 0; d < len; d++) {
     double val = data[d];
@@ -2419,7 +2423,7 @@ START_CONSTRAINT(SpatialSampledFieldIntArrayDataIntegers, SampledField, sf)
       break;
     }
   }
-  delete[] data;
+  free(data);
   inv(fail == false);
 }
 END_CONSTRAINT
