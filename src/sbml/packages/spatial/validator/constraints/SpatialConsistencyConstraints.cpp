@@ -39,6 +39,7 @@
  */
 #ifndef AddingConstraintsToValidator
 #include <set>
+#include <math.h>
 
 #include <sbml/validator/VConstraint.h>
 

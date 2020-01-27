@@ -37,6 +37,7 @@
 #include <sbml/packages/spatial/sbml/ParametricObject.h>
 #include <sbml/packages/spatial/sbml/ListOfParametricObjects.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <math.h>
 
 
 using namespace std;
