@@ -824,7 +824,7 @@ ParametricObject::write(XMLOutputStream& stream) const
 
   if (isSetPointIndex())
   {
-    for (int i = 0; i < mNumPointIndexEntries; ++i)
+    for (size_t i = 0; i < mNumPointIndexEntries; ++i)
     {
       stream << (long)mPointIndex[i] << " ";
     }
