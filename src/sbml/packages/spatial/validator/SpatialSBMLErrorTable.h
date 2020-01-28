@@ -2578,8 +2578,8 @@ static const packageErrorTableEntry spatialErrorTable[] =
   },
 
   // 1223004
-  { SpatialTransformationComponentComponentsMustBeString,
-    "The 'components' attribute must be String.",
+  { SpatialTransformationComponentComponentsMustBeDoubleArray,
+    "The 'components' attribute must be an array of doubles.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'spatial:components' of a "
@@ -2607,6 +2607,16 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_SEV_ERROR,
     "The attribute 'spatial:componentsLength' on a <transformationComponent> "
     "must have a value of '16'.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223051
+  { SpatialTransformationComponentArrayLengthMustBe16,
+    "The length of the 'components' attribute must be 16.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The length of the array of the attribute 'spatial:components' on a TransformationComponent must be 16.",
     { "L3V1 Spatial V1 Section"
     }
   },

@@ -69,6 +69,7 @@ protected:
 
   double* mComponents;
   int mComponentsLength;
+  size_t mActualComponentsLength;
   bool mIsSetComponentsLength;
   std::string mElementName;
 
@@ -168,6 +169,16 @@ public:
 
 
   /**
+  * Returns the length of the "components" array of this
+  * TransformationComponent.
+  *
+  * @return the legnth of the "components" array of this
+  * TransformationComponent as a integer.
+  */
+  size_t getActualComponentsLength() const;
+
+
+  /**
    * Predicate returning @c true if this TransformationComponent's "components"
    * attribute is set.
    *
@@ -202,7 +213,7 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
-  int setComponents(double* inArray, int arrayLength);
+  int setComponents(double* inArray, size_t arrayLength);
 
 
   /**
@@ -336,6 +347,8 @@ public:
    * used to write arrays
    */
   virtual void write(XMLOutputStream& stream) const;
+
+  std::string getComponentsString() const;
 
   /** @endcond */
 
@@ -641,12 +654,8 @@ protected:
 
 
 
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Writes the array data as a text element
-   */
-  virtual void setElementText(const std::string& text);
+private:
+  bool parseTransformation(const std::string & transformationString);
 
   /** @endcond */
 

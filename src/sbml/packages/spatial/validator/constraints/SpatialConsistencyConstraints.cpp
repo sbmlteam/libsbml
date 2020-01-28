@@ -1902,6 +1902,26 @@ START_CONSTRAINT(SpatialTransformationComponentComponentsLengthMustBe16, Transfo
 END_CONSTRAINT
 
 
+// 1223051
+START_CONSTRAINT(SpatialTransformationComponentArrayLengthMustBe16, TransformationComponent, tc)
+{
+  pre(tc.isSetComponents());
+  pre(tc.getActualComponentsLength() != 16);
+  stringstream ss_msg;
+  ss_msg << "A <csgTransformationComponent>";
+  if (tc.isSetId())
+  {
+    ss_msg << " with id '" << tc.getId() << "'";
+  }
+  ss_msg <<  " has a 'components' with ";
+  ss_msg << tc.getActualComponentsLength();
+  ss_msg << " entries instead of 16.";
+  msg = ss_msg.str();
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 1222050
 START_CONSTRAINT(SpatialParametricGeometryNotIn1D, ParametricGeometry, pg)
 {

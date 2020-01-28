@@ -218,11 +218,11 @@ START_TEST ( test_TransformationComponent_copyConstructor )
   double points [] = {1,2,3};
   o1->setComponents(points, 3);
   
-  fail_unless(o1->getComponentsLength() == 3);
+  fail_unless(o1->getActualComponentsLength() == 3);
 
   TransformationComponent* o2=new TransformationComponent(*o1);
 
-  fail_unless(o2->getComponentsLength() == 3);
+  fail_unless(o2->getActualComponentsLength() == 3);
   
   double componentsRet [] = {0, 0, 0};
   o2->getComponents(componentsRet);
@@ -245,12 +245,12 @@ START_TEST ( test_TransformationComponent_assignmentOperator )
   double points [] = {1,2,3};
   o1->setComponents(points, 3);
   
-  fail_unless(o1->getComponentsLength() == 3);
+  fail_unless(o1->getActualComponentsLength() == 3);
   
   TransformationComponent* o2 = new TransformationComponent(GNS);;
   (*o2)=*o1;
 
-  fail_unless(o2->getComponentsLength() == 3);
+  fail_unless(o2->getActualComponentsLength() == 3);
 
   double componentsRet [] = {0, 0, 0};
   o2->getComponents(componentsRet);
@@ -273,11 +273,11 @@ START_TEST ( test_TransformationComponent_clone )
   double points [] = {1,2,3};
   o1->setComponents(points, 3);
   
-  fail_unless(o1->getComponentsLength() == 3);
+  fail_unless(o1->getActualComponentsLength() == 3);
 
   TransformationComponent* o2=o1->clone();
  
-  fail_unless(o2->getComponentsLength() == 3);
+  fail_unless(o2->getActualComponentsLength() == 3);
 
   double componentsRet [] = {0, 0, 0};
   o2->getComponents(componentsRet);

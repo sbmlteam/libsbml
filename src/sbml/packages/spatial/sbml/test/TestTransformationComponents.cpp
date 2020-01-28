@@ -137,9 +137,9 @@ START_TEST (test_TransformationComponent_components)
   G->setComponents(components, 2);
 
   fail_unless(G->isSetComponents() == true);
-  fail_unless(G->isSetComponentsLength() == true);
+  fail_unless(G->isSetComponentsLength() == false);
 
-  fail_unless(G->getComponentsLength() == 2);
+  fail_unless(G->getActualComponentsLength() == 2);
 
   double componentsRet [2];
   G->getComponents(componentsRet);
@@ -163,9 +163,9 @@ START_TEST (test_TransformationComponent_components_mismatchLength_1)
   G->setComponents(components, 3);
 
   fail_unless(G->isSetComponents() == true);
-  fail_unless(G->isSetComponentsLength() == true);
+  fail_unless(G->isSetComponentsLength() == false);
 
-  fail_unless(G->getComponentsLength() == 3);
+  fail_unless(G->getActualComponentsLength() == 3);
 
   double componentsRet [] = {0, 0, 0};
   G->getComponents(componentsRet);
@@ -190,9 +190,9 @@ START_TEST (test_TransformationComponent_components_mismatchLength_2)
   G->setComponents(components, 1);
 
   fail_unless(G->isSetComponents() == true);
-  fail_unless(G->isSetComponentsLength() == true);
+  fail_unless(G->isSetComponentsLength() == false);
 
-  fail_unless(G->getComponentsLength() == 1);
+  fail_unless(G->getActualComponentsLength() == 1);
 
   double componentsRet [1];
   G->getComponents(componentsRet);
@@ -211,7 +211,7 @@ END_TEST
 
 START_TEST (test_TransformationComponent_output)
 {
-  const char *expected = "<transformationComponent componentsLength=\"3\">1.3 2.5 3.7 </transformationComponent>";
+  const char *expected = "<transformationComponent components=\"1.3 2.5 3.7 \"/>";
 
   double points [] = {1.3,2.5,3.7};
   G->setComponents(points, 3);

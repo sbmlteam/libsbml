@@ -281,9 +281,10 @@ typedef enum
 , SpatialTransformationComponentAllowedCoreAttributes         = 1223001
 , SpatialTransformationComponentAllowedCoreElements           = 1223002
 , SpatialTransformationComponentAllowedAttributes             = 1223003
-, SpatialTransformationComponentComponentsMustBeString        = 1223004
+, SpatialTransformationComponentComponentsMustBeDoubleArray   = 1223004
 , SpatialTransformationComponentComponentsLengthMustBeInteger = 1223005
 , SpatialTransformationComponentComponentsLengthMustBe16      = 1223050
+, SpatialTransformationComponentArrayLengthMustBe16           = 1223051
 , SpatialCSGPrimitiveAllowedCoreAttributes                    = 1223101
 , SpatialCSGPrimitiveAllowedCoreElements                      = 1223102
 , SpatialCSGPrimitiveAllowedAttributes                        = 1223103

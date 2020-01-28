@@ -60,6 +60,7 @@ TransformationComponent::TransformationComponent(unsigned int level,
   : SBase(level, version)
   , mComponents (NULL)
   , mComponentsLength (SBML_INT_MAX)
+  , mActualComponentsLength (0)
   , mIsSetComponentsLength (false)
   , mElementName("transformationComponent")
 {
@@ -76,6 +77,7 @@ TransformationComponent::TransformationComponent(SpatialPkgNamespaces
   *spatialns)
   : SBase(spatialns)
   , mComponents (NULL)
+  , mActualComponentsLength (0)
   , mComponentsLength (SBML_INT_MAX)
   , mIsSetComponentsLength (false)
   , mElementName("transformationComponent")
@@ -96,7 +98,7 @@ TransformationComponent::TransformationComponent(const TransformationComponent&
   , mIsSetComponentsLength ( orig.mIsSetComponentsLength )
   , mElementName ( orig.mElementName )
 {
-  setComponents(orig.mComponents, orig.mComponentsLength);
+  setComponents(orig.mComponents, orig.mActualComponentsLength);
 
 }
 
@@ -111,7 +113,7 @@ TransformationComponent::operator=(const TransformationComponent& rhs)
   {
     SBase::operator=(rhs);
     mComponents = NULL;
-    setComponents(rhs.mComponents, rhs.mComponentsLength);
+    setComponents(rhs.mComponents, rhs.mActualComponentsLength);
     mComponentsLength = rhs.mComponentsLength;
     mIsSetComponentsLength = rhs.mIsSetComponentsLength;
     mElementName = rhs.mElementName;
@@ -157,7 +159,7 @@ TransformationComponent::getComponents(double* outArray) const
     return;
   }
 
-  memcpy(outArray, mComponents, sizeof(double)*mComponentsLength);
+  memcpy(outArray, mComponents, sizeof(double)*mActualComponentsLength);
 }
 
 
@@ -169,6 +171,11 @@ int
 TransformationComponent::getComponentsLength() const
 {
   return mComponentsLength;
+}
+
+size_t TransformationComponent::getActualComponentsLength() const
+{
+  return mActualComponentsLength;
 }
 
 
@@ -199,7 +206,7 @@ TransformationComponent::isSetComponentsLength() const
  * TransformationComponent.
  */
 int
-TransformationComponent::setComponents(double* inArray, int arrayLength)
+TransformationComponent::setComponents(double* inArray, size_t arrayLength)
 {
   if (inArray == NULL)
   {
@@ -213,8 +220,7 @@ TransformationComponent::setComponents(double* inArray, int arrayLength)
 
   mComponents = new double[arrayLength];
   memcpy(mComponents, inArray, sizeof(double)*arrayLength);
-  mIsSetComponentsLength = true;
-  mComponentsLength = arrayLength;
+  mActualComponentsLength = arrayLength;
 
   return LIBSBML_OPERATION_SUCCESS;
 }
@@ -388,20 +394,20 @@ TransformationComponent::write(XMLOutputStream& stream) const
 {
   stream.startElement(getElementName(), getPrefix());
   writeAttributes(stream);
-
-  if (isSetComponents())
-  {
-    for (int i = 0; i < mComponentsLength; ++i)
-    {
-      stream << (double)mComponents[i] << " ";
-    }
-  }
-
   stream.endElement(getElementName(), getPrefix());
 }
 
 /** @endcond */
 
+string TransformationComponent::getComponentsString() const
+{
+  stringstream out;
+  for (size_t i = 0; i < mActualComponentsLength; ++i)
+  {
+    out << (double)mComponents[i] << " ";
+  }
+  return out.str();
+}
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -692,6 +698,7 @@ TransformationComponent::addExpectedAttributes(ExpectedAttributes& attributes)
   SBase::addExpectedAttributes(attributes);
 
   attributes.add("componentsLength");
+  attributes.add("components");
 }
 
 /** @endcond */
@@ -760,7 +767,7 @@ TransformationComponent::readAttributes(const XMLAttributes& attributes,
         "<TransformationComponent> element must be an integer.";
       log->logPackageError("spatial",
         SpatialTransformationComponentComponentsLengthMustBeInteger, pkgVersion,
-          level, version, message);
+          level, version, message, getLine(), getColumn());
     }
     else
     {
@@ -768,7 +775,20 @@ TransformationComponent::readAttributes(const XMLAttributes& attributes,
         "from the <TransformationComponent> element.";
       log->logPackageError("spatial",
         SpatialTransformationComponentAllowedAttributes, pkgVersion, level,
-          version, message);
+          version, message, getLine(), getColumn());
+    }
+  }
+
+  std::string s;
+  attributes.readInto("components", s);
+  if(!s.empty())
+  {
+    if (this->parseTransformation(s)) {
+      std::string message = "Spatial attribute 'components' contains elements that are not numeric.";
+      log->logPackageError("spatial",
+        SpatialTransformationComponentComponentsMustBeDoubleArray, pkgVersion, level,
+        version, message, getLine(), getColumn());
+
     }
   }
 }
@@ -792,6 +812,11 @@ TransformationComponent::writeAttributes(XMLOutputStream& stream) const
     stream.writeAttribute("componentsLength", getPrefix(), mComponentsLength);
   }
 
+  if (mActualComponentsLength > 0)
+  {
+    stream.writeAttribute("components", getPrefix(), getComponentsString());
+  }
+
   SBase::writeExtensionAttributes(stream);
 }
 
@@ -804,8 +829,8 @@ TransformationComponent::writeAttributes(XMLOutputStream& stream) const
 /*
  * Writes the array data as a text element
  */
-void
-TransformationComponent::setElementText(const std::string& text)
+bool
+TransformationComponent::parseTransformation(const std::string& text)
 {
   stringstream strStream(text);
   double val;
@@ -814,21 +839,34 @@ TransformationComponent::setElementText(const std::string& text)
   while (strStream >> val)
   {
     valuesVector.push_back(val);
+    if (!strStream.eof() && strStream.peek() == ',') {
+      strStream.get();
+    }
+    if (!strStream.eof() && strStream.peek() == ';') {
+      strStream.get();
+    }
+    if (strStream.fail()) {
+      return true;
+    }
+  }
+  if (!strStream.eof()) {
+    return true;
   }
 
-  unsigned int length = (unsigned int)valuesVector.size();
+  mActualComponentsLength = (unsigned int)valuesVector.size();
 
-  if (length > 0)
+  if (mActualComponentsLength > 0)
   {
-    double* data = new double[length];
-    for (unsigned int i = 0; i < length; ++i)
+    double* data = new double[mActualComponentsLength];
+    for (unsigned int i = 0; i < mActualComponentsLength; ++i)
     {
       data[i] = valuesVector.at(i);
     }
 
-    setComponents(data, length);
+    setComponents(data, mActualComponentsLength);
     delete[] data;
   }
+  return false;
 }
 
 /** @endcond */

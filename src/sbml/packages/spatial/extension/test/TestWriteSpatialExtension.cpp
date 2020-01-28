@@ -1134,9 +1134,9 @@ START_TEST(test_write_csg)
   fail_unless(csObj->setId("csObj2") == LIBSBML_OPERATION_SUCCESS);
   CSGHomogeneousTransformation* trans = csObj2->createCSGHomogeneousTransformation();
   TransformationComponent* forward = trans->createForwardTransformation();
-  double test1[] = { 0.1, 0.0, 1.0, 2.0, 3.0 };
-  double test2[] = { 3.0, 2.0, 1.0, 0.0, 0.1 };
-  fail_unless(forward->setComponents(test1, 5) == LIBSBML_OPERATION_SUCCESS);
+  double test1[] = { 0.1, 0.0, 1.0, 2.0, 3.0, 5.3, 10.2, 6.2, 29.29, 42.42, 1e3, -52, -6e-56, 98.6, 3.14, 25.25};
+  fail_unless(forward->setComponents(test1, 16) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(forward->setComponentsLength(16) == LIBSBML_OPERATION_SUCCESS);
   std::string test = writeSBMLToStdString(&doc);
 
   // now read it back

@@ -108,6 +108,7 @@ addConstraint(new VConstraintCSGScaleSpatialCSGScaleScaleZRequiredIn3D(*this));
 addConstraint(new VConstraintCSGScaleSpatialCSGScaleNoScaleYIn1D(*this));
 addConstraint(new VConstraintCSGScaleSpatialCSGScaleNoScaleZIn2D(*this));
 addConstraint(new VConstraintTransformationComponentSpatialTransformationComponentComponentsLengthMustBe16(*this));
+addConstraint(new VConstraintTransformationComponentSpatialTransformationComponentArrayLengthMustBe16(*this));
 addConstraint(new VConstraintParametricGeometrySpatialParametricGeometryNotIn1D(*this));
 addConstraint(new VConstraintSpatialPointsSpatialSpatialPointsDataLengthMustMatchUncompressed(*this));
 addConstraint(new VConstraintSpatialPointsSpatialSpatialPointsArrayDataMultipleOfDimensions(*this));
