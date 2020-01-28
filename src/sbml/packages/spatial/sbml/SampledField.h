@@ -147,6 +147,7 @@ protected:
   std::string mSamples;
   int mSamplesLength;
   bool mIsSetSamplesLength;
+  size_t mActualSamplesLength;
 
   /** @endcond */
 
@@ -417,6 +418,14 @@ public:
    * a integer.
    */
   int getSamplesLength() const;
+
+
+  /**
+   * Returns the number of child entries in this SampledField.
+   *
+   * @return the number of child entries, either compressed or non-compressed.
+   */
+  size_t getActualSamplesLength() const;
 
 
   /**
