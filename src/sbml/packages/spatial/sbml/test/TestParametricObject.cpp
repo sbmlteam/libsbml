@@ -172,6 +172,38 @@ START_TEST (test_ParametricObject_output)
 END_TEST
 
 
+START_TEST (test_ParametricObject_compress)
+{
+  string expectedCompressed = 
+    "<parametricObject id=\"i\" polygonType=\"triangle\" domainType=\"p\" pointIndexLength=\"19\" compression=\"deflated\">120 218 51 84 48 82 48 6 99 67 5 83 48 13 0 27 216 2 231 </parametricObject>";
+
+  string expectedUncompressed = 
+    "<parametricObject id=\"i\" polygonType=\"triangle\" domainType=\"p\" pointIndexLength=\"9\" compression=\"uncompressed\">1 2 3 2 3 1 5 2 3 </parametricObject>";
+
+  int points [] = {1,2,3,2,3,1,5,2,3};
+
+  G->setId("i");
+  G->setPolygonType("triangle");
+  G->setDomainType("p");
+  G->setPointIndexLength(9);
+
+  G->setPointIndex(points, 9);  
+
+  G->compress(9);
+
+  S = G->toSBML();
+
+  fail_unless( expectedCompressed == S );
+
+  free(S);
+  G->uncompress();
+  S = G->toSBML();
+  fail_unless(expectedUncompressed == S);
+
+}
+END_TEST
+
+
 Suite *
 create_suite_ParametricObject (void)
 {
@@ -180,12 +212,13 @@ create_suite_ParametricObject (void)
 
   tcase_add_checked_fixture(tcase, ParametricObjectTest_setup, ParametricObjectTest_teardown);
  
-  tcase_add_test( tcase, test_ParametricObject_create         );
+  tcase_add_test( tcase, test_ParametricObject_create      );
 
-  tcase_add_test( tcase, test_ParametricObject_id                 );
-  tcase_add_test( tcase, test_ParametricObject_polygonType        );
-  tcase_add_test( tcase, test_ParametricObject_domain             );
+  tcase_add_test( tcase, test_ParametricObject_id          );
+  tcase_add_test( tcase, test_ParametricObject_polygonType );
+  tcase_add_test( tcase, test_ParametricObject_domain      );
   tcase_add_test( tcase, test_ParametricObject_output      );
+  tcase_add_test( tcase, test_ParametricObject_compress    );
 
   suite_add_tcase(suite, tcase);
 

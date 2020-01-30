@@ -1275,11 +1275,6 @@ protected:
   double* mUncompressedSamples;
   size_t mUncompressedLength;
 
-  static void copySampleArrays(double* &target, size_t& targetLength, double* source, size_t sourceLength);
-  static std::string uncompress_data(void *data, size_t length);
-  static void compress_data(void* data, size_t length, int level, unsigned char*& result, int& outLength);
-  static void uncompress_data(void* data, size_t length, double*& result, size_t& outLength);
-
 public:
 
  /**
@@ -1305,16 +1300,7 @@ public:
   void freeUncompressed();
   
   /** 
-   * utility function uncompressing samples
-   * 
-   * WARNING: this function assumes that the input data is unit8, and decompresses
-   *          that data for direct access for getUncompressed / getUncompressedData
-   * 
-   */
-  void uncompressLegacy();
-
-  /** 
-   * if the samples stored are compressed (i.e: the flag set to DEFLATED), then
+   * If the samples stored are compressed (i.e: the flag set to DEFLATED), then
    * this function decompresses the samples and alters the samples, changing the 
    * compression flag to uncompressed. 
    *

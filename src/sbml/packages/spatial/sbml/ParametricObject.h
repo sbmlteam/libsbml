@@ -133,8 +133,11 @@ protected:
 
   PolygonKind_t mPolygonType;
   std::string mDomainType;
-  int* mPointIndex;
-  size_t mNumPointIndexEntries;
+  std::string mPointIndex;
+  mutable int* mPointIndexCompressed;
+  mutable int* mPointIndexUncompressed;
+  mutable size_t mPointIndexCompressedLength;
+  mutable size_t mPointIndexUncompressedLength;
   int mPointIndexLength;
   bool mIsSetPointIndexLength;
   CompressionKind_t mCompression;
@@ -270,7 +273,8 @@ public:
 
 
   /**
-   * Returns the value of the "pointIndex" attribute of this ParametricObject.
+   * Returns the value of the "pointIndex" attribute of this ParametricObject
+   * as an int* array.
    *
    * @param outArray int* array that will be used to return the value of the
    * "pointIndex" attribute of this ParametricObject.
@@ -279,6 +283,19 @@ public:
    * returned in the argument array.
    */
   void getPointIndex(int* outArray) const;
+
+
+  /**
+   * Returns the value of the "pointIndex" attribute of this ParametricObject
+   * as a string.
+   *
+   * @param outArray int* array that will be used to return the value of the
+   * "pointIndex" attribute of this ParametricObject.
+   *
+   * @note the value of the "pointIndex" attribute of this ParametricObject is
+   * returned in the argument array.
+   */
+  std::string getPointIndex();
 
 
   /**
@@ -299,7 +316,7 @@ public:
    * @return the number of entries of the child vector of this
    * ParametricObject. 
    */
-  size_t getNumPointIndexEntries() const;
+  size_t getActualPointIndexLength() const;
 
 
   /**
@@ -549,12 +566,36 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
+  int setPointIndex(const std::string& pointIndex);
+
+
+  /**
+   * Sets the value of the "pointIndex" attribute of this ParametricObject.
+   *
+   * This function assumes that the 'compression' value is already set, and
+   * that the array matches that value:  if the 'compression' value
+   * is set to 'deflated', the @p inArray will be assumed to be compressed,
+   * and if the 'compression' value is set to 'uncompressed', the @p inArray
+   * will be assumed to be uncompressed.  If the value is unset, the @p inArray
+   * will also be assumed to be uncompressed.
+   *
+   * @param inArray int* array value of the "pointIndex" attribute to be set.
+   *
+   * @param arrayLength int value for the length of the "pointIndex" attribute
+   * to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
   int setPointIndex(int* inArray, size_t arrayLength);
 
 
   /**
    * Sets the value of the "pointIndexLength" attribute of this
-   * ParametricObject.
+   * ParametricObject.  This value should match the actual number
+   * of entries in the array of point indexes.
    *
    * @param pointIndexLength int value of the "pointIndexLength" attribute to
    * be set.
@@ -1108,7 +1149,70 @@ protected:
    */
   virtual void setElementText(const std::string& text);
 
+  void store() const;
+
   /** @endcond */
+
+
+public:
+
+  /**
+  * Returns the number of uncompressed samples of this SampledField.
+  * Will uncompress the samples if need be.
+  *
+  * @return the number of uncompressed samples of this SampledField.
+  */
+  unsigned int getUncompressedLength();
+
+  /**
+  * The "samples" attribute of this SampledField is returned in an int array (pointer) 
+  * that is passed as argument to the method (this is needed while using SWIG to
+  * convert int[] from C++ to Java). This method returns the uncompressed sample field.
+  *
+  * @return void.
+  */
+  void getUncompressed(int* outputPoints);
+
+  /** 
+  * utility function freeing the uncompressed data. 
+  */
+  void freeUncompressed();
+
+  /** 
+  * utility function freeing the compressed data. 
+  */
+  void freeCompressed();
+
+  /** 
+  * If the samples stored are compressed (i.e: the flag set to DEFLATED), then
+  * this function decompresses the samples and alters the samples, changing the 
+  * compression flag to uncompressed. 
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+  */
+  int uncompress();
+
+  /**
+   * compresses the samples stored, if the flag is set to UNCOMPRESSED, then 
+   * changes the flag to compressed. 
+   * 
+   * @param compression level 0 (store) ... 9 (max compression)
+   * 
+   */
+  int compress(int level);
+
+  /**  
+   *  Returns the data of this image as uncompressed array of integers
+   *
+   * @param data the output array of integers (it will be allocated using
+   *             malloc and will have to be freed using free)
+   * @param length the output length of the array
+   *
+   */
+  void getUncompressedData(int* &data, size_t& length);
+
 
 
 };

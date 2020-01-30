@@ -37,6 +37,7 @@
 #include <sbml/packages/spatial/sbml/ParametricObject.h>
 #include <sbml/packages/spatial/sbml/ListOfParametricObjects.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/packages/spatial/common/CompressionUtil.h>
 #include <math.h>
 
 
@@ -62,8 +63,11 @@ ParametricObject::ParametricObject(unsigned int level,
   : SBase(level, version)
   , mPolygonType (SPATIAL_POLYGONKIND_INVALID)
   , mDomainType ("")
-  , mPointIndex (NULL)
-  , mNumPointIndexEntries (0)
+  , mPointIndex ("")
+  , mPointIndexCompressed (NULL)
+  , mPointIndexUncompressed (NULL)
+  , mPointIndexCompressedLength(0)
+  , mPointIndexUncompressedLength(0)
   , mPointIndexLength (SBML_INT_MAX)
   , mIsSetPointIndexLength (false)
   , mCompression (SPATIAL_COMPRESSIONKIND_INVALID)
@@ -81,8 +85,11 @@ ParametricObject::ParametricObject(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
   , mPolygonType (SPATIAL_POLYGONKIND_INVALID)
   , mDomainType ("")
-  , mPointIndex (NULL)
-  , mNumPointIndexEntries (0)
+  , mPointIndex ("")
+  , mPointIndexCompressed (NULL)
+  , mPointIndexUncompressed (NULL)
+  , mPointIndexCompressedLength(0)
+  , mPointIndexUncompressedLength(0)
   , mPointIndexLength (SBML_INT_MAX)
   , mIsSetPointIndexLength (false)
   , mCompression (SPATIAL_COMPRESSIONKIND_INVALID)
@@ -100,14 +107,16 @@ ParametricObject::ParametricObject(const ParametricObject& orig)
   : SBase( orig )
   , mPolygonType ( orig.mPolygonType )
   , mDomainType ( orig.mDomainType )
-  , mPointIndex ( NULL )
-  , mNumPointIndexEntries (orig.mNumPointIndexEntries)
+  , mPointIndex (orig.mPointIndex )
+  , mPointIndexCompressed (NULL)
+  , mPointIndexUncompressed (NULL)
+  , mPointIndexCompressedLength (0)
+  , mPointIndexUncompressedLength (0)
   , mPointIndexLength ( orig.mPointIndexLength )
   , mIsSetPointIndexLength ( orig.mIsSetPointIndexLength )
   , mCompression ( orig.mCompression )
   , mDataType ( orig.mDataType )
 {
-  setPointIndex(orig.mPointIndex, orig.mNumPointIndexEntries);
 
 }
 
@@ -123,9 +132,7 @@ ParametricObject::operator=(const ParametricObject& rhs)
     SBase::operator=(rhs);
     mPolygonType = rhs.mPolygonType;
     mDomainType = rhs.mDomainType;
-    mPointIndex = NULL;
-    mNumPointIndexEntries = rhs.mNumPointIndexEntries;
-    setPointIndex(rhs.mPointIndex, rhs.mNumPointIndexEntries);
+    mPointIndex = rhs.mPointIndex;
     mPointIndexLength = rhs.mPointIndexLength;
     mIsSetPointIndexLength = rhs.mIsSetPointIndexLength;
     mCompression = rhs.mCompression;
@@ -151,12 +158,8 @@ ParametricObject::clone() const
  */
 ParametricObject::~ParametricObject()
 {
-  if (mPointIndex != NULL)
-  {
-    delete [] mPointIndex;
-  }
-
-  mPointIndex = NULL;
+  freeUncompressed();
+  freeCompressed();
 }
 
 
@@ -216,14 +219,32 @@ ParametricObject::getDomainType() const
 void
 ParametricObject::getPointIndex(int* outArray) const
 {
-  if (outArray == NULL || mPointIndex == NULL)
+  if (outArray == NULL)
   {
     return;
   }
 
-  memcpy(outArray, mPointIndex, sizeof(int)*mNumPointIndexEntries);
+  store();
+  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED) {
+    if (mPointIndexCompressed == NULL) 
+    {
+      return;
+    }
+    memcpy(outArray, mPointIndexCompressed, sizeof(int)*mPointIndexCompressedLength);
+    return;
+  }
+  if (mPointIndexUncompressed == NULL)
+  {
+    return;
+  }
+  memcpy(outArray, mPointIndexUncompressed, sizeof(int)*mPointIndexUncompressedLength);
 }
 
+
+string ParametricObject::getPointIndex()
+{
+  return mPointIndex;
+}
 
 /*
  * Returns the value of the "pointIndexLength" attribute of this
@@ -237,9 +258,13 @@ ParametricObject::getPointIndexLength() const
 
 
 size_t
-ParametricObject::getNumPointIndexEntries() const
+ParametricObject::getActualPointIndexLength() const
 {
-  return mNumPointIndexEntries;
+  store();
+  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED) {
+    return mPointIndexCompressedLength;
+  }
+  return mPointIndexUncompressedLength;
 }
 
 
@@ -335,7 +360,7 @@ ParametricObject::isSetDomainType() const
 bool
 ParametricObject::isSetPointIndex() const
 {
-  return (mPointIndex != NULL);
+  return (!mPointIndex.empty());
 }
 
 
@@ -448,6 +473,14 @@ ParametricObject::setDomainType(const std::string& domainType)
   }
 }
 
+int ParametricObject::setPointIndex(const std::string & pointIndex)
+{
+  mPointIndex = pointIndex;
+  freeCompressed();
+  freeUncompressed();
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
 
 /*
  * Sets the value of the "pointIndex" attribute of this ParametricObject.
@@ -460,14 +493,14 @@ ParametricObject::setPointIndex(int* inArray, size_t arrayLength)
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
 
-  if (mPointIndex != NULL)
+  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
   {
-    delete[] mPointIndex;
+    copySampleArrays(mPointIndexCompressed, mPointIndexCompressedLength, inArray, arrayLength);
   }
-
-  mPointIndex = new int[arrayLength];
-  memcpy(mPointIndex, inArray, sizeof(int)*arrayLength);
-  mNumPointIndexEntries = arrayLength;
+  else {
+    copySampleArrays(mPointIndexUncompressed, mPointIndexUncompressedLength, inArray, arrayLength);
+  }
+  mPointIndex = arrayToString(inArray, arrayLength);
 
   return LIBSBML_OPERATION_SUCCESS;
 }
@@ -499,6 +532,8 @@ ParametricObject::setCompression(const CompressionKind_t compression)
   else
   {
     mCompression = compression;
+    freeCompressed();
+    freeUncompressed();
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -510,14 +545,21 @@ ParametricObject::setCompression(const CompressionKind_t compression)
 int
 ParametricObject::setCompression(const std::string& compression)
 {
-  mCompression = CompressionKind_fromString(compression.c_str());
-
-  if (mCompression == SPATIAL_COMPRESSIONKIND_INVALID)
+  CompressionKind_t ck = CompressionKind_fromString(compression.c_str());
+  OperationReturnValues_t ret = LIBSBML_OPERATION_SUCCESS;
+  if (ck == SPATIAL_COMPRESSIONKIND_INVALID)
   {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    ret = LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
+  if (mCompression == ck)
+  {
+    return ret;
+  }
+  mCompression = ck;
+  freeCompressed();
+  freeUncompressed();
 
-  return LIBSBML_OPERATION_SUCCESS;
+  return ret;
 }
 
 
@@ -631,12 +673,9 @@ ParametricObject::unsetDomainType()
 int
 ParametricObject::unsetPointIndex()
 {
-  if (mPointIndex != NULL)
-  {
-    delete[] mPointIndex;
-  }
-
-  mPointIndex = NULL;
+  freeUncompressed();
+  freeCompressed();
+  mPointIndex = "";
 
   return unsetPointIndexLength();
 }
@@ -824,10 +863,7 @@ ParametricObject::write(XMLOutputStream& stream) const
 
   if (isSetPointIndex())
   {
-    for (size_t i = 0; i < mNumPointIndexEntries; ++i)
-    {
-      stream << (long)mPointIndex[i] << " ";
-    }
+    stream << mPointIndex;
   }
 
   stream.endElement(getElementName(), getPrefix());
@@ -1597,30 +1633,15 @@ ParametricObject::writeAttributes(XMLOutputStream& stream) const
 void
 ParametricObject::setElementText(const std::string& text)
 {
-  stringstream strStream(text);
-  double val;
-  vector<double> valuesVector;
-
-  while (strStream >> val)
+  mPointIndex = text;
+  SBMLErrorLog* log = getErrorLog();
+  if (log && mCompression == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED)
   {
-    valuesVector.push_back(val);
-    if (strStream.peek() == ',') {
-      strStream.get();
-    }
-    if (strStream.peek() == ';') {
-      strStream.get();
-    }
-  }
-
-  unsigned int length = (unsigned int)valuesVector.size();
-
-  if (length > 0)
-  {
-    int* data = new int[length];
-    for (unsigned int i = 0; i < length; ++i)
+    size_t doubleslen;
+    double* doublesVector = readSamplesFromString<double>(mPointIndex, doubleslen);
+    for (size_t i = 0; i < doubleslen; i++)
     {
-      data[i] = lround(valuesVector.at(i));
-      if (data[i]<0 || trunc(valuesVector.at(i)) != valuesVector.at(i))
+      if (doublesVector[i] < 0 || trunc(doublesVector[i]) != doublesVector[i])
       {
         stringstream ss_msg;
         ss_msg << "A <parametricObject>";
@@ -1628,21 +1649,140 @@ ParametricObject::setElementText(const std::string& text)
         {
           ss_msg << " with id '" << getId() << "'";
         }
-        ss_msg << " has an entry with the value '" << valuesVector.at(i);
+        ss_msg << " has an entry with the value '" << doublesVector[i];
         ss_msg << "', which is not a non-negative integer.";
-        SBMLErrorLog* log = getErrorLog();
 
-        if (log)
-        {
-          log->logPackageError("spatial",
-            SpatialParametricObjectIndexesMustBePositiveIntegers,
-            getPackageVersion(), getLevel(), getVersion(), ss_msg.str());
-        }
+        log->logPackageError("spatial",
+          SpatialParametricObjectIndexesMustBePositiveIntegers,
+          getPackageVersion(), getLevel(), getVersion(), ss_msg.str());
       }
     }
-    setPointIndex(data, length);
-    delete[] data;
+    delete[] doublesVector;
   }
+}
+
+void ParametricObject::store() const
+{
+  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED) 
+  {
+    if (mPointIndexCompressed == NULL) {
+      mPointIndexCompressed = readSamplesFromString<int>(mPointIndex, mPointIndexCompressedLength);
+    }
+  }
+  else
+  {
+    if (mPointIndexUncompressed == NULL) {
+      mPointIndexUncompressed = readSamplesFromString<int>(mPointIndex, mPointIndexUncompressedLength);
+    }
+  }
+}
+
+/**
+*  Returns the data of this image as uncompressed array of integers
+*
+* @param data the output array of integers (it will be allocated using
+*             malloc and will have to be freed using free)
+* @param length the output length of the array
+*
+*/
+void
+ParametricObject::getUncompressedData(int*& data, size_t& length)
+{
+  store();
+  if (mPointIndexUncompressed == NULL)
+  {
+    length = 0;
+    return;
+  }
+  copySampleArrays(data, length, mPointIndexUncompressed, mPointIndexUncompressedLength);
+  return;
+}
+
+int
+ParametricObject::uncompress()
+{
+  freeUncompressed();
+  store();
+
+  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
+  {
+    if (mPointIndexCompressed == NULL) return LIBSBML_OPERATION_SUCCESS;
+    char* csamples = (char*)malloc(sizeof(char) * mPointIndexCompressedLength);
+    int* result; size_t length;
+    for (unsigned int i = 0; i < mPointIndexCompressedLength; ++i)
+    {
+      csamples[i] = (char)mPointIndexCompressed[i];
+    }
+    uncompress_data(csamples, mPointIndexCompressedLength, result, length);
+    free(csamples);
+
+    if (result == NULL)
+    {
+      return LIBSBML_OPERATION_FAILED;
+    }
+
+    mPointIndex = charIntsToString(result, length);
+    mCompression = SPATIAL_COMPRESSIONKIND_UNCOMPRESSED;
+    store();
+    mPointIndexLength = mPointIndexUncompressedLength;
+  }
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+int ParametricObject::compress(int level)
+{
+  freeCompressed();
+  unsigned char* result; int length;
+  compress_data(const_cast<char*>(mPointIndex.c_str()), mPointIndex.length(), level, result, length);
+
+  mPointIndex = arrayToString(result, length);
+  copySampleArrays(mPointIndexCompressed, mPointIndexCompressedLength, result, length);
+
+  free(result);
+
+  mCompression = SPATIAL_COMPRESSIONKIND_DEFLATED;
+  mPointIndexLength = mPointIndexCompressedLength;
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+unsigned int
+ParametricObject::getUncompressedLength()
+{
+  store();
+  return mPointIndexUncompressedLength;
+}
+
+void
+ParametricObject::getUncompressed(int* outputPoints)
+{
+  store();
+  if (outputPoints == NULL) return;
+  if (mPointIndexUncompressed == NULL) return;
+  memcpy(outputPoints, mPointIndexUncompressed, sizeof(int) * mPointIndexUncompressedLength);
+}
+
+void
+ParametricObject::freeUncompressed()
+{
+  if (mPointIndexUncompressed != NULL)
+  {
+    delete[] mPointIndexUncompressed;
+  }
+  mPointIndexUncompressed = NULL;
+  mPointIndexUncompressedLength = 0;
+}
+
+void
+ParametricObject::freeCompressed()
+{
+  if (mPointIndexCompressed != NULL)
+  {
+    delete[] mPointIndexCompressed;
+  }
+  mPointIndexCompressed = NULL;
+  mPointIndexCompressedLength = 0;
 }
 
 /** @endcond */

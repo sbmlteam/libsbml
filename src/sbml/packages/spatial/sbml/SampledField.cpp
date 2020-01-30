@@ -37,6 +37,7 @@
 #include <sbml/packages/spatial/sbml/SampledField.h>
 #include <sbml/packages/spatial/sbml/ListOfSampledFields.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/packages/spatial/common/CompressionUtil.h>
 
 
 using namespace std;
@@ -49,115 +50,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 #ifdef __cplusplus
-
-
-template<typename type> std::string vectorToString(const std::vector< type >& vec)
-{
-  std::stringstream str;
-
-  typename std::vector< type >::const_iterator it = vec.begin();
-
-  for (; it != vec.end(); ++it)
-  {
-    str << *it << " ";
-  }
-
-  return str.str();
-}
-
-
-std::string vectorToString(const std::vector<double>& vec)
-{
-  std::stringstream str;
-
-  std::vector<double>::const_iterator it = vec.begin();
-
-  for (; it != vec.end(); ++it)
-  {
-    str << setprecision(17) << *it << " ";
-  }
-
-  return str.str();
-}
-
-template<typename type> void readSamplesFromString(const std::string& str, std::vector<type>& valuesVector)
-{
-  valuesVector.clear();
-  stringstream strStream(str);
-  type val;
-
-  while (strStream >> val)
-  {
-    valuesVector.push_back(val);
-    if (strStream.peek() == ',') {
-      strStream.get();
-    }
-    if (strStream.peek() == ';') {
-      strStream.get();
-    }
-  }
-}
-
-template<typename type> type* readSamplesFromString(const std::string& str, size_t& length)
-{
-  stringstream strStream(str);
-  type val;
-  vector< type> valuesVector;
-
-  readSamplesFromString(str, valuesVector);
-
-  length = valuesVector.size();
-
-  if (length > 0)
-  {
-    type* data = new type[length];
-    for (size_t i = 0; i < length; ++i)
-    {
-      data[i] = valuesVector.at(i);
-    }
-    return data;
-  }
-
-  return NULL;
-}
-
-template<typename type> std::string arrayToString(const type* array, size_t length)
-{
-  std::stringstream str;
-
-  for (size_t i = 0; i < length; ++i)
-  {
-    str << (type)array[i] << " ";
-  }
-
-  return str.str();
-}
-
-
-std::string arrayToString(const unsigned char* array, size_t length)
-{
-  std::stringstream str;
-
-  for (size_t i = 0; i < length; ++i)
-  {
-    str << (int)array[i] << " ";
-  }
-
-  return str.str();
-}
-
-
-std::string arrayToString(const double* array, size_t length)
-{
-  std::stringstream str;
-
-  for (size_t i = 0; i < length; ++i)
-  {
-    str << std::setprecision(17) << (double)array[i] << " ";
-  }
-
-  return str.str();
-}
 
 /*
  * Creates a new SampledField using the given SBML Level, Version and
@@ -852,7 +744,7 @@ SampledField::setSamples(float* inArray, int arrayLength)
 int SampledField::setSamples(const std::string& samples)
 {
   mSamples = samples;
-  uncompressLegacy();
+  uncompress();
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -2048,12 +1940,6 @@ SampledField::setElementText(const std::string& text)
 /** @endcond */
 
 
-#include <sbml/compress/CompressCommon.h>
-
-#ifdef USE_ZLIB
-#include <zlib.h>
-#endif
-
 /**
  *  Returns the data of this image as uncompressed array of integers
  *
@@ -2067,7 +1953,7 @@ SampledField::getUncompressedData(double*& data, size_t& length)
 {
   if (mUncompressedSamples == NULL)
   {
-    uncompressLegacy();
+    uncompress();
   }
 
   copySampleArrays(data, length, mUncompressedSamples, mUncompressedLength);
@@ -2075,15 +1961,15 @@ SampledField::getUncompressedData(double*& data, size_t& length)
 
 }
 
-void
-SampledField::uncompressLegacy()
+int
+SampledField::uncompress()
 {
   freeUncompressed();
 
   if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
   {
     int* samples = readSamplesFromString<int>(mSamples, mActualSamplesLength);
-    if (samples == NULL) return;
+    if (samples == NULL) return LIBSBML_OPERATION_SUCCESS;
     char* csamples = (char*)malloc(sizeof(char) * mActualSamplesLength);
     for (unsigned int i = 0; i < mActualSamplesLength; ++i)
     {
@@ -2094,43 +1980,20 @@ SampledField::uncompressLegacy()
 
     if (mUncompressedSamples == 0)
     {
-      assert(false);
-//      copySampleArrays(mUncompressedSamples, mUncompressedLength, samples, mActualSamplesLength);
+      delete[] samples;
+      return LIBSBML_OPERATION_FAILED;
     }
     delete[] samples;
   }
   else
   {
     double* samples = readSamplesFromString<double>(mSamples, mActualSamplesLength);
-    if (samples == NULL) return;
+    if (samples == NULL) return LIBSBML_OPERATION_SUCCESS;
     copySampleArrays(mUncompressedSamples, mUncompressedLength, samples, mActualSamplesLength);
     delete[] samples;
   }
 
-
-}
-
-int
-SampledField::uncompress()
-{
-  if (mCompression != SPATIAL_COMPRESSIONKIND_DEFLATED)
-    return LIBSBML_OPERATION_SUCCESS;
-
-  double* samples = readSamplesFromString<double>(mSamples, mActualSamplesLength);
-  if (samples == NULL)
-    return LIBSBML_OPERATION_SUCCESS;
-
-  char* csamples = (char*)malloc(sizeof(char) * mActualSamplesLength);
-  for (unsigned int i = 0; i < mActualSamplesLength; ++i)
-    csamples[i] = (char)samples[i];
-
-  mSamples = SampledField::uncompress_data(csamples, mActualSamplesLength);
-  mCompression = SPATIAL_COMPRESSIONKIND_UNCOMPRESSED;
-  free(csamples);
-  delete[] samples;
-
   return LIBSBML_OPERATION_SUCCESS;
-
 }
 
 int SampledField::compress(int level)
@@ -2149,7 +2012,7 @@ unsigned int
 SampledField::getUncompressedLength()
 {
   if (mUncompressedSamples == NULL)
-    uncompressLegacy();
+    uncompress();
   return mUncompressedLength;
 }
 
@@ -2158,7 +2021,7 @@ SampledField::getUncompressed(double* outputSamples)
 {
   if (outputSamples == NULL) return;
   if (mUncompressedSamples == NULL)
-    uncompressLegacy();
+    uncompress();
   if (mUncompressedSamples == NULL)
     return;
   memcpy(outputSamples, mUncompressedSamples, sizeof(double) * mUncompressedLength);
@@ -2171,215 +2034,6 @@ SampledField::freeUncompressed()
   mUncompressedLength = 0;
   free(mUncompressedSamples);
   mUncompressedSamples = NULL;
-}
-
-
-std::string
-SampledField::uncompress_data(void* data, size_t length)
-{
-  std::stringstream str;
-#ifndef USE_ZLIB
-  // throwing an exception won't help our users, better set the result array and length to NULL. 
-  // throw ZlibNotLinked();
-  return "";
-#else
-  const size_t BUFSIZE = 128 * 1024;
-  Bytef temp_buffer[BUFSIZE];
-
-  z_stream strm;
-  strm.zalloc = 0;
-  strm.zfree = 0;
-  strm.next_in = reinterpret_cast<Bytef*>(data);
-  strm.avail_in = length;
-  strm.next_out = reinterpret_cast<Bytef*>(temp_buffer);
-  strm.avail_out = BUFSIZE;
-
-  int res = inflateInit(&strm);
-
-  while (strm.avail_in != 0)
-  {
-    res = inflate(&strm, Z_NO_FLUSH);
-    if (res < 0)
-    {
-      return "";
-    }
-    if (strm.avail_out == 0)
-    {
-      str << std::string(temp_buffer, temp_buffer + BUFSIZE);
-      strm.next_out = reinterpret_cast<Bytef*>(temp_buffer);
-      strm.avail_out = BUFSIZE;
-    }
-  }
-
-  res = Z_OK;
-  while (res == Z_OK)
-  {
-    if (strm.avail_out == 0)
-    {
-      str << std::string(temp_buffer, temp_buffer + BUFSIZE);
-      strm.next_out = reinterpret_cast<Bytef*>(temp_buffer);
-      strm.avail_out = BUFSIZE;
-    }
-    res = inflate(&strm, Z_FINISH);
-    if (res < 0)
-    {
-      return "";
-    }
-  }
-
-  str << std::string(temp_buffer, temp_buffer + BUFSIZE - strm.avail_out);
-  inflateEnd(&strm);
-
-  return str.str();
-#endif
-}
-
-void
-SampledField::copySampleArrays(double*& target, size_t& targetLength, double* source, size_t sourceLength)
-{
-  targetLength = sourceLength;
-  target = (double*)malloc(sizeof(double) * sourceLength);
-  memset(target, 0, sizeof(double) * sourceLength);
-  memcpy(target, source, sizeof(double) * sourceLength);
-}
-
-void SampledField::uncompress_data(void* data, size_t length, double*& result, size_t& outLength)
-{
-#ifndef USE_ZLIB
-  // throwing an exception won't help our users, better set the result array and length to NULL. 
-  // throw ZlibNotLinked();
-  outLength = 0;
-  result = NULL;
-#else
-  std::vector<char> buffer;
-
-  const size_t BUFSIZE = 128 * 1024;
-  Bytef temp_buffer[BUFSIZE];
-
-  z_stream strm;
-  strm.zalloc = 0;
-  strm.zfree = 0;
-  strm.next_in = reinterpret_cast<Bytef*>(data);
-  strm.avail_in = length;
-  strm.next_out = reinterpret_cast<Bytef*>(temp_buffer);
-  strm.avail_out = BUFSIZE;
-
-  int res = inflateInit(&strm);
-
-  while (strm.avail_in != 0)
-  {
-    res = inflate(&strm, Z_NO_FLUSH);
-    if (res < 0)
-    {
-      outLength = 0;
-      result = NULL;
-      break;
-    }
-    if (strm.avail_out == 0)
-    {
-      buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE);
-      strm.next_out = reinterpret_cast<Bytef*>(temp_buffer);
-      strm.avail_out = BUFSIZE;
-    }
-  }
-
-  res = Z_OK;
-  while (res == Z_OK)
-  {
-    if (strm.avail_out == 0)
-    {
-      buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE);
-      strm.next_out = reinterpret_cast<Bytef*>(temp_buffer);
-      strm.avail_out = BUFSIZE;
-    }
-    res = inflate(&strm, Z_FINISH);
-    if (res < 0)
-    {
-      outLength = 0;
-      result = NULL;
-    }
-  }
-
-  buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE - strm.avail_out);
-  inflateEnd(&strm);
-
-  outLength = buffer.size();
-  result = (double*)malloc(sizeof(double) * outLength);
-  if (result == NULL)
-    return;
-  for (size_t i = 0; i < outLength; i++)
-    result[i] = buffer[i];
-#endif
-}
-
-
-void SampledField::compress_data(void* data, size_t length, int level, unsigned char*& result, int& outLength)
-{
-#ifndef USE_ZLIB
-  // throwing an exception won't help our users, better set the result array and length to NULL. 
-  // throw ZlibNotLinked();
-  outLength = 0;
-  result = NULL;
-#else
-  std::vector<char> buffer;
-
-  const size_t BUFSIZE = 128 * 1024;
-  Bytef temp_buffer[BUFSIZE];
-
-  z_stream strm;
-  strm.zalloc = 0;
-  strm.zfree = 0;
-  strm.next_in = reinterpret_cast<Bytef*>(data);
-  strm.avail_in = length;
-  strm.next_out = reinterpret_cast<Bytef*>(temp_buffer);
-  strm.avail_out = BUFSIZE;
-
-  int res = deflateInit(&strm, level);
-
-  while (strm.avail_in != 0)
-  {
-    res = deflate(&strm, Z_NO_FLUSH);
-    if (res < 0)
-    {
-      outLength = 0;
-      result = NULL;
-      break;
-    }
-    if (strm.avail_out == 0)
-    {
-      buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE);
-      strm.next_out = reinterpret_cast<Bytef*>(temp_buffer);
-      strm.avail_out = BUFSIZE;
-    }
-  }
-
-  res = Z_OK;
-  while (res == Z_OK)
-  {
-    if (strm.avail_out == 0)
-    {
-      buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE);
-      strm.next_out = reinterpret_cast<Bytef*>(temp_buffer);
-      strm.avail_out = BUFSIZE;
-    }
-    res = deflate(&strm, Z_FINISH);
-    if (res < 0)
-    {
-      outLength = 0;
-      result = NULL;
-    }
-  }
-
-  buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE - strm.avail_out);
-  deflateEnd(&strm);
-
-  outLength = buffer.size();
-  result = (unsigned char*)malloc(sizeof(int) * outLength);
-  if (result == NULL)
-    return;
-  for (int i = 0; i < outLength; i++)
-    result[i] = (unsigned char)buffer[i];
-#endif
 }
 
 
