@@ -2088,7 +2088,7 @@ START_CONSTRAINT(SpatialSpatialPointsIntArrayDataIntegers, SpatialPoints, sp)
 END_CONSTRAINT
 
 
-// 122150
+// 1222150
 START_CONSTRAINT(SpatialParametricObjectPointIndexLengthMustMatchUncompressed, ParametricObject, po)
 {
   pre(po.isSetCompression());
@@ -2111,10 +2111,34 @@ START_CONSTRAINT(SpatialParametricObjectPointIndexLengthMustMatchUncompressed, P
 END_CONSTRAINT
 
 
-// 122152
+// 1222151
+START_CONSTRAINT(SpatialParametricObjectPointIndexLengthMustMatchCompressed, ParametricObject, po)
+{
+  pre(po.isSetCompression());
+  pre(po.getCompression() == SPATIAL_COMPRESSIONKIND_DEFLATED);
+  pre(po.isSetPointIndexLength());
+  pre(po.getPointIndexLength() != po.getActualPointIndexLength());
+  stringstream ss_msg;
+  ss_msg << "A <parametricObject>";
+  if (po.isSetId())
+  {
+    ss_msg << " with id '" << po.getId() << "'";
+  }
+  ss_msg <<  " is set 'deflated' and has an 'arrayDataLength' of '";
+  ss_msg << po.getPointIndexLength() << "', but actually contains ";
+  ss_msg << po.getActualPointIndexLength() << " entries.";
+  msg = ss_msg.str();
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
+// 1222152
 START_CONSTRAINT(SpatialParametricObjectThreePointsForTriangles, ParametricObject, po)
 {
   pre(po.getPolygonType() == SPATIAL_POLYGONKIND_TRIANGLE);
+  pre(po.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
   pre(po.getActualPointIndexLength() % 3 != 0);
   stringstream ss_msg;
   ss_msg << "A <parametricObject>";
@@ -2131,10 +2155,11 @@ START_CONSTRAINT(SpatialParametricObjectThreePointsForTriangles, ParametricObjec
 END_CONSTRAINT
 
 
-// 122153
+// 1222153
 START_CONSTRAINT(SpatialParametricObjectFourPointsForQuadrilaterals, ParametricObject, po)
 {
   pre(po.getPolygonType() == SPATIAL_POLYGONKIND_QUADRILATERAL);
+  pre(po.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
   pre(po.getActualPointIndexLength() % 4 != 0);
   stringstream ss_msg;
   ss_msg << "A <parametricObject>";
@@ -2151,9 +2176,10 @@ START_CONSTRAINT(SpatialParametricObjectFourPointsForQuadrilaterals, ParametricO
 END_CONSTRAINT
 
 
-// 122155
+// 1222155
 START_CONSTRAINT(SpatialParametricObjectIndexesMustBePoints, ParametricObject, po)
 {
+  pre(po.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
   bool fail = false;
   const SBase* parent = po.getParentSBMLObject();
   pre(parent != NULL);
@@ -2198,9 +2224,10 @@ START_CONSTRAINT(SpatialParametricObjectIndexesMustBePoints, ParametricObject, p
 END_CONSTRAINT
 
 
-// 122156
+// 1222156
 START_CONSTRAINT(SpatialParametricObjectFacesSameChirality, ParametricObject, po)
 {
+  pre(po.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
   bool fail = false;
   pre(po.isSetPolygonType());
   int groupsize;
@@ -2250,9 +2277,10 @@ START_CONSTRAINT(SpatialParametricObjectFacesSameChirality, ParametricObject, po
 END_CONSTRAINT
 
 
-// 122157
+// 1222157
 START_CONSTRAINT(SpatialParametricObjectMaxTwoPointBorders, ParametricObject, po)
 {
+  pre(po.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
   bool fail = false;
   pre(po.isSetPolygonType());
   int groupsize;

@@ -1547,7 +1547,7 @@ ParametricObject::readAttributes(const XMLAttributes& attributes,
     {
       mDataType = DataKind_fromString(dataType.c_str());
 
-      if (DataKind_isValid(mDataType) == 0)
+      if (DataKind_isValid(mDataType) == 0 || mDataType == SPATIAL_DATAKIND_DOUBLE || mDataType == SPATIAL_DATAKIND_FLOAT)
       {
         std::string msg = "The dataType on the <ParametricObject> ";
 

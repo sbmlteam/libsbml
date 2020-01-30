@@ -181,7 +181,7 @@ START_TEST (test_ParametricObject_compress)
     "<parametricObject id=\"i\" polygonType=\"triangle\" domainType=\"p\" pointIndexLength=\"9\" compression=\"uncompressed\">1 2 3 2 3 1 5 2 3 </parametricObject>";
 
   int points [] = {1,2,3,2,3,1,5,2,3};
-
+  //int points[] = { 0, 1, 2};
   G->setId("i");
   G->setPolygonType("triangle");
   G->setDomainType("p");

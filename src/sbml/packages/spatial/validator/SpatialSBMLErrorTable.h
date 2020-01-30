@@ -1805,8 +1805,8 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'spatial:dataType' of a <parametricObject> "
     "object must conform to the syntax of SBML data type 'DataKind' and may "
-    "only take on the allowed values of 'DataKind' defined in SBML; that is, "
-    "the value must be one of the following: 'uint', 'int', 'double', 'float', 'uint8', "
+    "only take on a subset of the allowed values of 'DataKind' defined in SBML; that is, "
+    "the value must be one of the following: 'uint', 'int', 'uint8', "
     "'uint16' or 'uint32'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1827,7 +1827,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'pointIndexLength' attribute must match the compressed data.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If the 'spatial:compression' attribute of a <parametricObject> has the value 'deflated', the 'spatial:pointIndexLength' attribute of the same <parametricObject> must equal the number of non-whitespace characters of the ArrayData child of the <parametricObject>.",
+    "If the 'spatial:compression' attribute of a <parametricObject> has the value 'deflated', the 'spatial:pointIndexLength' attribute of the same <parametricObject> must equal the number of entries in the ArrayData child of the <parametricObject>.",
     { "L3V1 Spatial V1 Section"
     }
   },
