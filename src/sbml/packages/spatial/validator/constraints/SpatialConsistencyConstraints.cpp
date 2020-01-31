@@ -1970,6 +1970,29 @@ START_CONSTRAINT(SpatialSpatialPointsDataLengthMustMatchUncompressed, SpatialPoi
 END_CONSTRAINT
 
 
+// 1224051
+START_CONSTRAINT(SpatialSpatialPointsDataLengthMustMatchCompressed, SpatialPoints, sp)
+{
+  pre(sp.isSetCompression());
+  pre(sp.getCompression() == SPATIAL_COMPRESSIONKIND_DEFLATED);
+  pre(sp.isSetArrayDataLength());
+  pre(sp.getArrayDataLength() != sp.getActualArrayDataLength());
+  stringstream ss_msg;
+  ss_msg << "A <spatialPoints>";
+  if (sp.isSetId())
+  {
+    ss_msg << " with id '" << sp.getId() << "'";
+  }
+  ss_msg <<  " is set 'deflated' and has an 'arrayDataLength' of '";
+  ss_msg << sp.getArrayDataLength() << "', but actually contains ";
+  ss_msg << sp.getActualArrayDataLength() << " entries.";
+  msg = ss_msg.str();
+
+  inv(false);
+}
+END_CONSTRAINT
+
+
 // 1224052
 START_CONSTRAINT(SpatialSpatialPointsArrayDataMultipleOfDimensions, SpatialPoints, sp)
 {
