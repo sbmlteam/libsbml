@@ -579,10 +579,12 @@ public:
    * will be assumed to be uncompressed.  If the value is unset, the @p inArray
    * will also be assumed to be uncompressed.
    *
+   * This function will also set 'pointIndexLength' to @p arrayLength.
+   *
    * @param inArray int* array value of the "pointIndex" attribute to be set.
    *
-   * @param arrayLength int value for the length of the "pointIndex" attribute
-   * to be set.
+   * @param arrayLength int value for the length of @p inArray, and the value 
+   * to set the "pointIndex" attribute to.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1149,7 +1151,16 @@ protected:
    */
   virtual void setElementText(const std::string& text);
 
+  /** @endcond */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /* Store the PointIndex string as ints, either compressed or not.*/
   void store() const;
+
+  /* Uncompress the data, but don't store the change.*/
+  std::string uncompressInternal() const;
 
   /** @endcond */
 
@@ -1157,31 +1168,31 @@ protected:
 public:
 
   /**
-  * Returns the number of uncompressed samples of this SampledField.
+  * Returns the number of uncompressed samples of this ParametricObject.
   * Will uncompress the samples if need be.
   *
-  * @return the number of uncompressed samples of this SampledField.
+  * @return the number of uncompressed samples of this ParametricObject.
   */
-  unsigned int getUncompressedLength();
+  unsigned int getUncompressedLength() const;
 
   /**
-  * The "samples" attribute of this SampledField is returned in an int array (pointer) 
+  * The "samples" attribute of this ParametricObject is returned in an int array (pointer) 
   * that is passed as argument to the method (this is needed while using SWIG to
   * convert int[] from C++ to Java). This method returns the uncompressed sample field.
   *
   * @return void.
   */
-  void getUncompressed(int* outputPoints);
+  void getUncompressed(int* outputPoints) const;
 
   /** 
   * utility function freeing the uncompressed data. 
   */
-  void freeUncompressed();
+  void freeUncompressed() const;
 
   /** 
   * utility function freeing the compressed data. 
   */
-  void freeCompressed();
+  void freeCompressed() const;
 
   /** 
   * If the samples stored are compressed (i.e: the flag set to DEFLATED), then

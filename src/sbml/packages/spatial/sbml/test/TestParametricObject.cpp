@@ -185,9 +185,11 @@ START_TEST (test_ParametricObject_compress)
   G->setId("i");
   G->setPolygonType("triangle");
   G->setDomainType("p");
-  G->setPointIndexLength(9);
 
   G->setPointIndex(points, 9);  
+
+  fail_unless(G->getPointIndexLength() == 9);
+  fail_unless(G->getPointIndex() == "1 2 3 2 3 1 5 2 3 ");
 
   G->compress(9);
 
@@ -199,6 +201,32 @@ START_TEST (test_ParametricObject_compress)
   G->uncompress();
   S = G->toSBML();
   fail_unless(expectedUncompressed == S);
+
+}
+END_TEST
+
+
+START_TEST(test_ParametricObject_uncompressInternal)
+{
+  int points[] = { 1,2,3,2,3,1,5,2,3 };
+  //int points[] = { 0, 1, 2};
+  G->setId("i");
+  G->setPolygonType("triangle");
+  G->setDomainType("p");
+
+  G->setPointIndex(points, 9);
+
+  G->compress(9);
+
+  size_t len = G->getUncompressedLength();
+  fail_unless(len == 9);
+  int* result = (int*)malloc(sizeof(int) * len);
+  G->getUncompressedData(result, len);
+
+  for (size_t i = 0; i < len; i++)
+  {
+    fail_unless(result[i] == points[i]);
+  }
 
 }
 END_TEST
@@ -219,6 +247,7 @@ create_suite_ParametricObject (void)
   tcase_add_test( tcase, test_ParametricObject_domain      );
   tcase_add_test( tcase, test_ParametricObject_output      );
   tcase_add_test( tcase, test_ParametricObject_compress    );
+  tcase_add_test( tcase, test_ParametricObject_uncompressInternal    );
 
   suite_add_tcase(suite, tcase);
 
