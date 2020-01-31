@@ -119,9 +119,12 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   CompressionKind_t mCompression;
-  double* mArrayData;
-  size_t mNumArrayDataEntries;
+  std::string mArrayData;
   int mArrayDataLength;
+  mutable int* mArrayDataCompressed;
+  mutable double* mArrayDataUncompressed;
+  mutable size_t mArrayDataCompressedLength;
+  mutable size_t mArrayDataUncompressedLength;
   bool mIsSetArrayDataLength;
   DataKind_t mDataType;
 
@@ -241,17 +244,45 @@ public:
    */
   const std::string& getCompressionAsString() const;
 
+  /**
+   * Returns the data entries of this SpatialPoints as a string.
+   *
+   */
+  std::string getArrayData() const;
+
 
   /**
-   * Returns the value of the "arrayData" attribute of this SpatialPoints.
+   * Returns the uncompressed values of the data entries of this SpatialPoints.
+   * If the data are currently compressed, this function will return its
+   * uncompressed form.
    *
    * @param outArray double* array that will be used to return the value of the
-   * "arrayData" attribute of this SpatialPoints.
+   * array data of this SpatialPoints.
    *
-   * @note the value of the "arrayData" attribute of this SpatialPoints is
+   * @note the value of the array data of this SpatialPoints is
    * returned in the argument array.
+   * 
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  void getArrayData(double* outArray) const;
+  int getArrayData(double* outArray) const;
+
+  /**
+   * Returns the compressed values of the data entries of this SpatialPoints.
+   * This function only works if the data has been compressed already.
+   *
+   * @param outArray int* array that will be used to return the value of the
+   * array data of this SpatialPoints.
+   *
+   * @note the value of the array data of this SpatialPoints is
+   * returned in the argument array.
+   * 
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int getArrayData(int * outArray) const;
 
 
   /**
@@ -265,14 +296,14 @@ public:
 
 
   /**
-   * Returns the number of entries in the "arrayData" child of this
-   * SpatialPoints.  When uncompressed, this value should match the
+   * Returns the number of entries in the array data child of this
+   * SpatialPoints.  This value should match the
    * 'arrayDataLength' attribute.
    *
-   * @return the number of entries in the "arrayData" child of this SpatialPoints
+   * @return the number of entries in the array data child of this SpatialPoints
    * as a size_t.
    */
-  size_t getNumArrayDataEntries() const;
+  size_t getActualArrayDataLength() const;
 
 
   /**
@@ -348,10 +379,10 @@ public:
 
 
   /**
-   * Predicate returning @c true if this SpatialPoints's "arrayData" attribute
+   * Predicate returning @c true if this SpatialPoints's array data
    * is set.
    *
-   * @return @c true if this SpatialPoints's "arrayData" attribute has been
+   * @return @c true if this SpatialPoints's array data has been
    * set, otherwise @c false is returned.
    */
   bool isSetArrayData() const;
@@ -441,11 +472,13 @@ public:
 
 
   /**
-   * Sets the value of the "arrayData" attribute of this SpatialPoints.
+   * Sets the value of the array data of this SpatialPoints.
+   * This only works if the SpatialPoints is not set 'deflated': the
+   * @p inArray must be the uncompressed data.
    *
-   * @param inArray double* array value of the "arrayData" attribute to be set.
+   * @param inArray double* array value of child array data to be set.
    *
-   * @param arrayLength int value for the length of the "arrayData" attribute
+   * @param arrayLength size_t value for the length of the array data
    * to be set.
    *
    * @copydetails doc_returns_success_code
@@ -454,6 +487,24 @@ public:
    * OperationReturnValues_t}
    */
   int setArrayData(double* inArray, size_t arrayLength);
+
+
+  /**
+   * Sets the value of the array data of this SpatialPoints.
+   * This only works if the SpatialPoints is set 'deflated': the
+   * @p inArray must be the compressed data.
+   *
+   * @param inArray int* array value of the child array data to be set.
+   *
+   * @param arrayLength size_t value for the length of the array data
+   * to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setArrayData(int* inArray, size_t arrayLength);
 
 
   /**
@@ -533,7 +584,7 @@ public:
 
 
   /**
-   * Unsets the value of the "arrayData" attribute of this SpatialPoints.
+   * Unsets the value of the array data of this SpatialPoints.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -599,7 +650,6 @@ public:
    *
    * @note The required attributes for the SpatialPoints object are:
    * @li "compression"
-   * @li "arrayData"
    * @li "arrayDataLength"
    */
   virtual bool hasRequiredAttributes() const;
@@ -949,6 +999,77 @@ protected:
   /** @endcond */
 
 
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /* Store the ArrayData string as ints, either compressed or not.*/
+  void store() const;
+
+  /* Uncompress the data, but don't store the change.*/
+  std::string uncompressInternal() const;
+
+  /** @endcond */
+
+
+public:
+
+  /**
+   * Returns the number of uncompressed samples of this SpatialPoints.
+   * Will uncompress the samples if need be.
+   *
+   * @return the number of uncompressed samples of this SpatialPoints.
+   */
+  unsigned int getUncompressedLength() const;
+
+  /**
+   * The "samples" attribute of this SpatialPoints is returned in an int array (pointer) 
+   * that is passed as argument to the method (this is needed while using SWIG to
+   * convert int[] from C++ to Java). This method returns the uncompressed sample field.
+   *
+   * @return void.
+   */
+  void getUncompressed(double* outputPoints) const;
+
+  /** 
+   * utility function freeing the uncompressed data. 
+   */
+  void freeUncompressed() const;
+
+  /** 
+   * utility function freeing the compressed data. 
+   */
+  void freeCompressed() const;
+
+  /** 
+   * If the samples stored are compressed (i.e: the flag set to DEFLATED), then
+   * this function decompresses the samples and alters the samples, changing the 
+   * compression flag to uncompressed. 
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int uncompress();
+
+  /**
+    * compresses the samples stored, if the flag is set to UNCOMPRESSED, then 
+    * changes the flag to compressed. 
+    * 
+    * @param compression level 0 (store) ... 9 (max compression)
+    * 
+    */
+  int compress(int level);
+
+  /**  
+    *  Returns the data of this image as uncompressed array of integers
+    *
+    * @param data the output array of integers (it will be allocated using
+    *             malloc and will have to be freed using free)
+    * @param length the output length of the array
+    *
+    */
+  void getUncompressedData(double* &data, size_t& length);
+
 };
 
 
@@ -1232,12 +1353,12 @@ SpatialPoints_isSetCompression(const SpatialPoints_t * sp);
 
 
 /**
- * Predicate returning @c 1 (true) if this SpatialPoints_t's "arrayData"
- * attribute is set.
+ * Predicate returning @c 1 (true) if this SpatialPoints_t's array
+ * data is set.
  *
  * @param sp the SpatialPoints_t structure.
  *
- * @return @c 1 (true) if this SpatialPoints_t's "arrayData" attribute has been
+ * @return @c 1 (true) if this SpatialPoints_t's array data has been
  * set, otherwise @c 0 (false) is returned.
  *
  * @memberof SpatialPoints_t
@@ -1370,13 +1491,13 @@ SpatialPoints_setCompressionAsString(SpatialPoints_t * sp,
 
 
 /**
- * Sets the value of the "arrayData" attribute of this SpatialPoints_t.
+ * Sets the value of the array data of this SpatialPoints_t.
  *
  * @param sp the SpatialPoints_t structure.
  *
- * @param arrayData pointer value of the "arrayData" attribute to be set.
+ * @param arrayData pointer value of the array data to be set.
  *
- * @param arrayLength int value for the length of the "arrayData" attribute to
+ * @param arrayLength int value for the length of the array data to
  * be set.
  *
  * @copydetails doc_returns_success_code
@@ -1508,7 +1629,7 @@ SpatialPoints_unsetCompression(SpatialPoints_t * sp);
 
 
 /**
- * Unsets the value of the "arrayData" attribute of this SpatialPoints_t.
+ * Unsets the value of the array data of this SpatialPoints_t.
  *
  * @param sp the SpatialPoints_t structure.
  *
@@ -1571,7 +1692,6 @@ SpatialPoints_unsetDataType(SpatialPoints_t * sp);
  *
  * @note The required attributes for the SpatialPoints_t object are:
  * @li "compression"
- * @li "arrayData"
  * @li "arrayDataLength"
  *
  * @memberof SpatialPoints_t

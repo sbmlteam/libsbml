@@ -138,6 +138,8 @@ ParametricObject::operator=(const ParametricObject& rhs)
     mCompression = rhs.mCompression;
     mDataType = rhs.mDataType;
   }
+  freeCompressed();
+  freeUncompressed();
 
   return *this;
 }
@@ -1641,10 +1643,11 @@ ParametricObject::setElementText(const std::string& text)
   if (log && mCompression == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED)
   {
     size_t doubleslen;
+    double ival;
     double* doublesVector = readSamplesFromString<double>(mPointIndex, doubleslen);
     for (size_t i = 0; i < doubleslen; i++)
     {
-      if (doublesVector[i] < 0 || trunc(doublesVector[i]) != doublesVector[i])
+      if (doublesVector[i] < 0 || modf(doublesVector[i], &ival) != 0)
       {
         stringstream ss_msg;
         ss_msg << "A <parametricObject>";

@@ -1953,7 +1953,7 @@ START_CONSTRAINT(SpatialSpatialPointsDataLengthMustMatchUncompressed, SpatialPoi
   pre(sp.isSetCompression());
   pre(sp.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
   pre(sp.isSetArrayDataLength());
-  pre(sp.getArrayDataLength() != sp.getNumArrayDataEntries());
+  pre(sp.getArrayDataLength() != sp.getActualArrayDataLength());
   stringstream ss_msg;
   ss_msg << "A <spatialPoints>";
   if (sp.isSetId())
@@ -1962,7 +1962,7 @@ START_CONSTRAINT(SpatialSpatialPointsDataLengthMustMatchUncompressed, SpatialPoi
   }
   ss_msg <<  " is set 'uncompressed' and has an 'arrayDataLength' of '";
   ss_msg << sp.getArrayDataLength() << "', but actually contains ";
-  ss_msg << sp.getNumArrayDataEntries() << " entries.";
+  ss_msg << sp.getActualArrayDataLength() << " entries.";
   msg = ss_msg.str();
 
   inv(false);
@@ -1973,18 +1973,19 @@ END_CONSTRAINT
 // 1224052
 START_CONSTRAINT(SpatialSpatialPointsArrayDataMultipleOfDimensions, SpatialPoints, sp)
 {
+  pre(sp.getCompression() != SPATIAL_COMPRESSIONKIND_DEFLATED);
   SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
   pre(plug != NULL);
   pre(plug->isSetGeometry());
   const Geometry* geometry = plug->getGeometry();
-  pre(sp.getNumArrayDataEntries() % geometry->getNumCoordinateComponents() != 0);
+  pre(sp.getActualArrayDataLength() % geometry->getNumCoordinateComponents() != 0);
   stringstream ss_msg;
   ss_msg << "A <spatialPoints>";
   if (sp.isSetId())
   {
     ss_msg << " with id '" << sp.getId() << "'";
   }
-  ss_msg <<  " has " << sp.getNumArrayDataEntries() << " entries, which is not a multiple of ";
+  ss_msg <<  " has " << sp.getActualArrayDataLength() << " entries, which is not a multiple of ";
   ss_msg << geometry->getNumCoordinateComponents() << ", the dimensionality of the <geometry>.";
   msg = ss_msg.str();
 
@@ -1996,10 +1997,11 @@ END_CONSTRAINT
 // 1224053
 START_CONSTRAINT(SpatialSpatialPointsFloatArrayDataMustMatch, SpatialPoints, sp)
 {
+  pre(sp.getCompression() != SPATIAL_COMPRESSIONKIND_DEFLATED);
   bool fail = false;
   pre(sp.isSetDataType());
   pre(sp.getDataType() == SPATIAL_DATAKIND_FLOAT);
-  size_t len = sp.getNumArrayDataEntries();
+  size_t len = sp.getActualArrayDataLength();
   double* data = new double[len];
   sp.getArrayData(data);
   for (size_t d = 0; d < len; d++) {
@@ -2027,10 +2029,11 @@ END_CONSTRAINT
 // 1224054
 START_CONSTRAINT(SpatialSpatialPointsUIntArrayDataNotNegative, SpatialPoints, sp)
 {
+  pre(sp.getCompression() != SPATIAL_COMPRESSIONKIND_DEFLATED);
   bool fail = false;
   pre(sp.isSetDataType());
   pre(sp.getDataType() == SPATIAL_DATAKIND_UINT || sp.getDataType() == SPATIAL_DATAKIND_UINT8 || sp.getDataType() == SPATIAL_DATAKIND_UINT16 || sp.getDataType() == SPATIAL_DATAKIND_UINT32);
-  size_t len = sp.getNumArrayDataEntries();
+  size_t len = sp.getActualArrayDataLength();
   double* data = new double[len];
   sp.getArrayData(data);
   for (size_t d = 0; d < len; d++) {
@@ -2059,15 +2062,16 @@ END_CONSTRAINT
 // 1224055
 START_CONSTRAINT(SpatialSpatialPointsIntArrayDataIntegers, SpatialPoints, sp)
 {
+  pre(sp.getCompression() != SPATIAL_COMPRESSIONKIND_DEFLATED);
   bool fail = false;
   pre(sp.isSetDataType());
   pre(sp.getDataType() == SPATIAL_DATAKIND_INT || sp.getDataType() == SPATIAL_DATAKIND_UINT || sp.getDataType() == SPATIAL_DATAKIND_UINT8 || sp.getDataType() == SPATIAL_DATAKIND_UINT16 || sp.getDataType() == SPATIAL_DATAKIND_UINT32);
-  size_t len = sp.getNumArrayDataEntries();
+  size_t len = sp.getActualArrayDataLength();
   double* data = new double[len];
   sp.getArrayData(data);
   for (size_t d = 0; d < len; d++) {
-    double val = data[d];
-    if (trunc(val) != val) {
+    double ival, val = data[d];
+    if (modf(val, &ival) != 0) {
       stringstream ss_msg;
       ss_msg << "A <spatialPoints>";
       if (sp.isSetId())
@@ -2187,7 +2191,7 @@ START_CONSTRAINT(SpatialParametricObjectIndexesMustBePoints, ParametricObject, p
   pre(parent != NULL);
   const ParametricGeometry* pg = static_cast<const ParametricGeometry*>(parent);
   const SpatialPoints* sp = pg->getSpatialPoints();
-  size_t numPoints = sp->getNumArrayDataEntries();
+  size_t numPoints = sp->getActualArrayDataLength();
 
   SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
   pre(plug != NULL);
@@ -2486,8 +2490,8 @@ START_CONSTRAINT(SpatialSampledFieldIntArrayDataIntegers, SampledField, sf)
   double* data;
   sf_nc->getUncompressedData(data, len);
   for (size_t d = 0; d < len; d++) {
-    double val = data[d];
-    if (trunc(val) != val) {
+    double ival, val = data[d];
+    if (modf(val, &ival) != 0) {
       stringstream ss_msg;
       ss_msg << "A <spatialPoints>";
       if (sf.isSetId())

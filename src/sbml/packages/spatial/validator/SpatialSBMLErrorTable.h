@@ -3770,11 +3770,11 @@ static const packageErrorTableEntry spatialErrorTable[] =
   },
 
   // 1224005
-  { SpatialSpatialPointsArrayDataMustBeString,
-    "The 'arrayData' attribute must be String.",
+  { SpatialSpatialPointsUncompressedArrayDataMustBeDouble,
+    "The uncompressed array data of a <spatialPoints> must be doubles.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'spatial:arrayData' of a <spatialPoints> object "
+    "The value of the children of a <spatialPoints> object "
     "must be an array of values of type 'double'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -3872,6 +3872,17 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "If the 'spatial:dataType' attribute of a <spatialPoints> has the value 'uint' or 'int', all of the uncompressed entries in the ArrayData child of the <spatialPoints> must be integers.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1224056
+  { SpatialSpatialPointsCompressedArrayDataMustBeInts,
+    "The compressed array data of a <spatialPoints> must be integers.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The value of the children of a <spatialPoints> object "
+    "must be an array of values of type 'int' if the 'spatial:compression' attribute has the value 'deflated'.",
     { "L3V1 Spatial V1 Section"
     }
   },

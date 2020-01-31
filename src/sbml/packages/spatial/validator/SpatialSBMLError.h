@@ -383,7 +383,7 @@ typedef enum
 , SpatialSpatialPointsAllowedCoreElements                     = 1224002
 , SpatialSpatialPointsAllowedAttributes                       = 1224003
 , SpatialSpatialPointsCompressionMustBeCompressionKindEnum    = 1224004
-, SpatialSpatialPointsArrayDataMustBeString                   = 1224005
+, SpatialSpatialPointsUncompressedArrayDataMustBeDouble       = 1224005
 , SpatialSpatialPointsArrayDataLengthMustBeInteger            = 1224006
 , SpatialSpatialPointsNameMustBeString                        = 1224007
 , SpatialSpatialPointsDataTypeMustBeDataKindEnum              = 1224008
@@ -393,6 +393,7 @@ typedef enum
 , SpatialSpatialPointsFloatArrayDataMustMatch                 = 1224053
 , SpatialSpatialPointsUIntArrayDataNotNegative                = 1224054
 , SpatialSpatialPointsIntArrayDataIntegers                    = 1224055
+, SpatialSpatialPointsCompressedArrayDataMustBeInts           = 1224056
 } SpatialSBMLErrorCode_t;
 
 
