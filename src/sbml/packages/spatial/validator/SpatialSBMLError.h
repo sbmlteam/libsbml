@@ -135,7 +135,7 @@ typedef enum
 , SpatialCompartmentMappingNameMustBeString                   = 1221306
 , SpatialCompartmentMappingUnitSizeMustBeFraction             = 1221350
 , SpatialCompartmentMappingUnitSizesSum                       = 1221351
-, SpatialCompartmentMappingUnitConsistency                    = 1221352
+, SpatialCompartmentMappingUnits                              = 1221352
 , SpatialCoordinateComponentAllowedCoreAttributes             = 1221401
 , SpatialCoordinateComponentAllowedCoreElements               = 1221402
 , SpatialCoordinateComponentAllowedAttributes                 = 1221403

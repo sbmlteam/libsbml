@@ -895,7 +895,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
   },
 
   // 1221352
-  { SpatialCompartmentMappingUnitConsistency,
+  { SpatialCompartmentMappingUnits,
     "The units of a compartmentMapping should be compartment units over domain units.",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_WARNING,
