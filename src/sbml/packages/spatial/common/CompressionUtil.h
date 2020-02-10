@@ -39,6 +39,11 @@
 #ifndef CompressionUtil_H__
 #define CompressionUtil_H__
 
+#include <vector>
+#include <iostream>
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 template<typename type> std::string vectorToString(const std::vector< type >& vec)
 {
   std::stringstream str;
@@ -57,7 +62,7 @@ template<typename type> std::string vectorToString(const std::vector< type >& ve
 template<typename type> void readSamplesFromString(const std::string& str, std::vector<type>& valuesVector)
 {
   valuesVector.clear();
-  stringstream strStream(str);
+  std::stringstream strStream(str);
   type val;
 
   while (strStream >> val)
@@ -74,8 +79,8 @@ template<typename type> void readSamplesFromString(const std::string& str, std::
 
 template<typename type> type* readSamplesFromString(const std::string& str, size_t& length)
 {
-  stringstream strStream(str);
-  vector< type> valuesVector;
+  std::stringstream strStream(str);
+  std::vector< type> valuesVector;
 
   readSamplesFromString(str, valuesVector);
 
@@ -120,7 +125,7 @@ extern void copySampleArrays(double* &target, size_t& targetLength, double* sour
 extern void copySampleArrays(int* &target, size_t& targetLength, int* source, size_t sourceLength);
 extern void copySampleArrays(int*& target, size_t& targetLength, unsigned char* source, size_t sourceLength);
 
-
+LIBSBML_CPP_NAMESPACE_END
 
 #endif /* !CompressionUtil_H_ */
 
