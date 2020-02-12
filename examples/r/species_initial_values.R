@@ -15,22 +15,6 @@ for ( i in 0:(model$getNumSpecies() -1) )
   # now the species can have several cases that determines
   # their initial value 
   
-  # it could have an initial assignment
-  ia <- model$getInitialAssignment(current$getId())
-  if (!is.null(ia))
-  {
-    math <- ia$getMath()
-    if (!is.null(math))
-    {
-      formula <- libSBML::formulaToL3String(math)
-      print(paste("Species: ", current$getId(), " has an initial assignment with formula: ", formula))
-      
-      # as soon as you have that formula, no initial concentration / amount applies
-      # so we don't have to look at anything else for this species
-      next
-    }
-  }
-  
   # it could be that the species is fully determined by an assignment rule
   # (that apply at all times), so we have to check rules first
   rule <- model$getRule(current$getId())
@@ -47,7 +31,7 @@ for ( i in 0:(model$getNumSpecies() -1) )
       if (!is.null(math))
       {
         formula <- libSBML::formulaToL3String(math)
-        print(paste('Species: ', current$getId(), ' is determined at all times by ', formula))
+        print(paste('Species: ', current$getId(), ' is determined at all times by formula: ', formula))
         
         # no need to look at other values so continue for another one
         next
@@ -60,12 +44,30 @@ for ( i in 0:(model$getNumSpecies() -1) )
       if (!is.null(math))
       {
         formula <- libSBML::formulaToL3String(math)
-        print(paste('Species: ', current$getId(), ' has an ode rule ', formula))
+        print(paste('Species: ', current$getId(), ' has an ode rule with formula: ', formula))
         
         # even though there is an ODE attached to the species, its initial value is needed
       }
     }
   }
+  
+  
+  # it could have an initial assignment
+  ia <- model$getInitialAssignment(current$getId())
+  if (!is.null(ia))
+  {
+    math <- ia$getMath()
+    if (!is.null(math))
+    {
+      formula <- libSBML::formulaToL3String(math)
+      print(paste("Species: ", current$getId(), " has an initial assignment with formula: ", formula))
+      
+      # as soon as you have that formula, no initial concentration / amount applies
+      # so we don't have to look at anything else for this species
+      next
+    }
+  }
+  
   
   # it could have an initial amount
   if (current$isSetInitialAmount())
