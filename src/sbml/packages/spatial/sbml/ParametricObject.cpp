@@ -1663,7 +1663,7 @@ ParametricObject::setElementText(const std::string& text)
           getPackageVersion(), getLevel(), getVersion(), ss_msg.str());
       }
     }
-    delete[] doublesVector;
+    free(doublesVector);
   }
 }
 
@@ -1793,7 +1793,7 @@ ParametricObject::freeUncompressed() const
 {
   if (mPointIndexUncompressed != NULL)
   {
-    delete[] mPointIndexUncompressed;
+    free(mPointIndexUncompressed);
   }
   mPointIndexUncompressed = NULL;
   mPointIndexUncompressedLength = 0;
@@ -1804,7 +1804,7 @@ ParametricObject::freeCompressed() const
 {
   if (mPointIndexCompressed != NULL)
   {
-    delete[] mPointIndexCompressed;
+    free(mPointIndexCompressed);
   }
   mPointIndexCompressed = NULL;
   mPointIndexCompressedLength = 0;

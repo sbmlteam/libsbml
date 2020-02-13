@@ -1980,17 +1980,17 @@ SampledField::uncompress()
 
     if (mUncompressedSamples == 0)
     {
-      delete[] samples;
+      free(samples);
       return LIBSBML_OPERATION_FAILED;
     }
-    delete[] samples;
+    free(samples);
   }
   else
   {
     double* samples = readSamplesFromString<double>(mSamples, mActualSamplesLength);
     if (samples == NULL) return LIBSBML_OPERATION_SUCCESS;
     copySampleArrays(mUncompressedSamples, mUncompressedLength, samples, mActualSamplesLength);
-    delete[] samples;
+    free(samples);
   }
 
   return LIBSBML_OPERATION_SUCCESS;

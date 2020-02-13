@@ -1383,7 +1383,7 @@ SpatialPoints::setElementText(const std::string& text)
             getPackageVersion(), getLevel(), getVersion(), ss_msg.str());
         }
       }
-      delete[] doublesVector;
+      free(doublesVector);
     }
   }
 }
@@ -1514,7 +1514,7 @@ SpatialPoints::freeUncompressed() const
 {
   if (mArrayDataUncompressed != NULL)
   {
-    delete[] mArrayDataUncompressed;
+    free(mArrayDataUncompressed);
   }
   mArrayDataUncompressed = NULL;
   mArrayDataUncompressedLength = 0;
@@ -1525,7 +1525,7 @@ SpatialPoints::freeCompressed() const
 {
   if (mArrayDataCompressed != NULL)
   {
-    delete[] mArrayDataCompressed;
+    free(mArrayDataCompressed);
   }
   mArrayDataCompressed = NULL;
   mArrayDataCompressedLength = 0;
