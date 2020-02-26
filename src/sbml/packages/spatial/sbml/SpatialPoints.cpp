@@ -1367,7 +1367,7 @@ SpatialPoints::setElementText(const std::string& text)
       double* doublesVector = readSamplesFromString<double>(mArrayData, doubleslen);
       for (size_t i = 0; i < doubleslen; i++)
       {
-        if (doublesVector[i] < 0 || modf(doublesVector[i], &ival) != 0)
+        if (modf(doublesVector[i], &ival) != 0) //Maybe also check to make sure it's in the -128 to 127 range?
         {
           stringstream ss_msg;
           ss_msg << "A <SpatialPoints>";

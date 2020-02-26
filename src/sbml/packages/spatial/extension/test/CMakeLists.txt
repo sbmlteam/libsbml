@@ -32,4 +32,3 @@ target_link_libraries(test_sbml_package_spatial ${LIBSBML_LIBRARY}-static ${LIBC
 add_test(test_sbml_package_spatial_run ${CMAKE_CURRENT_BINARY_DIR}/test_sbml_package_spatial )
 set_tests_properties(test_sbml_package_spatial_run PROPERTIES ENVIRONMENT 
 	"srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
-

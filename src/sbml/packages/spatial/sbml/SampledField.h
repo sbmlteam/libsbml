@@ -147,7 +147,12 @@ protected:
   std::string mSamples;
   int mSamplesLength;
   bool mIsSetSamplesLength;
-  size_t mActualSamplesLength;
+
+  mutable int* mSamplesCompressed;
+  mutable double* mSamplesUncompressed;
+  mutable int* mSamplesUncompressedInt;
+  mutable size_t mSamplesCompressedLength;
+  mutable size_t mSamplesUncompressedLength;
 
   /** @endcond */
 
@@ -378,7 +383,7 @@ public:
    * @note the value of the "samples" attribute of this SampledField is
    * returned in the argument array.
    */
-  void getSamples(int* outArray) const;
+  int getSamples(int* outArray) const;
 
   void getSamples(std::vector<int>& outVector) const;
 
@@ -398,7 +403,7 @@ public:
    * @note the value of the "samples" attribute of this SampledField is
    * returned in the argument array.
    */
-  void getSamples(double* outArray) const;
+  int getSamples(double* outArray) const;
 
   /**
    * Returns the value of the "samples" attribute of this SampledField.
@@ -409,7 +414,7 @@ public:
    * @note the value of the "samples" attribute of this SampledField is
    * returned in the argument array.
    */
-  void getSamples(float* outArray) const;
+  int getSamples(float* outArray) const;
 
   /**
    * Returns the value of the "samplesLength" attribute of this SampledField.
@@ -709,11 +714,11 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
-  int setSamples(int* inArray, int arrayLength);
+  int setSamples(int* inArray, size_t arrayLength);
 
-  int setSamples(unsigned int* inArray, int arrayLength);
+  int setSamples(unsigned int* inArray, size_t arrayLength);
 
-  int setSamples(unsigned char* inArray, int arrayLength);
+  int setSamples(unsigned char* inArray, size_t arrayLength);
 
   /**
    * Sets the value of the "samples" attribute of this SampledField.
@@ -746,7 +751,7 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
-  int setSamples(double* inArray, int arrayLength);
+  int setSamples(double* inArray, size_t arrayLength);
 
   /**
    * Sets the value of the "samples" attribute of this SampledField.
@@ -761,7 +766,7 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
-  int setSamples(float* inArray, int arrayLength);
+  int setSamples(float* inArray, size_t arrayLength);
 
 
   /**
@@ -1271,9 +1276,16 @@ protected:
   /** @endcond */
 
 
-protected:
-  double* mUncompressedSamples;
-  size_t mUncompressedLength;
+  /** @cond doxygenLibsbmlInternal */
+
+  /* Store the ArrayData string as ints, either compressed or not.*/
+  void store() const;
+
+  /* Uncompress the data, but don't store the change.*/
+  void uncompressInternal(std::string & sampleString, size_t & length) const;
+
+  /** @endcond */
+
 
 public:
 
@@ -1283,7 +1295,7 @@ public:
    *
    * @return the number of uncompressed samples of this SampledField.
    */
-  unsigned int getUncompressedLength();
+  unsigned int getUncompressedLength() const;
 
  /**
    * The "samples" attribute of this SampledField is returned in an int array (pointer) 
@@ -1292,12 +1304,17 @@ public:
    *
    * @return void.
    */
-  void getUncompressed(double* outputSamples);
+  void getUncompressed(double* outputSamples) const;
+
+  /** 
+   * utility function freeing the compressed data. 
+   */
+  void freeCompressed() const;
 
   /** 
    * utility function freeing the uncompressed data. 
    */
-  void freeUncompressed();
+  void freeUncompressed() const;
   
   /** 
    * If the samples stored are compressed (i.e: the flag set to DEFLATED), then

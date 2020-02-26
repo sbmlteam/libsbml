@@ -71,9 +71,11 @@ SampledField::SampledField(unsigned int level,
   , mSamples()
   , mSamplesLength(SBML_INT_MAX)
   , mIsSetSamplesLength(false)
-  , mActualSamplesLength(0)
-  , mUncompressedSamples(NULL)
-  , mUncompressedLength(0)
+  , mSamplesCompressed(NULL)
+  , mSamplesUncompressed(NULL)
+  , mSamplesUncompressedInt(NULL)
+  , mSamplesCompressedLength(0)
+  , mSamplesUncompressedLength(0)
 {
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
     pkgVersion));
@@ -97,9 +99,11 @@ SampledField::SampledField(SpatialPkgNamespaces* spatialns)
   , mSamples()
   , mSamplesLength(SBML_INT_MAX)
   , mIsSetSamplesLength(false)
-  , mActualSamplesLength(0)
-  , mUncompressedSamples(NULL)
-  , mUncompressedLength(0)
+  , mSamplesCompressed(NULL)
+  , mSamplesUncompressed(NULL)
+  , mSamplesUncompressedInt(NULL)
+  , mSamplesCompressedLength(0)
+  , mSamplesUncompressedLength(0)
 {
   setElementNamespace(spatialns->getURI());
   // connect to child objects
@@ -126,9 +130,11 @@ SampledField::SampledField(const SampledField& orig)
   , mSamples(orig.mSamples)
   , mSamplesLength(orig.mSamplesLength)
   , mIsSetSamplesLength(orig.mIsSetSamplesLength)
-  , mActualSamplesLength(orig.mActualSamplesLength)
-  , mUncompressedSamples(NULL)
-  , mUncompressedLength(0)
+  , mSamplesCompressed(NULL)
+  , mSamplesUncompressed(NULL)
+  , mSamplesUncompressedInt(NULL)
+  , mSamplesCompressedLength(0)
+  , mSamplesUncompressedLength(0)
 {
   // connect to child objects
   connectToChild();
@@ -156,9 +162,9 @@ SampledField::operator=(const SampledField& rhs)
     mSamples = rhs.mSamples;
     mSamplesLength = rhs.mSamplesLength;
     mIsSetSamplesLength = rhs.mIsSetSamplesLength;
-    mActualSamplesLength = rhs.mActualSamplesLength;
-    mUncompressedSamples = NULL;
-    mUncompressedLength = 0;
+
+    freeCompressed();
+    freeUncompressed();
     // connect to child objects
     connectToChild();
   }
@@ -297,23 +303,6 @@ SampledField::getCompressionAsString() const
 }
 
 
-/*
- * Returns the value of the "samples" attribute of this SampledField.
- */
-void
-SampledField::getSamples(int* outArray) const
-{
-  if (outArray == NULL)
-  {
-    return;
-  }
-
-  size_t length;
-  int* samples = readSamplesFromString<int>(mSamples, length);
-
-  memcpy(outArray, samples, sizeof(int) * length);
-}
-
 void SampledField::getSamples(std::vector<int>& outVector) const
 {
   readSamplesFromString<int>(mSamples, outVector);
@@ -321,12 +310,18 @@ void SampledField::getSamples(std::vector<int>& outVector) const
 
 void SampledField::getSamples(std::vector<float>& outVector) const
 {
-  readSamplesFromString<float>(mSamples, outVector);
+  store();
+  string uncompressedString;
+  uncompressInternal(uncompressedString, mSamplesUncompressedLength);
+  readSamplesFromString<float>(uncompressedString, outVector);
 }
 
 void SampledField::getSamples(std::vector<double>& outVector) const
 {
-  readSamplesFromString<double>(mSamples, outVector);
+  store();
+  string uncompressedString;
+  uncompressInternal(uncompressedString, mSamplesUncompressedLength);
+  readSamplesFromString<double>(uncompressedString, outVector);
 }
 
 const std::string& SampledField::getSamples() const
@@ -334,33 +329,81 @@ const std::string& SampledField::getSamples() const
   return mSamples;
 }
 
-void
-SampledField::getSamples(double* outArray) const
+int
+SampledField::getSamples(int* outArray) const
 {
   if (outArray == NULL)
   {
-    return;
+    return LIBSBML_OPERATION_FAILED;
+  }
+  store();
+  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
+  {
+    if (mSamplesCompressed == NULL)
+    {
+      return LIBSBML_OPERATION_FAILED;
+    }
+    memcpy(outArray, mSamplesCompressed, sizeof(int)*mSamplesCompressedLength);
+  }
+  else
+  {
+    if (mSamplesUncompressedInt == NULL)
+    {
+      return LIBSBML_OPERATION_FAILED;
+    }
+    memcpy(outArray, mSamplesUncompressedInt, sizeof(int)*mSamplesUncompressedLength);
+  }
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+int
+SampledField::getSamples(double* outArray) const
+{
+  if (outArray == NULL) 
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  //This function will uncompres and store the data if need be:
+  size_t len = getUncompressedLength();
+
+  if (mSamplesUncompressed == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
   }
 
-  size_t length;
-  double* samples = readSamplesFromString<double>(mSamples, length);
-
-  memcpy(outArray, samples, sizeof(double) * length);
+  memcpy(outArray, mSamplesUncompressed, sizeof(double)*mSamplesUncompressedLength);
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
-void
+int
 SampledField::getSamples(float* outArray) const
 {
   if (outArray == NULL)
   {
-    return;
+    return LIBSBML_OPERATION_FAILED;
   }
 
+  store();
+  float* samples = NULL;
   size_t length;
-  float* samples = readSamplesFromString<float>(mSamples, length);
+  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
+  {
+    string uncompressedString;
+    uncompressInternal(uncompressedString, length);
+    samples = readSamplesFromString<float>(uncompressedString, length);
+  }
+  else {
+    samples = readSamplesFromString<float>(mSamples, length);
+  }
 
+  if (samples == NULL || length==0)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
   memcpy(outArray, samples, sizeof(float) * length);
+  free(samples);
+  return LIBSBML_OPERATION_SUCCESS;
 }
 /*
  * Returns the value of the "samplesLength" attribute of this SampledField.
@@ -373,7 +416,11 @@ SampledField::getSamplesLength() const
 
 size_t SampledField::getActualSamplesLength() const
 {
-  return mActualSamplesLength;
+  store();
+  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED) {
+    return mSamplesCompressedLength;
+  }
+  return mSamplesUncompressedLength;
 }
 
 
@@ -668,67 +715,52 @@ SampledField::setCompression(const std::string& compression)
 }
 
 
-/*
- * Sets the value of the "samples" attribute of this SampledField.
- */
 int
-SampledField::setSamples(int* inArray, int arrayLength)
+SampledField::setSamples(double* inArray, size_t arrayLength)
 {
   if (inArray == NULL)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-
-  mSamples = arrayToString(inArray, arrayLength);
-  mActualSamplesLength = arrayLength;
-
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-int SampledField::setSamples(unsigned int* inArray, int arrayLength)
-{
-  if (inArray == NULL)
+  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
 
+  freeCompressed();
+  freeUncompressed();
+  copySampleArrays(mSamplesUncompressed, mSamplesUncompressedLength, inArray, arrayLength);
   mSamples = arrayToString(inArray, arrayLength);
-  mActualSamplesLength = arrayLength;
-
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-int SampledField::setSamples(unsigned char* inArray, int arrayLength)
-{
-  if (inArray == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-
-  mSamples = arrayToString(inArray, arrayLength);
-  mActualSamplesLength = arrayLength;
-
-  return LIBSBML_OPERATION_SUCCESS;
+  return setSamplesLength(arrayLength);
 }
 
 
 int
-SampledField::setSamples(double* inArray, int arrayLength)
+SampledField::setSamples(int* inArray, size_t arrayLength)
 {
   if (inArray == NULL)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-
-  mSamples = arrayToString(inArray, arrayLength);
-  mActualSamplesLength = arrayLength;
+  freeCompressed();
+  freeUncompressed();
+  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
+  {
+    copySampleArrays(mSamplesCompressed, mSamplesCompressedLength, inArray, arrayLength);
+    mSamples = arrayToString(inArray, arrayLength);
+    setSamplesLength(arrayLength);
+  }
+  else {
+    copySampleArrays(mSamplesUncompressedInt, mSamplesUncompressedLength, inArray, arrayLength);
+    mSamples = arrayToString(inArray, arrayLength);
+    setSamplesLength(arrayLength);
+  }
 
   return LIBSBML_OPERATION_SUCCESS;
 }
 
 
-int
-SampledField::setSamples(float* inArray, int arrayLength)
+int SampledField::setSamples(unsigned int* inArray, size_t arrayLength)
 {
   if (inArray == NULL)
   {
@@ -736,37 +768,58 @@ SampledField::setSamples(float* inArray, int arrayLength)
   }
 
   mSamples = arrayToString(inArray, arrayLength);
-  mActualSamplesLength = arrayLength;
 
-  return LIBSBML_OPERATION_SUCCESS;
+  return setSamplesLength(arrayLength);
+}
+
+int SampledField::setSamples(unsigned char* inArray, size_t arrayLength)
+{
+  if (inArray == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+
+  mSamples = arrayToString(inArray, arrayLength);
+
+  return setSamplesLength(arrayLength);
+}
+
+
+int
+SampledField::setSamples(float* inArray, size_t arrayLength)
+{
+  if (inArray == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+
+  mSamples = arrayToString(inArray, arrayLength);
+
+  return setSamplesLength(arrayLength);
 }
 
 int SampledField::setSamples(const std::string& samples)
 {
   mSamples = samples;
-  uncompress();
   return LIBSBML_OPERATION_SUCCESS;
 }
 
 int SampledField::setSamples(const std::vector<double>& samples)
 {
   mSamples = vectorToString(samples);
-  mActualSamplesLength = samples.size();
-  return LIBSBML_OPERATION_SUCCESS;
+  return setSamplesLength(samples.size());
 }
 
 int SampledField::setSamples(const std::vector<int>& samples)
 {
   mSamples = vectorToString(samples);
-  mActualSamplesLength = samples.size();
-  return LIBSBML_OPERATION_SUCCESS;
+  return setSamplesLength(samples.size());
 }
 
 int SampledField::setSamples(const std::vector<float>& samples)
 {
   mSamples = vectorToString(samples);
-  mActualSamplesLength = samples.size();
-  return LIBSBML_OPERATION_SUCCESS;
+  return setSamplesLength(samples.size());
 }
 
 /*
@@ -1603,7 +1656,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
   {
     if (mId.empty() == true)
     {
-      logEmptyString(mId, level, version, "<SampledField>");
+      logEmptyString(mId, level, version, "<sampledField>");
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
@@ -1615,7 +1668,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
   else if (log)
   {
     std::string message = "Spatial attribute 'id' is missing from the "
-      "<SampledField> element.";
+      "<sampledField> element.";
     log->logPackageError("spatial", SpatialSampledFieldAllowedAttributes,
       pkgVersion, level, version, message);
   }
@@ -1630,7 +1683,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
   {
     if (mName.empty() == true)
     {
-      logEmptyString(mName, level, version, "<SampledField>");
+      logEmptyString(mName, level, version, "<sampledField>");
     }
   }
 
@@ -1645,7 +1698,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
   {
     if (dataType.empty() == true)
     {
-      logEmptyString(dataType, level, version, "<SampledField>");
+      logEmptyString(dataType, level, version, "<sampledField>");
     }
     else
     {
@@ -1653,7 +1706,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
 
       if (DataKind_isValid(mDataType) == 0)
       {
-        std::string msg = "The dataType on the <SampledField> ";
+        std::string msg = "The dataType on the <sampledField> ";
 
         if (isSetId())
         {
@@ -1689,7 +1742,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
     {
       log->remove(XMLAttributeTypeMismatch);
       std::string message = "Spatial attribute 'numSamples1' from the "
-        "<SampledField> element must be an integer.";
+        "<sampledField> element must be an integer.";
       log->logPackageError("spatial",
         SpatialSampledFieldNumSamples1MustBeInteger, pkgVersion, level, version,
         message);
@@ -1717,7 +1770,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
     {
       log->remove(XMLAttributeTypeMismatch);
       std::string message = "Spatial attribute 'numSamples2' from the "
-        "<SampledField> element must be an integer.";
+        "<sampledField> element must be an integer.";
       log->logPackageError("spatial",
         SpatialSampledFieldNumSamples2MustBeInteger, pkgVersion, level, version,
         message);
@@ -1738,7 +1791,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
     {
       log->remove(XMLAttributeTypeMismatch);
       std::string message = "Spatial attribute 'numSamples3' from the "
-        "<SampledField> element must be an integer.";
+        "<sampledField> element must be an integer.";
       log->logPackageError("spatial",
         SpatialSampledFieldNumSamples3MustBeInteger, pkgVersion, level, version,
         message);
@@ -1756,7 +1809,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
   {
     if (interpolationType.empty() == true)
     {
-      logEmptyString(interpolationType, level, version, "<SampledField>");
+      logEmptyString(interpolationType, level, version, "<sampledField>");
     }
     else
     {
@@ -1798,7 +1851,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
   {
     if (compression.empty() == true)
     {
-      logEmptyString(compression, level, version, "<SampledField>");
+      logEmptyString(compression, level, version, "<sampledField>");
     }
     else
     {
@@ -1842,7 +1895,7 @@ SampledField::readAttributes(const XMLAttributes& attributes,
     {
       log->remove(XMLAttributeTypeMismatch);
       std::string message = "Spatial attribute 'samplesLength' from the "
-        "<SampledField> element must be an integer.";
+        "<sampledField> element must be an integer.";
       log->logPackageError("spatial",
         SpatialSampledFieldSamplesLengthMustBeInteger, pkgVersion, level,
         version, message);
@@ -1929,112 +1982,233 @@ SampledField::writeAttributes(XMLOutputStream& stream) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Writes the array data as a text element
- */
+* Writes the array data as a text element
+*/
 void
 SampledField::setElementText(const std::string& text)
 {
-  setSamples(text);
+  mSamples = text;
+  SBMLErrorLog* log = getErrorLog();
+  if (log)
+  {
+    if (mCompression == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED)
+    {
+      stringstream strStream(text);
+      double val;
+
+      while (strStream >> val)
+      {
+        if (strStream.peek() == ',') {
+          strStream.get();
+        }
+        if (strStream.peek() == ';') {
+          strStream.get();
+        }
+      }
+      if (strStream.fail() && !strStream.eof())
+      {
+        stringstream ss_msg;
+        ss_msg << "A <SampledField>";
+        if (isSetId())
+        {
+          ss_msg << " with id '" << getId() << "'";
+        }
+        ss_msg << " has a compression type of 'uncompressed', but contains non-numeric elements.";
+
+        log->logPackageError("spatial",
+          SpatialSampledFieldSamplesMustBeNumeric,
+          getPackageVersion(), getLevel(), getVersion(), ss_msg.str());
+      }
+    }
+    else if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
+    {
+      size_t doubleslen;
+      double ival;
+      double* doublesVector = readSamplesFromString<double>(mSamples, doubleslen);
+      for (size_t i = 0; i < doubleslen; i++)
+      {
+        if (modf(doublesVector[i], &ival) != 0) //Maybe also check to make sure it's in the -128 to 127 range?
+        {
+          stringstream ss_msg;
+          ss_msg << "A <SampledField>";
+          if (isSetId())
+          {
+            ss_msg << " with id '" << getId() << "'";
+          }
+          ss_msg << " has a compression type of 'deflated', but has an entry with the value '" << doublesVector[i];
+          ss_msg << "', which is not a non-negative integer.";
+
+          log->logPackageError("spatial",
+            SpatialSampledFieldCompressedSamplesMustBeInts,
+            getPackageVersion(), getLevel(), getVersion(), ss_msg.str());
+        }
+      }
+      free(doublesVector);
+    }
+  }
 }
 
-/** @endcond */
+void SampledField::store() const
+{
+  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED) 
+  {
+    if (mSamplesCompressed == NULL) {
+      mSamplesCompressed = readSamplesFromString<int>(mSamples, mSamplesCompressedLength);
+    }
+  }
+  else
+  {
+    if (mSamplesUncompressed == NULL) {
+      mSamplesUncompressed = readSamplesFromString<double>(mSamples, mSamplesUncompressedLength);
+      size_t alt_length;
+      mSamplesUncompressedInt = readSamplesFromString<int>(mSamples, alt_length);
+      if (alt_length != mSamplesUncompressedLength)
+      {
+        free(mSamplesUncompressedInt);
+        mSamplesUncompressedInt = NULL;
+      }
+    }
+  }
+}
 
+void SampledField::uncompressInternal(string& sampleString, size_t& length) const
+{
+  freeUncompressed();
+  store();
+
+  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
+  {
+    if (mSamplesCompressed == NULL)
+    {
+      sampleString = "";
+      length = 0;
+      return;
+    }
+    char* csamples = (char*)malloc(sizeof(char) * mSamplesCompressedLength);
+    int* result;
+    for (unsigned int i = 0; i < mSamplesCompressedLength; ++i)
+    {
+      csamples[i] = (char)mSamplesCompressed[i];
+    }
+    uncompress_data(csamples, mSamplesCompressedLength, result, length);
+    free(csamples);
+
+    if (result == NULL)
+    {
+      sampleString = "";
+      length = 0;
+      return;
+    }
+
+    sampleString = charIntsToString(result, length);
+    free(result);
+    return;
+  }
+  else
+  {
+    sampleString = mSamples;
+    length = mSamplesUncompressedLength;
+  }
+}
 
 /**
- *  Returns the data of this image as uncompressed array of integers
- *
- * @param data the output array of integers (it will be allocated using
- *             malloc and will have to be freed using free)
- * @param length the output length of the array
- *
- */
+*  Returns the data of this image as uncompressed array of integers
+*
+* @param data the output array of integers (it will be allocated using
+*             malloc and will have to be freed using free)
+* @param length the output length of the array
+*
+*/
 void
 SampledField::getUncompressedData(double*& data, size_t& length)
 {
-  if (mUncompressedSamples == NULL)
+  store();
+  length = getUncompressedLength();
+  if (length == 0)
   {
-    uncompress();
+    return;
   }
-
-  copySampleArrays(data, length, mUncompressedSamples, mUncompressedLength);
+  copySampleArrays(data, length, mSamplesUncompressed, mSamplesUncompressedLength);
   return;
-
 }
 
 int
 SampledField::uncompress()
 {
-  freeUncompressed();
-
   if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
   {
-    int* samples = readSamplesFromString<int>(mSamples, mActualSamplesLength);
-    if (samples == NULL) return LIBSBML_OPERATION_SUCCESS;
-    char* csamples = (char*)malloc(sizeof(char) * mActualSamplesLength);
-    for (unsigned int i = 0; i < mActualSamplesLength; ++i)
-    {
-      csamples[i] = (char)samples[i];
-    }
-    uncompress_data(csamples, mActualSamplesLength, mUncompressedSamples, mUncompressedLength);
-    free(csamples);
-
-    if (mUncompressedSamples == 0)
-    {
-      free(samples);
-      return LIBSBML_OPERATION_FAILED;
-    }
-    free(samples);
-  }
-  else
-  {
-    double* samples = readSamplesFromString<double>(mSamples, mActualSamplesLength);
-    if (samples == NULL) return LIBSBML_OPERATION_SUCCESS;
-    copySampleArrays(mUncompressedSamples, mUncompressedLength, samples, mActualSamplesLength);
-    free(samples);
+    uncompressInternal(mSamples, mSamplesUncompressedLength);
+    mCompression = SPATIAL_COMPRESSIONKIND_UNCOMPRESSED;
+    store();
+    setSamplesLength(mSamplesUncompressedLength);
   }
 
-  return LIBSBML_OPERATION_SUCCESS;
+  return setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
 }
 
 int SampledField::compress(int level)
 {
+  freeCompressed();
   unsigned char* result; int length;
   compress_data(const_cast<char*>(mSamples.c_str()), mSamples.length(), level, result, length);
 
-  setSamples(result, length);
+  mSamples = arrayToString(result, length);
+  copySampleArrays(mSamplesCompressed, mSamplesCompressedLength, result, length);
+
   free(result);
 
-  mCompression = SPATIAL_COMPRESSIONKIND_DEFLATED;
-  return 0;
+  setSamplesLength(mSamplesCompressedLength);
+  return setCompression(SPATIAL_COMPRESSIONKIND_DEFLATED);
 }
 
 unsigned int
-SampledField::getUncompressedLength()
+SampledField::getUncompressedLength() const
 {
-  if (mUncompressedSamples == NULL)
-    uncompress();
-  return mUncompressedLength;
+  store();
+  if (mSamplesUncompressed == NULL) {
+    string uncompressedString;
+    uncompressInternal(uncompressedString, mSamplesUncompressedLength);
+    mSamplesUncompressed = readSamplesFromString<double>(uncompressedString, mSamplesUncompressedLength);
+  }
+  return mSamplesUncompressedLength;
 }
 
 void
-SampledField::getUncompressed(double* outputSamples)
+SampledField::getUncompressed(double* outputPoints) const
 {
-  if (outputSamples == NULL) return;
-  if (mUncompressedSamples == NULL)
-    uncompress();
-  if (mUncompressedSamples == NULL)
-    return;
-  memcpy(outputSamples, mUncompressedSamples, sizeof(double) * mUncompressedLength);
+  store();
+  if (outputPoints == NULL) return;
+  if (mSamplesUncompressed == NULL) {
+    string uncompressedString;
+    uncompressInternal(uncompressedString, mSamplesUncompressedLength);
+    mSamplesUncompressed = readSamplesFromString<double>(uncompressedString, mSamplesUncompressedLength);
+  }
+  if (mSamplesUncompressed == NULL) return;
+  memcpy(outputPoints, mSamplesUncompressed, sizeof(double) * mSamplesUncompressedLength);
 }
 
 void
-SampledField::freeUncompressed()
+SampledField::freeUncompressed() const
 {
-  if (mUncompressedSamples == NULL) return;
-  mUncompressedLength = 0;
-  free(mUncompressedSamples);
-  mUncompressedSamples = NULL;
+  if (mSamplesUncompressed != NULL)
+  {
+    free(mSamplesUncompressed);
+  }
+  mSamplesUncompressed = NULL;
+  mSamplesUncompressedLength = 0;
 }
+
+void
+SampledField::freeCompressed() const
+{
+  if (mSamplesCompressed != NULL)
+  {
+    free(mSamplesCompressed);
+  }
+  mSamplesCompressed = NULL;
+  mSamplesCompressedLength = 0;
+}
+
 
 
 #endif /* __cplusplus */
@@ -2502,7 +2676,7 @@ SampledField_setCompressionAsString(SampledField_t* sf,
  */
 LIBSBML_EXTERN
 int
-SampledField_setSamples(SampledField_t* sf, int* samples, int arrayLength)
+SampledField_setSamples(SampledField_t* sf, int* samples, size_t arrayLength)
 {
   return (sf != NULL) ? sf->setSamples(samples, arrayLength) :
     LIBSBML_INVALID_OBJECT;

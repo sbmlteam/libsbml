@@ -157,7 +157,7 @@ typedef enum
 , SpatialSampledFieldNumSamples1MustBeInteger                 = 1221605
 , SpatialSampledFieldInterpolationTypeMustBeInterpolationKindEnum= 1221606
 , SpatialSampledFieldCompressionMustBeCompressionKindEnum     = 1221607
-, SpatialSampledFieldSamplesMustBeString                      = 1221608
+, SpatialSampledFieldSamplesMustBeNumeric                     = 1221608
 , SpatialSampledFieldSamplesLengthMustBeInteger               = 1221609
 , SpatialSampledFieldNameMustBeString                         = 1221610
 , SpatialSampledFieldNumSamples2MustBeInteger                 = 1221611
@@ -170,6 +170,7 @@ typedef enum
 , SpatialSampledFieldFloatArrayDataMustMatch                  = 1221655
 , SpatialSampledFieldUIntArrayDataNotNegative                 = 1221656
 , SpatialSampledFieldIntArrayDataIntegers                     = 1221657
+, SpatialSampledFieldCompressedSamplesMustBeInts              = 1221658
 , SpatialSampledVolumeAllowedCoreAttributes                   = 1221701
 , SpatialSampledVolumeAllowedCoreElements                     = 1221702
 , SpatialSampledVolumeAllowedAttributes                       = 1221703

@@ -1170,12 +1170,11 @@ static const packageErrorTableEntry spatialErrorTable[] =
   },
 
   // 1221608
-  { SpatialSampledFieldSamplesMustBeString,
-    "The 'samples' attribute must be String.",
+  { SpatialSampledFieldSamplesMustBeNumeric,
+    "The entries of a <sampledField> must be numeric.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'spatial:samples' of a <sampledField> object "
-    "must be an array of values of type 'int'.",
+    "The value of the children of a <sampledField> object must be an array of numeric values.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1269,7 +1268,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'samplesLength' attribute must match the length of the ArrayData when compressed.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If the 'spatial:compression' attribute of a <sampledField> has the value 'deflated', the 'spatial:samplesLength' attribute of the same <sampledField> must equal the number of non-whitespace characters of the ArrayData child of the <sampledField>.",
+    "If the 'spatial:compression' attribute of a <sampledField> has the value 'deflated', the 'spatial:samplesLength' attribute of the same <sampledField> must equal the number of entries of the ArrayData child of the <sampledField>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1300,6 +1299,17 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "If the 'spatial:dataType' attribute of a <sampledField> has the value 'uint' or 'int', all of the uncompressed entries in the ArrayData child of the <sampledField> must be integers.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1221658
+  { SpatialSampledFieldCompressedSamplesMustBeInts,
+    "The compressed entries of a <sampledField> must be integers.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The value of the children of a <sampledField> object "
+    "must be an array of values of type 'int' if the 'spatial:compression' attribute has the value 'deflated'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -3831,7 +3841,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'arrayDataLength' attribute must match the compressed string.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "If the 'spatial:compression' attribute of a SpatialPoints has the value 'deflated', the 'spatial:arrayDataLength' attribute of the same SpatialPoints must equal the number of non-whitespace characters of the ArrayData child of the SpatialPoints.",
+    "If the 'spatial:compression' attribute of a SpatialPoints has the value 'deflated', the 'spatial:arrayDataLength' attribute of the same SpatialPoints must equal the number of entries of the ArrayData child of the SpatialPoints.",
     { "L3V1 Spatial V1 Section"
     }
   },

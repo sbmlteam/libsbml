@@ -59,6 +59,7 @@ Suite *create_suite_SpatialPoints (void);
 Suite *create_suite_SampledField(void);
 Suite *create_suite_TransformationComponent (void);
 Suite *create_suite_CopyAndClone (void);
+Suite *create_suite_Frank (void);
 
 END_C_DECLS
 
@@ -99,6 +100,7 @@ main (int argc, char* argv[])
   setTestDataDirectory();
 
   SRunner *runner = srunner_create(create_suite_ParametricObject());
+  srunner_add_suite(runner, create_suite_Frank());
   srunner_add_suite(runner, create_suite_SpatialPoints());
   srunner_add_suite(runner, create_suite_SampledField());
   srunner_add_suite(runner, create_suite_TransformationComponent());

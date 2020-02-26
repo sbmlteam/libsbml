@@ -2445,7 +2445,7 @@ START_CONSTRAINT(SpatialSampledFieldFloatArrayDataMustMatch, SampledField, sf)
   pre(sf.getDataType() == SPATIAL_DATAKIND_FLOAT);
   SampledField* sf_nc = const_cast<SampledField*>(&sf);
   size_t len = sf_nc->getUncompressedLength();
-  double* data;
+  double* data = new double[len];
   sf_nc->getUncompressedData(data, len);
   for (size_t d = 0; d < len; d++) {
     double val = data[d];
@@ -2477,7 +2477,7 @@ START_CONSTRAINT(SpatialSampledFieldUIntArrayDataNotNegative, SampledField, sf)
   pre(sf.getDataType() == SPATIAL_DATAKIND_UINT || sf.getDataType() == SPATIAL_DATAKIND_UINT8 || sf.getDataType() == SPATIAL_DATAKIND_UINT16 || sf.getDataType() == SPATIAL_DATAKIND_UINT32);
   SampledField* sf_nc = const_cast<SampledField*>(&sf);
   size_t len = sf_nc->getUncompressedLength();
-  double* data;
+  double* data = new double[len];
   sf_nc->getUncompressedData(data, len);
   for (size_t d = 0; d < len; d++) {
     double val = data[d];
@@ -2510,7 +2510,7 @@ START_CONSTRAINT(SpatialSampledFieldIntArrayDataIntegers, SampledField, sf)
   pre(sf.getDataType() == SPATIAL_DATAKIND_INT || sf.getDataType() == SPATIAL_DATAKIND_UINT || sf.getDataType() == SPATIAL_DATAKIND_UINT8 || sf.getDataType() == SPATIAL_DATAKIND_UINT16 || sf.getDataType() == SPATIAL_DATAKIND_UINT32);
   SampledField* sf_nc = const_cast<SampledField*>(&sf);
   size_t len = sf_nc->getUncompressedLength();
-  double* data;
+  double* data = new double[len];
   sf_nc->getUncompressedData(data, len);
   for (size_t d = 0; d < len; d++) {
     double ival, val = data[d];
