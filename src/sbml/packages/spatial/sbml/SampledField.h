@@ -375,46 +375,91 @@ public:
 
 
   /**
-   * Returns the value of the "samples" attribute of this SampledField.
+   * Stores the uncompressed values of the samples entries of this SampledField in the provided array.
+   * Will fail if the samples entries of the SampledField contains values that 
+   * cannot be accurately cast to ints.
    *
    * @param outArray int* array that will be used to return the value of the
-   * "samples" attribute of this SampledField.
+   * samples entries of this SampledField.
    *
-   * @note the value of the "samples" attribute of this SampledField is
+   * @note the value of the samples entries of this SampledField is
    * returned in the argument array.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int getSamples(int* outArray) const;
 
+  /**
+   * Stores the uncompressed values of the samples entries of this SampledField in the provided vector.
+   * Will fail and return an empty vector if the samples entries of the SampledField contains values that 
+   * cannot be accurately cast to ints.
+   *
+   * @param outVector vector that will be used to return the value of the
+   * samples entries of this SampledField.
+   *
+   * @note the value of the samples entries of this SampledField is
+   * returned in the argument array.
+   */
   void getSamples(std::vector<int>& outVector) const;
 
-  void getSamples(std::vector<float>& outVector) const;
-
-  void getSamples(std::vector<double>& outVector) const;
-
-
+  /**
+  * Returns the value of the samples entries of this SampledField as a string.
+  *
+  * @note the value of the samples entries of this SampledField is
+  * returned in the argument array.
+  */
   const std::string& getSamples() const;
 
   /**
-   * Returns the value of the "samples" attribute of this SampledField.
+   * Stores the uncompressed values of the samples entries of this SampledField in the provided array.
    *
    * @param outArray double* array that will be used to return the value of the
-   * "samples" attribute of this SampledField.
+   * samples entries of this SampledField.
    *
-   * @note the value of the "samples" attribute of this SampledField is
+   * @note the value of the samples entries of this SampledField is
    * returned in the argument array.
+   * 
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int getSamples(double* outArray) const;
 
   /**
-   * Returns the value of the "samples" attribute of this SampledField.
+   * Stores the uncompressed values of the samples entries of this SampledField in the provided vector.
+   *
+   * @param outVector vector that will be used to return the value of the
+   * samples entries of this SampledField.
+   *
+   * @note the value of the samples entries of this SampledField is
+   * returned in the argument array.
+   */
+  void getSamples(std::vector<double>& outVector) const;
+
+
+  /**
+   * Stores the uncompressed values of the samples entries of this SampledField in the provided array.
    *
    * @param outArray float* array that will be used to return the value of the
-   * "samples" attribute of this SampledField.
+   * samples entries of this SampledField.
    *
-   * @note the value of the "samples" attribute of this SampledField is
+   * @note the value of the samples entries of this SampledField is
    * returned in the argument array.
    */
   int getSamples(float* outArray) const;
+
+  /**
+  * Stores the uncompressed values of the samples entries of this SampledField in the provided vector.
+  *
+  * @param outVector vector that will be used to return the value of the
+  * samples entries of this SampledField.
+  *
+  * @note the value of the samples entries of this SampledField is
+  * returned in the argument array.
+  */
+  void getSamples(std::vector<float>& outVector) const;
 
   /**
    * Returns the value of the "samplesLength" attribute of this SampledField.
@@ -519,10 +564,10 @@ public:
 
 
   /**
-   * Predicate returning @c true if this SampledField's "samples" attribute is
+   * Predicate returning @c true if this SampledField's samples entries is
    * set.
    *
-   * @return @c true if this SampledField's "samples" attribute has been set,
+   * @return @c true if this SampledField's samples entries has been set,
    * otherwise @c false is returned.
    */
   bool isSetSamples() const;
@@ -702,11 +747,14 @@ public:
 
 
   /**
-   * Sets the value of the "samples" attribute of this SampledField.
+   * Sets the value of the samples entries of this SampledField.
+   * The values are converted to a string.  The compression status
+   * can be either deflated or uncompressed; the object will assume
+   * that it is correct either way.
    *
-   * @param inArray int* array value of the "samples" attribute to be set.
+   * @param inArray int* array value of the samples entries to be set.
    *
-   * @param arrayLength int value for the length of the "samples" attribute to
+   * @param arrayLength size_t value for the length of the samples entries to
    * be set.
    *
    * @copydetails doc_returns_success_code
@@ -716,12 +764,48 @@ public:
    */
   int setSamples(int* inArray, size_t arrayLength);
 
+  /**
+   * Sets the value of the samples entries of this SampledField.
+   * The values are converted to a string.  The compression status
+   * can be either deflated or uncompressed; the object will assume
+   * that it is correct either way.
+   *
+   * @param inArray unsigned int* array value of the samples entries to be set.
+   *
+   * @param arrayLength size_t value for the length of the samples entries to
+   * be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
   int setSamples(unsigned int* inArray, size_t arrayLength);
 
+  /**
+   * Sets the value of the samples entries of this SampledField.
+   * The values are converted to a string by converting each char
+   * to its integer equivalent:  an "a" will be converted to the 
+   * string "97", a "b" to "98", etc.  To just set the string 
+   * of the samples entries, use 'setSamples(string)', instead.
+   * The compression status can be either deflated or uncompressed,
+   * but the most common use of this function will be when the
+   * @p inArray is a compressed array of char's.
+   *
+   * @param inArray unsigned char* array value of the samples entries to be set.
+   *
+   * @param arrayLength size_t value for the length of the samples entries to
+   * be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
   int setSamples(unsigned char* inArray, size_t arrayLength);
 
   /**
-   * Sets the value of the "samples" attribute of this SampledField.
+   * Sets the value of the samples entries of this SampledField.
    *
    * @param samples the preformatted samples string to be set
    *
@@ -732,18 +816,66 @@ public:
    */
   int setSamples(const std::string& samples);
 
+  /**
+   * Sets the value of the samples entries of this SampledField.
+   * Because the compressed form of the samples entries cannot
+   * be doubles (only ints), this also sets the compression
+   * status to 'uncompressed'.
+   * Also sets the 'samplesLength' attribute to the size
+   * of the vector.
+   *
+   * @param samples the preformatted samples string to be set
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
   int setSamples(const std::vector<double>& samples);
 
+  /**
+   * Sets the value of the samples entries of this SampledField.
+   * Because the compressed form of the samples entries cannot
+   * be floats (only ints), this also sets the compression
+   * status to 'uncompressed'.
+   * Also sets the 'samplesLength' attribute to the size
+   * of the vector.
+   *
+   * @param samples the preformatted samples string to be set
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
   int setSamples(const std::vector<float>& samples);
 
+  /**
+   * Sets the value of the samples entries of this SampledField.
+   * Because either the compressed and uncompressed form of the samples 
+   * entries could be ints, this does not set the compression
+   * status.  It does set the 'samplesLength' attribute to the size
+   * of the vector.
+   *
+   * @param samples the preformatted samples string to be set
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
   int setSamples(const std::vector<int>& samples);
 
   /**
-   * Sets the value of the "samples" attribute of this SampledField.
+   * Sets the value of the samples entries of this SampledField.
+   * Because the compressed form of the samples entries cannot
+   * be doubles (only ints), this also sets the compression
+   * status to 'uncompressed'.
+   * Also sets the 'samplesLength' attribute to @p arrayLength.
    *
-   * @param inArray double* array value of the "samples" attribute to be set.
+   * @param inArray double* array value of the samples entries to be set.
    *
-   * @param arrayLength int value for the length of the "samples" attribute to
+   * @param arrayLength size_t value for the length of the samples entries to
    * be set.
    *
    * @copydetails doc_returns_success_code
@@ -754,11 +886,15 @@ public:
   int setSamples(double* inArray, size_t arrayLength);
 
   /**
-   * Sets the value of the "samples" attribute of this SampledField.
+   * Sets the value of the samples entries of this SampledField.
+   * Because the compressed form of the samples entries cannot
+   * be floats (only ints), this also sets the compression
+   * status to 'uncompressed'.
+   * Also sets the 'samplesLength' attribute to @p arrayLength.
    *
-   * @param inArray float* array value of the "samples" attribute to be set.
+   * @param inArray float* array value of the samples entries to be set.
    *
-   * @param arrayLength int value for the length of the "samples" attribute to
+   * @param arrayLength size_t value for the length of the samples entries to
    * be set.
    *
    * @copydetails doc_returns_success_code
@@ -867,7 +1003,7 @@ public:
 
 
   /**
-   * Unsets the value of the "samples" attribute of this SampledField.
+   * Unsets the value of the samples entries of this SampledField.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1298,7 +1434,7 @@ public:
   unsigned int getUncompressedLength() const;
 
  /**
-   * The "samples" attribute of this SampledField is returned in an int array (pointer) 
+   * The samples entries of this SampledField is returned in an int array (pointer) 
    * that is passed as argument to the method (this is needed while using SWIG to
    * convert int[] from C++ to Java). This method returns the uncompressed sample field.
    *
@@ -1337,9 +1473,9 @@ public:
   int compress(int level);
 
   /**  
-   *  Returns the data of this image as uncompressed array of integers
+   *  Returns the data of this image as uncompressed array of doubles
    * 
-   * @param data the output array of integers (it will be allocated using
+   * @param data the output array of doubles (it will be allocated using
    *             malloc and will have to be freed using free)
    * @param length the output length of the array
    *
@@ -1808,12 +1944,12 @@ SampledField_isSetCompression(const SampledField_t * sf);
 
 
 /**
- * Predicate returning @c 1 (true) if this SampledField_t's "samples" attribute
+ * Predicate returning @c 1 (true) if this SampledField_t's samples entries
  * is set.
  *
  * @param sf the SampledField_t structure.
  *
- * @return @c 1 (true) if this SampledField_t's "samples" attribute has been
+ * @return @c 1 (true) if this SampledField_t's samples entries has been
  * set, otherwise @c 0 (false) is returned.
  *
  * @memberof SampledField_t
@@ -2073,13 +2209,13 @@ SampledField_setCompressionAsString(SampledField_t * sf,
 
 
 /**
- * Sets the value of the "samples" attribute of this SampledField_t.
+ * Sets the value of the samples entries of this SampledField_t.
  *
  * @param sf the SampledField_t structure.
  *
- * @param samples pointer value of the "samples" attribute to be set.
+ * @param samples pointer value of the samples entries to be set.
  *
- * @param arrayLength int value for the length of the "samples" attribute to be
+ * @param arrayLength int value for the length of the samples entries to be
  * set.
  *
  * @copydetails doc_returns_success_code
@@ -2253,7 +2389,7 @@ SampledField_unsetCompression(SampledField_t * sf);
 
 
 /**
- * Unsets the value of the "samples" attribute of this SampledField_t.
+ * Unsets the value of the samples entries of this SampledField_t.
  *
  * @param sf the SampledField_t structure.
  *

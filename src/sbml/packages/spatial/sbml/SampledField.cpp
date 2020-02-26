@@ -306,6 +306,9 @@ SampledField::getCompressionAsString() const
 void SampledField::getSamples(std::vector<int>& outVector) const
 {
   readSamplesFromString<int>(mSamples, outVector);
+  if (outVector.size() != getActualSamplesLength()) {
+    outVector.clear();
+  }
 }
 
 void SampledField::getSamples(std::vector<float>& outVector) const
@@ -722,10 +725,7 @@ SampledField::setSamples(double* inArray, size_t arrayLength)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
+  setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
 
   freeCompressed();
   freeUncompressed();
@@ -792,6 +792,7 @@ SampledField::setSamples(float* inArray, size_t arrayLength)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
+  setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
 
   mSamples = arrayToString(inArray, arrayLength);
 
@@ -807,6 +808,7 @@ int SampledField::setSamples(const std::string& samples)
 int SampledField::setSamples(const std::vector<double>& samples)
 {
   mSamples = vectorToString(samples);
+  setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
   return setSamplesLength(samples.size());
 }
 
@@ -819,6 +821,7 @@ int SampledField::setSamples(const std::vector<int>& samples)
 int SampledField::setSamples(const std::vector<float>& samples)
 {
   mSamples = vectorToString(samples);
+  setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
   return setSamplesLength(samples.size());
 }
 
@@ -972,6 +975,8 @@ int
 SampledField::unsetSamples()
 {
   mSamples.clear();
+  freeCompressed();
+  freeUncompressed();
 
   return unsetSamplesLength();
 }
