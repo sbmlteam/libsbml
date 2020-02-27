@@ -245,21 +245,50 @@ public:
   const std::string& getCompressionAsString() const;
 
   /**
-   * Returns the data entries of this SpatialPoints as a string.
+   * Stores the uncompressed values of the ArrayData entries of this SampledField in the provided array.
+   * Will fail if the samples entries of the SampledField contains values that 
+   * cannot be accurately cast to ints.
    *
+   * @param outArray int* array that will be used to return the value of the
+   * samples entries of this SampledField.
+   *
+   * @note the value of the samples entries of this SampledField is
+   * returned in the argument array.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  std::string getArrayData() const;
-
+  int getArrayData(int* outArray) const;
 
   /**
-   * Returns the uncompressed values of the data entries of this SpatialPoints.
-   * If the data are currently compressed, this function will return its
-   * uncompressed form.
+   * Stores the uncompressed values of the samples entries of this SampledField in the provided vector.
+   * Will fail and return an empty vector if the samples entries of the SampledField contains values that 
+   * cannot be accurately cast to ints.
+   *
+   * @param outVector vector that will be used to return the value of the
+   * samples entries of this SampledField.
+   *
+   * @note the value of the samples entries of this SampledField is
+   * returned in the argument array.
+   */
+  void getArrayData(std::vector<int>& outVector) const;
+
+  /**
+  * Returns the value of the samples entries of this SampledField as a string.
+  *
+  * @note the value of the samples entries of this SampledField is
+  * returned in the argument array.
+  */
+  std::string getArrayData() const;
+
+  /**
+   * Stores the uncompressed values of the samples entries of this SampledField in the provided array.
    *
    * @param outArray double* array that will be used to return the value of the
-   * array data of this SpatialPoints.
+   * samples entries of this SampledField.
    *
-   * @note the value of the array data of this SpatialPoints is
+   * @note the value of the samples entries of this SampledField is
    * returned in the argument array.
    * 
    * @copydetails doc_returns_success_code
@@ -269,23 +298,40 @@ public:
   int getArrayData(double* outArray) const;
 
   /**
-   * Returns the compressed values of the data entries of this SpatialPoints.
-   * This function only works if the data has been compressed already.
+   * Stores the uncompressed values of the samples entries of this SampledField in the provided vector.
    *
-   * @param outArray int* array that will be used to return the value of the
-   * array data of this SpatialPoints.
+   * @param outVector vector that will be used to return the value of the
+   * samples entries of this SampledField.
    *
-   * @note the value of the array data of this SpatialPoints is
+   * @note the value of the samples entries of this SampledField is
    * returned in the argument array.
-   * 
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int getArrayData(int * outArray) const;
+  void getArrayData(std::vector<double>& outVector) const;
 
 
   /**
+   * Stores the uncompressed values of the samples entries of this SampledField in the provided array.
+   *
+   * @param outArray float* array that will be used to return the value of the
+   * samples entries of this SampledField.
+   *
+   * @note the value of the samples entries of this SampledField is
+   * returned in the argument array.
+   */
+  int getArrayData(float* outArray) const;
+
+  /**
+  * Stores the uncompressed values of the samples entries of this SampledField in the provided vector.
+  *
+  * @param outVector vector that will be used to return the value of the
+  * samples entries of this SampledField.
+  *
+  * @note the value of the samples entries of this SampledField is
+  * returned in the argument array.
+  */
+  void getArrayData(std::vector<float>& outVector) const;
+
+   /**
    * Returns the value of the "arrayDataLength" attribute of this
    * SpatialPoints.
    *
@@ -472,14 +518,136 @@ public:
 
 
   /**
-   * Sets the value of the array data of this SpatialPoints.
-   * This only works if the SpatialPoints is not set 'deflated': the
-   * @p inArray must be the uncompressed data.
+   * Sets the value of the samples entries of this SpatialPoints.
+   * The values are converted to a string.  The compression status
+   * can be either deflated or uncompressed; the object will assume
+   * that it is correct either way.
    *
-   * @param inArray double* array value of child array data to be set.
+   * @param inArray int* array value of the samples entries to be set.
    *
-   * @param arrayLength size_t value for the length of the array data
-   * to be set.
+   * @param arrayLength size_t value for the length of the samples entries to
+   * be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setArrayData(int* inArray, size_t arrayLength);
+
+  /**
+   * Sets the value of the samples entries of this SpatialPoints.
+   * The values are converted to a string.  The compression status
+   * can be either deflated or uncompressed; the object will assume
+   * that it is correct either way.
+   *
+   * @param inArray unsigned int* array value of the samples entries to be set.
+   *
+   * @param arrayLength size_t value for the length of the samples entries to
+   * be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setArrayData(unsigned int* inArray, size_t arrayLength);
+
+  /**
+   * Sets the value of the samples entries of this SpatialPoints.
+   * The values are converted to a string by converting each char
+   * to its integer equivalent:  an "a" will be converted to the 
+   * string "97", a "b" to "98", etc.  To just set the string 
+   * of the samples entries, use 'setArrayData(string)', instead.
+   * The compression status can be either deflated or uncompressed,
+   * but the most common use of this function will be when the
+   * @p inArray is a compressed array of char's.
+   *
+   * @param inArray unsigned char* array value of the samples entries to be set.
+   *
+   * @param arrayLength size_t value for the length of the samples entries to
+   * be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setArrayData(unsigned char* inArray, size_t arrayLength);
+
+  /**
+   * Sets the value of the samples entries of this SpatialPoints.
+   *
+   * @param samples the preformatted samples string to be set
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setArrayData(const std::string& samples);
+
+  /**
+   * Sets the value of the samples entries of this SpatialPoints.
+   * Because the compressed form of the samples entries cannot
+   * be doubles (only ints), this also sets the compression
+   * status to 'uncompressed'.
+   * Also sets the 'samplesLength' attribute to the size
+   * of the vector.
+   *
+   * @param samples the preformatted samples string to be set
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setArrayData(const std::vector<double>& samples);
+
+  /**
+   * Sets the value of the samples entries of this SpatialPoints.
+   * Because the compressed form of the samples entries cannot
+   * be floats (only ints), this also sets the compression
+   * status to 'uncompressed'.
+   * Also sets the 'samplesLength' attribute to the size
+   * of the vector.
+   *
+   * @param samples the preformatted samples string to be set
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setArrayData(const std::vector<float>& samples);
+
+  /**
+   * Sets the value of the samples entries of this SpatialPoints.
+   * Because either the compressed and uncompressed form of the samples 
+   * entries could be ints, this does not set the compression
+   * status.  It does set the 'samplesLength' attribute to the size
+   * of the vector.
+   *
+   * @param samples the preformatted samples string to be set
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setArrayData(const std::vector<int>& samples);
+
+  /**
+   * Sets the value of the samples entries of this SpatialPoints.
+   * Because the compressed form of the samples entries cannot
+   * be doubles (only ints), this also sets the compression
+   * status to 'uncompressed'.
+   * Also sets the 'samplesLength' attribute to @p arrayLength.
+   *
+   * @param inArray double* array value of the samples entries to be set.
+   *
+   * @param arrayLength size_t value for the length of the samples entries to
+   * be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -488,23 +656,24 @@ public:
    */
   int setArrayData(double* inArray, size_t arrayLength);
 
-
   /**
-   * Sets the value of the array data of this SpatialPoints.
-   * This only works if the SpatialPoints is set 'deflated': the
-   * @p inArray must be the compressed data.
+   * Sets the value of the samples entries of this SpatialPoints.
+   * Because the compressed form of the samples entries cannot
+   * be floats (only ints), this also sets the compression
+   * status to 'uncompressed'.
+   * Also sets the 'samplesLength' attribute to @p arrayLength.
    *
-   * @param inArray int* array value of the child array data to be set.
+   * @param inArray float* array value of the samples entries to be set.
    *
-   * @param arrayLength size_t value for the length of the array data
-   * to be set.
+   * @param arrayLength size_t value for the length of the samples entries to
+   * be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
-  int setArrayData(int* inArray, size_t arrayLength);
+  int setArrayData(float* inArray, size_t arrayLength);
 
 
   /**
@@ -1006,7 +1175,7 @@ protected:
   void store() const;
 
   /* Uncompress the data, but don't store the change.*/
-  std::string uncompressInternal() const;
+  void uncompressInternal(std::string & sampleString, size_t & length) const;
 
   /** @endcond */
 

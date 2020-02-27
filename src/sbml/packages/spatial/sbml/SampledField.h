@@ -410,7 +410,7 @@ public:
   * @note the value of the samples entries of this SampledField is
   * returned in the argument array.
   */
-  const std::string& getSamples() const;
+  std::string getSamples() const;
 
   /**
    * Stores the uncompressed values of the samples entries of this SampledField in the provided array.

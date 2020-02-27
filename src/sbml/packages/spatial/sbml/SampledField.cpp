@@ -327,7 +327,7 @@ void SampledField::getSamples(std::vector<double>& outVector) const
   readSamplesFromString<double>(uncompressedString, outVector);
 }
 
-const std::string& SampledField::getSamples() const
+std::string SampledField::getSamples() const
 {
   return mSamples;
 }
@@ -408,9 +408,7 @@ SampledField::getSamples(float* outArray) const
   free(samples);
   return LIBSBML_OPERATION_SUCCESS;
 }
-/*
- * Returns the value of the "samplesLength" attribute of this SampledField.
- */
+
 int
 SampledField::getSamplesLength() const
 {

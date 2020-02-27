@@ -370,18 +370,312 @@ START_TEST(test_Compression_SampledField_5)
 END_TEST
 
 
+START_TEST(test_Compression_SpatialPoints_1)
+{
+  // assume we have some values from our app in a structure
+  std::vector<double> values =
+  {
+    1.0, 2.0, 3.0, 4.0, 5.0, 6.0,
+    1.1, 2.1, 3.1, 4.1, 5.1, 6.1,
+    1.2, 2.2, 3.2, 4.2, 5.2, 6.2,
+    1.3, 2.3, 3.3, 4.3, 5.3, 6.3 };
+
+  string valstring = "1 2 3 4 5 6 1.1000000000000001 2.1000000000000001 3.1000000000000001 4.0999999999999996 5.0999999999999996 6.0999999999999996 1.2 2.2000000000000002 3.2000000000000002 4.2000000000000002 5.2000000000000002 6.2000000000000002 1.3 2.2999999999999998 3.2999999999999998 4.2999999999999998 5.2999999999999998 6.2999999999999998 ";
+
+  std::vector<float> values_float;
+  for (size_t n = 0; n < values.size(); n++)
+  {
+    values_float.push_back(static_cast<float>(values[n]));
+  }
+
+  string compressed = "120 218 101 206 185 17 0 33 12 67 209 86 84 129 7 249 154 165 255 198 128 208 43 133 47 240 55 225 8 36 10 13 26 215 24 225 74 161 148 182 246 88 163 148 90 137 230 55 225 243 222 125 72 41 149 74 169 149 104 241 18 179 252 189 196 159 82 169 148 90 233 0 141 250 63 196 ";
+
+  std::vector<int> compressedvals =
+  { 120, 218, 101, 206, 185, 17, 0, 33, 12, 67, 209, 86, 84, 129, 7, 249, 154, 165, 255, 198, 128, 208, 43, 133, 47, 240, 55, 225, 8, 36, 10, 13, 26, 215, 24, 225, 74, 161, 148, 182, 246, 88, 163, 148, 90, 137, 230, 55, 225, 243, 222, 125, 72, 41, 149, 74, 169, 149, 104, 241, 18, 179, 252, 189, 196, 159, 82, 169, 148, 90, 233, 0, 141, 250, 63, 196 };
+
+  SpatialPoints points;
+  points.setId("uncompressed_double");
+  points.setDataType(SPATIAL_DATAKIND_DOUBLE);
+  points.setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
+
+  // here then the values are set by the user, passing in either a values vector, an array
+  // or even just a std::string that they constucted themselves.
+  points.setArrayData(values);
+
+  fail_unless(points.getArrayData() == valstring);
+  fail_unless(points.getArrayDataLength() == 24);
+  fail_unless(points.isSetArrayDataLength() == true);
+
+  std::vector<double> uncompressed_data;
+  points.getArrayData(uncompressed_data);
+  fail_unless(uncompressed_data == values);
+
+  // Now compress the values
+  points.compress(9);
+
+  fail_unless(points.getArrayData() == compressed);
+  fail_unless(points.getArrayDataLength() == 76);
+  fail_unless(points.isSetArrayDataLength() == true);
+  fail_unless(points.getCompression() == SPATIAL_COMPRESSIONKIND_DEFLATED);
+
+  std::vector<int> compressed_data;
+  points.getArrayData(compressed_data);
+
+  fail_unless(compressed_data == compressedvals);
+
+  //Now uncompress them again
+  points.uncompress();
+  fail_unless(points.getArrayData() == valstring);
+  fail_unless(points.getArrayDataLength() == 24);
+  fail_unless(points.isSetArrayDataLength() == true);
+  fail_unless(points.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
+
+  points.getArrayData(uncompressed_data);
+  fail_unless(uncompressed_data == values);
+
+  std::vector<float> uncompressed_data_float;
+  points.getArrayData(uncompressed_data_float);
+  fail_unless(uncompressed_data_float == values_float);
+
+}
+END_TEST
+
+
+START_TEST(test_Compression_SpatialPoints_2)
+{
+  //This test checks the 'getUncompressed' functions if they're originally set in compressed form.
+
+  std::vector<double> values =
+  {
+    1.0, 2.0, 3.0, 4.0, 5.0, 6.0,
+    1.1, 2.1, 3.1, 4.1, 5.1, 6.1,
+    1.2, 2.2, 3.2, 4.2, 5.2, 6.2,
+    1.3, 2.3, 3.3, 4.3, 5.3, 6.3 };
+
+  string compressed = "120 218 101 206 185 17 0 33 12 67 209 86 84 129 7 249 154 165 255 198 128 208 43 133 47 240 55 225 8 36 10 13 26 215 24 225 74 161 148 182 246 88 163 148 90 137 230 55 225 243 222 125 72 41 149 74 169 149 104 241 18 179 252 189 196 159 82 169 148 90 233 0 141 250 63 196 ";
+
+  std::vector<int> compressedvals =
+  { 120, 218, 101, 206, 185, 17, 0, 33, 12, 67, 209, 86, 84, 129, 7, 249, 154, 165, 255, 198, 128, 208, 43, 133, 47, 240, 55, 225, 8, 36, 10, 13, 26, 215, 24, 225, 74, 161, 148, 182, 246, 88, 163, 148, 90, 137, 230, 55, 225, 243, 222, 125, 72, 41, 149, 74, 169, 149, 104, 241, 18, 179, 252, 189, 196, 159, 82, 169, 148, 90, 233, 0, 141, 250, 63, 196 };
+
+  SpatialPoints points;
+  points.setId("uncompressed_double");
+  points.setDataType(SPATIAL_DATAKIND_DOUBLE);
+  points.setCompression(SPATIAL_COMPRESSIONKIND_DEFLATED);
+
+  points.setArrayData(compressedvals);
+
+  fail_unless(points.getArrayData() == compressed);
+  fail_unless(points.getArrayDataLength() == 76);
+  fail_unless(points.isSetArrayDataLength() == true);
+  fail_unless(points.getCompression() == SPATIAL_COMPRESSIONKIND_DEFLATED);
+
+  double* uncompressed_data = new double[values.size()];
+  points.getUncompressed(uncompressed_data);
+  for (size_t n = 0; n < values.size(); n++) {
+    fail_unless(values[n] == uncompressed_data[n]);
+  }
+  free(uncompressed_data);
+  fail_unless(points.getUncompressedLength() == values.size());
+
+  uncompressed_data = NULL;
+  size_t len = 0;
+  points.getUncompressedData(uncompressed_data, len);
+  for (size_t n = 0; n < values.size(); n++) {
+    fail_unless(values[n] == uncompressed_data[n]);
+  }
+  fail_unless(len == values.size());
+  free(uncompressed_data);
+
+}
+END_TEST
+
+
+START_TEST(test_Compression_SpatialPoints_3)
+{
+  //This test checks the 'getUncompressed' functions if they're originally set uncompressed.
+
+  // assume we have some values from our app in a structure
+  std::vector<double> values =
+  {
+    1.0, 2.0, 3.0, 4.0, 5.0, 6.0,
+    1.1, 2.1, 3.1, 4.1, 5.1, 6.1,
+    1.2, 2.2, 3.2, 4.2, 5.2, 6.2,
+    1.3, 2.3, 3.3, 4.3, 5.3, 6.3 };
+
+  string valstring = "1 2 3 4 5 6 1.1000000000000001 2.1000000000000001 3.1000000000000001 4.0999999999999996 5.0999999999999996 6.0999999999999996 1.2 2.2000000000000002 3.2000000000000002 4.2000000000000002 5.2000000000000002 6.2000000000000002 1.3 2.2999999999999998 3.2999999999999998 4.2999999999999998 5.2999999999999998 6.2999999999999998 ";
+
+  SpatialPoints points;
+  points.setId("uncompressed_double");
+  points.setDataType(SPATIAL_DATAKIND_DOUBLE);
+  points.setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
+
+  points.setArrayData(values);
+
+  fail_unless(points.getArrayData() == valstring);
+  fail_unless(points.getArrayDataLength() == values.size());
+  fail_unless(points.isSetArrayDataLength() == true);
+  fail_unless(points.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
+
+  double* uncompressed_data = new double[values.size()];
+  points.getUncompressed(uncompressed_data);
+  for (size_t n = 0; n < values.size(); n++) {
+    fail_unless(values[n] == uncompressed_data[n]);
+  }
+  free(uncompressed_data);
+  fail_unless(points.getUncompressedLength() == values.size());
+
+  uncompressed_data = NULL;
+  size_t len = 0;
+  points.getUncompressedData(uncompressed_data, len);
+  for (size_t n = 0; n < values.size(); n++) {
+    fail_unless(values[n] == uncompressed_data[n]);
+  }
+  fail_unless(len == values.size());
+  free(uncompressed_data);
+
+}
+END_TEST
+
+
+START_TEST(test_Compression_SpatialPoints_4)
+{
+  //This test checks the 'getArrayData' functions from uncompressed data.
+
+  // assume we have some values from our app in a structure
+  std::vector<double> values =
+  {
+    1.0, 2.0, 3.0, 4.0, 5.0, 6.0,
+    1.1, 2.1, 3.1, 4.1, 5.1, 6.1,
+    1.2, 2.2, 3.2, 4.2, 5.2, 6.2,
+    1.3, 2.3, 3.3, 4.3, 5.3, 6.3 };
+
+  SpatialPoints points;
+  points.setId("uncompressed_double");
+  points.setDataType(SPATIAL_DATAKIND_DOUBLE);
+  points.setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
+
+  points.setArrayData(values);
+
+
+  double* doubles = new double[values.size()];
+  points.getArrayData(doubles);
+  for (size_t n = 0; n < values.size(); n++) {
+    fail_unless(values[n] == doubles[n]);
+  }
+  free(doubles);
+
+  vector<double> doublevec;
+  points.getArrayData(doublevec);
+  fail_unless(doublevec == values);
+
+  float* floats = new float[values.size()];
+  points.getArrayData(floats);
+  for (size_t n = 0; n < values.size(); n++) {
+    fail_unless(static_cast<float>(values[n]) == floats[n]);
+  }
+  free(floats);
+
+  vector<float> floatvec;
+  points.getArrayData(floatvec);
+  fail_unless(floatvec.size() == values.size());
+  for (size_t n = 0; n < floatvec.size(); n++)
+  {
+    fail_unless(static_cast<float>(values[n]) == floatvec[n]);
+  }
+
+  int* ints = new int[values.size()];
+  fail_unless(points.getArrayData(ints) == LIBSBML_OPERATION_FAILED);
+  free(ints);
+
+  vector<int> intvec;
+  points.getArrayData(intvec);
+  fail_unless(intvec.size() == 0);
+
+}
+END_TEST
+
+
+START_TEST(test_Compression_SpatialPoints_5)
+{
+  //This test checks the 'getArrayData' functions from compressed data.
+
+  // assume we have some values from our app in a structure
+  std::vector<double> values =
+  {
+    1.0, 2.0, 3.0, 4.0, 5.0, 6.0,
+    1.1, 2.1, 3.1, 4.1, 5.1, 6.1,
+    1.2, 2.2, 3.2, 4.2, 5.2, 6.2,
+    1.3, 2.3, 3.3, 4.3, 5.3, 6.3 };
+
+  std::vector<int> compressedvals =
+  { 120, 218, 101, 206, 185, 17, 0, 33, 12, 67, 209, 86, 84, 129, 7, 249, 154, 165, 255, 198, 128, 208, 43, 133, 47, 240, 55, 225, 8, 36, 10, 13, 26, 215, 24, 225, 74, 161, 148, 182, 246, 88, 163, 148, 90, 137, 230, 55, 225, 243, 222, 125, 72, 41, 149, 74, 169, 149, 104, 241, 18, 179, 252, 189, 196, 159, 82, 169, 148, 90, 233, 0, 141, 250, 63, 196 };
+
+  SpatialPoints points;
+  points.setId("uncompressed_double");
+  points.setDataType(SPATIAL_DATAKIND_DOUBLE);
+  points.setCompression(SPATIAL_COMPRESSIONKIND_DEFLATED);
+
+  points.setArrayData(compressedvals);
+
+
+  double* doubles = new double[values.size()];
+  points.getArrayData(doubles);
+  for (size_t n = 0; n < values.size(); n++) {
+    fail_unless(values[n] == doubles[n]);
+  }
+  free(doubles);
+
+  vector<double> doublevec;
+  points.getArrayData(doublevec);
+  fail_unless(doublevec == values);
+
+  float* floats = new float[values.size()];
+  points.getArrayData(floats);
+  for (size_t n = 0; n < values.size(); n++) {
+    fail_unless(static_cast<float>(values[n]) == floats[n]);
+  }
+  free(floats);
+
+  vector<float> floatvec;
+  points.getArrayData(floatvec);
+  fail_unless(floatvec.size() == values.size());
+  for (size_t n = 0; n < floatvec.size(); n++)
+  {
+    fail_unless(static_cast<float>(values[n]) == floatvec[n]);
+  }
+
+  int* ints = new int[compressedvals.size()];
+  points.getArrayData(ints);
+  for (size_t n = 0; n < compressedvals.size(); n++) {
+    fail_unless(compressedvals[n] == ints[n]);
+  }
+  free(ints);
+
+  vector<int> intvec;
+  points.getArrayData(intvec);
+  fail_unless(intvec == compressedvals);
+
+}
+END_TEST
+
+
 Suite *
 create_suite_Compression(void)
 {
   Suite *suite = suite_create("Compression");
   TCase *tcase = tcase_create("Compression");
 
-#ifndef USE_ZLIB
+#ifdef USE_ZLIB
   tcase_add_test( tcase, test_Compression_SampledField_1);
   tcase_add_test( tcase, test_Compression_SampledField_2);
   tcase_add_test( tcase, test_Compression_SampledField_3);
   tcase_add_test( tcase, test_Compression_SampledField_4);
   tcase_add_test( tcase, test_Compression_SampledField_5);
+  tcase_add_test( tcase, test_Compression_SpatialPoints_1);
+  tcase_add_test( tcase, test_Compression_SpatialPoints_2);
+  tcase_add_test( tcase, test_Compression_SpatialPoints_3);
+  tcase_add_test( tcase, test_Compression_SpatialPoints_4);
+  tcase_add_test( tcase, test_Compression_SpatialPoints_5);
 #endif
 
   suite_add_tcase(suite, tcase);

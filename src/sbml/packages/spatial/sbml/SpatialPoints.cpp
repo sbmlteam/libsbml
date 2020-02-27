@@ -196,19 +196,70 @@ SpatialPoints::getCompressionAsString() const
 }
 
 
-/*
- * Returns the value of the "arrayData" attribute of this SpatialPoints.
- */
-string
-SpatialPoints::getArrayData() const
+void SpatialPoints::getArrayData(std::vector<int>& outVector) const
+{
+  readSamplesFromString<int>(mArrayData, outVector);
+  if (outVector.size() != getActualArrayDataLength()) {
+    outVector.clear();
+  }
+}
+
+void SpatialPoints::getArrayData(std::vector<float>& outVector) const
+{
+  store();
+  string uncompressedString;
+  uncompressInternal(uncompressedString, mArrayDataUncompressedLength);
+  readSamplesFromString<float>(uncompressedString, outVector);
+}
+
+void SpatialPoints::getArrayData(std::vector<double>& outVector) const
+{
+  store();
+  string uncompressedString;
+  uncompressInternal(uncompressedString, mArrayDataUncompressedLength);
+  readSamplesFromString<double>(uncompressedString, outVector);
+}
+
+std::string SpatialPoints::getArrayData() const
 {
   return mArrayData;
 }
 
+int
+SpatialPoints::getArrayData(int* outArray) const
+{
+  if (outArray == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  store();
+  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
+  {
+    if (mArrayDataCompressed == NULL)
+    {
+      return LIBSBML_OPERATION_FAILED;
+    }
+    memcpy(outArray, mArrayDataCompressed, sizeof(int)*mArrayDataCompressedLength);
+  }
+  else
+  {
+    size_t length;
+    int* samples = readSamplesFromString<int>(mArrayData, length);
+    if (length != mArrayDataUncompressedLength)
+    {
+      return LIBSBML_OPERATION_FAILED;
+    }
 
-/*
- * Returns the value of the "arrayData" attribute of this SpatialPoints.
- */
+    if (samples == NULL || length == 0)
+    {
+      return LIBSBML_OPERATION_FAILED;
+    }
+    memcpy(outArray, samples, sizeof(int) * length);
+    free(samples);
+  }
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
 int
 SpatialPoints::getArrayData(double* outArray) const
 {
@@ -216,11 +267,9 @@ SpatialPoints::getArrayData(double* outArray) const
   {
     return LIBSBML_OPERATION_FAILED;
   }
-  if (mArrayDataUncompressed == NULL)
-  {
-    store();
-    uncompressInternal();
-  }
+  //This function will uncompres and store the data if need be:
+  size_t len = getUncompressedLength();
+
   if (mArrayDataUncompressed == NULL)
   {
     return LIBSBML_OPERATION_FAILED;
@@ -231,29 +280,35 @@ SpatialPoints::getArrayData(double* outArray) const
 }
 
 
-/*
-* Returns the value of the "arrayData" attribute of this SpatialPoints.
-*/
 int
-SpatialPoints::getArrayData(int* outArray) const
+SpatialPoints::getArrayData(float* outArray) const
 {
-  if (outArray == NULL) 
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  if (mArrayDataCompressed == NULL)
-  {
-    store();
-  }
-  if (mArrayDataUncompressed == NULL)
+  if (outArray == NULL)
   {
     return LIBSBML_OPERATION_FAILED;
   }
 
-  memcpy(outArray, mArrayDataCompressed, sizeof(int)*mArrayDataCompressedLength);
+  store();
+  float* samples = NULL;
+  size_t length;
+  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
+  {
+    string uncompressedString;
+    uncompressInternal(uncompressedString, length);
+    samples = readSamplesFromString<float>(uncompressedString, length);
+  }
+  else {
+    samples = readSamplesFromString<float>(mArrayData, length);
+  }
+
+  if (samples == NULL || length==0)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  memcpy(outArray, samples, sizeof(float) * length);
+  free(samples);
   return LIBSBML_OPERATION_SUCCESS;
 }
-
 
 /*
  * Returns the value of the "arrayDataLength" attribute of this SpatialPoints.
@@ -417,9 +472,51 @@ SpatialPoints::setCompression(const std::string& compression)
 }
 
 
-/*
- * Sets the value of the "arrayData" attribute of this SpatialPoints.
- */
+///*
+// * Sets the value of the "arrayData" attribute of this SpatialPoints.
+// */
+//int
+//SpatialPoints::setArrayData(double* inArray, size_t arrayLength)
+//{
+//  if (inArray == NULL)
+//  {
+//    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+//  }
+//  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
+//  {
+//    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+//  }
+//
+//  freeCompressed();
+//  freeUncompressed();
+//  copySampleArrays(mArrayDataUncompressed, mArrayDataUncompressedLength, inArray, arrayLength);
+//  mArrayData = arrayToString(inArray, arrayLength);
+//  setArrayDataLength(arrayLength);
+//
+//  return LIBSBML_OPERATION_SUCCESS;
+//}
+//
+//
+//int
+//SpatialPoints::setArrayData(int* inArray, size_t arrayLength)
+//{
+//  if (inArray == NULL)
+//  {
+//    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+//  }
+//  if (mCompression != SPATIAL_COMPRESSIONKIND_DEFLATED)
+//  {
+//    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+//  }
+//
+//  freeCompressed();
+//  freeUncompressed();
+//  copySampleArrays(mArrayDataCompressed, mArrayDataCompressedLength, inArray, arrayLength);
+//  mArrayData = arrayToString(inArray, arrayLength);
+//  setArrayDataLength(arrayLength);
+//
+//  return LIBSBML_OPERATION_SUCCESS;
+//}
 int
 SpatialPoints::setArrayData(double* inArray, size_t arrayLength)
 {
@@ -427,18 +524,13 @@ SpatialPoints::setArrayData(double* inArray, size_t arrayLength)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
+  setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
 
   freeCompressed();
   freeUncompressed();
   copySampleArrays(mArrayDataUncompressed, mArrayDataUncompressedLength, inArray, arrayLength);
   mArrayData = arrayToString(inArray, arrayLength);
-  setArrayDataLength(arrayLength);
-
-  return LIBSBML_OPERATION_SUCCESS;
+  return setArrayDataLength(arrayLength);
 }
 
 
@@ -449,20 +541,81 @@ SpatialPoints::setArrayData(int* inArray, size_t arrayLength)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  if (mCompression != SPATIAL_COMPRESSIONKIND_DEFLATED)
+  freeCompressed();
+  freeUncompressed();
+  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
+  {
+    copySampleArrays(mArrayDataCompressed, mArrayDataCompressedLength, inArray, arrayLength);
+  }
+  mArrayData = arrayToString(inArray, arrayLength);
+  return setArrayDataLength(arrayLength);
+}
+
+
+int SpatialPoints::setArrayData(unsigned int* inArray, size_t arrayLength)
+{
+  if (inArray == NULL)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
 
-  freeCompressed();
-  freeUncompressed();
-  copySampleArrays(mArrayDataCompressed, mArrayDataCompressedLength, inArray, arrayLength);
   mArrayData = arrayToString(inArray, arrayLength);
-  setArrayDataLength(arrayLength);
 
+  return setArrayDataLength(arrayLength);
+}
+
+int SpatialPoints::setArrayData(unsigned char* inArray, size_t arrayLength)
+{
+  if (inArray == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+
+  mArrayData = arrayToString(inArray, arrayLength);
+
+  return setArrayDataLength(arrayLength);
+}
+
+
+int
+SpatialPoints::setArrayData(float* inArray, size_t arrayLength)
+{
+  if (inArray == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
+
+  mArrayData = arrayToString(inArray, arrayLength);
+
+  return setArrayDataLength(arrayLength);
+}
+
+int SpatialPoints::setArrayData(const std::string& samples)
+{
+  mArrayData = samples;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
+int SpatialPoints::setArrayData(const std::vector<double>& samples)
+{
+  mArrayData = vectorToString(samples);
+  setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
+  return setArrayDataLength(samples.size());
+}
+
+int SpatialPoints::setArrayData(const std::vector<int>& samples)
+{
+  mArrayData = vectorToString(samples);
+  return setArrayDataLength(samples.size());
+}
+
+int SpatialPoints::setArrayData(const std::vector<float>& samples)
+{
+  mArrayData = vectorToString(samples);
+  setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
+  return setArrayDataLength(samples.size());
+}
 
 /*
  * Sets the value of the "arrayDataLength" attribute of this SpatialPoints.
@@ -1404,16 +1557,21 @@ void SpatialPoints::store() const
   }
 }
 
-std::string SpatialPoints::uncompressInternal() const
+void SpatialPoints::uncompressInternal(string& sampleString, size_t& length) const
 {
   freeUncompressed();
   store();
 
   if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
   {
-    if (mArrayDataCompressed == NULL) return "";
+    if (mArrayDataCompressed == NULL)
+    {
+      sampleString = "";
+      length = 0;
+      return;
+    }
     char* csamples = (char*)malloc(sizeof(char) * mArrayDataCompressedLength);
-    int* result; size_t length;
+    int* result;
     for (unsigned int i = 0; i < mArrayDataCompressedLength; ++i)
     {
       csamples[i] = (char)mArrayDataCompressed[i];
@@ -1423,14 +1581,20 @@ std::string SpatialPoints::uncompressInternal() const
 
     if (result == NULL)
     {
-      return "";
+      sampleString = "";
+      length = 0;
+      return;
     }
 
-    string ret = charIntsToString(result, length);
+    sampleString = charIntsToString(result, length);
     free(result);
-    return ret;
+    return;
   }
-  return mArrayData;
+  else
+  {
+    sampleString = mArrayData;
+    length = mArrayDataUncompressedLength;
+  }
 }
 
 /**
@@ -1459,10 +1623,10 @@ SpatialPoints::uncompress()
 {
   if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
   {
-    mArrayData = uncompressInternal();
+    uncompressInternal(mArrayData, mArrayDataUncompressedLength);
     mCompression = SPATIAL_COMPRESSIONKIND_UNCOMPRESSED;
     store();
-    mArrayDataLength = mArrayDataUncompressedLength;
+    setArrayDataLength(mArrayDataUncompressedLength);
   }
 
   return setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
@@ -1490,7 +1654,9 @@ SpatialPoints::getUncompressedLength() const
 {
   store();
   if (mArrayDataUncompressed == NULL) {
-    string uncompressedString = uncompressInternal();
+    string uncompressedString;
+    size_t length;
+    uncompressInternal(uncompressedString, length);
     mArrayDataUncompressed = readSamplesFromString<double>(uncompressedString, mArrayDataUncompressedLength);
   }
   return mArrayDataUncompressedLength;
@@ -1502,7 +1668,9 @@ SpatialPoints::getUncompressed(double* outputPoints) const
   store();
   if (outputPoints == NULL) return;
   if (mArrayDataUncompressed == NULL) {
-    string uncompressedString = uncompressInternal();
+    string uncompressedString;
+    size_t length;
+    uncompressInternal(uncompressedString, length);
     mArrayDataUncompressed = readSamplesFromString<double>(uncompressedString, mArrayDataUncompressedLength);
   }
   if (mArrayDataUncompressed == NULL) return;
