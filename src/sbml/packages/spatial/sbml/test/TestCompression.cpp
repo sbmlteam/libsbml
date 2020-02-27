@@ -54,28 +54,6 @@ LIBSBML_CPP_NAMESPACE_USE
 CK_CPPSTART
 
 
-// libsbml still only exports char* in its string serialization ...
-#define PRINT_SBML(stream, label, x)  \
-    {                                 \
-        char *tmp = x.toSBML();       \
-        stream << label << std::endl; \
-        stream << tmp << std::endl;   \
-        free(tmp);                    \
-    }
-// write data out, to see what is what
-#define PRINT_DATA(stream, label, data) \
-    {                                   \
-        auto it = data.begin();         \
-        auto end = data.end();          \
-        stream << label << std::endl;   \
-        while (it != end)               \
-            stream << " " << *(it++);   \
-        stream << std::endl             \
-               << std::endl;            \
-    }
-
-
-
 START_TEST(test_Compression_SampledField_1)
 {
   // assume we have some values from our app in a structure
@@ -659,6 +637,133 @@ START_TEST(test_Compression_SpatialPoints_5)
 END_TEST
 
 
+START_TEST(test_Compression_ParametricObject_1)
+{
+  // assume we have some values from our app in a structure
+  std::vector<int> values =
+  { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+ 
+  string valstring = "1 2 3 4 5 6 7 8 9 10 11 12 ";
+
+  string compressed = "120 218 5 193 1 1 0 16 16 4 176 42 139 224 30 143 254 197 108 81 166 101 107 199 245 100 72 164 124 63 21 4 132 ";
+
+  std::vector<int> compressedvals =
+  { 120, 218, 5, 193, 1, 1, 0, 16, 16, 4, 176, 42, 139, 224, 30, 143, 254, 197, 108, 81, 166, 101, 107, 199, 245, 100, 72, 164, 124, 63, 21, 4, 132  };
+
+  ParametricObject parametricobj;
+  parametricobj.setId("test1");
+  parametricobj.setDataType(SPATIAL_DATAKIND_INT);
+  parametricobj.setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
+
+  // here then the values are set by the user, passing in either a values vector, an array
+  // or even just a std::string that they constucted themselves.
+  parametricobj.setPointIndex(values);
+
+  fail_unless(parametricobj.getPointIndex() == valstring);
+  fail_unless(parametricobj.getPointIndexLength() == values.size());
+  fail_unless(parametricobj.isSetPointIndexLength() == true);
+
+  std::vector<int> uncompressed_data;
+  parametricobj.getPointIndex(uncompressed_data);
+  fail_unless(uncompressed_data == values);
+
+  // Now compress the values
+  parametricobj.compress(9);
+
+  fail_unless(parametricobj.getPointIndex() == compressed);
+  fail_unless(parametricobj.getPointIndexLength() == compressedvals.size());
+  fail_unless(parametricobj.isSetPointIndexLength() == true);
+  fail_unless(parametricobj.getCompression() == SPATIAL_COMPRESSIONKIND_DEFLATED);
+
+  std::vector<int> compressed_data;
+  parametricobj.getPointIndex(compressed_data);
+
+  fail_unless(compressed_data == compressedvals);
+
+  //Now uncompress them again
+  parametricobj.uncompress();
+  fail_unless(parametricobj.getPointIndex() == valstring);
+  fail_unless(parametricobj.getPointIndexLength() == values.size());
+  fail_unless(parametricobj.isSetPointIndexLength() == true);
+  fail_unless(parametricobj.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
+
+  parametricobj.getPointIndex(uncompressed_data);
+  fail_unless(uncompressed_data == values);
+
+}
+END_TEST
+
+
+START_TEST(test_Compression_ParametricObject_2)
+{
+  // assume we have some values from our app in a structure
+  std::vector<int> values =
+  { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+
+  string valstring = "1 2 3 4 5 6 7 8 9 10 11 12 ";
+
+  string compressed = "120 218 5 193 1 1 0 16 16 4 176 42 139 224 30 143 254 197 108 81 166 101 107 199 245 100 72 164 124 63 21 4 132 ";
+
+  std::vector<int> compressedvals =
+  { 120, 218, 5, 193, 1, 1, 0, 16, 16, 4, 176, 42, 139, 224, 30, 143, 254, 197, 108, 81, 166, 101, 107, 199, 245, 100, 72, 164, 124, 63, 21, 4, 132  };
+
+  ParametricObject parametricobj;
+  parametricobj.setId("test1");
+  parametricobj.setDataType(SPATIAL_DATAKIND_INT);
+  parametricobj.setCompression(SPATIAL_COMPRESSIONKIND_DEFLATED);
+
+  // here then the values are set by the user, passing in either a values vector, an array
+  // or even just a std::string that they constucted themselves.
+  parametricobj.setPointIndex(compressedvals);
+
+  fail_unless(parametricobj.getPointIndex() == compressed);
+  fail_unless(parametricobj.getPointIndexLength() == compressedvals.size());
+  fail_unless(parametricobj.isSetPointIndexLength() == true);
+
+  std::vector<int> compressed_data;
+  parametricobj.getPointIndex(compressed_data);
+  fail_unless(compressed_data == compressedvals);
+
+  int* uncompressed_array = new int[parametricobj.getUncompressedLength()];
+  size_t length;
+  parametricobj.getUncompressedData(uncompressed_array, length);
+  fail_unless(length == values.size());
+  for (size_t n = 0; n < length; n++)
+  {
+    fail_unless(uncompressed_array[n] == values[n]);
+  }
+
+  vector<int> uncompressed_vec;
+  parametricobj.getUncompressed(uncompressed_vec);
+
+
+  // Now uncompress the values
+  parametricobj.uncompress();
+
+  fail_unless(parametricobj.getPointIndex() == valstring);
+  fail_unless(parametricobj.getPointIndexLength() == values.size());
+  fail_unless(parametricobj.isSetPointIndexLength() == true);
+  fail_unless(parametricobj.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
+
+  std::vector<int> uncompressed_data;
+  parametricobj.getPointIndex(uncompressed_data);
+
+  fail_unless(uncompressed_data == values);
+
+  //Now compress them again
+  parametricobj.compress(9);
+  fail_unless(parametricobj.getPointIndex() == compressed);
+  fail_unless(parametricobj.getPointIndexLength() == compressedvals.size());
+  fail_unless(parametricobj.isSetPointIndexLength() == true);
+  fail_unless(parametricobj.getCompression() == SPATIAL_COMPRESSIONKIND_DEFLATED);
+
+  parametricobj.getPointIndex(compressed_data);
+  fail_unless(compressed_data == compressedvals);
+
+}
+END_TEST
+
+
 Suite *
 create_suite_Compression(void)
 {
@@ -676,6 +781,8 @@ create_suite_Compression(void)
   tcase_add_test( tcase, test_Compression_SpatialPoints_3);
   tcase_add_test( tcase, test_Compression_SpatialPoints_4);
   tcase_add_test( tcase, test_Compression_SpatialPoints_5);
+  tcase_add_test( tcase, test_Compression_ParametricObject_1);
+  tcase_add_test( tcase, test_Compression_ParametricObject_2);
 #endif
 
   suite_add_tcase(suite, tcase);

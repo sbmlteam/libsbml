@@ -273,8 +273,9 @@ public:
 
 
   /**
-   * Returns the value of the "pointIndex" attribute of this ParametricObject
-   * as an int* array.
+   * Stores the value of the "pointIndex" attribute of this ParametricObject
+   * as an int* array in @p outArray.  The values may be compressed or not
+   * compressed, depending on the state of the object.
    *
    * @param outArray int* array that will be used to return the value of the
    * "pointIndex" attribute of this ParametricObject.
@@ -283,6 +284,20 @@ public:
    * returned in the argument array.
    */
   void getPointIndex(int* outArray) const;
+
+
+  /**
+   * Stores the value of the "pointIndex" attribute of this ParametricObject
+   * as an int* array in @p outVector.  The values may be compressed or not
+   * compressed, depending on the state of the object.
+   *
+   * @param outVector int vector that will be used to return the value of the
+   * "pointIndex" attribute of this ParametricObject.
+   *
+   * @note the value of the "pointIndex" attribute of this ParametricObject is
+   * returned in the argument array.
+   */
+  void getPointIndex(std::vector<int>& outVector) const;
 
 
   /**
@@ -592,6 +607,31 @@ public:
    * OperationReturnValues_t}
    */
   int setPointIndex(int* inArray, size_t arrayLength);
+
+
+  /**
+   * Sets the value of the "pointIndex" attribute of this ParametricObject.
+   *
+   * This function assumes that the 'compression' value is already set, and
+   * that the array matches that value:  if the 'compression' value
+   * is set to 'deflated', the @p inArray will be assumed to be compressed,
+   * and if the 'compression' value is set to 'uncompressed', the @p inArray
+   * will be assumed to be uncompressed.  If the value is unset, the @p inArray
+   * will also be assumed to be uncompressed.
+   *
+   * This function will also set 'pointIndexLength' to @p arrayLength.
+   *
+   * @param inArray int* array value of the "pointIndex" attribute to be set.
+   *
+   * @param arrayLength int value for the length of @p inArray, and the value 
+   * to set the "pointIndex" attribute to.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setPointIndex(const std::vector<int>& inArray);
 
 
   /**
@@ -1160,7 +1200,7 @@ protected:
   void store() const;
 
   /* Uncompress the data, but don't store the change.*/
-  std::string uncompressInternal() const;
+  void uncompressInternal(std::string & sampleString, size_t & length) const;
 
   /** @endcond */
 
@@ -1176,13 +1216,22 @@ public:
   unsigned int getUncompressedLength() const;
 
   /**
-  * The "samples" attribute of this ParametricObject is returned in an int array (pointer) 
-  * that is passed as argument to the method (this is needed while using SWIG to
-  * convert int[] from C++ to Java). This method returns the uncompressed sample field.
-  *
-  * @return void.
-  */
+   * The "samples" attribute of this ParametricObject is returned in an int array (pointer) 
+   * that is passed as argument to the method (this is needed while using SWIG to
+   * convert int[] from C++ to Java). This method returns the uncompressed sample field.
+   *
+   * @return void.
+   */
   void getUncompressed(int* outputPoints) const;
+
+  /**
+   * The "samples" attribute of this ParametricObject is returned in an int array (pointer) 
+   * that is passed as argument to the method (this is needed while using SWIG to
+   * convert int[] from C++ to Java). This method returns the uncompressed sample field.
+   *
+   * @return void.
+   */
+  void getUncompressed(std::vector<int>& outputPoints) const;
 
   /** 
   * utility function freeing the uncompressed data. 

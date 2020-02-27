@@ -2039,7 +2039,7 @@ SampledField::setElementText(const std::string& text)
             ss_msg << " with id '" << getId() << "'";
           }
           ss_msg << " has a compression type of 'deflated', but has an entry with the value '" << doublesVector[i];
-          ss_msg << "', which is not a non-negative integer.";
+          ss_msg << "', which is not an integer.";
 
           log->logPackageError("spatial",
             SpatialSampledFieldCompressedSamplesMustBeInts,

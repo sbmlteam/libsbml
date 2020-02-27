@@ -214,10 +214,15 @@ void SpatialPoints::getArrayData(std::vector<float>& outVector) const
 
 void SpatialPoints::getArrayData(std::vector<double>& outVector) const
 {
-  store();
-  string uncompressedString;
-  uncompressInternal(uncompressedString, mArrayDataUncompressedLength);
-  readSamplesFromString<double>(uncompressedString, outVector);
+  if (mCompression == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED) {
+    readSamplesFromString<double>(mArrayData, outVector);
+  }
+  else {
+    store();
+    string uncompressedString;
+    uncompressInternal(uncompressedString, mArrayDataUncompressedLength);
+    readSamplesFromString<double>(uncompressedString, outVector);
+  }
 }
 
 std::string SpatialPoints::getArrayData() const
@@ -1529,7 +1534,7 @@ SpatialPoints::setElementText(const std::string& text)
             ss_msg << " with id '" << getId() << "'";
           }
           ss_msg << " has a compression type of 'deflated', but has an entry with the value '" << doublesVector[i];
-          ss_msg << "', which is not a non-negative integer.";
+          ss_msg << "', which is not an integer.";
 
           log->logPackageError("spatial",
             SpatialSpatialPointsCompressedArrayDataMustBeInts,
