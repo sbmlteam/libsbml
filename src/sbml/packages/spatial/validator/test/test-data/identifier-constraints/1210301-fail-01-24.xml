@@ -37,7 +37,7 @@
                 <spatial:parametricGeometry spatial:id="id_15" spatial:isActive="false">
                     <spatial:spatialPoints spatial:arrayDataLength="0" spatial:compression="uncompressed" spatial:dataType="double" spatial:id="id_16"/>
                     <spatial:listOfParametricObjects>
-                        <spatial:parametricObject spatial:compression="uncompressed" spatial:dataType="int" spatial:domainType="someString" spatial:id="id_17" spatial:pointIndexLength="0" spatial:polygonType="triangle"/>
+                        <spatial:parametricObject spatial:compression="uncompressed" spatial:dataType="uint" spatial:domainType="someString" spatial:id="id_17" spatial:pointIndexLength="0" spatial:polygonType="triangle"/>
                     </spatial:listOfParametricObjects>
                 </spatial:parametricGeometry>
                 <spatial:mixedGeometry spatial:id="id_3" spatial:isActive="false">

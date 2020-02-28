@@ -30,7 +30,7 @@
                 <spatial:parametricGeometry spatial:id="geometryDefinition_3" spatial:isActive="true">
                     <spatialPoints id="i" compression="deflated" arrayDataLength="9" dataType="double">120 218 51 80 48 0 67 67 40 105 168 160 11 67 0 60 31 4 78 </spatialPoints>
                     <spatial:listOfParametricObjects>
-                        <spatial:parametricObject spatial:compression="uncompressed" spatial:dataType="int" spatial:domainType="domainType_1" spatial:id="parametricObject_1" spatial:pointIndexLength="3" spatial:polygonType="triangle">0 1 2</spatial:parametricObject>
+                        <spatial:parametricObject spatial:compression="uncompressed" spatial:dataType="uint" spatial:domainType="domainType_1" spatial:id="parametricObject_1" spatial:pointIndexLength="3" spatial:polygonType="triangle">0 1 2</spatial:parametricObject>
                     </spatial:listOfParametricObjects>
                 </spatial:parametricGeometry>
             </spatial:listOfGeometryDefinitions>

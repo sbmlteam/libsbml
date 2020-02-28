@@ -639,7 +639,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1221051
+  // 1221052
   { SpatialBoundaryUnitsShouldMatchCoordinateComponent,
     "Boundary units should match their CoordinateComponent.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -879,7 +879,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The attribute 'spatial:unitSize' on a <compartmentMapping> must have a value "
-    "between 0 and 1.",
+    "between 0 and 1, inclusive.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1309,7 +1309,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the children of a <sampledField> object "
-    "must be an array of values of type 'int' if the 'spatial:compression' attribute has the value 'deflated'.",
+    "must be an array of values of type 'integer' if the 'spatial:compression' attribute has the value 'deflated'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1767,7 +1767,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'spatial:pointIndex' of a <parametricObject> "
-    "object must be an array of values of type 'int'.",
+    "object must be an array of values of type 'integer'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1816,7 +1816,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The value of the attribute 'spatial:dataType' of a <parametricObject> "
     "object must conform to the syntax of SBML data type 'DataKind' and may "
     "only take on a subset of the allowed values of 'DataKind' defined in SBML; that is, "
-    "the value must be one of the following: 'uint', 'int', 'uint8', "
+    "the value must be one of the following: 'uint', 'uint8', "
     "'uint16' or 'uint32'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1877,7 +1877,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Every index in a <parametricObject> must be a defined point.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "Every element of an uncompressed ArrayData child of a <parametricObject> must be less than the number of points described by the <spatialPoints> object in the same <parametricGeometry>.",
+    "Every element of an uncompressed ArrayData child of a <parametricObject> must be a value less than the number of points described by the <spatialPoints> object in the same <parametricGeometry>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -3064,7 +3064,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "No overlapping diffusion coefficients for the same species.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "Any <species> may only have a single <diffusionCoefficient> that applies to any given axis or plane.  A <diffusionCoefficient> of type 'anisotropic' applies to the axis it references, and any plane in the <geometry> that contains that axis.  A <diffusionCoefficient> of type 'tensor' applies to the plane defined by the two axes it references.  A <diffusionCoefficient> of type 'isotropic' applies to all axes and planes in the <geometry>.",
+    "Any <species> may only have a single <diffusionCoefficient> that applies to any given cardinal axis or plane.  A <diffusionCoefficient> of type 'anisotropic' applies to the axis it references, and any plane in the <geometry> that contains that axis.  A <diffusionCoefficient> of type 'tensor' applies to the plane defined by the two axes it references.  A <diffusionCoefficient> of type 'isotropic' applies to all axes and planes in the <geometry>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -3892,7 +3892,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the children of a <spatialPoints> object "
-    "must be an array of values of type 'int' if the 'spatial:compression' attribute has the value 'deflated'.",
+    "must be an array of values of type 'integer' if the 'spatial:compression' attribute has the value 'deflated'.",
     { "L3V1 Spatial V1 Section"
     }
   },
