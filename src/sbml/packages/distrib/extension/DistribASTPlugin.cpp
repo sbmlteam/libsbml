@@ -54,13 +54,16 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 void
 DistribASTPlugin::populateNodeTypes()
 {
-  vector<unsigned int> one, two, onethree, twofour;
+  vector<unsigned int> one, two, onethree, twofour, onetwofour;
   one.push_back(1);
   two.push_back(2);
   onethree.push_back(1);
   onethree.push_back(3);
   twofour.push_back(2);
   twofour.push_back(4);
+  onetwofour.push_back(1);
+  onetwofour.push_back(2);
+  onetwofour.push_back(4);
 
   ASTNodeValues_t node;
   node.type = AST_DISTRIB_FUNCTION_NORMAL;
@@ -104,7 +107,7 @@ DistribASTPlugin::populateNodeTypes()
   node.csymbolURL = "http://www.sbml.org/sbml/symbols/distrib/cauchy";
   node.isFunction = true;
   node.allowedChildrenType = ALLOWED_CHILDREN_EXACTLY;
-  node.numAllowedChildren = twofour;
+  node.numAllowedChildren = onetwofour;
 
   mPkgASTNodeValues.push_back(node);
 
@@ -140,7 +143,7 @@ DistribASTPlugin::populateNodeTypes()
   node.csymbolURL = "http://www.sbml.org/sbml/symbols/distrib/laplace";
   node.isFunction = true;
   node.allowedChildrenType = ALLOWED_CHILDREN_EXACTLY;
-  node.numAllowedChildren = twofour;
+  node.numAllowedChildren = onetwofour;
 
   mPkgASTNodeValues.push_back(node);
 
