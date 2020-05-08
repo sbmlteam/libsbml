@@ -41,7 +41,6 @@
 
 #include <vector>
 #include <iostream>
-#include <cstdlib> //for malloc
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -89,7 +88,7 @@ template<typename type> type* readSamplesFromString(const std::string& str, size
 
   if (length > 0)
   {
-    type* data = (type*)std::malloc(sizeof(type) * length);
+    type* data = (type*)malloc(sizeof(type) * length);
     for (size_t i = 0; i < length; ++i)
     {
       data[i] = valuesVector.at(i);
