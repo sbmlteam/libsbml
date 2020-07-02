@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml level="3" spatial:required="true" version="1" xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:spatial="http://www.sbml.org/sbml/level3/version1/spatial/version1">
+    <model>
+        <listOfCompartments>
+            <compartment constant="false" id="compartment"/>
+        </listOfCompartments>
+        <listOfSpecies>
+            <species boundaryCondition="false" compartment="compartment" constant="false" hasOnlySubstanceUnits="false" id="species_1" spatial:foo="someString" spatial:isSpatial="false"/>
+        </listOfSpecies>
+    </model>
+</sbml>
+

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model>
+    <listOfParameters>
+      <parameter id="n" value="10" constant="true"/>
+      <parameter id="X_0" value="0" constant="false"/>
+      <parameter id="X_1" value="0" constant="false"/>
+      <parameter id="X_2" value="0" constant="false"/>
+      <parameter id="X_3" value="0" constant="false"/>
+      <parameter id="X_4" value="0" constant="false"/>
+      <parameter id="X_5" value="0" constant="false"/>
+      <parameter id="X_6" value="0" constant="false"/>
+      <parameter id="X_7" value="0" constant="false"/>
+      <parameter id="X_8" value="0" constant="false"/>
+      <parameter id="X_9" value="0" constant="false"/>
+      <parameter id="Y_0" value="0" constant="false"/>
+      <parameter id="Y_1" value="0" constant="false"/>
+      <parameter id="Y_2" value="0" constant="false"/>
+      <parameter id="Y_3" value="0" constant="false"/>
+      <parameter id="Y_4" value="0" constant="false"/>
+      <parameter id="Y_5" value="0" constant="false"/>
+      <parameter id="Y_6" value="0" constant="false"/>
+      <parameter id="Y_7" value="0" constant="false"/>
+      <parameter id="Y_8" value="0" constant="false"/>
+      <parameter id="Y_9" value="0" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule metaid="rule0_0" variable="Y_0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> X_9 </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="rule0_1" variable="Y_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> X_8 </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="rule0_2" variable="Y_2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> X_7 </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="rule0_3" variable="Y_3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> X_6 </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="rule0_4" variable="Y_4">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> X_5 </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="rule0_5" variable="Y_5">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> X_4 </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="rule0_6" variable="Y_6">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> X_3 </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="rule0_7" variable="Y_7">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> X_2 </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="rule0_8" variable="Y_8">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> X_1 </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="rule0_9" variable="Y_9">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> X_0 </ci>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>

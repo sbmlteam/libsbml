@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml level="3" spatial:required="true" version="1" xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:spatial="http://www.sbml.org/sbml/level3/version1/spatial/version1">
+    <model>
+        <spatial:geometry spatial:coordinateSystem="cartesian" spatial:id="geometry_1">
+            <spatial:listOfCoordinateComponents>
+                <spatial:coordinateComponent spatial:id="coordinateComponent_1" spatial:type="cartesianX" spatial:unit="dimensionless">
+                    <spatial:boundaryMin spatial:id="boundary_1" spatial:value="0"/>
+                    <spatial:boundaryMax spatial:id="boundary_2" spatial:value="1"/>
+                </spatial:coordinateComponent>
+                <spatial:coordinateComponent spatial:id="coordinateComponent_2" spatial:type="cartesianY" spatial:unit="dimensionless">
+                    <spatial:boundaryMin spatial:id="boundary_3" spatial:value="0"/>
+                    <spatial:boundaryMax spatial:id="boundary_4" spatial:value="1"/>
+                </spatial:coordinateComponent>
+                <spatial:coordinateComponent spatial:id="coordinateComponent_3" spatial:type="cartesianZ" spatial:unit="dimensionless">
+                    <spatial:boundaryMin spatial:id="boundary_5" spatial:value="0"/>
+                    <spatial:boundaryMax spatial:id="boundary_6" spatial:value="1"/>
+                </spatial:coordinateComponent>
+            </spatial:listOfCoordinateComponents>
+            <spatial:listOfDomainTypes>
+                <spatial:domainType spatial:id="domainType_1" spatial:spatialDimensions="3"/>
+            </spatial:listOfDomainTypes>
+            <spatial:listOfDomains>
+                <spatial:domain spatial:domainType="domainType_1" spatial:id="domain_1">
+                    <spatial:listOfInteriorPoints>
+                        <notes/>
+                        <spatial:interiorPoint spatial:coord1="0" spatial:coord2="0" spatial:coord3="0"/>
+                    </spatial:listOfInteriorPoints>
+                </spatial:domain>
+            </spatial:listOfDomains>
+        </spatial:geometry>
+    </model>
+</sbml>
+

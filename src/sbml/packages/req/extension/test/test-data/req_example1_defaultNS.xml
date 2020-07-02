@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:req="http://www.sbml.org/sbml/level3/version1/req/version1" level="3" version="1" req:required="false">
+  <model>
+    <listOfCompartments>
+      <compartment id="compartment" size="1" constant="false"/>
+    </listOfCompartments>
+    <listOfRules>
+      <assignmentRule variable="compartment">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 3 </cn>
+        </math>       
+      <listOfChangedMaths xmlns="http://www.sbml.org/sbml/level3/version1/req/version1">
+        <changedMath changedBy="http://www.sbml.org/sbml/level3/version1/spatial/version1" viableWithoutChange="false"/>
+      </listOfChangedMaths>
+        </assignmentRule>
+    </listOfRules>    
+  </model>
+</sbml>

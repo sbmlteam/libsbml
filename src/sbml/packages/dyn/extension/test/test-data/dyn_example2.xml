@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:dyn="http://www.sbml.org/sbml/level3/version1/dyn/version1" level="3" version="1" dyn:required="true">
+  <model id="grid2x2">
+    <listOfCompartments>
+      <compartment id="Loc1" spatialDimensions="2" size="1" constant="false">
+        <dyn:listOfSpatialComponents>
+          <dyn:spatialComponent dyn:spatialIndex="cartesianX" dyn:variable="q1_X"/>
+          <dyn:spatialComponent dyn:spatialIndex="cartesianY" dyn:variable="q1_Y"/>
+        </dyn:listOfSpatialComponents>
+      </compartment>
+    </listOfCompartments>
+    <listOfParameters>
+      <parameter id="q1_X" value="1" constant="true"/>
+      <parameter id="q1_Y" value="1" constant="true"/>
+    </listOfParameters>
+  </model>
+</sbml>

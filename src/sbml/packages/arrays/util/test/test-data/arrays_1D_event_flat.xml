@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model>
+    <listOfParameters>
+      <parameter metaid="iBioSim2" id="n" value="2" constant="true"/>
+      <parameter metaid="iBioSim1_0" id="X_0" value="0" constant="false"/>
+      <parameter metaid="iBioSim1_1" id="X_1" value="0" constant="false"/>
+    </listOfParameters>
+    <listOfEvents>
+      <event id="event0_0" useValuesFromTriggerTime="false">
+        <trigger initialValue="false" persistent="false">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <gt/>
+              <ci> X_0 </ci>
+              <cn type="integer"> 1 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment variable="X_0">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <piecewise>
+                <piece>
+                  <cn> 0.5 </cn>
+                  <apply>
+                    <lt/>
+                    <cn type="integer"> 0 </cn>
+                    <cn type="integer"> 5 </cn>
+                  </apply>
+                </piece>
+                <otherwise>
+                  <cn> 0.75 </cn>
+                </otherwise>
+              </piecewise>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+      <event id="event0_1" useValuesFromTriggerTime="false">
+        <trigger initialValue="false" persistent="false">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <gt/>
+              <ci> X_1 </ci>
+              <cn type="integer"> 1 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment variable="X_1">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <piecewise>
+                <piece>
+                  <cn> 0.5 </cn>
+                  <apply>
+                    <lt/>
+                    <cn type="integer"> 1 </cn>
+                    <cn type="integer"> 5 </cn>
+                  </apply>
+                </piece>
+                <otherwise>
+                  <cn> 0.75 </cn>
+                </otherwise>
+              </piecewise>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>

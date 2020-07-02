@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1" level="3" version="1" arrays:required="true">
+  <model>
+    <listOfCompartments>
+      <compartment id="c" size="1" spatialDimensions="3" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species boundaryCondition="false" constant="false" hasOnlySubstanceUnits="false" compartment="c" id="s" metaid="species">
+        <arrays:listOfDimensions>
+          <arrays:dimension arrays:size="n" arrays:arrayDimension="0"/>
+          <arrays:dimension arrays:size="m" arrays:arrayDimension="1"/>
+          <arrays:dimension arrays:size="p" arrays:arrayDimension="2"/>
+        </arrays:listOfDimensions>
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="n" value="4" constant="true"/>
+      <parameter id="m" value="3" constant="true"/>
+      <parameter id="p" value="2" constant="true"/>
+    </listOfParameters>
+  </model>
+</sbml>

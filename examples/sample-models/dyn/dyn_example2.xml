@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:dyn="http://www.sbml.org/sbml/level3/version1/dyn/version1" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" dyn:required="true" comp:required="true">
+  <model id="grid2x2">
+    <listOfCompartments>
+      <compartment id="Loc1" spatialDimensions="2" size="1" constant="false">
+        <dyn:listOfSpatialComponents>
+          <dyn:spatialComponent dyn:spatialIndex="cartesianX" dyn:variable="q1_X"/>
+          <dyn:spatialComponent dyn:spatialIndex="cartesianY" dyn:variable="q1_Y"/>
+        </dyn:listOfSpatialComponents>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:idRef="C" comp:submodelRef="GRID_1_1_cell"/>
+        </comp:listOfReplacedElements>
+      </compartment>
+      <compartment id="Loc2" spatialDimensions="2" size="1" constant="false">
+        <dyn:listOfSpatialComponents>
+          <dyn:spatialComponent dyn:spatialIndex="cartesianX" dyn:variable="q2_X"/>
+          <dyn:spatialComponent dyn:spatialIndex="cartesianY" dyn:variable="q2_Y"/>
+        </dyn:listOfSpatialComponents>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:idRef="C" comp:submodelRef="GRID_1_2_cell"/>
+        </comp:listOfReplacedElements>
+      </compartment>
+      <compartment id="Loc3" spatialDimensions="2" size="1" constant="false">
+        <dyn:listOfSpatialComponents>
+          <dyn:spatialComponent dyn:spatialIndex="cartesianX" dyn:variable="q3_X"/>
+          <dyn:spatialComponent dyn:spatialIndex="cartesianY" dyn:variable="q3_Y"/>
+        </dyn:listOfSpatialComponents>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:idRef="C" comp:submodelRef="GRID_2_1_cell"/>
+        </comp:listOfReplacedElements>
+      </compartment>
+      <compartment id="Loc4" spatialDimensions="2" size="1" constant="false">
+        <dyn:listOfSpatialComponents>
+          <dyn:spatialComponent dyn:spatialIndex="cartesianX" dyn:variable="q4_X"/>
+          <dyn:spatialComponent dyn:spatialIndex="cartesianY" dyn:variable="q4_Y"/>
+        </dyn:listOfSpatialComponents>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:idRef="C" comp:submodelRef="GRID_2_2_cell"/>
+        </comp:listOfReplacedElements>
+      </compartment>
+    </listOfCompartments>
+    <listOfParameters>
+      <parameter id="q1_X" value="1" constant="true"/>
+      <parameter id="q1_Y" value="1" constant="true"/>
+      <parameter id="q2_X" value="2" constant="true"/>
+      <parameter id="q2_Y" value="1" constant="true"/>
+      <parameter id="q3_X" value="1" constant="true"/>
+      <parameter id="q3_Y" value="2" constant="true"/>
+      <parameter id="q4_X" value="2" constant="true"/>
+      <parameter id="q4_Y" value="2" constant="true"/>
+    </listOfParameters>
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="GRID_1_1_cell" comp:modelRef="Cell"/>
+      <comp:submodel comp:id="GRID_1_2_cell" comp:modelRef="Cell"/>
+      <comp:submodel comp:id="GRID_2_1_cell" comp:modelRef="Cell"/>
+      <comp:submodel comp:id="GRID_2_2_cell" comp:modelRef="Cell"/>
+    </comp:listOfSubmodels>
+  </model>
+  <comp:listOfModelDefinitions>
+    <comp:modelDefinition id="Cell">
+      <listOfCompartments>
+        <compartment id="C" spatialDimensions="2" size="1" units="litre" constant="true"/>
+      </listOfCompartments>
+      <listOfSpecies>
+        <species id="R" compartment="C" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+        <species id="S" compartment="C" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      </listOfSpecies>
+      <listOfReactions>
+        <reaction id="Degradation_R" reversible="false" fast="false" compartment="C">
+          <listOfReactants>
+            <speciesReference species="R" stoichiometry="1" constant="true"/>
+          </listOfReactants>
+        </reaction>
+        <reaction id="Degradation_S" reversible="false" fast="false" compartment="C">
+          <listOfReactants>
+            <speciesReference species="S" stoichiometry="1" constant="true"/>
+          </listOfReactants>
+        </reaction>
+      </listOfReactions>
+      <listOfEvents>
+        <event id="event0" useValuesFromTriggerTime="false" dyn:cboTerm="http://cbo.biocomplexity.indiana.edu/svn/cbo/trunk/CBO_1_0.owl#CellDivision" dyn:applyToAll="true">
+          <trigger initialValue="false" persistent="false">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <true/>
+            </math>
+          </trigger>
+        </event>
+      </listOfEvents>
+    </comp:modelDefinition>
+  </comp:listOfModelDefinitions>
+</sbml>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml level="3" spatial:required="true" version="1" xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:spatial="http://www.sbml.org/sbml/level3/version1/spatial/version1">
+    <model>
+        <spatial:geometry spatial:coordinateSystem="cartesian" spatial:id="geometry_1">
+            <spatial:listOfCoordinateComponents>
+                <spatial:coordinateComponent spatial:id="coordinateComponent_1" spatial:type="cartesianX" spatial:unit="dimensionless">
+                    <spatial:boundaryMin spatial:id="boundary_1" spatial:value="0"/>
+                    <spatial:boundaryMax spatial:id="boundary_2" spatial:value="1"/>
+                </spatial:coordinateComponent>
+            </spatial:listOfCoordinateComponents>
+            <spatial:listOfDomainTypes>
+                <spatial:domainType spatial:id="domainType_1" spatial:spatialDimensions="1"/>
+            </spatial:listOfDomainTypes>
+            <spatial:listOfGeometryDefinitions>
+                <spatial:sampledFieldGeometry spatial:id="geometryDefinition_2" spatial:isActive="true" spatial:sampledField="sampledField_1">
+                    <spatial:listOfSampledVolumes>
+                        <spatial:sampledVolume spatial:domainType="domainType_1" spatial:id="sampledVolume_1"/>
+                    </spatial:listOfSampledVolumes>
+                </spatial:sampledFieldGeometry>
+            </spatial:listOfGeometryDefinitions>
+            <spatial:listOfSampledFields>
+                <spatial:sampledField spatial:compression="uncompressed" spatial:dataType="double" spatial:id="sampledField_1" spatial:interpolationType="nearestNeighbor" spatial:numSamples1="3" spatial:samplesLength="3">0 0 1</spatial:sampledField>
+            </spatial:listOfSampledFields>
+        </spatial:geometry>
+    </model>
+</sbml>

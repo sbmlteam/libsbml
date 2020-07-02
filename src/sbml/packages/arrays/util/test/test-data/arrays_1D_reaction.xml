@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1" level="3" version="1" arrays:required="true">
+  <model>
+    <listOfCompartments>
+      <!-- Create an array of n compartments -->
+      <compartment constant="true" id="Cell" size="1" spatialDimensions="3">
+        <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:arrayDimension="0" arrays:id="d0" arrays:size="n"/>
+        </arrays:listOfDimensions>
+      </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <!-- Create array of n species D with C[d0] placed in cell[d0] -->
+      <species boundaryCondition="false" compartment="Cell" constant="false" hasOnlySubstanceUnits="true" id="A" initialAmount="0" metaid="iBioSim1">
+        <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:arrayDimension="0" arrays:id="d0" arrays:size="n"/>
+        </arrays:listOfDimensions>
+      </species>
+      <!-- Create array of n species B with C[d0] placed in cell[d0] -->
+      <species boundaryCondition="false" compartment="Cell" constant="false" hasOnlySubstanceUnits="true" id="B" initialAmount="0" metaid="iBioSim3">
+        <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:arrayDimension="0" arrays:id="d0" arrays:size="n"/>
+        </arrays:listOfDimensions>
+      </species>
+      <!-- Create array of n species C with C[d0] placed in cell[d0] -->
+      <species boundaryCondition="false" compartment="Cell" constant="false" hasOnlySubstanceUnits="true" id="C" initialAmount="0" metaid="iBioSim4">
+        <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:arrayDimension="0" arrays:id="d0" arrays:size="n"/>
+        </arrays:listOfDimensions>
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <!-- Specifies size of all arrays (i.e., n:=100) -->
+      <parameter constant="true" id="n" value="2"/>
+      <parameter constant="true" id="k" value="0.1"/>
+    </listOfParameters>
+    <listOfReactions>
+      <!-- Create array of n reactions r with r[d0] converting A[d0] and B[d0] into C[d0]-->
+      <reaction compartment="Cell" fast="false" id="r" metaid="iBioSim5" reversible="false">
+        <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:arrayDimension="0" arrays:id="d0" arrays:size="n"/>
+        </arrays:listOfDimensions>
+        <arrays:listOfIndices xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:index arrays:arrayDimension="0" arrays:referencedAttribute="compartment">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">            
+              <ci> d0 </ci>
+            </math>
+          </arrays:index>
+        </arrays:listOfIndices>
+        <listOfReactants>
+          <speciesReference constant="true" species="A" stoichiometry="1">
+            <arrays:listOfIndices xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+              <arrays:index arrays:arrayDimension="0" arrays:referencedAttribute="species">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">                
+                  <ci> d0 </ci>
+                </math>
+              </arrays:index>
+            </arrays:listOfIndices>
+          </speciesReference>
+          <speciesReference constant="true" species="B" stoichiometry="1">
+            <arrays:listOfIndices xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+              <arrays:index arrays:arrayDimension="0" arrays:referencedAttribute="species">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">                
+                  <ci> d0 </ci>
+                </math>
+              </arrays:index>
+            </arrays:listOfIndices>
+          </speciesReference>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference constant="true" species="C" stoichiometry="1">
+            <arrays:listOfIndices xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+              <arrays:index arrays:arrayDimension="0" arrays:referencedAttribute="species">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">                
+                  <ci> d0 </ci>
+                </math>
+              </arrays:index>
+            </arrays:listOfIndices>
+          </speciesReference>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <apply>
+                <times/>
+                <ci> k </ci>
+                <apply>
+                  <selector/>
+                  <ci> A </ci>
+                  <ci> d0 </ci>
+                </apply>
+              </apply>
+              <apply>
+                <selector/>
+                <ci> B </ci>
+                <ci> d0 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    
+  </model>
+</sbml>

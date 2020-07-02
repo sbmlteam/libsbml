@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1" level="3" version="1" arrays:required="true">
+  <model>
+    <listOfParameters>
+      <!-- parameters used as array sizes -->
+      <parameter id="n" value="10" constant="true"/>
+      <parameter id="m" value="10" constant="true"/>
+      <!-- this sets teh value of all elements of x to 5.7 -->
+      <parameter id="x" value="5.7" constant="true">
+        <arrays:listOfDimensions>
+          <arrays:dimension arrays:id="i" arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+      </parameter>
+      <parameter id="y" constant="false">
+        <arrays:listOfDimensions>
+          <arrays:dimension arrays:id="i" arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+      </parameter>
+      <parameter id="z" constant="false">
+        <arrays:listOfDimensions>
+          <arrays:dimension arrays:id="i" arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+      </parameter>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <!-- this sets the value of all the members of y to 3.2 -->
+      <initialAssignment symbol="y">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 3.2 </cn>
+        </math>
+      </initialAssignment>
+      <!-- the following two assignments set half the values of z to 5.7 and the other half to 3.2 -->
+      <initialAssignment symbol="z">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 5.7 </cn>
+        </math>
+        <arrays:listOfDimensions>
+          <arrays:dimension arrays:id="i" arrays:size="m" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+        <arrays:listOfIndices>
+          <arrays:index  arrays:arrayDimension="0" arrays:referencedAttribute="symbol">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+               <ci> i </ci>
+            </math>
+          </arrays:index>
+        </arrays:listOfIndices>
+      </initialAssignment>
+      <initialAssignment symbol="z">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 3.2 </cn>
+        </math>
+        <arrays:listOfDimensions>
+          <arrays:dimension arrays:id="i" arrays:size="m" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+        <arrays:listOfIndices>
+          <arrays:index arrays:arrayDimension="0" arrays:referencedAttribute="symbol">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                 <plus/>
+                  <ci> i </ci>
+                  <ci> m </ci>
+                </apply>
+            </math>
+          </arrays:index>
+        </arrays:listOfIndices>
+      </initialAssignment>
+    </listOfInitialAssignments>
+  </model>
+</sbml>

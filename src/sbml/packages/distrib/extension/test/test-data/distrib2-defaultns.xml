@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" 
+  xmlns:distrib="http://www.sbml.org/sbml/level3/version1/distrib/version1" 
+  level="3" version="2" distrib:required="true">
+  <model>
+    <listOfCompartments>
+      <compartment id="central" size="0" constant="true" units="litre"/>
+      
+    </listOfCompartments>
+    
+    
+    <listOfInitialAssignments>
+      <initialAssignment symbol="central">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/distrib/lognormal"> lognormal </csymbol>
+            <cn> 0.5 </cn>
+            <cn> 0.1 </cn>
+          </apply>
+        </math>
+      </initialAssignment>
+      
+      
+    </listOfInitialAssignments>
+    
+    
+  </model>
+</sbml>
