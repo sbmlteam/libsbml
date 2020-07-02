@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model>
+    <listOfParameters>
+      <parameter id="n" value="10" constant="true"/>
+      <parameter id="X_0" value="0" constant="false"/>
+      <parameter id="X_1" value="0" constant="false"/>
+      <parameter id="X_2" value="0" constant="false"/>
+      <parameter id="X_3" value="0" constant="false"/>
+      <parameter id="X_4" value="0" constant="false"/>
+      <parameter id="X_5" value="0" constant="false"/>
+      <parameter id="X_6" value="0" constant="false"/>
+      <parameter id="X_7" value="0" constant="false"/>
+      <parameter id="X_8" value="0" constant="false"/>
+      <parameter id="X_9" value="0" constant="false"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="X_0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 5.7 </cn>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 5.7 </cn>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 5.7 </cn>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 5.7 </cn>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_4">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 5.7 </cn>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_5">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 5.7 </cn>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_6">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 3.2 </cn>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_7">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 3.2 </cn>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_8">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 3.2 </cn>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_9">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 3.2 </cn>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+  </model>
+</sbml>

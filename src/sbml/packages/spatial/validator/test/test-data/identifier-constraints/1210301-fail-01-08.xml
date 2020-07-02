@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml level="3" spatial:required="true" version="1" xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:spatial="http://www.sbml.org/sbml/level3/version1/spatial/version1">
+    <model>
+        <spatial:geometry spatial:coordinateSystem="cartesian" spatial:id="id_1">
+            <spatial:listOfCoordinateComponents>
+                <spatial:coordinateComponent spatial:id="id_2" spatial:type="cartesianX" spatial:unit="someString">
+                    <spatial:boundaryMin spatial:id="id_3" spatial:value="0"/>
+                    <spatial:boundaryMax spatial:id="id_4" spatial:value="0"/>
+                </spatial:coordinateComponent>
+            </spatial:listOfCoordinateComponents>
+            <spatial:listOfDomainTypes>
+                <spatial:domainType spatial:id="id_5" spatial:spatialDimensions="0"/>
+            </spatial:listOfDomainTypes>
+            <spatial:listOfDomains>
+                <spatial:domain spatial:domainType="someString" spatial:id="id_1">
+                    <spatial:listOfInteriorPoints>
+                        <spatial:interiorPoint spatial:coord1="0" spatial:coord2="0" spatial:coord3="0"/>
+                    </spatial:listOfInteriorPoints>
+                </spatial:domain>
+            </spatial:listOfDomains>
+            <spatial:listOfAdjacentDomains>
+                <spatial:adjacentDomains spatial:domain1="someString" spatial:domain2="someString" spatial:id="id_7"/>
+            </spatial:listOfAdjacentDomains>
+            <spatial:listOfSampledFields>
+                <spatial:sampledField spatial:compression="uncompressed" spatial:dataType="double" spatial:id="id_8" spatial:interpolationType="nearestNeighbor" spatial:numSamples1="0" spatial:numSamples2="0" spatial:numSamples3="0" spatial:samplesLength="0"/>
+            </spatial:listOfSampledFields>
+        </spatial:geometry>
+        <listOfCompartments>
+            <compartment constant="false" id="compartment">
+                <spatial:compartmentMapping spatial:domainType="someString" spatial:id="id_9" spatial:unitSize="0"/>
+            </compartment>
+        </listOfCompartments>
+        <listOfSpecies>
+            <species boundaryCondition="false" compartment="compartment" constant="false" hasOnlySubstanceUnits="false" id="id_10" spatial:isSpatial="false"/>
+        </listOfSpecies>
+    </model>
+</sbml>
+

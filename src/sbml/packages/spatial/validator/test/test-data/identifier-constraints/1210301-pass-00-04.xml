@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml level="3" spatial:required="true" version="1" xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:spatial="http://www.sbml.org/sbml/level3/version1/spatial/version1">
+    <model>
+        <spatial:geometry spatial:coordinateSystem="cartesian">
+            <spatial:listOfCoordinateComponents>
+                <spatial:coordinateComponent spatial:id="x" spatial:unit="m" spatial:type="cartesianX">
+                    <spatial:boundaryMin spatial:id="Xmin" spatial:value="-10"/>
+                    <spatial:boundaryMax spatial:id="Xmax" spatial:value="10"/>
+                </spatial:coordinateComponent>
+                <spatial:coordinateComponent spatial:id="y" spatial:unit="m" spatial:type="cartesianY">
+                    <spatial:boundaryMin spatial:id="Ymin" spatial:value="-10"/>
+                    <spatial:boundaryMax spatial:id="Ymax" spatial:value="10"/>
+                </spatial:coordinateComponent>
+                <spatial:coordinateComponent spatial:id="z" spatial:unit="m" spatial:type="cartesianZ">
+                    <spatial:boundaryMin spatial:id="Zmin" spatial:value="-10"/>
+                    <spatial:boundaryMax spatial:id="Zmax" spatial:value="10"/>
+                </spatial:coordinateComponent>
+            </spatial:listOfCoordinateComponents>
+            <spatial:listOfDomainTypes>
+                <spatial:domainType spatial:id="EC" spatial:spatialDimensions="3"/>
+                <spatial:domainType spatial:id="EN1" spatial:spatialDimensions="3"/>
+            </spatial:listOfDomainTypes>
+            <spatial:listOfDomains>
+                <spatial:domain spatial:domainType="EN1" spatial:id="EN10">
+                    <spatial:listOfInteriorPoints>
+                        <spatial:interiorPoint spatial:coord1="4.165" spatial:coord2="6.615"
+                            spatial:coord3="0.784"/>
+                    </spatial:listOfInteriorPoints>
+                </spatial:domain>
+            </spatial:listOfDomains>
+            <spatial:listOfAdjacentDomains>
+                <spatial:adjacentDomains spatial:domain1="EC1" spatial:domain2="EN10"
+                    spatial:id="EC1_EN10"/>
+            </spatial:listOfAdjacentDomains>
+            <spatial:listOfGeometryDefinitions>
+                <spatial:csgeometry spatial:id="CSG_Geometry1" spatial:isActive="true">
+                    <spatial:listOfCSGObjects>
+                        <spatial:csgObject spatial:domainType="EC" spatial:id="csg1" spatial:ordinal="0">
+                            <spatial:csgTranslation spatial:translateX="11.3951" spatial:translateY="14.7822" spatial:translateZ="1.0043">
+                                <spatial:csgScale spatial:id="scale1" spatial:scaleX="13.8529" spatial:scaleY="17.3686" spatial:scaleZ="2.0295">
+                                    <spatial:csgPrimitive spatial:primitiveType="cube" spatial:id="cube"/>
+                                </spatial:csgScale>
+                            </spatial:csgTranslation>
+                        </spatial:csgObject>
+                        <spatial:csgObject spatial:domainType="EN1" spatial:id="csg2" spatial:ordinal="2">
+                            <spatial:csgRotation spatial:id="rotation1"
+                                spatial:rotateAngleInRadians="-13.1894" spatial:rotateX="4.165"
+                                spatial:rotateY="0" spatial:rotateZ="0">
+                                <spatial:csgRotation spatial:id="rotation2"
+                                    spatial:rotateAngleInRadians="28.9452" spatial:rotateX="0"
+                                    spatial:rotateY="6.615" spatial:rotateZ="0">
+                                    <spatial:csgRotation spatial:id="rotation3"
+                                        spatial:rotateAngleInRadians="-49.2625" spatial:rotateX="0"
+                                        spatial:rotateY="0" spatial:rotateZ="0.784">
+                                        <spatial:csgTranslation spatial:translateX="4.165"
+                                            spatial:translateY="6.615" spatial:translateZ="0.784">
+                                            <spatial:csgScale spatial:id="scale2" spatial:scaleX="0.23933"
+                                                spatial:scaleY="0.238" spatial:scaleZ="0.026351">
+                                                <spatial:csgPrimitive spatial:primitiveType="sphere"
+                                                    spatial:id="sphere"/>
+                                            </spatial:csgScale>
+                                        </spatial:csgTranslation>
+                                    </spatial:csgRotation>
+                                </spatial:csgRotation>
+                            </spatial:csgRotation>
+                        </spatial:csgObject>
+                    </spatial:listOfCSGObjects>
+                </spatial:csgeometry>
+            </spatial:listOfGeometryDefinitions>
+        </spatial:geometry>
+        
+        <listOfCompartments>
+            <compartment constant="false" id="id_1">
+                <spatial:compartmentMapping spatial:domainType="someString" spatial:id="id_20" spatial:unitSize="0"/>
+            </compartment>
+        </listOfCompartments>
+        <listOfSpecies>
+            <species boundaryCondition="false" compartment="compartment" constant="false" hasOnlySubstanceUnits="false" id="id_21" spatial:isSpatial="false"/>
+        </listOfSpecies>
+    </model>
+</sbml>
+

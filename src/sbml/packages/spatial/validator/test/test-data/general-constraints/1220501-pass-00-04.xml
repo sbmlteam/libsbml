@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml level="3" spatial:required="true" version="1" xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:spatial="http://www.sbml.org/sbml/level3/version1/spatial/version1">
+    <model>
+        <spatial:geometry spatial:coordinateSystem="cartesian" spatial:id="geometry_1">
+            <spatial:listOfCoordinateComponents>
+                <spatial:coordinateComponent spatial:id="coordinateComponent_1" spatial:type="cartesianX" spatial:unit="dimensionless">
+                    <spatial:boundaryMin spatial:id="boundary_1" spatial:value="0"/>
+                    <spatial:boundaryMax spatial:id="boundary_2" spatial:value="1"/>
+                </spatial:coordinateComponent>
+                <spatial:coordinateComponent spatial:id="coordinateComponent_2" spatial:type="cartesianY" spatial:unit="dimensionless">
+                    <spatial:boundaryMin spatial:id="boundary_3" spatial:value="0"/>
+                    <spatial:boundaryMax spatial:id="boundary_4" spatial:value="1"/>
+                </spatial:coordinateComponent>
+                <spatial:coordinateComponent spatial:id="coordinateComponent_3" spatial:type="cartesianZ" spatial:unit="dimensionless">
+                    <spatial:boundaryMin spatial:id="boundary_5" spatial:value="0"/>
+                    <spatial:boundaryMax spatial:id="boundary_6" spatial:value="1"/>
+                </spatial:coordinateComponent>
+            </spatial:listOfCoordinateComponents>
+            <spatial:listOfDomainTypes>
+                <spatial:domainType spatial:id="domainType_1" spatial:spatialDimensions="3"/>
+            </spatial:listOfDomainTypes>
+            <spatial:listOfDomains>
+                <spatial:domain spatial:domainType="domainType_1" spatial:id="domain_1">
+                    <spatial:listOfInteriorPoints>
+                        <spatial:interiorPoint spatial:coord1="0" spatial:coord2="0" spatial:coord3="0"/>
+                    </spatial:listOfInteriorPoints>
+                </spatial:domain>
+            </spatial:listOfDomains>
+            
+                
+            
+            <spatial:listOfGeometryDefinitions>
+                <spatial:analyticGeometry spatial:id="geometryDefinition_1" spatial:isActive="true">
+                    <spatial:listOfAnalyticVolumes>
+                        <spatial:analyticVolume spatial:domainType="domainType_1" spatial:functionType="layered" spatial:id="analyticVolume_1" spatial:ordinal="0">
+                            <math xmlns="http://www.w3.org/1998/Math/MathML"/>
+                        </spatial:analyticVolume>
+                    </spatial:listOfAnalyticVolumes>
+                </spatial:analyticGeometry>
+                <spatial:sampledFieldGeometry spatial:id="geometryDefinition_2" spatial:isActive="true" spatial:sampledField="sampledField_1">
+                    <spatial:listOfSampledVolumes>
+                        <spatial:sampledVolume spatial:domainType="domainType_1" spatial:id="sampledVolume_1" spatial:maxValue="0" spatial:minValue="0"/>
+                    </spatial:listOfSampledVolumes>
+                </spatial:sampledFieldGeometry>
+                <spatial:parametricGeometry spatial:id="geometryDefinition_3" spatial:isActive="true">
+                    <spatial:spatialPoints spatial:arrayDataLength="0" spatial:compression="uncompressed" spatial:dataType="double" spatial:id="spatialPoints_1"/>
+                    <spatial:listOfParametricObjects>
+                        <spatial:parametricObject spatial:compression="uncompressed" spatial:dataType="uint" spatial:domainType="domainType_1" spatial:id="parametricObject_1" spatial:pointIndexLength="0" spatial:polygonType="triangle"/>
+                    </spatial:listOfParametricObjects>
+                </spatial:parametricGeometry>
+                
+                    
+                        
+                    
+                
+            </spatial:listOfGeometryDefinitions>
+            <spatial:listOfSampledFields>
+                <spatial:sampledField spatial:compression="uncompressed" spatial:dataType="double" spatial:id="sampledField_1" spatial:interpolationType="nearestNeighbor" spatial:numSamples1="0" spatial:numSamples2="0" spatial:numSamples3="0" spatial:samplesLength="0"/>
+            </spatial:listOfSampledFields>
+        </spatial:geometry>
+        <listOfCompartments>
+            <compartment constant="false" id="compartment">
+                <spatial:compartmentMapping spatial:domainType="domainType_1" spatial:id="compartmentMapping_1" spatial:unitSize="1"/>
+            </compartment>
+        </listOfCompartments>
+        <listOfSpecies>
+            <species boundaryCondition="false" compartment="compartment" constant="false" hasOnlySubstanceUnits="false" id="species_1" spatial:isSpatial="false"/>
+        </listOfSpecies>
+        <listOfParameters>
+            <parameter constant="false" id="id_3">
+                <spatial:diffusionCoefficient spatial:coordinateReference1="cartesianX" spatial:coordinateReference2="cartesianY" spatial:type="tensor" spatial:variable="species_1"/>
+            </parameter>
+        </listOfParameters>
+    </model>
+</sbml>
+

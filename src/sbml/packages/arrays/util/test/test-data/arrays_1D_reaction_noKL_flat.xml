@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model>
+    <listOfCompartments>
+      <compartment id="Cell_0" spatialDimensions="3" size="1" constant="true"/>
+      <compartment id="Cell_1" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="A_0" compartment="Cell_0" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="A_1" compartment="Cell_1" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="n" value="2" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="r_0" reversible="false" fast="false" compartment="Cell_0">
+        <listOfReactants>
+          <speciesReference id="sr1_0" species="A_0" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction id="r_1" reversible="false" fast="false" compartment="Cell_1">
+        <listOfReactants>
+          <speciesReference id="sr1_1" species="A_1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml level="3" spatial:required="true" version="1" xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:spatial="http://www.sbml.org/sbml/level3/version1/spatial/version1">
+    <model>
+        <spatial:geometry spatial:coordinateSystem="cartesian" spatial:id="geometry_1">
+            <spatial:listOfCoordinateComponents>
+                <spatial:coordinateComponent spatial:id="coordinateComponent_1" spatial:type="cartesianX">
+                    <spatial:boundaryMin spatial:id="boundary_1" spatial:value="0"/>
+                    <spatial:boundaryMax spatial:id="boundary_2" spatial:value="1"/>
+                </spatial:coordinateComponent>
+                <spatial:coordinateComponent spatial:id="coordinateComponent_2" spatial:type="cartesianY">
+                    <spatial:boundaryMin spatial:id="boundary_3" spatial:value="0"/>
+                    <spatial:boundaryMax spatial:id="boundary_4" spatial:value="1"/>
+                </spatial:coordinateComponent>
+                <spatial:coordinateComponent spatial:id="coordinateComponent_3" spatial:type="cartesianZ">
+                    <spatial:boundaryMin spatial:id="boundary_5" spatial:value="0"/>
+                    <spatial:boundaryMax spatial:id="boundary_6" spatial:value="1"/>
+                </spatial:coordinateComponent>
+            </spatial:listOfCoordinateComponents>
+            <spatial:listOfSampledFields>
+                <spatial:sampledField spatial:compression="uncompressed" spatial:dataType="float" spatial:id="sampledField_1" spatial:interpolationType="nearestNeighbor" spatial:name="someString" spatial:numSamples1="3" spatial:numSamples2="2" spatial:numSamples3="1" spatial:samplesLength="6">1e40 0 3 1 0 5</spatial:sampledField>
+            </spatial:listOfSampledFields>
+        </spatial:geometry>
+    </model>
+</sbml>
+

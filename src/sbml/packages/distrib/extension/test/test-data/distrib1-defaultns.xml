@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:distrib="http://www.sbml.org/sbml/level3/version1/distrib/version1" level="3" version="1" distrib:required="true">
+  <model>
+    <listOfCompartments>
+      <compartment id="C" spatialDimensions="3" size="1" constant="true" units="litre"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" compartment="C" initialAmount="5.2" hasOnlySubstanceUnits="false" 
+        boundaryCondition="false" constant="false" substanceUnits="mole">
+        <listOfUncertainties  xmlns="http://www.sbml.org/sbml/level3/version1/distrib/version1">
+        <uncertainty>
+          <uncertParameter type="standardDeviation" value="0.3"/>
+          </uncertainty>
+        </listOfUncertainties>
+      </species>
+      
+      
+      
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="P1" value="5.13" constant="true" units="dimensionless">
+        <listOfUncertainties  xmlns="http://www.sbml.org/sbml/level3/version1/distrib/version1">
+          <uncertainty>
+          <uncertSpan  type="confidenceInterval" valueLower="5" valueUpper="5.32">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/distrib/lognormal"> lognormal </csymbol>
+                <cn> 0.5 </cn>
+                <cn> 0.1 </cn>
+              </apply>
+            </math>
+            
+          </uncertSpan>
+          </uncertainty>
+          </listOfUncertainties>
+      </parameter>
+      <parameter id="P2" value="5.13" constant="true" units="dimensionless">
+        <listOfUncertainties  xmlns="http://www.sbml.org/sbml/level3/version1/distrib/version1">
+          <uncertainty>
+            <uncertParameter  type="distribution">
+              <listOfUncertParameters>
+                <uncertParameter type="externalParameter" definitionURL="some//org">
+                  <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <apply>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/distrib/lognormal"> lognormal </csymbol>
+                      <cn> 0.5 </cn>
+                      <cn> 0.1 </cn>
+                    </apply>
+                  </math>
+                </uncertParameter>
+                <uncertSpan  type="confidenceInterval" valueLower="5" valueUpper="5.32"/>
+              </listOfUncertParameters>
+            </uncertParameter>
+          </uncertainty>
+        </listOfUncertainties>
+      </parameter>
+      
+      
+      
+      
+      
+    </listOfParameters>
+  </model>
+</sbml>

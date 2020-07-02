@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model>
+    <listOfCompartments>
+      <compartment id="c" size="1" spatialDimensions="3" constant="true"/>
+    </listOfCompartments>
+    <listOfParameters>
+      <parameter id="n" value="0" constant="true"/>
+    </listOfParameters>
+  </model>
+</sbml>

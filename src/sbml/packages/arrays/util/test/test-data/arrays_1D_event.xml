@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1" level="3" version="1" arrays:required="true">
+  <model>
+    <listOfParameters>
+      <!-- Create size variables for arrays -->
+      <parameter id="n" constant="true" metaid="iBioSim2" value="2"/>
+      <!-- Create array x of size n -->
+      <parameter id="X" constant="false" metaid="iBioSim1" value="0">
+        <arrays:listOfDimensions
+          xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:id="d0" arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+      </parameter>
+    </listOfParameters>
+    <listOfEvents>
+      <event id="event0" useValuesFromTriggerTime="false">
+        <arrays:listOfDimensions
+          xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:id="d0" arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+        <trigger persistent="false" initialValue="false">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <gt/>
+              <apply>
+                <selector/>
+                <ci> X </ci>
+                <ci> d0 </ci>
+              </apply>
+              <cn type="integer"> 1 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment variable="X">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <piecewise>
+                <piece>
+                  <cn> 0.5 </cn>
+                  <apply>
+                    <lt/>
+                    <ci> d0 </ci>
+                    <cn type="integer"> 5 </cn>
+                  </apply>
+                </piece>
+                <otherwise>
+                  <cn> 0.75 </cn>
+                </otherwise>
+              </piecewise>
+            </math>
+            <arrays:listOfIndices
+              xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+              <arrays:index arrays:referencedAttribute="variable" arrays:arrayDimension="0">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <ci> d0 </ci>
+                </math>
+              </arrays:index>
+            </arrays:listOfIndices>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+    
+  </model>
+</sbml>
