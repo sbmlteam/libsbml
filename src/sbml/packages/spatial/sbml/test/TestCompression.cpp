@@ -160,7 +160,7 @@ START_TEST(test_Compression_SampledField_2)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(values[n] == uncompressed_data[n]);
   }
-  free(uncompressed_data);
+  delete[] uncompressed_data;
   fail_unless(field.getUncompressedLength() == values.size());
 
   uncompressed_data = NULL;
@@ -208,7 +208,7 @@ START_TEST(test_Compression_SampledField_3)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(values[n] == uncompressed_data[n]);
   }
-  free(uncompressed_data);
+  delete[] uncompressed_data;
   fail_unless(field.getUncompressedLength() == values.size());
 
   uncompressed_data = NULL;
@@ -250,7 +250,7 @@ START_TEST(test_Compression_SampledField_4)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(values[n] == doubles[n]);
   }
-  free(doubles);
+  delete[] doubles;
 
   vector<double> doublevec;
   field.getSamples(doublevec);
@@ -261,7 +261,7 @@ START_TEST(test_Compression_SampledField_4)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(static_cast<float>(values[n]) == floats[n]);
   }
-  free(floats);
+  delete[] floats;
 
   vector<float> floatvec;
   field.getSamples(floatvec);
@@ -273,7 +273,7 @@ START_TEST(test_Compression_SampledField_4)
 
   int* ints = new int[values.size()];
   fail_unless(field.getSamples(ints) == LIBSBML_OPERATION_FAILED);
-  free(ints);
+  delete[] ints;
 
   vector<int> intvec;
   field.getSamples(intvec);
@@ -312,7 +312,7 @@ START_TEST(test_Compression_SampledField_5)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(values[n] == doubles[n]);
   }
-  free(doubles);
+  delete[] doubles;
 
   vector<double> doublevec;
   field.getSamples(doublevec);
@@ -323,7 +323,7 @@ START_TEST(test_Compression_SampledField_5)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(static_cast<float>(values[n]) == floats[n]);
   }
-  free(floats);
+  delete[] floats;
 
   vector<float> floatvec;
   field.getSamples(floatvec);
@@ -338,7 +338,7 @@ START_TEST(test_Compression_SampledField_5)
   for (size_t n = 0; n < compressedvals.size(); n++) {
     fail_unless(compressedvals[n] == ints[n]);
   }
-  free(ints);
+  delete[] ints;
 
   vector<int> intvec;
   field.getSamples(intvec);
@@ -452,7 +452,7 @@ START_TEST(test_Compression_SpatialPoints_2)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(values[n] == uncompressed_data[n]);
   }
-  free(uncompressed_data);
+  delete[] uncompressed_data;
   fail_unless(points.getUncompressedLength() == values.size());
 
   uncompressed_data = NULL;
@@ -499,7 +499,7 @@ START_TEST(test_Compression_SpatialPoints_3)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(values[n] == uncompressed_data[n]);
   }
-  free(uncompressed_data);
+  delete[] uncompressed_data;
   fail_unless(points.getUncompressedLength() == values.size());
 
   uncompressed_data = NULL;
@@ -540,7 +540,7 @@ START_TEST(test_Compression_SpatialPoints_4)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(values[n] == doubles[n]);
   }
-  free(doubles);
+  delete[] doubles;
 
   vector<double> doublevec;
   points.getArrayData(doublevec);
@@ -551,7 +551,7 @@ START_TEST(test_Compression_SpatialPoints_4)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(static_cast<float>(values[n]) == floats[n]);
   }
-  free(floats);
+  delete[] floats;
 
   vector<float> floatvec;
   points.getArrayData(floatvec);
@@ -563,7 +563,7 @@ START_TEST(test_Compression_SpatialPoints_4)
 
   int* ints = new int[values.size()];
   fail_unless(points.getArrayData(ints) == LIBSBML_OPERATION_FAILED);
-  free(ints);
+  delete[] ints;
 
   vector<int> intvec;
   points.getArrayData(intvec);
@@ -601,7 +601,7 @@ START_TEST(test_Compression_SpatialPoints_5)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(values[n] == doubles[n]);
   }
-  free(doubles);
+  delete[] doubles;
 
   vector<double> doublevec;
   points.getArrayData(doublevec);
@@ -612,7 +612,7 @@ START_TEST(test_Compression_SpatialPoints_5)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(static_cast<float>(values[n]) == floats[n]);
   }
-  free(floats);
+  delete[] floats;
 
   vector<float> floatvec;
   points.getArrayData(floatvec);
@@ -627,7 +627,7 @@ START_TEST(test_Compression_SpatialPoints_5)
   for (size_t n = 0; n < compressedvals.size(); n++) {
     fail_unless(compressedvals[n] == ints[n]);
   }
-  free(ints);
+  delete[] ints;
 
   vector<int> intvec;
   points.getArrayData(intvec);
