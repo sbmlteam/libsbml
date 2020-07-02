@@ -1814,7 +1814,8 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
     // the following assumes that the SBML Namespaces object is valid
     if (stream.getSBMLNamespaces() == NULL)
     {
-      stream.setSBMLNamespaces(new SBMLNamespaces(getLevel(), getVersion()));
+        SBMLNamespaces sbmlns(getLevel(), getVersion());
+        stream.setSBMLNamespaces(&sbmlns);
     }
 
     delete mMath;
