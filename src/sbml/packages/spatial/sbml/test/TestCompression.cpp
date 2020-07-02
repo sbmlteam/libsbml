@@ -724,7 +724,7 @@ START_TEST(test_Compression_ParametricObject_2)
   parametricobj.getPointIndex(compressed_data);
   fail_unless(compressed_data == compressedvals);
 
-  int* uncompressed_array = new int[parametricobj.getUncompressedLength()];
+  int* uncompressed_array = NULL;
   size_t length;
   parametricobj.getUncompressedData(uncompressed_array, length);
   fail_unless(length == values.size());
