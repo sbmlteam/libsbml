@@ -1,0 +1,76 @@
+env:
+   global:
+     - CONAN_USERNAME: "fbergmann"
+     - CONAN_LOGIN_USERNAME: "fbergmann"
+     - CONAN_CHANNEL: "stable"
+     - CONAN_UPLOAD: "https://api.bintray.com/conan/fbergmann/conan"
+     - CONAN_BUILD_POLICY: "missing"
+     - CONAN_DOCKER_32_IMAGES: 1
+
+addons:
+  sonarcloud:
+    organization: "sbmlteam"
+    token:
+      secure: XDVm7SzDRJ7jZdxU9+XbCvvdlin1e1B6R51KouHPWwzbTzM3u1UVUq8J0o3NQhcK+HpC+8ngkyi3aAWNYQnJtGFYAAf9k2YbVlr5j1smKES0WxmYQBKN6H3flfPO908nTkI5wZ3HuQ/uZJ2t5/ohEC9xMhnXYXVFGcBNx9lHk32v1vFoMR7bEHymAUHPYg2kr+hsYwYukQmXmjBowOW/tJPY6S8Eljy0tjRc2YPCVd6wy7H+P8Q4fW8yGUng0zoyP+nXYylYYzDCIJKkUi1E4ZgFACoixHIVR4L/DQyKU1e+rFZ7Jxetqxw+A2gDPjGYTnIjg3ypQ7DDZxrFp4rm5vHA2GQ92aRxVT4MAhMLFY3FaFMXGLk3eUUu8LiDXYv5EET20zkGfCQ+/ELyqYgsnBXGvQFeIPG321eLiy3RI3ahlQExQN0vfNESechix4GyqySeMGleCJoyTqjyydysqVevGX684hkbIlnhZ+dTwpOBZDZdu/2oyjtCl9x5H6d+rvJ2v68BGrgfz67otY3EPvMKoWib3dN7lcJPLI9XapYR6r9GDZXQfQ1SPflxIi/gDbvlUO2dWT3FL469whkoNNYmSKmUTRr54yjFYE/hB/c8vWK95fJiiXA/HbJBMDosc4liTB5gSPYg5CSkqHN5GArBY6BTeRDFbZKi4eO6nLg=
+
+linux: &linux
+   os: linux
+   dist: xenial
+   language: python
+   python: "3.7"
+   services:
+     - docker
+osx: &osx
+   os: osx
+   language: generic
+matrix:
+   include:
+#      - <<: *linux
+#        env: CONAN_GCC_VERSIONS=4.8 CONAN_DOCKER_IMAGE=conanio/gcc48 CONAN_ARCHS=x86_64
+#      - <<: *linux
+#        env: CONAN_GCC_VERSIONS=4.9 CONAN_DOCKER_IMAGE=conanio/gcc49
+#      - <<: *linux
+#        env: CONAN_GCC_VERSIONS=5 CONAN_DOCKER_IMAGE=conanio/gcc5
+#      - <<: *linux
+#        env: CONAN_GCC_VERSIONS=6 CONAN_DOCKER_IMAGE=conanio/gcc6
+#      - <<: *linux
+#        env: CONAN_GCC_VERSIONS=7 CONAN_DOCKER_IMAGE=conanio/gcc7
+#      - <<: *linux
+#        env: CONAN_GCC_VERSIONS=8 CONAN_DOCKER_IMAGE=conanio/gcc8
+      - <<: *linux
+        env: CONAN_GCC_VERSIONS=9 CONAN_DOCKER_IMAGE=conanio/gcc9
+#      - <<: *linux
+#        env: CONAN_CLANG_VERSIONS=3.9 CONAN_DOCKER_IMAGE=conanio/clang39
+#      - <<: *linux
+#        env: CONAN_CLANG_VERSIONS=4.0 CONAN_DOCKER_IMAGE=conanio/clang40
+#      - <<: *linux
+#        env: CONAN_CLANG_VERSIONS=5.0 CONAN_DOCKER_IMAGE=conanio/clang50
+#      - <<: *linux
+#        env: CONAN_CLANG_VERSIONS=6.0 CONAN_DOCKER_IMAGE=conanio/clang60
+#      - <<: *linux
+#        env: CONAN_CLANG_VERSIONS=7.0 CONAN_DOCKER_IMAGE=conanio/clang7
+#      - <<: *linux
+#        env: CONAN_CLANG_VERSIONS=8 CONAN_DOCKER_IMAGE=conanio/clang8
+#      - <<: *osx
+#        osx_image: xcode7.3
+#        env: CONAN_APPLE_CLANG_VERSIONS=7.3
+#      - <<: *osx
+#        osx_image: xcode8.3
+#        env: CONAN_APPLE_CLANG_VERSIONS=8.1
+#      - <<: *osx
+#        osx_image: xcode9
+#        env: CONAN_APPLE_CLANG_VERSIONS=9.0
+#      - <<: *osx
+#        osx_image: xcode9.4
+#        env: CONAN_APPLE_CLANG_VERSIONS=9.1
+#      - <<: *osx
+#        osx_image: xcode10
+#        env: CONAN_APPLE_CLANG_VERSIONS=10.0
+
+install:
+  - chmod +x .ci/install.sh
+  - ./.ci/install.sh
+
+script:
+  - chmod +x .ci/run.sh
+  - ./.ci/run.sh
