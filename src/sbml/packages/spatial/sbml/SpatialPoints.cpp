@@ -252,6 +252,7 @@ SpatialPoints::getArrayData(int* outArray) const
     int* samples = readSamplesFromString<int>(mArrayData, length);
     if (length != mArrayDataUncompressedLength)
     {
+      free(samples);
       return LIBSBML_OPERATION_FAILED;
     }
 
