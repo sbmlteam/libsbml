@@ -1,4 +1,4 @@
-# libSBML<img width="11%" align="right" src=".dev/misc-files/new-logo-2020/libsbml-logo-and-name.svg">
+# libSBML<img width="11%" align="right" src="./dev/misc-files/new-logo-2020/libsbml-logo-and-name.svg">
 
 
 [LibSBML](http://sbml.org/Software/libSBML) is a free, open-source programming library to help developers read, write, manipulate, translate, and validate SBML files and data streams in their software systems. It is written in C++ and provides language bindings for other programming languages.  Support for SBML Level&nbsp;3 can be added to [LibSBML](http://sbml.org/Software/libSBML) by integrating the package-specific code and building with the package enabled.
