@@ -82,7 +82,9 @@ static
 	"Test"
 };
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 template class SBMLExtensionNamespaces<TestExtension>;
+LIBSBML_CPP_NAMESPACE_END
 
 TestExtension::TestExtension ()
 {

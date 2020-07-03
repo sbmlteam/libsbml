@@ -220,13 +220,14 @@ START_TEST(test_ParametricObject_uncompressInternal)
 
   size_t len = G->getUncompressedLength();
   fail_unless(len == 9);
-  int* result = (int*)malloc(sizeof(int) * len);
+  int* result = NULL;
   G->getUncompressedData(result, len);
 
   for (size_t i = 0; i < len; i++)
   {
     fail_unless(result[i] == points[i]);
   }
+  free(result);
 
 }
 END_TEST

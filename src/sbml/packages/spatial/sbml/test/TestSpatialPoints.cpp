@@ -221,13 +221,14 @@ START_TEST(test_SpatialPoints_uncompressInternal)
 
   size_t len = G->getUncompressedLength();
   fail_unless(len == 9);
-  double* result = (double*)malloc(sizeof(double) * len);
+  double* result = NULL;
   G->getUncompressedData(result, len);
 
   for (size_t i = 0; i < len; i++)
   {
     fail_unless(result[i] == points[i]);
   }
+  free(result);
 
 }
 END_TEST

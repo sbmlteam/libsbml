@@ -188,6 +188,7 @@ SampledField::clone() const
  */
 SampledField::~SampledField()
 {
+  freeCompressed();
   freeUncompressed();
 }
 
@@ -2064,6 +2065,7 @@ void SampledField::store() const
     if (mSamplesUncompressed == NULL) {
       mSamplesUncompressed = readSamplesFromString<double>(mSamples, mSamplesUncompressedLength);
       size_t alt_length;
+      free(mSamplesUncompressedInt);
       mSamplesUncompressedInt = readSamplesFromString<int>(mSamples, alt_length);
       if (alt_length != mSamplesUncompressedLength)
       {
@@ -2193,6 +2195,8 @@ SampledField::getUncompressed(double* outputPoints) const
 void
 SampledField::freeUncompressed() const
 {
+  free(mSamplesUncompressedInt);
+  mSamplesUncompressedInt = NULL;
   if (mSamplesUncompressed != NULL)
   {
     free(mSamplesUncompressed);
