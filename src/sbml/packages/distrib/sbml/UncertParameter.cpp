@@ -1738,7 +1738,8 @@ UncertParameter::readOtherXML(XMLInputStream& stream)
     const std::string prefix = checkMathMLNamespace(elem);
     if (stream.getSBMLNamespaces() == NULL)
     {
-      stream.setSBMLNamespaces(new SBMLNamespaces(getLevel(), getVersion()));
+      SBMLNamespaces sbmlns(getLevel(), getVersion());
+      stream.setSBMLNamespaces(&sbmlns);
     }
 
     delete mMath;
