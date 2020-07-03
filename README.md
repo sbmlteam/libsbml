@@ -1,6 +1,13 @@
 # libSBML<img width="11%" align="right" src="./dev/misc-files/new-logo-2020/libsbml-logo-and-name.svg">
 
 
+---
+# Disclaimer:
+
+We are currently in the process of setting up our libSBML git repository from svn. Pull requests are welcome but we may still be tweaking things.
+
+--- 
+
 [LibSBML](http://sbml.org/Software/libSBML) is a free, open-source programming library to help developers read, write, manipulate, translate, and validate SBML files and data streams in their software systems. It is written in C++ and provides language bindings for other programming languages.  Support for SBML Level&nbsp;3 can be added to [LibSBML](http://sbml.org/Software/libSBML) by integrating the package-specific code and building with the package enabled.
 |:-:|
 
@@ -39,24 +46,3 @@ Computation modeling has become crucial to biological research, and [SBML](http:
 The development of libSBML was supported in part by funding from the National Institute of General Medical Sciences (USA) under grant R01&nbsp;GM070923 (principal investigator: Michael Hucka).
 
 
-<br>
-<div align="center">
-  <a href="https://www.nigms.nih.gov">
-    <img height="100" src=".graphics/US-NIH-NIGMS-Logo.svg">
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://www.caltech.edu">
-    <img height="100" src=".graphics/caltech-round.png">
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://www.ebi.ac.uk">
-    <img height="102" src=".graphics/EMBL_logo.svg">
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://www.uni-heidelberg.de">
-    <img height="100" src=".graphics/University_of_Heidelberg.svg">
-  </a>
-</div>
