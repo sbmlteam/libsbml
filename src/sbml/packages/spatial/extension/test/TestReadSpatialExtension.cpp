@@ -661,7 +661,7 @@ END_TEST
   string test1 = dataToString(array1, field->getNumSamples1(), length1);
   //fail_unless(test1 == expected);
 
-  double* result = new double[length1]; 
+  double* result = NULL;
   size_t resultLength;
   field->getUncompressedData(result, resultLength);
 

@@ -136,15 +136,17 @@ main (int argc, char *argv[])
   SBMLDocument* document = readSBML(filename);
 
   // add a custom validator
-  document->addValidator(new MyCustomValidator());
+  MyCustomValidator* myCustomValidator = new MyCustomValidator();
+  document->addValidator(myCustomValidator);
+  delete myCustomValidator;
 
   // check consistency like before
   int numErrors = document->checkConsistency();
 
   // print errors and warnings
   document->printErrors();
+  delete document;
 
   // return number of errors
   return  numErrors;
-
 }

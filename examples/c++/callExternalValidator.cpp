@@ -113,6 +113,8 @@ main (int argc, char *argv[])
   // print errors and warnings
   document->printErrors();
 
+  delete document;
+
   // return number of errors
   return  numErrors;
 

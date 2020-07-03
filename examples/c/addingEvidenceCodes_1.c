@@ -105,6 +105,8 @@ main (int argc, char *argv[])
       
       SBase_addCVTerm((SBase_t*)r, cv2);
 
+      CVTerm_free(cv1);
+      CVTerm_free(cv2);
       writeSBML(d, argv[2]);
     }
   }

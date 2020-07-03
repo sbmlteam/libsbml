@@ -441,8 +441,10 @@ START_CONSTRAINT(99304, FunctionDefinition, fd)
     const ASTNode * child = math->getChild(i);
     if (child->getType() != AST_NAME)
     {
+      char* element = SBML_formulaToL3String(child);
       msg = "The <functionDefinition> with id '" + fd.getId() + "' contains"
-        " a <bvar> element " + SBML_formulaToL3String(child) + " that is not a <ci> element.";
+        " a <bvar> element " + element + " that is not a <ci> element.";
+      free(element);
       fail = true;
     }
 

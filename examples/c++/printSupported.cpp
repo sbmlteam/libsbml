@@ -61,7 +61,8 @@ main (int argc, char* argv[])
        const SBMLNamespaces *current = (const SBMLNamespaces *)supported->get(i);
        cout << "\tSBML Level " << current->getLevel() << " Version: " << current->getVersion() << endl;
   }
-  
+  SBMLNamespaces::freeSBMLNamespaces((List*)supported);
+
   cout << endl;
   cout << "LibSBML is compiled against: " << endl;
   if (isLibSBMLCompiledWith("expat"))

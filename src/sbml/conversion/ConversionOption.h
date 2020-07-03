@@ -447,6 +447,17 @@ ConversionOption_t*
 ConversionOption_create(const char* key);
 
 /**
+ * Destroys this ConversionOption_t.
+ *
+ * @param co ConversionOption_t structure to be freed.
+ *
+ * @memberof ConversionOption_t
+ */
+LIBSBML_EXTERN
+void
+ConversionOption_free(ConversionOption_t* co);
+
+/**
  * Creates and returns a deep copy of the ConversionOption_t structure.
  *
  * @param co the conversion option to clone.

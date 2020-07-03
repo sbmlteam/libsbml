@@ -78,6 +78,6 @@ LIBSBML_CPP_NAMESPACE_USE
 
     writeSBML(d, argv[2]);
   }
-
+  delete d;
   return 0;
 }

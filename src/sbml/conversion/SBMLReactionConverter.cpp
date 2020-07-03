@@ -441,6 +441,7 @@ SBMLReactionConverter::createRateRule(const std::string &spId, ASTNode *math)
     if (success == LIBSBML_OPERATION_SUCCESS)
     {
       success = rr->setMath(new_math);
+      delete new_math;
     }
   }
 
@@ -460,6 +461,12 @@ SBMLReactionConverter::replaceReactions()
     success == LIBSBML_OPERATION_SUCCESS && it != mRateRulesMap.end(); ++it)
   {
     success = createRateRule((*it).first, (*it).second);
+  }
+
+  // deallocate memory
+  for (it = mRateRulesMap.begin(); it != mRateRulesMap.end(); ++it)
+  {
+    delete (*it).second;
   }
 
   if (success != LIBSBML_OPERATION_SUCCESS)

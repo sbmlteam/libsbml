@@ -271,6 +271,12 @@ ConversionOption_create(const char* key)
   return new ConversionOption(key);
 }
 
+LIBSBML_EXTERN
+void
+ConversionOption_free(ConversionOption_t* co)
+{
+  delete co;
+}
 
 LIBSBML_EXTERN
 ConversionOption_t*

@@ -101,6 +101,8 @@ main (int argc, char *argv[])
     writeSBML(document, outputFile);
   }
 
+  delete document;
+
   return 0;
 }
 

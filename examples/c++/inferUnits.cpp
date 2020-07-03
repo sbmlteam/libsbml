@@ -73,8 +73,6 @@ LIBSBML_CPP_NAMESPACE_USE
 
     SBMLConverter* converter = 
            SBMLConverterRegistry::getInstance().getConverterFor(*props);
-  
-
     converter->setDocument(d);
 
     /* perform the conversion */
@@ -89,7 +87,11 @@ LIBSBML_CPP_NAMESPACE_USE
     d->printErrors(cout);
 
     writeSBML(d, argv[2]);
+    delete props;
+    delete converter;
   }
+
+  delete d;
 
   return 0;
 }
