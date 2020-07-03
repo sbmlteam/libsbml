@@ -784,6 +784,48 @@ START_TEST(test_SBMLTransforms_evaluateL3V2AST)
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 27));
 
   delete node;
+  node = SBML_parseL3Formula("undefinedfunc(x)");
+  fail_unless(util_isNaN(SBMLTransforms::evaluateASTNode(node)));
+
+  delete node;
+  node = SBML_parseL3Formula("cos(undefinedfunc2(3.1))");
+  fail_unless(util_isNaN(SBMLTransforms::evaluateASTNode(node)));
+
+  delete node;
+}
+END_TEST
+
+
+START_TEST(test_SBMLTransforms_evaluateL3V2ASTWithModel)
+{
+  SBMLReader        reader;
+  SBMLDocument*     d;
+  Model*            m;
+  std::string filename(TestDataDirectory);
+  filename += "multiple-functions.xml";
+
+  d = reader.readSBML(filename);
+  if (d == NULL)
+  {
+    fail("readSBML(\"multiple-functions.xml\") returned a NULL pointer.");
+  }
+
+  m = d->getModel();
+
+  ASTNode * node;
+  node = SBML_parseL3Formula("undefinedfunc(x)");
+  fail_unless(util_isNaN(SBMLTransforms::evaluateASTNode(node, m)));
+
+  delete node;
+  node = SBML_parseL3Formula("f(2, g(1, undefinedfunc(0)))");
+  fail_unless(util_isNaN(SBMLTransforms::evaluateASTNode(node, m)));
+
+  delete node;
+  node = SBML_parseL3Formula("f(2, g(4, cos(0)))");
+  fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node, m), 8));
+
+  delete node;
+  delete d;
 }
 END_TEST
 
@@ -922,6 +964,7 @@ create_suite_SBMLTransforms (void)
   tcase_add_test(tcase, test_SBMLTransforms_replaceIA);
   tcase_add_test(tcase, test_SBMLTransforms_replaceIA_species);
   tcase_add_test(tcase, test_SBMLTransforms_evaluateL3V2AST);
+  tcase_add_test(tcase, test_SBMLTransforms_evaluateL3V2ASTWithModel);
   tcase_add_test(tcase, test_SBMLTransforms_L3V2AssignmentNoMath);
   tcase_add_test(tcase, test_SBMLTransforms_StoichiometryMath);
 

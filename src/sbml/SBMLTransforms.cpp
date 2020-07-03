@@ -652,12 +652,24 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
   case AST_FUNCTION:
     /* shouldnt get here */
     // but we do if math we are expanding uses a functionDefinition
-    lfd = m->getListOfFunctionDefinitions();
-    tempNode = node->deepCopy();
-    replaceFD(tempNode, lfd);
-    result = evaluateASTNode(tempNode, values, m);
-    delete tempNode;
-    break;
+    {
+        if(m != NULL){
+            lfd = m->getListOfFunctionDefinitions();
+        }
+        if (lfd != NULL && lfd->get(node->getName()) != NULL)
+        {
+            tempNode = node->deepCopy();
+            replaceFD(tempNode, lfd);
+            result = evaluateASTNode(tempNode, values, m);
+            delete tempNode;
+        }
+        else
+        {
+            result = numeric_limits<double>::quiet_NaN();
+        }
+        break;
+    }
+
   case AST_PLUS:
     if (node->getNumChildren() == 0)
     {
