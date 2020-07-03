@@ -355,6 +355,12 @@ LIBSBML_CPP_NAMESPACE_END
 
 %type <astnode> node nodelist nodesemicolonlist number
 
+/* Ensure ASTNode objects allocated with new are cleaned up if parsing is unsuccessful */
+%destructor { delete($$); } node
+%destructor { delete($$); } nodelist
+%destructor { delete($$); } nodesemicolonlist
+%destructor { delete($$); } number
+
 %left '&' '|'         /* Boolean functions and, or */
 %left '<' '>' '=' '!' /* Boolean comparison functions (gt, lt, eq, etc.) */
 %left '-' '+'
