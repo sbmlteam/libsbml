@@ -122,7 +122,10 @@ main (int argc, char *argv[])
     status = d->getModel()->setModelHistory(h);
 	printStatus("Set model history:     ", status);
 
-  
+    delete h;
+    delete c;
+    delete date;
+    delete date2;
     writeSBML(d, argv[2]);
   }
 

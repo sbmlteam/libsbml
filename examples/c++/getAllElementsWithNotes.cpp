@@ -141,6 +141,7 @@ main (int argc, char* argv[])
 	cout << "    search time (ms): " << stop - start          << endl;
 	cout << " elements with notes: " << allElements->getSize() << endl;
 	
+    delete allElements;
     delete document;
     return errors;
 }

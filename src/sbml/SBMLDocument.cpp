@@ -214,6 +214,11 @@ SBMLDocument::SBMLDocument (SBMLNamespaces* sbmlns) :
   }
   int SBMLDocument::clearValidators()
   {
+    list<SBMLValidator*>::iterator it;
+    for (it = mValidators.begin(); it != mValidators.end(); it++)
+    {
+      delete *it;
+    }
     mValidators.clear();
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -246,6 +251,7 @@ SBMLDocument::~SBMLDocument ()
     delete mInternalValidator;
   if (mModel != NULL)
   delete mModel;
+  clearValidators();
 }
 
 

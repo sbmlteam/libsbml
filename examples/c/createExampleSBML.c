@@ -682,6 +682,7 @@ SBMLDocument_t* createExampleInvolvingUnits()
 
   /* Temporary pointers (reused more than once below).*/
 
+  XMLNode_t* xmlNode;
   UnitDefinition_t* unitdef;
   Unit_t *unit;
 
@@ -1058,15 +1059,18 @@ SBMLDocument_t* createExampleInvolvingUnits()
   pTripple = XMLTriple_createWith("p", "", "xhtml");
   xmlAttr = XMLAttributes_create();
   notesXMLNode = XMLNode_createStartElement(pTripple, xmlAttr);
-
+  XMLTriple_free(pTripple);
+  XMLAttributes_free(xmlAttr);
   /* Adds a text element to the start element.*/
 
-  XMLNode_addChild( notesXMLNode, XMLNode_createTextNode(" ((vm * s2)/(km + s2)) * cell ")); 
+  xmlNode = XMLNode_createTextNode(" ((vm * s2)/(km + s2)) * cell ");
+  XMLNode_addChild(notesXMLNode, xmlNode);
+  XMLNode_free(xmlNode);
 
   /* Adds it to the kineticLaw object.*/
 
   SBase_setNotes( (SBase_t*) kl, notesXMLNode);
-
+  XMLNode_free(notesXMLNode);
   /*---------------------------------------------------------------------------
    * Sets a math (ASTNode object) to the KineticLaw object.
    *---------------------------------------------------------------------------*/
@@ -1169,6 +1173,7 @@ SBMLDocument_t* createExampleInvolvingUnits()
   astMath = readMathMLFromString(mathXMLString);
   KineticLaw_setMath( kl, astMath);
   ASTNode_free(astMath);
+
 
 
   /* Returns the created SBMLDocument object.

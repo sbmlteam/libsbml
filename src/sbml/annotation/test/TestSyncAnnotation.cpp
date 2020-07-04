@@ -1622,6 +1622,7 @@ START_TEST(test_SyncAnnotation_ordering_bug_1)
   fail_unless(equals(expected, sbml));
 
   free(sbml);
+  delete cv;
   delete c;
 }
 END_TEST
@@ -1670,6 +1671,7 @@ START_TEST(test_SyncAnnotation_ordering_bug_2)
   fail_unless(equals(expected, sbml));
 
   free(sbml);
+  delete cv;
   delete c;
 }
 END_TEST

@@ -56,9 +56,11 @@ main (int argc, char* argv[])
   {
       printf("\t%s\n", (char*)List_get(list, i));      
   }
-    
+
   printf("\n");
 
+  List_freeItems(list, safe_free, void);
+  List_free(list);
   return 0;
 }
 

@@ -453,6 +453,15 @@ ConversionProperties_t*
 ConversionProperties_clone(const ConversionProperties_t* cp);
 
 /**
+ * Destroys this conversion properties structure
+ *
+ * @memberof ConversionProperties_t
+ */
+LIBSBML_EXTERN
+void
+ConversionProperties_free(ConversionProperties_t* cp);
+
+/**
  * Returns the value as boolean for a given option in the properties
  * structure.
  *

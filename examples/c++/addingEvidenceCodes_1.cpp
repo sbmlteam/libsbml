@@ -97,6 +97,7 @@ main (int argc, char *argv[])
       cv1->addResource("urn:miriam:obo.eco:ECO%3A0000183");
 
       r->addCVTerm(cv1);
+      delete cv1;
 
       CVTerm * cv2 = new CVTerm(BIOLOGICAL_QUALIFIER);
       cv2->setBiologicalQualifierType(BQB_IS);
@@ -104,6 +105,7 @@ main (int argc, char *argv[])
       cv2->addResource("urn:miriam:reactome:REACT_736");
 
       r->addCVTerm(cv2);
+      delete cv2;
 
       writeSBML(d, argv[2]);
     }

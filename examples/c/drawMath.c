@@ -139,11 +139,10 @@ FormulaGraphvizFormatter_format (const ASTNode_t *node)
     {
       StringBuffer_append(p, ASTNode_getName(node));
     }
-    
     s = StringBuffer_toString(p);
   }
   
-  free(p);
+  StringBuffer_free(p);
 
   return s;
 }
@@ -192,7 +191,7 @@ FormulaGraphvizFormatter_getUniqueName (const ASTNode_t *node)
     s = StringBuffer_toString(p);
   }
 
-  free(p);
+  StringBuffer_free(p);
 
   return s;
 }
@@ -247,7 +246,7 @@ FormulaGraphvizFormatter_formatFunction (const ASTNode_t *node)
       break;
   }
 
-  free(p);
+  StringBuffer_free(p);
 
   return s;
 }
@@ -317,7 +316,7 @@ FormulaGraphvizFormatter_FunctionGetUniqueName (const ASTNode_t *node)
   
   s = StringBuffer_toString(p);
 
-  free(p);
+  StringBuffer_free(p);
 
   return s;
 }
@@ -362,7 +361,7 @@ FormulaGraphvizFormatter_formatOperator (const ASTNode_t *node)
       break;
   }
 
-  free(p);
+  StringBuffer_free(p);
 
   return s;
 }
@@ -437,7 +436,7 @@ FormulaGraphvizFormatter_OperatorGetUniqueName (const ASTNode_t *node)
   
   s = StringBuffer_toString(p);
 
-  free(p);
+  StringBuffer_free(p);
 
   return s;
 }
@@ -463,7 +462,7 @@ FormulaGraphvizFormatter_formatRational (const ASTNode_t *node)
 
   s = StringBuffer_toString(p);
 
-  free(p);
+  StringBuffer_free(p);
 
   return s;
 }
@@ -506,7 +505,7 @@ FormulaGraphvizFormatter_formatReal (const ASTNode_t *node)
     s = StringBuffer_toString(p);
   }
 
-  free(p);
+  StringBuffer_free(p);
 
   return s;
 }
@@ -581,6 +580,8 @@ FormulaGraphvizFormatter_visitFunction (const ASTNode_t *parent,
       StringBuffer_append(sb, name);
       StringBuffer_append(sb, ";\n");
     }
+    free(name);
+    free(uniqueName);
   }
 
   if (numChildren > 0)
@@ -706,7 +707,8 @@ FormulaGraphvizFormatter_visitOther (const ASTNode_t *parent,
     StringBuffer_append(sb, " [shape=box, label=");
     StringBuffer_append(sb, name);
     StringBuffer_append(sb, "];\n");
-    
+    free(uniqueName);
+
     FormulaGraphvizFormatter_visit( node, ASTNode_getLeftChild(node), sb );
   }
 
@@ -722,6 +724,8 @@ FormulaGraphvizFormatter_visitOther (const ASTNode_t *parent,
       StringBuffer_append(sb, name);
       StringBuffer_append(sb, ";\n");
     }
+    free(name);
+    free(uniqueName);
   }
 
   if (numChildren > 1)

@@ -407,6 +407,13 @@ ConversionProperties_clone(const ConversionProperties_t* cp)
 }
 
 LIBSBML_EXTERN
+void
+ConversionProperties_free(ConversionProperties_t* cp)
+{
+    delete cp;
+}
+
+LIBSBML_EXTERN
 int
 ConversionProperties_getBoolValue(const ConversionProperties_t* cp, const char* key)
 {

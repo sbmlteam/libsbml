@@ -277,6 +277,7 @@ main (int argc, char* argv[])
 	cout << "     write time (ms): " << stop - start          << endl;   
 	cout << endl;
 	
+    delete allElements;
     delete document;
     return errors;
 }
