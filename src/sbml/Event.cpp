@@ -1750,20 +1750,20 @@ Event::removeChildObject(const std::string& elementName, const std::string& id)
   if (elementName == "trigger")
   {
     Trigger* t = getTrigger();
-    if(unsetTrigger() == LIBSBML_OPERATION_SUCCESS)
-      return t;
+    mTrigger = NULL;
+    return t;
   }
   else if (elementName == "priority")
   {
     Priority* t = getPriority();
-    if (unsetPriority() == LIBSBML_OPERATION_SUCCESS)
-      return t;
+    mPriority = NULL;
+    return t;
   }
   else if (elementName == "delay")
   {
     Delay* t = getDelay();
-    if (unsetDelay() == LIBSBML_OPERATION_SUCCESS)
-      return t;
+    mDelay = NULL;
+    return t;
   }
   else if (elementName == "eventAssignment")
   {
