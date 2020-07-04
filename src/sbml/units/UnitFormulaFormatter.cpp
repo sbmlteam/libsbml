@@ -1663,7 +1663,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
     {
       for (n = 0; n < model->getNumUnitDefinitions(); n++)
       {
-        if (!strcmp(units, model->getUnitDefinition(n)->getId().c_str()))
+        if (units == model->getUnitDefinition(n)->getId())
         {
           try
           {
@@ -1689,6 +1689,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
                        model->getUnitDefinition(n)->getUnit(p)->getOffset());
             unit = NULL;
           }
+          break;
         }
       }
     }
@@ -1798,7 +1799,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
     {
       for (n = 0; n < model->getNumUnitDefinitions(); n++)
       {
-        if (!strcmp(spatialUnits, model->getUnitDefinition(n)->getId().c_str()))
+        if (spatialUnits == model->getUnitDefinition(n)->getId())
         {
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
@@ -1814,6 +1815,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
                         model->getUnitDefinition(n)->getUnit(p)->getOffset());
             unit = NULL;
           }
+          break;
         }
       }
     }
@@ -2595,8 +2597,16 @@ UnitFormulaFormatter::inferUnitDefinition(UnitDefinition* expectedUD,
         delete tempUD1;
         delete math;
         math = child1->deepCopy();
-        if (child1 != NULL) delete child1;
-        if (child2 != NULL) delete child2;
+        if (child1 != NULL) 
+        {
+           delete child1;
+           child1 = NULL;
+        }
+        if (child2 != NULL)
+        {
+          delete child2;
+          child2 = NULL;
+        }
         numChildren = math->getNumChildren();
         continue;
       }
