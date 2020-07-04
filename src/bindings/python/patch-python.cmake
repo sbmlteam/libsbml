@@ -48,3 +48,34 @@ endif()
 
 file(APPEND  "${WRAPPER_FILE}" "${SOURCECODE}")
 
+
+file(READ "${WRAPPER_FILE}" "${SOURCECODE}")
+
+file(WRITE "${BIN_DIRECTORY}/libsbml2.py" "${init_script}")
+
+string(REPLACE 
+  "class SBase(_object):"
+  "class SBase(_object, metaclass=AutoProperty):"
+  init3_script "${init_script}"
+)
+
+string(REPLACE 
+  "class SBase(object):"
+  "class SBase(object, metaclass=AutoProperty):"
+  init3_script "${init3_script}"
+)
+
+string(REPLACE 
+  "class SBasePlugin(_object):"
+  "class SBasePlugin(_object, metaclass=AutoProperty):"
+  init3_script "${init3_script}"
+)
+
+string(REPLACE 
+  "class SBasePlugin(object):"
+  "class SBasePlugin(object, metaclass=AutoProperty):"
+  init3_script "${init3_script}"
+)
+
+
+file(WRITE ${BIN_DIRECTORY}/libsbml3.py "${init3_script}")
