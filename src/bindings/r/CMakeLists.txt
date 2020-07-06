@@ -465,6 +465,7 @@ foreach(flag ${SWIG_EXTRA_ARGS})
   if(${flag} MATCHES "-DUSE_*" AND
   NOT ${flag} MATCHES "EXPAT" AND
   NOT ${flag} MATCHES "ZLIB" AND
+  NOT ${flag} MATCHES "BZ2" AND
   NOT ${flag} MATCHES "XERC" AND
   NOT "${CMAKE_PACKAGE_FLAGS}" MATCHES "${flag}")
   set(CMAKE_PACKAGE_FLAGS "${CMAKE_PACKAGE_FLAGS} ${flag}=1 ")
