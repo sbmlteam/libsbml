@@ -159,7 +159,7 @@ Model::~Model ()
     }
     delete mFormulaUnitsData;
   }
-
+  mEvents.clear();
   mUnitsDataMap.clear();
 }
 

@@ -658,7 +658,9 @@ START_TEST (test_SBMLConvert_convertToL3_unit)
   fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1, NULL);
 
   Unit_t *u1 = UnitDefinition_getUnit(Model_getUnitDefinition(m, 0), 0);
-
+  fail_unless(util_isEqual(Unit_getExponent(u1), 1.0));
+  fail_unless(Unit_getScale(u1) == 0);
+  fail_unless(util_isEqual(Unit_getMultiplier(u1), 1.0));
   fail_unless(Unit_hasRequiredAttributes(u1) == 1);
 
   SBMLDocument_free(d);

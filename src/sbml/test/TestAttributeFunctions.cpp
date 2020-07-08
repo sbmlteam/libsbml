@@ -1593,6 +1593,7 @@ START_TEST(test_Elements_Event)
   fail_unless(e->isSetTrigger() == false);
   fail_unless(e->getNumObjects("trigger") == 0);
 
+  delete t2;
   delete m;
 }
 END_TEST
