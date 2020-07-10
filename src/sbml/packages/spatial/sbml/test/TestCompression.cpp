@@ -724,8 +724,10 @@ START_TEST(test_Compression_ParametricObject_2)
   parametricobj.getPointIndex(compressed_data);
   fail_unless(compressed_data == compressedvals);
 
+  // check that uncompressed values are correct
   int* uncompressed_array = NULL;
   size_t length;
+  // this method allocates memory
   parametricobj.getUncompressedData(uncompressed_array, length);
   fail_unless(length == values.size());
   for (size_t n = 0; n < length; n++)
@@ -733,9 +735,17 @@ START_TEST(test_Compression_ParametricObject_2)
     fail_unless(uncompressed_array[n] == values[n]);
   }
 
+  // this method expects the memory to already be allocated
+  parametricobj.getUncompressed(uncompressed_array);
+  for (size_t n = 0; n < length; n++)
+  {
+    fail_unless(uncompressed_array[n] == values[n]);
+  }
+  free(uncompressed_array);
+
   vector<int> uncompressed_vec;
   parametricobj.getUncompressed(uncompressed_vec);
-
+  fail_unless(uncompressed_vec == values);
 
   // Now uncompress the values
   parametricobj.uncompress();
@@ -747,8 +757,26 @@ START_TEST(test_Compression_ParametricObject_2)
 
   std::vector<int> uncompressed_data;
   parametricobj.getPointIndex(uncompressed_data);
-
   fail_unless(uncompressed_data == values);
+
+  // check again that uncompressed values are correct
+  uncompressed_vec.clear();
+  parametricobj.getUncompressed(uncompressed_vec);
+  fail_unless(uncompressed_vec == values);
+
+  parametricobj.getUncompressedData(uncompressed_array, length);
+  fail_unless(length == values.size());
+  for (size_t n = 0; n < length; n++)
+  {
+    fail_unless(uncompressed_array[n] == values[n]);
+  }
+
+  parametricobj.getUncompressed(uncompressed_array);
+  for (size_t n = 0; n < length; n++)
+  {
+    fail_unless(uncompressed_array[n] == values[n]);
+  }
+  free(uncompressed_array);
 
   //Now compress them again
   parametricobj.compress(9);
