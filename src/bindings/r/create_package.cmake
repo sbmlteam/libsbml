@@ -67,78 +67,7 @@ endif()
 # create base dir
 file (MAKE_DIRECTORY ${OUT_DIR}/src)
 
-  # # list directories to copy files from (old way)
-  # set(DIRECTORIES
-
-  #   sbml
-  #   sbml/annotation
-  #   sbml/common
-  #   sbml/compress
-  #   sbml/conversion
-  #   sbml/extension
-  #   sbml/math
-  #   sbml/packages
-    
-  #   sbml/packages/comp/common
-  #   sbml/packages/comp/extension
-  #   sbml/packages/comp/sbml
-  #   sbml/packages/comp/util
-  #   sbml/packages/comp/validator
-  #   sbml/packages/comp/validator/constraints
-    
-  #   sbml/packages/fbc/common
-  #   sbml/packages/fbc/extension
-  #   sbml/packages/fbc/sbml
-  #   sbml/packages/fbc/util
-  #   sbml/packages/fbc/validator
-  #   sbml/packages/fbc/validator/constraints
-    
-  #   sbml/packages/layout/common
-  #   sbml/packages/layout/extension
-  #   sbml/packages/layout/sbml
-  #   sbml/packages/layout/util
-  #   sbml/packages/layout/validator
-  #   sbml/packages/layout/validator/constraints
-    
-  #   sbml/packages/render/common
-  #   sbml/packages/render/extension
-  #   sbml/packages/render/sbml
-  #   sbml/packages/render/util
-  #   sbml/packages/render/validator
-  #   sbml/packages/render/validator/constraints
-    
-  #   sbml/packages/qual/common
-  #   sbml/packages/qual/extension
-  #   sbml/packages/qual/sbml
-  #   sbml/packages/qual/util
-  #   sbml/packages/qual/validator
-  #   sbml/packages/qual/validator/constraints
-    
-  #   sbml/packages/multi/common
-  #   sbml/packages/multi/extension
-  #   sbml/packages/multi/sbml
-  #   sbml/packages/multi/validator
-  #   sbml/packages/multi/validator/constraints  
-
-  #   sbml/packages/groups/common
-  #   sbml/packages/groups/extension
-  #   sbml/packages/groups/sbml
-  #   sbml/packages/groups/util
-  #   sbml/packages/groups/validator
-  #   sbml/packages/groups/validator/constraints  
-
-  #   sbml/packages/l3v2extendedmath/common
-  #   sbml/packages/l3v2extendedmath/extension
-  #   sbml/packages/l3v2extendedmath/validator
-  #   sbml/packages/l3v2extendedmath/validator/constraints
-    
-  #   sbml/units
-  #   sbml/util
-  #   sbml/validator
-  #   sbml/validator/constraints
-  #   sbml/xml
-  # )
-
+  
 # new way to list directories  
 IF(${CMAKE_VERSION} VERSION_GREATER 3.2.3)
   message("\nCMake ${CMAKE_VERSION} detected using sane directory tree strategy.")
@@ -320,7 +249,7 @@ file (GLOB BIN_SWIG_FILES
 
 # copy swigged files 
 file(
-    COPY ${BIN_SWIG_FILES}  
+    COPY ${BIN_SWIG_FILES}
     DESTINATION ${OUT_DIR}/swig/
 ) 
 
@@ -339,6 +268,14 @@ file(
     DESTINATION ${OUT_DIR}/R
 ) 
 
+# copy manifest template
+file(
+    COPY
+    ${BIN_DIR}/src/bindings/r/configure
+    ${BIN_DIR}/src/bindings/r/configure.in
+    ${CMAKE_CURRENT_SOURCE_DIR}/configure.win
+    DESTINATION ${OUT_DIR}/
+) 
 
 
 # discover current version (default to 5.10.3)
@@ -360,13 +297,4 @@ if(EXISTS "${SRC_DIR}/../VERSION.txt")
   set(LIBSBML_VERSION "${LIBSBML_VERSION_MAJOR}.${LIBSBML_VERSION_MINOR}.${LIBSBML_VERSION_PATCH}")
 
 endif()
-
-# copy manifest template
-file(
-    COPY 
-    ${CMAKE_CURRENT_SOURCE_DIR}/configure
-    ${CMAKE_CURRENT_SOURCE_DIR}/configure.in
-    ${CMAKE_CURRENT_SOURCE_DIR}/configure.win    
-    DESTINATION ${OUT_DIR}/
-) 
 
