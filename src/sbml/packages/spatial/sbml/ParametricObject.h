@@ -1219,15 +1219,16 @@ public:
    * The "samples" attribute of this ParametricObject is returned in an int array (pointer) 
    * that is passed as argument to the method (this is needed while using SWIG to
    * convert int[] from C++ to Java). This method returns the uncompressed sample field.
+   * Will uncompress the samples if need be.
    *
    * @return void.
    */
   void getUncompressed(int* outputPoints) const;
 
   /**
-   * The "samples" attribute of this ParametricObject is returned in an int array (pointer) 
-   * that is passed as argument to the method (this is needed while using SWIG to
-   * convert int[] from C++ to Java). This method returns the uncompressed sample field.
+   * The "samples" attribute of this ParametricObject is returned in a std::vector of int
+   * that is passed as argument to the method. This method returns the uncompressed sample field.
+   * Will uncompress the samples if need be.
    *
    * @return void.
    */
@@ -1264,7 +1265,8 @@ public:
   int compress(int level);
 
   /**  
-   *  Returns the data of this image as uncompressed array of integers
+   * Returns the data of this image as uncompressed array of integers.
+   * Will uncompress the samples if need be.
    *
    * @param data the output array of integers (it will be allocated using
    *             malloc and will have to be freed using free)
