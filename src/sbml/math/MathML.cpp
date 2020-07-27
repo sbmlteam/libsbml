@@ -1540,7 +1540,8 @@ writeCSymbol(const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmln
   stream.writeAttribute( "encoding"     , text );
   stream.writeAttribute( "definitionURL", url  );
 
-  stream << " " << node.getName() << " ";
+  if (node.getName() != NULL)
+    stream << " " << node.getName() << " ";
 
   stream.endElement("csymbol");
   stream.setAutoIndent(true);
