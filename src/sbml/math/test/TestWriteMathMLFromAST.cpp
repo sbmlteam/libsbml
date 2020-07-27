@@ -381,6 +381,22 @@ START_TEST (test_MathMLFromAST_csymbol_time)
 }
 END_TEST
 
+START_TEST (test_MathMLFromAST_csymbol_time_no_name)
+{
+  const char* expected = wrapMathML
+  (
+    "  <csymbol encoding=\"text\" "
+    "definitionURL=\"http://www.sbml.org/sbml/symbols/time\"/>\n"
+  );
+
+  N = new ASTNode(AST_NAME_TIME);
+
+  S = writeMathMLToString(N);
+  
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
 
 START_TEST (test_MathMLFromAST_csymbol_rateof)
 {
@@ -1836,6 +1852,7 @@ create_suite_WriteMathMLFromAST ()
   tcase_add_test( tcase, test_MathMLFromAST_csymbol_delay         );
   tcase_add_test( tcase, test_MathMLFromAST_csymbol_rateof        );
   tcase_add_test( tcase, test_MathMLFromAST_csymbol_time          );
+  tcase_add_test( tcase, test_MathMLFromAST_csymbol_time_no_name  );
   tcase_add_test( tcase, test_MathMLFromAST_generic_csymbol       );
   tcase_add_test( tcase, test_MathMLFromAST_constant_true         );
   tcase_add_test( tcase, test_MathMLFromAST_constant_false        );
