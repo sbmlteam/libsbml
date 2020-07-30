@@ -355,8 +355,6 @@ configure_file(
   "${CMAKE_CURRENT_BINARY_DIR}/libSBML/NAMESPACE"
 )
 
-get_target_property(LIBSBML_R_NATIVELIB binding_r_lib LOCATION)
-
 if (APPLE AND ENABLE_UNIVERSAL)
 
 file(MAKE_DIRECTORY ${R_LIBRARY_DESTINATION})
@@ -367,11 +365,11 @@ add_custom_command(
   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libSBML_${PACKAGE_VERSION}.zip
   COMMAND "${CMAKE_COMMAND}"
   ARGS  -E copy_if_different 
-     ${LIBSBML_R_NATIVELIB}
+     $<TARGET_FILE:binding_r_lib>
      ${R_LIBRARY_DESTINATION}/i386
   COMMAND "${CMAKE_COMMAND}"
   ARGS  -E copy_if_different
-     ${LIBSBML_R_NATIVELIB}
+     $<TARGET_FILE:binding_r_lib>
      ${R_LIBRARY_DESTINATION}/x86_64
   COMMAND "${CMAKE_COMMAND}"
   ARGS  -E copy_if_different 
@@ -414,7 +412,7 @@ add_custom_command(
   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libSBML_${PACKAGE_VERSION}.zip
   COMMAND "${CMAKE_COMMAND}"
   ARGS  -E copy_if_different 
-     ${LIBSBML_R_NATIVELIB}
+     $<TARGET_FILE:binding_r_lib>
      ${R_LIBRARY_DESTINATION}
   COMMAND "${CMAKE_COMMAND}"
   ARGS  -E copy_if_different 
