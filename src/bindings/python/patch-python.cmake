@@ -49,7 +49,7 @@ endif()
 file(APPEND  "${WRAPPER_FILE}" "${SOURCECODE}")
 
 
-file(READ "${WRAPPER_FILE}" "${SOURCECODE}")
+file(READ "${WRAPPER_FILE}" init_script)
 
 file(WRITE "${BIN_DIRECTORY}/libsbml2.py" "${init_script}")
 
