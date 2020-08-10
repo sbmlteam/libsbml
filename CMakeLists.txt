@@ -641,7 +641,8 @@ if(WITH_BZIP2)
   list(APPEND SWIG_EXTRA_ARGS -DUSE_BZ2)
 
     # make sure that we have a valid bzip2 library
-    check_library_exists("${LIBBZ_LIBRARY}" "BZ2_bzCompressInit" "" LIBBZ_FOUND_SYMBOL)
+    file(TO_CMAKE_PATH "${LIBBZ_LIBRARY}" LIBBZ2_CMAKE_PATH)
+    check_library_exists("${LIBBZ2_CMAKE_PATH}" "BZ2_bzCompressInit" "" LIBBZ_FOUND_SYMBOL)
     if(NOT LIBBZ_FOUND_SYMBOL)
         # this is odd, but on windows this check always fails! must be a
         # bug in the current cmake version so for now only issue this
@@ -742,7 +743,8 @@ if(WITH_ZLIB)
   list(APPEND SWIG_EXTRA_ARGS -DUSE_ZLIB)
 
     # make sure that we have a valid zip library
-    check_library_exists("${LIBZ_LIBRARY}" "gzopen" "" LIBZ_FOUND_SYMBOL)
+    file(TO_CMAKE_PATH "${LIBZ_LIBRARY}" LIBZ_CMAKE_PATH)
+    check_library_exists("${LIBZ_CMAKE_PATH}" "gzopen" "" LIBZ_FOUND_SYMBOL)
     if(NOT LIBZ_FOUND_SYMBOL)
         # this is odd, but on windows this check always fails! must be a
         # bug in the current cmake version so for now only issue this
