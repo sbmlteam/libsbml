@@ -41,6 +41,7 @@
 
 #include <vector>
 #include <iostream>
+#include <cstdlib>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
