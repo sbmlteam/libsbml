@@ -2,11 +2,8 @@
  * @file    libsbml-version.h
  * @brief   Define libSBML version numbers for access from client software.
  * @author  Michael Hucka
- *
- * $Id: libsbml-version.h.in 10126 2009-08-28 12:16:07Z sarahkeating $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/common/libsbml-version.h.in $
- *
- *<!---------------------------------------------------------------------------
+ * 
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
@@ -118,11 +115,11 @@ getLibSBMLVersionString ();
  *        "expat", "libxml", "xerces-c", "bzip2", "zip"
  * 
  * @return 0 in case the libSBML has not been compiled against 
- *         that library and non-zero otherwise (for libraries 
+ *         that library and nonzero otherwise (for libraries 
  *         that define an integer version number that number will 
  *         be returned).
  *
- * @see getLibSBMLDependencyVersionOf()
+ * @see getLibSBMLDependencyVersionOf(const char* option)
  */
 LIBSBML_EXTERN
 int 
@@ -139,7 +136,7 @@ isLibSBMLCompiledWith(const char* option);
  * @return NULL in case libSBML has not been compiled against 
  *         that library and a version string otherwise.
  *
- * @see isLibSBMLCompiledWith()
+ * @see isLibSBMLCompiledWith(const char* option)
  */
 LIBSBML_EXTERN
 const char* 
