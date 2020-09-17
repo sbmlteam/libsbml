@@ -422,6 +422,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %newobject Model::removeParameter;
 %newobject Model::removeInitialAssignment;
 %newobject Model::removeRule;
+%newobject Model::removeRuleByVariable;
 %newobject Model::removeConstraint;
 %newobject Model::removeReaction;
 %newobject Model::removeEvent;
