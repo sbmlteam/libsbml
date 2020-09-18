@@ -413,9 +413,17 @@ LIBSBML_CPP_NAMESPACE_USE
 %newobject ASTNode::deepCopy;
 %newobject ASTNode::getListOfNodes();
 %newobject *::remove;
+%newobject CVTerm::removeNestedCVTerm;
+%newobject ConversionProperties::removeOption
+%newobject Event::removeEventAssignment;
+%newobject Event::removeChildObject;
+%newobject KineticLaw::removeParameter;
+%newobject KineticLaw::removeLocalParameter;
+%newobject KineticLaw::removeChildObject;
 %newobject Model::removeFunctionDefinition;
 %newobject Model::removeUnitDefinition;
 %newobject Model::removeCompartmentType;
+%newobject Model::removeCompartment;
 %newobject Model::removeSpeciesType;
 %newobject Model::removeSpecies;
 %newobject Model::removeCompartment;
@@ -426,11 +434,15 @@ LIBSBML_CPP_NAMESPACE_USE
 %newobject Model::removeConstraint;
 %newobject Model::removeReaction;
 %newobject Model::removeEvent;
+%newobject Model::removeChildObject;
 %newobject Reaction::removeReactant;
 %newobject Reaction::removeProduct;
 %newobject Reaction::removeModifier;
+%newobject Reaction::removeChildObject;
+%newobject SpeciesReference::removeChildObject;
 %newobject Event::removeEventAssignment;
 %newobject UnitDefinition::removeUnit;
+%newobject UnitDefinition::removeChildObject;
 %newobject KineticLaw::removeParameter;
 %newobject KineticLaw::removeLocalParameter;
 %newobject RDFAnnotationParser::parseRDFAnnotation(XMLNode *);
