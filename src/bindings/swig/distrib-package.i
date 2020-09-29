@@ -40,6 +40,8 @@
 
 %newobject removeUncertParameter;
 %newobject removeUncertainty;
+%newobject removeChildObject;
+%newobject removeUncertainty;
 
 %template (DistribPkgNamespaces) SBMLExtensionNamespaces<DistribExtension>;
 

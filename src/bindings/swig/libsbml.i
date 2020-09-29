@@ -390,6 +390,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %typemap(newfree) char * "free($1);";
 
 %newobject *::clone;
+%newobject removeChildObject;
 %newobject SBase::toSBML;
 %newobject SBMLReader::readSBMLFromString;
 %newobject SBMLReader::readSBMLFromFile;
@@ -416,10 +417,8 @@ LIBSBML_CPP_NAMESPACE_USE
 %newobject CVTerm::removeNestedCVTerm;
 %newobject ConversionProperties::removeOption
 %newobject Event::removeEventAssignment;
-%newobject Event::removeChildObject;
 %newobject KineticLaw::removeParameter;
 %newobject KineticLaw::removeLocalParameter;
-%newobject KineticLaw::removeChildObject;
 %newobject Model::removeFunctionDefinition;
 %newobject Model::removeUnitDefinition;
 %newobject Model::removeCompartmentType;
@@ -434,15 +433,11 @@ LIBSBML_CPP_NAMESPACE_USE
 %newobject Model::removeConstraint;
 %newobject Model::removeReaction;
 %newobject Model::removeEvent;
-%newobject Model::removeChildObject;
 %newobject Reaction::removeReactant;
 %newobject Reaction::removeProduct;
 %newobject Reaction::removeModifier;
-%newobject Reaction::removeChildObject;
-%newobject SpeciesReference::removeChildObject;
 %newobject Event::removeEventAssignment;
 %newobject UnitDefinition::removeUnit;
-%newobject UnitDefinition::removeChildObject;
 %newobject KineticLaw::removeParameter;
 %newobject KineticLaw::removeLocalParameter;
 %newobject RDFAnnotationParser::parseRDFAnnotation(XMLNode *);

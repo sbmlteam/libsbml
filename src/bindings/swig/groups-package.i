@@ -38,6 +38,7 @@
 
 %newobject removeGroup;
 %newobject removeMember;
+%newobject removeChildObject;
 
 %template (GroupsPkgNamespaces) SBMLExtensionNamespaces<GroupsExtension>;
 

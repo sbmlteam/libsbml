@@ -36,6 +36,15 @@
 
 #ifdef USE_COMP
 
+%newobject removeSubmodel;
+%newobject removePort;
+%newobject removeReplacedElement;
+%newobject removeModelDefinition;
+%newobject removeGeneProduct;
+%newobject removeExternalModelDefinition;
+%newobject removeDeletion;
+
+
 %feature("director") SBMLResolver;  
 
 %ignore Submodel::getAllInstantiatedElements;
