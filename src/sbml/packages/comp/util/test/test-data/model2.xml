@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
+  <model metaid="meta_model2" id="model2" name="model2" substanceUnits="mmole" timeUnits="min" volumeUnits="l" areaUnits="m2" lengthUnits="m" extentUnits="mmole">
+    <notes>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <h1>Brain glucose model</h1>
+        <h2>Description</h2>
+        <p>
+        Brain tissue glucose metabolism  
+        encoded in <a href="http://sbml.org">SBML</a> format.<br/></p>
+        <div class="dc:provenance">The content of this model has been carefully created in a manual research effort.</div>
+        <div class="dc:publisher">This file has been created by
+    <a href="https://livermetabolism.com" title="Matthias Koenig" target="_blank">Matthias Koenig</a>.</div>
+        <h2>Terms of use</h2>
+        <div class="dc:rightsHolder">Copyright © 2020 Matthias Koenig.</div>
+        <div class="dc:license">
+          <p>Redistribution and use of any part of this model, with or without modification, are permitted provided
+        that the following conditions are met:
+        <ol>
+            <li>Redistributions of this SBML file must retain the above copyright notice, this list of conditions and
+          the following disclaimer.</li>
+            <li>Redistributions in a different form must reproduce the above copyright notice, this list of conditions
+          and the following disclaimer in the documentation and/or other materials provided
+          with the distribution.</li>
+          </ol>
+        This model is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+        implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+        </p>
+        </div>
+      </body>
+    </notes>
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#meta_model2">
+          <dcterms:creator>
+            <rdf:Bag>
+              <rdf:li rdf:parseType="Resource">
+                <vCard:N rdf:parseType="Resource">
+                  <vCard:Family>Koenig</vCard:Family>
+                  <vCard:Given>Matthias</vCard:Given>
+                </vCard:N>
+                <vCard:EMAIL>koenigmx@hu-berlin.de</vCard:EMAIL>
+                <vCard:ORG rdf:parseType="Resource">
+                  <vCard:Orgname>Humboldt-University Berlin, Institute for Theoretical Biology</vCard:Orgname>
+                </vCard:ORG>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <vCard:N rdf:parseType="Resource">
+                  <vCard:Family>Green</vCard:Family>
+                  <vCard:Given>Kathleen</vCard:Given>
+                </vCard:N>
+                <vCard:ORG rdf:parseType="Resource">
+                  <vCard:Orgname>Stellenbosch University</vCard:Orgname>
+                </vCard:ORG>
+              </rdf:li>
+            </rdf:Bag>
+          </dcterms:creator>
+          <dcterms:created rdf:parseType="Resource">
+            <dcterms:W3CDTF>1900-01-01T00:00:00Z</dcterms:W3CDTF>
+          </dcterms:created>
+          <dcterms:modified rdf:parseType="Resource">
+            <dcterms:W3CDTF>1900-01-01T00:00:00Z</dcterms:W3CDTF>
+          </dcterms:modified>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+    <listOfUnitDefinitions>
+      <unitDefinition metaid="meta_l" id="l">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition metaid="meta_min" id="min">
+        <listOfUnits>
+          <unit kind="second" exponent="1" scale="0" multiplier="60"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition metaid="meta_s" id="s">
+        <listOfUnits>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition metaid="meta_kg" id="kg">
+        <listOfUnits>
+          <unit kind="gram" exponent="1" scale="3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition metaid="meta_m" id="m">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition metaid="meta_m2" id="m2">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition metaid="meta_mg" id="mg">
+        <listOfUnits>
+          <unit kind="gram" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition metaid="meta_ml" id="ml">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition metaid="meta_mmole" id="mmole">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="l_per_ml">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="litre" exponent="-1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="Vbrain" name="brain tissue" spatialDimensions="3" size="1" units="l" constant="false">
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Vbrain_RE" comp:portRef="Vbr_port" comp:submodelRef="model1" comp:conversionFactor="conversion_l_per_ml"/>
+        </comp:listOfReplacedElements>
+      </compartment>
+    </listOfCompartments>
+    <listOfParameters>
+      <parameter id="conversion_l_per_ml" name="volume conversion factor" value="0.001" units="l_per_ml" constant="true"/>
+    </listOfParameters>
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="model1" comp:modelRef="model1"/>
+    </comp:listOfSubmodels>
+    <comp:listOfPorts>
+      <comp:port metaid="l_port" sboTerm="SBO:0000599" comp:unitRef="l" comp:id="l_port" comp:name="l_port"/>
+      <comp:port metaid="min_port" sboTerm="SBO:0000599" comp:unitRef="min" comp:id="min_port" comp:name="min_port"/>
+      <comp:port metaid="s_port" sboTerm="SBO:0000599" comp:unitRef="s" comp:id="s_port" comp:name="s_port"/>
+      <comp:port metaid="kg_port" sboTerm="SBO:0000599" comp:unitRef="kg" comp:id="kg_port" comp:name="kg_port"/>
+      <comp:port metaid="m_port" sboTerm="SBO:0000599" comp:unitRef="m" comp:id="m_port" comp:name="m_port"/>
+      <comp:port metaid="m2_port" sboTerm="SBO:0000599" comp:unitRef="m2" comp:id="m2_port" comp:name="m2_port"/>
+      <comp:port metaid="mg_port" sboTerm="SBO:0000599" comp:unitRef="mg" comp:id="mg_port" comp:name="mg_port"/>
+      <comp:port metaid="ml_port" sboTerm="SBO:0000599" comp:unitRef="ml" comp:id="ml_port" comp:name="ml_port"/>
+      <comp:port metaid="mmole_port" sboTerm="SBO:0000599" comp:unitRef="mmole" comp:id="mmole_port" comp:name="mmole_port"/>
+      <comp:port metaid="l_per_ml_port" sboTerm="SBO:0000599" comp:unitRef="l_per_ml" comp:id="l_per_ml_port" comp:name="l_per_ml_port"/>
+      <comp:port metaid="Vbrain_port" sboTerm="SBO:0000599" comp:idRef="Vbrain" comp:id="Vbrain_port" comp:name="Vbrain_port"/>
+    </comp:listOfPorts>
+  </model>
+  <comp:listOfExternalModelDefinitions>
+    <comp:externalModelDefinition comp:id="model1" comp:source="model1.xml" comp:modelRef="model1"/>
+  </comp:listOfExternalModelDefinitions>
+</sbml>

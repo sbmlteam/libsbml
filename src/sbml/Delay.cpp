@@ -434,7 +434,7 @@ void
 Delay::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
   if (isSetMath()) {
-    if (mMath->getType() == AST_NAME && mMath->getId() == id) {
+    if (mMath->getType() == AST_NAME && mMath->getName() == id) {
       delete mMath;
       mMath = function->deepCopy();
     }

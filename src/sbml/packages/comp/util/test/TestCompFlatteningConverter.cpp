@@ -2137,12 +2137,33 @@ START_TEST(test_comp_flatten_boundary_replace2)
 END_TEST
 
 
+START_TEST(test_comp_flatten_conversion_factor)
+{
+    TestFlattenedPair("conversion_factor.xml", "conversion_factor_flat.xml");
+}
+END_TEST
+
+
+START_TEST(test_comp_flatten_conversion_factor2)
+{
+    TestFlattenedPair("model2.xml", "model2_flat.xml");
+}
+END_TEST
+
+
+START_TEST(test_comp_flatten_conversion_factor3)
+{
+    TestFlattenedPair("conversion_factor2_param.xml", "conversion_factor_flat.xml");
+}
+END_TEST
+
+
 Suite *
 create_suite_TestFlatteningConverter (void)
 { 
   TCase *tcase = tcase_create("SBMLCompFlatteningConverter");
   Suite *suite = suite_create("SBMLCompFlatteningConverter");
-  
+
   tcase_add_test(tcase, test_invalid_layout_disabled);
   tcase_add_test(tcase, test_comp_flatten_double_ext2);
   tcase_add_test(tcase, test_comp_get_flattening_converter);
@@ -2279,6 +2300,10 @@ create_suite_TestFlatteningConverter (void)
   tcase_add_test(tcase, test_comp_flatten_test1_l3v2);
   tcase_add_test(tcase, test_comp_flatten_boundary_replace1);
   tcase_add_test(tcase, test_comp_flatten_boundary_replace2);
+
+  tcase_add_test(tcase, test_comp_flatten_conversion_factor);
+  tcase_add_test(tcase, test_comp_flatten_conversion_factor2);
+  tcase_add_test(tcase, test_comp_flatten_conversion_factor3);
 
   suite_add_tcase(suite, tcase);
 
