@@ -40,7 +40,6 @@
 %newobject removePort;
 %newobject removeReplacedElement;
 %newobject removeModelDefinition;
-%newobject removeGeneProduct;
 %newobject removeExternalModelDefinition;
 %newobject removeDeletion;
 
