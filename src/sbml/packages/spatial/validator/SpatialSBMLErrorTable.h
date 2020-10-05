@@ -987,7 +987,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'spatial:unit' on a <coordinateComponent> must "
     "have a taken from the following: the identifier of a <unitDefinition> "
-    "object in the enclosing <model,> or one of the base units in SBML.",
+    "object in the enclosing <model>, or one of the base units in SBML.",
     { "L3V1 Spatial V1 Section"
     }
   },
