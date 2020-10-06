@@ -11,6 +11,8 @@
 %newobject removeSpeciesFeature;
 %newobject removeSpeciesTypeComponentMapInProduct;
 %newobject removeMultiSpeciesType;
+%newobject removeSubListOfSpeciesFeatures;
+
 
 %template (MultiPkgNamespaces) SBMLExtensionNamespaces<MultiExtension>;
 

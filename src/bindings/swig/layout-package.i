@@ -73,6 +73,11 @@
 %newobject removeTextGlyph;
 %newobject removeAdditionalGraphicalObject;
 %newobject removeSpeciesReferenceGlyph;
+%newobject removeLayout;
+%newobject removeReferenceGlyph;
+%newobject removeSubGlyph;
+%newobject removeObjectWithId;
+
 
 %include sbml/packages/layout/sbml/SpeciesReferenceRole.h
 %include sbml/packages/layout/sbml/Point.h

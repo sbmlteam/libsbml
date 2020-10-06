@@ -390,6 +390,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %typemap(newfree) char * "free($1);";
 
 %newobject *::clone;
+%newobject removeChildObject;
 %newobject SBase::toSBML;
 %newobject SBMLReader::readSBMLFromString;
 %newobject SBMLReader::readSBMLFromFile;
@@ -413,9 +414,15 @@ LIBSBML_CPP_NAMESPACE_USE
 %newobject ASTNode::deepCopy;
 %newobject ASTNode::getListOfNodes();
 %newobject *::remove;
+%newobject CVTerm::removeNestedCVTerm;
+%newobject ConversionProperties::removeOption
+%newobject Event::removeEventAssignment;
+%newobject KineticLaw::removeParameter;
+%newobject KineticLaw::removeLocalParameter;
 %newobject Model::removeFunctionDefinition;
 %newobject Model::removeUnitDefinition;
 %newobject Model::removeCompartmentType;
+%newobject Model::removeCompartment;
 %newobject Model::removeSpeciesType;
 %newobject Model::removeSpecies;
 %newobject Model::removeCompartment;

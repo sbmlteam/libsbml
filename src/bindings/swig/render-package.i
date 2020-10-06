@@ -36,6 +36,17 @@
 
 #ifdef USE_RENDER
 
+%newobject removeLocalRenderInformation;
+%newobject removeGlobalRenderInformation;
+%newobject removeGlobalStyle;
+%newobject removeStyle;
+%newobject removeGradientStop;
+%newobject removeLocalStyle;
+%newobject removeElement;
+%newobject removeColorDefinition;
+%newobject removeGradientDefinition;
+%newobject removeLineEnding;
+
 %template(RenderPkgNamespaces) SBMLExtensionNamespaces<RenderExtension>;
 
 %ignore Transformation2D::readAttributes;

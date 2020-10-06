@@ -41,6 +41,9 @@
 %newobject removeFluxObjective;
 %newobject removeObjective;
 %newobject removeGeneProduct;
+%newobject removeFluxBound;
+%newobject removeGeneAssociation;
+
 
 %template (FbcPkgNamespaces) SBMLExtensionNamespaces<FbcExtension>;
 
