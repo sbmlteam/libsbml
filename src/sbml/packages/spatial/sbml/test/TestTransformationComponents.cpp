@@ -171,7 +171,6 @@ START_TEST (test_TransformationComponent_components_mismatchLength_1)
   G->getComponents(componentsRet);
   fail_unless(util_isEqual(componentsRet[0], 1.3));
   fail_unless(util_isEqual(componentsRet[1], 2.4));
-  fail_unless(componentsRet[2] != 0);
 
   G->unsetComponents();
 
