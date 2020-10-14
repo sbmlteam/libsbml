@@ -1795,6 +1795,49 @@ public:
 
 
   /**
+   * Get a CoordinateComponent from the Geometry.
+   *
+   * @param kind an CoordinateKind_t value representing the coordinate kind
+   * of the CoordinateComponent to retrieve.
+   *
+   * @return the CoordinateComponent with the given kind from the
+   * ListOfCoordinateComponents within this Geometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
+   * @see getCoordinateComponent(const std::string& sid)
+   * @see getNumCoordinateComponents()
+   * @see removeCoordinateComponent(const std::string& sid)
+   * @see removeCoordinateComponent(unsigned int n)
+   */
+  const CoordinateComponent* getCoordinateComponentByKind(CoordinateKind_t kind) const;
+
+
+  /**
+   * Get a CoordinateComponent from the Geometry.
+   *
+   * @param kind an CoordinateKind_t value representing the coordinate kind
+   * of the CoordinateComponent to retrieve.
+   *
+   * @return the CoordinateComponent with the given kind from the
+   * ListOfCoordinateComponents within this Geometry.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* object)
+   * @see createCoordinateComponent()
+   * @see getCoordinateComponent(const std::string& sid)
+   * @see getNumCoordinateComponents()
+   * @see removeCoordinateComponent(const std::string& sid)
+   * @see removeCoordinateComponent(unsigned int n)
+   */
+  CoordinateComponent*
+  getCoordinateComponentByKind(CoordinateKind_t kind);
+
+
+  /**
    * Returns the XML element name of this Geometry object.
    *
    * For Geometry, the XML element name is always @c "geometry".
@@ -2314,30 +2357,6 @@ protected:
   virtual void writeAttributes(XMLOutputStream& stream) const;
 
   /** @endcond */
-
-
-public: 
-
-  /**
-   * Get a CoordinateComponent from the Geometry.
-   *
-   * @param kind an CoordinateKind_t value representing the coordinate kind
-   * of the CoordinateComponent to retrieve.
-   *
-   * @return the CoordinateComponent with the given kind from the 
-   * ListOfCoordinateComponents within this Geometry.
-   *
-   * @copydetails doc_returned_unowned_pointer
-   *
-   * @see addCoordinateComponent(const CoordinateComponent* object)
-   * @see createCoordinateComponent()
-   * @see getCoordinateComponent(const std::string& sid)
-   * @see getNumCoordinateComponents()
-   * @see removeCoordinateComponent(const std::string& sid)
-   * @see removeCoordinateComponent(unsigned int n)
-   */
-  CoordinateComponent* getCoordinateComponentByKind(CoordinateKind_t kind);
-
 
 };
 

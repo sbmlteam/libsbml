@@ -1413,6 +1413,24 @@ Geometry::removeSampledField(const std::string& sid)
   return mSampledFields.remove(sid);
 }
 
+const CoordinateComponent*
+Geometry::getCoordinateComponentByKind(CoordinateKind_t kind) const
+{
+    return const_cast <Geometry*> (this)->getCoordinateComponentByKind(kind);
+}
+
+CoordinateComponent*
+Geometry::getCoordinateComponentByKind(CoordinateKind_t kind)
+{
+  for (size_t i = 0; i < mCoordinateComponents.size(); ++i)
+  {
+    CoordinateComponent* current = mCoordinateComponents.get(i);
+    if (current->getType() == kind)
+      return current;
+  }
+  return NULL;
+}
+
 
 /*
  * Returns the XML element name of this Geometry object.
@@ -2482,9 +2500,9 @@ Geometry::readAttributes(const XMLAttributes& attributes,
     }
   }
 
-  // 
+  //
   // id SId (use = "optional" )
-  // 
+  //
 
   assigned = attributes.readInto("id", mId);
 
@@ -2502,9 +2520,9 @@ Geometry::readAttributes(const XMLAttributes& attributes,
     }
   }
 
-  // 
+  //
   // coordinateSystem enum (use = "required" )
-  // 
+  //
 
   std::string coordinateSystem;
   assigned = attributes.readInto("coordinateSystem", coordinateSystem);
@@ -2573,21 +2591,6 @@ Geometry::writeAttributes(XMLOutputStream& stream) const
 }
 
 /** @endcond */
-
-
-CoordinateComponent* 
-Geometry::getCoordinateComponentByKind(CoordinateKind_t kind)
-{
-  size_t i = mCoordinateComponents.size();
-  for (size_t i = 0; i < mCoordinateComponents.size(); ++i)
-  {
-    CoordinateComponent* current = mCoordinateComponents.get(i);
-    if (current->getType() == kind)
-      return current;
-  }
-  return NULL;
-}
-
 
 
 #endif /* __cplusplus */
