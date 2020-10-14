@@ -202,12 +202,17 @@ Makefile
 config.log
 config.status
 .deps
+.libs
 include
 TAGS
 CTAGS
 libsbml.pc
 libsbml.spec
 *.o
+*.a
+*.so
+*.dSYM
+*.dylib
 a.out.dSYM
 libtool
 doltlibtool
@@ -217,3 +222,4 @@ CMakeCache.txt
 CMakeFiles
 CPackConfig.cmake
 CPackSourceConfig.cmake
+TestRunner
