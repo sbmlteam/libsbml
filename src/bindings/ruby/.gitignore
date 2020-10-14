@@ -1,0 +1,10 @@
+libsbml_wrap.cpp
+libsbml_wrap.h
+libSBML.bundle
+local-downcast-astplugins.cpp
+local-downcast-converters.cpp
+local-downcast-extension.cpp
+local-downcast-namespaces.cpp
+local-downcast-plugins.cpp
+local-downcast.cpp
+local-packages.i

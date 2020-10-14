@@ -1,0 +1,10 @@
+build.sh
+*.pkg
+libsbml-dist
+disk-image
+disk-image-previous
+resources/package-intro.txt
+resources/package-readme.txt
+libsbml-package.pmdoc/01local-contents.xml
+libsbml-package.pmdoc/01local.xml
+libsbml-package.pmdoc/index.xml
