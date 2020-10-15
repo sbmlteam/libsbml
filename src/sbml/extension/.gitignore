@@ -1,0 +1,7 @@
+*.o
+*.a
+*.so
+*.dylib
+.libs
+RegisterExtensions.cxx
+RegisterExtensions.h
