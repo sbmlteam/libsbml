@@ -215,6 +215,36 @@ START_TEST (test_ListOf_append)
 }
 END_TEST
 
+START_TEST(test_ListOf_sort)
+{
+    ListOf_t* lo = (ListOf_t*)ListOf_create(2, 4);
+
+    Species_t* sp = Species_create(2, 4);
+    sp->setId("z");
+    ListOf_append(lo, sp);
+
+    sp->setId("a");
+    ListOf_append(lo, sp);
+
+    sp->setId("n");
+    ListOf_append(lo, sp);
+
+    lo->sort();
+    SBase_t* child = ListOf_get(lo, 0);
+    fail_unless(child->getId() == "a");
+    child = ListOf_get(lo, 1);
+    fail_unless(child->getId() == "n");
+    child = ListOf_get(lo, 2);
+    fail_unless(child->getId() == "z");
+
+    Species_free(sp);
+    ListOf_free(lo);
+}
+END_TEST
+
+
+
+
 Suite *
 create_suite_ListOf (void) 
 { 
@@ -227,7 +257,8 @@ create_suite_ListOf (void)
   tcase_add_test(tcase, test_ListOf_remove    );
   tcase_add_test(tcase, test_ListOf_clear     );
   tcase_add_test(tcase, test_ListOf_append    );
- 
+  tcase_add_test(tcase, test_ListOf_sort      );
+
   suite_add_tcase(suite, tcase);
 
   return suite;
