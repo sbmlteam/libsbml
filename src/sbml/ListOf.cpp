@@ -685,6 +685,23 @@ ListOf::setExplicitlyListed(bool value)
   mExplicitlyListed = value;
 }
 
+struct ListOfComparator
+{
+    // Compare 2 SBase* objects using name
+    bool operator ()(const SBase* obj1, const SBase* obj2)
+    {
+        if (obj1 == NULL || obj2 == NULL) {
+            return true;
+        }
+        return obj1->getId() < obj2->getId();
+    }
+};
+
+void ListOf::sort()
+{
+    std::sort(mItems.begin(), mItems.end(), ListOfComparator());
+}
+
 
 /** @endcond */
 

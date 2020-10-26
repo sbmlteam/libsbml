@@ -604,6 +604,11 @@ public:
 
 
   /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+  void sort();
+  /** @endcond */
+
 protected:
   /** @cond doxygenLibsbmlInternal */
   typedef std::vector<SBase*>           ListItem;
