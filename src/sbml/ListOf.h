@@ -606,6 +606,15 @@ public:
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
+  /**
+   * Sort the ListOf by the element SId.
+   * 
+   * If the SIds are not set (or equal), sort by the result of 
+   * the 'getId' function (which is different from the 'id' 
+   * attribute for some elements such as rules), then by the
+   * 'name' attribute, and finally by the metaids.  If none 
+   * are set, the items are considered to be sorted.
+   */
   void sort();
   /** @endcond */
 

@@ -687,13 +687,30 @@ ListOf::setExplicitlyListed(bool value)
 
 struct ListOfComparator
 {
-    // Compare 2 SBase* objects using name
+    // Compare 2 SBase* objects using the 'id' attribute, 
+    // then the results of 'getId' (which is sometimes different 
+    // from 'getId'), then name, then metaid.
     bool operator ()(const SBase* obj1, const SBase* obj2)
     {
         if (obj1 == NULL || obj2 == NULL) {
             return true;
         }
-        return obj1->getId() < obj2->getId();
+        if (obj1->getIdAttribute() == obj2->getIdAttribute()) {
+            if (obj1->getId() == obj2->getId()) {
+                if (obj1->getName() == obj2->getName()) {
+                    return obj1->getMetaId() < obj2->getMetaId();
+                }
+                else {
+                    return obj1->getName() < obj2->getName();
+                }
+            }
+            else {
+                return obj1->getId() < obj2->getId();
+            }
+        }
+        else {
+            return obj1->getIdAttribute() < obj2->getIdAttribute();
+        }
     }
 };
 

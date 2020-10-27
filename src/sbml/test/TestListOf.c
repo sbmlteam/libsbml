@@ -243,6 +243,74 @@ START_TEST(test_ListOf_sort)
 END_TEST
 
 
+START_TEST(test_ListOf_sort_meta)
+{
+    ListOf_t* lo = (ListOf_t*)ListOf_create(2, 4);
+
+    Species_t* sp = Species_create(2, 4);
+    sp->setMetaId("z");
+    ListOf_append(lo, sp);
+
+    sp->setMetaId("a");
+    ListOf_append(lo, sp);
+
+    sp->setMetaId("n");
+    ListOf_append(lo, sp);
+
+    lo->sort();
+    SBase_t* child = ListOf_get(lo, 0);
+    fail_unless(child->getMetaId() == "a");
+    child = ListOf_get(lo, 1);
+    fail_unless(child->getMetaId() == "n");
+    child = ListOf_get(lo, 2);
+    fail_unless(child->getMetaId() == "z");
+
+    Species_free(sp);
+    ListOf_free(lo);
+}
+END_TEST
+
+
+START_TEST(test_ListOf_sort_rules)
+{
+    ListOf_t* lo = (ListOf_t*)ListOf_create(3, 2);
+
+    Rule_t* rr = Rule_createRate(3, 2);
+    rr->setVariable("z");
+    rr->setIdAttribute("a");
+    ListOf_append(lo, rr);
+
+    rr->setVariable("a");
+    rr->setIdAttribute("z");
+    ListOf_append(lo, rr);
+
+    rr->setVariable("q");
+    rr->unsetIdAttribute();
+    ListOf_append(lo, rr);
+
+    rr->setVariable("n");
+    ListOf_append(lo, rr);
+
+    lo->sort();
+    SBase_t* child = ListOf_get(lo, 0);
+    fail_unless(child->getIdAttribute() == "");
+    fail_unless(child->getId() == "n");
+    child = ListOf_get(lo, 1);
+    fail_unless(child->getIdAttribute() == "");
+    fail_unless(child->getId() == "q");
+    child = ListOf_get(lo, 2);
+    fail_unless(child->getIdAttribute() == "a");
+    fail_unless(child->getId() == "z");
+    child = ListOf_get(lo, 3);
+    fail_unless(child->getIdAttribute() == "z");
+    fail_unless(child->getId() == "a");
+
+    Rule_free(rr);
+    ListOf_free(lo);
+}
+END_TEST
+
+
 
 
 Suite *
@@ -258,6 +326,8 @@ create_suite_ListOf (void)
   tcase_add_test(tcase, test_ListOf_clear     );
   tcase_add_test(tcase, test_ListOf_append    );
   tcase_add_test(tcase, test_ListOf_sort      );
+  tcase_add_test(tcase, test_ListOf_sort_meta );
+  tcase_add_test(tcase, test_ListOf_sort_rules);
 
   suite_add_tcase(suite, tcase);
 
