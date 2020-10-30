@@ -50,10 +50,10 @@
 
 %extend Submodel
 {
-	ListWrapper<SBase>* getListOfAllInstantiatedElements()
+	ListWrapper<SBase> getListOfAllInstantiatedElements()
 	{
 		List* list = $self->getAllInstantiatedElements();
-		return new ListWrapper<SBase>(list);
+		return ListWrapper<SBase>(list);
 	}
 }
 
