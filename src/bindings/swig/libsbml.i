@@ -415,7 +415,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %newobject ASTNode::getListOfNodes();
 %newobject *::remove;
 %newobject CVTerm::removeNestedCVTerm;
-%newobject ConversionProperties::removeOption
+%newobject ConversionProperties::removeOption;
 %newobject Event::removeEventAssignment;
 %newobject KineticLaw::removeParameter;
 %newobject KineticLaw::removeLocalParameter;
