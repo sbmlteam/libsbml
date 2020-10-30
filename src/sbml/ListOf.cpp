@@ -692,25 +692,27 @@ struct ListOfComparator
     // from 'getId'), then name, then metaid.
     bool operator ()(const SBase* obj1, const SBase* obj2)
     {
-        if (obj1 == NULL || obj2 == NULL) {
+        if (obj1 == NULL || obj2 == NULL) 
+        {
             return true;
         }
-        if (obj1->getIdAttribute() == obj2->getIdAttribute()) {
-            if (obj1->getId() == obj2->getId()) {
-                if (obj1->getName() == obj2->getName()) {
+
+        if (obj1->getIdAttribute() == obj2->getIdAttribute()) 
+        {
+            if (obj1->getId() == obj2->getId()) 
+            {
+                if (obj1->getName() == obj2->getName()) 
+                {
                     return obj1->getMetaId() < obj2->getMetaId();
                 }
-                else {
-                    return obj1->getName() < obj2->getName();
-                }
+
+                return obj1->getName() < obj2->getName();
             }
-            else {
-                return obj1->getId() < obj2->getId();
-            }
+
+            return obj1->getId() < obj2->getId();
         }
-        else {
-            return obj1->getIdAttribute() < obj2->getIdAttribute();
-        }
+        
+        return obj1->getIdAttribute() < obj2->getIdAttribute();
     }
 };
 
