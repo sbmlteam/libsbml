@@ -689,7 +689,7 @@ struct ListOfComparator
 {
     // Compare 2 SBase* objects using the 'id' attribute, 
     // then the results of 'getId' (which is sometimes different 
-    // from 'getId'), then name, then metaid.
+    // from 'getIdAttribute'), then name, then metaid.
     bool operator ()(const SBase* obj1, const SBase* obj2)
     {
         if (obj1 == NULL || obj2 == NULL) 
