@@ -7,7 +7,7 @@ LibSBML is an open-source library for working with SBML (the Systems Biology Mar
 [![Stable release](https://img.shields.io/badge/Stable_release-5.18.0-brightgreen.svg?style=flat-square)](https://sourceforge.net/projects/sbml/files/libsbml/5.18.0/stable/)
 [![Experimental release](https://img.shields.io/badge/Experimental_release-5.18.0-b44e88.svg?style=flat-square)](https://sourceforge.net/projects/sbml/files/libsbml/5.18.0/experimental/)
 [![Pivotal Tracker](https://img.shields.io/badge/Project_management-Pivotal_tracker-orange.svg?style=flat-square)](https://www.pivotaltracker.com/n/projects/248655)
-[![User group](https://img.shields.io/badge/Google_group-libsbml--development-lightgray.svg?style=flat-square)]()
+[![Discussion](https://img.shields.io/badge/Discussion-libsbml--development-lightgray.svg?style=flat-square)]()
 
 
 Table of contents
