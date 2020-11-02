@@ -6,7 +6,7 @@ LibSBML is an open-source library for working with SBML (the Systems Biology Mar
 [![License](https://img.shields.io/badge/License-LGPL-blue.svg?style=flat-square)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html)
 [![Stable release](https://img.shields.io/badge/Stable_release-5.18.0-brightgreen.svg?style=flat-square)](https://sourceforge.net/projects/sbml/files/libsbml/5.18.0/stable/)
 [![Experimental release](https://img.shields.io/badge/Experimental_release-5.18.0-b44e88.svg?style=flat-square)](https://sourceforge.net/projects/sbml/files/libsbml/5.18.0/experimental/)
-[![Pivotal Tracker](https://img.shields.io/badge/Project_management-Pivotal_tracker-orange.svg?style=flat-square)](https://www.pivotaltracker.com/n/projects/248655)
+[![Pivotal Tracker](https://img.shields.io/badge/Project_management-Pivotal-d07a3e.svg?style=flat-square)](https://www.pivotaltracker.com/n/projects/248655)
 [![Discussion](https://img.shields.io/badge/Discussion-libsbml--development-lightgray.svg?style=flat-square)]()
 
 
@@ -124,8 +124,19 @@ The development of libSBML was supported in largely by funding from the [Nationa
 
 Contributions to libSBML have also come as a result of work by the SBML Team and others on other grant-funded projects.  The core development of SBML from its inception through 2003 was principally funded by the [Japan Science and Technology Agency](http://www.jst.go.jp/EN/) under the [ERATO Kitano Symbiotic Systems Project](http://www.symbio.jst.go.jp/symbio), with funding going to the group of [John Doyle](http://www.cds.caltech.edu/~doyle/) at Caltech.  This included the first version of libSBML.  After 2003, primary direct support for the core development of SBML and supporting software and activities came from the [National Institute of General Medical Sciences (NIH/NIGMS)](http://www.nigms.nih.gov/) under grants R01 GM070923 and R01GM077671. Additional support came from the following agencies and programs: the [National Human Genome Research Institute](http://www.genome.gov/) (USA), the [International Joint Research Program of NEDO](http://www.nedo.go.jp/) (Japan), the [ERATO-SORST](http://www.jst.go.jp/kisoken/sorst/) Program of the Japan Science and Technology Agency (Japan), the [Ministry of Agriculture](http://www.maff.go.jp/eindex.html) (Japan), the [Ministry of Education, Culture, Sports, Science and Technology](http://www.mext.go.jp/) (Japan), the [BBSRC e-Science Initiative](http://www.bbsrc.ac.uk/) (UK), the [DARPA IPTO Bio-Computation Program](http://www.darpa.mil/ipto/programs/biocomp/vision.htm) (USA), the Army Research Office's [Institute for Collaborative Biotechnologies](https://www.icb.ucsb.edu) (USA), the [Air Force Office of Scientific Research](http://www.afosr.af.mil/) (USA), the [EU Commission 6th Framework Programme](http://ec.europa.eu/research/fp6/index_en.cfm), the [European Commision's 7th Framework Programme for Research and Technological Development](http://systemsbiology.ucsd.edu/projects/AMBiCon), the [Federal Ministry of Education and Research (BMBF, Germany)](https://www.bmbf.de/en/index.html), the [Virtual Liver Network](http://www.virtual-liver.de), the [Systems Biology Institute](http://systems-biology.org/) (Japan), and [Google Summer of Code](https://developers.google.com/open-source/gsoc/).
 
-
-Do you like it?
-------------------
-
-If you like this software, don't forget to give this repo a star ★  on GitHub to show your support!
+<br>
+<div align="center">
+  <a href="https://www.nigms.nih.gov">
+    <img valign="middle"  height="100" src=".graphics/US-NIH-NIGMS-Logo.svg">
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://www.caltech.edu">
+    <img valign="middle" height="130" src=".graphics/caltech-round.png">
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://www.caltech.edu">
+    <img valign="middle" height="100" src=".graphics/sbml-logo-only.png">
+  </a>
+</div>
