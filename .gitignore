@@ -223,3 +223,6 @@ CMakeFiles
 CPackConfig.cmake
 CPackSourceConfig.cmake
 TestRunner
+
+# temporary files during testing
+src/sbml/test/test-data/tempOut.xml

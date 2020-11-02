@@ -368,7 +368,8 @@ DistribToAnnotationConverter::convertModel(Model* model)
   bool ret = false;
   mCreatedFunctions.clear();
   set<ASTNodeType_t> used_distrib_types;
-  List* allelements = model->getAllElements();
+  MathFilter *filter = new MathFilter();
+  List* allelements = model->getAllElements(filter);
   for (ListIterator it = allelements->begin(); it != allelements->end(); ++it)
   {
     SBase* obj = static_cast<SBase*>(*it);
