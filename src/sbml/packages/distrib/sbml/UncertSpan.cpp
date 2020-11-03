@@ -369,6 +369,7 @@ UncertSpan::unsetValueUpper()
 void
 UncertSpan::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  UncertParameter::renameSIdRefs(oldid, newid);
   if (isSetVarLower() && mVarLower == oldid)
   {
     setVarLower(newid);
