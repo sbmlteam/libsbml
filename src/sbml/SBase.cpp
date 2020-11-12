@@ -236,10 +236,8 @@ SBase::prependStringToAllIdentifiers(const std::string& prefix)
   }
 
 
-  // for historical reasons some things like Rules will
-  // return an id but not set one
-  // so if we are going to bail on this we should have done
-  // anything else first
+  // Must use 'IdAttribute' functions since some elements like rules 
+  // return a different value for 'Id' functions alone.
 
   if (isSetIdAttribute())
   {
