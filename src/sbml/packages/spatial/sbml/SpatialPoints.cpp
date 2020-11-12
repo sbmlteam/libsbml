@@ -1642,17 +1642,19 @@ int SpatialPoints::compress(int level)
 {
   freeCompressed();
   unsigned char* result; int length;
-  compress_data(const_cast<char*>(mArrayData.c_str()), mArrayData.length(), level, result, length);
+  int ret = compress_data(const_cast<char*>(mArrayData.c_str()), mArrayData.length(), level, result, length);
 
-  mArrayData = arrayToString(result, length);
-  copySampleArrays(mArrayDataCompressed, mArrayDataCompressedLength, result, length);
+  if (ret == LIBSBML_OPERATION_SUCCESS)
+  {
+      mArrayData = arrayToString(result, length);
+      copySampleArrays(mArrayDataCompressed, mArrayDataCompressedLength, result, length);
 
-  free(result);
+      free(result);
 
-  mCompression = SPATIAL_COMPRESSIONKIND_DEFLATED;
-  mArrayDataLength = mArrayDataCompressedLength;
-
-  return LIBSBML_OPERATION_SUCCESS;
+      mCompression = SPATIAL_COMPRESSIONKIND_DEFLATED;
+      mArrayDataLength = mArrayDataCompressedLength;
+  }
+  return ret;
 }
 
 unsigned int

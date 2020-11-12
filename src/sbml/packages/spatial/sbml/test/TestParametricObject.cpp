@@ -185,18 +185,22 @@ START_TEST (test_ParametricObject_compress)
   G->setId("i");
   G->setPolygonType("triangle");
   G->setDomainType("p");
+  G->setCompression("uncompressed");
 
   G->setPointIndex(points, 9);  
 
   fail_unless(G->getPointIndexLength() == 9);
   fail_unless(G->getPointIndex() == "1 2 3 2 3 1 5 2 3 ");
 
-  G->compress(9);
-
+  int ret = G->compress(9);
   S = G->toSBML();
-
+#ifdef USE_ZLIB
+  fail_unless(ret == LIBSBML_OPERATION_SUCCESS);
   fail_unless( expectedCompressed == S );
-
+#else
+  fail_unless(ret == LIBSBML_OPERATION_FAILED);
+  fail_unless(expectedUncompressed == S);
+#endif
   free(S);
   G->uncompress();
   S = G->toSBML();

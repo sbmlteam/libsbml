@@ -1748,17 +1748,19 @@ int ParametricObject::compress(int level)
 {
   freeCompressed();
   unsigned char* result; int length;
-  compress_data(const_cast<char*>(mPointIndex.c_str()), mPointIndex.length(), level, result, length);
+  int ret = compress_data(const_cast<char*>(mPointIndex.c_str()), mPointIndex.length(), level, result, length);
 
-  mPointIndex = arrayToString(result, length);
-  copySampleArrays(mPointIndexCompressed, mPointIndexCompressedLength, result, length);
+  if (ret == LIBSBML_OPERATION_SUCCESS)
+  {
+      mPointIndex = arrayToString(result, length);
+      copySampleArrays(mPointIndexCompressed, mPointIndexCompressedLength, result, length);
 
-  free(result);
+      free(result);
 
-  mCompression = SPATIAL_COMPRESSIONKIND_DEFLATED;
-  mPointIndexLength = mPointIndexCompressedLength;
-
-  return LIBSBML_OPERATION_SUCCESS;
+      mCompression = SPATIAL_COMPRESSIONKIND_DEFLATED;
+      mPointIndexLength = mPointIndexCompressedLength;
+  }
+  return ret;
 }
 
 unsigned int
