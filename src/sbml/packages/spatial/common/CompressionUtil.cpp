@@ -167,10 +167,10 @@ int compress_data(void* data, size_t length, int level, unsigned char*& result, 
   outLength = buffer.size();
   result = (unsigned char*)malloc(sizeof(int) * outLength);
   if (result == NULL)
-    return;
+    return LIBSBML_OPERATION_FAILED;
   for (int i = 0; i < outLength; i++)
     result[i] = (unsigned char)buffer[i];
-  return LIBSBML_OPERATION_SUCCESS
+  return LIBSBML_OPERATION_SUCCESS;
 #endif
 }
 
