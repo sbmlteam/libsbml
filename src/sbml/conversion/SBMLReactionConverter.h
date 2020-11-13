@@ -107,6 +107,15 @@ public:
 
 
   /**
+  * Assignment operator for SBMLReactionConverter.
+  *
+  * @param rhs the object whose values are used as the basis of the
+  * assignment.
+  */
+  SBMLReactionConverter& operator=(const SBMLReactionConverter& rhs);
+
+
+  /**
    * Creates and returns a deep copy of this SBMLReactionConverter
    * object.
    *

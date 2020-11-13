@@ -79,7 +79,20 @@ SBMLLocalParameterConverter::SBMLLocalParameterConverter(const SBMLLocalParamete
 {
 }
 
-SBMLLocalParameterConverter* 
+
+SBMLLocalParameterConverter&
+SBMLLocalParameterConverter::operator=(const SBMLLocalParameterConverter& rhs)
+{
+	if (&rhs != this)
+	{
+		this->SBMLConverter::operator =(rhs);
+	}
+
+	return *this;
+}
+
+
+SBMLLocalParameterConverter*
 SBMLLocalParameterConverter::clone() const
 {
   return new SBMLLocalParameterConverter(*this);

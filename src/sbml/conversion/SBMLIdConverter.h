@@ -118,6 +118,15 @@ public:
 
 
   /**
+  * Assignment operator for SBMLIdConverter.
+  *
+  * @param rhs the object whose values are used as the basis of the
+  * assignment.
+  */
+  SBMLIdConverter& operator=(const SBMLIdConverter& rhs);
+
+
+  /**
    * Creates and returns a deep copy of this SBMLIdConverter
    * object.
    *

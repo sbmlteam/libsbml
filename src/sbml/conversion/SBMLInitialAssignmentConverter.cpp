@@ -72,7 +72,20 @@ SBMLInitialAssignmentConverter::SBMLInitialAssignmentConverter(const SBMLInitial
 {
 }
 
-SBMLInitialAssignmentConverter* 
+
+SBMLInitialAssignmentConverter&
+SBMLInitialAssignmentConverter::operator=(const SBMLInitialAssignmentConverter& rhs)
+{
+	if (&rhs != this)
+	{
+		this->SBMLConverter::operator =(rhs);
+	}
+
+	return *this;
+}
+
+
+SBMLInitialAssignmentConverter*
 SBMLInitialAssignmentConverter::clone() const
 {
   return new SBMLInitialAssignmentConverter(*this);
