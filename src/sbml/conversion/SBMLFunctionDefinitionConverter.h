@@ -116,6 +116,15 @@ public:
 
 
   /**
+  * Assignment operator for SBMLFunctionDefinitionConverter.
+  *
+  * @param rhs the object whose values are used as the basis of the
+  * assignment.
+  */
+  SBMLFunctionDefinitionConverter& operator=(const SBMLFunctionDefinitionConverter& rhs);
+
+
+  /**
    * Creates and returns a deep copy of this SBMLFunctionDefinitionConverter
    * object.
    *
