@@ -259,7 +259,10 @@ convertPow(SBMLDocument* doc,
     if (ast_Node != NULL)
     {
       changePow(ast_Node, compartmentValueMap, shouldChangePow);
-      kl->setMath (ast_Node);
+	  if (kl != NULL)
+	  {
+		  kl->setMath(ast_Node);
+	  }
     }
     delete ast_Node;
   }
