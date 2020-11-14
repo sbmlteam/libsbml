@@ -129,6 +129,15 @@ public:
 
 
   /**
+  * Assignment operator for SBMLInitialAssignmentConverter.
+  *
+  * @param rhs the object whose values are used as the basis of the
+  * assignment.
+  */
+  SBMLInitialAssignmentConverter& operator=(const SBMLInitialAssignmentConverter& rhs);
+
+
+  /**
    * Creates and returns a deep copy of this SBMLInitialAssignmentConverter
    * object.
    *

@@ -105,6 +105,15 @@ public:
 
 
   /**
+  * Assignment operator for SBMLLocalParameterConverter.
+  *
+  * @param rhs the object whose values are used as the basis of the
+  * assignment.
+  */
+  SBMLLocalParameterConverter& operator=(const SBMLLocalParameterConverter& rhs);
+
+
+  /**
    * Creates and returns a deep copy of this SBMLLocalParameterConverter
    * object.
    *

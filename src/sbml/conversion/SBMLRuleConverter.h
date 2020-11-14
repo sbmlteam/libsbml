@@ -127,6 +127,15 @@ public:
 
 
   /**
+  * Assignment operator for SBMLRuleConverter.
+  *
+  * @param rhs the object whose values are used as the basis of the
+  * assignment.
+  */
+  SBMLRuleConverter& operator=(const SBMLRuleConverter& rhs);
+
+
+  /**
    * Creates and returns a deep copy of this SBMLLevelVersionConverter
    * object.
    *
