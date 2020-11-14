@@ -83,7 +83,18 @@ SBMLReactionConverter::SBMLReactionConverter(const SBMLReactionConverter& orig)
 }
 
 
-  
+SBMLReactionConverter&
+SBMLReactionConverter::operator=(const SBMLReactionConverter& rhs)
+{
+	if (&rhs != this)
+	{
+		this->SBMLConverter::operator =(rhs);
+	}
+
+	return *this;
+}
+
+
 /*
  * Destroy this object.
  */

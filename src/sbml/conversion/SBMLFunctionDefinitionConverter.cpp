@@ -80,6 +80,20 @@ SBMLFunctionDefinitionConverter::SBMLFunctionDefinitionConverter(const SBMLFunct
 {
 }
 
+
+SBMLFunctionDefinitionConverter&
+SBMLFunctionDefinitionConverter::operator=(const SBMLFunctionDefinitionConverter& rhs)
+{
+	if (&rhs != this)
+	{
+		this->SBMLConverter::operator =(rhs);
+	}
+
+	return *this;
+}
+
+
+
 SBMLFunctionDefinitionConverter* 
 SBMLFunctionDefinitionConverter::clone() const
 {

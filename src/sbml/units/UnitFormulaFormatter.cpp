@@ -391,11 +391,13 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node,
         fdMath = fd->getMath()->getRightChild()->deepCopy();
       }
 
-      for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
+	  nodeCount = 0;
+      for (i = 0; i < noBvars; i++)
       {
         if (nodeCount < node->getNumChildren())
           fdMath->replaceArgument(fd->getArgument(i)->getName(), 
                                             node->getChild(nodeCount));
+		nodeCount++;
       }
       ud = getUnitDefinition(fdMath, inKL, reactNo);
       delete fdMath;
@@ -2634,8 +2636,16 @@ UnitFormulaFormatter::inferUnitDefinition(UnitDefinition* expectedUD,
         delete tempUD1;
         delete math;
         math = child2->deepCopy();
-        if (child1 != NULL) delete child1;
-        if (child2 != NULL) delete child2;
+		if (child1 != NULL)
+		{
+			delete child1;
+			child1 = NULL;
+		}
+		if (child2 != NULL)
+		{
+			delete child2;
+			child2 = NULL;
+		}
         numChildren = math->getNumChildren();
         continue;
       }

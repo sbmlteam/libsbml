@@ -83,7 +83,20 @@ SBMLConverter(orig)
 {
 }
 
-SBMLRuleConverter* 
+
+SBMLRuleConverter&
+SBMLRuleConverter::operator=(const SBMLRuleConverter& rhs)
+{
+	if (&rhs != this)
+	{
+		this->SBMLConverter::operator =(rhs);
+	}
+
+	return *this;
+}
+
+
+SBMLRuleConverter*
 SBMLRuleConverter::clone() const
 {
   return new SBMLRuleConverter(*this);

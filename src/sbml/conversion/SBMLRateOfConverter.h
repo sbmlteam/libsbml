@@ -110,6 +110,15 @@ public:
 
 
   /**
+  * Assignment operator for SBMLRateOfConverter.
+  *
+  * @param rhs the object whose values are used as the basis of the
+  * assignment.
+  */
+  SBMLRateOfConverter& operator=(const SBMLRateOfConverter& rhs);
+
+
+  /**
    * Creates and returns a deep copy of this SBMLRateOfConverter
    * object.
    *
@@ -262,4 +271,3 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* SBMLRateOfConverter_h */
-

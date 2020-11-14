@@ -84,7 +84,18 @@ SBMLRateOfConverter::SBMLRateOfConverter(const SBMLRateOfConverter& orig)
 }
 
 
-  
+SBMLRateOfConverter&
+SBMLRateOfConverter::operator=(const SBMLRateOfConverter& rhs)
+{
+	if (&rhs != this)
+	{
+		this->SBMLConverter::operator =(rhs);
+	}
+
+	return *this;
+}
+
+
 /*
  * Destroy this object.
  */

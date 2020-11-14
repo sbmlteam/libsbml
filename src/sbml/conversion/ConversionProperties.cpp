@@ -213,10 +213,11 @@ ConversionProperties::getOption(int index) const
 {
   map<string, ConversionOption*>::const_iterator it;
   int count = 0;
-  for (it = mOptions.begin(); it != mOptions.end(); ++it,++count)
+  for (it = mOptions.begin(); it != mOptions.end(); ++it)
   {
     if (count == index)
       return it->second;
+	count++;
   }
   return NULL;
 }
