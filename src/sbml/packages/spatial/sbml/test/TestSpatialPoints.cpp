@@ -193,12 +193,17 @@ START_TEST (test_SpatialPoints_compress)
   fail_unless(G->getArrayDataLength() == 9);
   fail_unless(G->getArrayData() == "1 2 3 0.5 7 5.2000000000000002 -4.0099999999999998 5.5 7.7000000000000002 ");
 
-  G->compress(9);
+  int ret = G->compress(9);
 
   S = G->toSBML();
 
-  fail_unless( expectedCompressed == S );
-
+#ifdef USE_ZLIB
+  fail_unless(ret == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(expectedCompressed == S);
+#else
+  fail_unless(ret == LIBSBML_OPERATION_FAILED);
+  fail_unless(expectedUncompressed == S);
+#endif
   free(S);
   G->uncompress();
   S = G->toSBML();

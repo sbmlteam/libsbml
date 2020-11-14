@@ -651,16 +651,12 @@ void CompModelPlugin::resetPorts()
       port->unsetMetaIdRef();
       port->unsetUnitRef();
       int type = referenced->getTypeCode();
-      if (referenced->isSetId() && 
-          type != SBML_INITIAL_ASSIGNMENT &&
-          type != SBML_ASSIGNMENT_RULE &&
-          type != SBML_RATE_RULE &&
-          type != SBML_EVENT_ASSIGNMENT) {
+      if (referenced->isSetIdAttribute()) {
         if (type==SBML_UNIT_DEFINITION) {
-          port->setUnitRef(referenced->getId());
+          port->setUnitRef(referenced->getIdAttribute());
         }
         else {
-          port->setIdRef(referenced->getId());
+          port->setIdRef(referenced->getIdAttribute());
         }
       }
       else if (referenced->isSetMetaId()) {
@@ -895,8 +891,8 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
             if (uniqueRefs.insert(rbParent).second == false) {
               if (doc) {
                 string error = "Error discovered in CompModelPlugin::saveAllReferencedElements when checking " + modname + ": a <" + rbParent->getElementName() + "> ";
-                if (direct->isSetId()) {
-                  error += "with the id '" + rbParent->getId() + "'";
+                if (direct->isSetIdAttribute()) {
+                  error += "with the id '" + rbParent->getIdAttribute() + "'";
                   if (rbParent->isSetMetaId()) {
                     error += ", and the metaid '" + rbParent->getMetaId() + "'";
                   }
@@ -930,8 +926,8 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
                   error += "multiple <deletion>, <replacedElement>, and/or <port> elements";
                 }
                 error += " point directly to the <" + direct->getElementName() + "> ";
-                if (direct->isSetId()) {
-                  error += "with the id '" + direct->getId() + "'";
+                if (direct->isSetIdAttribute()) {
+                  error += "with the id '" + direct->getIdAttribute() + "'";
                   if (direct->isSetMetaId()) {
                     error += ", and the metaid '" + direct->getMetaId() + "'";
                   }
@@ -1087,7 +1083,7 @@ void CompModelPlugin::findUniqueSubmodPrefixes(vector<string>& submodids, List* 
           assert(false);
           continue;
         }
-        if (element->isSetId() && element->getId().find(fullprefix.str())==0) {
+        if (element->isSetIdAttribute() && element->getIdAttribute().find(fullprefix.str())==0) {
           done = false;
           continue;
         }

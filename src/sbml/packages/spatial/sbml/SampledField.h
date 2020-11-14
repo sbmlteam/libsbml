@@ -1467,8 +1467,13 @@ public:
    * compresses the samples stored, if the flag is set to UNCOMPRESSED, then 
    * changes the flag to compressed. 
    * 
+   * Returns failure if libsbml was built without zlib linked.
+   *
    * @param compression level 0 (store) ... 9 (max compression)
    * 
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int compress(int level);
 

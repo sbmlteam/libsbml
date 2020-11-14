@@ -233,7 +233,11 @@
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
             <times/>
-            <ci> X </ci>
+            <apply>
+              <divide/>
+              <ci> X </ci>
+              <ci> cf </ci>
+            </apply>
             <ci> cf </ci>
           </apply>
         </math>
@@ -277,7 +281,11 @@
         </trigger>
         <priority>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <ci> Q </ci>
+            <apply>
+              <divide/>
+              <ci> Q </ci>
+              <ci> cf </ci>
+            </apply>
           </math>
         </priority>
         <listOfEventAssignments>
@@ -304,7 +312,11 @@
         </trigger>
         <priority>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <ci> R </ci>
+            <apply>
+              <divide/>
+              <ci> R </ci>
+              <ci> cf </ci>
+            </apply>
           </math>
         </priority>
         <listOfEventAssignments>

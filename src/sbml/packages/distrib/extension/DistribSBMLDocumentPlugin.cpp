@@ -138,7 +138,7 @@ DistribSBMLDocumentPlugin::accept(SBMLVisitor& v) const
 bool
 DistribSBMLDocumentPlugin::isCompFlatteningImplemented() const
 {
-  return false;
+  return true;
 }
 
 /** @endcond */

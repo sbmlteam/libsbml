@@ -53,6 +53,7 @@ LIBSBML_CPP_NAMESPACE_USE
 
 CK_CPPSTART
 
+#if ( __cplusplus > 201103L  ) 
 
 START_TEST(test_Compression_SampledField_1)
 {
@@ -791,6 +792,7 @@ START_TEST(test_Compression_ParametricObject_2)
 }
 END_TEST
 
+#endif
 
 Suite *
 create_suite_Compression(void)
@@ -798,6 +800,7 @@ create_suite_Compression(void)
   Suite *suite = suite_create("Compression");
   TCase *tcase = tcase_create("Compression");
 
+#if ( __cplusplus > 201103L  ) 
 #ifdef USE_ZLIB
   tcase_add_test( tcase, test_Compression_SampledField_1);
   tcase_add_test( tcase, test_Compression_SampledField_2);
@@ -811,6 +814,7 @@ create_suite_Compression(void)
   tcase_add_test( tcase, test_Compression_SpatialPoints_5);
   tcase_add_test( tcase, test_Compression_ParametricObject_1);
   tcase_add_test( tcase, test_Compression_ParametricObject_2);
+#endif
 #endif
 
   suite_add_tcase(suite, tcase);

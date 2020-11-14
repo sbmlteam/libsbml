@@ -769,23 +769,54 @@ UncertParameter::removeUncertParameter(unsigned int n)
 }
 
 
-/*
- * @copydoc doc_renamesidref_common
- */
 void
 UncertParameter::renameSIdRefs(const std::string& oldid,
                                const std::string& newid)
 {
+  DistribBase::renameSIdRefs(oldid, newid);
   if (isSetVar() && mVar == oldid)
   {
     setVar(newid);
   }
 
-  if (isSetUnits() && mUnits == oldid)
+  if (isSetMath()) 
   {
-    setUnits(newid);
+      mMath->renameSIdRefs(oldid, newid);
   }
 }
+
+void
+UncertParameter::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
+{
+    DistribBase::renameUnitSIdRefs(oldid, newid);
+
+    if (isSetUnits() && mUnits == oldid)
+    {
+        setUnits(newid);
+    }
+
+    if (isSetMath()) 
+    {
+        mMath->renameUnitSIdRefs(oldid, newid);
+    }
+}
+
+/** @cond doxygenLibsbmlInternal */
+void
+UncertParameter::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
+{
+    if (isSetMath()) {
+        if (mMath->getType() == AST_NAME && mMath->getName() == id) {
+            delete mMath;
+            mMath = function->deepCopy();
+        }
+        else {
+            mMath->replaceIDWithFunction(id, function);
+        }
+    }
+}
+/** @endcond */
+
 
 
 /*

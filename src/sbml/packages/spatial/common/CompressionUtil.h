@@ -119,7 +119,7 @@ extern std::string vectorToString(const std::vector<double>& vec);
 extern std::string arrayToString(const unsigned char* array, size_t length);
 extern std::string arrayToString(const double* array, size_t length);
 extern std::string charIntsToString(const int* array, size_t length);
-extern void compress_data(void* data, size_t length, int level, unsigned char*& result, int& outLength);
+extern int compress_data(void* data, size_t length, int level, unsigned char*& result, int& outLength);
 extern void uncompress_data(void* data, size_t length, double*& result, size_t& outLength);
 extern void uncompress_data(void* data, size_t length, int*& result, size_t& outLength);
 extern void copySampleArrays(double* &target, size_t& targetLength, double* source, size_t sourceLength);

@@ -41,6 +41,7 @@
 #include <sstream>
 #include <iomanip>
 #include <sbml/compress/CompressCommon.h>
+#include <sbml/common/operationReturnValues.h>
 
 #ifdef USE_ZLIB
 #include <zlib.h>
@@ -102,13 +103,14 @@ std::string charIntsToString(const int * array, size_t length)
   return ret;
 }
 
-void compress_data(void* data, size_t length, int level, unsigned char*& result, int& outLength)
+int compress_data(void* data, size_t length, int level, unsigned char*& result, int& outLength)
 {
 #ifndef USE_ZLIB
   // throwing an exception won't help our users, better set the result array and length to NULL. 
   // throw ZlibNotLinked();
   outLength = 0;
   result = NULL;
+  return LIBSBML_OPERATION_FAILED;
 #else
   std::vector<char> buffer;
 
@@ -165,9 +167,10 @@ void compress_data(void* data, size_t length, int level, unsigned char*& result,
   outLength = buffer.size();
   result = (unsigned char*)malloc(sizeof(int) * outLength);
   if (result == NULL)
-    return;
+    return LIBSBML_OPERATION_FAILED;
   for (int i = 0; i < outLength; i++)
     result[i] = (unsigned char)buffer[i];
+  return LIBSBML_OPERATION_SUCCESS;
 #endif
 }
 
