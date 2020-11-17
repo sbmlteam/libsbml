@@ -5212,7 +5212,7 @@ $as_echo_n "checking for Python prefix... " >&6; }
 $as_echo "$PYTHON_PREFIX" >&6; }
 
 
-    PYTHON_VERSION=`"$PYTHON" -c "import sys; print(sys.version[:3])"`
+    PYTHON_VERSION=`"$PYTHON" -c "import sys; print('{}.{}'.format(*sys.version_info[:2]))"`
 
 
     PYTHON_NAME="python$PYTHON_VERSION"
@@ -5353,7 +5353,7 @@ $as_echo "done" >&6; }
 
 
 
-          tmp_v=`"$PYTHON" -c "import sys; print(sys.version[:1])"`
+          tmp_v=`"$PYTHON" -c "import sys; print('{}.{}'.format(*sys.version_info[:2]))"`
 
 
           { $as_echo "$as_me:${as_lineno-$LINENO}: checking if we can trust $PYTHON_CONFIG --libs" >&5
