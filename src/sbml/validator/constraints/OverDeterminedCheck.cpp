@@ -223,7 +223,7 @@ EquationMatching::writeEquationVertexes(const Model& m)
   /* a Rule structure */
   for (n = 0; n < m.getNumRules(); n++)
   {
-    sprintf(rule, "rule_%u", n);
+    snprintf(rule, 10, "rule_%u", n);
     mEquations.append(rule);
   }
 
@@ -232,7 +232,7 @@ EquationMatching::writeEquationVertexes(const Model& m)
   {
     if (m.getReaction(n)->isSetKineticLaw())
     {
-      sprintf(react, "KL_%u", n);
+      snprintf(react, 10, "KL_%u", n);
       mEquations.append(react);
     }
   }
