@@ -106,7 +106,7 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
     dnl check version if required
     m4_ifvaln([$1], [
         AC_MSG_CHECKING([the version of "$PYTHON"])
-        if test `"$PYTHON" -c ["import sys; print(sys.version[:3]) >= \"$1\" and \"OK\" or \"OLD\""]` = "OK"
+        if "$PYTHON" -c ["import sys; exit(sys.version_info < tuple(int(_) for _ in '$1'.split('.')))"]
         then
           AC_MSG_RESULT(ok)
         else
@@ -120,7 +120,7 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
     AC_MSG_RESULT($PYTHON_PREFIX)
 
     changequote(<<, >>)
-    PYTHON_VERSION=`"$PYTHON" -c "import sys; print(sys.version[:3])"`
+    PYTHON_VERSION=`"$PYTHON" -c "import sys; print('{}.{}'.format(*sys.version_info[:2]))"`
     changequote([, ])
 
     PYTHON_NAME="python$PYTHON_VERSION"
@@ -197,7 +197,7 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
           dnl contain the library that is named in python-config --libs.
           
           changequote(<<, >>)
-          tmp_v=`"$PYTHON" -c "import sys; print(sys.version[:1])"`
+          tmp_v=`"$PYTHON" -c "import sys; print(sys.version_info[0])"`
           changequote([, ])
 
           AC_MSG_CHECKING([if we can trust $PYTHON_CONFIG --libs])
