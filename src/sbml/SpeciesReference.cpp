@@ -982,9 +982,7 @@ SpeciesReference::removeChildObject(const std::string& elementName, const std::s
 
   if (elementName == "stoichiometryMath")
   {
-    StoichiometryMath* t = getStoichiometryMath();
-    if (unsetStoichiometryMath() == LIBSBML_OPERATION_SUCCESS)
-      return t;
+    unsetStoichiometryMath();
   }
   return NULL;
 }
@@ -1840,19 +1838,19 @@ ListOfSpeciesReferences::getType() const
   {
   case Unknown:
     return 0;
-    break;
+
   case Reactant:
     return 1;
-    break;
+
   case Product:
     return 2; 
-    break;
+
   case Modifier:
     return 3;
-    break;
+
   default:
     return 0;
-    break;
+
   }
 }
 /** @endcond */

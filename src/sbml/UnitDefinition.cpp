@@ -39,6 +39,8 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
+#include <sstream>
+
 
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLAttributes.h>
@@ -702,6 +704,7 @@ UnitDefinition::createUnit ()
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (u != NULL) mUnits.appendAndOwn(u);
@@ -1544,10 +1547,10 @@ UnitDefinition::divide(UnitDefinition *ud1, UnitDefinition *ud2)
 std::string
 UnitDefinition::printUnits(const UnitDefinition * ud, bool compact)
 {
-  std::string unitDef;
+  std::stringstream unitDef;
   if (ud == NULL || ud->getNumUnits() == 0)
   {
-    unitDef = "indeterminable";
+    unitDef << "indeterminable";
   }
   else
   {
@@ -1567,15 +1570,13 @@ UnitDefinition::printUnits(const UnitDefinition * ud, bool compact)
         }
         int scale = ud->getUnit(p)->getScale();
         double mult = ud->getUnit(p)->getMultiplier();
-
-        char unit[80];
-        sprintf(unit, "%s (exponent = %g, multiplier = %.6g, scale = %i)", 
-          UnitKind_toString(kind), exp, mult, scale);
-        unitDef += unit;
+        
+        unitDef << UnitKind_toString(kind) << " (exponent = " << exp
+            << ", multiplier = " << mult << ", scale = " << scale << ")";
 
         if (p + 1 < ud->getNumUnits())
         {
-          unitDef += ", ";
+          unitDef << ", ";
         }	  
       }
     }
@@ -1589,19 +1590,16 @@ UnitDefinition::printUnits(const UnitDefinition * ud, bool compact)
         double mult = ud->getUnit(p)->getMultiplier();
         mult = mult * pow(10.0, scale);
 
-        char unit[40];
-        sprintf(unit, "(%.6g %s)^%g", mult,  
-          UnitKind_toString(kind), exp);
-        unitDef += unit;
+        unitDef << "(" << mult << " " << UnitKind_toString(kind) << ")^" << exp;
 
         if (p + 1 < ud->getNumUnits())
         {
-          unitDef += ", ";
+          unitDef << ", ";
         }	  
       }
     }
   }
-  return unitDef;
+  return unitDef.str();
 }
 /** @cond doxygenLibsbmlInternal */
 

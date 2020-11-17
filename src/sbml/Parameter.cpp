@@ -1609,6 +1609,12 @@ Parameter::inferUnitsFromAssignments(UnitFormulaFormatter *uff, Model *m)
       FormulaUnitsData *time = m->getFormulaUnitsData("time", SBML_MODEL);
       if (time->getContainsUndeclaredUnits() == false)
       {
+        if (found)
+        {
+          // we already created UD before, so free it
+          delete derivedUD;
+        }
+        
         derivedUD = UnitDefinition::combine(fud->getUnitDefinition(),
                                       time->getUnitDefinition());
         found = true;
