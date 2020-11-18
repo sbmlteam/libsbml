@@ -122,11 +122,6 @@ DefinitionURLRegistry::DefinitionURLRegistry()
   mCoreInit = false;
 }
 
-DefinitionURLRegistry::~DefinitionURLRegistry()
-{
-  mDefinitionURLs.clear();
-}
-
 void 
 DefinitionURLRegistry::setCoreDefinitionsAdded()
 {
