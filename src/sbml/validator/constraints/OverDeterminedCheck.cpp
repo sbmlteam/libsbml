@@ -520,8 +520,8 @@ EquationMatching::createGraph(const Model& m)
           }
         }
 
-	delete names;
-	
+  delete names;
+  
       }
       mGraph[mEquations.at((int)eqnCount)] = joined;
       joined.clear();
