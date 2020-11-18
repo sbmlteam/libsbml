@@ -57,6 +57,12 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+#define SET_NAME(name,prefix,count)\
+{\
+  std::stringstream str; str << prefix << count;\
+  name = str.str();\
+}
+
 /*
  * Creates a new Constraint with the given @p id.
  */
@@ -182,8 +188,8 @@ EquationMatching::writeEquationVertexes(const Model& m)
 {
   const Reaction *r;
   const Species* s;
-  char rule[10];
-  char react[10];
+  string rule;
+  string react;
 
   unsigned int n, sr;
 
@@ -219,11 +225,10 @@ EquationMatching::writeEquationVertexes(const Model& m)
     }
   }
 
-
   /* a Rule structure */
   for (n = 0; n < m.getNumRules(); n++)
   {
-    snprintf(rule, 10, "rule_%u", n);
+    SET_NAME(rule, "rule_", n);
     mEquations.append(rule);
   }
 
@@ -232,8 +237,8 @@ EquationMatching::writeEquationVertexes(const Model& m)
   {
     if (m.getReaction(n)->isSetKineticLaw())
     {
-      snprintf(react, 10, "KL_%u", n);
-      mEquations.append(react);
+        SET_NAME(react, "KL_", n);
+        mEquations.append(react);
     }
   }
 }
