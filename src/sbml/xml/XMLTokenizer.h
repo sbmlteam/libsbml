@@ -80,6 +80,15 @@ public:
 
 
   /**
+  * Assignment operator for XMLTokenizer.
+  *
+  * @param rhs the XMLTokenizer object whose values are used as the basis
+  * of the assignment.
+  */
+  XMLTokenizer& operator=(const XMLTokenizer& rhs);
+
+
+  /**
    * Destroys this XMLTokenizer.
    */
   virtual ~XMLTokenizer ();
