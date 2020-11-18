@@ -60,10 +60,10 @@ SBaseExtensionPoint::SBaseExtensionPoint(const std::string& pkgName, int typeCod
 }
 
 SBaseExtensionPoint::SBaseExtensionPoint(const std::string& pkgName, 
-  int typeCode, const std::string& elmentName, bool elementOnly)
+  int typeCode, const std::string& elementName, bool elementOnly)
   : mPackageName(pkgName)
   , mTypeCode(typeCode)
-  , mElementName(elmentName)
+  , mElementName(elementName)
   , mElementOnly(elementOnly)
 {
 }
@@ -94,6 +94,19 @@ SBaseExtensionPoint::SBaseExtensionPoint(const SBaseExtensionPoint& orig)
  , mElementName(orig.mElementName)
  , mElementOnly(orig.mElementOnly)
 {
+}
+
+SBaseExtensionPoint& SBaseExtensionPoint::operator=(const SBaseExtensionPoint& rhs)
+{
+  if (&rhs != this)
+  {
+    mPackageName = rhs.mPackageName;
+    mTypeCode = rhs.mTypeCode;
+    mElementName = rhs.mElementName;
+    mElementOnly = rhs.mElementOnly;
+  }
+
+  return *this;
 }
 
 

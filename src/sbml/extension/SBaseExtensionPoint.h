@@ -140,6 +140,7 @@ public:
    */
   SBaseExtensionPoint(const SBaseExtensionPoint& rhs);
 
+  SBaseExtensionPoint& operator=(const SBaseExtensionPoint& rhs);
 
   /**
    * Creates and returns a deep copy of this SBaseExtensionPoint object.

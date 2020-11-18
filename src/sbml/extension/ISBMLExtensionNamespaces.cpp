@@ -74,6 +74,16 @@ ISBMLExtensionNamespaces::ISBMLExtensionNamespaces(const ISBMLExtensionNamespace
   : SBMLNamespaces(orig)
 {
 }
+
+ISBMLExtensionNamespaces& 
+ISBMLExtensionNamespaces::operator=(const ISBMLExtensionNamespaces& rhs)
+{
+  if (&rhs != this)
+  {
+    SBMLNamespaces::operator =(rhs);
+  }
+  return *this;
+}
    
 ISBMLExtensionNamespaces::~ISBMLExtensionNamespaces()  
 {
