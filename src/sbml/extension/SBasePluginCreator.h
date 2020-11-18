@@ -86,6 +86,14 @@ public:
   SBasePluginCreator(const SBasePluginCreator& orig)
    : SBasePluginCreatorBase(orig) {}
 
+  SBasePluginCreator& operator=(const SBasePluginCreator& rhs)
+  {
+    if (&rhs != this)
+    {
+      SBasePluginCreatorBase::operator=(rhs);
+    }
+    return *this;
+  }
 
   /**
    * Destroys this object.

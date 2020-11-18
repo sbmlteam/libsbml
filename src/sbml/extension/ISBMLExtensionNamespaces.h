@@ -73,7 +73,9 @@ public:
                            const std::string pkgPrefix = "");
 
   ISBMLExtensionNamespaces(const ISBMLExtensionNamespaces& orig);   
-   
+  
+  ISBMLExtensionNamespaces& operator=(const ISBMLExtensionNamespaces& rhs);
+
   virtual ~ISBMLExtensionNamespaces();
    
   virtual std::string getURI() const = 0;

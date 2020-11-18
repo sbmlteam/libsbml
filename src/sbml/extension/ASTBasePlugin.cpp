@@ -693,7 +693,6 @@ int ASTBasePlugin::checkNumArguments(const ASTNode* node, std::stringstream& err
   default:
     return 0;
   }
-  return 0;
 }
 
 bool 
