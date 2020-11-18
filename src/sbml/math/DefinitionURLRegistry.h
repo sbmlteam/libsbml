@@ -120,11 +120,6 @@ public:
 
   static void addSBMLDefinitions();
 
-  /**
-   * Destructor
-   */
-  virtual ~DefinitionURLRegistry();
-
   static bool getCoreDefinitionsAdded();
 
   static int getType(const std::string& url);
