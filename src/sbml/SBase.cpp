@@ -934,8 +934,9 @@ SBase::getNamespaces() const
 {
   if (mSBML != NULL)
     return mSBML->getSBMLNamespaces()->getNamespaces();
-  else
+  if (mSBMLNamespaces != NULL)
     return mSBMLNamespaces->getNamespaces();
+  return NULL;
 }
 
 

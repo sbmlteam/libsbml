@@ -627,6 +627,7 @@ KineticLaw::createParameter ()
       *
       * so do nothing
       */
+      return NULL;
     }
     
     if (p) mParameters.appendAndOwn(p);
@@ -647,6 +648,7 @@ KineticLaw::createParameter ()
       *
       * so do nothing
       */
+      return NULL;
     }
     
     if (p != NULL) mLocalParameters.appendAndOwn(p);
@@ -676,6 +678,7 @@ KineticLaw::createLocalParameter ()
      *
      * so do nothing
      */
+     return NULL;
   }
   
   if (p != NULL) mLocalParameters.appendAndOwn(p);

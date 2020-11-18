@@ -654,6 +654,7 @@ Model*
 SBMLDocument::createModel (const std::string sid)
 {
   if (mModel != NULL) delete mModel;
+  mModel = NULL;
 
   try
   {
@@ -666,6 +667,7 @@ SBMLDocument::createModel (const std::string sid)
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (mModel != NULL)

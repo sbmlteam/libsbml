@@ -146,13 +146,15 @@ SBMLTransforms::replaceBvars(ASTNode * node, const FunctionDefinition *fd)
     noBvars = fd->getMath()->getNumBvars();
     fdMath = *fd->getBody();
 
-    for (unsigned int i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
+    unsigned int nodeCount = 0;
+    for (unsigned int i = 0; i < noBvars; ++i)
     {
       if (nodeCount < node->getNumChildren())
       {
         fdMath.replaceArgument(fd->getArgument(i)->getName(), 
           node->getChild(nodeCount));
       }
+      ++nodeCount;
     }
     (*node) = fdMath;
   }
@@ -845,7 +847,8 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
 
   case AST_FUNCTION_FACTORIAL:
     i = (int)(floor(evaluateASTNode(node->getChild(0), values, m)));
-    for(result=1; i>1; --i)
+    result = 1;
+    for(; i>1; --i)
     {
       result *= i;
     }

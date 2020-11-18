@@ -929,6 +929,7 @@ Event::createEventAssignment ()
      *
      * so do nothing
      */
+     return NULL;
   }
   
   if (ea != NULL) mEventAssignments.appendAndOwn(ea);
@@ -958,6 +959,7 @@ Event::createTrigger ()
      *
      * so do nothing
      */
+     return NULL;
   }
 
   if (mTrigger != NULL)
@@ -990,6 +992,7 @@ Event::createDelay ()
      *
      * so do nothing
      */
+     return NULL;
   }
 
   if (mDelay)
@@ -1022,6 +1025,7 @@ Event::createPriority ()
      *
      * so do nothing
      */
+     return NULL;
   }
 
   if (mPriority != NULL)
