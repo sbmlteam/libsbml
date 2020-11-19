@@ -180,8 +180,6 @@ protected:
 
   /** @endcond */
 
-
-private:
   /** @cond doxygenLibsbmlInternal */
   
   SBasePluginCreatorBase& operator=(const SBasePluginCreatorBase&);
