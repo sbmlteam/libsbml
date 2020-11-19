@@ -102,12 +102,22 @@ Code has been fixed to be Ming GW compliant.
 
  - Code has been fixed to be MingGW compliant. 
 
-EXPERIMENTAL RELEASE
+EXPERIMENTAL PACKAGES
 
 * New features
 
   - 'spatial' package-specific updates:
   
+    - Compression in the 'spatial' package is now based on strings. 
+	  The code has been changed to reflect this. 
+
+    - Support for int and uint as DataKinds has been added to the 
+	  spatial code in line with changes in the specification. 
+
+    - A range of validation tests have been added to the spatial 
+	  code. As this is an experimental passage package still in 
+	  development, we cannot guarantee that all validation has been
+	  implemented. 
 
  * Bug fixes
  
