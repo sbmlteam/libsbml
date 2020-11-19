@@ -154,6 +154,11 @@ public:
 
 
   /**
+  * Destructor.
+  */
+  ~XMLTriple();
+  
+  /**
    * Creates and returns a deep copy of this XMLTriple object.
    *
    * @return the (deep) copy of this XMLTriple object.

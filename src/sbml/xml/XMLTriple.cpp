@@ -139,6 +139,10 @@ XMLTriple::operator=(const XMLTriple& rhs)
 }
 
 
+XMLTriple::~XMLTriple()
+{
+}
+
 /*
  * Creates and returns a deep copy of this XMLTriple set.
  * 

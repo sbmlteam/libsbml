@@ -65,6 +65,16 @@ XMLHandler::XMLHandler (const XMLHandler&)
 
 
 /*
+* Assignment operator
+*/
+XMLHandler&
+XMLHandler::operator=(const XMLHandler& rhs)
+{
+    return *this;
+}
+
+    
+/*
  * Destroys this XMLHandler.
  */
 XMLHandler::~XMLHandler ()

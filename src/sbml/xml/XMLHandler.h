@@ -78,6 +78,15 @@ public:
 
 
   /**
+  * Assignment operator for XMLHandler.
+  *
+  * @param rhs the XMLHandler object whose values are used as the basis
+  * of the assignment.
+  */
+  XMLHandler& operator=(const XMLHandler& rhs);
+
+
+  /**
    * Destroys this XMLHandler.
    */
   virtual ~XMLHandler ();

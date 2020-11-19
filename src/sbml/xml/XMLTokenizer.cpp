@@ -75,6 +75,26 @@ XMLTokenizer::XMLTokenizer (const XMLTokenizer& other)
 {
 }
 
+/*
+* Assignment operator for XMLToken.
+*/
+XMLTokenizer&
+XMLTokenizer::operator=(const XMLTokenizer& rhs)
+{
+  if (&rhs != this)
+  {
+    mInChars = rhs.mInChars;
+    mInStart = rhs.mInStart;
+    mEOFSeen = rhs.mEOFSeen;
+    mEncoding = rhs.mEncoding;
+    mVersion = rhs.mVersion;
+    mCurrent = rhs.mCurrent;
+    mTokens = rhs.mTokens;
+  }
+
+  return *this;
+}
+
 
 /*
  * Destroys this XMLTokenizer.
