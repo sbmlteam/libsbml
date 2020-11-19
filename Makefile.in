@@ -487,15 +487,15 @@ phpbindings =                                                  \
 # during a `make install'.
 
 docs =         \
-  AUTHORS.txt  \
+  docs/historical/AUTHORS.txt  \
   COPYING.html \
   COPYING.txt  \
   FUNDING.txt  \
   LICENSE.txt  \
   LICENSE.html \
   NEWS.txt     \
-  OLD_NEWS.txt \
-  README.txt   \
+  docs/historical/OLD_NEWS.txt \
+  README.md   \
   VERSION.txt  \
   $(examples)
 
