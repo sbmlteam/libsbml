@@ -1,10 +1,29 @@
 ﻿           libSBML NEWS -- History of user-visible changes
 
 ====================================================================
-5.18.1 (Current svn)
+5.19.0
 ====================================================================
 
+
+
 STABLE RELEASE
+
+* Addition of support for the SBML Distributions package
+
+  - Now that the first official version of the specification for the
+    SBML Level 3 Rendering package is available, the libSBML API for
+    'render' is now included in the stable release of libSBML.  This
+    means that all prebuilt binaries for the stable release will
+    include the 'render' package code. The src archive containing
+    libSBML core code will continue to be available, with additional
+    src archives available in the stable branch: one containing
+    libSBML core plus all stable packages and additional archives of
+    the individual package code.
+    
+    NOTE: The libSBML GNU make-based build system has not been updated
+          for packages. Thus, to build from src, it is necessary to
+          use the CMake build system.
+
 
 * New features
 
@@ -13,6 +32,15 @@ STABLE RELEASE
     but may facilitate using more generic functions.
 
   - 'comp' package-specific updates:
+
+  - 'distrib' package-specific updates:
+  
+    - A new converter, AnnotationToDistribConverter, has been added 
+      to allow conversion from the existing annotation format used 
+      with <functionDefinitions> to the new 'distrib' format. This
+      complements the existing DistribToAnnotationConverter that converts
+      'distrib' to annotations.
+      
   - 'fbc' package-specific updates:
   - 'groups' package-specific updates:
   - 'layout' package-specific updates:
@@ -35,6 +63,11 @@ STABLE RELEASE
     failing if the metaid attribute was set. This has been changed to
     produce the correct behavior.
 
+  - 'distrib' package-specific bug fixes:
+
+    - There was unfortunately an infinite loop in the code using
+      the <uncertainty> element. This has been removed.
+      
   - 'render' package-specific bug fixes:
   
     - Some render classes were not handled correctly by language
@@ -49,21 +82,13 @@ EXPERIMENTAL RELEASE
 
 * New features
 
-  - 'distrib' package-specific updates:
+  - 'spatial' package-specific updates:
   
-    - A new converter, AnnotationToDistribConverter, has been added 
-      to allow conversion from the existing annotation format used 
-      with <functionDefinitions> to the new 'distrib' format. This
-      complements the existing DistribToAnnotationConverter that converts
-      'distrib' to annotations.
-      
 
  * Bug fixes
  
   - 'distrib' package-specific bug fixes:
 
-    - There was unfortunately an infinite loop in the code using
-      the <uncertainty> element. This has been removed.
       
 
 ====================================================================
