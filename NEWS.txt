@@ -4,6 +4,20 @@
 5.19.0
 ====================================================================
 
+********************************************************************
+
+        The libSBML source code has moved to GitHub.
+            (https://github.com/sbmlteam/libsbml). 
+
+The stable branch reflect the latest released code. The development 
+branch is the main branch and we encourage users to create and 
+submit pull requests against this branch. We are no longer 
+maintaining a separate repository for experimental code for as yet 
+unfinished packages. 
+
+Please use the issue tracker to file any reports. We will gradually 
+move away from SourceForge, but for this release code will be 
+available from both SourceForge and GitHub. 
 
 
 STABLE RELEASE
@@ -11,14 +25,12 @@ STABLE RELEASE
 * Addition of support for the SBML Distributions package
 
   - Now that the first official version of the specification for the
-    SBML Level 3 Rendering package is available, the libSBML API for
-    'render' is now included in the stable release of libSBML.  This
+    SBML Level 3 Distributions package is available, the libSBML API for
+    'distrib' is now included in the stable release of libSBML.  This
     means that all prebuilt binaries for the stable release will
-    include the 'render' package code. The src archive containing
+    include the 'distrib' package code. The src archive containing
     libSBML core code will continue to be available, with additional
-    src archives available in the stable branch: one containing
-    libSBML core plus all stable packages and additional archives of
-    the individual package code.
+    archives of the individual package code.
     
     NOTE: The libSBML GNU make-based build system has not been updated
           for packages. Thus, to build from src, it is necessary to
