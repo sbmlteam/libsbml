@@ -62,6 +62,16 @@ STABLE RELEASE
 
 * Bug fixes
 
+  - The validation code detecting assignment cycles was incorrectly 
+    including local parameters within its search. These have now 
+	been removed from the relevant code. 
+
+  - Conversion code was failing to detect when a local parameter used 
+    the 'id' of a speciesReference which is allowed in SBML Level 3. 
+	These can be converted to SBML Level 2 and the code has now been
+	corrected so this conversion will take place. 
+
+Code has been fixed to be Ming GW compliant. 
   - The L3 infix parser has been improved to recognize the use of a 
     name without parentheses as a misused function name or a csymbol,
     if appropriate.
@@ -89,6 +99,8 @@ STABLE RELEASE
 
  - Import of the python library has been sorted in line with recent Linux
    changes to the location of the shared file.
+
+ - Code has been fixed to be MingGW compliant. 
 
 EXPERIMENTAL RELEASE
 
