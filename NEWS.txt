@@ -9,7 +9,7 @@
         The libSBML source code has moved to GitHub.
             (https://github.com/sbmlteam/libsbml). 
 
-The stable branch reflect the latest released code. The development 
+The stable branch reflects the latest released code. The development 
 branch is the main branch and we encourage users to create and 
 submit pull requests against this branch. We are no longer 
 maintaining a separate repository for experimental code for as yet 
