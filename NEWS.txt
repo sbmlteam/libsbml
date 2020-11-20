@@ -15,12 +15,11 @@ submit pull requests against this branch. We are no longer
 maintaining a separate repository for experimental code for as yet 
 unfinished packages. 
 
-Please use the issue tracker to file any reports. We will gradually 
+Please use the GitHub issue tracker to file any reports. We will gradually 
 move away from SourceForge, but for this release code will be 
 available from both SourceForge and GitHub. 
 
 
-STABLE RELEASE
 
 * Addition of support for the SBML Distributions package
 
@@ -36,31 +35,22 @@ STABLE RELEASE
           for packages. Thus, to build from src, it is necessary to
           use the CMake build system.
 
-
 * New features
 
   - Functions get/set/isSetMath have been added to the SBase class.
     These do not allow interacting with a non-existant <math> element 
     but may facilitate using more generic functions.
 
-  - 'comp' package-specific updates:
-
-  - 'distrib' package-specific updates:
-  
-    - A new converter, AnnotationToDistribConverter, has been added 
-      to allow conversion from the existing annotation format used 
-      with <functionDefinitions> to the new 'distrib' format. This
-      complements the existing DistribToAnnotationConverter that converts
-      'distrib' to annotations.
-      
-  - 'fbc' package-specific updates:
-  - 'groups' package-specific updates:
-  - 'layout' package-specific updates:
-  - 'multi' package-specific updates:
-  - 'qual' package-specific updates:
-  - 'render' package-specific updates:
-
 * Bug fixes
+
+  - There was a memory leak introduced in the SWIG wrapper. Thanks to  
+    Fabian Fröhlich for spotting and fixing this.
+	
+  - The SBMLNamespaces class was being leaked in a number of places, 
+    these have now been plugged. 
+
+  - The MathML to infix parser was also leaking memory. Thanks to  
+    Liam Keegan for spotting and fixing these. 
 
   - The validation code detecting assignment cycles was incorrectly 
     including local parameters within its search. These have now 
@@ -71,7 +61,6 @@ STABLE RELEASE
 	These can be converted to SBML Level 2 and the code has now been
 	corrected so this conversion will take place. 
 
-Code has been fixed to be Ming GW compliant. 
   - The L3 infix parser has been improved to recognize the use of a 
     name without parentheses as a misused function name or a csymbol,
     if appropriate.
@@ -85,6 +74,35 @@ Code has been fixed to be Ming GW compliant.
     failing if the metaid attribute was set. This has been changed to
     produce the correct behavior.
 
+* Configuration/build system changes
+
+ - Import of the python library has been sorted in line with recent Linux
+   changes to the location of the shared file.
+
+ - Code has been fixed to be MingGW compliant. 
+
+ - The build configuration was updated to work with the latest version of R.
+
+STABLE PACKAGES
+
+
+  - 'distrib' package-specific updates:
+  
+    - A new converter, AnnotationToDistribConverter, has been added 
+      to allow conversion from the existing annotation format used 
+      with <functionDefinitions> to the new 'distrib' format. This
+      complements the existing DistribToAnnotationConverter that converts
+      'distrib' to annotations.
+      
+
+* Bug fixes
+
+  - 'comp' package-specific bug fixes:
+
+    - Comp flattening dropped conversion factors for particular 
+	  instances of assignment rules. This has been corrected. 
+	  Thanks to Matthias König for reporting this. 
+      
   - 'distrib' package-specific bug fixes:
 
     - There was unfortunately an infinite loop in the code using
@@ -94,13 +112,6 @@ Code has been fixed to be Ming GW compliant.
   
     - Some render classes were not handled correctly by language
       bindings. This has been fixed.
-
-* Configuration/build system changes
-
- - Import of the python library has been sorted in line with recent Linux
-   changes to the location of the shared file.
-
- - Code has been fixed to be MingGW compliant. 
 
 EXPERIMENTAL PACKAGES
 
@@ -120,8 +131,14 @@ EXPERIMENTAL PACKAGES
 	  implemented. 
 
  * Bug fixes
- 
-  - 'distrib' package-specific bug fixes:
+
+  - 'spatial' package-specific bug fixes:
+  
+    - There were some memory leaks in the spatial code. 
+	  Thanks to Liam Keegan for spotting these and congratulations 
+	  for being our first GitHub user to address problems using a 
+	  Pull Request. 
+  
 
       
 
