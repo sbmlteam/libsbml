@@ -54,12 +54,12 @@ available from both SourceForge and GitHub.
 
   - The validation code detecting assignment cycles was incorrectly 
     including local parameters within its search. These have now 
-	been removed from the relevant code. 
+    been removed from the relevant code. 
 
   - Conversion code was failing to detect when a local parameter used 
     the 'id' of a speciesReference which is allowed in SBML Level 3. 
-	These can be converted to SBML Level 2 and the code has now been
-	corrected so this conversion will take place. 
+    These can be converted to SBML Level 2 and the code has now been
+    corrected so this conversion will take place. 
 
   - The L3 infix parser has been improved to recognize the use of a 
     name without parentheses as a misused function name or a csymbol,
@@ -100,8 +100,8 @@ STABLE PACKAGES
   - 'comp' package-specific bug fixes:
 
     - Comp flattening dropped conversion factors for particular 
-	  instances of assignment rules. This has been corrected. 
-	  Thanks to Matthias König for reporting this. 
+      instances of assignment rules. This has been corrected. 
+      Thanks to Matthias König for reporting this. 
       
   - 'distrib' package-specific bug fixes:
 
@@ -120,24 +120,24 @@ EXPERIMENTAL PACKAGES
   - 'spatial' package-specific updates:
   
     - Compression in the 'spatial' package is now based on strings. 
-	  The code has been changed to reflect this. 
+      The code has been changed to reflect this. 
 
     - Support for int and uint as DataKinds has been added to the 
-	  spatial code in line with changes in the specification. 
+      spatial code in line with changes in the specification. 
 
     - A range of validation tests have been added to the spatial 
-	  code. As this is an experimental passage package still in 
-	  development, we cannot guarantee that all validation has been
-	  implemented. 
+      code. As this is an experimental passage package still in 
+      development, we cannot guarantee that all validation has been
+      implemented. 
 
  * Bug fixes
 
   - 'spatial' package-specific bug fixes:
   
     - There were some memory leaks in the spatial code. 
-	  Thanks to Liam Keegan for spotting these and congratulations 
-	  for being our first GitHub user to address problems using a 
-	  Pull Request. 
+      Thanks to Liam Keegan for spotting these and congratulations 
+      for being our first GitHub user to address problems using a 
+      Pull Request. 
   
 
       
