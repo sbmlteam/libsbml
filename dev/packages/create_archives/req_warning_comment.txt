@@ -1,0 +1,26 @@
+***************************************************
+ WARNING -- WARNING -- WARNING -- WARNING -- WARNING
+
+ The filenames used by the 'req' package implementation
+ have changed.  If you are about to unzip this new release
+ over a copy of a prior libSBML 'req' package release, the
+ following old files will not be removed, even though they
+ are no longer part of the new implementation:
+
+ In the directory /libsbml/src/sbml/packages/req/common
+ 
+   RequiredElementsExtensionTypes.h
+   requiredElementsfwd.h
+   
+ In the directory /libsbml/src/sbml/packages/req/extension
+   
+   RequiredElementsExtension.cpp
+   RequiredElementsExtension.h
+   RequiredElementsSBasePlugin.cpp
+   RequiredElementsSBasePlugin.h
+
+ Please delete these files manually to avoid confusion.
+ For more information, contact libsbml-team@caltech.edu.
+
+ WARNING -- WARNING -- WARNING -- WARNING -- WARNING
+ ***************************************************
