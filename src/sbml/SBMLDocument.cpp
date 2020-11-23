@@ -156,7 +156,7 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
     mSBMLNamespaces->setLevel(mLevel);
     mSBMLNamespaces->setVersion(mVersion);
     XMLNamespaces *ns = new XMLNamespaces();
-    ns->add(mSBMLNamespaces->getSBMLNamespaceURI(mLevel, mVersion));
+    ns->add(SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion));
     mSBMLNamespaces->setNamespaces(ns);
     delete ns;
   }
@@ -184,7 +184,7 @@ SBMLDocument::SBMLDocument (SBMLNamespaces* sbmlns) :
 {
   if (!hasValidLevelVersionNamespaceCombination())
   {
-    throw SBMLConstructorException(getElementName(), sbmlns);
+    throw SBMLConstructorException(SBMLDocument::getElementName(), sbmlns);
   }
 
   mInternalValidator = new SBMLInternalValidator();
@@ -255,7 +255,7 @@ SBMLDocument::~SBMLDocument ()
   if (mInternalValidator != NULL)
     delete mInternalValidator;
   if (mModel != NULL)
-  delete mModel;
+    delete mModel;
   clearValidators();
 }
 
@@ -278,7 +278,7 @@ SBMLDocument::SBMLDocument (const SBMLDocument& orig)
 {
   
   
-  setSBMLDocument(this);
+  SBMLDocument::setSBMLDocument(this);
   
   mInternalValidator->setDocument(this);
   mInternalValidator->setApplicableValidators(orig.getApplicableValidators());
@@ -286,17 +286,11 @@ SBMLDocument::SBMLDocument (const SBMLDocument& orig)
   
   if (orig.mModel != NULL) 
   {
-    mModel = static_cast<Model*>( orig.mModel->clone() );
+    mModel = orig.mModel->clone();
     mModel->setSBMLDocument(this);
   }
   
-  connectToChild();
-  //if(orig.mNamespaces)
-  //  this->mNamespaces = 
-  //  new XMLNamespaces(*const_cast<SBMLDocument&>(orig).mNamespaces);
-  //else
-  //  this->mNamespaces = 0;
-
+  SBMLDocument::connectToChild();
 }
 
 
@@ -325,7 +319,7 @@ SBMLDocument& SBMLDocument::operator=(const SBMLDocument& rhs)
 
     if (rhs.mModel != NULL) 
     {
-      mModel = static_cast<Model*>( rhs.mModel->clone() );
+      mModel = rhs.mModel->clone();
       mModel->setSBMLDocument(this);
     }
   }
@@ -394,13 +388,8 @@ SBMLDocument::getNumObjects(const std::string& elementName)
 {
   unsigned int n = 0;
 
-  if (elementName == "model")
-  {
-    if (isSetModel())
-    {
-      return 1;
-    }
-  }
+  if (elementName == "model" && isSetModel())
+    return 1;
 
   return n;
 }
@@ -660,7 +649,7 @@ SBMLDocument::createModel (const std::string sid)
   {
     mModel = new Model(getSBMLNamespaces());
   }
-  catch (...)
+  catch (SBMLConstructorException)
   {
     /* here we do not create a default object as the level/version must
      * match the parent object
@@ -725,7 +714,6 @@ SBMLDocument::setConsistencyChecksForConversion(SBMLErrorCategory_t category,
 unsigned int
 SBMLDocument::checkConsistency ()
 {
-  //  XMLLogOverride(getErrorLog(), LIBSBML_OVERRIDE_DISABLED);
   // keep a copy of the override status
   // and then override any change
   XMLErrorSeverityOverride_t overrideStatus = 
@@ -767,7 +755,6 @@ SBMLDocument::checkConsistency ()
 unsigned int
 SBMLDocument::checkConsistencyWithStrictUnits ()
 {
-  //  XMLLogOverride(getErrorLog(), LIBSBML_OVERRIDE_DISABLED);
   // keep a copy of the override status
   // and then override any change
   XMLErrorSeverityOverride_t overrideStatus = 
@@ -849,7 +836,6 @@ SBMLDocument::checkConsistencyWithStrictUnits ()
  */
 unsigned int SBMLDocument::validateSBML ()
 {
-  //  XMLLogOverride(getErrorLog(), LIBSBML_OVERRIDE_DISABLED);
   // keep a copy of the override status
   // and then override any change
   XMLErrorSeverityOverride_t overrideStatus = 
@@ -887,7 +873,6 @@ unsigned int SBMLDocument::validateSBML ()
 unsigned int
 SBMLDocument::checkInternalConsistency()
 {
-  //  XMLLogOverride(getErrorLog(), LIBSBML_OVERRIDE_DISABLED);
   // keep a copy of the override status
   // and then override any change
   XMLErrorSeverityOverride_t overrideStatus = 
@@ -921,7 +906,7 @@ SBMLDocument::checkL1Compatibility (bool inConversion)
   unsigned int nerrors =  mInternalValidator->checkL1Compatibility();
   unsigned int unit_errors = 0;
 
-  if (inConversion == false)
+  if (not inConversion)
   {
     UnitConsistencyValidator unit_validator;
     unit_validator.init();
@@ -936,12 +921,9 @@ SBMLDocument::checkL1Compatibility (bool inConversion)
 
       while(!logUnitError && it != errors.end())
       {
-        SBMLError err = (SBMLError)(*it);
+        SBMLError err = (SBMLError)*it;
         unsigned int l2v1_sev = getLevelVersionSeverity(err.getErrorId(), 1, 2);
-        if (l2v1_sev == LIBSBML_SEV_ERROR)
-        {
-          logUnitError = true;
-        }
+        logUnitError = (l2v1_sev == LIBSBML_SEV_ERROR);
         it++;
       }
       if (logUnitError)
@@ -988,7 +970,7 @@ SBMLDocument::checkL2v1Compatibility (bool inConversion)
 
       while(!logUnitError && it != errors.end())
       {
-        SBMLError err = (SBMLError)(*it);
+        SBMLError err = (SBMLError)*it;
         unsigned int l2v1_sev = getLevelVersionSeverity(err.getErrorId(), 2, 1);
         if (l2v1_sev == LIBSBML_SEV_ERROR)
         {
@@ -1040,12 +1022,9 @@ SBMLDocument::checkL2v2Compatibility (bool inConversion)
 
       while(!logUnitError && it != errors.end())
       {
-        SBMLError err = (SBMLError)(*it);
+        SBMLError err = (SBMLError)*it;
         unsigned int l2v1_sev = getLevelVersionSeverity(err.getErrorId(), 1, 2);
-        if (l2v1_sev == LIBSBML_SEV_ERROR)
-        {
-          logUnitError = true;
-        }
+        logUnitError = (l2v1_sev == LIBSBML_SEV_ERROR);
         it++;
       }
       if (logUnitError)
@@ -1092,12 +1071,9 @@ SBMLDocument::checkL2v3Compatibility (bool inConversion)
 
       while(!logUnitError && it != errors.end())
       {
-        SBMLError err = (SBMLError)(*it);
+        SBMLError err = (SBMLError)*it;
         unsigned int l2v1_sev = getLevelVersionSeverity(err.getErrorId(), 1, 2);
-        if (l2v1_sev == LIBSBML_SEV_ERROR)
-        {
-          logUnitError = true;
-        }
+        logUnitError = (l2v1_sev == LIBSBML_SEV_ERROR);
         it++;
       }
       if (logUnitError)
@@ -1341,15 +1317,11 @@ SBMLDocument::createObject (XMLInputStream& stream)
     {
       mModel = new Model(getSBMLNamespaces());
     }
-    catch ( ... )
+    catch (SBMLConstructorException)
     {
       mModel = new Model(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
     }
-    //catch ( ... )
-    //{
-    //  // do nothing
-    //}
 
     object = mModel;
   }
@@ -1590,7 +1562,7 @@ SBMLDocument::isIgnoredPackage(const std::string& pkgURI)
  * is not available), otherwise returns @c false.
  */
 bool 
-SBMLDocument::isDisabledIgnoredPackage(const std::string& pkgURI)
+SBMLDocument::isDisabledIgnoredPackage(const std::string& pkgURI) const
 {
   if (!isPackageURIEnabled(pkgURI))
   {
@@ -1609,13 +1581,11 @@ SBMLDocument::isDisabledIgnoredPackage(const std::string& pkgURI)
 
 /** @cond doxygenLibsbmlInternal */
 bool
-SBMLDocument::hasUnknownPackage(const std::string& pkgURI)
+SBMLDocument::hasUnknownPackage(const std::string& pkgURI) const
 {
   // has this package been added to the list of unknown required attributes
   std::string req = mRequiredAttrOfUnknownPkg.getValue("required", pkgURI);
-  if (!req.empty()) return true;
-
-  return false;
+  return !req.empty();
 }
 
 
@@ -1721,113 +1691,86 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes,
   // The code for creating an extension IF below is almost equal to that in 
   // SBase::SBase(SBMLNamespaces*,typecode (int)).
   //
-  XMLNamespaces *xmlns = getNamespaces();
+  XMLNamespaces const *xmlns = getNamespaces();
   if (xmlns == NULL)
+    return;
+
+  int numxmlns= xmlns->getLength();
+  for (int i=0; i < numxmlns; i++)
   {
-//     std::string err("SBase: xmlns is empty");
-//     XMLNamespaces* xmlns = sbmlns->getNamespaces();
-//     std::ostringstream oss;
-//     oss << "\nTypeCode " << typeCode << endl;
-//     if (xmlns)
-//     {
-//       XMLOutputStream xos(oss);
-//       xos << *xmlns;
-//     }
-//     err.append(oss.str());
-//     throw SBMLConstructorException(err);
-  }
-  else
-  {
-    int numxmlns= xmlns->getLength();
-    for (int i=0; i < numxmlns; i++)
+    const std::string &uri = xmlns->getURI(i);
+    const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+
+    if (sbmlext && sbmlext->isEnabled())
     {
-      const std::string &uri = xmlns->getURI(i);
-      const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
-
-      if (sbmlext && sbmlext->isEnabled())
+      // if we are in l3v2 and there exists an l3v2 version for the package
+      // we wont accept the l3v1 version
+      if (sbmlext->getVersion(uri) < 2 && this->getVersion() > 1)
       {
-        // if we are in l3v2 and there exists an l3v2 version for the package
-        // we wont accept the l3v1 version
-        if (sbmlext->getVersion(uri) < 2 && this->getVersion() > 1)
+        std::string dummyURI;
+        dummyURI.assign(uri);
+        size_t pos = dummyURI.find("level3");
+        if (pos != std::string::npos)
         {
-          std::string dummyURI;
-          dummyURI.assign(uri);
-          size_t pos = dummyURI.find("level3");
-          if (pos != std::string::npos)
+          dummyURI.replace(pos, 15, "level3/version2");
+          if (sbmlext->getVersion(dummyURI) == 2)
           {
-            dummyURI.replace(pos, 15, "level3/version2");
-            if (sbmlext->getVersion(dummyURI) == 2)
-            {
-              ostringstream msg;
+            ostringstream msg;
 
-              msg << "Package '" << xmlns->getPrefix(i) <<
-                "' has a L3V2V1 specification which must be used in an L3V2 document.";
-              logError(InvalidPackageLevelVersion, mLevel, mVersion, msg.str());
-              return;
-
-
-            }
+            msg << "Package '" << xmlns->getPrefix(i) <<
+              "' has a L3V2V1 specification which must be used in an L3V2 document.";
+            logError(InvalidPackageLevelVersion, mLevel, mVersion, msg.str());
+            return;
           }
         }
-
-
-
-        const std::string &prefix = xmlns->getPrefix(i);
-        SBaseExtensionPoint extPoint(getPackageName(), SBML_DOCUMENT);
-        const SBasePluginCreatorBase* sbPluginCreator = sbmlext->getSBasePluginCreator(extPoint);
-        if (sbPluginCreator)
-        {
-          // (debug)
-          //cout << "sbPlugin " << sbPlugin << endl;
-          //sbPlugin->createPlugin(uri,prefix);
-          // (debug)
-          SBasePlugin* entity = sbPluginCreator->createPlugin(uri,prefix,xmlns);
-          entity->connectToParent(this);
-          mPlugins.push_back(entity);
-        }
       }
-      else
+
+      const std::string &prefix = xmlns->getPrefix(i);
+      SBaseExtensionPoint extPoint(getPackageName(), SBML_DOCUMENT);
+      const SBasePluginCreatorBase* sbPluginCreator = sbmlext->getSBasePluginCreator(extPoint);
+      if (sbPluginCreator)
       {
-        //
-        //  1) Checks if there exists a "required" attribute with the prefix of
-        //     this namespace.
-        //  2) If such attribute exists then checks if the value is true or false.
-        //  3) Logs an error (e..g The package is required but the package is not available)
-        //     if the value is true.
-        //  4) Added a check that the uri could possibly be a l3 ns
-        //
-        size_t pos = uri.find("http://www.sbml.org/sbml/level3/version");
-        std::string requiredAttr = attributes.getValue("required",uri);
-        if (pos == 0 && !requiredAttr.empty())
-        {
-          mRequiredAttrOfUnknownPkg.add("required", requiredAttr, uri, xmlns->getPrefix(i));
-#if 0
-          cout << "[DEBUG] SBMLDocument::readAttributes() uri " << uri 
-               << " has required attribute : " << attributes.getValue("required",uri) << endl;
-#endif
-          ostringstream msg;
-
-          if (requiredAttr == "true")
-          {
-            msg << "Package '" << xmlns->getPrefix(i) << 
-                "' is a required package and the model cannot be properly "
-                "interpreted.";
-            logError(RequiredPackagePresent, mLevel, mVersion, msg.str());
-          }
-          else
-          {
-            msg << "Package '" << xmlns->getPrefix(i) << 
-                "' is not a required package. The information relating "
-                "to '" << xmlns->getPrefix(i) << "' will be "
-                "saved but cannot be interpreted.";
-            logError(UnrequiredPackagePresent, mLevel, mVersion, msg.str());
-          }
-        } 
+        SBasePlugin* entity = sbPluginCreator->createPlugin(uri,prefix,xmlns);
+        entity->connectToParent(this);
+        mPlugins.push_back(entity);
       }
+    }
+    else
+    {
+      //
+      //  1) Checks if there exists a "required" attribute with the prefix of
+      //     this namespace.
+      //  2) If such attribute exists then checks if the value is true or false.
+      //  3) Logs an error (e..g The package is required but the package is not available)
+      //     if the value is true.
+      //  4) Added a check that the uri could possibly be a l3 ns
+      //
+      size_t pos = uri.find("http://www.sbml.org/sbml/level3/version");
+      std::string requiredAttr = attributes.getValue("required",uri);
+      if (pos == 0 && !requiredAttr.empty())
+      {
+        mRequiredAttrOfUnknownPkg.add("required", requiredAttr, uri, xmlns->getPrefix(i));
+        ostringstream msg;
+
+        if (requiredAttr == "true")
+        {
+          msg << "Package '" << xmlns->getPrefix(i) << 
+              "' is a required package and the model cannot be properly "
+              "interpreted.";
+          logError(RequiredPackagePresent, mLevel, mVersion, msg.str());
+        }
+        else
+        {
+          msg << "Package '" << xmlns->getPrefix(i) << 
+              "' is not a required package. The information relating "
+              "to '" << xmlns->getPrefix(i) << "' will be "
+              "saved but cannot be interpreted.";
+          logError(UnrequiredPackagePresent, mLevel, mVersion, msg.str());
+        }
+      } 
     }
   }
 
- 
   //
   // (NOTE)
   //
@@ -1871,7 +1814,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes,
   }
   
   /* check that sbml namespace has been set */
-  XMLNamespaces *ns = mSBMLNamespaces->getNamespaces();
+  XMLNamespaces const *ns = mSBMLNamespaces->getNamespaces();
   unsigned int match = 0;
   if (ns == NULL)
   {
@@ -2008,32 +1951,6 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes,
   }
 
   SBMLExtensionRegistry::getInstance().enableL2NamespaceForDocument(this);
-
-//   if (getLevel() > 2)
-//   {
-//     bool reqd;
-//    cout << "[DEBUG] SBMLDocument::readAttributes " << endl;
-//     /* look for namespaces with other prefixes */
-//     for (int i = 0; i < ns->getLength(); i++)
-//     {
-//       std::string uri    = ns->getURI(i);
-//       std::string prefix = ns->getPrefix(i);
-
-//       const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtension(uri);
-//       if (sbmlext && sbmlext->isEnabled())
-//       {
-//         XMLTriple triple("required", uri, prefix);
-//         attributes.readInto(triple, reqd, getErrorLog(), true, getLine(), getColumn());
-//         mPkgRequiredMap.insert(pair<string,bool>(uri,reqd));
-//         cout << "[DEBUG] SBMLDocument::readAttributes" << uri << endl;
-//       }
-//       else
-//       { 
-//         cout << "[DEBUG] SBMLDocument::readAttributes: No such package " << uri << endl;
-//       }
-//     }
-//   }
-
 }
 /** @endcond */
 
@@ -2048,19 +1965,6 @@ void
 SBMLDocument::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
-
-  // moved this to trhe writeXMLNS function
-  //if (mSBMLNamespaces->getNamespaces() == NULL
-  //  || mSBMLNamespaces->getNamespaces()->getLength() == 0)
-  //{
-  //   XMLNamespaces xmlns;
-
-  //   xmlns.add(SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion));
-
-  //   stream << xmlns;
-
-  //   mSBMLNamespaces->setNamespaces(&xmlns);
-  //}
 
   //
   // level: positiveInteger  { use="required" fixed="1" }  (L1v1)
@@ -2115,22 +2019,6 @@ SBMLDocument::writeAttributes (XMLOutputStream& stream) const
     std::string value  = mRequiredAttrOfUnknownPkg.getValue(i);
     stream.writeAttribute("required", prefix, value);
   }
-  //
-  // writing required attribute of package extensions.
-  //
-//   if (getLevel() > 2) 
-//   {
-//     cout << "[DEBUG] SBMLDocument::writeAttribute() " << endl;
-//     std::map<std::string, bool>::const_iterator it = mPkgRequiredMap.begin();
-//     while (it != mPkgRequiredMap.end())
-//     {
-//       std::string name = (*it).first + ":required";
-//       bool isreq       = (*it).second;
-//       cout << "[DEBUG] SBMLDocument::writeAttribute() " << name << endl;
-//       stream.writeAttribute(name, isreq);
-//       ++it;
-//     }
-//   }
 }
 
 
@@ -2244,17 +2132,7 @@ SBMLDocument::enablePackageInternal(const std::string& pkgURI, const std::string
     // disable the given package
     //
 
-    // (1) remove the entry of mPkgUseDefaultNSMap
-
     mPkgUseDefaultNSMap.erase(pkgURI);
-
-    // (2) remove the xmlns from mSBMLNamespaces
-
-//    XMLNamespaces *xmlns = mSBMLNamespaces->getNamespaces();
-//    if (xmlns)
-//    {
-//      xmlns->remove(xmlns->getIndex(pkgURI));
-//    }
 
     /* before we remove the unknown package keep a copy
      * in case we try to re-enable it later
