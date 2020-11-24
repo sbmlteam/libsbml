@@ -993,9 +993,15 @@ XMLOutputStream::writeComment (const std::string& programName,
     time_t tim=time(NULL);
     tm *now=localtime(&tim);
 
+#if ( __cplusplus > 201103L  ) 
     snprintf(formattedDateAndTime, 17, "%d-%02d-%02d %02d:%02d",
             now->tm_year+1900, now->tm_mon+1, now->tm_mday,
             now->tm_hour, now->tm_min);
+#else
+    sprintf(formattedDateAndTime, "%d-%02d-%02d %02d:%02d",
+            now->tm_year+1900, now->tm_mon+1, now->tm_mday,
+            now->tm_hour, now->tm_min);
+#endif
     mStream << " on " << formattedDateAndTime;
   }
 
