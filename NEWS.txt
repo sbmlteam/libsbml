@@ -15,9 +15,11 @@ submit pull requests against this branch. We are no longer
 maintaining a separate repository for experimental code for as yet 
 unfinished packages. 
 
-Please use the GitHub issue tracker to file any reports. We will gradually 
-move away from SourceForge, but for this release code will be 
-available from both SourceForge and GitHub. 
+Please use the GitHub issue tracker to file any reports or submit a
+fix and do a Pull Request.
+ 
+We will gradually move away from SourceForge, but for this release 
+code will be available from both SourceForge and GitHub. 
 
 
 
@@ -82,6 +84,11 @@ available from both SourceForge and GitHub.
  - Code has been fixed to be MingGW compliant. 
 
  - The build configuration was updated to work with the latest version of R.
+
+* Miscellaneous
+
+ - A number of memory leaks and possible access violations have been solved. 
+
 
 STABLE PACKAGES
 
