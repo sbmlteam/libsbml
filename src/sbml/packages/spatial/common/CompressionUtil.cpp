@@ -53,10 +53,11 @@
 #include "CompressionUtil.h"
 #endif
 
+#ifdef __cplusplus
+
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-#ifdef __cplusplus
 
 
 std::string vectorToString(const std::vector<double>& vec)
@@ -351,9 +352,9 @@ copySampleArrays(int*& target, size_t& targetLength, unsigned char* source, size
 
 
 
-#endif /* __cplusplus */
-
 
 LIBSBML_CPP_NAMESPACE_END
 
+#endif /* __cplusplus */
+  
 
