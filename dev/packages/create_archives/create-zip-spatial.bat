@@ -50,6 +50,7 @@ copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%-register*      src\sbml\p
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\*.in      src\sbml\packages\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\common\*.in      src\sbml\packages\%PACKAGE_NAME%\common\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\common\*.h      src\sbml\packages\%PACKAGE_NAME%\common\
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\common\*.cpp      src\sbml\packages\%PACKAGE_NAME%\common\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\*.in   src\sbml\packages\%PACKAGE_NAME%\extension\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\*.h   src\sbml\packages\%PACKAGE_NAME%\extension\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\*.cpp src\sbml\packages\%PACKAGE_NAME%\extension\
