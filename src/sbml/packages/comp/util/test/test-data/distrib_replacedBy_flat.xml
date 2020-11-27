@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns:distrib="http://www.sbml.org/sbml/level3/version1/distrib/version1" xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2" distrib:required="true">
+  <model metaid="bar" id="bar">
+    <listOfParameters>
+      <parameter id="b" constant="true">
+        <distrib:listOfUncertainties>
+          <distrib:uncertainty>
+            <distrib:uncertParameter distrib:value="5" distrib:type="mean"/>
+          </distrib:uncertainty>
+        </distrib:listOfUncertainties>
+      </parameter>
+    </listOfParameters>
+  </model>
+</sbml>

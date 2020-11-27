@@ -9,6 +9,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -988,9 +993,15 @@ XMLOutputStream::writeComment (const std::string& programName,
     time_t tim=time(NULL);
     tm *now=localtime(&tim);
 
+#if ( __cplusplus > 201103L  ) 
+    snprintf(formattedDateAndTime, 17, "%d-%02d-%02d %02d:%02d",
+            now->tm_year+1900, now->tm_mon+1, now->tm_mday,
+            now->tm_hour, now->tm_min);
+#else
     sprintf(formattedDateAndTime, "%d-%02d-%02d %02d:%02d",
             now->tm_year+1900, now->tm_mon+1, now->tm_mday,
             now->tm_hour, now->tm_min);
+#endif
     mStream << " on " << formattedDateAndTime;
   }
 

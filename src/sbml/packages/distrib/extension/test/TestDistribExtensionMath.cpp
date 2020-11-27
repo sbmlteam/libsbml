@@ -7,6 +7,11 @@
  * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -199,6 +204,11 @@ START_TEST (test_SBML_parseL3Formula_distrib_functions_generic)
   fail_unless( ASTNode_getNumChildren(r) == 4  , NULL );
   ASTNode_free(r);
 
+  r = SBML_parseL3FormulaWithSettings("cauchy(x)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 1, NULL);
+  ASTNode_free(r);
+
   r = SBML_parseL3FormulaWithSettings("cauchy(x,y)", &l3ps);
   fail_unless( ASTNode_getType       (r) == AST_FUNCTION, NULL );
   fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
@@ -237,6 +247,11 @@ START_TEST (test_SBML_parseL3Formula_distrib_functions_generic)
   r = SBML_parseL3FormulaWithSettings("gamma(x,y,p,q)", &l3ps);
   fail_unless( ASTNode_getType       (r) == AST_FUNCTION, NULL );
   fail_unless( ASTNode_getNumChildren(r) == 4  , NULL );
+  ASTNode_free(r);
+
+  r = SBML_parseL3FormulaWithSettings("laplace(x)", &l3ps);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 1, NULL);
   ASTNode_free(r);
 
   r = SBML_parseL3FormulaWithSettings("laplace(x,y)", &l3ps);
@@ -324,13 +339,13 @@ START_TEST (test_SBML_parseL3Formula_distrib_functions_errors)
   r = SBML_parseL3Formula("cauchy(x,y,z)");
   fail_unless(r == NULL, NULL);
   error = SBML_getLastParseL3Error();
-  fail_unless( !strcmp(error, "Error when parsing input 'cauchy(x,y,z)' at position 13:  The function 'cauchy' takes exactly two or four arguments, but 3 were found."), NULL );
+  fail_unless( !strcmp(error, "Error when parsing input 'cauchy(x,y,z)' at position 13:  The function 'cauchy' takes exactly two or one or four arguments, but 3 were found."), NULL );
   safe_free(error);
 
   r = SBML_parseL3Formula("cauchy()");
   fail_unless(r == NULL, NULL);
   error = SBML_getLastParseL3Error();
-  fail_unless( !strcmp(error, "Error when parsing input 'cauchy()' at position 8:  The function 'cauchy' takes exactly two or four arguments, but 0 were found."), NULL );
+  fail_unless( !strcmp(error, "Error when parsing input 'cauchy()' at position 8:  The function 'cauchy' takes exactly two or one or four arguments, but 0 were found."), NULL );
   safe_free(error);
 
   r = SBML_parseL3Formula("chisquare(x,x)");
@@ -369,16 +384,22 @@ START_TEST (test_SBML_parseL3Formula_distrib_functions_errors)
   fail_unless( !strcmp(error, "Error when parsing input 'gamma(x)' at position 8:  The function 'gamma' takes exactly two or four arguments, but 1 were found."), NULL );
   safe_free(error);
 
-  r = SBML_parseL3Formula("laplace(x^2)");
+  r = SBML_parseL3Formula("laplace()");
   fail_unless(r == NULL, NULL);
   error = SBML_getLastParseL3Error();
-  fail_unless( !strcmp(error, "Error when parsing input 'laplace(x^2)' at position 12:  The function 'laplace' takes exactly two or four arguments, but 1 were found."), NULL );
+  fail_unless( !strcmp(error, "Error when parsing input 'laplace()' at position 9:  The function 'laplace' takes exactly two or one or four arguments, but 0 were found."), NULL );
+  safe_free(error);
+
+  r = SBML_parseL3Formula("laplace(x,y,p)");
+  fail_unless(r == NULL, NULL);
+  error = SBML_getLastParseL3Error();
+  fail_unless(!strcmp(error, "Error when parsing input 'laplace(x,y,p)' at position 14:  The function 'laplace' takes exactly two or one or four arguments, but 3 were found."), NULL);
   safe_free(error);
 
   r = SBML_parseL3Formula("laplace(x,y,p,q,l+3)");
   fail_unless(r == NULL, NULL);
   error = SBML_getLastParseL3Error();
-  fail_unless( !strcmp(error, "Error when parsing input 'laplace(x,y,p,q,l+3)' at position 20:  The function 'laplace' takes exactly two or four arguments, but 5 were found."), NULL );
+  fail_unless( !strcmp(error, "Error when parsing input 'laplace(x,y,p,q,l+3)' at position 20:  The function 'laplace' takes exactly two or one or four arguments, but 5 were found."), NULL );
   safe_free(error);
 
   r = SBML_parseL3Formula("lognormal(x)");

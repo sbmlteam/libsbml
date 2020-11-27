@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -41,6 +46,7 @@
 #include <sbml/xml/XMLNamespaces.h>
 #include <sbml/SBMLDocument.h>
 
+#include <locale.h>
 #include <check.h>
 
 
@@ -378,6 +384,38 @@ START_TEST (test_Unit_createWithNS )
 END_TEST
 
 
+START_TEST (test_Unit_merge)
+{
+  char *old_locale;
+  old_locale = safe_strdup(setlocale(LC_ALL, NULL));
+  setlocale(LC_ALL, "de_DE.UTF-8");
+  Unit_t *u1 = Unit_create(2, 3);
+  Unit_setKind(u1, UNIT_KIND_LITRE);
+  Unit_setExponent(u1, 1.00);
+  Unit_setScale(u1, -3);
+  Unit_setMultiplier(u1, 1.00);
+
+  Unit_t *u2 = Unit_create(2, 3);
+  Unit_setKind(u2, UNIT_KIND_LITRE);
+  Unit_setExponent(u2, -1);
+  Unit_setScale(u2, -3);
+  Unit_setMultiplier(u2, 1);
+
+  Unit_merge(u1, u2);
+
+  fail_unless(Unit_getKind(u1) == UNIT_KIND_LITRE);
+  fail_unless(util_isEqual(Unit_getExponent(u1), 0.0));
+  fail_unless(Unit_getScale(u1) == 0);
+  fail_unless(util_isEqual(Unit_getMultiplier(u1), 1.0));
+
+  Unit_free(u1);
+  Unit_free(u2);
+  setlocale(LC_ALL, old_locale);
+  safe_free(old_locale);
+}
+END_TEST
+
+
 Suite *
 create_suite_Unit (void)
 {
@@ -395,6 +433,7 @@ create_suite_Unit (void)
   tcase_add_test( tcase, test_Unit_set_get_unset    );
   tcase_add_test( tcase, test_Unit_unset    );
   tcase_add_test( tcase, test_Unit_createWithNS         );
+  tcase_add_test( tcase, test_Unit_merge      );
 
   suite_add_tcase(suite, tcase);
 

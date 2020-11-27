@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -156,63 +161,6 @@ START_TEST (test_SampledField_samples)
 END_TEST
 
 
-START_TEST (test_SampledField_samples_mismatchLength_1)
-{
-  fail_unless(G->isSetSamples() == false);
-  fail_unless(G->isSetSamplesLength() == false);
-
-  int samples [] = {1,2};
-  G->setSamples(samples, 3);
-  G->setSamplesLength(3);
-
-  fail_unless(G->isSetSamples() == true);
-  fail_unless(G->isSetSamplesLength() == true);
-
-  fail_unless(G->getSamplesLength() == 3);
-
-  double samplesRet [] = {0, 0, 0};
-  G->getSamples(samplesRet);
-  fail_unless(samplesRet[0] == 1);
-  fail_unless(samplesRet[1] == 2);
-  fail_unless(samplesRet[2] != 0);
-
-  G->unsetSamples();
-
-  fail_unless(G->isSetSamples() == false);
-  fail_unless(G->isSetSamplesLength() == false);
-}
-END_TEST
-
-
-START_TEST (test_SampledField_samples_mismatchLength_2)
-{
-  fail_unless(G->isSetSamples() == false);
-  fail_unless(G->isSetSamplesLength() == false);
-
-  int samples [] = {1,2};
-  G->setSamples(samples, 1);
-  G->setSamplesLength(1);
-
-  fail_unless(G->isSetSamples() == true);
-  fail_unless(G->isSetSamplesLength() == true);
-
-  fail_unless(G->getSamplesLength() == 1);
-
-  int samplesRet [1];
-  G->getSamples(samplesRet);
-  fail_unless(samplesRet[0] == 1);
-  // really just making sure we dont crash
-  fail_unless(samplesRet[1] != 2);
-  fail_unless(samplesRet[2] != 0);
-
-  G->unsetSamples();
-
-  fail_unless(G->isSetSamples() == false);
-  fail_unless(G->isSetSamplesLength() == false);
-}
-END_TEST
-
-
 START_TEST (test_SampledField_dataType)
 {
   fail_unless(G->isSetDataType() == false);
@@ -258,8 +206,6 @@ create_suite_SampledField (void)
 
   tcase_add_test( tcase, test_SampledField_samplesLength   );
   tcase_add_test( tcase, test_SampledField_samples         );
-  tcase_add_test( tcase, test_SampledField_samples_mismatchLength_1  );
-  tcase_add_test( tcase, test_SampledField_samples_mismatchLength_2  );
   tcase_add_test( tcase, test_SampledField_dataType        );
   tcase_add_test( tcase, test_SampledField_output         );
 

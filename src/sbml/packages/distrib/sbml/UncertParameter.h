@@ -7,6 +7,11 @@
  * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
  * 2. University of Heidelberg, Heidelberg, Germany
@@ -732,6 +737,20 @@ public:
   virtual void renameSIdRefs(const std::string& oldid,
                              const std::string& newid);
 
+
+  /**
+   * @copydoc doc_renameunitsidref_common
+   */
+  virtual void renameUnitSIdRefs(const std::string& oldid, const std::string& newid);
+
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Replace all nodes with the name 'id' from the child 'math' object with the provided function.
+   *
+   */
+  virtual void replaceSIDWithFunction(const std::string& id, const ASTNode* function);
+  /** @endcond */
 
   /**
    * Returns the XML element name of this UncertParameter object.

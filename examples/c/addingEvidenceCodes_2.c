@@ -235,9 +235,11 @@ main (int argc, char *argv[])
       XMLAttributes_clear(resource_att);      
       XMLAttributes_add(resource_att, "rdf:resource", 
        "urn:miriam:pubmed:7017716");
+      XMLToken_free(li_token);
       li_token = XMLToken_createWithTripleAttr(li_triple, resource_att);
       XMLToken_setEnd(li_token);
 
+      XMLNode_free(li);
       li = XMLNode_createFromToken(li_token);
 
       XMLNode_addChild(bag, li);
@@ -279,6 +281,35 @@ main (int argc, char *argv[])
       SBase_appendAnnotation((SBase_t*)s, annotation);
 
       writeSBML(d, argv[2]);
+
+      XMLAttributes_free(blank_att);
+      XMLAttributes_free(resource_att);
+      XMLToken_free(RDF_token);
+      XMLToken_free(li_token);
+      XMLToken_free(object_token);
+      XMLToken_free(bag_token);
+      XMLToken_free(predicate_token);
+      XMLToken_free(statement_token);
+      XMLToken_free(subject_token);
+      XMLToken_free(bqbiol_token);
+      XMLTriple_free(RDF_triple);
+      XMLTriple_free(li_triple);
+      XMLTriple_free(object_triple);
+      XMLTriple_free(bag_triple);
+      XMLTriple_free(predicate_triple);
+      XMLTriple_free(statement_triple);
+      XMLTriple_free(subject_triple);
+      XMLTriple_free(bqbiol_triple);
+      XMLNode_free(object);
+      XMLNode_free(bag);
+      XMLNode_free(predicate);
+      XMLNode_free(li);
+      XMLNode_free(statement);
+      XMLNode_free(subject);
+      XMLNode_free(bqbiol);
+      XMLNode_free(annotation);
+      CVTerm_free(cv1);
+      XMLNamespaces_free(xmlns);
     }
   }
 

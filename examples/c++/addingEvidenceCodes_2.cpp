@@ -97,6 +97,7 @@ main (int argc, char *argv[])
       cv1->addResource("urn:miriam:obo.go:GO%3A0005764");
 
       s->addCVTerm(cv1);
+      delete cv1;
 
       // now create the additional annotation
  

@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -193,12 +198,17 @@ START_TEST (test_SpatialPoints_compress)
   fail_unless(G->getArrayDataLength() == 9);
   fail_unless(G->getArrayData() == "1 2 3 0.5 7 5.2000000000000002 -4.0099999999999998 5.5 7.7000000000000002 ");
 
-  G->compress(9);
+  int ret = G->compress(9);
 
   S = G->toSBML();
 
-  fail_unless( expectedCompressed == S );
-
+#ifdef USE_ZLIB
+  fail_unless(ret == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(expectedCompressed == S);
+#else
+  fail_unless(ret == LIBSBML_OPERATION_FAILED);
+  fail_unless(expectedUncompressed == S);
+#endif
   free(S);
   G->uncompress();
   S = G->toSBML();
@@ -221,13 +231,14 @@ START_TEST(test_SpatialPoints_uncompressInternal)
 
   size_t len = G->getUncompressedLength();
   fail_unless(len == 9);
-  double* result = (double*)malloc(sizeof(double) * len);
+  double* result = NULL;
   G->getUncompressedData(result, len);
 
   for (size_t i = 0; i < len; i++)
   {
     fail_unless(result[i] == points[i]);
   }
+  free(result);
 
 }
 END_TEST

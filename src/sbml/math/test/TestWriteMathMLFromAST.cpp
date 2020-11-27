@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -377,6 +382,22 @@ START_TEST (test_MathMLFromAST_csymbol_time)
 
   S = writeMathMLToString(N);
 
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+START_TEST (test_MathMLFromAST_csymbol_time_no_name)
+{
+  const char* expected = wrapMathML
+  (
+    "  <csymbol encoding=\"text\" "
+    "definitionURL=\"http://www.sbml.org/sbml/symbols/time\"/>\n"
+  );
+
+  N = new ASTNode(AST_NAME_TIME);
+
+  S = writeMathMLToString(N);
+  
   fail_unless( equals(expected, S) );
 }
 END_TEST
@@ -1836,6 +1857,7 @@ create_suite_WriteMathMLFromAST ()
   tcase_add_test( tcase, test_MathMLFromAST_csymbol_delay         );
   tcase_add_test( tcase, test_MathMLFromAST_csymbol_rateof        );
   tcase_add_test( tcase, test_MathMLFromAST_csymbol_time          );
+  tcase_add_test( tcase, test_MathMLFromAST_csymbol_time_no_name  );
   tcase_add_test( tcase, test_MathMLFromAST_generic_csymbol       );
   tcase_add_test( tcase, test_MathMLFromAST_constant_true         );
   tcase_add_test( tcase, test_MathMLFromAST_constant_false        );

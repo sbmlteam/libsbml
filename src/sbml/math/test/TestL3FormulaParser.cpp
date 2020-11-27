@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -3512,14 +3517,14 @@ START_TEST(test_SBML_parseL3Formula_named_lambda_arguments1)
   ASTNode_t *c = ASTNode_getChild(r, 0);
   fail_unless(ASTNode_getType(c) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c), "time"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c), ""));
+  fail_unless(c->getDefinitionURLString() == "");
 
   c = ASTNode_getChild(r, 1);
   fail_unless(ASTNode_getType(c) == AST_PLUS);
   ASTNode_t *c2 = ASTNode_getChild(c, 0);
   fail_unless(ASTNode_getType(c2) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c2), "time"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c2), ""));
+  fail_unless(c2->getDefinitionURLString() == "");
   c2 = ASTNode_getChild(c, 1);
   fail_unless(ASTNode_getType(c2) == AST_INTEGER);
   fail_unless(ASTNode_getValue(c2) == 2);
@@ -3539,23 +3544,23 @@ START_TEST(test_SBML_parseL3Formula_named_lambda_arguments2)
   ASTNode_t *c = ASTNode_getChild(r, 0);
   fail_unless(ASTNode_getType(c) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c), "time"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c), ""));
+  fail_unless(c->getDefinitionURLString() == "");
 
   c = ASTNode_getChild(r, 1);
   fail_unless(ASTNode_getType(c) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c), "avogadro"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c), ""));
+  fail_unless(c->getDefinitionURLString() == "");
 
   c = ASTNode_getChild(r, 2);
   fail_unless(ASTNode_getType(c) == AST_PLUS);
   ASTNode_t *c2 = ASTNode_getChild(c, 0);
   fail_unless(ASTNode_getType(c2) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c2), "time"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c2), ""));
+  fail_unless(c2->getDefinitionURLString() == "");
   c2 = ASTNode_getChild(c, 1);
   fail_unless(ASTNode_getType(c2) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c2), "avogadro"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c2), ""));
+  fail_unless(c2->getDefinitionURLString() == "");
 
   ASTNode_free(r);
 
@@ -3572,23 +3577,23 @@ START_TEST(test_SBML_parseL3Formula_named_lambda_arguments3)
   ASTNode_t *c = ASTNode_getChild(r, 0);
   fail_unless(ASTNode_getType(c) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c), "true"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c), ""));
+  fail_unless(c->getDefinitionURLString() == "");
 
   c = ASTNode_getChild(r, 1);
   fail_unless(ASTNode_getType(c) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c), "false"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c), ""));
+  fail_unless(c->getDefinitionURLString() == "");
 
   c = ASTNode_getChild(r, 2);
   fail_unless(ASTNode_getType(c) == AST_PLUS);
   ASTNode_t *c2 = ASTNode_getChild(c, 0);
   fail_unless(ASTNode_getType(c2) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c2), "true"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c2), ""));
+  fail_unless(c2->getDefinitionURLString() == "");
   c2 = ASTNode_getChild(c, 1);
   fail_unless(ASTNode_getType(c2) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c2), "false"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c2), ""));
+  fail_unless(c2->getDefinitionURLString() == "");
 
   ASTNode_free(r);
 
@@ -3605,23 +3610,23 @@ START_TEST(test_SBML_parseL3Formula_named_lambda_arguments4)
   ASTNode_t *c = ASTNode_getChild(r, 0);
   fail_unless(ASTNode_getType(c) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c), "pi"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c), ""));
+  fail_unless(c->getDefinitionURLString() == "");
 
   c = ASTNode_getChild(r, 1);
   fail_unless(ASTNode_getType(c) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c), "exponentiale"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c), ""));
+  fail_unless(c->getDefinitionURLString() == "");
 
   c = ASTNode_getChild(r, 2);
   fail_unless(ASTNode_getType(c) == AST_PLUS);
   ASTNode_t *c2 = ASTNode_getChild(c, 0);
   fail_unless(ASTNode_getType(c2) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c2), "pi"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c2), ""));
+  fail_unless(c2->getDefinitionURLString() == "");
   c2 = ASTNode_getChild(c, 1);
   fail_unless(ASTNode_getType(c2) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c2), "exponentiale"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c2), ""));
+  fail_unless(c2->getDefinitionURLString() == "");
 
   ASTNode_free(r);
 
@@ -3638,32 +3643,32 @@ START_TEST(test_SBML_parseL3Formula_named_lambda_arguments5)
   ASTNode_t *c = ASTNode_getChild(r, 0);
   fail_unless(ASTNode_getType(c) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c), "time"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c), ""));
+  fail_unless(c->getDefinitionURLString() == "");
 
   c = ASTNode_getChild(r, 1);
   fail_unless(ASTNode_getType(c) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c), "avogadro"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c), ""));
+  fail_unless(c->getDefinitionURLString() == "");
 
   c = ASTNode_getChild(r, 2);
   fail_unless(ASTNode_getType(c) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c), "true"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c), ""));
+  fail_unless(c->getDefinitionURLString() == "");
 
   c = ASTNode_getChild(r, 3);
   fail_unless(ASTNode_getType(c) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c), "false"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c), ""));
+  fail_unless(c->getDefinitionURLString() == "");
 
   c = ASTNode_getChild(r, 4);
   fail_unless(ASTNode_getType(c) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c), "pi"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c), ""));
+  fail_unless(c->getDefinitionURLString() == "");
 
   c = ASTNode_getChild(r, 5);
   fail_unless(ASTNode_getType(c) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c), "exponentiale"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c), ""));
+  fail_unless(c->getDefinitionURLString() == "");
 
   c = ASTNode_getChild(r, 6);
   fail_unless(ASTNode_getType(c) == AST_PLUS);
@@ -3671,27 +3676,27 @@ START_TEST(test_SBML_parseL3Formula_named_lambda_arguments5)
   ASTNode_t *c2 = ASTNode_getChild(c, 0);
   fail_unless(ASTNode_getType(c2) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c2), "time"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c2), ""));
+  fail_unless(c2->getDefinitionURLString() == "");
   c2 = ASTNode_getChild(c, 1);
   fail_unless(ASTNode_getType(c2) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c2), "avogadro"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c2), ""));
+  fail_unless(c2->getDefinitionURLString() == "");
   c2 = ASTNode_getChild(c, 2);
   fail_unless(ASTNode_getType(c2) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c2), "true"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c2), ""));
+  fail_unless(c2->getDefinitionURLString() == "");
   c2 = ASTNode_getChild(c, 3);
   fail_unless(ASTNode_getType(c2) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c2), "false"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c2), ""));
+  fail_unless(c2->getDefinitionURLString() == "");
   c2 = ASTNode_getChild(c, 4);
   fail_unless(ASTNode_getType(c2) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c2), "pi"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c2), ""));
+  fail_unless(c2->getDefinitionURLString() == "");
   c2 = ASTNode_getChild(c, 5);
   fail_unless(ASTNode_getType(c2) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c2), "exponentiale"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c2), ""));
+  fail_unless(c2->getDefinitionURLString() == "");
 
   ASTNode_free(r);
 
@@ -3708,14 +3713,14 @@ START_TEST(test_SBML_parseL3Formula_named_lambda_arguments6)
   ASTNode_t *c = ASTNode_getChild(r, 0);
   fail_unless(ASTNode_getType(c) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c), "time"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c), ""));
+  fail_unless(c->getDefinitionURLString() == "");
 
   c = ASTNode_getChild(r, 1);
   fail_unless(ASTNode_getType(c) == AST_PLUS);
   ASTNode_t *c2 = ASTNode_getChild(c, 0);
   fail_unless(ASTNode_getType(c2) == AST_NAME);
   fail_unless(!strcmp(ASTNode_getName(c2), "time"));
-  fail_unless(!strcmp(ASTNode_getDefinitionURLString(c2), ""));
+  fail_unless(c2->getDefinitionURLString() == "");
   c2 = ASTNode_getChild(c, 1);
   fail_unless(ASTNode_getType(c2) == AST_CONSTANT_PI);
 

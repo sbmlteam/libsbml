@@ -131,6 +131,7 @@ main (int argc, char* argv[])
     // write to file
     writeSBMLToFile(document, output);
     
+    delete allElements;
     delete document;
     return errors;
 }

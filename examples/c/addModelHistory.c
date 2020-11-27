@@ -83,7 +83,6 @@ main (int argc, char *argv[])
     return 2;
   }
 
-
   d      = readSBML(argv[1]);
   errors = SBMLDocument_getNumErrors(d);
 
@@ -124,6 +123,11 @@ main (int argc, char *argv[])
 	  printStatus("Set model history:     ", status);
   
     writeSBML(d, argv[2]);
+
+    Date_free(date);
+    Date_free(date2);
+    ModelCreator_free(c);
+    ModelHistory_free(h);
   }
 
   SBMLDocument_free(d);

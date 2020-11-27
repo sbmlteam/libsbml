@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -604,6 +609,20 @@ public:
 
 
   /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Sort the ListOf by the element SId.
+   * 
+   * If the SIds are not set (or equal), sort by the result of 
+   * the 'getId' function (which is different from the 'id' 
+   * attribute for some elements such as rules), then by the
+   * 'name' attribute, and finally by the metaids.  If none 
+   * are set, the items are considered to be sorted.
+   */
+  void sort();
+  /** @endcond */
+
 protected:
   /** @cond doxygenLibsbmlInternal */
   typedef std::vector<SBase*>           ListItem;

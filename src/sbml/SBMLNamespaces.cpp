@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -879,10 +884,8 @@ SBMLNamespaces_getSupportedNamespaces(int *length)
   
    *length = (int) supported->getSize();
   SBMLNamespaces_t ** result = (SBMLNamespaces_t**)safe_malloc(sizeof(SBMLNamespaces_t*)*((unsigned long)(*length)));
-  //memset(result, 0, sizeof(SBMLNamespaces_t*)*((unsigned long)*length));
   for (int i = 0; i < *length; i++)
   {
-    result[i] = (SBMLNamespaces_t*)safe_malloc(sizeof(SBMLNamespaces_t*));
     result[i] = ((SBMLNamespaces*)supported->get((unsigned int)i))->clone();
   }
   SBMLNamespaces::freeSBMLNamespaces(const_cast<List*>(supported));

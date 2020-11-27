@@ -7,6 +7,11 @@
  * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
  * 2. University of Heidelberg, Heidelberg, Germany
@@ -41,16 +46,18 @@
 #include <sstream>
 #include <iomanip>
 #include <sbml/compress/CompressCommon.h>
+#include <sbml/common/operationReturnValues.h>
 
 #ifdef USE_ZLIB
 #include <zlib.h>
 #include "CompressionUtil.h"
 #endif
 
+#ifdef __cplusplus
+
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-#ifdef __cplusplus
 
 
 std::string vectorToString(const std::vector<double>& vec)
@@ -102,13 +109,14 @@ std::string charIntsToString(const int * array, size_t length)
   return ret;
 }
 
-void compress_data(void* data, size_t length, int level, unsigned char*& result, int& outLength)
+int compress_data(void* data, size_t length, int level, unsigned char*& result, int& outLength)
 {
 #ifndef USE_ZLIB
   // throwing an exception won't help our users, better set the result array and length to NULL. 
   // throw ZlibNotLinked();
   outLength = 0;
   result = NULL;
+  return LIBSBML_OPERATION_FAILED;
 #else
   std::vector<char> buffer;
 
@@ -165,9 +173,10 @@ void compress_data(void* data, size_t length, int level, unsigned char*& result,
   outLength = buffer.size();
   result = (unsigned char*)malloc(sizeof(int) * outLength);
   if (result == NULL)
-    return;
+    return LIBSBML_OPERATION_FAILED;
   for (int i = 0; i < outLength; i++)
     result[i] = (unsigned char)buffer[i];
+  return LIBSBML_OPERATION_SUCCESS;
 #endif
 }
 
@@ -343,9 +352,9 @@ copySampleArrays(int*& target, size_t& targetLength, unsigned char* source, size
 
 
 
-#endif /* __cplusplus */
-
 
 LIBSBML_CPP_NAMESPACE_END
 
+#endif /* __cplusplus */
+  
 

@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -622,6 +627,7 @@ KineticLaw::createParameter ()
       *
       * so do nothing
       */
+      return NULL;
     }
     
     if (p) mParameters.appendAndOwn(p);
@@ -642,6 +648,7 @@ KineticLaw::createParameter ()
       *
       * so do nothing
       */
+      return NULL;
     }
     
     if (p != NULL) mLocalParameters.appendAndOwn(p);
@@ -671,6 +678,7 @@ KineticLaw::createLocalParameter ()
      *
      * so do nothing
      */
+     return NULL;
   }
   
   if (p != NULL) mLocalParameters.appendAndOwn(p);
@@ -1626,7 +1634,7 @@ void
 KineticLaw::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
   if (isSetMath()) {
-    if (mMath->getType() == AST_NAME && mMath->getId() == id) {
+    if (mMath->getType() == AST_NAME && mMath->getName() == id) {
       delete mMath;
       mMath = function->deepCopy();
     }
@@ -1814,7 +1822,8 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
     // the following assumes that the SBML Namespaces object is valid
     if (stream.getSBMLNamespaces() == NULL)
     {
-      stream.setSBMLNamespaces(new SBMLNamespaces(getLevel(), getVersion()));
+        SBMLNamespaces sbmlns(getLevel(), getVersion());
+        stream.setSBMLNamespaces(&sbmlns);
     }
 
     delete mMath;

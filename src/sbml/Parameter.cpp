@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -1604,6 +1609,12 @@ Parameter::inferUnitsFromAssignments(UnitFormulaFormatter *uff, Model *m)
       FormulaUnitsData *time = m->getFormulaUnitsData("time", SBML_MODEL);
       if (time->getContainsUndeclaredUnits() == false)
       {
+        if (found)
+        {
+          // we already created UD before, so free it
+          delete derivedUD;
+        }
+        
         derivedUD = UnitDefinition::combine(fud->getUnitDefinition(),
                                       time->getUnitDefinition());
         found = true;

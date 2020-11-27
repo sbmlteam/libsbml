@@ -9,6 +9,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -51,6 +56,12 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+#define SET_NAME(name,prefix,count)\
+{\
+  std::stringstream str; str << prefix << count;\
+  name = str.str();\
+}
 
 /*
  * Creates a new Constraint with the given @p id.
@@ -177,8 +188,8 @@ EquationMatching::writeEquationVertexes(const Model& m)
 {
   const Reaction *r;
   const Species* s;
-  char rule[10];
-  char react[10];
+  string rule;
+  string react;
 
   unsigned int n, sr;
 
@@ -214,11 +225,10 @@ EquationMatching::writeEquationVertexes(const Model& m)
     }
   }
 
-
   /* a Rule structure */
   for (n = 0; n < m.getNumRules(); n++)
   {
-    sprintf(rule, "rule_%u", n);
+    SET_NAME(rule, "rule_", n);
     mEquations.append(rule);
   }
 
@@ -227,8 +237,8 @@ EquationMatching::writeEquationVertexes(const Model& m)
   {
     if (m.getReaction(n)->isSetKineticLaw())
     {
-      sprintf(react, "KL_%u", n);
-      mEquations.append(react);
+        SET_NAME(react, "KL_", n);
+        mEquations.append(react);
     }
   }
 }
@@ -510,8 +520,8 @@ EquationMatching::createGraph(const Model& m)
           }
         }
 
-	delete names;
-	
+  delete names;
+  
       }
       mGraph[mEquations.at((int)eqnCount)] = joined;
       joined.clear();

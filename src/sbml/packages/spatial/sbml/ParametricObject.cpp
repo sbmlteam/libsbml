@@ -7,6 +7,11 @@
  * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
  * 2. University of Heidelberg, Heidelberg, Germany
@@ -485,6 +490,7 @@ int ParametricObject::setPointIndex(const std::string & pointIndex)
   mPointIndex = pointIndex;
   freeCompressed();
   freeUncompressed();
+  store();
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -501,7 +507,6 @@ ParametricObject::setPointIndex(int* inArray, size_t arrayLength)
   }
   freeCompressed();
   freeUncompressed();
-
   if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
   {
     copySampleArrays(mPointIndexCompressed, mPointIndexCompressedLength, inArray, arrayLength);
@@ -519,6 +524,8 @@ ParametricObject::setPointIndex(int* inArray, size_t arrayLength)
 int ParametricObject::setPointIndex(const std::vector<int>& inArray)
 {
   mPointIndex = vectorToString(inArray);
+  freeCompressed();
+  freeUncompressed();
   store();
   return setPointIndexLength(inArray.size());
 }
@@ -546,13 +553,14 @@ ParametricObject::setCompression(const CompressionKind_t compression)
     mCompression = SPATIAL_COMPRESSIONKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else
+  if (compression == mCompression)
   {
-    mCompression = compression;
-    freeCompressed();
-    freeUncompressed();
-    return LIBSBML_OPERATION_SUCCESS;
+      return LIBSBML_OPERATION_SUCCESS;
   }
+  mCompression = compression;
+  freeCompressed();
+  freeUncompressed();
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -562,21 +570,7 @@ ParametricObject::setCompression(const CompressionKind_t compression)
 int
 ParametricObject::setCompression(const std::string& compression)
 {
-  CompressionKind_t ck = CompressionKind_fromString(compression.c_str());
-  OperationReturnValues_t ret = LIBSBML_OPERATION_SUCCESS;
-  if (ck == SPATIAL_COMPRESSIONKIND_INVALID)
-  {
-    ret = LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  if (mCompression == ck)
-  {
-    return ret;
-  }
-  mCompression = ck;
-  freeCompressed();
-  freeUncompressed();
-
-  return ret;
+  return setCompression(CompressionKind_fromString(compression.c_str()));
 }
 
 
@@ -605,14 +599,7 @@ ParametricObject::setDataType(const DataKind_t dataType)
 int
 ParametricObject::setDataType(const std::string& dataType)
 {
-  mDataType = DataKind_fromString(dataType.c_str());
-
-  if (mDataType == SPATIAL_DATAKIND_INVALID)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-
-  return LIBSBML_OPERATION_SUCCESS;
+  return setDataType(DataKind_fromString(dataType.c_str()));
 }
 
 
@@ -1734,21 +1721,14 @@ void ParametricObject::uncompressInternal(string& sampleString, size_t& length) 
     length = mPointIndexUncompressedLength;
   }
 }
-/**
-*  Returns the data of this image as uncompressed array of integers
-*
-* @param data the output array of integers (it will be allocated using
-*             malloc and will have to be freed using free)
-* @param length the output length of the array
-*
-*/
+
 void
 ParametricObject::getUncompressedData(int*& data, size_t& length)
 {
   store();
-  if (mPointIndexUncompressed == NULL)
+  length = getUncompressedLength();
+  if (length == 0)
   {
-    length = 0;
     return;
   }
   copySampleArrays(data, length, mPointIndexUncompressed, mPointIndexUncompressedLength);
@@ -1773,17 +1753,19 @@ int ParametricObject::compress(int level)
 {
   freeCompressed();
   unsigned char* result; int length;
-  compress_data(const_cast<char*>(mPointIndex.c_str()), mPointIndex.length(), level, result, length);
+  int ret = compress_data(const_cast<char*>(mPointIndex.c_str()), mPointIndex.length(), level, result, length);
 
-  mPointIndex = arrayToString(result, length);
-  copySampleArrays(mPointIndexCompressed, mPointIndexCompressedLength, result, length);
+  if (ret == LIBSBML_OPERATION_SUCCESS)
+  {
+      mPointIndex = arrayToString(result, length);
+      copySampleArrays(mPointIndexCompressed, mPointIndexCompressedLength, result, length);
 
-  free(result);
+      free(result);
 
-  mCompression = SPATIAL_COMPRESSIONKIND_DEFLATED;
-  mPointIndexLength = mPointIndexCompressedLength;
-
-  return LIBSBML_OPERATION_SUCCESS;
+      mCompression = SPATIAL_COMPRESSIONKIND_DEFLATED;
+      mPointIndexLength = mPointIndexCompressedLength;
+  }
+  return ret;
 }
 
 unsigned int
@@ -1814,16 +1796,14 @@ ParametricObject::getUncompressed(int* outputPoints) const
 
 void ParametricObject::getUncompressed(std::vector<int>& outputPoints) const
 {
-  if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
-  {
-    store();
-
+  store();
+  if (mPointIndexUncompressed == NULL) {
+    string uncompressedString;
+    uncompressInternal(uncompressedString, mPointIndexUncompressedLength);
+    mPointIndexUncompressed = readSamplesFromString<int>(uncompressedString, mPointIndexUncompressedLength);
   }
-  else
-  {
-    readSamplesFromString(mPointIndex, outputPoints);
-  }
-
+  if (mPointIndexUncompressed == NULL) return;
+  outputPoints.assign(mPointIndexUncompressed, mPointIndexUncompressed + mPointIndexUncompressedLength);
 }
 
 void

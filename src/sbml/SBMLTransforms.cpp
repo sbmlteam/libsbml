@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -141,13 +146,15 @@ SBMLTransforms::replaceBvars(ASTNode * node, const FunctionDefinition *fd)
     noBvars = fd->getMath()->getNumBvars();
     fdMath = *fd->getBody();
 
-    for (unsigned int i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
+    unsigned int nodeCount = 0;
+    for (unsigned int i = 0; i < noBvars; ++i)
     {
       if (nodeCount < node->getNumChildren())
       {
         fdMath.replaceArgument(fd->getArgument(i)->getName(), 
           node->getChild(nodeCount));
       }
+      ++nodeCount;
     }
     (*node) = fdMath;
   }
@@ -652,12 +659,24 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
   case AST_FUNCTION:
     /* shouldnt get here */
     // but we do if math we are expanding uses a functionDefinition
-    lfd = m->getListOfFunctionDefinitions();
-    tempNode = node->deepCopy();
-    replaceFD(tempNode, lfd);
-    result = evaluateASTNode(tempNode, values, m);
-    delete tempNode;
-    break;
+    {
+        if(m != NULL){
+            lfd = m->getListOfFunctionDefinitions();
+        }
+        if (lfd != NULL && lfd->get(node->getName()) != NULL)
+        {
+            tempNode = node->deepCopy();
+            replaceFD(tempNode, lfd);
+            result = evaluateASTNode(tempNode, values, m);
+            delete tempNode;
+        }
+        else
+        {
+            result = numeric_limits<double>::quiet_NaN();
+        }
+        break;
+    }
+
   case AST_PLUS:
     if (node->getNumChildren() == 0)
     {
@@ -828,7 +847,8 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
 
   case AST_FUNCTION_FACTORIAL:
     i = (int)(floor(evaluateASTNode(node->getChild(0), values, m)));
-    for(result=1; i>1; --i)
+    result = 1;
+    for(; i>1; --i)
     {
       result *= i;
     }

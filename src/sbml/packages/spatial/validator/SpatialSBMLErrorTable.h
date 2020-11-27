@@ -7,6 +7,11 @@
  * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
  * 2. University of Heidelberg, Heidelberg, Germany
@@ -987,7 +992,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'spatial:unit' on a <coordinateComponent> must "
     "have a taken from the following: the identifier of a <unitDefinition> "
-    "object in the enclosing <model,> or one of the base units in SBML.",
+    "object in the enclosing <model>, or one of the base units in SBML.",
     { "L3V1 Spatial V1 Section"
     }
   },

@@ -7,6 +7,11 @@
  * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -54,16 +59,17 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 void
 DistribASTPlugin::populateNodeTypes()
 {
-  vector<unsigned int> one, two, onethree, twofour, onetwofour;
+  vector<unsigned int> one, two, onethree, twofour, twoonefour;
   one.push_back(1);
   two.push_back(2);
   onethree.push_back(1);
   onethree.push_back(3);
   twofour.push_back(2);
   twofour.push_back(4);
-  onetwofour.push_back(1);
-  onetwofour.push_back(2);
-  onetwofour.push_back(4);
+  //The first argument should be 'the number of allowed arguments in the old annotation version'.
+  twoonefour.push_back(2);
+  twoonefour.push_back(1);
+  twoonefour.push_back(4);
 
   ASTNodeValues_t node;
   node.type = AST_DISTRIB_FUNCTION_NORMAL;
@@ -107,7 +113,7 @@ DistribASTPlugin::populateNodeTypes()
   node.csymbolURL = "http://www.sbml.org/sbml/symbols/distrib/cauchy";
   node.isFunction = true;
   node.allowedChildrenType = ALLOWED_CHILDREN_EXACTLY;
-  node.numAllowedChildren = onetwofour;
+  node.numAllowedChildren = twoonefour;
 
   mPkgASTNodeValues.push_back(node);
 
@@ -143,7 +149,7 @@ DistribASTPlugin::populateNodeTypes()
   node.csymbolURL = "http://www.sbml.org/sbml/symbols/distrib/laplace";
   node.isFunction = true;
   node.allowedChildrenType = ALLOWED_CHILDREN_EXACTLY;
-  node.numAllowedChildren = onetwofour;
+  node.numAllowedChildren = twoonefour;
 
   mPkgASTNodeValues.push_back(node);
 

@@ -6,6 +6,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -36,16 +41,24 @@
 
 #ifdef USE_COMP
 
+%newobject removeSubmodel;
+%newobject removePort;
+%newobject removeReplacedElement;
+%newobject removeModelDefinition;
+%newobject removeExternalModelDefinition;
+%newobject removeDeletion;
+
+
 %feature("director") SBMLResolver;  
 
 %ignore Submodel::getAllInstantiatedElements;
 
 %extend Submodel
 {
-	ListWrapper<SBase>* getListOfAllInstantiatedElements()
+	ListWrapper<SBase> getListOfAllInstantiatedElements()
 	{
 		List* list = $self->getAllInstantiatedElements();
-		return new ListWrapper<SBase>(list);
+		return ListWrapper<SBase>(list);
 	}
 }
 

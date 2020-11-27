@@ -9,6 +9,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -441,8 +446,10 @@ START_CONSTRAINT(99304, FunctionDefinition, fd)
     const ASTNode * child = math->getChild(i);
     if (child->getType() != AST_NAME)
     {
+      char* element = SBML_formulaToL3String(child);
       msg = "The <functionDefinition> with id '" + fd.getId() + "' contains"
-        " a <bvar> element " + SBML_formulaToL3String(child) + " that is not a <ci> element.";
+        " a <bvar> element " + element + " that is not a <ci> element.";
+      free(element);
       fail = true;
     }
 

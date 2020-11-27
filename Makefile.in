@@ -487,15 +487,15 @@ phpbindings =                                                  \
 # during a `make install'.
 
 docs =         \
-  AUTHORS.txt  \
+  docs/historical/AUTHORS.txt  \
   COPYING.html \
   COPYING.txt  \
   FUNDING.txt  \
   LICENSE.txt  \
   LICENSE.html \
   NEWS.txt     \
-  OLD_NEWS.txt \
-  README.txt   \
+  docs/historical/OLD_NEWS.txt \
+  README.md   \
   VERSION.txt  \
   $(examples)
 
@@ -514,16 +514,16 @@ subdirs = src docs macosx
 # are under the control of the makefiles in the subdirectories.
 
 distfiles =                         \
-  AUTHORS.txt                       \
+  docs/historical/AUTHORS.txt       \
   COPYING.html                      \
   COPYING.txt                       \
   FUNDING.txt                       \
   LICENSE.txt                       \
   LICENSE.html                      \
   Makefile.in                       \
-  OLD_NEWS.txt                      \
+  docs/historical/OLD_NEWS.txt      \
   NEWS.txt                          \
-  README.txt                        \
+  README.md                         \
   VERSION.txt                       \
   VERSION_PACKAGES.ac               \
   aclocal.m4                        \

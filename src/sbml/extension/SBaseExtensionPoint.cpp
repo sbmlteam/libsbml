@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -55,10 +60,10 @@ SBaseExtensionPoint::SBaseExtensionPoint(const std::string& pkgName, int typeCod
 }
 
 SBaseExtensionPoint::SBaseExtensionPoint(const std::string& pkgName, 
-  int typeCode, const std::string& elmentName, bool elementOnly)
+  int typeCode, const std::string& elementName, bool elementOnly)
   : mPackageName(pkgName)
   , mTypeCode(typeCode)
-  , mElementName(elmentName)
+  , mElementName(elementName)
   , mElementOnly(elementOnly)
 {
 }
@@ -89,6 +94,19 @@ SBaseExtensionPoint::SBaseExtensionPoint(const SBaseExtensionPoint& orig)
  , mElementName(orig.mElementName)
  , mElementOnly(orig.mElementOnly)
 {
+}
+
+SBaseExtensionPoint& SBaseExtensionPoint::operator=(const SBaseExtensionPoint& rhs)
+{
+  if (&rhs != this)
+  {
+    mPackageName = rhs.mPackageName;
+    mTypeCode = rhs.mTypeCode;
+    mElementName = rhs.mElementName;
+    mElementOnly = rhs.mElementOnly;
+  }
+
+  return *this;
 }
 
 

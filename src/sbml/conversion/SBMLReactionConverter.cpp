@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -78,7 +83,18 @@ SBMLReactionConverter::SBMLReactionConverter(const SBMLReactionConverter& orig)
 }
 
 
-  
+SBMLReactionConverter&
+SBMLReactionConverter::operator=(const SBMLReactionConverter& rhs)
+{
+	if (&rhs != this)
+	{
+		this->SBMLConverter::operator =(rhs);
+	}
+
+	return *this;
+}
+
+
 /*
  * Destroy this object.
  */
@@ -441,6 +457,7 @@ SBMLReactionConverter::createRateRule(const std::string &spId, ASTNode *math)
     if (success == LIBSBML_OPERATION_SUCCESS)
     {
       success = rr->setMath(new_math);
+      delete new_math;
     }
   }
 
@@ -460,6 +477,12 @@ SBMLReactionConverter::replaceReactions()
     success == LIBSBML_OPERATION_SUCCESS && it != mRateRulesMap.end(); ++it)
   {
     success = createRateRule((*it).first, (*it).second);
+  }
+
+  // deallocate memory
+  for (it = mRateRulesMap.begin(); it != mRateRulesMap.end(); ++it)
+  {
+    delete (*it).second;
   }
 
   if (success != LIBSBML_OPERATION_SUCCESS)

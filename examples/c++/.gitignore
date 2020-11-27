@@ -1,0 +1,17 @@
+*.dSYM
+addCVTerms
+addModelHistory
+appendAnnotation
+convertSBML
+echoSBML
+printAnnotation
+printMath
+printNotes
+printSBML
+printUnits
+readSBML
+translateMath
+unsetAnnotation
+unsetNotes
+validateSBML
+createExampleSBML

@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -159,7 +164,7 @@ Model::~Model ()
     }
     delete mFormulaUnitsData;
   }
-
+  mEvents.clear();
   mUnitsDataMap.clear();
 }
 
@@ -1452,6 +1457,7 @@ Model::createFunctionDefinition ()
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (fd != NULL) mFunctionDefinitions.appendAndOwn(fd);
@@ -1479,6 +1485,7 @@ Model::createUnitDefinition ()
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (ud != NULL) mUnitDefinitions.appendAndOwn(ud);
@@ -1521,6 +1528,7 @@ Model::createCompartmentType ()
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (ct != NULL) mCompartmentTypes.appendAndOwn(ct);
@@ -1548,6 +1556,7 @@ Model::createSpeciesType ()
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (st != NULL) mSpeciesTypes.appendAndOwn(st);
@@ -1575,6 +1584,7 @@ Model::createCompartment ()
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (c != NULL) mCompartments.appendAndOwn(c);
@@ -1602,8 +1612,9 @@ Model::createSpecies ()
      *
      * so do nothing
      */
+    return NULL;
   }
-  
+
   if (s != NULL) mSpecies.appendAndOwn(s);
 
   return s;
@@ -1629,6 +1640,7 @@ Model::createParameter ()
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (p != NULL) mParameters.appendAndOwn(p);
@@ -1656,6 +1668,7 @@ Model::createInitialAssignment ()
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (ia != NULL) mInitialAssignments.appendAndOwn(ia);
@@ -1683,6 +1696,7 @@ Model::createAlgebraicRule ()
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (ar != NULL) mRules.appendAndOwn(ar);
@@ -1710,6 +1724,7 @@ Model::createAssignmentRule ()
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (ar != NULL) mRules.appendAndOwn(ar);
@@ -1737,6 +1752,7 @@ Model::createRateRule ()
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (rr != NULL) mRules.appendAndOwn(rr);
@@ -1764,6 +1780,7 @@ Model::createConstraint ()
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (c != NULL) mConstraints.appendAndOwn(c);
@@ -1791,6 +1808,7 @@ Model::createReaction ()
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (r != NULL) mReactions.appendAndOwn(r);
@@ -1928,6 +1946,7 @@ Model::createEvent ()
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (e != NULL) mEvents.appendAndOwn(e);

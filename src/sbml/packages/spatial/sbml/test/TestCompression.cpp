@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -53,6 +58,7 @@ LIBSBML_CPP_NAMESPACE_USE
 
 CK_CPPSTART
 
+#if ( __cplusplus > 201103L  ) 
 
 START_TEST(test_Compression_SampledField_1)
 {
@@ -160,7 +166,7 @@ START_TEST(test_Compression_SampledField_2)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(values[n] == uncompressed_data[n]);
   }
-  free(uncompressed_data);
+  delete[] uncompressed_data;
   fail_unless(field.getUncompressedLength() == values.size());
 
   uncompressed_data = NULL;
@@ -208,7 +214,7 @@ START_TEST(test_Compression_SampledField_3)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(values[n] == uncompressed_data[n]);
   }
-  free(uncompressed_data);
+  delete[] uncompressed_data;
   fail_unless(field.getUncompressedLength() == values.size());
 
   uncompressed_data = NULL;
@@ -250,7 +256,7 @@ START_TEST(test_Compression_SampledField_4)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(values[n] == doubles[n]);
   }
-  free(doubles);
+  delete[] doubles;
 
   vector<double> doublevec;
   field.getSamples(doublevec);
@@ -261,7 +267,7 @@ START_TEST(test_Compression_SampledField_4)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(static_cast<float>(values[n]) == floats[n]);
   }
-  free(floats);
+  delete[] floats;
 
   vector<float> floatvec;
   field.getSamples(floatvec);
@@ -273,7 +279,7 @@ START_TEST(test_Compression_SampledField_4)
 
   int* ints = new int[values.size()];
   fail_unless(field.getSamples(ints) == LIBSBML_OPERATION_FAILED);
-  free(ints);
+  delete[] ints;
 
   vector<int> intvec;
   field.getSamples(intvec);
@@ -312,7 +318,7 @@ START_TEST(test_Compression_SampledField_5)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(values[n] == doubles[n]);
   }
-  free(doubles);
+  delete[] doubles;
 
   vector<double> doublevec;
   field.getSamples(doublevec);
@@ -323,7 +329,7 @@ START_TEST(test_Compression_SampledField_5)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(static_cast<float>(values[n]) == floats[n]);
   }
-  free(floats);
+  delete[] floats;
 
   vector<float> floatvec;
   field.getSamples(floatvec);
@@ -338,7 +344,7 @@ START_TEST(test_Compression_SampledField_5)
   for (size_t n = 0; n < compressedvals.size(); n++) {
     fail_unless(compressedvals[n] == ints[n]);
   }
-  free(ints);
+  delete[] ints;
 
   vector<int> intvec;
   field.getSamples(intvec);
@@ -452,7 +458,7 @@ START_TEST(test_Compression_SpatialPoints_2)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(values[n] == uncompressed_data[n]);
   }
-  free(uncompressed_data);
+  delete[] uncompressed_data;
   fail_unless(points.getUncompressedLength() == values.size());
 
   uncompressed_data = NULL;
@@ -499,7 +505,7 @@ START_TEST(test_Compression_SpatialPoints_3)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(values[n] == uncompressed_data[n]);
   }
-  free(uncompressed_data);
+  delete[] uncompressed_data;
   fail_unless(points.getUncompressedLength() == values.size());
 
   uncompressed_data = NULL;
@@ -540,7 +546,7 @@ START_TEST(test_Compression_SpatialPoints_4)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(values[n] == doubles[n]);
   }
-  free(doubles);
+  delete[] doubles;
 
   vector<double> doublevec;
   points.getArrayData(doublevec);
@@ -551,7 +557,7 @@ START_TEST(test_Compression_SpatialPoints_4)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(static_cast<float>(values[n]) == floats[n]);
   }
-  free(floats);
+  delete[] floats;
 
   vector<float> floatvec;
   points.getArrayData(floatvec);
@@ -563,7 +569,7 @@ START_TEST(test_Compression_SpatialPoints_4)
 
   int* ints = new int[values.size()];
   fail_unless(points.getArrayData(ints) == LIBSBML_OPERATION_FAILED);
-  free(ints);
+  delete[] ints;
 
   vector<int> intvec;
   points.getArrayData(intvec);
@@ -601,7 +607,7 @@ START_TEST(test_Compression_SpatialPoints_5)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(values[n] == doubles[n]);
   }
-  free(doubles);
+  delete[] doubles;
 
   vector<double> doublevec;
   points.getArrayData(doublevec);
@@ -612,7 +618,7 @@ START_TEST(test_Compression_SpatialPoints_5)
   for (size_t n = 0; n < values.size(); n++) {
     fail_unless(static_cast<float>(values[n]) == floats[n]);
   }
-  free(floats);
+  delete[] floats;
 
   vector<float> floatvec;
   points.getArrayData(floatvec);
@@ -627,7 +633,7 @@ START_TEST(test_Compression_SpatialPoints_5)
   for (size_t n = 0; n < compressedvals.size(); n++) {
     fail_unless(compressedvals[n] == ints[n]);
   }
-  free(ints);
+  delete[] ints;
 
   vector<int> intvec;
   points.getArrayData(intvec);
@@ -724,8 +730,10 @@ START_TEST(test_Compression_ParametricObject_2)
   parametricobj.getPointIndex(compressed_data);
   fail_unless(compressed_data == compressedvals);
 
-  int* uncompressed_array = new int[parametricobj.getUncompressedLength()];
+  // check that uncompressed values are correct
+  int* uncompressed_array = NULL;
   size_t length;
+  // this method allocates memory
   parametricobj.getUncompressedData(uncompressed_array, length);
   fail_unless(length == values.size());
   for (size_t n = 0; n < length; n++)
@@ -733,9 +741,17 @@ START_TEST(test_Compression_ParametricObject_2)
     fail_unless(uncompressed_array[n] == values[n]);
   }
 
+  // this method expects the memory to already be allocated
+  parametricobj.getUncompressed(uncompressed_array);
+  for (size_t n = 0; n < length; n++)
+  {
+    fail_unless(uncompressed_array[n] == values[n]);
+  }
+  free(uncompressed_array);
+
   vector<int> uncompressed_vec;
   parametricobj.getUncompressed(uncompressed_vec);
-
+  fail_unless(uncompressed_vec == values);
 
   // Now uncompress the values
   parametricobj.uncompress();
@@ -747,8 +763,26 @@ START_TEST(test_Compression_ParametricObject_2)
 
   std::vector<int> uncompressed_data;
   parametricobj.getPointIndex(uncompressed_data);
-
   fail_unless(uncompressed_data == values);
+
+  // check again that uncompressed values are correct
+  uncompressed_vec.clear();
+  parametricobj.getUncompressed(uncompressed_vec);
+  fail_unless(uncompressed_vec == values);
+
+  parametricobj.getUncompressedData(uncompressed_array, length);
+  fail_unless(length == values.size());
+  for (size_t n = 0; n < length; n++)
+  {
+    fail_unless(uncompressed_array[n] == values[n]);
+  }
+
+  parametricobj.getUncompressed(uncompressed_array);
+  for (size_t n = 0; n < length; n++)
+  {
+    fail_unless(uncompressed_array[n] == values[n]);
+  }
+  free(uncompressed_array);
 
   //Now compress them again
   parametricobj.compress(9);
@@ -763,6 +797,7 @@ START_TEST(test_Compression_ParametricObject_2)
 }
 END_TEST
 
+#endif
 
 Suite *
 create_suite_Compression(void)
@@ -770,6 +805,7 @@ create_suite_Compression(void)
   Suite *suite = suite_create("Compression");
   TCase *tcase = tcase_create("Compression");
 
+#if ( __cplusplus > 201103L  ) 
 #ifdef USE_ZLIB
   tcase_add_test( tcase, test_Compression_SampledField_1);
   tcase_add_test( tcase, test_Compression_SampledField_2);
@@ -783,6 +819,7 @@ create_suite_Compression(void)
   tcase_add_test( tcase, test_Compression_SpatialPoints_5);
   tcase_add_test( tcase, test_Compression_ParametricObject_1);
   tcase_add_test( tcase, test_Compression_ParametricObject_2);
+#endif
 #endif
 
   suite_add_tcase(suite, tcase);

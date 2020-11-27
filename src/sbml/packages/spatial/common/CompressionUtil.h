@@ -7,6 +7,11 @@
  * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
  * 2. University of Heidelberg, Heidelberg, Germany
@@ -39,8 +44,11 @@
 #ifndef CompressionUtil_H__
 #define CompressionUtil_H__
 
+#ifdef __cplusplus
+
 #include <vector>
 #include <iostream>
+#include <cstdlib>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -114,18 +122,20 @@ template<typename type> std::string arrayToString(const type* array, size_t leng
 
 
 
-extern std::string vectorToString(const std::vector<double>& vec);
-extern std::string arrayToString(const unsigned char* array, size_t length);
-extern std::string arrayToString(const double* array, size_t length);
-extern std::string charIntsToString(const int* array, size_t length);
-extern void compress_data(void* data, size_t length, int level, unsigned char*& result, int& outLength);
-extern void uncompress_data(void* data, size_t length, double*& result, size_t& outLength);
-extern void uncompress_data(void* data, size_t length, int*& result, size_t& outLength);
-extern void copySampleArrays(double* &target, size_t& targetLength, double* source, size_t sourceLength);
-extern void copySampleArrays(int* &target, size_t& targetLength, int* source, size_t sourceLength);
-extern void copySampleArrays(int*& target, size_t& targetLength, unsigned char* source, size_t sourceLength);
+std::string vectorToString(const std::vector<double>& vec);
+std::string arrayToString(const unsigned char* array, size_t length);
+std::string arrayToString(const double* array, size_t length);
+std::string charIntsToString(const int* array, size_t length);
+int compress_data(void* data, size_t length, int level, unsigned char*& result, int& outLength);
+void uncompress_data(void* data, size_t length, double*& result, size_t& outLength);
+void uncompress_data(void* data, size_t length, int*& result, size_t& outLength);
+void copySampleArrays(double* &target, size_t& targetLength, double* source, size_t sourceLength);
+void copySampleArrays(int* &target, size_t& targetLength, int* source, size_t sourceLength);
+void copySampleArrays(int*& target, size_t& targetLength, unsigned char* source, size_t sourceLength);
 
 LIBSBML_CPP_NAMESPACE_END
+#endif /* __cplusplus */
+  
 
 #endif /* !CompressionUtil_H_ */
 

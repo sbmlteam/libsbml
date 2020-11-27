@@ -9,6 +9,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -214,6 +219,11 @@ SBMLDocument::SBMLDocument (SBMLNamespaces* sbmlns) :
   }
   int SBMLDocument::clearValidators()
   {
+    list<SBMLValidator*>::iterator it;
+    for (it = mValidators.begin(); it != mValidators.end(); it++)
+    {
+      delete *it;
+    }
     mValidators.clear();
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -246,6 +256,7 @@ SBMLDocument::~SBMLDocument ()
     delete mInternalValidator;
   if (mModel != NULL)
   delete mModel;
+  clearValidators();
 }
 
 
@@ -643,6 +654,7 @@ Model*
 SBMLDocument::createModel (const std::string sid)
 {
   if (mModel != NULL) delete mModel;
+  mModel = NULL;
 
   try
   {
@@ -655,6 +667,7 @@ SBMLDocument::createModel (const std::string sid)
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (mModel != NULL)

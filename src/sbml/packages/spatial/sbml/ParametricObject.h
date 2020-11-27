@@ -7,6 +7,11 @@
  * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
  * 2. University of Heidelberg, Heidelberg, Germany
@@ -1219,15 +1224,16 @@ public:
    * The "samples" attribute of this ParametricObject is returned in an int array (pointer) 
    * that is passed as argument to the method (this is needed while using SWIG to
    * convert int[] from C++ to Java). This method returns the uncompressed sample field.
+   * Will uncompress the samples if need be.
    *
    * @return void.
    */
   void getUncompressed(int* outputPoints) const;
 
   /**
-   * The "samples" attribute of this ParametricObject is returned in an int array (pointer) 
-   * that is passed as argument to the method (this is needed while using SWIG to
-   * convert int[] from C++ to Java). This method returns the uncompressed sample field.
+   * The "samples" attribute of this ParametricObject is returned in a std::vector of int
+   * that is passed as argument to the method. This method returns the uncompressed sample field.
+   * Will uncompress the samples if need be.
    *
    * @return void.
    */
@@ -1258,13 +1264,19 @@ public:
    * compresses the samples stored, if the flag is set to UNCOMPRESSED, then 
    * changes the flag to compressed. 
    * 
+   * Returns failure if libsbml was built without zlib linked.
+   *
    * @param compression level 0 (store) ... 9 (max compression)
    * 
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int compress(int level);
 
   /**  
-   *  Returns the data of this image as uncompressed array of integers
+   * Returns the data of this image as uncompressed array of integers.
+   * Will uncompress the samples if need be.
    *
    * @param data the output array of integers (it will be allocated using
    *             malloc and will have to be freed using free)

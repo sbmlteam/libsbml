@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -368,7 +373,8 @@ DistribToAnnotationConverter::convertModel(Model* model)
   bool ret = false;
   mCreatedFunctions.clear();
   set<ASTNodeType_t> used_distrib_types;
-  List* allelements = model->getAllElements();
+  MathFilter *filter = new MathFilter();
+  List* allelements = model->getAllElements(filter);
   for (ListIterator it = allelements->begin(); it != allelements->end(); ++it)
   {
     SBase* obj = static_cast<SBase*>(*it);

@@ -34,73 +34,38 @@
 find_package(SWIG REQUIRED)
 include(${SWIG_USE_FILE})
 
+
+macro (TODAY RESULT)
+
+    if(WIN32)
+        execute_process(COMMAND "cmd" " /C date /T" OUTPUT_VARIABLE ${RESULT} OUTPUT_STRIP_TRAILING_WHITESPACE)
+        string(REGEX REPLACE "(..)/(..)/..(..).*" "\\1/\\2/\\3" ${RESULT} ${${RESULT}})
+    elseif(UNIX)
+        execute_process(COMMAND "date" "+%Y-%m-%d" OUTPUT_VARIABLE ${RESULT} OUTPUT_STRIP_TRAILING_WHITESPACE)
+        string(REGEX REPLACE "(..)/(..)/..(..).*" "\\1/\\2/\\3" ${RESULT} ${${RESULT}})
+    else(WIN32)
+        message(SEND_ERROR "date not implemented")
+        set(${RESULT} 000000)
+    endif(WIN32)
+    
+endmacro (TODAY)
+
+TODAY(CURRENT_DATE)
+
 SET(R_INCLUDE_DIRS)
 SET(R_LIB)
 SET(R_INTERPRETER)
 SET(R_ADDITIONAL_PATH_ENTRIES "" CACHE STRING "Additional paths to the RTOOLS / GCC binary directories to build package")
 SET(CMAKE_FIND_FRAMEWORK NEVER)
 SET(CMAKE_FIND_APPBUNDLE NEVER)
-# first lets search for the include/lib/interpreter if a user did not specify them
-if (NOT R_INCLUDE_DIRS)
-    find_path(R_INCLUDE_DIRS
-        NAMES R.h
-        PATHS /usr/include /usr/local/include /usr/share/R/include
-              /usr/include/R /usr/local/include/R
-              /Library/Frameworks/R.framework/Versions/Current/Resources/include
-              $ENV{ProgramFiles}/R/R-3.1.0/include
-              $ENV{ProgramW6432}/R/R-3.1.0/include
-              $ENV{ProgramFiles}/R/R-3.0.3/include
-              $ENV{ProgramW6432}/R/R-3.0.3/include
-              $ENV{ProgramFiles}/R/R-2.15.3/include
-              $ENV{ProgramW6432}/R/R-2.15.3/include
-              $ENV{ProgramFiles}/R/R-2.15.2/include
-              $ENV{ProgramW6432}/R/R-2.15.2/include
-              $ENV{ProgramFiles}/R/R-2.15.1/include
-              $ENV{ProgramW6432}/R/R-2.15.1/include
-              ${LIBSBML_ROOT_SOURCE_DIR}/include
-              ${LIBSBML_DEPENDENCY_DIR}/include
-        DOC "The directory containing the R include files."
-        )
-endif()
 
-if (NOT R_LIB)
-    set(R_SUFFIX)
-    set (LIB_DIR "lib")
-    if (NOT LIBSBML_BUILD_TYPE STREQUAL "32bit")
-      set (LIB_DIR "lib64")
-    endif()
 
-    if (WIN32)
-      if (LIBSBML_BUILD_TYPE STREQUAL "32bit")
-      set(R_SUFFIX "/i386")
-      else()
-      set(R_SUFFIX "/x64")
-      endif()
-    endif()
-    find_library(R_LIB
-        NAMES Rlib.lib R
-        PATHS /usr/${LIB_DIR} /usr/local/${LIB_DIR} 
-        /usr/lib /usr/local/lib /usr/lib/R/lib
-            $ENV{ProgramFiles}/R/R-3.1.0/bin${R_SUFFIX}
-            $ENV{ProgramW6432}/R/R-3.1.0/bin${R_SUFFIX}
-            $ENV{ProgramFiles}/R/R-3.0.3/bin${R_SUFFIX}
-            $ENV{ProgramW6432}/R/R-3.0.3/bin${R_SUFFIX}
-            $ENV{ProgramFiles}/R/R-2.15.3/bin${R_SUFFIX}
-            $ENV{ProgramW6432}/R/R-2.15.3/bin${R_SUFFIX}
-            $ENV{ProgramFiles}/R/R-2.15.2/bin${R_SUFFIX}
-            $ENV{ProgramW6432}/R/R-2.15.2/bin${R_SUFFIX}
-            $ENV{ProgramFiles}/R/R-2.15.1/bin${R_SUFFIX}
-            $ENV{ProgramW6432}/R/R-2.15.1/bin${R_SUFFIX}
-            /Library/Frameworks/R.framework/Versions/Current/Resources/lib
-            ${LIBSBML_ROOT_SOURCE_DIR}
-            ${LIBSBML_DEPENDENCY_DIR}/lib
-      DOC "The file name of the R library."
-      )
-endif()
 if (NOT R_INTERPRETER)
   find_program(R_INTERPRETER
         NAMES R R32 R64
         PATHS 
+          $ENV{ProgramFiles}/R/R-4.0.2/bin
+          $ENV{ProgramW6432}/R/R-4.0.2/bin
           $ENV{ProgramFiles}/R/R-3.1.0/bin
           $ENV{ProgramW6432}/R/R-3.1.0/bin
           $ENV{ProgramFiles}/R/R-3.0.3/bin
@@ -118,24 +83,8 @@ if (NOT R_INTERPRETER)
         )
 endif()
 
-# message(
-# "
-#              R_INCLUDE_DIRS = ${R_INCLUDE_DIRS}
-#                       R_LIB = ${R_LIB}
-#               R_INTERPRETER = ${R_INTERPRETER}
-#   R_ADDITIONAL_PATH_ENTRIES = ${R_ADDITIONAL_PATH_ENTRIES}
-# 
-# ")
-
-# if we have not found something, stop here to ask for it
 if (NOT R_INTERPRETER)
   message(FATAL_ERROR "Need the R interpreter in order to create an R package") 
-endif()
-if (NOT R_LIB)
-  message(FATAL_ERROR "Need the R library, please specify R_LIB")
-endif()
-if (NOT R_INCLUDE_DIRS)
-  message(FATAL_ERROR "Need the R include directory, please specify R_INCLUDE_DIRS")
 endif()
 
 
@@ -255,6 +204,91 @@ add_custom_command(
 
 add_custom_target(binding_r_swig DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp )
 
+
+option(WITH_SKIP_R_BINARY   "Skip building the R binaries." OFF)
+if (NOT WITH_SKIP_R_BINARY)
+
+
+# first lets search for the include/lib/interpreter if a user did not specify them
+if (NOT R_INCLUDE_DIRS)
+    find_path(R_INCLUDE_DIRS
+        NAMES R.h
+        PATHS /usr/include /usr/local/include /usr/share/R/include
+              /usr/include/R /usr/local/include/R
+              /Library/Frameworks/R.framework/Versions/Current/Resources/include
+              $ENV{ProgramFiles}/R/R-4.0.2/include
+              $ENV{ProgramW6432}/R/R-4.0.2/include
+              $ENV{ProgramFiles}/R/R-3.1.0/include
+              $ENV{ProgramW6432}/R/R-3.1.0/include
+              $ENV{ProgramFiles}/R/R-3.0.3/include
+              $ENV{ProgramW6432}/R/R-3.0.3/include
+              $ENV{ProgramFiles}/R/R-2.15.3/include
+              $ENV{ProgramW6432}/R/R-2.15.3/include
+              $ENV{ProgramFiles}/R/R-2.15.2/include
+              $ENV{ProgramW6432}/R/R-2.15.2/include
+              $ENV{ProgramFiles}/R/R-2.15.1/include
+              $ENV{ProgramW6432}/R/R-2.15.1/include
+              ${LIBSBML_ROOT_SOURCE_DIR}/include
+              ${LIBSBML_DEPENDENCY_DIR}/include
+        DOC "The directory containing the R include files."
+        )
+endif()
+
+if (NOT R_LIB)
+    set(R_SUFFIX)
+    set (LIB_DIR "lib")
+    if (NOT LIBSBML_BUILD_TYPE STREQUAL "32bit")
+      set (LIB_DIR "lib64")
+    endif()
+
+    if (WIN32)
+      if (LIBSBML_BUILD_TYPE STREQUAL "32bit")
+      set(R_SUFFIX "/i386")
+      else()
+      set(R_SUFFIX "/x64")
+      endif()
+    endif()
+    find_library(R_LIB
+        NAMES Rlib.lib R
+        PATHS /usr/${LIB_DIR} /usr/local/${LIB_DIR} 
+        /usr/lib /usr/local/lib /usr/lib/R/lib
+            $ENV{ProgramFiles}/R/R-4.0.2/bin${R_SUFFIX}
+            $ENV{ProgramW6432}/R/R-4.0.2/bin${R_SUFFIX}
+            $ENV{ProgramFiles}/R/R-3.1.0/bin${R_SUFFIX}
+            $ENV{ProgramW6432}/R/R-3.1.0/bin${R_SUFFIX}
+            $ENV{ProgramFiles}/R/R-3.0.3/bin${R_SUFFIX}
+            $ENV{ProgramW6432}/R/R-3.0.3/bin${R_SUFFIX}
+            $ENV{ProgramFiles}/R/R-2.15.3/bin${R_SUFFIX}
+            $ENV{ProgramW6432}/R/R-2.15.3/bin${R_SUFFIX}
+            $ENV{ProgramFiles}/R/R-2.15.2/bin${R_SUFFIX}
+            $ENV{ProgramW6432}/R/R-2.15.2/bin${R_SUFFIX}
+            $ENV{ProgramFiles}/R/R-2.15.1/bin${R_SUFFIX}
+            $ENV{ProgramW6432}/R/R-2.15.1/bin${R_SUFFIX}
+            /Library/Frameworks/R.framework/Versions/Current/Resources/lib
+            ${LIBSBML_ROOT_SOURCE_DIR}
+            ${LIBSBML_DEPENDENCY_DIR}/lib
+      DOC "The file name of the R library."
+      )
+endif()
+
+
+# message(
+# "
+#              R_INCLUDE_DIRS = ${R_INCLUDE_DIRS}
+#                       R_LIB = ${R_LIB}
+#               R_INTERPRETER = ${R_INTERPRETER}
+#   R_ADDITIONAL_PATH_ENTRIES = ${R_ADDITIONAL_PATH_ENTRIES}
+# 
+# ")
+
+# if we have not found something, stop here to ask for it
+if (NOT R_LIB)
+  message(FATAL_ERROR "Need the R library, please specify R_LIB")
+endif()
+if (NOT R_INCLUDE_DIRS)
+  message(FATAL_ERROR "Need the R include directory, please specify R_INCLUDE_DIRS")
+endif()
+
   
 ####################################################################
 #
@@ -306,21 +340,6 @@ endif()
 # create the r package
 #
 
-MACRO (TODAY RESULT) 
-    IF (WIN32) 
-        EXECUTE_PROCESS(COMMAND "cmd" " /C date /T" OUTPUT_VARIABLE ${RESULT} OUTPUT_STRIP_TRAILING_WHITESPACE) 
-        string(REGEX REPLACE "(..)/(..)/..(..).*" "\\1/\\2/\\3" ${RESULT} ${${RESULT}}) 
-    ELSEIF(UNIX) 
-        EXECUTE_PROCESS(COMMAND "date" "+%Y-%m-%d" OUTPUT_VARIABLE ${RESULT} OUTPUT_STRIP_TRAILING_WHITESPACE) 
-        string(REGEX REPLACE "(..)/(..)/..(..).*" "\\1/\\2/\\3" ${RESULT} ${${RESULT}}) 
-    ELSE (WIN32) 
-        MESSAGE(SEND_ERROR "date not implemented") 
-        SET(${RESULT} 000000) 
-    ENDIF (WIN32) 
-ENDMACRO (TODAY) 
-
-TODAY(CURRENT_DATE) 
-
 file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/libSBML")
 
 set(R_LIBRARY_DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/libSBML/inst/libs")
@@ -331,12 +350,10 @@ configure_file (
   "${CMAKE_CURRENT_SOURCE_DIR}/DESCRIPTION.in"
   "${CMAKE_CURRENT_BINARY_DIR}/libSBML/DESCRIPTION"
   )
-configure_file (
+configure_file(
   "${CMAKE_CURRENT_SOURCE_DIR}/NAMESPACE"
   "${CMAKE_CURRENT_BINARY_DIR}/libSBML/NAMESPACE"
 )
-
-get_target_property(LIBSBML_R_NATIVELIB binding_r_lib LOCATION)
 
 if (APPLE AND ENABLE_UNIVERSAL)
 
@@ -348,11 +365,11 @@ add_custom_command(
   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libSBML_${PACKAGE_VERSION}.zip
   COMMAND "${CMAKE_COMMAND}"
   ARGS  -E copy_if_different 
-     ${LIBSBML_R_NATIVELIB}
+     $<TARGET_FILE:binding_r_lib>
      ${R_LIBRARY_DESTINATION}/i386
   COMMAND "${CMAKE_COMMAND}"
   ARGS  -E copy_if_different
-     ${LIBSBML_R_NATIVELIB}
+     $<TARGET_FILE:binding_r_lib>
      ${R_LIBRARY_DESTINATION}/x86_64
   COMMAND "${CMAKE_COMMAND}"
   ARGS  -E copy_if_different 
@@ -395,7 +412,7 @@ add_custom_command(
   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libSBML_${PACKAGE_VERSION}.zip
   COMMAND "${CMAKE_COMMAND}"
   ARGS  -E copy_if_different 
-     ${LIBSBML_R_NATIVELIB}
+     $<TARGET_FILE:binding_r_lib>
      ${R_LIBRARY_DESTINATION}
   COMMAND "${CMAKE_COMMAND}"
   ARGS  -E copy_if_different 
@@ -428,6 +445,9 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake-r-install.cmake.in
 
 INSTALL (SCRIPT ${CMAKE_CURRENT_BINARY_DIR}/cmake-r-install.cmake )
 
+endif (NOT WITH_SKIP_R_BINARY)
+
+
 
 ####################################################################
 #
@@ -438,7 +458,35 @@ INSTALL (SCRIPT ${CMAKE_CURRENT_BINARY_DIR}/cmake-r-install.cmake )
 option(WITH_CREATE_R_SOURCE   "Generate R Source Package." OFF)
 if (WITH_CREATE_R_SOURCE)
 
+set(CMAKE_PACKAGE_FLAGS "")
+foreach(flag ${SWIG_EXTRA_ARGS})
+  if(${flag} MATCHES "-DUSE_*" AND
+  NOT ${flag} MATCHES "EXPAT" AND
+  NOT ${flag} MATCHES "ZLIB" AND
+  NOT ${flag} MATCHES "BZ2" AND
+  NOT ${flag} MATCHES "XERC" AND
+  NOT "${CMAKE_PACKAGE_FLAGS}" MATCHES "${flag}")
+  set(CMAKE_PACKAGE_FLAGS "${CMAKE_PACKAGE_FLAGS} ${flag}=1 ")
+  endif()
+endforeach()
 
+# read the file, replace the config string, save the file, copy to make it executable
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/configure.cmake" CONFIGURE)
+string(REPLACE "-DUSE_LIBXML=1" "-DUSE_LIBXML=1 ${CMAKE_PACKAGE_FLAGS}" CONFIGURE "${CONFIGURE}")
+file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/tmp/configure" "${CONFIGURE}")
+file(
+    COPY ${CMAKE_CURRENT_BINARY_DIR}/tmp/configure
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/
+    FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+    )
+
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/configure.in.cmake" CONFIGURE)
+string(REPLACE "-DUSE_LIBXML=1" "-DUSE_LIBXML=1 ${CMAKE_PACKAGE_FLAGS}" CONFIGURE "${CONFIGURE}")
+file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/configure.in" "${CONFIGURE}")
+
+#configure_file did not work, as it replaced to many other @ occurances
+#configure_file(${CMAKE_CURRENT_SOURCE_DIR}/configure.cmake ${CMAKE_CURRENT_BINARY_DIR}/configure @ONLY)
+#configure_file(${CMAKE_CURRENT_SOURCE_DIR}/configure.in.cmake ${CMAKE_CURRENT_BINARY_DIR}/configure.in @ONLY)
 
 SET(R_SOURCE_OUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/out)
 file(TO_NATIVE_PATH ${R_SOURCE_OUT_DIR} NATIVE_OUT)

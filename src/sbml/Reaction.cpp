@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -791,6 +796,9 @@ Reaction::unsetReversible ()
 int
 Reaction::addReactant (const SpeciesReference* sr)
 {
+  if (sr == NULL)
+    return LIBSBML_OPERATION_FAILED;
+
   int returnValue = checkCompatibility(static_cast<const SBase *>(sr));
   if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
@@ -846,6 +854,9 @@ int Reaction::addReactant(
 int
 Reaction::addProduct (const SpeciesReference* sr)
 {
+  if (sr == NULL)
+    return LIBSBML_OPERATION_FAILED;
+
   int returnValue = checkCompatibility(static_cast<const SBase *>(sr));
   if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
@@ -903,6 +914,9 @@ Reaction::addProduct(
 int
 Reaction::addModifier (const ModifierSpeciesReference* msr)
 {
+  if (msr == NULL)
+    return LIBSBML_OPERATION_FAILED;
+
   int returnValue = checkCompatibility(static_cast<const SBase *>(msr));
   if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
@@ -967,6 +981,7 @@ Reaction::createReactant ()
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (sr != NULL) mReactants.appendAndOwn(sr);
@@ -995,6 +1010,7 @@ Reaction::createProduct ()
      *
      * so do nothing
      */
+    return NULL;
   }
 
   if (sr) mProducts.appendAndOwn(sr);
@@ -1023,6 +1039,7 @@ Reaction::createModifier ()
      *
      * so do nothing
      */
+    return NULL;
   }
   
   if (sr != NULL) mModifiers.appendAndOwn(sr);
@@ -1052,6 +1069,7 @@ Reaction::createKineticLaw ()
      *
      * so do nothing
      */
+    return NULL;
   }
 
   if (mKineticLaw != NULL)
@@ -1985,9 +2003,7 @@ Reaction::removeChildObject(const std::string& elementName, const std::string& i
 
   if (elementName == "kineticLaw")
   {
-    KineticLaw* t = getKineticLaw();
-    if (unsetKineticLaw() == LIBSBML_OPERATION_SUCCESS)
-      return t;
+    unsetKineticLaw(); // already deletes the kineticLaw, so nothing to do after
   }
   else if (elementName == "reactant")
   {

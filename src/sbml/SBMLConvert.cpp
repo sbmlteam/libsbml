@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -34,6 +39,8 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
+#include <sstream>
+
 #include <sbml/util/List.h>
 #include <sbml/math/ASTNode.h>
 
@@ -58,6 +65,13 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 /** @cond doxygenLibsbmlInternal **/
+
+
+#define SET_ID(id,prefix,count)\
+{\
+  std::stringstream str; str << prefix << count;\
+  id = str.str();\
+}
 
 static const char* ASSIGNED_COMPARTMENT = "AssignedName";
 
@@ -1111,7 +1125,6 @@ Model::convertStoichiometryMath()
   Reaction * r;
   SpeciesReference *sr;
   unsigned int idCount = 0;
-  char newid[15];
   std::string id;
 
   for (n = 0; n < getNumReactions(); n++)
@@ -1124,8 +1137,7 @@ Model::convertStoichiometryMath()
       {
         if (!sr->isSetId())
         {
-          sprintf(newid, "generatedId_%u", idCount);
-          id.assign(newid);
+          SET_ID(id,"generatedId_", idCount);
           sr->setId(id);
           idCount++;
         }
@@ -1159,8 +1171,7 @@ Model::convertStoichiometryMath()
       {
         if (!sr->isSetId())
         {
-          sprintf(newid, "generatedId_%u", idCount);
-          id.assign(newid);
+          SET_ID(id,"generatedId_", idCount);
           sr->setId(id);
           idCount++;
         }
@@ -1794,14 +1805,13 @@ Model::dealWithStoichiometry()
 void
 createNoValueStoichMath(Model & m, SpeciesReference & sr, unsigned int idCount)
 {
-  char newid[15];
   std::string id;
 
   // no stoichiometry and no id to set the stoichiometry
   // replace with stoichiometryMath using a parameter with no value
 
-  sprintf(newid, "parameterId_%u", idCount);
-  id.assign(newid);
+  SET_ID(id,"parameterId_", idCount);
+
 
   Parameter *p = m.createParameter();
   p->setId(id);
@@ -1821,13 +1831,11 @@ void
 createParameterAsRateRule(Model &m, SpeciesReference &sr, Rule &rr, 
                           unsigned int idCount)
 {
-  char newid[15];
   std::string id;
 
   // create parameter as variable of rate rule 
   // and use stoichiometryMath to point to this
-  sprintf(newid, "parameterId_%u", idCount);
-  id.assign(newid);
+  SET_ID(id,"parameterId_", idCount);
 
   Parameter *p = m.createParameter();
   p->setId(id);
@@ -1893,7 +1901,6 @@ useStoichMath(Model & m, SpeciesReference &sr, bool isRule)
 void dealWithL1Stoichiometry(Model & m, bool l2)
 {
   unsigned int idCount = 0;
-  char newid[15];
   std::string id;
 
   for (unsigned int i = 0; i < m.getNumReactions(); i++)
@@ -1917,9 +1924,7 @@ void dealWithL1Stoichiometry(Model & m, bool l2)
         }
         else
         {
-          sprintf(newid, "speciesRefId_%u", idCount);
-          id.assign(newid);
-          idCount++;
+          SET_ID(id,"speciesRefId_", idCount++);
           sr->setId(id);
           InitialAssignment * ar = m.createInitialAssignment();
           ar->setSymbol(id);
@@ -1944,9 +1949,7 @@ void dealWithL1Stoichiometry(Model & m, bool l2)
         }
         else
         {
-          sprintf(newid, "speciesRefId_%u", idCount);
-          id.assign(newid);
-          idCount++;
+          SET_ID(id,"speciesRefId_", idCount++);
           sr->setId(id);
           InitialAssignment * ar = m.createInitialAssignment();
           ar->setSymbol(id);
@@ -1960,7 +1963,6 @@ void dealWithL1Stoichiometry(Model & m, bool l2)
 
 void dealWithAssigningL1Stoichiometry(Model & m, bool l2)
 {
-  //char newid[15];
   std::string id;
 
   for (unsigned int i = 0; i < m.getNumReactions(); i++)

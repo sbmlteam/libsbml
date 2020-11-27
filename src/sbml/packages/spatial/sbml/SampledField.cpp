@@ -7,6 +7,11 @@
  * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
  * 2. University of Heidelberg, Heidelberg, Germany
@@ -188,6 +193,7 @@ SampledField::clone() const
  */
 SampledField::~SampledField()
 {
+  freeCompressed();
   freeUncompressed();
 }
 
@@ -2064,6 +2070,7 @@ void SampledField::store() const
     if (mSamplesUncompressed == NULL) {
       mSamplesUncompressed = readSamplesFromString<double>(mSamples, mSamplesUncompressedLength);
       size_t alt_length;
+      free(mSamplesUncompressedInt);
       mSamplesUncompressedInt = readSamplesFromString<int>(mSamples, alt_length);
       if (alt_length != mSamplesUncompressedLength)
       {
@@ -2153,15 +2160,19 @@ int SampledField::compress(int level)
 {
   freeCompressed();
   unsigned char* result; int length;
-  compress_data(const_cast<char*>(mSamples.c_str()), mSamples.length(), level, result, length);
+  int ret = compress_data(const_cast<char*>(mSamples.c_str()), mSamples.length(), level, result, length);
 
-  mSamples = arrayToString(result, length);
-  copySampleArrays(mSamplesCompressed, mSamplesCompressedLength, result, length);
+  if (ret == LIBSBML_OPERATION_SUCCESS)
+  {
+      mSamples = arrayToString(result, length);
+      copySampleArrays(mSamplesCompressed, mSamplesCompressedLength, result, length);
 
-  free(result);
+      free(result);
 
-  setSamplesLength(mSamplesCompressedLength);
-  return setCompression(SPATIAL_COMPRESSIONKIND_DEFLATED);
+      setSamplesLength(mSamplesCompressedLength);
+      return setCompression(SPATIAL_COMPRESSIONKIND_DEFLATED);
+  }
+  return ret;
 }
 
 unsigned int
@@ -2193,6 +2204,8 @@ SampledField::getUncompressed(double* outputPoints) const
 void
 SampledField::freeUncompressed() const
 {
+  free(mSamplesUncompressedInt);
+  mSamplesUncompressedInt = NULL;
   if (mSamplesUncompressed != NULL)
   {
     free(mSamplesUncompressed);

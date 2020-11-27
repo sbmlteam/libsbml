@@ -25,10 +25,7 @@ Name: english; MessagesFile: compiler:Default.isl
 
 [Files]
 Source: @CURRENT_DIR@\libsbml\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: @CURRENT_DIR@\libsbml\bindings\nodejs\*; DestDir: {app}\bindings\nodejs\; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: @CURRENT_DIR@\libsbml\bindings\java\*; DestDir: {code:GetJavaDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetJava
-;Source: @CURRENT_DIR@\libsbml\bindings\octave\*; DestDir: {code:GetOctaveDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetOctave
-; Source: @CURRENT_DIR@\libsbml\win32\bin\libsbml.dll; DestDir: {code:GetOctaveDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetOctave
 Source: @CURRENT_DIR@\libsbml\bindings\csharp\*; DestDir: {code:GetCSharpDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetCSharp
 Source: @CURRENT_DIR@\libsbml\bindings\perl\Libsbml.pm; DestDir: {code:GetPerlLibDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetPerl
 Source: @CURRENT_DIR@\libsbml\bindings\perl\Libsbml.pod; DestDir: {code:GetPerlLibDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetPerl
@@ -45,22 +42,13 @@ Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: Install
 [Code]
 var
   InstallOptionsPage: TInputOptionWizardPage;
-  PythonPage: TInputOptionWizardPage;
   CSharpPage: TInputDirWizardPage;
   JavaPage: TInputDirWizardPage;
-  ; OctavePage: TInputDirWizardPage;
   URLLabel: TNewStaticText;
   AboutButton, CancelButton: TButton;
 
-  Python25Present: Boolean;
-  Python26Present: Boolean;
-  PythonPresent: Boolean;
-  Python27Present: Boolean;
-  Python32Present: Boolean;
-  Python34Present: Boolean;
   PerlPresent: Boolean;
   PerlVersion: String;
-  
   PerlRoot: String;
 
   PreviousInstalledVersion, ThisVersion: String;
@@ -83,26 +71,6 @@ begin
 end;
 
 
-{function to return python 2.5 dir directory}
-function GetPython25Dir(S : String): String;
-var
-  Root:String;
-  Key: String;
-
-begin
-  Key := '';
-  Root := '';
-  Key := Key + 'Software\Python\PythonCore\2.5\InstallPath\';
-
-  if RegQueryStringValue(HKLM, Key, '', Root) then begin
-    Root:= Root + 'Lib\site-packages\';
-    Python25Present := True;
-  end else begin
-    Python25Present := False;
-  end;
-  Result := Root;
-end;
-
 {function to return perl dir directory}
 function GetInstalledPerlDir(S : String): String;
 var
@@ -123,81 +91,6 @@ begin
      end;
   end else begin
     PerlPresent := False;
-  end;
-  Result := Root;
-end;
-
-{function to return python 2.6 dir directory}
-function GetPython26Dir(S : String): String;
-var
-  Root:String;
-  Key: String;
-
-begin
-  Key := '';
-  Root := '';
-  Key := Key + 'Software\Python\PythonCore\2.6\InstallPath\';
-  if RegQueryStringValue(HKLM, Key, '', Root) then begin
-    Root:= Root + 'Lib\site-packages\';
-    Python26Present := True;
-  end else begin
-    Python26Present := False;
-  end;
-  Result := Root;
-end;
-
-{function to return python 2.7 dir directory}
-function GetPython27Dir(S : String): String;
-var
-  Root:String;
-  Key: String;
-
-begin
-  Key := '';
-  Root := '';
-  Key := Key + 'Software\Python\PythonCore\2.7\InstallPath\';
-  if RegQueryStringValue(HKLM, Key, '', Root) then begin
-    Root:= Root + 'Lib\site-packages\';
-    Python27Present := True;
-  end else begin
-    Python27Present := False;
-  end;
-  Result := Root;
-end;
-
-{function to return python 3.4 dir directory}
-function GetPython34Dir(S : String): String;
-var
-  Root:String;
-  Key: String;
-
-begin
-  Key := '';
-  Root := '';
-  Key := Key + 'Software\Python\PythonCore\3.4\InstallPath\';
-  if RegQueryStringValue(HKLM, Key, '', Root) then begin
-    Root:= Root + 'Lib\site-packages\';
-    Python34Present := True;
-  end else begin
-    Python34Present := False;
-  end;
-  Result := Root;
-end;
-
-function GetPython32Dir(S : String): String;
-var
-  Root:String;
-  Key: String;
-
-begin
-  Key := '';
-  Root := '';
-  Key := Key + 'Software\Python\PythonCore\3.2\InstallPath\';
-  if RegQueryStringValue(HKLM, Key, '', Root) then begin
-    Root:= Root + 'Lib\site-packages\';
-    Python32Present := True;
-  end else begin
-    Python32Present := False;
   end;
   Result := Root;
 end;
@@ -328,17 +221,7 @@ begin
   {get data from system}
   PreviousInstalledVersion := GetVersion();
   ThisVersion := '@PACKAGE_VERSION@';
-  GetPython25Dir('');
-  GetPython26Dir('');
-  GetPython27Dir('');
-  GetPython32Dir('');
-  GetPython34Dir('');
   PerlRoot := GetInstalledPerlDir('');
-  if (not Python25Present) and (not Python26Present) and (not Python27Present) and (not Python32Present) and (not Python34Present) then begin
-    PythonPresent := False;
-  end else begin
-    PythonPresent := True;
-  end;
 
   if (PreviousInstalledVersion = '') then begin
     libSBMLPresent := False;
@@ -379,29 +262,8 @@ begin
     False, False);
   InstallOptionsPage.Add('Copy C# language interface');
   InstallOptionsPage.Add('Copy Java language interface');
-  ; InstallOptionsPage.Add('Copy Octave language interface');
   InstallOptionsPage.Add('Install MATLAB language interface');
   InstallOptionsPage.Add('Install Perl language interface');
-  InstallOptionsPage.Add('Install Python language interface');
-
-
-  { python page : version of python builds to be installed }
-  PythonPage := CreateInputOptionPage(InstallOptionsPage.ID,
-    'Python binding', '',
-    'Select the version of python you wish to install', True, False);
-  PythonPage.Add('Python 2.5');
-  PythonPage.Add('Python 2.6');
-  PythonPage.Add('Python 2.7');
-  PythonPage.Add('Python 3.2');
-  PythonPage.Add('Python 3.4');
-
- ; { Octave page : location to install Octave binding }
- ;  OctavePage := CreateInputDirPage(InstallOptionsPage.ID,
- ;    'Octave binding', '',
- ;    'Select the folder in which Setup should install Octave binding files, then click Next.',
- ;    False, '');
- ;  OctavePage.Add('');
-
 
   { java page : location to install java binding }
   JavaPage := CreateInputDirPage(InstallOptionsPage.ID,
@@ -425,12 +287,8 @@ begin
   { Skip pages that shouldn't be shown }
   if (PageID = JavaPage.ID) and (InstallOptionsPage.Values[1] = False) then
     Result := True
-  else if (PageID = PythonPage.ID) and (InstallOptionsPage.Values[4] = False) then
-    Result := True
   else if (PageID = CSharpPage.ID) and (InstallOptionsPage.Values[0] = False) then
     Result := True
-  ;else if (PageID = OctavePage.ID) and (InstallOptionsPage.Values[2] = False) then
-  ;  Result := True
   else
     Result := False;
 end;
@@ -453,26 +311,9 @@ begin
       end;
     end;
     Result := True;
-  end else if CurPageId = PythonPage.ID  then begin
-    if not PythonPresent then begin
-      MsgBox('Python cannot be detected on the system. Cannot install to site-packages directory.', mbError, MB_OK);
-      InstallOptionsPage.Values[4] := False;
-    end else if (not Python25Present) and  (PythonPage.SelectedValueIndex = 0) then begin
-      MsgBox('Python 2.5 cannot be detected on the system. Cannot install to site-packages directory.', mbError, MB_OK);
-    end else if (not Python26Present) and  (PythonPage.SelectedValueIndex = 1) then begin
-      MsgBox('Python 2.6 cannot be detected on the system. Cannot install to site-packages directory.', mbError, MB_OK);
-    end else if (not Python27Present) and  (PythonPage.SelectedValueIndex = 2) then begin
-      MsgBox('Python 2.7 cannot be detected on the system. Cannot install to site-packages directory.', mbError, MB_OK);
-	end else if (not Python32Present) and  (PythonPage.SelectedValueIndex = 3) then begin
-      MsgBox('Python 3.2 cannot be detected on the system. Cannot install to site-packages directory.', mbError, MB_OK);
-	end else if (not Python34Present) and  (PythonPage.SelectedValueIndex = 4) then begin
-      MsgBox('Python 3.4 cannot be detected on the system. Cannot install to site-packages directory.', mbError, MB_OK);
-    end;
-    Result := True;
   end else if CurPageId = InstallOptionsPage.ID then begin
     JavaPage.Values[0] := ExpandConstant('{app}/bindings/java');
     CSharpPage.Values[0] := ExpandConstant('{app}/bindings/csharp');
-    ;OctavePage.Values[0] := ExpandConstant('{app}/bindings/octave');
     if ((InstallOptionsPage.Values[3]) and ((not PerlPresent) or (PerlVersion < '1200'))) then begin
       MsgBox('Libsbml Perl bindings require Perl 5.12 which cannot be detected on the system. Cannot install to the lib directory.', mbError, MB_OK);
       InstallOptionsPage.Values[3] := False;
@@ -512,13 +353,6 @@ begin
       S := S + NewLine;
   end;
 
-;  if (InstallOptionsPage.Values[2] = True) then begin
-;      S := S + NewLine;
-;      S := S + 'Writing libSBML Octave files  to ' + NewLine;
-;      S := S + '      ' + OctavePage.Values[0];
-;      S := S + NewLine;
-;  end;
-
   if(InstallOptionsPage.Values[2] = True) then begin
       S := S + NewLine;
       S := S + 'Installing libSBML MATLAB' + NewLine;
@@ -527,85 +361,13 @@ begin
 
   if (InstallOptionsPage.Values[3] = True) then begin
       S := S + NewLine;
-      S := S + 'Installing libSBML perl library files to' + NewLine;
+      S := S + 'Writing libSBML perl library files to ' + NewLine;
       S := S + '      ' + GetPerlLibDir('');
       S := S + NewLine;
   end;
 
-  if (InstallOptionsPage.Values[4] = True) then begin
-      if (PythonPage.SelectedValueIndex = 0) then begin
-        S := S + NewLine;
-        S := S + 'Installing libSBML Python 2.5 files to site-packages directory' + NewLine;
-        S := S + '      ' + GetPython25Dir('');
-        S := S + NewLine;
-      end else if (PythonPage.SelectedValueIndex = 1) then begin
-        S := S + NewLine;
-        S := S + 'Installing libSBML Python 2.6 files to site-packages directory' + NewLine;
-        S := S + '      ' + GetPython26Dir('');
-        S := S + NewLine;
-      end else if (PythonPage.SelectedValueIndex = 2) then begin
-        S := S + NewLine;
-        S := S + 'Installing libSBML Python 2.7 files to site-packages directory' + NewLine;
-        S := S + '      ' + GetPython27Dir('');
-        S := S + NewLine;
-      end else if (PythonPage.SelectedValueIndex = 3) then begin
-        S := S + NewLine;
-        S := S + 'Installing libSBML Python 3.2 files to site-packages directory' + NewLine;
-        S := S + '      ' + GetPython32Dir('');
-        S := S + NewLine;
-      end else if (PythonPage.SelectedValueIndex = 4) then begin
-        S := S + NewLine;
-        S := S + 'Installing libSBML Python 3.4 files to site-packages directory' + NewLine;
-        S := S + '      ' + GetPython34Dir('');
-        S := S + NewLine;
-       end;
-  end;
-
-
   Result:= S;
 end;
-
-{ function to return flag as to whether to write libraries to other directories directory}
-function GetPython34() : Boolean;
-begin
-  if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 4) then
-    Result := True
-  else
-    Result := False;
-end;
-
-function GetPython32() : Boolean;
-begin
-  if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 3) then
-    Result := True
-  else
-    Result := False;
-end;
-
-function GetPython27() : Boolean;
-begin
-  if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 2) then
-    Result := True
-  else
-    Result := False;
-end;
-
-function GetPython26() : Boolean;
-begin
-  if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 1) then
-    Result := True
-  else
-    Result := False;
-end;
-
-function GetPython25() : Boolean;
-begin
-  if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 0) then
-    Result := True
-  else
-    Result := False;
-end;
-
 
 function GetJava() : Boolean;
 begin
@@ -645,28 +407,7 @@ begin
   Result := CSharpPage.Values[0];
 end;
 
-;function GetOctave() : Boolean;
-;begin
-;  if (InstallOptionsPage.Values[2] = True) then
-;    Result := True
-;  else
-;    Result := False;
-;end;
-
-; function GetOctaveDir(Param: String): String;
-; begin
-;   { Return the selected DataDir }
-;   Result := OctavePage.Values[0];
-; end;
-
 [Run]
 
-Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py2.5-x86.exe"; Check: GetPython25;
-Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py2.6-x86.exe"; Check: GetPython26;
-Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py2.7-x86.exe"; Check: GetPython27;
-Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py3.2-x86.exe"; Check: GetPython32;
-Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py3.4-x86.exe"; Check: GetPython34;
-Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py3.5-x86.exe"; Check: GetPython34;
 Filename: "{app}\bindings\matlab\libSBML-@PACKAGE_VERSION@-win-matlab-x86.exe"; Check: GetMatlab;
-
 

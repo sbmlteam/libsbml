@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -185,18 +190,22 @@ START_TEST (test_ParametricObject_compress)
   G->setId("i");
   G->setPolygonType("triangle");
   G->setDomainType("p");
+  G->setCompression("uncompressed");
 
   G->setPointIndex(points, 9);  
 
   fail_unless(G->getPointIndexLength() == 9);
   fail_unless(G->getPointIndex() == "1 2 3 2 3 1 5 2 3 ");
 
-  G->compress(9);
-
+  int ret = G->compress(9);
   S = G->toSBML();
-
+#ifdef USE_ZLIB
+  fail_unless(ret == LIBSBML_OPERATION_SUCCESS);
   fail_unless( expectedCompressed == S );
-
+#else
+  fail_unless(ret == LIBSBML_OPERATION_FAILED);
+  fail_unless(expectedUncompressed == S);
+#endif
   free(S);
   G->uncompress();
   S = G->toSBML();
@@ -220,13 +229,14 @@ START_TEST(test_ParametricObject_uncompressInternal)
 
   size_t len = G->getUncompressedLength();
   fail_unless(len == 9);
-  int* result = (int*)malloc(sizeof(int) * len);
+  int* result = NULL;
   G->getUncompressedData(result, len);
 
   for (size_t i = 0; i < len; i++)
   {
     fail_unless(result[i] == points[i]);
   }
+  free(result);
 
 }
 END_TEST

@@ -77,6 +77,11 @@ main (int argc, char* argv[])
   
   printf("\n");
 
+  for (i = 0; i < length; i++)
+  {
+    SBMLNamespaces_free(supported[i]);
+  }
+  free(supported);
   return 0;
 }
 

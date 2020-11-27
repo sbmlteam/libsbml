@@ -140,7 +140,7 @@ set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "An API library for reading/writing/manipu
 set(CPACK_PACKAGE_NAME "${PACKAGE_NAME}")
 set(CPACK_PACKAGE_VENDOR "The libSBML Team")
 set(CPACK_PACKAGE_CONTACT "LibSBML Team <libsbml-team@googlegroups.com>")
-set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.txt")
+set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/COPYING.txt")
 set(CPACK_PACKAGE_VERSION_MAJOR "${LIBSBML_VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${LIBSBML_VERSION_MINOR}")
@@ -188,7 +188,28 @@ option(WITH_RUBY     "Generate the Ruby language interface for libSBML"    OFF)
 option(WITH_R        "Generate the R language interface for libSBML"       OFF)
 option(WITH_OCTAVE   "Generate the Octave language interface for libSBML." OFF)
 option(WITH_MATLAB   "Generate the MATLAB language interface for libSBML." OFF)
-option(WITH_JAVASCRIPT   "Generate the experimental Node.js language interface for libSBML." OFF)
+option(WITH_JAVASCRIPT      "Generate the experimental Node.js language interface for libSBML." OFF)
+option(WITH_STABLE_PACKAGES "Compile libSBML with all stable packages." OFF)
+option(WITH_ALL_PACKAGES    "Compile libSBML with all packages." OFF)
+
+if (WITH_ALL_PACKAGES)
+  set(_EXPERIMENTAL_PACKGES "arrays;dyn;spatial;REQUIREDELEMENTS")
+  foreach(package ${_EXPERIMENTAL_PACKGES})
+    string(TOUPPER ${package} package_upper)
+    string(CONCAT package_option "ENABLE_" ${package_upper})
+    set(${package_option} ON CACHE BOOL "Enable package" FORCE)
+  endforeach()
+  set(WITH_STABLE_PACKAGES ON CACHE BOOL "Enable stable packages" FORCE)
+endif(WITH_ALL_PACKAGES)
+
+if (WITH_STABLE_PACKAGES)
+  set(_STABLE_PACKGES "comp;distrib;fbc;groups;layout;multi;qual;render")
+  foreach(package ${_STABLE_PACKGES})
+    string(TOUPPER ${package} package_upper)
+    string(CONCAT package_option "ENABLE_" ${package_upper})
+    set(${package_option} ON CACHE BOOL "Enable package" FORCE)
+  endforeach()
+endif(WITH_STABLE_PACKAGES)
 
 if (WITH_JAVASCRIPT)
 
@@ -641,7 +662,8 @@ if(WITH_BZIP2)
   list(APPEND SWIG_EXTRA_ARGS -DUSE_BZ2)
 
     # make sure that we have a valid bzip2 library
-    check_library_exists("${LIBBZ_LIBRARY}" "BZ2_bzCompressInit" "" LIBBZ_FOUND_SYMBOL)
+    file(TO_CMAKE_PATH "${LIBBZ_LIBRARY}" LIBBZ2_CMAKE_PATH)
+    check_library_exists("${LIBBZ2_CMAKE_PATH}" "BZ2_bzCompressInit" "" LIBBZ_FOUND_SYMBOL)
     if(NOT LIBBZ_FOUND_SYMBOL)
         # this is odd, but on windows this check always fails! must be a
         # bug in the current cmake version so for now only issue this
@@ -742,7 +764,8 @@ if(WITH_ZLIB)
   list(APPEND SWIG_EXTRA_ARGS -DUSE_ZLIB)
 
     # make sure that we have a valid zip library
-    check_library_exists("${LIBZ_LIBRARY}" "gzopen" "" LIBZ_FOUND_SYMBOL)
+    file(TO_CMAKE_PATH "${LIBZ_LIBRARY}" LIBZ_CMAKE_PATH)
+    check_library_exists("${LIBZ_CMAKE_PATH}" "gzopen" "" LIBZ_FOUND_SYMBOL)
     if(NOT LIBZ_FOUND_SYMBOL)
         # this is odd, but on windows this check always fails! must be a
         # bug in the current cmake version so for now only issue this
@@ -1282,8 +1305,7 @@ set(DOCUMENTATION_FILES
         FUNDING.txt
         LICENSE.txt
         NEWS.txt
-        OLD_NEWS.txt
-        README.txt
+        README.md
         VERSION.txt
 )
 

@@ -76,7 +76,8 @@ int
     ConversionOption_setValue(option1, "true");
     ConversionOption_setDescription(option1, "Promotes all Local Parameters to Global ones");
     ConversionProperties_addOption(props, option1);
-   
+    ConversionOption_free(option1);
+
     /* perform the conversion */
     if (SBMLDocument_convert(doc, props) != LIBSBML_OPERATION_SUCCESS)
     {
@@ -86,8 +87,10 @@ int
 
     /* successfully completed, write the resulting file */
     writeSBML(doc, argv[2]);
+    ConversionProperties_free(props);
   }
 
+  SBMLDocument_free(doc);
   return 0;
 }
 

@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -683,6 +688,42 @@ void
 ListOf::setExplicitlyListed(bool value)
 {
   mExplicitlyListed = value;
+}
+
+struct ListOfComparator
+{
+    // Compare 2 SBase* objects using the 'id' attribute, 
+    // then the results of 'getId' (which is sometimes different 
+    // from 'getIdAttribute'), then name, then metaid.
+    bool operator ()(const SBase* obj1, const SBase* obj2)
+    {
+        if (obj1 == NULL || obj2 == NULL) 
+        {
+            return true;
+        }
+
+        if (obj1->getIdAttribute() == obj2->getIdAttribute()) 
+        {
+            if (obj1->getId() == obj2->getId()) 
+            {
+                if (obj1->getName() == obj2->getName()) 
+                {
+                    return obj1->getMetaId() < obj2->getMetaId();
+                }
+
+                return obj1->getName() < obj2->getName();
+            }
+
+            return obj1->getId() < obj2->getId();
+        }
+        
+        return obj1->getIdAttribute() < obj2->getIdAttribute();
+    }
+};
+
+void ListOf::sort()
+{
+    std::sort(mItems.begin(), mItems.end(), ListOfComparator());
 }
 
 

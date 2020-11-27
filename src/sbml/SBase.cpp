@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -236,10 +241,8 @@ SBase::prependStringToAllIdentifiers(const std::string& prefix)
   }
 
 
-  // for historical reasons some things like Rules will
-  // return an id but not set one
-  // so if we are going to bail on this we should have done
-  // anything else first
+  // Must use 'IdAttribute' functions since some elements like rules 
+  // return a different value for 'Id' functions alone.
 
   if (isSetIdAttribute())
   {
@@ -931,8 +934,9 @@ SBase::getNamespaces() const
 {
   if (mSBML != NULL)
     return mSBML->getSBMLNamespaces()->getNamespaces();
-  else
+  if (mSBMLNamespaces != NULL)
     return mSBMLNamespaces->getNamespaces();
+  return NULL;
 }
 
 

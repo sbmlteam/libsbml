@@ -7,6 +7,11 @@
  * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
  * 2. University of Heidelberg, Heidelberg, Germany
@@ -1413,6 +1418,24 @@ Geometry::removeSampledField(const std::string& sid)
   return mSampledFields.remove(sid);
 }
 
+const CoordinateComponent*
+Geometry::getCoordinateComponentByKind(CoordinateKind_t kind) const
+{
+    return const_cast <Geometry*> (this)->getCoordinateComponentByKind(kind);
+}
+
+CoordinateComponent*
+Geometry::getCoordinateComponentByKind(CoordinateKind_t kind)
+{
+  for (size_t i = 0; i < mCoordinateComponents.size(); ++i)
+  {
+    CoordinateComponent* current = mCoordinateComponents.get(i);
+    if (current->getType() == kind)
+      return current;
+  }
+  return NULL;
+}
+
 
 /*
  * Returns the XML element name of this Geometry object.
@@ -2482,9 +2505,9 @@ Geometry::readAttributes(const XMLAttributes& attributes,
     }
   }
 
-  // 
+  //
   // id SId (use = "optional" )
-  // 
+  //
 
   assigned = attributes.readInto("id", mId);
 
@@ -2502,9 +2525,9 @@ Geometry::readAttributes(const XMLAttributes& attributes,
     }
   }
 
-  // 
+  //
   // coordinateSystem enum (use = "required" )
-  // 
+  //
 
   std::string coordinateSystem;
   assigned = attributes.readInto("coordinateSystem", coordinateSystem);
@@ -2573,21 +2596,6 @@ Geometry::writeAttributes(XMLOutputStream& stream) const
 }
 
 /** @endcond */
-
-
-CoordinateComponent* 
-Geometry::getCoordinateComponentByKind(CoordinateKind_t kind)
-{
-  size_t i = mCoordinateComponents.size();
-  for (size_t i = 0; i < mCoordinateComponents.size(); ++i)
-  {
-    CoordinateComponent* current = mCoordinateComponents.get(i);
-    if (current->getType() == kind)
-      return current;
-  }
-  return NULL;
-}
-
 
 
 #endif /* __cplusplus */

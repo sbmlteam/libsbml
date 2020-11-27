@@ -8,6 +8,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -44,6 +49,27 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
+
+bool ExpectedAttributes::hasAttribute(const std::string & attribute) const
+{
+  return (std::find(mAttributes.begin(), mAttributes.end(), attribute)
+    != mAttributes.end());
+}
+
+std::string ExpectedAttributes::get(unsigned int i) const
+{
+  return (mAttributes.size() < i) ? mAttributes[i] : std::string();
+}
+
+void ExpectedAttributes::add(const std::string & attribute) 
+{ 
+  mAttributes.push_back(attribute);
+}
+
+ExpectedAttributes::ExpectedAttributes()
+{
+}
+
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
@@ -91,4 +117,3 @@ ExpectedAttributes_hasAttribute(ExpectedAttributes_t *attr, const char* attribut
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
-

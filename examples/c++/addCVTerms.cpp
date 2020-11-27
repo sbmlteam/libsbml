@@ -106,6 +106,10 @@ main (int argc, char *argv[])
       s->addCVTerm(cv2);
       s->addCVTerm(cv1);
 
+      delete cv;
+      delete cv2;
+      delete cv1;
+
       writeSBML(d, argv[2]);
     }
   }
