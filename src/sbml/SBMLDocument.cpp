@@ -1691,86 +1691,113 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes,
   // The code for creating an extension IF below is almost equal to that in 
   // SBase::SBase(SBMLNamespaces*,typecode (int)).
   //
-  XMLNamespaces const *xmlns = getNamespaces();
+  XMLNamespaces *xmlns = getNamespaces();
   if (xmlns == NULL)
-    return;
-
-  int numxmlns= xmlns->getLength();
-  for (int i=0; i < numxmlns; i++)
   {
-    const std::string &uri = xmlns->getURI(i);
-    const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
-
-    if (sbmlext && sbmlext->isEnabled())
+//     std::string err("SBase: xmlns is empty");
+//     XMLNamespaces* xmlns = sbmlns->getNamespaces();
+//     std::ostringstream oss;
+//     oss << "\nTypeCode " << typeCode << endl;
+//     if (xmlns)
+//     {
+//       XMLOutputStream xos(oss);
+//       xos << *xmlns;
+//     }
+//     err.append(oss.str());
+//     throw SBMLConstructorException(err);
+  }
+  else
+  {
+    int numxmlns= xmlns->getLength();
+    for (int i=0; i < numxmlns; i++)
     {
-      // if we are in l3v2 and there exists an l3v2 version for the package
-      // we wont accept the l3v1 version
-      if (sbmlext->getVersion(uri) < 2 && this->getVersion() > 1)
-      {
-        std::string dummyURI;
-        dummyURI.assign(uri);
-        size_t pos = dummyURI.find("level3");
-        if (pos != std::string::npos)
-        {
-          dummyURI.replace(pos, 15, "level3/version2");
-          if (sbmlext->getVersion(dummyURI) == 2)
-          {
-            ostringstream msg;
+      const std::string &uri = xmlns->getURI(i);
+      const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
 
-            msg << "Package '" << xmlns->getPrefix(i) <<
-              "' has a L3V2V1 specification which must be used in an L3V2 document.";
-            logError(InvalidPackageLevelVersion, mLevel, mVersion, msg.str());
-            return;
+      if (sbmlext && sbmlext->isEnabled())
+      {
+        // if we are in l3v2 and there exists an l3v2 version for the package
+        // we wont accept the l3v1 version
+        if (sbmlext->getVersion(uri) < 2 && this->getVersion() > 1)
+        {
+          std::string dummyURI;
+          dummyURI.assign(uri);
+          size_t pos = dummyURI.find("level3");
+          if (pos != std::string::npos)
+          {
+            dummyURI.replace(pos, 15, "level3/version2");
+            if (sbmlext->getVersion(dummyURI) == 2)
+            {
+              ostringstream msg;
+
+              msg << "Package '" << xmlns->getPrefix(i) <<
+                "' has a L3V2V1 specification which must be used in an L3V2 document.";
+              logError(InvalidPackageLevelVersion, mLevel, mVersion, msg.str());
+              return;
+
+
+            }
           }
         }
-      }
 
-      const std::string &prefix = xmlns->getPrefix(i);
-      SBaseExtensionPoint extPoint(getPackageName(), SBML_DOCUMENT);
-      const SBasePluginCreatorBase* sbPluginCreator = sbmlext->getSBasePluginCreator(extPoint);
-      if (sbPluginCreator)
-      {
-        SBasePlugin* entity = sbPluginCreator->createPlugin(uri,prefix,xmlns);
-        entity->connectToParent(this);
-        mPlugins.push_back(entity);
-      }
-    }
-    else
-    {
-      //
-      //  1) Checks if there exists a "required" attribute with the prefix of
-      //     this namespace.
-      //  2) If such attribute exists then checks if the value is true or false.
-      //  3) Logs an error (e..g The package is required but the package is not available)
-      //     if the value is true.
-      //  4) Added a check that the uri could possibly be a l3 ns
-      //
-      size_t pos = uri.find("http://www.sbml.org/sbml/level3/version");
-      std::string requiredAttr = attributes.getValue("required",uri);
-      if (pos == 0 && !requiredAttr.empty())
-      {
-        mRequiredAttrOfUnknownPkg.add("required", requiredAttr, uri, xmlns->getPrefix(i));
-        ostringstream msg;
 
-        if (requiredAttr == "true")
+
+        const std::string &prefix = xmlns->getPrefix(i);
+        SBaseExtensionPoint extPoint(getPackageName(), SBML_DOCUMENT);
+        const SBasePluginCreatorBase* sbPluginCreator = sbmlext->getSBasePluginCreator(extPoint);
+        if (sbPluginCreator)
         {
-          msg << "Package '" << xmlns->getPrefix(i) << 
-              "' is a required package and the model cannot be properly "
-              "interpreted.";
-          logError(RequiredPackagePresent, mLevel, mVersion, msg.str());
+          // (debug)
+          //cout << "sbPlugin " << sbPlugin << endl;
+          //sbPlugin->createPlugin(uri,prefix);
+          // (debug)
+          SBasePlugin* entity = sbPluginCreator->createPlugin(uri,prefix,xmlns);
+          entity->connectToParent(this);
+          mPlugins.push_back(entity);
         }
-        else
+      }
+      else
+      {
+        //
+        //  1) Checks if there exists a "required" attribute with the prefix of
+        //     this namespace.
+        //  2) If such attribute exists then checks if the value is true or false.
+        //  3) Logs an error (e..g The package is required but the package is not available)
+        //     if the value is true.
+        //  4) Added a check that the uri could possibly be a l3 ns
+        //
+        size_t pos = uri.find("http://www.sbml.org/sbml/level3/version");
+        std::string requiredAttr = attributes.getValue("required",uri);
+        if (pos == 0 && !requiredAttr.empty())
         {
-          msg << "Package '" << xmlns->getPrefix(i) << 
-              "' is not a required package. The information relating "
-              "to '" << xmlns->getPrefix(i) << "' will be "
-              "saved but cannot be interpreted.";
-          logError(UnrequiredPackagePresent, mLevel, mVersion, msg.str());
-        }
-      } 
+          mRequiredAttrOfUnknownPkg.add("required", requiredAttr, uri, xmlns->getPrefix(i));
+#if 0
+          cout << "[DEBUG] SBMLDocument::readAttributes() uri " << uri 
+               << " has required attribute : " << attributes.getValue("required",uri) << endl;
+#endif
+          ostringstream msg;
+
+          if (requiredAttr == "true")
+          {
+            msg << "Package '" << xmlns->getPrefix(i) << 
+                "' is a required package and the model cannot be properly "
+                "interpreted.";
+            logError(RequiredPackagePresent, mLevel, mVersion, msg.str());
+          }
+          else
+          {
+            msg << "Package '" << xmlns->getPrefix(i) << 
+                "' is not a required package. The information relating "
+                "to '" << xmlns->getPrefix(i) << "' will be "
+                "saved but cannot be interpreted.";
+            logError(UnrequiredPackagePresent, mLevel, mVersion, msg.str());
+          }
+        } 
+      }
     }
   }
 
+ 
   //
   // (NOTE)
   //
