@@ -1228,47 +1228,46 @@ SBase::setAnnotation (const XMLNode* annotation)
   {
     delete mAnnotation;
 
+    bool hasRDFAnnotation = RDFAnnotationParser::hasRDFAnnotation(annotation)
+      && (RDFAnnotationParser::hasCVTermRDFAnnotation(annotation)
+      || RDFAnnotationParser::hasHistoryRDFAnnotation(annotation));
+    bool hasMetaID = isSetMetaId();
     // the annotation is an rdf annotation but the object has no metaid
-    if (RDFAnnotationParser::hasRDFAnnotation(annotation) == true
-      && (RDFAnnotationParser::hasCVTermRDFAnnotation(annotation) == true
-      || RDFAnnotationParser::hasHistoryRDFAnnotation(annotation) == true)
-      && isSetMetaId() == false)
+    if (hasRDFAnnotation && !hasMetaID)
     {
       mAnnotation = NULL;
       return LIBSBML_MISSING_METAID;
     }
-    else
-    {
-      // check for annotation tags and add if necessary
-      const string&  name = annotation->getName();
-      if (name != "annotation")
-      {
-        XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""),
-                                  XMLAttributes());
-        mAnnotation = new XMLNode(ann_t);
 
-        // The root node of the given XMLNode tree can be an empty XMLNode
-        // (i.e. neither start, end, nor text XMLNode) if the given annotation was
-        // converted from an XML string whose top level elements are neither
-        // "html" nor "body" and not enclosed with <annotation>..</annotation> tags
-        // (e.g. <foo xmlns:foo="...">..</foo><bar xmlns:bar="...">..</bar> )
-        if (!annotation->isStart() && !annotation->isEnd() &&
-                                      !annotation->isText())
+    // check for annotation tags and add if necessary
+    const string&  name = annotation->getName();
+    if (name != "annotation")
+    {
+      XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""),
+                                XMLAttributes());
+      mAnnotation = new XMLNode(ann_t);
+
+      // The root node of the given XMLNode tree can be an empty XMLNode
+      // (i.e. neither start, end, nor text XMLNode) if the given annotation was
+      // converted from an XML string whose top level elements are neither
+      // "html" nor "body" and not enclosed with <annotation>..</annotation> tags
+      // (e.g. <foo xmlns:foo="...">..</foo><bar xmlns:bar="...">..</bar> )
+      if (!annotation->isStart() && !annotation->isEnd() &&
+                                    !annotation->isText())
+      {
+        for (unsigned int i=0; i < annotation->getNumChildren(); i++)
         {
-          for (unsigned int i=0; i < annotation->getNumChildren(); i++)
-          {
-            mAnnotation->addChild(annotation->getChild(i));
-          }
-        }
-        else
-        {
-          mAnnotation->addChild(*annotation);
+          mAnnotation->addChild(annotation->getChild(i));
         }
       }
       else
       {
-        mAnnotation = annotation->clone();
+        mAnnotation->addChild(*annotation);
       }
+    }
+    else
+    {
+      mAnnotation = annotation->clone();
     }
   }
 
