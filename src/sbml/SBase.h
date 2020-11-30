@@ -3291,7 +3291,7 @@ protected:
    * Creates a new SBase object with the given SBMLNamespaces.
    * Only subclasses may create SBase objects.
    */
-  SBase (SBMLNamespaces* sbmlns);
+  SBase (const SBMLNamespaces* sbmlns);
 
 
   /**

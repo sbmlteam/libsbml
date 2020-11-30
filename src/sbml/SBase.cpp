@@ -91,7 +91,7 @@ struct DeletePluginEntity : public unary_function<SBasePlugin*, void>
  */
 struct ClonePluginEntity : public unary_function<SBasePlugin*, SBasePlugin*>
 {
-  SBasePlugin* operator() (SBasePlugin* sb) {
+  SBasePlugin* operator() (const SBasePlugin* sb) {
     if (!sb) return NULL;
     return sb->clone();
   }
@@ -357,7 +357,7 @@ SBase::SBase (unsigned int level, unsigned int version) :
  * Creates a new SBase object with the given SBMLNamespaces.
  * Only subclasses may create SBase objects.
  */
-SBase::SBase (SBMLNamespaces *sbmlns) :
+SBase::SBase (const SBMLNamespaces *sbmlns) :
    mId   ( "" )
  , mName ( "" )
  , mMetaId ( "" )
@@ -451,8 +451,8 @@ SBase::SBase(const SBase& orig)
   if(orig.mCVTerms != NULL)
   {
     this->mCVTerms  = new List();
-    unsigned int i,iMax = orig.mCVTerms->getSize();
-    for(i = 0; i < iMax; ++i)
+    unsigned int iMax = orig.mCVTerms->getSize();
+    for(int i = 0; i < iMax; ++i)
     {
       this->mCVTerms
         ->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
@@ -555,8 +555,8 @@ SBase& SBase::operator=(const SBase& rhs)
     if(rhs.mCVTerms != NULL)
     {
       this->mCVTerms  = new List();
-      unsigned int i,iMax = rhs.mCVTerms->getSize();
-      for(i = 0; i < iMax; ++i)
+      unsigned int iMax = rhs.mCVTerms->getSize();
+      for(int i = 0; i < iMax; ++i)
       {
         this->mCVTerms
           ->add(static_cast<CVTerm*>(rhs.mCVTerms->get(i))->clone());
@@ -605,7 +605,7 @@ SBase::loadPlugins(SBMLNamespaces *sbmlns)
   //
   // (EXTENSION)
   //
-  XMLNamespaces *xmlns = sbmlns->getNamespaces();
+  const XMLNamespaces *xmlns = sbmlns->getNamespaces();
 
   if (xmlns)
   {
@@ -636,10 +636,6 @@ SBase::loadPlugins(SBMLNamespaces *sbmlns)
 
         if (sbPluginCreator)
         {
-          // (debug)
-          //cout << "sbPluginCreator " << sbPluginCreator << endl;
-          //sbPluginCreator->createPlugin(uri,prefix);
-          // (debug)
           SBasePlugin* entity = sbPluginCreator->createPlugin(uri,prefix,xmlns);
           entity->connectToParent(this);
           mPlugins.push_back(entity);
