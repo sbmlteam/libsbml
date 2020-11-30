@@ -799,22 +799,18 @@ SBase::getURI() const
 
 
 /** @cond doxygenLibsbmlInternal */
-/*
- * This function does nothing itself--subclasses with ASTNode subelements must override this function.
- */
 void
 SBase::replaceSIDWithFunction(const std::string&, const ASTNode*)
 {
+ // This function does nothing itself--subclasses with ASTNode subelements must override this function.
 }
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-/*
- * This function does nothing itself--subclasses with ASTNode subelements must override this function.
- */
 void
 SBase::divideAssignmentsToSIdByFunction(const std::string&, const ASTNode*)
 {
+ // This function does nothing itself--subclasses with ASTNode subelements must override this function.
 }
 /** @endcond */
 
@@ -822,6 +818,7 @@ SBase::divideAssignmentsToSIdByFunction(const std::string&, const ASTNode*)
 void
 SBase::multiplyAssignmentsToSIdByFunction(const std::string&, const ASTNode*)
 {
+ // This function does nothing itself--subclasses with ASTNode subelements must override this function.
 }
 /** @endcond */
 
