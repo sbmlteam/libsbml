@@ -946,25 +946,11 @@ SBase::getNamespaces() const
 const SBMLDocument*
 SBase::getSBMLDocument () const
 {
-  if (mSBML != NULL)
+  // if the doc object has been deleted the pointer is
+  // still valid but points to nothing
+  if (mSBML != NULL && mSBML->getHasBeenDeleted())
   {
-    // if the doc object has been deleted the pointer is
-    // still valid but points to nothing
-    try
-    {
-      if (mSBML->getHasBeenDeleted())
-      {
-        return NULL;
-      }
-      else
-      {
-        return mSBML;
-      }
-    }
-    catch ( ... )
-    {
-      return NULL;
-    }
+    return NULL;
   }
 
   return mSBML;
@@ -976,50 +962,22 @@ SBase::getSBMLDocument () const
 SBMLDocument*
 SBase::getSBMLDocument ()
 {
-  if (mSBML != NULL)
+  // if the doc object has been deleted the pointer is
+  // still valid but points to nothing
+  if (mSBML != NULL && mSBML->getHasBeenDeleted())
   {
-    // if the doc object has been deleted the pointer is
-    // still valid but points to nothing
-    try
-    {
-      if (mSBML->getHasBeenDeleted())
-      {
-        return NULL;
-      }
-      else
-      {
-        return mSBML;
-      }
-    }
-    catch ( ... )
-    {
-      return NULL;
-    }
+    return NULL;
   }
   return mSBML;
 }
 SBase*
 SBase::getParentSBMLObject ()
 {
-  if (mParentSBMLObject != NULL)
+  // if the parent object has been deleted the pointer is
+  // still valid but points to nothing
+  if (mParentSBMLObject != NULL && mParentSBMLObject->getHasBeenDeleted())
   {
-    // if the parent object has been deleted the pointer is
-    // still valid but points to nothing
-    try
-    {
-      if (mParentSBMLObject->getHasBeenDeleted())
-      {
-        return NULL;
-      }
-      else
-      {
-        return mParentSBMLObject;
-      }
-    }
-    catch ( ... )
-    {
-      return NULL;
-    }
+    return NULL;
   }
 
   return mParentSBMLObject;
@@ -1028,25 +986,11 @@ SBase::getParentSBMLObject ()
 const SBase*
 SBase::getParentSBMLObject () const
 {
-  if (mParentSBMLObject != NULL)
+  // if the parent object has been deleted the pointer is
+  // still valid but points to nothing
+  if (mParentSBMLObject != NULL && mParentSBMLObject->getHasBeenDeleted())
   {
-    // if the parent object has been deleted the pointer is
-    // still valid but points to nothing
-    try
-    {
-      if (mParentSBMLObject->getHasBeenDeleted())
-      {
-        return NULL;
-      }
-      else
-      {
-        return mParentSBMLObject;
-      }
-    }
-    catch ( ... )
-    {
-      return NULL;
-    }
+    return NULL;
   }
 
   return mParentSBMLObject;
