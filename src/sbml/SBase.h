@@ -1160,7 +1160,7 @@ public:
    * permitted on the Model element.  In SBML Level&nbsp;3, they are
    * permitted on all SBML components derived from SBase.
    */
-  bool isSetModelHistory();
+  bool isSetModelHistory() const;
 
 
   /**
@@ -1978,7 +1978,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * 
    * @return the number of CVTerms for this SBML object.
    */
-  unsigned int getNumCVTerms();
+  unsigned int getNumCVTerms() const;
 
 
   /**
@@ -2095,7 +2095,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * the values defined by MIRIAM at that later time.
    * @endif@~
    */
-  BiolQualifierType_t getResourceBiologicalQualifier(std::string resource);
+  BiolQualifierType_t getResourceBiologicalQualifier(std::string resource) const;
 
 
   /**
@@ -3805,7 +3805,7 @@ private:
  /**
   * adds the given term to an existing bag. Returns 1 if added, 0 otherwise. 
   */
-  int addTermToExistingBag(CVTerm *term, QualifierType_t type);
+  int addTermToExistingBag(CVTerm *term, QualifierType_t type) const;
 
   /**
    * Reads the notes from the stream and returns true if successful.

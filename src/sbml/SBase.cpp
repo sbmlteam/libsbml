@@ -1207,7 +1207,7 @@ SBase::isSetSBOTerm () const
 
 
 bool
-SBase::isSetModelHistory()
+SBase::isSetModelHistory() const
 {
   return (mHistory != NULL);
 }
@@ -1332,10 +1332,6 @@ SBase::setAnnotation (const XMLNode* annotation)
   }
 
 
-  //else if (!(math->isWellFormedASTNode()))
-  //{
-  //  return LIBSBML_INVALID_OBJECT;
-  //}
   if (mAnnotation != annotation)
   {
     delete mAnnotation;
@@ -1431,10 +1427,6 @@ SBase::setAnnotation (const XMLNode* annotation)
     mPlugins[i]->parseAnnotation(this, mAnnotation);
   }
 
-
-  //mAnnotationChanged = true;
-
-
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -1465,7 +1457,7 @@ SBase::setAnnotation (const std::string& annotation)
   // you might not have a document !!
   if (getSBMLDocument() != NULL)
   {
-    XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+    const XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
     annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
   }
   else
@@ -1622,7 +1614,7 @@ SBase::appendAnnotation (const std::string& annotation)
   XMLNode* annt_xmln;
   if (getSBMLDocument() != NULL)
   {
-    XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+    const XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
     annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
   }
   else
@@ -1755,7 +1747,7 @@ SBase::replaceTopLevelAnnotationElement(const std::string& annotation)
   XMLNode* annt_xmln;
   if (getSBMLDocument() != NULL)
   {
-    XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+    const XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
     annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
   }
   else
@@ -1798,7 +1790,7 @@ SBase::setNotes(const XMLNode* notes)
 
   if (name == "notes")
   {
-    mNotes = static_cast<XMLNode*>( notes->clone() );
+    mNotes = notes->clone();
   }
   else
   {
@@ -1831,19 +1823,17 @@ SBase::setNotes(const XMLNode* notes)
   // in L2v2 and beyond the XHTML content of notes is restricted
   // but I need the notes tag to use the function
   // so I havent tested it until now
-  if (getLevel() > 2
-    || (getLevel() == 2 && getVersion() > 1))
+  bool isCorrectLevel = getLevel() > 2
+    || (getLevel() == 2 && getVersion() > 1);
+  if (isCorrectLevel
+      && !SyntaxChecker::hasExpectedXHTMLSyntax(mNotes, getSBMLNamespaces()))
   {
-    if (!SyntaxChecker::hasExpectedXHTMLSyntax(mNotes, getSBMLNamespaces()))
-    {
-      delete mNotes;
-      mNotes = NULL;
-      return LIBSBML_INVALID_OBJECT;
-    }
+    delete mNotes;
+    mNotes = NULL;
+    return LIBSBML_INVALID_OBJECT;
   }
 
   return LIBSBML_OPERATION_SUCCESS;
-
 }
 
 /*
@@ -1865,7 +1855,7 @@ SBase::setNotes(const std::string& notes, bool addXHTMLMarkup)
     // you might not have a document !!
     if (getSBMLDocument() != NULL)
     {
-      XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+      const XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
       notes_xmln = XMLNode::convertStringToXMLNode(notes,xmlns);
     }
     else
@@ -2052,16 +2042,14 @@ SBase::appendNotes(const XMLNode* notes)
   // checks the addedNotes of "html" if the html tag contains "head" and
   // "body" tags which must be located in this order.
   //
-  if (addedNotesType == _ANotesHTML)
+  if (addedNotesType == _ANotesHTML
+      && ((addedNotes.getNumChildren() != 2) ||
+      ( (addedNotes.getChild(0).getName() != "head") ||
+        (addedNotes.getChild(1).getName() != "body")
+      )
+     ))
   {
-    if ((addedNotes.getNumChildren() != 2) ||
-        ( (addedNotes.getChild(0).getName() != "head") ||
-          (addedNotes.getChild(1).getName() != "body")
-        )
-       )
-    {
-      return LIBSBML_INVALID_OBJECT;
-    }
+    return LIBSBML_INVALID_OBJECT;
   }
 
   // check whether notes is valid xhtml
@@ -2257,7 +2245,7 @@ SBase::appendNotes(const XMLNode* notes)
       success = LIBSBML_OPERATION_SUCCESS;
     }
   }
-  else // if (mNotes == NULL)
+  else
   {
     // setNotes accepts XMLNode with/without top level notes tags.
     success = setNotes(notes);
@@ -2284,7 +2272,7 @@ SBase::appendNotes(const std::string& notes)
   // you might not have a document !!
   if (getSBMLDocument() != NULL)
   {
-      XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+      const XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
       notes_xmln = XMLNode::convertStringToXMLNode(notes,xmlns);
   }
   else
@@ -2307,12 +2295,9 @@ SBase::setModelHistory(ModelHistory * history)
   /* ModelHistory is only allowed on Model in L2
    * but on any element in L3
    */
-  if (getLevel() < 3)
+  if (getLevel() < 3 && getTypeCode() != SBML_MODEL)
   {
-    if (getTypeCode() != SBML_MODEL)
-    {
-      return LIBSBML_UNEXPECTED_ATTRIBUTE;
-    }
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
   // shouldnt add a history to an object with no metaid
   if (!isSetMetaId())
@@ -2340,7 +2325,7 @@ SBase::setModelHistory(ModelHistory * history)
   else
   {
     delete mHistory;
-    mHistory = static_cast<ModelHistory*>( history->clone() );
+    mHistory = history->clone();
     mHistoryChanged = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -2644,7 +2629,7 @@ SBase::unsetNotes ()
 int
 SBase::unsetAnnotation ()
 {
-  XMLNode* empty = NULL;
+  const XMLNode* empty = NULL;
   return setAnnotation(empty);
 }
 
@@ -2708,7 +2693,7 @@ void SBase::removeDuplicatedResources(CVTerm *term, QualifierType_t type)
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-int SBase::addTermToExistingBag(CVTerm *term, QualifierType_t type )
+int SBase::addTermToExistingBag(CVTerm *term, QualifierType_t type ) const
 {
   unsigned int added = 0;
   unsigned int length = mCVTerms->getSize();
@@ -2849,7 +2834,7 @@ SBase::getCVTerms() const
  * @return the number of CVTerms for this SBML object.
  */
 unsigned int
-SBase::getNumCVTerms()
+SBase::getNumCVTerms() const
 {
   if (mCVTerms != NULL)
   {
@@ -2938,7 +2923,7 @@ SBase::unsetModelHistory()
  * @return the BiolQualifierType_t associated with the resource
  */
 BiolQualifierType_t
-SBase::getResourceBiologicalQualifier(std::string resource)
+SBase::getResourceBiologicalQualifier(std::string resource) const
 {
   if (mCVTerms != NULL)
   {
