@@ -104,7 +104,7 @@ SpeciesReference::SpeciesReference (SBMLNamespaces *sbmlns) :
 {
   if (!hasValidLevelVersionNamespaceCombination())
   {
-    throw SBMLConstructorException(getElementName(), sbmlns);
+    throw SBMLConstructorException(SpeciesReference::getElementName(), sbmlns);
   }
 
   loadPlugins(sbmlns);
@@ -359,7 +359,7 @@ SpeciesReference::setStoichiometryMath (const StoichiometryMath* math)
     mDenominator        = 1;
 
     delete mStoichiometryMath;
-    mStoichiometryMath = static_cast<StoichiometryMath*>(math->clone());
+    mStoichiometryMath = math->clone();
     if (mStoichiometryMath != NULL) mStoichiometryMath->connectToParent(this);
     
     return LIBSBML_OPERATION_SUCCESS;
@@ -539,7 +539,7 @@ SpeciesReference::createStoichiometryMath ()
   {
     mStoichiometryMath = new StoichiometryMath(getSBMLNamespaces());
   }
-  catch (...)
+  catch (SBMLConstructorException)
   {
     /* here we do not create a default object as the level/version must
      * match the parent object
@@ -728,25 +728,6 @@ SpeciesReference::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Returns the value of the "attributeName" attribute of this SpeciesReference.
- */
-//int
-//SpeciesReference::getAttribute(const std::string& attributeName,
-//                               const char* value) const
-//{
-//  int return_value = SimpleSpeciesReference::getAttribute(attributeName,
-//    value);
-//
-//  return return_value;
-//}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this SpeciesReference's attribute
  * "attributeName" is set.
  */
@@ -888,25 +869,6 @@ SpeciesReference::setAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the value of the "attributeName" attribute of this SpeciesReference.
- */
-//int
-//SpeciesReference::setAttribute(const std::string& attributeName,
-//                               const char* value)
-//{
-//  int return_value = SimpleSpeciesReference::setAttribute(attributeName,
-//    value);
-//
-//  return return_value;
-//}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Unsets the value of the "attributeName" attribute of this SpeciesReference.
  */
 int
@@ -1000,12 +962,9 @@ SpeciesReference::getNumObjects(const std::string& elementName)
 {
   unsigned int n = 0;
 
-  if (elementName == "stoichiometryMath")
+  if (elementName == "stoichiometryMath" && isSetStoichiometryMath())
   {
-    if (isSetStoichiometryMath())
-    {
-      return 1;
-    }
+    n=1;
   }
 
   return n;
@@ -1046,10 +1005,6 @@ SpeciesReference::setAnnotation (const XMLNode* annotation)
 {
   int success = SBase::setAnnotation(annotation);
 
-  if (success == 0)
-  {
-  }
-
   return success;
 }
 
@@ -1071,7 +1026,7 @@ SpeciesReference::setAnnotation (const std::string& annotation)
   XMLNode* annt_xmln;
   if (getSBMLDocument() != NULL)
   {
-    XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+    const XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
     annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
   }
   else
@@ -1120,7 +1075,7 @@ SpeciesReference::appendAnnotation (const std::string& annotation)
   XMLNode* annt_xmln;
   if (getSBMLDocument() != NULL)
   {
-    XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+    const XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
     annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
   }
   else
@@ -1160,7 +1115,7 @@ SpeciesReference::sortMath()
     mStoichiometryMath->isSetMath() &&
     mStoichiometryMath->getMath()->isRational())
   {
-    mStoichiometry = mStoichiometryMath->getMath()->getNumerator();
+    mStoichiometry = (double)mStoichiometryMath->getMath()->getNumerator();
     mDenominator   = (int)mStoichiometryMath->getMath()->getDenominator();
 
     delete mStoichiometryMath;
@@ -1193,13 +1148,7 @@ SpeciesReference::createObject (XMLInputStream& stream)
     {
       mStoichiometryMath = new StoichiometryMath(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException*)
-    {
-      mStoichiometryMath = new StoichiometryMath(
-                                           SBMLDocument::getDefaultLevel(),
-                                           SBMLDocument::getDefaultVersion());
-    }
-    catch ( ... )
+    catch (SBMLConstructorException)
     {
       mStoichiometryMath = new StoichiometryMath(
                                            SBMLDocument::getDefaultLevel(),
@@ -1226,81 +1175,12 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
   bool          read = false;
   const string& name = stream.peek().getName();
 
- // if (name == "stoichiometryMath")
- // {
- //   const XMLToken wrapperElement = stream.next();
- //   stream.skipText();
- //   const XMLToken element = stream.peek();
-
- //   bool found = false;
-
- //   /* The first element must always be 'math'. */
-
- //   if (element.getName() != "math")
- //   {
- //     found = true;
- //   }
-
- //   /* Check this declares the MathML namespace.  This may be explicitly
- //    * declared here or implicitly declared on the whole document
- //    */
-
- //   if (!found && element.getNamespaces().getLength() != 0)
- //   {
- //     for (int n = 0; n < element.getNamespaces().getLength(); n++)
- //     {
- //       if (!strcmp(element.getNamespaces().getURI(n).c_str(),
-  //	    "http://www.w3.org/1998/Math/MathML"))
- //       {
-  //  found = true;
- //         break;
- //       }
- //     }
- //   }
- //   if (!found && mSBML->getNamespaces() != 0)
- //   {
- //     /* check for implicit declaration */
- //     for (int n = 0; n < mSBML->getNamespaces()->getLength(); n++)
- //     {
-  //if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(),
-  //	    "http://www.w3.org/1998/Math/MathML"))
-  //{
-  //  found = true;
-  //  break;
-  //}
- //     }
- //   }
-
- //   if (! found)
- //   {
- //     static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10201);
- //   }
-
- //   delete mStoichiometryMath;
- //   mStoichiometryMath = readMathML(stream);
- //   read               = true;
-
- //   stream.skipPastEnd(wrapperElement);
-
- //   if (mStoichiometryMath && mStoichiometryMath->isRational())
- //   {
- //     mStoichiometry = mStoichiometryMath->getNumerator();
- //     mDenominator   = mStoichiometryMath->getDenominator();
-
- //     delete mStoichiometryMath;
- //     mStoichiometryMath = 0;
- //   }
- // }
-  //else 
-
   // This has to do additional work for reading annotations, so the code
   // here is copied and expanded from SBase::readNotes().
 
   if (name == "annotation")
   {
-//    XMLNode* new_annotation = NULL;
-    /* if annotation already exists then it is an error 
-     */
+    // if annotation already exists then it is an error 
     if (mAnnotation != NULL)
     {
       if (getLevel() < 3) 
