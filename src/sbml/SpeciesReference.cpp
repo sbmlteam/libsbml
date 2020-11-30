@@ -1347,9 +1347,6 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
     if (RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
       RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms, 
                                                getMetaId().c_str(), &(stream));
-//    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
-//    delete mAnnotation;
-//    mAnnotation = new_annotation;
 
     read = true;
   }
@@ -1414,7 +1411,6 @@ SpeciesReference::readAttributes (const XMLAttributes& attributes,
     readL2Attributes(attributes);
     break;
   case 3:
-  default:
     readL3Attributes(attributes);
     break;
   }
@@ -1495,7 +1491,7 @@ SpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   if (!mId.empty()) {
     elplusid += " with the id '" + mId + "'";
   }
-  SBase* rxn = getAncestorOfType(SBML_REACTION);
+  const SBase* rxn = getAncestorOfType(SBML_REACTION);
   if (rxn && rxn->isSetId()) 
   {
     elplusid += " from the <reaction> with the id '" + rxn->getId() + "'";
@@ -1558,11 +1554,10 @@ SpeciesReference::writeAttributes (XMLOutputStream& stream) const
   //
   // constant: bool { use="required" } (L3v1 -> )
   //
-  if (getLevel() > 2)
+  if (getLevel() > 2 && isSetConstant())
   {
     // in L3 only write it out if it has been set
-    if (isSetConstant())
-      stream.writeAttribute("constant", mConstant);
+    stream.writeAttribute("constant", mConstant);
   }
 }
 /** @endcond */
@@ -1585,23 +1580,23 @@ SpeciesReference::writeElements (XMLOutputStream& stream) const
   sr->syncAnnotation();
   if ( mAnnotation != NULL ) stream << *mAnnotation;
 
-  if (getLevel() == 2)
+  if (
+      getLevel() == 2
+      && (mStoichiometryMath || mDenominator != 1)
+     )
   {
-    if (mStoichiometryMath || mDenominator != 1)
+    if (mStoichiometryMath != NULL) 
     {
-      if (mStoichiometryMath != NULL) 
-      {
-        mStoichiometryMath->write(stream);
-      }
-      else
-      {
-        ASTNode node;
-        node.setValue(static_cast<long>(mStoichiometry), mDenominator);
+      mStoichiometryMath->write(stream);
+    }
+    else
+    {
+      ASTNode node;
+      node.setValue(static_cast<long>(mStoichiometry), mDenominator);
 
-        stream.startElement("stoichiometryMath");
-        writeMathML(&node, stream);
-        stream.endElement("stoichiometryMath");
-      }
+      stream.startElement("stoichiometryMath");
+      writeMathML(&node, stream);
+      stream.endElement("stoichiometryMath");
     }
   }
 
