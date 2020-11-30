@@ -6844,7 +6844,6 @@ void
 SBase::checkAnnotation()
 {
   unsigned int nNodes = 0;
-  unsigned int match = 0;
   int n = 0;
   std::vector<std::string> uri_list;
   uri_list.clear();
@@ -6908,7 +6907,6 @@ SBase::checkAnnotation()
       uri_list.push_back(uri);
     }
 
-    match = 0;
     n = 0;
 
     bool implicitNSdecl = false;
@@ -6936,25 +6934,27 @@ SBase::checkAnnotation()
         logError(MissingAnnotationNamespace);
       }
     }
+    bool match = false;
     // cannot declare sbml namespace
     while(!match && n < topLevel.getNamespaces().getLength())
     {
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
-                                          "http://www.sbml.org/sbml/level1");
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
-                                          "http://www.sbml.org/sbml/level2");
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
-                                "http://www.sbml.org/sbml/level2/version2");
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
-                                "http://www.sbml.org/sbml/level2/version3");
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
-                                "http://www.sbml.org/sbml/level2/version4");
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
-                                "http://www.sbml.org/sbml/level2/version5");
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
-                                "http://www.sbml.org/sbml/level3/version1/core");
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
-                                "http://www.sbml.org/sbml/level3/version2/core");
+      match = match
+        || !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                   "http://www.sbml.org/sbml/level1")
+        || !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                   "http://www.sbml.org/sbml/level2")
+        || !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                   "http://www.sbml.org/sbml/level2/version2")
+        || !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                   "http://www.sbml.org/sbml/level2/version3")
+        || !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                   "http://www.sbml.org/sbml/level2/version4")
+        || !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                   "http://www.sbml.org/sbml/level2/version5")
+        || !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                   "http://www.sbml.org/sbml/level3/version1/core")
+        || !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                   "http://www.sbml.org/sbml/level3/version2/core");
       n++;
     }
     string msg = "An SBML <" + getElementName() + "> element ";
@@ -6971,7 +6971,7 @@ SBase::checkAnnotation()
       }
       break;
     }
-    if (match > 0)
+    if (match)
     {
       msg += "uses a restricted namespace on an element in its child <annotation>.";
       logError(SBMLNamespaceInAnnotation, getLevel(), getVersion(), msg);
@@ -7009,7 +7009,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
   if (xhtml == NULL) return;
 
   const string&  name = xhtml->getName();
-  unsigned int i, errorNS, errorXML, errorDOC, errorELEM;
+  unsigned int errorNS, errorXML, errorDOC, errorELEM;
 
   if (name == "notes")
   {
@@ -7038,7 +7038,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
   * it will be in the XML currently being checked and so a more
   * informative message can be added
   */
-  for (i = 0; i < getErrorLog()->getNumErrors(); i++)
+  for (unsigned int i = 0; i < getErrorLog()->getNumErrors(); i++)
   {
     if (getErrorLog()->getError(i)->getErrorId() == BadXMLDeclLocation)
     {
@@ -7061,7 +7061,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
 
   if (children > 1)
   {
-    for (i=0; i < children; i++)
+    for (unsigned int i=0; i < children; i++)
     {
       if (SyntaxChecker::isAllowedElement(xhtml->getChild(i)))
       {
