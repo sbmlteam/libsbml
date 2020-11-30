@@ -1699,7 +1699,7 @@ SpeciesReference_initDefaults (SpeciesReference_t *sr);
  */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
-SpeciesReference_getNamespaces(SpeciesReference_t *sr);
+SpeciesReference_getNamespaces(const SpeciesReference_t *sr);
 
 
 /**

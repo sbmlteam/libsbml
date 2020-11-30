@@ -1875,12 +1875,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
       {
         object = new SpeciesReference(getSBMLNamespaces());
       }
-      catch (SBMLConstructorException*)
-      {
-        object = new SpeciesReference(SBMLDocument::getDefaultLevel(),
-        SBMLDocument::getDefaultVersion());
-      }
-      catch ( ... )
+      catch (SBMLConstructorException)
       {
         object = new SpeciesReference(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1899,12 +1894,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
       {
         object = new SpeciesReference(getSBMLNamespaces());
       }
-      catch (SBMLConstructorException*)
-      {
-        object = new SpeciesReference(SBMLDocument::getDefaultLevel(),
-        SBMLDocument::getDefaultVersion());
-      }
-      catch ( ... )
+      catch (SBMLConstructorException)
       {
         object = new SpeciesReference(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1920,12 +1910,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
       {
         object = new ModifierSpeciesReference(getSBMLNamespaces());
       }
-      catch (SBMLConstructorException*)
-      {
-        object = new ModifierSpeciesReference(SBMLDocument::getDefaultLevel(),
-        SBMLDocument::getDefaultVersion());
-      }
-      catch ( ... )
+      catch (SBMLConstructorException)
       {
         object = new ModifierSpeciesReference(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1941,12 +1926,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
       {
         object = new ModifierSpeciesReference(getSBMLNamespaces());
       }
-      catch (SBMLConstructorException*)
-      {
-        object = new ModifierSpeciesReference(SBMLDocument::getDefaultLevel(),
-        SBMLDocument::getDefaultVersion());
-      }
-      catch ( ... )
+      catch (SBMLConstructorException)
       {
         object = new ModifierSpeciesReference(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -2033,7 +2013,7 @@ void
 SpeciesReference_free (SpeciesReference_t *sr)
 {
   if (sr != NULL)
-  delete sr;
+    delete sr;
 }
 
 
@@ -2059,7 +2039,7 @@ SpeciesReference_initDefaults (SpeciesReference_t *sr)
 
 LIBSBML_EXTERN
 const XMLNamespaces_t *
-SpeciesReference_getNamespaces(SpeciesReference_t *sr)
+SpeciesReference_getNamespaces(const SpeciesReference_t *sr)
 {
   return (sr != NULL) ? sr->getNamespaces() : NULL;
 }
