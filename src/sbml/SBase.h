@@ -2176,7 +2176,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * the values defined by MIRIAM at that later time.
    * @endif@~
    */
-  ModelQualifierType_t getResourceModelQualifier(std::string resource);
+  ModelQualifierType_t getResourceModelQualifier(std::string resource) const;
 
 
   /**
@@ -3039,7 +3039,7 @@ newModel.addSpecies(s1);
 
   /** @cond doxygenLibsbmlInternal */
   /* sets the SBMLnamespaces - internal use only*/
-  int setSBMLNamespaces(SBMLNamespaces * sbmlns);
+  int setSBMLNamespaces(const SBMLNamespaces * sbmlns);
 
   /* sets the SBMLNamaepaces and owns the given object - internal use only */
   void setSBMLNamespacesAndOwn(SBMLNamespaces * disownedNs);
@@ -3341,7 +3341,7 @@ protected:
    * constructors. This allows to use it in scenarios where the namespaces or
    * typecode have not yet been initialized.
    */
-  bool hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xmlns);
+  bool hasValidLevelVersionNamespaceCombination(int typecode, const XMLNamespaces *xmlns);
 
 
   /**

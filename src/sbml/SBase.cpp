@@ -2975,7 +2975,7 @@ SBase::getResourceBiologicalQualifier(std::string resource)
  * @return the ModelQualifierType_t associated with the resource
  */
 ModelQualifierType_t
-SBase::getResourceModelQualifier(std::string resource)
+SBase::getResourceModelQualifier(std::string resource) const
 {
   if (mCVTerms != NULL)
   {
@@ -3134,37 +3134,6 @@ SBase::getAttribute(const std::string& attributeName, std::string& value) const
 
 
 /** @cond doxygenLibsbmlInternal */
-//int 
-//SBase::getAttribute(const std::string& attributeName, const char * value) const
-//{
-//  if (attributeName == "metaid")
-//  {
-//    value = getMetaId().c_str();
-//    return LIBSBML_OPERATION_SUCCESS;
-//  }
-//  else if (attributeName == "id")
-//  {
-//    value = getIdAttribute().c_str();
-//    return LIBSBML_OPERATION_SUCCESS;
-//  }
-//  else if (attributeName == "name")
-//  {
-//    value = getName().c_str();
-//    return LIBSBML_OPERATION_SUCCESS;
-//  }
-//  else if (attributeName == "sboTerm")
-//  {
-//    value = getSBOTermID().c_str();
-//    return LIBSBML_OPERATION_SUCCESS;
-//  }
-//
-//
-//  return LIBSBML_OPERATION_FAILED;
-//}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
 bool 
 SBase::isSetAttribute(const std::string& attributeName) const
 {
@@ -3260,33 +3229,6 @@ SBase::setAttribute(const std::string& attributeName, const std::string& value)
 
   return return_value;
 }
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-//int 
-//SBase::setAttribute(const std::string& attributeName, const char * value)
-//{
-//  int return_value = LIBSBML_OPERATION_FAILED;
-//  if (attributeName == "metaid")
-//  {
-//    return_value = setMetaId(value);
-//  }
-//  else if (attributeName == "id")
-//  {
-//    return_value = setIdAttribute(value);
-//  }
-//  else if (attributeName == "name")
-//  {
-//    return_value = setName(value);
-//  }
-//  else if (attributeName == "sboTerm")
-//  {
-//    return_value = setSBOTerm(value);
-//  }
-//
-//  return return_value;
-//}
 /** @endcond */
 
 
@@ -3486,12 +3428,9 @@ SBase::getPlugin(const std::string& package)
   {
     std::string uri = mPlugins[i]->getURI();
     const SBMLExtension* sbext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
-    if (uri == package)
-    {
-      sbPlugin = mPlugins[i];
-      break;
-    }
-    else if (sbext && (sbext->getName() == package) )
+    bool uri_matches_package = uri == package;
+    bool sbext_name_matches = sbext && (sbext->getName() == package);
+    if (uri_matches_package || sbext_name_matches)
     {
       sbPlugin = mPlugins[i];
       break;
@@ -3675,11 +3614,6 @@ SBase::enablePackage(const std::string& pkgURI, const std::string& prefix, bool 
         return LIBSBML_PKG_VERSION_MISMATCH;
       }
     }
-    // we decided l3v1 packages would work with l3v2 so dont force the version 
-    // to be the same
-    //else if ( (sbmlext->getLevel(pkgURI)   != getLevel()  ) ||
-    //     (sbmlext->getVersion(pkgURI) != getVersion())
-    //   )
     else if (sbmlext->getLevel(pkgURI)   != getLevel()  )
     {
       return LIBSBML_PKG_VERSION_MISMATCH;
@@ -3995,8 +3929,8 @@ SBase::matchesRequiredSBMLNamespacesForAddition(const SBase * sb)
 
   if (match == true)
   {
-    XMLNamespaces *xmlns = getSBMLNamespaces()->getNamespaces();
-    XMLNamespaces *xmlns_rhs = sb->getSBMLNamespaces()->getNamespaces();
+    const XMLNamespaces *xmlns = getSBMLNamespaces()->getNamespaces();
+    const XMLNamespaces *xmlns_rhs = sb->getSBMLNamespaces()->getNamespaces();
 
     // if child has a package it must match the parent
     for (int i = 0; i < xmlns_rhs->getNumNamespaces(); i++)
@@ -4009,12 +3943,9 @@ SBase::matchesRequiredSBMLNamespacesForAddition(const SBase * sb)
       {
         version = uri.find("version", version+33);
       }
-      if (version != string::npos)
+      if (version != string::npos && !xmlns->containsUri(uri))
       {
-        if (xmlns->containsUri(uri) == false)
-        {
-          match = false;
-        }
+        match = false;
       }
     }
   }
@@ -4031,8 +3962,8 @@ SBase::matchesRequiredSBMLNamespacesForAddition(const SBase * sb) const
 
   if (match == true)
   {
-    XMLNamespaces *xmlns = getSBMLNamespaces()->getNamespaces();
-    XMLNamespaces *xmlns_rhs = sb->getSBMLNamespaces()->getNamespaces();
+    const XMLNamespaces *xmlns = getSBMLNamespaces()->getNamespaces();
+    const XMLNamespaces *xmlns_rhs = sb->getSBMLNamespaces()->getNamespaces();
 
     // if child has a package it must match the parent
     for (int i = 0; i < xmlns_rhs->getNumNamespaces(); i++)
@@ -4045,12 +3976,9 @@ SBase::matchesRequiredSBMLNamespacesForAddition(const SBase * sb) const
       {
         version = uri.find("version", version+33);
       }
-      if (version != string::npos)
+      if (version != string::npos && !xmlns->containsUri(uri))
       {
-        if (xmlns->containsUri(uri) == false)
-        {
-          match = false;
-        }
+        match = false;
       }
     }
   }
@@ -4082,12 +4010,6 @@ SBase::matchesCoreSBMLNamespace(const SBase * sb)
     match = true;
   }
 
-  //if (sbmlns->getNamespaces()->containIdenticalSetNS(sbmlns_rhs->getNamespaces())
-  //                                     == true)
-  //{
-  //  match = true;
-  //}
-
   return match;
 }
 
@@ -4115,18 +4037,12 @@ SBase::matchesCoreSBMLNamespace(const SBase * sb) const
     match = true;
   }
 
-  //if (sbmlns->getNamespaces()->containIdenticalSetNS(sbmlns_rhs->getNamespaces())
-  //                                     == true)
-  //{
-  //  match = true;
-  //}
-
   return match;
 }
 
 
 bool
-SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xmlns)
+SBase::hasValidLevelVersionNamespaceCombination(int typecode, const XMLNamespaces *xmlns)
 {
 
 
@@ -4225,9 +4141,6 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
 
   if (pkgName == "core")
   {
-  // we need to consider whether it should be necessary to declare the sbml namespace.
-  //if (!sbmlDeclared)
-  //  return false;
 
     if (typecode == SBML_UNKNOWN)
     {
@@ -4258,12 +4171,9 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
           case 2:
             // the namespaces contains the sbml namespaces
             // check it is the correct ns for the level/version
-            if (sbmlDeclared)
+            if (sbmlDeclared && declaredURI != string(SBML_XMLNS_L1))
             {
-              if (declaredURI != string(SBML_XMLNS_L1))
-              {
-                valid = false;
-              }
+              valid = false;
             }
             break;
           default:
@@ -4286,56 +4196,41 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
               valid = false;
             // the namespaces contains the sbml namespaces
             // check it is the correct ns for the level/version
-            if (sbmlDeclared)
+            if (sbmlDeclared && declaredURI != string(SBML_XMLNS_L2V1))
             {
-              if (declaredURI != string(SBML_XMLNS_L2V1))
-              {
-                valid = false;
-              }
+              valid = false;
             }
             break;
           case 2:
             // the namespaces contains the sbml namespaces
             // check it is the correct ns for the level/version
-            if (sbmlDeclared)
+            if (sbmlDeclared && declaredURI != string(SBML_XMLNS_L2V2))
             {
-              if (declaredURI != string(SBML_XMLNS_L2V2))
-              {
-                valid = false;
-              }
+              valid = false;
             }
             break;
           case 3:
             // the namespaces contains the sbml namespaces
             // check it is the correct ns for the level/version
-            if (sbmlDeclared)
+            if (sbmlDeclared && declaredURI != string(SBML_XMLNS_L2V3))
             {
-              if (declaredURI != string(SBML_XMLNS_L2V3))
-              {
-                valid = false;
-              }
+              valid = false;
             }
             break;
           case 4:
             // the namespaces contains the sbml namespaces
             // check it is the correct ns for the level/version
-            if (sbmlDeclared)
+            if (sbmlDeclared && declaredURI != string(SBML_XMLNS_L2V4))
             {
-              if (declaredURI != string(SBML_XMLNS_L2V4))
-              {
-                valid = false;
-              }
+              valid = false;
             }
             break;
           case 5:
             // the namespaces contains the sbml namespaces
             // check it is the correct ns for the level/version
-            if (sbmlDeclared)
+            if (sbmlDeclared && declaredURI != string(SBML_XMLNS_L2V5))
             {
-              if (declaredURI != string(SBML_XMLNS_L2V5))
-              {
-                valid = false;
-              }
+              valid = false;
             }
             break;
           default:
@@ -4354,23 +4249,17 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
           case 1:
            // the namespaces contains the sbml namespaces
             // check it is the correct ns for the level/version
-            if (sbmlDeclared)
+            if (sbmlDeclared && declaredURI != string(SBML_XMLNS_L3V1))
             {
-              if (declaredURI != string(SBML_XMLNS_L3V1))
-              {
-                valid = false;
-              }
+              valid = false;
             }
             break;
           case 2:
            // the namespaces contains the sbml namespaces
             // check it is the correct ns for the level/version
-            if (sbmlDeclared)
+            if (sbmlDeclared && declaredURI != string(SBML_XMLNS_L3V2))
             {
-              if (declaredURI != string(SBML_XMLNS_L3V2))
-              {
-                valid = false;
-              }
+              valid = false;
             }
             break;
           default:
@@ -4386,7 +4275,7 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
 
   // if this is an extension namespace, this method will return the wrong answer,
   // so instead return true
-  ISBMLExtensionNamespaces* test = dynamic_cast<ISBMLExtensionNamespaces*> (mSBMLNamespaces);
+  const ISBMLExtensionNamespaces* test = dynamic_cast<ISBMLExtensionNamespaces*> (mSBMLNamespaces);
   if (!valid && test != NULL)
     return true;
 
@@ -4395,7 +4284,7 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
 
 /* sets the SBMLnamespaces - internal use only*/
 int
-SBase::setSBMLNamespaces(SBMLNamespaces * sbmlns)
+SBase::setSBMLNamespaces(const SBMLNamespaces * sbmlns)
 {
   if (sbmlns == NULL)
     return LIBSBML_INVALID_OBJECT;
@@ -4481,7 +4370,7 @@ SBase::read (XMLInputStream& stream)
     // need to check that any prefix on the sbmlns also occurs on element
     // remembering the horrible situation where the sbmlns might be declared
     // with more than one prefix
-    XMLNamespaces * xmlns = this->getSBMLNamespaces()->getNamespaces();
+    const XMLNamespaces * xmlns = this->getSBMLNamespaces()->getNamespaces();
     if (xmlns != NULL)
     {
       int i = xmlns->getIndexByPrefix(element.getPrefix());
@@ -4559,9 +4448,7 @@ SBase::read (XMLInputStream& stream)
       break;
     }
 
-    // this used to skip the text
-    //    stream.skipText();
-    // instead, read text and store in variable
+    // read text and store in variable
     std::string text;
     while(stream.isGood() && stream.peek().isText())
     {
@@ -4607,7 +4494,7 @@ SBase::read (XMLInputStream& stream)
         checkOrderAndLogError(object, position);
         position = object->getElementPosition();
 
-        object->connectToParent(static_cast <SBase*>(this));
+        object->connectToParent(this);
 
         object->read(stream);
 
