@@ -6174,16 +6174,16 @@ SBase::reconstructRDFAnnotation()
     hasRDF = RDFAnnotationParser::hasRDFAnnotation(mAnnotation);
     hasAdditionalRDF =
       RDFAnnotationParser::hasAdditionalRDFAnnotation(mAnnotation);
-    if (hasAdditionalRDF == false)
+    if (!hasAdditionalRDF
+        && getLevel() < 3 
+        && getTypeCode() != SBML_MODEL
+        && RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation)
+        )
     {
       // look for bizaare case where a user has added a history annotation
       // to an object that does not legally include history in MIRIAM compliant
       // RDF - this needs to get written out as additional RDF
-      if (getLevel() < 3 && getTypeCode() != SBML_MODEL
-        && RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation) == true)
-      {
-        hasAdditionalRDF = true;
-      }
+      hasAdditionalRDF = true;
     }
 
     if (getLevel() == 2 && getVersion() < 5)
@@ -6306,11 +6306,11 @@ SBase::reconstructRDFAnnotation()
       unsigned int noChild
         = history->getChild("RDF").getChild("Description").getNumChildren();
       if (mAnnotation != NULL)
-      for (unsigned int i = noChild; i > 0; i--)
-      {
-        ((mAnnotation->getChild("RDF")).getChild("Description")).insertChild(
-          0, history->getChild("RDF").getChild("Description").getChild(i-1));
-      }
+        for (unsigned int i = noChild; i > 0; i--)
+        {
+          ((mAnnotation->getChild("RDF")).getChild("Description")).insertChild(
+            0, history->getChild("RDF").getChild("Description").getChild(i-1));
+        }
     }
   }
 
@@ -6369,11 +6369,11 @@ SBase::reconstructRDFAnnotation()
       unsigned int noChild
         = cvTerms->getChild("RDF").getChild("Description").getNumChildren();
       if (mAnnotation != NULL)
-      for (unsigned int i = 0; i < noChild; i++)
-      {
-        ((mAnnotation->getChild("RDF")).getChild("Description")).addChild(
-          cvTerms->getChild("RDF").getChild("Description").getChild(i));
-      }
+        for (unsigned int i = 0; i < noChild; i++)
+        {
+          ((mAnnotation->getChild("RDF")).getChild("Description")).addChild(
+            cvTerms->getChild("RDF").getChild("Description").getChild(i));
+        }
     }
   }
 
@@ -6506,7 +6506,6 @@ SBase::checkOrderAndLogError (SBase* object, int expected)
       if (object->getTypeCode() == SBML_LIST_OF)
       {
         int tc = static_cast<ListOf*>(object)->getItemTypeCode();
-        //typecode (int) tc = static_cast<ListOf*>(object)->getItemTypeCode();
 
         if (tc == SBML_SPECIES_REFERENCE || tc == SBML_MODIFIER_SPECIES_REFERENCE)
         {
@@ -6587,7 +6586,6 @@ SBase::checkListOfPopulated(SBase* object)
     // Check that the list has at least one element.
     if (static_cast <ListOf*> (object)->size() == 0)
     {
-      //typecode (int) tc = static_cast<ListOf*>(object)->getItemTypeCode();
       int tc = static_cast<ListOf*>(object)->getItemTypeCode();
       SBMLErrorCode_t error = EmptyListElement;
 
@@ -6698,7 +6696,7 @@ int SBase::removeFromParentAndDelete()
   ListOf* parentList = static_cast<ListOf*>(parent);
   if (parentList == NULL) return LIBSBML_OPERATION_FAILED;
   for (unsigned int i=0; i<parentList->size(); i++) {
-    SBase* sibling = parentList->get(i);
+    const SBase* sibling = parentList->get(i);
     if (sibling == this) {
       parentList->remove(i);
       delete this;
@@ -6709,8 +6707,8 @@ int SBase::removeFromParentAndDelete()
 }
 
 /** @cond doxygenLibsbmlInternal */
-const std::string
-SBase::checkMathMLNamespace(const XMLToken elem)
+std::string
+SBase::checkMathMLNamespace(const XMLToken &elem)
 {
   std::string prefix = "";
   unsigned int match = 0;
@@ -6727,20 +6725,16 @@ SBase::checkMathMLNamespace(const XMLToken elem)
       }
     }
   }
-  if (match == 0)
+  if (match == 0 && mSBML->getNamespaces() != NULL)
   {
-    if( mSBML->getNamespaces() != NULL)
-    /* check for implicit declaration */
+    for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
     {
-      for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
+      if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(),
+                  "http://www.w3.org/1998/Math/MathML"))
       {
-        if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(),
-                    "http://www.w3.org/1998/Math/MathML"))
-        {
-          match = 1;
-          prefix = mSBML->getNamespaces()->getPrefix(n);
-          break;
-        }
+        match = 1;
+        prefix = mSBML->getNamespaces()->getPrefix(n);
+        break;
       }
     }
   }
@@ -6788,7 +6782,7 @@ SBase::checkDefaultNamespace(const XMLNamespaces* xmlns,
 }
 
 void
-SBase::read(XMLNode& node, XMLErrorSeverityOverride_t flag /*= LIBSBML_OVERRIDE_DISABLED*/)
+SBase::read(const XMLNode& node, XMLErrorSeverityOverride_t flag /*= LIBSBML_OVERRIDE_DISABLED*/)
 {
   XMLErrorLog* log = getErrorLog();
 
@@ -6824,7 +6818,7 @@ SBase::toXMLNode()
   // in rare cases the above returns a package element with default namespace, however the
   // XMLNamespaces would then assign the actual default namespace, which is in most cases
   // the SBML namespace. In that case we adjust the default namespace here
-  ISBMLExtensionNamespaces *extns = dynamic_cast<ISBMLExtensionNamespaces*>(sbmlns);
+  const ISBMLExtensionNamespaces *extns = dynamic_cast<ISBMLExtensionNamespaces*>(sbmlns);
   if (extns != NULL)
   {
     xmlns.remove("");

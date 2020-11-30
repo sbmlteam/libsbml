@@ -2351,7 +2351,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Attempting to serialize a large tree structure (e.g., a large Model) may
    * consume significant computer memory and time.</span>
    */
-   void read(XMLNode& node, XMLErrorSeverityOverride_t flag = LIBSBML_OVERRIDE_DISABLED);
+   void read(const XMLNode& node, XMLErrorSeverityOverride_t flag = LIBSBML_OVERRIDE_DISABLED);
 
 
 #ifndef SWIG
@@ -3055,7 +3055,7 @@ newModel.addSpecies(s1);
   /** @cond doxygenLibsbmlInternal */
   /* removes duplicate top level annotations*/
   void removeDuplicateAnnotations();
-  const std::string checkMathMLNamespace(const XMLToken elem);
+  std::string checkMathMLNamespace(const XMLToken &elem);
   /** @endcond */
 
 
