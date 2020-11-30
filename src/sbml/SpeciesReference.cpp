@@ -1615,18 +1615,6 @@ SpeciesReference::writeElements (XMLOutputStream& stream) const
 
 
 /** @cond doxygenLibsbmlInternal */
-/*
- * Synchronizes the annotation of this SBML object.
- */
-void
-SpeciesReference::syncAnnotation ()
-{
-  SBase::syncAnnotation();
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
 bool 
 SpeciesReference::isExplicitlySetStoichiometry() const 
 {
@@ -1691,9 +1679,9 @@ ListOfSpeciesReferences::getItemTypeCode () const
     return SBML_MODIFIER_SPECIES_REFERENCE;
   case Unknown:
     return SBML_UNKNOWN;
+  default:
+    return SBML_UNKNOWN;
   }
-  //Shouldn't reach:  all enum values accounted for above
-  return SBML_UNKNOWN;
 }
 
 
@@ -1722,8 +1710,8 @@ struct IdEqSSR : public unary_function<SBase*, bool>
 {
   const string& mId;
 
-  IdEqSSR (const string& id) : mId(id) { }
-  bool operator() (SBase* sb)
+  explicit IdEqSSR (const string& id) : mId(id) { }
+  bool operator() (SBase* sb) const
        { return (static_cast <SimpleSpeciesReference *> (sb)->getId()  == mId)
          || (static_cast <SimpleSpeciesReference *> (sb)->getSpecies() == mId); } 
 };
