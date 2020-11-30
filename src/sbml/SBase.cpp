@@ -4846,7 +4846,6 @@ SBase::readAnnotation (XMLInputStream& stream)
   if (name == "annotation"
     || (level == 1 && getVersion() == 1 && name == "annotations"))
   {
-//    XMLNode* new_annotation = NULL;
     // If this is a level 1 document then annotations are not allowed on
     // the sbml container
     if (level == 1 && getTypeCode() == SBML_DOCUMENT)
@@ -5017,12 +5016,9 @@ SBase::readNotes (XMLInputStream& stream)
     const XMLNamespaces &xmlns = mNotes->getNamespaces();
     checkDefaultNamespace(&xmlns,"notes");
 
-    if (getSBMLDocument() != NULL)
+    if (getSBMLDocument() != NULL && getSBMLDocument()->getNumErrors() == 0)
     {
-      if (getSBMLDocument()->getNumErrors() == 0)
-      {
-        checkXHTML(mNotes);
-      }
+      checkXHTML(mNotes);
     }
     return true;
   }
@@ -5452,6 +5448,9 @@ SBase::logUnknownElement( const string& element,
                                 getLine(), getColumn());
       logged = true;
       break;
+    default:
+      // above should capture all cases
+      break;
     }
   }
 
@@ -5601,10 +5600,8 @@ SBase::readAttributes (const XMLAttributes& attributes,
     //
     // (e.g. xsi:type attribute in Curve element in layout extension)
     //
-    if (!prefix.empty())
-    {
-      if ( expectedAttributes.hasAttribute(prefix + ":" + name) ) continue;
-    }
+    if (!prefix.empty() && expectedAttributes.hasAttribute(prefix + ":" + name))
+      continue;
 
 
     //
@@ -5620,9 +5617,9 @@ SBase::readAttributes (const XMLAttributes& attributes,
         if (name == "required")
         {
           //we have an l2 doc with a package declared
-          for (unsigned int i = 0; i < this->getNumPlugins(); ++i)
+          for (unsigned int j = 0; j < this->getNumPlugins(); ++j)
           {
-            if (getPlugin(i)->getURI() == uri)
+            if (getPlugin(j)->getURI() == uri)
             {
               enablePackageInternal(uri, prefix, false);
             }
@@ -5660,12 +5657,9 @@ SBase::readAttributes (const XMLAttributes& attributes,
                      SBMLTypeCode_toString(getTypeCode(), getPackageName().c_str()));
     }
 
-    if (isSetMetaId())
+    if (isSetMetaId() && !SyntaxChecker::isValidXMLID(mMetaId))
     {
-      if (!SyntaxChecker::isValidXMLID(mMetaId))
-      {
-        logError(InvalidMetaidSyntax, getLevel(), getVersion(), "The metaid '" + mMetaId + "' does not conform to the syntax.");
-      }
+      logError(InvalidMetaidSyntax, getLevel(), getVersion(), "The metaid '" + mMetaId + "' does not conform to the syntax.");
     }
   }
 
@@ -5687,15 +5681,14 @@ SBase::readAttributes (const XMLAttributes& attributes,
   // for l3v2 a document should only have sbo terms from modelling framework
   // this is impossible to catch in the validation framework which does not work
   // on a document level - so we will need to catch it here
-  if (isSetSBOTerm() && getTypeCode() == SBML_DOCUMENT)
+  if (isSetSBOTerm()
+      && getTypeCode() == SBML_DOCUMENT
+      && !SBO::isModellingFramework(mSBOTerm))
   {
-    if (!SBO::isModellingFramework(mSBOTerm))
-    {
-      std::string message = SBO::intToString(mSBOTerm);
-      message += " does not derive from the modelling framework branch.";
-      this->getErrorLog()->logError(InvalidSBMLElementSBOTerm, level, version,
-        message, getLine(), getColumn());
-    }
+    std::string message = SBO::intToString(mSBOTerm);
+    message += " does not derive from the modelling framework branch.";
+    this->getErrorLog()->logError(InvalidSBMLElementSBOTerm, level, version,
+      message, getLine(), getColumn());
   }
 
   // for l3v2 and above
@@ -5713,9 +5706,9 @@ SBase::readAttributes (const XMLAttributes& attributes,
            SBMLTypeCode_toString(getTypeCode(), getPackageName().c_str()));
     }
 
-    if (isSetId())
+    if (isSetId() && !SyntaxChecker::isValidInternalSId(mId))
     {
-      if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+      logError(InvalidIdSyntax);
     }
 
     XMLTriple tripleName("name", "", "");
@@ -5800,13 +5793,6 @@ SBase::storeUnknownExtAttribute(const std::string& element,
       std::string value  = xattr.getValue((int)index);
 
       mAttributesOfUnknownPkg.add(name,value,uri,prefix);
-
-      /* this is now caught earlier and so can be ignored here
-      if (mSBML->getPackageRequired(uri))
-      {
-        logUnknownAttribute(prefix + ":" + name, getLevel(), getVersion(), element);
-      }
-      */
     }
     else
     {
@@ -5829,21 +5815,6 @@ SBase::storeUnknownExtElement(XMLInputStream &stream)
   }
   else if (mSBML != NULL && mSBML->isIgnoredPackage(uri))
   {
-    //
-    // Checks if the extension package with the uri is unknown
-    // (ignored)
-    //
-    /* do not need to do this now i have logged this as
-     * a required package that cannot be interpreted
-
-    if (mSBML->getPackageRequired(uri))
-    {
-      const string& name   = stream.peek().getName();
-      string prefix = stream.peek().getPrefix();
-      if (!prefix.empty()) prefix += ":";
-      logUnknownElement(prefix + name, getLevel(), getVersion());
-    }
-    */
 
     XMLNode xmlnode(stream);
     mElementsOfUnknownPkg.addChild(xmlnode);
@@ -5865,7 +5836,7 @@ SBase::getPrefix() const
 {
   std::string prefix = "";
 
-  XMLNamespaces *xmlns = getNamespaces();
+  const XMLNamespaces *xmlns = getNamespaces();
   string uri = getURI();
   if(xmlns && mSBML && !mSBML->isEnabledDefaultNS(uri))
   {
@@ -5904,7 +5875,7 @@ SBase::getSBMLPrefix() const
 {
   std::string prefix = "";
 
-  XMLNamespaces *xmlns = getNamespaces();
+  const XMLNamespaces *xmlns = getNamespaces();
   if (xmlns == NULL)
     return getPrefix();
 
@@ -5951,13 +5922,8 @@ SBase::getRootElement()
 void
 SBase::writeAttributes (XMLOutputStream& stream) const
 {
-//  if (getTypeCode() == SBML_DOCUMENT)
-//  {
-//    if (this->getNamespaces()) stream << *(this->getNamespaces());
-//  }
   unsigned int level   = getLevel();
   unsigned int version = getVersion();
-  unsigned int pkgCoreVersion = getPackageCoreVersion();
   string sbmlPrefix    = getSBMLPrefix();
   if ( level > 1 && !mMetaId.empty() )
   {
@@ -6099,15 +6065,12 @@ void
 SBase::syncAnnotation ()
 {
   // look to see whether an existing history has been altered
-  if (mHistoryChanged == false)
+  if (!mHistoryChanged
+      && getModelHistory() != NULL
+      && getModelHistory()->hasBeenModified()
+      )
   {
-    if (getModelHistory() != NULL)
-    {
-      if (getModelHistory()->hasBeenModified() == true)
-      {
-        mHistoryChanged = true;
-      }
-    }
+    mHistoryChanged = true;
   }
   // or an existing CVTerm
   if (mCVTermsChanged == false)
