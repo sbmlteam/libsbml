@@ -3856,7 +3856,7 @@ SBase_getMetaId (SBase_t *sb);
  */
 LIBSBML_EXTERN
 const char * 
-SBase_getIdAttribute(SBase_t * sb);
+SBase_getIdAttribute(const SBase_t * sb);
 
 
 /**
@@ -3871,7 +3871,7 @@ SBase_getIdAttribute(SBase_t * sb);
   */
 LIBSBML_EXTERN
 const char * 
-SBase_getName(SBase_t * sb);
+SBase_getName(const SBase_t * sb);
 
 
 /**
@@ -4330,7 +4330,7 @@ SBase_setNamespaces (SBase_t *sb, XMLNamespaces_t *xmlns);
  */
 LIBSBML_EXTERN
 int
-SBase_setNotes (SBase_t *sb, XMLNode_t *notes);
+SBase_setNotes (SBase_t *sb, const XMLNode_t *notes);
 
 
 /**
@@ -4384,7 +4384,7 @@ SBase_setNotesStringAddMarkup (SBase_t *sb, const char *notes);
  */
 LIBSBML_EXTERN
 int
-SBase_appendNotes (SBase_t *sb, XMLNode_t *notes);
+SBase_appendNotes (SBase_t *sb, const XMLNode_t *notes);
 
 
 /**
@@ -4419,7 +4419,7 @@ SBase_appendNotesString (SBase_t *sb, const char *notes);
  */
 LIBSBML_EXTERN
 int
-SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation);
+SBase_setAnnotation (SBase_t *sb, const XMLNode_t *annotation);
 
 
 /**
@@ -4453,7 +4453,7 @@ SBase_setAnnotationString (SBase_t *sb, const char *annotation);
  */
 LIBSBML_EXTERN
 int
-SBase_appendAnnotation (SBase_t *sb, XMLNode_t *annotation);
+SBase_appendAnnotation (SBase_t *sb, const XMLNode_t *annotation);
 
 
 /**
@@ -4576,7 +4576,7 @@ SBase_removeTopLevelAnnotationElementWithURI (SBase_t *sb, const char *name,
  */
 LIBSBML_EXTERN
 int
-SBase_replaceTopLevelAnnotationElement (SBase_t *sb, XMLNode_t *annotation);
+SBase_replaceTopLevelAnnotationElement (SBase_t *sb, const XMLNode_t *annotation);
 
 
 /**

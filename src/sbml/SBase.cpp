@@ -7050,7 +7050,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
     }
   }
 
-  XMLNamespaces* toplevelNS = (mSBML) ? mSBML->getNamespaces() : NULL;
+  const XMLNamespaces* toplevelNS = (mSBML) ? mSBML->getNamespaces() : NULL;
 
   /*
   * namespace declaration is variable
@@ -7251,7 +7251,6 @@ SBase::setSBaseFields (const XMLToken& element)
 int
 SBase::setElementNamespace(const std::string &uri)
 {
-//  cout << "[DEBUG] SBase::setElementNamespace() " << uri << endl;
   mURI = uri;
 
   return LIBSBML_OPERATION_SUCCESS;
@@ -7288,20 +7287,17 @@ SBase::updateSBMLNamespace(const std::string& package, unsigned int level,
         uri = SBML_XMLNS_L2V4;
         break;
       case 5:
-      default:
         uri = SBML_XMLNS_L2V5;
         break;
       }
       break;
     case 3:
-    default:
       switch (version)
       {
       case 1:
         uri = SBML_XMLNS_L3V1;
         break;
       case 2:
-      default:
         uri = SBML_XMLNS_L3V2;
         break;
       }
@@ -7448,7 +7444,7 @@ LIBSBML_EXTERN
 CVTerm_t*
 SBase_getCVTerm(SBase_t *sb, unsigned int n)
 {
-  return (sb != NULL) ? static_cast <CVTerm_t *> (sb->getCVTerm(n)) : NULL;
+  return (sb != NULL) ? sb->getCVTerm(n) : NULL;
 }
 
 LIBSBML_EXTERN
@@ -7523,7 +7519,7 @@ SBase_getMetaId (SBase_t *sb)
 
 LIBSBML_EXTERN
 const char *
-SBase_getIdAttribute (SBase_t *sb)
+SBase_getIdAttribute (const SBase_t *sb)
 {
   return (sb != NULL && sb->isSetIdAttribute()) ? sb->getIdAttribute().c_str() : NULL;
 }
@@ -7531,7 +7527,7 @@ SBase_getIdAttribute (SBase_t *sb)
 
 LIBSBML_EXTERN
 const char *
-SBase_getName (SBase_t *sb)
+SBase_getName (const SBase_t *sb)
 {
   return (sb != NULL && sb->isSetName()) ? sb->getName().c_str() : NULL;
 }
@@ -7753,7 +7749,7 @@ SBase_setNamespaces (SBase_t *sb, XMLNamespaces_t *xmlns)
 
 LIBSBML_EXTERN
 int
-SBase_setNotes (SBase_t *sb, XMLNode_t *notes)
+SBase_setNotes (SBase_t *sb, const XMLNode_t *notes)
 {
   if (sb != NULL)
     return sb->setNotes(notes);
@@ -7804,7 +7800,7 @@ SBase_setNotesStringAddMarkup (SBase_t *sb, const char *notes)
 
 LIBSBML_EXTERN
 int
-SBase_appendNotes (SBase_t *sb, XMLNode_t *notes)
+SBase_appendNotes (SBase_t *sb, const XMLNode_t *notes)
 {
   if (sb != NULL)
     return sb->appendNotes(notes);
@@ -7831,7 +7827,7 @@ SBase_appendNotesString (SBase_t *sb, const char *notes)
 
 LIBSBML_EXTERN
 int
-SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation)
+SBase_setAnnotation (SBase_t *sb, const XMLNode_t *annotation)
 {
   if (sb != NULL)
     return sb->setAnnotation(annotation);
@@ -7862,7 +7858,7 @@ SBase_setAnnotationString (SBase_t *sb, const char *annotation)
 
 LIBSBML_EXTERN
 int
-SBase_appendAnnotation (SBase_t *sb, XMLNode_t *annotation)
+SBase_appendAnnotation (SBase_t *sb, const XMLNode_t *annotation)
 {
   if (sb != NULL)
     return sb->appendAnnotation(annotation);
@@ -7921,7 +7917,7 @@ SBase_removeTopLevelAnnotationElementWithURI (SBase_t *sb, const char *name,
 
 LIBSBML_EXTERN
 int
-SBase_replaceTopLevelAnnotationElement (SBase_t *sb, XMLNode_t *annotation)
+SBase_replaceTopLevelAnnotationElement (SBase_t *sb, const XMLNode_t *annotation)
 {
   if (sb != NULL)
   {
@@ -7983,23 +7979,6 @@ SBase_unsetName (SBase_t *sb)
     return LIBSBML_INVALID_OBJECT;
 }
 
-
-///*
-//* Unsets the "id" attribute of the given object.
-//*
-//* @param sb the SBase_t structure.
-//*
-//* @copydetails doc_returns_success_code
-//* @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-//* @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-//*/
-//LIBSBML_EXTERN
-//int
-//SBase_unsetId (SBase_t *sb)
-//{
-// return sb->unsetId();
-//}
-//
 
 LIBSBML_EXTERN
 int
@@ -8094,7 +8073,7 @@ SBase_hasValidLevelVersionNamespaceCombination(SBase_t *sb)
 
 LIBSBML_EXTERN
 int
-SBase_getNumPlugins(SBase_t *sb)
+SBase_getNumPlugins(const SBase_t *sb)
 {
   return (sb != NULL) ? (int)sb->getNumPlugins() : 0;
 }
