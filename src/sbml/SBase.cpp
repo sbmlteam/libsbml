@@ -607,77 +607,32 @@ SBase::loadPlugins(SBMLNamespaces *sbmlns)
   //
   const XMLNamespaces *xmlns = sbmlns->getNamespaces();
 
-  if (xmlns)
+  if (!xmlns) return;
+
+  int numxmlns= xmlns->getLength();
+  SBaseExtensionPoint extPoint(getPackageName(), getTypeCode(), getElementName());
+  SBaseExtensionPoint genericPoint("all", SBML_GENERIC_SBASE);
+
+  for (int i=0; i < numxmlns; i++)
   {
-    int numxmlns= xmlns->getLength();
-    SBaseExtensionPoint extPoint(getPackageName(), getTypeCode(), getElementName());
-    SBaseExtensionPoint genericPoint("all", SBML_GENERIC_SBASE);
+    const std::string &uri = xmlns->getURI(i);
+    const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
 
-    for (int i=0; i < numxmlns; i++)
+    if (sbmlext && sbmlext->isEnabled())
     {
-      const std::string &uri = xmlns->getURI(i);
-      const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+      const std::string &prefix = xmlns->getPrefix(i);
+      const SBasePluginCreatorBase* sbPluginCreator = sbmlext->getSBasePluginCreator(extPoint);
 
-      if (sbmlext && sbmlext->isEnabled())
+      if (sbPluginCreator == NULL)
       {
-#if 0
-          cout << "[DEBUG] SBase::loadPlugins() " << uri
-               << " is registered in "
-               << SBMLTypeCode_toString(getTypeCode(), getPackageName().c_str())
-               << endl;
-#endif
-        const std::string &prefix = xmlns->getPrefix(i);
-        const SBasePluginCreatorBase* sbPluginCreator = sbmlext->getSBasePluginCreator(extPoint);
-
-        if (sbPluginCreator == NULL)
-        {
-          sbPluginCreator = sbmlext->getSBasePluginCreator(genericPoint);
-        }
-
-        if (sbPluginCreator)
-        {
-          SBasePlugin* entity = sbPluginCreator->createPlugin(uri,prefix,xmlns);
-          entity->connectToParent(this);
-          mPlugins.push_back(entity);
-        }
-#if 0
-        else
-        {
-            cout << "[DEBUG] SBase::loadPlugins() " << uri
-                 << " is not registered in "
-                 << SBMLTypeCode_toString(getTypeCode(), getPackageName().c_str())
-                 << endl;
-        }
-#endif
+        sbPluginCreator = sbmlext->getSBasePluginCreator(genericPoint);
       }
-      else
+
+      if (sbPluginCreator)
       {
-  //
-  // (NOTE)
-        //
-  // SBMLExtensionException should be thrown if the corresponding package
-        // extension is not loaded.
-        // However, currently, no idea how to check if the uri belongs to extension
-        // package or not (e.g. XHTML namespace or other namespace can be given).
-  //
-#if 0
-        std::ostringstream errMsg;
-
-        if (sbmlext)
-        {
-          errMsg << "Package \"" << sbmlext->getName() << "\" (" << uri << ") for \"<"
-                 << SBMLTypeCode_toString(getTypeCode(), getPackageName().c_str())
-                 << ">\" element is disabled.";
-  }
-  else
-        {
-          errMsg << "Package \"" << uri << "\" for \"<"
-                 << SBMLTypeCode_toString(getTypeCode(), getPackageName().c_str())
-                 << ">\" element is not supported.";
-        }
-
-        throw SBMLExtensionException(errMsg.str());
-#endif
+        SBasePlugin* entity = sbPluginCreator->createPlugin(uri,prefix,xmlns);
+        entity->connectToParent(this);
+        mPlugins.push_back(entity);
       }
     }
   }
