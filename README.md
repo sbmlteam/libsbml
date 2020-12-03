@@ -4,10 +4,12 @@ libSBML<img width="22%" align="right" src=".graphics/libsbml-logo-and-name.svg">
 LibSBML is an open-source library for working with SBML (the Systems Biology Markup Language).  It is written in C++ and provides language bindings for many other programming languages.
 
 [![License](https://img.shields.io/badge/License-LGPL-blue.svg?style=flat-square)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html)
-[![Stable release](https://img.shields.io/badge/Stable_release-5.18.0-brightgreen.svg?style=flat-square)](https://sourceforge.net/projects/sbml/files/libsbml/5.18.0/stable/)
-[![Experimental release](https://img.shields.io/badge/Experimental_release-5.18.0-b44e88.svg?style=flat-square)](https://sourceforge.net/projects/sbml/files/libsbml/5.18.0/experimental/)
+[![Stable release](https://img.shields.io/badge/Stable_release-5.19.0-brightgreen.svg?style=flat-square)](https://sourceforge.net/projects/sbml/files/libsbml/5.19.0/stable/)
+[![Experimental release](https://img.shields.io/badge/Experimental_release-5.19.0-b44e88.svg?style=flat-square)](https://sourceforge.net/projects/sbml/files/libsbml/5.19.0/experimental/)
 [![Pivotal Tracker](https://img.shields.io/badge/Project_management-Pivotal-d07a3e.svg?style=flat-square)](https://www.pivotaltracker.com/n/projects/248655)
 [![Discussion](https://img.shields.io/badge/Discussion-libsbml--development-lightgray.svg?style=flat-square)]()
+
+
 
 
 Table of contents
@@ -59,6 +61,7 @@ Before the year 2020, we used SourceForge for our code repository and software d
 
 We provide Zenodo DOIs for specific releases, so that you can cite the exact version of the software that you use:
 
+* libSBML-5.19.0 &rArr; [10.5281/zenodo.4293358](https://doi.org/10.5281/zenodo.4293358)
 * libSBML-5.18.0 &rArr; [10.5281/zenodo.2645216](https://doi.org/10.5281/zenodo.2645216)
 * libSBML-5.17.0 &rArr; [10.5281/zenodo.1250696](https://doi.org/10.5281/zenodo.)
 * libSBML-5.16.0 &rArr; [10.5281/zenodo.1095483](https://doi.org/10.5281/zenodo.)
