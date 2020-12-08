@@ -1588,50 +1588,55 @@ SBase::removeTopLevelAnnotationElement(const std::string& elementName,
     success = LIBSBML_ANNOTATION_NAME_NOT_FOUND;
     return success;
   }
-
-  // check uri matches
-  if (elementURI.empty() == false)
+  else
   {
-    XMLNode child = mAnnotation->getChild((unsigned int)index);
-    std::string prefix = child.getPrefix();
-
-    if (prefix.empty() == false
-      && elementURI != child.getNamespaceURI(prefix))
+    // check uri matches
+    if (elementURI.empty() == false)
     {
-      success = LIBSBML_ANNOTATION_NS_NOT_FOUND;
-      return success;
-    }
-    else
-    {
-      bool match = false;
-      int n = 0;
+      XMLNode child = mAnnotation->getChild((unsigned int)index);
+      std::string prefix = child.getPrefix();
 
-      while (match == false && n < child.getNamespacesLength())
-      {
-        match = (elementURI == child.getNamespaceURI(n));
-        n++;
-      }
-
-      if (match == false)
+      if (prefix.empty() == false
+        && elementURI != child.getNamespaceURI(prefix))
       {
         success = LIBSBML_ANNOTATION_NS_NOT_FOUND;
         return success;
       }
+      else
+      {
+        bool match = false;
+        int n = 0;
+
+        while (match == false && n < child.getNamespacesLength())
+        {
+          if (elementURI == child.getNamespaceURI(n))
+          {
+            match = true;
+          }
+          n++;
+        }
+
+        if (match == false)
+        {
+          success = LIBSBML_ANNOTATION_NS_NOT_FOUND;
+          return success;
+        }
+      }
     }
-  }
 
-  // remove the annotation at the index corresponding to the name
-  delete mAnnotation->removeChild((unsigned int)index);
-  if (removeEmpty && mAnnotation->getNumChildren() == 0)
-  {
-    delete mAnnotation;
-    mAnnotation = NULL;
-  }
+    // remove the annotation at the index corresponding to the name
+    delete mAnnotation->removeChild((unsigned int)index);
+    if (removeEmpty && mAnnotation->getNumChildren() == 0)
+    {
+      delete mAnnotation;
+      mAnnotation = NULL;
+    }
 
-  // check success
-  if (mAnnotation == NULL || mAnnotation->getIndex(elementName) < 0)
-  {
-    success = LIBSBML_OPERATION_SUCCESS;
+    // check success
+    if (mAnnotation == NULL || mAnnotation->getIndex(elementName) < 0)
+    {
+      success = LIBSBML_OPERATION_SUCCESS;
+    }
   }
 
   return success;
