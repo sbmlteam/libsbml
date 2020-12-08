@@ -286,7 +286,7 @@ SBMLDocument::SBMLDocument (const SBMLDocument& orig)
   
   if (orig.mModel != NULL) 
   {
-    mModel = orig.mModel->clone();
+    mModel = static_cast<Model*>( orig.mModel->clone() );
     mModel->setSBMLDocument(this);
   }
   
@@ -906,7 +906,7 @@ SBMLDocument::checkL1Compatibility (bool inConversion)
   unsigned int nerrors =  mInternalValidator->checkL1Compatibility();
   unsigned int unit_errors = 0;
 
-  if (not inConversion)
+  if (inConversion == false)
   {
     UnitConsistencyValidator unit_validator;
     unit_validator.init();
