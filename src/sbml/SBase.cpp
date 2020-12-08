@@ -1727,7 +1727,7 @@ SBase::setNotes(const XMLNode* notes)
 
   if (name == "notes")
   {
-    mNotes = notes->clone();
+    mNotes = static_cast<XMLNode*>( notes->clone() );
   }
   else
   {
@@ -2262,7 +2262,7 @@ SBase::setModelHistory(ModelHistory * history)
   else
   {
     delete mHistory;
-    mHistory = history->clone();
+    mHistory = static_cast<ModelHistory*>( history->clone() );
     mHistoryChanged = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -4416,7 +4416,7 @@ SBase::read (XMLInputStream& stream)
         checkOrderAndLogError(object, position);
         position = object->getElementPosition();
 
-        object->connectToParent(this);
+        object->connectToParent(static_cast <SBase*>(this));
 
         object->read(stream);
 
@@ -7210,7 +7210,7 @@ LIBSBML_EXTERN
 CVTerm_t*
 SBase_getCVTerm(SBase_t *sb, unsigned int n)
 {
-  return (sb != NULL) ? sb->getCVTerm(n) : NULL;
+  return (sb != NULL) ? static_cast <CVTerm_t *> (sb->getCVTerm(n)) : NULL;
 }
 
 LIBSBML_EXTERN

@@ -359,7 +359,7 @@ SpeciesReference::setStoichiometryMath (const StoichiometryMath* math)
     mDenominator        = 1;
 
     delete mStoichiometryMath;
-    mStoichiometryMath = math->clone();
+    mStoichiometryMath = static_cast<StoichiometryMath*>(math->clone());
     if (mStoichiometryMath != NULL) mStoichiometryMath->connectToParent(this);
     
     return LIBSBML_OPERATION_SUCCESS;
