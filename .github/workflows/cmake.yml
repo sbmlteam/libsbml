@@ -7,6 +7,7 @@ env:
 
 jobs:
   build:
+    name: ${{ matrix.platform }}, Parser option ${{ matrix.xml_parser_option }}, with namespaces ${{ matrix.with_namespace}}, strict includes ${{ matrix.with_namespace }}, with examples ${{ matrix.with_examples}}
     strategy:
       fail-fast: false
       matrix:
