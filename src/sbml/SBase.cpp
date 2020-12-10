@@ -452,7 +452,7 @@ SBase::SBase(const SBase& orig)
   {
     this->mCVTerms  = new List();
     unsigned int iMax = orig.mCVTerms->getSize();
-    for(int i = 0; i < iMax; ++i)
+    for(unsigned int i = 0; i < iMax; ++i)
     {
       this->mCVTerms
         ->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
