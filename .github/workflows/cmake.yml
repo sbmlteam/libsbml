@@ -8,6 +8,7 @@ env:
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         platform: [windows-latest, macos-latest, ubuntu-16.04]
         xml_parser_option: ['-DWITH_LIBXML','-DWITH_XERCES','-DWITH_EXPAT']
