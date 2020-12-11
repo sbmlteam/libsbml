@@ -2951,12 +2951,6 @@ public:
 
   void dealWithL3Fast(unsigned int targetVersion);
 
-  //void convertTimeWith(ASTNode* conversionFactor);
-
-  //void convertExtentWith(ASTNode* conversionFactor);
-
-  //void convertSubstanceWith(ASTNode* conversionFactor);
-
 
   /* ****************************************************
    * helper functions used by the main conversion functions 
@@ -3046,15 +3040,6 @@ public:
   void removeSpeciesTypes();
 
   void removeCompartmentTypes();
-
-
-  /* declares constant = false for any L1 compartment/parameter
-   * assigned by a rule
-   */
-//  void convertLayoutFromAnnotation ();
-
-//  void convertLayoutToAnnotation ();
-
 
 
   /*
@@ -3237,26 +3222,6 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Returns the value of the "attributeName" attribute of this Model.
-   *
-   * @param attributeName, the name of the attribute to retrieve.
-   *
-   * @param value, the address of the value to record.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  //virtual int getAttribute(const std::string& attributeName,
-  //                         const char* value) const;
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
    * Predicate returning @c true if this Model's attribute "attributeName" is
    * set.
    *
@@ -3363,26 +3328,6 @@ public:
    */
   virtual int setAttribute(const std::string& attributeName,
                            const std::string& value);
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Sets the value of the "attributeName" attribute of this Model.
-   *
-   * @param attributeName, the name of the attribute to set.
-   *
-   * @param value, the value of the attribute to set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  //virtual int setAttribute(const std::string& attributeName, const char*
-  //  value);
 
   /** @endcond */
 
@@ -4241,8 +4186,6 @@ protected:
    */
   virtual void syncAnnotation();
 
-  //std::string     mId;
-  //std::string     mName;
   std::string     mSubstanceUnits;
   std::string     mTimeUnits;
   std::string     mVolumeUnits;
