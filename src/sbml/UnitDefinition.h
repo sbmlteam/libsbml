@@ -856,7 +856,7 @@ public:
    *
    * @copydetails doc_note_static_methods
    */
-  static UnitDefinition* combine(UnitDefinition * ud1, UnitDefinition * ud2);
+  static UnitDefinition* combine(const UnitDefinition * ud1, const UnitDefinition * ud2);
 
 
   /**
@@ -875,7 +875,7 @@ public:
    *
    * @copydetails doc_note_static_methods
    */
-  static UnitDefinition* divide(UnitDefinition * ud1, UnitDefinition * ud2);
+  static UnitDefinition* divide(const UnitDefinition * ud1, const UnitDefinition * ud2);
 
 
   /**
@@ -1677,7 +1677,7 @@ UnitDefinition_clone (const UnitDefinition_t *ud);
  */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
-UnitDefinition_getNamespaces(UnitDefinition_t *ud);
+UnitDefinition_getNamespaces(const UnitDefinition_t *ud);
 
 
 /**
