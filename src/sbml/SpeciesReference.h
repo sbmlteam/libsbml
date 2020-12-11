@@ -1298,17 +1298,6 @@ protected:
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
-  /**
-   *
-   * Synchronizes the annotation of this SBML object.
-   *
-   * Annotation element (XMLNode* mAnnotation) is synchronized with the
-   * current CVTerm objects (List* mCVTerm) and id string (std::string mId)
-   * Currently, this method is called in getAnnotation(), isSetAnnotation(),
-   * and writeElements() methods.
-   */
-  virtual void syncAnnotation();
-
   bool isExplicitlySetStoichiometry() const;
 
   bool isExplicitlySetDenominator() const;
@@ -1699,7 +1688,7 @@ SpeciesReference_initDefaults (SpeciesReference_t *sr);
  */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
-SpeciesReference_getNamespaces(SpeciesReference_t *sr);
+SpeciesReference_getNamespaces(const SpeciesReference_t *sr);
 
 
 /**
