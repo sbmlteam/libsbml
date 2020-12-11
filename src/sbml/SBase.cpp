@@ -7052,18 +7052,18 @@ SBase::updateSBMLNamespace(const std::string& package, unsigned int level,
       case 4:
         uri = SBML_XMLNS_L2V4;
         break;
-      case 5:
+      default: //case 5:
         uri = SBML_XMLNS_L2V5;
         break;
       }
       break;
-    case 3:
+    default: //case 3:
       switch (version)
       {
       case 1:
         uri = SBML_XMLNS_L3V1;
         break;
-      case 2:
+      default: //case 2:
         uri = SBML_XMLNS_L3V2;
         break;
       }

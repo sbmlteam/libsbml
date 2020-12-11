@@ -1290,7 +1290,7 @@ SpeciesReference::readAttributes (const XMLAttributes& attributes,
   case 2:
     readL2Attributes(attributes);
     break;
-  case 3:
+  default: //case 3:
     readL3Attributes(attributes);
     break;
   }
