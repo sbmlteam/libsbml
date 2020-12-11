@@ -8812,57 +8812,5 @@ Model_removeEventById (Model_t *m, const char* sid)
     return NULL;
 }
 
-
-/* NOT YET USED but leave in case of future need 
-
-LIBSBML_EXTERN
-void 
-Model_addFormulaUnitsData (Model_t *m, FormulaUnitsData_t* fud)
-{
-  m->addFormulaUnitsData(fud);
-}
-
-
-LIBSBML_EXTERN
-FormulaUnitsData_t* 
-Model_createFormulaUnitsData (Model_t *m)
-{
-  return m->createFormulaUnitsData();
-}
-
-
-LIBSBML_EXTERN
-FormulaUnitsData_t* 
-Model_getFormulaUnitsData (Model_t *m, unsigned int n)
-{
-  return m->getFormulaUnitsData(n);
-}
-
-
-LIBSBML_EXTERN
-FormulaUnitsData_t* 
-Model_getFormulaUnitsDataById(Model_t *m, const char* sid, 
-                                          int typecode)
-{
-  return m->getFormulaUnitsData(sid, typecode);
-}
-
-
-LIBSBML_EXTERN
-unsigned int 
-Model_getNumFormulaUnitsData (Model_t *m)
-{
-  return m->getNumFormulaUnitsData();
-}
-
-
-LIBSBML_EXTERN
-List_t* 
-Model_getListFormulaUnitsData (Model_t *m)
-{
-  return m->getListFormulaUnitsData();
-}
-
-*/
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
