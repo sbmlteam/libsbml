@@ -832,7 +832,6 @@ Model::convertParametersToLocals(unsigned int level, unsigned int version)
         LocalParameter *lp = new LocalParameter(level, version);
         (*lp) = *(kl->getParameter(j));
         kl->getListOfLocalParameters()->appendAndOwn(lp);
-//        kl->addLocalParameter(lp);
       }
 
       // remove old parameters (while they would not be written out, 
