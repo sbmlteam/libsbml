@@ -428,23 +428,6 @@ SBMLError::SBMLError (  const unsigned int errorId
 }
 
 
-/*
- * Copy Constructor
- */
-SBMLError::SBMLError(const SBMLError& orig) :
- XMLError(orig)
-{
-}
-
-
- /*
- * Destroys this SBMLError.
- */
-SBMLError::~SBMLError ()
-{
-}
-
-
 /** @cond doxygenLibsbmlInternal **/
 /*
  * clone function
