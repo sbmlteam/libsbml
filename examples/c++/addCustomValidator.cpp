@@ -62,8 +62,11 @@ class MyCustomValidator : public SBMLValidator
 {
 public:
   MyCustomValidator() : SBMLValidator() {}
-  MyCustomValidator(const MyCustomValidator& orig) : SBMLValidator(orig) {
-
+  MyCustomValidator(const MyCustomValidator& orig) : SBMLValidator(orig) {}
+  MyCustomValidator& operator=(const MyCustomValidator& orig) 
+  {
+    SBMLValidator::operator=(orig);
+    return *this;
   }
   virtual ~MyCustomValidator() {}
 
@@ -117,7 +120,6 @@ public:
     return numErrors;
   }
 
-  
 };
 
 
