@@ -838,9 +838,7 @@ int Reaction::addReactant(
   if (!id.empty())
     ref->setId(id);
 
-  if (stoichiometry == stoichiometry)
-    ref->setStoichiometry(stoichiometry);
-
+  ref->setStoichiometry(stoichiometry);
   ref->setSpecies(species->getId());
   ref->setConstant(constant);
 
