@@ -108,7 +108,7 @@ for (i = 0; i < m.getNumSpecies(); i++)
 for (i = 0; i < m.getNumCompartments(); i++)
 {
     var sp = m.getCompartment(i)
-    sp.unsetNotes
+    sp.unsetNotes();
 }
 
 for (i = 0; i < m.getNumFunctionDefinitions(); i++)
