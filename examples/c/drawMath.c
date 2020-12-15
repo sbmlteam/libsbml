@@ -917,8 +917,9 @@ main (int argc, char *argv[])
   m = SBMLDocument_getModel(d);
 
   SBMLDocument_printErrors(d, stdout);
+  fout = fopen( argv[2], "w" );
 
-  if ((fout  = fopen( argv[2], "w" )) == NULL )
+  if (fout == NULL )
   {
     printf( "The output file was not opened\n" );
   }
