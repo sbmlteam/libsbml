@@ -326,41 +326,6 @@ ListOf::getAllElements(ElementFilter *filter)
 
   return ret;
 }
-/**
- * Used by ListOf::get() to lookup an SBase based by its id.
- */
-//struct IdEq : public unary_function<SBase*, bool>
-//{
-//  const string& id;
-//
-//  IdEq (const string& id) : id(id) { }
-//  bool operator() (SBase* sb) { return sb->getId() == id; }
-//};
-
-
-/*
- * @return item in this ListOf items with the given @p id or @c NULL if no such
- * item exists.
- */
-//const SBase*
-//ListOf::get (const std::string& sid) const
-//{
-//  vector<SBase*>::const_iterator result;
-//
-//  result = find_if( mItems.begin(), mItems.end(), IdEq(sid) );
-//  return (result == mItems.end()) ? 0 : *result;
-//}
-
-
-/*
- * @return item in this ListOf items with the given @p id or @c NULL if no such
- * item exists.
- */
-//SBase*
-//ListOf::get (const std::string& sid)
-//{
-//  return const_cast<SBase*>( static_cast<const ListOf&>(*this).get(sid) );
-//}
 
 
 /*
@@ -407,29 +372,6 @@ ListOf::remove (unsigned int n)
   return item;
 }
 
-
-/*
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
- * item exists.  The caller owns the returned item and is repsonsible for
- * deleting it.
- */
-//SBase*
-//ListOf::remove (const std::string& sid)
-//{
-//  SBase* item = 0;
-//  vector<SBase*>::iterator result;
-//
-//  result = find_if( mItems.begin(), mItems.end(), IdEq(sid) );
-//
-//  if (result != mItems.end())
-//  {
-//    item = *result;
-//    mItems.erase(result);
-//  }
-//
-//  return item;
-//}
-//
 
 /*
  * @return the number of items in this ListOf items.
@@ -843,14 +785,6 @@ ListOf_remove (ListOf_t *lo, unsigned int n)
 {
   return (lo != NULL) ? lo->remove(n) : NULL;
 }
-
-
-//LIBSBML_EXTERN
-//SBase *
-//ListOf_removeById (ListOf_t *lo, const char *sid)
-//{
-//  return (sid != NULL) ? lo->remove(sid) : NULL;
-//}
 
 
 LIBSBML_EXTERN

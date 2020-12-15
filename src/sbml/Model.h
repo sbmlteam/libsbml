@@ -2951,12 +2951,6 @@ public:
 
   void dealWithL3Fast(unsigned int targetVersion);
 
-  //void convertTimeWith(ASTNode* conversionFactor);
-
-  //void convertExtentWith(ASTNode* conversionFactor);
-
-  //void convertSubstanceWith(ASTNode* conversionFactor);
-
 
   /* ****************************************************
    * helper functions used by the main conversion functions 
@@ -3046,15 +3040,6 @@ public:
   void removeSpeciesTypes();
 
   void removeCompartmentTypes();
-
-
-  /* declares constant = false for any L1 compartment/parameter
-   * assigned by a rule
-   */
-//  void convertLayoutFromAnnotation ();
-
-//  void convertLayoutToAnnotation ();
-
 
 
   /*
@@ -3237,26 +3222,6 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Returns the value of the "attributeName" attribute of this Model.
-   *
-   * @param attributeName, the name of the attribute to retrieve.
-   *
-   * @param value, the address of the value to record.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  //virtual int getAttribute(const std::string& attributeName,
-  //                         const char* value) const;
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
    * Predicate returning @c true if this Model's attribute "attributeName" is
    * set.
    *
@@ -3363,26 +3328,6 @@ public:
    */
   virtual int setAttribute(const std::string& attributeName,
                            const std::string& value);
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Sets the value of the "attributeName" attribute of this Model.
-   *
-   * @param attributeName, the name of the attribute to set.
-   *
-   * @param value, the value of the attribute to set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  //virtual int setAttribute(const std::string& attributeName, const char*
-  //  value);
 
   /** @endcond */
 
@@ -4241,8 +4186,6 @@ protected:
    */
   virtual void syncAnnotation();
 
-  //std::string     mId;
-  //std::string     mName;
   std::string     mSubstanceUnits;
   std::string     mTimeUnits;
   std::string     mVolumeUnits;
@@ -7160,86 +7103,6 @@ Model_removeEvent (Model_t *m, unsigned int n);
 LIBSBML_EXTERN
 Event_t*
 Model_removeEventById (Model_t *m, const char* sid);
-
-/* not yet exposed but leave in case we need them
-
- * Adds a copy of the given FormulaUnitsData_t structure to this Model_t.
- *
- * @param m the Model_t structure.
- * @param fud the FormulaUnitsData_t structure to add.
-
-LIBSBML_EXTERN
-void 
-Model_addFormulaUnitsData (Model_t *m, FormulaUnitsData_t* fud);
-
-
- * Creates a new FormulaUnitsData_t inside this Model_t and returns it.
- *
- * @param m the Model_t structure.
- *
- * @return the FormulaUnitsData_t structure created
-
-LIBSBML_EXTERN
-FormulaUnitsData_t*
-Model_createFormulaUnitsData (Model_t *m);
-
-
- * Get the nth FormulaUnitsData_t structure in this Model_t.
- *
- * @param m the Model_t structure.
- *
- * @return the nth FormulaUnitsData_t of this Model_t.
-
-LIBSBML_EXTERN
-FormulaUnitsData_t*
-Model_getFormulaUnitsData (Model_t *m, unsigned int n);
-
-
- * Get a FormulaUnitsData_t structure based on its unitReferenceId and typecode.
- *
- * @param m the Model_t structure.
- *
- * @return the FormulaUnitsData_t in this Model_t with the unitReferenceId @p sid 
- * and the typecode (int) @p typecode or @c NULL
- * if no such FormulaUnitsData exists.
- *
- * @note The typecode (int) parameter is necessary as the unitReferenceId
- * of the FormulaUnitsData_t need not be unique. For example if a Species_t
- * with id 's' is assigned by an AssignmentRule_t there will be two 
- * elements of the FormulaUnitsData_t List with the unitReferenceId 's'; 
- * one with
- * typecode 'SBML_SPECIES' referring to the units related to the species, 
- * the other with typecode 'SBML_ASSIGNMENT_RULE' referring to the units
- * derived from the math element of the AssignmentRule_t.
-
-LIBSBML_EXTERN
-FormulaUnitsData_t*
-Model_getFormulaUnitsDataById(Model_t *m, const char* sid, int);
-
-
- * Get the number of FormulaUnitsData_t structures in this Model_t.
- *
- * @param m the Model_t structure.
- *
- * @return the number of FormulaUnitsData_t in this Model_t.
-
-LIBSBML_EXTERN
-unsigned int 
-Model_getNumFormulaUnitsData (Model_t *m);
-
-
- * Get the list of FormulaUnitsData_t structure in this Model_t.
- *
- * @param m the Model_t structure.
- *
- * @return the list of FormulaUnitsData_t for this Model_t.
-
-LIBSBML_EXTERN
-List_t*
-Model_getListFormulaUnitsData (Model_t *m);
-
-*/
-
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

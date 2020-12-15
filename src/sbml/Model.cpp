@@ -479,16 +479,11 @@ Model::renameIDs(List* elements, IdentifierTransformer* idTransformer)
   {
       int type = element->getTypeCode();
       if (type==SBML_UNIT_DEFINITION) 
-    {
+      {
         renamedUnitSIds.push_back(make_pair(id, newid));
       }
-      //else if (type==SBML_COMP_PORT) 
-    //{
-      //  //Do nothing--these can only be referenced from outside the Model, so they need to be handled specially.
-      //  // (In the default case, we throw them away).
-      //}
       else 
-    {
+      {
         //This is a little dangerous, but hey!  What's a little danger between friends!
         //(What we are assuming is that any attribute you can get with 'getId' is of the type 'SId')
         renamedSIds.push_back(make_pair(id, newid));
@@ -721,15 +716,6 @@ Model::isSetConversionFactor () const
 int
 Model::setId (const std::string& sid)
 {
-  /* since the setId function has been used as an
-   * alias for setName we cant require it to only
-   * be used on a L2 model
-   */
-/*  if (getLevel() == 1)
-  {
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  }
-*/
   if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
@@ -2075,45 +2061,7 @@ Model::setAnnotation (const std::string& annotation)
 int
 Model::appendAnnotation (const XMLNode* annotation)
 {
-  // take out any attempt to merge RDF
-
   return SBase::appendAnnotation(annotation);
-
-//  int success = LIBSBML_OPERATION_FAILED;
-//  if(annotation == NULL) return LIBSBML_OPERATION_SUCCESS;
-//
-//  XMLNode* new_annotation = NULL;
-//  const string&  name = annotation->getName();
-//
-//  // check for annotation tags and add if necessary
-//  if (name != "annotation")
-//  {
-//    XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
-//    new_annotation = new XMLNode(ann_t);
-//    new_annotation->addChild(*annotation);
-//  }
-//  else
-//  {
-//    new_annotation = annotation->clone();
-//  }
-//
-//  // parse new_annotation and reset mHistory 
-//  if (RDFAnnotationParser::hasHistoryRDFAnnotation(new_annotation))
-//  {
-//    ModelHistory* new_mhistory = RDFAnnotationParser::parseRDFAnnotation(new_annotation);
-//    if(new_mhistory != NULL)
-//    {
-//      delete mHistory;
-//      mHistory = new_mhistory;
-////      mHistoryChanged = true;
-//    }
-//  }
-//
-//  success = SBase::appendAnnotation(new_annotation);
-//
-//  delete new_annotation;
-//
-//  return success;
 }
 
 
@@ -2155,85 +2103,6 @@ void
 Model::syncAnnotation ()
 {
   SBase::syncAnnotation();
-
-  //if (mAnnotationChanged == false)
-  //  return;
-
-  //if (mHistoryChanged == false && mCVTermsChanged == false)
-  //  return;
-  //else
-  //  reconstructRDFAnnotation();
-
-  //bool hasRDF = false;
-  //bool hasAdditionalRDF = false;
-  //// determine status of existing annotation before doing anything
-  //if (mAnnotation != NULL)
-  //{
-  //  hasRDF = RDFAnnotationParser::hasRDFAnnotation(mAnnotation);
-  //  hasAdditionalRDF = 
-  //    RDFAnnotationParser::hasAdditionalRDFAnnotation(mAnnotation);
-  //}
-
-  //XMLNode * history = RDFAnnotationParser::parseModelHistory(this);
-
-  //if(mAnnotation != NULL && hasRDF && mHistoryChanged == true)
-  //{
-  //  XMLNode* new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
-  //  if(new_annotation == NULL)
-  //  {
-  //    XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
-  //    new_annotation = new XMLNode(ann_token);
-  //    new_annotation->addChild(*mAnnotation);
-  //  }
-  //  *mAnnotation = *new_annotation;
-  //  delete new_annotation;
-  //}
-
-  //if (history != NULL)
-  //{
-  //  if (mHistoryChanged == true)
-  //  {
-  //    if (mAnnotation == NULL)
-  //    {
-  //      mAnnotation = history;
-  //    }
-  //    else
-  //    {
-  //      if (mAnnotation->isEnd())
-  //      {
-  //        mAnnotation->unsetEnd();
-  //      }
-  //      if (hasAdditionalRDF)
-  //      {
-  //        //need to insert the history into existing RDF
-  //        unsigned int n = 0;
-  //        while (n < mAnnotation->getNumChildren())
-  //        {
-  //          if (mAnnotation->getChild(n).getName() == "RDF")
-  //          {
-  //            mAnnotation->getChild(n).insertChild(0, 
-  //              history->getChild(0).getChild(0));
-  //            break;
-  //          }
-  //          n++;
-  //        }
-  //      }
-  //      else
-  //      {
-  //        mAnnotation->addChild(history->getChild(0));
-  //      }
-  //      delete history;
-  //    }
-  //  }
-  //}
-  //else
-  //{
-  //  // Annotations for CVTerm are added by the above RDFAnnotationParser::parseModelHistory(this)
-  //  // if and only if mHistory is not NULL.
-  //  // Thus, annotations for CVTerm (if any) needs to be added here if history (mHistory) is NULL.
-  //  SBase::syncAnnotation();
-  //}
-
 }
 /** @endcond */
 
@@ -3940,64 +3809,6 @@ Model::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Returns the value of the "attributeName" attribute of this Model.
- */
-//int
-//Model::getAttribute(const std::string& attributeName, const char* value) const
-//{
-//  int return_value = SBase::getAttribute(attributeName, value);
-//
-//  if (return_value == LIBSBML_OPERATION_SUCCESS)
-//  {
-//    return return_value;
-//  }
-//
-//  if (attributeName == "substanceUnits")
-//  {
-//    value = getSubstanceUnits().c_str();
-//    return_value = LIBSBML_OPERATION_SUCCESS;
-//  }
-//  else if (attributeName == "timeUnits")
-//  {
-//    value = getTimeUnits().c_str();
-//    return_value = LIBSBML_OPERATION_SUCCESS;
-//  }
-//  else if (attributeName == "volumeUnits")
-//  {
-//    value = getVolumeUnits().c_str();
-//    return_value = LIBSBML_OPERATION_SUCCESS;
-//  }
-//  else if (attributeName == "lengthUnits")
-//  {
-//    value = getLengthUnits().c_str();
-//    return_value = LIBSBML_OPERATION_SUCCESS;
-//  }
-//  else if (attributeName == "areaUnits")
-//  {
-//    value = getAreaUnits().c_str();
-//    return_value = LIBSBML_OPERATION_SUCCESS;
-//  }
-//  else if (attributeName == "extentUnits")
-//  {
-//    value = getExtentUnits().c_str();
-//    return_value = LIBSBML_OPERATION_SUCCESS;
-//  }
-//  else if (attributeName == "conversionFactor")
-//  {
-//    value = getConversionFactor().c_str();
-//    return_value = LIBSBML_OPERATION_SUCCESS;
-//  }
-//
-//  return return_value;
-//}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this Model's attribute "attributeName" is
  * set.
  */
@@ -4153,52 +3964,6 @@ Model::setAttribute(const std::string& attributeName,
   return return_value;
 }
 
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this Model.
- */
-//int
-//Model::setAttribute(const std::string& attributeName, const char* value)
-//{
-//  int return_value = SBase::setAttribute(attributeName, value);
-//
-//  if (attributeName == "substanceUnits")
-//  {
-//    return_value = setSubstanceUnits(value);
-//  }
-//  else if (attributeName == "timeUnits")
-//  {
-//    return_value = setTimeUnits(value);
-//  }
-//  else if (attributeName == "volumeUnits")
-//  {
-//    return_value = setVolumeUnits(value);
-//  }
-//  else if (attributeName == "lengthUnits")
-//  {
-//    return_value = setLengthUnits(value);
-//  }
-//  else if (attributeName == "areaUnits")
-//  {
-//    return_value = setAreaUnits(value);
-//  }
-//  else if (attributeName == "extentUnits")
-//  {
-//    return_value = setExtentUnits(value);
-//  }
-//  else if (attributeName == "conversionFactor")
-//  {
-//    return_value = setConversionFactor(value);
-//  }
-//
-//  return return_value;
-//}
-//
 /** @endcond */
 
 
@@ -4464,6 +4229,7 @@ Model::removeChildObject(const std::string& elementName, const std::string& id)
   }
   else if (elementName == "constraint")
   {
+    // FIXME why is this commented out?
  //   return removeConstraint(id);
   }
   else if (elementName == "reaction")
@@ -4783,9 +4549,6 @@ Model::readOtherXML (XMLInputStream& stream)
 
   if (name == "annotation")
   {
-//    XMLNode* new_annotation = NULL;
-    /* if annotation already exists then it is an error 
-     */
     if (mAnnotation != NULL)
     {
       if (getLevel() < 3) 
@@ -4829,9 +4592,6 @@ Model::readOtherXML (XMLInputStream& stream)
     if (RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
       RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms, 
                                                 getMetaId().c_str(), &(stream));
-//    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
-//    delete mAnnotation;
-//    mAnnotation = new_annotation;
 
     // need to call set annotation
     for (size_t i=0; i < mPlugins.size(); i++)
@@ -5655,9 +5415,7 @@ void Model::createSpeciesReferenceUnitsData(SpeciesReference* sr,
   if (sr->isSetStoichiometryMath())
   {
     fud = createFormulaUnitsData(sr->getSpecies(), SBML_STOICHIOMETRY_MATH);
-    //fud->setUnitReferenceId(sr->getSpecies());
     sr->getStoichiometryMath()->setInternalId(sr->getSpecies());
-    //fud->setComponentTypecode(SBML_STOICHIOMETRY_MATH);
     
     createUnitsDataFromMath(unitFormatter, fud, 
                             sr->getStoichiometryMath()->getMath());
@@ -5665,8 +5423,6 @@ void Model::createSpeciesReferenceUnitsData(SpeciesReference* sr,
   else if (sr->getLevel() > 2 && sr->isSetId())
   {
     fud = createFormulaUnitsData(sr->getId(), SBML_SPECIES_REFERENCE);
-    //fud->setUnitReferenceId(sr->getId());
-    //fud->setComponentTypecode(SBML_SPECIES_REFERENCE);
     
     /* units will be dimensionless */
     UnitDefinition* ud;
@@ -5762,9 +5518,6 @@ Model::createSubstanceUnitsData()
 {
   UnitDefinition *ud = NULL;
   FormulaUnitsData *fud = createFormulaUnitsData("substance", SBML_MODEL);
-  
-  //fud->setUnitReferenceId("substance");
-  //fud->setComponentTypecode(SBML_MODEL);
   
   if (getLevel() < 3)
   {
@@ -5873,10 +5626,7 @@ Model::createTimeUnitsData()
 {
   UnitDefinition *ud = NULL;
   FormulaUnitsData *fud = createFormulaUnitsData("time", SBML_MODEL);
-  
-  //fud->setUnitReferenceId("time");
-  //fud->setComponentTypecode(SBML_MODEL);
-  
+
   if (getLevel() < 3)
   {
     ud = getTimeUD();
@@ -5984,10 +5734,7 @@ Model::createVolumeUnitsData()
 {
   UnitDefinition *ud = NULL;
   FormulaUnitsData *fud = createFormulaUnitsData("volume", SBML_MODEL);
-  
-  //fud->setUnitReferenceId("volume");
-  //fud->setComponentTypecode(SBML_MODEL);
-  
+
   if (getLevel() < 3)
   {
     ud = getVolumeUD();
@@ -6095,10 +5842,7 @@ Model::createAreaUnitsData()
 {
   UnitDefinition *ud = NULL;
   FormulaUnitsData *fud = createFormulaUnitsData("area", SBML_MODEL);
-  
-  //fud->setUnitReferenceId("area");
-  //fud->setComponentTypecode(SBML_MODEL);
-  
+
   if (getLevel() < 3)
   {
     ud = getAreaUD();
@@ -6208,10 +5952,7 @@ Model::createLengthUnitsData()
 {
   UnitDefinition *ud = NULL;
   FormulaUnitsData *fud = createFormulaUnitsData("length", SBML_MODEL);
-  
-  //fud->setUnitReferenceId("length");
-  //fud->setComponentTypecode(SBML_MODEL);
-  
+
   if (getLevel() < 3)
   {
     ud = getLengthUD();
@@ -6319,10 +6060,7 @@ Model::createExtentUnitsData()
 {
   UnitDefinition *ud = NULL;
   FormulaUnitsData *fud = createFormulaUnitsData("extent", SBML_MODEL);
-  
-  //fud->setUnitReferenceId("extent");
-  //fud->setComponentTypecode(SBML_MODEL);
-  
+
   if (getLevel() < 3)
   {
     // create a unitDefinition with no children
@@ -6408,10 +6146,7 @@ Model::createSubstancePerTimeUnitsData()
 {
   UnitDefinition *ud = NULL;
   FormulaUnitsData *fud = createFormulaUnitsData("subs_per_time", SBML_UNKNOWN);
-  
-  //fud->setUnitReferenceId("subs_per_time");
-  //fud->setComponentTypecode(SBML_UNKNOWN);
-  
+
   if (getLevel() < 3)
   {
     ud = getSubstancePerTimeUD();
@@ -6422,7 +6157,7 @@ Model::createSubstancePerTimeUnitsData()
     // as we need to log whether extent or time has undeclared
     // one might be 
     ud = getL3SubstancePerTimeUD(fud);
-    
+
     if (ud->getNumUnits() == 0)
     {
       fud->setContainsParametersWithUndeclaredUnits(true);
@@ -6508,19 +6243,16 @@ Model::createCompartmentUnitsData()
   for (unsigned int n = 0; n < getNumCompartments(); n++)
   {
     Compartment* c = getCompartment(n);
-    
+
     fud = createFormulaUnitsData(c->getId(), SBML_COMPARTMENT);
-    //fud->setUnitReferenceId(c->getId());
-    //fud->setComponentTypecode(SBML_COMPARTMENT);
-    
     ud = unitFormatter.getUnitDefinitionFromCompartment(c);
-    
+
     if (ud->getNumUnits() == 0)
     {
       fud->setContainsParametersWithUndeclaredUnits(true);
       fud->setCanIgnoreUndeclaredUnits(false);
     }
-    
+
     fud->setUnitDefinition(ud);
     populatePerTimeUnitDefinition(fud);
   }
@@ -6539,11 +6271,9 @@ Model::createSpeciesUnitsData()
   for (unsigned int n=0; n < getNumSpecies(); n++)
   {
     Species* s = getSpecies(n);
-    
+
     fud = createFormulaUnitsData(s->getId(), SBML_SPECIES);
-    //fud->setUnitReferenceId(s->getId());
-    //fud->setComponentTypecode(SBML_SPECIES);
-    
+
     /* TO DO - sort out getUDFromSpecies
      */
     if (getCompartment(s->getCompartment()) == NULL)
@@ -6590,13 +6320,9 @@ Model::createL3SpeciesUnitsData()
 
     /* create the substance unit */
     unitFormatter.resetFlags();
-
     fud = createFormulaUnitsData(s->getId() + "subs", SBML_SPECIES);
-    //fud->setUnitReferenceId(s->getId()+"subs");
-    //fud->setComponentTypecode(SBML_SPECIES);
-    
     ud = unitFormatter.getSpeciesSubstanceUnitDefinition(s);
-   
+
     if (ud->getNumUnits() == 0)
     {
       fud->setContainsParametersWithUndeclaredUnits(true);
@@ -6614,13 +6340,9 @@ Model::createL3SpeciesUnitsData()
 
     /* create the extent unit */
     unitFormatter.resetFlags();
-    
     fud = createFormulaUnitsData(s->getId() + "extent", SBML_SPECIES);
-    //fud->setUnitReferenceId(s->getId()+"extent");
-    //fud->setComponentTypecode(SBML_SPECIES);
-    
     ud = unitFormatter.getSpeciesExtentUnitDefinition(s);
-    
+
     if (ud->getNumUnits() == 0)
     {
       fud->setContainsParametersWithUndeclaredUnits(true);
@@ -6633,7 +6355,7 @@ Model::createL3SpeciesUnitsData()
       fud->setCanIgnoreUndeclaredUnits
                                 (unitFormatter.canIgnoreUndeclaredUnits());
     }
-      
+
     fud->setSpeciesExtentUnitDefinition(ud);
   }
 }
@@ -6647,20 +6369,18 @@ Model::createParameterUnitsData()
   UnitDefinition *ud = NULL;
   FormulaUnitsData *fud = NULL;
   UnitFormulaFormatter unitFormatter = this;
-  
+
   for (unsigned int n=0; n < getNumParameters(); n++)
   {
     Parameter* p = getParameter(n);
-    
+
     unitFormatter.resetFlags();
 
     fud = createFormulaUnitsData(p->getId(), SBML_PARAMETER);
-    //fud->setUnitReferenceId(p->getId());
-    //fud->setComponentTypecode(SBML_PARAMETER);
-    
+
     unitFormatter.resetFlags();
     ud = unitFormatter.getUnitDefinitionFromParameter(p);
-    
+
     fud->setUnitDefinition(ud);
     fud->setContainsParametersWithUndeclaredUnits
                                 (unitFormatter.getContainsUndeclaredUnits());
@@ -6706,11 +6426,7 @@ Model::createInitialAssignmentUnitsData(UnitFormulaFormatter * unitFormatter)
   for (unsigned int n=0; n < getNumInitialAssignments(); n++)
   {
     InitialAssignment* ia = getInitialAssignment(n);
-    
     fud = createFormulaUnitsData(ia->getSymbol(), SBML_INITIAL_ASSIGNMENT);
-    //fud->setUnitReferenceId(ia->getSymbol());
-    //fud->setComponentTypecode(SBML_INITIAL_ASSIGNMENT);
-      
     createUnitsDataFromMath(unitFormatter, fud, ia->getMath());
   }
 }
@@ -6733,9 +6449,6 @@ Model::createConstraintUnitsData(UnitFormulaFormatter * unitFormatter)
     c->setInternalId(newID);
 
     fud = createFormulaUnitsData(newID, SBML_CONSTRAINT);
-    //fud->setUnitReferenceId(newID);
-    //fud->setComponentTypecode(SBML_CONSTRAINT);
-
     createUnitsDataFromMath(unitFormatter, fud, c->getMath());
   }
 }
@@ -6753,8 +6466,7 @@ Model::createRuleUnitsData(UnitFormulaFormatter * unitFormatter)
   for (unsigned int n=0; n < getNumRules(); n++)
   {
     Rule* r = getRule(n);
-    
-    //fud = createFormulaUnitsData();
+
     // need to create an id for an algebbraic rule
     if (r->getTypeCode() == SBML_ALGEBRAIC_RULE)
     {
@@ -6765,15 +6477,11 @@ Model::createRuleUnitsData(UnitFormulaFormatter * unitFormatter)
       countAlg++;
 
       fud = createFormulaUnitsData(newID, r->getTypeCode());
-      //fud->setUnitReferenceId(newID);
     }
     else
     {
       fud = createFormulaUnitsData(r->getVariable(), r->getTypeCode());
-      //fud->setUnitReferenceId(r->getVariable());
     }
-    //fud->setComponentTypecode(r->getTypeCode());
-    
     createUnitsDataFromMath(unitFormatter, fud, r->getMath());
   }
 }
@@ -6795,7 +6503,6 @@ Model::createReactionUnitsData(UnitFormulaFormatter * unitFormatter)
     if (react->isSetKineticLaw())
     {
       fud = createFormulaUnitsData(react->getId(), SBML_KINETIC_LAW);
-      //fud->setUnitReferenceId(react->getId());
 
       /* set the id of the kinetic law 
        * normally a kinetic law doesnt have an id
@@ -6804,8 +6511,6 @@ Model::createReactionUnitsData(UnitFormulaFormatter * unitFormatter)
        * that searching the listFormulaUnitsData can find it
        */
       react->getKineticLaw()->setInternalId(react->getId());
-
-      //fud->setComponentTypecode(SBML_KINETIC_LAW);
 
       // have to use the old way for now as unitFormatter needs to know
       // if we are in a reaction so it can access localParameters
@@ -6857,9 +6562,6 @@ Model::createLocalParameterUnitsData(KineticLaw * kl,
     std::string lpId = lp->getId() + '_' + kl->getInternalId();
 
     fud = createFormulaUnitsData(lpId, SBML_LOCAL_PARAMETER);
-
-    //fud->setUnitReferenceId(lpId);
-    //fud->setComponentTypecode(SBML_LOCAL_PARAMETER);
 
     std::string units = lp->getUnits();
     if (units.empty() == false)
@@ -6949,7 +6651,7 @@ Model::createEventUnitsData(UnitFormulaFormatter * unitFormatter)
     newID.assign(newId);
     e->setInternalId(newID);
     countEvents++;
-    
+
     /* dont need units returned by trigger formula - 
      * should be boolean
      * but we might want to check they are defined
@@ -6989,16 +6691,12 @@ Model::createDelayUnitsData(UnitFormulaFormatter* unitFormatter, Event * e,
 {
   UnitDefinition *ud = NULL;
   FormulaUnitsData *fud = createFormulaUnitsData(eventId, SBML_EVENT);
-    
-  Delay * d = e->getDelay();
 
-  //fud->setUnitReferenceId(eventId);
+  Delay * d = e->getDelay();
   d->setInternalId(eventId);
 
-  //fud->setComponentTypecode(SBML_EVENT);
-
   createUnitsDataFromMath(unitFormatter, fud, d->getMath());
-  
+
   /* get event time definition */
   unitFormatter->resetFlags();
   ud = unitFormatter->getUnitDefinitionFromEventTime(e);
@@ -7011,41 +6709,37 @@ Model::createDelayUnitsData(UnitFormulaFormatter* unitFormatter, Event * e,
 }
 /** @endcond */
 
+
 /** @cond doxygenLibsbmlInternal */
 void
 Model::createTriggerUnitsData(UnitFormulaFormatter* unitFormatter, Event * e,
   const std::string& eventId)
 {
-  //UnitDefinition *ud = NULL;
   FormulaUnitsData *fud = createFormulaUnitsData(eventId, SBML_TRIGGER);
 
   Trigger * d = e->getTrigger();
-
-  //fud->setUnitReferenceId(eventId);
   d->setInternalId(eventId);
-
-  //fud->setComponentTypecode(SBML_TRIGGER);
 
   createUnitsDataFromMath(unitFormatter, fud, d->getMath());
 
   fud->setEventTimeUnitDefinition(NULL);
 }
 /** @endcond */
+
+
 /** @cond doxygenLibsbmlInternal */
 void 
 Model::createPriorityUnitsData(UnitFormulaFormatter* unitFormatter, 
                                Priority * p, const std::string& eventId)
 {
   FormulaUnitsData *fud = createFormulaUnitsData(eventId, SBML_PRIORITY);
-    
-  //fud->setUnitReferenceId(eventId);
-  p->setInternalId(eventId);
 
-  //fud->setComponentTypecode(SBML_PRIORITY);
+  p->setInternalId(eventId);
 
   createUnitsDataFromMath(unitFormatter, fud, p->getMath());
 }
 /** @endcond */
+
 
 /** @cond doxygenLibsbmlInternal */
 void 
@@ -7054,9 +6748,6 @@ Model::createEventAssignmentUnitsData(UnitFormulaFormatter* unitFormatter,
 {
   std::string eaId = ea->getVariable() + eventId;
   FormulaUnitsData *fud = createFormulaUnitsData(eaId, SBML_EVENT_ASSIGNMENT);
-
-  //fud->setUnitReferenceId(eaId);
-  //fud->setComponentTypecode(SBML_EVENT_ASSIGNMENT);
 
   createUnitsDataFromMath(unitFormatter, fud, ea->getMath());
 }
@@ -7178,18 +6869,6 @@ FormulaUnitsData*
 Model::getFormulaUnitsData (const std::string& sid, int typecode)
 {
   FormulaUnitsData * fud = NULL;
-
-  //for (unsigned int n = 0; n < getNumFormulaUnitsData(); n++)
-  //{
-  //  fud = static_cast <FormulaUnitsData*> (mFormulaUnitsData->get(n));
-  //  if (!strcmp(fud->getUnitReferenceId().c_str(), sid.c_str()))
-  //  {
-  //    if (fud->getComponentTypecode() == typecode)
-  //    {
-  //      return fud;
-  //    }
-  //  }
-  //}
 
   KeyValue key(sid, typecode);
   UnitsValueIter it = mUnitsDataMap.find(key);
@@ -7323,11 +7002,6 @@ Model::populateAllElementIdList()
   mIdList.clear();
   IdFilter filter;
   List* allElements = this->getAllElements(&filter);
-
-  //for (unsigned int i = 0; i < allElements->getSize(); i++)
-  //{
-  //  mIdList.append(static_cast<SBase*>(allElements->get(i))->getId());
-  //}
 
   for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
   {
@@ -8812,57 +8486,5 @@ Model_removeEventById (Model_t *m, const char* sid)
     return NULL;
 }
 
-
-/* NOT YET USED but leave in case of future need 
-
-LIBSBML_EXTERN
-void 
-Model_addFormulaUnitsData (Model_t *m, FormulaUnitsData_t* fud)
-{
-  m->addFormulaUnitsData(fud);
-}
-
-
-LIBSBML_EXTERN
-FormulaUnitsData_t* 
-Model_createFormulaUnitsData (Model_t *m)
-{
-  return m->createFormulaUnitsData();
-}
-
-
-LIBSBML_EXTERN
-FormulaUnitsData_t* 
-Model_getFormulaUnitsData (Model_t *m, unsigned int n)
-{
-  return m->getFormulaUnitsData(n);
-}
-
-
-LIBSBML_EXTERN
-FormulaUnitsData_t* 
-Model_getFormulaUnitsDataById(Model_t *m, const char* sid, 
-                                          int typecode)
-{
-  return m->getFormulaUnitsData(sid, typecode);
-}
-
-
-LIBSBML_EXTERN
-unsigned int 
-Model_getNumFormulaUnitsData (Model_t *m)
-{
-  return m->getNumFormulaUnitsData();
-}
-
-
-LIBSBML_EXTERN
-List_t* 
-Model_getListFormulaUnitsData (Model_t *m)
-{
-  return m->getListFormulaUnitsData();
-}
-
-*/
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
