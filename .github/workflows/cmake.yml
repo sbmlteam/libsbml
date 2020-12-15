@@ -7,7 +7,7 @@ env:
 
 jobs:
   build:
-    name: ${{ matrix.platform }}, Parser option ${{ matrix.xml_parser_option }}, with namespaces ${{ matrix.with_namespace}}, strict includes ${{ matrix.with_namespace }}, with examples ${{ matrix.with_examples}}
+    name: ${{ matrix.platform }}, Parser option ${{ matrix.xml_parser_option }}, with namespaces ${{ matrix.with_namespace}}, strict includes ${{ matrix.with_namespace }}, with examples ${{ matrix.with_examples}}, package option ${{ matrix.package_option}}
     strategy:
       fail-fast: false
       matrix:
@@ -16,6 +16,7 @@ jobs:
         with_namespace: ['True', 'False']
         strict: ['True', 'False']
         with_examples: ['True', 'False']
+        package_option: ['', '-DWITH_STABLE_PACKAGES=ON', '-DWITH_ALL_PACKAGES=ON']
     runs-on: ${{ matrix.platform }}
     
     steps:
@@ -82,14 +83,14 @@ jobs:
       shell: bash
       working-directory: ${{runner.workspace}}/build
       run: |
-            cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True -DWITH_JAVA=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
+            cmake $GITHUB_WORKSPACE ${{ matrix.package_option }}-DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True -DWITH_JAVA=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
     
     - name: Configure CMake for non-default XML_parser
       if: matrix.xml_parser_option != '-DWITH_LIBXML'
       shell: bash
       working-directory: ${{runner.workspace}}/build
       run: |
-            cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True -DWITH_JAVA=True -DWITH_LIBXML=False ${{matrix.xml_parser_option}}=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
+            cmake $GITHUB_WORKSPACE ${{ matrix.package_option}} -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True -DWITH_JAVA=True -DWITH_LIBXML=False ${{matrix.xml_parser_option}}=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
 
     - name: Build
       working-directory: ${{runner.workspace}}/build
