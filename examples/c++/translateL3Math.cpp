@@ -79,7 +79,7 @@ main (int argc, char* argv[])
        << endl;
 
   L3ParserSettings settings;
-  while (1)
+  do
   {
     cout << "Enter infix formula, MathML expression, or change parsing rules with the keywords:\nLOG_AS_LOG10, LOG_AS_LN, LOG_AS_ERROR, EXPAND_UMINUS, COLLAPSE_UMINUS, TARGETL2, TARGETL3, NO_UNITS, UNITS, or FILE:<filename>\n(Ctrl-C to quit):"
          << endl << endl;
@@ -163,7 +163,7 @@ main (int argc, char* argv[])
 
       cin.getline(line, BUFFER_SIZE, '\n');
     }
-  }
+  } while (line != 0);
 
   StringBuffer_free(sb);
   return 0;
