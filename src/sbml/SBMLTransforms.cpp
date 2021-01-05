@@ -344,8 +344,6 @@ SBMLTransforms::getComponentValuesForModel(const Model * m, IdValueMap& values)
         {
           ValueSet v = make_pair(s->getInitialAmount(), true);
           values.insert(pair<const std::string, ValueSet>(s->getId(), v));
-          //values.insert(pair<const std::string, double>(s->getId(), 
-          //                                            s->getInitialAmount()));
         }
         else if (s->isSetInitialAmount())
         {
