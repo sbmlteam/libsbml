@@ -1634,8 +1634,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-  //typedef std::map<std::string, bool>  PkgRequiredMap;
-  //typedef PkgRequiredMap::iterator     PkgRequiredMapIter;
   typedef std::map<std::string, bool>  PkgUseDefaultNSMap;
   typedef PkgUseDefaultNSMap::iterator PkgUseDefaultNSMapIter;
 
@@ -1705,7 +1703,6 @@ protected:
   std::list<SBMLValidator*> mValidators;
   SBMLInternalValidator *mInternalValidator;
 
-  //PkgRequiredMap           mPkgRequiredMap;
   XMLAttributes            mRequiredAttrOfUnknownPkg;
   XMLAttributes            mRequiredAttrOfUnknownDisabledPkg;
 
