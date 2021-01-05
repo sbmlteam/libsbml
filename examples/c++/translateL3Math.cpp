@@ -43,7 +43,6 @@
 
 #include <iostream>
 
-#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -59,9 +58,6 @@ LIBSBML_CPP_NAMESPACE_USE
 
 char *translateInfix  (const char *formula, const L3ParserSettings& settings);
 char *translateMathML (const char *xml);
-void quitHandler(int s);
-
-volatile sig_atomic_t isRunning = 1;
 
 
 int
@@ -75,10 +71,6 @@ main (int argc, char* argv[])
   SBMLDocument*   doc = NULL;
   StringBuffer_t* sb = StringBuffer_create(1024);
 
-  // Register ctrl-c handler
-  struct sigaction act;
-  act.sa_handler = quitHandler;
-  sigaction(SIGINT, &act, NULL);
 
   cout << endl 
        << "This program translates L3 infix formulas into MathML and" << endl
@@ -87,7 +79,7 @@ main (int argc, char* argv[])
        << endl;
 
   L3ParserSettings settings;
-  while (isRunning)
+  while (1)
   {
     cout << "Enter infix formula, MathML expression, or change parsing rules with the keywords:\nLOG_AS_LOG10, LOG_AS_LN, LOG_AS_ERROR, EXPAND_UMINUS, COLLAPSE_UMINUS, TARGETL2, TARGETL3, NO_UNITS, UNITS, or FILE:<filename>\n(Ctrl-C to quit):"
          << endl << endl;
@@ -173,7 +165,6 @@ main (int argc, char* argv[])
     }
   }
 
-  cout << "Quitting." << endl;
   StringBuffer_free(sb);
   return 0;
 }
@@ -220,13 +211,4 @@ translateMathML (const char* xml)
 
   ASTNode_free(math);
   return result;
-}
-
-/**
-  * Handles ctrl-c signal (aka SIGINT)
-  */
-void
-quitHandler(int s) 
-{
-  isRunning = 0;
 }
