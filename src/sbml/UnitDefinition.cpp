@@ -236,15 +236,6 @@ UnitDefinition::isSetName () const
 int
 UnitDefinition::setId (const std::string& sid)
 {
-  /* since the setId function has been used as an
-   * alias for setName we can't require it to only
-   * be used on a L2 model
-   */
-/*  if (getLevel() == 1)
-  {
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  }
-*/
   if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
@@ -629,7 +620,6 @@ UnitDefinition::isVariantOfSubstancePerTime (bool relaxed) const
   // this unitDefinition times second^1 should be a variant
   // of substance
   UnitDefinition *ud = static_cast<UnitDefinition*>(this->clone());
-  //Unit *u = new Unit(UNIT_KIND_SECOND);
   Unit *u = new Unit(ud->getSBMLNamespaces());
   u->setKind(UNIT_KIND_SECOND);
   u->initDefaults();
