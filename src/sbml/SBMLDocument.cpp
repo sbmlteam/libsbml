@@ -79,26 +79,6 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
-/*
- * Function to check whether an error reported by a compatability validation
- * prior to conversion between levels/versions can be ignored.
- * Some conversions will lose information but the model will still be valid
- * when converted.
- */
-//static unsigned int ignorable[] = {
-//  92001,
-//  92003,
-//  92004,
-//  92005,
-//  92006,
-//  93001,
-//  91003,
-//  91005,
-//  91006,
-//  91013
-//};
-
-
 
 /*
  * Get the most recent Level of SBML supported by this release of

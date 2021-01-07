@@ -633,26 +633,6 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Returns the value of the "attributeName" attribute of this Trigger.
-   *
-   * @param attributeName, the name of the attribute to retrieve.
-   *
-   * @param value, the address of the value to record.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  //virtual int getAttribute(const std::string& attributeName,
-  //                         const char* value) const;
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
    * Predicate returning @c true if this Trigger's attribute "attributeName" is
    * set.
    *
@@ -767,26 +747,6 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this Trigger.
-   *
-   * @param attributeName, the name of the attribute to set.
-   *
-   * @param value, the value of the attribute to set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  //virtual int setAttribute(const std::string& attributeName, const char*
-  //  value);
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
    * Unsets the value of the "attributeName" attribute of this Trigger.
    *
    * @param attributeName, the name of the attribute to query.
@@ -825,14 +785,6 @@ protected:
    * @return @c true if the subclass read from the stream, @c false otherwise.
    */
   virtual bool readOtherXML (XMLInputStream& stream);
-
-  /**
-   * Create and return an SBML object of this class, if present.
-   *
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or @c NULL if the token was not recognized.
-   */
-//  virtual SBase* createObject (XMLInputStream& stream);
 
 
   /**

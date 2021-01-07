@@ -2389,8 +2389,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /** @endcond */
 
-//   virtual int getAttribute(const std::string& attributeName, const char * value) const;
-
+  /** @cond doxygenLibsbmlInternal */
 
    virtual bool isSetAttribute(const std::string& attributeName) const;
 
@@ -2423,12 +2422,6 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /** @cond doxygenLibsbmlInternal */
 
    virtual int setAttribute(const std::string& attributeName, const std::string& value);
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-//   virtual int setAttribute(const std::string& attributeName, const char* value);
 
   /** @endcond */
 
@@ -3756,8 +3749,6 @@ SBase.readExtensionAttributes(attributes, expectedAttributes);
   //
   std::string mURI;
 
-  // boolean to keep track of whether the user has touched an annotation
-  //bool            mAnnotationChanged;
   bool            mHistoryChanged;
   bool            mCVTermsChanged;
 
