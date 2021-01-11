@@ -22,10 +22,10 @@ jobs:
         with_examples: ['True', 'False']
         package_option: ['', '-DWITH_STABLE_PACKAGES=ON', '-DWITH_ALL_PACKAGES=ON']
     runs-on: ${{ matrix.platform }}
-    
+
     steps:
     - uses: actions/checkout@v2
-    
+
     ### configure the operating system ###
     - name: Cache Windows dependencies and SWIG
       # On Windows, the dependencies live inside the source folder, ie `.`.
@@ -38,10 +38,10 @@ jobs:
               ./dependencies
               ./swig
         key: ${{ runner.os }}-dependencies
-    
+
     - name: Download pre-built Windows dependencies and SWIG
       # Windows dependencies have to be in a subfolder called `dependencies`, directly under the git repository root.
-      # also gets SWIG, completing the set of dependencies needed for windows      
+      # also gets SWIG, completing the set of dependencies needed for windows
       if: matrix.platform == 'windows-latest' && steps.cache-win-dependencies.outputs.cache-hit != 'true'
       shell: bash
       run: |
@@ -58,26 +58,51 @@ jobs:
       shell: bash
       run: |
            echo $GITHUB_WORKSPACE"/swig/swigwin-3.0.12/" >> $GITHUB_PATH
-    
+
     - name: Install Ubuntu dependencies
       # ubuntu already has SWIG and libxml2 by default
       if: matrix.platform == 'ubuntu-16.04'
       shell: bash
       run: |
-            sudo apt-get install check
-            sudo apt-get install libxerces-c-dev
-            sudo apt-get install expat
+            sudo apt-get install -y check libxerces-c-dev expat ccache
 
     - name: Install MacOS dependencies
       # MacOS already has libxml2 by default
       if: matrix.platform == 'macos-latest'
       shell: bash
       run: |
-            brew install check    
-            brew install swig
-            brew install xerces-c
-            brew install expat
-    
+            brew install check swig xerces-c expat ccache
+
+    ### setup ccache, not on Windows ###
+    - name: Prepare ccache timestamp
+      if: matrix.platform != 'windows-latest'
+      id: ccache_cache_timestamp
+      shell: cmake -P {0}
+      run: |
+        string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+        message("::set-output name=timestamp::${current_date}")
+    - name: Set ccache cache directory
+      if: matrix.platform != 'windows-latest'
+      shell: bash
+      run: |
+        echo "CCACHE_DIR=${{runner.workspace}}/.ccache" >> "${GITHUB_ENV}"
+        echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
+    - name: cache ccache files
+      if: matrix.platform != 'windows-latest'
+      uses: actions/cache@v1.1.0
+      with:
+        path: ${{runner.workspace}}/.ccache
+        key: ${{ runner.os }}-test-${{ matrix.xml_parser_option }}-${{ matrix.with_namespace }}-${{ matrix.strict }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+        restore-keys: |
+          ${{ runner.os }}-test-${{ matrix.xml_parser_option }}-${{ matrix.with_namespace }}-${{ matrix.strict }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+          ${{ runner.os }}-test-${{ matrix.xml_parser_option }}-${{ matrix.with_namespace }}-${{ matrix.strict }}-
+          ${{ runner.os }}-test-${{ matrix.xml_parser_option }}-${{ matrix.with_namespace }}-${{ matrix.strict }}-
+          ${{ runner.os }}-test-${{ matrix.xml_parser_option }}-${{ matrix.with_namespace }}-${{ matrix.strict }}-
+          ${{ runner.os }}-test-${{ matrix.xml_parser_option }}-${{ matrix.with_namespace }}-
+          ${{ runner.os }}-test-${{ matrix.xml_parser_option }}-
+          ${{ runner.os }}-test-
+          ${{ runner.os }}-
+
     ### build the project ###
     - name: Create Build Environment
       run: cmake -E make_directory ${{runner.workspace}}/build
@@ -87,19 +112,19 @@ jobs:
       shell: bash
       working-directory: ${{runner.workspace}}/build
       run: |
-            cmake $GITHUB_WORKSPACE ${{ matrix.package_option }}-DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True -DWITH_JAVA=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
-    
+            cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option }}-DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True -DWITH_JAVA=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
+
     - name: Configure CMake for non-default XML_parser
       if: matrix.xml_parser_option != '-DWITH_LIBXML'
       shell: bash
       working-directory: ${{runner.workspace}}/build
       run: |
-            cmake $GITHUB_WORKSPACE ${{ matrix.package_option}} -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True -DWITH_JAVA=True -DWITH_LIBXML=False ${{matrix.xml_parser_option}}=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
+            cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option}} -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True -DWITH_JAVA=True -DWITH_LIBXML=False ${{matrix.xml_parser_option}}=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
 
     - name: Build
       working-directory: ${{runner.workspace}}/build
       shell: bash
-      run: cmake --build . --config $BUILD_TYPE
+      run: cmake --build . --config $BUILD_TYPE --parallel 4
 
     ### run tests ###
     - name: Test
