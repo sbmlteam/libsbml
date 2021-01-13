@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [windows-latest, macos-latest, ubuntu-16.04]
+        platform: [windows-latest]
         xml_parser_option: ['-DWITH_LIBXML']
         with_namespace: ['True']
         strict: ['True']
@@ -108,13 +108,13 @@ jobs:
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
       timeout-minutes: 15
-      
+
     - name: Configure CMake for default XML_parser (LIBXML2)
       shell: bash
       working-directory: ${{runner.workspace}}/build
       run: |
             echo $CXX
-            cmake $GITHUB_WORKSPACE -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option }}-DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True -DWITH_JAVA=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
+            cmake $GITHUB_WORKSPACE -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option }} -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True -DWITH_JAVA=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
 
     - name: Build
       working-directory: ${{runner.workspace}}/build
