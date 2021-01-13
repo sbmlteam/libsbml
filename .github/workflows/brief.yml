@@ -78,20 +78,17 @@ jobs:
 
     ### setup ccache, not on Windows ###
     - name: Prepare ccache timestamp
-      if: matrix.platform != 'windows-latest'
       id: ccache_cache_timestamp
       shell: cmake -P {0}
       run: |
         string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
         message("::set-output name=timestamp::${current_date}")
     - name: Set ccache cache directory
-      if: matrix.platform != 'windows-latest'
       shell: bash
       run: |
         echo "CCACHE_DIR=${{runner.workspace}}/.ccache" >> "${GITHUB_ENV}"
         echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
     - name: cache ccache files
-      if: matrix.platform != 'windows-latest'
       uses: actions/cache@v1.1.0
       with:
         path: ${{runner.workspace}}/.ccache
@@ -112,6 +109,7 @@ jobs:
       shell: bash
       working-directory: ${{runner.workspace}}/build
       run: |
+            echo $CC
             cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option }}-DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True -DWITH_JAVA=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
 
     - name: Build
