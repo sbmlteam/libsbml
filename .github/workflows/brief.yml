@@ -55,6 +55,13 @@ jobs:
       run: |
            echo $GITHUB_WORKSPACE"/swig/swigwin-3.0.12/" >> $GITHUB_PATH
 
+    - name: Use clang-9 on Windows
+      # because ccache is not compatible with msvc compiler. We test the msvc compilation on PR when we allow the build to take more time.
+      if: matrix.platform == 'windows-latest'
+      shell: bash
+      run: |
+           export CC="clang-9"
+
     - name: Install Ubuntu dependencies
       # ubuntu already has SWIG and libxml2 by default
       if: matrix.platform == 'ubuntu-16.04'
