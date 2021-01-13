@@ -60,7 +60,7 @@ jobs:
       if: matrix.platform == 'windows-latest'
       shell: bash
       run: |
-           export CXX="clang-9"
+           echo "CXX=clang-9" >> "${GITHUB_ENV}"
 
     - name: Install Ubuntu dependencies
       # ubuntu already has SWIG and libxml2 by default
