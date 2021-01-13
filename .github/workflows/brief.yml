@@ -105,6 +105,10 @@ jobs:
     - name: Create Build Environment
       run: cmake -E make_directory ${{runner.workspace}}/build
 
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      timeout-minutes: 15
+      
     - name: Configure CMake for default XML_parser (LIBXML2)
       shell: bash
       working-directory: ${{runner.workspace}}/build
