@@ -55,12 +55,13 @@ jobs:
       run: |
            echo $GITHUB_WORKSPACE"/swig/swigwin-3.0.12/" >> $GITHUB_PATH
 
-    - name: Use clang-9 on Windows
+    - name: Use clang on Windows
       # because ccache is not compatible with msvc compiler. We test the msvc compilation on PR when we allow the build to take more time.
       if: matrix.platform == 'windows-latest'
       shell: bash
       run: |
-           echo "CXX=clang" >> "${GITHUB_ENV}"
+           echo "CXX=clang++" >> "${GITHUB_ENV}"
+           echo "CC=clang" >> "${GITHUB_ENV}"
 
     - name: Install Ubuntu dependencies
       # ubuntu already has SWIG and libxml2 by default
@@ -116,7 +117,7 @@ jobs:
       working-directory: ${{runner.workspace}}/build
       run: |
             echo $CXX
-            cmake $GITHUB_WORKSPACE -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option }} -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True -DWITH_JAVA=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
+            cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILE=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option }} -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True -DWITH_JAVA=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
 
     - name: Build
       working-directory: ${{runner.workspace}}/build
