@@ -60,7 +60,7 @@ jobs:
       if: matrix.platform == 'windows-latest'
       shell: bash
       run: |
-           export CC="clang-9"
+           export CXX="clang-9"
 
     - name: Install Ubuntu dependencies
       # ubuntu already has SWIG and libxml2 by default
@@ -109,7 +109,7 @@ jobs:
       shell: bash
       working-directory: ${{runner.workspace}}/build
       run: |
-            echo $CC
+            echo $CXX
             cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option }}-DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True -DWITH_JAVA=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
 
     - name: Build
