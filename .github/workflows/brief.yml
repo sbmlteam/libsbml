@@ -60,14 +60,14 @@ jobs:
       if: matrix.platform == 'ubuntu-16.04'
       shell: bash
       run: |
-            sudo apt-get install -y check libxerces-c-dev expat ccache
+            sudo apt-get install -y check ccache
 
     - name: Install MacOS dependencies
       # MacOS already has libxml2 by default
       if: matrix.platform == 'macos-latest'
       shell: bash
       run: |
-            brew install check swig xerces-c expat ccache
+            brew install check swig ccache
 
     ### setup ccache, not on Windows ###
     - name: Prepare ccache timestamp
