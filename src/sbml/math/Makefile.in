@@ -116,15 +116,14 @@ distfiles = $(sources) $(headers) Makefile.in
 # The default action is to remake everything.  Those rules which are not
 # defined below are defined in makefile-common-actions.mk.
 
-all: Makefile 
-# default
+all: Makefile default
 
 
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
 
-#check: check-recursive
+check: check-recursive
 
 
 # -----------------------------------------------------------------------------
@@ -143,39 +142,24 @@ tags: etags ctags
 # in 'all' as a default to make sure files get compiled if someone does
 # 'make install' from the top level without first doing a 'make'.
 
-install:
+install: all install-headers
 
-uninstall:
+installcheck: all installcheck-headers
 
-installcheck:
-
-#install: all install-headers
-
-#installcheck: all installcheck-headers
-
-#uninstall: uninstall-headers
+uninstall: uninstall-headers
 
 
 # -----------------------------------------------------------------------------
 # Cleaning.
 # -----------------------------------------------------------------------------
 
-clean: clean-normal
+clean: clean-normal clean-recursive
 
-distclean: distclean-normal
+distclean: distclean-normal distclean-recursive
 
-mostlyclean: mostlyclean-normal
+mostlyclean: mostlyclean-normal mostlyclean-recursive
 
-maintainer-clean: maintainer-clean-normal
-
-
-#clean: clean-normal clean-recursive
-
-#distclean: distclean-normal distclean-recursive
-
-#mostlyclean: mostlyclean-normal mostlyclean-recursive
-
-#maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
+maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
 
 
 # -----------------------------------------------------------------------------
