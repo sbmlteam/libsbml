@@ -118,7 +118,6 @@ import re
 import sys
 import os
 import textwrap
-from formatter import NullWriter, AbstractFormatter
 try:
     from htmllib import HTMLParser
 except Exception:
@@ -192,12 +191,10 @@ def get_quiet_flag(direct_args = None):
 # writes all text to an internal string variable.  The contents can be
 # obtained using a call to get_text().
 
-class RewritePydocStringWriter(NullWriter):
-
+class RewritePydocStringWriter:
     def __init__(self, maxcol=72):
         self.text = ''
         self.maxcol = maxcol
-        NullWriter.__init__(self)
         self.reset()
 
     def reset(self):

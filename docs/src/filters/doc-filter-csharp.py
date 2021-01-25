@@ -67,7 +67,7 @@ def main (args):
   """
 
   if len(args) != 2:
-    print main.__doc__
+    print(main.__doc__)
     sys.exit(1)
 
   istream = open(args[1], 'r')

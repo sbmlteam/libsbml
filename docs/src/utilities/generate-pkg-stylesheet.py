@@ -168,7 +168,7 @@ def main(args):
     # Next, read the source dir to find out the L3 packages available, and
     # extract the names of the libSBML object classes in each package.
     known_pkgs = [entry[0] for entry in color_table]
-    top_root, top_level_dirs, top_level_files = os.walk(src_dir).next()
+    top_root, top_level_dirs, top_level_files = next(os.walk(src_dir))
     found_pkgs = [pkg for pkg in known_pkgs if pkg in top_level_dirs]
 
     # Now generate CSS styling that uses attribute selectors specialized to
