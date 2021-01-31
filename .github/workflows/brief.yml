@@ -88,13 +88,9 @@ jobs:
       uses: actions/cache@v1.1.0
       with:
         path: ${{runner.workspace}}/.ccache
-        key: ${{ runner.os }}-test-${{ matrix.xml_parser_option }}-${{ matrix.with_namespace }}-${{ matrix.strict }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+        key: ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
         restore-keys: |
-          ${{ runner.os }}-test-${{ matrix.xml_parser_option }}-${{ matrix.with_namespace }}-${{ matrix.strict }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
-          ${{ runner.os }}-test-${{ matrix.xml_parser_option }}-${{ matrix.with_namespace }}-${{ matrix.strict }}-
-          ${{ runner.os }}-test-${{ matrix.xml_parser_option }}-${{ matrix.with_namespace }}-
-          ${{ runner.os }}-test-${{ matrix.xml_parser_option }}-
-          ${{ runner.os }}-test-
+          ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
           ${{ runner.os }}-
 
     ### build the project ###
