@@ -1,10 +1,9 @@
-name: CMake
+name: CMake (Extensive build on PR to develepment)
 
 on:
   pull_request:
     branches:
       - development
-      - stable
 
 env:
   BUILD_TYPE: Release
