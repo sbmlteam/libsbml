@@ -2,6 +2,7 @@ name: CMake (Extensive build on PR to develepment)
 
 on:
   pull_request:
+    types: [opened, synchronize, ready_for_review, reopened] # defaults + ready_to_review
     branches:
       - development
 
@@ -10,7 +11,7 @@ env:
 
 jobs:
   build:
-    if: github.event.pull_request.draft == false
+    if: github.event.pull_request.draft == false # avoid triggering on draft
     name: ${{ matrix.platform }}, Parser option ${{ matrix.xml_parser_option }}, with namespaces ${{ matrix.with_namespace}}, strict includes ${{ matrix.with_namespace }}, with examples ${{ matrix.with_examples}}, package option ${{ matrix.package_option}}
     strategy:
       fail-fast: false
