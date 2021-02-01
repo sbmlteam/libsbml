@@ -91,7 +91,7 @@ jobs:
           echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
       - name: cache ccache files
         if: matrix.platform != 'windows-latest'
-        uses: actions/cache@v1.1.0
+        uses: actions/cache@v2
         with:
           path: ${{runner.workspace}}/.ccache
           key: ${{ runner.os }}-test-${{ matrix.xml_parser_option }}-${{ matrix.with_namespace }}-${{ matrix.strict }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
