@@ -108,7 +108,6 @@ jobs:
       - name: Build
         working-directory: ${{runner.workspace}}/build
         shell: bash
-        # TODO make the below version-independed and OS-independent!
         run: |
           cmake --build . --config $BUILD_TYPE --parallel 4
 
@@ -119,6 +118,10 @@ jobs:
         run: ctest -C $BUILD_TYPE
 
       ### package artifact ###
+      - name: Store libSBML version in environment
+        shell: bash
+        run: echo "LIBSBML_VERSION=$( cat VERSION.txt)"  >> "${GITHUB_ENV}"
+
       - name: Set artifact name suffix to stable packages
         if: matrix.package_option=='-DWITH_STABLE_PACKAGES=ON'
         shell: bash
@@ -138,14 +141,14 @@ jobs:
         shell: bash
         run: |
           cpack -G ZIP -C $BUILD_TYPE 
-          mv libSBML-5.19.1-win64.zip libSBML-5.19.1-win64-nightly-${ARTIFACT_NAME_SUFFIX}.zip
+          mv libSBML-${LIBSBML_VERSION}-win64.zip libSBML-${LIBSBML_VERSION}-win64-nightly-${ARTIFACT_NAME_SUFFIX}.zip
 
       - name: Upload Windows binary archive
         if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: Windows nightly (zip, ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ${{runner.workspace}}/build/libSBML-5.19.1-win64-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.zip
+          name: Windows nightly (zip, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
+          path: ${{runner.workspace}}/build/libSBML-${{env.LIBSBML_VERSION}}-win64-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.zip
           retention-days: 1
           if-no-files-found: error
 
@@ -156,16 +159,16 @@ jobs:
         shell: bash
         run: |
           cpack -G ZIP -C $BUILD_TYPE
-          mv libSBML-5.19.1-Darwin.zip libSBML-5.19.1-Darwin-nightly-${ARTIFACT_NAME_SUFFIX}.zip
+          mv libSBML-${LIBSBML_VERSION}-Darwin.zip libSBML-${LIBSBML_VERSION}-Darwin-nightly-${ARTIFACT_NAME_SUFFIX}.zip
           cpack -G TGZ -C $BUILD_TYPE
-          mv libSBML-5.19.1-Darwin.tar.gz libSBML-5.19.1-Darwin-nightly-${ARTIFACT_NAME_SUFFIX}.tar.gz
-      
+          mv libSBML-${LIBSBML_VERSION}-Darwin.tar.gz libSBML-${LIBSBML_VERSION}-Darwin-nightly-${ARTIFACT_NAME_SUFFIX}.tar.gz
+
       - name: Upload MacOS binary archive (zip)
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: MacOS nightly (zip, ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ${{runner.workspace}}/build/libSBML-5.19.1-Darwin-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.zip
+          name: MacOS nightly (zip, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
+          path: ${{runner.workspace}}/build/libSBML-${{env.LIBSBML_VERSION}}-Darwin-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.zip
           retention-days: 1
           if-no-files-found: error
 
@@ -173,8 +176,8 @@ jobs:
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: MacOS nightly (tar.gz, ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ${{runner.workspace}}/build/libSBML-5.19.1-Darwin-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.tar.gz
+          name: MacOS nightly (tar.gz, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
+          path: ${{runner.workspace}}/build/libSBML-${{env.LIBSBML_VERSION}}-Darwin-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.tar.gz
           retention-days: 1
           if-no-files-found: error
 
@@ -185,16 +188,16 @@ jobs:
         shell: bash
         run: |
           cpack -G ZIP -C $BUILD_TYPE
-          mv libSBML-5.19.1-Linux.zip libSBML-5.19.1-Linux-nightly-${ARTIFACT_NAME_SUFFIX}.zip
+          mv libSBML-${LIBSBML_VERSION}-Linux.zip libSBML-${LIBSBML_VERSION}-Linux-nightly-${ARTIFACT_NAME_SUFFIX}.zip
           cpack -G TGZ -C $BUILD_TYPE
-          mv libSBML-5.19.1-Linux.tar.gz libSBML-5.19.1-Linux-nightly-${ARTIFACT_NAME_SUFFIX}.tar.gz
+          mv libSBML-${LIBSBML_VERSION}-Linux.tar.gz libSBML-${LIBSBML_VERSION}-Linux-nightly-${ARTIFACT_NAME_SUFFIX}.tar.gz
 
       - name: Upload Ubuntu binary archive (zip)
         if: matrix.platform == 'ubuntu-16.04'
         uses: actions/upload-artifact@v2
         with:
-          name: Ubuntu nightly (zip, ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ${{runner.workspace}}/build/libSBML-5.19.1-Linux-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.zip
+          name: Ubuntu nightly (zip, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
+          path: ${{runner.workspace}}/build/libSBML-${{env.LIBSBML_VERSION}}-Linux-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.zip
           retention-days: 1
           if-no-files-found: error
 
@@ -202,9 +205,7 @@ jobs:
         if: matrix.platform == 'ubuntu-16.04'
         uses: actions/upload-artifact@v2
         with:
-          name: Ubuntu nightly (tar.gz, ${{env.ARTIFACT_NAME_SUFFIX}}) 
-          path: ${{runner.workspace}}/build/libSBML-5.19.1-Linux-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.tar.gz
+          name: Ubuntu nightly (tar.gz, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
+          path: ${{runner.workspace}}/build/libSBML-${{env.LIBSBML_VERSION}}-Linux-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.tar.gz
           retention-days: 1
           if-no-files-found: error
-
- 
