@@ -17,7 +17,10 @@ jobs:
         strict: ["True"]
         with_examples: ["True"]
         package_option: ["-DWITH_ALL_PACKAGES=ON"]
-        language_bindings: ["-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_CPP_NAMESPACE=True -DWITH_PYTHON=True"]
+        language_bindings:
+          [
+            "-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_CPP_NAMESPACE=True -DWITH_PYTHON=True",
+          ]
     runs-on: ${{ matrix.platform }}
 
     steps:
