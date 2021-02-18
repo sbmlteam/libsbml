@@ -114,7 +114,7 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         shell: bash
         run: |
-          cmake --build . --config $BUILD_TYPE --parallel 4
+          cmake --build . --config $BUILD_TYPE
 
       ### run tests ###
       - name: Test
