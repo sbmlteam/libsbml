@@ -23,6 +23,10 @@ jobs:
         with_examples: ["True", "False"]
         package_option:
           ["", "-DWITH_STABLE_PACKAGES=ON", "-DWITH_ALL_PACKAGES=ON"]
+        language_bindings:
+          [
+            "-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_CPP_NAMESPACE=True -DWITH_PYTHON=True",
+          ]
     runs-on: ${{ matrix.platform }}
 
     steps:
@@ -74,6 +78,7 @@ jobs:
         shell: bash
         run: |
           brew install check swig xerces-c expat ccache
+          echo PYTHON_EXECUTABLE_OPTION="-DPYTHON_EXECUTABLE=/usr/local/bin/python3" >> "${GITHUB_ENV}"
 
       ### setup ccache, not on Windows ###
       - name: Prepare ccache timestamp
@@ -114,7 +119,7 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build
         run: |
-          cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option }}-DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True -DWITH_JAVA=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
+          cmake $GITHUB_WORKSPACE ${PYTHON_EXECUTABLE_OPTION} -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option }}-DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True -DWITH_JAVA=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
 
       - name: Configure CMake for non-default XML_parser
         if: matrix.xml_parser_option != '-DWITH_LIBXML'
@@ -126,10 +131,10 @@ jobs:
       - name: Build
         working-directory: ${{runner.workspace}}/build
         shell: bash
-        run: cmake --build . --config $BUILD_TYPE --parallel 4
+        run: cmake --build . --config $BUILD_TYPE
 
       ### run tests ###
       - name: Test
         working-directory: ${{runner.workspace}}/build
         shell: bash
-        run: ctest -C $BUILD_TYPE
+        run: ctest -V -C $BUILD_TYPE
