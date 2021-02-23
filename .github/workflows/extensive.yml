@@ -71,6 +71,7 @@ jobs:
         shell: bash
         run: |
           sudo apt-get install -y check libxerces-c-dev expat ccache
+          echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
 
       - name: Install MacOS dependencies
         # MacOS already has libxml2 by default
@@ -78,7 +79,7 @@ jobs:
         shell: bash
         run: |
           brew install check swig xerces-c expat ccache
-          echo PYTHON_EXECUTABLE_OPTION="-DPYTHON_EXECUTABLE=/usr/local/bin/python3" >> "${GITHUB_ENV}"
+          echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
 
       ### setup ccache, not on Windows ###
       - name: Prepare ccache timestamp
@@ -119,7 +120,7 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build
         run: |
-          cmake $GITHUB_WORKSPACE ${PYTHON_EXECUTABLE_OPTION} -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option }}-DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True ${{matrix.language_bindings}} -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
+          cmake $GITHUB_WORKSPACE ${PYTHON_LINKING_OPTION} -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option }}-DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True ${{matrix.language_bindings}} -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
 
       - name: Configure CMake for non-default XML_parser
         if: matrix.xml_parser_option != '-DWITH_LIBXML'
