@@ -79,7 +79,7 @@ Documentation is available online at http://sbml.org/Software/libSBML
 Getting help
 ------------
 
-We encourage you to join the [sbml-interoperability](https://groups.google.com/g/sbml-interoperability) group, where other libSBML users can be found.  You can ask questions and discuss the development, use, and interoperability of all kinds of software that supports SBML.
+We encourage you to join the [sbml-discuss](https://groups.google.com/g/sbml-discuss) group, where other libSBML users can be found.  You can ask questions and discuss the development, use, and interoperability of all kinds of software that supports SBML.
 
 You can report issues, suggestions and requests using the [GitHub issue tracker](https://github.com/sbmlteam/libsbml/issues).  If you are interested in participating in or observing libSBML development more closely, we encourage you to join [libsbml-development@googlegroups.com](https://groups.google.com/forum/#!forum/libsbml-development), a mailing list and web forum devoted to discussions about LIBSBML.
 
