@@ -22,7 +22,7 @@ jobs:
         strict: ["True", "False"]
         with_examples: ["True", "False"]
         package_option:
-          ["", "-DWITH_STABLE_PACKAGES=ON", "-DWITH_ALL_PACKAGES=ON"]
+          ["-DWITH_STABLE_PACKAGES=ON", "-DWITH_ALL_PACKAGES=ON"]
         language_bindings:
           [
             "-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_CPP_NAMESPACE=True -DWITH_PYTHON=True",
