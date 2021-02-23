@@ -1,6 +1,68 @@
 ﻿           libSBML NEWS -- History of user-visible changes
 
 ====================================================================
+5.19.1 (Current development branch)
+====================================================================
+STABLE RELEASE
+
+* New features
+	
+  - 'comp' package-specific updates:
+  - 'distrib' package-specific updates:
+  - 'fbc' package-specific updates:
+  - 'groups' package-specific updates:
+  - 'layout' package-specific updates:
+  - 'multi' package-specific updates:
+  - 'qual' package-specific updates:
+  - 'render' package-specific updates:
+
+* Bug fixes
+
+  - A large number of code 'smells' have been cleaned up. Thanks to
+    Jamie Quinn for undertaking this laborious task.
+
+  - The python examples have been updated for Python 3.8 changes.
+    Thanks to Akira Funahashi for committing these fixes.
+
+  - The python code used for creating documentation has been
+    updated for Python 3.10 changes. Thanks to
+    Zbigniew Jędrzejewski-Szmek for submitting the changes.
+
+  - 'comp' package-specific bug fixes:
+  - 'distrib' package-specific bug fixes:
+  - 'fbc' package-specific bug fixes:
+  - 'groups' package-specific bug fixes:
+  - 'layout' package-specific bug fixes:
+  - 'multi' package-specific bug fixes:
+  - 'qual' package-specific bug fixes:
+  - 'render' package-specific bug fixes:
+
+* Configuration/build system changes
+
+  - Extensive continuous integration testing has been added to 
+    the GitHub repository.
+
+
+* Miscellaneous
+
+
+EXPERIMENTAL PACKAGES
+
+* New features
+
+  - 'arrays' package-specific updates:
+  - 'dyn' package-specific updates:
+  - 'req' package-specific updates:
+  - 'spatial' package-specific updates:
+
+ * Bug fixes
+ 
+  - 'arrays' package-specific bug fixes:
+  - 'dyn' package-specific bug fixes:
+  - 'req' package-specific bug fixes:
+  - 'spatial' package-specific bug fixes:
+
+====================================================================
 5.19.0 (2020-11-27)
 ====================================================================
 
