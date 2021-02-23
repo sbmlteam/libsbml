@@ -25,7 +25,7 @@ jobs:
           ["", "-DWITH_STABLE_PACKAGES=ON", "-DWITH_ALL_PACKAGES=ON"]
         language_bindings:
           [
-            "-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_CPP_NAMESPACE=True -DWITH_PYTHON=True",
+            "-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True",
           ]
     runs-on: ${{ matrix.platform }}
 
