@@ -16,17 +16,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        xml_parser_option: ["-DWITH_LIBXML"]
         platform: [windows-latest, macos-latest, ubuntu-16.04]
-        xml_parser_option: ["-DWITH_LIBXML", "-DWITH_XERCES", "-DWITH_EXPAT"]
         with_namespace: ["True", "False"]
-        strict: ["True", "False"]
-        with_examples: ["True", "False"]
+        strict: ["True"]
+        with_examples: ["True"]
         package_option:
           ["", "-DWITH_STABLE_PACKAGES=ON", "-DWITH_ALL_PACKAGES=ON"]
         language_bindings:
-          [
-            "-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True",
-          ]
+          ["-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True"]
     runs-on: ${{ matrix.platform }}
 
     steps:
