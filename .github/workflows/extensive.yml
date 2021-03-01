@@ -12,21 +12,67 @@ env:
 jobs:
   build:
     if: github.event.pull_request.draft == false # avoid triggering on draft
-    name: ${{ matrix.platform }}, Parser option ${{ matrix.xml_parser_option }}, with namespaces ${{ matrix.with_namespace}}, strict includes ${{ matrix.with_namespace }}, with examples ${{ matrix.with_examples}}, package option ${{ matrix.package_option}}
+    name: ${{ matrix.platform }}, Parser option ${{ matrix.xml_parser_option }}, with namespaces ${{ matrix.with_namespace}}, strict includes ${{ matrix.strict }}, with examples ${{ matrix.with_examples}}, package option ${{ matrix.package_option}}
     strategy:
       fail-fast: false
       matrix:
+        xml_parser_option: ["-DWITH_LIBXML"]
         platform: [windows-latest, macos-latest, ubuntu-16.04]
-        xml_parser_option: ["-DWITH_LIBXML", "-DWITH_XERCES", "-DWITH_EXPAT"]
         with_namespace: ["True", "False"]
-        strict: ["True", "False"]
-        with_examples: ["True", "False"]
+        strict: ["True"]
+        with_examples: ["True"]
         package_option:
           ["", "-DWITH_STABLE_PACKAGES=ON", "-DWITH_ALL_PACKAGES=ON"]
         language_bindings:
-          [
-            "-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True",
-          ]
+          ["-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True"]
+        include:
+        # to test the other two XML parsers while avoiding a combinatorial explosion in the number of jobs,
+        # we additionally include just two runs / OS : one for Expat, and one for Xerces
+        # extra Windows runs
+          - xml_parser_option: "-DWITH_EXPAT"
+            platform: windows-latest
+            with_namespace: "True"
+            strict: "True"
+            with_examples: "True"
+            package_option: "-DWITH_ALL_PACKAGES=ON"
+            language_bindings: ""
+          - xml_parser_option: "-DWITH_XERCES"
+            platform: windows-latest
+            with_namespace: "True"
+            strict: "True"
+            with_examples: "True"
+            package_option: "-DWITH_ALL_PACKAGES=ON"
+            language_bindings: ""
+        # extra MacOS runs
+          - xml_parser_option: "-DWITH_EXPAT"
+            platform: macos-latest
+            with_namespace: "True"
+            strict: "True"
+            with_examples: "True"
+            package_option: "-DWITH_ALL_PACKAGES=ON"
+            language_bindings: ""
+          - xml_parser_option: "-DWITH_XERCES"
+            platform: macos-latest
+            with_namespace: "True"
+            strict: "True"
+            with_examples: "True"
+            package_option: "-DWITH_ALL_PACKAGES=ON"
+            language_bindings: ""
+        # extra Ubuntu runs
+          - xml_parser_option: "-DWITH_EXPAT"
+            platform: ubuntu-16.04
+            with_namespace: "True"
+            strict: "True"
+            with_examples: "True"
+            package_option: "-DWITH_ALL_PACKAGES=ON"
+            language_bindings: ""
+          - xml_parser_option: "-DWITH_XERCES"
+            platform: ubuntu-16.04
+            with_namespace: "True"
+            strict: "True"
+            with_examples: "True"
+            package_option: "-DWITH_ALL_PACKAGES=ON"
+            language_bindings: ""
     runs-on: ${{ matrix.platform }}
 
     steps:
