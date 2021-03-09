@@ -28,6 +28,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Add msbuild to PATH (Windows)
+        if: matrix.platform == 'windows-latest'
+        uses: ilammy/msvc-dev-cmd@v1.6.0
 
       ### configure the operating system ###
       - name: Cache Windows dependencies and SWIG
@@ -133,7 +138,6 @@ jobs:
           ${{matrix.language_bindings}} \
           ${RUNTIME_LINKING_OPTION} \
           ${PYTHON_LINKING_OPTION}
-        
 
       - name: Build
         working-directory: ${{runner.workspace}}/build
