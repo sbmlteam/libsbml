@@ -112,19 +112,6 @@ class SBMLVisitor;
  * Used by ListOf::get() to lookup an SBase based by its id.
  */
 #ifndef SWIG
-#if __cplusplus > 201103  // C++11
-template<class CNAME>
-struct IdEq
-{
-  const std::string& mId;
-
-  IdEq(const std::string& id) : mId(id) { }
-  bool operator() (SBase* sb)
-  {
-    return static_cast <CNAME*> (sb)->getId() == mId;
-  }
-};
-#else
 template<class CNAME>
 struct IdEq : public std::unary_function<SBase*, bool>
 {
@@ -134,8 +121,6 @@ struct IdEq : public std::unary_function<SBase*, bool>
   bool operator() (SBase* sb) 
        { return static_cast <CNAME*> (sb)->getId() == mId; }
 };
-#endif
-
 #endif /* SWIG */
 /** @endcond */
 

@@ -83,18 +83,10 @@ ListOf::ListOf (SBMLNamespaces* sbmlns)
 /**
  * Used by the Destructor to delete each item in mItems.
  */
-#if __cplusplus > 201103  // C++11
-
-struct Delete
-{
-  void operator() (SBase* sb) { delete sb; }
-};
-#else
 struct Delete : public unary_function<SBase*, void>
 {
   void operator() (SBase* sb) { delete sb; }
 };
-#endif
 
 
 /*
@@ -109,17 +101,10 @@ ListOf::~ListOf ()
 /**
  * Used by the Copy Constructor to clone each item in mItems.
  */
-#if __cplusplus > 201103  // C++11
-struct Clone 
-{
-  SBase* operator() (SBase* sb) { return sb->clone(); }
-};
-#else
 struct Clone : public unary_function<SBase*, SBase*>
 {
   SBase* operator() (SBase* sb) { return sb->clone(); }
 };
-#endif
 
 
 /*
@@ -436,15 +421,6 @@ ListOf::updateSBMLNamespace(const std::string& pkg, unsigned int level,
 /**
  * Used by ListOf::setSBMLDocument().
  */
-#if __cplusplus > 201103  // C++11
-struct SetSBMLDocument 
-{
-  SBMLDocument* mD;
-
-  SetSBMLDocument(SBMLDocument* d) : mD(d) { }
-  void operator() (SBase* sbase) { sbase->setSBMLDocument(mD); }
-};
-#else
 struct SetSBMLDocument : public unary_function<SBase*, void>
 {
   SBMLDocument* mD;
@@ -452,21 +428,11 @@ struct SetSBMLDocument : public unary_function<SBase*, void>
   SetSBMLDocument (SBMLDocument* d) : mD(d) { }
   void operator() (SBase* sbase) { sbase->setSBMLDocument(mD); }
 };
-#endif
 
 
 /**
  * Used by ListOf::setParentSBMLObject().
  */
-#if __cplusplus > 201103  // C++11
-struct SetParentSBMLObject 
-{
-  SBase* mSb;
-
-  SetParentSBMLObject(SBase *sb) : mSb(sb) { }
-  void operator() (SBase* sbase) { sbase->connectToParent(mSb); }
-};
-#else
 struct SetParentSBMLObject : public unary_function<SBase*, void>
 {
   SBase* mSb;
@@ -474,7 +440,6 @@ struct SetParentSBMLObject : public unary_function<SBase*, void>
   SetParentSBMLObject (SBase *sb) : mSb(sb) { }
   void operator() (SBase* sbase) { sbase->connectToParent(mSb); }
 };
-#endif
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -538,15 +503,6 @@ ListOf::getElementName () const
 /**
  * Used by ListOf::writeElements().
  */
-#if __cplusplus > 201103  // C++11
-struct Write 
-{
-  XMLOutputStream& stream;
-
-  Write(XMLOutputStream& s) : stream(s) { }
-  void operator() (SBase* sbase) { sbase->write(stream); }
-};
-#else
 struct Write : public unary_function<SBase*, void>
 {
   XMLOutputStream& stream;
@@ -554,7 +510,6 @@ struct Write : public unary_function<SBase*, void>
   Write (XMLOutputStream& s) : stream(s) { }
   void operator() (SBase* sbase) { sbase->write(stream); }
 };
-#endif
 
 
 /** @cond doxygenLibsbmlInternal */
