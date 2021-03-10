@@ -275,7 +275,7 @@ ListOfDomains::createDomain()
 /*
  * Used by ListOfDomains::get() to lookup a Domain based on its DomainType.
  */
-struct IdEqDT3 : public std::unary_function<SBase*, bool>
+struct IdEqDT3
 {
   const string& id;
    

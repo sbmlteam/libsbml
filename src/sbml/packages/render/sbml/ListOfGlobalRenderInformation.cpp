@@ -473,7 +473,7 @@ ListOfGlobalRenderInformation::get(unsigned int n) const
 /*
 * Used by ListOf::get() to lookup an SBase based by its id.
 */
-struct IdEqGlobalRenderInformation : public std::unary_function<SBase*, bool>
+struct IdEqGlobalRenderInformation
 {
   const std::string& id;
 

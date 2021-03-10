@@ -272,7 +272,7 @@ ListOfDimensions::createDimension()
 /*
  * Used by ListOfDimensions::get() to lookup a Dimension based on its Size.
  */
-struct IdEqSDimension : public std::unary_function<SBase*, bool>
+struct IdEqSDimension
 {
   const string& id;
    

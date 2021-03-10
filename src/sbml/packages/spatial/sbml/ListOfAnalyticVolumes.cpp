@@ -282,7 +282,7 @@ ListOfAnalyticVolumes::createAnalyticVolume()
  * Used by ListOfAnalyticVolumes::get() to lookup an AnalyticVolume based on
  * its DomainType.
  */
-struct IdEqDT1 : public std::unary_function<SBase*, bool>
+struct IdEqDT1
 {
   const string& id;
    

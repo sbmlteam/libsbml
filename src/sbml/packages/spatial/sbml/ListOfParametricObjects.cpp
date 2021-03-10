@@ -280,7 +280,7 @@ ListOfParametricObjects::createParametricObject()
  * Used by ListOfParametricObjects::get() to lookup a ParametricObject based on
  * its DomainType.
  */
-struct IdEqDT4 : public std::unary_function<SBase*, bool>
+struct IdEqDT4
 {
   const string& id;
    

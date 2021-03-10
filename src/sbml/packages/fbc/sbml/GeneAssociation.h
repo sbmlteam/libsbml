@@ -587,7 +587,7 @@ protected:
  */
 #ifndef SWIG
 template<>
-struct IdEq<GeneAssociation> : public std::unary_function<SBase*, bool>
+struct IdEq<GeneAssociation>
 {
   const std::string& mId;
 

@@ -275,7 +275,7 @@ ListOfSampledVolumes::createSampledVolume()
  * Used by ListOfSampledVolumes::get() to lookup a SampledVolume based on its
  * DomainType.
  */
-struct IdEqDT5 : public std::unary_function<SBase*, bool>
+struct IdEqDT5
 {
   const string& id;
    
