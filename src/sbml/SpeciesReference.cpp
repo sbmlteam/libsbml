@@ -1581,7 +1581,7 @@ ListOfSpeciesReferences::getElementName () const
 /**
  * Used by ListOfSpeciesReferences::get() to lookup an SBase based by its id.
  */
-struct IdEqSSR : public unary_function<SBase*, bool>
+struct IdEqSSR
 {
   const string& mId;
 

@@ -69,7 +69,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 
 template <typename T>
-struct Apply : public unary_function<TConstraint<T>*, void>
+struct Apply 
 {
   Apply(const Model& m, const T& o)
     : model(m)

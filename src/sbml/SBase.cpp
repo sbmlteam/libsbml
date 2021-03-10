@@ -80,7 +80,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /*
  * Used by the Destructor to delete each item in mPlugins.
  */
-struct DeletePluginEntity : public unary_function<SBasePlugin*, void>
+struct DeletePluginEntity
 {
   void operator() (SBasePlugin* sb) { delete sb; }
 };
@@ -89,7 +89,7 @@ struct DeletePluginEntity : public unary_function<SBasePlugin*, void>
 /*
  * Used by the Copy Constructor to clone each item in mPlugins.
  */
-struct ClonePluginEntity : public unary_function<SBasePlugin*, SBasePlugin*>
+struct ClonePluginEntity 
 {
   SBasePlugin* operator() (const SBasePlugin* sb) {
     if (!sb) return NULL;

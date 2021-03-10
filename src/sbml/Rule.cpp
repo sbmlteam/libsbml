@@ -1639,7 +1639,7 @@ ListOfRules::get(unsigned int n) const
 /**
  * Used by ListOf::get() to lookup an SBase based by its id.
  */
-struct IdEqRule : public unary_function<SBase*, bool>
+struct IdEqRule 
 {
   const string& mId;
 

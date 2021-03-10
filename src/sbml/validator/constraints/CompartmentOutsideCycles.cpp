@@ -123,7 +123,7 @@ CompartmentOutsideCycles::checkForCycle (const Model& m, const Compartment* c)
  * Function Object: Returns true if Compartment c is contained in the given
  * IdList cycle.
  */
-struct CycleContains : public unary_function<IdList, bool>
+struct CycleContains
 {
   CycleContains (const Compartment* c) : id(c->getId()) { }
 
