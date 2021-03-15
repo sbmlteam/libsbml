@@ -277,7 +277,7 @@ ListOfOrdinalMappings::createOrdinalMapping()
  * Used by ListOfOrdinalMappings::get() to lookup an OrdinalMapping based on
  * its GeometryDefinition.
  */
-struct IdEqGD : public std::unary_function<SBase*, bool>
+struct IdEqGD
 {
   const string& id;
    

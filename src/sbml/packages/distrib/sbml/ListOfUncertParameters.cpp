@@ -340,7 +340,7 @@ ListOfUncertParameters::createUncertSpan()
  * Used by ListOfUncertParameters::get() to lookup an UncertParameter based on
  * its Var.
  */
-struct IdEqV : public std::unary_function<SBase*, bool>
+struct IdEqV
 {
   const string& id;
    
@@ -352,7 +352,7 @@ struct IdEqV : public std::unary_function<SBase*, bool>
 };
 
 
-struct UTypeEqV : public std::unary_function<SBase*, bool>
+struct UTypeEqV
 {
   const UncertType_t utype;
 

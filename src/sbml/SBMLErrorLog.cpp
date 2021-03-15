@@ -90,7 +90,7 @@ SBMLErrorLog& SBMLErrorLog::operator=(const SBMLErrorLog& other)
 /*
  * Used by the Destructor to delete each item in mErrors.
  */
-struct Delete : public unary_function<XMLError*, void>
+struct Delete 
 {
   void operator() (XMLError* error) { delete error; }
 };

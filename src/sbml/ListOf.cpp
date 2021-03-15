@@ -83,7 +83,7 @@ ListOf::ListOf (SBMLNamespaces* sbmlns)
 /**
  * Used by the Destructor to delete each item in mItems.
  */
-struct Delete : public unary_function<SBase*, void>
+struct Delete 
 {
   void operator() (SBase* sb) { delete sb; }
 };
@@ -101,7 +101,7 @@ ListOf::~ListOf ()
 /**
  * Used by the Copy Constructor to clone each item in mItems.
  */
-struct Clone : public unary_function<SBase*, SBase*>
+struct Clone
 {
   SBase* operator() (SBase* sb) { return sb->clone(); }
 };
@@ -421,7 +421,7 @@ ListOf::updateSBMLNamespace(const std::string& pkg, unsigned int level,
 /**
  * Used by ListOf::setSBMLDocument().
  */
-struct SetSBMLDocument : public unary_function<SBase*, void>
+struct SetSBMLDocument
 {
   SBMLDocument* mD;
 
@@ -433,7 +433,7 @@ struct SetSBMLDocument : public unary_function<SBase*, void>
 /**
  * Used by ListOf::setParentSBMLObject().
  */
-struct SetParentSBMLObject : public unary_function<SBase*, void>
+struct SetParentSBMLObject
 {
   SBase* mSb;
 
@@ -503,7 +503,7 @@ ListOf::getElementName () const
 /**
  * Used by ListOf::writeElements().
  */
-struct Write : public unary_function<SBase*, void>
+struct Write
 {
   XMLOutputStream& stream;
 

@@ -192,7 +192,7 @@ SBO::intToString (int sboTerm)
   * functions for checking the SBO term is from correct part of SBO
   * Unary Functor returns the parent portion of a ParentMap pair.
   */
-struct GetSecond : public unary_function<const pair<const int, int>, int>
+struct GetSecond 
 {
   int operator() (const pair<const int, int>& pair) { return pair.second; }
 };

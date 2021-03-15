@@ -715,7 +715,7 @@ ListOfSpeciesTypes::get(unsigned int n) const
 /**
  * Used by ListOf::get() to lookup an SBase based by its id.
  */
-struct IdEqST : public unary_function<SBase*, bool>
+struct IdEqST
 {
   const string& mId;
 

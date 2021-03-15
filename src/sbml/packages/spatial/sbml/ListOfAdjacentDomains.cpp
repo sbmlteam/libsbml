@@ -277,7 +277,7 @@ ListOfAdjacentDomains::createAdjacentDomains()
  * Used by ListOfAdjacentDomains::get() to lookup an AdjacentDomains based on
  * its Domain1.
  */
-struct IdEqD : public std::unary_function<SBase*, bool>
+struct IdEqD
 {
   const string& id;
    
@@ -319,7 +319,7 @@ ListOfAdjacentDomains::getByDomain1(const std::string& sid)
  * Used by ListOfAdjacentDomains::get() to lookup an AdjacentDomains based on
  * its Domain2.
  */
-struct IdEqD_A : public std::unary_function<SBase*, bool>
+struct IdEqD_A
 {
   const string& id;
    

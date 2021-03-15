@@ -342,7 +342,7 @@ ASTNode::ASTNode (Token_t* token)
 /*
 * Used by the Copy Constructor to clone each item in mPlugins.
 */
-struct CloneASTPluginEntity : public unary_function<ASTBasePlugin*, ASTBasePlugin*>
+struct CloneASTPluginEntity 
 {
   ASTBasePlugin* operator() (ASTBasePlugin* ast) {
     if (!ast) return 0;
@@ -3489,7 +3489,7 @@ ASTNode::getNumPlugins() const
 
 /** @endcond */
 
-struct DeleteASTPluginEntity : public unary_function<ASTBasePlugin*, void>
+struct DeleteASTPluginEntity
 {
   void operator() (ASTBasePlugin* ast) { delete ast; }
 };

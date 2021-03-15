@@ -1251,7 +1251,7 @@ ListOfInputs::getBySpecies(const std::string& sid)
  * Used by ListOfInputs::get() to lookup an Input based by its 
  * qualitativeSpecies.
  */
-struct IdEqQS : public std::unary_function<SBase*, bool>
+struct IdEqQS
 {
   const string& mId;
 

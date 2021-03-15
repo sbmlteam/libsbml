@@ -278,7 +278,7 @@ ListOfCSGObjects::createCSGObject()
  * Used by ListOfCSGObjects::get() to lookup a CSGObject based on its
  * DomainType.
  */
-struct IdEqDT2 : public std::unary_function<SBase*, bool>
+struct IdEqDT2
 {
   const string& id;
    

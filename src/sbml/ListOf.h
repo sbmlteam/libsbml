@@ -113,7 +113,7 @@ class SBMLVisitor;
  */
 #ifndef SWIG
 template<class CNAME>
-struct IdEq : public std::unary_function<SBase*, bool>
+struct IdEq
 {
   const std::string& mId;
 

@@ -1109,7 +1109,7 @@ ListOfEventAssignments::get(unsigned int n) const
 /**
  * Used by ListOf::get() to lookup an SBase based by its id.
  */
-struct IdEqEA : public unary_function<SBase*, bool>
+struct IdEqEA
 {
   const string& mId;
 

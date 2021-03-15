@@ -2205,7 +2205,7 @@ ListOfEvents::get(unsigned int n) const
 /**
  * Used by ListOf::get() to lookup an SBase based by its id.
  */
-struct IdEqE : public unary_function<SBase*, bool>
+struct IdEqE
 {
   const string& mId;
 

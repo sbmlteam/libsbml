@@ -1830,7 +1830,7 @@ ListOfParameters::get(unsigned int n) const
 /**
  * Used by ListOf::get() to lookup an SBase based by its id.
  */
-struct IdEqP : public unary_function<SBase*, bool>
+struct IdEqP 
 {
   const string& mId;
 

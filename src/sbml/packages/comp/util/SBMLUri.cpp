@@ -159,7 +159,7 @@ SBMLUri::parse(const std::string& uri)
 #else
   transform(constUri.begin(), prot_i,
     back_inserter(mScheme),
-    ptr_fun<int,int>(tolower)); // scheme is icase
+    ::tolower); // scheme is icase
 #endif
 
   if( prot_i == constUri.end() )
@@ -199,8 +199,8 @@ SBMLUri::parse(const std::string& uri)
      (int(*)(int))(tolower)); // host is icase
 #else
     transform(prot_i, path_i,
-     back_inserter(mHost),
-     ptr_fun<int,int>(tolower)); // host is icase
+      back_inserter(mHost),
+      ::tolower); // host is icase
 #endif
   }  
   else if (mScheme == "urn")
