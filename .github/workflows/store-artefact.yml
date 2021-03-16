@@ -196,6 +196,7 @@ jobs:
           mv libSBML-${LIBSBML_VERSION}-Linux.zip libSBML-${LIBSBML_VERSION}-Linux-nightly-${ARTIFACT_NAME_SUFFIX}.zip
           cpack -G TGZ -C $BUILD_TYPE
           mv libSBML-${LIBSBML_VERSION}-Linux.tar.gz libSBML-${LIBSBML_VERSION}-Linux-nightly-${ARTIFACT_NAME_SUFFIX}.tar.gz
+          cpack -C $BUILD_TYPE
 
       - name: Upload Ubuntu binary archive (zip)
         if: matrix.platform == 'ubuntu-16.04'
@@ -212,5 +213,14 @@ jobs:
         with:
           name: Ubuntu nightly (tar.gz, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
           path: ${{runner.workspace}}/build/libSBML-${{env.LIBSBML_VERSION}}-Linux-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.tar.gz
+          retention-days: 1
+          if-no-files-found: error
+
+      - name: Upload Ubuntu binary archive (tar.gz)
+        if: matrix.platform == 'ubuntu-16.04'
+        uses: actions/upload-artifact@v2
+        with:
+          name: Ubuntu nightly unzipped ( libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
+          path: ${{runner.workspace}}/build/libSBML-${{env.LIBSBML_VERSION}}-Linux*
           retention-days: 1
           if-no-files-found: error
