@@ -26,9 +26,9 @@ jobs:
         language_bindings:
           ["-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True"]
         include:
-        # to test the other two XML parsers while avoiding a combinatorial explosion in the number of jobs,
-        # we additionally include just two runs / OS : one for Expat, and one for Xerces
-        # extra Windows runs
+          # to test the other two XML parsers while avoiding a combinatorial explosion in the number of jobs,
+          # we additionally include just two runs / OS : one for Expat, and one for Xerces
+          # extra Windows runs
           - xml_parser_option: "-DWITH_EXPAT"
             platform: windows-latest
             with_namespace: "True"
@@ -43,7 +43,7 @@ jobs:
             with_examples: "True"
             package_option: "-DWITH_ALL_PACKAGES=ON"
             language_bindings: ""
-        # extra MacOS runs
+          # extra MacOS runs
           - xml_parser_option: "-DWITH_EXPAT"
             platform: macos-latest
             with_namespace: "True"
@@ -58,7 +58,7 @@ jobs:
             with_examples: "True"
             package_option: "-DWITH_ALL_PACKAGES=ON"
             language_bindings: ""
-        # extra Ubuntu runs
+          # extra Ubuntu runs
           - xml_parser_option: "-DWITH_EXPAT"
             platform: ubuntu-16.04
             with_namespace: "True"
@@ -83,13 +83,13 @@ jobs:
         # On Windows, the dependencies live inside the source folder, ie `.`.
         # For the CI, we put SWIG there too, for simplicity.
         if: matrix.platform == 'windows-latest'
-        id: cache-win-dependencies
+        id: cache-win-dependencies-static
         uses: actions/cache@v2
         with:
           path: |
             ./dependencies
             ./swig
-          key: ${{ runner.os }}-dependencies
+          key: ${{ runner.os }}-dependencies-static
 
       - name: Download pre-built Windows dependencies and SWIG
         # Windows dependencies have to be in a subfolder called `dependencies`, directly under the git repository root.
@@ -97,19 +97,20 @@ jobs:
         if: matrix.platform == 'windows-latest' && steps.cache-win-dependencies.outputs.cache-hit != 'true'
         shell: bash
         run: |
-          curl -L https://sourceforge.net/projects/sbml/files/libsbml/win-dependencies/libSBML_dependencies_vs15_release_x64.zip/download > dependencies.zip
+          curl -L https://sourceforge.net/projects/sbml/files/libsbml/win-dependencies/libSBML_dependencies_vs15_release_x64_static.zip/download > dependencies.zip
           unzip dependencies.zip -d dependencies
           cp -r dependencies/libSBML\ Dependencies-1.0.0-b1-win64/* dependencies
           rm -r dependencies/libSBML*
           curl -L https://prdownloads.sourceforge.net/swig/swigwin-3.0.12.zip > swig.zip
-          unzip swig.zip -d swig
+          unzip -o swig.zip -d swig
 
-      - name: add SWIG to Path (Windows)
+      - name: setup Windows environment
         # this is separate from the SWIG download itself, because it needs to be added to the path also when SWIG is cached
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
           echo $GITHUB_WORKSPACE"/swig/swigwin-3.0.12/" >> $GITHUB_PATH
+          echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
 
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG and libxml2 by default
@@ -166,14 +167,14 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build
         run: |
-          cmake $GITHUB_WORKSPACE ${PYTHON_LINKING_OPTION} -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option }}-DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True ${{matrix.language_bindings}} -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
+          cmake $GITHUB_WORKSPACE ${RUNTIME_LINKING_OPTION} ${PYTHON_LINKING_OPTION} -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option }}-DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True ${{matrix.language_bindings}} -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
 
       - name: Configure CMake for non-default XML_parser
         if: matrix.xml_parser_option != '-DWITH_LIBXML'
         shell: bash
         working-directory: ${{runner.workspace}}/build
         run: |
-          cmake $GITHUB_WORKSPACE ${PYTHON_LINKING_OPTION} -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option}} -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True ${{matrix.language_bindings}} -DWITH_LIBXML=False ${{matrix.xml_parser_option}}=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
+          cmake $GITHUB_WORKSPACE ${RUNTIME_LINKING_OPTION} ${PYTHON_LINKING_OPTION} -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option}} -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True ${{matrix.language_bindings}} -DWITH_LIBXML=False ${{matrix.xml_parser_option}}=True -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
 
       - name: Build
         working-directory: ${{runner.workspace}}/build
