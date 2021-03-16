@@ -29,18 +29,18 @@ jobs:
         # On Windows, the dependencies live inside the source folder, ie `.`.
         # For the CI, we put SWIG there too, for simplicity.
         if: matrix.platform == 'windows-latest'
-        id: cache-win-dependencies
+        id: cache-win-dependencies-static
         uses: actions/cache@v2
         with:
           path: |
             ./dependencies
             ./swig
-          key: ${{ runner.os }}-dependencies
+          key: ${{ runner.os }}-dependencies-static
 
       - name: Download pre-built Windows dependencies and SWIG
         # Windows dependencies have to be in a subfolder called `dependencies`, directly under the git repository root.
         # also gets SWIG, completing the set of dependencies needed for windows
-        if: matrix.platform == 'windows-latest' && steps.cache-win-dependencies.outputs.cache-hit != 'true'
+        if: matrix.platform == 'windows-latest' && steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
         shell: bash
         run: |
           curl -L https://sourceforge.net/projects/sbml/files/libsbml/win-dependencies/libSBML_dependencies_vs15_release_x64_static.zip/download > dependencies.zip
