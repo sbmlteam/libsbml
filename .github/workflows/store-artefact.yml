@@ -155,40 +155,20 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Windows nightly (zip, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ${{runner.workspace}}/build/libSBML-${{env.LIBSBML_VERSION}}-win64-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.zip
+          path: ${{runner.workspace}}/install/*
           retention-days: 1
           if-no-files-found: error
 
-      #### Mac OS ####
-      - name: Package executable (MacOS)
-        if: matrix.platform == 'macos-latest'
-        working-directory: ${{runner.workspace}}/build
-        shell: bash
-        run: |
-          cpack -G ZIP -C $BUILD_TYPE
-          mv libSBML-${LIBSBML_VERSION}-Darwin.zip libSBML-${LIBSBML_VERSION}-Darwin-nightly-${ARTIFACT_NAME_SUFFIX}.zip
-          cpack -G TGZ -C $BUILD_TYPE
-          mv libSBML-${LIBSBML_VERSION}-Darwin.tar.gz libSBML-${LIBSBML_VERSION}-Darwin-nightly-${ARTIFACT_NAME_SUFFIX}.tar.gz
-
-      - name: Upload MacOS binary archive (zip)
-        if: matrix.platform == 'macos-latest'
-        uses: actions/upload-artifact@v2
-        with:
-          name: MacOS nightly (zip, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ${{runner.workspace}}/build/libSBML-${{env.LIBSBML_VERSION}}-Darwin-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.zip
-          retention-days: 1
-          if-no-files-found: error
-
-      - name: Upload MacOS binary archive (tar.gz)
+      - name: Upload MacOS binary archive
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@v2
         with:
           name: MacOS nightly (tar.gz, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ${{runner.workspace}}/build/libSBML-${{env.LIBSBML_VERSION}}-Darwin-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.tar.gz
+          path: ${{runner.workspace}}/install/*
           retention-days: 1
           if-no-files-found: error
 
-      - name: Upload Ubuntu binary archive (tar.gz)
+      - name: Upload Ubuntu binary archive
         if: matrix.platform == 'ubuntu-16.04'
         uses: actions/upload-artifact@v2
         with:
