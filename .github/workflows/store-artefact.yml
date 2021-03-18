@@ -116,15 +116,20 @@ jobs:
         shell: bash
         run: |
           cmake --build . --config $BUILD_TYPE
-          cmake --install . --config $BUILD_TYPE
 
       ### run tests ###
       - name: Test
         working-directory: ${{runner.workspace}}/build
         shell: bash
         run: ctest -C $BUILD_TYPE
+      
+      ### create binaries ###
+      - name: Install
+        working-directory: ${{runner.workspace}}/build
+        shell: bash
+        run: cmake --install . --config $BUILD_TYPE
 
-      ### package artifact ###
+      ### setup artifact environment ###
       - name: Store libSBML version in environment
         shell: bash
         run: echo "LIBSBML_VERSION=$( cat VERSION.txt)"  >> "${GITHUB_ENV}"
@@ -141,15 +146,7 @@ jobs:
         run: |
           echo "ARTIFACT_NAME_SUFFIX=all-packages" >> "${GITHUB_ENV}"
 
-      #### Windows ####
-      - name: Package executable (Windows)
-        if: matrix.platform == 'windows-latest'
-        working-directory: ${{runner.workspace}}/build
-        shell: bash
-        run: |
-          cpack -G ZIP -C $BUILD_TYPE 
-          mv libSBML-${LIBSBML_VERSION}-win64.zip libSBML-${LIBSBML_VERSION}-win64-nightly-${ARTIFACT_NAME_SUFFIX}.zip
-
+      ### Upload installed versions ###
       - name: Upload Windows binary archive
         if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@v2
