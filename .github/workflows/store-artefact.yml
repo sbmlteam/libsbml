@@ -129,6 +129,13 @@ jobs:
         shell: bash
         run: cmake --install . --config $BUILD_TYPE
 
+      - name: Remove large .lib file on Windows
+      ### file temporarily needed for bindings ###
+        if: matrix.platform == 'windows-latest'
+        working-directory: ${{runner.workspace}}/install
+        shell: bash
+        run: rm lib/libsbml-static.lib
+
       ### setup artifact environment ###
       - name: Store libSBML version in environment
         shell: bash
