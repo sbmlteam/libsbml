@@ -151,7 +151,7 @@ jobs:
         if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: Windows nightly (zip, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
+          name: Windows (zip, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
           path: ${{runner.workspace}}/install/*
           retention-days: 1
           if-no-files-found: error
@@ -160,7 +160,7 @@ jobs:
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: MacOS nightly (tar.gz, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
+          name: MacOS (zip, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
           path: ${{runner.workspace}}/install/*
           retention-days: 1
           if-no-files-found: error
@@ -169,7 +169,7 @@ jobs:
         if: matrix.platform == 'ubuntu-16.04'
         uses: actions/upload-artifact@v2
         with:
-          name: Ubuntu nightly unzipped ( libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
+          name: Ubuntu nightly (zip, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
           path: ${{runner.workspace}}/install/*
           retention-days: 1
           if-no-files-found: error
