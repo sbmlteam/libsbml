@@ -79,7 +79,7 @@ Documentation is available online at http://sbml.org/Software/libSBML
 Getting help
 ------------
 
-We encourage you to join the [sbml-interoperability](https://groups.google.com/g/sbml-interoperability) group, where other libSBML users can be found.  You can ask questions and discuss the development, use, and interoperability of all kinds of software that supports SBML.
+We encourage you to join the [sbml-discuss](https://groups.google.com/g/sbml-discuss) group, where other libSBML users can be found.  You can ask questions and discuss the development, use, and interoperability of all kinds of software that supports SBML.
 
 You can report issues, suggestions and requests using the [GitHub issue tracker](https://github.com/sbmlteam/libsbml/issues).  If you are interested in participating in or observing libSBML development more closely, we encourage you to join [libsbml-development@googlegroups.com](https://groups.google.com/forum/#!forum/libsbml-development), a mailing list and web forum devoted to discussions about LIBSBML.
 
@@ -105,6 +105,7 @@ LibSBML's main authors are [Sarah M. Keating](https://github.com/skeating), [Fra
 
 * Gordon Ball
 * Bill Denney
+* Alessandro Felder
 * Christoph Flamm
 * Akira Funahashi
 * Ralph Gauges
@@ -117,6 +118,7 @@ LibSBML's main authors are [Sarah M. Keating](https://github.com/skeating), [Fra
 * Rainer Machn&eacute;
 * Thomas Pfau
 * Nicolas Rodriguez
+* Jamie J Quinn
 * Fengkai Zhang
 
 
@@ -124,6 +126,9 @@ Acknowledgments
 ---------------
 
 The development of libSBML was supported in largely by funding from the [National Institute of General Medical Sciences](https://www.nigms.nih.gov) (USA) under grant R01&nbsp;GM070923 (principal investigator: Michael Hucka).
+
+The work to facilitate moving libSBML to GitHub and establishing Continuous Integration Testing was funded by [Chan Zuckerberg Initiative](https://chanzuckerberg.com/) under grant 2020-218578 (5022) (principal investigator: Sarah M Keating).
+
 
 Contributions to libSBML have also come as a result of work by the SBML Team and others on other grant-funded projects.  The core development of SBML from its inception through 2003 was principally funded by the [Japan Science and Technology Agency](http://www.jst.go.jp/EN/) under the [ERATO Kitano Symbiotic Systems Project](http://www.symbio.jst.go.jp/symbio), with funding going to the group of [John Doyle](http://www.cds.caltech.edu/~doyle/) at Caltech.  This included the first version of libSBML.  After 2003, primary direct support for the core development of SBML and supporting software and activities came from the [National Institute of General Medical Sciences (NIH/NIGMS)](http://www.nigms.nih.gov/) under grants R01 GM070923 and R01GM077671. Additional support came from the following agencies and programs: the [National Human Genome Research Institute](http://www.genome.gov/) (USA), the [International Joint Research Program of NEDO](http://www.nedo.go.jp/) (Japan), the [ERATO-SORST](http://www.jst.go.jp/kisoken/sorst/) Program of the Japan Science and Technology Agency (Japan), the [Ministry of Agriculture](http://www.maff.go.jp/eindex.html) (Japan), the [Ministry of Education, Culture, Sports, Science and Technology](http://www.mext.go.jp/) (Japan), the [BBSRC e-Science Initiative](http://www.bbsrc.ac.uk/) (UK), the [DARPA IPTO Bio-Computation Program](http://www.darpa.mil/ipto/programs/biocomp/vision.htm) (USA), the Army Research Office's [Institute for Collaborative Biotechnologies](https://www.icb.ucsb.edu) (USA), the [Air Force Office of Scientific Research](http://www.afosr.af.mil/) (USA), the [EU Commission 6th Framework Programme](http://ec.europa.eu/research/fp6/index_en.cfm), the [European Commision's 7th Framework Programme for Research and Technological Development](http://systemsbiology.ucsd.edu/projects/AMBiCon), the [Federal Ministry of Education and Research (BMBF, Germany)](https://www.bmbf.de/en/index.html), the [Virtual Liver Network](http://www.virtual-liver.de), the [Systems Biology Institute](http://systems-biology.org/) (Japan), and [Google Summer of Code](https://developers.google.com/open-source/gsoc/).
 
