@@ -31,33 +31,34 @@ jobs:
         # On Windows, the dependencies live inside the source folder, ie `.`.
         # For the CI, we put SWIG there too, for simplicity.
         if: matrix.platform == 'windows-latest'
-        id: cache-win-dependencies
+        id: cache-win-dependencies-static
         uses: actions/cache@v2
         with:
           path: |
             ./dependencies
             ./swig
-          key: ${{ runner.os }}-dependencies
+          key: ${{ runner.os }}-dependencies-static
 
       - name: Download pre-built Windows dependencies and SWIG
         # Windows dependencies have to be in a subfolder called `dependencies`, directly under the git repository root.
         # also gets SWIG, completing the set of dependencies needed for windows
-        if: matrix.platform == 'windows-latest' && steps.cache-win-dependencies.outputs.cache-hit != 'true'
+        if: matrix.platform == 'windows-latest' && steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
         shell: bash
         run: |
-          curl -L https://sourceforge.net/projects/sbml/files/libsbml/win-dependencies/libSBML_dependencies_vs15_release_x64.zip/download > dependencies.zip
+          curl -L https://sourceforge.net/projects/sbml/files/libsbml/win-dependencies/libSBML_dependencies_vs15_release_x64_static.zip/download > dependencies.zip
           unzip dependencies.zip -d dependencies
           cp -r dependencies/libSBML\ Dependencies-1.0.0-b1-win64/* dependencies
           rm -r dependencies/libSBML*
           curl -L https://prdownloads.sourceforge.net/swig/swigwin-3.0.12.zip > swig.zip
-          unzip swig.zip -d swig
+          unzip -o swig.zip -d swig
 
-      - name: add SWIG to Path (Windows)
+      - name: setup Windows environment
         # this is separate from the SWIG download itself, because it needs to be added to the path also when SWIG is cached
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
           echo $GITHUB_WORKSPACE"/swig/swigwin-3.0.12/" >> $GITHUB_PATH
+          echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
 
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG and libxml2 by default
@@ -107,7 +108,8 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build
         run: |
-          cmake $GITHUB_WORKSPACE ${PYTHON_LINKING_OPTION} -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option }}-DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True ${{matrix.language_bindings}} -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
+          mkdir ../install
+          cmake ${RUNTIME_LINKING_OPTION} $GITHUB_WORKSPACE ${PYTHON_LINKING_OPTION} -DCMAKE_CXX_STANDARD=98 -DCMAKE_INSTALL_PREFIX=../install -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option }}-DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True ${{matrix.language_bindings}} -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
 
       - name: Build
         working-directory: ${{runner.workspace}}/build
@@ -120,8 +122,21 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         shell: bash
         run: ctest -C $BUILD_TYPE
+      
+      ### create binaries ###
+      - name: Install
+        working-directory: ${{runner.workspace}}/build
+        shell: bash
+        run: cmake --install . --config $BUILD_TYPE
 
-      ### package artifact ###
+      - name: Remove large .lib file on Windows
+      ### file temporarily needed for bindings ###
+        if: matrix.platform == 'windows-latest'
+        working-directory: ${{runner.workspace}}/install
+        shell: bash
+        run: rm lib/libsbml-static.lib
+
+      ### setup artifact environment ###
       - name: Store libSBML version in environment
         shell: bash
         run: echo "LIBSBML_VERSION=$( cat VERSION.txt)"  >> "${GITHUB_ENV}"
@@ -138,78 +153,30 @@ jobs:
         run: |
           echo "ARTIFACT_NAME_SUFFIX=all-packages" >> "${GITHUB_ENV}"
 
-      #### Windows ####
-      - name: Package executable (Windows)
-        if: matrix.platform == 'windows-latest'
-        working-directory: ${{runner.workspace}}/build
-        shell: bash
-        run: |
-          cpack -G ZIP -C $BUILD_TYPE 
-          mv libSBML-${LIBSBML_VERSION}-win64.zip libSBML-${LIBSBML_VERSION}-win64-nightly-${ARTIFACT_NAME_SUFFIX}.zip
-
+      ### Upload installed versions ###
       - name: Upload Windows binary archive
         if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: Windows nightly (zip, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ${{runner.workspace}}/build/libSBML-${{env.LIBSBML_VERSION}}-win64-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.zip
+          name: Windows (zip, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
+          path: ${{runner.workspace}}/install/*
           retention-days: 1
           if-no-files-found: error
 
-      #### Mac OS ####
-      - name: Package executable (MacOS)
-        if: matrix.platform == 'macos-latest'
-        working-directory: ${{runner.workspace}}/build
-        shell: bash
-        run: |
-          cpack -G ZIP -C $BUILD_TYPE
-          mv libSBML-${LIBSBML_VERSION}-Darwin.zip libSBML-${LIBSBML_VERSION}-Darwin-nightly-${ARTIFACT_NAME_SUFFIX}.zip
-          cpack -G TGZ -C $BUILD_TYPE
-          mv libSBML-${LIBSBML_VERSION}-Darwin.tar.gz libSBML-${LIBSBML_VERSION}-Darwin-nightly-${ARTIFACT_NAME_SUFFIX}.tar.gz
-
-      - name: Upload MacOS binary archive (zip)
+      - name: Upload MacOS binary archive
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: MacOS nightly (zip, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ${{runner.workspace}}/build/libSBML-${{env.LIBSBML_VERSION}}-Darwin-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.zip
+          name: MacOS (zip, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
+          path: ${{runner.workspace}}/install/*
           retention-days: 1
           if-no-files-found: error
 
-      - name: Upload MacOS binary archive (tar.gz)
-        if: matrix.platform == 'macos-latest'
-        uses: actions/upload-artifact@v2
-        with:
-          name: MacOS nightly (tar.gz, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ${{runner.workspace}}/build/libSBML-${{env.LIBSBML_VERSION}}-Darwin-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.tar.gz
-          retention-days: 1
-          if-no-files-found: error
-
-      #### Ubuntu 16.04 ####
-      - name: Package executable (Ubuntu 16.04)
-        if: matrix.platform == 'ubuntu-16.04'
-        working-directory: ${{runner.workspace}}/build
-        shell: bash
-        run: |
-          cpack -G ZIP -C $BUILD_TYPE
-          mv libSBML-${LIBSBML_VERSION}-Linux.zip libSBML-${LIBSBML_VERSION}-Linux-nightly-${ARTIFACT_NAME_SUFFIX}.zip
-          cpack -G TGZ -C $BUILD_TYPE
-          mv libSBML-${LIBSBML_VERSION}-Linux.tar.gz libSBML-${LIBSBML_VERSION}-Linux-nightly-${ARTIFACT_NAME_SUFFIX}.tar.gz
-
-      - name: Upload Ubuntu binary archive (zip)
+      - name: Upload Ubuntu binary archive
         if: matrix.platform == 'ubuntu-16.04'
         uses: actions/upload-artifact@v2
         with:
           name: Ubuntu nightly (zip, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ${{runner.workspace}}/build/libSBML-${{env.LIBSBML_VERSION}}-Linux-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.zip
-          retention-days: 1
-          if-no-files-found: error
-
-      - name: Upload Ubuntu binary archive (tar.gz)
-        if: matrix.platform == 'ubuntu-16.04'
-        uses: actions/upload-artifact@v2
-        with:
-          name: Ubuntu nightly (tar.gz, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ${{runner.workspace}}/build/libSBML-${{env.LIBSBML_VERSION}}-Linux-nightly-${{env.ARTIFACT_NAME_SUFFIX}}.tar.gz
+          path: ${{runner.workspace}}/install/*
           retention-days: 1
           if-no-files-found: error
