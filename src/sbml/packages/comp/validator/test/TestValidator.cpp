@@ -72,7 +72,7 @@ TestValidator::~TestValidator ()
  * Function Object: Return true if the given SBMLError has the given
  * id, false otherwise.
  */
-struct HasId : public unary_function<SBMLError, bool>
+struct HasId
 {
   unsigned int id;
 
@@ -84,7 +84,7 @@ struct HasId : public unary_function<SBMLError, bool>
 /**
  * Function Object: Takes a SBMLError and returns its integer id.
  */
-struct ToId : public unary_function<SBMLError, unsigned int>
+struct ToId
 {
   unsigned int operator() (const SBMLError& msg) { return msg.getErrorId(); }
 };
