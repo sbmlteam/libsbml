@@ -1613,10 +1613,10 @@ START_TEST (test_SBase_appendNotesString2)
                  "    </body>\n"
                  "  </html>\n"
                  "</notes>";
-  char * addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                     "  <p>This is more test notes </p>\n"
                     "</body>\n";
-  char * addnotes2 =
+  const char * addnotes2 =
                     "<notes>\n"
                     "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                     "    <p>This is more test notes </p>\n"
