@@ -112,18 +112,19 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         run: |
           cmake $GITHUB_WORKSPACE ^
-          ${RUNTIME_LINKING_OPTION} ^
-          ${PYTHON_LINKING_OPTION} ^
-          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} ^
+          -DCMAKE_BUILD_TYPE=$BUILD_TYPE ^
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ^
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ^
-          ${{ matrix.package_option }} ^
-          -DCMAKE_BUILD_TYPE=$BUILD_TYPE ^
-          -DWITH_CHECK=True ${{matrix.language_bindings}} ^
+          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} ^
+          -DWITH_CHECK=True ^
           -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} ^
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} ^
-          -DWITH_EXAMPLES=${{matrix.with_examples}}
-
+          -DWITH_EXAMPLES=${{matrix.with_examples}} ^
+          ${{matrix.package_option}} ^
+          ${{matrix.language_bindings}} ^
+          ${RUNTIME_LINKING_OPTION} ^
+          ${PYTHON_LINKING_OPTION}
+          
       - name: Build
         working-directory: ${{runner.workspace}}/build
         shell: bash
