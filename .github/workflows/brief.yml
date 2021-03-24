@@ -35,7 +35,6 @@ jobs:
         with:
           path: |
             ./dependencies
-            ./swig
           key: ${{ runner.os }}-dependencies-static
 
       - name: Download pre-built Windows dependencies and SWIG
@@ -48,15 +47,20 @@ jobs:
           unzip dependencies.zip -d dependencies
           cp -r dependencies/libSBML\ Dependencies-1.0.0-b1-win64/* dependencies
           rm -r dependencies/libSBML*
-          curl -L https://prdownloads.sourceforge.net/swig/swigwin-3.0.12.zip > swig.zip
+
+      - name: Download SWIG on Windows
+        if: matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+          curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/swigwin-4.0.2.zip/download > swig.zip
           unzip -o swig.zip -d swig
+          echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/" >> $GITHUB_PATH
 
       - name: setup Windows environment
         # this is separate from the SWIG download itself, because it needs to be added to the path also when SWIG is cached
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
-          echo $GITHUB_WORKSPACE"/swig/swigwin-3.0.12/" >> $GITHUB_PATH
           echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
 
       - name: Install Ubuntu dependencies
