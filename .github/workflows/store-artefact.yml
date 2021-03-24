@@ -9,7 +9,11 @@ env:
 
 jobs:
   build:
-    name: ${{ matrix.platform }}, Parser option ${{ matrix.xml_parser_option }}, with namespaces ${{ matrix.with_namespace}}, strict includes ${{ matrix.strict }}, with examples ${{ matrix.with_examples}}, package option ${{ matrix.package_option}}
+    name:
+      ${{ matrix.platform }}, Parser option ${{ matrix.xml_parser_option }},
+      with namespaces ${{ matrix.with_namespace}}, strict includes ${{
+      matrix.strict }}, with examples ${{ matrix.with_examples}}, package option
+      ${{ matrix.package_option}}
     strategy:
       fail-fast: false
       matrix:
@@ -42,7 +46,9 @@ jobs:
       - name: Download pre-built Windows dependencies and SWIG
         # Windows dependencies have to be in a subfolder called `dependencies`, directly under the git repository root.
         # also gets SWIG, completing the set of dependencies needed for windows
-        if: matrix.platform == 'windows-latest' && steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
+        if:
+          matrix.platform == 'windows-latest' &&
+          steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
         shell: bash
         run: |
           curl -L https://sourceforge.net/projects/sbml/files/libsbml/win-dependencies/libSBML_dependencies_vs15_release_x64_static.zip/download > dependencies.zip
@@ -95,7 +101,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{runner.workspace}}/.ccache
-          key: ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+          key:
+            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp
+            }}
           restore-keys: |
             ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
             ${{ runner.os }}-
@@ -135,7 +143,7 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         shell: bash
         run: ctest -C $BUILD_TYPE
-      
+
       ### create binaries ###
       - name: Install
         working-directory: ${{runner.workspace}}/build
@@ -143,7 +151,7 @@ jobs:
         run: cmake --install . --config $BUILD_TYPE
 
       - name: Remove large .lib file on Windows
-      ### file temporarily needed for bindings ###
+        ### file temporarily needed for bindings ###
         if: matrix.platform == 'windows-latest'
         working-directory: ${{runner.workspace}}/install
         shell: bash
@@ -171,7 +179,9 @@ jobs:
         if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: Windows (zip, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
+          name:
+            Windows (zip, libSBML ${{env.LIBSBML_VERSION}},
+            ${{env.ARTIFACT_NAME_SUFFIX}})
           path: ${{runner.workspace}}/install/*
           retention-days: 1
           if-no-files-found: error
@@ -180,7 +190,9 @@ jobs:
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: MacOS (zip, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
+          name:
+            MacOS (zip, libSBML ${{env.LIBSBML_VERSION}},
+            ${{env.ARTIFACT_NAME_SUFFIX}})
           path: ${{runner.workspace}}/install/*
           retention-days: 1
           if-no-files-found: error
@@ -189,7 +201,9 @@ jobs:
         if: matrix.platform == 'ubuntu-16.04'
         uses: actions/upload-artifact@v2
         with:
-          name: Ubuntu nightly (zip, libSBML ${{env.LIBSBML_VERSION}}, ${{env.ARTIFACT_NAME_SUFFIX}})
+          name:
+            Ubuntu nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
+            ${{env.ARTIFACT_NAME_SUFFIX}})
           path: ${{runner.workspace}}/install/*
           retention-days: 1
           if-no-files-found: error
