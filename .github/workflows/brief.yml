@@ -7,7 +7,11 @@ env:
 
 jobs:
   build:
-    name: ${{ matrix.platform }}, Parser option ${{ matrix.xml_parser_option }}, with namespaces ${{ matrix.with_namespace}}, strict includes ${{ matrix.strict }}, with examples ${{ matrix.with_examples}}, package option ${{ matrix.package_option}}, c++  standard ${{matrix.cpp_standard}}
+    name:
+      ${{ matrix.platform }}, Parser option ${{ matrix.xml_parser_option }},
+      with namespaces ${{ matrix.with_namespace}}, strict includes ${{
+      matrix.strict }}, with examples ${{ matrix.with_examples}}, package option
+      ${{ matrix.package_option}}, c++  standard ${{matrix.cpp_standard}}
     strategy:
       fail-fast: false
       matrix:
@@ -40,7 +44,9 @@ jobs:
       - name: Download pre-built Windows dependencies and SWIG
         # Windows dependencies have to be in a subfolder called `dependencies`, directly under the git repository root.
         # also gets SWIG, completing the set of dependencies needed for windows
-        if: matrix.platform == 'windows-latest' && steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
+        if:
+          matrix.platform == 'windows-latest' &&
+          steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
         shell: bash
         run: |
           curl -L https://sourceforge.net/projects/sbml/files/libsbml/win-dependencies/libSBML_dependencies_vs15_release_x64_static.zip/download > dependencies.zip
@@ -98,7 +104,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{runner.workspace}}/.ccache
-          key: ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+          key:
+            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp
+            }}
           restore-keys: |
             ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
             ${{ runner.os }}-
@@ -111,20 +119,20 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build
         run: |
-          cmake $GITHUB_WORKSPACE ^
-          -DCMAKE_BUILD_TYPE=$BUILD_TYPE ^
-          -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ^
-          -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ^
-          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} ^
-          -DWITH_CHECK=True ^
-          -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} ^
-          -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} ^
-          -DWITH_EXAMPLES=${{matrix.with_examples}} ^
-          ${{matrix.package_option}} ^
-          ${{matrix.language_bindings}} ^
-          ${RUNTIME_LINKING_OPTION} ^
+          cmake $GITHUB_WORKSPACE \
+          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+          -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
+          -DWITH_CHECK=True \
+          -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
+          -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
+          -DWITH_EXAMPLES=${{matrix.with_examples}} \
+          ${{matrix.package_option}} \
+          ${{matrix.language_bindings}} \
+          ${RUNTIME_LINKING_OPTION} \
           ${PYTHON_LINKING_OPTION}
-          
+
       - name: Build
         working-directory: ${{runner.workspace}}/build
         shell: bash
