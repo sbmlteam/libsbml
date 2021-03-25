@@ -53,7 +53,7 @@
 #include <sbml/packages/fbc/extension/FbcReactionPlugin.h>
 #include <sbml/packages/fbc/extension/FbcSBMLDocumentPlugin.h>
 #include <sbml/packages/fbc/validator/FbcSBMLErrorTable.h>
-
+#include <sbml/packages/fbc/extension/FbcAnnotationPlugin.h>
 
 #ifdef __cplusplus
 
@@ -115,22 +115,40 @@ FbcExtension::getDefaultPackageVersion ()
 
 
 /*
- * XML namespaces of package.
+ * Returns the XML namespace URI of the SBML Level&nbsp;3 package implemented
+ * by this libSBML extension.
  */
 const std::string&
-FbcExtension::getXmlnsL3V1V2 ()
+FbcExtension::getXmlnsL3V1V1()
 {
-  static const std::string xmlns = "http://www.sbml.org/sbml/level3/version1/fbc/version2";
+  static const std::string xmlns =
+    "http://www.sbml.org/sbml/level3/version1/fbc/version1";
   return xmlns;
 }
 
+
 /*
- * XML namespaces of package.
+ * Returns the XML namespace URI of the SBML Level&nbsp;3 package implemented
+ * by this libSBML extension.
  */
 const std::string&
-FbcExtension::getXmlnsL3V1V1 ()
+FbcExtension::getXmlnsL3V1V2()
 {
-  static const std::string xmlns = "http://www.sbml.org/sbml/level3/version1/fbc/version1";
+  static const std::string xmlns =
+    "http://www.sbml.org/sbml/level3/version1/fbc/version2";
+  return xmlns;
+}
+
+
+/*
+ * Returns the XML namespace URI of the SBML Level&nbsp;3 package implemented
+ * by this libSBML extension.
+ */
+const std::string&
+FbcExtension::getXmlnsL3V1V3()
+{
+  static const std::string xmlns =
+    "http://www.sbml.org/sbml/level3/version1/fbc/version3";
   return xmlns;
 }
 
@@ -157,6 +175,9 @@ const char * SBML_FBC_TYPECODE_STRINGS[] =
   , "GeneProductRef"
   , "FbcAnd"
   , "FbcOr"
+  , "UserDefinedConstraintComponent"
+  , "UserDefinedConstraint"
+  , "KeyValuePair"
 };
 
 
@@ -248,6 +269,10 @@ FbcExtension::getURI(unsigned int sbmlLevel,
       {
         return getXmlnsL3V1V2();
       }
+      if (pkgVersion == 3)
+      {
+        return getXmlnsL3V1V3();
+      }
     }
   }
 
@@ -268,6 +293,11 @@ FbcExtension::getLevel(const std::string &uri) const
     return 3;
   }
 
+  if (uri == getXmlnsL3V1V3())
+  {
+    return 3;
+  }
+
   return 0;
 }
 
@@ -283,6 +313,10 @@ FbcExtension::getVersion(const std::string &uri) const
     return 1;
   }
 
+  if (uri == getXmlnsL3V1V3())
+  {
+    return 1;
+  }
   return 0;
 }
 
@@ -301,6 +335,12 @@ FbcExtension::getPackageVersion(const std::string &uri) const
   {
     return 2;
   }
+
+  if (uri == getXmlnsL3V1V3())
+  {
+    return 3;
+  }
+
   return 0;
 }
 
@@ -319,6 +359,11 @@ FbcExtension::getSBMLExtensionNamespaces(const std::string &uri) const
   if (uri == getXmlnsL3V1V2())
   {
     pkgns = new FbcPkgNamespaces(3, 1, 2);
+  }
+
+  if (uri == getXmlnsL3V1V3())
+  {
+    pkgns = new FbcPkgNamespaces(3, 1, 3);
   }
 
   return pkgns;
@@ -342,7 +387,7 @@ const char*
 FbcExtension::getStringFromTypeCode(int typeCode) const
 {
   int min = SBML_FBC_V1ASSOCIATION;
-  int max = SBML_FBC_OR;
+  int max = SBML_FBC_KEYVALUEPAIR;
 
   if ( typeCode < min || typeCode > max)
   {
@@ -391,15 +436,19 @@ FbcExtension::init()
   packageURIs.push_back(getXmlnsL3V1V1());
   packageURIs.push_back(getXmlnsL3V1V2());
 
+  packageURIs.push_back(getXmlnsL3V1V3());
   SBaseExtensionPoint sbmldocExtPoint("core", SBML_DOCUMENT);
   SBaseExtensionPoint modelExtPoint("core", SBML_MODEL);
   SBaseExtensionPoint speciesExtPoint("core", SBML_SPECIES);
   SBaseExtensionPoint reactionExtPoint("core", SBML_REACTION);
+  SBaseExtensionPoint annotationExtPoint("core", SBML_ANNOTATION);
 
   SBasePluginCreator<FbcSBMLDocumentPlugin, FbcExtension> sbmldocPluginCreator(sbmldocExtPoint, packageURIs);
   SBasePluginCreator<FbcModelPlugin, FbcExtension> modelPluginCreator(modelExtPoint, packageURIs);
   SBasePluginCreator<FbcSpeciesPlugin, FbcExtension> speciesPluginCreator(speciesExtPoint, packageURIs);
   SBasePluginCreator<FbcReactionPlugin, FbcExtension> reactionPluginCreator(reactionExtPoint, packageURIs);
+  SBasePluginCreator<FbcAnnotationPlugin, FbcExtension>
+    annotationPluginCreator(annotationExtPoint, packageURIs);
 
   //----------------------------------------------------------------
   //
@@ -411,6 +460,7 @@ FbcExtension::init()
   fbcExtension.addSBasePluginCreator(&modelPluginCreator);
   fbcExtension.addSBasePluginCreator(&speciesPluginCreator);
   fbcExtension.addSBasePluginCreator(&reactionPluginCreator);
+  fbcExtension.addSBasePluginCreator(&annotationPluginCreator);
 
   //----------------------------------------------------------------
   //
@@ -492,6 +542,92 @@ FbcExtension::getErrorIdOffset() const
 }
 
 /** @endcond */
+static
+const char* SBML_FBC_VARIABLE_TYPE_STRINGS[] =
+{
+  "linear"
+, "quadratic"
+, "invalid FbcVariableType value"
+};
+
+
+/*
+ * Returns the string version of the provided #FbcVariableType_t enumeration.
+ */
+LIBSBML_EXTERN
+const char*
+FbcVariableType_toString(FbcVariableType_t fvt)
+{
+  int min = FBC_FBCVARIABLETYPE_LINEAR;
+  int max = FBC_FBCVARIABLETYPE_INVALID;
+
+  if (fvt < min || fvt > max)
+  {
+    return "(Unknown FbcVariableType value)";
+  }
+
+  return SBML_FBC_VARIABLE_TYPE_STRINGS[fvt - min];
+}
+
+
+/*
+ * Returns the #FbcVariableType_t enumeration corresponding to the given string
+ * or @sbmlconstant{FBC_FBCVARIABLETYPE_INVALID, FbcVariableType_t} if there is
+ * no such match.
+ */
+LIBSBML_EXTERN
+FbcVariableType_t
+FbcVariableType_fromString(const char* code)
+{
+  static int size = sizeof(SBML_FBC_VARIABLE_TYPE_STRINGS)/sizeof(SBML_FBC_VARIABLE_TYPE_STRINGS[0]);
+  std::string type(code);
+
+  for (int i = 0; i < size; i++)
+  {
+    if (type == SBML_FBC_VARIABLE_TYPE_STRINGS[i])
+    {
+      return (FbcVariableType_t)(i);
+    }
+  }
+
+  return FBC_FBCVARIABLETYPE_INVALID;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #FbcVariableType_t is valid.
+ */
+LIBSBML_EXTERN
+int
+FbcVariableType_isValid(FbcVariableType_t fvt)
+{
+  int min = FBC_FBCVARIABLETYPE_LINEAR;
+  int max = FBC_FBCVARIABLETYPE_INVALID;
+
+  if (fvt < min || fvt >= max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #FbcVariableType_t.
+ */
+LIBSBML_EXTERN
+int
+FbcVariableType_isValidString(const char* code)
+{
+  return FbcVariableType_isValid(FbcVariableType_fromString(code));
+}
+
+
 
 
 

@@ -63,6 +63,13 @@ typedef CLASS_OR_STRUCT GeneProduct    GeneProduct_t;
 typedef CLASS_OR_STRUCT GeneProductRef    GeneProductRef_t;
 typedef CLASS_OR_STRUCT FbcAnd    FbcAnd_t;
 typedef CLASS_OR_STRUCT FbcOr    FbcOr_t;
+typedef CLASS_OR_STRUCT UserDefinedConstraintComponent UserDefinedConstraintComponent_t;
+typedef CLASS_OR_STRUCT UserDefinedConstraint          UserDefinedConstraint_t;
+typedef CLASS_OR_STRUCT KeyValuePair                   KeyValuePair_t;
+typedef CLASS_OR_STRUCT FbcModelPlugin                 FbcModelPlugin_t;
+typedef CLASS_OR_STRUCT FbcSpeciesPlugin               FbcSpeciesPlugin_t;
+typedef CLASS_OR_STRUCT FbcReactionPlugin              FbcReactionPlugin_t;
+typedef CLASS_OR_STRUCT FbcAnnotationPlugin            FbcAnnotationPlugin_t;
 
 LIBSBML_CPP_NAMESPACE_END
 

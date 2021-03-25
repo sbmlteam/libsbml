@@ -66,6 +66,7 @@ FbcModelPlugin::FbcModelPlugin(const std::string& uri,
   , mGeneProducts (fbcns)
   , mBounds(fbcns)
   , mAssociations(fbcns)
+  , mUserDefinedConstraints (fbcns)
 {
   // connect child elements to this element.
   connectToChild();
@@ -83,6 +84,7 @@ FbcModelPlugin::FbcModelPlugin(const FbcModelPlugin& orig)
   , mGeneProducts (orig.mGeneProducts)
   , mBounds(orig.mBounds)
   , mAssociations(orig.mAssociations)
+  , mUserDefinedConstraints ( orig.mUserDefinedConstraints )
 {
   // connect child elements to this element.
   connectToChild();
@@ -104,7 +106,7 @@ FbcModelPlugin::operator=(const FbcModelPlugin& rhs)
     mObjectives   = rhs.mObjectives;
     mAssociations = rhs.mAssociations;
     mGeneProducts  = rhs.mGeneProducts;
-    // connect child elements to this element.
+    mUserDefinedConstraints = rhs.mUserDefinedConstraints;
     connectToChild();
   }
 
