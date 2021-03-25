@@ -29,6 +29,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Add msbuild to PATH (Windows)
+        if: matrix.platform == 'windows-latest'
+        uses: ilammy/msvc-dev-cmd@v1.6.0
 
       ### configure the operating system ###
       - name: Cache Windows dependencies and SWIG
@@ -117,6 +122,7 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         run: |
           mkdir ../install
+          -G "Ninja" \
           cmake $GITHUB_WORKSPACE \
           -DCMAKE_INSTALL_PREFIX=../install \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
