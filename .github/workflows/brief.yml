@@ -7,7 +7,7 @@ env:
 
 jobs:
   build:
-    name: ${{ matrix.platform }}, Parser option ${{ matrix.xml_parser_option }}, with namespaces ${{ matrix.with_namespace}}, strict includes ${{ matrix.strict }}, with examples ${{ matrix.with_examples}}, package option ${{ matrix.package_option}}
+    name: ${{ matrix.platform }}, Parser option ${{ matrix.xml_parser_option }}, with namespaces ${{ matrix.with_namespace}}, strict includes ${{ matrix.strict }}, with examples ${{ matrix.with_examples}}, package option ${{ matrix.package_option}}, c++  standard ${{matrix.cpp_standard}}
     strategy:
       fail-fast: false
       matrix:
@@ -19,6 +19,7 @@ jobs:
         package_option: ["-DWITH_ALL_PACKAGES=ON"]
         language_bindings:
           ["-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True"]
+        cpp_standard: [98, 20]
     runs-on: ${{ matrix.platform }}
 
     steps:
@@ -34,7 +35,6 @@ jobs:
         with:
           path: |
             ./dependencies
-            ./swig
           key: ${{ runner.os }}-dependencies-static
 
       - name: Download pre-built Windows dependencies and SWIG
@@ -47,15 +47,20 @@ jobs:
           unzip dependencies.zip -d dependencies
           cp -r dependencies/libSBML\ Dependencies-1.0.0-b1-win64/* dependencies
           rm -r dependencies/libSBML*
-          curl -L https://prdownloads.sourceforge.net/swig/swigwin-3.0.12.zip > swig.zip
+
+      - name: Download SWIG on Windows
+        if: matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+          curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/swigwin-4.0.2.zip/download > swig.zip
           unzip -o swig.zip -d swig
+          echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/" >> $GITHUB_PATH
 
       - name: setup Windows environment
         # this is separate from the SWIG download itself, because it needs to be added to the path also when SWIG is cached
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
-          echo $GITHUB_WORKSPACE"/swig/swigwin-3.0.12/" >> $GITHUB_PATH
           echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
 
       - name: Install Ubuntu dependencies
@@ -106,7 +111,7 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build
         run: |
-          cmake $GITHUB_WORKSPACE ${RUNTIME_LINKING_OPTION} ${PYTHON_LINKING_OPTION} -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option }}-DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True ${{matrix.language_bindings}} -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
+          cmake $GITHUB_WORKSPACE ${RUNTIME_LINKING_OPTION} ${PYTHON_LINKING_OPTION} -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} ${{ matrix.package_option }}-DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CHECK=True ${{matrix.language_bindings}} -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} -DWITH_EXAMPLES=${{matrix.with_examples}}
 
       - name: Build
         working-directory: ${{runner.workspace}}/build

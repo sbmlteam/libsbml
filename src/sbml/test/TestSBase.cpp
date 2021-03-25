@@ -429,8 +429,8 @@ END_TEST
 START_TEST (test_SBase_setNotesString)
 {
   Model_t *c = new(std::nothrow) Model(1,2);
-  char * notes = "This is a test note";
-  char * taggednotes = "<notes>This is a test note</notes>";
+  const char * notes = "This is a test note";
+  const char * taggednotes = "<notes>This is a test note</notes>";
 
   SBase_setNotesString(c, notes);
 
@@ -505,8 +505,8 @@ END_TEST
 START_TEST (test_SBase_setNotesString_l3_addMarkup)
 {
   Model_t *c = new(std::nothrow) Model(3, 1);
-  char * notes = "This is a test note";
-  char * taggednotes = "<notes>\n  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note</p>\n</notes>";
+  const char * notes = "This is a test note";
+  const char * taggednotes = "<notes>\n  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note</p>\n</notes>";
 
   SBase_setNotesStringAddMarkup(c, notes);
 
@@ -554,8 +554,8 @@ END_TEST
 
 START_TEST (test_SBase_setAnnotationString)
 {
-  char * annotation = "This is a test note";
-  char * taggedannotation = "<annotation>This is a test note</annotation>";
+  const char * annotation = "This is a test note";
+  const char * taggedannotation = "<annotation>This is a test note</annotation>";
 
   SBase_setAnnotationString(S, annotation);
 
@@ -1447,23 +1447,23 @@ END_TEST
 START_TEST (test_SBase_appendNotesString)
 {
   // add p to p 
-  char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
-  char * taggednewnotes = "<notes>\n"
+  const char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
+  const char * taggednewnotes = "<notes>\n"
                        "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n"
                        "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n"
                        "</notes>";
-  char * taggednewnotes2 = "<notes>\n"
+  const char * taggednewnotes2 = "<notes>\n"
                        "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n"
                        "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n"
                        "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n"
                        "</notes>";
-  char * newnotes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
-  char * newnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>"
+  const char * newnotes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
+  const char * newnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>"
                      "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
-  char * newnotes3= "<notes>\n"
+  const char * newnotes3= "<notes>\n"
                     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n"
                     "</notes>";
-  char * newnotes4 = "<notes>\n"
+  const char * newnotes4 = "<notes>\n"
                      "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n"
                      "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n"
                      "</notes>";
@@ -1525,7 +1525,7 @@ END_TEST
 
 START_TEST (test_SBase_appendNotesString1)
 { // add html to html
-  char * notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <head>\n"
                  "    <title/>\n"
                  "  </head>\n"
@@ -1533,7 +1533,7 @@ START_TEST (test_SBase_appendNotesString1)
                  "    <p>This is a test note </p>\n"
                  "  </body>\n"
                  "</html>";
-  char * taggednewnotes = 
+  const char * taggednewnotes = 
                  "<notes>\n"
                  "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <head>\n"
@@ -1545,7 +1545,7 @@ START_TEST (test_SBase_appendNotesString1)
                  "    </body>\n"
                  "  </html>\n"
                  "</notes>";
-  char * addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <head>\n"
                  "    <title/>\n"
                  "  </head>\n"
@@ -1553,7 +1553,7 @@ START_TEST (test_SBase_appendNotesString1)
                  "    <p>This is more test notes </p>\n"
                  "  </body>\n"
                  "</html>";
-  char * addnotes2 =
+  const char * addnotes2 =
                  "<notes>\n"
                  "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <head>\n"
@@ -1593,7 +1593,7 @@ END_TEST
 
 START_TEST (test_SBase_appendNotesString2)
 { // add body to html
-  char * notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <head>\n"
                  "    <title/>\n"
                  "  </head>\n"
@@ -1601,7 +1601,7 @@ START_TEST (test_SBase_appendNotesString2)
                  "    <p>This is a test note </p>\n"
                  "  </body>\n"
                  "</html>";
-  char * taggednewnotes = 
+  const char * taggednewnotes = 
                  "<notes>\n"
                  "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <head>\n"
@@ -1613,10 +1613,10 @@ START_TEST (test_SBase_appendNotesString2)
                  "    </body>\n"
                  "  </html>\n"
                  "</notes>";
-  char * addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                     "  <p>This is more test notes </p>\n"
                     "</body>\n";
-  char * addnotes2 =
+  const char * addnotes2 =
                     "<notes>\n"
                     "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                     "    <p>This is more test notes </p>\n"
@@ -1651,7 +1651,7 @@ END_TEST
 
 START_TEST (test_SBase_appendNotesString3)
 { // add p to html
-  char * notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <head>\n"
                  "    <title/>\n"
                  "  </head>\n"
@@ -1659,7 +1659,7 @@ START_TEST (test_SBase_appendNotesString3)
                  "    <p>This is a test note </p>\n"
                  "  </body>\n"
                  "</html>";
-  char * taggednewnotes = 
+  const char * taggednewnotes = 
                  "<notes>\n"
                  "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <head>\n"
@@ -1671,7 +1671,7 @@ START_TEST (test_SBase_appendNotesString3)
                  "    </body>\n"
                  "  </html>\n"
                  "</notes>";
-  char * taggednewnotes2 =
+  const char * taggednewnotes2 =
                  "<notes>\n"
                  "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <head>\n"
@@ -1684,13 +1684,13 @@ START_TEST (test_SBase_appendNotesString3)
                  "    </body>\n"
                  "  </html>\n"
                  "</notes>";
-  char * addnotes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n";
-  char * addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n"
+  const char * addnotes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n";
+  const char * addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n"
                      "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
-  char * addnotes3 = "<notes>\n"
+  const char * addnotes3 = "<notes>\n"
                      "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n"
                      "</notes>";
-  char * addnotes4 = "<notes>\n"
+  const char * addnotes4 = "<notes>\n"
                      "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n"
                      "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n"
                      "</notes>";
@@ -1745,10 +1745,10 @@ END_TEST
 
 START_TEST (test_SBase_appendNotesString4)
 { // add html to body
-  char * notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <p>This is a test note </p>\n"
                  "</body>";
-  char * taggednewnotes = 
+  const char * taggednewnotes = 
                  "<notes>\n"
                  "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <head>\n"
@@ -1760,7 +1760,7 @@ START_TEST (test_SBase_appendNotesString4)
                  "    </body>\n"
                  "  </html>\n"
                  "</notes>";
-  char * addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <head>\n"
                  "    <title/>\n"
                  "  </head>\n"
@@ -1768,7 +1768,7 @@ START_TEST (test_SBase_appendNotesString4)
                  "    <p>This is more test notes </p>\n"
                  "  </body>\n"
                  "</html>";
-  char * addnotes2 =
+  const char * addnotes2 =
                  "<notes>\n"
                  "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <head>\n"
@@ -1808,8 +1808,8 @@ END_TEST
 
 START_TEST (test_SBase_appendNotesString5)
 { // add html to p
-  char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
-  char * taggednewnotes = 
+  const char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
+  const char * taggednewnotes = 
                  "<notes>\n"
                  "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <head>\n"
@@ -1821,7 +1821,7 @@ START_TEST (test_SBase_appendNotesString5)
                  "    </body>\n"
                  "  </html>\n"
                  "</notes>";
-  char * addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <head>\n"
                  "    <title/>\n"
                  "  </head>\n"
@@ -1829,7 +1829,7 @@ START_TEST (test_SBase_appendNotesString5)
                  "    <p>This is more test notes </p>\n"
                  "  </body>\n"
                  "</html>";
-  char * addnotes2 = 
+  const char * addnotes2 = 
                  "<notes>\n"
                  "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <head>\n"
@@ -1869,20 +1869,20 @@ END_TEST
 
 START_TEST (test_SBase_appendNotesString6)
 { // add body to body
-  char * notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <p>This is a test note </p>\n"
                  "</body>";
-  char * taggednewnotes = 
+  const char * taggednewnotes = 
                  "<notes>\n"
                  "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <p>This is a test note </p>\n"
                  "    <p>This is more test notes </p>\n"
                  "  </body>\n"
                  "</notes>";
-  char * addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <p>This is more test notes </p>\n"
                  "</body>";
-  char * addnotes2 = 
+  const char * addnotes2 = 
                  "<notes>\n"
                  "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <p>This is more test notes </p>\n"
@@ -1917,18 +1917,18 @@ END_TEST
 
 START_TEST (test_SBase_appendNotesString7)
 { // add body to p
-  char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
-  char * taggednewnotes = 
+  const char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
+  const char * taggednewnotes = 
                  "<notes>\n"
                  "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n"
                  "    <p>This is more test notes </p>\n"
                  "  </body>\n"
                  "</notes>";
-  char * addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <p>This is more test notes </p>\n"
                  "</body>";
-  char * addnotes2 = 
+  const char * addnotes2 = 
                  "<notes>\n"
                  "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <p>This is more test notes </p>\n"
@@ -1963,17 +1963,17 @@ END_TEST
 
 START_TEST (test_SBase_appendNotesString8)
 { // add p to body
-  char * notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <p>This is a test note </p>\n"
                  "</body>";
-  char * taggednewnotes = 
+  const char * taggednewnotes = 
                  "<notes>\n"
                  "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <p>This is a test note </p>\n"
                  "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n"
                  "  </body>\n"
                  "</notes>";
-  char * taggednewnotes2 = 
+  const char * taggednewnotes2 = 
                  "<notes>\n"
                  "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <p>This is a test note </p>\n"
@@ -1981,14 +1981,14 @@ START_TEST (test_SBase_appendNotesString8)
                  "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n"
                  "  </body>\n"
                  "</notes>";
-  char * addnotes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
-  char * addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n"
+  const char * addnotes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
+  const char * addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n"
                      "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
-  char * addnotes3 = 
+  const char * addnotes3 = 
                  "<notes>\n"
                  "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n"
                  "</notes>";
-  char * addnotes4 = 
+  const char * addnotes4 = 
                  "<notes>\n"
                  "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n"
                  "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n"
@@ -2221,7 +2221,7 @@ void setOrAppendNotes(SBase* base, std::string note)
 START_TEST(test_SBase_appendNotesWithGlobalNamespace)
 {
 
-  char * notes = 
+  const char * notes = 
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<sbml xmlns=\"http://www.sbml.org/sbml/level2/version4\" xmlns:html=\"http://www.w3.org/1999/xhtml\" level=\"2\" version=\"4\">\n"
 		"  <model id=\"test\" name=\"name\">\n"
