@@ -308,22 +308,6 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
   /**
-   * Initializes fbc extension by creating an object of this class with 
-   * required SBasePlugin derived objects and registering the object 
-   * to the SBMLExtensionRegistry class.
-   *
-   * (NOTE) This function is automatically invoked when creating the following
-   *        global object in FbcExtension.cpp
-   *
-   *        static SBMLExtensionRegister<FbcExtension> fbcExtensionRegister;
-   *
-   */
-  static void init();
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
    * Return the entry in the error table at this index. 
    *
    * @param index an unsigned intgere representing the index of the error in the FbcSBMLErrorTable.
@@ -369,8 +353,24 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-  virtual bool hasMutiplePackageVersions() const;
+  virtual bool hasMultiplePackageVersions() const;
   /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+  * Initializes fbc extension by creating an object of this class with
+  * required SBasePlugin derived objects and registering the object
+  * to the SBMLExtensionRegistry class.
+  *
+  * (NOTE) This function is automatically invoked when creating the following
+  *        global object in FbcExtension.cpp
+  *
+  *        static SBMLExtensionRegister<FbcExtension> fbcExtensionRegister;
+  *
+  */
+  static void init();
+  /** @endcond */
+
 
 
 };
@@ -392,6 +392,20 @@ public:
 // in FbcExtension.cpp for DLL.
 //
 typedef SBMLExtensionNamespaces<FbcExtension> FbcPkgNamespaces;
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* __cplusplus */
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 /**
  * @enum  SBMLFbcTypeCode_t
@@ -543,7 +557,8 @@ FbcVariableType_isValidString(const char* code);
 LIBSBML_CPP_NAMESPACE_END
 
 
-#endif /* __cplusplus */
-#endif /* FbcExtension_H__ */
+
+
+#endif /* !FbcExtension_H__ */
 
 
