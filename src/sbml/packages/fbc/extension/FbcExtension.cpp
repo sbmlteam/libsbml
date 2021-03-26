@@ -39,7 +39,9 @@
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/extension/SBasePluginCreator.h>
 #include <sbml/extension/SBMLDocumentPlugin.h>
+#include <sbml/packages/fbc/extension/FbcExtension.h>
 #include <sbml/packages/fbc/extension/FbcSBMLDocumentPlugin.h>
+#include <sbml/packages/fbc/validator/FbcSBMLErrorTable.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
 
 #include <sbml/packages/fbc/util/CobraToFbcConverter.h>
@@ -47,13 +49,11 @@
 #include <sbml/packages/fbc/util/FbcV1ToV2Converter.h>
 #include <sbml/packages/fbc/util/FbcV2ToV1Converter.h>
 
-#include <sbml/packages/fbc/extension/FbcExtension.h>
 #include <sbml/packages/fbc/extension/FbcModelPlugin.h>
 #include <sbml/packages/fbc/extension/FbcSpeciesPlugin.h>
 #include <sbml/packages/fbc/extension/FbcReactionPlugin.h>
-#include <sbml/packages/fbc/extension/FbcSBMLDocumentPlugin.h>
-#include <sbml/packages/fbc/validator/FbcSBMLErrorTable.h>
-#include <sbml/packages/fbc/extension/FbcAnnotationPlugin.h>
+#include <sbml/packages/fbc/extension/FbcSBasePlugin.h>
+
 
 #ifdef __cplusplus
 
@@ -74,7 +74,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /*------------------ (START) ----------------------------------*/
 
 /*
- * Returns the package name of this extension.
+ * Returns the nickname of the SBML Level&nbsp;3 package implemented by this
+ * libSBML extension.
  */
 const std::string&
 FbcExtension::getPackageName ()
@@ -85,7 +86,7 @@ FbcExtension::getPackageName ()
 
 
 /*
- * Returns the default SBML Level this extension.
+ * Returns the default SBML Level implemented by this libSBML extension.
  */
 unsigned int
 FbcExtension::getDefaultLevel ()
@@ -95,7 +96,7 @@ FbcExtension::getDefaultLevel ()
 
 
 /*
- * Returns the default SBML Version this extension.
+ * Returns the default SBML Version implemented by this libSBML extension.
  */
 unsigned int
 FbcExtension::getDefaultVersion ()
@@ -105,7 +106,8 @@ FbcExtension::getDefaultVersion ()
 
 
 /*
- * Returns the default SBML version this extension.
+ * Returns the default version of the SBML Level&nbsp;3 package implemented by
+ * this libSBML extension.
  */
 unsigned int
 FbcExtension::getDefaultPackageVersion ()
@@ -208,7 +210,7 @@ FbcExtension::FbcExtension(const FbcExtension& orig) :
 
 
 /*
- * Assignment operator
+ * Assignment operator for FbcExtension.
  */
 FbcExtension&
 FbcExtension::operator=(const FbcExtension& rhs)
@@ -222,7 +224,7 @@ FbcExtension::operator=(const FbcExtension& rhs)
 
 
 /*
- * Clone
+ * Creates and returns a deep copy of this FbcExtension object.
  */
 FbcExtension*
 FbcExtension::clone () const
@@ -232,7 +234,7 @@ FbcExtension::clone () const
 
 
 /*
- * Destructor
+ * Destructor for FbcExtension.
  */
 FbcExtension::~FbcExtension()
  {
@@ -240,7 +242,7 @@ FbcExtension::~FbcExtension()
 
 
 /*
- * Returns the name of this package
+ * Returns the name of this SBML Level&nbsp;3 package ("fbc").
  */
 const std::string&
 FbcExtension::getName() const
@@ -250,7 +252,8 @@ FbcExtension::getName() const
 
 
 /*
- * Returns the URI (namespace) of the package
+ * Returns a string representing the SBML XML namespace of this SBML
+ * Level&nbsp;3 package.
  */
 const std::string&
 FbcExtension::getURI(unsigned int sbmlLevel,
@@ -322,7 +325,8 @@ FbcExtension::getVersion(const std::string &uri) const
 
 
 /*
- * Returns the package version with the given URI of this package.
+ * Returns the SBML Level&nbsp;3 package version for the given URI of this
+ * package.
  */
 unsigned int
 FbcExtension::getPackageVersion(const std::string &uri) const
@@ -346,7 +350,7 @@ FbcExtension::getPackageVersion(const std::string &uri) const
 
 
 /*
- * Returns an SBMLExtensionNamespaces<FbcExtension> object 
+ * Returns a FbcPkgNamespaces object.
  */
 SBMLNamespaces*
 FbcExtension::getSBMLExtensionNamespaces(const std::string &uri) const
