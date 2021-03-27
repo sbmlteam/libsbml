@@ -212,6 +212,7 @@ FbcSpeciesPlugin::FbcSpeciesPlugin(const std::string& uri,
                                FbcPkgNamespaces* fbcns) :
     SBasePlugin(uri, prefix, fbcns)
   , mCharge (0)
+  , mChargeAsDouble (0.0)
   , mIsSetCharge (false)
   , mChemicalFormula ("")
 {
@@ -224,6 +225,7 @@ FbcSpeciesPlugin::FbcSpeciesPlugin(const std::string& uri,
 FbcSpeciesPlugin::FbcSpeciesPlugin(const FbcSpeciesPlugin& orig)
   : SBasePlugin(orig)
   , mCharge(orig.mCharge)
+  , mChargeAsDouble(orig.mChargeAsDouble)
   , mIsSetCharge(orig.mIsSetCharge)
   , mChemicalFormula(orig.mChemicalFormula)
 {
@@ -240,6 +242,7 @@ FbcSpeciesPlugin::operator=(const FbcSpeciesPlugin& rhs)
   {
     this->SBasePlugin::operator=(rhs);
     mCharge  = rhs.mCharge;
+    mChargeAsDouble = rhs.mChargeAsDouble;
     mIsSetCharge  = rhs.mIsSetCharge;
     mChemicalFormula  = rhs.mChemicalFormula;
   }
@@ -342,8 +345,17 @@ FbcSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
   {
     XMLTriple tripleCharge("charge", mURI, mPrefix);
     unsigned int numErrs = getErrorLog()->getNumErrors();
-    mIsSetCharge = attributes.readInto(tripleCharge, mCharge, getErrorLog(),
-      false, getLine(), getColumn());
+    if (getPackageVersion() < 3)
+    {
+      mIsSetCharge = attributes.readInto(tripleCharge, mCharge, getErrorLog(),
+        false, getLine(), getColumn());
+    }
+    else
+    {
+      mIsSetCharge = attributes.readInto(tripleCharge, mChargeAsDouble, getErrorLog(),
+        false, getLine(), getColumn());
+
+    }
     if (mIsSetCharge == false)
     {
       if (getErrorLog()->getNumErrors() == numErrs + 1 &&
@@ -384,8 +396,16 @@ FbcSpeciesPlugin::writeAttributes (XMLOutputStream& stream) const
   SBasePlugin::writeAttributes(stream);
 
   if (isSetCharge() == true)
-    stream.writeAttribute("charge", getPrefix(), mCharge);
-
+  {
+    if (getPackageVersion() < 3)
+    {
+      stream.writeAttribute("charge", getPrefix(), mCharge);
+    }
+    else
+    {
+      stream.writeAttribute("charge", getPrefix(), mChargeAsDouble);
+    }
+  }
   if (isSetChemicalFormula() == true)
     stream.writeAttribute("chemicalFormula", getPrefix(), mChemicalFormula);
 
@@ -408,6 +428,13 @@ int
 FbcSpeciesPlugin::getCharge() const
 {
   return mCharge;
+}
+
+
+double
+FbcSpeciesPlugin::getChargeAsDouble() const
+{
+  return mChargeAsDouble;
 }
 
 
@@ -454,6 +481,18 @@ FbcSpeciesPlugin::setCharge(int charge)
 
 
 /*
+* Sets charge and returns value indicating success.
+*/
+int
+FbcSpeciesPlugin::setChargeAsDouble(double charge)
+{
+  mChargeAsDouble = charge;
+  mIsSetCharge = true;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
  * Sets chemicalFormula and returns value indicating success.
  */
 int
@@ -481,6 +520,7 @@ int
 FbcSpeciesPlugin::unsetCharge()
 {
   mCharge = SBML_INT_MAX;
+  mChargeAsDouble = util_NaN();
   mIsSetCharge = false;
 
   if (isSetCharge() == false)
@@ -625,6 +665,12 @@ FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
 {
   int return_value = SBasePlugin::getAttribute(attributeName, value);
 
+  if (attributeName == "charge")
+  {
+    value = getCharge();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
   return return_value;
 }
 
@@ -755,6 +801,11 @@ FbcSpeciesPlugin::setAttribute(const std::string& attributeName, double value)
 {
   int return_value = SBasePlugin::setAttribute(attributeName, value);
 
+  if (attributeName == "charge")
+  {
+    return_value = setChargeAsDouble(value);
+  }
+
   return return_value;
 }
 
@@ -840,6 +891,14 @@ FbcSpeciesPlugin_getCharge(SBasePlugin_t * fbc)
 }
 
 LIBSBML_EXTERN
+double
+FbcSpeciesPlugin_getChargeAsDouble(SBasePlugin_t * fbc)
+{
+  return (fbc != NULL) ? static_cast<FbcSpeciesPlugin*>(fbc)->getChargeAsDouble()
+    : util_NaN();
+}
+
+LIBSBML_EXTERN
 int
 FbcSpeciesPlugin_isSetCharge(SBasePlugin_t * fbc)
 {
@@ -853,6 +912,15 @@ int
 FbcSpeciesPlugin_setCharge(SBasePlugin_t * fbc, int charge)
 {
   return (fbc != NULL) ? static_cast<FbcSpeciesPlugin*>(fbc)->setCharge(charge)
+    : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+FbcSpeciesPlugin_setChargeAsDouble(SBasePlugin_t * fbc, double charge)
+{
+  return (fbc != NULL) ? static_cast<FbcSpeciesPlugin*>(fbc)->setChargeAsDouble(charge)
     : LIBSBML_INVALID_OBJECT;
 }
 

@@ -227,6 +227,14 @@ public:
 
 
   /**
+  * Returns the value of the "charge" attribute of this FbcSpeciesPlugin.
+  *
+  * @return the value of the "charge" attribute of this FbcSpeciesPlugin as a double.
+  */
+  virtual double getChargeAsDouble() const;
+
+
+  /**
    * Returns the value of the "chemicalFormula" attribute of this FbcSpeciesPlugin.
    *
    * @return the value of the "chemicalFormula" attribute of this FbcSpeciesPlugin as a string.
@@ -267,6 +275,21 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setCharge(int charge);
+
+
+  /**
+  * Sets the value of the "charge" attribute of this FbcSpeciesPlugin.
+  *
+  * @param charge; double value of the "charge" attribute to be set
+  *
+  * @return integer value indicating success/failure of the
+  * function.  @if clike The value is drawn from the
+  * enumeration #OperationReturnValues_t. @endif The possible values
+  * returned by this function are:
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+  */
+  virtual int setChargeAsDouble(double charge);
 
 
   /**
@@ -588,6 +611,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   int           mCharge;
+  double        mChargeAsDouble;
   bool          mIsSetCharge;
   std::string   mChemicalFormula;
 
@@ -623,6 +647,20 @@ FbcSpeciesPlugin_getCharge(SBasePlugin_t * fbc);
 
 
 /**
+* Takes a FbcSpeciesPlugin_t structure and returns its charge.
+*
+* @param fbc the FbcSpeciesPlugin_t whose charge is sought.
+*
+* @return the charge attribute of the given FbcSpeciesPlugin_t, as an @c double.
+*
+* @memberof FbcSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+double
+FbcSpeciesPlugin_getChargeAsDouble(SBasePlugin_t * fbc);
+
+
+/**
  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * FbcSpeciesPlugin_t structure's charge is set.
  *
@@ -655,6 +693,25 @@ FbcSpeciesPlugin_isSetCharge(SBasePlugin_t * fbc);
 LIBSBML_EXTERN
 int
 FbcSpeciesPlugin_setCharge(SBasePlugin_t * fbc, int charge);
+
+
+/**
+* Sets the "charge" attribute of the given FbcSpeciesPlugin_t
+* structure.
+*
+* @param fbc the FbcSpeciesPlugin_t structure
+*
+* @param charge the value of charge to assign to the "charge" attribute
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+*
+* @memberof FbcSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+int
+FbcSpeciesPlugin_setChargeAsDouble(SBasePlugin_t * fbc, double charge);
 
 
 /**
