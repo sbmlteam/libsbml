@@ -131,168 +131,12 @@ FbcModelPlugin::~FbcModelPlugin()
 {
 }
 
-
-/** @cond doxygenLibsbmlInternal */
-int
-FbcModelPlugin::appendFrom(const Model* model)
-{
-  int ret = LIBSBML_OPERATION_SUCCESS;
-
-  if (model == NULL)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-
-  const FbcModelPlugin* modplug =
-    static_cast<const FbcModelPlugin*>(model->getPlugin(getPrefix()));
-
-  // absence of a plugin is not an error
-  if (modplug == NULL)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-
-  Model* parent = static_cast<Model*>(getParentSBMLObject());
-
-  if (parent == NULL)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-
-  ret = mBounds.appendFrom(modplug->getListOfFluxBounds());
-
-  if (ret != LIBSBML_OPERATION_SUCCESS)
-  {
-    return ret;
-  }
-
-  ret = mObjectives.appendFrom(modplug->getListOfObjectives());
-
-  if (ret != LIBSBML_OPERATION_SUCCESS)
-  {
-    return ret;
-  }
-
-  ret = mGeneProducts.appendFrom(modplug->getListOfGeneProducts());
-
-  return ret;
-}
-/** @endcond */
 //---------------------------------------------------------------
 //
 // overridden virtual functions for read/write/check
 //
 //---------------------------------------------------------------
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * create object
- */
-SBase*
-FbcModelPlugin::createObject (XMLInputStream& stream)
-{
-  SBase* object = NULL; 
-
-  const std::string&      name   = stream.peek().getName(); 
-  const XMLNamespaces&    xmlns1  = stream.peek().getNamespaces();
-  const std::string&      prefix = stream.peek().getPrefix(); 
-
-  const std::string& targetPrefix = (xmlns1.hasURI(mURI)) ? xmlns1.getPrefix(mURI) : mPrefix;
-
-  if (prefix == targetPrefix) 
-  { 
-    FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
-    if ( name == "listOfFluxBounds" ) 
-    {
-      if (mBounds.size() != 0)
-      {
-        getErrorLog()->logPackageError("fbc", FbcOnlyOneEachListOf, 
-          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
-      }
-      
-      object = &mBounds;
-
-      if (targetPrefix.empty())
-      {
-        mBounds.getSBMLDocument()->enableDefaultNS(mURI,true);
-      }
-    }     
-    else if (name == "listOfObjectives" ) 
-    { 
-      if (mObjectives.size() != 0)
-      {
-        getErrorLog()->logPackageError("fbc", FbcOnlyOneEachListOf, 
-          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
-      }
-      
-      object = &mObjectives;
-
-      if (targetPrefix.empty())
-      { 
-        mObjectives.getSBMLDocument()->enableDefaultNS(mURI, true); 
-      } 
-    } 
-    else if ( name == "listOfGeneAssociations" ) 
-    {
-      if (mAssociations.size() != 0)
-      {
-        getErrorLog()->logPackageError("fbc", FbcOnlyOneEachListOf, 
-          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
-      }
-      
-      object = &mAssociations;
-
-      if (targetPrefix.empty())
-      {
-        mAssociations.getSBMLDocument()->enableDefaultNS(mURI,true);
-      }
-    }  
-    else if (name == "listOfGeneProducts" ) 
-    { 
-      if (mGeneProducts.size() != 0)
-      {
-        getErrorLog()->logPackageError("fbc", FbcOnlyOneEachListOf, 
-          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
-      }
-      
-      object = &mGeneProducts;
-
-      if (targetPrefix.empty() == true) 
-      { 
-        mGeneProducts.getSBMLDocument()->enableDefaultNS(mURI, true); 
-      } 
-    } 
-
-    delete fbcns;
-  } 
-
-  return object; 
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * write elements
- */
-void
-FbcModelPlugin::writeElements (XMLOutputStream& stream) const
-{
-  if (getLevel() == 2) return;
-  
-  if (getNumFluxBounds() > 0)
-  {
-    mBounds.write(stream);
-  }    
-  if (getNumObjectives() > 0) 
-  { 
-    mObjectives.write(stream);
-  } 
-  if (getNumGeneProducts() > 0) 
-  { 
-    mGeneProducts.write(stream);
-  } 
-}
-/** @endcond */
 
 LIBSBML_EXTERN
 void
@@ -674,21 +518,6 @@ FbcModelPlugin::writeAttributes (XMLOutputStream& stream) const
 // Functions for interacting with the members of the plugin
 //
 //---------------------------------------------------------------
-
-List*
-FbcModelPlugin::getAllElements(ElementFilter* filter)
-{
-  List* ret = new List();
-  List* sublist = NULL;
-
-  ADD_FILTERED_LIST(ret, sublist, mObjectives, filter);
-  ADD_FILTERED_LIST(ret, sublist, mGeneProducts, filter);
-  ADD_FILTERED_LIST(ret, sublist, mBounds, filter);
-  ADD_FILTERED_LIST(ret, sublist, mAssociations, filter);
-
-  return ret;
-}
-
 
 
 /*
@@ -1558,8 +1387,285 @@ int
   return (int)mAssociations.size();
 }
 
+/*
+ * Returns the ListOfUserDefinedConstraints from this FbcModelPlugin.
+ */
+const ListOfUserDefinedConstraints*
+FbcModelPlugin::getListOfUserDefinedConstraints() const
+{
+  return &mUserDefinedConstraints;
+}
+
+
+/*
+ * Returns the ListOfUserDefinedConstraints from this FbcModelPlugin.
+ */
+ListOfUserDefinedConstraints*
+FbcModelPlugin::getListOfUserDefinedConstraints()
+{
+  return &mUserDefinedConstraints;
+}
+
+
+/*
+ * Get an UserDefinedConstraint from the FbcModelPlugin.
+ */
+UserDefinedConstraint*
+FbcModelPlugin::getUserDefinedConstraint(unsigned int n)
+{
+  return static_cast< UserDefinedConstraint*>(mUserDefinedConstraints.get(n));
+}
+
+
+/*
+ * Get an UserDefinedConstraint from the FbcModelPlugin.
+ */
+const UserDefinedConstraint*
+FbcModelPlugin::getUserDefinedConstraint(unsigned int n) const
+{
+  return static_cast<const
+    UserDefinedConstraint*>(mUserDefinedConstraints.get(n));
+}
+
+
+/*
+ * Get an UserDefinedConstraint from the FbcModelPlugin based on its
+ * identifier.
+ */
+UserDefinedConstraint*
+FbcModelPlugin::getUserDefinedConstraint(const std::string& sid)
+{
+  return static_cast<
+    UserDefinedConstraint*>(mUserDefinedConstraints.get(sid));
+}
+
+
+/*
+ * Get an UserDefinedConstraint from the FbcModelPlugin based on its
+ * identifier.
+ */
+const UserDefinedConstraint*
+FbcModelPlugin::getUserDefinedConstraint(const std::string& sid) const
+{
+  return static_cast<const
+    UserDefinedConstraint*>(mUserDefinedConstraints.get(sid));
+}
+
+
+/*
+ * Get an UserDefinedConstraint from the FbcModelPlugin based on the LowerBound
+ * to which it refers.
+ */
+const UserDefinedConstraint*
+FbcModelPlugin::getUserDefinedConstraintByLowerBound(const std::string& sid)
+  const
+{
+  return mUserDefinedConstraints.getByLowerBound(sid);
+}
+
+
+/*
+ * Get an UserDefinedConstraint from the FbcModelPlugin based on the LowerBound
+ * to which it refers.
+ */
+UserDefinedConstraint*
+FbcModelPlugin::getUserDefinedConstraintByLowerBound(const std::string& sid)
+{
+  return mUserDefinedConstraints.getByLowerBound(sid);
+}
+
+
+/*
+ * Get an UserDefinedConstraint from the FbcModelPlugin based on the UpperBound
+ * to which it refers.
+ */
+const UserDefinedConstraint*
+FbcModelPlugin::getUserDefinedConstraintByUpperBound(const std::string& sid)
+  const
+{
+  return mUserDefinedConstraints.getByUpperBound(sid);
+}
+
+
+/*
+ * Get an UserDefinedConstraint from the FbcModelPlugin based on the UpperBound
+ * to which it refers.
+ */
+UserDefinedConstraint*
+FbcModelPlugin::getUserDefinedConstraintByUpperBound(const std::string& sid)
+{
+  return mUserDefinedConstraints.getByUpperBound(sid);
+}
+
+
+/*
+ * Adds a copy of the given UserDefinedConstraint to this FbcModelPlugin.
+ */
+int
+FbcModelPlugin::addUserDefinedConstraint(const UserDefinedConstraint* udc)
+{
+  if (udc == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (udc->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != udc->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != udc->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getPackageVersion() != udc->getPackageVersion())
+  {
+    return LIBSBML_PKG_VERSION_MISMATCH;
+  }
+  else if (udc->isSetId() && (mUserDefinedConstraints.get(udc->getId())) !=
+    NULL)
+  {
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    return mUserDefinedConstraints.append(udc);
+  }
+}
+
+
+/*
+ * Get the number of UserDefinedConstraint objects in this FbcModelPlugin.
+ */
+unsigned int
+FbcModelPlugin::getNumUserDefinedConstraints() const
+{
+  return mUserDefinedConstraints.size();
+}
+
+
+/*
+ * Creates a new UserDefinedConstraint object, adds it to this FbcModelPlugin
+ * object and returns the UserDefinedConstraint object created.
+ */
+UserDefinedConstraint*
+FbcModelPlugin::createUserDefinedConstraint()
+{
+  UserDefinedConstraint* udc = NULL;
+
+  try
+  {
+    FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
+    udc = new UserDefinedConstraint(fbcns);
+    delete fbcns;
+  }
+  catch (...)
+  {
+  }
+
+  if (udc != NULL)
+  {
+    mUserDefinedConstraints.appendAndOwn(udc);
+  }
+
+  return udc;
+}
+
+
+/*
+ * Removes the nth UserDefinedConstraint from this FbcModelPlugin and returns a
+ * pointer to it.
+ */
+UserDefinedConstraint*
+FbcModelPlugin::removeUserDefinedConstraint(unsigned int n)
+{
+  return
+    static_cast<UserDefinedConstraint*>(mUserDefinedConstraints.remove(n));
+}
+
+
+/*
+ * Removes the UserDefinedConstraint from this FbcModelPlugin based on its
+ * identifier and returns a pointer to it.
+ */
+UserDefinedConstraint*
+FbcModelPlugin::removeUserDefinedConstraint(const std::string& sid)
+{
+  return static_cast<UserDefinedConstraint*>(mUserDefinedConstraints.remove(sid));
+}
+
+
 
 //---------------------------------------------------------------
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write any contained elements
+ */
+void
+FbcModelPlugin::writeElements(XMLOutputStream& stream) const
+{
+  if (getLevel() == 2) return;
+
+  if (getNumObjectives() > 0)
+  {
+    mObjectives.write(stream);
+  }
+
+  if (getNumFluxBounds() > 0)
+  {
+    mBounds.write(stream);
+  }
+
+  if (getNumGeneProducts() > 0)
+  {
+    mGeneProducts.write(stream);
+  }
+
+  if (getNumUserDefinedConstraints() > 0)
+  {
+    mUserDefinedConstraints.write(stream);
+  }
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+* Accept the SBMLVisitor.
+*/
+bool
+FbcModelPlugin::accept(SBMLVisitor& v) const
+{
+  const Model * model = static_cast<const Model * >(this->getParentSBMLObject());
+
+  v.visit(*model);
+  v.leave(*model);
+
+  for (unsigned int i = 0; i < getNumFluxBounds(); i++)
+  {
+    getFluxBound(i)->accept(v);
+  }
+  for (unsigned int i = 0; i < getNumObjectives(); i++)
+  {
+    getListOfObjectives()->accept(v);
+    getObjective(i)->accept(v);
+  }
+
+  for (unsigned int i = 0; i < getNumGeneProducts(); i++)
+  {
+    getGeneProduct(i)->accept(v);
+  }
+  mUserDefinedConstraints.accept(v);
+
+  return true;
+}
+/** @endcond */
+
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -1577,6 +1683,7 @@ FbcModelPlugin::setSBMLDocument(SBMLDocument* d)
   mAssociations.setSBMLDocument(d);  
   mObjectives.setSBMLDocument(d);  
   mGeneProducts.setSBMLDocument(d);
+  mUserDefinedConstraints.setSBMLDocument(d);
 }
 /** @endcond */
 
@@ -1608,6 +1715,7 @@ FbcModelPlugin::connectToParent(SBase* sbase)
   {
     mGeneProducts.connectToParent(sbase);
   }
+  mUserDefinedConstraints.connectToParent(sbase);
 }
 /** @endcond */
 
@@ -1630,8 +1738,33 @@ FbcModelPlugin::enablePackageInternal(const std::string& pkgURI,
   {
     mGeneProducts.enablePackageInternal(pkgURI, pkgPrefix, flag);
   }
+  mUserDefinedConstraints.enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 /** @endcond */
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Updates the namespaces when setLevelVersion is used
+ */
+void
+FbcModelPlugin::updateSBMLNamespace(const std::string& package,
+                                    unsigned int level,
+                                    unsigned int version)
+{
+  SBasePlugin::updateSBMLNamespace(package, level, version);
+
+  mObjectives.updateSBMLNamespace(package, level, version);
+
+  mBounds.updateSBMLNamespace(package, level, version);
+
+  mGeneProducts.updateSBMLNamespace(package, level, version);
+
+  mUserDefinedConstraints.updateSBMLNamespace(package, level, version);
+}
+
+/** @endcond */
+
+
 /** @cond doxygenLibsbmlInternal */
 
 /*
@@ -1909,8 +2042,81 @@ FbcModelPlugin::createChildObject(const std::string& elementName)
   {
     return createGeneProduct();
   }
+  else if (elementName == "userDefinedConstraint")
+  {
+    return createUserDefinedConstraint();
+  }
 
   return obj;
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds a new "elementName" object to this FbcModelPlugin.
+ */
+int
+FbcModelPlugin::addChildObject(const std::string& elementName,
+                               const SBase* element)
+{
+  if (elementName == "objective" && element->getTypeCode() ==
+    SBML_FBC_OBJECTIVE)
+  {
+    return addObjective((const Objective*)(element));
+  }
+  else if (elementName == "fluxBound" && element->getTypeCode() ==
+    SBML_FBC_FLUXBOUND)
+  {
+    return addFluxBound((const FluxBound*)(element));
+  }
+  else if (elementName == "geneProduct" && element->getTypeCode() ==
+    SBML_FBC_GENEPRODUCT)
+  {
+    return addGeneProduct((const GeneProduct*)(element));
+  }
+  else if (elementName == "userDefinedConstraint" && element->getTypeCode() ==
+    SBML_FBC_USERDEFINEDCONSTRAINT)
+  {
+    return addUserDefinedConstraint((const UserDefinedConstraint*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Removes and returns the new "elementName" object with the given id in this
+ * FbcModelPlugin.
+ */
+SBase*
+FbcModelPlugin::removeChildObject(const std::string& elementName,
+                                  const std::string& id)
+{
+  if (elementName == "objective")
+  {
+    return removeObjective(id);
+  }
+  else if (elementName == "fluxBound")
+  {
+    return removeFluxBound(id);
+  }
+  else if (elementName == "geneProduct")
+  {
+    return removeGeneProduct(id);
+  }
+  else if (elementName == "userDefinedConstraint")
+  {
+    return removeUserDefinedConstraint(id);
+  }
+
+  return NULL;
 }
 
 /** @endcond */
@@ -1938,6 +2144,10 @@ FbcModelPlugin::getNumObjects(const std::string& elementName)
   else if (elementName == "geneProduct")
   {
     return getNumGeneProducts();
+  }
+  else if (elementName == "userDefinedConstraint")
+  {
+    return getNumUserDefinedConstraints();
   }
 
   return n;
@@ -1969,6 +2179,10 @@ FbcModelPlugin::getObject(const std::string& elementName, unsigned int index)
   {
     return getGeneProduct(index);
   }
+  else if (elementName == "userDefinedConstraint")
+  {
+    return getUserDefinedConstraint(index);
+  }
 
   return obj;
 }
@@ -1976,35 +2190,285 @@ FbcModelPlugin::getObject(const std::string& elementName, unsigned int index)
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
+/*
+ * Returns the first child element that has the given @p id in the model-wide
+ * SId namespace, or @c NULL if no such object is found.
+ */
+SBase*
+FbcModelPlugin::getElementBySId(const std::string& id)
+{
+  if (id.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  obj = mObjectives.getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  obj = mBounds.getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  obj = mGeneProducts.getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  obj = mUserDefinedConstraints.getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
 
 /*
- * Accept the SBMLVisitor.
+ * Returns the first child element that has the given @p metaid, or @c NULL if
+ * no such object is found.
  */
-bool
-FbcModelPlugin::accept(SBMLVisitor& v) const
+SBase*
+FbcModelPlugin::getElementByMetaId(const std::string& metaid)
 {
-  const Model * model = static_cast<const Model * >(this->getParentSBMLObject());
-
-  v.visit(*model);
-  v.leave(*model);
-
-  for (unsigned int i = 0; i < getNumFluxBounds(); i++)
+  if (metaid.empty())
   {
-    getFluxBound(i)->accept(v);
-  }
-  for (unsigned int i = 0; i < getNumObjectives(); i++)
-  {
-    getListOfObjectives()->accept(v);
-    getObjective(i)->accept(v);
+    return NULL;
   }
 
-  for(unsigned int i = 0; i < getNumGeneProducts(); i++)
+  SBase* obj = NULL;
+
+  if (mObjectives.getMetaId() == metaid)
   {
-    getGeneProduct(i)->accept(v);
+    return &mObjectives;
   }
 
-  return true;
+  if (mBounds.getMetaId() == metaid)
+  {
+    return &mBounds;
+  }
+
+  if (mGeneProducts.getMetaId() == metaid)
+  {
+    return &mGeneProducts;
+  }
+
+  if (mUserDefinedConstraints.getMetaId() == metaid)
+  {
+    return &mUserDefinedConstraints;
+  }
+
+  obj = mObjectives.getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  obj = mBounds.getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  obj = mGeneProducts.getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  obj = mUserDefinedConstraints.getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns a List of all child SBase objects, including those nested to an
+ * arbitrary depth.
+ */
+List*
+FbcModelPlugin::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+
+  ADD_FILTERED_LIST(ret, sublist, mObjectives, filter);
+  ADD_FILTERED_LIST(ret, sublist, mBounds, filter);
+  ADD_FILTERED_LIST(ret, sublist, mGeneProducts, filter);
+  ADD_FILTERED_LIST(ret, sublist, mUserDefinedConstraints, filter);
+
+  return ret;
+}
+
+/** @cond doxygenLibsbmlInternal */
+int
+FbcModelPlugin::appendFrom(const Model* model)
+{
+  int ret = LIBSBML_OPERATION_SUCCESS;
+
+  if (model == NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  const FbcModelPlugin* modplug =
+    static_cast<const FbcModelPlugin*>(model->getPlugin(getPrefix()));
+
+  // absence of a plugin is not an error
+  if (modplug == NULL)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+
+  Model* parent = static_cast<Model*>(getParentSBMLObject());
+
+  if (parent == NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  ret = mObjectives.appendFrom(modplug->getListOfObjectives());
+
+  if (ret != LIBSBML_OPERATION_SUCCESS)
+  {
+    return ret;
+  }
+
+  ret = mBounds.appendFrom(modplug->getListOfFluxBounds());
+
+  if (ret != LIBSBML_OPERATION_SUCCESS)
+  {
+    return ret;
+  }
+
+  ret = mGeneProducts.appendFrom(modplug->getListOfGeneProducts());
+
+  ret = mUserDefinedConstraints.appendFrom(modplug->getListOfUserDefinedConstraints());
+
+  return ret;
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+/*
+* create object
+*/
+SBase*
+FbcModelPlugin::createObject(XMLInputStream& stream)
+{
+  SBase* object = NULL;
+
+  const std::string&      name = stream.peek().getName();
+  const XMLNamespaces&    xmlns1 = stream.peek().getNamespaces();
+  const std::string&      prefix = stream.peek().getPrefix();
+
+  const std::string& targetPrefix = (xmlns1.hasURI(mURI)) ? xmlns1.getPrefix(mURI) : mPrefix;
+
+  if (prefix == targetPrefix)
+  {
+    FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
+    if (name == "listOfFluxBounds")
+    {
+      if (getErrorLog() && mBounds.size() != 0)
+      {
+        getErrorLog()->logPackageError("fbc", FbcOnlyOneEachListOf,
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
+      }
+
+      object = &mBounds;
+
+      if (targetPrefix.empty())
+      {
+        mBounds.getSBMLDocument()->enableDefaultNS(mURI, true);
+      }
+    }
+    else if (name == "listOfObjectives")
+    {
+      if (getErrorLog() && mObjectives.size() != 0)
+      {
+        getErrorLog()->logPackageError("fbc", FbcOnlyOneEachListOf,
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
+      }
+
+      object = &mObjectives;
+
+      if (targetPrefix.empty())
+      {
+        mObjectives.getSBMLDocument()->enableDefaultNS(mURI, true);
+      }
+    }
+    else if (name == "listOfGeneAssociations")
+    {
+      if (getErrorLog() && mAssociations.size() != 0)
+      {
+        getErrorLog()->logPackageError("fbc", FbcOnlyOneEachListOf,
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
+      }
+
+      object = &mAssociations;
+
+      if (targetPrefix.empty())
+      {
+        mAssociations.getSBMLDocument()->enableDefaultNS(mURI, true);
+      }
+    }
+    else if (name == "listOfGeneProducts")
+    {
+      if (getErrorLog() && mGeneProducts.size() != 0)
+      {
+        getErrorLog()->logPackageError("fbc", FbcOnlyOneEachListOf,
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
+      }
+
+      object = &mGeneProducts;
+
+      if (targetPrefix.empty() == true)
+      {
+        mGeneProducts.getSBMLDocument()->enableDefaultNS(mURI, true);
+      }
+    }
+    else if (name == "listOfUserDefinedConstraints")
+    {
+      if (getErrorLog() && mUserDefinedConstraints.size() != 0)
+      {
+        getErrorLog()->logPackageError("fbc", FbcOnlyOneEachListOf,
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
+      }
+
+      object = &mUserDefinedConstraints;
+
+      if (targetPrefix.empty() == true)
+      {
+        mUserDefinedConstraints.getSBMLDocument()->enableDefaultNS(mURI, true);
+      }
+    }
+
+
+    delete fbcns;
+  }
+
+  return object;
 }
 /** @endcond */
 
@@ -2139,6 +2603,135 @@ FbcModelPlugin_getNumGeneProducts(SBasePlugin_t * fbc)
   return (fbc != NULL) ? static_cast<FbcModelPlugin*>(fbc)->getNumGeneProducts()
     : SBML_INT_MAX;
 }
+
+/*
+ * Returns a ListOf_t * containing UserDefinedConstraint_t objects from this
+ * FbcModelPlugin_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+FbcModelPlugin_getListOfUserDefinedConstraints(FbcModelPlugin_t* fmp)
+{
+  return (fmp != NULL) ? fmp->getListOfUserDefinedConstraints() : NULL;
+}
+
+
+/*
+ * Get an UserDefinedConstraint_t from the FbcModelPlugin_t.
+ */
+LIBSBML_EXTERN
+UserDefinedConstraint_t*
+FbcModelPlugin_getUserDefinedConstraint(FbcModelPlugin_t* fmp, unsigned int n)
+{
+  return (fmp != NULL) ? fmp->getUserDefinedConstraint(n) : NULL;
+}
+
+
+/*
+ * Get an UserDefinedConstraint_t from the FbcModelPlugin_t based on its
+ * identifier.
+ */
+LIBSBML_EXTERN
+UserDefinedConstraint_t*
+FbcModelPlugin_getUserDefinedConstraintById(FbcModelPlugin_t* fmp,
+                                            const char *sid)
+{
+  return (fmp != NULL && sid != NULL) ? fmp->getUserDefinedConstraint(sid) :
+    NULL;
+}
+
+
+/*
+ * Get an UserDefinedConstraint_t from the FbcModelPlugin_t based on the
+ * LowerBound to which it refers.
+ */
+LIBSBML_EXTERN
+UserDefinedConstraint_t*
+FbcModelPlugin_getUserDefinedConstraintByLowerBound(FbcModelPlugin_t* fmp,
+                                                    const char *sid)
+{
+  return (fmp != NULL && sid != NULL) ?
+    fmp->getUserDefinedConstraintByLowerBound(sid) : NULL;
+}
+
+
+/*
+ * Get an UserDefinedConstraint_t from the FbcModelPlugin_t based on the
+ * UpperBound to which it refers.
+ */
+LIBSBML_EXTERN
+UserDefinedConstraint_t*
+FbcModelPlugin_getUserDefinedConstraintByUpperBound(FbcModelPlugin_t* fmp,
+                                                    const char *sid)
+{
+  return (fmp != NULL && sid != NULL) ?
+    fmp->getUserDefinedConstraintByUpperBound(sid) : NULL;
+}
+
+
+/*
+ * Adds a copy of the given UserDefinedConstraint_t to this FbcModelPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+FbcModelPlugin_addUserDefinedConstraint(FbcModelPlugin_t* fmp,
+                                        const UserDefinedConstraint_t* udc)
+{
+  return (fmp != NULL) ? fmp->addUserDefinedConstraint(udc) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Get the number of UserDefinedConstraint_t objects in this FbcModelPlugin_t.
+ */
+LIBSBML_EXTERN
+unsigned int
+FbcModelPlugin_getNumUserDefinedConstraints(FbcModelPlugin_t* fmp)
+{
+  return (fmp != NULL) ? fmp->getNumUserDefinedConstraints() : SBML_INT_MAX;
+}
+
+
+/*
+ * Creates a new UserDefinedConstraint_t object, adds it to this
+ * FbcModelPlugin_t object and returns the UserDefinedConstraint_t object
+ * created.
+ */
+LIBSBML_EXTERN
+UserDefinedConstraint_t*
+FbcModelPlugin_createUserDefinedConstraint(FbcModelPlugin_t* fmp)
+{
+  return (fmp != NULL) ? fmp->createUserDefinedConstraint() : NULL;
+}
+
+
+/*
+ * Removes the nth UserDefinedConstraint_t from this FbcModelPlugin_t and
+ * returns a pointer to it.
+ */
+LIBSBML_EXTERN
+UserDefinedConstraint_t*
+FbcModelPlugin_removeUserDefinedConstraint(FbcModelPlugin_t* fmp,
+                                           unsigned int n)
+{
+  return (fmp != NULL) ? fmp->removeUserDefinedConstraint(n) : NULL;
+}
+
+
+/*
+ * Removes the UserDefinedConstraint_t from this FbcModelPlugin_t based on its
+ * identifier and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+UserDefinedConstraint_t*
+FbcModelPlugin_removeUserDefinedConstraintById(FbcModelPlugin_t* fmp,
+                                               const char* sid)
+{
+  return (fmp != NULL && sid != NULL) ? fmp->removeUserDefinedConstraint(sid) :
+    NULL;
+}
+
 
 LIBSBML_EXTERN
 int
