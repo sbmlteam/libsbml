@@ -1324,8 +1324,359 @@ static const packageErrorTableEntryV2 fbcErrorTableV2[] =
     { "",
       "L3V1 Fbc V2 Section 3.5"
     }
-  }
+  },
 
+  // 2021501
+  { FbcUserDefinedConstraintComponentAllowedCoreAttributes,
+    "Core attributes allowed on <userDefinedConstraintComponent>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_ERROR,
+    "An <userDefinedConstraintComponent> object may have the optional SBML "
+    "Level 3 Core attributes 'metaid' and 'sboTerm'. No other attributes from "
+    "the SBML Level 3 Core namespaces are permitted on an "
+    "<userDefinedConstraintComponent>.",
+    { "",
+      ""
+    }
+  },
+
+  // 2021502
+  { FbcUserDefinedConstraintComponentAllowedCoreElements,
+    "Core elements allowed on <userDefinedConstraintComponent>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_ERROR,
+    "An <userDefinedConstraintComponent> object may have the optional SBML "
+    "Level 3 Core subobjects for notes and annotations. No other elements from "
+    "the SBML Level 3 Core namespaces are permitted on an "
+    "<userDefinedConstraintComponent>.",
+    { "",
+      ""
+    }
+  },
+
+  // 2021503
+  { FbcUserDefinedConstraintComponentAllowedAttributes,
+    "Attributes allowed on <userDefinedConstraintComponent>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_ERROR,
+    "An <userDefinedConstraintComponent> object must have the required "
+    "attributes 'fbc:coefficient', 'fbc:variable' and 'fbc:variableType', and "
+    "may have the optional attributes 'fbc:id' and 'fbc:name'. No other "
+    "attributes from the SBML Level 3 Flux Balance Constraints namespaces are "
+    "permitted on an <userDefinedConstraintComponent> object. ",
+    { "",
+    ""
+    }
+  },
+
+  // 2021504
+  { FbcUserDefinedConstraintComponentCoefficientMustBeDouble,
+    "The 'coefficient' attribute must be Double.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_ERROR,
+    "The attribute 'fbc:coefficient' on an <userDefinedConstraintComponent> "
+    "must have a value of data type 'double'.",
+    { "",
+    ""
+    }
+  },
+
+  // 2021505
+  { FbcUserDefinedConstraintComponentVariableMustBeReactionOrParameter,
+    "The attribute 'variable' must point to ReactionOrParameter object.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_ERROR,
+    "The value of the attribute 'fbc:variable' of an "
+    "<userDefinedConstraintComponent> object must be the identifier of an "
+    "existing <reaction> or <parameter> object defined in the enclosing <model> "
+    "object.",
+    { "",
+    ""
+    }
+  },
+
+  // 2021506
+  { FbcUserDefinedConstraintComponentVariableTypeMustBeFbcVariableTypeEnum,
+    "The 'variableType' attribute must be FbcVariableTypeEnum.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_ERROR,
+    "The value of the attribute 'fbc:variableType' of an "
+    "<userDefinedConstraintComponent> object must conform to the syntax of SBML "
+    "data type 'FbcVariableType' and may only take on the allowed values of "
+    "'FbcVariableType' defined in SBML; that is, the value must be one of the "
+    "following: 'linear' or 'quadratic'.",
+    { "",
+    ""
+    }
+  },
+
+  // 2021507
+  { FbcUserDefinedConstraintComponentNameMustBeString,
+    "The 'name' attribute must be String.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_ERROR,
+    "The attribute 'fbc:name' on an <userDefinedConstraintComponent> must have "
+    "a value of data type 'string'.",
+    { "",
+    ""
+    }
+  },
+
+  // 2021601
+  { FbcUserDefinedConstraintAllowedCoreAttributes,
+    "Core attributes allowed on <userDefinedConstraint>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_ERROR,
+    "An <userDefinedConstraint> object may have the optional SBML Level 3 Core "
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
+    "3 Core namespaces are permitted on an <userDefinedConstraint>.",
+    { "",
+    ""
+    }
+  },
+
+  // 2021602
+  { FbcUserDefinedConstraintAllowedCoreElements,
+    "Core elements allowed on <userDefinedConstraint>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "An <userDefinedConstraint> object may have the optional SBML Level 3 Core "
+    "subobjects for notes and annotations. No other elements from the SBML "
+    "Level 3 Core namespaces are permitted on an <userDefinedConstraint>.",
+    { "",
+    ""
+    }
+  },
+
+  // 2021603
+  { FbcUserDefinedConstraintAllowedAttributes,
+    "Attributes allowed on <userDefinedConstraint>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "An <userDefinedConstraint> object must have the required attributes "
+    "'fbc:lowerBound' and 'fbc:upperBound', and may have the optional "
+    "attributes 'fbc:id' and 'fbc:name'. No other attributes from the SBML "
+    "Level 3 Flux Balance Constraints namespaces are permitted on an "
+    "<userDefinedConstraint> object. ",
+    { "",
+    ""
+    }
+  },
+
+  // 2021604
+  { FbcUserDefinedConstraintAllowedElements,
+    "Elements allowed on <userDefinedConstraint>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "An <userDefinedConstraint> object must contain one and only one instance "
+    "of the <listOfUserDefinedConstraintComponents> element. No other elements "
+    "from the SBML Level 3 Flux Balance Constraints namespaces are permitted on "
+    "an <userDefinedConstraint> object. ",
+    { "",
+    ""
+    }
+  },
+
+  // 2021605
+  { FbcUserDefinedConstraintLowerBoundMustBeParameter,
+    "The attribute 'lowerBound' must point to Parameter object.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The value of the attribute 'fbc:lowerBound' of an <userDefinedConstraint> "
+    "object must be the identifier of an existing <parameter> object defined in "
+    "the enclosing <model> object.",
+    { "",
+    ""
+    }
+  },
+
+  // 2021606
+  { FbcUserDefinedConstraintUpperBoundMustBeParameter,
+    "The attribute 'upperBound' must point to Parameter object.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The value of the attribute 'fbc:upperBound' of an <userDefinedConstraint> "
+    "object must be the identifier of an existing <parameter> object defined in "
+    "the enclosing <model> object.",
+    { "",
+    ""
+    }
+  },
+
+  // 2021607
+  { FbcUserDefinedConstraintNameMustBeString,
+    "The 'name' attribute must be String.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'fbc:name' on an <userDefinedConstraint> must have a value "
+    "of data type 'string'.",
+    { "",
+    ""
+    }
+  },
+
+  // 2021608
+  { FbcUserDefinedConstraintLOUserDefinedConstraintComponentsAllowedCoreElements,
+    "Core elements allowed on <listOfUserDefinedConstraintComponents>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotations subobjects permitted on all "
+    "SBML objects, a <listOfUserDefinedConstraintComponents> container object "
+    "may only contain <userDefinedConstraintComponent> objects.",
+    { "",
+    ""
+    }
+  },
+
+  // 2021609
+  { FbcUserDefinedConstraintLOUserDefinedConstraintComponentsAllowedCoreAttributes,
+    "Core attributes allowed on <listOfUserDefinedConstraintComponents>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A <listOfUserDefinedConstraintComponents> object may have the optional "
+    "SBML Level 3 Core attributes 'metaid' and 'sboTerm'. No other attributes "
+    "from the SBML Level 3 Core namespaces are permitted on a "
+    "<listOfUserDefinedConstraintComponents> object.",
+    { "",
+    ""
+    }
+  },
+
+  // 2021701
+  { FbcKeyValuePairAllowedCoreAttributes,
+    "Core attributes allowed on <keyValuePair>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A <keyValuePair> object may have the optional SBML Level 3 Core attributes "
+    "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
+    "namespaces are permitted on a <keyValuePair>.",
+    { "",
+      ""
+    }
+  },
+
+  // 2021702
+  { FbcKeyValuePairAllowedCoreElements,
+    "Core elements allowed on <keyValuePair>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A <keyValuePair> object may have the optional SBML Level 3 Core subobjects "
+    "for notes and annotations. No other elements from the SBML Level 3 Core "
+    "namespaces are permitted on a <keyValuePair>.",
+    { "",
+      ""
+    }
+  },
+
+  // 2021703
+  { FbcKeyValuePairAllowedAttributes,
+    "Attributes allowed on <keyValuePair>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_ERROR,
+    "A <keyValuePair> object must have the required attribute 'fbc:key', and "
+    "may have the optional attributes 'fbc:id', 'fbc:name', 'fbc:value' and "
+    "'fbc:kvp_uri'. No other attributes from the SBML Level 3 Flux Balance "
+    "Constraints namespaces are permitted on a <keyValuePair> object. ",
+    { "",
+      ""
+    }
+  },
+
+  // 2021704
+  { FbcKeyValuePairKeyMustBeString,
+    "The 'key' attribute must be String.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'fbc:key' on a <keyValuePair> must have a value of data type "
+    "'string'.",
+    { "",
+      ""
+    }
+  },
+
+  // 2021705
+  { FbcKeyValuePairNameMustBeString,
+    "The 'name' attribute must be String.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_ERROR,
+    "The attribute 'fbc:name' on a <keyValuePair> must have a value of data "
+    "type 'string'.",
+    { "",
+      ""
+    }
+  },
+
+  // 2021706
+  { FbcKeyValuePairValueMustBeString,
+    "The 'value' attribute must be String.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_ERROR,
+    "The attribute 'fbc:value' on a <keyValuePair> must have a value of data "
+    "type 'string'.",
+    { "",
+      ""
+    }
+  },
+
+  // 2021707
+  { FbcKeyValuePairKvp_uriMustBeString,
+    "The 'kvp_uri' attribute must be String.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_ERROR,
+    "The attribute 'fbc:kvp_uri' on a <keyValuePair> must have a value of data "
+    "type 'string'.",
+    { "",
+      ""
+    }
+  },
+
+    // 2021708
+  { FbcSBaseLOKeyValuePairsAllowedAttributes,
+    "",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "",
+    { "",
+    ""
+    }
+  },
+
+
+    // 2021709
+  { FbcSBaseLOKeyValuePairsAllowedCoreAttributes,
+    "",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "",
+    { "",
+    ""
+    }
+  },
 };
 
 LIBSBML_CPP_NAMESPACE_END

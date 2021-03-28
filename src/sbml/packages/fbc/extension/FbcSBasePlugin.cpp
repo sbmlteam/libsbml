@@ -853,13 +853,6 @@ FbcSBasePlugin::createObject(XMLInputStream& stream)
   {
     if (name == "listOfKeyValuePairs")
     {
-      if (getErrorLog() && mKeyValuePairs.size() != 0)
-      {
-        getErrorLog()->logPackageError("fbc", FbcSBaseAllowedElements,
-          getPackageVersion(), getLevel(), getVersion(), "", getLine(),
-            getColumn());
-      }
-
       obj = &mKeyValuePairs;
       if (targetPrefix.empty())
       {

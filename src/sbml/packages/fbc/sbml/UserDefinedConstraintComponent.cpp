@@ -1131,7 +1131,7 @@ UserDefinedConstraintComponent::readL3V1V3Attributes(const XMLAttributes&
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      log->logPackageError("fbc", FbcIdSyntaxRule, pkgVersion, level, version,
+      log->logPackageError("fbc", FbcSBMLSIdSyntax, pkgVersion, level, version,
         "The id on the <" + getElementName() + "> is '" + mId + "', which does "
           "not conform to the syntax.", getLine(), getColumn());
     }
@@ -1205,7 +1205,7 @@ UserDefinedConstraintComponent::readL3V1V3Attributes(const XMLAttributes&
       }
 
       msg += " is '" + mVariable + "', which does not conform to the syntax.";
-      log->logPackageError("fbc", NoneUnknown, pkgVersion, level, version, msg,
+      log->logPackageError("fbc", FbcSBMLSIdSyntax, pkgVersion, level, version, msg,
         getLine(), getColumn());
     }
   }

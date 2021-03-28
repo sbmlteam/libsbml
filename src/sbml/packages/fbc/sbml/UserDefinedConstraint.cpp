@@ -1387,7 +1387,7 @@ UserDefinedConstraint::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownCoreAttribute);
         log->logPackageError("fbc",
-          FbcModelLOUserDefinedConstraintsAllowedCoreAttributes, pkgVersion,
+          FbcUserDefinedConstraintAllowedAttributes, pkgVersion,
             level, version, details, getLine(), getColumn());
       }
     }
@@ -1458,7 +1458,7 @@ UserDefinedConstraint::readL3V1V3Attributes(const XMLAttributes& attributes)
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      log->logPackageError("fbc", FbcIdSyntaxRule, pkgVersion, level, version,
+      log->logPackageError("fbc", FbcSBMLSIdSyntax, pkgVersion, level, version,
         "The id on the <" + getElementName() + "> is '" + mId + "', which does "
           "not conform to the syntax.", getLine(), getColumn());
     }

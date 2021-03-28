@@ -525,7 +525,7 @@ ListOfKeyValuePairs::readL3V1V3Attributes(const XMLAttributes& attributes)
     {
       std::string message = "Fbc attribute 'xmlns' is missing from the "
         "<ListOfKeyValuePairs> element.";
-      log->logPackageError("fbc", NoneUnknown, pkgVersion, level, version,
+      log->logPackageError("fbc", FbcKeyValuePairAllowedAttributes, pkgVersion, level, version,
         message, getLine(), getColumn());
     }
   }
