@@ -318,8 +318,10 @@ void
 FbcSBasePlugin::setSBMLDocument(SBMLDocument* d)
 {
   SBasePlugin::setSBMLDocument(d);
-
-  mKeyValuePairs.setSBMLDocument(d);
+  if (getNumKeyValuePairs() > 0)
+  {
+    mKeyValuePairs.setSBMLDocument(d);
+  }
 }
 
 /** @endcond */
@@ -350,8 +352,10 @@ void
 FbcSBasePlugin::connectToParent(SBase* base)
 {
   SBasePlugin::connectToParent(base);
-
-  mKeyValuePairs.connectToParent(base);
+  if (getNumKeyValuePairs() > 0)
+  {
+    mKeyValuePairs.connectToParent(base);
+  }
 }
 
 /** @endcond */
@@ -365,10 +369,13 @@ FbcSBasePlugin::connectToParent(SBase* base)
  */
 void
 FbcSBasePlugin::enablePackageInternal(const std::string& pkgURI,
-                                      const std::string& pkgPrefix,
-                                      bool flag)
+  const std::string& pkgPrefix,
+  bool flag)
 {
-  mKeyValuePairs.enablePackageInternal(pkgURI, pkgPrefix, flag);
+  if (getNumKeyValuePairs() > 0)
+  {
+    mKeyValuePairs.enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
 }
 
 /** @endcond */
@@ -382,12 +389,15 @@ FbcSBasePlugin::enablePackageInternal(const std::string& pkgURI,
  */
 void
 FbcSBasePlugin::updateSBMLNamespace(const std::string& package,
-                                    unsigned int level,
-                                    unsigned int version)
+  unsigned int level,
+  unsigned int version)
 {
   SBasePlugin::updateSBMLNamespace(package, level, version);
 
-  mKeyValuePairs.updateSBMLNamespace(package, level, version);
+  if (getNumKeyValuePairs() > 0)
+  {
+    mKeyValuePairs.updateSBMLNamespace(package, level, version);
+  }
 }
 
 /** @endcond */
