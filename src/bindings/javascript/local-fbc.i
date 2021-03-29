@@ -19,7 +19,13 @@ SBMLCONSTRUCTOR_EXCEPTION(GeneProductRef)
 SBMLCONSTRUCTOR_EXCEPTION(FbcAnd)
 SBMLCONSTRUCTOR_EXCEPTION(FbcOr)
 SBMLCONSTRUCTOR_EXCEPTION(ListOfFbcAssociations)
+SBMLCONSTRUCTOR_EXCEPTION(UserDefinedConstraintComponent)
+SBMLCONSTRUCTOR_EXCEPTION(UserDefinedConstraint)
+SBMLCONSTRUCTOR_EXCEPTION(KeyValuePair)
 SBMLCONSTRUCTOR_EXCEPTION(ListOfGeneProducts)
+SBMLCONSTRUCTOR_EXCEPTION(ListOfUserDefinedConstraintComponents)
+SBMLCONSTRUCTOR_EXCEPTION(ListOfUserDefinedConstraints)
+SBMLCONSTRUCTOR_EXCEPTION(ListOfKeyValuePairs)
 
 /**
  * Convert FbcAssociation objects into the most specific object possible.

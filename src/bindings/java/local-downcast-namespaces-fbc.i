@@ -9,6 +9,14 @@
   {
     return new FbcPkgNamespaces(cPtr, owner);
   }
+  else if (ns.hasURI(FbcExtension.getXmlnsL3V1V2()))
+  {
+    return new FbcPkgNamespaces(cPtr, owner);
+  }
+  else if (ns.hasURI(FbcExtension.getXmlnsL3V1V3()))
+  {
+    return new FbcPkgNamespaces(cPtr, owner);
+  }
 %}
 #endif /* USE_FBC */
 

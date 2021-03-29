@@ -67,6 +67,12 @@
 #include <sbml/packages/fbc/sbml/GeneProductRef.h>
 #include <sbml/packages/fbc/sbml/FbcAnd.h>
 #include <sbml/packages/fbc/sbml/FbcOr.h>
+#include <sbml/packages/fbc/sbml/UserDefinedConstraintComponent.h>
+#include <sbml/packages/fbc/sbml/UserDefinedConstraint.h>
+#include <sbml/packages/fbc/sbml/KeyValuePair.h>
+#include <sbml/packages/fbc/sbml/ListOfUserDefinedConstraintComponents.h>
+#include <sbml/packages/fbc/sbml/ListOfUserDefinedConstraints.h>
+#include <sbml/packages/fbc/sbml/ListOfKeyValuePairs.h>
 
 #endif // USE_FBC 
 
