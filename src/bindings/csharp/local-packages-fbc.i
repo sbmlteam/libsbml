@@ -157,12 +157,6 @@
       case (int) libsbml.SBML_FBC_OR:
         return new FbcOr(cPtr, owner);
 
-      case (int) libsbml.SBML_FBC_ASSOCIATION:
-        return new Association(cPtr, owner);
-
-      case (int) libsbml.SBML_FBC_GENEPRODUCTASSOCIATION:
-        return new GeneProductAssociation(cPtr, owner);
-
       case (int) libsbml.SBML_FBC_USERDEFINEDCONSTRAINTCOMPONENT:
         return new UserDefinedConstraintComponent(cPtr, owner);
 
