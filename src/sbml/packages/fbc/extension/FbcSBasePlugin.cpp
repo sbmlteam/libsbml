@@ -876,6 +876,16 @@ FbcSBasePlugin::createObject(XMLInputStream& stream)
   return obj;
 }
 
+void FbcSBasePlugin::logUnknownAttribute(const std::string& /*attribute*/, 
+  const unsigned int /*sbmlLevel*/, 
+  const unsigned int /*sbmlVersion*/, 
+  const unsigned int /*pkgVersion*/, 
+  const std::string& /*element*/)
+{
+  // don't actually log anything, as these will already have been logged
+  // by the core 
+}
+
 /** @endcond */
 
 
