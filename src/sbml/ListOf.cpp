@@ -641,7 +641,7 @@ struct ListOfComparator
     {
         if (obj1 == NULL || obj2 == NULL) 
         {
-            return true;
+            return false;
         }
 
         if (obj1->getIdAttribute() == obj2->getIdAttribute()) 
