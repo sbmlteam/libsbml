@@ -25,8 +25,6 @@ else if (pkgName == "fbc")
       {
         return SWIGTYPE_p_ListOfGeneProducts;
       }
-
-      return SWIGTYPE_p_ListOf;
       else if (name == "listOfUserDefinedConstraintComponents")
       {
         return SWIGTYPE_p_ListOfUserDefinedConstraintComponents;
@@ -39,6 +37,8 @@ else if (pkgName == "fbc")
       {
         return SWIGTYPE_p_ListOfKeyValuePairs;
       }
+
+      return SWIGTYPE_p_ListOf;
 
     case SBML_FBC_ASSOCIATION:
       return SWIGTYPE_p_FbcAssociation;
