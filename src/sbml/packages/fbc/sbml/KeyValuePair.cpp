@@ -61,7 +61,7 @@ KeyValuePair::KeyValuePair(unsigned int level,
   : SBase(level, version)
   , mKey ("")
   , mValue ("")
-  , mKvp_uri ("")
+  , mUri ("")
 {
   setSBMLNamespacesAndOwn(new FbcPkgNamespaces(level, version, pkgVersion));
 }
@@ -74,7 +74,7 @@ KeyValuePair::KeyValuePair(FbcPkgNamespaces *fbcns)
   : SBase(fbcns)
   , mKey ("")
   , mValue ("")
-  , mKvp_uri ("")
+  , mUri ("")
 {
   setElementNamespace(fbcns->getURI());
   loadPlugins(fbcns);
@@ -88,7 +88,7 @@ KeyValuePair::KeyValuePair(const KeyValuePair& orig)
   : SBase( orig )
   , mKey ( orig.mKey )
   , mValue ( orig.mValue )
-  , mKvp_uri ( orig.mKvp_uri )
+  , mUri ( orig.mUri )
 {
 }
 
@@ -104,7 +104,7 @@ KeyValuePair::operator=(const KeyValuePair& rhs)
     SBase::operator=(rhs);
     mKey = rhs.mKey;
     mValue = rhs.mValue;
-    mKvp_uri = rhs.mKvp_uri;
+    mUri = rhs.mUri;
   }
 
   return *this;
@@ -170,12 +170,12 @@ KeyValuePair::getValue() const
 
 
 /*
- * Returns the value of the "kvp_uri" attribute of this KeyValuePair.
+ * Returns the value of the "uri" attribute of this KeyValuePair.
  */
 const std::string&
-KeyValuePair::getKvp_uri() const
+KeyValuePair::getUri() const
 {
-  return mKvp_uri;
+  return mUri;
 }
 
 
@@ -220,13 +220,12 @@ KeyValuePair::isSetValue() const
 
 
 /*
- * Predicate returning @c true if this KeyValuePair's "kvp_uri" attribute is
- * set.
+ * Predicate returning @c true if this KeyValuePair's "uri" attribute is set.
  */
 bool
-KeyValuePair::isSetKvp_uri() const
+KeyValuePair::isSetUri() const
 {
-  return (mKvp_uri.empty() == false);
+  return (mUri.empty() == false);
 }
 
 
@@ -318,10 +317,10 @@ KeyValuePair::setValue(const std::string& value)
 
 
 /*
- * Sets the value of the "kvp_uri" attribute of this KeyValuePair.
+ * Sets the value of the "uri" attribute of this KeyValuePair.
  */
 int
-KeyValuePair::setKvp_uri(const std::string& kvp_uri)
+KeyValuePair::setUri(const std::string& uri)
 {
   unsigned int coreLevel = getLevel();
   unsigned int coreVersion = getVersion();
@@ -329,7 +328,7 @@ KeyValuePair::setKvp_uri(const std::string& kvp_uri)
 
   if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
   {
-    mKvp_uri = kvp_uri;
+    mUri = uri;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else
@@ -416,14 +415,14 @@ KeyValuePair::unsetValue()
 
 
 /*
- * Unsets the value of the "kvp_uri" attribute of this KeyValuePair.
+ * Unsets the value of the "uri" attribute of this KeyValuePair.
  */
 int
-KeyValuePair::unsetKvp_uri()
+KeyValuePair::unsetUri()
 {
-  mKvp_uri.erase();
+  mUri.erase();
 
-  if (mKvp_uri.empty() == true)
+  if (mUri.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -652,9 +651,9 @@ KeyValuePair::getAttribute(const std::string& attributeName,
     value = getValue();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
-  else if (attributeName == "kvp_uri")
+  else if (attributeName == "uri")
   {
-    value = getKvp_uri();
+    value = getUri();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
 
@@ -692,9 +691,9 @@ KeyValuePair::isSetAttribute(const std::string& attributeName) const
   {
     value = isSetValue();
   }
-  else if (attributeName == "kvp_uri")
+  else if (attributeName == "uri")
   {
-    value = isSetKvp_uri();
+    value = isSetUri();
   }
 
   return value;
@@ -800,9 +799,9 @@ KeyValuePair::setAttribute(const std::string& attributeName,
   {
     return_value = setValue(value);
   }
-  else if (attributeName == "kvp_uri")
+  else if (attributeName == "uri")
   {
-    return_value = setKvp_uri(value);
+    return_value = setUri(value);
   }
 
   return return_value;
@@ -838,9 +837,9 @@ KeyValuePair::unsetAttribute(const std::string& attributeName)
   {
     value = unsetValue();
   }
-  else if (attributeName == "kvp_uri")
+  else if (attributeName == "uri")
   {
-    value = unsetKvp_uri();
+    value = unsetUri();
   }
 
   return value;
@@ -870,7 +869,7 @@ KeyValuePair::addExpectedAttributes(ExpectedAttributes& attributes)
     attributes.add("name");
     attributes.add("key");
     attributes.add("value");
-    attributes.add("kvp_uri");
+    attributes.add("uri");
   }
 }
 
@@ -1042,16 +1041,16 @@ KeyValuePair::readL3V1V3Attributes(const XMLAttributes& attributes)
   }
 
   // 
-  // kvp_uri string (use = "optional" )
+  // uri string (use = "optional" )
   // 
 
-  assigned = attributes.readInto("kvp_uri", mKvp_uri);
+  assigned = attributes.readInto("uri", mUri);
 
   if (assigned == true)
   {
-    if (mKvp_uri.empty() == true)
+    if (mUri.empty() == true)
     {
-      logEmptyString(mKvp_uri, level, version, "<KeyValuePair>");
+      logEmptyString(mUri, level, version, "<KeyValuePair>");
     }
   }
 }
@@ -1114,9 +1113,9 @@ KeyValuePair::writeL3V1V3Attributes(XMLOutputStream& stream) const
     stream.writeAttribute("value", getPrefix(), mValue);
   }
 
-  if (isSetKvp_uri() == true)
+  if (isSetUri() == true)
   {
-    stream.writeAttribute("kvp_uri", getPrefix(), mKvp_uri);
+    stream.writeAttribute("uri", getPrefix(), mUri);
   }
 }
 
@@ -1239,19 +1238,18 @@ KeyValuePair_getValue(const KeyValuePair_t * kvp)
 
 
 /*
- * Returns the value of the "kvp_uri" attribute of this KeyValuePair_t.
+ * Returns the value of the "uri" attribute of this KeyValuePair_t.
  */
 LIBSBML_EXTERN
 char *
-KeyValuePair_getKvp_uri(const KeyValuePair_t * kvp)
+KeyValuePair_getUri(const KeyValuePair_t * kvp)
 {
   if (kvp == NULL)
   {
     return NULL;
   }
 
-  return kvp->getKvp_uri().empty() ? NULL :
-    safe_strdup(kvp->getKvp_uri().c_str());
+  return kvp->getUri().empty() ? NULL : safe_strdup(kvp->getUri().c_str());
 }
 
 
@@ -1304,14 +1302,14 @@ KeyValuePair_isSetValue(const KeyValuePair_t * kvp)
 
 
 /*
- * Predicate returning @c 1 (true) if this KeyValuePair_t's "kvp_uri" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this KeyValuePair_t's "uri" attribute is
+ * set.
  */
 LIBSBML_EXTERN
 int
-KeyValuePair_isSetKvp_uri(const KeyValuePair_t * kvp)
+KeyValuePair_isSetUri(const KeyValuePair_t * kvp)
 {
-  return (kvp != NULL) ? static_cast<int>(kvp->isSetKvp_uri()) : 0;
+  return (kvp != NULL) ? static_cast<int>(kvp->isSetUri()) : 0;
 }
 
 
@@ -1360,13 +1358,13 @@ KeyValuePair_setValue(KeyValuePair_t * kvp, const char * value)
 
 
 /*
- * Sets the value of the "kvp_uri" attribute of this KeyValuePair_t.
+ * Sets the value of the "uri" attribute of this KeyValuePair_t.
  */
 LIBSBML_EXTERN
 int
-KeyValuePair_setKvp_uri(KeyValuePair_t * kvp, const char * kvp_uri)
+KeyValuePair_setUri(KeyValuePair_t * kvp, const char * uri)
 {
-  return (kvp != NULL) ? kvp->setKvp_uri(kvp_uri) : LIBSBML_INVALID_OBJECT;
+  return (kvp != NULL) ? kvp->setUri(uri) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1415,13 +1413,13 @@ KeyValuePair_unsetValue(KeyValuePair_t * kvp)
 
 
 /*
- * Unsets the value of the "kvp_uri" attribute of this KeyValuePair_t.
+ * Unsets the value of the "uri" attribute of this KeyValuePair_t.
  */
 LIBSBML_EXTERN
 int
-KeyValuePair_unsetKvp_uri(KeyValuePair_t * kvp)
+KeyValuePair_unsetUri(KeyValuePair_t * kvp)
 {
-  return (kvp != NULL) ? kvp->unsetKvp_uri() : LIBSBML_INVALID_OBJECT;
+  return (kvp != NULL) ? kvp->unsetUri() : LIBSBML_INVALID_OBJECT;
 }
 
 

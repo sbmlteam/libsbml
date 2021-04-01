@@ -996,6 +996,61 @@ Objective::getObject(const std::string& elementName, unsigned int index)
 /** @endcond */
 
 
+/*
+ * Returns the first child element that has the given @p id in the model-wide
+ * SId namespace, or @c NULL if no such object is found.
+ */
+SBase*
+Objective::getElementBySId(const std::string& id)
+{
+  if (id.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  obj = mFluxObjectives.getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns the first child element that has the given @p metaid, or @c NULL if
+ * no such object is found.
+ */
+SBase*
+Objective::getElementByMetaId(const std::string& metaid)
+{
+  if (metaid.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  if (mFluxObjectives.getMetaId() == metaid)
+  {
+    return &mFluxObjectives;
+  }
+
+  obj = mFluxObjectives.getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
   /** @cond doxygenLibsbmlInternal */
 
 /*

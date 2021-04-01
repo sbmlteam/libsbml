@@ -246,7 +246,7 @@
             <attribute name="name" required="false" type="string" abstract="false"/>
             <attribute name="key" required="true" type="string" abstract="false"/>
             <attribute name="value" required="false" type="string" abstract="false"/>
-            <attribute name="kvp_uri" required="false" type="string" abstract="false"/>
+            <attribute name="uri" required="false" type="string" abstract="false"/>
           </attributes>
           <listOfAttributes>
             <listOfAttribute name="xmlns" required="true" type="string" abstract="false"/>

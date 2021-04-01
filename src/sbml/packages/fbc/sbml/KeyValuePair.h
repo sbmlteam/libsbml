@@ -69,7 +69,7 @@ protected:
 
   std::string mKey;
   std::string mValue;
-  std::string mKvp_uri;
+  std::string mUri;
 
   /** @endcond */
 
@@ -174,12 +174,11 @@ public:
 
 
   /**
-   * Returns the value of the "kvp_uri" attribute of this KeyValuePair.
+   * Returns the value of the "uri" attribute of this KeyValuePair.
    *
-   * @return the value of the "kvp_uri" attribute of this KeyValuePair as a
-   * string.
+   * @return the value of the "uri" attribute of this KeyValuePair as a string.
    */
-  const std::string& getKvp_uri() const;
+  const std::string& getUri() const;
 
 
   /**
@@ -221,13 +220,12 @@ public:
 
 
   /**
-   * Predicate returning @c true if this KeyValuePair's "kvp_uri" attribute is
-   * set.
+   * Predicate returning @c true if this KeyValuePair's "uri" attribute is set.
    *
-   * @return @c true if this KeyValuePair's "kvp_uri" attribute has been set,
+   * @return @c true if this KeyValuePair's "uri" attribute has been set,
    * otherwise @c false is returned.
    */
-  bool isSetKvp_uri() const;
+  bool isSetUri() const;
 
 
   /**
@@ -289,17 +287,17 @@ public:
 
 
   /**
-   * Sets the value of the "kvp_uri" attribute of this KeyValuePair.
+   * Sets the value of the "uri" attribute of this KeyValuePair.
    *
-   * @param kvp_uri std::string& value of the "kvp_uri" attribute to be set.
+   * @param uri std::string& value of the "uri" attribute to be set.
    *
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
-   * Calling this function with @p kvp_uri = @c NULL or an empty string is
-   * equivalent to calling unsetKvp_uri().
+   * Calling this function with @p uri = @c NULL or an empty string is
+   * equivalent to calling unsetUri().
    */
-  int setKvp_uri(const std::string& kvp_uri);
+  int setUri(const std::string& uri);
 
 
   /**
@@ -343,13 +341,13 @@ public:
 
 
   /**
-   * Unsets the value of the "kvp_uri" attribute of this KeyValuePair.
+   * Unsets the value of the "uri" attribute of this KeyValuePair.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetKvp_uri();
+  int unsetUri();
 
 
   /**
@@ -886,12 +884,12 @@ KeyValuePair_getValue(const KeyValuePair_t * kvp);
 
 
 /**
- * Returns the value of the "kvp_uri" attribute of this KeyValuePair_t.
+ * Returns the value of the "uri" attribute of this KeyValuePair_t.
  *
- * @param kvp the KeyValuePair_t structure whose kvp_uri is sought.
+ * @param kvp the KeyValuePair_t structure whose uri is sought.
  *
- * @return the value of the "kvp_uri" attribute of this KeyValuePair_t as a
- * pointer to a string.
+ * @return the value of the "uri" attribute of this KeyValuePair_t as a pointer
+ * to a string.
  *
  * @copydetails doc_returned_owned_char
  *
@@ -899,7 +897,7 @@ KeyValuePair_getValue(const KeyValuePair_t * kvp);
  */
 LIBSBML_EXTERN
 char *
-KeyValuePair_getKvp_uri(const KeyValuePair_t * kvp);
+KeyValuePair_getUri(const KeyValuePair_t * kvp);
 
 
 /**
@@ -967,19 +965,19 @@ KeyValuePair_isSetValue(const KeyValuePair_t * kvp);
 
 
 /**
- * Predicate returning @c 1 (true) if this KeyValuePair_t's "kvp_uri" attribute
- * is set.
+ * Predicate returning @c 1 (true) if this KeyValuePair_t's "uri" attribute is
+ * set.
  *
  * @param kvp the KeyValuePair_t structure.
  *
- * @return @c 1 (true) if this KeyValuePair_t's "kvp_uri" attribute has been
- * set, otherwise @c 0 (false) is returned.
+ * @return @c 1 (true) if this KeyValuePair_t's "uri" attribute has been set,
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof KeyValuePair_t
  */
 LIBSBML_EXTERN
 int
-KeyValuePair_isSetKvp_uri(const KeyValuePair_t * kvp);
+KeyValuePair_isSetUri(const KeyValuePair_t * kvp);
 
 
 /**
@@ -1068,24 +1066,24 @@ KeyValuePair_setValue(KeyValuePair_t * kvp, const char * value);
 
 
 /**
- * Sets the value of the "kvp_uri" attribute of this KeyValuePair_t.
+ * Sets the value of the "uri" attribute of this KeyValuePair_t.
  *
  * @param kvp the KeyValuePair_t structure.
  *
- * @param kvp_uri const char * value of the "kvp_uri" attribute to be set.
+ * @param uri const char * value of the "uri" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * Calling this function with @p kvp_uri = @c NULL or an empty string is
- * equivalent to calling KeyValuePair_unsetKvp_uri().
+ * Calling this function with @p uri = @c NULL or an empty string is equivalent
+ * to calling KeyValuePair_unsetUri().
  *
  * @memberof KeyValuePair_t
  */
 LIBSBML_EXTERN
 int
-KeyValuePair_setKvp_uri(KeyValuePair_t * kvp, const char * kvp_uri);
+KeyValuePair_setUri(KeyValuePair_t * kvp, const char * uri);
 
 
 /**
@@ -1157,7 +1155,7 @@ KeyValuePair_unsetValue(KeyValuePair_t * kvp);
 
 
 /**
- * Unsets the value of the "kvp_uri" attribute of this KeyValuePair_t.
+ * Unsets the value of the "uri" attribute of this KeyValuePair_t.
  *
  * @param kvp the KeyValuePair_t structure.
  *
@@ -1170,7 +1168,7 @@ KeyValuePair_unsetValue(KeyValuePair_t * kvp);
  */
 LIBSBML_EXTERN
 int
-KeyValuePair_unsetKvp_uri(KeyValuePair_t * kvp);
+KeyValuePair_unsetUri(KeyValuePair_t * kvp);
 
 
 /**
