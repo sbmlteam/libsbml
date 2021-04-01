@@ -293,7 +293,7 @@ ListOfUserDefinedConstraintComponents::createUserDefinedConstraintComponent()
  * Used by ListOfUserDefinedConstraintComponents::get() to lookup an
  * UserDefinedConstraintComponent based on its Variable.
  */
-struct IdEqV : public std::unary_function<SBase*, bool>
+struct IdEqV
 {
   const string& id;
    

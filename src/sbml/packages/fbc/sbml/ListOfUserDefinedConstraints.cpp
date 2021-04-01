@@ -283,7 +283,7 @@ ListOfUserDefinedConstraints::createUserDefinedConstraint()
  * Used by ListOfUserDefinedConstraints::get() to lookup an
  * UserDefinedConstraint based on its LowerBound.
  */
-struct IdEqLB : public std::unary_function<SBase*, bool>
+struct IdEqLB
 {
   const string& id;
    
@@ -325,7 +325,7 @@ ListOfUserDefinedConstraints::getByLowerBound(const std::string& sid)
  * Used by ListOfUserDefinedConstraints::get() to lookup an
  * UserDefinedConstraint based on its UpperBound.
  */
-struct IdEqUB : public std::unary_function<SBase*, bool>
+struct IdEqUB
 {
   const string& id;
    
