@@ -813,6 +813,10 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->logPackageError("fbc", FbcObjectiveLOFluxObjAllowedAttribs,
           getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        getErrorLog()->remove(NotSchemaConformant);
+      }
     }
   }
 
@@ -839,6 +843,10 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("fbc", FbcFluxObjectAllowedL3Attributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        getErrorLog()->remove(NotSchemaConformant);
       }
     }
   }

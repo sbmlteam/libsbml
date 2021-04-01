@@ -777,6 +777,10 @@ GeneProductRef::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->logPackageError("fbc", FbcGeneProdRefAllowedCoreAttribs,
                        getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        getErrorLog()->remove(NotSchemaConformant);
+      }
     }
   }
 

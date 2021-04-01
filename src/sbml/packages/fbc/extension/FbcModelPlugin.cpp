@@ -424,6 +424,15 @@ FbcModelPlugin::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->logPackageError("fbc", FbcUnknown,
                        getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        const std::string details = 
+          getErrorLog()->getError((unsigned int)n)->getMessage();
+        getErrorLog()->remove(NotSchemaConformant);
+        getErrorLog()->logPackageError("fbc", FbcUnknown,
+          getPackageVersion(), sbmlLevel, sbmlVersion, details,
+          getLine(), getColumn());
+      }
     }
   }
 
