@@ -813,7 +813,7 @@ FbcSBasePlugin::appendFrom(const Model* model)
     return LIBSBML_INVALID_OBJECT;
   }
 
-  const FbcSBasePlugin* plug = static_cast<const
+  const FbcSBasePlugin* plug = dynamic_cast<const
     FbcSBasePlugin*>(model->getPlugin(getPrefix()));
 
   if (plug == NULL)
@@ -821,7 +821,7 @@ FbcSBasePlugin::appendFrom(const Model* model)
     return ret;
   }
 
-  Model* parent = static_cast<Model*>(getParentSBMLObject());
+  Model* parent = dynamic_cast<Model*>(getParentSBMLObject());
 
   if (parent == NULL)
   {
