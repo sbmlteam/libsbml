@@ -59,7 +59,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 FbcModelPlugin::FbcModelPlugin(const std::string& uri,  
                                const std::string& prefix, 
                                FbcPkgNamespaces* fbcns) :
-    SBasePlugin(uri, prefix, fbcns)
+  FbcSBasePlugin(uri, prefix, fbcns)
   , mStrict (false)
   , mIsSetStrict (false)
   , mObjectives (fbcns)
@@ -77,7 +77,7 @@ FbcModelPlugin::FbcModelPlugin(const std::string& uri,
  * Copy constructor for FbcModelPlugin.
  */
 FbcModelPlugin::FbcModelPlugin(const FbcModelPlugin& orig)
-  :  SBasePlugin(orig)
+  : FbcSBasePlugin(orig)
   , mStrict (orig.mStrict)
   , mIsSetStrict (orig.mIsSetStrict)
   , mObjectives (orig.mObjectives)
@@ -99,7 +99,7 @@ FbcModelPlugin::operator=(const FbcModelPlugin& rhs)
 {
   if (&rhs != this)
   {
-    this->SBasePlugin::operator=(rhs);
+    this->FbcSBasePlugin::operator=(rhs);
     mStrict  = rhs.mStrict;
     mIsSetStrict  = rhs.mIsSetStrict;
     mBounds       = rhs.mBounds;
@@ -151,7 +151,7 @@ parseFbcAnnotation(XMLNode * annotation, ListOfGeneAssociations& associations,
   GeneAssociation* ga;
   unsigned int n = 0;
   
-  // need to find the layout desciption opening annotation
+  // need to find the layout description opening annotation
   if (name == "annotation" && annotation->getNumChildren() > 0)
   {
     while (n < annotation->getNumChildren())
@@ -240,7 +240,7 @@ XMLNode* deleteFbcAnnotation(XMLNode* pAnnotation)
 void
 FbcModelPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-  SBasePlugin::addExpectedAttributes(attributes);
+  FbcSBasePlugin::addExpectedAttributes(attributes);
 
   attributes.add("strict");
 }
@@ -400,7 +400,7 @@ FbcModelPlugin::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-  SBasePlugin::readAttributes(attributes, expectedAttributes);
+  FbcSBasePlugin::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -467,7 +467,7 @@ FbcModelPlugin::readAttributes (const XMLAttributes& attributes,
   void
 FbcModelPlugin::writeAttributes (XMLOutputStream& stream) const
 {
-  SBasePlugin::writeAttributes(stream);
+    FbcSBasePlugin::writeAttributes(stream);
 
   if (isSetStrict() == true && getPackageVersion() != 1 && getLevel() == 3)
     stream.writeAttribute("strict", getPrefix(), mStrict);
@@ -1677,7 +1677,7 @@ FbcModelPlugin::accept(SBMLVisitor& v) const
 void
 FbcModelPlugin::setSBMLDocument(SBMLDocument* d)
 {
-  SBasePlugin::setSBMLDocument(d);
+  FbcSBasePlugin::setSBMLDocument(d);
 
   mBounds.setSBMLDocument(d);  
   mAssociations.setSBMLDocument(d);  
@@ -1703,7 +1703,7 @@ FbcModelPlugin::connectToChild()
 void
 FbcModelPlugin::connectToParent(SBase* sbase)
 {
-  SBasePlugin::connectToParent(sbase);
+  FbcSBasePlugin::connectToParent(sbase);
 
   if (getNumObjectives() > 0)
   {
@@ -1751,7 +1751,7 @@ FbcModelPlugin::updateSBMLNamespace(const std::string& package,
                                     unsigned int level,
                                     unsigned int version)
 {
-  SBasePlugin::updateSBMLNamespace(package, level, version);
+  FbcSBasePlugin::updateSBMLNamespace(package, level, version);
 
   mObjectives.updateSBMLNamespace(package, level, version);
 
@@ -1774,7 +1774,7 @@ int
 FbcModelPlugin::getAttribute(const std::string& attributeName,
                              bool& value) const
 {
-  int return_value = SBasePlugin::getAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::getAttribute(attributeName, value);
 
   if (return_value == LIBSBML_OPERATION_SUCCESS)
   {
@@ -1803,7 +1803,7 @@ int
 FbcModelPlugin::getAttribute(const std::string& attributeName,
                              int& value) const
 {
-  int return_value = SBasePlugin::getAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1821,7 +1821,7 @@ int
 FbcModelPlugin::getAttribute(const std::string& attributeName,
                              double& value) const
 {
-  int return_value = SBasePlugin::getAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1839,7 +1839,7 @@ int
 FbcModelPlugin::getAttribute(const std::string& attributeName,
                              unsigned int& value) const
 {
-  int return_value = SBasePlugin::getAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1857,7 +1857,7 @@ int
 FbcModelPlugin::getAttribute(const std::string& attributeName,
                              std::string& value) const
 {
-  int return_value = SBasePlugin::getAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::getAttribute(attributeName, value);
 
   if (attributeName == "activeObjective")
   {
@@ -1880,7 +1880,7 @@ FbcModelPlugin::getAttribute(const std::string& attributeName,
 bool
 FbcModelPlugin::isSetAttribute(const std::string& attributeName) const
 {
-  bool value = SBasePlugin::isSetAttribute(attributeName);
+  bool value = FbcSBasePlugin::isSetAttribute(attributeName);
 
   if (attributeName == "strict")
   {
@@ -1906,7 +1906,7 @@ FbcModelPlugin::isSetAttribute(const std::string& attributeName) const
 int
 FbcModelPlugin::setAttribute(const std::string& attributeName, bool value)
 {
-  int return_value = SBasePlugin::setAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::setAttribute(attributeName, value);
 
   if (attributeName == "strict")
   {
@@ -1928,7 +1928,7 @@ FbcModelPlugin::setAttribute(const std::string& attributeName, bool value)
 int
 FbcModelPlugin::setAttribute(const std::string& attributeName, int value)
 {
-  int return_value = SBasePlugin::setAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1945,7 +1945,7 @@ FbcModelPlugin::setAttribute(const std::string& attributeName, int value)
 int
 FbcModelPlugin::setAttribute(const std::string& attributeName, double value)
 {
-  int return_value = SBasePlugin::setAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1963,7 +1963,7 @@ int
 FbcModelPlugin::setAttribute(const std::string& attributeName,
                              unsigned int value)
 {
-  int return_value = SBasePlugin::setAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1981,7 +1981,7 @@ int
 FbcModelPlugin::setAttribute(const std::string& attributeName,
                              const std::string& value)
 {
-  int return_value = SBasePlugin::setAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::setAttribute(attributeName, value);
 
   if (attributeName == "activeObjective")
   {
@@ -2002,7 +2002,7 @@ FbcModelPlugin::setAttribute(const std::string& attributeName,
 int
 FbcModelPlugin::unsetAttribute(const std::string& attributeName)
 {
-  int value = SBasePlugin::unsetAttribute(attributeName);
+  int value = FbcSBasePlugin::unsetAttribute(attributeName);
 
   if (attributeName == "strict")
   {

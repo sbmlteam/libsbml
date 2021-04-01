@@ -149,6 +149,7 @@
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/extension/SBasePlugin.h>
 #include <sbml/packages/fbc/extension/FbcExtension.h>
+#include <sbml/packages/fbc/extension/FbcSBasePlugin.h>
 #include <sbml/packages/fbc/sbml/FluxBound.h>
 #include <sbml/packages/fbc/sbml/Objective.h>
 #include <sbml/packages/fbc/sbml/GeneAssociation.h>
@@ -160,7 +161,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class LIBSBML_EXTERN FbcModelPlugin : public SBasePlugin
+class LIBSBML_EXTERN FbcModelPlugin : public FbcSBasePlugin
 {
 public:
 

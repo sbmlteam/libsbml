@@ -92,6 +92,7 @@ fbc:charge="-4" fbc:chemicalFormula="C10H12N5O13P3"/>
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/extension/SBasePlugin.h>
+#include <sbml/packages/fbc/extension/FbcSBasePlugin.h>
 #include <sbml/packages/fbc/sbml/FluxBound.h>
 #include <sbml/packages/fbc/sbml/Objective.h>
 #include <sbml/packages/fbc/sbml/GeneAssociation.h>
@@ -99,7 +100,7 @@ fbc:charge="-4" fbc:chemicalFormula="C10H12N5O13P3"/>
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class LIBSBML_EXTERN FbcSpeciesPlugin : public SBasePlugin
+class LIBSBML_EXTERN FbcSpeciesPlugin : public FbcSBasePlugin
 {
 public:
 

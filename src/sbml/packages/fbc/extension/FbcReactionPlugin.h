@@ -68,13 +68,14 @@
 
 
 #include <sbml/extension/SBasePlugin.h>
+#include <sbml/packages/fbc/extension/FbcSBasePlugin.h>
 #include <sbml/packages/fbc/sbml/GeneProductAssociation.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class LIBSBML_EXTERN FbcReactionPlugin : public SBasePlugin
+class LIBSBML_EXTERN FbcReactionPlugin : public FbcSBasePlugin
 {
 public:
 

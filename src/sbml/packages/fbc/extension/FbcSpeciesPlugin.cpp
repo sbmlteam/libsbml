@@ -210,7 +210,7 @@ parseChemicalFormula(std::string& chemicalFormula,
 FbcSpeciesPlugin::FbcSpeciesPlugin(const std::string& uri,  
                                  const std::string& prefix, 
                                FbcPkgNamespaces* fbcns) :
-    SBasePlugin(uri, prefix, fbcns)
+    FbcSBasePlugin(uri, prefix, fbcns)
   , mCharge (0)
   , mChargeAsDouble (0.0)
   , mIsSetCharge (false)
@@ -223,7 +223,7 @@ FbcSpeciesPlugin::FbcSpeciesPlugin(const std::string& uri,
  * Copy constructor for FbcSpeciesPlugin.
  */
 FbcSpeciesPlugin::FbcSpeciesPlugin(const FbcSpeciesPlugin& orig)
-  : SBasePlugin(orig)
+  : FbcSBasePlugin(orig)
   , mCharge(orig.mCharge)
   , mChargeAsDouble(orig.mChargeAsDouble)
   , mIsSetCharge(orig.mIsSetCharge)
@@ -240,7 +240,7 @@ FbcSpeciesPlugin::operator=(const FbcSpeciesPlugin& rhs)
 {
   if (&rhs != this)
   {
-    this->SBasePlugin::operator=(rhs);
+    this->FbcSBasePlugin::operator=(rhs);
     mCharge  = rhs.mCharge;
     mChargeAsDouble = rhs.mChargeAsDouble;
     mIsSetCharge  = rhs.mIsSetCharge;
@@ -306,7 +306,7 @@ FbcSpeciesPlugin::writeElements (XMLOutputStream&) const
 void
 FbcSpeciesPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-  SBasePlugin::addExpectedAttributes(attributes);
+  FbcSBasePlugin::addExpectedAttributes(attributes);
 
   attributes.add("charge");
   attributes.add("chemicalFormula");
@@ -326,7 +326,7 @@ FbcSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
                              const ExpectedAttributes& expectedAttributes)
 {
    // dont call this as all it does it log unknown attributes
-//  SBasePlugin::readAttributes(attributes, expectedAttributes);
+//  FbcSBasePlugin::readAttributes(attributes, expectedAttributes);
   for (int i = 0; i < attributes.getLength(); i++)
   {
     std::string name = attributes.getName(i);
@@ -393,7 +393,7 @@ FbcSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
   void
 FbcSpeciesPlugin::writeAttributes (XMLOutputStream& stream) const
 {
-  SBasePlugin::writeAttributes(stream);
+  FbcSBasePlugin::writeAttributes(stream);
 
   if (isSetCharge() == true)
   {
@@ -563,7 +563,7 @@ FbcSpeciesPlugin::unsetChemicalFormula()
 void
 FbcSpeciesPlugin::setSBMLDocument(SBMLDocument* d)
 {
-  SBasePlugin::setSBMLDocument(d);
+  FbcSBasePlugin::setSBMLDocument(d);
 
 }
 /** @endcond */
@@ -576,7 +576,7 @@ FbcSpeciesPlugin::setSBMLDocument(SBMLDocument* d)
 void
 FbcSpeciesPlugin::connectToParent(SBase* sbase)
 {
-  SBasePlugin::connectToParent(sbase);
+  FbcSBasePlugin::connectToParent(sbase);
 
 }
 /** @endcond */
@@ -616,7 +616,7 @@ int
 FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
                                bool& value) const
 {
-  int return_value = SBasePlugin::getAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -634,7 +634,7 @@ int
 FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
                                int& value) const
 {
-  int return_value = SBasePlugin::getAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::getAttribute(attributeName, value);
 
   if (return_value == LIBSBML_OPERATION_SUCCESS)
   {
@@ -663,7 +663,7 @@ int
 FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
                                double& value) const
 {
-  int return_value = SBasePlugin::getAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::getAttribute(attributeName, value);
 
   if (attributeName == "charge")
   {
@@ -687,7 +687,7 @@ int
 FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
                                unsigned int& value) const
 {
-  int return_value = SBasePlugin::getAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -705,7 +705,7 @@ int
 FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
                                std::string& value) const
 {
-  int return_value = SBasePlugin::getAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::getAttribute(attributeName, value);
 
   if (return_value == LIBSBML_OPERATION_SUCCESS)
   {
@@ -734,7 +734,7 @@ FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
 bool
 FbcSpeciesPlugin::isSetAttribute(const std::string& attributeName) const
 {
-  bool value = SBasePlugin::isSetAttribute(attributeName);
+  bool value = FbcSBasePlugin::isSetAttribute(attributeName);
 
   if (attributeName == "charge")
   {
@@ -760,7 +760,7 @@ FbcSpeciesPlugin::isSetAttribute(const std::string& attributeName) const
 int
 FbcSpeciesPlugin::setAttribute(const std::string& attributeName, bool value)
 {
-  int return_value = SBasePlugin::setAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -777,7 +777,7 @@ FbcSpeciesPlugin::setAttribute(const std::string& attributeName, bool value)
 int
 FbcSpeciesPlugin::setAttribute(const std::string& attributeName, int value)
 {
-  int return_value = SBasePlugin::setAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::setAttribute(attributeName, value);
 
   if (attributeName == "charge")
   {
@@ -799,7 +799,7 @@ FbcSpeciesPlugin::setAttribute(const std::string& attributeName, int value)
 int
 FbcSpeciesPlugin::setAttribute(const std::string& attributeName, double value)
 {
-  int return_value = SBasePlugin::setAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::setAttribute(attributeName, value);
 
   if (attributeName == "charge")
   {
@@ -822,7 +822,7 @@ int
 FbcSpeciesPlugin::setAttribute(const std::string& attributeName,
                                unsigned int value)
 {
-  int return_value = SBasePlugin::setAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -840,7 +840,7 @@ int
 FbcSpeciesPlugin::setAttribute(const std::string& attributeName,
                                const std::string& value)
 {
-  int return_value = SBasePlugin::setAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::setAttribute(attributeName, value);
 
   if (attributeName == "chemicalFormula")
   {
@@ -862,7 +862,7 @@ FbcSpeciesPlugin::setAttribute(const std::string& attributeName,
 int
 FbcSpeciesPlugin::unsetAttribute(const std::string& attributeName)
 {
-  int value = SBasePlugin::unsetAttribute(attributeName);
+  int value = FbcSBasePlugin::unsetAttribute(attributeName);
 
   if (attributeName == "charge")
   {
@@ -884,7 +884,7 @@ FbcSpeciesPlugin::unsetAttribute(const std::string& attributeName)
 /** @cond doxygenIgnored */
 LIBSBML_EXTERN
 int
-FbcSpeciesPlugin_getCharge(SBasePlugin_t * fbc)
+FbcSpeciesPlugin_getCharge(FbcSBasePlugin_t * fbc)
 {
   return (fbc != NULL) ? static_cast<FbcSpeciesPlugin*>(fbc)->getCharge() 
     : SBML_INT_MAX;
@@ -892,7 +892,7 @@ FbcSpeciesPlugin_getCharge(SBasePlugin_t * fbc)
 
 LIBSBML_EXTERN
 double
-FbcSpeciesPlugin_getChargeAsDouble(SBasePlugin_t * fbc)
+FbcSpeciesPlugin_getChargeAsDouble(FbcSBasePlugin_t * fbc)
 {
   return (fbc != NULL) ? static_cast<FbcSpeciesPlugin*>(fbc)->getChargeAsDouble()
     : util_NaN();
@@ -900,7 +900,7 @@ FbcSpeciesPlugin_getChargeAsDouble(SBasePlugin_t * fbc)
 
 LIBSBML_EXTERN
 int
-FbcSpeciesPlugin_isSetCharge(SBasePlugin_t * fbc)
+FbcSpeciesPlugin_isSetCharge(FbcSBasePlugin_t * fbc)
 {
   return (fbc != NULL) ? 
     static_cast<int>(static_cast<FbcSpeciesPlugin*>(fbc)->isSetCharge()) : 0;
@@ -909,7 +909,7 @@ FbcSpeciesPlugin_isSetCharge(SBasePlugin_t * fbc)
 
 LIBSBML_EXTERN
 int
-FbcSpeciesPlugin_setCharge(SBasePlugin_t * fbc, int charge)
+FbcSpeciesPlugin_setCharge(FbcSBasePlugin_t * fbc, int charge)
 {
   return (fbc != NULL) ? static_cast<FbcSpeciesPlugin*>(fbc)->setCharge(charge)
     : LIBSBML_INVALID_OBJECT;
@@ -918,7 +918,7 @@ FbcSpeciesPlugin_setCharge(SBasePlugin_t * fbc, int charge)
 
 LIBSBML_EXTERN
 int
-FbcSpeciesPlugin_setChargeAsDouble(SBasePlugin_t * fbc, double charge)
+FbcSpeciesPlugin_setChargeAsDouble(FbcSBasePlugin_t * fbc, double charge)
 {
   return (fbc != NULL) ? static_cast<FbcSpeciesPlugin*>(fbc)->setChargeAsDouble(charge)
     : LIBSBML_INVALID_OBJECT;
@@ -927,7 +927,7 @@ FbcSpeciesPlugin_setChargeAsDouble(SBasePlugin_t * fbc, double charge)
 
 LIBSBML_EXTERN
 int
-FbcSpeciesPlugin_unsetCharge(SBasePlugin_t * fbc)
+FbcSpeciesPlugin_unsetCharge(FbcSBasePlugin_t * fbc)
 {
   return (fbc != NULL) ? static_cast<FbcSpeciesPlugin*>(fbc)->unsetCharge()
     : LIBSBML_INVALID_OBJECT;
@@ -936,7 +936,7 @@ FbcSpeciesPlugin_unsetCharge(SBasePlugin_t * fbc)
 
 LIBSBML_EXTERN
 char *
-FbcSpeciesPlugin_getChemicalFormula(SBasePlugin_t * fbc)
+FbcSpeciesPlugin_getChemicalFormula(FbcSBasePlugin_t * fbc)
 {
   if (fbc == NULL) return NULL;
 
@@ -948,7 +948,7 @@ FbcSpeciesPlugin_getChemicalFormula(SBasePlugin_t * fbc)
 
 LIBSBML_EXTERN
 int
-FbcSpeciesPlugin_isSetChemicalFormula(SBasePlugin_t * fbc)
+FbcSpeciesPlugin_isSetChemicalFormula(FbcSBasePlugin_t * fbc)
 {
   return (fbc != NULL) 
     ? static_cast<int>
@@ -959,7 +959,7 @@ FbcSpeciesPlugin_isSetChemicalFormula(SBasePlugin_t * fbc)
 
 LIBSBML_EXTERN
 int
-FbcSpeciesPlugin_setChemicalFormula(SBasePlugin_t * fbc, const char * chemform)
+FbcSpeciesPlugin_setChemicalFormula(FbcSBasePlugin_t * fbc, const char * chemform)
 {
   return (fbc != NULL) 
     ? static_cast<FbcSpeciesPlugin*>(fbc)->setChemicalFormula(chemform)
@@ -969,7 +969,7 @@ FbcSpeciesPlugin_setChemicalFormula(SBasePlugin_t * fbc, const char * chemform)
 
 LIBSBML_EXTERN
 int
-FbcSpeciesPlugin_unsetChemicalFormula(SBasePlugin_t * fbc)
+FbcSpeciesPlugin_unsetChemicalFormula(FbcSBasePlugin_t * fbc)
 {
   return (fbc != NULL) 
     ? static_cast<FbcSpeciesPlugin*>(fbc)->unsetChemicalFormula()
