@@ -821,13 +821,6 @@ FbcSBasePlugin::appendFrom(const Model* model)
     return ret;
   }
 
-  Model* parent = dynamic_cast<Model*>(getParentSBMLObject());
-
-  if (parent == NULL)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-
   ret = mKeyValuePairs.appendFrom(plug->getListOfKeyValuePairs());
 
   if (ret != LIBSBML_OPERATION_SUCCESS)
