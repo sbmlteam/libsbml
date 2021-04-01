@@ -818,23 +818,6 @@ protected:
 
   /** @endcond */
 
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Overwritten from base class, so as to not log unknown attributes 
-   * twice. This one does log nothing. 
-   */
-  virtual void logUnknownAttribute(const std::string& attribute,
-    const unsigned int sbmlLevel,
-    const unsigned int sbmlVersion,
-    const unsigned int pkgVersion,
-    const std::string& element);
-
-
-  /** @endcond */
-
-
 };
 
 
