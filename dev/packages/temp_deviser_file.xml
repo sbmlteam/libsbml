@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package name="Fbc" fullname="Flux Balance Constraints" number="800" offset="2000000" version="2" required="false">
+  <language name="sbml" prefix="SBML" uses_ASTNode="true" uses_XMLNode="true"/>
+  <versions>
+    <pkgVersion level="3" version="1" pkg_version="1">
+      <elements>
+        <element name="FluxBound" typeCode="SBML_FBC_FLUXBOUND" hasListOf="true" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" minNumListOfChildren="0" maxNumListOfChildren="0" baseClass="SBase" abstract="false">
+          <attributes>
+            <attribute name="id" required="true" type="SId" abstract="false"/>
+            <attribute name="name" required="false" type="string" abstract="false"/>
+            <attribute name="reaction" required="true" type="SIdRef" element="Reaction" abstract="false"/>
+            <attribute name="operation" required="true" type="enum" element="FbcOperation" abstract="false"/>
+            <attribute name="value" required="true" type="double" abstract="false"/>
+          </attributes>
+        </element>
+        <element name="Objective" typeCode="SBML_FBC_OBJECTIVE" hasListOf="true" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" minNumListOfChildren="0" maxNumListOfChildren="0" baseClass="SBase" abstract="false">
+          <attributes>
+            <attribute name="id" required="true" type="SId" abstract="false"/>
+            <attribute name="name" required="false" type="string" abstract="false"/>
+            <attribute name="type" required="true" type="enum" element="FbcType" abstract="false"/>
+            <attribute name="fluxObjectives" required="false" type="lo_element" element="FluxObjective" abstract="false"/>
+          </attributes>
+          <listOfAttributes>
+            <listOfAttribute name="activeObjective" required="false" type="SIdRef" element="Objective" abstract="false"/>
+          </listOfAttributes>
+        </element>
+        <element name="FluxObjective" typeCode="SBML_FBC_FLUXOBJECTIVE" hasListOf="true" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" minNumListOfChildren="0" maxNumListOfChildren="0" baseClass="SBase" abstract="false">
+          <attributes>
+            <attribute name="id" required="false" type="SId" abstract="false"/>
+            <attribute name="name" required="false" type="string" abstract="false"/>
+            <attribute name="reaction" required="true" type="SIdRef" element="Reaction" abstract="false"/>
+            <attribute name="coefficient" required="true" type="double" abstract="false"/>
+          </attributes>
+        </element>
+      </elements>
+      <plugins>
+        <plugin extensionPoint="Model">
+          <references>
+            <reference name="ListOfObjectives"/>
+            <reference name="ListOfFluxBounds"/>
+          </references>
+        </plugin>
+        <plugin extensionPoint="Species">
+          <attributes>
+            <attribute name="charge" required="false" type="integer" abstract="false"/>
+            <attribute name="chemicalFormula" required="false" type="string" abstract="false"/>
+          </attributes>
+        </plugin>
+      </plugins>
+      <enums>
+        <enum name="FbcType">
+          <enumValues>
+            <enumValue name="OBJECTIVE_TYPE_MAXIMIZE" value="maximize"/>
+            <enumValue name="OBJECTIVE_TYPE_MINIMIZE" value="minimize"/>
+          </enumValues>
+        </enum>
+        <enum name="FbcOperation">
+          <enumValues>
+            <enumValue name="FLUXBOUND_OPERATION_LESS_EQUAL" value="lessEqual"/>
+            <enumValue name="FLUXBOUND_OPERATION_GREATER_EQUAL" value="greaterEqual"/>
+            <enumValue name="FLUXBOUND_OPERATION_LESS" value="less"/>
+            <enumValue name="FLUXBOUND_OPERATION_GREATER" value="greater"/>
+            <enumValue name="FLUXBOUND_OPERATION_EQUAL" value="equal"/>
+          </enumValues>
+        </enum>
+      </enums>
+    </pkgVersion>
+    <pkgVersion level="3" version="1" pkg_version="2">
+      <elements>
+        <element name="FluxObjective" typeCode="SBML_FBC_FLUXOBJECTIVE" hasListOf="true" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" minNumListOfChildren="0" maxNumListOfChildren="0" baseClass="SBase" abstract="false">
+          <attributes>
+            <attribute name="id" required="false" type="SId" abstract="false"/>
+            <attribute name="name" required="false" type="string" abstract="false"/>
+            <attribute name="reaction" required="true" type="SIdRef" element="Reaction" abstract="false"/>
+            <attribute name="coefficient" required="true" type="double" abstract="false"/>
+          </attributes>
+        </element>
+        <element name="Objective" typeCode="SBML_FBC_OBJECTIVE" hasListOf="true" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" minNumListOfChildren="0" maxNumListOfChildren="0" baseClass="SBase" abstract="false">
+          <attributes>
+            <attribute name="id" required="true" type="SId" abstract="false"/>
+            <attribute name="name" required="false" type="string" abstract="false"/>
+            <attribute name="type" required="true" type="enum" element="FbcType" abstract="false"/>
+            <attribute name="fluxObjectives" required="false" type="lo_element" element="FluxObjective" abstract="false"/>
+          </attributes>
+          <listOfAttributes>
+            <listOfAttribute name="activeObjective" required="false" type="SIdRef" element="Objective" abstract="false"/>
+          </listOfAttributes>
+        </element>
+        <element name="GeneProduct" typeCode="SBML_FBC_GENEPRODUCT" hasListOf="true" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" minNumListOfChildren="0" maxNumListOfChildren="0" baseClass="SBase" abstract="false">
+          <attributes>
+            <attribute name="id" required="true" type="SId" abstract="false"/>
+            <attribute name="name" required="false" type="string" abstract="false"/>
+            <attribute name="label" required="true" type="string" abstract="false"/>
+            <attribute name="associatedSpecies" required="false" type="SIdRef" element="Species" abstract="false"/>
+          </attributes>
+        </element>
+        <element name="GeneProductRef" typeCode="SBML_FBC_GENEPRODUCTREF" hasListOf="false" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" baseClass="Association" abstract="false">
+          <attributes>
+            <attribute name="id" required="false" type="SId" abstract="false"/>
+            <attribute name="name" required="false" type="string" abstract="false"/>
+            <attribute name="geneProduct" required="false" type="SIdRef" element="GeneProduct" abstract="false"/>
+          </attributes>
+        </element>
+        <element name="FbcAnd" typeCode="SBML_FBC_AND" hasListOf="false" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" baseClass="Association" abstract="false" elementName="and">
+          <attributes>
+            <attribute name="association" required="false" type="inline_lo_element" element="Association" abstract="false"/>
+          </attributes>
+        </element>
+        <element name="FbcOr" typeCode="SBML_FBC_OR" hasListOf="false" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" baseClass="Association" abstract="false" elementName="or">
+          <attributes>
+            <attribute name="association" required="false" type="inline_lo_element" element="Association" abstract="false"/>
+          </attributes>
+        </element>
+        <element name="Association" typeCode="SBML_FBC_ASSOCIATION" hasListOf="true" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" minNumListOfChildren="0" maxNumListOfChildren="0" baseClass="SBase" abstract="true">
+          <concretes>
+            <concrete name="and" element="FbcAnd" minNumChildren="0" maxNumChildren="0"/>
+            <concrete name="or" element="FbcOr" minNumChildren="0" maxNumChildren="0"/>
+            <concrete name="geneProductRef" element="GeneProductRef" minNumChildren="0" maxNumChildren="0"/>
+          </concretes>
+        </element>
+        <element name="GeneProductAssociation" typeCode="SBML_FBC_GENEPRODUCTASSOCIATION" hasListOf="false" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" baseClass="SBase" abstract="false">
+          <attributes>
+            <attribute name="id" required="false" type="SId" abstract="false"/>
+            <attribute name="name" required="false" type="string" abstract="false"/>
+            <attribute name="association" required="false" type="inline_lo_element" element="Association" abstract="false"/>
+          </attributes>
+        </element>
+      </elements>
+      <plugins>
+        <plugin extensionPoint="Model">
+          <references>
+            <reference name="ListOfObjectives"/>
+            <reference name="ListOfGeneProducts"/>
+          </references>
+          <attributes>
+            <attribute name="strict" required="true" type="boolean" abstract="false"/>
+          </attributes>
+        </plugin>
+        <plugin extensionPoint="Species">
+          <attributes>
+            <attribute name="charge" required="false" type="integer" abstract="false"/>
+            <attribute name="chemicalFormula" required="false" type="string" abstract="false"/>
+          </attributes>
+        </plugin>
+        <plugin extensionPoint="Reaction">
+          <references>
+            <reference name="GeneProductAssociation"/>
+          </references>
+          <attributes>
+            <attribute name="lowerFluxBound" required="false" type="SIdRef" element="Parameter" abstract="false"/>
+            <attribute name="upperFluxBound" required="false" type="SIdRef" element="Parameter" abstract="false"/>
+          </attributes>
+        </plugin>
+      </plugins>
+      <enums>
+        <enum name="FbcType">
+          <enumValues>
+            <enumValue name="OBJECTIVE_TYPE_MAXIMIZE" value="maximize"/>
+            <enumValue name="OBJECTIVE_TYPE_MINIMIZE" value="minimize"/>
+          </enumValues>
+        </enum>
+      </enums>
+    </pkgVersion>
+    <pkgVersion level="3" version="1" pkg_version="3">
+      <elements>
+        <element name="FluxObjective" typeCode="SBML_FBC_FLUXOBJECTIVE" hasListOf="true" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" minNumListOfChildren="0" maxNumListOfChildren="0" baseClass="SBase" abstract="false">
+          <attributes>
+            <attribute name="id" required="false" type="SId" abstract="false"/>
+            <attribute name="name" required="false" type="string" abstract="false"/>
+            <attribute name="reaction" required="true" type="SIdRef" element="Reaction" abstract="false"/>
+            <attribute name="coefficient" required="true" type="double" abstract="false"/>
+            <attribute name="variableType" required="true" type="enum" element="FbcVariableType" abstract="false"/>
+          </attributes>
+        </element>
+        <element name="Objective" typeCode="SBML_FBC_OBJECTIVE" hasListOf="true" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" minNumListOfChildren="0" maxNumListOfChildren="0" baseClass="SBase" abstract="false">
+          <attributes>
+            <attribute name="id" required="true" type="SId" abstract="false"/>
+            <attribute name="name" required="false" type="string" abstract="false"/>
+            <attribute name="type" required="true" type="enum" element="FbcType" abstract="false"/>
+            <attribute name="fluxObjectives" required="false" type="lo_element" element="FluxObjective" abstract="false"/>
+          </attributes>
+          <listOfAttributes>
+            <listOfAttribute name="activeObjective" required="false" type="SIdRef" element="Objective" abstract="false"/>
+          </listOfAttributes>
+        </element>
+        <element name="GeneProduct" typeCode="SBML_FBC_GENEPRODUCT" hasListOf="true" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" minNumListOfChildren="0" maxNumListOfChildren="0" baseClass="SBase" abstract="false">
+          <attributes>
+            <attribute name="id" required="true" type="SId" abstract="false"/>
+            <attribute name="name" required="false" type="string" abstract="false"/>
+            <attribute name="label" required="true" type="string" abstract="false"/>
+            <attribute name="associatedSpecies" required="false" type="SIdRef" element="Species" abstract="false"/>
+          </attributes>
+        </element>
+        <element name="GeneProductRef" typeCode="SBML_FBC_GENEPRODUCTREF" hasListOf="false" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" baseClass="Association" abstract="false">
+          <attributes>
+            <attribute name="id" required="false" type="SId" abstract="false"/>
+            <attribute name="name" required="false" type="string" abstract="false"/>
+            <attribute name="geneProduct" required="false" type="SIdRef" element="GeneProduct" abstract="false"/>
+          </attributes>
+        </element>
+        <element name="FbcAnd" typeCode="SBML_FBC_AND" hasListOf="false" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" baseClass="Association" abstract="false" elementName="and">
+          <attributes>
+            <attribute name="association" required="false" type="inline_lo_element" element="Association" abstract="false"/>
+          </attributes>
+        </element>
+        <element name="FbcOr" typeCode="SBML_FBC_OR" hasListOf="false" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" baseClass="Association" abstract="false" elementName="or">
+          <attributes>
+            <attribute name="association" required="false" type="inline_lo_element" element="Association" abstract="false"/>
+          </attributes>
+        </element>
+        <element name="Association" typeCode="SBML_FBC_ASSOCIATION" hasListOf="true" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" minNumListOfChildren="0" maxNumListOfChildren="0" baseClass="SBase" abstract="true">
+          <concretes>
+            <concrete name="and" element="FbcAnd" minNumChildren="0" maxNumChildren="0"/>
+            <concrete name="or" element="FbcOr" minNumChildren="0" maxNumChildren="0"/>
+            <concrete name="geneProductRef" element="GeneProductRef" minNumChildren="0" maxNumChildren="0"/>
+          </concretes>
+        </element>
+        <element name="GeneProductAssociation" typeCode="SBML_FBC_GENEPRODUCTASSOCIATION" hasListOf="false" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" baseClass="SBase" abstract="false">
+          <attributes>
+            <attribute name="id" required="false" type="SId" abstract="false"/>
+            <attribute name="name" required="false" type="string" abstract="false"/>
+            <attribute name="association" required="false" type="inline_lo_element" element="Association" abstract="false"/>
+          </attributes>
+        </element>
+        <element name="UserDefinedConstraintComponent" typeCode="SBML_FBC_USERDEFINEDCONSTRAINTCOMPONENT" hasListOf="true" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" minNumListOfChildren="0" maxNumListOfChildren="0" baseClass="SBase" abstract="false">
+          <attributes>
+            <attribute name="id" required="false" type="SId" abstract="false"/>
+            <attribute name="name" required="false" type="string" abstract="false"/>
+            <attribute name="coefficient" required="true" type="double" abstract="false"/>
+            <attribute name="variable" required="true" type="SIdRef" element="Reaction,Parameter" abstract="false"/>
+            <attribute name="variableType" required="true" type="enum" element="FbcVariableType" abstract="false"/>
+          </attributes>
+        </element>
+        <element name="UserDefinedConstraint" typeCode="SBML_FBC_USERDEFINEDCONSTRAINT" hasListOf="true" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" minNumListOfChildren="0" maxNumListOfChildren="0" baseClass="SBase" abstract="false">
+          <attributes>
+            <attribute name="id" required="false" type="SId" abstract="false"/>
+            <attribute name="name" required="false" type="string" abstract="false"/>
+            <attribute name="lowerBound" required="true" type="SIdRef" element="Parameter" abstract="false"/>
+            <attribute name="upperBound" required="true" type="SIdRef" element="Parameter" abstract="false"/>
+            <attribute name="userDefinedConstraintComponent" required="true" type="lo_element" element="UserDefinedConstraintComponent" abstract="false"/>
+          </attributes>
+        </element>
+        <element name="KeyValuePair" typeCode="SBML_FBC_KEYVALUEPAIR" hasListOf="true" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" minNumListOfChildren="0" maxNumListOfChildren="0" abstract="false">
+          <attributes>
+            <attribute name="id" required="false" type="SId" abstract="false"/>
+            <attribute name="name" required="false" type="string" abstract="false"/>
+            <attribute name="key" required="true" type="string" abstract="false"/>
+            <attribute name="value" required="false" type="string" abstract="false"/>
+            <attribute name="uri" required="false" type="string" abstract="false"/>
+          </attributes>
+          <listOfAttributes>
+            <listOfAttribute name="xmlns" required="true" type="string" abstract="false"/>
+          </listOfAttributes>
+        </element>
+      </elements>
+      <plugins>
+        <plugin extensionPoint="Model">
+          <references>
+            <reference name="ListOfObjectives"/>
+            <reference name="ListOfGeneProducts"/>
+            <reference name="ListOfUserDefinedConstraints"/>
+          </references>
+          <attributes>
+            <attribute name="strict" required="true" type="boolean" abstract="false"/>
+          </attributes>
+        </plugin>
+        <plugin extensionPoint="Species">
+          <attributes>
+            <attribute name="charge" required="false" type="double" abstract="false"/>
+            <attribute name="chemicalFormula" required="false" type="string" abstract="false"/>
+          </attributes>
+        </plugin>
+        <plugin extensionPoint="Reaction">
+          <references>
+            <reference name="GeneProductAssociation"/>
+          </references>
+          <attributes>
+            <attribute name="lowerFluxBound" required="false" type="SIdRef" element="Parameter" abstract="false"/>
+            <attribute name="upperFluxBound" required="false" type="SIdRef" element="Parameter" abstract="false"/>
+          </attributes>
+        </plugin>
+        <plugin extensionPoint="SBase">
+          <references>
+            <reference name="ListOfKeyValuePairs"/>
+          </references>
+        </plugin>
+      </plugins>
+      <enums>
+        <enum name="FbcType">
+          <enumValues>
+            <enumValue name="OBJECTIVE_TYPE_MAXIMIZE" value="maximize"/>
+            <enumValue name="OBJECTIVE_TYPE_MINIMIZE" value="minimize"/>
+          </enumValues>
+        </enum>
+        <enum name="FbcVariableType">
+          <enumValues>
+            <enumValue name="FBC_FBCVARIABLETYPE_LINEAR" value="linear"/>
+            <enumValue name="FBC_FBCVARIABLETYPE_QUADRATIC" value="quadratic"/>
+          </enumValues>
+        </enum>
+      </enums>
+    </pkgVersion>
+  </versions>
+</package>

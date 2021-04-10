@@ -111,7 +111,7 @@ typedef enum
 , FbcFluxObjectReactionMustExist       = 2020606 /*!< 'fbc:reaction' must refer to valid reaction */
 , FbcFluxObjectCoefficientMustBeDouble = 2020607 /*!< The attribute 'fbc:coefficient' must be of the data type double */
 , FbcFluxObjectCoefficientWhenStrict   = 2020608 /*!< The 'fbc:coefficient' must be declared when strict */
-
+, FbcFluxObjectiveVariableTypeMustBeFbcVariableTypeEnum       = 2020609
 , FbcReactionOnlyOneGeneProdAss         = 2020701 /*!< One GeneProductAssociation in a Reaction */
 , FbcReactionAllowedAttributes          = 2020702 /*!< Fbc attributes on a Reaction */
 , FbcReactionLwrBoundSIdRef             = 2020703 /*!< LowerBound must be SIdRef */

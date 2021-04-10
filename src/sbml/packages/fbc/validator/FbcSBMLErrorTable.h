@@ -738,6 +738,23 @@ static const packageErrorTableEntryV2 fbcErrorTableV2[] =
     }
   },
 
+    // 2020609
+  { FbcFluxObjectiveVariableTypeMustBeFbcVariableTypeEnum,
+    "The 'variableType' attribute must be FbcVariableTypeEnum.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The value of the attribute 'fbc:variableType' of a <fluxObjective> object "
+    "must conform to the syntax of SBML data type 'FbcVariableType' and may "
+    "only take on the allowed values of 'FbcVariableType' defined in SBML; that "
+    "is, the value must be one of the following: 'linear' or 'quadratic'.",
+    { "",
+      ""
+    }
+  },
+
+
+
   // 2020701
   { FbcReactionOnlyOneGeneProdAss,
     "One GeneProductAssociation in a Reaction",
