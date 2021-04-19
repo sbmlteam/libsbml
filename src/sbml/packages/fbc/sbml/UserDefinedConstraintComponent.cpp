@@ -1167,7 +1167,7 @@ UserDefinedConstraintComponent::readL3V1V3Attributes(const XMLAttributes&
     {
       log->remove(XMLAttributeTypeMismatch);
       std::string message = "Fbc attribute 'coefficient' from the "
-        "<UserDefinedConstraintComponent> element must be an integer.";
+        "<UserDefinedConstraintComponent> element must be a double.";
       log->logPackageError("fbc",
         FbcUserDefinedConstraintComponentCoefficientMustBeDouble, pkgVersion,
           level, version, message, getLine(), getColumn());

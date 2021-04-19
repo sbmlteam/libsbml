@@ -578,6 +578,32 @@ START_TEST(test_FbcExtension_read_L3V2V1_check_id)
 }
 END_TEST
 
+START_TEST(test_FbcExtension_read_L3V1V3)
+{
+  char *filename = safe_strcat(TestDataDirectory, "fbc_examplev3.xml");
+  SBMLDocument *document = readSBMLFromFile(filename);
+
+  fail_unless(document->getPackageName() == "core");
+
+  Model *model = document->getModel();
+
+  fail_unless(model != NULL);
+  fail_unless(model->getPackageName() == "core");
+  fail_unless(document->getNumErrors() == 0);
+
+  // get the fbc plugin
+
+  FbcModelPlugin* mplugin = static_cast<FbcModelPlugin*>(model->getPlugin("fbc"));
+  fail_unless(mplugin != NULL);
+  fail_unless(mplugin->getStrict() == true);
+
+  fail_unless(mplugin->getNumUserDefinedConstraints() == 1);
+
+  safe_free(filename);
+  delete document;
+}
+END_TEST
+
 
 Suite *
 create_suite_ReadFbcExtension(void)
@@ -594,6 +620,8 @@ create_suite_ReadFbcExtension(void)
   tcase_add_test(tcase, test_FbcExtension_read_and_convert);
   tcase_add_test(tcase, test_FbcExtension_read_and_convert_V1ToV2);
   tcase_add_test(tcase, test_FbcExtension_read_L3V2V1_check_id);
+  tcase_add_test(tcase, test_FbcExtension_read_L3V1V3);
+
   suite_add_tcase(suite, tcase);
 
   return suite;
