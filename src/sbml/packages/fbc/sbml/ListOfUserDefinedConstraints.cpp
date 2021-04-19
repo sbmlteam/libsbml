@@ -406,7 +406,7 @@ ListOfUserDefinedConstraints::createObject(XMLInputStream& stream)
 {
   const std::string& name = stream.peek().getName();
   SBase* object = NULL;
-  FBC_CREATE_NS(fbcns, getSBMLNamespaces());
+  FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
 
   if (name == "userDefinedConstraint")
   {
