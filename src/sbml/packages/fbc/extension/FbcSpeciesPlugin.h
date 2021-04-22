@@ -290,7 +290,7 @@ public:
   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
   */
-  virtual int setChargeAsDouble(double charge);
+  virtual int setCharge(double charge);
 
 
   /**

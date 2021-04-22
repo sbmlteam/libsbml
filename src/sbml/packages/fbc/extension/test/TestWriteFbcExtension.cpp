@@ -367,6 +367,83 @@ START_TEST(test_FbcExtension_create_and_write_new_geneassociation
 }
 END_TEST
 
+START_TEST(test_FbcExtension_create_and_write_L3V1V3)
+{
+  FbcPkgNamespaces *sbmlns = new FbcPkgNamespaces(3, 1, 3);
+
+  // create the document
+
+  SBMLDocument *document = new SBMLDocument(sbmlns);
+  document->setPackageRequired("fbc", false);
+
+  // create the Model
+
+  Model* model = document->createModel();
+  model->setId("m");
+
+  // create the Compartment
+
+  Compartment* compartment = model->createCompartment();
+  compartment->setId("comp");
+  compartment->setSpatialDimensions((unsigned int)(3));
+  compartment->setConstant(true);
+  compartment->setSize(1);
+
+  // create the Species
+
+  Species* species = model->createSpecies();
+  species->setId("S");
+  species->setCompartment("comp");
+  species->setBoundaryCondition(false);
+  FbcSpeciesPlugin* splugin = static_cast<FbcSpeciesPlugin*>(species->getPlugin("fbc"));
+  splugin->setCharge(2.5);
+
+  // use fbc
+
+  FbcModelPlugin* mplugin = static_cast<FbcModelPlugin*>(model->getPlugin("fbc"));
+
+  fail_unless(mplugin != NULL);
+  mplugin->setStrict(true);
+
+  Objective* objective = mplugin->createObjective();
+  objective->setId("obj1");
+  objective->setType("maximize");
+
+  fail_unless(mplugin->unsetActiveObjectiveId() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(mplugin->setActiveObjectiveId("obj1") == LIBSBML_OPERATION_SUCCESS);
+
+  FluxObjective* fluxObjective = objective->createFluxObjective();
+  fluxObjective->setReaction("J0");
+  fluxObjective->setCoefficient(1);
+  fluxObjective->setVariableType("linear");
+
+  UserDefinedConstraint* userconstraint = mplugin->createUserDefinedConstraint();
+  userconstraint->setId("uc2");
+  userconstraint->setLowerBound("uc2lb");
+  userconstraint->setUpperBound("uc2ub");
+
+  UserDefinedConstraintComponent * udcc = userconstraint->createUserDefinedConstraintComponent();
+  udcc->setCoefficient(2);
+  udcc->setVariable("Avar");
+  udcc->setVariableType("linear");
+
+
+  string s1 = writeSBMLToStdString(document);
+
+//  cout << s1 << endl;
+
+  char *filename = safe_strcat(TestDataDirectory, "fbc_example2_v3.xml");
+  SBMLDocument *document1 = readSBMLFromFile(filename);
+  string s2 = writeSBMLToStdString(document1);
+  fail_unless(s1 == s2);
+
+  delete sbmlns;
+  delete document;
+  delete document1;
+
+}
+END_TEST
+
 Suite *
 create_suite_WriteFbcExtension(void)
 {
@@ -379,6 +456,7 @@ create_suite_WriteFbcExtension(void)
   tcase_add_test(tcase, test_FbcExtension_create_and_write_geneassociation);
   tcase_add_test(tcase, test_FbcExtension_convert_and_write);
   tcase_add_test(tcase, test_FbcExtension_create_and_write_new_geneassociation);
+  tcase_add_test(tcase, test_FbcExtension_create_and_write_L3V1V3);
   suite_add_tcase(suite, tcase);
 
   return suite;

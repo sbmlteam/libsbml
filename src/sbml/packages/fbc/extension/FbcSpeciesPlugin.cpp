@@ -484,7 +484,7 @@ FbcSpeciesPlugin::setCharge(int charge)
 * Sets charge and returns value indicating success.
 */
 int
-FbcSpeciesPlugin::setChargeAsDouble(double charge)
+FbcSpeciesPlugin::setCharge(double charge)
 {
   mChargeAsDouble = charge;
   mIsSetCharge = true;
@@ -803,7 +803,7 @@ FbcSpeciesPlugin::setAttribute(const std::string& attributeName, double value)
 
   if (attributeName == "charge")
   {
-    return_value = setChargeAsDouble(value);
+    return_value = setCharge(value);
   }
 
   return return_value;
@@ -920,7 +920,7 @@ LIBSBML_EXTERN
 int
 FbcSpeciesPlugin_setChargeAsDouble(FbcSBasePlugin_t * fbc, double charge)
 {
-  return (fbc != NULL) ? static_cast<FbcSpeciesPlugin*>(fbc)->setChargeAsDouble(charge)
+  return (fbc != NULL) ? static_cast<FbcSpeciesPlugin*>(fbc)->setCharge(charge)
     : LIBSBML_INVALID_OBJECT;
 }
 
