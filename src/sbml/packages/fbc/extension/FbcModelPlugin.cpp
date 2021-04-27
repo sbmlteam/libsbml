@@ -485,6 +485,8 @@ FbcModelPlugin::readAttributes (const XMLAttributes& attributes,
 void
 FbcModelPlugin::writeAttributes (XMLOutputStream& stream) const
 {
+  FbcSBasePlugin::writeAttributes(stream);
+
   if (isSetStrict() == true && getPackageVersion() != 1 && getLevel() == 3)
     stream.writeAttribute("strict", getPrefix(), mStrict);
 

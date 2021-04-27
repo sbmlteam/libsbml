@@ -7,12 +7,11 @@
   </annotation>
   -->
   <model id="m" fbc:strict="true">
-<!--    <annotation>
+    <annotation>
       <listOfKeyValuePairs xlns="http://www.sbml.org/sbml/level3/version1/fbc/version3">
         <keyValuePair key="key2" value="model-value" uri="my_annotation"/>
       </listOfKeyValuePairs>
     </annotation>
-    -->
     <listOfCompartments>
       <compartment id="comp" spatialDimensions="3" size="1" constant="true">
         <annotation>
