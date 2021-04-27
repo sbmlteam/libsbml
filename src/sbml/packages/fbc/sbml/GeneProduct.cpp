@@ -960,6 +960,11 @@ GeneProduct::writeAttributes (XMLOutputStream& stream) const
   if (isSetAssociatedSpecies() == true)
     stream.writeAttribute("associatedSpecies", getPrefix(), mAssociatedSpecies);
 
+  //
+  // (EXTENSION)
+  //
+  SBase::writeExtensionAttributes(stream);
+
 }
 
 

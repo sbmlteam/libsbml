@@ -804,6 +804,7 @@ FbcAssociation::readAttributes (const XMLAttributes& attributes,
 FbcAssociation::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
+  SBase::writeExtensionAttributes(stream);
 
 }
 

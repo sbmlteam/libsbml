@@ -32,12 +32,11 @@
     </listOfSpecies>
     <fbc:listOfObjectives fbc:activeObjective="obj1">
       <fbc:objective fbc:id="obj1" fbc:type="maximize">
-   <!--     <annotation>
+        <annotation>
           <listOfKeyValuePairs xlns="http://www.sbml.org/sbml/level3/version1/fbc/version3">
             <keyValuePair key="key3" value="objective-value" uri="my_annotation"/>
           </listOfKeyValuePairs>
         </annotation>
-        -->
         <fbc:listOfFluxObjectives>
           <fbc:fluxObjective fbc:reaction="J0" fbc:coefficient="1" fbc:variableType="linear"/>
         </fbc:listOfFluxObjectives>

@@ -1167,7 +1167,12 @@ GeneProductAssociation::writeAttributes (XMLOutputStream& stream) const
   if (isSetName() == true)
     stream.writeAttribute("name", getPrefix(), mName);
 
-}
+
+  //
+  // (EXTENSION)
+  //
+  SBase::writeExtensionAttributes(stream);
+  }
 
 
   /** @endcond */

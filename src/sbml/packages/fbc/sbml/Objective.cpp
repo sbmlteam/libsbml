@@ -1269,6 +1269,7 @@ Objective::writeAttributes (XMLOutputStream& stream) const
     stream.writeAttribute("type", getPrefix(),
     ObjectiveType_toString(mType));
 
+  SBase::writeExtensionAttributes(stream);
 }
 
 
