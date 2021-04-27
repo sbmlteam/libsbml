@@ -1122,6 +1122,48 @@ KeyValuePair::writeL3V1V3Attributes(XMLOutputStream& stream) const
 /** @endcond */
 
 
+/*
+* Creates an XMLNode object from this.
+*/
+XMLNode 
+KeyValuePair::toXML() const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  XMLTriple triple = XMLTriple(getElementName(), "", "");
+  XMLAttributes att = XMLAttributes();
+
+  if (isSetId() == true)
+  {
+    att.add("id", mId);
+  }
+
+  if (isSetName() == true)
+  {
+    att.add("name", mName);
+  }
+
+  if (isSetKey() == true)
+  {
+    att.add("key", mKey);
+  }
+
+  if (isSetValue() == true)
+  {
+    att.add("value", mValue);
+  }
+
+  if (isSetUri() == true)
+  {
+    att.add("uri", mUri);
+  }
+
+  XMLToken token = XMLToken(triple, att, xmlns);
+  XMLNode node(token);
+
+  return node;
+}
+
+
 
 
 #endif /* __cplusplus */

@@ -676,6 +676,14 @@ public:
   #endif /* !SWIG */
 
 
+  /**
+  * Creates an XMLNode object from this.
+  */
+  XMLNode toXML() const;
+
+
+
+
 protected:
 
 

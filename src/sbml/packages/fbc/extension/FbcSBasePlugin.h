@@ -352,7 +352,7 @@ public:
   /**
    * Write any contained elements
    */
-  virtual void writeElements(XMLOutputStream& stream) const;
+  virtual void writeAttributes(XMLOutputStream& stream) const;
 
   /** @endcond */
 
@@ -817,6 +817,30 @@ protected:
   virtual SBase* createObject(XMLInputStream& stream);
 
   /** @endcond */
+
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+  * Synchronizes the annotation of this SBML object.
+  *
+  * Annotation element (XMLNode* mAnnotation) is synchronized with the
+  * current CVTerm objects (List* mCVTerm).
+  * Currently, this method is called in getAnnotation, isSetAnnotation,
+  * and writeElements methods.
+  */
+  void writeKeyValuePairsAnnotation(SBase* parentObject) const;
+  /** @endcond */
+
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+  * Parse L2 annotation if supported
+  *
+  */
+  virtual void parseAnnotation(SBase *parentObject, XMLNode *annotation);
+  /** @endcond */
+
+
 
 };
 

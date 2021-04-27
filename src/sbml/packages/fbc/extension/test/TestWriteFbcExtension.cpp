@@ -395,12 +395,12 @@ START_TEST(test_FbcExtension_create_and_write_L3V1V3)
   species->setId("S");
   species->setCompartment("comp");
   species->setBoundaryCondition(false);
-  FbcSpeciesPlugin* splugin = static_cast<FbcSpeciesPlugin*>(species->getPlugin("fbc"));
+  FbcSpeciesPlugin* splugin = dynamic_cast<FbcSpeciesPlugin*>(species->getPlugin("fbc"));
   splugin->setCharge(2.5);
 
   // use fbc
 
-  FbcModelPlugin* mplugin = static_cast<FbcModelPlugin*>(model->getPlugin("fbc"));
+  FbcModelPlugin* mplugin = dynamic_cast<FbcModelPlugin*>(model->getPlugin("fbc"));
 
   fail_unless(mplugin != NULL);
   mplugin->setStrict(true);
@@ -427,14 +427,50 @@ START_TEST(test_FbcExtension_create_and_write_L3V1V3)
   udcc->setVariable("Avar");
   udcc->setVariableType("linear");
 
+  // check annotations on several types
+  FbcSBasePlugin* sbaseplugin = dynamic_cast<FbcSBasePlugin*>(compartment->getPlugin("fbc"));
 
+  KeyValuePair * kvp = sbaseplugin->createKeyValuePair();
+  kvp->setKey("key");
+  kvp->setUri("my_annotation");
+  kvp->setValue("comp-value");
+
+  FbcSBasePlugin* sbaseplugin1 = dynamic_cast<FbcSBasePlugin*>(species->getPlugin("fbc"));
+
+  KeyValuePair * kvp1 = sbaseplugin1->createKeyValuePair();
+  kvp1->setKey("key1");
+  kvp1->setUri("my_annotation");
+  kvp1->setValue("species-value");
+
+  FbcSBasePlugin* sbaseplugin2 = dynamic_cast<FbcSBasePlugin*>(model->getPlugin("fbc"));
+
+  KeyValuePair * kvp2 = sbaseplugin2->createKeyValuePair();
+  kvp2->setKey("key2");
+  kvp2->setUri("my_annotation");
+  kvp2->setValue("model-value");
+
+  FbcSBasePlugin* sbaseplugin3 = dynamic_cast<FbcSBasePlugin*>(objective->getPlugin("fbc"));
+
+  KeyValuePair * kvp3 = sbaseplugin3->createKeyValuePair();
+  kvp3->setKey("key3");
+  kvp3->setUri("my_annotation");
+  kvp3->setValue("objective-value");
+
+  //FbcSBasePlugin* sbaseplugin4 = dynamic_cast<FbcSBasePlugin*>(document->getPlugin("fbc"));
+  //// this dynamic cast is null
+  //KeyValuePair * kvp4 = sbaseplugin4->createKeyValuePair();
+  //kvp4->setKey("key4");
+  //kvp4->setUri("my_annotation");
+  //kvp4->setValue("doc-value");
   string s1 = writeSBMLToStdString(document);
 
-//  cout << s1 << endl;
+  //cout << s1 << endl;
 
   char *filename = safe_strcat(TestDataDirectory, "fbc_example2_v3.xml");
   SBMLDocument *document1 = readSBMLFromFile(filename);
   string s2 = writeSBMLToStdString(document1);
+
+  //cout << endl << s2 << endl;
   fail_unless(s1 == s2);
 
   delete sbmlns;

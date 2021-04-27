@@ -253,6 +253,15 @@ FbcModelPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 void 
 FbcModelPlugin::parseAnnotation(SBase *parentObject, XMLNode *pAnnotation)
 {
+  if (getPackageVersion() == 3) 
+  {
+    FbcSBasePlugin::parseAnnotation(parentObject, pAnnotation);
+    return;
+  }
+  if (getPackageVersion() > 1)
+    return;
+
+  // read gene associations from annotation in l3v1v1
   mAssociations.setSBMLDocument(mSBML); 
   // don't read if we have an invalid node or already a gene associations object
   if (pAnnotation == NULL || mAssociations.size() > 0)
@@ -473,11 +482,9 @@ FbcModelPlugin::readAttributes (const XMLAttributes& attributes,
 /*
  * Write values of XMLAttributes to the output stream.
  */
-  void
+void
 FbcModelPlugin::writeAttributes (XMLOutputStream& stream) const
 {
-    FbcSBasePlugin::writeAttributes(stream);
-
   if (isSetStrict() == true && getPackageVersion() != 1 && getLevel() == 3)
     stream.writeAttribute("strict", getPrefix(), mStrict);
 

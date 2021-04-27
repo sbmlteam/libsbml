@@ -276,11 +276,12 @@ FbcSBasePlugin::removeKeyValuePair(const std::string& sid)
  * Write any contained elements
  */
 void
-FbcSBasePlugin::writeElements(XMLOutputStream& stream) const
+FbcSBasePlugin::writeAttributes(XMLOutputStream& stream) const
 {
   if (getNumKeyValuePairs() > 0)
   {
-    mKeyValuePairs.write(stream);
+    SBase* parent = const_cast<SBase*>(getParentSBMLObject());
+    writeKeyValuePairsAnnotation(parent);
   }
 }
 
@@ -870,6 +871,87 @@ FbcSBasePlugin::createObject(XMLInputStream& stream)
 }
 
 /** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+/**
+* Synchronizes the annotation of this SBML object.
+*
+* Annotation element (XMLNode* mAnnotation) is synchronized with the
+* current CVTerm objects (List* mCVTerm).
+* Currently, this method is called in getAnnotation, isSetAnnotation,
+* and writeElements methods.
+*/
+void 
+FbcSBasePlugin::writeKeyValuePairsAnnotation(SBase* parentObject) const
+{
+  if (parentObject == NULL) return;
+
+
+  XMLNode *parentAnnotation = parentObject->getAnnotation();
+  if (parentAnnotation != NULL && parentAnnotation->getNumChildren() > 0)
+  {
+//    deleteFbcAnnotation(parentAnnotation);
+  }
+
+  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+  XMLNode* annt = new XMLNode(ann_token);
+
+
+
+  if (mKeyValuePairs.size() > 0)
+  {
+    XMLAttributes loga_attr = XMLAttributes();
+    loga_attr.add("xmlns", FbcExtension::getXmlnsL3V1V3());
+    XMLToken loga_token = XMLToken(XMLTriple("listOfKeyValuePairs", FbcExtension::getXmlnsL3V1V1(), ""), loga_attr);
+    XMLNode loga = XMLNode(loga_token);
+
+    for (unsigned int i = 0; i < mKeyValuePairs.size(); ++i)
+      loga.addChild(mKeyValuePairs.get(i)->toXML());
+
+    // then add the ones toXML()
+    annt->addChild(loga);
+  }
+
+
+  if (annt && annt->getNumChildren() > 0)
+  {
+    parentObject->appendAnnotation(annt);
+  }
+  delete annt;
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+/**
+* Parse L2 annotation if supported
+*
+*/
+void 
+FbcSBasePlugin::parseAnnotation(SBase *parentObject, XMLNode *pAnnotation)
+{
+  mKeyValuePairs.setSBMLDocument(mSBML);
+  // don't read if we have an invalid node or already a gene associations object
+  if (pAnnotation == NULL || mKeyValuePairs.size() > 0)
+    return;
+
+  // annotation element has been parsed by the parent element
+  // (Model) of this plugin object, thus the annotation element 
+  // set to the above pAnnotation variable is parsed in this block.
+
+  XMLNode& listOfKeyValuePairs = pAnnotation->getChild("listOfKeyValuePairs");
+  if (listOfKeyValuePairs.getNumChildren() == 0)
+    return;
+
+  // read the xml node, overriding that all errors are flagged as 
+  // warnings
+  mKeyValuePairs.read(listOfKeyValuePairs, LIBSBML_OVERRIDE_WARNING);
+  // remove listOfLayouts annotation  
+  parentObject->removeTopLevelAnnotationElement("listOfKeyValuePairs", "", false);
+
+}
+/** @endcond */
+
 
 
 
