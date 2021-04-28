@@ -48,14 +48,19 @@
 %newobject removeGeneProduct;
 %newobject removeFluxBound;
 %newobject removeGeneAssociation;
+%newobject removeUserDefinedConstraintComponent;
+%newobject removeUserDefinedConstraint;
+%newobject removeKeyValuePair;
 
 
 %template (FbcPkgNamespaces) SBMLExtensionNamespaces<FbcExtension>;
 
 %include <sbml/packages/fbc/extension/FbcExtension.h>
+%include <sbml/packages/fbc/extension/FbcSBasePlugin.h>
 %include <sbml/packages/fbc/extension/FbcModelPlugin.h>
 %include <sbml/packages/fbc/extension/FbcSpeciesPlugin.h>
 %include <sbml/packages/fbc/extension/FbcSBMLDocumentPlugin.h>
+
 
 %include <sbml/packages/fbc/util/CobraToFbcConverter.h>
 %include <sbml/packages/fbc/util/FbcToCobraConverter.h>
@@ -78,6 +83,12 @@
 %include <sbml/packages/fbc/sbml/GeneProductRef.h>
 %include <sbml/packages/fbc/sbml/FbcAnd.h>
 %include <sbml/packages/fbc/sbml/FbcOr.h>
+%include <sbml/packages/fbc/sbml/UserDefinedConstraintComponent.h>
+%include <sbml/packages/fbc/sbml/UserDefinedConstraint.h>
+%include <sbml/packages/fbc/sbml/KeyValuePair.h>
+%include <sbml/packages/fbc/sbml/ListOfUserDefinedConstraintComponents.h>
+%include <sbml/packages/fbc/sbml/ListOfUserDefinedConstraints.h>
+%include <sbml/packages/fbc/sbml/ListOfKeyValuePairs.h>
 
 #endif /* USE_FBC */
 

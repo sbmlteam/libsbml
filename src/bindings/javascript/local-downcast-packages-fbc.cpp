@@ -25,6 +25,18 @@ else if (pkgName == "fbc")
       {
         return SWIGTYPE_p_ListOfGeneProducts;
       }
+      else if (name == "listOfUserDefinedConstraintComponents")
+      {
+        return SWIGTYPE_p_ListOfUserDefinedConstraintComponents;
+      }
+      else if (name == "listOfUserDefinedConstraints")
+      {
+        return SWIGTYPE_p_ListOfUserDefinedConstraints;
+      }
+      else if (name == "listOfKeyValuePairs")
+      {
+        return SWIGTYPE_p_ListOfKeyValuePairs;
+      }
 
       return SWIGTYPE_p_ListOf;
 
@@ -58,6 +70,15 @@ else if (pkgName == "fbc")
 
     case SBML_FBC_OR:
       return SWIGTYPE_p_FbcOr;
+
+    case SBML_FBC_USERDEFINEDCONSTRAINTCOMPONENT:
+      return SWIGTYPE_p_UserDefinedConstraintComponent;
+
+    case SBML_FBC_USERDEFINEDCONSTRAINT:
+      return SWIGTYPE_p_UserDefinedConstraint;
+
+    case SBML_FBC_KEYVALUEPAIR:
+      return SWIGTYPE_p_KeyValuePair;
 
     default:
       return SWIGTYPE_p_SBase;

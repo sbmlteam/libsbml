@@ -68,6 +68,7 @@ FluxObjective::FluxObjective (unsigned int level, unsigned int version, unsigned
   , mReaction ("")
   , mCoefficient (numeric_limits<double>::quiet_NaN())
   , mIsSetCoefficient (false)
+  , mVariableType (FBC_FBCVARIABLETYPE_INVALID)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new FbcPkgNamespaces(level, version, pkgVersion));
@@ -84,6 +85,7 @@ FluxObjective::FluxObjective (FbcPkgNamespaces* fbcns)
   , mReaction ("")
   , mCoefficient (numeric_limits<double>::quiet_NaN())
   , mIsSetCoefficient (false)
+  , mVariableType (FBC_FBCVARIABLETYPE_INVALID)
 {
   // set the element namespace of this object
   setElementNamespace(fbcns->getURI());
@@ -96,14 +98,13 @@ FluxObjective::FluxObjective (FbcPkgNamespaces* fbcns)
 /*
  * Copy constructor for FluxObjective.
  */
-FluxObjective::FluxObjective (const FluxObjective& orig)
-  : SBase(orig)
+FluxObjective::FluxObjective(const FluxObjective& orig)
+  : SBase( orig )
+  , mReaction ( orig.mReaction )
+  , mCoefficient ( orig.mCoefficient )
+  , mIsSetCoefficient ( orig.mIsSetCoefficient )
+  , mVariableType ( orig.mVariableType )
 {
-  mId  = orig.mId;
-  mName  = orig.mName;
-  mReaction  = orig.mReaction;
-  mCoefficient  = orig.mCoefficient;
-  mIsSetCoefficient  = orig.mIsSetCoefficient;
 }
 
 
@@ -121,6 +122,7 @@ FluxObjective::operator=(const FluxObjective& rhs)
     mReaction  = rhs.mReaction;
     mCoefficient  = rhs.mCoefficient;
     mIsSetCoefficient  = rhs.mIsSetCoefficient;
+    mVariableType = rhs.mVariableType;
   }
   return *this;
 }
@@ -185,7 +187,28 @@ FluxObjective::getCoefficient() const
 
 
 /*
- * Returns true/false if id is set.
+ * Returns the value of the "variableType" attribute of this FluxObjective.
+ */
+FbcVariableType_t
+FluxObjective::getVariableType() const
+{
+  return mVariableType;
+}
+
+
+/*
+ * Returns the value of the "variableType" attribute of this FluxObjective.
+ */
+std::string
+FluxObjective::getVariableTypeAsString() const
+{
+  std::string code_str = FbcVariableType_toString(mVariableType);
+  return code_str;
+}
+
+
+/*
+ * Predicate returning @c true if this FluxObjective's "id" attribute is set.
  */
 bool
 FluxObjective::isSetId() const
@@ -195,7 +218,7 @@ FluxObjective::isSetId() const
 
 
 /*
- * Returns true/false if name is set.
+ * Predicate returning @c true if this FluxObjective's "name" attribute is set.
  */
 bool
 FluxObjective::isSetName() const
@@ -205,7 +228,8 @@ FluxObjective::isSetName() const
 
 
 /*
- * Returns true/false if reaction is set.
+ * Predicate returning @c true if this FluxObjective's "reaction" attribute is
+ * set.
  */
 bool
 FluxObjective::isSetReaction() const
@@ -215,12 +239,24 @@ FluxObjective::isSetReaction() const
 
 
 /*
- * Returns true/false if coefficient is set.
+ * Predicate returning @c true if this FluxObjective's "coefficient" attribute
+ * is set.
  */
 bool
 FluxObjective::isSetCoefficient() const
 {
   return mIsSetCoefficient;
+}
+
+
+/*
+ * Predicate returning @c true if this FluxObjective's "variableType" attribute
+ * is set.
+ */
+bool
+FluxObjective::isSetVariableType() const
+{
+  return (mVariableType != FBC_FBCVARIABLETYPE_INVALID);
 }
 
 
@@ -264,6 +300,64 @@ FluxObjective::setCoefficient(double coefficient)
   mCoefficient = coefficient;
   mIsSetCoefficient = true;
   return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of the "variableType" attribute of this FluxObjective.
+ */
+int
+FluxObjective::setVariableType(const FbcVariableType_t variableType)
+{
+  unsigned int coreLevel = getLevel();
+  unsigned int coreVersion = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  {
+    if (FbcVariableType_isValid(variableType) == 0)
+    {
+      mVariableType = FBC_FBCVARIABLETYPE_INVALID;
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    else
+    {
+      mVariableType = variableType;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+  else
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+}
+
+
+/*
+ * Sets the value of the "variableType" attribute of this FluxObjective.
+ */
+int
+FluxObjective::setVariableType(const std::string& variableType)
+{
+  unsigned int coreLevel = getLevel();
+  unsigned int coreVersion = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  {
+    mVariableType = FbcVariableType_fromString(variableType.c_str());
+
+    if (mVariableType == FBC_FBCVARIABLETYPE_INVALID)
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
 }
 
 
@@ -345,6 +439,17 @@ FluxObjective::unsetCoefficient()
 
 
 /*
+ * Unsets the value of the "variableType" attribute of this FluxObjective.
+ */
+int
+FluxObjective::unsetVariableType()
+{
+  mVariableType = FBC_FBCVARIABLETYPE_INVALID;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
  * rename attributes that are SIdRefs or instances in math
  */
 void
@@ -388,11 +493,23 @@ FluxObjective::hasRequiredAttributes () const
 {
   bool allPresent = true;
 
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
   if (isSetReaction() == false)
     allPresent = false;
 
   if (isSetCoefficient() == false)
     allPresent = false;
+
+  if (level == 3 && version == 1 && pkgVersion == 3)
+  {
+    if (isSetVariableType() == false)
+    {
+      allPresent = false;
+    }
+  }
 
   return allPresent;
 }
@@ -575,6 +692,11 @@ FluxObjective::getAttribute(const std::string& attributeName,
     value = getReaction();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
+  else if (attributeName == "variableType")
+  {
+    value = getVariableTypeAsString();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
 
   return return_value;
 }
@@ -609,6 +731,10 @@ FluxObjective::isSetAttribute(const std::string& attributeName) const
   else if (attributeName == "coefficient")
   {
     value = isSetCoefficient();
+  }
+  else if (attributeName == "variableType")
+  {
+    value = isSetVariableType();
   }
 
   return value;
@@ -715,6 +841,10 @@ FluxObjective::setAttribute(const std::string& attributeName,
   {
     return_value = setReaction(value);
   }
+  else if (attributeName == "variableType")
+  {
+    return_value = setVariableType(value);
+  }
 
   return return_value;
 }
@@ -749,6 +879,10 @@ FluxObjective::unsetAttribute(const std::string& attributeName)
   {
     value = unsetCoefficient();
   }
+  else if (attributeName == "variableType")
+  {
+    value = unsetVariableType();
+  }
 
   return value;
 }
@@ -766,14 +900,22 @@ FluxObjective::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   SBase::addExpectedAttributes(attributes);
 
+  unsigned int level = getLevel();
+  unsigned int coreVersion = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
   attributes.add("id");
   attributes.add("name");
   attributes.add("reaction");
   attributes.add("coefficient");
+
+  if (level == 3 && coreVersion == 1 && pkgVersion == 3)
+  {
+    attributes.add("variableType");
+  }
 }
 
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -787,31 +929,36 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
 {
   const unsigned int sbmlLevel = getLevel();
   const unsigned int sbmlVersion = getVersion();
-
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
   // look to see whether an unknown attribute error was logged
   // during the read of the listOfFluxBounds - which will have
   // happened immediately prior to this read
-  if (getErrorLog() != NULL &&
+  if (log && getParentSBMLObject() &&
     static_cast<ListOfFluxObjectives*>(getParentSBMLObject())->size() < 2)
   {
-    unsigned int numErrs = getErrorLog()->getNumErrors();
+    unsigned int numErrs = log->getNumErrors();
     for (int n = (int)numErrs - 1; n >= 0; n--)
     {
-      if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownPackageAttribute)
+      if (log->getError((unsigned int)n)->getErrorId() == UnknownPackageAttribute)
       {
         const std::string details =
-          getErrorLog()->getError((unsigned int)n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("fbc", FbcObjectiveLOFluxObjAllowedAttribs,
+          log->getError((unsigned int)n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("fbc", FbcObjectiveLOFluxObjAllowedAttribs,
           getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
-      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
+      else if (log->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details =
-          getErrorLog()->getError((unsigned int)n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("fbc", FbcObjectiveLOFluxObjAllowedAttribs,
+          log->getError((unsigned int)n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("fbc", FbcObjectiveLOFluxObjAllowedAttribs,
           getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+      else if (log->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        log->remove(NotSchemaConformant);
       }
     }
   }
@@ -819,26 +966,30 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
   SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  if (log != NULL)
   {
-    unsigned int numErrs = getErrorLog()->getNumErrors();
+    unsigned int numErrs = log->getNumErrors();
     for (int n = (int)numErrs - 1; n >= 0; n--)
     {
-      if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownPackageAttribute)
+      if (log->getError((unsigned int)n)->getErrorId() == UnknownPackageAttribute)
       {
         const std::string details =
-          getErrorLog()->getError((unsigned int)n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("fbc", FbcFluxObjectRequiredAttributes,
+          log->getError((unsigned int)n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("fbc", FbcFluxObjectRequiredAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
-      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
+      else if (log->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details =
-          getErrorLog()->getError((unsigned int)n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("fbc", FbcFluxObjectAllowedL3Attributes,
+          log->getError((unsigned int)n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("fbc", FbcFluxObjectAllowedL3Attributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+      else if (log->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        log->remove(NotSchemaConformant);
       }
     }
   }
@@ -866,7 +1017,7 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
       // Logs an error if the "id" attribute doesn't
       // conform to the SBML type SId.
       //
-      getErrorLog()->logPackageError("fbc", FbcSBMLSIdSyntax,
+      log->logPackageError("fbc", FbcSBMLSIdSyntax,
         getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
     }
   }
@@ -877,7 +1028,7 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
   if (assigned == false)
   {
     std::string message = "Fbc attribute 'reaction' is missing.";
-    getErrorLog()->logPackageError("fbc", FbcFluxObjectRequiredAttributes,
+    log->logPackageError("fbc", FbcFluxObjectRequiredAttributes,
       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
   else
@@ -895,29 +1046,75 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
       // Logs an error if the "id" attribute doesn't
       // conform to the SBML type SId.
       //
-      getErrorLog()->logPackageError("fbc", FbcFluxObjectReactionMustBeSIdRef,
+      log->logPackageError("fbc", FbcFluxObjectReactionMustBeSIdRef,
         getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
     }
   }
 
 
-  unsigned int numErrs = getErrorLog()->getNumErrors();
-  mIsSetCoefficient = attributes.readInto("coefficient", mCoefficient, getErrorLog());
+  unsigned int numErrs = log->getNumErrors();
+  mIsSetCoefficient = attributes.readInto("coefficient", mCoefficient, log);
 
   if (mIsSetCoefficient == false)
   {
-    if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-      getErrorLog()->contains(XMLAttributeTypeMismatch))
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
     {
-      getErrorLog()->remove(XMLAttributeTypeMismatch);
-      getErrorLog()->logPackageError("fbc", FbcFluxObjectCoefficientMustBeDouble,
+      log->remove(XMLAttributeTypeMismatch);
+      log->logPackageError("fbc", FbcFluxObjectCoefficientMustBeDouble,
         getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
     }
     else
     {
       std::string message = "Fbc attribute 'coefficient' is missing.";
-      getErrorLog()->logPackageError("fbc", FbcFluxObjectRequiredAttributes,
+      log->logPackageError("fbc", FbcFluxObjectRequiredAttributes,
         getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    }
+  }
+  // 
+  // variableType enum (use = "required" )
+  // 
+
+  std::string variableType;
+  if (pkgVersion == 3)
+  {
+    assigned = attributes.readInto("variableType", variableType);
+
+    if (assigned == true)
+    {
+      if (variableType.empty() == true)
+      {
+        logEmptyString(variableType, sbmlLevel, sbmlVersion, "<FluxObjective>");
+      }
+      else
+      {
+        mVariableType = FbcVariableType_fromString(variableType.c_str());
+
+        if (log && FbcVariableType_isValid(mVariableType) == 0)
+        {
+          std::string msg = "The variableType on the <FluxObjective> ";
+
+          if (isSetId())
+          {
+            msg += "with id '" + getId() + "'";
+          }
+
+          msg += "is '" + variableType + "', which is not a valid option.";
+
+          log->logPackageError("fbc",
+            FbcFluxObjectiveVariableTypeMustBeFbcVariableTypeEnum, pkgVersion,
+            sbmlLevel, sbmlVersion, msg, getLine(), getColumn());
+        }
+      }
+    }
+    else
+    {
+      if (log)
+      {
+        std::string message = "Fbc attribute 'variableType' is missing.";
+        log->logPackageError("fbc", FbcFluxObjectAllowedL3Attributes,
+          pkgVersion, sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+      }
     }
   }
 
@@ -949,6 +1146,12 @@ FluxObjective::writeAttributes (XMLOutputStream& stream) const
   if (isSetCoefficient() == true)
     stream.writeAttribute("coefficient", getPrefix(), mCoefficient);
 
+
+  if (isSetVariableType() == true)
+  {
+    stream.writeAttribute("variableType", getPrefix(),
+      FbcVariableType_toString(mVariableType));
+  }
 
   //
   // (EXTENSION)
@@ -1238,6 +1441,15 @@ ListOfFluxObjectives::writeXMLNS(XMLOutputStream& stream) const
 
   /** @endcond */
 
+LIBSBML_CPP_NAMESPACE_END
+
+#endif  /*  __cplusplus  */
+
+#ifndef SWIG
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+BEGIN_C_DECLS
+
 
 LIBSBML_EXTERN
 FluxObjective_t *
@@ -1304,6 +1516,33 @@ FluxObjective_getCoefficient(const FluxObjective_t * fo)
 }
 
 
+/*
+ * Returns the value of the "variableType" attribute of this FluxObjective_t.
+ */
+LIBSBML_EXTERN
+FbcVariableType_t
+FluxObjective_getVariableType(const FluxObjective_t * fo)
+{
+  if (fo == NULL)
+  {
+    return FBC_FBCVARIABLETYPE_INVALID;
+  }
+
+  return fo->getVariableType();
+}
+
+
+/*
+ * Returns the value of the "variableType" attribute of this FluxObjective_t.
+ */
+LIBSBML_EXTERN
+char *
+FluxObjective_getVariableTypeAsString(const FluxObjective_t * fo)
+{
+  return (char*)(FbcVariableType_toString(fo->getVariableType()));
+}
+
+
 LIBSBML_EXTERN
 int
 FluxObjective_isSetId(const FluxObjective_t * fo)
@@ -1336,6 +1575,17 @@ FluxObjective_isSetCoefficient(const FluxObjective_t * fo)
 }
 
 
+LIBSBML_EXTERN
+int
+FluxObjective_isSetVariableType(const FluxObjective_t * fo)
+{
+  return (fo != NULL) ? static_cast<int>(fo->isSetVariableType()) : 0;
+}
+
+
+/*
+ * Sets the value of the "id" attribute of this FluxObjective_t.
+ */
 LIBSBML_EXTERN
 int
 FluxObjective_setId(FluxObjective_t * fo, const char * id)
@@ -1382,6 +1632,28 @@ FluxObjective_setCoefficient(FluxObjective_t * fo, double coefficient)
 
 LIBSBML_EXTERN
 int
+FluxObjective_setVariableType(FluxObjective_t * fo,
+                              FbcVariableType_t variableType)
+{
+  return (fo != NULL) ? fo->setVariableType(variableType) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "variableType" attribute of this FluxObjective_t.
+ */
+LIBSBML_EXTERN
+int
+FluxObjective_setVariableTypeAsString(FluxObjective_t * fo,
+                                      const char * variableType)
+{
+  return (fo != NULL) ? fo->setVariableType(variableType):
+    LIBSBML_INVALID_OBJECT;
+}
+
+LIBSBML_EXTERN
+int
 FluxObjective_unsetId(FluxObjective_t * fo)
 {
   return (fo != NULL) ? fo->unsetId() : LIBSBML_INVALID_OBJECT;
@@ -1409,6 +1681,17 @@ int
 FluxObjective_unsetCoefficient(FluxObjective_t * fo)
 {
   return (fo != NULL) ? fo->unsetCoefficient() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "variableType" attribute of this FluxObjective_t.
+ */
+LIBSBML_EXTERN
+int
+FluxObjective_unsetVariableType(FluxObjective_t * fo)
+{
+  return (fo != NULL) ? fo->unsetVariableType() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1443,7 +1726,11 @@ ListOfFluxObjectives_removeById(ListOf_t * lo, const char * sid)
 
 
 
-#endif // __cplusplus
+
+END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
+
+#endif  /*  !SWIG  */
+
 
 

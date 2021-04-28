@@ -17,6 +17,10 @@ if (pkgName == "fbc")
   {
     return SWIGTYPE_p_FbcSBMLDocumentPlugin;
   }
+  else
+  {
+    return SWIGTYPE_p_FbcSBasePlugin;
+  }
 }
 
 #endif // USE_FBC 

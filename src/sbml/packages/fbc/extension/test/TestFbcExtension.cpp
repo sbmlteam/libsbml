@@ -241,7 +241,7 @@ START_TEST(test_FbcExtension_typecode)
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_FLUXBOUND), "FluxBound") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_FLUXOBJECTIVE), "FluxObjective") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_V1ASSOCIATION-1), "(Unknown SBML Fbc Type)") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_OR+1), "(Unknown SBML Fbc Type)") == 0);
+  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_KEYVALUEPAIR+1), "(Unknown SBML Fbc Type)") == 0);
 
   delete sbext;
 }
@@ -255,7 +255,7 @@ START_TEST(test_FbcExtension_SBMLtypecode)
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_FLUXBOUND,"fbc"), "FluxBound") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_FLUXOBJECTIVE,"fbc"), "FluxObjective") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_V1ASSOCIATION - 1   ,"fbc"), "(Unknown SBML Fbc Type)") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_OR + 1  ,"fbc"), "(Unknown SBML Fbc Type)") == 0);
+  fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_KEYVALUEPAIR + 1  ,"fbc"), "(Unknown SBML Fbc Type)") == 0);
 }
 END_TEST
 

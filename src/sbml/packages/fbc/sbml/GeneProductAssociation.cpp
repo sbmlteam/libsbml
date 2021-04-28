@@ -49,6 +49,7 @@
 #include <sbml/packages/fbc/sbml/FbcAnd.h>
 #include <sbml/packages/fbc/sbml/FbcOr.h>
 #include <sbml/packages/fbc/sbml/GeneProductRef.h>
+#include <sbml/packages/fbc/sbml/FbcAssociation.h>
 
 #include <sbml/Model.h>
 
@@ -409,20 +410,6 @@ GeneProductAssociation::unsetAssociation()
   delete mAssociation;
   mAssociation = NULL;
   return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-List*
-GeneProductAssociation::getAllElements(ElementFilter* filter)
-{
-  List* ret = new List();
-  List* sublist = NULL;
-
-  ADD_FILTERED_POINTER(ret, sublist, mAssociation, filter);
-
-  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
-
-  return ret;
 }
 
 
@@ -915,6 +902,81 @@ GeneProductAssociation::getObject(const std::string& elementName,
 
 /** @endcond */
 
+/*
+ * Returns the first child element that has the given @p id in the model-wide
+ * SId namespace, or @c NULL if no such object is found.
+ */
+SBase*
+GeneProductAssociation::getElementBySId(const std::string& id)
+{
+  if (id.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  obj = mAssociation->getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns the first child element that has the given @p metaid, or @c NULL if
+ * no such object is found.
+ */
+SBase*
+GeneProductAssociation::getElementByMetaId(const std::string& metaid)
+{
+  if (metaid.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  if (mAssociation->getMetaId() == metaid)
+  {
+    return mAssociation;
+  }
+
+  obj = mAssociation->getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns a List of all child SBase objects, including those nested to an
+ * arbitrary depth.
+ */
+List*
+GeneProductAssociation::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+
+  ADD_FILTERED_POINTER(ret, sublist, mAssociation, filter);
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
+
+
+
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -1039,6 +1101,10 @@ GeneProductAssociation::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->logPackageError("fbc", FbcGeneProdAssocAllowedCoreAttribs,
                        getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        getErrorLog()->remove(NotSchemaConformant);
+      }
     }
   }
 
@@ -1101,7 +1167,12 @@ GeneProductAssociation::writeAttributes (XMLOutputStream& stream) const
   if (isSetName() == true)
     stream.writeAttribute("name", getPrefix(), mName);
 
-}
+
+  //
+  // (EXTENSION)
+  //
+  SBase::writeExtensionAttributes(stream);
+  }
 
 
   /** @endcond */

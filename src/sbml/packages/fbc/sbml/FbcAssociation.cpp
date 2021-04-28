@@ -741,6 +741,10 @@ FbcAssociation::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->logPackageError("fbc", FbcUnknown,
                   getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        getErrorLog()->remove(NotSchemaConformant);
+      }
     }
   }
 
@@ -778,6 +782,10 @@ FbcAssociation::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->logPackageError("fbc", coreErr,
                        getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        getErrorLog()->remove(NotSchemaConformant);
+      }
     }
   }
 
@@ -796,6 +804,7 @@ FbcAssociation::readAttributes (const XMLAttributes& attributes,
 FbcAssociation::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
+  SBase::writeExtensionAttributes(stream);
 
 }
 

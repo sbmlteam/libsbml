@@ -75,7 +75,7 @@
         return new FbcSBMLDocumentPlugin(cPtr, owner);
         
       default:
-        return new SBasePlugin(cPtr, owner);
+        return new FbcSBasePlugin(cPtr, owner);
     }
   }
 
@@ -116,6 +116,18 @@
           return new ListOfGeneProducts(cPtr, owner);
         }
 
+        else if (name.equals("listOfUserDefinedConstraintComponents"))
+        {
+          return new ListOfUserDefinedConstraintComponents(cPtr, owner);
+        }
+        else if (name.equals("listOfUserDefinedConstraints"))
+        {
+          return new ListOfUserDefinedConstraints(cPtr, owner);
+        }
+        else if (name.equals("listOfKeyValuePairs"))
+        {
+          return new ListOfKeyValuePairs(cPtr, owner);
+        }
         return new ListOf(cPtr, owner);
 
       case (int) libsbml.SBML_FBC_ASSOCIATION:
@@ -151,6 +163,15 @@
       case (int) libsbml.SBML_FBC_OR:
         return new FbcOr(cPtr, owner);
 
+      case (int) libsbml.SBML_FBC_USERDEFINEDCONSTRAINTCOMPONENT:
+        return new UserDefinedConstraintComponent(cPtr, owner);
+
+      case (int) libsbml.SBML_FBC_USERDEFINEDCONSTRAINT:
+        return new UserDefinedConstraint(cPtr, owner);
+
+      case (int) libsbml.SBML_FBC_KEYVALUEPAIR:
+        return new KeyValuePair(cPtr, owner);
+
       default:
         return new SBase(cPtr, owner);
     }
@@ -174,8 +195,14 @@ COVARIANT_RTYPE_CLONE(GeneProduct)
 COVARIANT_RTYPE_CLONE(GeneProductRef)
 COVARIANT_RTYPE_CLONE(FbcAnd)
 COVARIANT_RTYPE_CLONE(FbcOr)
+COVARIANT_RTYPE_CLONE(UserDefinedConstraintComponent)
+COVARIANT_RTYPE_CLONE(UserDefinedConstraint)
+COVARIANT_RTYPE_CLONE(KeyValuePair)
 COVARIANT_RTYPE_CLONE(ListOfFbcAssociations)
 COVARIANT_RTYPE_CLONE(ListOfGeneProducts)
+COVARIANT_RTYPE_CLONE(ListOfUserDefinedConstraintComponents)
+COVARIANT_RTYPE_CLONE(ListOfUserDefinedConstraints)
+COVARIANT_RTYPE_CLONE(ListOfKeyValuePairs)
 
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(FbcAssociation)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(GeneProduct)
@@ -184,6 +211,11 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(GeneAssociation)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(Objective)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(FluxObjective)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(FluxBound)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(UserDefinedConstraintComponent)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(UserDefinedConstraint)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(KeyValuePair)
+
+
 SBMLCONSTRUCTOR_EXCEPTION(Association)
 SBMLCONSTRUCTOR_EXCEPTION(FbcPkgNamespaces)
 SBMLCONSTRUCTOR_EXCEPTION(FluxBound)
@@ -203,7 +235,13 @@ SBMLCONSTRUCTOR_EXCEPTION(FbcAnd)
 SBMLCONSTRUCTOR_EXCEPTION(FbcOr)
 SBMLCONSTRUCTOR_EXCEPTION(ListOfFbcAssociations)
 
+SBMLCONSTRUCTOR_EXCEPTION(UserDefinedConstraintComponent)
+SBMLCONSTRUCTOR_EXCEPTION(UserDefinedConstraint)
+SBMLCONSTRUCTOR_EXCEPTION(KeyValuePair)
 SBMLCONSTRUCTOR_EXCEPTION(ListOfGeneProducts)
+SBMLCONSTRUCTOR_EXCEPTION(ListOfUserDefinedConstraintComponents)
+SBMLCONSTRUCTOR_EXCEPTION(ListOfUserDefinedConstraints)
+SBMLCONSTRUCTOR_EXCEPTION(ListOfKeyValuePairs)
 
 //
 // Convert FbcAssociation objects into the most specific object possible.

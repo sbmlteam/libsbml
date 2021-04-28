@@ -149,16 +149,19 @@
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/extension/SBasePlugin.h>
 #include <sbml/packages/fbc/extension/FbcExtension.h>
+#include <sbml/packages/fbc/extension/FbcSBasePlugin.h>
 #include <sbml/packages/fbc/sbml/FluxBound.h>
 #include <sbml/packages/fbc/sbml/Objective.h>
 #include <sbml/packages/fbc/sbml/GeneAssociation.h>
 #include <sbml/packages/fbc/sbml/GeneProduct.h>
+#include <sbml/packages/fbc/sbml/ListOfUserDefinedConstraints.h>
+#include <sbml/packages/fbc/sbml/UserDefinedConstraint.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class LIBSBML_EXTERN FbcModelPlugin : public SBasePlugin
+class LIBSBML_EXTERN FbcModelPlugin : public FbcSBasePlugin
 {
 public:
 
@@ -311,18 +314,6 @@ public:
   // Functions for interacting with the members of the plugin
   //
   //---------------------------------------------------------------
-
-  /**
-   * Returns a List of all child SBase objects, including those nested to an
-   * arbitrary depth.
-   *
-   * @param filter an ElementFilter that may impose restrictions on the
-   * objects to be retrieved.
-   *
-   * @return a List of pointers to all child objects.
-   */
-   virtual List* getAllElements(ElementFilter * filter = NULL);
-
 
   /**
    * Returns the value of the "strict" attribute of this FbcModelPlugin.
@@ -1054,6 +1045,314 @@ public:
   int getNumGeneAssociations() const;
 
 
+  /**
+   * Returns the ListOfUserDefinedConstraints from this FbcModelPlugin.
+   *
+   * @return the ListOfUserDefinedConstraints from this FbcModelPlugin.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addUserDefinedConstraint(const UserDefinedConstraint* object)
+   * @see createUserDefinedConstraint()
+   * @see getUserDefinedConstraint(const std::string& sid)
+   * @see getUserDefinedConstraint(unsigned int n)
+   * @see getNumUserDefinedConstraints()
+   * @see removeUserDefinedConstraint(const std::string& sid)
+   * @see removeUserDefinedConstraint(unsigned int n)
+   */
+  const ListOfUserDefinedConstraints* getListOfUserDefinedConstraints() const;
+
+
+  /**
+   * Returns the ListOfUserDefinedConstraints from this FbcModelPlugin.
+   *
+   * @return the ListOfUserDefinedConstraints from this FbcModelPlugin.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addUserDefinedConstraint(const UserDefinedConstraint* object)
+   * @see createUserDefinedConstraint()
+   * @see getUserDefinedConstraint(const std::string& sid)
+   * @see getUserDefinedConstraint(unsigned int n)
+   * @see getNumUserDefinedConstraints()
+   * @see removeUserDefinedConstraint(const std::string& sid)
+   * @see removeUserDefinedConstraint(unsigned int n)
+   */
+  ListOfUserDefinedConstraints* getListOfUserDefinedConstraints();
+
+
+  /**
+   * Get an UserDefinedConstraint from the FbcModelPlugin.
+   *
+   * @param n an unsigned int representing the index of the
+   * UserDefinedConstraint to retrieve.
+   *
+   * @return the nth UserDefinedConstraint in the ListOfUserDefinedConstraints
+   * within this FbcModelPlugin or @c NULL if no such object exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addUserDefinedConstraint(const UserDefinedConstraint* object)
+   * @see createUserDefinedConstraint()
+   * @see getUserDefinedConstraint(const std::string& sid)
+   * @see getNumUserDefinedConstraints()
+   * @see removeUserDefinedConstraint(const std::string& sid)
+   * @see removeUserDefinedConstraint(unsigned int n)
+   */
+  UserDefinedConstraint* getUserDefinedConstraint(unsigned int n);
+
+
+  /**
+   * Get an UserDefinedConstraint from the FbcModelPlugin.
+   *
+   * @param n an unsigned int representing the index of the
+   * UserDefinedConstraint to retrieve.
+   *
+   * @return the nth UserDefinedConstraint in the ListOfUserDefinedConstraints
+   * within this FbcModelPlugin or @c NULL if no such object exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addUserDefinedConstraint(const UserDefinedConstraint* object)
+   * @see createUserDefinedConstraint()
+   * @see getUserDefinedConstraint(const std::string& sid)
+   * @see getNumUserDefinedConstraints()
+   * @see removeUserDefinedConstraint(const std::string& sid)
+   * @see removeUserDefinedConstraint(unsigned int n)
+   */
+  const UserDefinedConstraint* getUserDefinedConstraint(unsigned int n) const;
+
+
+  /**
+   * Get an UserDefinedConstraint from the FbcModelPlugin based on its
+   * identifier.
+   *
+   * @param sid a string representing the identifier of the
+   * UserDefinedConstraint to retrieve.
+   *
+   * @return the UserDefinedConstraint in the ListOfUserDefinedConstraints
+   * within this FbcModelPlugin with the given @p sid or @c NULL if no such
+   * UserDefinedConstraint exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addUserDefinedConstraint(const UserDefinedConstraint* object)
+   * @see createUserDefinedConstraint()
+   * @see getUserDefinedConstraint(unsigned int n)
+   * @see getNumUserDefinedConstraints()
+   * @see removeUserDefinedConstraint(const std::string& sid)
+   * @see removeUserDefinedConstraint(unsigned int n)
+   */
+  UserDefinedConstraint* getUserDefinedConstraint(const std::string& sid);
+
+
+  /**
+   * Get an UserDefinedConstraint from the FbcModelPlugin based on its
+   * identifier.
+   *
+   * @param sid a string representing the identifier of the
+   * UserDefinedConstraint to retrieve.
+   *
+   * @return the UserDefinedConstraint in the ListOfUserDefinedConstraints
+   * within this FbcModelPlugin with the given @p sid or @c NULL if no such
+   * UserDefinedConstraint exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addUserDefinedConstraint(const UserDefinedConstraint* object)
+   * @see createUserDefinedConstraint()
+   * @see getUserDefinedConstraint(unsigned int n)
+   * @see getNumUserDefinedConstraints()
+   * @see removeUserDefinedConstraint(const std::string& sid)
+   * @see removeUserDefinedConstraint(unsigned int n)
+   */
+  const UserDefinedConstraint* getUserDefinedConstraint(const std::string& sid)
+    const;
+
+
+  /**
+   * Get an UserDefinedConstraint from the FbcModelPlugin based on the
+   * LowerBound to which it refers.
+   *
+   * @param sid a string representing the "lowerBound" attribute of the
+   * UserDefinedConstraint object to retrieve.
+   *
+   * @return the first UserDefinedConstraint in this FbcModelPlugin based on
+   * the given lowerBound attribute or NULL if no such UserDefinedConstraint
+   * exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   */
+  const UserDefinedConstraint* getUserDefinedConstraintByLowerBound(const
+    std::string& sid) const;
+
+
+  /**
+   * Get an UserDefinedConstraint from the FbcModelPlugin based on the
+   * LowerBound to which it refers.
+   *
+   * @param sid a string representing the "lowerBound" attribute of the
+   * UserDefinedConstraint object to retrieve.
+   *
+   * @return the first UserDefinedConstraint in this FbcModelPlugin based on
+   * the given lowerBound attribute or NULL if no such UserDefinedConstraint
+   * exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   */
+  UserDefinedConstraint* getUserDefinedConstraintByLowerBound(const
+    std::string& sid);
+
+
+  /**
+   * Get an UserDefinedConstraint from the FbcModelPlugin based on the
+   * UpperBound to which it refers.
+   *
+   * @param sid a string representing the "upperBound" attribute of the
+   * UserDefinedConstraint object to retrieve.
+   *
+   * @return the first UserDefinedConstraint in this FbcModelPlugin based on
+   * the given upperBound attribute or NULL if no such UserDefinedConstraint
+   * exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   */
+  const UserDefinedConstraint* getUserDefinedConstraintByUpperBound(const
+    std::string& sid) const;
+
+
+  /**
+   * Get an UserDefinedConstraint from the FbcModelPlugin based on the
+   * UpperBound to which it refers.
+   *
+   * @param sid a string representing the "upperBound" attribute of the
+   * UserDefinedConstraint object to retrieve.
+   *
+   * @return the first UserDefinedConstraint in this FbcModelPlugin based on
+   * the given upperBound attribute or NULL if no such UserDefinedConstraint
+   * exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   */
+  UserDefinedConstraint* getUserDefinedConstraintByUpperBound(const
+    std::string& sid);
+
+
+  /**
+   * Adds a copy of the given UserDefinedConstraint to this FbcModelPlugin.
+   *
+   * @param udc the UserDefinedConstraint object to add.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+   *
+   * @copydetails doc_note_object_is_copied
+   *
+   * @see createUserDefinedConstraint()
+   * @see getUserDefinedConstraint(const std::string& sid)
+   * @see getUserDefinedConstraint(unsigned int n)
+   * @see getNumUserDefinedConstraints()
+   * @see removeUserDefinedConstraint(const std::string& sid)
+   * @see removeUserDefinedConstraint(unsigned int n)
+   */
+  int addUserDefinedConstraint(const UserDefinedConstraint* udc);
+
+
+  /**
+   * Get the number of UserDefinedConstraint objects in this FbcModelPlugin.
+   *
+   * @return the number of UserDefinedConstraint objects in this
+   * FbcModelPlugin.
+   *
+   * @see addUserDefinedConstraint(const UserDefinedConstraint* object)
+   * @see createUserDefinedConstraint()
+   * @see getUserDefinedConstraint(const std::string& sid)
+   * @see getUserDefinedConstraint(unsigned int n)
+   * @see removeUserDefinedConstraint(const std::string& sid)
+   * @see removeUserDefinedConstraint(unsigned int n)
+   */
+  unsigned int getNumUserDefinedConstraints() const;
+
+
+  /**
+   * Creates a new UserDefinedConstraint object, adds it to this FbcModelPlugin
+   * object and returns the UserDefinedConstraint object created.
+   *
+   * @return a new UserDefinedConstraint object instance.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addUserDefinedConstraint(const UserDefinedConstraint* object)
+   * @see getUserDefinedConstraint(const std::string& sid)
+   * @see getUserDefinedConstraint(unsigned int n)
+   * @see getNumUserDefinedConstraints()
+   * @see removeUserDefinedConstraint(const std::string& sid)
+   * @see removeUserDefinedConstraint(unsigned int n)
+   */
+  UserDefinedConstraint* createUserDefinedConstraint();
+
+
+  /**
+   * Removes the nth UserDefinedConstraint from this FbcModelPlugin and returns
+   * a pointer to it.
+   *
+   * @param n an unsigned int representing the index of the
+   * UserDefinedConstraint to remove.
+   *
+   * @return a pointer to the nth UserDefinedConstraint in this FbcModelPlugin.
+   *
+   * @copydetails doc_warning_returns_owned_pointer
+   *
+   * @see addUserDefinedConstraint(const UserDefinedConstraint* object)
+   * @see createUserDefinedConstraint()
+   * @see getUserDefinedConstraint(const std::string& sid)
+   * @see getUserDefinedConstraint(unsigned int n)
+   * @see getNumUserDefinedConstraints()
+   * @see removeUserDefinedConstraint(const std::string& sid)
+   */
+  UserDefinedConstraint* removeUserDefinedConstraint(unsigned int n);
+
+
+  /**
+   * Removes the UserDefinedConstraint from this FbcModelPlugin based on its
+   * identifier and returns a pointer to it.
+   *
+   * @param sid a string representing the identifier of the
+   * UserDefinedConstraint to remove.
+   *
+   * @return the UserDefinedConstraint in this FbcModelPlugin based on the
+   * identifier or NULL if no such UserDefinedConstraint exists.
+   *
+   * @copydetails doc_warning_returns_owned_pointer
+   *
+   * @see addUserDefinedConstraint(const UserDefinedConstraint* object)
+   * @see createUserDefinedConstraint()
+   * @see getUserDefinedConstraint(const std::string& sid)
+   * @see getUserDefinedConstraint(unsigned int n)
+   * @see getNumUserDefinedConstraints()
+   * @see removeUserDefinedConstraint(unsigned int n)
+   */
+  UserDefinedConstraint* removeUserDefinedConstraint(const std::string& sid);
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Updates the namespaces when setLevelVersion is used
+   */
+  virtual void updateSBMLNamespace(const std::string& package,
+                                   unsigned int level,
+                                   unsigned int version);
+
+  /** @endcond */
+
+
   #ifndef SWIG
 
 
@@ -1306,6 +1605,45 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Adds a new "elementName" object to this FbcModelPlugin.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @param element, pointer to the element to be added.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int addChildObject(const std::string& elementName,
+                             const SBase* element);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Removes and returns the new "elementName" object with the given id in this
+   * FbcModelPlugin.
+   *
+   * @param elementName, the name of the element to remove.
+   *
+   * @param id, the id of the element to remove.
+   *
+   * @return pointer to the element removed.
+   */
+  virtual SBase* removeChildObject(const std::string& elementName,
+                                   const std::string& id);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
    * Returns the number of "elementName" in this FbcModelPlugin.
    *
    * @param elementName, the name of the element to get number of.
@@ -1337,6 +1675,48 @@ public:
 
 
   #endif /* !SWIG */
+
+
+  /**
+   * Returns the first child element that has the given @p id in the model-wide
+   * SId namespace, or @c NULL if no such object is found.
+   *
+   * @param id a string representing the id attribute of the object to
+   * retrieve.
+   *
+   * @return a pointer to the SBase element with the given @p id. If no such
+   * object is found, this method returns @c NULL.
+   */
+  virtual SBase* getElementBySId(const std::string& id);
+
+
+  /**
+   * Returns the first child element that has the given @p metaid, or @c NULL
+   * if no such object is found.
+   *
+   * @param metaid a string representing the metaid attribute of the object to
+   * retrieve.
+   *
+   * @return a pointer to the SBase element with the given @p metaid. If no
+   * such object is found this method returns @c NULL.
+   */
+  virtual SBase* getElementByMetaId(const std::string& metaid);
+
+
+  /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitrary depth.
+   *
+   * @param filter an ElementFilter that may impose restrictions on the objects
+   * to be retrieved.
+   *
+   * @return a List pointer of pointers to all SBase child objects with any
+   * restriction imposed.
+   */
+  virtual List* getAllElements(ElementFilter * filter = NULL);
+
+
+
   /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBMLDocument.
@@ -1390,6 +1770,8 @@ protected:
   ListOfGeneProducts   mGeneProducts;
   ListOfFluxBounds mBounds;
   ListOfGeneAssociations mAssociations;
+  ListOfUserDefinedConstraints mUserDefinedConstraints;
+
   /** @endcond */
 
 
@@ -1603,6 +1985,226 @@ FbcModelPlugin_getGeneProduct(SBasePlugin_t * fmp, unsigned int n);
 LIBSBML_EXTERN
 unsigned int
 FbcModelPlugin_getNumGeneProducts(SBasePlugin_t * fmp);
+
+
+/**
+ * Returns a ListOf_t * containing UserDefinedConstraint_t objects from this
+ * FbcModelPlugin_t.
+ *
+ * @param fmp the FbcModelPlugin_t structure whose ListOfUserDefinedConstraints
+ * is sought.
+ *
+ * @return the ListOfUserDefinedConstraints from this FbcModelPlugin_t as a
+ * ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see FbcModelPlugin_addUserDefinedConstraint()
+ * @see FbcModelPlugin_createUserDefinedConstraint()
+ * @see FbcModelPlugin_getUserDefinedConstraintById()
+ * @see FbcModelPlugin_getUserDefinedConstraint()
+ * @see FbcModelPlugin_getNumUserDefinedConstraints()
+ * @see FbcModelPlugin_removeUserDefinedConstraintById()
+ * @see FbcModelPlugin_removeUserDefinedConstraint()
+ *
+ * @memberof FbcModelPlugin_t
+ */
+LIBSBML_EXTERN
+ListOf_t*
+FbcModelPlugin_getListOfUserDefinedConstraints(FbcModelPlugin_t* fmp);
+
+
+/**
+ * Get an UserDefinedConstraint_t from the FbcModelPlugin_t.
+ *
+ * @param fmp the FbcModelPlugin_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the
+ * UserDefinedConstraint_t to retrieve.
+ *
+ * @return the nth UserDefinedConstraint_t in the ListOfUserDefinedConstraints
+ * within this FbcModelPlugin or @c NULL if no such object exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof FbcModelPlugin_t
+ */
+LIBSBML_EXTERN
+UserDefinedConstraint_t*
+FbcModelPlugin_getUserDefinedConstraint(FbcModelPlugin_t* fmp,
+                                        unsigned int n);
+
+
+/**
+ * Get an UserDefinedConstraint_t from the FbcModelPlugin_t based on its
+ * identifier.
+ *
+ * @param fmp the FbcModelPlugin_t structure to search.
+ *
+ * @param sid a string representing the identifier of the
+ * UserDefinedConstraint_t to retrieve.
+ *
+ * @return the UserDefinedConstraint_t in the ListOfUserDefinedConstraints
+ * within this FbcModelPlugin with the given @p sid or @c NULL if no such
+ * UserDefinedConstraint_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof FbcModelPlugin_t
+ */
+LIBSBML_EXTERN
+UserDefinedConstraint_t*
+FbcModelPlugin_getUserDefinedConstraintById(FbcModelPlugin_t* fmp,
+                                            const char *sid);
+
+
+/**
+ * Get an UserDefinedConstraint_t from the FbcModelPlugin_t based on the
+ * LowerBound to which it refers.
+ *
+ * @param fmp the FbcModelPlugin_t structure to search.
+ *
+ * @param sid a string representing the "lowerBound" attribute of the
+ * UserDefinedConstraint_t object to retrieve.
+ *
+ * @return the first UserDefinedConstraint_t in this FbcModelPlugin_t based on
+ * the given lowerBound attribute or NULL if no such UserDefinedConstraint_t
+ * exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof FbcModelPlugin_t
+ */
+LIBSBML_EXTERN
+UserDefinedConstraint_t*
+FbcModelPlugin_getUserDefinedConstraintByLowerBound(FbcModelPlugin_t* fmp,
+                                                    const char *sid);
+
+
+/**
+ * Get an UserDefinedConstraint_t from the FbcModelPlugin_t based on the
+ * UpperBound to which it refers.
+ *
+ * @param fmp the FbcModelPlugin_t structure to search.
+ *
+ * @param sid a string representing the "upperBound" attribute of the
+ * UserDefinedConstraint_t object to retrieve.
+ *
+ * @return the first UserDefinedConstraint_t in this FbcModelPlugin_t based on
+ * the given upperBound attribute or NULL if no such UserDefinedConstraint_t
+ * exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof FbcModelPlugin_t
+ */
+LIBSBML_EXTERN
+UserDefinedConstraint_t*
+FbcModelPlugin_getUserDefinedConstraintByUpperBound(FbcModelPlugin_t* fmp,
+                                                    const char *sid);
+
+
+/**
+ * Adds a copy of the given UserDefinedConstraint_t to this FbcModelPlugin_t.
+ *
+ * @param fmp the FbcModelPlugin_t structure to which the
+ * UserDefinedConstraint_t should be added.
+ *
+ * @param udc the UserDefinedConstraint_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+ *
+ * @memberof FbcModelPlugin_t
+ */
+LIBSBML_EXTERN
+int
+FbcModelPlugin_addUserDefinedConstraint(FbcModelPlugin_t* fmp,
+                                        const UserDefinedConstraint_t* udc);
+
+
+/**
+ * Get the number of UserDefinedConstraint_t objects in this FbcModelPlugin_t.
+ *
+ * @param fmp the FbcModelPlugin_t structure to query.
+ *
+ * @return the number of UserDefinedConstraint_t objects in this
+ * FbcModelPlugin_t.
+ *
+ * @memberof FbcModelPlugin_t
+ */
+LIBSBML_EXTERN
+unsigned int
+FbcModelPlugin_getNumUserDefinedConstraints(FbcModelPlugin_t* fmp);
+
+
+/**
+ * Creates a new UserDefinedConstraint_t object, adds it to this
+ * FbcModelPlugin_t object and returns the UserDefinedConstraint_t object
+ * created.
+ *
+ * @param fmp the FbcModelPlugin_t structure to which the
+ * UserDefinedConstraint_t should be added.
+ *
+ * @return a new UserDefinedConstraint_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof FbcModelPlugin_t
+ */
+LIBSBML_EXTERN
+UserDefinedConstraint_t*
+FbcModelPlugin_createUserDefinedConstraint(FbcModelPlugin_t* fmp);
+
+
+/**
+ * Removes the nth UserDefinedConstraint_t from this FbcModelPlugin_t and
+ * returns a pointer to it.
+ *
+ * @param fmp the FbcModelPlugin_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the
+ * UserDefinedConstraint_t to remove.
+ *
+ * @return a pointer to the nth UserDefinedConstraint_t in this
+ * FbcModelPlugin_t.
+ *
+ * @copydetails doc_warning_returns_owned_pointer
+ *
+ * @memberof FbcModelPlugin_t
+ */
+LIBSBML_EXTERN
+UserDefinedConstraint_t*
+FbcModelPlugin_removeUserDefinedConstraint(FbcModelPlugin_t* fmp,
+                                           unsigned int n);
+
+
+/**
+ * Removes the UserDefinedConstraint_t from this FbcModelPlugin_t based on its
+ * identifier and returns a pointer to it.
+ *
+ * @param fmp the FbcModelPlugin_t structure to search.
+ *
+ * @param sid a string representing the identifier of the
+ * UserDefinedConstraint_t to remove.
+ *
+ * @return the UserDefinedConstraint_t in this FbcModelPlugin_t based on the
+ * identifier or NULL if no such UserDefinedConstraint_t exists.
+ *
+ * @copydetails doc_warning_returns_owned_pointer
+ *
+ * @memberof FbcModelPlugin_t
+ */
+LIBSBML_EXTERN
+UserDefinedConstraint_t*
+FbcModelPlugin_removeUserDefinedConstraintById(FbcModelPlugin_t* fmp,
+                                               const char* sid);
 
 
 /**

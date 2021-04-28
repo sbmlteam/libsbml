@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version3" level="3" version="1" fbc:required="false">
+  <model id="m" fbc:strict="true">
+    <listOfCompartments>
+      <compartment id="comp1" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S" compartment="comp1" initialAmount="1" hasOnlySubstanceUnits="false" 
+               boundaryCondition="false" constant="false" fbc:charge="2.5" fbc:chemicalFormula="S20"/>
+    </listOfSpecies>
+
+    <listOfParameters>
+      <parameter id="uc2lb" value="2" constant="true"/>
+      <parameter id="uc2ub" value="INF" constant="true"/>
+      <parameter id="ucco2a" value="2" constant="true"/>
+      <parameter id="Avar" value="NaN" constant="false"/>
+    </listOfParameters>
+
+    <fbc:listOfUserDefinedConstraints>
+      <fbc:userDefinedConstraint fbc:id="uc2" fbc:lowerBound="uc2lb" fbc:upperBound="uc2ub">
+        
+        <fbc:listOfUserDefinedConstraintComponents>
+
+          <fbc:userDefinedConstraintComponent fbc:coefficient="2" fbc:variable="Avar" fbc:variableType="linear"/>
+        </fbc:listOfUserDefinedConstraintComponents>
+      </fbc:userDefinedConstraint>
+    </fbc:listOfUserDefinedConstraints>  
+    <fbc:listOfObjectives fbc:activeObjective="obj1">
+      <fbc:objective fbc:id="obj1" fbc:type="maximize">
+        <fbc:listOfFluxes>
+          <fbc:fluxObjective fbc:reaction="J8" fbc:coefficient="1" fbc:variableType="linear"/>
+        </fbc:listOfFluxes>
+      </fbc:objective>
+    </fbc:listOfObjectives>
+  </model>
+</sbml>

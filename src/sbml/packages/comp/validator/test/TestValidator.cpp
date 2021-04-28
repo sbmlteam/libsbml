@@ -125,7 +125,7 @@ TestValidator::test (const TestFile& file)
   vector<unsigned int> ids;
   transform(begin, end, back_inserter(ids), ToId());
 
-  if (id == 1021204 && ids.at(0) == 99108)
+  if (id == 1021204 && ids.size() > 0 && ids.at(0) == 99108)
   {
     id = 99108;
   }

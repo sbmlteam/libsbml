@@ -112,6 +112,7 @@ protected:
   std::string   mReaction;
   double        mCoefficient;
   bool          mIsSetCoefficient;
+  FbcVariableType_t mVariableType;
   /** @endcond */
 
 public:
@@ -224,7 +225,39 @@ public:
   virtual double getCoefficient() const;
 
 
+    /**
+   * Returns the value of the "variableType" attribute of this FluxObjective.
+   *
+   * @return the value of the "variableType" attribute of this FluxObjective as
+   * a FbcVariableType_t.
+   *
+   * @copydetails doc_fluxobjective_variableType
+   * @if clike The value is drawn from the enumeration @ref FbcVariableType_t
+   * @endif
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{FBC_FBCVARIABLETYPE_LINEAR, FbcVariableType_t}
+   * @li @sbmlconstant{FBC_FBCVARIABLETYPE_QUADRATIC, FbcVariableType_t}
+   * @li @sbmlconstant{FBC_FBCVARIABLETYPE_INVALID, FbcVariableType_t}
+   */
+  FbcVariableType_t getVariableType() const;
+
+
   /**
+   * Returns the value of the "variableType" attribute of this FluxObjective.
+   *
+   * @return the value of the "variableType" attribute of this FluxObjective as
+   * a string.
+   *
+   * @copydetails doc_fluxobjective_variableType
+   * The possible values returned by this method are:
+   * @li @c "linear"
+   * @li @c "quadratic"
+   * @li @c "invalid FbcVariableType value"
+   */
+  std::string getVariableTypeAsString() const;
+
+
+/**
    * Predicate returning @c true if this FluxObjective's "id" attribute is
    * set.
    *
@@ -260,6 +293,18 @@ public:
    * set, otherwise @c false is returned.
    */
   virtual bool isSetCoefficient() const;
+
+
+  /**
+   * Predicate returning @c true if this FluxObjective's "variableType"
+   * attribute is set.
+   *
+   * @return @c true if this FluxObjective's "variableType" attribute has been
+   * set, otherwise @c false is returned.
+   *
+   * @copydetails doc_fluxobjective_variableType
+   */
+  bool isSetVariableType() const;
 
 
   /**
@@ -303,6 +348,38 @@ public:
 
 
   /**
+   * Sets the value of the "variableType" attribute of this FluxObjective.
+   *
+   * @param variableType @if clike FbcVariableType_t@else int@endif value of
+   * the "variableType" attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   *
+   * @copydetails doc_fluxobjective_variableType
+   */
+  int setVariableType(const FbcVariableType_t variableType);
+
+
+  /**
+   * Sets the value of the "variableType" attribute of this FluxObjective.
+   *
+   * @param variableType std::string& of the "variableType" attribute to be
+   * set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   *
+   * @copydetails doc_fluxobjective_variableType
+   */
+  int setVariableType(const std::string& variableType);
+
+
+  /**
    * Unsets the value of the "id" attribute of this FluxObjective.
    *
    * @copydetails doc_unset_id
@@ -336,6 +413,17 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetCoefficient();
+
+
+  /**
+   * Unsets the value of the "variableType" attribute of this FluxObjective.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * @copydetails doc_fluxobjective_variableType
+   */
+  int unsetVariableType();
 
 
   /**
@@ -1068,8 +1156,54 @@ FluxObjective_getCoefficient(const FluxObjective_t * fo);
 
 
 /**
- * Predicate returning @c 1 (true) if the given FluxObjective_t structure's "id"
- * is set.
+ * Returns the value of the "variableType" attribute of this FluxObjective_t.
+ *
+ * @param fo the FluxObjective_t structure whose variableType is sought.
+ *
+ * @return the value of the "variableType" attribute of this FluxObjective_t as
+ * a FbcVariableType_t.
+ *
+ * @copydetails doc_fluxobjective_variableType
+ * @if clike The value is drawn from the enumeration @ref FbcVariableType_t
+ * @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{FBC_FBCVARIABLETYPE_LINEAR, FbcVariableType_t}
+ * @li @sbmlconstant{FBC_FBCVARIABLETYPE_QUADRATIC, FbcVariableType_t}
+ * @li @sbmlconstant{FBC_FBCVARIABLETYPE_INVALID, FbcVariableType_t}
+ *
+ * @memberof FluxObjective_t
+ */
+LIBSBML_EXTERN
+FbcVariableType_t
+FluxObjective_getVariableType(const FluxObjective_t * fo);
+
+
+/**
+ * Returns the value of the "variableType" attribute of this FluxObjective_t.
+ *
+ * @param fo the FluxObjective_t structure whose variableType is sought.
+ *
+ * @return the value of the "variableType" attribute of this FluxObjective_t as
+ * a const char *.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_fluxobjective_variableType
+ * The possible values returned by this method are:
+ * @li @c "linear"
+ * @li @c "quadratic"
+ * @li @c "invalid FbcVariableType value"
+ *
+ * @memberof FluxObjective_t
+ */
+LIBSBML_EXTERN
+char *
+FluxObjective_getVariableTypeAsString(const FluxObjective_t * fo);
+
+
+/**
+ * Predicate returning @c 1 (true) if this FluxObjective_t's "id" attribute is
+ * set.
  *
  * @param fo the FluxObjective_t structure.
  *
@@ -1132,10 +1266,25 @@ FluxObjective_isSetCoefficient(const FluxObjective_t * fo);
 
 
 /**
- * Sets the "id" attribute of the given FluxObjective_t structure.
+ * Predicate returning @c 1 (true) if this FluxObjective_t's "variableType"
+ * attribute is set.
  *
- * This function copies the string given in @p id.  If the string is
- * a null pointer, this function is equivalent to calling FluxObjective_unsetId().
+ * @param fo the FluxObjective_t structure.
+ *
+ * @return @c 1 (true) if this FluxObjective_t's "variableType" attribute has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_fluxobjective_variableType
+ *
+ * @memberof FluxObjective_t
+ */
+LIBSBML_EXTERN
+int
+FluxObjective_isSetVariableType(const FluxObjective_t * fo);
+
+
+/**
+ * Sets the value of the "id" attribute of this FluxObjective_t.
  *
  * @param fo the FluxObjective_t structure.
  *
@@ -1230,8 +1379,52 @@ FluxObjective_setCoefficient(FluxObjective_t * fo, double coefficient);
 
 
 /**
- * Unsets the value of the "id" attribute of the given 
- * FluxObjective_t structure.
+ * Sets the value of the "variableType" attribute of this FluxObjective_t.
+ *
+ * @param fo the FluxObjective_t structure.
+ *
+ * @param variableType FbcVariableType_t value of the "variableType" attribute
+ * to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_fluxobjective_variableType
+ *
+ * @memberof FluxObjective_t
+ */
+LIBSBML_EXTERN
+int
+FluxObjective_setVariableType(FluxObjective_t * fo,
+                              FbcVariableType_t variableType);
+
+
+/**
+ * Sets the value of the "variableType" attribute of this FluxObjective_t.
+ *
+ * @param fo the FluxObjective_t structure.
+ *
+ * @param variableType const char * of the "variableType" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_fluxobjective_variableType
+ *
+ * @memberof FluxObjective_t
+ */
+LIBSBML_EXTERN
+int
+FluxObjective_setVariableTypeAsString(FluxObjective_t * fo,
+                                      const char * variableType);
+
+
+/**
+ * Unsets the value of the "id" attribute of this FluxObjective_t.
  *
  * @param fo the FluxObjective_t structure.
  *
@@ -1299,6 +1492,24 @@ FluxObjective_unsetReaction(FluxObjective_t * fo);
 LIBSBML_EXTERN
 int
 FluxObjective_unsetCoefficient(FluxObjective_t * fo);
+
+
+/**
+ * Unsets the value of the "variableType" attribute of this FluxObjective_t.
+ *
+ * @param fo the FluxObjective_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_fluxobjective_variableType
+ *
+ * @memberof FluxObjective_t
+ */
+LIBSBML_EXTERN
+int
+FluxObjective_unsetVariableType(FluxObjective_t * fo);
 
 
 /**

@@ -810,6 +810,10 @@ GeneProduct::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->logPackageError("fbc", FbcGeneProductAllowedCoreAttributes,
                   getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        getErrorLog()->remove(NotSchemaConformant);
+      }
     }
   }
 
@@ -836,6 +840,10 @@ GeneProduct::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("fbc", FbcGeneProductAllowedCoreAttributes,
                        getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        getErrorLog()->remove(NotSchemaConformant);
       }
     }
   }
@@ -951,6 +959,11 @@ GeneProduct::writeAttributes (XMLOutputStream& stream) const
 
   if (isSetAssociatedSpecies() == true)
     stream.writeAttribute("associatedSpecies", getPrefix(), mAssociatedSpecies);
+
+  //
+  // (EXTENSION)
+  //
+  SBase::writeExtensionAttributes(stream);
 
 }
 

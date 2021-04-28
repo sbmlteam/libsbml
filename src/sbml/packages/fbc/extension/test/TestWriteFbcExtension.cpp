@@ -367,6 +367,119 @@ START_TEST(test_FbcExtension_create_and_write_new_geneassociation
 }
 END_TEST
 
+START_TEST(test_FbcExtension_create_and_write_L3V1V3)
+{
+  FbcPkgNamespaces *sbmlns = new FbcPkgNamespaces(3, 1, 3);
+
+  // create the document
+
+  SBMLDocument *document = new SBMLDocument(sbmlns);
+  document->setPackageRequired("fbc", false);
+
+  // create the Model
+
+  Model* model = document->createModel();
+  model->setId("m");
+
+  // create the Compartment
+
+  Compartment* compartment = model->createCompartment();
+  compartment->setId("comp");
+  compartment->setSpatialDimensions((unsigned int)(3));
+  compartment->setConstant(true);
+  compartment->setSize(1);
+
+  // create the Species
+
+  Species* species = model->createSpecies();
+  species->setId("S");
+  species->setCompartment("comp");
+  species->setBoundaryCondition(false);
+  FbcSpeciesPlugin* splugin = dynamic_cast<FbcSpeciesPlugin*>(species->getPlugin("fbc"));
+  splugin->setCharge(2.5);
+
+  // use fbc
+
+  FbcModelPlugin* mplugin = dynamic_cast<FbcModelPlugin*>(model->getPlugin("fbc"));
+
+  fail_unless(mplugin != NULL);
+  mplugin->setStrict(true);
+
+  Objective* objective = mplugin->createObjective();
+  objective->setId("obj1");
+  objective->setType("maximize");
+
+  fail_unless(mplugin->unsetActiveObjectiveId() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(mplugin->setActiveObjectiveId("obj1") == LIBSBML_OPERATION_SUCCESS);
+
+  FluxObjective* fluxObjective = objective->createFluxObjective();
+  fluxObjective->setReaction("J0");
+  fluxObjective->setCoefficient(1);
+  fluxObjective->setVariableType("linear");
+
+  UserDefinedConstraint* userconstraint = mplugin->createUserDefinedConstraint();
+  userconstraint->setId("uc2");
+  userconstraint->setLowerBound("uc2lb");
+  userconstraint->setUpperBound("uc2ub");
+
+  UserDefinedConstraintComponent * udcc = userconstraint->createUserDefinedConstraintComponent();
+  udcc->setCoefficient(2);
+  udcc->setVariable("Avar");
+  udcc->setVariableType("linear");
+
+  // check annotations on several types
+  FbcSBasePlugin* sbaseplugin = dynamic_cast<FbcSBasePlugin*>(compartment->getPlugin("fbc"));
+
+  KeyValuePair * kvp = sbaseplugin->createKeyValuePair();
+  kvp->setKey("key");
+  kvp->setUri("my_annotation");
+  kvp->setValue("comp-value");
+
+  FbcSBasePlugin* sbaseplugin1 = dynamic_cast<FbcSBasePlugin*>(species->getPlugin("fbc"));
+
+  KeyValuePair * kvp1 = sbaseplugin1->createKeyValuePair();
+  kvp1->setKey("key1");
+  kvp1->setUri("my_annotation");
+  kvp1->setValue("species-value");
+
+  FbcSBasePlugin* sbaseplugin2 = dynamic_cast<FbcSBasePlugin*>(model->getPlugin("fbc"));
+
+  KeyValuePair * kvp2 = sbaseplugin2->createKeyValuePair();
+  kvp2->setKey("key2");
+  kvp2->setUri("my_annotation");
+  kvp2->setValue("model-value");
+
+  FbcSBasePlugin* sbaseplugin3 = dynamic_cast<FbcSBasePlugin*>(objective->getPlugin("fbc"));
+
+  KeyValuePair * kvp3 = sbaseplugin3->createKeyValuePair();
+  kvp3->setKey("key3");
+  kvp3->setUri("my_annotation");
+  kvp3->setValue("objective-value");
+
+  //FbcSBasePlugin* sbaseplugin4 = dynamic_cast<FbcSBasePlugin*>(document->getPlugin("fbc"));
+  //// this dynamic cast is null
+  //KeyValuePair * kvp4 = sbaseplugin4->createKeyValuePair();
+  //kvp4->setKey("key4");
+  //kvp4->setUri("my_annotation");
+  //kvp4->setValue("doc-value");
+  string s1 = writeSBMLToStdString(document);
+
+  //cout << s1 << endl;
+
+  char *filename = safe_strcat(TestDataDirectory, "fbc_example2_v3.xml");
+  SBMLDocument *document1 = readSBMLFromFile(filename);
+  string s2 = writeSBMLToStdString(document1);
+
+  //cout << endl << s2 << endl;
+  fail_unless(s1 == s2);
+
+  delete sbmlns;
+  delete document;
+  delete document1;
+
+}
+END_TEST
+
 Suite *
 create_suite_WriteFbcExtension(void)
 {
@@ -379,6 +492,7 @@ create_suite_WriteFbcExtension(void)
   tcase_add_test(tcase, test_FbcExtension_create_and_write_geneassociation);
   tcase_add_test(tcase, test_FbcExtension_convert_and_write);
   tcase_add_test(tcase, test_FbcExtension_create_and_write_new_geneassociation);
+  tcase_add_test(tcase, test_FbcExtension_create_and_write_L3V1V3);
   suite_add_tcase(suite, tcase);
 
   return suite;

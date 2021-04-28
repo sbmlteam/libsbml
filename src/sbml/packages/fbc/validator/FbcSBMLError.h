@@ -111,7 +111,7 @@ typedef enum
 , FbcFluxObjectReactionMustExist       = 2020606 /*!< 'fbc:reaction' must refer to valid reaction */
 , FbcFluxObjectCoefficientMustBeDouble = 2020607 /*!< The attribute 'fbc:coefficient' must be of the data type double */
 , FbcFluxObjectCoefficientWhenStrict   = 2020608 /*!< The 'fbc:coefficient' must be declared when strict */
-
+, FbcFluxObjectiveVariableTypeMustBeFbcVariableTypeEnum       = 2020609
 , FbcReactionOnlyOneGeneProdAss         = 2020701 /*!< One GeneProductAssociation in a Reaction */
 , FbcReactionAllowedAttributes          = 2020702 /*!< Fbc attributes on a Reaction */
 , FbcReactionLwrBoundSIdRef             = 2020703 /*!< LowerBound must be SIdRef */
@@ -157,7 +157,31 @@ typedef enum
 , FbcGeneProductLabelMustBeUnique       = 2021205 /*!< 'fbc:label' must be unique */
 , FbcGeneProductNameMustBeString        = 2021206 /*!< 'fbc:name' must be string */
 , FbcGeneProductAssocSpeciesMustExist   = 2021207 /*!< 'fbc:associatedSpecies' must point to existing <code>&lt;species&gt;</code> */
-
+, FbcUserDefinedConstraintComponentAllowedCoreAttributes      = 2021501
+, FbcUserDefinedConstraintComponentAllowedCoreElements        = 2021502
+, FbcUserDefinedConstraintComponentAllowedAttributes          = 2021503
+, FbcUserDefinedConstraintComponentCoefficientMustBeDouble    = 2021504
+, FbcUserDefinedConstraintComponentVariableMustBeReactionOrParameter= 2021505
+, FbcUserDefinedConstraintComponentVariableTypeMustBeFbcVariableTypeEnum= 2021506
+, FbcUserDefinedConstraintComponentNameMustBeString           = 2021507
+, FbcUserDefinedConstraintAllowedCoreAttributes               = 2021601
+, FbcUserDefinedConstraintAllowedCoreElements                 = 2021602
+, FbcUserDefinedConstraintAllowedAttributes                   = 2021603
+, FbcUserDefinedConstraintAllowedElements                     = 2021604
+, FbcUserDefinedConstraintLowerBoundMustBeParameter           = 2021605
+, FbcUserDefinedConstraintUpperBoundMustBeParameter           = 2021606
+, FbcUserDefinedConstraintNameMustBeString                    = 2021607
+, FbcUserDefinedConstraintLOUserDefinedConstraintComponentsAllowedCoreElements= 2021608
+, FbcUserDefinedConstraintLOUserDefinedConstraintComponentsAllowedCoreAttributes= 2021609
+, FbcKeyValuePairAllowedCoreAttributes                        = 2021701
+, FbcKeyValuePairAllowedCoreElements                          = 2021702
+, FbcKeyValuePairAllowedAttributes                            = 2021703
+, FbcKeyValuePairKeyMustBeString                              = 2021704
+, FbcKeyValuePairNameMustBeString                             = 2021705
+, FbcKeyValuePairValueMustBeString                            = 2021706
+, FbcKeyValuePairKvp_uriMustBeString                          = 2021707
+, FbcSBaseLOKeyValuePairsAllowedAttributes                    = 2021708
+, FbcSBaseLOKeyValuePairsAllowedCoreAttributes                = 2021709
 } FbcSBMLErrorCode_t;
 
 

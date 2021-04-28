@@ -62,7 +62,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 FbcReactionPlugin::FbcReactionPlugin(const std::string& uri,  
                                  const std::string& prefix, 
                                FbcPkgNamespaces* fbcns) :
-    SBasePlugin(uri, prefix, fbcns)
+    FbcSBasePlugin(uri, prefix, fbcns)
   , mGeneProductAssociation  ( NULL )
   , mLowerFluxBound ("")
   , mUpperFluxBound ("")
@@ -74,7 +74,7 @@ FbcReactionPlugin::FbcReactionPlugin(const std::string& uri,
  * Copy constructor for FbcReactionPlugin.
  */
 FbcReactionPlugin::FbcReactionPlugin(const FbcReactionPlugin& orig) :
-    SBasePlugin(orig)
+    FbcSBasePlugin(orig)
   , mGeneProductAssociation ( NULL )
 {
   if (orig.mGeneProductAssociation != NULL)
@@ -94,7 +94,7 @@ FbcReactionPlugin::operator=(const FbcReactionPlugin& rhs)
 {
   if (&rhs != this)
   {
-    this->SBasePlugin::operator=(rhs);
+    this->FbcSBasePlugin::operator=(rhs);
     delete mGeneProductAssociation;
     mGeneProductAssociation = NULL;
     if (rhs.mGeneProductAssociation != NULL)
@@ -200,7 +200,7 @@ FbcReactionPlugin::writeElements (XMLOutputStream& stream) const
 void
 FbcReactionPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-  SBasePlugin::addExpectedAttributes(attributes);
+  FbcSBasePlugin::addExpectedAttributes(attributes);
 
   attributes.add("lowerFluxBound");
   attributes.add("upperFluxBound");
@@ -225,7 +225,7 @@ FbcReactionPlugin::readAttributes (const XMLAttributes& attributes,
   unsigned int numErrs = 
     (getErrorLog() != NULL ? getErrorLog()->getNumErrors() : 0);
 
-  SBasePlugin::readAttributes(attributes, expectedAttributes);
+  FbcSBasePlugin::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -322,7 +322,7 @@ FbcReactionPlugin::readAttributes (const XMLAttributes& attributes,
 void
 FbcReactionPlugin::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
-  SBasePlugin::renameSIdRefs(oldid, newid);
+  FbcSBasePlugin::renameSIdRefs(oldid, newid);
   if (isSetLowerFluxBound())
   {
     if (mLowerFluxBound==oldid) mLowerFluxBound=newid;
@@ -344,7 +344,7 @@ FbcReactionPlugin::writeAttributes (XMLOutputStream& stream) const
 {
   if (getPackageVersion() == 1) return;
 
-  SBasePlugin::writeAttributes(stream);
+  FbcSBasePlugin::writeAttributes(stream);
 
   if (isSetLowerFluxBound() == true)
     stream.writeAttribute("lowerFluxBound", getPrefix(), mLowerFluxBound);
@@ -591,7 +591,7 @@ FbcReactionPlugin::unsetGeneProductAssociation()
 void
 FbcReactionPlugin::setSBMLDocument(SBMLDocument* d)
 {
-  SBasePlugin::setSBMLDocument(d);
+  FbcSBasePlugin::setSBMLDocument(d);
 
   if (isSetGeneProductAssociation() == true)
   {
@@ -608,7 +608,7 @@ FbcReactionPlugin::setSBMLDocument(SBMLDocument* d)
 void
 FbcReactionPlugin::connectToParent(SBase* sbase)
 {
-  SBasePlugin::connectToParent(sbase);
+  FbcSBasePlugin::connectToParent(sbase);
 
   if (isSetGeneProductAssociation() == true)
   {
@@ -642,7 +642,7 @@ int
 FbcReactionPlugin::getAttribute(const std::string& attributeName,
                                 bool& value) const
 {
-  int return_value = SBasePlugin::getAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -660,7 +660,7 @@ int
 FbcReactionPlugin::getAttribute(const std::string& attributeName,
                                 int& value) const
 {
-  int return_value = SBasePlugin::getAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -678,7 +678,7 @@ int
 FbcReactionPlugin::getAttribute(const std::string& attributeName,
                                 double& value) const
 {
-  int return_value = SBasePlugin::getAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -696,7 +696,7 @@ int
 FbcReactionPlugin::getAttribute(const std::string& attributeName,
                                 unsigned int& value) const
 {
-  int return_value = SBasePlugin::getAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -714,7 +714,7 @@ int
 FbcReactionPlugin::getAttribute(const std::string& attributeName,
                                 std::string& value) const
 {
-  int return_value = SBasePlugin::getAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::getAttribute(attributeName, value);
 
   if (return_value == LIBSBML_OPERATION_SUCCESS)
   {
@@ -748,7 +748,7 @@ FbcReactionPlugin::getAttribute(const std::string& attributeName,
 bool
 FbcReactionPlugin::isSetAttribute(const std::string& attributeName) const
 {
-  bool value = SBasePlugin::isSetAttribute(attributeName);
+  bool value = FbcSBasePlugin::isSetAttribute(attributeName);
 
   if (attributeName == "lowerFluxBound")
   {
@@ -774,7 +774,7 @@ FbcReactionPlugin::isSetAttribute(const std::string& attributeName) const
 int
 FbcReactionPlugin::setAttribute(const std::string& attributeName, bool value)
 {
-  int return_value = SBasePlugin::setAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -791,7 +791,7 @@ FbcReactionPlugin::setAttribute(const std::string& attributeName, bool value)
 int
 FbcReactionPlugin::setAttribute(const std::string& attributeName, int value)
 {
-  int return_value = SBasePlugin::setAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -809,7 +809,7 @@ int
 FbcReactionPlugin::setAttribute(const std::string& attributeName,
                                 double value)
 {
-  int return_value = SBasePlugin::setAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -827,7 +827,7 @@ int
 FbcReactionPlugin::setAttribute(const std::string& attributeName,
                                 unsigned int value)
 {
-  int return_value = SBasePlugin::setAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -845,7 +845,7 @@ int
 FbcReactionPlugin::setAttribute(const std::string& attributeName,
                                 const std::string& value)
 {
-  int return_value = SBasePlugin::setAttribute(attributeName, value);
+  int return_value = FbcSBasePlugin::setAttribute(attributeName, value);
 
   if (attributeName == "lowerFluxBound")
   {
@@ -871,7 +871,7 @@ FbcReactionPlugin::setAttribute(const std::string& attributeName,
 int
 FbcReactionPlugin::unsetAttribute(const std::string& attributeName)
 {
-  int value = SBasePlugin::unsetAttribute(attributeName);
+  int value = FbcSBasePlugin::unsetAttribute(attributeName);
 
   if (attributeName == "lowerFluxBound")
   {
@@ -996,7 +996,7 @@ FbcReactionPlugin::accept(SBMLVisitor& v) const
 
 LIBSBML_EXTERN
 char *
-FbcReactionPlugin_getUpperFluxBound(SBasePlugin_t * fbc)
+FbcReactionPlugin_getUpperFluxBound(FbcSBasePlugin_t * fbc)
 {
   if (fbc == NULL) return NULL;
 
@@ -1008,7 +1008,7 @@ FbcReactionPlugin_getUpperFluxBound(SBasePlugin_t * fbc)
 
 LIBSBML_EXTERN
 int
-FbcReactionPlugin_isSetUpperFluxBound(SBasePlugin_t * fbc)
+FbcReactionPlugin_isSetUpperFluxBound(FbcSBasePlugin_t * fbc)
 {
   return (fbc != NULL) 
     ? static_cast<int>
@@ -1019,7 +1019,7 @@ FbcReactionPlugin_isSetUpperFluxBound(SBasePlugin_t * fbc)
 
 LIBSBML_EXTERN
 int
-FbcReactionPlugin_setUpperFluxBound(SBasePlugin_t * fbc, const char * chemform)
+FbcReactionPlugin_setUpperFluxBound(FbcSBasePlugin_t * fbc, const char * chemform)
 {
   return (fbc != NULL) 
     ? static_cast<FbcReactionPlugin*>(fbc)->setUpperFluxBound(chemform)
@@ -1029,7 +1029,7 @@ FbcReactionPlugin_setUpperFluxBound(SBasePlugin_t * fbc, const char * chemform)
 
 LIBSBML_EXTERN
 int
-FbcReactionPlugin_unsetUpperFluxBound(SBasePlugin_t * fbc)
+FbcReactionPlugin_unsetUpperFluxBound(FbcSBasePlugin_t * fbc)
 {
   return (fbc != NULL) 
     ? static_cast<FbcReactionPlugin*>(fbc)->unsetUpperFluxBound()
@@ -1039,7 +1039,7 @@ FbcReactionPlugin_unsetUpperFluxBound(SBasePlugin_t * fbc)
 
 LIBSBML_EXTERN
 char *
-FbcReactionPlugin_getLowerFluxBound(SBasePlugin_t * fbc)
+FbcReactionPlugin_getLowerFluxBound(FbcSBasePlugin_t * fbc)
 {
   if (fbc == NULL) return NULL;
 
@@ -1051,7 +1051,7 @@ FbcReactionPlugin_getLowerFluxBound(SBasePlugin_t * fbc)
 
 LIBSBML_EXTERN
 int
-FbcReactionPlugin_isSetLowerFluxBound(SBasePlugin_t * fbc)
+FbcReactionPlugin_isSetLowerFluxBound(FbcSBasePlugin_t * fbc)
 {
   return (fbc != NULL) 
     ? static_cast<int>
@@ -1062,7 +1062,7 @@ FbcReactionPlugin_isSetLowerFluxBound(SBasePlugin_t * fbc)
 
 LIBSBML_EXTERN
 int
-FbcReactionPlugin_setLowerFluxBound(SBasePlugin_t * fbc, const char * chemform)
+FbcReactionPlugin_setLowerFluxBound(FbcSBasePlugin_t * fbc, const char * chemform)
 {
   return (fbc != NULL) 
     ? static_cast<FbcReactionPlugin*>(fbc)->setLowerFluxBound(chemform)
@@ -1072,7 +1072,7 @@ FbcReactionPlugin_setLowerFluxBound(SBasePlugin_t * fbc, const char * chemform)
 
 LIBSBML_EXTERN
 int
-FbcReactionPlugin_unsetLowerFluxBound(SBasePlugin_t * fbc)
+FbcReactionPlugin_unsetLowerFluxBound(FbcSBasePlugin_t * fbc)
 {
   return (fbc != NULL) 
     ? static_cast<FbcReactionPlugin*>(fbc)->unsetLowerFluxBound()
@@ -1082,7 +1082,7 @@ FbcReactionPlugin_unsetLowerFluxBound(SBasePlugin_t * fbc)
 
 LIBSBML_EXTERN
 int
-FbcReactionPlugin_isSetGeneProductAssociation(SBasePlugin_t * fbc)
+FbcReactionPlugin_isSetGeneProductAssociation(FbcSBasePlugin_t * fbc)
 {
   return (fbc != NULL) 
     ? static_cast<int>
@@ -1093,7 +1093,7 @@ FbcReactionPlugin_isSetGeneProductAssociation(SBasePlugin_t * fbc)
 
 LIBSBML_EXTERN
 GeneProductAssociation_t*
-FbcReactionPlugin_getGeneProductAssociation(SBasePlugin_t * fbc)
+FbcReactionPlugin_getGeneProductAssociation(FbcSBasePlugin_t * fbc)
 {
   return  (fbc != NULL) ? static_cast<FbcReactionPlugin*>(fbc)->getGeneProductAssociation() : NULL;
 
@@ -1101,7 +1101,7 @@ FbcReactionPlugin_getGeneProductAssociation(SBasePlugin_t * fbc)
 
 LIBSBML_EXTERN
 int
-FbcReactionPlugin_setGeneProductAssociation(SBasePlugin_t * fbc, 
+FbcReactionPlugin_setGeneProductAssociation(FbcSBasePlugin_t * fbc, 
                                             GeneProductAssociation_t* gpa)
 {
   return (fbc != NULL) 
