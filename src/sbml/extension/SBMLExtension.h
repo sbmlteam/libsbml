@@ -176,6 +176,24 @@ typedef struct {
   packageReferenceEntryV2 reference;
 } packageErrorTableEntryV2;
 
+typedef struct {
+  const char * ref_l3v1v1;
+  const char * ref_l3v1v2;
+  const char * ref_l3v1v3;
+} packageReferenceEntryV3;
+
+typedef struct {
+  unsigned int code;
+  const char*  shortMessage;
+  unsigned int category;
+  unsigned int l3v1v1_severity;
+  unsigned int l3v1v2_severity;
+  unsigned int l3v1v3_severity;
+  const char*  message;
+  packageReferenceEntryV3 reference;
+} packageErrorTableEntryV3;
+
+
 
 #endif
   /** @endcond */

@@ -65,7 +65,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-static const packageErrorTableEntryV2 defaultErrorTableV2[] =
+static const packageErrorTableEntryV3 defaultErrorTableV3[] =
 {
   // 10304
   { 0,
@@ -73,8 +73,10 @@ static const packageErrorTableEntryV2 defaultErrorTableV2[] =
   0,
   LIBSBML_SEV_ERROR,
   LIBSBML_SEV_ERROR,
+  LIBSBML_SEV_ERROR,
   "",
   { "",
+  "",
   ""
   }
   }
@@ -413,10 +415,10 @@ FbcExtension::getStringFromTypeCode(int typeCode) const
 /*
  * Returns the entry in the error table at this index.
  */
-packageErrorTableEntryV2
-FbcExtension::getErrorTableV2(unsigned int index) const
+packageErrorTableEntryV3
+FbcExtension::getErrorTableV3(unsigned int index) const
 {
-  return fbcErrorTableV2[index];
+  return fbcErrorTableV3[index];
 }
 
 /** @endcond */
@@ -431,12 +433,12 @@ FbcExtension::getErrorTableV2(unsigned int index) const
 unsigned int
 FbcExtension::getErrorTableIndex(unsigned int errorId) const
 {
-  unsigned int tableSize = sizeof(fbcErrorTableV2)/sizeof(fbcErrorTableV2[0]);
+  unsigned int tableSize = sizeof(fbcErrorTableV3)/sizeof(fbcErrorTableV3[0]);
   unsigned int index = 0;
 
   for (unsigned int i = 0; i < tableSize; i++)
   {
-    if (errorId == fbcErrorTableV2[i].code)
+    if (errorId == fbcErrorTableV3[i].code)
     {
       index = i;
       break;
@@ -484,7 +486,7 @@ FbcExtension::getSeverity(unsigned int index, unsigned int pkgVersion) const
 {
   if (hasMultiplePackageVersions())
   {
-    packageErrorTableEntryV2 pkgErr = getErrorTableV2(index);
+    packageErrorTableEntryV3 pkgErr = getErrorTableV3(index);
     switch (pkgVersion)
     {
     case 1:
@@ -509,7 +511,7 @@ FbcExtension::getCategory(unsigned int index, unsigned int pkgVersion) const
 {
   if (hasMultiplePackageVersions())
   {
-    packageErrorTableEntryV2 pkgErr = getErrorTableV2(index);
+    packageErrorTableEntryV3 pkgErr = getErrorTableV3(index);
     return pkgErr.category;
   }
   else
@@ -530,7 +532,7 @@ FbcExtension::getMessage(unsigned int index,
 
   if (hasMultiplePackageVersions())
   {
-    packageErrorTableEntryV2 pkgErr = getErrorTableV2(index);
+    packageErrorTableEntryV3 pkgErr = getErrorTableV3(index);
     newMsg << pkgErr.message << endl;
     switch (pkgVersion)
     {
@@ -572,7 +574,7 @@ FbcExtension::getShortMessage(unsigned int index, unsigned int pkgVersion) const
 {
   if (hasMultiplePackageVersions())
   {
-    packageErrorTableEntryV2 pkgErr = getErrorTableV2(index);
+    packageErrorTableEntryV3 pkgErr = getErrorTableV3(index);
     return pkgErr.shortMessage;
   }
   else

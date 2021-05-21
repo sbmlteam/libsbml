@@ -326,7 +326,7 @@ public:
    *
    * @return packageErrorTableEntry object in the FbcSBMLErrorTable corresponding to the index given.
    */
-  virtual packageErrorTableEntryV2 getErrorTableV2(unsigned int index) const;
+  virtual packageErrorTableEntryV3 getErrorTableV3(unsigned int index) const;
   /** @endcond */
 
 
