@@ -59,9 +59,26 @@
 
 
 #include <iostream>
+#include <string>
 
+using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+static const packageErrorTableEntryV2 defaultErrorTableV2[] =
+{
+  // 10304
+  { 0,
+  "",
+  0,
+  LIBSBML_SEV_ERROR,
+  LIBSBML_SEV_ERROR,
+  "",
+  { "",
+  ""
+  }
+  }
+};
 
 
 /*---------------------------------------------------------------
@@ -459,6 +476,110 @@ FbcExtension::hasMultiplePackageVersions() const
   return true;
 }
 
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+unsigned int
+FbcExtension::getSeverity(unsigned int index, unsigned int pkgVersion) const
+{
+  if (hasMultiplePackageVersions())
+  {
+    packageErrorTableEntryV2 pkgErr = getErrorTableV2(index);
+    switch (pkgVersion)
+    {
+    case 1:
+      return pkgErr.l3v1v1_severity;
+    case 2:
+      return pkgErr.l3v1v2_severity;
+    case 3:
+    default:
+      return pkgErr.l3v1v2_severity;
+    }
+  }
+  else
+  {
+    return SBMLExtension::getSeverity(index, pkgVersion);
+  }
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+unsigned int
+FbcExtension::getCategory(unsigned int index, unsigned int pkgVersion) const
+{
+  if (hasMultiplePackageVersions())
+  {
+    packageErrorTableEntryV2 pkgErr = getErrorTableV2(index);
+    return pkgErr.category;
+  }
+  else
+  {
+    return SBMLExtension::getCategory(index, pkgVersion);
+  }
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+std::string
+FbcExtension::getMessage(unsigned int index,
+  unsigned int pkgVersion,
+  const std::string& details) const
+{
+  ostringstream newMsg;
+  std::string ref;
+
+  if (hasMultiplePackageVersions())
+  {
+    packageErrorTableEntryV2 pkgErr = getErrorTableV2(index);
+    newMsg << pkgErr.message << endl;
+    switch (pkgVersion)
+    {
+    case 1:
+      ref = pkgErr.reference.ref_l3v1v1;
+    case 2:
+      ref = pkgErr.reference.ref_l3v1v2;
+    case 3:
+    default:
+      ref = pkgErr.reference.ref_l3v1v2;
+    }
+
+    if (!ref.empty())
+    {
+      newMsg << "Reference: " << ref << endl;
+    }
+
+    if (!details.empty())
+    {
+      newMsg << " " << details;
+      if (details[details.size() - 1] != '\n') {
+        newMsg << endl;
+      }
+    }
+
+    return newMsg.str();
+
+  }
+  else
+  {
+    return SBMLExtension::getMessage(index, pkgVersion, details);
+  }
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+std::string
+FbcExtension::getShortMessage(unsigned int index, unsigned int pkgVersion) const
+{
+  if (hasMultiplePackageVersions())
+  {
+    packageErrorTableEntryV2 pkgErr = getErrorTableV2(index);
+    return pkgErr.shortMessage;
+  }
+  else
+  {
+    return SBMLExtension::getShortMessage(index, pkgVersion);
+  }
+}
 /** @endcond */
 
 

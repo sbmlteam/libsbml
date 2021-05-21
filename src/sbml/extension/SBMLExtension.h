@@ -599,7 +599,7 @@ if (doc->getLevel() == 2)
 
   /** @cond doxygenLibsbmlInternal */
 
-  virtual bool hasMutiplePackageVersions() const;
+  virtual bool hasMultiplePackageVersions() const;
 
   /** @endcond */
 
@@ -616,8 +616,6 @@ if (doc->getLevel() == 2)
 #ifndef SWIG
   virtual packageErrorTableEntry getErrorTable(unsigned int index) const;
 
-  virtual packageErrorTableEntryV2 getErrorTableV2(unsigned int index) const;
-
 #endif
   /**
    * @ifnot clike @internal @endif@~
@@ -627,23 +625,23 @@ if (doc->getLevel() == 2)
   /**
    * @ifnot clike @internal @endif@~
    */
-  unsigned int getSeverity(unsigned int index, unsigned int pkgVersion) const;
+  virtual unsigned int getSeverity(unsigned int index, unsigned int pkgVersion) const;
 
   /**
    * @ifnot clike @internal @endif@~
    */
-  unsigned int getCategory(unsigned int index) const;
+  virtual unsigned int getCategory(unsigned int index, unsigned int pkgVersion) const;
 
   /**
    * @ifnot clike @internal @endif@~
    */
-  std::string getMessage(unsigned int index, unsigned int pkgVersion,
+  virtual std::string getMessage(unsigned int index, unsigned int pkgVersion,
                          const std::string& details) const;
 
   /**
    * @ifnot clike @internal @endif@~
    */
-  std::string getShortMessage(unsigned int index) const;
+  virtual std::string getShortMessage(unsigned int index, unsigned int pkgVersion) const;
 
   /** @endcond */
 
