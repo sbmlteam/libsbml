@@ -1,0 +1,32 @@
+name: Nightly build (binaries)
+
+on: [push]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    name:
+      ${{ matrix.platform }}, Parser option ${{ matrix.xml_parser_option }},
+      with namespaces ${{ matrix.with_namespace}}, strict includes ${{
+      matrix.strict }}, with examples ${{ matrix.with_examples}}, package option
+      ${{ matrix.package_option}}
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu-latest]
+        xml_parser_option: ["-DWITH_LIBXML"]
+        with_namespace: ["True"]
+        strict: ["True"]
+        with_examples: ["True"]
+        package_option: ["-DWITH_STABLE_PACKAGES=ON"]
+        language_bindings:
+          ["-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True"]
+    runs-on: ${{ matrix.platform }}
+    container: quay.io/pypa/manylinux1_x86_64
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: What OS is running
+        run: uname -a
