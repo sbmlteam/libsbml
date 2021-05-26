@@ -76,3 +76,9 @@ jobs:
           -DWITH_STATIC_RUNTIME=ON \
           -DPYTHON_USE_DYNAMIC_LOOKUP=ON
           cmake --build . --config $BUILD_TYPE
+
+      - name: Test
+        run: |
+          cd build
+          alias ctest=/usr/local/cmake-3.12.4/bin/ctest
+          ctest -V -C $BUILD_TYPE
