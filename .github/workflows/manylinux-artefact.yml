@@ -22,21 +22,49 @@ jobs:
         with_examples: ["True"]
         package_option: ["-DWITH_STABLE_PACKAGES=ON"]
         cpp_standard: [98]
-        language_bindings:
-          ["-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True"]
+        language_bindings: ["-DWITH_JAVA=True"]
     runs-on: ${{ matrix.platform }}
     container: quay.io/pypa/manylinux1_x86_64
 
     steps:
+      - name: install Swig 4 from source
+        run: |
+          yum install -y pcre-devel
+          curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.0.2/swig-4.0.2.tar.gz/download > swig.tar.gz
+          tar -zxvf swig.tar.gz
+          cd swig-4.0.2/
+          ./configure --prefix=/usr/local/swig
+          make
+          make install
+          alias swig=/usr/local/swig/bin/swig
+          swig -version
+
+      - name: install CMake v3.12 from source
+        run: |
+          curl -L https://cmake.org/files/v3.12/cmake-3.12.4.tar.gz > cmake-3.12.4.tar.gz
+          tar -zxvf cmake-3.12.4.tar.gz
+          cd cmake-3.12.4
+          ./configure --prefix=/usr/local/cmake-3.12.4
+          make
+          make install
+          alias cmake=/usr/local/cmake-3.12.4/bin/cmake
+          cmake --version
+
       - name: What OS is running
         run: |
           uname -a
           git --version
           git clone https://github.com/alessandrofelder/libsbml.git
+          yum install -y libxml2-devel check java-devel
+          alias swig=/usr/local/swig/bin/swig
+          swig -version
+          alias cmake=/usr/local/cmake-3.12.4/bin/cmake
           cmake --version
           mkdir build
           cd build
-          cmake ../libsbml
+          cmake ../libsbml \
+          -DSWIG_DIR=/usr/local/swig/ \
+          -DSWIG_EXECUTABLE=/usr/local/swig/bin/swig/ \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_CHECK=True \
@@ -47,4 +75,4 @@ jobs:
           ${{matrix.language_bindings}} \
           -DWITH_STATIC_RUNTIME=ON \
           -DPYTHON_USE_DYNAMIC_LOOKUP=ON
-
+          cmake --build . --config $BUILD_TYPE
