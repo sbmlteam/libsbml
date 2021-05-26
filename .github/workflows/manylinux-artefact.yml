@@ -21,6 +21,7 @@ jobs:
         strict: ["True"]
         with_examples: ["True"]
         package_option: ["-DWITH_STABLE_PACKAGES=ON"]
+        cpp_standard: [98]
         language_bindings:
           ["-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True"]
     runs-on: ${{ matrix.platform }}
@@ -32,3 +33,18 @@ jobs:
           uname -a
           git --version
           git clone https://github.com/alessandrofelder/libsbml.git
+          cmake --version
+          mkdir build
+          cd build
+          cmake ../libsbml
+          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
+          -DWITH_CHECK=True \
+          -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
+          -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
+          -DWITH_EXAMPLES=${{matrix.with_examples}} \
+          ${{matrix.package_option}} \
+          ${{matrix.language_bindings}} \
+          -DWITH_STATIC_RUNTIME=ON \
+          -DPYTHON_USE_DYNAMIC_LOOKUP=ON
+
