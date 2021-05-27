@@ -82,3 +82,38 @@ jobs:
           cd build
           alias ctest=/usr/local/cmake-3.12.4/bin/ctest
           ctest -V -C $BUILD_TYPE
+
+      ### create binaries ###
+      - name: Install
+        shell: bash
+        run: |
+          cd build
+          alias cmake=/usr/local/cmake-3.12.4/bin/cmake
+          cmake --install . --config $BUILD_TYPE
+
+      ### setup artifact environment ###
+      - name: Store libSBML version in environment
+        shell: bash
+        run: echo  "LIBSBML_VERSION=$( cat VERSION.txt)"  >> "${GITHUB_ENV}"
+
+      - name: Set artifact name suffix to stable packages
+        if: matrix.package_option=='-DWITH_STABLE_PACKAGES=ON'
+        shell: bash
+        run: |
+          echo "ARTIFACT_NAME_SUFFIX=stable-packages" >> "${GITHUB_ENV}"
+
+      - name: Set artifact name suffix to all packages
+        if: matrix.package_option=='-DWITH_ALL_PACKAGES=ON'
+        shell: bash
+        run: |
+          echo "ARTIFACT_NAME_SUFFIX=all-packages" >> "${GITHUB_ENV}"
+
+      - name: Upload Centos5 binary archive
+        uses: actions/upload-artifact@v2
+        with:
+          name:
+            Centos5 nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
+            ${{env.ARTIFACT_NAME_SUFFIX}})
+          path: install/*
+          retention-days: 1
+          if-no-files-found: error
