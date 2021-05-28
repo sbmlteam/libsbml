@@ -85,7 +85,6 @@ jobs:
 
       ### create binaries ###
       - name: Install
-        shell: bash
         run: |
           cd build
           alias cmake=/usr/local/cmake-3.12.4/bin/cmake
@@ -93,18 +92,15 @@ jobs:
 
       ### setup artifact environment ###
       - name: Store libSBML version in environment
-        shell: bash
         run: echo  "LIBSBML_VERSION=$( cat VERSION.txt)"  >> "${GITHUB_ENV}"
 
       - name: Set artifact name suffix to stable packages
         if: matrix.package_option=='-DWITH_STABLE_PACKAGES=ON'
-        shell: bash
         run: |
           echo "ARTIFACT_NAME_SUFFIX=stable-packages" >> "${GITHUB_ENV}"
 
       - name: Set artifact name suffix to all packages
         if: matrix.package_option=='-DWITH_ALL_PACKAGES=ON'
-        shell: bash
         run: |
           echo "ARTIFACT_NAME_SUFFIX=all-packages" >> "${GITHUB_ENV}"
 
