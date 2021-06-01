@@ -86,7 +86,9 @@ jobs:
 
       ### setup artifact environment ###
       - name: Store libSBML version in environment
-        run: echo  "LIBSBML_VERSION=$( cat VERSION.txt)"  >> "${GITHUB_ENV}"
+        run: |
+          cd libsbml
+          echo  "LIBSBML_VERSION=$( cat VERSION.txt)"  >> "${GITHUB_ENV}"
 
       - name: Set artifact name suffix to stable packages
         if: matrix.package_option=='-DWITH_STABLE_PACKAGES=ON'
