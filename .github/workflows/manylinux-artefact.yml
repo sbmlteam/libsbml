@@ -39,16 +39,13 @@ jobs:
           alias swig=/usr/local/swig/bin/swig
           swig -version
 
-      - name: install CMake v3.12 from source
+      - name: install CMake using pip
         run: |
-          curl -L https://cmake.org/files/v3.12/cmake-3.12.4.tar.gz > cmake-3.12.4.tar.gz
-          tar -zxvf cmake-3.12.4.tar.gz
-          cd cmake-3.12.4
-          ./configure --prefix=/usr/local/cmake-3.12.4
-          make
-          make install
-          alias cmake=/usr/local/cmake-3.12.4/bin/cmake
+          /opt/python/cp38-cp38/bin/pip install cmake
+          ln -s /opt/python/cp38-cp38/bin/cmake /usr/bin/cmake
           cmake --version
+          ln -s /opt/python/cp38-cp38/bin/ctest /usr/bin/ctest
+          ctest --version
 
       - name: What OS is running
         run: |
@@ -58,7 +55,6 @@ jobs:
           yum install -y libxml2-devel check java-devel
           alias swig=/usr/local/swig/bin/swig
           swig -version
-          alias cmake=/usr/local/cmake-3.12.4/bin/cmake
           cmake --version
           mkdir build
           cd build
@@ -80,14 +76,12 @@ jobs:
       - name: Test
         run: |
           cd build
-          alias ctest=/usr/local/cmake-3.12.4/bin/ctest
           ctest -V -C $BUILD_TYPE
 
       ### create binaries ###
       - name: Install
         run: |
           cd build
-          alias cmake=/usr/local/cmake-3.12.4/bin/cmake
           cmake --install . --config $BUILD_TYPE
 
       ### setup artifact environment ###
