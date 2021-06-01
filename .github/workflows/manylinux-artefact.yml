@@ -30,13 +30,14 @@ jobs:
       - name: install Swig 4 from source
         run: |
           yum install -y pcre-devel
+          echo "SWIG_DIR=/usr/local/swig/" >> "${GITHUB_ENV}"
           curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.0.2/swig-4.0.2.tar.gz/download > swig.tar.gz
           tar -zxvf swig.tar.gz
           cd swig-4.0.2/
-          ./configure --prefix=/usr/local/swig
-          make
+          ./configure --disable-dependency-tracking --prefix=$SWIG_DIR
+          make clean
+          make -j 2
           make install
-          alias swig=/usr/local/swig/bin/swig
           swig -version
 
       - name: install CMake using pip
@@ -53,14 +54,11 @@ jobs:
           git --version
           git clone https://github.com/alessandrofelder/libsbml.git
           yum install -y libxml2-devel check java-devel
-          alias swig=/usr/local/swig/bin/swig
           swig -version
           cmake --version
           mkdir build
           cd build
           cmake ../libsbml \
-          -DSWIG_DIR=/usr/local/swig/ \
-          -DSWIG_EXECUTABLE=/usr/local/swig/bin/swig/ \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_CHECK=True \
