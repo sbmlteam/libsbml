@@ -24,7 +24,7 @@ jobs:
         cpp_standard: [98]
         language_bindings: ["-DWITH_JAVA=True"]
     runs-on: ${{ matrix.platform }}
-    container: quay.io/pypa/manylinux2014_x86_64
+    container: quay.io/pypa/manylinux2010_x86_64
 
     steps:
       - name: install Swig 4 from source
@@ -58,7 +58,9 @@ jobs:
           cmake --version
           mkdir build
           cd build
+          mkdir ../install
           cmake ../libsbml \
+          -DCMAKE_INSTALL_PREFIX=../install \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_CHECK=True \
@@ -98,12 +100,12 @@ jobs:
         run: |
           echo "ARTIFACT_NAME_SUFFIX=all-packages" >> "${GITHUB_ENV}"
 
-      - name: Upload Centos5 binary archive
-        uses: actions/upload-artifact@v2
+      - name: Upload Manylinux2010 binary archive
+        uses: actions/upload-artifact@v1 # note v1 used here, because v2 incompatible
         with:
           name:
-            Centos5 nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
+            Manylinux2010 nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
             ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: install/*
+          path: ./install # paths handled differently by v1 - note that "./install/*" does not work
           retention-days: 1
           if-no-files-found: error
