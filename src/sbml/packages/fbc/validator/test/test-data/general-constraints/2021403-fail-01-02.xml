@@ -63,7 +63,7 @@
     </listOfReactions>
     
     
-    <fbc:listOfObjectives fbc:activeObjective="c"  metaid="_ggg" sboTerm="SBO:0000001" fbc:id="s">
+    <fbc:listOfObjectives fbc:activeObjective="c"  metaid="_ggg" sboTerm="SBO:0000001">
       <fbc:objective fbc:id="c" fbc:type="maximize">
         <fbc:listOfFluxObjectives>
           <fbc:fluxObjective fbc:variableType="linear" fbc:reaction="R1" fbc:coefficient="1"/>
@@ -72,7 +72,7 @@
       </fbc:objective>
     </fbc:listOfObjectives>
     <fbc:listOfUserDefinedConstraints metaid="_udc1" sboTerm="SBO:0000001">
-      <fbc:userDefinedConstraint fbc:id="uc2" fbc:lowerBound="uc2lb" fbc:upperBound="uc2ub">
+      <fbc:userDefinedConstraint fbc:id="uc2" fbc:lowerBound="uc2lb">
         
         <fbc:listOfUserDefinedConstraintComponents>
 

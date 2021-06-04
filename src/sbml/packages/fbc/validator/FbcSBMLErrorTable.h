@@ -1573,7 +1573,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021501
+  // 2021301
   { FbcUserDefinedConstraintComponentAllowedCoreAttributes,
   "Core attributes allowed on <userDefinedConstraintComponent>.",
   LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1590,7 +1590,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021502
+  // 2021302
   { FbcUserDefinedConstraintComponentAllowedCoreElements,
   "Core elements allowed on <userDefinedConstraintComponent>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1607,7 +1607,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021503
+  // 2021303
   { FbcUserDefinedConstraintComponentAllowedAttributes,
   "Attributes allowed on <userDefinedConstraintComponent>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1625,7 +1625,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021504
+  // 2021304
   { FbcUserDefinedConstraintComponentCoefficientMustBeDouble,
   "The 'coefficient' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1640,7 +1640,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021505
+  // 2021305
   { FbcUserDefinedConstraintComponentVariableMustBeReactionOrParameter,
   "The attribute 'variable' must point to ReactionOrParameter object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1657,7 +1657,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021506
+  // 2021306
   { FbcUserDefinedConstraintComponentVariableTypeMustBeFbcVariableTypeEnum,
   "The 'variableType' attribute must be FbcVariableTypeEnum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1675,7 +1675,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021507
+  // 2021307
   { FbcUserDefinedConstraintComponentNameMustBeString,
   "The 'name' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1690,7 +1690,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021601
+  // 2021401
   { FbcUserDefinedConstraintAllowedCoreAttributes,
   "Core attributes allowed on <userDefinedConstraint>.",
       LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1706,7 +1706,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021602
+  // 2021402
   { FbcUserDefinedConstraintAllowedCoreElements,
   "Core elements allowed on <userDefinedConstraint>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1722,7 +1722,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021603
+  // 2021403
   { FbcUserDefinedConstraintAllowedAttributes,
   "Attributes allowed on <userDefinedConstraint>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1740,7 +1740,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021604
+  // 2021404
   { FbcUserDefinedConstraintAllowedElements,
   "Elements allowed on <userDefinedConstraint>.",
   LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1757,7 +1757,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021605
+  // 2021405
   { FbcUserDefinedConstraintLowerBoundMustBeParameter,
   "The attribute 'lowerBound' must point to Parameter object.",
   LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1773,7 +1773,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021606
+  // 2021406
   { FbcUserDefinedConstraintUpperBoundMustBeParameter,
   "The attribute 'upperBound' must point to Parameter object.",
   LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1789,7 +1789,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021607
+  // 2021407
   { FbcUserDefinedConstraintNameMustBeString,
   "The 'name' attribute must be String.",
   LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1804,7 +1804,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021608
+  // 2021408
   { FbcUserDefinedConstraintLOUserDefinedConstraintComponentsAllowedCoreElements,
   "Core elements allowed on <listOfUserDefinedConstraintComponents>.",
   LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1820,7 +1820,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021609
+  // 2021409
   { FbcUserDefinedConstraintLOUserDefinedConstraintComponentsAllowedCoreAttributes,
   "Core attributes allowed on <listOfUserDefinedConstraintComponents>.",
   LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1837,7 +1837,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021701
+  // 2021501
   { FbcKeyValuePairAllowedCoreAttributes,
   "Core attributes allowed on <keyValuePair>.",
   LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1853,7 +1853,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021702
+  // 2021502
   { FbcKeyValuePairAllowedCoreElements,
   "Core elements allowed on <keyValuePair>.",
   LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1869,7 +1869,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021703
+  // 2021503
   { FbcKeyValuePairAllowedAttributes,
   "Attributes allowed on <keyValuePair>.",
   LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1886,7 +1886,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021704
+  // 2021504
   { FbcKeyValuePairKeyMustBeString,
   "The 'key' attribute must be String.",
   LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1901,7 +1901,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021705
+  // 2021505
   { FbcKeyValuePairNameMustBeString,
   "The 'name' attribute must be String.",
   LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1916,7 +1916,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021706
+  // 2021506
   { FbcKeyValuePairValueMustBeString,
   "The 'value' attribute must be String.",
   LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1931,7 +1931,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021707
+  // 2021507
   { FbcKeyValuePairKvp_uriMustBeString,
   "The 'uri' attribute must be String.",
   LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1946,7 +1946,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
-  // 2021708
+  // 2021508
   { FbcSBaseLOKeyValuePairsAllowedAttributes,
   "",
   LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1964,7 +1964,7 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   },
 
 
-  // 2021709
+  // 2021509
   { FbcSBaseLOKeyValuePairsAllowedCoreAttributes,
   "",
   LIBSBML_CAT_GENERAL_CONSISTENCY,

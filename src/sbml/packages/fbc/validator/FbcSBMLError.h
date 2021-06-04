@@ -161,31 +161,34 @@ typedef enum
 , FbcGeneProductLabelMustBeUnique       = 2021205 /*!< 'fbc:label' must be unique */
 , FbcGeneProductNameMustBeString        = 2021206 /*!< 'fbc:name' must be string */
 , FbcGeneProductAssocSpeciesMustExist   = 2021207 /*!< 'fbc:associatedSpecies' must point to existing <code>&lt;species&gt;</code> */
-, FbcUserDefinedConstraintComponentAllowedCoreAttributes      = 2021501
-, FbcUserDefinedConstraintComponentAllowedCoreElements        = 2021502
-, FbcUserDefinedConstraintComponentAllowedAttributes          = 2021503
-, FbcUserDefinedConstraintComponentCoefficientMustBeDouble    = 2021504
-, FbcUserDefinedConstraintComponentVariableMustBeReactionOrParameter= 2021505
-, FbcUserDefinedConstraintComponentVariableTypeMustBeFbcVariableTypeEnum= 2021506
-, FbcUserDefinedConstraintComponentNameMustBeString           = 2021507
-, FbcUserDefinedConstraintAllowedCoreAttributes               = 2021601
-, FbcUserDefinedConstraintAllowedCoreElements                 = 2021602
-, FbcUserDefinedConstraintAllowedAttributes                   = 2021603
-, FbcUserDefinedConstraintAllowedElements                     = 2021604
-, FbcUserDefinedConstraintLowerBoundMustBeParameter           = 2021605
-, FbcUserDefinedConstraintUpperBoundMustBeParameter           = 2021606
-, FbcUserDefinedConstraintNameMustBeString                    = 2021607
-, FbcUserDefinedConstraintLOUserDefinedConstraintComponentsAllowedCoreElements= 2021608
-, FbcUserDefinedConstraintLOUserDefinedConstraintComponentsAllowedCoreAttributes= 2021609
-, FbcKeyValuePairAllowedCoreAttributes                        = 2021701
-, FbcKeyValuePairAllowedCoreElements                          = 2021702
-, FbcKeyValuePairAllowedAttributes                            = 2021703
-, FbcKeyValuePairKeyMustBeString                              = 2021704
-, FbcKeyValuePairNameMustBeString                             = 2021705
-, FbcKeyValuePairValueMustBeString                            = 2021706
-, FbcKeyValuePairKvp_uriMustBeString                          = 2021707
-, FbcSBaseLOKeyValuePairsAllowedAttributes                    = 2021708
-, FbcSBaseLOKeyValuePairsAllowedCoreAttributes                = 2021709
+
+, FbcUserDefinedConstraintComponentAllowedCoreAttributes      = 2021301
+, FbcUserDefinedConstraintComponentAllowedCoreElements        = 2021302
+, FbcUserDefinedConstraintComponentAllowedAttributes          = 2021303
+, FbcUserDefinedConstraintComponentCoefficientMustBeDouble    = 2021304
+, FbcUserDefinedConstraintComponentVariableMustBeReactionOrParameter= 2021305
+, FbcUserDefinedConstraintComponentVariableTypeMustBeFbcVariableTypeEnum= 2021306
+, FbcUserDefinedConstraintComponentNameMustBeString           = 2021307
+
+, FbcUserDefinedConstraintAllowedCoreAttributes               = 2021401
+, FbcUserDefinedConstraintAllowedCoreElements                 = 2021402
+, FbcUserDefinedConstraintAllowedAttributes                   = 2021403
+, FbcUserDefinedConstraintAllowedElements                     = 2021404
+, FbcUserDefinedConstraintLowerBoundMustBeParameter           = 2021405
+, FbcUserDefinedConstraintUpperBoundMustBeParameter           = 2021406
+, FbcUserDefinedConstraintNameMustBeString                    = 2021407
+, FbcUserDefinedConstraintLOUserDefinedConstraintComponentsAllowedCoreElements= 2021408
+, FbcUserDefinedConstraintLOUserDefinedConstraintComponentsAllowedCoreAttributes= 2021409
+
+, FbcKeyValuePairAllowedCoreAttributes                        = 2021501
+, FbcKeyValuePairAllowedCoreElements                          = 2021502
+, FbcKeyValuePairAllowedAttributes                            = 2021503
+, FbcKeyValuePairKeyMustBeString                              = 2021504
+, FbcKeyValuePairNameMustBeString                             = 2021505
+, FbcKeyValuePairValueMustBeString                            = 2021506
+, FbcKeyValuePairKvp_uriMustBeString                          = 2021507
+, FbcSBaseLOKeyValuePairsAllowedAttributes                    = 2021508
+, FbcSBaseLOKeyValuePairsAllowedCoreAttributes                = 2021509
 } FbcSBMLErrorCode_t;
 
 
