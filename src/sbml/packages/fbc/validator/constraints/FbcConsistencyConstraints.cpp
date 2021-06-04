@@ -196,7 +196,7 @@ END_CONSTRAINT
 // 20608
 START_CONSTRAINT(FbcFluxObjectCoefficientWhenStrict, FluxObjective, fo)
 {
-  pre(fo.getPackageVersion() == 2);
+  pre(fo.getPackageVersion() > 1);
   pre(fo.isSetCoefficient());
   
   // is model strict
@@ -228,7 +228,7 @@ START_CONSTRAINT (FbcReactionLwrBoundRefExists, Reaction, r)
   const FbcReactionPlugin* plug = 
     static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
   pre(plug != NULL);
-  pre(plug->getPackageVersion() == 2);
+  pre(plug->getPackageVersion() > 1);
   pre(plug->isSetLowerFluxBound());
   
   bool fail = false;
@@ -256,7 +256,7 @@ START_CONSTRAINT (FbcReactionUpBoundRefExists, Reaction, r)
   const FbcReactionPlugin* plug = 
     static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
   pre(plug != NULL);
-  pre(plug->getPackageVersion() == 2);
+  pre(plug->getPackageVersion() > 1);
   pre(plug->isSetUpperFluxBound());
   
   bool fail = false;
@@ -291,7 +291,7 @@ START_CONSTRAINT (FbcReactionMustHaveBoundsStrict, Reaction, r)
   const FbcReactionPlugin* plug = 
     static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
   pre(plug != NULL);
-  pre(plug->getPackageVersion() == 2);
+  pre(plug->getPackageVersion() > 1 );
   
   bool fail = false;
 
@@ -331,7 +331,7 @@ START_CONSTRAINT (FbcReactionConstantBoundsStrict, Reaction, r)
   const FbcReactionPlugin* plug = 
     static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
   pre(plug != NULL);
-  pre(plug->getPackageVersion() == 2);
+  pre(plug->getPackageVersion() > 1);
   pre(plug->isSetLowerFluxBound());
   pre(plug->isSetUpperFluxBound());
   
@@ -384,7 +384,7 @@ START_CONSTRAINT (FbcReactionBoundsMustHaveValuesStrict, Reaction, r)
   const FbcReactionPlugin* plug = 
     static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
   pre(plug != NULL);
-  pre(plug->getPackageVersion() == 2);
+  pre(plug->getPackageVersion() > 1);
   pre(plug->isSetLowerFluxBound());
   pre(plug->isSetUpperFluxBound());
   
@@ -438,7 +438,7 @@ START_CONSTRAINT (FbcReactionBoundsNotAssignedStrict, Reaction, r)
   const FbcReactionPlugin* plug = 
     static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
   pre(plug != NULL);
-  pre(plug->getPackageVersion() == 2);
+  pre(plug->getPackageVersion() > 1);
   pre(plug->isSetLowerFluxBound());
   pre(plug->isSetUpperFluxBound());
   
@@ -492,7 +492,7 @@ START_CONSTRAINT (FbcReactionLwrBoundNotInfStrict, Reaction, r)
   const FbcReactionPlugin* plug = 
     static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
   pre(plug != NULL);
-  pre(plug->getPackageVersion() == 2);
+  pre(plug->getPackageVersion() >1);
   pre(plug->isSetLowerFluxBound());
   pre(plug->isSetUpperFluxBound());
   
@@ -563,7 +563,7 @@ START_CONSTRAINT (FbcReactionLwrLessThanUpStrict, Reaction, r)
   const FbcReactionPlugin* plug = 
     static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
   pre(plug != NULL);
-  pre(plug->getPackageVersion() == 2);
+  pre(plug->getPackageVersion() > 1);
   pre(plug->isSetLowerFluxBound());
   pre(plug->isSetUpperFluxBound());
   

@@ -495,7 +495,7 @@ FbcExtension::getSeverity(unsigned int index, unsigned int pkgVersion) const
       return pkgErr.l3v1v2_severity;
     case 3:
     default:
-      return pkgErr.l3v1v2_severity;
+      return pkgErr.l3v1v3_severity;
     }
   }
   else
@@ -542,7 +542,7 @@ FbcExtension::getMessage(unsigned int index,
       ref = pkgErr.reference.ref_l3v1v2;
     case 3:
     default:
-      ref = pkgErr.reference.ref_l3v1v2;
+      ref = pkgErr.reference.ref_l3v1v3;
     }
 
     if (!ref.empty())

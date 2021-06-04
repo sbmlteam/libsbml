@@ -78,10 +78,13 @@ typedef enum
 , FbcModelStrictMustBeBoolean          = 2020210 /*!< 'Strict' attribute must be boolean */
 , FbcLOGeneProductsAllowedElements     = 2020211 /*!< Allowed elements on ListOfGeneProducts */
 , FbcLOGeneProductsAllowedAttributes   = 2020212 /*!< Allowed attributes on ListOfGeneProducts */
+, FbcLOUserConstraintsAllowedElements    = 2020213
+, FbcLOUserConstraintsAllowedAttributes = 2020214
 
 , FbcSpeciesAllowedL3Attributes        = 2020301 /*!< Species allowed attributes */
 , FbcSpeciesChargeMustBeInteger        = 2020302 /*!< Charge must be integer */
 , FbcSpeciesFormulaMustBeString        = 2020303 /*!< Chemical formula must be string */
+, FbcSpeciesChargeMustBeDouble         = 2020304 /*!< Charge must be double */
 
 , FbcFluxBoundAllowedL3Attributes      = 2020401 /*!< <code>&lt;fluxBound&gt;</code> may only have 'metaId' and 'sboTerm' from L3 namespace */
 , FbcFluxBoundAllowedElements          = 2020402 /*!< <code>&lt;fluxBound&gt;</code> may only have <code>&lt;notes&gt;</code> and <code>&lt;annotations&gt;</code> from L3 Core */
@@ -112,6 +115,7 @@ typedef enum
 , FbcFluxObjectCoefficientMustBeDouble = 2020607 /*!< The attribute 'fbc:coefficient' must be of the data type double */
 , FbcFluxObjectCoefficientWhenStrict   = 2020608 /*!< The 'fbc:coefficient' must be declared when strict */
 , FbcFluxObjectiveVariableTypeMustBeFbcVariableTypeEnum       = 2020609
+
 , FbcReactionOnlyOneGeneProdAss         = 2020701 /*!< One GeneProductAssociation in a Reaction */
 , FbcReactionAllowedAttributes          = 2020702 /*!< Fbc attributes on a Reaction */
 , FbcReactionLwrBoundSIdRef             = 2020703 /*!< LowerBound must be SIdRef */
