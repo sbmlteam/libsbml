@@ -24,7 +24,7 @@ jobs:
         cpp_standard: [98]
         language_bindings: ["-DWITH_JAVA=True"]
     runs-on: ${{ matrix.platform }}
-    container: quay.io/pypa/manylinux1_x86_64
+    container: quay.io/pypa/manylinux2014_x86_64
 
     steps:
       - name: install Swig 4 from source
@@ -53,7 +53,7 @@ jobs:
           uname -a
           git --version
           git clone https://github.com/alessandrofelder/libsbml.git
-          yum install -y libxml2-devel check java-devel
+          yum install -y libxml2-devel check-devel java-devel
           swig -version
           cmake --version
           mkdir build
