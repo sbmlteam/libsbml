@@ -1,0 +1,57 @@
+
+# CI/CD for libSBML documentation
+
+Continuous integration/continuous deployment (CI/CD) for libSMBL is implemented in [GitHub actions]. This file provides a description of the
+
+The jobs run differ depending on the event (push, PR, nightly build) and are summarised below. The YAML files triggering each CI/CD run can be found under [`./github/workflows/`](github/workflows/).
+
+## Nightly builds ([store-artefact.yml](github/workflows/store-artefact.yml))
+
+### Configurations
+Nightly builds are provided for the latest Ubuntu/MacOS and Windows environments, as well as a `pep 513`-compliant build (`manylinux2010`) for backwards compatibility with older CentOS-based linux systems (CentOS 6 and more recent). All nightly builds are available via the [Actions tab of the libSBML Github repository site](libsbml/actions/workflows/store-artefact.yml). The varying parameters are summarised below, resulting in 8 artefacts being rebuilt and uploaded every 24 hours.
+
+| parameters | value(s) taken |
+|-----|------------|
+| OS | `windows-latest`, `macos-latest`, `ubuntu-latest`, `manylinux2010`* |
+| packages | all, stable |
+
+<sub>\* `manylinux2010` runs as a separate job, not as part of the strategy matrix. This is because it runs inside a container, and not a virtual environment provided by GitHub actions. </sub>
+
+The parameters kept constant in the nightly builds are:
+
+| constant parameters | value |
+|-------------|------------|
+| bindings    | Java, C#, Python|
+| XML parser  | libxml2 |
+| namespaces  | true |
+| with examples    | true |
+| strict includes  | true |
+
+Note that the nightly builds are run only on the default branch, and only on the SBML team repo (and not on its forks).
+
+
+## On push (brief.yml)
+
+The 6 most important configurations are tested at every push. These are:
+
+OS
+C++ standard
+Packages
+Bindings
+XML parser
+
+The workflow file describing these configurations can be found [here]().
+
+## On PR (extensive.yml)
+
+Testing is more extensive when a full (non-draft) PR is opened. This includes 24 different configurations, 8 per operating system.
+
+beyond the 6, two additional runs are made to check the compatibility of the PR with the two non-default XML parsers.
+
+The workflow file describing these configurations can be found [here]().
+
+What is the reasoning behind the more extensive testing.
+
+## Understanding the structure of the YAML files
+
+Ninja + other third-party actions used.
