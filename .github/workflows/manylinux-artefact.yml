@@ -22,7 +22,7 @@ jobs:
         with_examples: ["True"]
         package_option: ["-DWITH_STABLE_PACKAGES=ON"]
         cpp_standard: [98]
-        language_bindings: ["-DWITH_JAVA=True"]
+        language_bindings: ["-DWITH_JAVA=True -DWITH_PYTHON=True -DWITH_CSHARP=True"]
     runs-on: ${{ matrix.platform }}
     container: quay.io/pypa/manylinux2010_x86_64
 
@@ -53,7 +53,7 @@ jobs:
           uname -a
           git --version
           git clone https://github.com/alessandrofelder/libsbml.git
-          yum install -y libxml2-devel check-devel java-devel
+          yum install -y libxml2-devel check-devel java-devel mono-devel
           swig -version
           cmake --version
           mkdir build
@@ -69,6 +69,8 @@ jobs:
           -DWITH_EXAMPLES=${{matrix.with_examples}} \
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
+          -DPYTHON_EXECUTABLE=/opt/python/cp38-cp38/bin/python \
+          -DPYTHON_INCLUDE_DIR=/opt/python/cp38-cp38/include/python3.8/ \
           -DWITH_STATIC_RUNTIME=ON \
           -DPYTHON_USE_DYNAMIC_LOOKUP=ON
           cmake --build . --config $BUILD_TYPE
