@@ -228,7 +228,7 @@ jobs:
         with_namespace: ["True"]
         strict: ["True"]
         with_examples: ["True"]
-        package_option: ["-DWITH_STABLE_PACKAGES=ON"]
+        package_option: ["-DWITH_ALL_PACKAGES=ON", "-DWITH_STABLE_PACKAGES=ON"]
         cpp_standard: [98]
         language_bindings:
           ["-DWITH_JAVA=True -DWITH_PYTHON=True -DWITH_CSHARP=True"]
@@ -314,6 +314,6 @@ jobs:
           name:
             Manylinux2010 nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
             ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ./install # paths handled differently by v1 - note that "./install/*" does not work
+          path: ../install # paths handled differently by v1 - note that "./install/*" does not work
           retention-days: 1
           if-no-files-found: error
