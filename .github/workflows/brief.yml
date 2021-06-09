@@ -22,7 +22,10 @@ jobs:
         with_examples: ["True"]
         package_option: ["-DWITH_ALL_PACKAGES=ON"]
         language_bindings:
-          ["-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True"]
+          [
+            "-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True
+            -DWITH_R=True",
+          ]
         cpp_standard: [98, 20]
     runs-on: ${{ matrix.platform }}
 
@@ -73,6 +76,9 @@ jobs:
         shell: bash
         run: |
           echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
+          ./dev/utilities/expdef/expdef64.exe -dRlib.def -l R.dll
+          echo R_PLATFORM_SPECIFIC_OPTIONS="-DR_LIB=${GITHUB_WORKSPACE}\Rlib.lib" >> "${GITHUB_ENV}"
+          echo R_INCLUDE_PATH="/c/Program Files/R/R-4.1.0/include" >> "${GITHUB_ENV}"
 
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG and libxml2 by default
@@ -87,8 +93,15 @@ jobs:
         if: matrix.platform == 'macos-latest'
         shell: bash
         run: |
-          brew install check swig ccache
+          brew install check swig ccache gcc
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
+
+      - name: Unix R options
+        if: matrix.platform != 'windows-latest'
+        shell: bash
+        run:
+          echo R_PLATFORM_SPECIFIC_OPTIONS="-DWITH_CREATE_R_SOURCE=ON
+          -DWITH_SKIP_R_BINARY=ON" >> "${GITHUB_ENV}"
 
       ### setup ccache, not on Windows ###
       - name: Prepare ccache timestamp
@@ -136,6 +149,8 @@ jobs:
           -DWITH_EXAMPLES=${{matrix.with_examples}} \
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
+          ${R_PLATFORM_SPECIFIC_OPTIONS} \
+          -DR_INCLUDE_DIRS="$R_INCLUDE_PATH" \
           ${RUNTIME_LINKING_OPTION} \
           ${PYTHON_LINKING_OPTION}
 
@@ -143,6 +158,14 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         shell: bash
         run: cmake --build . --config $BUILD_TYPE
+
+      - name: Build Unix R binaries from source package
+        if: matrix.platform != 'windows-latest'
+        shell: bash
+        working-directory: ${{runner.workspace}}/build
+        run: |
+          mkdir r-binaries
+          R CMD INSTALL -l r-binaries --build ./src/bindings/r/out/libSBML_5.19.1.tar.gz
 
       ### run tests ###
       - name: Test
@@ -166,7 +189,7 @@ jobs:
         package_option: ["-DWITH_STABLE_PACKAGES=ON"]
         cpp_standard: [98, 20]
         language_bindings:
-          ["-DWITH_JAVA=True -DWITH_PYTHON=True -DWITH_CSHARP=True"]
+          ["-DWITH_JAVA=True -DWITH_PYTHON=True -DWITH_CSHARP=True -DWITH_R=True"]
         container: ["quay.io/pypa/manylinux2010_x86_64"]
     runs-on: ${{ matrix.platform }}
     container: ${{ matrix.container}}
@@ -185,7 +208,6 @@ jobs:
           make -j 2
           make install
           swig -version
-
       - name: install CMake using pip
         run: |
           /opt/python/cp38-cp38/bin/pip install cmake
@@ -193,16 +215,13 @@ jobs:
           ln -s /opt/python/cp38-cp38/bin/ctest /usr/bin/ctest
           cmake --version
           ctest --version
-
       - name: Install dependencies, configure, build
         run: |
-          yum install -y libxml2-devel check-devel java-devel mono-devel
+          yum install -y libxml2-devel check-devel java-devel mono-devel R
           cd ..
           mkdir build
           cd build
-          mkdir ../install
           cmake ../libsbml \
-          -DCMAKE_INSTALL_PREFIX=../install \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_CHECK=True \
@@ -211,12 +230,13 @@ jobs:
           -DWITH_EXAMPLES=${{matrix.with_examples}} \
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
+          -DWITH_CREATE_R_SOURCE=ON \
+          -DWITH_SKIP_R_BINARY=ON \
           -DPYTHON_EXECUTABLE=/opt/python/cp38-cp38/bin/python \
           -DPYTHON_INCLUDE_DIR=/opt/python/cp38-cp38/include/python3.8/ \
           -DWITH_STATIC_RUNTIME=ON \
           -DPYTHON_USE_DYNAMIC_LOOKUP=ON
           cmake --build . --config $BUILD_TYPE
-
       - name: Test
         run: |
           cd ../build
