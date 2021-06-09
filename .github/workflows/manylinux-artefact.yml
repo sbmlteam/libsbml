@@ -6,9 +6,9 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  build:
+  manylinuxbuild:
     name:
-      ${{ matrix.platform }}, Parser option ${{ matrix.xml_parser_option }},
+      ${{ matrix.container }}, Parser option ${{ matrix.xml_parser_option }},
       with namespaces ${{ matrix.with_namespace}}, strict includes ${{
       matrix.strict }}, with examples ${{ matrix.with_examples}}, package option
       ${{ matrix.package_option}}
@@ -22,11 +22,14 @@ jobs:
         with_examples: ["True"]
         package_option: ["-DWITH_STABLE_PACKAGES=ON"]
         cpp_standard: [98]
-        language_bindings: ["-DWITH_JAVA=True -DWITH_PYTHON=True -DWITH_CSHARP=True"]
+        language_bindings:
+          ["-DWITH_JAVA=True -DWITH_PYTHON=True -DWITH_CSHARP=True"]
+        container: ["quay.io/pypa/manylinux2010_x86_64"]
     runs-on: ${{ matrix.platform }}
-    container: quay.io/pypa/manylinux2010_x86_64
+    container: ${{ matrix.container}}
 
     steps:
+      - uses: actions/checkout@v1
       - name: install Swig 4 from source
         run: |
           yum install -y pcre-devel
@@ -44,18 +47,14 @@ jobs:
         run: |
           /opt/python/cp38-cp38/bin/pip install cmake
           ln -s /opt/python/cp38-cp38/bin/cmake /usr/bin/cmake
-          cmake --version
           ln -s /opt/python/cp38-cp38/bin/ctest /usr/bin/ctest
+          cmake --version
           ctest --version
 
-      - name: What OS is running
+      - name: Install dependencies, configure, build
         run: |
-          uname -a
-          git --version
-          git clone https://github.com/alessandrofelder/libsbml.git
           yum install -y libxml2-devel check-devel java-devel mono-devel
-          swig -version
-          cmake --version
+          cd ..
           mkdir build
           cd build
           mkdir ../install
@@ -77,19 +76,18 @@ jobs:
 
       - name: Test
         run: |
-          cd build
+          cd ../build
           ctest -V -C $BUILD_TYPE
 
       ### create binaries ###
       - name: Install
         run: |
-          cd build
+          cd ../build
           cmake --install . --config $BUILD_TYPE
 
       ### setup artifact environment ###
       - name: Store libSBML version in environment
         run: |
-          cd libsbml
           echo  "LIBSBML_VERSION=$( cat VERSION.txt)"  >> "${GITHUB_ENV}"
 
       - name: Set artifact name suffix to stable packages
