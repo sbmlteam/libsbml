@@ -823,9 +823,36 @@ START_CONSTRAINT (FbcGeneProductAssocSpeciesMustExist, GeneProduct, gp)
 END_CONSTRAINT
 
 
-// 21301
-// 21302
-//
+// 21301 - caught at read
+// 21302 - caught at read
+// 21303 - caught at read
+// 21304 - caught at read
+
+// 21305
+START_CONSTRAINT(FbcUserDefinedConstraintComponentVariableMustBeReactionOrParameter, UserDefinedConstraintComponent, udcc)
+{
+  pre(udcc.isSetVariable());
+
+  std::string as = udcc.getVariable();
+
+  bool fail = false;
+
+  msg = "The <UserDefinedConstraintComponent> with id '";
+  msg += udcc.getId();
+  msg += "' refers to a variable '";
+  msg += as;
+  msg += "' that does not exist within the <model>.";
+
+  if (m.getReaction(as) == NULL && m.getParameter(as) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 
 /** @endcond */
 

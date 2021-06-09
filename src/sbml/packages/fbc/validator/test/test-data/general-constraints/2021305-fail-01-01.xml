@@ -76,7 +76,7 @@
         
         <fbc:listOfUserDefinedConstraintComponents>
 
-          <fbc:userDefinedConstraintComponent fbc:coefficient="2" fbc:variable="R2" fbc:variableType="linear"/>
+          <fbc:userDefinedConstraintComponent fbc:coefficient="2" fbc:variable="RNot" fbc:variableType="linear"/>
         </fbc:listOfUserDefinedConstraintComponents>
       </fbc:userDefinedConstraint>
     </fbc:listOfUserDefinedConstraints>  

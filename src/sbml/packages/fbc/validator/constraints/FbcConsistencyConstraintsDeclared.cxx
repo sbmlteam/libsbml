@@ -84,5 +84,7 @@ addConstraint(new UniqueGeneProductLabels(FbcGeneProductLabelMustBeUnique, *this
 
 addConstraint(new VConstraintGeneProductFbcGeneProductAssocSpeciesMustExist(*this));
 
+addConstraint(new VConstraintUserDefinedConstraintComponentFbcUserDefinedConstraintComponentVariableMustBeReactionOrParameter(*this));
+
 /** @endcond */
 
