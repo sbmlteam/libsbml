@@ -19,9 +19,6 @@
       <species id="S3" compartment="comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
       <species id="S4" compartment="comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
     </listOfSpecies>
-    <listOfParameters>
-      <parameter id="P1" constant="false"/>
-    </listOfParameters>
     <listOfReactions>
       <reaction id="R1" reversible="false" fast="false">
         <listOfReactants>
@@ -66,6 +63,11 @@
     </listOfReactions>
     
     
+    <listOfParameters>
+        <parameter id="uc2lb" value="0" constant="true"/>
+        <parameter id="uc2ub" value="0" constant="true"/>
+      <parameter id="P1" constant="false"/>
+    </listOfParameters>
     <fbc:listOfObjectives fbc:activeObjective="c"  metaid="_ggg" sboTerm="SBO:0000001">
       <fbc:objective fbc:id="c" fbc:type="maximize">
         <fbc:listOfFluxObjectives>

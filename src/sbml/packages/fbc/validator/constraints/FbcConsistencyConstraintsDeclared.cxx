@@ -86,5 +86,9 @@ addConstraint(new VConstraintGeneProductFbcGeneProductAssocSpeciesMustExist(*thi
 
 addConstraint(new VConstraintUserDefinedConstraintComponentFbcUserDefinedConstraintComponentVariableMustBeReactionOrParameter(*this));
 
+addConstraint(new VConstraintUserDefinedConstraintFbcUserDefinedConstraintLowerBoundMustBeParameter(*this));
+
+addConstraint(new VConstraintUserDefinedConstraintFbcUserDefinedConstraintUpperBoundMustBeParameter(*this));
+
 /** @endcond */
 

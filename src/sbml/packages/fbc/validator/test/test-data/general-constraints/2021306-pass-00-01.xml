@@ -19,6 +19,11 @@
       <species id="S3" compartment="comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
       <species id="S4" compartment="comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
     </listOfSpecies>
+    <listOfParameters>
+      <parameter id="P1" constant="false"/>
+        <parameter id="uc2lb" value="0" constant="true"/>
+        <parameter id="uc2ub" value="0" constant="true"/>
+    </listOfParameters>
     <listOfReactions>
       <reaction id="R1" reversible="false" fast="false">
         <listOfReactants>
@@ -63,7 +68,7 @@
     </listOfReactions>
     
     
-    <fbc:listOfObjectives fbc:activeObjective="c"  metaid="_ggg" sboTerm="SBO:0000001">
+       <fbc:listOfObjectives fbc:activeObjective="c"  metaid="_ggg" sboTerm="SBO:0000001">
       <fbc:objective fbc:id="c" fbc:type="maximize">
         <fbc:listOfFluxObjectives>
           <fbc:fluxObjective fbc:variableType="linear" fbc:reaction="R1" fbc:coefficient="1"/>
@@ -71,12 +76,12 @@
         </fbc:listOfFluxObjectives>
       </fbc:objective>
     </fbc:listOfObjectives>
-    <fbc:listOfUserDefinedConstraints metaid="_udc1" sboTerm="SBO:0000001">
-      <fbc:userDefinedConstraint fbc:id="uc2" fbc:lowerBound="uc2lb" fbc:upperBound="uc2ub" metaid="__hhg" unit="mole">
+    <fbc:listOfUserDefinedConstraints >
+      <fbc:userDefinedConstraint fbc:id="uc2" fbc:lowerBound="uc2lb" fbc:upperBound="uc2ub" sboTerm="SBO:0000001">
         
         <fbc:listOfUserDefinedConstraintComponents>
 
-          <fbc:userDefinedConstraintComponent fbc:coefficient="2" fbc:variable="R2" fbc:variableType="linear"/>
+          <fbc:userDefinedConstraintComponent fbc:coefficient="2" fbc:variable="P1" fbc:variableType="quadratic"/>
         </fbc:listOfUserDefinedConstraintComponents>
       </fbc:userDefinedConstraint>
     </fbc:listOfUserDefinedConstraints>  

@@ -61,6 +61,11 @@
         </kineticLaw>
       </reaction>
     </listOfReactions>
+
+    <listOfParameters>
+        <parameter id="uc2lb" value="0" constant="true"/>
+        <parameter id="uc2ub" value="0" constant="true"/>
+    </listOfParameters>
     
     
     <fbc:listOfObjectives fbc:activeObjective="c"  metaid="_ggg" sboTerm="SBO:0000001">
@@ -73,8 +78,7 @@
     </fbc:listOfObjectives>
     <fbc:listOfUserDefinedConstraints >
       <fbc:userDefinedConstraint  metaid="_udc1" sboTerm="SBO:0000001" fbc:id="udc" fbc:lowerBound="uc2lb" fbc:upperBound="uc2ub" >
-        <compartment/>
-        
+        <annotation/>
         <fbc:listOfUserDefinedConstraintComponents>
 
           <fbc:userDefinedConstraintComponent metaid="_udc1" sboTerm="SBO:0000001" fbc:coefficient="2" fbc:variable="R2" fbc:variableType="linear"/>

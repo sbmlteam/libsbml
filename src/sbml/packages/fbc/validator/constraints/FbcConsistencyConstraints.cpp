@@ -852,6 +852,67 @@ START_CONSTRAINT(FbcUserDefinedConstraintComponentVariableMustBeReactionOrParame
 }
 END_CONSTRAINT
 
+// 21306 - caught at read
+// 21307 - sring
+
+// 21401 - caught at read
+// 21402 - caught at read
+// 21403 - caught at read
+// 21404 - caught at read
+// 21405
+START_CONSTRAINT(FbcUserDefinedConstraintLowerBoundMustBeParameter, UserDefinedConstraint, udc)
+{
+  pre(udc.isSetLowerBound());
+
+  std::string as = udc.getLowerBound();
+
+  bool fail = false;
+
+  msg = "The <UserDefinedConstraint> with id '";
+  msg += udc.getId();
+  msg += "' refers to a lowerBound '";
+  msg += as;
+  msg += "' that does not exist within the <model>.";
+
+  if (m.getParameter(as) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 21406
+START_CONSTRAINT(FbcUserDefinedConstraintUpperBoundMustBeParameter, UserDefinedConstraint, udc)
+{
+  pre(udc.isSetUpperBound());
+
+  std::string as = udc.getUpperBound();
+
+  bool fail = false;
+
+  msg = "The <UserDefinedConstraint> with id '";
+  msg += udc.getId();
+  msg += "' refers to an upperBound '";
+  msg += as;
+  msg += "' that does not exist within the <model>.";
+
+  if (m.getParameter(as) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 21407 - string
+
+// 21408 - caught at read
+// 21409 - caught at read
+
 
 
 /** @endcond */

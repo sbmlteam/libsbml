@@ -62,7 +62,11 @@
       </reaction>
     </listOfReactions>
     
-    
+     <listOfParameters>
+        <parameter id="uc2lb" value="0" constant="true"/>
+        <parameter id="uc2ub" value="0" constant="true"/>
+    </listOfParameters>
+       
     <fbc:listOfObjectives fbc:activeObjective="c"  metaid="_ggg" sboTerm="SBO:0000001">
       <fbc:objective fbc:id="c" fbc:type="maximize">
         <fbc:listOfFluxObjectives>
