@@ -196,7 +196,7 @@ END_CONSTRAINT
 // 20608
 START_CONSTRAINT(FbcFluxObjectCoefficientWhenStrict, FluxObjective, fo)
 {
-  pre(fo.getPackageVersion() == 2);
+  pre(fo.getPackageVersion() > 1);
   pre(fo.isSetCoefficient());
   
   // is model strict
@@ -228,7 +228,7 @@ START_CONSTRAINT (FbcReactionLwrBoundRefExists, Reaction, r)
   const FbcReactionPlugin* plug = 
     static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
   pre(plug != NULL);
-  pre(plug->getPackageVersion() == 2);
+  pre(plug->getPackageVersion() > 1);
   pre(plug->isSetLowerFluxBound());
   
   bool fail = false;
@@ -256,7 +256,7 @@ START_CONSTRAINT (FbcReactionUpBoundRefExists, Reaction, r)
   const FbcReactionPlugin* plug = 
     static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
   pre(plug != NULL);
-  pre(plug->getPackageVersion() == 2);
+  pre(plug->getPackageVersion() > 1);
   pre(plug->isSetUpperFluxBound());
   
   bool fail = false;
@@ -291,7 +291,7 @@ START_CONSTRAINT (FbcReactionMustHaveBoundsStrict, Reaction, r)
   const FbcReactionPlugin* plug = 
     static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
   pre(plug != NULL);
-  pre(plug->getPackageVersion() == 2);
+  pre(plug->getPackageVersion() > 1 );
   
   bool fail = false;
 
@@ -331,7 +331,7 @@ START_CONSTRAINT (FbcReactionConstantBoundsStrict, Reaction, r)
   const FbcReactionPlugin* plug = 
     static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
   pre(plug != NULL);
-  pre(plug->getPackageVersion() == 2);
+  pre(plug->getPackageVersion() > 1);
   pre(plug->isSetLowerFluxBound());
   pre(plug->isSetUpperFluxBound());
   
@@ -384,7 +384,7 @@ START_CONSTRAINT (FbcReactionBoundsMustHaveValuesStrict, Reaction, r)
   const FbcReactionPlugin* plug = 
     static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
   pre(plug != NULL);
-  pre(plug->getPackageVersion() == 2);
+  pre(plug->getPackageVersion() > 1);
   pre(plug->isSetLowerFluxBound());
   pre(plug->isSetUpperFluxBound());
   
@@ -438,7 +438,7 @@ START_CONSTRAINT (FbcReactionBoundsNotAssignedStrict, Reaction, r)
   const FbcReactionPlugin* plug = 
     static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
   pre(plug != NULL);
-  pre(plug->getPackageVersion() == 2);
+  pre(plug->getPackageVersion() > 1);
   pre(plug->isSetLowerFluxBound());
   pre(plug->isSetUpperFluxBound());
   
@@ -492,7 +492,7 @@ START_CONSTRAINT (FbcReactionLwrBoundNotInfStrict, Reaction, r)
   const FbcReactionPlugin* plug = 
     static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
   pre(plug != NULL);
-  pre(plug->getPackageVersion() == 2);
+  pre(plug->getPackageVersion() >1);
   pre(plug->isSetLowerFluxBound());
   pre(plug->isSetUpperFluxBound());
   
@@ -563,7 +563,7 @@ START_CONSTRAINT (FbcReactionLwrLessThanUpStrict, Reaction, r)
   const FbcReactionPlugin* plug = 
     static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
   pre(plug != NULL);
-  pre(plug->getPackageVersion() == 2);
+  pre(plug->getPackageVersion() > 1);
   pre(plug->isSetLowerFluxBound());
   pre(plug->isSetUpperFluxBound());
   
@@ -822,6 +822,96 @@ START_CONSTRAINT (FbcGeneProductAssocSpeciesMustExist, GeneProduct, gp)
 }
 END_CONSTRAINT
 
+
+// 21301 - caught at read
+// 21302 - caught at read
+// 21303 - caught at read
+// 21304 - caught at read
+
+// 21305
+START_CONSTRAINT(FbcUserDefinedConstraintComponentVariableMustBeReactionOrParameter, UserDefinedConstraintComponent, udcc)
+{
+  pre(udcc.isSetVariable());
+
+  std::string as = udcc.getVariable();
+
+  bool fail = false;
+
+  msg = "The <UserDefinedConstraintComponent> with id '";
+  msg += udcc.getId();
+  msg += "' refers to a variable '";
+  msg += as;
+  msg += "' that does not exist within the <model>.";
+
+  if (m.getReaction(as) == NULL && m.getParameter(as) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 21306 - caught at read
+// 21307 - sring
+
+// 21401 - caught at read
+// 21402 - caught at read
+// 21403 - caught at read
+// 21404 - caught at read
+// 21405
+START_CONSTRAINT(FbcUserDefinedConstraintLowerBoundMustBeParameter, UserDefinedConstraint, udc)
+{
+  pre(udc.isSetLowerBound());
+
+  std::string as = udc.getLowerBound();
+
+  bool fail = false;
+
+  msg = "The <UserDefinedConstraint> with id '";
+  msg += udc.getId();
+  msg += "' refers to a lowerBound '";
+  msg += as;
+  msg += "' that does not exist within the <model>.";
+
+  if (m.getParameter(as) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 21406
+START_CONSTRAINT(FbcUserDefinedConstraintUpperBoundMustBeParameter, UserDefinedConstraint, udc)
+{
+  pre(udc.isSetUpperBound());
+
+  std::string as = udc.getUpperBound();
+
+  bool fail = false;
+
+  msg = "The <UserDefinedConstraint> with id '";
+  msg += udc.getId();
+  msg += "' refers to an upperBound '";
+  msg += as;
+  msg += "' that does not exist within the <model>.";
+
+  if (m.getParameter(as) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 21407 - string
+
+// 21408 - caught at read
+// 21409 - caught at read
 
 
 

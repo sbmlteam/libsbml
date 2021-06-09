@@ -78,10 +78,13 @@ typedef enum
 , FbcModelStrictMustBeBoolean          = 2020210 /*!< 'Strict' attribute must be boolean */
 , FbcLOGeneProductsAllowedElements     = 2020211 /*!< Allowed elements on ListOfGeneProducts */
 , FbcLOGeneProductsAllowedAttributes   = 2020212 /*!< Allowed attributes on ListOfGeneProducts */
+, FbcLOUserConstraintsAllowedElements    = 2020213
+, FbcLOUserConstraintsAllowedAttributes = 2020214
 
 , FbcSpeciesAllowedL3Attributes        = 2020301 /*!< Species allowed attributes */
 , FbcSpeciesChargeMustBeInteger        = 2020302 /*!< Charge must be integer */
 , FbcSpeciesFormulaMustBeString        = 2020303 /*!< Chemical formula must be string */
+, FbcSpeciesChargeMustBeDouble         = 2020304 /*!< Charge must be double */
 
 , FbcFluxBoundAllowedL3Attributes      = 2020401 /*!< <code>&lt;fluxBound&gt;</code> may only have 'metaId' and 'sboTerm' from L3 namespace */
 , FbcFluxBoundAllowedElements          = 2020402 /*!< <code>&lt;fluxBound&gt;</code> may only have <code>&lt;notes&gt;</code> and <code>&lt;annotations&gt;</code> from L3 Core */
@@ -112,6 +115,7 @@ typedef enum
 , FbcFluxObjectCoefficientMustBeDouble = 2020607 /*!< The attribute 'fbc:coefficient' must be of the data type double */
 , FbcFluxObjectCoefficientWhenStrict   = 2020608 /*!< The 'fbc:coefficient' must be declared when strict */
 , FbcFluxObjectiveVariableTypeMustBeFbcVariableTypeEnum       = 2020609
+
 , FbcReactionOnlyOneGeneProdAss         = 2020701 /*!< One GeneProductAssociation in a Reaction */
 , FbcReactionAllowedAttributes          = 2020702 /*!< Fbc attributes on a Reaction */
 , FbcReactionLwrBoundSIdRef             = 2020703 /*!< LowerBound must be SIdRef */
@@ -157,31 +161,34 @@ typedef enum
 , FbcGeneProductLabelMustBeUnique       = 2021205 /*!< 'fbc:label' must be unique */
 , FbcGeneProductNameMustBeString        = 2021206 /*!< 'fbc:name' must be string */
 , FbcGeneProductAssocSpeciesMustExist   = 2021207 /*!< 'fbc:associatedSpecies' must point to existing <code>&lt;species&gt;</code> */
-, FbcUserDefinedConstraintComponentAllowedCoreAttributes      = 2021501
-, FbcUserDefinedConstraintComponentAllowedCoreElements        = 2021502
-, FbcUserDefinedConstraintComponentAllowedAttributes          = 2021503
-, FbcUserDefinedConstraintComponentCoefficientMustBeDouble    = 2021504
-, FbcUserDefinedConstraintComponentVariableMustBeReactionOrParameter= 2021505
-, FbcUserDefinedConstraintComponentVariableTypeMustBeFbcVariableTypeEnum= 2021506
-, FbcUserDefinedConstraintComponentNameMustBeString           = 2021507
-, FbcUserDefinedConstraintAllowedCoreAttributes               = 2021601
-, FbcUserDefinedConstraintAllowedCoreElements                 = 2021602
-, FbcUserDefinedConstraintAllowedAttributes                   = 2021603
-, FbcUserDefinedConstraintAllowedElements                     = 2021604
-, FbcUserDefinedConstraintLowerBoundMustBeParameter           = 2021605
-, FbcUserDefinedConstraintUpperBoundMustBeParameter           = 2021606
-, FbcUserDefinedConstraintNameMustBeString                    = 2021607
-, FbcUserDefinedConstraintLOUserDefinedConstraintComponentsAllowedCoreElements= 2021608
-, FbcUserDefinedConstraintLOUserDefinedConstraintComponentsAllowedCoreAttributes= 2021609
-, FbcKeyValuePairAllowedCoreAttributes                        = 2021701
-, FbcKeyValuePairAllowedCoreElements                          = 2021702
-, FbcKeyValuePairAllowedAttributes                            = 2021703
-, FbcKeyValuePairKeyMustBeString                              = 2021704
-, FbcKeyValuePairNameMustBeString                             = 2021705
-, FbcKeyValuePairValueMustBeString                            = 2021706
-, FbcKeyValuePairKvp_uriMustBeString                          = 2021707
-, FbcSBaseLOKeyValuePairsAllowedAttributes                    = 2021708
-, FbcSBaseLOKeyValuePairsAllowedCoreAttributes                = 2021709
+
+, FbcUserDefinedConstraintComponentAllowedCoreAttributes      = 2021301
+, FbcUserDefinedConstraintComponentAllowedCoreElements        = 2021302
+, FbcUserDefinedConstraintComponentAllowedAttributes          = 2021303
+, FbcUserDefinedConstraintComponentCoefficientMustBeDouble    = 2021304
+, FbcUserDefinedConstraintComponentVariableMustBeReactionOrParameter= 2021305
+, FbcUserDefinedConstraintComponentVariableTypeMustBeFbcVariableTypeEnum= 2021306
+, FbcUserDefinedConstraintComponentNameMustBeString           = 2021307
+
+, FbcUserDefinedConstraintAllowedCoreAttributes               = 2021401
+, FbcUserDefinedConstraintAllowedCoreElements                 = 2021402
+, FbcUserDefinedConstraintAllowedAttributes                   = 2021403
+, FbcUserDefinedConstraintAllowedElements                     = 2021404
+, FbcUserDefinedConstraintLowerBoundMustBeParameter           = 2021405
+, FbcUserDefinedConstraintUpperBoundMustBeParameter           = 2021406
+, FbcUserDefinedConstraintNameMustBeString                    = 2021407
+, FbcUserDefinedConstraintLOUserDefinedConstraintComponentsAllowedCoreElements= 2021408
+, FbcUserDefinedConstraintLOUserDefinedConstraintComponentsAllowedCoreAttributes= 2021409
+
+, FbcKeyValuePairAllowedCoreAttributes                        = 2021501
+, FbcKeyValuePairAllowedCoreElements                          = 2021502
+, FbcKeyValuePairAllowedAttributes                            = 2021503
+, FbcKeyValuePairKeyMustBeString                              = 2021504
+, FbcKeyValuePairNameMustBeString                             = 2021505
+, FbcKeyValuePairValueMustBeString                            = 2021506
+, FbcKeyValuePairKvp_uriMustBeString                          = 2021507
+, FbcSBaseLOKeyValuePairsAllowedAttributes                    = 2021508
+, FbcSBaseLOKeyValuePairsAllowedCoreAttributes                = 2021509
 } FbcSBMLErrorCode_t;
 
 

@@ -1060,6 +1060,10 @@ UserDefinedConstraintComponent::readAttributes(const XMLAttributes& attributes,
         log->logPackageError("fbc", FbcUserDefinedConstraintLOUserDefinedConstraintComponentsAllowedCoreAttributes,
           pkgVersion, level, version, details, getLine(), getColumn());
       }
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        getErrorLog()->remove(NotSchemaConformant);
+      }
     }
   }
 
@@ -1086,6 +1090,10 @@ UserDefinedConstraintComponent::readAttributes(const XMLAttributes& attributes,
         log->logPackageError("fbc",
           FbcUserDefinedConstraintComponentAllowedCoreAttributes, pkgVersion,
             level, version, details, getLine(), getColumn());
+      }
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        getErrorLog()->remove(NotSchemaConformant);
       }
     }
   }

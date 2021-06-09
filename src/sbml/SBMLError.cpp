@@ -388,9 +388,9 @@ SBMLError::SBMLError (  const unsigned int errorId
         else {
           mSeverity = severity;
         }
-        mCategory = sbext->getCategory(index);
+        mCategory = sbext->getCategory(index, pkgVersion);
         mMessage = sbext->getMessage(index, pkgVersion, details);
-        mShortMessage = sbext->getShortMessage(index);
+        mShortMessage = sbext->getShortMessage(index, pkgVersion);
         mPackage = package;
         mErrorIdOffset = sbext->getErrorIdOffset();
       }

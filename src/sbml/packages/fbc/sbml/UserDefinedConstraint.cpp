@@ -1369,6 +1369,7 @@ UserDefinedConstraint::readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
+
   if (log && getParentSBMLObject() && static_cast<ListOfUserDefinedConstraints*>(getParentSBMLObject())->size()
     < 2)
   {
@@ -1379,7 +1380,7 @@ UserDefinedConstraint::readAttributes(const XMLAttributes& attributes,
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
-        log->logPackageError("fbc", FbcUserDefinedConstraintAllowedAttributes,
+        log->logPackageError("fbc", FbcLOUserConstraintsAllowedAttributes,
           pkgVersion, level, version, details, getLine(), getColumn());
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
@@ -1387,8 +1388,12 @@ UserDefinedConstraint::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownCoreAttribute);
         log->logPackageError("fbc",
-          FbcUserDefinedConstraintAllowedAttributes, pkgVersion,
+          FbcLOUserConstraintsAllowedAttributes, pkgVersion,
             level, version, details, getLine(), getColumn());
+      }
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        getErrorLog()->remove(NotSchemaConformant);
       }
     }
   }
@@ -1415,6 +1420,10 @@ UserDefinedConstraint::readAttributes(const XMLAttributes& attributes,
         log->logPackageError("fbc",
           FbcUserDefinedConstraintAllowedCoreAttributes, pkgVersion, level,
             version, details, getLine(), getColumn());
+      }
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        getErrorLog()->remove(NotSchemaConformant);
       }
     }
   }

@@ -98,7 +98,7 @@
           <attributes>
             <attribute name="id" required="false" type="SId" abstract="false"/>
             <attribute name="name" required="false" type="string" abstract="false"/>
-            <attribute name="geneProduct" required="false" type="SIdRef" element="GeneProduct" abstract="false"/>
+            <attribute name="geneProduct" required="true" type="SIdRef" element="GeneProduct" abstract="false"/>
           </attributes>
         </element>
         <element name="FbcAnd" typeCode="SBML_FBC_AND" hasListOf="false" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" baseClass="Association" abstract="false" elementName="and">
@@ -195,7 +195,7 @@
           <attributes>
             <attribute name="id" required="false" type="SId" abstract="false"/>
             <attribute name="name" required="false" type="string" abstract="false"/>
-            <attribute name="geneProduct" required="false" type="SIdRef" element="GeneProduct" abstract="false"/>
+            <attribute name="geneProduct" required="true" type="SIdRef" element="GeneProduct" abstract="false"/>
           </attributes>
         </element>
         <element name="FbcAnd" typeCode="SBML_FBC_AND" hasListOf="false" hasChildren="false" hasMath="false" childrenOverwriteElementName="false" baseClass="Association" abstract="false" elementName="and">

@@ -159,6 +159,9 @@ struct FbcValidatorConstraints
   ConstraintSet<GeneProduct>              mGeneProduct;
   ConstraintSet<FbcAnd>                   mFbcAnd;
   ConstraintSet<FbcOr>                    mFbcOr;
+  ConstraintSet<UserDefinedConstraint>                    mUserDefinedConstraint;
+  ConstraintSet<UserDefinedConstraintComponent>                    mUserDefinedConstraintComponent;
+  ConstraintSet<KeyValuePair>                    mKeyValuePair;
 
   map<VConstraint*,bool> ptrMap;
 
@@ -287,6 +290,27 @@ FbcValidatorConstraints::add (VConstraint* c)
     return;
   }
 
+  if (dynamic_cast< TConstraint<UserDefinedConstraint>* >(c) != NULL)
+  {
+    mUserDefinedConstraint.add(
+      static_cast< TConstraint<UserDefinedConstraint>* >(c));
+    return;
+  }
+
+  if (dynamic_cast< TConstraint<UserDefinedConstraintComponent>* >(c) != NULL)
+  {
+    mUserDefinedConstraintComponent.add(
+      static_cast< TConstraint<UserDefinedConstraintComponent>* >(c));
+    return;
+  }
+
+  if (dynamic_cast< TConstraint<KeyValuePair>* >(c) != NULL)
+  {
+    mKeyValuePair.add(
+      static_cast< TConstraint<KeyValuePair>* >(c));
+    return;
+  }
+
 }
 
 // ----------------------------------------------------------------------
@@ -391,6 +415,24 @@ public:
     return !v.mFbcConstraints->mFbcOr.empty();
   }
 
+  virtual bool visit(const UserDefinedConstraint &x)
+  {
+    v.mFbcConstraints->mUserDefinedConstraint.applyTo(m, x);
+    return !v.mFbcConstraints->mUserDefinedConstraint.empty();
+  }
+
+  virtual bool visit(const UserDefinedConstraintComponent &x)
+  {
+    v.mFbcConstraints->mUserDefinedConstraintComponent.applyTo(m, x);
+    return !v.mFbcConstraints->mUserDefinedConstraintComponent.empty();
+  }
+
+  virtual bool visit(const KeyValuePair &x)
+  {
+    v.mFbcConstraints->mKeyValuePair.applyTo(m, x);
+    return !v.mFbcConstraints->mKeyValuePair.empty();
+  }
+
   virtual bool visit (const SBase &x)
   {
     if (x.getPackageName() != "fbc")
@@ -450,7 +492,19 @@ public:
       {
         return visit((const FbcOr&)x);
       } 
-      else 
+      else if (code == SBML_FBC_USERDEFINEDCONSTRAINTCOMPONENT)
+      {
+        return visit((const UserDefinedConstraintComponent&)x);
+      }
+      else if (code == SBML_FBC_USERDEFINEDCONSTRAINT)
+      {
+        return visit((const UserDefinedConstraint&)x);
+      }
+      else if (code == SBML_FBC_KEYVALUEPAIR)
+      {
+        return visit((const KeyValuePair&)x);
+      }
+      else
       {
         return SBMLVisitor::visit(x);
       } 
