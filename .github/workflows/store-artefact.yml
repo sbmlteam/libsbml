@@ -315,5 +315,3 @@ jobs:
             Manylinux2010 nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
             ${{env.ARTIFACT_NAME_SUFFIX}})
           path: ../install # paths handled differently by v1 - note that "./install/*" does not work
-          retention-days: 1
-          if-no-files-found: error
