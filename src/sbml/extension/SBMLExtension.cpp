@@ -66,22 +66,6 @@ static const packageErrorTableEntry defaultErrorTable[] =
 };
 
 
-static const packageErrorTableEntryV2 defaultErrorTableV2[] =
-{
-  // 10304
-  { 0, 
-    "",
-    0, 
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "",
-    { "",
-      ""
-    }
-  }
-};
-
-
 SBMLExtension::SBMLExtension ()
  : mIsEnabled(true)
  , mASTBasePlugin (NULL)
@@ -400,16 +384,6 @@ SBMLExtension::getErrorTable(unsigned int) const
 
 
 /** @cond doxygenLibsbmlInternal */
-
-packageErrorTableEntryV2 
-SBMLExtension::getErrorTableV2(unsigned int) const
-{
-  return defaultErrorTableV2[0];
-}
-
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
 unsigned int 
 SBMLExtension::getErrorTableIndex(unsigned int) const
 {
@@ -419,7 +393,7 @@ SBMLExtension::getErrorTableIndex(unsigned int) const
 
 /** @cond doxygenLibsbmlInternal */
 bool
-SBMLExtension::hasMutiplePackageVersions() const
+SBMLExtension::hasMultiplePackageVersions() const
 {
   return false;
 }
@@ -439,48 +413,17 @@ SBMLExtension::getErrorIdOffset() const
 unsigned int 
 SBMLExtension::getSeverity(unsigned int index, unsigned int pkgVersion) const
 {
-  // I know this is messy but I need to think through multiple versions of 
-  // packages
-  if (hasMutiplePackageVersions() == false)
-  {
-    packageErrorTableEntry pkgErr = getErrorTable(index);
-    switch (pkgVersion)
-    {
-      case 1:
-      default:
-        return pkgErr.l3v1v1_severity;
-    }
-  }
-  else
-  {
-    packageErrorTableEntryV2 pkgErr = getErrorTableV2(index);
-    switch (pkgVersion)
-    {
-      case 1:
-        return pkgErr.l3v1v1_severity;
-      case 2:
-      default:
-        return pkgErr.l3v1v2_severity;
-    }
-  }
+  packageErrorTableEntry pkgErr = getErrorTable(index);
+  return pkgErr.l3v1v1_severity;
 }
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 unsigned int 
-SBMLExtension::getCategory(unsigned int index) const
+SBMLExtension::getCategory(unsigned int index, unsigned int pkgVersion) const
 {
-  // I know this is messy but I need to think through multiple versions of 
-  // packages
-  if (hasMutiplePackageVersions() == false)
-  {
-    packageErrorTableEntry pkgErr = getErrorTable(index);
-    return pkgErr.category;
-  }
-  {
-    packageErrorTableEntryV2 pkgErr = getErrorTableV2(index);
-    return pkgErr.category;
-  }
+  packageErrorTableEntry pkgErr = getErrorTable(index);
+  return pkgErr.category;
 }
 /** @endcond */
 
@@ -493,39 +436,11 @@ SBMLExtension::getMessage(unsigned int index,
   ostringstream newMsg;
   std::string ref;
 
-  // I know this is messy but I need to think through multiple versions of 
-  // packages
-  if (hasMutiplePackageVersions() == false)
-  {
-    packageErrorTableEntry pkgErr = getErrorTable(index);
+  packageErrorTableEntry pkgErr = getErrorTable(index);
 
-    newMsg << pkgErr.message << endl;
+  newMsg << pkgErr.message << endl;
 
-    switch (pkgVersion)
-    {
-      case 1:
-      default:
-        ref = pkgErr.reference.ref_l3v1v1;
-        break;
-    }
-  }
-  else
-  {
-    packageErrorTableEntryV2 pkgErr = getErrorTableV2(index);
-      
-    newMsg << pkgErr.message << endl;
-
-    switch (pkgVersion)
-    {
-      case 1:
-        ref = pkgErr.reference.ref_l3v1v1;
-        break;
-      case 2:
-      default:
-        ref = pkgErr.reference.ref_l3v1v2;
-        break;
-    }
-  }
+  ref = pkgErr.reference.ref_l3v1v1;
 
   if (!ref.empty())
   {
@@ -546,20 +461,10 @@ SBMLExtension::getMessage(unsigned int index,
 
 /** @cond doxygenLibsbmlInternal */
 std::string 
-SBMLExtension::getShortMessage(unsigned int index) const
+SBMLExtension::getShortMessage(unsigned int index, unsigned int pkgVersion) const
 {
-  // I know this is messy but I need to think through multiple versions of 
-  // packages
-  if (hasMutiplePackageVersions() == false)
-  {
-    packageErrorTableEntry pkgErr = getErrorTable(index);
-    return pkgErr.shortMessage;
-  }
-  else
-  {
-    packageErrorTableEntryV2 pkgErr = getErrorTableV2(index);
-    return pkgErr.shortMessage;
-  }
+  packageErrorTableEntry pkgErr = getErrorTable(index);
+  return pkgErr.shortMessage;
 }
 /** @endcond */
 

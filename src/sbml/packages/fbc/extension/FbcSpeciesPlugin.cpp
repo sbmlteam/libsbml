@@ -325,6 +325,8 @@ void
 FbcSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
                              const ExpectedAttributes& expectedAttributes)
 {
+  unsigned int pkgVersion = getPackageVersion();
+
    // dont call this as all it does it log unknown attributes
 //  FbcSBasePlugin::readAttributes(attributes, expectedAttributes);
   for (int i = 0; i < attributes.getLength(); i++)
@@ -337,7 +339,7 @@ FbcSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
     if (!expectedAttributes.hasAttribute(name))
     {  
       getErrorLog()->logPackageError("fbc", FbcSpeciesAllowedL3Attributes,
-        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
+        pkgVersion, getLevel(), getVersion(), "", getLine(), getColumn());
     }      
   }
   
@@ -345,7 +347,7 @@ FbcSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
   {
     XMLTriple tripleCharge("charge", mURI, mPrefix);
     unsigned int numErrs = getErrorLog()->getNumErrors();
-    if (getPackageVersion() < 3)
+    if (pkgVersion < 3)
     {
       mIsSetCharge = attributes.readInto(tripleCharge, mCharge, getErrorLog(),
         false, getLine(), getColumn());
@@ -362,8 +364,17 @@ FbcSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->contains(XMLAttributeTypeMismatch))
       {
         getErrorLog()->remove(XMLAttributeTypeMismatch);
-        getErrorLog()->logPackageError("fbc", FbcSpeciesChargeMustBeInteger,
-          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
+        if (pkgVersion < 3)
+        {
+          getErrorLog()->logPackageError("fbc", FbcSpeciesChargeMustBeInteger,
+            pkgVersion, getLevel(), getVersion(), "", getLine(), getColumn());
+        }
+        else
+        {
+          getErrorLog()->logPackageError("fbc", FbcSpeciesChargeMustBeDouble,
+            pkgVersion, getLevel(), getVersion(), "", getLine(), getColumn());
+
+        }
       }
     }
 
@@ -374,7 +385,7 @@ FbcSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
     if (assigned == true)
     {
       Species * s = static_cast<Species*>(getParentSBMLObject());
-      parseChemicalFormula(mChemicalFormula, *(getErrorLog()), getPackageVersion(),
+      parseChemicalFormula(mChemicalFormula, *(getErrorLog()), pkgVersion,
         getLevel(), getVersion(), getLine(), getColumn(), s);
     }
 

@@ -59,9 +59,28 @@
 
 
 #include <iostream>
+#include <string>
 
+using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+static const packageErrorTableEntryV3 defaultErrorTableV3[] =
+{
+  // 10304
+  { 0,
+  "",
+  0,
+  LIBSBML_SEV_ERROR,
+  LIBSBML_SEV_ERROR,
+  LIBSBML_SEV_ERROR,
+  "",
+  { "",
+  "",
+  ""
+  }
+  }
+};
 
 
 /*---------------------------------------------------------------
@@ -396,10 +415,10 @@ FbcExtension::getStringFromTypeCode(int typeCode) const
 /*
  * Returns the entry in the error table at this index.
  */
-packageErrorTableEntryV2
-FbcExtension::getErrorTableV2(unsigned int index) const
+packageErrorTableEntryV3
+FbcExtension::getErrorTableV3(unsigned int index) const
 {
-  return fbcErrorTableV2[index];
+  return fbcErrorTableV3[index];
 }
 
 /** @endcond */
@@ -414,12 +433,12 @@ FbcExtension::getErrorTableV2(unsigned int index) const
 unsigned int
 FbcExtension::getErrorTableIndex(unsigned int errorId) const
 {
-  unsigned int tableSize = sizeof(fbcErrorTableV2)/sizeof(fbcErrorTableV2[0]);
+  unsigned int tableSize = sizeof(fbcErrorTableV3)/sizeof(fbcErrorTableV3[0]);
   unsigned int index = 0;
 
   for (unsigned int i = 0; i < tableSize; i++)
   {
-    if (errorId == fbcErrorTableV2[i].code)
+    if (errorId == fbcErrorTableV3[i].code)
     {
       index = i;
       break;
@@ -459,6 +478,110 @@ FbcExtension::hasMultiplePackageVersions() const
   return true;
 }
 
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+unsigned int
+FbcExtension::getSeverity(unsigned int index, unsigned int pkgVersion) const
+{
+  if (hasMultiplePackageVersions())
+  {
+    packageErrorTableEntryV3 pkgErr = getErrorTableV3(index);
+    switch (pkgVersion)
+    {
+    case 1:
+      return pkgErr.l3v1v1_severity;
+    case 2:
+      return pkgErr.l3v1v2_severity;
+    case 3:
+    default:
+      return pkgErr.l3v1v3_severity;
+    }
+  }
+  else
+  {
+    return SBMLExtension::getSeverity(index, pkgVersion);
+  }
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+unsigned int
+FbcExtension::getCategory(unsigned int index, unsigned int pkgVersion) const
+{
+  if (hasMultiplePackageVersions())
+  {
+    packageErrorTableEntryV3 pkgErr = getErrorTableV3(index);
+    return pkgErr.category;
+  }
+  else
+  {
+    return SBMLExtension::getCategory(index, pkgVersion);
+  }
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+std::string
+FbcExtension::getMessage(unsigned int index,
+  unsigned int pkgVersion,
+  const std::string& details) const
+{
+  ostringstream newMsg;
+  std::string ref;
+
+  if (hasMultiplePackageVersions())
+  {
+    packageErrorTableEntryV3 pkgErr = getErrorTableV3(index);
+    newMsg << pkgErr.message << endl;
+    switch (pkgVersion)
+    {
+    case 1:
+      ref = pkgErr.reference.ref_l3v1v1;
+    case 2:
+      ref = pkgErr.reference.ref_l3v1v2;
+    case 3:
+    default:
+      ref = pkgErr.reference.ref_l3v1v3;
+    }
+
+    if (!ref.empty())
+    {
+      newMsg << "Reference: " << ref << endl;
+    }
+
+    if (!details.empty())
+    {
+      newMsg << " " << details;
+      if (details[details.size() - 1] != '\n') {
+        newMsg << endl;
+      }
+    }
+
+    return newMsg.str();
+
+  }
+  else
+  {
+    return SBMLExtension::getMessage(index, pkgVersion, details);
+  }
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+std::string
+FbcExtension::getShortMessage(unsigned int index, unsigned int pkgVersion) const
+{
+  if (hasMultiplePackageVersions())
+  {
+    packageErrorTableEntryV3 pkgErr = getErrorTableV3(index);
+    return pkgErr.shortMessage;
+  }
+  else
+  {
+    return SBMLExtension::getShortMessage(index, pkgVersion);
+  }
+}
 /** @endcond */
 
 

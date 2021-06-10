@@ -326,7 +326,7 @@ public:
    *
    * @return packageErrorTableEntry object in the FbcSBMLErrorTable corresponding to the index given.
    */
-  virtual packageErrorTableEntryV2 getErrorTableV2(unsigned int index) const;
+  virtual packageErrorTableEntryV3 getErrorTableV3(unsigned int index) const;
   /** @endcond */
 
 
@@ -338,7 +338,7 @@ public:
    *
    * @return unsigned integer representing the index in the FbcSBMLErrorTable corresponding to the errorId given.
    */
-  virtual unsigned int getErrorTableIndex(unsigned int errorId) const;
+  unsigned int getErrorTableIndex(unsigned int errorId) const;
   /** @endcond */
 
 
@@ -355,6 +355,31 @@ public:
   /** @cond doxygenLibsbmlInternal */
   virtual bool hasMultiplePackageVersions() const;
   /** @endcond */
+
+
+  /**
+  * @ifnot clike @internal @endif@~
+  */
+  virtual unsigned int getSeverity(unsigned int index, unsigned int pkgVersion) const;
+
+  /**
+  * @ifnot clike @internal @endif@~
+  */
+  virtual unsigned int getCategory(unsigned int index, unsigned int pkgVersion) const;
+
+  /**
+  * @ifnot clike @internal @endif@~
+  */
+  virtual std::string getMessage(unsigned int index, unsigned int pkgVersion,
+    const std::string& details) const;
+
+  /**
+  * @ifnot clike @internal @endif@~
+  */
+  virtual std::string getShortMessage(unsigned int index, unsigned int pkgVersion) const;
+
+  /** @endcond */
+
 
   /** @cond doxygenLibsbmlInternal */
   /**
