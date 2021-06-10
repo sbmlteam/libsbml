@@ -149,3 +149,75 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         shell: bash
         run: ctest -V -C $BUILD_TYPE
+  manylinuxbuild:
+    name:
+      ${{ matrix.container }}, Parser option ${{ matrix.xml_parser_option }},
+      with namespaces ${{ matrix.with_namespace}}, strict includes ${{
+      matrix.strict }}, with examples ${{ matrix.with_examples}}, package option
+      ${{ matrix.package_option}}
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu-latest]
+        xml_parser_option: ["-DWITH_LIBXML"]
+        with_namespace: ["True"]
+        strict: ["True"]
+        with_examples: ["True"]
+        package_option: ["-DWITH_STABLE_PACKAGES=ON"]
+        cpp_standard: [98, 20]
+        language_bindings:
+          ["-DWITH_JAVA=True -DWITH_PYTHON=True -DWITH_CSHARP=True"]
+        container: ["quay.io/pypa/manylinux2010_x86_64"]
+    runs-on: ${{ matrix.platform }}
+    container: ${{ matrix.container}}
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: install Swig 4 from source
+        run: |
+          yum install -y pcre-devel
+          echo "SWIG_DIR=/usr/local/swig/" >> "${GITHUB_ENV}"
+          curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.0.2/swig-4.0.2.tar.gz/download > swig.tar.gz
+          tar -zxvf swig.tar.gz
+          cd swig-4.0.2/
+          ./configure --disable-dependency-tracking --prefix=$SWIG_DIR
+          make clean
+          make -j 2
+          make install
+          swig -version
+
+      - name: install CMake using pip
+        run: |
+          /opt/python/cp38-cp38/bin/pip install cmake
+          ln -s /opt/python/cp38-cp38/bin/cmake /usr/bin/cmake
+          ln -s /opt/python/cp38-cp38/bin/ctest /usr/bin/ctest
+          cmake --version
+          ctest --version
+
+      - name: Install dependencies, configure, build
+        run: |
+          yum install -y libxml2-devel check-devel java-devel mono-devel
+          cd ..
+          mkdir build
+          cd build
+          mkdir ../install
+          cmake ../libsbml \
+          -DCMAKE_INSTALL_PREFIX=../install \
+          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
+          -DWITH_CHECK=True \
+          -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
+          -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
+          -DWITH_EXAMPLES=${{matrix.with_examples}} \
+          ${{matrix.package_option}} \
+          ${{matrix.language_bindings}} \
+          -DPYTHON_EXECUTABLE=/opt/python/cp38-cp38/bin/python \
+          -DPYTHON_INCLUDE_DIR=/opt/python/cp38-cp38/include/python3.8/ \
+          -DWITH_STATIC_RUNTIME=ON \
+          -DPYTHON_USE_DYNAMIC_LOOKUP=ON
+          cmake --build . --config $BUILD_TYPE
+
+      - name: Test
+        run: |
+          cd ../build
+          ctest -V -C $BUILD_TYPE
