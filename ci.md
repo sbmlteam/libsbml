@@ -1,14 +1,14 @@
 
 # CI/CD for libSBML documentation
 
-Continuous integration/continuous deployment (CI/CD) for libSMBL is implemented in [GitHub actions]. This file provides a description of the
+Continuous integration/continuous deployment (CI/CD) for libSMBL is implemented in [GitHub actions](https://docs.github.com/en/actions). This file provides a description of the jobs that make up this CI/CD system. Note that links herein point to the SBML Team GitHub repo default branch, and may differ in branches and forks.
 
-The jobs run differ depending on the event (push, PR, nightly build) and are summarised below. The YAML files triggering each CI/CD run can be found under [`./github/workflows/`](github/workflows/).
+The jobs run differ depending on the event (push, PR, nightly build) and are summarised below. The YAML files triggering each CI/CD run can be found under [`./github/workflows/`](https://github.com/sbmlteam/libsbml/actions/workflows/).
 
-## Nightly builds ([store-artefact.yml](github/workflows/store-artefact.yml))
+## Nightly builds ([store-artefact.yml](https://github.com/sbmlteam/libsbml/actions/workflows/store-artefact.yml))
 
 ### Configurations
-Nightly builds are provided for the latest Ubuntu/MacOS and Windows environments, as well as a `pep 513`-compliant build (`manylinux2010`) for backwards compatibility with older CentOS-based linux systems (CentOS 6 and more recent). All nightly builds are available via the [Actions tab of the libSBML Github repository site](libsbml/actions/workflows/store-artefact.yml). The varying parameters are summarised below, resulting in 8 artefacts being rebuilt and uploaded every 24 hours.
+Nightly builds are provided for the latest Ubuntu/MacOS and Windows environments, as well as a `pep 513`-compliant build (`manylinux2010`) for backwards compatibility with older CentOS-based linux systems (CentOS 6 and more recent). All nightly builds are available via the [Actions tab of the libSBML Github repository site](https://github.com/sbmlteam/libsbml/actions/workflows/store-artefact.yml). The varying parameters are summarised below, resulting in 8 artefacts being rebuilt and uploaded every 24 hours.
 
 | parameters | value(s) taken |
 |-----|------------|
@@ -40,7 +40,7 @@ Packages
 Bindings
 XML parser
 
-The workflow file describing these configurations can be found [here]().
+The workflow file describing these configurations can be found [here](https://github.com/sbmlteam/libsbml/actions/workflows/brief.yml).
 
 ## On PR (extensive.yml)
 
@@ -48,7 +48,7 @@ Testing is more extensive when a full (non-draft) PR is opened. This includes 24
 
 beyond the 6, two additional runs are made to check the compatibility of the PR with the two non-default XML parsers.
 
-The workflow file describing these configurations can be found [here]().
+The workflow file describing these configurations can be found [here](https://github.com/sbmlteam/libsbml/actions/workflows/extensive.yml).
 
 What is the reasoning behind the more extensive testing.
 
