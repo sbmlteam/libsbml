@@ -3,7 +3,7 @@
 
 Continuous integration/continuous deployment (CI/CD) for libSMBL is implemented in [GitHub actions](https://docs.github.com/en/actions). This file provides a description of the jobs that make up this CI/CD system. Note that links herein point to the SBML Team GitHub repo default branch, and may differ in branches and forks.
 
-The jobs run differ depending on the event (push, PR, nightly build) and are summarised below. The YAML files triggering each CI/CD run can be found under [`./github/workflows/`](https://github.com/sbmlteam/libsbml/actions/workflows/).
+The jobs run differ depending on the event (push, PR, nightly build) and are summarised below. The YAML files triggering each CI/CD run can be found under [`./github/workflows/`](https://github.com/sbmlteam/libsbml/tree/development/.github/workflows).
 
 ## Nightly builds ([store-artefact.yml](https://github.com/sbmlteam/libsbml/actions/workflows/store-artefact.yml))
 
@@ -15,7 +15,7 @@ Nightly builds are provided for the latest Ubuntu/MacOS and Windows environments
 | OS | `windows-latest`, `macos-latest`, `ubuntu-latest`, `manylinux2010`* |
 | packages | all, stable |
 
-<sub>\* `manylinux2010` runs as a separate job, not as part of the strategy matrix. This is because it runs inside a container, and not a virtual environment provided by GitHub actions. </sub>
+<sub>\* `manylinux2010` runs as a separate job (not as part of the strategy matrix) in the same workflow. This is because it runs inside a container, and not directly in a virtual environment provided by GitHub actions. </sub>
 
 The parameters kept constant in the nightly builds are:
 
