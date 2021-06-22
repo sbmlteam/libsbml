@@ -55,3 +55,8 @@ What is the reasoning behind the more extensive testing.
 ## Understanding the structure of the YAML files
 
 Ninja + other third-party actions used.
+
+
+### Further reading
+
+Documentation for [creating R source packages and binary packages](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Building-binary-packages).
