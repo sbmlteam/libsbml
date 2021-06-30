@@ -223,7 +223,7 @@ jobs:
           name:
             MacOS (zip, libSBML ${{env.LIBSBML_VERSION}},
             ${{env.ARTIFACT_NAME_SUFFIX}})
-          path:
+          path: |
             ${{runner.workspace}}/install/*
             ${{runner.workspace}}/build/r-binaries/*
           retention-days: 1
@@ -236,7 +236,7 @@ jobs:
           name:
             Ubuntu nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
             ${{env.ARTIFACT_NAME_SUFFIX}})
-          path:
+          path: |
             ${{runner.workspace}}/install/*
             ${{runner.workspace}}/build/r-binaries/*
           retention-days: 1
