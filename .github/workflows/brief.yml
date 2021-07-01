@@ -81,7 +81,7 @@ jobs:
         run: |
           sudo apt-get install -y check ccache
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
-          echo R_BINDINGS="-DWITH_R=True"
+          echo R_BINDINGS="-DWITH_R=True" >> "${GITHUB_ENV}"
 
       - name: Install MacOS dependencies
         # MacOS already has libxml2 by default
