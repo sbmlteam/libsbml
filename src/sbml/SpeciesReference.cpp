@@ -1366,6 +1366,7 @@ SpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   // stoichiometry: double   { use="optional" default="1" }  (L2v1->)
   //
   mIsSetStoichiometry = attributes.readInto("stoichiometry", mStoichiometry, getErrorLog(), false, getLine(), getColumn());
+  mExplicitlySetStoichiometry = mIsSetStoichiometry;
 
   string elplusid = "<" + getElementName() + ">";
   if (!mId.empty()) {
@@ -1380,6 +1381,7 @@ SpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   // constant: bool { use="required" } (L3v1 -> )
   //
   mIsSetConstant = attributes.readInto("constant", mConstant, getErrorLog(), false, getLine(), getColumn());
+  
   if (!mIsSetConstant && !isModifier())
   {
     logError(AllowedAttributesOnSpeciesReference, level, version, 
