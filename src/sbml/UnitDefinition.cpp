@@ -1806,21 +1806,6 @@ UnitDefinition::addChildObject(const std::string& elementName, const SBase* elem
 
 
 /** @cond doxygenLibsbmlInternal */
-/*
- * Adds an new "elementName" object in this UnitDefinition.
- */
-SBase*
-UnitDefinition::removeChildObject(const std::string& elementName, const std::string& id)
-{
-  return NULL;
-}
-
-/** @endcond */
-
-
-
-
-/** @cond doxygenLibsbmlInternal */
 
 /*
  * Returns the number of "elementName" in this UnitDefinition.
