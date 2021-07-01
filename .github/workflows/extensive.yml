@@ -235,7 +235,7 @@ jobs:
         run: cmake --build . --config $BUILD_TYPE
 
       - name: Build Unix R binaries from source package
-        if: matrix.platform != 'windows-latest'
+        if: matrix.platform != 'windows-latest' && matrix.xml_parser_option == '-DWITH_LIBXML'
         shell: bash
         working-directory: ${{runner.workspace}}/build
         run: |
