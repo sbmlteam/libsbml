@@ -570,6 +570,7 @@ Compartment::setSpatialDimensions (double value)
   case 1:
     /* level 1 spatialDimensions was not an attribute */
     mSpatialDimensions = 3;
+    mExplicitlySetSpatialDimensions = true;
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   case 2:
     if (!representsInteger || value < 0 || value > 3)
@@ -589,6 +590,7 @@ Compartment::setSpatialDimensions (double value)
       mSpatialDimensions = (unsigned int) value;
       mSpatialDimensionsDouble = value;
       mIsSetSpatialDimensions  = true;
+      mExplicitlySetSpatialDimensions = true;
       return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -869,7 +871,8 @@ Compartment::unsetSpatialDimensions ()
   }
 
   mIsSetSpatialDimensions = false;
-  
+  mExplicitlySetSpatialDimensions = false;
+
   if (!isSetSpatialDimensions())
   {
     return LIBSBML_OPERATION_SUCCESS;
@@ -1680,7 +1683,8 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
   //
   mIsSetSpatialDimensions = attributes.readInto("spatialDimensions", 
                         mSpatialDimensionsDouble, getErrorLog(), false, getLine(), getColumn());
-  
+  mExplicitlySetSpatialDimensions = mIsSetSpatialDimensions;
+
   // keep integer value as record if spatial dimensions is 0, 1, 2, 3 
   if (mIsSetSpatialDimensions == true)
   {

@@ -1221,22 +1221,6 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-  * Removes and returns the "elementName" object with the given id in this UnitDefinition.
-  *
-  * @param elementName, the name of the element to remove.
-  * @param id, the id of the element to remove
-  *
-  * @return pointer to the element removed.
-  */
-  virtual SBase* removeChildObject(const std::string& elementName, const std::string& id);
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
    * Returns the number of "elementName" in this UnitDefinition.
    *
    * @param elementName, the name of the element to get number of.

@@ -2258,6 +2258,8 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
   //
   mIsSetReversible = attributes.readInto("reversible", 
                    mReversible, getErrorLog(), false, getLine(), getColumn());
+  mExplicitlySetReversible = mIsSetReversible;
+
   if (!mIsSetReversible)
   {
     logError(AllowedAttributesOnReaction, level, version, 
@@ -2272,6 +2274,8 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
   {
     mIsSetFast = attributes.readInto("fast", mFast, getErrorLog(), 
                                                 false, getLine(), getColumn());
+    mExplicitlySetFast = mIsSetFast;
+
     if (!mIsSetFast)
     {
       logError(AllowedAttributesOnReaction, level, version, 
