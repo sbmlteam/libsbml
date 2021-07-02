@@ -5,16 +5,6 @@ ifeq "$(PLATFORM)" ""
   PLATFORM := $(shell uname)
 endif
 
-ifeq "$(PLATFORM)" "Darwin"
-  ifeq ($(shell sw_vers -productVersion | grep -c 10.6),0)
-  ifeq ($(shell sw_vers -productVersion | grep -c 10.7),0)
-    PKG_CXXFLAGS = -std=c++11 -stdlib=libstdc++
-    PKG_LIBS += -stdlib=libstdc++
-    CXX_STD = CXX11
-  endif
-  endif
-endif
-
 CPP_SOURCES = \
     sbml/compress/CompressCommon.cpp                \
     sbml/compress/InputDecompressor.cpp             \

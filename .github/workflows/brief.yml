@@ -22,7 +22,7 @@ jobs:
         with_examples: ["True"]
         package_option: ["-DWITH_ALL_PACKAGES=ON"]
         language_bindings:
-          ["-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True"]
+          [ "-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True"]
         cpp_standard: [98, 20]
     runs-on: ${{ matrix.platform }}
 
@@ -81,6 +81,7 @@ jobs:
         run: |
           sudo apt-get install -y check ccache
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
+          echo R_BINDINGS="-DWITH_R=True" >> "${GITHUB_ENV}"
 
       - name: Install MacOS dependencies
         # MacOS already has libxml2 by default
@@ -136,6 +137,7 @@ jobs:
           -DWITH_EXAMPLES=${{matrix.with_examples}} \
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
+          ${R_BINDINGS} \
           ${RUNTIME_LINKING_OPTION} \
           ${PYTHON_LINKING_OPTION}
 
@@ -185,7 +187,6 @@ jobs:
           make -j 2
           make install
           swig -version
-
       - name: install CMake using pip
         run: |
           /opt/python/cp38-cp38/bin/pip install cmake
@@ -193,16 +194,13 @@ jobs:
           ln -s /opt/python/cp38-cp38/bin/ctest /usr/bin/ctest
           cmake --version
           ctest --version
-
       - name: Install dependencies, configure, build
         run: |
           yum install -y libxml2-devel check-devel java-devel mono-devel
           cd ..
           mkdir build
           cd build
-          mkdir ../install
           cmake ../libsbml \
-          -DCMAKE_INSTALL_PREFIX=../install \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_CHECK=True \
