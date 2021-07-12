@@ -15,7 +15,7 @@ Nightly builds are provided for the latest Ubuntu/MacOS and Windows environments
 | OS | `windows-latest`, `macos-latest`, `ubuntu-latest`, `manylinux2010`* |
 | packages | all, stable |
 
-<sub>\* `manylinux2010` runs as a separate job (not as part of the strategy matrix) in the same workflow. This is because it runs inside a container, and not directly in a virtual environment provided by GitHub actions. </sub>
+<sub>\*Note on ManyLinux: `manylinux2010` runs as a separate job (not as part of the strategy matrix) in the same workflow. This is because it runs inside a container, and not directly in a virtual environment provided by GitHub actions. `manylinux2010` also requires `checkout@v1` and `upload-artefact@v1`. Older ManyLinux is incompatible with GitHub Actions, as they require even older versions of `node`. A future workaround would be to run the ManyLinux job "manually" by using `docker` calls inside a more modern GitHub actions runner, instead of the current solution of using the `container: ` syntax.</sub>
 
 The parameters kept constant in the nightly builds are:
 
@@ -55,7 +55,6 @@ What is the reasoning behind the more extensive testing.
 ## Understanding the structure of the YAML files
 
 Ninja + other third-party actions used.
-Manylinux2010 needs v1 of upload-artefact, which complicated things a little bit.
 
 ### Further reading
 
