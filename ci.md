@@ -55,7 +55,7 @@ What is the reasoning behind the more extensive testing.
 ## Understanding the structure of the YAML files
 
 Ninja + other third-party actions used.
-
+Manylinux2010 needs v1 of upload-artefact, which complicated things a little bit.
 
 ### Further reading
 
