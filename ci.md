@@ -8,7 +8,7 @@ The jobs run differ depending on the event (push, PR, nightly build) and are sum
 ## Nightly builds ([store-artefact.yml](https://github.com/sbmlteam/libsbml/actions/workflows/store-artefact.yml))
 
 ### Configurations
-Nightly builds are provided for the latest Ubuntu/MacOS and Windows environments, as well as a `pep 513`-compliant build (`manylinux2010`) for backwards compatibility with older CentOS-based linux systems (CentOS 6 and more recent). All nightly builds are available via the [Actions tab of the libSBML Github repository site](https://github.com/sbmlteam/libsbml/actions/workflows/store-artefact.yml). The varying parameters are summarised below, resulting in 8 artefacts being rebuilt and uploaded every 24 hours.
+Nightly builds are provided for the latest Ubuntu/MacOS and Windows environments, as well as a `pep 513`-compliant build (`manylinux2010`) for backwards compatibility with older CentOS-based linux systems (CentOS 6 and more recent). All nightly builds are available via the [Actions tab of the libSBML Github repository site](https://github.com/sbmlteam/libsbml/actions/workflows/store-artefact.yml). The varying parameters are summarised below, resulting in 8 artefacts being rebuilt and uploaded every 24 hours, at 5 AM GMT.
 
 | parameters | value(s) taken |
 |-----|------------|
@@ -21,13 +21,13 @@ The parameters kept constant in the nightly builds are:
 
 | constant parameters | value |
 |-------------|------------|
-| bindings    | Java, C#, Python|
+| bindings    | Java, C#, Python, R|
 | XML parser  | libxml2 |
 | namespaces  | true |
 | with examples    | true |
 | strict includes  | true |
 
-Note that the nightly builds are run only on the default branch, and only on the SBML team repo (and not on its forks).
+Note that the nightly builds are run only on the default branch, and only on the SBML team repo (and not on its forks). For Unix-based systems, R binaries are also provided.
 
 
 ## On push (brief.yml)
