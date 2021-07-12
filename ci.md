@@ -121,7 +121,7 @@ Up to libSBML 5.19.0, releases were done manually &mdash; this took a lot of tim
             - installers (32+64 bit, for Debian- and RPM-based) (deb, rpm)
 
 Each folder also contains a `ReadMe.md` describing the contents of the folder.
-All builds contain bindings for.
+All builds contain bindings for C/C++/C#(Mono)/Python/Java/Perl and most of the Ruby.
 
 ### Summary of differences of manual releases to nightly builds
 
