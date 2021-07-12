@@ -60,3 +60,24 @@ Manylinux2010 needs v1 of upload-artefact, which complicated things a little bit
 ### Further reading
 
 Documentation for [creating R source packages and binary packages](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Building-binary-packages).
+
+
+# Using the CI system to make a libSBML release
+
+## Differences to last manual release
+
+Up to libSBML 5.19.0, releases were done manually &mdash; this took a lot of time. These can be found on [Sourceforge](https://sourceforge.net/projects/sbml/files/libsbml/5.19.0/) and comprised: 
+
+### Structure of Sourceforge libSBML release 5.19.0
+
+//TODO
+
+### Summary of differences to nightly builds
+
+The latest versions of many of the artefact provided there are now available through the nightly build of the CI system. Differences are documented below. The nightly build does **not** currently contain
+- Installers (dmg, msi, rpm, deb), 
+- Ruby bindings
+- Perl binding
+- Automatic uploading to PyPI on release
+- MATLAB interface
+- precompiled dependencies for Windows
