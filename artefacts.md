@@ -22,4 +22,4 @@ Each artefact is provided as a zip file, and has a version that includes all pac
 ## CentOS 6 ([ManyLinux2010](quay.io/pypa/manylinux2010_x86_64))
 
 - Precompiled version of libSBML, built using the XML parser library. Contains interfaces to C, C++, C# (Mono), Python, and R.
-- Precompiled R package for libSBML. 
+- Precompiled R package for libSBML (as a separate artefact). 
