@@ -13,52 +13,79 @@ Note that links herein point to the SBML Team GitHub repo default branch, and ma
 ### Configurations
 Nightly builds are provided for the latest Ubuntu/MacOS and Windows environments, as well as a `pep 513`-compliant build (`manylinux2010`) for backwards compatibility with older CentOS-based linux systems (CentOS 6 and more recent). All nightly builds are available via the [Actions tab of the libSBML Github repository site](https://github.com/sbmlteam/libsbml/actions/workflows/store-artefact.yml). The varying parameters are summarised below, resulting in 8 artefacts being rebuilt and uploaded every 24 hours, at 5 AM GMT.
 
-| parameters | value(s) taken |
-|-----|------------|
-| OS | `windows-latest`, `macos-latest`, `ubuntu-latest`, `manylinux2010`* |
-| packages | all, stable |
+| parameters | value(s) taken                                                     |
+| ---------- | ------------------------------------------------------------------ |
+| OS         | `windows-latest`, `macos-latest`, `ubuntu-16.04`, `manylinux2010`* |
+| packages   | all, stable                                                        |
 
 <sub>\*Note on ManyLinux: `manylinux2010` runs as a separate job (not as part of the strategy matrix) in the same workflow. This is because it runs inside a container, and not directly in a virtual environment provided by GitHub actions. `manylinux2010` also requires `checkout@v1` and `upload-artefact@v1`. Older ManyLinux is incompatible with GitHub Actions, as they require even older versions of `node`. A future workaround would be to run the ManyLinux job "manually" by using `docker` calls inside a more modern GitHub actions runner, instead of the current solution of using the `container: ` syntax.</sub>
 
 The parameters kept constant in the nightly builds are:
 
-| constant parameters | value |
-|-------------|------------|
-| bindings    | Java, C#, Python, R|
-| XML parser  | libxml2 |
-| namespaces  | true |
-| with examples    | true |
-| strict includes  | true |
+| constant parameters | value               |
+| ------------------- | ------------------- |
+| bindings            | Java, C#, Python, R |
+| XML parser          | libxml2             |
+| namespaces          | true                |
+| with examples       | true                |
+| strict includes     | true                |
+| C++ standard        | 98                  |
 
-Note that the nightly builds are run only on the default branch, and only on the SBML team repo (and not on its forks). For Unix-based systems, R binaries are also provided.
+Note that the nightly builds are run only on the default branch, and only on the SBML team repo (and not on its forks).
 
 
-## On push (brief.yml)
+## On push ([brief.yml](https://github.com/sbmlteam/libsbml/actions/workflows/brief.yml))
 
-The 6 most important configurations are tested at every push. These are:
+On every push, we run 8 tests configurations. These differ by the following parameters:
 
-OS
-C++ standard
-Packages
-Bindings
-XML parser
+| parameters   | value(s) taken                                                    |
+| ------------ | ----------------------------------------------------------------- |
+| OS           | `windows-latest`, `macos-latest`, `ubuntu-16.04`, `manylinux2010` |
+| C++ standard | 98, 20                                                            |
 
-The workflow file describing these configurations can be found [here](https://github.com/sbmlteam/libsbml/actions/workflows/brief.yml).
+while these build parameters are kept constant:
 
-## On PR (extensive.yml)
+| constant parameters | value                |
+| ------------------- | -------------------- |
+| bindings            | Java, C#, Python, R* |
+| XML parser          | libxml2              |
+| namespaces          | true                 |
+| with examples       | true                 |
+| strict includes     | true                 |
+| packages            | all                  |
 
-Testing is more extensive when a full (non-draft) PR is opened. This includes 24 different configurations, 8 per operating system.
+<sub>\* R builds only run for Ubuntu, to provide feedback more quickly.</sub>
 
-beyond the 6, two additional runs are made to check the compatibility of the PR with the two non-default XML parsers.
+## On PR ([extensive.yml](https://github.com/sbmlteam/libsbml/actions/workflows/extensive.yml))
 
-The workflow file describing these configurations can be found [here](https://github.com/sbmlteam/libsbml/actions/workflows/extensive.yml).
+Testing is more extensive when a full (non-draft) PR is opened.
 
-What is the reasoning behind the more extensive testing.
+This step includes 24 different configurations, 8 per OS (Windows, Mac, Ubuntu). No `manylinux` build is currently run on PR.
+
+This is the stage where the two non-default XML parsers (`xerces`, `expat`) are also tested. As the XML parsers are largely independent of the rest of the codebase, they are only tested in one configuration/OS - with all packages, but without language bindings.
+
+| parameters | value(s) taken                                   |
+| ---------- | ------------------------------------------------ |
+| OS         | `windows-latest`, `macos-latest`, `ubuntu-16.04` |
+| packages   | all, stable, none                                |
+| namespaces | true, false                                      |
+| XML parser | libxml2, expat*, xerces*                         |
+
+<sub>\* only with all packages and no bindings, for all OS.</sub>
+
+| constant parameters | value               |
+| ------------------- | ------------------- |
+| bindings            | Java, C#, Python, R |
+| C++ standard        | 98                  |
+| with examples       | true                |
+| strict includes     | true                |
+
 
 ## Understanding the structure of the YAML files
 
 Ninja + other third-party actions used.
 ccache.
+dependency installation varies across operating systems.
 
 ### Further reading
 
