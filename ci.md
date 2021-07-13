@@ -94,7 +94,7 @@ Documentation for [creating R source packages and binary packages](https://cran.
 
 # Using the CI system to make a libSBML release
 
-This section of the documentation is work-in-progress. Knowing the differences will help us develope a process to release libSBML more automatically in the future.
+This section of the documentation is work-in-progress. Knowing the differences will help us develop a process to release libSBML more automatically in the future.
 
 ## Differences to last manual release
 
