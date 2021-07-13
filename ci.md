@@ -1,10 +1,13 @@
 
-# CI/CD for libSBML documentation
+# Developer documentation of CI/CD for libSBML
 
-Continuous integration/continuous deployment (CI/CD) for libSMBL is implemented in [GitHub actions](https://docs.github.com/en/actions). This file provides a description of the jobs that make up this CI/CD system. Note that links herein point to the SBML Team GitHub repo default branch, and may differ in branches and forks.
+Continuous integration/continuous deployment (CI/CD) for libSMBL is implemented in [GitHub actions](https://docs.github.com/en/actions). 
+
+This file provides a description of the jobs that make up this CI/CD system, as documentation for developers - a description of the artefacts provided to users can be found in [artefacts.md](https://github.com/sbmlteam/libsbml/blob/development/artefacts.md).
 
 The jobs run differ depending on the event (push, PR, nightly build) and are summarised below. The YAML files triggering each CI/CD run can be found under [`./github/workflows/`](https://github.com/sbmlteam/libsbml/tree/development/.github/workflows).
 
+Note that links herein point to the SBML Team GitHub repo default branch, and may differ in branches and forks.
 ## Nightly builds ([store-artefact.yml](https://github.com/sbmlteam/libsbml/actions/workflows/store-artefact.yml))
 
 ### Configurations
@@ -55,6 +58,7 @@ What is the reasoning behind the more extensive testing.
 ## Understanding the structure of the YAML files
 
 Ninja + other third-party actions used.
+ccache.
 
 ### Further reading
 
