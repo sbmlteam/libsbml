@@ -67,7 +67,7 @@ We provide Zenodo DOIs for specific releases, so that you can cite the exact ver
 * libSBML-5.16.0 &rArr; [10.5281/zenodo.1095483](https://doi.org/10.5281/zenodo.)
 * libSBML-5.15.0 &rArr; [10.5281/zenodo.495344](https://doi.org/10.5281/zenodo.)
 
-If you'd like to include the latest features, binaries of the latest `development` branch of `SBMLTeam/libsbml` are built nightly and made available [here](https://github.com/sbmlteam/libsbml/actions/workflows/store-artefact.yml) by the CI/CD system.
+If you'd like to include the latest features, binaries of the latest `development` branch of `SBMLTeam/libsbml` are [built nightly](artefacts.md) by the CI/CD system.
 Further information for developers about the CI/CD system can be found [here](ci.md).
 
 
