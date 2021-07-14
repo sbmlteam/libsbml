@@ -1,6 +1,4 @@
-
 # Developer documentation of CI/CD for libSBML
-
 Continuous integration/continuous deployment (CI/CD) for libSMBL is implemented in [GitHub actions](https://docs.github.com/en/actions). 
 
 This file provides a description of the jobs that make up this CI/CD system, as documentation for developers - a description of the artefacts provided to users can be found in [artefacts.md](https://github.com/sbmlteam/libsbml/blob/development/artefacts.md).
@@ -35,7 +33,6 @@ Note that the nightly builds are run only on the default branch, and only on the
 
 
 ## On push ([brief.yml](https://github.com/sbmlteam/libsbml/actions/workflows/brief.yml))
-
 On every push, we run 8 tests configurations. These differ by the following parameters:
 
 | parameters   | value(s) taken                                                    |
@@ -57,7 +54,6 @@ while these build parameters are kept constant:
 <sub>\* R builds only run for Ubuntu, to provide feedback more quickly.</sub>
 
 ## On PR ([extensive.yml](https://github.com/sbmlteam/libsbml/actions/workflows/extensive.yml))
-
 Testing is more extensive when a full (non-draft) PR is opened.
 
 This step includes 24 different configurations, 8 per OS (Windows, Mac, Ubuntu). No `manylinux` build is currently run on PR.
@@ -81,27 +77,49 @@ This is the stage where the two non-default XML parsers (`xerces`, `expat`) are 
 | strict includes     | true                |
 
 
-## Understanding the structure of the YAML files
+## Notes on the CI/CD system
 
-Ninja + other third-party actions used.
-ccache.
-dependency installation varies across operating systems.
+### Understanding the structure of the YAML files
+The GitHub Actions `cmake` template was used as a basis. The GitHub Actions quickstart page gives an introduction into important terminology needed to understand the YAML files: strategy matrix, job, step, action.
 
-### Further reading
+For libSBML, the YAML files are generally structured into:
+- define strategy matrix
+- checkout the repository
+- dependency installation and system setup
+- configure with `cmake`
+- build
+- test with `ctest`
 
+The nightly build additionally uploads some artefacts at the end.
+
+### Dependency installation
+Dependency installation varies across operating systems, and this is implemented via conditions on the strategy matrix entry, e.g.
+```yaml
+      - name: Do something Windows-specific
+        if: matrix.platform == 'windows-latest'
+        run: # some windows-specific commands
+```
+For convenience, we set up the `ninja` generator for all runs using the [`seanmiddleditch/gha-setup-ninja`](https://github.com/marketplace/actions/install-ninja-build-tool) action.
+
+On Unix-based systems, missing dependences are typically installed via standard package managers (`brew`, `apt-get`, `yum`). In `manylinux2010`, recent enough versions of `cmake` (via `pip`) and `swig` (compile from source) are installed in a non-standard way.
+
+Windows builds require a precompiled dependencies folder, which is downloaded from SourceForge and cached, as well as a "manual" swig set-up by the CI. Additionally, we use the [`ilammy/msvc-dev-cmd`](https://github.com/marketplace/actions/enable-developer-command-prompt) action to ensure `msbuild` remains accessible to `cmake` (it's not by default because we use the `ninja` generator).
+
+### CMake configuration
+All runs use the `ninja` generator to configure the `cmake` build. This has the advantage of automatically parallelising the build under the hood. We further use `ccache` to take advantage of several runs repeatedly calling the same compilation command.
+
+### Python bindings
+
+### R package and bindings
 Documentation for [creating R source packages and binary packages](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Building-binary-packages).
 
-
 # Using the CI system to make a libSBML release
-
 This section of the documentation is work-in-progress. Knowing the differences will help us develop a process to release libSBML more automatically in the future.
 
 ## Differences to last manual release
-
 Up to libSBML 5.19.0, releases were done manually &mdash; this took a lot of time. These can be found on [Sourceforge](https://sourceforge.net/projects/sbml/files/libsbml/5.19.0/) and comprised: 
 
 ### Structure of Sourceforge libSBML release 5.19.0
-
 - stable
     - MATLAB interface
         - MATLAB binaries for all OS (zip + tar)
@@ -154,7 +172,6 @@ Each folder also contains a `ReadMe.md` describing the contents of the folder.
 All builds contain bindings for C/C++/C#(Mono)/Python/Java/Perl and most of the Ruby.
 
 ### Summary of differences of manual releases to nightly builds
-
 The latest versions of many of the artefact provided there are now available through the nightly build of the CI system. Differences are documented below. The nightly build does **not** currently contain
 - Installers (dmg, msi, rpm, deb), 
 - Ruby bindings
