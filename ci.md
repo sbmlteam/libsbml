@@ -80,7 +80,7 @@ This is the stage where the two non-default XML parsers (`xerces`, `expat`) are 
 ## Notes on the CI/CD system
 
 ### Understanding the structure of the YAML files
-The GitHub Actions `cmake` template was used as a basis. The GitHub Actions quickstart page gives an introduction into important terminology needed to understand the YAML files: strategy matrix, job, step, action.
+The GitHub Actions `cmake` template was used as a basis. [The GitHub Actions introduction page](https://docs.github.com/en/actions/learn-github-actions/introduction-to-github-actions) defines the fundamental terminology needed to understand the YAML files: job, step, action. Understanding [a strategy matrix](https://docs.github.com/en/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix) is also necessary.
 
 For libSBML, the YAML files are generally structured into:
 - define strategy matrix
@@ -106,12 +106,18 @@ On Unix-based systems, missing dependences are typically installed via standard 
 Windows builds require a precompiled dependencies folder, which is downloaded from SourceForge and cached, as well as a "manual" swig set-up by the CI. Additionally, we use the [`ilammy/msvc-dev-cmd`](https://github.com/marketplace/actions/enable-developer-command-prompt) action to ensure `msbuild` remains accessible to `cmake` (it's not by default because we use the `ninja` generator).
 
 ### CMake configuration
-All runs use the `ninja` generator to configure the `cmake` build. This has the advantage of automatically parallelising the build under the hood. We further use `ccache` to take advantage of several runs repeatedly calling the same compilation command.
+All runs use the `ninja` generator to configure the `cmake` build. This has the advantage of automatically parallelising the build under the hood.
 
-### Python bindings
+We further use `ccache` to take advantage of several runs repeatedly calling the same compilation command.
+
+Windows builds are compiled using the MSVC static runtime (`-DWITH_STATIC_RUNTIME`).
+
+### Python
+
+Unix-based builds use the `PYTHON_USE_DYNAMIC_LOOKUP` option, which allows libSBML binaries to dynamically link to available Python libraries, instead of being tied to the Python libraries of the OS the binaries were compiled on.
 
 ### R package and bindings
-Documentation for [creating R source packages and binary packages](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Building-binary-packages).
+Unix-based systems additionally build a binary R package in two steps: first the compiliation is configured to skip building the R binaries and create a source package instead (`-DWITH_CREATE_R_SOURCE=ON -DWITH_SKIP_R_BINARY=ON`). The binary R package is the created from the source package using the `R CMD INSTALL`.See the documentation for [creating R source packages and binary packages](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Building-binary-packages).
 
 # Using the CI system to make a libSBML release
 This section of the documentation is work-in-progress. Knowing the differences will help us develop a process to release libSBML more automatically in the future.
