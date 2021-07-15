@@ -390,7 +390,7 @@ public:
    * @see insertChild(unsigned int n, ASTNode* disownedChild)
    */
   LIBSBML_EXTERN
-  int removeChild(unsigned int n);
+  int removeChild(unsigned int n, bool delremoved = false);
 
 
   /**
@@ -2264,7 +2264,50 @@ setValue(value, 0);
   /** @endcond */
 
 
+  LIBSBML_EXTERN
+    bool equivalent(const ASTNode& rhs);
+
+  LIBSBML_EXTERN
+    void refactor();
+
+  LIBSBML_EXTERN
+    void decompose();
+
+  LIBSBML_EXTERN
+    ASTNode* derivative(const std::string& variable);
+
 protected:
+
+  friend class SBMLRateRuleConverter;
+
+  void printMath(unsigned int level = 0);
+  void refactorNumbers();
+    void reorderArguments();
+    void encompassUnaryMinus();
+    void distributeFunctions();
+    void createNonBinaryTree();
+    //bool equivalent(const ASTNode& rhs);
+    //void refactor();
+    //void decompose();
+    //ASTNode* derivative(const std::string& variable);
+
+  ASTNode* derivativePlus(const std::string& variable);
+  ASTNode* derivativeMinus(const std::string& variable);
+  ASTNode* derivativeTimes(const std::string& variable);
+  ASTNode* derivativeDivide(const std::string& variable);
+  ASTNode* derivativePower(const std::string& variable);
+  ASTNode* derivativeRoot(const std::string& variable);
+  ASTNode* derivativeLog(const std::string& variable);
+  ASTNode* derivativeExp(const std::string& variable);
+
+
+  void createVectorOfChildTypes(std::vector<unsigned int>& numbers,
+    std::vector<unsigned int>& names,
+    std::vector<unsigned int>& others);
+
+  void combineNumbers(std::vector<unsigned int>& numbers,
+    std::vector<unsigned int>& names,
+    std::vector<unsigned int>& others);
   /** @cond doxygenLibsbmlInternal */
 
   LIBSBML_EXTERN
