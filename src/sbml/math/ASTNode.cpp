@@ -53,6 +53,7 @@
 #include <sbml/Model.h>
 #include <sbml/util/IdList.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
+#include <sbml/math/L3FormulaFormatter.h>
 
 /** @cond doxygenIgnored */
 
@@ -3653,7 +3654,7 @@ ASTNode::createVectorOfChildTypes(std::vector<unsigned int>& numbers,
 
 }
 
-////LIBSBML_EXTERN
+
 void 
 ASTNode::printMath(unsigned int level)
 {
