@@ -37,12 +37,14 @@
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
 #include <sbml/math/ASTNode.h>
+#include <sbml/math/L3Parser.h>
 #include <sbml/AlgebraicRule.h>
 #include <sbml/AssignmentRule.h>
 #include <sbml/RateRule.h>
 #include <sbml/InitialAssignment.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/Model.h>
+#include <sbml/ModifierSpeciesReference.h>
 
 #ifdef __cplusplus
 
