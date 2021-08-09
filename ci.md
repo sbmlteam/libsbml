@@ -110,7 +110,7 @@ All runs use the `ninja` generator to configure the `cmake` build. This has the 
 
 ### ccache
 We further use `ccache` to take advantage of several runs repeatedly calling the same compilation command (currently on MacOS and Ubuntu only). Essentially, [`ccache` caches compilation outputs and creates a unique hash for each of them](https://ccache.dev/manual/4.3.html#_how_ccache_works). If there is a cache hit, the compilation is not run, but is replaced by the compilation output.
-Windows builds are compiled using the MSVC static runtime (`-DWITH_STATIC_RUNTIME`).
+Windows builds are compiled using the MSVC static runtime (`-DWITH_STATIC_RUNTIME`). In our setup, this means that we use [GitHub actions `cache` action](https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows) to cache the `.ccache` folder (where the hashes and compilation outputs are stored) with an OS-specific key, meaning runs can take advantage of the `ccache` information from previous CI runs on the same OS to speed up compilation.
 
 ### namespaces and strict includes
 All artefacts are compiled with namespaces and "strict includes" enabled. Using strict includes preserves backwards compatibility with previous routine practice to `#include <SBMLTypes.h>` to access the entirety of SBML, which was achieved via indirect includes (i.e. `SBMLTypes` would call further `#include`s). This provides a simple access to `libSBML`, but leads to longer include chains, and therefore unnecessary re-compilations, when partially re-building.
