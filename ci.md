@@ -108,8 +108,8 @@ Windows builds require a precompiled dependencies folder, which is downloaded fr
 ### CMake configuration
 All runs use the `ninja` generator to configure the `cmake` build. This has the advantage of automatically parallelising the build under the hood.
 
-We further use `ccache` to take advantage of several runs repeatedly calling the same compilation command.
-
+### ccache
+We further use `ccache` to take advantage of several runs repeatedly calling the same compilation command (currently on MacOS and Ubuntu only). Essentially, [`ccache` caches compilation outputs and creates a unique hash for each of them](https://ccache.dev/manual/4.3.html#_how_ccache_works). If there is a cache hit, the compilation is not run, but is replaced by the compilation output.
 Windows builds are compiled using the MSVC static runtime (`-DWITH_STATIC_RUNTIME`).
 
 ### Python
