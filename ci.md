@@ -112,6 +112,17 @@ All runs use the `ninja` generator to configure the `cmake` build. This has the 
 We further use `ccache` to take advantage of several runs repeatedly calling the same compilation command (currently on MacOS and Ubuntu only). Essentially, [`ccache` caches compilation outputs and creates a unique hash for each of them](https://ccache.dev/manual/4.3.html#_how_ccache_works). If there is a cache hit, the compilation is not run, but is replaced by the compilation output.
 Windows builds are compiled using the MSVC static runtime (`-DWITH_STATIC_RUNTIME`).
 
+### namespaces and strict includes
+All artefacts are compiled with namespaces and "strict includes" enabled. Using strict includes preserves backwards compatibility with previous routine practice to `#include <SBMLTypes.h>` to access the entirety of SBML, which was achieved via indirect includes (i.e. `SBMLTypes` would call further `#include`s). This provides a simple access to `libSBML`, but leads to longer include chains, and therefore unnecessary re-compilations, when partially re-building.
+
+For quicker re-builds, not using strict includes accelerates compilation through constructs like
+```
+#ifndef LIBSBML_USE_STRICT_INCLUDES
+#include not_totally_necessary.h
+#endif
+```
+but you need to be sure that you're including everything you need directly.
+
 ### Python
 
 Unix-based builds use the `PYTHON_USE_DYNAMIC_LOOKUP` option, which allows libSBML binaries to dynamically link to available Python libraries, instead of being tied to the Python libraries of the OS the binaries were compiled on.

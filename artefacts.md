@@ -3,7 +3,7 @@ The nightly build artefacts are available via the [Actions tab of the libSBML Gi
 
 Each artefact is provided as a zip file, and has a version that includes all packages (stable and experimental) and another version that contains only the stable packages. Stable packages include the SBML `comp`, `distrib`, `fbc`, `groups`, `l3v2extendedmath`, `layout`, `multi`, `qual`, and `render` packages, while experimental packages additionally include the SBML `arrays`, `dyn`, `req`, and `spatial` packages.
 
-All artefacts are compiled with namespace and strict includes enabled. Writing compressed SBML is possible with all artefacts in `.zip` and `.gz` format, and in `.bz2` format in all OS except CentOS 6.
+Writing compressed SBML is possible with all artefacts in `.zip` and `.gz` format, and in `.bz2` format in all OS except CentOS 6.
 
 The artefacts are built using [virtual machines provided by GitHub Actions](https://github.com/actions/virtual-environments).
 
