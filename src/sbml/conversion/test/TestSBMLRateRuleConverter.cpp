@@ -185,6 +185,85 @@ START_TEST(test_conversion_raterule_converter)
 }
 END_TEST
 
+START_TEST(test_conversion_raterule_converter_non_standard_stoichiometry)
+{
+	// example 3.13 in Fages et al, TCS, 2015
+	// Simple example of dx/dt = -2*k*x = - dy/dt
+	// Unlike typical converters of Mass action reactions that would give x -> y with f=2*k*x,
+	// this converter give (the equivalent) 2*x -> 2*y with f=k*x
+	
+	ConversionProperties props;
+	props.addOption("inferReactions", true);
+
+	SBMLConverter* converter = new SBMLRateRuleConverter();
+	converter->setProperties(&props);
+
+	SBMLDocument* doc = new SBMLDocument(3, 2);
+	Model* model = doc->createModel();
+	model->setId("m");
+
+	Parameter* parameter1 = model->createParameter();
+	parameter1->setId("s");
+	parameter1->setConstant(false);
+	parameter1->setValue(0);
+
+	Parameter* parameter = model->createParameter();
+	parameter->setId("p");
+	parameter->setConstant(false);
+	parameter->setValue(0);
+
+	parameter = model->createParameter();
+	parameter->setId("k");
+	parameter->setConstant(true);
+	parameter->setValue(0);
+
+	RateRule* rr1 = model->createRateRule();
+	rr1->setVariable("s");
+	ASTNode* math = SBML_parseL3Formula("-2*k*s");
+	rr1->setMath(math);
+	delete math;
+
+	RateRule* rr2 = model->createRateRule();
+	rr2->setVariable("p");
+	math = SBML_parseL3Formula("2*k*s");
+	rr2->setMath(math);
+	delete math;
+
+
+	fail_unless(doc->getModel()->getNumCompartments() == 0);
+	fail_unless(doc->getModel()->getNumSpecies() == 0);
+	fail_unless(doc->getModel()->getNumParameters() == 3);
+	fail_unless(doc->getModel()->getNumRules() == 2);
+	fail_unless(doc->getModel()->getNumReactions() == 0);
+
+	converter->setDocument(doc);
+	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	fail_unless(doc->getModel()->getNumCompartments() == 1);
+	fail_unless(doc->getModel()->getNumSpecies() == 2);
+	fail_unless(doc->getModel()->getNumParameters() == 1);
+	fail_unless(doc->getModel()->getNumRules() == 0);
+	fail_unless(doc->getModel()->getNumReactions() == 1);
+
+	Reaction* r = doc->getModel()->getReaction(0);
+	fail_unless(r->getNumReactants() == 1);
+	fail_unless(r->getNumProducts() == 1);
+	fail_unless(r->getNumModifiers() == 0);
+	fail_unless(r->isSetKineticLaw());
+
+	SpeciesReference* sr = r->getReactant(0);
+	fail_unless(sr->getSpecies() == "s");
+	fail_unless(util_isEqual(sr->getStoichiometry(), 2.0));
+
+	sr = r->getProduct(0);
+	fail_unless(sr->getSpecies() == "p");
+	fail_unless(util_isEqual(sr->getStoichiometry(), 2.0));
+
+	const char* kl = SBML_formulaToL3String(r->getKineticLaw()->getMath());
+	fail_unless(strcmp(kl, "k*s"));
+	safe_free((char*)kl);
+}
+END_TEST
 
 Suite *
 create_suite_TestSBMLRateRuleConverter (void)
@@ -194,6 +273,7 @@ create_suite_TestSBMLRateRuleConverter (void)
 
   tcase_add_test(tcase, test_conversion_raterule_converter_invalid);
   tcase_add_test(tcase, test_conversion_raterule_converter);
+  tcase_add_test(tcase, test_conversion_raterule_converter_non_standard_stoichiometry);
 
 
   suite_add_tcase(suite, tcase);
