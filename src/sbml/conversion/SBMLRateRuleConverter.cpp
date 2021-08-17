@@ -667,6 +667,18 @@ SBMLRateRuleConverter::populateODEinfo()
     }
   }
 
+  // implement Algo 3.1 here
+  // check for hidden variables, and add an appropriate ODE if found
+  /*
+  for pair in mODEs: // might want to iterate over the model's raterules actually!
+        keep replacing -x+y with y-x iteratively
+        for each k-x-y in ode
+            add new z = k-x-y variable with dz/dt = -dx/dt-dy/dt and z = k-x-y
+            replace appropriate terms with z
+        for each k-x
+            do something similar
+  */
+
   //create set of non decomposable terms used in ODES
   // catch any repeats so a term is only present once but may appear in
   // multiple ODEs; numerical multipliers are ignored
