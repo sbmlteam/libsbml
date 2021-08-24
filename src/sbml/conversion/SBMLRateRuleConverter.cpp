@@ -678,7 +678,31 @@ SBMLRateRuleConverter::populateODEinfo()
         for each k-x
             do something similar
   */
-
+  for(std::pair<std::string, ASTNode*> ode : mODEs)
+  {
+      ASTNode* odeRHS = ode.second;
+      // Step 1
+      int numMinusXPlusY = INT16_MAX;
+      while (numMinusXPlusY != 0)
+      {
+          odeRHS->reduceToBinary();
+          for (int i = 0; i < odeRHS->getNumChildren() - 3; i++)// FIXME TODO traverse properly!
+          {
+              numMinusXPlusY = 0;
+              //check for -x+y
+              bool isPlus = odeRHS->getType() == ASTNodeType_t::AST_PLUS;
+              bool hasMinusChild = odeRHS->getChild(0)->getType() == ASTNodeType_t::AST_MINUS || odeRHS->getChild(1)->getType() == ASTNodeType_t::AST_MINUS;
+              //TODO checks for non-constant species too!
+              if (isPlus && hasMinusChild) //FIXME TODO
+              {
+                  //Swap around to y-x
+                  //Increase numMinusXPlusY
+              }
+          }
+      }
+      // TODO: Step 2
+      // TODO: STEP 3
+  }
   //create set of non decomposable terms used in ODES
   // catch any repeats so a term is only present once but may appear in
   // multiple ODEs; numerical multipliers are ignored
