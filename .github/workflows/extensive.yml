@@ -124,7 +124,7 @@ jobs:
           echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
           ./dev/utilities/expdef/expdef64.exe -dRlib.def -l R.dll
           echo R_PLATFORM_SPECIFIC_OPTIONS="-DR_LIB=${GITHUB_WORKSPACE}\Rlib.lib" >> "${GITHUB_ENV}"
-          echo R_INCLUDE_PATH="/c/Program Files/R/R-4.1.0/include" >> "${GITHUB_ENV}"
+          echo R_INCLUDE_PATH="/c/Program Files/R/R-4.1.1/include" >> "${GITHUB_ENV}"
 
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG and libxml2 by default
