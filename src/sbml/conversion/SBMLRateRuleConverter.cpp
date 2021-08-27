@@ -849,6 +849,42 @@ SBMLRateRuleConverter::reconstructModel()
   removeRules();
 }
 
+// helper function to determine whether a node is the + in a -x+y expression, where x,y are variable species.
+bool SBMLRateRuleConverter::isMinusXPlusY(ASTNode* node, Model* model)
+{
+    //if node is not binary, it's not -x+y
+    if (!node->getNumChildren() == 2)
+        return false;
+
+    // if node is not a plus, it's not -x+y
+    bool isPlus = node->getType() == ASTNodeType_t::AST_PLUS;
+    if (!isPlus)
+        return false;
+
+    // if left child is not a minus, it's not -x+y
+    ASTNode* leftChild = node->getLeftChild();
+    bool leftChildIsMinus = leftChild->getType() == ASTNodeType_t::AST_MINUS;
+    if (!leftChildIsMinus)
+        return false;
+
+    // if right child is not a variable species, it's not -x+y
+    ASTNode* rightChild = node->getRightChild();
+    if (!isVariableSpecies(rightChild, model))
+        return false;
+
+    // if we get to this point, the only thing left to check is 
+    // whether the ->left->right grandchild (the x in -x+y) is a variable species.
+    ASTNode* grandChild = leftChild->getRightChild();
+    return isVariableSpecies(grandChild, model);
+}
+
+bool SBMLRateRuleConverter::isVariableSpecies(ASTNode* node, Model* model)
+{
+    Species* species = model->getSpecies(node->getName());
+    bool isSpecies = (species != NULL);
+    bool isVariable = !node->isConstant();
+    return isVariable && isSpecies;
+}
 
 void
 SBMLRateRuleConverter::dealWithSpecies()
