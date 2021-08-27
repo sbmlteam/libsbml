@@ -681,22 +681,21 @@ SBMLRateRuleConverter::populateODEinfo()
   for(std::pair<std::string, ASTNode*> ode : mODEs)
   {
       ASTNode* odeRHS = ode.second;
+      odeRHS->reduceToBinary();
       // Step 1
       int numMinusXPlusY = INT16_MAX;
       while (numMinusXPlusY != 0)
       {
-          odeRHS->reduceToBinary();
-          for (int i = 0; i < odeRHS->getNumChildren() - 3; i++)// FIXME TODO traverse properly!
+          // since check is centred on a node that is + or -, we can iterate over operator nodes in tree
+          List* operators;
+          operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
+          ListIterator it = operators->begin();
+          while (it != operators->end())
           {
-              numMinusXPlusY = 0;
-              //check for -x+y
-              bool isPlus = odeRHS->getType() == ASTNodeType_t::AST_PLUS;
-              bool hasMinusChild = odeRHS->getChild(0)->getType() == ASTNodeType_t::AST_MINUS || odeRHS->getChild(1)->getType() == ASTNodeType_t::AST_MINUS;
-              //TODO checks for non-constant species too!
-              if (isPlus && hasMinusChild) //FIXME TODO
+              if (isMinusXPlusY((ASTNode*)*it, model))
               {
-                  //Swap around to y-x
-                  //Increase numMinusXPlusY
+                  //TODO: Swap +x-y node for y-x node here
+                  numMinusXPlusY++;
               }
           }
       }
