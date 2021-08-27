@@ -857,14 +857,12 @@ bool SBMLRateRuleConverter::isMinusXPlusY(ASTNode* node, Model* model)
         return false;
 
     // if node is not a plus, it's not -x+y
-    bool isPlus = node->getType() == ASTNodeType_t::AST_PLUS;
-    if (!isPlus)
+    if (node->getType() != ASTNodeType_t::AST_PLUS)
         return false;
 
     // if left child is not a minus, it's not -x+y
     ASTNode* leftChild = node->getLeftChild();
-    bool leftChildIsMinus = leftChild->getType() == ASTNodeType_t::AST_MINUS;
-    if (!leftChildIsMinus)
+    if (leftChild->getType() != ASTNodeType_t::AST_MINUS)
         return false;
 
     // if right child is not a variable species, it's not -x+y
