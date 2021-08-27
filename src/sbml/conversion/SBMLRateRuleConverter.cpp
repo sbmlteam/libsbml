@@ -849,7 +849,7 @@ SBMLRateRuleConverter::reconstructModel()
   removeRules();
 }
 
-// helper function to determine whether a node is the + in a -x+y expression, where x,y are variable species.
+// helper function to determine whether a node is the "+" in a -x+y expression, where x,y are variable species.
 bool SBMLRateRuleConverter::isMinusXPlusY(ASTNode* node, Model* model)
 {
     //if node is not binary, it's not -x+y
@@ -878,12 +878,51 @@ bool SBMLRateRuleConverter::isMinusXPlusY(ASTNode* node, Model* model)
     return isVariableSpecies(grandChild, model);
 }
 
+// helper function to determine whether a node is the second "-" in a k-x-y expression, where x,y are variable species and k is a numerical constant or a parameter
+bool SBMLRateRuleConverter::isKMinusXMinusY(ASTNode* node, Model* model)
+{
+    // if node is not binary, it's not k-x-y
+    if (node->getNumChildren() != 2)
+        return false;
+
+    // if node is not a minus, it's not the second "-" in k-x-y
+    if (node->getType() != ASTNodeType_t::AST_MINUS)
+        return false;
+
+    // if right child is not a variable species, it's not k-x-y
+    ASTNode* rightChild = node->getRightChild();
+    if(!isVariableSpecies(rightChild, model))
+        return false;
+
+    // if left child is not a minus, it's not k-x-y
+    ASTNode* leftChild = node->getLeftChild();
+    if (leftChild->getType() != ASTNodeType_t::AST_MINUS)
+        return false;
+
+    // if left child is not binary, it's not k-x-y
+    if (leftChild->getNumChildren() != 2)
+        return false;
+
+    // if we've gotten this far, what's left to check are the children of the left child (k and x)
+    ASTNode* k = leftChild->getLeftChild();
+    ASTNode* x = leftChild->getRightChild();
+    return isNumericalConstantOrParameter(k, model) && isVariableSpecies(x, model);
+}
+
 bool SBMLRateRuleConverter::isVariableSpecies(ASTNode* node, Model* model)
 {
     Species* species = model->getSpecies(node->getName());
     bool isSpecies = (species != NULL);
     bool isVariable = !node->isConstant();
     return isVariable && isSpecies;
+}
+
+bool SBMLRateRuleConverter::isNumericalConstantOrParameter(ASTNode* node, Model* model)
+{
+    Parameter* parameter = model->getParameter(node->getName());
+    bool isParameter = (parameter != NULL);
+    bool isNumericalConstant = node->isNumber() && node->isConstant();
+    return isNumericalConstant || isParameter;
 }
 
 void
