@@ -667,18 +667,9 @@ SBMLRateRuleConverter::populateODEinfo()
     }
   }
 
-  // implement Algo 3.1 here
+  // implement Algo 3.1 here (hidden variables!)
   // check for hidden variables, and add an appropriate ODE if a hidden variable is found
-  /*
-  for pair in mODEs: // might want to iterate over the model's raterules actually!
-        keep replacing -x+y with y-x iteratively
-        for each k-x-y in ode
-            add new z = k-x-y variable with dz/dt = -dx/dt-dy/dt and z = k-x-y
-            replace appropriate terms with z
-        for each k-x
-            do something similar
-  */
-  /*for(std::pair<std::string, ASTNode*> ode : mODEs)
+  for(std::pair<std::string, ASTNode*> ode : mODEs)
   {
       ASTNode* odeRHS = ode.second;
       odeRHS->reduceToBinary(); // ensure all nodes have max 2 children
@@ -697,8 +688,8 @@ SBMLRateRuleConverter::populateODEinfo()
               if (isMinusXPlusY(currentNode, model))
               {
                   //Swap +x-y node for y-x node here
-                  //we can assume currentNode has two children and a parent at this point
                   ASTNode yMinusX = ASTNode(ASTNodeType_t::AST_MINUS);
+                  //we can assume currentNode has two children and a parent at this point
                   //old left child becomes new right, and vice versa
                   yMinusX.addChild(currentNode->getLeftChild()); 
                   yMinusX.addChild(currentNode->getRightChild());
@@ -710,9 +701,38 @@ SBMLRateRuleConverter::populateODEinfo()
               it++;
           }
       }
-      // TODO: Step 2
-      // TODO: STEP 3
-  }*/
+      // Step 2
+      List* operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
+      ListIterator it = operators->begin();
+      while (it != operators->end())
+      {
+          ASTNode* currentNode = (ASTNode*)*it;
+          if (isKMinusXMinusY(currentNode, model))
+          {
+              // TODO
+              // (a) introduce z=k-x-y with dz/dt = -dx/dt-dy/dt (add to list of additional ODEs to add at the end)
+              // (b) replace in ALL ODEs (not just current) k-x-y with z (interior loop over mODEs again?)
+              // (c) replace in ALL ODEs (not just current) k+v-x-y with v+z
+              // (d) replace in ALL ODEs (not just current) k-x+w-y with w+z
+          }
+          it++;
+      }
+      // Step 3
+      it = operators->begin();
+      while (it != operators->end())
+      {
+          ASTNode* currentNode = (ASTNode*)*it;
+          if (isKMinusX(currentNode, model))
+          {
+              // TODO
+              // (a) introduce z=k-x with dz/dt=-dx/dt;
+              // (b) replace in ALL ODEs (not just current) k-x with z
+              // (c) replace in ALL ODEs (not just current) k+v-x with v+z
+          }
+          it++;
+      }
+      odeRHS->createNonBinaryTree();
+  }
   //create set of non decomposable terms used in ODES
   // catch any repeats so a term is only present once but may appear in
   // multiple ODEs; numerical multipliers are ignored
@@ -915,6 +935,27 @@ bool SBMLRateRuleConverter::isKMinusXMinusY(ASTNode* node, Model* model)
     ASTNode* k = leftChild->getLeftChild();
     ASTNode* x = leftChild->getRightChild();
     return isNumericalConstantOrParameter(k, model) && isVariableSpecies(x, model);
+}
+
+// check whether a node is the minus sign in a k-x expression
+bool SBMLRateRuleConverter::isKMinusX(ASTNode* node, Model* model)
+{
+    // if node is not binary, it's not k-x
+    if (node->getNumChildren() != 2)
+        return false;
+
+    // if node is not a minus, it's not "-" in k-x
+    if (node->getType() != ASTNodeType_t::AST_MINUS)
+        return false;
+
+    // if right child is not a variable species, it's not k-x
+    ASTNode* rightChild = node->getRightChild();
+    if (!isVariableSpecies(rightChild, model))
+        return false;
+
+    // if left child is not a numerical constant or a parameter, it's not k-x - else it is!
+    ASTNode* leftChild = node->getLeftChild();
+    return isNumericalConstantOrParameter(leftChild, model);
 }
 
 bool SBMLRateRuleConverter::isVariableSpecies(ASTNode* node, Model* model)

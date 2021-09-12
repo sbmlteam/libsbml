@@ -236,6 +236,7 @@ private:
   // helper functions for algo 3.1
   bool isMinusXPlusY(ASTNode* node, Model* model);
   bool isKMinusXMinusY(ASTNode* node, Model* model);
+  bool isKMinusX(ASTNode* node, Model* model);
   bool isVariableSpecies(ASTNode* node, Model* model);
   bool isNumericalConstantOrParameter(ASTNode* node, Model* model);
 
