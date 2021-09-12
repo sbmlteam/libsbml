@@ -668,7 +668,7 @@ SBMLRateRuleConverter::populateODEinfo()
   }
 
   // implement Algo 3.1 here
-  // check for hidden variables, and add an appropriate ODE if found
+  // check for hidden variables, and add an appropriate ODE if a hidden variable is found
   /*
   for pair in mODEs: // might want to iterate over the model's raterules actually!
         keep replacing -x+y with y-x iteratively
@@ -678,30 +678,41 @@ SBMLRateRuleConverter::populateODEinfo()
         for each k-x
             do something similar
   */
-  for(std::pair<std::string, ASTNode*> ode : mODEs)
+  /*for(std::pair<std::string, ASTNode*> ode : mODEs)
   {
       ASTNode* odeRHS = ode.second;
-      odeRHS->reduceToBinary();
-      // Step 1
+      odeRHS->reduceToBinary(); // ensure all nodes have max 2 children
+      // Step 1: iterative, in-place replacement of any +x-y terms with y-x terms
       int numMinusXPlusY = INT16_MAX;
       while (numMinusXPlusY != 0)
       {
           // since check is centred on a node that is + or -, we can iterate over operator nodes in tree
+          numMinusXPlusY = 0;
           List* operators;
           operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
           ListIterator it = operators->begin();
           while (it != operators->end())
           {
-              if (isMinusXPlusY((ASTNode*)*it, model))
+              ASTNode* currentNode = (ASTNode*)*it;
+              if (isMinusXPlusY(currentNode, model))
               {
-                  //TODO: Swap +x-y node for y-x node here
+                  //Swap +x-y node for y-x node here
+                  //we can assume currentNode has two children and a parent at this point
+                  ASTNode yMinusX = ASTNode(ASTNodeType_t::AST_MINUS);
+                  //old left child becomes new right, and vice versa
+                  yMinusX.addChild(currentNode->getLeftChild()); 
+                  yMinusX.addChild(currentNode->getRightChild());
+                  ASTNode* parent = (ASTNode*) currentNode->getParentSBMLObject();
+                  int currentNodeChildIndex = (currentNode == parent->getLeftChild()) ? 0 : 1;
+                  parent->replaceChild(currentNodeChildIndex, &yMinusX, true);
                   numMinusXPlusY++;
               }
+              it++;
           }
       }
       // TODO: Step 2
       // TODO: STEP 3
-  }
+  }*/
   //create set of non decomposable terms used in ODES
   // catch any repeats so a term is only present once but may appear in
   // multiple ODEs; numerical multipliers are ignored
