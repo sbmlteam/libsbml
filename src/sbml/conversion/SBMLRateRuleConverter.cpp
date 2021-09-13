@@ -960,6 +960,8 @@ bool SBMLRateRuleConverter::isKMinusX(ASTNode* node, Model* model)
 
 bool SBMLRateRuleConverter::isVariableSpecies(ASTNode* node, Model* model)
 {
+    if (!node->isName()) // some nodes, like * operators, don't seem to have a name in the first place
+        return false;
     Species* species = model->getSpecies(node->getName());
     bool isSpecies = (species != NULL);
     bool isVariable = !node->isConstant();
@@ -968,6 +970,8 @@ bool SBMLRateRuleConverter::isVariableSpecies(ASTNode* node, Model* model)
 
 bool SBMLRateRuleConverter::isNumericalConstantOrParameter(ASTNode* node, Model* model)
 {
+    if (!node->isName()) // some nodes, like * operators, don't seem to have a name in the first place
+        return false;
     Parameter* parameter = model->getParameter(node->getName());
     bool isParameter = (parameter != NULL);
     bool isNumericalConstant = node->isNumber() && node->isConstant();
