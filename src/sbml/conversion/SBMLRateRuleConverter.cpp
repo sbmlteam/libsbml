@@ -669,6 +669,7 @@ SBMLRateRuleConverter::populateODEinfo()
 
   // implement Algo 3.1 here (hidden variables!)
   // check for hidden variables, and add an appropriate ODE if a hidden variable is found
+  List hiddenSpecies;
   for(std::pair<std::string, ASTNode*> ode : mODEs)
   {
       ASTNode* odeRHS = ode.second;
@@ -709,8 +710,11 @@ SBMLRateRuleConverter::populateODEinfo()
           ASTNode* currentNode = (ASTNode*)*it;
           if (isKMinusXMinusY(currentNode, model))
           {
-              // TODO
               // (a) introduce z=k-x-y with dz/dt = -dx/dt-dy/dt (add to list of additional ODEs to add at the end)
+              Species* zSpecies = model->createSpecies();
+              zSpecies->setMath(currentNode);
+              hiddenSpecies.add(zSpecies);
+              // TODO
               // (b) replace in ALL ODEs (not just current) k-x-y with z (interior loop over mODEs again?)
               // (c) replace in ALL ODEs (not just current) k+v-x-y with v+z
               // (d) replace in ALL ODEs (not just current) k-x+w-y with w+z
@@ -733,6 +737,14 @@ SBMLRateRuleConverter::populateODEinfo()
       }
       odeRHS->createNonBinaryTree();
   }
+
+  // add all hidden species to the model
+  for (void* s : hiddenSpecies)
+  {
+      Species* hidden = (Species*)s;
+      addODEPair(hidden->getId(), model);
+  }
+
   //create set of non decomposable terms used in ODES
   // catch any repeats so a term is only present once but may appear in
   // multiple ODEs; numerical multipliers are ignored
