@@ -2,6 +2,7 @@
  * @file    SBMLRateRuleConverter.h
  * @brief   Definition of SBMLRateRuleConverter, a converter from raterule to reaction
  * @author  Sarah Keating
+ * @author  Alessandro Felder
  *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
