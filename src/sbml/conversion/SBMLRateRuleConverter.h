@@ -233,6 +233,9 @@ private:
   void createReactions();
   void removeRules();
 
+  // functions that represents steps of algo 3.1
+  void reorderMinusXPlusYIteratively(ASTNode* odeRHS, Model* model);
+
   // additional helper functions for algo 3.1
   bool isMinusXPlusY(ASTNode* node, Model* model);
   bool isKMinusXMinusY(ASTNode* node, Model* model);
