@@ -233,6 +233,13 @@ private:
   void createReactions();
   void removeRules();
 
+  // additional helper functions for algo 3.1
+  bool isMinusXPlusY(ASTNode* node, Model* model);
+  bool isKMinusXMinusY(ASTNode* node, Model* model);
+  bool isKMinusX(ASTNode* node, Model* model);
+  std::pair<ASTNode*, int> getParentNode(ASTNode* child, ASTNode* root);
+  bool isVariableSpecies(ASTNode* node, Model* model);
+  bool isNumericalConstantOrParameter(ASTNode* node, Model* model);
 
   // member variables populated during analysis
   //typedef std::vector<std::pair<ASTNode*, std::vector<double> > > setCoeff;
