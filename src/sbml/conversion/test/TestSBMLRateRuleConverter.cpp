@@ -338,8 +338,6 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	converter->setDocument(doc);
 	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
-	// TESTS CURRENTLY FAIL ON PURPOSE
-
 	fail_unless(doc->getModel()->getNumCompartments() == 1);
 	fail_unless(doc->getModel()->getNumSpecies() == 5); // should be first failure while 3.1. is missing.
 	fail_unless(doc->getModel()->getNumParameters() == 4);
@@ -363,17 +361,13 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 
 	// reactants
 
-	srMpfi = r0->getReactant(0);
-	fail_unless(srMpfi->getSpecies() == "MPFi");
-	fail_unless(util_isEqual(srMpfi->getStoichiometry(), 1));
-
-	// TODO why do tests fail here with segfault, instead of earlier at
-	// fail_unless(doc->getModel()->getNumSpecies() == 5);
-	// segfault understandable as r0 only has one reactant as long as 3.1 is missing.
-	srCdc25 = r0->getReactant(1);
-	std::cout << srCdc25->toSBML() << std::endl;
+	srCdc25 = r0->getReactant(0);
 	fail_unless(srCdc25->getSpecies() == "Cdc25");
 	fail_unless(util_isEqual(srCdc25->getStoichiometry(), 1));
+
+	srMpfi = r0->getReactant(1);
+	fail_unless(srMpfi->getSpecies() == "z");
+	fail_unless(util_isEqual(srMpfi->getStoichiometry(), 1));
 
 	// products
 	srMpf = r0->getProduct(0);
@@ -407,13 +401,13 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	fail_unless(util_isEqual(srWee1->getStoichiometry(), 1));
 
 	// products
-	srMpfi = r1->getProduct(0);
-	fail_unless(srMpfi->getSpecies() == "MPFi");
-	fail_unless(util_isEqual(srMpfi->getStoichiometry(), 1.0));
-
-	srWee1 = r1->getProduct(1);
+	srWee1 = r1->getProduct(0);
 	fail_unless(srWee1->getSpecies() == "Wee1");
 	fail_unless(util_isEqual(srWee1->getStoichiometry(), 1.0));
+
+	srMpfi = r1->getProduct(1);
+	fail_unless(srMpfi->getSpecies() == "z");
+	fail_unless(util_isEqual(srMpfi->getStoichiometry(), 1.0));
 
 	// kinetic law
 	kl = SBML_formulaToL3String(r1->getKineticLaw()->getMath());
