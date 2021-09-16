@@ -913,6 +913,33 @@ bool SBMLRateRuleConverter::isNumericalConstantOrParameter(ASTNode* node, Model*
     return isNumericalConstant || isParameter;
 }
 
+void SBMLRateRuleConverter::reorderMinusXPlusYIteratively(ASTNode* odeRHS, Model* model)
+{
+    int numMinusXPlusY = INT16_MAX;
+    while (numMinusXPlusY != 0)
+    {
+        // since check is centred on a node that is + or -, we can iterate over operator nodes in tree
+        numMinusXPlusY = 0;
+        List* operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
+        ListIterator it = operators->begin();
+        while (it != operators->end())
+        {
+            ASTNode* currentNode = (ASTNode*)*it;
+            if (isMinusXPlusY(currentNode, model))
+            {
+                //Swap -x+y node for y-x node
+                ASTNode* yMinusX = new ASTNode(ASTNodeType_t::AST_MINUS);
+                std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
+                ASTNode* currentParent = currentParentAndIndex.first;
+                int index = currentParentAndIndex.second;
+                currentParent->replaceChild(index, yMinusX, true);
+                numMinusXPlusY++;
+            }
+            it++;
+        }
+        delete operators;
+    }
+}
 void
 SBMLRateRuleConverter::dealWithSpecies()
 {
