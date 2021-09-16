@@ -2,7 +2,8 @@
  * @file    TestSBMLRateRuleConverter.cpp
  * @brief   Tests for raterule to reaction converter
  * @author  Sarah Keating
- * 
+ * @author  Alessandro Felder
+ *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
