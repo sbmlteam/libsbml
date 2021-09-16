@@ -666,6 +666,86 @@ SBMLRateRuleConverter::populateODEinfo()
     }
   }
 
+  // implement Algo 3.1 here (hidden variables!)
+  // check for hidden variables, and add an appropriate ODE if a hidden variable is found
+  List hiddenSpecies;
+  for(std::pair<std::string, ASTNode*> ode : mODEs)
+  {
+      ASTNode* odeRHS = ode.second;
+      // Step 1: iterative, in-place replacement of any -x+y terms with y-x terms
+      reorderMinusXPlusYIteratively(odeRHS, model);
+
+      // Step 2 TODO
+      List* operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
+      ListIterator it = operators->begin();
+      while (it != operators->end())
+      {
+          ASTNode* currentNode = (ASTNode*)*it;
+          if (isKMinusXMinusY(currentNode, model))
+          {
+              // (a) introduce z=k-x-y with dz/dt = -dx/dt-dy/dt (add to list of additional ODEs to add at the end)
+              // TODO
+              // (b) replace in ALL ODEs (not just current) k-x-y with z (interior loop over mODEs again?)
+              // (c) replace in ALL ODEs (not just current) k+v-x-y with v+z
+              // (d) replace in ALL ODEs (not just current) k-x+w-y with w+z
+          }
+          it++;
+      }
+      // Step 3
+      it = operators->begin();
+      while (it != operators->end())
+      {
+          //TODO split into functions?
+          ASTNode* currentNode = (ASTNode*)*it;
+          if (isKMinusX(currentNode, model))
+          {
+              // remove constant k related to hidden variable found
+              model->removeParameter(currentNode->getLeftChild()->getName());
+              // (a)
+              // introduce z=k-x
+              Species* zSpecies = model->createSpecies(); //implicitly sets IsBoundaryCondition and IsConstant to false, which is what we want
+              const char* zName = "z"; // TODO generalise so we don't risk introducing duplicate names
+              zSpecies->setId(zName);
+              zSpecies->setMath(currentNode->deepCopy());
+              hiddenSpecies.add(zSpecies);
+              // TODO needs compartment?
+
+              // replace k - x with z in current ODE
+              ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
+              z->setName(zName);
+              std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
+              ASTNode* currentParent = currentParentAndIndex.first;
+              int index = currentParentAndIndex.second;
+              currentParent->replaceChild(index, z, true);
+
+              // add raterule defining dz/dz = -dxdt
+              RateRule* raterule = model->createRateRule();
+              raterule->setVariable(zName);
+              ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
+              ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
+              minus1->setValue(-1.0);
+              ASTNode* dxdt = odeRHS->deepCopy();
+              math->addChild(minus1);
+              math->addChild(dxdt);
+              raterule->setMath(math); // will math get deleted when raterule goes out of scope?
+              delete minus1;
+              // TODO do z, math need deleting? Alleviate general memory leak worries?
+
+              // TODO
+              // (b) replace in ALL ODEs (not just current) k-x with z
+              // (c) replace in ALL ODEs (not just current) k+v-x with v+z
+          }
+          it++;
+      }
+  }
+
+  // add all hidden species to the model
+  for (void* s : hiddenSpecies)
+  {
+      Species* hidden = (Species*)s;
+      addODEPair(hidden->getId(), model);
+  }
+
   //create set of non decomposable terms used in ODES
   // catch any repeats so a term is only present once but may appear in
   // multiple ODEs; numerical multipliers are ignored
