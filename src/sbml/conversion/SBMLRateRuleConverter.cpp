@@ -332,7 +332,6 @@ SBMLRateRuleConverter::addODEPair(std::string id, Model* model)
     {
       math = rr->getMath()->deepCopy();
       // TO DO return boolean to check this worked
-      math->decompose();
     }
     else
     {
@@ -677,6 +676,7 @@ SBMLRateRuleConverter::populateODEinfo()
   for (unsigned int n = 0; n < mODEs.size(); n++)
   {
     ASTNode* node = mODEs.at(n).second;
+    node->decompose();
     createTerms(node);
   }
 
