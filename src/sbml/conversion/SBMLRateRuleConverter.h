@@ -44,6 +44,8 @@
  * SBMLDocument::convert(@if java ConversionProperties@endif).  This
  * converter offers no other options.
  *
+ * Implementation is based on the algorithm described in Fages et al, Theoretical Computer Science, 2015.
+ *
  * @copydetails doc_section_using_sbml_converters
  */
 
@@ -234,14 +236,65 @@ private:
   void removeRules();
 
   // functions that represents steps of algo 3.1
+
+
   void reorderMinusXPlusYIteratively(ASTNode* odeRHS, Model* model);
 
   // additional helper functions for algo 3.1
+
+  /**
+   * Checks whether a node is the plus sign in an expression -x+y, where x and y are variable species or variable parameters in a model.
+   *
+   * @param node the node to check
+   * @param model the model that might contain x and y
+   * @return true if node is + in -x+y, otherwise false
+   */
   bool isMinusXPlusY(ASTNode* node, Model* model);
+
+  /**
+   * Checks whether a node is the second minus sign in an expression k-x-y, where x and y are variable species or variable parameters, and k is constant number or constant parameter, in a model.
+   * 
+   * @param node the node to check
+   * @param model the model that might contain x,y and k.
+   * @return true if node is second minus in k-x-y, other false
+   */
   bool isKMinusXMinusY(ASTNode* node, Model* model);
+
+  /**
+   * Checks whether a node is the minus sign in a k-x expression, where x is a variable species or variable parameter, and k is constant number or constant parameter, in a model.
+   *
+   * @param node the node to check
+   * @param model the model that might contain k and x
+   * @return true if the node is the minus in k-x, false otherwise
+   */
   bool isKMinusX(ASTNode* node, Model* model);
+
+  /**
+   * Searches for a node's parent and its index as the parent's child in a one-directional tree (nodes know their children, but not their parent).
+   * E.g. if the node is the first child of a node, this function will return a pair (parent, 0).
+   *
+   * @param child node whose parent should be found
+   * @param root root node of the tree to search
+   * @return pair of parent and index - or (nullptr, NAN) if not found.
+   */
   std::pair<ASTNode*, int> getParentNode(ASTNode* child, ASTNode* root);
+
+  /**
+   * Checks whether a node is a variable species or a variable parameter in a model.
+   * 
+   * @param node the node to check
+   * @param model the model that contains the node
+   * @return true if the node is a variable species/parameter
+   */
   bool isVariableSpecies(ASTNode* node, Model* model);
+  
+  /**
+   * Checks whether a node is a constant number or parameter in a model.
+   *
+   * @param node the node to check
+   * @param model the model that contains the node
+   * @return true if the node is a constant number/parameter
+   */
   bool isNumericalConstantOrParameter(ASTNode* node, Model* model);
 
   // member variables populated during analysis
