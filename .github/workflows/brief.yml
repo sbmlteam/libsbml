@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         platform: [windows-latest, macos-latest, ubuntu-18.04]
-        xml_parser_option: ["-DWITH_LIBXML"]
+        xml_parser_option: ["-DWITH_EXPAT"]
         with_namespace: ["True"]
         strict: ["True"]
         with_examples: ["True"]
@@ -121,7 +121,7 @@ jobs:
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build
 
-      - name: Configure CMake for default XML_parser (LIBXML2)
+      - name: Configure CMake for the selected XML_parser
         shell: bash
         working-directory: ${{runner.workspace}}/build
         run: |
@@ -135,6 +135,8 @@ jobs:
           -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
           -DWITH_EXAMPLES=${{matrix.with_examples}} \
+          -DWITH_LIBXML=OFF \
+          ${{matrix.xml_parser_option}}=True \
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
           ${R_BINDINGS} \
@@ -207,6 +209,8 @@ jobs:
           -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
           -DWITH_EXAMPLES=${{matrix.with_examples}} \
+          -DWITH_LIBXML=OFF \
+          ${{matrix.xml_parser_option}}=True \
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
           -DPYTHON_EXECUTABLE=/opt/python/cp38-cp38/bin/python \
