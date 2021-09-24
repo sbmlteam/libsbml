@@ -64,14 +64,14 @@ jobs:
             language_bindings: ""
           # extra Ubuntu runs
           - xml_parser_option: "-DWITH_EXPAT"
-            platform: ubuntu-16.04
+            platform: ubuntu-18.04
             with_namespace: "True"
             strict: "True"
             with_examples: "True"
             package_option: "-DWITH_ALL_PACKAGES=ON"
             language_bindings: ""
           - xml_parser_option: "-DWITH_XERCES"
-            platform: ubuntu-16.04
+            platform: ubuntu-18.04
             with_namespace: "True"
             strict: "True"
             with_examples: "True"
@@ -196,7 +196,7 @@ jobs:
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-          -DCMAKE_CXX_STANDARD=98 \
+          -DCMAKE_CXX_STANDARD=11 \
           -DWITH_CHECK=True \
           -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
