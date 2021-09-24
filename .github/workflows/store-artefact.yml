@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         platform: [windows-latest, macos-latest, ubuntu-18.04]
-        xml_parser_option: ["-DWITH_LIBXML"]
+        xml_parser_option: ["-DWITH_EXPAT"]
         with_namespace: ["True"]
         strict: ["True"]
         with_examples: ["True"]
@@ -79,7 +79,7 @@ jobs:
           echo R_INCLUDE_PATH="/c/Program Files/R/R-4.1.1/include" >> "${GITHUB_ENV}"
 
       - name: Install Ubuntu dependencies
-        # ubuntu already has SWIG and libxml2 by default
+        # ubuntu already has SWIG and expat by default
         if: matrix.platform == 'ubuntu-18.04'
         shell: bash
         run: |
@@ -87,7 +87,7 @@ jobs:
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
 
       - name: Install MacOS dependencies
-        # MacOS already has libxml2 by default
+        # MacOS already has expat by default
         if: matrix.platform == 'macos-latest'
         shell: bash
         run: |
@@ -131,7 +131,7 @@ jobs:
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build
 
-      - name: Configure CMake for default XML_parser (LIBXML2)
+      - name: Configure CMake for XML_parser (expat)
         shell: bash
         working-directory: ${{runner.workspace}}/build
         run: |
@@ -147,6 +147,8 @@ jobs:
           -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
           -DWITH_EXAMPLES=${{matrix.with_examples}} \
+          -DWITH_LIBXML=OFF \
+          ${{matrix.xml_parser_option}} \
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
           ${R_PLATFORM_SPECIFIC_OPTIONS} \
@@ -230,7 +232,7 @@ jobs:
           if-no-files-found: error
 
       - name: Upload Ubuntu binary archive
-        if: matrix.platform == 'ubuntu-16.04'
+        if: matrix.platform == 'ubuntu-18.04'
         uses: actions/upload-artifact@v2
         with:
           name:
@@ -252,7 +254,7 @@ jobs:
       fail-fast: false
       matrix:
         platform: [ubuntu-latest]
-        xml_parser_option: ["-DWITH_LIBXML"]
+        xml_parser_option: ["-DWITH_EXPAT"]
         with_namespace: ["True"]
         strict: ["True"]
         with_examples: ["True"]
@@ -302,6 +304,8 @@ jobs:
           -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
           -DWITH_EXAMPLES=${{matrix.with_examples}} \
+          -DWITH_LIBXML=OFF \
+          ${{matrix.xml_parser_option}} \
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
           -DWITH_CREATE_R_SOURCE=ON \
