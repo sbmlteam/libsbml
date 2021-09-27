@@ -948,7 +948,7 @@ bool SBMLRateRuleConverter::isKMinusXMinusY(ASTNode* node, Model* model)
     // if we've gotten this far, what's left to check are the children of the left child (k and x)
     ASTNode* k = leftChild->getLeftChild();
     ASTNode* x = leftChild->getRightChild();
-    return isNumericalConstantOrParameter(k, model) && isVariableSpecies(x, model);
+    return isNumericalConstantOrConstantParameter(k, model) && isVariableSpecies(x, model);
 }
 
 // check whether a node is the minus sign in a k-x expression
@@ -969,7 +969,7 @@ bool SBMLRateRuleConverter::isKMinusX(ASTNode* node, Model* model)
 
     // if left child is not a numerical constant or a parameter, it's not k-x - else it is!
     ASTNode* leftChild = node->getLeftChild();
-    return isNumericalConstantOrParameter(leftChild, model);
+    return isNumericalConstantOrConstantParameter(leftChild, model);
 }
 
 bool SBMLRateRuleConverter::isVariableSpecies(ASTNode* node, Model* model)
@@ -983,14 +983,14 @@ bool SBMLRateRuleConverter::isVariableSpecies(ASTNode* node, Model* model)
     return isVariable && isSpecies;
 }
 
-bool SBMLRateRuleConverter::isNumericalConstantOrParameter(ASTNode* node, Model* model)
+bool SBMLRateRuleConverter::isNumericalConstantOrConstantParameter(ASTNode* node, Model* model)
 {
     if (!node->isName()) // some nodes, like * operators, don't seem to have a name in the first place
         return false;
     Parameter* parameter = model->getParameter(node->getName());
-    bool isParameter = (parameter != NULL);
+    bool isConstantParameter = (parameter != NULL) && (parameter->getConstant());
     bool isNumericalConstant = node->isNumber() && node->isConstant();
-    return isNumericalConstant || isParameter;
+    return isNumericalConstant || isConstantParameter;
 }
 
 void SBMLRateRuleConverter::reorderMinusXPlusYIteratively(ASTNode* odeRHS, Model* model)

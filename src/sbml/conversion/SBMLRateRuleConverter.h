@@ -290,13 +290,13 @@ private:
   bool isVariableSpecies(ASTNode* node, Model* model);
   
   /**
-   * Checks whether a node is a constant number or parameter in a model.
+   * Checks whether a node is a constant number or constant parameter in a model.
    *
    * @param node the node to check
    * @param model the model that contains the node
    * @return true if the node is a constant number/parameter
    */
-  bool isNumericalConstantOrParameter(ASTNode* node, Model* model);
+  bool isNumericalConstantOrConstantParameter(ASTNode* node, Model* model);
 
   // member variables populated during analysis
   //typedef std::vector<std::pair<ASTNode*, std::vector<double> > > setCoeff;
