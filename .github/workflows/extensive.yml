@@ -217,7 +217,7 @@ jobs:
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-          -DCMAKE_CXX_STANDARD=98 \
+          -DCMAKE_CXX_STANDARD=11 \
           -DWITH_CHECK=True \
           -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
