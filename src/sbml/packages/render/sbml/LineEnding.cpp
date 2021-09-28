@@ -118,7 +118,6 @@ LineEnding::LineEnding(const XMLNode& node, unsigned int l2version)
   , mGroup(NULL)
   , mBoundingBox(NULL)
 {
-  mGroup = new RenderGroup(2, l2version);
     const XMLNode* child;
     const XMLAttributes& attributes=node.getAttributes();
      ExpectedAttributes ea;
@@ -142,6 +141,10 @@ LineEnding::LineEnding(const XMLNode& node, unsigned int l2version)
     if (mBoundingBox == NULL)
     {
         mBoundingBox = new BoundingBox(2, l2version);
+    }
+    if (mGroup == NULL)
+    {
+        mGroup = new RenderGroup(2, l2version);
     }
 
     
