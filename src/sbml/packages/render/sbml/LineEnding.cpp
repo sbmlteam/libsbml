@@ -118,7 +118,6 @@ LineEnding::LineEnding(const XMLNode& node, unsigned int l2version)
   , mGroup(NULL)
   , mBoundingBox(NULL)
 {
-  mBoundingBox = new BoundingBox(2, l2version);
   mGroup = new RenderGroup(2, l2version);
     const XMLNode* child;
     const XMLAttributes& attributes=node.getAttributes();
@@ -132,14 +131,17 @@ LineEnding::LineEnding(const XMLNode& node, unsigned int l2version)
         const std::string& childName=child->getName();
         if(childName=="boundingBox")
         {
-            this->mBoundingBox= new BoundingBox(*child);
-            //this->mBoundingBox.setIsInRenderContext(true);
+            mBoundingBox= new BoundingBox(*child);
         }
         else if(childName=="g")
         {
-            this->mGroup=new RenderGroup(*child);
+            mGroup=new RenderGroup(*child);
         }
         ++n;
+    }
+    if (mBoundingBox == NULL)
+    {
+        mBoundingBox = new BoundingBox(2, l2version);
     }
 
     
