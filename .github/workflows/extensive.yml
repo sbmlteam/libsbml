@@ -21,7 +21,7 @@ jobs:
       fail-fast: false
       matrix:
         xml_parser_option: ["-DWITH_LIBXML"]
-        platform: [windows-latest, macos-latest, ubuntu-16.04]
+        platform: [windows-latest, macos-latest, ubuntu-18.04]
         with_namespace: ["True", "False"]
         strict: ["True"]
         with_examples: ["True"]
@@ -64,14 +64,14 @@ jobs:
             language_bindings: ""
           # extra Ubuntu runs
           - xml_parser_option: "-DWITH_EXPAT"
-            platform: ubuntu-16.04
+            platform: ubuntu-18.04
             with_namespace: "True"
             strict: "True"
             with_examples: "True"
             package_option: "-DWITH_ALL_PACKAGES=ON"
             language_bindings: ""
           - xml_parser_option: "-DWITH_XERCES"
-            platform: ubuntu-16.04
+            platform: ubuntu-18.04
             with_namespace: "True"
             strict: "True"
             with_examples: "True"
@@ -128,7 +128,7 @@ jobs:
 
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG and libxml2 by default
-        if: matrix.platform == 'ubuntu-16.04'
+        if: matrix.platform == 'ubuntu-18.04'
         shell: bash
         run: |
           sudo apt-get install -y check libxerces-c-dev expat ccache
@@ -196,7 +196,7 @@ jobs:
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-          -DCMAKE_CXX_STANDARD=98 \
+          -DCMAKE_CXX_STANDARD=11 \
           -DWITH_CHECK=True \
           -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
@@ -217,7 +217,7 @@ jobs:
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-          -DCMAKE_CXX_STANDARD=98 \
+          -DCMAKE_CXX_STANDARD=11 \
           -DWITH_CHECK=True \
           -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
