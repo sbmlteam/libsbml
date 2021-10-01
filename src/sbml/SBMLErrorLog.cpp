@@ -385,7 +385,7 @@ SBMLErrorLog::getErrorWithSeverity(unsigned int n, unsigned int severity) const
   {
     if (matcher(*it))
     {
-      if (count == n) return dynamic_cast<const SBMLError*>(*it);
+      if (count == n) return static_cast<const SBMLError*>(*it);
       ++count;
     }
   }
