@@ -242,6 +242,10 @@ START_TEST(test_SBMLErrorLog_getErrorWithSeverity_XMLError)
     fail_unless(error != NULL);
     fail_unless(error->getErrorId() == XMLContentEmpty);
 
+    error = doc->getError(0);
+    fail_unless(error != NULL);
+    fail_unless(error->getErrorId() == XMLContentEmpty);
+
 }
 END_TEST
 

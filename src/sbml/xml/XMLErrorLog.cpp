@@ -130,6 +130,7 @@ XMLErrorLog::add (const XMLError& error)
   if (serror == NULL)
   {
       SBMLError sbmlerr(error.getErrorId(), 0, 0, "", error.getLine(), error.getColumn(), error.getSeverity(), error.getCategory());
+      sbmlerr.mMessage = error.mMessage;
       return add(sbmlerr);
   }
 
