@@ -47,6 +47,7 @@
 #include <sbml/xml/XMLParser.h>
 
 #include <sbml/xml/XMLErrorLog.h>
+#include <sbml/SBMLError.h>
 
 /** @cond doxygenIgnored */
 using namespace std;
@@ -88,8 +89,7 @@ XMLErrorLog& XMLErrorLog::operator=(const XMLErrorLog& other)
   {
     mOverriddenSeverity = other.mOverriddenSeverity;
     mParser = NULL;
-    
-    mErrors.clear();
+    clearLog();
     add(other.mErrors);
   }
   return *this;
@@ -125,6 +125,13 @@ void
 XMLErrorLog::add (const XMLError& error)
 {
   if (mOverriddenSeverity == LIBSBML_OVERRIDE_DONT_LOG) return;
+
+  const SBMLError* serror = dynamic_cast<const SBMLError*>(&error);
+  if (serror == NULL)
+  {
+      SBMLError sbmlerr(error.getErrorId(), 0, 0, "", error.getLine(), error.getColumn(), error.getSeverity(), error.getCategory());
+      return add(sbmlerr);
+  }
 
   XMLError* cerror;
 

@@ -364,7 +364,7 @@ SBMLErrorLog::getNumFailsWithSeverity(unsigned int severity)
 const SBMLError*
 SBMLErrorLog::getError (unsigned int n) const
 {
-  return static_cast<const SBMLError*>(XMLErrorLog::getError(n));
+  return dynamic_cast<const SBMLError*>(XMLErrorLog::getError(n));
 }
 
 /*
@@ -385,7 +385,7 @@ SBMLErrorLog::getErrorWithSeverity(unsigned int n, unsigned int severity) const
   {
     if (matcher(*it))
     {
-      if (count == n) return static_cast<const SBMLError*>(*it);
+      if (count == n) return dynamic_cast<const SBMLError*>(*it);
       ++count;
     }
   }
