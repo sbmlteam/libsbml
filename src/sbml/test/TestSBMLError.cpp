@@ -240,11 +240,11 @@ START_TEST(test_SBMLErrorLog_getErrorWithSeverity_XMLError)
 
     const SBMLError* error = doc->getErrorWithSeverity(0, LIBSBML_SEV_ERROR);
     fail_unless(error != NULL);
-    fail_unless(error->getErrorId() == XMLContentEmpty);
+    fail_unless(error->getErrorId() < XMLErrorCodesUpperBound);
 
     error = doc->getError(0);
     fail_unless(error != NULL);
-    fail_unless(error->getErrorId() == XMLContentEmpty);
+    fail_unless(error->getErrorId() < XMLErrorCodesUpperBound);
 
 }
 END_TEST
