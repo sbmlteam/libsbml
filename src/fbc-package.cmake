@@ -38,7 +38,7 @@ include(${LIBSBML_ROOT_SOURCE_DIR}/fbc-package.cmake)
 #build up sources
 set(FBC_SOURCES)
 
-# go through all directtories: common, extension and sbml
+# go through all directories
 foreach(dir common extension sbml util validator validator/constraints)
 
   # add to include directory
