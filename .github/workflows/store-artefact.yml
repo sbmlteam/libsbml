@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         platform: [windows-latest, macos-latest, ubuntu-18.04]
-        xml_parser_option: ["-DWITH_EXPAT"]
+        xml_parser_option: ["-DWITH_EXPAT=ON"]
         with_namespace: ["True"]
         strict: ["True"]
         with_examples: ["True"]
@@ -254,7 +254,7 @@ jobs:
       fail-fast: false
       matrix:
         platform: [ubuntu-latest]
-        xml_parser_option: ["-DWITH_EXPAT"]
+        xml_parser_option: ["-DWITH_EXPAT=ON"]
         with_namespace: ["True"]
         strict: ["True"]
         with_examples: ["True"]
