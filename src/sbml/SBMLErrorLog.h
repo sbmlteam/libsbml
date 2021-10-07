@@ -298,6 +298,14 @@ public:
   void add (const SBMLError& error);
 
 
+  /**
+   * Adds the given XMLError to the log.
+   *
+   * @param error XMLError, the error to be logged.
+   */
+  virtual void add(const XMLError& error);
+
+
   /** @cond doxygenCppOnly */
 
   /**

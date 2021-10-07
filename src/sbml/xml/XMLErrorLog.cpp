@@ -126,14 +126,6 @@ XMLErrorLog::add (const XMLError& error)
 {
   if (mOverriddenSeverity == LIBSBML_OVERRIDE_DONT_LOG) return;
 
-  const SBMLError* serror = dynamic_cast<const SBMLError*>(&error);
-  if (serror == NULL)
-  {
-      SBMLError sbmlerr(error.getErrorId(), 0, 0, "", error.getLine(), error.getColumn(), error.getSeverity(), error.getCategory());
-      sbmlerr.mMessage = error.mMessage;
-      return add(sbmlerr);
-  }
-
   XMLError* cerror;
 
   try

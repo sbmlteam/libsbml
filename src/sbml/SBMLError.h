@@ -1253,6 +1253,10 @@ protected:
 
   void adjustErrorId(unsigned int offset);
 
+  virtual void setMessage(const std::string& message);
+
+  friend class SBMLErrorLog;
+
   /** @endcond **/
 };
 

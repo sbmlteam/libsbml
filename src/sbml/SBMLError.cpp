@@ -465,6 +465,10 @@ SBMLError::adjustErrorId(unsigned int)
 {
   // TODO deprecate this unused function
 }
+void SBMLError::setMessage(const string& message)
+{
+    mMessage = message;
+}
 /** @endcond */
 
 #endif /* __cplusplus */
