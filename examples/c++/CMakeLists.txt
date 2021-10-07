@@ -34,10 +34,6 @@ include_directories(BEFORE ${LIBSBML_ROOT_SOURCE_DIR}/src)
 include_directories(${LIBSBML_ROOT_SOURCE_DIR}/include)
 include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 
-add_subdirectory(analyzeTags)
-add_subdirectory(checkTestCases)
-add_subdirectory(createSyntacticTests)
-add_subdirectory(generateTestsFrom)
 
 if (EXTRA_INCLUDE_DIRS)
 include_directories(${EXTRA_INCLUDE_DIRS})
