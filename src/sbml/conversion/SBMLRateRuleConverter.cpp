@@ -727,13 +727,14 @@ SBMLRateRuleConverter::populateODEinfo()
               ASTNode* dxdt = odeRHS->deepCopy();
               math->addChild(minus1);
               math->addChild(dxdt);
-              raterule->setMath(math); // will math get deleted when raterule goes out of scope?
-              delete minus1;
-              // TODO do z, math need deleting? Alleviate general memory leak worries?
+              raterule->setMath(math);
+              delete math; //its children dxdt and minus1 deleted as part of this.
 
               // TODO
               // (b) replace in ALL ODEs (not just current) k-x with z
               // (c) replace in ALL ODEs (not just current) k+v-x with v+z
+              
+              // intentionally, don't delete z as it's now part of currentParent
           }
           it++;
       }
