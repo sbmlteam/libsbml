@@ -332,7 +332,6 @@ SBMLRateRuleConverter::addODEPair(std::string id, Model* model)
     {
       math = rr->getMath()->deepCopy();
       // TO DO return boolean to check this worked
-      math->decompose();
     }
     else
     {
@@ -667,6 +666,87 @@ SBMLRateRuleConverter::populateODEinfo()
     }
   }
 
+  // implement Algo 3.1 here (hidden variables!)
+  // check for hidden variables, and add an appropriate ODE if a hidden variable is found
+  List hiddenSpecies;
+  for(std::pair<std::string, ASTNode*> ode : mODEs)
+  {
+      ASTNode* odeRHS = ode.second;
+      // Step 1: iterative, in-place replacement of any -x+y terms with y-x terms
+      reorderMinusXPlusYIteratively(odeRHS, model);
+
+      // Step 2 TODO
+      List* operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
+      ListIterator it = operators->begin();
+      while (it != operators->end())
+      {
+          ASTNode* currentNode = (ASTNode*)*it;
+          if (isKMinusXMinusY(currentNode, model))
+          {
+              // (a) introduce z=k-x-y with dz/dt = -dx/dt-dy/dt (add to list of additional ODEs to add at the end)
+              // TODO
+              // (b) replace in ALL ODEs (not just current) k-x-y with z (interior loop over mODEs again?)
+              // (c) replace in ALL ODEs (not just current) k+v-x-y with v+z
+              // (d) replace in ALL ODEs (not just current) k-x+w-y with w+z
+          }
+          it++;
+      }
+      // Step 3
+      it = operators->begin();
+      while (it != operators->end())
+      {
+          //TODO split into functions?
+          ASTNode* currentNode = (ASTNode*)*it;
+          if (isKMinusX(currentNode, model))
+          {
+              // remove constant k related to hidden variable found
+              model->removeParameter(currentNode->getLeftChild()->getName());
+              // (a)
+              // introduce z=k-x
+              Species* zSpecies = model->createSpecies(); //implicitly sets IsBoundaryCondition and IsConstant to false, which is what we want
+              const char* zName = "z"; // TODO generalise so we don't risk introducing duplicate names
+              zSpecies->setId(zName);
+              zSpecies->setMath(currentNode->deepCopy());
+              hiddenSpecies.add(zSpecies);
+              // TODO needs compartment?
+
+              // replace k - x with z in current ODE
+              ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
+              z->setName(zName);
+              std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
+              ASTNode* currentParent = currentParentAndIndex.first;
+              int index = currentParentAndIndex.second;
+              currentParent->replaceChild(index, z, true);
+
+              // add raterule defining dz/dz = -dxdt
+              RateRule* raterule = model->createRateRule();
+              raterule->setVariable(zName);
+              ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
+              ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
+              minus1->setValue(-1.0);
+              ASTNode* dxdt = odeRHS->deepCopy();
+              math->addChild(minus1);
+              math->addChild(dxdt);
+              raterule->setMath(math);
+              delete math; //its children dxdt and minus1 deleted as part of this.
+
+              // TODO
+              // (b) replace in ALL ODEs (not just current) k-x with z
+              // (c) replace in ALL ODEs (not just current) k+v-x with v+z
+              
+              // intentionally, don't delete z as it's now part of currentParent
+          }
+          it++;
+      }
+  }
+
+  // add all hidden species to the model
+  for (void* s : hiddenSpecies)
+  {
+      Species* hidden = (Species*)s;
+      addODEPair(hidden->getId(), model);
+  }
+
   //create set of non decomposable terms used in ODES
   // catch any repeats so a term is only present once but may appear in
   // multiple ODEs; numerical multipliers are ignored
@@ -677,6 +757,7 @@ SBMLRateRuleConverter::populateODEinfo()
   for (unsigned int n = 0; n < mODEs.size(); n++)
   {
     ASTNode* node = mODEs.at(n).second;
+    node->decompose();
     createTerms(node);
   }
 
@@ -813,6 +894,133 @@ SBMLRateRuleConverter::reconstructModel()
   removeRules();
 }
 
+// helper function to determine whether a node is the "+" in a -x+y expression, where x,y are variable species.
+bool SBMLRateRuleConverter::isMinusXPlusY(ASTNode* node, Model* model)
+{
+    //if node is not binary, it's not -x+y
+    if (!node->getNumChildren() == 2)
+        return false;
+
+    // if node is not a plus, it's not -x+y
+    if (node->getType() != ASTNodeType_t::AST_PLUS)
+        return false;
+
+    // if left child is not a minus, it's not -x+y
+    ASTNode* leftChild = node->getLeftChild();
+    if (leftChild->getType() != ASTNodeType_t::AST_MINUS)
+        return false;
+
+    // if right child is not a variable species, it's not -x+y
+    ASTNode* rightChild = node->getRightChild();
+    if (!isVariableSpecies(rightChild, model))
+        return false;
+
+    // if we get to this point, the only thing left to check is 
+    // whether the ->left->right grandchild (the x in -x+y) is a variable species.
+    ASTNode* grandChild = leftChild->getRightChild();
+    return isVariableSpecies(grandChild, model);
+}
+
+// helper function to determine whether a node is the second "-" in a k-x-y expression, where x,y are variable species and k is a numerical constant or a parameter
+bool SBMLRateRuleConverter::isKMinusXMinusY(ASTNode* node, Model* model)
+{
+    // if node is not binary, it's not k-x-y
+    if (node->getNumChildren() != 2)
+        return false;
+
+    // if node is not a minus, it's not the second "-" in k-x-y
+    if (node->getType() != ASTNodeType_t::AST_MINUS)
+        return false;
+
+    // if right child is not a variable species, it's not k-x-y
+    ASTNode* rightChild = node->getRightChild();
+    if(!isVariableSpecies(rightChild, model))
+        return false;
+
+    // if left child is not a minus, it's not k-x-y
+    ASTNode* leftChild = node->getLeftChild();
+    if (leftChild->getType() != ASTNodeType_t::AST_MINUS)
+        return false;
+
+    // if left child is not binary, it's not k-x-y
+    if (leftChild->getNumChildren() != 2)
+        return false;
+
+    // if we've gotten this far, what's left to check are the children of the left child (k and x)
+    ASTNode* k = leftChild->getLeftChild();
+    ASTNode* x = leftChild->getRightChild();
+    return isNumericalConstantOrConstantParameter(k, model) && isVariableSpecies(x, model);
+}
+
+// check whether a node is the minus sign in a k-x expression
+bool SBMLRateRuleConverter::isKMinusX(ASTNode* node, Model* model)
+{
+    // if node is not binary, it's not k-x
+    if (node->getNumChildren() != 2)
+        return false;
+
+    // if node is not a minus, it's not "-" in k-x
+    if (node->getType() != ASTNodeType_t::AST_MINUS)
+        return false;
+
+    // if right child is not a variable species, it's not k-x
+    ASTNode* rightChild = node->getRightChild();
+    if (!isVariableSpecies(rightChild, model))
+        return false;
+
+    // if left child is not a numerical constant or a parameter, it's not k-x - else it is!
+    ASTNode* leftChild = node->getLeftChild();
+    return isNumericalConstantOrConstantParameter(leftChild, model);
+}
+
+bool SBMLRateRuleConverter::isVariableSpecies(ASTNode* node, Model* model)
+{
+    if (!node->isName()) // some nodes, like * operators, don't seem to have a name in the first place
+        return false;
+    Species* species = model->getSpecies(node->getName());
+    Parameter* parameter = model->getParameter(node->getName()); // some species in rate rules may be defined as variable parameters
+    bool isVariableSpecies = (species != NULL && !species->getConstant());
+    bool isVariableParameter = (parameter!=NULL && !parameter->getConstant());
+    return isVariableSpecies || isVariableParameter;
+}
+
+bool SBMLRateRuleConverter::isNumericalConstantOrConstantParameter(ASTNode* node, Model* model)
+{
+    if (!node->isName()) // some nodes, like * operators, don't seem to have a name in the first place
+        return false;
+    Parameter* parameter = model->getParameter(node->getName());
+    bool isConstantParameter = (parameter != NULL) && (parameter->getConstant());
+    bool isNumericalConstant = node->isNumber() && node->isConstant();
+    return isNumericalConstant || isConstantParameter;
+}
+
+void SBMLRateRuleConverter::reorderMinusXPlusYIteratively(ASTNode* odeRHS, Model* model)
+{
+    int numMinusXPlusY = INT16_MAX;
+    while (numMinusXPlusY != 0)
+    {
+        // since check is centred on a node that is + or -, we can iterate over operator nodes in tree
+        numMinusXPlusY = 0;
+        List* operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
+        ListIterator it = operators->begin();
+        while (it != operators->end())
+        {
+            ASTNode* currentNode = (ASTNode*)*it;
+            if (isMinusXPlusY(currentNode, model))
+            {
+                //Swap -x+y node for y-x node
+                ASTNode* yMinusX = new ASTNode(ASTNodeType_t::AST_MINUS);
+                std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
+                ASTNode* currentParent = currentParentAndIndex.first;
+                int index = currentParentAndIndex.second;
+                currentParent->replaceChild(index, yMinusX, true);
+                numMinusXPlusY++;
+            }
+            it++;
+        }
+        delete operators;
+    }
+}
 
 void
 SBMLRateRuleConverter::dealWithSpecies()
@@ -903,6 +1111,23 @@ SBMLRateRuleConverter::removeRules()
       delete rr;
     }
   }
+}
+
+
+std::pair<ASTNode*, int> SBMLRateRuleConverter::getParentNode(ASTNode* child, ASTNode* root)
+{
+    for (int i = 0; i < root->getNumChildren(); i++)
+    {
+        if (root->getChild(i) == child)
+        {
+            return std::pair<ASTNode*, int>(root, i);
+        }
+    }
+    for (int i = 0; i < root->getNumChildren(); i++)
+    {
+        return getParentNode(child, root->getChild(i));
+    }
+    return std::pair<ASTNode*, int>(NULL, NAN);
 }
 
 /** @endcond */
