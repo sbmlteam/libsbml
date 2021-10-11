@@ -238,7 +238,6 @@ private:
 
   // functions that represents steps of algo 3.1
 
-
   void reorderMinusXPlusYIteratively(ASTNode* odeRHS, Model* model);
 
   // additional helper functions for algo 3.1

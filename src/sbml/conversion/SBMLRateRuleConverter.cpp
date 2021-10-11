@@ -1021,6 +1021,7 @@ void SBMLRateRuleConverter::reorderMinusXPlusYIteratively(ASTNode* odeRHS, Model
         delete operators;
     }
 }
+
 void
 SBMLRateRuleConverter::dealWithSpecies()
 {
@@ -1111,6 +1112,7 @@ SBMLRateRuleConverter::removeRules()
     }
   }
 }
+
 
 std::pair<ASTNode*, int> SBMLRateRuleConverter::getParentNode(ASTNode* child, ASTNode* root)
 {
