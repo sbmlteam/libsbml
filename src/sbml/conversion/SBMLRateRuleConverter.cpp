@@ -899,7 +899,7 @@ SBMLRateRuleConverter::reconstructModel()
 bool SBMLRateRuleConverter::isMinusXPlusY(ASTNode* node, Model* model)
 {
     //if node is not binary, it's not -x+y
-    if (!node->getNumChildren() == 2)
+    if (node->getNumChildren() != 2)
         return false;
 
     // if node is not a plus, it's not -x+y
@@ -1070,6 +1070,9 @@ SBMLRateRuleConverter::createReactions()
     Reaction *r = mDocument->getModel()->createReaction();
     r->setReversible(false);
     r->setFast(false);
+    int id = mDocument->getModel()->getNumReactions();
+    const std::string reactionId = "J" + std::to_string(id);
+    r->setId(reactionId);
     for (unsigned int j = 0; j < mODEs.size(); ++j)
     {
       double stoichiometry = 1.0;
@@ -1089,7 +1092,7 @@ SBMLRateRuleConverter::createReactions()
         sr->setStoichiometry(stoichiometry);
         sr->setConstant(true);
       }
-      if (mModifiers[i][j] > 0)
+      if (mModifiers[i][j] > 0 && r->getModifier(mODEs[j].first) == NULL)
       {
         ModifierSpeciesReference *sr = r->createModifier();
         sr->setSpecies(mODEs[j].first);
