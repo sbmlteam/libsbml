@@ -705,7 +705,7 @@ SBMLRateRuleConverter::populateODEinfo()
               // (a)
               // introduce z=k-x
               Species* zSpecies = model->createSpecies(); //implicitly sets IsBoundaryCondition and IsConstant to false, which is what we want
-              const char* zName = "z"; // TODO generalise so we don't risk introducing duplicate names
+              const std::string zName = "z" + std::to_string(model->getNumSpecies());
               zSpecies->setId(zName);
               zSpecies->setMath(currentNode->deepCopy());
               hiddenSpecies.add(zSpecies);
@@ -713,7 +713,7 @@ SBMLRateRuleConverter::populateODEinfo()
 
               // replace k - x with z in current ODE
               ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
-              z->setName(zName);
+              z->setName(zName.c_str());
               std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
               ASTNode* currentParent = currentParentAndIndex.first;
               int index = currentParentAndIndex.second;
