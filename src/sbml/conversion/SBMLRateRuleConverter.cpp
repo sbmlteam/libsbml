@@ -979,9 +979,9 @@ bool SBMLRateRuleConverter::isVariableSpecies(ASTNode* node, Model* model)
         return false;
     Species* species = model->getSpecies(node->getName());
     Parameter* parameter = model->getParameter(node->getName()); // some species in rate rules may be defined as variable parameters
-    bool isSpecies = (species != NULL || parameter != NULL);
-    bool isVariable = !node->isConstant();
-    return isVariable && isSpecies;
+    bool isVariableSpecies = (species != NULL && !species->getConstant());
+    bool isVariableParameter = (parameter!=NULL && !parameter->getConstant());
+    return isVariableSpecies || isVariableParameter;
 }
 
 bool SBMLRateRuleConverter::isNumericalConstantOrConstantParameter(ASTNode* node, Model* model)
