@@ -702,6 +702,10 @@ SBMLRateRuleConverter::populateODEinfo()
           {
               // remove constant k related to hidden variable found
               model->removeParameter(currentNode->getLeftChild()->getName());
+              // remember x name and dxdt for later, before we replace the current node
+              std::string xName = std::string(currentNode->getRightChild()->getName());
+              ASTNode* dxdt = model->getRateRuleByVariable(xName)->getMath()->deepCopy();
+
               // (a)
               // introduce z=k-x
               Species* zSpecies = model->createSpecies(); //implicitly sets IsBoundaryCondition and IsConstant to false, which is what we want
@@ -718,6 +722,7 @@ SBMLRateRuleConverter::populateODEinfo()
               ASTNode* currentParent = currentParentAndIndex.first;
               int index = currentParentAndIndex.second;
               currentParent->replaceChild(index, z, true);
+              // intentionally, don't delete z as it's now owned by currentParent!
 
               // add raterule defining dz/dz = -dxdt
               RateRule* raterule = model->createRateRule();
@@ -725,7 +730,6 @@ SBMLRateRuleConverter::populateODEinfo()
               ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
               ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
               minus1->setValue(-1.0);
-              ASTNode* dxdt = odeRHS->deepCopy();
               math->addChild(minus1);
               math->addChild(dxdt);
               raterule->setMath(math);
@@ -734,8 +738,6 @@ SBMLRateRuleConverter::populateODEinfo()
               // TODO
               // (b) replace in ALL ODEs (not just current) k-x with z
               // (c) replace in ALL ODEs (not just current) k+v-x with v+z
-              
-              // intentionally, don't delete z as it's now part of currentParent
           }
           it++;
       }
