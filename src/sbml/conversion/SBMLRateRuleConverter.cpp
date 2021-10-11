@@ -669,8 +669,9 @@ SBMLRateRuleConverter::populateODEinfo()
   // implement Algo 3.1 here (hidden variables!)
   // check for hidden variables, and add an appropriate ODE if a hidden variable is found
   List hiddenSpecies;
-  for(std::pair<std::string, ASTNode*> ode : mODEs)
+  for(int odeIndex=0; odeIndex < mODEs.size(); odeIndex++)
   {
+      std::pair<std::string, ASTNode*> ode = mODEs.at(odeIndex);
       ASTNode* odeRHS = ode.second;
       // Step 1: iterative, in-place replacement of any -x+y terms with y-x terms
       reorderMinusXPlusYIteratively(odeRHS, model);
@@ -741,9 +742,9 @@ SBMLRateRuleConverter::populateODEinfo()
   }
 
   // add all hidden species to the model
-  for (void* s : hiddenSpecies)
+  for (int hs=0; hs < hiddenSpecies.getSize(); hs++)
   {
-      Species* hidden = (Species*)s;
+      Species* hidden = (Species*) hiddenSpecies.get(hs);
       addODEPair(hidden->getId(), model);
   }
 
