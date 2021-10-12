@@ -502,8 +502,12 @@ StructureFields::freeStructureMemory()
   mxDestroyArray(mxDefaultValues);
   mxDestroyArray(mxValueTypes);
   // do not delete in output as the structure is being recursively used
-  //if (mxStructure) 
-  //  mxDestroyArray(mxStructure);
+  // HACK: this seems strange and we need to figure out why this is 
+  // the following line was outcommented in OutputSBML
+  // for now leave it out here too
+  //if (mxStructure) mxDestroyArray(mxStructure);
+  
+  
 }
 
 void
@@ -1843,7 +1847,7 @@ StructureFields::setAttribute(FieldValues_t field,
 
   case TYPE_BOOL:
     ivalue = readInt(field.fieldName, index, total_no);
-    bvalue = true ? ivalue == 1 : false;
+    bvalue = ivalue == 1; // ? true : false;
     if (determineStatus(field.fieldName, index))
     {
       if (usePlugin)
@@ -3166,7 +3170,7 @@ validateInputOutputForTranslate(int nlhs, mxArray *plhs[], int nrhs, const mxArr
 
 
 void
-OutputVersionInformation(mxArray *plhs[])
+OutputVersionInformation(mxArray *plhs[], int pos)
 {
   const char *version_struct[] =
   {
@@ -3192,10 +3196,10 @@ OutputVersionInformation(mxArray *plhs[])
   unsigned int i = 0;
   populatePackageLists();
 
-  plhs[0] = mxCreateStructArray(2, dims, 6, version_struct);
+  plhs[pos] = mxCreateStructArray(2, dims, 6, version_struct);
 
-  mxSetField(plhs[0], 0, "libSBML_version", CreateIntScalar(getLibSBMLVersion()));
-  mxSetField(plhs[0], 0, "libSBML_version_string", mxCreateString(getLibSBMLDottedVersion()));
+  mxSetField(plhs[pos], 0, "libSBML_version", CreateIntScalar(getLibSBMLVersion()));
+  mxSetField(plhs[pos], 0, "libSBML_version_string", mxCreateString(getLibSBMLDottedVersion()));
 
   while (isLibSBMLCompiledWith(parser) == 0 && i < 3)
   {
@@ -3203,14 +3207,14 @@ OutputVersionInformation(mxArray *plhs[])
     parser = xml_parsers[i];
   }
 
-  mxSetField(plhs[0], 0, "XML_parser", mxCreateString(parser));
-  mxSetField(plhs[0], 0, "XML_parser_version", mxCreateString(getLibSBMLDependencyVersionOf(parser)));
+  mxSetField(plhs[pos], 0, "XML_parser", mxCreateString(parser));
+  mxSetField(plhs[pos], 0, "XML_parser_version", mxCreateString(getLibSBMLDependencyVersionOf(parser)));
 
 #ifdef USE_FBC
-  mxSetField(plhs[0], 0, "isFBCEnabled", mxCreateString("enabled"));
+  mxSetField(plhs[pos], 0, "isFBCEnabled", mxCreateString("enabled"));
 
 #else
-  mxSetField(plhs[0], 0, "isFBCEnabled", mxCreateString("disabled"));
+  mxSetField(plhs[pos], 0, "isFBCEnabled", mxCreateString("disabled"));
 
 #endif
   std::ostringstream oss;
@@ -3230,7 +3234,7 @@ OutputVersionInformation(mxArray *plhs[])
   }
 
   std::string msg = oss.str();
-  mxSetField(plhs[0], 0, "packagesEnabled", mxCreateString(msg.c_str()));
+  mxSetField(plhs[pos], 0, "packagesEnabled", mxCreateString(msg.c_str()));
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -3404,7 +3408,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   // output required structures
   if (outputVersion == 1)
   {
-    OutputVersionInformation(plhs);
+    OutputVersionInformation(plhs, 0);
   }
   else
   {
