@@ -356,6 +356,7 @@ void FreeMem(void)
 {
   /* destroy arrays created */
   mxDestroyArray(modelArray);
+  modelArray = NULL;
 }
 
 void

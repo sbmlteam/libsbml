@@ -1841,7 +1841,7 @@ StructureFields::setAttribute(FieldValues_t field,
 
   case TYPE_BOOL:
     ivalue = readInt(field.fieldName, index, total_no);
-    bvalue = true ? ivalue == 1 : false;
+    bvalue = ivalue == 1; // ? true : false;
     if (determineStatus(field.fieldName, index))
     {
       if (usePlugin)
@@ -3502,7 +3502,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     mxArgs[0] = mxDuplicateArray(sf->getStructure());
     mxArgs[1] = CreateIntScalar(sbmlDocument->getLevel());
     mxArgs[2] = CreateIntScalar(sbmlDocument->getVersion());
-    mexCallMATLAB(0, &plhs[0], 3, mxArgs, "addLevelVersion");
+    mexCallMATLAB(1, &plhs[0], 3, mxArgs, "addLevelVersion");
     mxDestroyArray(mxArgs[0]);
     mxDestroyArray(mxArgs[1]);
     mxDestroyArray(mxArgs[2]);
@@ -3519,6 +3519,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     plhs[0] = mxCreateStructArray(0, 0, 0, NULL);
   }
-}
 
+  // need to free the document!
+  delete sbmlDocument;
+}
 
