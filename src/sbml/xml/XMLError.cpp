@@ -627,6 +627,12 @@ XMLError::getErrorIdOffset () const
 
 
 
+int XMLError::setCategoryString(const std::string& categoryString)
+{
+    mCategoryString= categoryString;
+    return LIBSBML_OPERATION_SUCCESS;
+}
+
 /*
  * @return @c true if this XMLError is for informational purposes only,
  * false otherwise.
@@ -750,6 +756,12 @@ int XMLError::setSeverity(unsigned int severity)
     {
         return LIBSBML_INVALID_ATTRIBUTE_VALUE;
     }
+    return LIBSBML_OPERATION_SUCCESS;
+}
+
+int XMLError::setSeverityString(const std::string& severityString)
+{
+    mSeverityString = severityString;
     return LIBSBML_OPERATION_SUCCESS;
 }
 

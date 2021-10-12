@@ -889,7 +889,7 @@ public:
    * @see setCategory()
    * @see setSeverity()
    */
-  int setErrorId(unsigned int errorId);
+  virtual int setErrorId(unsigned int errorId);
 
 
   /**
@@ -911,7 +911,7 @@ public:
    * @see setCategory()
    * @see setSeverity()
    */
-  int setMessage(const std::string& message);
+  virtual int setMessage(const std::string& message);
 
 
   /**
@@ -930,7 +930,7 @@ public:
    * @see setCategory()
    * @see setSeverity()
    */
-  int setShortMessage(const std::string& shortMessage);
+  virtual int setShortMessage(const std::string& shortMessage);
 
 
   /**
@@ -943,7 +943,25 @@ public:
    *
    * @see setCategory()
    */
-  int setSeverity(unsigned int severity);
+  virtual int setSeverity(unsigned int severity);
+
+
+  /**
+   * Sets the severity of this error.
+   *
+   * XMLError defines an enumeration of severity codes for the XML layer.
+   * Applications that build on XMLError by subclassing it may add their
+   * own severity codes with numbers higher than those in the predefined
+   * set of severity codes.  If so, 'setSeverityString' must be used
+   * to set the name of this category for users.
+   * 
+   * Note that this function does not set the severity code itself.
+   *
+   * @copydetails doc_returns_one_success_code
+   *
+   * @see setCategory()
+   */
+  virtual int setSeverityString(const std::string& severityString);
 
 
   /**
@@ -960,7 +978,29 @@ public:
    *
    * @see setSeverity()
    */
-  int setCategory(unsigned int category);
+  virtual int setCategory(unsigned int category);
+
+
+  /**
+   * Sets the category string of this error.
+   *
+   * XMLError defines an enumeration of category codes for the XML layer.
+   * Applications that build on XMLError by subclassing it may add their
+   * own categories with numbers higher than those in the predefined
+   * set of category codes.  If so, 'setCategoryString' must be used
+   * to set the name of this category for users.
+   *
+   * Note that this function does not set the category code itself.
+   *
+   * @copydetails doc_returns_one_success_code
+   *
+   * Categories can be used to partition errors into distinct groups.
+   * Among other things, this can be used to prevent id conflicts by
+   * uniquely identifying an XMLError by both id and category.
+   *
+   * @see setSeverity()
+   */
+  virtual int setCategoryString(const std::string& categoryString);
 
 
   /**
