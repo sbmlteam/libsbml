@@ -250,11 +250,12 @@ validateDocument(SBMLDocument* doc, unsigned int validateFlag, unsigned int verb
 void
 mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
+    GV gv;
   // we have not made persistent memory
-  freeMemory = false;
+  gv.freeMemory = false;
   std::ostringstream numErrs;
   /* determine whether we are in octave or matlab */
-  unsigned int usingOctave = determinePlatform();
+  unsigned int usingOctave = determinePlatform(gv);
 
   /* flags for determining what to output and whether to validate */
   unsigned int outputErrors = 0;
@@ -265,7 +266,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   bool readModel = true;
 
   FILE_CHAR pacFilename = validateInputOutputForTranslate(nlhs, plhs, nrhs, prhs, usingOctave, outputErrors,
-    outputVersion, validateFlag, verboseFlag);
+    outputVersion, validateFlag, verboseFlag, gv);
 
   SBMLDocument* sbmlDocument = readSBMLDocument(pacFilename);
 
@@ -312,7 +313,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   // output required structures
   if (outputVersion == 1)
   {
-    OutputVersionInformation(plhs, 2);
+    OutputVersionInformation(plhs, 2, gv);
   }
 
   if (outputErrors == 1)
@@ -323,12 +324,12 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   if (readModel) 
   {
     Model * sbmlModel = sbmlDocument->getModel();
-    details = new ModelDetails(sbmlDocument);
-    populatePackageLists();
+    gv.details = new ModelDetails(sbmlDocument, gv);
+    populatePackageLists(gv);
 
     std::string tc = "model";
     const std::string func = "TranslateSBML";
-    StructureFields *sf = new StructureFields(tc);
+    StructureFields *sf = new StructureFields(tc, gv);
     sf->createStructure(func, sbmlDocument);
 
 //    plhs[0] = sf->getStructure();
@@ -340,7 +341,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     mxDestroyArray(mxArgs[0]);
     mxDestroyArray(mxArgs[1]);
     mxDestroyArray(mxArgs[2]);
-    delete details;
+    delete gv.details;
     delete sf;
   }
   else

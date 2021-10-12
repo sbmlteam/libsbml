@@ -69,16 +69,15 @@ LIBSBML_CPP_NAMESPACE_USE
 // OutputSBML.cpp
 
 SBMLDocument *
-createSBMLDocument()
+createSBMLDocument(GV& gv)
 {
-  SBMLDocument * sbmlDocument;
-  sbmlDocument = new SBMLDocument(details->getNamespaces());
+  SBMLDocument * sbmlDocument = new SBMLDocument(gv.details->getNamespaces());
 
-  PkgMap pm = details->getPackages();
+  PkgMap pm = gv.details->getPackages();
   for (PkgIter it = pm.begin(); it != pm.end(); ++it)
   {
     const std::string& prefix = it->first;
-    sbmlDocument->setPackageRequired(prefix, getRequiredStatus(prefix));
+    sbmlDocument->setPackageRequired(prefix, getRequiredStatus(prefix, gv));
   }
   return sbmlDocument;
 
@@ -91,12 +90,12 @@ createSBMLDocument()
 #ifdef USE_FBC
 
 mxArray*
-getAssociation(unsigned int i)
+getAssociation(unsigned int i, GV& gv)
 {
   mxArray* mxAssociation = NULL;
   mxArray* mxRn = NULL;
   mxArray* mxGPA = NULL;
-  mxRn = mxGetField(modelArray, 0, "reaction");
+  mxRn = mxGetField(gv.modelArray, 0, "reaction");
   if (mxRn != NULL && mxIsStruct(mxRn))
   {
     mxGPA = mxGetField(mxRn, i, "fbc_geneProductAssociation");
@@ -109,7 +108,7 @@ getAssociation(unsigned int i)
 }
 
 void 
-addGPAAttributes(FbcAssociation* pAssociation, mxArray* mxAssociation)
+addGPAAttributes(FbcAssociation* pAssociation, mxArray* mxAssociation, GV& gv)
 {
   IdList* atts = new IdList();
   atts->append("notes");
@@ -121,7 +120,7 @@ addGPAAttributes(FbcAssociation* pAssociation, mxArray* mxAssociation)
   for (unsigned int i = 0; i < atts->size(); i++)
   {
     std::string name = atts->at(i);
-    std::string value = StructureFields::readString(mxAssociation, name, 0);
+    std::string value = StructureFields::readString(mxAssociation, name, 0, gv);
     if (!value.empty()) 
     {
       if (name == "notes")
@@ -138,7 +137,7 @@ addGPAAttributes(FbcAssociation* pAssociation, mxArray* mxAssociation)
       }
     }
   }
-  int sbo = StructureFields::readInt(mxAssociation, "sboTerm", 0);
+  int sbo = StructureFields::readInt(mxAssociation, "sboTerm", 0, gv);
   if (sbo != -1)
   {
     pAssociation->setSBOTerm(sbo);
@@ -146,7 +145,7 @@ addGPAAttributes(FbcAssociation* pAssociation, mxArray* mxAssociation)
 }
 
 void
-addGeneProductAssociations(SBMLDocument* sbmlDocument)
+addGeneProductAssociations(SBMLDocument* sbmlDocument, GV& gv)
 {
   FbcModelPlugin* mplug = static_cast<FbcModelPlugin*>(sbmlDocument->getModel()->getPlugin("fbc"));
   for (unsigned int i = 0; i < sbmlDocument->getModel()->getNumReactions(); i++)
@@ -156,16 +155,16 @@ addGeneProductAssociations(SBMLDocument* sbmlDocument)
     if (plug->isSetGeneProductAssociation())
     {
       mxArray* mxAssoc = NULL;
-      mxAssoc = getAssociation(i);
+      mxAssoc = getAssociation(i, gv);
       if (mxAssoc != NULL)
       {
-        std::string association = StructureFields::readString(mxAssoc, "fbc_association", 0);
+        std::string association = StructureFields::readString(mxAssoc, "fbc_association", 0, gv);
         if (!association.empty())
         {
           FbcAssociation* pAssociation = FbcAssociation::parseFbcInfixAssociation(association, mplug,
-            fbcUsingId, fbcAddGeneProducts);
+            gv.fbcUsingId, gv.fbcAddGeneProducts);
           plug->getGeneProductAssociation()->setAssociation(pAssociation);
-          addGPAAttributes(plug->getGeneProductAssociation()->getAssociation(), mxAssoc);
+          addGPAAttributes(plug->getGeneProductAssociation()->getAssociation(), mxAssoc, gv);
         }
       }
     }
@@ -173,14 +172,14 @@ addGeneProductAssociations(SBMLDocument* sbmlDocument)
 }
 
 void
-dealWithAnomalies(SBMLDocument* sbmlDocument)
+dealWithAnomalies(SBMLDocument* sbmlDocument, GV& gv)
 {
-  bool fbcPresent = details->isPackagePresent("fbc");
+  bool fbcPresent = gv.details->isPackagePresent("fbc");
 
   if (fbcPresent)
   {
     // the fbc active objective on the listOfObjectives
-    std::string obj = StructureFields::readString(modelArray, "fbc_activeObjective", 0);
+    std::string obj = StructureFields::readString(gv.modelArray, "fbc_activeObjective", 0, gv);
     if (!obj.empty())
     {
       FbcModelPlugin* plug = static_cast<FbcModelPlugin*>(sbmlDocument->getModel()->getPlugin("fbc"));
@@ -188,10 +187,10 @@ dealWithAnomalies(SBMLDocument* sbmlDocument)
     }
 
     // the gene product associations in fbc v2
-    unsigned int vers = StructureFields::readUint(modelArray, "fbc_version", 0);
+    unsigned int vers = StructureFields::readUint(gv.modelArray, "fbc_version", 0, gv);
     if (vers == 2)
     {
-      addGeneProductAssociations(sbmlDocument);
+      addGeneProductAssociations(sbmlDocument, gv);
     }
   }
 
@@ -215,48 +214,49 @@ dealWithAnomalies(SBMLDocument* sbmlDocument)
 void
 mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
+  GV gv;
   // we have not made persistent memory
-  freeMemory = false;
+  gv.freeMemory = false;
   FILE_CHAR pacFilename = NULL;
   SBMLDocument *sbmlDocument;
   Model *sbmlModel;
   unsigned int outputVersion = 0;
 
   /* determine whether we are in octave or matlab */
-  unsigned int usingOctave = determinePlatform();
+  unsigned int usingOctave = determinePlatform(gv);
 
   /***************************************************************************
   * validate inputs and outputs
   ****************************************************************************/
   
   pacFilename = validateInputOutputForOutput(nlhs, plhs, nrhs, prhs, 
-                                             usingOctave, outputVersion);
+                                             usingOctave, outputVersion, gv);
 
   // output required structures
   if (outputVersion == 1)
   {
-    OutputVersionInformation(plhs, 0);
+    OutputVersionInformation(plhs, 0, gv);
   }
   else
   {
     /**************************************************************************
     * get the details of the model
     ***************************************************************************/
-    populatePackageLists();
-    details = new ModelDetails();
+    populatePackageLists(gv);
+    gv.details = new ModelDetails(gv);
 
-    sbmlDocument = createSBMLDocument();
+    sbmlDocument = createSBMLDocument(gv);
 
     /* create a model within the document */
     sbmlModel = sbmlDocument->createModel();
 
-    StructureFields *sf = new StructureFields(sbmlModel, modelArray);
+    StructureFields *sf = new StructureFields(sbmlModel, gv.modelArray, gv);
 
     std::string id = std::string("OutputSBML:GetModel:") + sf->getTypeCode();
     sf->addAttributes(id);
 
 #ifdef USE_FBC
-    dealWithAnomalies(sbmlDocument);
+    dealWithAnomalies(sbmlDocument, gv);
 #endif
     /**********************************************************************
     * output the resulting model to specified file
@@ -287,7 +287,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     if (nStatus != 1)
     {
-      reportError("OutputSBML:writeFile", "Failed to write file");
+      reportError("OutputSBML:writeFile", "Failed to write file", gv);
     }
     else
     {
@@ -295,7 +295,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     }
 
     delete sbmlDocument;
-    delete details;
+    delete gv.details;
     delete sf;
   }
 }
