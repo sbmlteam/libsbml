@@ -594,6 +594,24 @@ XMLError::getCategoryAsString() const
   return mCategoryString;
 }
 
+int XMLError::setErrorId(unsigned int errorId)
+{
+    mErrorId = errorId;
+    return LIBSBML_OPERATION_SUCCESS;
+}
+
+int XMLError::setMessage(const std::string& message)
+{
+    mMessage = message;
+    return LIBSBML_OPERATION_SUCCESS;
+}
+
+int XMLError::setShortMessage(const std::string& shortMessage)
+{
+    mShortMessage = shortMessage;
+    return LIBSBML_OPERATION_SUCCESS;
+}
+
 const std::string& 
 XMLError::getPackage() const
 {
@@ -724,6 +742,27 @@ XMLError::setColumn (unsigned int column)
   return LIBSBML_OPERATION_SUCCESS;
 }
 
+int XMLError::setSeverity(unsigned int severity)
+{
+    mSeverity = severity;
+    mSeverityString = stringForSeverity(severity);
+    if (mSeverityString.empty())
+    {
+        return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    return LIBSBML_OPERATION_SUCCESS;
+}
+
+int XMLError::setCategory(unsigned int category)
+{
+    mCategory = category;
+    mCategoryString = stringForCategory(category);
+    if (mCategoryString.empty())
+    {
+        return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    return LIBSBML_OPERATION_SUCCESS;
+}
 
 /*
  * Given an XMLError::Code, return a copy of the error text.

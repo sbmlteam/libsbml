@@ -880,6 +880,90 @@ public:
 
 
   /**
+   * Sets the identifier of this error.
+   *
+   * @copydetails doc_returns_one_success_code
+   * 
+   * @see setMessage()
+   * @see setShortMessage()
+   * @see setCategory()
+   * @see setSeverity()
+   */
+  int setErrorId(unsigned int errorId);
+
+
+  /**
+   * Sets the message text of this error.
+   *
+   * The message associated with an error object describes the nature of
+   * the problem.  The message set by this method is generally longer
+   * and clearer than the message returned by XMLError::setShortMessage(),
+   * but not in all cases.
+   *
+   * Callers may use XMLError::setCategory() and XMLError::setSeverity() to
+   * set additional information about the nature and severity of the
+   * problem.
+   *
+   * @copydetails doc_returns_one_success_code
+   * 
+   * @see setErrorId()
+   * @see setShortMessage()
+   * @see setCategory()
+   * @see setSeverity()
+   */
+  int setMessage(const std::string& message);
+
+
+  /**
+   * Sets a brief message for this error.
+   *
+   * This is an alternative error message that, in general, is as short as
+   * the authors could make it.  However, brevity is often inversely
+   * proportional to clarity, so this short message may not be sufficiently
+   * informative to understand the nature of the error.  Setting
+   * the longer message with setMessage() in addition may be advisable.
+   *
+   * @copydetails doc_returns_one_success_code
+   * 
+   * @see setErrorId()
+   * @see setMessage()
+   * @see setCategory()
+   * @see setSeverity()
+   */
+  int setShortMessage(const std::string& shortMessage);
+
+
+  /**
+   * Sets the severity of this error.
+   *
+   * XMLError defines an enumeration of severity codes for the XML layer.
+   * Applications that build on XMLError by subclassing it may add their
+   * own severity codes with numbers higher than those in the predefined
+   * set of severity codes.
+   *
+   * @see setCategory()
+   */
+  int setSeverity(unsigned int severity);
+
+
+  /**
+   * Sets the category of this error.
+   *
+   * XMLError defines an enumeration of category codes for the XML layer.
+   * Applications that build on XMLError by subclassing it may add their
+   * own categories with numbers higher than those in the predefined
+   * set of category codes.
+   *
+   * Categories can be used to partition errors into distinct groups.
+   * Among other things, this can be used to prevent id conflicts by
+   * uniquely identifying an XMLError by both id and category.
+   *
+   * @see setSeverity()
+   */
+  int setCategory(unsigned int category);
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether this
    * error object is for information purposes only.
    *
