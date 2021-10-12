@@ -109,24 +109,25 @@ build_octave_file("OutputSBML")
 
 
 foreach(mFile
-
-    test.xml
-	applyUserValidation.m
-	addLevelVersion.m
-    CheckAndConvert.m  
-    Contents.m
-    ConvertFormulaToMathML.m
-	getDefaultValues.m
-	getStructureFieldnames.m
-	getValueType.m
-    installSBML.m
-    isoctave.m
-    isSBML_Model.m
-	isEnabled.m
-    isFbcEnabled.m
-    OutputSBML.m
-    TranslateSBML.m
-	
+  test.xml
+  addLevelVersion.m
+  applyUserValidation.m
+  CheckAndConvert.m
+  Contents.m
+  ConvertFormulaToMathML.m
+  getDefaultValues.m
+  getSBMLDefaultStruct.m
+  getStructure.m
+  getStructureEnum.m
+  getStructureFieldnames.m
+  getValueType.m
+  installSBML.m
+  isEnabled.m
+  isFbcEnabled.m
+  isoctave.m
+  isSBML_Model.m
+  OutputSBML.m
+  TranslateSBML.m
 )
 
 	install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/${mFile} DESTINATION ${OCTAVE_PACKAGE_INSTALL_DIR} )
