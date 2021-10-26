@@ -63,6 +63,8 @@ LIBSBML_CPP_NAMESPACE_USE
 #endif
 
 #include "CommonMatlab.cpp"
+#include "ModelDetails.cpp"
+#include "StructureFields.cpp"
 
 ////////////////////////////////////////////////////////////////////////////
 //

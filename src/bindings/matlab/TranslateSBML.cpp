@@ -64,6 +64,9 @@ LIBSBML_CPP_NAMESPACE_USE
 
 
 #include "CommonMatlab.cpp"
+#include "ModelDetails.cpp"
+#include "StructureFields.cpp"
+
 
 ////////////////////////////////////////////////////////////////////////////
 //
@@ -250,7 +253,7 @@ validateDocument(SBMLDocument* doc, unsigned int validateFlag, unsigned int verb
 void
 mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
-    GV gv;
+  GV gv;
   // we have not made persistent memory
   gv.freeMemory = false;
   std::ostringstream numErrs;
