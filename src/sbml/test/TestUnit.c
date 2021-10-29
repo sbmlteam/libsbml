@@ -391,7 +391,7 @@ START_TEST (test_Unit_merge)
   setlocale(LC_ALL, "de_DE.UTF-8");
   Unit_t *u1 = Unit_create(2, 3);
   Unit_setKind(u1, UNIT_KIND_LITRE);
-  Unit_setExponent(u1, 1.00);
+  Unit_setExponent(u1, 1);
   Unit_setScale(u1, -3);
   Unit_setMultiplier(u1, 1.00);
 

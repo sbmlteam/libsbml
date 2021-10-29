@@ -88,8 +88,7 @@ XMLErrorLog& XMLErrorLog::operator=(const XMLErrorLog& other)
   {
     mOverriddenSeverity = other.mOverriddenSeverity;
     mParser = NULL;
-    
-    mErrors.clear();
+    clearLog();
     add(other.mErrors);
   }
   return *this;
