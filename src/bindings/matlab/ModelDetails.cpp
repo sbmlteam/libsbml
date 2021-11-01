@@ -1,7 +1,4 @@
-#ifndef MODEL_DETAILS_CODE_INCLUDED
-#define MODEL_DETAILS_CODE_INCLUDED
-
-#include "Types.cpp"
+#include "ModelDetails.h"
 
 ModelDetails::ModelDetails(GV& gv_)
     :gv(gv_)
@@ -137,4 +134,4 @@ ModelDetails::isPackagePresent(const std::string& pkg)
   return present;
 }
 
-#endif // MODEL_DETAILS_CODE_INCLUDED
+

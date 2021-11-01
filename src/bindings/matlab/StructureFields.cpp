@@ -1,7 +1,5 @@
-#ifndef STRUCTURE_FIELDS_CODE_INCLUDED
-#define STRUCTURE_FIELDS_CODE_INCLUDED
 
-#include "Types.cpp"
+#include "StructureFields.h"
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -1903,5 +1901,3 @@ StructureFields::reportReadError(const std::string& type, const std::string& nam
    
    reportError(mid, errMsg.str(), gv_);
 }
-
-#endif

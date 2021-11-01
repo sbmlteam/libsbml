@@ -1,7 +1,7 @@
 #ifndef COMMON_MATLAB_CODE_INCLUDED
 #define COMMON_MATLAB_CODE_INCLUDED
 
-#include "Types.cpp"
+#include "Variables.h"
  
 //
 // report error/free memory and exit when error encountered
