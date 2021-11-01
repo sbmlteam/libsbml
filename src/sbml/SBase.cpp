@@ -556,7 +556,7 @@ SBase& SBase::operator=(const SBase& rhs)
     {
       this->mCVTerms  = new List();
       unsigned int iMax = rhs.mCVTerms->getSize();
-      for(int i = 0; i < iMax; ++i)
+      for(unsigned int i = 0; i < iMax; ++i)
       {
         this->mCVTerms
           ->add(static_cast<CVTerm*>(rhs.mCVTerms->get(i))->clone());

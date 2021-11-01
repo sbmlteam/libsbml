@@ -186,7 +186,7 @@ public:
    *
    * @param error XMLError, the error to be logged.
    */
-  void add (const XMLError& error);
+  virtual void add (const XMLError& error);
   /** @endcond */
 
 
@@ -197,7 +197,7 @@ public:
    *
    * @param errors list, a list of XMLError to be added to the log.
    */
-  void add (const std::list<XMLError>& errors);
+  virtual void add (const std::list<XMLError>& errors);
   /** @endcond */
 
 
@@ -208,7 +208,7 @@ public:
    *
    * @param errors list, a list of XMLError to be added to the log.
    */
-  void add (const std::vector<XMLError*>& errors);
+  virtual void add (const std::vector<XMLError*>& errors);
   /** @endcond */
 
 
