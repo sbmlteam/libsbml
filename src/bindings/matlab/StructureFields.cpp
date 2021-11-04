@@ -1,5 +1,14 @@
 
 #include "StructureFields.h"
+#include "CommonFunctions.h"
+
+#include <sbml/SBMLReader.h>
+#include <sbml/SBMLTypes.h>
+#include <sbml/xml/XMLNode.h>
+#include <sbml/math/ASTNode.h>
+#include <sbml/extension/SBasePlugin.h>
+#include <sbml/extension/SBMLExtensionRegistry.h>
+
 
 
 //////////////////////////////////////////////////////////////////////////////

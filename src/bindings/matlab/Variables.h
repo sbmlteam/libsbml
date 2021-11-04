@@ -1,6 +1,17 @@
 #ifndef VARIABLES_INCLUDED
 #define VARIABLES_INCLUDED
 
+
+#include <mex.h>
+
+#ifndef USE_OCTAVE
+#include <matrix.h>
+#endif
+#include <algorithm>
+
+#include <map>
+#include <sbml/SBMLTypes.h>
+
 class ModelDetails;
 struct GV
 {
@@ -32,17 +43,6 @@ typedef enum
   , TYPE_UINT
   , TYPE_UNKNOWN
 } FieldType_t;
-
-
-const char* FIELDTYPE_STRINGS[] =
-{
-      "bool"
-    , "char"
-    , "double"
-    , "int"
-    , "structure"
-    , "uint"
-};
 
 
 typedef enum {

@@ -63,10 +63,11 @@ LIBSBML_CPP_NAMESPACE_USE
 #endif
 
 
-#include "CommonMatlab.cpp"
 #include "ModelDetails.h"
 #include "StructureFields.h"
-
+#include "InputOutput.h"
+#include "Filenames.h"
+#include "CommonFunctions.h" 
 
 ////////////////////////////////////////////////////////////////////////////
 //

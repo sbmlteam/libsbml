@@ -1,7 +1,20 @@
 #ifndef SF_INCLUDED
 #define SF_INCLUDED
 
-#include "Variables.h"
+#include <string>
+
+#include <mex.h>
+
+#ifndef USE_OCTAVE
+#include <matrix.h>
+#endif
+#include <algorithm>
+
+
+#include "ModelDetails.h"
+
+class SBase;
+class ASTNode;
 
 class StructureFields
 {

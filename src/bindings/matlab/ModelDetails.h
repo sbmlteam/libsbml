@@ -3,6 +3,7 @@
 
 #include "Variables.h"
 
+#include <sbml/extension/SBMLExtensionRegistry.h>
 
 class ModelDetails
 {

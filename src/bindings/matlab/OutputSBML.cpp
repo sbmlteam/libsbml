@@ -62,9 +62,12 @@ LIBSBML_CPP_NAMESPACE_USE
 #include <sbml/packages/fbc/common/FbcExtensionTypes.h>
 #endif
 
-#include "CommonMatlab.cpp"
+#include "InputOutput.h"
 #include "ModelDetails.h"
 #include "StructureFields.h"
+#include "Variables.h"
+#include "Filenames.h"
+#include "CommonFunctions.h"
 
 ////////////////////////////////////////////////////////////////////////////
 //

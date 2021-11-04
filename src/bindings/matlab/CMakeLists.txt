@@ -92,10 +92,17 @@ endif()
 	if (EXTRA_INCLUDE_DIRS) 
 	  include_directories(${EXTRA_INCLUDE_DIRS})
 	endif(EXTRA_INCLUDE_DIRS)
+
+	SET(COMMON_FILES
+		"${CMAKE_CURRENT_SOURCE_DIR}/ModelDetails.cpp"
+		"${CMAKE_CURRENT_SOURCE_DIR}/StructureFields.cpp"
+		"${CMAKE_CURRENT_SOURCE_DIR}/CommonFunctions.cpp"
+		"${CMAKE_CURRENT_SOURCE_DIR}/Filenames.cpp"
+		"${CMAKE_CURRENT_SOURCE_DIR}/InputOutput.cpp"	)
 	
 	foreach(matlab_source_file "TranslateSBML" "OutputSBML")
 	
-		add_library(matlab_binding_${matlab_source_file} SHARED "${CMAKE_CURRENT_SOURCE_DIR}/${matlab_source_file}.cpp")
+		add_library(matlab_binding_${matlab_source_file} SHARED "${CMAKE_CURRENT_SOURCE_DIR}/${matlab_source_file}.cpp" ${COMMON_FILES})
 		set_target_properties(matlab_binding_${matlab_source_file} PROPERTIES OUTPUT_NAME "${matlab_source_file}")
 		set_target_properties(matlab_binding_${matlab_source_file} PROPERTIES SUFFIX ".${MATLAB_MEX_EXT}")
                 set_target_properties(matlab_binding_${matlab_source_file} PROPERTIES  PREFIX "")

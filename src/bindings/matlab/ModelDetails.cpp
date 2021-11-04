@@ -1,4 +1,7 @@
 #include "ModelDetails.h"
+#include "StructureFields.h"
+
+#include <sbml/extension/SBasePlugin.h>
 
 ModelDetails::ModelDetails(GV& gv_)
     :gv(gv_)
