@@ -51,44 +51,44 @@ class TestCompartmentType_newSetters(unittest.TestCase):
 
   def test_CompartmentType_setId2(self):
     i = self.C.setId( "1cell")
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, self.C.isSetId() )
     pass  
 
   def test_CompartmentType_setId3(self):
     i = self.C.setId( "cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.C.isSetId() )
-    self.assert_((  "cell"  == self.C.getId() ))
+    self.assertTrue((  "cell"  == self.C.getId() ))
     pass  
 
   def test_CompartmentType_setId4(self):
     i = self.C.setId("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.C.isSetId() )
     pass  
 
   def test_CompartmentType_setName1(self):
     i = self.C.setName( "cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.C.isSetName() )
     i = self.C.unsetName()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.C.isSetName() )
     pass  
 
   def test_CompartmentType_setName2(self):
     i = self.C.setName( "1cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.C.isSetName() )
     i = self.C.unsetName()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.C.isSetName() )
     pass  
 
   def test_CompartmentType_setName3(self):
     i = self.C.setName("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.C.isSetName() )
     pass  
 

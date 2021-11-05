@@ -52,21 +52,21 @@ class TestRule_newSetters(unittest.TestCase):
   def test_Rule_setFormula1(self):
     formula =  "k1*X0";
     i = self.R.setFormula(formula)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_(( formula == self.R.getFormula() ))
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue(( formula == self.R.getFormula() ))
     self.assertEqual( True, self.R.isSetFormula() )
     pass  
 
   def test_Rule_setFormula2(self):
     i = self.R.setFormula("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.R.isSetFormula() )
     pass  
 
   def test_Rule_setFormula3(self):
     formula =  "k1 X0";
     i = self.R.setFormula(formula)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assertEqual( False, self.R.isSetFormula() )
     pass  
 
@@ -79,13 +79,13 @@ class TestRule_newSetters(unittest.TestCase):
     math.addChild(a)
     math.addChild(b)
     i = self.R.setMath(math)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.R.isSetMath() )
     math1 = self.R.getMath()
-    self.assert_( math1 != None )
+    self.assertTrue( math1 != None )
     formula = libsbml.formulaToString(math1)
-    self.assert_( formula != None )
-    self.assert_((  "a * b" == formula ))
+    self.assertTrue( formula != None )
+    self.assertTrue((  "a * b" == formula ))
     _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -95,20 +95,20 @@ class TestRule_newSetters(unittest.TestCase):
     a.setName( "a")
     math.addChild(a)
     i = self.R.setMath(math)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assertEqual( False, self.R.isSetMath() )
     _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Rule_setMath3(self):
     i = self.R.setMath(None)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.R.isSetMath() )
     pass  
 
   def test_Rule_setUnits1(self):
     i = self.R.setUnits( "second")
-    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
     self.assertEqual( False, self.R.isSetUnits() )
     pass  
 
@@ -116,10 +116,10 @@ class TestRule_newSetters(unittest.TestCase):
     R1 = libsbml.AssignmentRule(1,2)
     R1.setL1TypeCode(libsbml.SBML_PARAMETER_RULE)
     i = R1.setUnits( "second")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, R1.isSetUnits() )
     i = R1.unsetUnits()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, R1.isSetUnits() )
     _dummyList = [ R1 ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -128,10 +128,10 @@ class TestRule_newSetters(unittest.TestCase):
     R1 = libsbml.AssignmentRule(1,2)
     R1.setL1TypeCode(libsbml.SBML_PARAMETER_RULE)
     i = R1.setUnits( "1second")
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, R1.isSetUnits() )
     i = R1.unsetUnits()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, R1.isSetUnits() )
     _dummyList = [ R1 ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -140,33 +140,33 @@ class TestRule_newSetters(unittest.TestCase):
     R1 = libsbml.AssignmentRule(1,2)
     R1.setL1TypeCode(libsbml.SBML_PARAMETER_RULE)
     i = R1.setUnits( "second")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, R1.isSetUnits() )
     i = R1.setUnits("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, R1.isSetUnits() )
     _dummyList = [ R1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Rule_setVariable1(self):
     i = self.R.setVariable( "1mole")
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, self.R.isSetVariable() )
     pass  
 
   def test_Rule_setVariable2(self):
     i = self.R.setVariable( "mole")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.R.isSetVariable() )
     i = self.R.setVariable( "")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.R.isSetVariable() )
     pass  
 
   def test_Rule_setVariable3(self):
     R1 = libsbml.AlgebraicRule(1,2)
     i = R1.setVariable( "r")
-    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
     self.assertEqual( False, R1.isSetVariable() )
     _dummyList = [ R1 ]; _dummyList[:] = []; del _dummyList
     pass  

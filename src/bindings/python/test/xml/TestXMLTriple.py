@@ -39,22 +39,22 @@ class TestXMLTriple(unittest.TestCase):
 
   def test_XMLTriple_create(self):
     t = libsbml.XMLTriple()
-    self.assert_( t != None )
-    self.assert_( t.isEmpty() != False )
+    self.assertTrue( t != None )
+    self.assertTrue( t.isEmpty() != False )
     _dummyList = [ t ]; _dummyList[:] = []; del _dummyList
     t = libsbml.XMLTriple("attr", "uri", "prefix")
-    self.assert_( (  "attr" != t.getName() ) == False )
-    self.assert_( (  "uri" != t.getURI() ) == False )
-    self.assert_( (  "prefix" != t.getPrefix() ) == False )
-    self.assert_( (  "prefix:attr" != t.getPrefixedName() ) == False )
-    self.assert_( t.isEmpty() == False )
+    self.assertTrue( (  "attr" != t.getName() ) == False )
+    self.assertTrue( (  "uri" != t.getURI() ) == False )
+    self.assertTrue( (  "prefix" != t.getPrefix() ) == False )
+    self.assertTrue( (  "prefix:attr" != t.getPrefixedName() ) == False )
+    self.assertTrue( t.isEmpty() == False )
     _dummyList = [ t ]; _dummyList[:] = []; del _dummyList
     t = libsbml.XMLTriple("attr", "uri", "")
-    self.assert_( (  "attr" != t.getName() ) == False )
-    self.assert_( (  "uri" != t.getURI() ) == False )
-    self.assert_( t.getPrefix() == "" )
-    self.assert_( (  "attr" != t.getPrefixedName() ) == False )
-    self.assert_( t.isEmpty() == False )
+    self.assertTrue( (  "attr" != t.getName() ) == False )
+    self.assertTrue( (  "uri" != t.getURI() ) == False )
+    self.assertTrue( t.getPrefix() == "" )
+    self.assertTrue( (  "attr" != t.getPrefixedName() ) == False )
+    self.assertTrue( t.isEmpty() == False )
     _dummyList = [ t ]; _dummyList[:] = []; del _dummyList
     pass  
 

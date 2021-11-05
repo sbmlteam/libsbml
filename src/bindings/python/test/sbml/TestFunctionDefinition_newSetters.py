@@ -52,30 +52,30 @@ class TestFunctionDefinition_newSetters(unittest.TestCase):
   def test_FunctionDefinition_setId1(self):
     id =  "1e1";
     i = self.E.setId(id)
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, self.E.isSetId() )
     pass  
 
   def test_FunctionDefinition_setId2(self):
     id =  "e1";
     i = self.E.setId(id)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_(( id == self.E.getId() ))
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue(( id == self.E.getId() ))
     self.assertEqual( True, self.E.isSetId() )
     i = self.E.setId("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.E.isSetId() )
     pass  
 
   def test_FunctionDefinition_setMath1(self):
     math = libsbml.parseFormula("2 * k")
     i = self.E.setMath(math)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.E.getMath() != math )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.E.getMath() != math )
     self.assertEqual( True, self.E.isSetMath() )
     i = self.E.setMath(None)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.E.getMath() == None )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.E.getMath() == None )
     self.assertEqual( False, self.E.isSetMath() )
     _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -83,7 +83,7 @@ class TestFunctionDefinition_newSetters(unittest.TestCase):
   def test_FunctionDefinition_setMath2(self):
     math = libsbml.ASTNode(libsbml.AST_DIVIDE)
     i = self.E.setMath(math)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assertEqual( False, self.E.isSetMath() )
     _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -91,24 +91,24 @@ class TestFunctionDefinition_newSetters(unittest.TestCase):
   def test_FunctionDefinition_setName1(self):
     name =  "3Set_k2";
     i = self.E.setName(name)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.E.isSetName() )
     pass  
 
   def test_FunctionDefinition_setName2(self):
     name =  "Set k2";
     i = self.E.setName(name)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_(( name == self.E.getName() ))
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue(( name == self.E.getName() ))
     self.assertEqual( True, self.E.isSetName() )
     i = self.E.unsetName()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.E.isSetName() )
     pass  
 
   def test_FunctionDefinition_setName3(self):
     i = self.E.setName("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.E.isSetName() )
     pass  
 

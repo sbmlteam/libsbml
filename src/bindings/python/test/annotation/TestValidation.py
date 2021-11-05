@@ -39,7 +39,7 @@ class TestValidation(unittest.TestCase):
 
   def test_Validation_CVTerm1(self):
     cv = libsbml.CVTerm()
-    self.assert_( cv != None )
+    self.assertTrue( cv != None )
     self.assertEqual( False, (cv.hasRequiredAttributes()) )
     cv.setQualifierType(libsbml.MODEL_QUALIFIER)
     self.assertEqual( False, (cv.hasRequiredAttributes()) )
@@ -52,7 +52,7 @@ class TestValidation(unittest.TestCase):
 
   def test_Validation_CVTerm2(self):
     cv = libsbml.CVTerm()
-    self.assert_( cv != None )
+    self.assertTrue( cv != None )
     self.assertEqual( False, (cv.hasRequiredAttributes()) )
     cv.setQualifierType(libsbml.BIOLOGICAL_QUALIFIER)
     self.assertEqual( False, (cv.hasRequiredAttributes()) )
@@ -65,35 +65,35 @@ class TestValidation(unittest.TestCase):
 
   def test_Validation_Date1(self):
     date = libsbml.Date(200,12,30,12,15,45,1,2,0)
-    self.assert_( date != None )
+    self.assertTrue( date != None )
     self.assertEqual( False, (date.representsValidDate()) )
     date = None
     pass  
 
   def test_Validation_Date2(self):
     date = libsbml.Date(2007,14,30,12,15,45,1,2,0)
-    self.assert_( date != None )
+    self.assertTrue( date != None )
     self.assertEqual( False, (date.representsValidDate()) )
     date = None
     pass  
 
   def test_Validation_Date3(self):
     date = libsbml.Date("Jan 12")
-    self.assert_( date != None )
+    self.assertTrue( date != None )
     self.assertEqual( False, (date.representsValidDate()) )
     date = None
     pass  
 
   def test_Validation_Date4(self):
     date = libsbml.Date(2007,12,30,12,15,45,1,2,0)
-    self.assert_( date != None )
+    self.assertTrue( date != None )
     self.assertEqual( True, date.representsValidDate() )
     date = None
     pass  
 
   def test_Validation_ModelCreator(self):
     mc = libsbml.ModelCreator()
-    self.assert_( mc != None )
+    self.assertTrue( mc != None )
     self.assertEqual( False, (mc.hasRequiredAttributes()) )
     mc.setEmail("k123")
     self.assertEqual( False, (mc.hasRequiredAttributes()) )
@@ -106,7 +106,7 @@ class TestValidation(unittest.TestCase):
 
   def test_Validation_ModelHistory1(self):
     mh = libsbml.ModelHistory()
-    self.assert_( mh != None )
+    self.assertTrue( mh != None )
     self.assertEqual( False, (mh.hasRequiredAttributes()) )
     date = libsbml.Date(2007,12,30,12,15,45,1,2,0)
     mh.setCreatedDate(date)
@@ -123,7 +123,7 @@ class TestValidation(unittest.TestCase):
 
   def test_Validation_ModelHistory2(self):
     mh = libsbml.ModelHistory()
-    self.assert_( mh != None )
+    self.assertTrue( mh != None )
     self.assertEqual( False, (mh.hasRequiredAttributes()) )
     date = libsbml.Date(200,12,30,12,15,45,1,2,0)
     mh.setCreatedDate(date)
@@ -140,7 +140,7 @@ class TestValidation(unittest.TestCase):
 
   def test_Validation_ModelHistory3(self):
     mh = libsbml.ModelHistory()
-    self.assert_( mh != None )
+    self.assertTrue( mh != None )
     self.assertEqual( False, (mh.hasRequiredAttributes()) )
     date = libsbml.Date(2007,12,30,12,15,45,1,2,0)
     mh.setCreatedDate(date)

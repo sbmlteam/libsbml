@@ -51,14 +51,14 @@ class TestParameterRule(unittest.TestCase):
     pass  
 
   def test_ParameterRule_create(self):
-    self.assert_( self.PR.getTypeCode() == libsbml.SBML_ASSIGNMENT_RULE )
-    self.assert_( self.PR.getL1TypeCode() == libsbml.SBML_PARAMETER_RULE )
-    self.assert_( self.PR.getNotes() == None )
-    self.assert_( self.PR.getAnnotation() == None )
-    self.assert_( self.PR.getFormula() == "" )
-    self.assert_( self.PR.getUnits() == "" )
-    self.assert_( self.PR.getVariable() == "" )
-    self.assert_( self.PR.getType() == libsbml.RULE_TYPE_SCALAR )
+    self.assertTrue( self.PR.getTypeCode() == libsbml.SBML_ASSIGNMENT_RULE )
+    self.assertTrue( self.PR.getL1TypeCode() == libsbml.SBML_PARAMETER_RULE )
+    self.assertTrue( self.PR.getNotes() == None )
+    self.assertTrue( self.PR.getAnnotation() == None )
+    self.assertTrue( self.PR.getFormula() == "" )
+    self.assertTrue( self.PR.getUnits() == "" )
+    self.assertTrue( self.PR.getVariable() == "" )
+    self.assertTrue( self.PR.getType() == libsbml.RULE_TYPE_SCALAR )
     self.assertEqual( False, self.PR.isSetVariable() )
     self.assertEqual( False, self.PR.isSetUnits() )
     pass  
@@ -70,13 +70,13 @@ class TestParameterRule(unittest.TestCase):
   def test_ParameterRule_setName(self):
     name =  "cell";
     self.PR.setVariable(name)
-    self.assert_(( name == self.PR.getVariable() ))
+    self.assertTrue(( name == self.PR.getVariable() ))
     self.assertEqual( True, self.PR.isSetVariable() )
     if (self.PR.getVariable() == name):
       pass    
     c = self.PR.getVariable()
     self.PR.setVariable(c)
-    self.assert_(( name == self.PR.getVariable() ))
+    self.assertTrue(( name == self.PR.getVariable() ))
     self.PR.setVariable("")
     self.assertEqual( False, self.PR.isSetVariable() )
     if (self.PR.getVariable() != None):
@@ -86,12 +86,12 @@ class TestParameterRule(unittest.TestCase):
   def test_ParameterRule_setUnits(self):
     units =  "cell";
     self.PR.setUnits(units)
-    self.assert_(( units == self.PR.getUnits() ))
+    self.assertTrue(( units == self.PR.getUnits() ))
     self.assertEqual( True, self.PR.isSetUnits() )
     if (self.PR.getUnits() == units):
       pass    
     self.PR.setUnits(self.PR.getUnits())
-    self.assert_(( units == self.PR.getUnits() ))
+    self.assertTrue(( units == self.PR.getUnits() ))
     self.PR.setUnits("")
     self.assertEqual( False, self.PR.isSetUnits() )
     if (self.PR.getUnits() != None):
