@@ -240,7 +240,7 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         run: |
           mkdir r-binaries
-          R CMD INSTALL -l r-binaries --build ./src/bindings/r/out/libSBML_5.19.1.tar.gz
+          R CMD INSTALL -l r-binaries --build ./src/bindings/r/out/libSBML_5.19.2.tar.gz
 
       ### run tests ###
       - name: Test
