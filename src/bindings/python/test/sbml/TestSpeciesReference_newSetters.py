@@ -51,28 +51,28 @@ class TestSpeciesReference_newSetters(unittest.TestCase):
 
   def test_SpeciesReference_setDenominator1(self):
     i = self.sr.setDenominator(2)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.sr.getDenominator() == 2 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.sr.getDenominator() == 2 )
     pass  
 
   def test_SpeciesReference_setDenominator2(self):
     c = libsbml.SpeciesReference(2,2)
     i = c.setDenominator(4)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( c.getDenominator() == 4 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( c.getDenominator() == 4 )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SpeciesReference_setId1(self):
     i = self.sr.setId( "cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.sr.isSetId() )
-    self.assert_((  "cell"  == self.sr.getId() ))
+    self.assertTrue((  "cell"  == self.sr.getId() ))
     pass  
 
   def test_SpeciesReference_setId2(self):
     i = self.sr.setId( "1cell")
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, self.sr.isSetId() )
     pass  
 
@@ -84,59 +84,59 @@ class TestSpeciesReference_newSetters(unittest.TestCase):
 
   def test_SpeciesReference_setId4(self):
     i = self.sr.setId( "cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.sr.isSetId() )
-    self.assert_((  "cell"  == self.sr.getId() ))
+    self.assertTrue((  "cell"  == self.sr.getId() ))
     i = self.sr.setId("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.sr.isSetId() )
     pass  
 
   def test_SpeciesReference_setName1(self):
     i = self.sr.setName( "cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.sr.isSetName() )
     i = self.sr.unsetName()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.sr.isSetName() )
     pass  
 
   def test_SpeciesReference_setName2(self):
     i = self.sr.setName( "1cell")
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, self.sr.isSetName() )
     i = self.sr.unsetName()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.sr.isSetName() )
     pass  
 
   def test_SpeciesReference_setName3(self):
     c = libsbml.SpeciesReference(2,1)
     i = c.setName( "cell")
-    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
     self.assertEqual( False, c.isSetName() )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SpeciesReference_setName4(self):
     i = self.sr.setName( "cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.sr.isSetName() )
     i = self.sr.setName("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.sr.isSetName() )
     pass  
 
   def test_SpeciesReference_setSpecies1(self):
     i = self.sr.setSpecies( "mm")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.sr.isSetSpecies() )
     pass  
 
   def test_SpeciesReference_setSpecies2(self):
     c = libsbml.SpeciesReference(2,2)
     i = c.setSpecies( "1cell")
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, c.isSetSpecies() )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -144,32 +144,32 @@ class TestSpeciesReference_newSetters(unittest.TestCase):
   def test_SpeciesReference_setSpecies3(self):
     c = libsbml.SpeciesReference(2,2)
     i = c.setSpecies( "mole")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_((  "mole" == c.getSpecies() ))
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue((  "mole" == c.getSpecies() ))
     self.assertEqual( True, c.isSetSpecies() )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SpeciesReference_setSpecies4(self):
     i = self.sr.setSpecies( "mm")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.sr.isSetSpecies() )
     i = self.sr.setSpecies("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.sr.isSetSpecies() )
     pass  
 
   def test_SpeciesReference_setStoichiometry1(self):
     i = self.sr.setStoichiometry(2.0)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.sr.getStoichiometry() == 2.0 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.sr.getStoichiometry() == 2.0 )
     pass  
 
   def test_SpeciesReference_setStoichiometry2(self):
     c = libsbml.SpeciesReference(2,2)
     i = c.setStoichiometry(4)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( c.getStoichiometry() == 4.0 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( c.getStoichiometry() == 4.0 )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -184,11 +184,11 @@ class TestSpeciesReference_newSetters(unittest.TestCase):
     math.addChild(b)
     sm.setMath(math)
     i = self.sr.setStoichiometryMath(sm)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.sr.isSetStoichiometryMath() )
-    self.assert_( self.sr.getStoichiometry() == 1 )
+    self.assertTrue( self.sr.getStoichiometry() == 1 )
     i = self.sr.unsetStoichiometryMath()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.sr.isSetStoichiometryMath() )
     _dummyList = [ sm ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -201,17 +201,17 @@ class TestSpeciesReference_newSetters(unittest.TestCase):
     math.addChild(a)
     sm.setMath(math)
     i = self.sr.setStoichiometryMath(sm)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.sr.isSetStoichiometryMath() )
     _dummyList = [ sm ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SpeciesReference_setStoichiometryMath3(self):
     i = self.sr.setStoichiometryMath(None)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.sr.isSetStoichiometryMath() )
     i = self.sr.unsetStoichiometryMath()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.sr.isSetStoichiometryMath() )
     pass  
 
@@ -220,11 +220,11 @@ class TestSpeciesReference_newSetters(unittest.TestCase):
     math = None
     sm.setMath(math)
     i = self.sr.setStoichiometryMath(sm)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assertEqual( False, self.sr.isSetStoichiometryMath() )
-    self.assert_( self.sr.getStoichiometry() == 1 )
+    self.assertTrue( self.sr.getStoichiometry() == 1 )
     i = self.sr.unsetStoichiometryMath()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.sr.isSetStoichiometryMath() )
     _dummyList = [ sm ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -241,7 +241,7 @@ class TestSpeciesReference_newSetters(unittest.TestCase):
     math.addChild(b)
     sm.setMath(math)
     i = sr1.setStoichiometryMath(sm)
-    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
     self.assertEqual( False, sr1.isSetStoichiometryMath() )
     _dummyList = [ sm ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ sr1 ]; _dummyList[:] = []; del _dummyList
@@ -251,7 +251,7 @@ class TestSpeciesReference_newSetters(unittest.TestCase):
     sm = libsbml.StoichiometryMath(2,1)
     sm.setMath(libsbml.parseFormula("1 + 1"))
     i = self.sr.setStoichiometryMath(sm)
-    self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
+    self.assertTrue( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assertEqual( False, self.sr.isSetStoichiometryMath() )
     _dummyList = [ sm ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -259,7 +259,7 @@ class TestSpeciesReference_newSetters(unittest.TestCase):
   def test_SpeciesReference_setStoichiometryMath7(self):
     sr1 = libsbml.SpeciesReference(1,2)
     i = sr1.unsetStoichiometryMath()
-    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
     _dummyList = [ sr1 ]; _dummyList[:] = []; del _dummyList
     pass  
 

@@ -50,11 +50,11 @@ class TestPriority(unittest.TestCase):
     pass  
 
   def test_Priority_create(self):
-    self.assert_( self.P.getTypeCode() == libsbml.SBML_PRIORITY )
-    self.assert_( self.P.getMetaId() == "" )
-    self.assert_( self.P.getNotes() == None )
-    self.assert_( self.P.getAnnotation() == None )
-    self.assert_( self.P.getMath() == None )
+    self.assertTrue( self.P.getTypeCode() == libsbml.SBML_PRIORITY )
+    self.assertTrue( self.P.getMetaId() == "" )
+    self.assertTrue( self.P.getNotes() == None )
+    self.assertTrue( self.P.getAnnotation() == None )
+    self.assertTrue( self.P.getMath() == None )
     pass  
 
   def test_Priority_createWithNS(self):
@@ -63,14 +63,14 @@ class TestPriority(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(3,1)
     sbmlns.addNamespaces(xmlns)
     object = libsbml.Priority(sbmlns)
-    self.assert_( object.getTypeCode() == libsbml.SBML_PRIORITY )
-    self.assert_( object.getMetaId() == "" )
-    self.assert_( object.getNotes() == None )
-    self.assert_( object.getAnnotation() == None )
-    self.assert_( object.getLevel() == 3 )
-    self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != None )
-    self.assert_( object.getNamespaces().getLength() == 2 )
+    self.assertTrue( object.getTypeCode() == libsbml.SBML_PRIORITY )
+    self.assertTrue( object.getMetaId() == "" )
+    self.assertTrue( object.getNotes() == None )
+    self.assertTrue( object.getAnnotation() == None )
+    self.assertTrue( object.getLevel() == 3 )
+    self.assertTrue( object.getVersion() == 1 )
+    self.assertTrue( object.getNamespaces() != None )
+    self.assertTrue( object.getNamespaces().getLength() == 2 )
     _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -82,18 +82,18 @@ class TestPriority(unittest.TestCase):
     math = libsbml.parseFormula("lambda(x, x^3)")
     self.P.setMath(math)
     math1 = self.P.getMath()
-    self.assert_( math1 != None )
+    self.assertTrue( math1 != None )
     formula = libsbml.formulaToString(math1)
-    self.assert_( formula != None )
-    self.assert_((  "lambda(x, x^3)" == formula ))
-    self.assert_( self.P.getMath() != math )
+    self.assertTrue( formula != None )
+    self.assertTrue((  "lambda(x, x^3)" == formula ))
+    self.assertTrue( self.P.getMath() != math )
     self.assertEqual( True, self.P.isSetMath() )
     self.P.setMath(self.P.getMath())
     math1 = self.P.getMath()
-    self.assert_( math1 != None )
+    self.assertTrue( math1 != None )
     formula = libsbml.formulaToString(math1)
-    self.assert_( formula != None )
-    self.assert_((  "lambda(x, x^3)" == formula ))
+    self.assertTrue( formula != None )
+    self.assertTrue((  "lambda(x, x^3)" == formula ))
     self.P.setMath(None)
     self.assertEqual( False, self.P.isSetMath() )
     if (self.P.getMath() != None):
@@ -103,12 +103,12 @@ class TestPriority(unittest.TestCase):
   def test_Priority_setMath1(self):
     math = libsbml.parseFormula("2 * k")
     i = self.P.setMath(math)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.P.getMath() != math )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.P.getMath() != math )
     self.assertEqual( True, self.P.isSetMath() )
     i = self.P.setMath(None)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.P.getMath() == None )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.P.getMath() == None )
     self.assertEqual( False, self.P.isSetMath() )
     _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -116,7 +116,7 @@ class TestPriority(unittest.TestCase):
   def test_Priority_setMath2(self):
     math = libsbml.ASTNode(libsbml.AST_DIVIDE)
     i = self.P.setMath(math)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assertEqual( False, self.P.isSetMath() )
     _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  

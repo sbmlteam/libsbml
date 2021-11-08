@@ -53,9 +53,9 @@ class TestReaction(unittest.TestCase):
     sr = libsbml.SpeciesReference(2,4)
     sr.setSpecies( "s")
     self.R.addProduct(sr)
-    self.assert_( self.R.getNumReactants() == 0 )
-    self.assert_( self.R.getNumProducts() == 1 )
-    self.assert_( self.R.getNumModifiers() == 0 )
+    self.assertTrue( self.R.getNumReactants() == 0 )
+    self.assertTrue( self.R.getNumProducts() == 1 )
+    self.assertTrue( self.R.getNumModifiers() == 0 )
     _dummyList = [ sr ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -63,30 +63,30 @@ class TestReaction(unittest.TestCase):
     sr = libsbml.SpeciesReference(2,4)
     sr.setSpecies( "s")
     self.R.addReactant(sr)
-    self.assert_( self.R.getNumReactants() == 1 )
-    self.assert_( self.R.getNumProducts() == 0 )
-    self.assert_( self.R.getNumModifiers() == 0 )
+    self.assertTrue( self.R.getNumReactants() == 1 )
+    self.assertTrue( self.R.getNumProducts() == 0 )
+    self.assertTrue( self.R.getNumModifiers() == 0 )
     _dummyList = [ sr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_create(self):
-    self.assert_( self.R.getTypeCode() == libsbml.SBML_REACTION )
-    self.assert_( self.R.getMetaId() == "" )
-    self.assert_( self.R.getNotes() == None )
-    self.assert_( self.R.getAnnotation() == None )
-    self.assert_( self.R.getId() == "" )
-    self.assert_( self.R.getName() == "" )
-    self.assert_( self.R.getKineticLaw() == None )
-    self.assert_( self.R.getReversible() != False )
-    self.assert_( self.R.getFast() == False )
+    self.assertTrue( self.R.getTypeCode() == libsbml.SBML_REACTION )
+    self.assertTrue( self.R.getMetaId() == "" )
+    self.assertTrue( self.R.getNotes() == None )
+    self.assertTrue( self.R.getAnnotation() == None )
+    self.assertTrue( self.R.getId() == "" )
+    self.assertTrue( self.R.getName() == "" )
+    self.assertTrue( self.R.getKineticLaw() == None )
+    self.assertTrue( self.R.getReversible() != False )
+    self.assertTrue( self.R.getFast() == False )
     self.assertEqual( False, self.R.isSetId() )
     self.assertEqual( False, self.R.isSetName() )
     self.assertEqual( False, self.R.isSetKineticLaw() )
     self.assertEqual( False, self.R.isSetFast() )
     self.assertEqual( True, self.R.isSetReversible() )
-    self.assert_( self.R.getNumReactants() == 0 )
-    self.assert_( self.R.getNumProducts() == 0 )
-    self.assert_( self.R.getNumModifiers() == 0 )
+    self.assertTrue( self.R.getNumReactants() == 0 )
+    self.assertTrue( self.R.getNumProducts() == 0 )
+    self.assertTrue( self.R.getNumModifiers() == 0 )
     pass  
 
   def test_Reaction_createWithNS(self):
@@ -95,14 +95,14 @@ class TestReaction(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(2,1)
     sbmlns.addNamespaces(xmlns)
     object = libsbml.Reaction(sbmlns)
-    self.assert_( object.getTypeCode() == libsbml.SBML_REACTION )
-    self.assert_( object.getMetaId() == "" )
-    self.assert_( object.getNotes() == None )
-    self.assert_( object.getAnnotation() == None )
-    self.assert_( object.getLevel() == 2 )
-    self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != None )
-    self.assert_( object.getNamespaces().getLength() == 2 )
+    self.assertTrue( object.getTypeCode() == libsbml.SBML_REACTION )
+    self.assertTrue( object.getMetaId() == "" )
+    self.assertTrue( object.getNotes() == None )
+    self.assertTrue( object.getAnnotation() == None )
+    self.assertTrue( object.getLevel() == 2 )
+    self.assertTrue( object.getVersion() == 1 )
+    self.assertTrue( object.getNamespaces() != None )
+    self.assertTrue( object.getNamespaces().getLength() == 2 )
     _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -119,13 +119,13 @@ class TestReaction(unittest.TestCase):
     self.R.addProduct(sr2)
     _dummyList = [ sr1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ sr2 ]; _dummyList[:] = []; del _dummyList
-    self.assert_( self.R.getNumReactants() == 0 )
-    self.assert_( self.R.getNumProducts() == 2 )
-    self.assert_( self.R.getNumModifiers() == 0 )
+    self.assertTrue( self.R.getNumReactants() == 0 )
+    self.assertTrue( self.R.getNumProducts() == 2 )
+    self.assertTrue( self.R.getNumModifiers() == 0 )
     sr1 = self.R.getProduct(0)
     sr2 = self.R.getProduct(1)
-    self.assert_((  "P1" == sr1.getSpecies() ))
-    self.assert_((  "P2" == sr2.getSpecies() ))
+    self.assertTrue((  "P1" == sr1.getSpecies() ))
+    self.assertTrue((  "P2" == sr2.getSpecies() ))
     pass  
 
   def test_Reaction_getProductById(self):
@@ -135,12 +135,12 @@ class TestReaction(unittest.TestCase):
     sr2.setSpecies( "P1")
     self.R.addProduct(sr1)
     self.R.addProduct(sr2)
-    self.assert_( self.R.getNumReactants() == 0 )
-    self.assert_( self.R.getNumProducts() == 2 )
-    self.assert_( self.R.getNumModifiers() == 0 )
-    self.assert_( self.R.getProduct( "P1") != sr1 )
-    self.assert_( self.R.getProduct( "P2") != sr2 )
-    self.assert_( self.R.getProduct( "P3") == None )
+    self.assertTrue( self.R.getNumReactants() == 0 )
+    self.assertTrue( self.R.getNumProducts() == 2 )
+    self.assertTrue( self.R.getNumModifiers() == 0 )
+    self.assertTrue( self.R.getProduct( "P1") != sr1 )
+    self.assertTrue( self.R.getProduct( "P2") != sr2 )
+    self.assertTrue( self.R.getProduct( "P3") == None )
     _dummyList = [ sr1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ sr2 ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -154,13 +154,13 @@ class TestReaction(unittest.TestCase):
     self.R.addReactant(sr2)
     _dummyList = [ sr1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ sr2 ]; _dummyList[:] = []; del _dummyList
-    self.assert_( self.R.getNumReactants() == 2 )
-    self.assert_( self.R.getNumProducts() == 0 )
-    self.assert_( self.R.getNumModifiers() == 0 )
+    self.assertTrue( self.R.getNumReactants() == 2 )
+    self.assertTrue( self.R.getNumProducts() == 0 )
+    self.assertTrue( self.R.getNumModifiers() == 0 )
     sr1 = self.R.getReactant(0)
     sr2 = self.R.getReactant(1)
-    self.assert_((  "R1" == sr1.getSpecies() ))
-    self.assert_((  "R2" == sr2.getSpecies() ))
+    self.assertTrue((  "R1" == sr1.getSpecies() ))
+    self.assertTrue((  "R2" == sr2.getSpecies() ))
     pass  
 
   def test_Reaction_getReactantById(self):
@@ -170,12 +170,12 @@ class TestReaction(unittest.TestCase):
     sr2.setSpecies( "R2")
     self.R.addReactant(sr1)
     self.R.addReactant(sr2)
-    self.assert_( self.R.getNumReactants() == 2 )
-    self.assert_( self.R.getNumProducts() == 0 )
-    self.assert_( self.R.getNumModifiers() == 0 )
-    self.assert_( self.R.getReactant( "R1") != sr1 )
-    self.assert_( self.R.getReactant( "R2") != sr2 )
-    self.assert_( self.R.getReactant( "R3") == None )
+    self.assertTrue( self.R.getNumReactants() == 2 )
+    self.assertTrue( self.R.getNumProducts() == 0 )
+    self.assertTrue( self.R.getNumModifiers() == 0 )
+    self.assertTrue( self.R.getReactant( "R1") != sr1 )
+    self.assertTrue( self.R.getReactant( "R2") != sr2 )
+    self.assertTrue( self.R.getReactant( "R3") == None )
     _dummyList = [ sr1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ sr2 ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -185,12 +185,12 @@ class TestReaction(unittest.TestCase):
     o2 = self.R.createProduct()
     o3 = self.R.createProduct()
     o3.setSpecies("test")
-    self.assert_( self.R.removeProduct(0) == o1 )
-    self.assert_( self.R.getNumProducts() == 2 )
-    self.assert_( self.R.removeProduct(0) == o2 )
-    self.assert_( self.R.getNumProducts() == 1 )
-    self.assert_( self.R.removeProduct("test") == o3 )
-    self.assert_( self.R.getNumProducts() == 0 )
+    self.assertTrue( self.R.removeProduct(0) == o1 )
+    self.assertTrue( self.R.getNumProducts() == 2 )
+    self.assertTrue( self.R.removeProduct(0) == o2 )
+    self.assertTrue( self.R.getNumProducts() == 1 )
+    self.assertTrue( self.R.removeProduct("test") == o3 )
+    self.assertTrue( self.R.getNumProducts() == 0 )
     _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
@@ -201,12 +201,12 @@ class TestReaction(unittest.TestCase):
     o2 = self.R.createReactant()
     o3 = self.R.createReactant()
     o3.setSpecies("test")
-    self.assert_( self.R.removeReactant(0) == o1 )
-    self.assert_( self.R.getNumReactants() == 2 )
-    self.assert_( self.R.removeReactant(0) == o2 )
-    self.assert_( self.R.getNumReactants() == 1 )
-    self.assert_( self.R.removeReactant("test") == o3 )
-    self.assert_( self.R.getNumReactants() == 0 )
+    self.assertTrue( self.R.removeReactant(0) == o1 )
+    self.assertTrue( self.R.getNumReactants() == 2 )
+    self.assertTrue( self.R.removeReactant(0) == o2 )
+    self.assertTrue( self.R.getNumReactants() == 1 )
+    self.assertTrue( self.R.removeReactant("test") == o3 )
+    self.assertTrue( self.R.getNumReactants() == 0 )
     _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
@@ -215,12 +215,12 @@ class TestReaction(unittest.TestCase):
   def test_Reaction_setId(self):
     id =  "J1";
     self.R.setId(id)
-    self.assert_(( id == self.R.getId() ))
+    self.assertTrue(( id == self.R.getId() ))
     self.assertEqual( True, self.R.isSetId() )
     if (self.R.getId() == id):
       pass    
     self.R.setId(self.R.getId())
-    self.assert_(( id == self.R.getId() ))
+    self.assertTrue(( id == self.R.getId() ))
     self.R.setId("")
     self.assertEqual( False, self.R.isSetId() )
     if (self.R.getId() != None):
@@ -230,12 +230,12 @@ class TestReaction(unittest.TestCase):
   def test_Reaction_setName(self):
     name =  "MapK_Cascade";
     self.R.setName(name)
-    self.assert_(( name == self.R.getName() ))
+    self.assertTrue(( name == self.R.getName() ))
     self.assertEqual( True, self.R.isSetName() )
     if (self.R.getName() == name):
       pass    
     self.R.setName(self.R.getName())
-    self.assert_(( name == self.R.getName() ))
+    self.assertTrue(( name == self.R.getName() ))
     self.R.setName("")
     self.assertEqual( False, self.R.isSetName() )
     if (self.R.getName() != None):

@@ -53,31 +53,31 @@ class TestL3Parameter(unittest.TestCase):
     pass  
 
   def test_L3_Parameter_NS(self):
-    self.assert_( self.P.getNamespaces() != None )
-    self.assert_( self.P.getNamespaces().getLength() == 1 )
-    self.assert_((     "http://www.sbml.org/sbml/level3/version1/core" == self.P.getNamespaces().getURI(0) ))
+    self.assertTrue( self.P.getNamespaces() != None )
+    self.assertTrue( self.P.getNamespaces().getLength() == 1 )
+    self.assertTrue((     "http://www.sbml.org/sbml/level3/version1/core" == self.P.getNamespaces().getURI(0) ))
     pass  
 
   def test_L3_Parameter_constant(self):
-    self.assert_( self.P.isSetConstant() == False )
+    self.assertTrue( self.P.isSetConstant() == False )
     self.P.setConstant(True)
-    self.assert_( self.P.getConstant() == True )
-    self.assert_( self.P.isSetConstant() == True )
+    self.assertTrue( self.P.getConstant() == True )
+    self.assertTrue( self.P.isSetConstant() == True )
     self.P.setConstant(False)
-    self.assert_( self.P.getConstant() == False )
-    self.assert_( self.P.isSetConstant() == True )
+    self.assertTrue( self.P.getConstant() == False )
+    self.assertTrue( self.P.isSetConstant() == True )
     pass  
 
   def test_L3_Parameter_create(self):
-    self.assert_( self.P.getTypeCode() == libsbml.SBML_PARAMETER )
-    self.assert_( self.P.getMetaId() == "" )
-    self.assert_( self.P.getNotes() == None )
-    self.assert_( self.P.getAnnotation() == None )
-    self.assert_( self.P.getId() == "" )
-    self.assert_( self.P.getName() == "" )
-    self.assert_( self.P.getUnits() == "" )
+    self.assertTrue( self.P.getTypeCode() == libsbml.SBML_PARAMETER )
+    self.assertTrue( self.P.getMetaId() == "" )
+    self.assertTrue( self.P.getNotes() == None )
+    self.assertTrue( self.P.getAnnotation() == None )
+    self.assertTrue( self.P.getId() == "" )
+    self.assertTrue( self.P.getName() == "" )
+    self.assertTrue( self.P.getUnits() == "" )
     self.assertEqual( True, isnan(self.P.getValue()) )
-    self.assert_( self.P.getConstant() == True )
+    self.assertTrue( self.P.getConstant() == True )
     self.assertEqual( False, self.P.isSetId() )
     self.assertEqual( False, self.P.isSetName() )
     self.assertEqual( False, self.P.isSetValue() )
@@ -91,19 +91,19 @@ class TestL3Parameter(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(3,1)
     sbmlns.addNamespaces(xmlns)
     p = libsbml.Parameter(sbmlns)
-    self.assert_( p.getTypeCode() == libsbml.SBML_PARAMETER )
-    self.assert_( p.getMetaId() == "" )
-    self.assert_( p.getNotes() == None )
-    self.assert_( p.getAnnotation() == None )
-    self.assert_( p.getLevel() == 3 )
-    self.assert_( p.getVersion() == 1 )
-    self.assert_( p.getNamespaces() != None )
-    self.assert_( p.getNamespaces().getLength() == 2 )
-    self.assert_( p.getId() == "" )
-    self.assert_( p.getName() == "" )
-    self.assert_( p.getUnits() == "" )
+    self.assertTrue( p.getTypeCode() == libsbml.SBML_PARAMETER )
+    self.assertTrue( p.getMetaId() == "" )
+    self.assertTrue( p.getNotes() == None )
+    self.assertTrue( p.getAnnotation() == None )
+    self.assertTrue( p.getLevel() == 3 )
+    self.assertTrue( p.getVersion() == 1 )
+    self.assertTrue( p.getNamespaces() != None )
+    self.assertTrue( p.getNamespaces().getLength() == 2 )
+    self.assertTrue( p.getId() == "" )
+    self.assertTrue( p.getName() == "" )
+    self.assertTrue( p.getUnits() == "" )
     self.assertEqual( True, isnan(p.getValue()) )
-    self.assert_( p.getConstant() == True )
+    self.assertTrue( p.getConstant() == True )
     self.assertEqual( False, p.isSetId() )
     self.assertEqual( False, p.isSetName() )
     self.assertEqual( False, p.isSetValue() )
@@ -130,7 +130,7 @@ class TestL3Parameter(unittest.TestCase):
     id =  "mitochondria";
     self.assertEqual( False, self.P.isSetId() )
     self.P.setId(id)
-    self.assert_(( id == self.P.getId() ))
+    self.assertTrue(( id == self.P.getId() ))
     self.assertEqual( True, self.P.isSetId() )
     if (self.P.getId() == id):
       pass    
@@ -140,7 +140,7 @@ class TestL3Parameter(unittest.TestCase):
     name =  "My_Favorite_Factory";
     self.assertEqual( False, self.P.isSetName() )
     self.P.setName(name)
-    self.assert_(( name == self.P.getName() ))
+    self.assertTrue(( name == self.P.getName() ))
     self.assertEqual( True, self.P.isSetName() )
     if (self.P.getName() == name):
       pass    
@@ -154,7 +154,7 @@ class TestL3Parameter(unittest.TestCase):
     units =  "volume";
     self.assertEqual( False, self.P.isSetUnits() )
     self.P.setUnits(units)
-    self.assert_(( units == self.P.getUnits() ))
+    self.assertTrue(( units == self.P.getUnits() ))
     self.assertEqual( True, self.P.isSetUnits() )
     if (self.P.getUnits() == units):
       pass    
@@ -169,7 +169,7 @@ class TestL3Parameter(unittest.TestCase):
     self.assertEqual( True, isnan(self.P.getValue()) )
     self.P.setValue(1.5)
     self.assertEqual( True, self.P.isSetValue() )
-    self.assert_( self.P.getValue() == 1.5 )
+    self.assertTrue( self.P.getValue() == 1.5 )
     self.P.unsetValue()
     self.assertEqual( False, self.P.isSetValue() )
     self.assertEqual( True, isnan(self.P.getValue()) )

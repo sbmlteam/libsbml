@@ -118,27 +118,27 @@ class TestWriteL3SBML(unittest.TestCase):
 
   def test_SBMLWriter_L3_create(self):
     w = libsbml.SBMLWriter()
-    self.assert_( w != None )
+    self.assertTrue( w != None )
     _dummyList = [ w ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLWriter_L3_setProgramName(self):
     w = libsbml.SBMLWriter()
-    self.assert_( w != None )
+    self.assertTrue( w != None )
     i = w.setProgramName( "sss")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     i = w.setProgramName("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     _dummyList = [ w ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLWriter_L3_setProgramVersion(self):
     w = libsbml.SBMLWriter()
-    self.assert_( w != None )
+    self.assertTrue( w != None )
     i = w.setProgramVersion( "sss")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     i = w.setProgramVersion("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     _dummyList = [ w ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -529,8 +529,8 @@ class TestWriteL3SBML(unittest.TestCase):
     d = libsbml.SBMLDocument()
     w = libsbml.SBMLWriter()
     self.assertEqual( False, w.writeSBML(d, "/tmp/impossible/path/should/fail") )
-    self.assert_( d.getNumErrors() == 1 )
-    self.assert_( d.getError(0).getErrorId() == libsbml.XMLFileUnwritable )
+    self.assertTrue( d.getNumErrors() == 1 )
+    self.assertTrue( d.getError(0).getErrorId() == libsbml.XMLFileUnwritable )
     d = None
     w = None
     pass  

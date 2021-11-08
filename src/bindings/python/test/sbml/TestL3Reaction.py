@@ -50,16 +50,16 @@ class TestL3Reaction(unittest.TestCase):
     pass  
 
   def test_L3_Reaction_NS(self):
-    self.assert_( self.R.getNamespaces() != None )
-    self.assert_( self.R.getNamespaces().getLength() == 1 )
-    self.assert_((     "http://www.sbml.org/sbml/level3/version1/core" == self.R.getNamespaces().getURI(0) ))
+    self.assertTrue( self.R.getNamespaces() != None )
+    self.assertTrue( self.R.getNamespaces().getLength() == 1 )
+    self.assertTrue((     "http://www.sbml.org/sbml/level3/version1/core" == self.R.getNamespaces().getURI(0) ))
     pass  
 
   def test_L3_Reaction_compartment(self):
     compartment =  "cell";
     self.assertEqual( False, self.R.isSetCompartment() )
     self.R.setCompartment(compartment)
-    self.assert_(( compartment == self.R.getCompartment() ))
+    self.assertTrue(( compartment == self.R.getCompartment() ))
     self.assertEqual( True, self.R.isSetCompartment() )
     if (self.R.getCompartment() == compartment):
       pass    
@@ -70,15 +70,15 @@ class TestL3Reaction(unittest.TestCase):
     pass  
 
   def test_L3_Reaction_create(self):
-    self.assert_( self.R.getTypeCode() == libsbml.SBML_REACTION )
-    self.assert_( self.R.getMetaId() == "" )
-    self.assert_( self.R.getNotes() == None )
-    self.assert_( self.R.getAnnotation() == None )
-    self.assert_( self.R.getId() == "" )
-    self.assert_( self.R.getName() == "" )
-    self.assert_( self.R.getCompartment() == "" )
-    self.assert_( self.R.getFast() == False )
-    self.assert_( self.R.getReversible() == True )
+    self.assertTrue( self.R.getTypeCode() == libsbml.SBML_REACTION )
+    self.assertTrue( self.R.getMetaId() == "" )
+    self.assertTrue( self.R.getNotes() == None )
+    self.assertTrue( self.R.getAnnotation() == None )
+    self.assertTrue( self.R.getId() == "" )
+    self.assertTrue( self.R.getName() == "" )
+    self.assertTrue( self.R.getCompartment() == "" )
+    self.assertTrue( self.R.getFast() == False )
+    self.assertTrue( self.R.getReversible() == True )
     self.assertEqual( False, self.R.isSetId() )
     self.assertEqual( False, self.R.isSetName() )
     self.assertEqual( False, self.R.isSetCompartment() )
@@ -92,19 +92,19 @@ class TestL3Reaction(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(3,1)
     sbmlns.addNamespaces(xmlns)
     r = libsbml.Reaction(sbmlns)
-    self.assert_( r.getTypeCode() == libsbml.SBML_REACTION )
-    self.assert_( r.getMetaId() == "" )
-    self.assert_( r.getNotes() == None )
-    self.assert_( r.getAnnotation() == None )
-    self.assert_( r.getLevel() == 3 )
-    self.assert_( r.getVersion() == 1 )
-    self.assert_( r.getNamespaces() != None )
-    self.assert_( r.getNamespaces().getLength() == 2 )
-    self.assert_( r.getId() == "" )
-    self.assert_( r.getName() == "" )
-    self.assert_( r.getCompartment() == "" )
-    self.assert_( r.getFast() == False )
-    self.assert_( r.getReversible() == True )
+    self.assertTrue( r.getTypeCode() == libsbml.SBML_REACTION )
+    self.assertTrue( r.getMetaId() == "" )
+    self.assertTrue( r.getNotes() == None )
+    self.assertTrue( r.getAnnotation() == None )
+    self.assertTrue( r.getLevel() == 3 )
+    self.assertTrue( r.getVersion() == 1 )
+    self.assertTrue( r.getNamespaces() != None )
+    self.assertTrue( r.getNamespaces().getLength() == 2 )
+    self.assertTrue( r.getId() == "" )
+    self.assertTrue( r.getName() == "" )
+    self.assertTrue( r.getCompartment() == "" )
+    self.assertTrue( r.getFast() == False )
+    self.assertTrue( r.getReversible() == True )
     self.assertEqual( False, r.isSetId() )
     self.assertEqual( False, r.isSetName() )
     self.assertEqual( False, r.isSetCompartment() )
@@ -114,13 +114,13 @@ class TestL3Reaction(unittest.TestCase):
     pass  
 
   def test_L3_Reaction_fast(self):
-    self.assert_( self.R.isSetFast() == False )
+    self.assertTrue( self.R.isSetFast() == False )
     self.R.setFast(True)
-    self.assert_( self.R.getFast() == True )
-    self.assert_( self.R.isSetFast() == True )
+    self.assertTrue( self.R.getFast() == True )
+    self.assertTrue( self.R.isSetFast() == True )
     self.R.setFast(False)
-    self.assert_( self.R.getFast() == False )
-    self.assert_( self.R.isSetFast() == True )
+    self.assertTrue( self.R.getFast() == False )
+    self.assertTrue( self.R.isSetFast() == True )
     pass  
 
   def test_L3_Reaction_free_NULL(self):
@@ -143,7 +143,7 @@ class TestL3Reaction(unittest.TestCase):
     id =  "mitochondria";
     self.assertEqual( False, self.R.isSetId() )
     self.R.setId(id)
-    self.assert_(( id == self.R.getId() ))
+    self.assertTrue(( id == self.R.getId() ))
     self.assertEqual( True, self.R.isSetId() )
     if (self.R.getId() == id):
       pass    
@@ -153,7 +153,7 @@ class TestL3Reaction(unittest.TestCase):
     name =  "My_Favorite_Factory";
     self.assertEqual( False, self.R.isSetName() )
     self.R.setName(name)
-    self.assert_(( name == self.R.getName() ))
+    self.assertTrue(( name == self.R.getName() ))
     self.assertEqual( True, self.R.isSetName() )
     if (self.R.getName() == name):
       pass    
@@ -164,13 +164,13 @@ class TestL3Reaction(unittest.TestCase):
     pass  
 
   def test_L3_Reaction_reversible(self):
-    self.assert_( self.R.isSetReversible() == False )
+    self.assertTrue( self.R.isSetReversible() == False )
     self.R.setReversible(True)
-    self.assert_( self.R.getReversible() == True )
-    self.assert_( self.R.isSetReversible() == True )
+    self.assertTrue( self.R.getReversible() == True )
+    self.assertTrue( self.R.isSetReversible() == True )
     self.R.setReversible(False)
-    self.assert_( self.R.getReversible() == False )
-    self.assert_( self.R.isSetReversible() == True )
+    self.assertTrue( self.R.getReversible() == False )
+    self.assertTrue( self.R.isSetReversible() == True )
     pass  
 
 def suite():

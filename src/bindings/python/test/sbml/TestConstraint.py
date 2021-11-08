@@ -50,10 +50,10 @@ class TestConstraint(unittest.TestCase):
     pass  
 
   def test_Constraint_create(self):
-    self.assert_( self.C.getTypeCode() == libsbml.SBML_CONSTRAINT )
-    self.assert_( self.C.getMetaId() == "" )
-    self.assert_( self.C.getNotes() == None )
-    self.assert_( self.C.getAnnotation() == None )
+    self.assertTrue( self.C.getTypeCode() == libsbml.SBML_CONSTRAINT )
+    self.assertTrue( self.C.getMetaId() == "" )
+    self.assertTrue( self.C.getNotes() == None )
+    self.assertTrue( self.C.getAnnotation() == None )
     self.assertEqual( False, self.C.isSetMessage() )
     self.assertEqual( False, self.C.isSetMath() )
     pass  
@@ -64,14 +64,14 @@ class TestConstraint(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(2,2)
     sbmlns.addNamespaces(xmlns)
     object = libsbml.Constraint(sbmlns)
-    self.assert_( object.getTypeCode() == libsbml.SBML_CONSTRAINT )
-    self.assert_( object.getMetaId() == "" )
-    self.assert_( object.getNotes() == None )
-    self.assert_( object.getAnnotation() == None )
-    self.assert_( object.getLevel() == 2 )
-    self.assert_( object.getVersion() == 2 )
-    self.assert_( object.getNamespaces() != None )
-    self.assert_( object.getNamespaces().getLength() == 2 )
+    self.assertTrue( object.getTypeCode() == libsbml.SBML_CONSTRAINT )
+    self.assertTrue( object.getMetaId() == "" )
+    self.assertTrue( object.getNotes() == None )
+    self.assertTrue( object.getAnnotation() == None )
+    self.assertTrue( object.getLevel() == 2 )
+    self.assertTrue( object.getVersion() == 2 )
+    self.assertTrue( object.getNamespaces() != None )
+    self.assertTrue( object.getNamespaces().getLength() == 2 )
     _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -82,10 +82,10 @@ class TestConstraint(unittest.TestCase):
   def test_Constraint_setMath(self):
     math = libsbml.parseFormula("2 * k")
     self.C.setMath(math)
-    self.assert_( self.C.getMath() != math )
+    self.assertTrue( self.C.getMath() != math )
     self.assertEqual( True, self.C.isSetMath() )
     self.C.setMath(self.C.getMath())
-    self.assert_( self.C.getMath() != math )
+    self.assertTrue( self.C.getMath() != math )
     self.C.setMath(None)
     self.assertEqual( False, self.C.isSetMath() )
     if (self.C.getMath() != None):
@@ -106,11 +106,11 @@ class TestConstraint(unittest.TestCase):
     node = libsbml.XMLNode(triple1,att1)
     node.addChild(p)
     self.C.setMessage(node)
-    self.assert_( self.C.getMessage() != node )
-    self.assert_( self.C.isSetMessage() == True )
+    self.assertTrue( self.C.getMessage() != node )
+    self.assertTrue( self.C.isSetMessage() == True )
     self.C.setMessage(self.C.getMessage())
-    self.assert_( self.C.getMessage() != node )
-    self.assert_( self.C.getMessageString() != None )
+    self.assertTrue( self.C.getMessage() != node )
+    self.assertTrue( self.C.getMessageString() != None )
     self.C.unsetMessage()
     self.assertEqual( False, self.C.isSetMessage() )
     if (self.C.getMessage() != None):
