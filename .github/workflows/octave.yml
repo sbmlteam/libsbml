@@ -53,6 +53,8 @@ jobs:
       working-directory: ${{runner.workspace}}/build/instdir
       run: cmake -E tar cvzf ../octave_${{ matrix.os }}.tar.gz .
 
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
     - name: Test
       working-directory: ${{runner.workspace}}/build/instdir/lib/octave/site/oct/x86_64-pc-linux-gnu
       shell: bash
