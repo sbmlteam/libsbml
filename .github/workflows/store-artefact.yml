@@ -76,7 +76,15 @@ jobs:
           echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
           ./dev/utilities/expdef/expdef64.exe -dRlib.def -l R.dll
           echo R_PLATFORM_SPECIFIC_OPTIONS="-DR_LIB=${GITHUB_WORKSPACE}\Rlib.lib" >> "${GITHUB_ENV}"
-          echo R_INCLUDE_PATH="/c/Program Files/R/R-4.1.1/include" >> "${GITHUB_ENV}"
+
+      - name: Find Windows R include path
+        # robust to R version changing
+        if: matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+            cd /c/Program\ Files/R/
+            R_INCLUDE_DIR_VERSION=$(ls -d *)
+            echo R_INCLUDE_PATH="/c/Program Files/R/"$R_INCLUDE_DIR_VERSION"/include" >> "${GITHUB_ENV}"
 
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG and expat by default
