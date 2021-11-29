@@ -71,7 +71,13 @@ execute_process(COMMAND "${OCTAVE_CONFIG_EXECUTABLE}" -p CANONICAL_HOST_TYPE
 else()
   set(OCTAVE_PACKAGE_INSTALL_DIR ${MISC_PREFIX}bindings/octave)
 endif()
-	
+
+SET(COMMON_FILES
+  "${CMAKE_CURRENT_SOURCE_DIR}/../matlab/ModelDetails.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/../matlab/StructureFields.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/../matlab/CommonFunctions.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/../matlab/Filenames.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/../matlab/InputOutput.cpp"	)	
 
 macro(build_octave_file fileName)
 	# compile and link mex file
@@ -88,6 +94,7 @@ macro(build_octave_file fileName)
 			-I${CMAKE_CURRENT_SOURCE_DIR}/../../
 			-I${LIBSBML_ROOT_SOURCE_DIR}/include
 			${CMAKE_CURRENT_SOURCE_DIR}/../matlab/${fileName}.cpp
+			${COMMON_FILES}
 			-l${LIBSBML_LIBRARY}
 			${OCTAVE_EXTRA_LIBS}
 			${OCTAVE_EXTRA_PATHS}
