@@ -10,6 +10,25 @@
 #include <sbml/extension/SBMLExtensionRegistry.h>
 
 
+#ifdef USE_OCTAVE
+// this function is not implemented in octave
+mxArray *mexCallMATLABWithTrap(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[], const char *functionName) {
+    mxArray *mx = NULL;
+    const char *fields[] = {"identifier", "message", "case", "stack"};
+    mexSetTrapFlag(1);
+    if (mexCallMATLAB(nlhs, plhs, nrhs, prhs, functionName)) {
+        mx = mxCreateStructMatrix(1, 1, 4, fields);
+        mxSetFieldByNumber(mx, 0, 0, mxCreateString("MATLAB:error"));
+        mxSetFieldByNumber(mx, 0, 1, mxCreateString(functionName));
+        mxSetFieldByNumber(mx, 0, 2, mxCreateCellMatrix(0, 0));
+        mxSetFieldByNumber(mx, 0, 3, mxCreateStructMatrix(0, 1, 0, NULL));
+        return mx;
+    }
+    else {
+        return NULL;
+    }
+}
+#endif
 
 //////////////////////////////////////////////////////////////////////////////
 //
