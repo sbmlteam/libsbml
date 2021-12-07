@@ -146,7 +146,7 @@ START_TEST (test_SBMLExtensionRegistry_getExtension)
 {
 
 	SBMLExtensionRegistry &instance = SBMLExtensionRegistry::getInstance();
-	const std::string &uri = TestExtension::getXmlnsL3V1V1();
+	const std::string& uri = TestExtension::getXmlnsL3V1V1();
 	
 	SBMLExtension* result = NULL;
 	fail_unless(result == NULL);

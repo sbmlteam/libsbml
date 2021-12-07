@@ -51,7 +51,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygenLibsbmlInternal */
-FbcSBMLDocumentPlugin::FbcSBMLDocumentPlugin (const string &uri, 
+FbcSBMLDocumentPlugin::FbcSBMLDocumentPlugin (const string& uri, 
                               const string &prefix, FbcPkgNamespaces *fbcns)
   : SBMLDocumentPlugin(uri,prefix, fbcns)
 {

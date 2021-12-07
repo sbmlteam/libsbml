@@ -169,7 +169,7 @@ public:
    * infinity and notanumber, AST_REAL is returned, and the parser must then
    * examine the string again to discover what to do with the ASTNode.
    */
-  ASTNodeType_t getSymbolFor(std::string name) const;
+  ASTNodeType_t getSymbolFor(const std::string& name) const;
   /**
    * Compares 'name' against a list of known functions allowed in the MathML
    * of SBML Level 2 and 3.  Multiple mappings of string->type are present,
@@ -178,7 +178,7 @@ public:
    * user preference is taken into consideration, 'name' must once again
    * be checked.
    */
-  ASTNodeType_t getFunctionFor(std::string name) const;
+  ASTNodeType_t getFunctionFor(const std::string& name) const;
   /**
    * This function creates an ASTNode that is a 'piecewise' function that
    * mimics the 'modulo' function 'x % y'.  It was modified from the
@@ -2659,7 +2659,7 @@ L3Parser::~L3Parser ()
   }
 }
 
-ASTNodeType_t L3Parser::getSymbolFor(string name) const
+ASTNodeType_t L3Parser::getSymbolFor(const string& name) const
 {
   if (l3StrCmp(name, "true"))         return AST_CONSTANT_TRUE;
   if (l3StrCmp(name, "false"))        return AST_CONSTANT_FALSE;
@@ -2675,7 +2675,7 @@ ASTNodeType_t L3Parser::getSymbolFor(string name) const
   return currentSettings->getPackageSymbolFor(name);
 }
 
-ASTNodeType_t L3Parser::getFunctionFor(string name) const
+ASTNodeType_t L3Parser::getFunctionFor(const string& name) const
 {
   if (l3StrCmp(name, "abs"))      return AST_FUNCTION_ABS;
   if (l3StrCmp(name, "acos"))     return AST_FUNCTION_ARCCOS;

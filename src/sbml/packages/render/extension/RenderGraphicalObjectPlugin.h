@@ -66,7 +66,7 @@ public:
   /**
    * Constructor
    */
-  RenderGraphicalObjectPlugin  (const std::string &uri, const std::string &prefix,
+  RenderGraphicalObjectPlugin  (const std::string& uri, const std::string &prefix,
                     RenderPkgNamespaces *groupsns);
 
 

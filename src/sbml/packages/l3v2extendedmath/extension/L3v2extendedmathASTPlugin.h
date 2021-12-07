@@ -105,7 +105,7 @@ public:
 
   virtual bool hasCorrectNamespace(SBMLNamespaces* namespaces) const;
 
-  L3v2extendedmathASTPlugin(const std::string &uri);
+  L3v2extendedmathASTPlugin(const std::string& uri);
 
   virtual int checkNumArguments(const ASTNode* function, std::stringstream& error) const;
   virtual double evaluateASTNode(const ASTNode * node, const Model * m = NULL) const;

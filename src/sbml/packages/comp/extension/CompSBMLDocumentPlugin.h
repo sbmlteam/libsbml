@@ -116,7 +116,7 @@ public:
    *
    * @param compns the namespaces object for the package.
    */
-  CompSBMLDocumentPlugin (const std::string &uri, const std::string &prefix,
+  CompSBMLDocumentPlugin (const std::string& uri, const std::string &prefix,
                           CompPkgNamespaces *compns);
 
 

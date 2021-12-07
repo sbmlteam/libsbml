@@ -81,7 +81,7 @@ public:
    *
    * @param layoutns the namespaces object for the package.
    */
-  LayoutSpeciesReferencePlugin (const std::string &uri, const std::string &prefix,
+  LayoutSpeciesReferencePlugin (const std::string& uri, const std::string &prefix,
                                 LayoutPkgNamespaces* layoutns);
 
 

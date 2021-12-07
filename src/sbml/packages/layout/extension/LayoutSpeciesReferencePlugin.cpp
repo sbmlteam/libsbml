@@ -52,7 +52,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-LayoutSpeciesReferencePlugin::LayoutSpeciesReferencePlugin (const std::string &uri, 
+LayoutSpeciesReferencePlugin::LayoutSpeciesReferencePlugin (const std::string& uri, 
                                                             const std::string &prefix,
                                                             LayoutPkgNamespaces* layoutns)
   : SBasePlugin(uri,prefix,layoutns)

@@ -60,7 +60,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-QualSBMLDocumentPlugin::QualSBMLDocumentPlugin (const string &uri, 
+QualSBMLDocumentPlugin::QualSBMLDocumentPlugin (const string& uri, 
                               const string &prefix, QualPkgNamespaces *qualns)
   : SBMLDocumentPlugin(uri,prefix, qualns)
 {

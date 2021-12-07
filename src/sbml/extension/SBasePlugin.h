@@ -497,7 +497,7 @@ public:
    *
    * @see getElementNamespace()
    */
-  int setElementNamespace(const std::string &uri);
+  int setElementNamespace(const std::string& uri);
 
 
   /**
@@ -861,7 +861,7 @@ protected:
    *
    * @param sbmlns the namespaces object for the package.
    */
-  SBasePlugin (const std::string &uri, const std::string &prefix,
+  SBasePlugin (const std::string& uri, const std::string &prefix,
                SBMLNamespaces *sbmlns);
 
 

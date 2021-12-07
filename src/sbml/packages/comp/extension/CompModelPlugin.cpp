@@ -59,7 +59,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
-CompModelPlugin::CompModelPlugin (const std::string &uri, const std::string &prefix, CompPkgNamespaces *compns)
+CompModelPlugin::CompModelPlugin (const std::string& uri, const std::string &prefix, CompPkgNamespaces *compns)
   : CompSBasePlugin(uri,prefix, compns)
   , mListOfSubmodels(compns)
   , mListOfPorts(compns)
@@ -259,13 +259,13 @@ CompModelPlugin::getSubmodel (unsigned int index) const
 
 
 Submodel* 
-CompModelPlugin::getSubmodel (std::string id)
+CompModelPlugin::getSubmodel (const std::string& id)
 {
   return mListOfSubmodels.get(id);
 }
 
 const Submodel* 
-CompModelPlugin::getSubmodel (std::string id) const
+CompModelPlugin::getSubmodel (const std::string& id) const
 {
   return mListOfSubmodels.get(id);
 }
@@ -396,7 +396,7 @@ CompModelPlugin::getPort (unsigned int index) const
  * If the id is invalid, @c NULL is returned.
  */ 
 Port* 
-CompModelPlugin::getPort (std::string id)
+CompModelPlugin::getPort (const std::string& id)
 {
   return mListOfPorts.get(id);
 }
@@ -406,7 +406,7 @@ CompModelPlugin::getPort (std::string id)
  * If the id is invalid, @c NULL is returned.
  */ 
 const Port* 
-CompModelPlugin::getPort (std::string id) const
+CompModelPlugin::getPort (const std::string& id) const
 {
   return mListOfPorts.get(id);
 }

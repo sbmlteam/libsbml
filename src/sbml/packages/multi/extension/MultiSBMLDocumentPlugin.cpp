@@ -48,7 +48,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygenLibsbmlInternal */
-MultiSBMLDocumentPlugin::MultiSBMLDocumentPlugin (const string &uri, 
+MultiSBMLDocumentPlugin::MultiSBMLDocumentPlugin (const string& uri, 
                               const string &prefix, MultiPkgNamespaces *multins)
   : SBMLDocumentPlugin(uri,prefix, multins)
 {
