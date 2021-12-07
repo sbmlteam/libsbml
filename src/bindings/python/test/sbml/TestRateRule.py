@@ -50,14 +50,14 @@ class TestRateRule(unittest.TestCase):
     pass  
 
   def test_RateRule_create(self):
-    self.assert_( self.RR.getTypeCode() == libsbml.SBML_RATE_RULE )
-    self.assert_( self.RR.getMetaId() == "" )
-    self.assert_( self.RR.getNotes() == None )
-    self.assert_( self.RR.getAnnotation() == None )
-    self.assert_( self.RR.getFormula() == "" )
-    self.assert_( self.RR.getMath() == None )
-    self.assert_( self.RR.getVariable() == "" )
-    self.assert_( self.RR.getType() == libsbml.RULE_TYPE_RATE )
+    self.assertTrue( self.RR.getTypeCode() == libsbml.SBML_RATE_RULE )
+    self.assertTrue( self.RR.getMetaId() == "" )
+    self.assertTrue( self.RR.getNotes() == None )
+    self.assertTrue( self.RR.getAnnotation() == None )
+    self.assertTrue( self.RR.getFormula() == "" )
+    self.assertTrue( self.RR.getMath() == None )
+    self.assertTrue( self.RR.getVariable() == "" )
+    self.assertTrue( self.RR.getType() == libsbml.RULE_TYPE_RATE )
     pass  
 
   def test_RateRule_createWithNS(self):
@@ -66,14 +66,14 @@ class TestRateRule(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(2,1)
     sbmlns.addNamespaces(xmlns)
     object = libsbml.RateRule(sbmlns)
-    self.assert_( object.getTypeCode() == libsbml.SBML_RATE_RULE )
-    self.assert_( object.getMetaId() == "" )
-    self.assert_( object.getNotes() == None )
-    self.assert_( object.getAnnotation() == None )
-    self.assert_( object.getLevel() == 2 )
-    self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != None )
-    self.assert_( object.getNamespaces().getLength() == 2 )
+    self.assertTrue( object.getTypeCode() == libsbml.SBML_RATE_RULE )
+    self.assertTrue( object.getMetaId() == "" )
+    self.assertTrue( object.getNotes() == None )
+    self.assertTrue( object.getAnnotation() == None )
+    self.assertTrue( object.getLevel() == 2 )
+    self.assertTrue( object.getVersion() == 1 )
+    self.assertTrue( object.getNamespaces() != None )
+    self.assertTrue( object.getNamespaces().getLength() == 2 )
     _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -84,12 +84,12 @@ class TestRateRule(unittest.TestCase):
   def test_RateRule_setVariable(self):
     variable =  "x";
     self.RR.setVariable(variable)
-    self.assert_(( variable == self.RR.getVariable() ))
+    self.assertTrue(( variable == self.RR.getVariable() ))
     self.assertEqual( True, self.RR.isSetVariable() )
     if (self.RR.getVariable() == variable):
       pass    
     self.RR.setVariable(self.RR.getVariable())
-    self.assert_(( variable == self.RR.getVariable() ))
+    self.assertTrue(( variable == self.RR.getVariable() ))
     self.RR.setVariable("")
     self.assertEqual( False, self.RR.isSetVariable() )
     if (self.RR.getVariable() != None):

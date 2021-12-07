@@ -51,75 +51,75 @@ class TestUnit_newSetters(unittest.TestCase):
 
   def test_Unit_removeScale(self):
     i = self.U.setScale(2)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.U.getScale() == 2 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.U.getScale() == 2 )
     i = libsbml.Unit.removeScale(self.U)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.U.getScale() == 0 )
-    self.assert_( self.U.getMultiplier() == 100 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.U.getScale() == 0 )
+    self.assertTrue( self.U.getMultiplier() == 100 )
     pass  
 
   def test_Unit_setExponent1(self):
     i = self.U.setExponent(2)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.U.getExponent() == 2 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.U.getExponent() == 2 )
     pass  
 
   def test_Unit_setExponent2(self):
     i = self.U.setExponent(2.0)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.U.getExponent() == 2 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.U.getExponent() == 2 )
     pass  
 
   def test_Unit_setExponent3(self):
     i = self.U.setExponent(2.2)
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
-    self.assert_( self.U.getExponent() == 1 )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( self.U.getExponent() == 1 )
     pass  
 
   def test_Unit_setKind1(self):
     i = self.U.setKind(libsbml.UnitKind_forName("cell"))
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, self.U.isSetKind() )
     pass  
 
   def test_Unit_setKind2(self):
     i = self.U.setKind(libsbml.UnitKind_forName("litre"))
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.U.isSetKind() )
     pass  
 
   def test_Unit_setMultiplier1(self):
     i = self.U.setMultiplier(2)
-    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
-    self.assert_( self.U.getMultiplier() == 2 )
+    self.assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assertTrue( self.U.getMultiplier() == 2 )
     pass  
 
   def test_Unit_setMultiplier2(self):
     c = libsbml.Unit(2,2)
     i = c.setMultiplier(4)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( c.getMultiplier() == 4 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( c.getMultiplier() == 4 )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Unit_setOffset1(self):
     i = self.U.setOffset(2.0)
-    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
-    self.assert_( self.U.getOffset() == 0 )
+    self.assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assertTrue( self.U.getOffset() == 0 )
     pass  
 
   def test_Unit_setOffset2(self):
     U1 = libsbml.Unit(2,1)
     i = U1.setOffset(2.0)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( U1.getOffset() == 2 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( U1.getOffset() == 2 )
     pass  
 
   def test_Unit_setScale1(self):
     i = self.U.setScale(2)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.U.getScale() == 2 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.U.getScale() == 2 )
     pass  
 
 def suite():

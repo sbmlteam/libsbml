@@ -50,54 +50,54 @@ class TestL3Trigger(unittest.TestCase):
     pass  
 
   def test_L3Trigger_create(self):
-    self.assert_( self.T.getTypeCode() == libsbml.SBML_TRIGGER )
-    self.assert_( self.T.getMetaId() == "" )
-    self.assert_( self.T.getNotes() == None )
-    self.assert_( self.T.getAnnotation() == None )
-    self.assert_( self.T.getMath() == None )
-    self.assert_( self.T.getInitialValue() == True )
-    self.assert_( self.T.getPersistent() == True )
-    self.assert_( self.T.isSetInitialValue() == False )
-    self.assert_( self.T.isSetPersistent() == False )
+    self.assertTrue( self.T.getTypeCode() == libsbml.SBML_TRIGGER )
+    self.assertTrue( self.T.getMetaId() == "" )
+    self.assertTrue( self.T.getNotes() == None )
+    self.assertTrue( self.T.getAnnotation() == None )
+    self.assertTrue( self.T.getMath() == None )
+    self.assertTrue( self.T.getInitialValue() == True )
+    self.assertTrue( self.T.getPersistent() == True )
+    self.assertTrue( self.T.isSetInitialValue() == False )
+    self.assertTrue( self.T.isSetPersistent() == False )
     pass  
 
   def test_L3Trigger_setInitialValue(self):
     i = self.T.setInitialValue(False)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.T.getInitialValue() == False )
-    self.assert_( self.T.isSetInitialValue() == True )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.T.getInitialValue() == False )
+    self.assertTrue( self.T.isSetInitialValue() == True )
     i = self.T.setInitialValue(True)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.T.getInitialValue() == True )
-    self.assert_( self.T.isSetInitialValue() == True )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.T.getInitialValue() == True )
+    self.assertTrue( self.T.isSetInitialValue() == True )
     pass  
 
   def test_L3Trigger_setInitialValue1(self):
     t = libsbml.Trigger(2,4)
     i = t.setInitialValue(False)
-    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
-    self.assert_( self.T.getInitialValue() == True )
-    self.assert_( self.T.isSetInitialValue() == False )
+    self.assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assertTrue( self.T.getInitialValue() == True )
+    self.assertTrue( self.T.isSetInitialValue() == False )
     _dummyList = [ t ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3Trigger_setPersistent(self):
     i = self.T.setPersistent(False)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.T.getPersistent() == False )
-    self.assert_( self.T.isSetPersistent() == True )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.T.getPersistent() == False )
+    self.assertTrue( self.T.isSetPersistent() == True )
     i = self.T.setPersistent(True)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.T.getPersistent() == True )
-    self.assert_( self.T.isSetPersistent() == True )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.T.getPersistent() == True )
+    self.assertTrue( self.T.isSetPersistent() == True )
     pass  
 
   def test_L3Trigger_setPersistent1(self):
     t = libsbml.Trigger(2,4)
     i = t.setPersistent(False)
-    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
-    self.assert_( self.T.getPersistent() == True )
-    self.assert_( self.T.isSetPersistent() == False )
+    self.assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assertTrue( self.T.getPersistent() == True )
+    self.assertTrue( self.T.isSetPersistent() == False )
     _dummyList = [ t ]; _dummyList[:] = []; del _dummyList
     pass  
 

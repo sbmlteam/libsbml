@@ -1280,7 +1280,7 @@ sub parseAssertion
      ################################################## 
      elsif ( $Target eq 'python') 
      {
-       push (@{$FuncDef{$CurFunc}}, "self.assert_(" . &parseBlock($line) . ")");
+       push (@{$FuncDef{$CurFunc}}, "self.assertTrue(" . &parseBlock($line) . ")");
      }
      ################################################## 
      # Java / C#
@@ -2024,16 +2024,16 @@ sub addAssertion2
       #if ( $CurLine =~ / \s+ \! \s+ /x )
       if ( $CurLine =~ / \( \s* \! \s* \w /x )
       {
-        $assertion = "self.assert_( (" . $left . " " . $op . " " . $right . ") == False )";
+        $assertion = "self.assertFalse(" . $left . " " . $op . " " . $right . ")";
       }
       else
       {
-        $assertion = "self.assert_( " . $left . " " . $op . " " . $right . " )";
+        $assertion = "self.assertTrue( " . $left . " " . $op . " " . $right . " )";
       }
     }
     elsif ( $CurLine =~ /fail_if/ )
     {
-      $assertion = "self.assert_( (" . $left . " " . $op . " " . $right . ") == False )";
+      $assertion = "self.assertFalse(" . $left . " " . $op . " " . $right . ")";
     }
   }
   ##################################################
@@ -4432,16 +4432,16 @@ $patchFuncReplace{'python'}{'TestWriteSBML'}{'test_WriteSBML_gzip'} = <<'EOF';
     gzfile = "test.xml.gz"
     for f in file:
       d = libsbml.readSBML(f)
-      self.assert_( d != None )
+      self.assertIsNotNone( d )
       if not libsbml.SBMLWriter.hasZlib():
-        self.assert_( libsbml.writeSBML(d,gzfile) == 0 )
+        self.assertEqual( libsbml.writeSBML(d,gzfile), 0 )
         d = None
         continue
       result = libsbml.writeSBML(d,gzfile)
       self.assertEqual( 1, result )
       dg = libsbml.readSBML(gzfile)
-      self.assert_( dg != None )
-      self.assert_( ( dg.toSBML() != d.toSBML() ) == False )
+      self.assertIsNotNone( dg )
+      self.assertEqual( dg.toSBML(), d.toSBML() )
       d = None
       dg = None
     pass

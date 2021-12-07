@@ -56,7 +56,7 @@ class TestL3Species(unittest.TestCase):
     (self.S).setMetaId("_3")
     history = libsbml.ModelHistory()
     i = (self.S).setModelHistory(history)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assertEqual( False, (self.S).isSetModelHistory() )
     mc = libsbml.ModelCreator()
     date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
@@ -68,56 +68,56 @@ class TestL3Species(unittest.TestCase):
     history.setCreatedDate(date)
     history.setModifiedDate(date)
     i = (self.S).setModelHistory(history)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, (self.S).isSetModelHistory() )
     i = (self.S).unsetModelHistory()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, (self.S).isSetModelHistory() )
-    self.assert_( (self.S).getModelHistory() == None )
+    self.assertTrue( (self.S).getModelHistory() == None )
     _dummyList = [ history ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Species_NS(self):
-    self.assert_( self.S.getNamespaces() != None )
-    self.assert_( self.S.getNamespaces().getLength() == 1 )
-    self.assert_((     "http://www.sbml.org/sbml/level3/version1/core" == self.S.getNamespaces().getURI(0) ))
+    self.assertTrue( self.S.getNamespaces() != None )
+    self.assertTrue( self.S.getNamespaces().getLength() == 1 )
+    self.assertTrue((     "http://www.sbml.org/sbml/level3/version1/core" == self.S.getNamespaces().getURI(0) ))
     pass  
 
   def test_L3_Species_boundaryCondition(self):
-    self.assert_( self.S.isSetBoundaryCondition() == False )
+    self.assertTrue( self.S.isSetBoundaryCondition() == False )
     self.S.setBoundaryCondition(True)
-    self.assert_( self.S.getBoundaryCondition() == True )
-    self.assert_( self.S.isSetBoundaryCondition() == True )
+    self.assertTrue( self.S.getBoundaryCondition() == True )
+    self.assertTrue( self.S.isSetBoundaryCondition() == True )
     self.S.setBoundaryCondition(False)
-    self.assert_( self.S.getBoundaryCondition() == False )
-    self.assert_( self.S.isSetBoundaryCondition() == True )
+    self.assertTrue( self.S.getBoundaryCondition() == False )
+    self.assertTrue( self.S.isSetBoundaryCondition() == True )
     pass  
 
   def test_L3_Species_compartment(self):
     compartment =  "cell";
     self.assertEqual( False, self.S.isSetCompartment() )
     self.S.setCompartment(compartment)
-    self.assert_(( compartment == self.S.getCompartment() ))
+    self.assertTrue(( compartment == self.S.getCompartment() ))
     self.assertEqual( True, self.S.isSetCompartment() )
     if (self.S.getCompartment() == compartment):
       pass    
     pass  
 
   def test_L3_Species_constant(self):
-    self.assert_( self.S.isSetConstant() == False )
+    self.assertTrue( self.S.isSetConstant() == False )
     self.S.setConstant(True)
-    self.assert_( self.S.getConstant() == True )
-    self.assert_( self.S.isSetConstant() == True )
+    self.assertTrue( self.S.getConstant() == True )
+    self.assertTrue( self.S.isSetConstant() == True )
     self.S.setConstant(False)
-    self.assert_( self.S.getConstant() == False )
-    self.assert_( self.S.isSetConstant() == True )
+    self.assertTrue( self.S.getConstant() == False )
+    self.assertTrue( self.S.isSetConstant() == True )
     pass  
 
   def test_L3_Species_conversionFactor(self):
     units =  "volume";
     self.assertEqual( False, self.S.isSetConversionFactor() )
     self.S.setConversionFactor(units)
-    self.assert_(( units == self.S.getConversionFactor() ))
+    self.assertTrue(( units == self.S.getConversionFactor() ))
     self.assertEqual( True, self.S.isSetConversionFactor() )
     if (self.S.getConversionFactor() == units):
       pass    
@@ -128,20 +128,20 @@ class TestL3Species(unittest.TestCase):
     pass  
 
   def test_L3_Species_create(self):
-    self.assert_( self.S.getTypeCode() == libsbml.SBML_SPECIES )
-    self.assert_( self.S.getMetaId() == "" )
-    self.assert_( self.S.getNotes() == None )
-    self.assert_( self.S.getAnnotation() == None )
-    self.assert_( self.S.getId() == "" )
-    self.assert_( self.S.getName() == "" )
-    self.assert_( self.S.getCompartment() == "" )
+    self.assertTrue( self.S.getTypeCode() == libsbml.SBML_SPECIES )
+    self.assertTrue( self.S.getMetaId() == "" )
+    self.assertTrue( self.S.getNotes() == None )
+    self.assertTrue( self.S.getAnnotation() == None )
+    self.assertTrue( self.S.getId() == "" )
+    self.assertTrue( self.S.getName() == "" )
+    self.assertTrue( self.S.getCompartment() == "" )
     self.assertEqual( True, isnan(self.S.getInitialAmount()) )
     self.assertEqual( True, isnan(self.S.getInitialConcentration()) )
-    self.assert_( self.S.getSubstanceUnits() == "" )
-    self.assert_( self.S.getHasOnlySubstanceUnits() == False )
-    self.assert_( self.S.getBoundaryCondition() == False )
-    self.assert_( self.S.getConstant() == False )
-    self.assert_( self.S.getConversionFactor() == "" )
+    self.assertTrue( self.S.getSubstanceUnits() == "" )
+    self.assertTrue( self.S.getHasOnlySubstanceUnits() == False )
+    self.assertTrue( self.S.getBoundaryCondition() == False )
+    self.assertTrue( self.S.getConstant() == False )
+    self.assertTrue( self.S.getConversionFactor() == "" )
     self.assertEqual( False, self.S.isSetId() )
     self.assertEqual( False, self.S.isSetName() )
     self.assertEqual( False, self.S.isSetCompartment() )
@@ -160,24 +160,24 @@ class TestL3Species(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(3,1)
     sbmlns.addNamespaces(xmlns)
     s = libsbml.Species(sbmlns)
-    self.assert_( s.getTypeCode() == libsbml.SBML_SPECIES )
-    self.assert_( s.getMetaId() == "" )
-    self.assert_( s.getNotes() == None )
-    self.assert_( s.getAnnotation() == None )
-    self.assert_( s.getLevel() == 3 )
-    self.assert_( s.getVersion() == 1 )
-    self.assert_( s.getNamespaces() != None )
-    self.assert_( s.getNamespaces().getLength() == 2 )
-    self.assert_( s.getId() == "" )
-    self.assert_( s.getName() == "" )
-    self.assert_( s.getCompartment() == "" )
+    self.assertTrue( s.getTypeCode() == libsbml.SBML_SPECIES )
+    self.assertTrue( s.getMetaId() == "" )
+    self.assertTrue( s.getNotes() == None )
+    self.assertTrue( s.getAnnotation() == None )
+    self.assertTrue( s.getLevel() == 3 )
+    self.assertTrue( s.getVersion() == 1 )
+    self.assertTrue( s.getNamespaces() != None )
+    self.assertTrue( s.getNamespaces().getLength() == 2 )
+    self.assertTrue( s.getId() == "" )
+    self.assertTrue( s.getName() == "" )
+    self.assertTrue( s.getCompartment() == "" )
     self.assertEqual( True, isnan(s.getInitialAmount()) )
     self.assertEqual( True, isnan(s.getInitialConcentration()) )
-    self.assert_( s.getSubstanceUnits() == "" )
-    self.assert_( s.getHasOnlySubstanceUnits() == False )
-    self.assert_( s.getBoundaryCondition() == False )
-    self.assert_( s.getConstant() == False )
-    self.assert_( s.getConversionFactor() == "" )
+    self.assertTrue( s.getSubstanceUnits() == "" )
+    self.assertTrue( s.getHasOnlySubstanceUnits() == False )
+    self.assertTrue( s.getBoundaryCondition() == False )
+    self.assertTrue( s.getConstant() == False )
+    self.assertTrue( s.getConversionFactor() == "" )
     self.assertEqual( False, s.isSetId() )
     self.assertEqual( False, s.isSetName() )
     self.assertEqual( False, s.isSetCompartment() )
@@ -196,13 +196,13 @@ class TestL3Species(unittest.TestCase):
     pass  
 
   def test_L3_Species_hasOnlySubstanceUnits(self):
-    self.assert_( self.S.isSetHasOnlySubstanceUnits() == False )
+    self.assertTrue( self.S.isSetHasOnlySubstanceUnits() == False )
     self.S.setHasOnlySubstanceUnits(True)
-    self.assert_( self.S.getHasOnlySubstanceUnits() == True )
-    self.assert_( self.S.isSetHasOnlySubstanceUnits() == True )
+    self.assertTrue( self.S.getHasOnlySubstanceUnits() == True )
+    self.assertTrue( self.S.isSetHasOnlySubstanceUnits() == True )
     self.S.setHasOnlySubstanceUnits(False)
-    self.assert_( self.S.getHasOnlySubstanceUnits() == False )
-    self.assert_( self.S.isSetHasOnlySubstanceUnits() == True )
+    self.assertTrue( self.S.getHasOnlySubstanceUnits() == False )
+    self.assertTrue( self.S.isSetHasOnlySubstanceUnits() == True )
     pass  
 
   def test_L3_Species_hasRequiredAttributes(self):
@@ -225,7 +225,7 @@ class TestL3Species(unittest.TestCase):
     id =  "mitochondria";
     self.assertEqual( False, self.S.isSetId() )
     self.S.setId(id)
-    self.assert_(( id == self.S.getId() ))
+    self.assertTrue(( id == self.S.getId() ))
     self.assertEqual( True, self.S.isSetId() )
     if (self.S.getId() == id):
       pass    
@@ -233,16 +233,16 @@ class TestL3Species(unittest.TestCase):
 
   def test_L3_Species_initDefaults(self):
     s = libsbml.Species(3,1)
-    self.assert_( s.getId() == "" )
-    self.assert_( s.getName() == "" )
-    self.assert_( s.getCompartment() == "" )
+    self.assertTrue( s.getId() == "" )
+    self.assertTrue( s.getName() == "" )
+    self.assertTrue( s.getCompartment() == "" )
     self.assertEqual( True, isnan(s.getInitialAmount()) )
     self.assertEqual( True, isnan(s.getInitialConcentration()) )
-    self.assert_( s.getSubstanceUnits() == "" )
-    self.assert_( s.getHasOnlySubstanceUnits() == False )
-    self.assert_( s.getBoundaryCondition() == False )
-    self.assert_( s.getConstant() == False )
-    self.assert_( s.getConversionFactor() == "" )
+    self.assertTrue( s.getSubstanceUnits() == "" )
+    self.assertTrue( s.getHasOnlySubstanceUnits() == False )
+    self.assertTrue( s.getBoundaryCondition() == False )
+    self.assertTrue( s.getConstant() == False )
+    self.assertTrue( s.getConversionFactor() == "" )
     self.assertEqual( False, s.isSetId() )
     self.assertEqual( False, s.isSetName() )
     self.assertEqual( False, s.isSetCompartment() )
@@ -254,16 +254,16 @@ class TestL3Species(unittest.TestCase):
     self.assertEqual( False, s.isSetConstant() )
     self.assertEqual( False, s.isSetConversionFactor() )
     s.initDefaults()
-    self.assert_( s.getId() == "" )
-    self.assert_( s.getName() == "" )
-    self.assert_( s.getCompartment() == "" )
+    self.assertTrue( s.getId() == "" )
+    self.assertTrue( s.getName() == "" )
+    self.assertTrue( s.getCompartment() == "" )
     self.assertEqual( True, isnan(s.getInitialAmount()) )
     self.assertEqual( True, isnan(s.getInitialConcentration()) )
-    self.assert_(( "mole"  == s.getSubstanceUnits() ))
-    self.assert_( s.getHasOnlySubstanceUnits() == False )
-    self.assert_( s.getBoundaryCondition() == False )
-    self.assert_( s.getConstant() == False )
-    self.assert_( s.getConversionFactor() == "" )
+    self.assertTrue(( "mole"  == s.getSubstanceUnits() ))
+    self.assertTrue( s.getHasOnlySubstanceUnits() == False )
+    self.assertTrue( s.getBoundaryCondition() == False )
+    self.assertTrue( s.getConstant() == False )
+    self.assertTrue( s.getConversionFactor() == "" )
     self.assertEqual( False, s.isSetId() )
     self.assertEqual( False, s.isSetName() )
     self.assertEqual( False, s.isSetCompartment() )
@@ -282,7 +282,7 @@ class TestL3Species(unittest.TestCase):
     self.assertEqual( False, self.S.isSetInitialAmount() )
     self.assertEqual( True, isnan(self.S.getInitialAmount()) )
     self.S.setInitialAmount(initialAmount)
-    self.assert_( self.S.getInitialAmount() == initialAmount )
+    self.assertTrue( self.S.getInitialAmount() == initialAmount )
     self.assertEqual( True, self.S.isSetInitialAmount() )
     self.S.unsetInitialAmount()
     self.assertEqual( False, self.S.isSetInitialAmount() )
@@ -294,7 +294,7 @@ class TestL3Species(unittest.TestCase):
     self.assertEqual( False, self.S.isSetInitialConcentration() )
     self.assertEqual( True, isnan(self.S.getInitialConcentration()) )
     self.S.setInitialConcentration(initialConcentration)
-    self.assert_( self.S.getInitialConcentration() == initialConcentration )
+    self.assertTrue( self.S.getInitialConcentration() == initialConcentration )
     self.assertEqual( True, self.S.isSetInitialConcentration() )
     self.S.unsetInitialConcentration()
     self.assertEqual( False, self.S.isSetInitialConcentration() )
@@ -305,7 +305,7 @@ class TestL3Species(unittest.TestCase):
     name =  "My_Favorite_Factory";
     self.assertEqual( False, self.S.isSetName() )
     self.S.setName(name)
-    self.assert_(( name == self.S.getName() ))
+    self.assertTrue(( name == self.S.getName() ))
     self.assertEqual( True, self.S.isSetName() )
     if (self.S.getName() == name):
       pass    
@@ -319,7 +319,7 @@ class TestL3Species(unittest.TestCase):
     units =  "volume";
     self.assertEqual( False, self.S.isSetSubstanceUnits() )
     self.S.setSubstanceUnits(units)
-    self.assert_(( units == self.S.getSubstanceUnits() ))
+    self.assertTrue(( units == self.S.getSubstanceUnits() ))
     self.assertEqual( True, self.S.isSetSubstanceUnits() )
     if (self.S.getSubstanceUnits() == units):
       pass    

@@ -53,20 +53,20 @@ class TestUnitDefinition(unittest.TestCase):
     u = libsbml.Unit(2,4)
     u.setKind(libsbml.UNIT_KIND_MOLE)
     self.UD.addUnit(u)
-    self.assert_( self.UD.getNumUnits() == 1 )
+    self.assertTrue( self.UD.getNumUnits() == 1 )
     _dummyList = [ u ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_create(self):
-    self.assert_( self.UD.getTypeCode() == libsbml.SBML_UNIT_DEFINITION )
-    self.assert_( self.UD.getMetaId() == "" )
-    self.assert_( self.UD.getNotes() == None )
-    self.assert_( self.UD.getAnnotation() == None )
-    self.assert_( self.UD.getId() == "" )
-    self.assert_( self.UD.getName() == "" )
+    self.assertTrue( self.UD.getTypeCode() == libsbml.SBML_UNIT_DEFINITION )
+    self.assertTrue( self.UD.getMetaId() == "" )
+    self.assertTrue( self.UD.getNotes() == None )
+    self.assertTrue( self.UD.getAnnotation() == None )
+    self.assertTrue( self.UD.getId() == "" )
+    self.assertTrue( self.UD.getName() == "" )
     self.assertEqual( False, self.UD.isSetId() )
     self.assertEqual( False, self.UD.isSetName() )
-    self.assert_( self.UD.getNumUnits() == 0 )
+    self.assertTrue( self.UD.getNumUnits() == 0 )
     pass  
 
   def test_UnitDefinition_createWithNS(self):
@@ -75,28 +75,28 @@ class TestUnitDefinition(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(2,1)
     sbmlns.addNamespaces(xmlns)
     object = libsbml.UnitDefinition(sbmlns)
-    self.assert_( object.getTypeCode() == libsbml.SBML_UNIT_DEFINITION )
-    self.assert_( object.getMetaId() == "" )
-    self.assert_( object.getNotes() == None )
-    self.assert_( object.getAnnotation() == None )
-    self.assert_( object.getLevel() == 2 )
-    self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != None )
-    self.assert_( object.getNamespaces().getLength() == 2 )
+    self.assertTrue( object.getTypeCode() == libsbml.SBML_UNIT_DEFINITION )
+    self.assertTrue( object.getMetaId() == "" )
+    self.assertTrue( object.getNotes() == None )
+    self.assertTrue( object.getAnnotation() == None )
+    self.assertTrue( object.getLevel() == 2 )
+    self.assertTrue( object.getVersion() == 1 )
+    self.assertTrue( object.getNamespaces() != None )
+    self.assertTrue( object.getNamespaces().getLength() == 2 )
     _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_createWithName(self):
     ud = libsbml.UnitDefinition(2,4)
     ud.setName( "mmol_per_liter_per_sec")
-    self.assert_( ud.getTypeCode() == libsbml.SBML_UNIT_DEFINITION )
-    self.assert_( ud.getMetaId() == "" )
-    self.assert_( ud.getNotes() == None )
-    self.assert_( ud.getAnnotation() == None )
-    self.assert_( ud.getId() == "" )
-    self.assert_((  "mmol_per_liter_per_sec" == ud.getName() ))
+    self.assertTrue( ud.getTypeCode() == libsbml.SBML_UNIT_DEFINITION )
+    self.assertTrue( ud.getMetaId() == "" )
+    self.assertTrue( ud.getNotes() == None )
+    self.assertTrue( ud.getAnnotation() == None )
+    self.assertTrue( ud.getId() == "" )
+    self.assertTrue((  "mmol_per_liter_per_sec" == ud.getName() ))
     self.assertEqual( True, ud.isSetName() )
-    self.assert_( ud.getNumUnits() == 0 )
+    self.assertTrue( ud.getNumUnits() == 0 )
     _dummyList = [ ud ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -120,16 +120,16 @@ class TestUnitDefinition(unittest.TestCase):
     _dummyList = [ mole ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ litre ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ second ]; _dummyList[:] = []; del _dummyList
-    self.assert_( self.UD.getNumUnits() == 3 )
+    self.assertTrue( self.UD.getNumUnits() == 3 )
     mole = self.UD.getUnit(0)
     litre = self.UD.getUnit(1)
     second = self.UD.getUnit(2)
-    self.assert_( mole.getKind() == libsbml.UNIT_KIND_MOLE )
-    self.assert_( litre.getKind() == libsbml.UNIT_KIND_LITRE )
-    self.assert_( second.getKind() == libsbml.UNIT_KIND_SECOND )
-    self.assert_( mole.getScale() == -3 )
-    self.assert_( litre.getExponent() == -1 )
-    self.assert_( second.getExponent() == -1 )
+    self.assertTrue( mole.getKind() == libsbml.UNIT_KIND_MOLE )
+    self.assertTrue( litre.getKind() == libsbml.UNIT_KIND_LITRE )
+    self.assertTrue( second.getKind() == libsbml.UNIT_KIND_SECOND )
+    self.assertTrue( mole.getScale() == -3 )
+    self.assertTrue( litre.getExponent() == -1 )
+    self.assertTrue( second.getExponent() == -1 )
     pass  
 
   def test_UnitDefinition_isVariantOfArea(self):
@@ -405,9 +405,9 @@ class TestUnitDefinition(unittest.TestCase):
     perTime.setKind(libsbml.UnitKind_forName("second"))
     perTime.setExponent(-1)
     ud_str = libsbml.UnitDefinition.printUnits(ud,False)
-    self.assert_((                 "second (exponent = -1, multiplier = 1, scale = 0)" == ud_str ))
+    self.assertTrue((                 "second (exponent = -1, multiplier = 1, scale = 0)" == ud_str ))
     ud_str1 = libsbml.UnitDefinition.printUnits(ud,True)
-    self.assert_((  "(1 second)^-1" == ud_str1 ))
+    self.assertTrue((  "(1 second)^-1" == ud_str1 ))
     ud1 = libsbml.UnitDefinition(2,4)
     ud1.setId( "mmls")
     u = ud1.createUnit()
@@ -416,21 +416,21 @@ class TestUnitDefinition(unittest.TestCase):
     u.setScale(2)
     u.setMultiplier(3.0)
     ud_str2 = libsbml.UnitDefinition.printUnits(ud1,False)
-    self.assert_((                 "kilogram (exponent = 1, multiplier = 3, scale = 2)" == ud_str2 ))
+    self.assertTrue((                 "kilogram (exponent = 1, multiplier = 3, scale = 2)" == ud_str2 ))
     ud_str3 = libsbml.UnitDefinition.printUnits(ud1,True)
-    self.assert_((  "(300 kilogram)^1" == ud_str3 ))
+    self.assertTrue((  "(300 kilogram)^1" == ud_str3 ))
     pass  
 
   def test_UnitDefinition_removeUnit(self):
     o1 = self.UD.createUnit()
     o2 = self.UD.createUnit()
     o3 = self.UD.createUnit()
-    self.assert_( self.UD.removeUnit(0) == o1 )
-    self.assert_( self.UD.getNumUnits() == 2 )
-    self.assert_( self.UD.removeUnit(0) == o2 )
-    self.assert_( self.UD.getNumUnits() == 1 )
-    self.assert_( self.UD.removeUnit(0) == o3 )
-    self.assert_( self.UD.getNumUnits() == 0 )
+    self.assertTrue( self.UD.removeUnit(0) == o1 )
+    self.assertTrue( self.UD.getNumUnits() == 2 )
+    self.assertTrue( self.UD.removeUnit(0) == o2 )
+    self.assertTrue( self.UD.getNumUnits() == 1 )
+    self.assertTrue( self.UD.removeUnit(0) == o3 )
+    self.assertTrue( self.UD.getNumUnits() == 0 )
     _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
@@ -439,12 +439,12 @@ class TestUnitDefinition(unittest.TestCase):
   def test_UnitDefinition_setId(self):
     id =  "mmls";
     self.UD.setId(id)
-    self.assert_(( id == self.UD.getId() ))
+    self.assertTrue(( id == self.UD.getId() ))
     self.assertEqual( True, self.UD.isSetId() )
     if (self.UD.getId() == id):
       pass    
     self.UD.setId(self.UD.getId())
-    self.assert_(( id == self.UD.getId() ))
+    self.assertTrue(( id == self.UD.getId() ))
     self.UD.setId("")
     self.assertEqual( False, self.UD.isSetId() )
     if (self.UD.getId() != None):
@@ -454,12 +454,12 @@ class TestUnitDefinition(unittest.TestCase):
   def test_UnitDefinition_setName(self):
     name =  "mmol_per_liter_per_sec";
     self.UD.setName(name)
-    self.assert_(( name == self.UD.getName() ))
+    self.assertTrue(( name == self.UD.getName() ))
     self.assertEqual( True, self.UD.isSetName() )
     if (self.UD.getName() == name):
       pass    
     self.UD.setName(self.UD.getName())
-    self.assert_(( name == self.UD.getName() ))
+    self.assertTrue(( name == self.UD.getName() ))
     self.UD.setName("")
     self.assertEqual( False, self.UD.isSetName() )
     if (self.UD.getName() != None):

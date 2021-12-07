@@ -50,12 +50,12 @@ class TestEventAssignment(unittest.TestCase):
     pass  
 
   def test_EventAssignment_create(self):
-    self.assert_( self.EA.getTypeCode() == libsbml.SBML_EVENT_ASSIGNMENT )
-    self.assert_( self.EA.getMetaId() == "" )
-    self.assert_( self.EA.getNotes() == None )
-    self.assert_( self.EA.getAnnotation() == None )
-    self.assert_( self.EA.getVariable() == "" )
-    self.assert_( self.EA.getMath() == None )
+    self.assertTrue( self.EA.getTypeCode() == libsbml.SBML_EVENT_ASSIGNMENT )
+    self.assertTrue( self.EA.getMetaId() == "" )
+    self.assertTrue( self.EA.getNotes() == None )
+    self.assertTrue( self.EA.getAnnotation() == None )
+    self.assertTrue( self.EA.getVariable() == "" )
+    self.assertTrue( self.EA.getMath() == None )
     pass  
 
   def test_EventAssignment_createWithNS(self):
@@ -64,14 +64,14 @@ class TestEventAssignment(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(2,1)
     sbmlns.addNamespaces(xmlns)
     object = libsbml.EventAssignment(sbmlns)
-    self.assert_( object.getTypeCode() == libsbml.SBML_EVENT_ASSIGNMENT )
-    self.assert_( object.getMetaId() == "" )
-    self.assert_( object.getNotes() == None )
-    self.assert_( object.getAnnotation() == None )
-    self.assert_( object.getLevel() == 2 )
-    self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != None )
-    self.assert_( object.getNamespaces().getLength() == 2 )
+    self.assertTrue( object.getTypeCode() == libsbml.SBML_EVENT_ASSIGNMENT )
+    self.assertTrue( object.getMetaId() == "" )
+    self.assertTrue( object.getNotes() == None )
+    self.assertTrue( object.getAnnotation() == None )
+    self.assertTrue( object.getLevel() == 2 )
+    self.assertTrue( object.getVersion() == 1 )
+    self.assertTrue( object.getNamespaces() != None )
+    self.assertTrue( object.getNamespaces().getLength() == 2 )
     _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -83,19 +83,19 @@ class TestEventAssignment(unittest.TestCase):
     math = libsbml.parseFormula("2 * k")
     self.EA.setMath(math)
     math1 = self.EA.getMath()
-    self.assert_( math1 != None )
+    self.assertTrue( math1 != None )
     formula = libsbml.formulaToString(math1)
-    self.assert_( formula != None )
-    self.assert_((  "2 * k" == formula ))
-    self.assert_( self.EA.getMath() != math )
+    self.assertTrue( formula != None )
+    self.assertTrue((  "2 * k" == formula ))
+    self.assertTrue( self.EA.getMath() != math )
     self.assertEqual( True, self.EA.isSetMath() )
     self.EA.setMath(self.EA.getMath())
     math1 = self.EA.getMath()
-    self.assert_( math1 != None )
+    self.assertTrue( math1 != None )
     formula = libsbml.formulaToString(math1)
-    self.assert_( formula != None )
-    self.assert_((  "2 * k" == formula ))
-    self.assert_( self.EA.getMath() != math )
+    self.assertTrue( formula != None )
+    self.assertTrue((  "2 * k" == formula ))
+    self.assertTrue( self.EA.getMath() != math )
     self.EA.setMath(None)
     self.assertEqual( False, self.EA.isSetMath() )
     if (self.EA.getMath() != None):
@@ -106,12 +106,12 @@ class TestEventAssignment(unittest.TestCase):
   def test_EventAssignment_setVariable(self):
     variable =  "k2";
     self.EA.setVariable(variable)
-    self.assert_(( variable == self.EA.getVariable() ))
+    self.assertTrue(( variable == self.EA.getVariable() ))
     self.assertEqual( True, self.EA.isSetVariable() )
     if (self.EA.getVariable() == variable):
       pass    
     self.EA.setVariable(self.EA.getVariable())
-    self.assert_(( variable == self.EA.getVariable() ))
+    self.assertTrue(( variable == self.EA.getVariable() ))
     self.EA.setVariable("")
     self.assertEqual( False, self.EA.isSetVariable() )
     if (self.EA.getVariable() != None):

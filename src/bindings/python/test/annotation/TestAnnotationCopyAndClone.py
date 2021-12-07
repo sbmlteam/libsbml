@@ -40,14 +40,14 @@ class TestAnnotationCopyAndClone(unittest.TestCase):
   def test_CVTerm_assignmentOperator(self):
     CVTerm1 = libsbml.CVTerm(libsbml.BIOLOGICAL_QUALIFIER)
     CVTerm1.addResource("http://www.geneontology.org/#GO:0005892")
-    self.assert_( CVTerm1.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
-    self.assert_( CVTerm1.getResources().getLength() == 1 )
-    self.assert_( CVTerm1.getResources().getValue(0) ==  "http://www.geneontology.org/#GO:0005892" )
+    self.assertTrue( CVTerm1.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
+    self.assertTrue( CVTerm1.getResources().getLength() == 1 )
+    self.assertTrue( CVTerm1.getResources().getValue(0) ==  "http://www.geneontology.org/#GO:0005892" )
     CVTerm2 = libsbml.CVTerm()
     CVTerm2 = CVTerm1
-    self.assert_( CVTerm2.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
-    self.assert_( CVTerm2.getResources().getLength() == 1 )
-    self.assert_( CVTerm2.getResources().getValue(0) ==  "http://www.geneontology.org/#GO:0005892" )
+    self.assertTrue( CVTerm2.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
+    self.assertTrue( CVTerm2.getResources().getLength() == 1 )
+    self.assertTrue( CVTerm2.getResources().getValue(0) ==  "http://www.geneontology.org/#GO:0005892" )
     CVTerm2 = None
     CVTerm1 = None
     pass  
@@ -55,13 +55,13 @@ class TestAnnotationCopyAndClone(unittest.TestCase):
   def test_CVTerm_clone(self):
     CVTerm1 = libsbml.CVTerm(libsbml.BIOLOGICAL_QUALIFIER)
     CVTerm1.addResource("http://www.geneontology.org/#GO:0005892")
-    self.assert_( CVTerm1.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
-    self.assert_( CVTerm1.getResources().getLength() == 1 )
-    self.assert_( CVTerm1.getResources().getValue(0) ==  "http://www.geneontology.org/#GO:0005892" )
+    self.assertTrue( CVTerm1.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
+    self.assertTrue( CVTerm1.getResources().getLength() == 1 )
+    self.assertTrue( CVTerm1.getResources().getValue(0) ==  "http://www.geneontology.org/#GO:0005892" )
     CVTerm2 = CVTerm1.clone()
-    self.assert_( CVTerm2.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
-    self.assert_( CVTerm2.getResources().getLength() == 1 )
-    self.assert_( CVTerm2.getResources().getValue(0) ==  "http://www.geneontology.org/#GO:0005892" )
+    self.assertTrue( CVTerm2.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
+    self.assertTrue( CVTerm2.getResources().getLength() == 1 )
+    self.assertTrue( CVTerm2.getResources().getValue(0) ==  "http://www.geneontology.org/#GO:0005892" )
     CVTerm2 = None
     CVTerm1 = None
     pass  
@@ -69,47 +69,47 @@ class TestAnnotationCopyAndClone(unittest.TestCase):
   def test_CVTerm_copyConstructor(self):
     CVTerm1 = libsbml.CVTerm(libsbml.BIOLOGICAL_QUALIFIER)
     CVTerm1.addResource("http://www.geneontology.org/#GO:0005892")
-    self.assert_( CVTerm1.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
-    self.assert_( CVTerm1.getResources().getLength() == 1 )
-    self.assert_( CVTerm1.getResources().getValue(0) ==  "http://www.geneontology.org/#GO:0005892" )
+    self.assertTrue( CVTerm1.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
+    self.assertTrue( CVTerm1.getResources().getLength() == 1 )
+    self.assertTrue( CVTerm1.getResources().getValue(0) ==  "http://www.geneontology.org/#GO:0005892" )
     CVTerm2 = libsbml.CVTerm(CVTerm1)
-    self.assert_( CVTerm2.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
-    self.assert_( CVTerm2.getResources().getLength() == 1 )
-    self.assert_( CVTerm2.getResources().getValue(0) ==  "http://www.geneontology.org/#GO:0005892" )
+    self.assertTrue( CVTerm2.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
+    self.assertTrue( CVTerm2.getResources().getLength() == 1 )
+    self.assertTrue( CVTerm2.getResources().getValue(0) ==  "http://www.geneontology.org/#GO:0005892" )
     CVTerm2 = None
     CVTerm1 = None
     pass  
 
   def test_Date_assignmentOperator(self):
     date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
-    self.assert_( date.getMonth() == 12 )
-    self.assert_( date.getSecond() == 45 )
+    self.assertTrue( date.getMonth() == 12 )
+    self.assertTrue( date.getSecond() == 45 )
     date2 = libsbml.Date()
     date2 = date
-    self.assert_( date2.getMonth() == 12 )
-    self.assert_( date2.getSecond() == 45 )
+    self.assertTrue( date2.getMonth() == 12 )
+    self.assertTrue( date2.getSecond() == 45 )
     date2 = None
     date = None
     pass  
 
   def test_Date_clone(self):
     date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
-    self.assert_( date.getMonth() == 12 )
-    self.assert_( date.getSecond() == 45 )
+    self.assertTrue( date.getMonth() == 12 )
+    self.assertTrue( date.getSecond() == 45 )
     date2 = date.clone()
-    self.assert_( date2.getMonth() == 12 )
-    self.assert_( date2.getSecond() == 45 )
+    self.assertTrue( date2.getMonth() == 12 )
+    self.assertTrue( date2.getSecond() == 45 )
     date2 = None
     date = None
     pass  
 
   def test_Date_copyConstructor(self):
     date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
-    self.assert_( date.getMonth() == 12 )
-    self.assert_( date.getSecond() == 45 )
+    self.assertTrue( date.getMonth() == 12 )
+    self.assertTrue( date.getSecond() == 45 )
     date2 = libsbml.Date(date)
-    self.assert_( date2.getMonth() == 12 )
-    self.assert_( date2.getSecond() == 45 )
+    self.assertTrue( date2.getMonth() == 12 )
+    self.assertTrue( date2.getSecond() == 45 )
     date2 = None
     date = None
     pass  
@@ -118,12 +118,12 @@ class TestAnnotationCopyAndClone(unittest.TestCase):
     mc = libsbml.ModelCreator()
     mc.setFamilyName("Keating")
     mc.setEmail("sbml-team@caltech.edu")
-    self.assert_( mc.getFamilyName() ==  "Keating" )
-    self.assert_( mc.getEmail() ==  "sbml-team@caltech.edu" )
+    self.assertTrue( mc.getFamilyName() ==  "Keating" )
+    self.assertTrue( mc.getEmail() ==  "sbml-team@caltech.edu" )
     mc2 = libsbml.ModelCreator()
     mc2 = mc
-    self.assert_( mc2.getFamilyName() ==  "Keating" )
-    self.assert_( mc2.getEmail() ==  "sbml-team@caltech.edu" )
+    self.assertTrue( mc2.getFamilyName() ==  "Keating" )
+    self.assertTrue( mc2.getEmail() ==  "sbml-team@caltech.edu" )
     mc2 = None
     mc = None
     pass  
@@ -132,11 +132,11 @@ class TestAnnotationCopyAndClone(unittest.TestCase):
     mc = libsbml.ModelCreator()
     mc.setFamilyName("Keating")
     mc.setEmail("sbml-team@caltech.edu")
-    self.assert_( mc.getFamilyName() ==  "Keating" )
-    self.assert_( mc.getEmail() ==  "sbml-team@caltech.edu" )
+    self.assertTrue( mc.getFamilyName() ==  "Keating" )
+    self.assertTrue( mc.getEmail() ==  "sbml-team@caltech.edu" )
     mc2 = mc.clone()
-    self.assert_( mc2.getFamilyName() ==  "Keating" )
-    self.assert_( mc2.getEmail() ==  "sbml-team@caltech.edu" )
+    self.assertTrue( mc2.getFamilyName() ==  "Keating" )
+    self.assertTrue( mc2.getEmail() ==  "sbml-team@caltech.edu" )
     mc2 = None
     mc = None
     pass  
@@ -145,11 +145,11 @@ class TestAnnotationCopyAndClone(unittest.TestCase):
     mc = libsbml.ModelCreator()
     mc.setFamilyName("Keating")
     mc.setEmail("sbml-team@caltech.edu")
-    self.assert_( mc.getFamilyName() ==  "Keating" )
-    self.assert_( mc.getEmail() ==  "sbml-team@caltech.edu" )
+    self.assertTrue( mc.getFamilyName() ==  "Keating" )
+    self.assertTrue( mc.getEmail() ==  "sbml-team@caltech.edu" )
     mc2 = libsbml.ModelCreator(mc)
-    self.assert_( mc2.getFamilyName() ==  "Keating" )
-    self.assert_( mc2.getEmail() ==  "sbml-team@caltech.edu" )
+    self.assertTrue( mc2.getFamilyName() ==  "Keating" )
+    self.assertTrue( mc2.getEmail() ==  "sbml-team@caltech.edu" )
     mc2 = None
     mc = None
     pass  
@@ -165,14 +165,14 @@ class TestAnnotationCopyAndClone(unittest.TestCase):
     date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
     mh.setCreatedDate(date)
     date = None
-    self.assert_( mh.getCreatedDate().getMonth() == 12 )
-    self.assert_( mh.getCreatedDate().getSecond() == 45 )
-    self.assert_( mh.getCreator(0).getFamilyName() ==  "Keating" )
+    self.assertTrue( mh.getCreatedDate().getMonth() == 12 )
+    self.assertTrue( mh.getCreatedDate().getSecond() == 45 )
+    self.assertTrue( mh.getCreator(0).getFamilyName() ==  "Keating" )
     mh2 = libsbml.ModelHistory()
     mh2 = mh
-    self.assert_( mh2.getCreatedDate().getMonth() == 12 )
-    self.assert_( mh2.getCreatedDate().getSecond() == 45 )
-    self.assert_( mh2.getCreator(0).getFamilyName() ==  "Keating" )
+    self.assertTrue( mh2.getCreatedDate().getMonth() == 12 )
+    self.assertTrue( mh2.getCreatedDate().getSecond() == 45 )
+    self.assertTrue( mh2.getCreator(0).getFamilyName() ==  "Keating" )
     mh2 = None
     mh = None
     pass  
@@ -188,13 +188,13 @@ class TestAnnotationCopyAndClone(unittest.TestCase):
     date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
     mh.setCreatedDate(date)
     date = None
-    self.assert_( mh.getCreatedDate().getMonth() == 12 )
-    self.assert_( mh.getCreatedDate().getSecond() == 45 )
-    self.assert_( mh.getCreator(0).getFamilyName() ==  "Keating" )
+    self.assertTrue( mh.getCreatedDate().getMonth() == 12 )
+    self.assertTrue( mh.getCreatedDate().getSecond() == 45 )
+    self.assertTrue( mh.getCreator(0).getFamilyName() ==  "Keating" )
     mh2 = mh.clone()
-    self.assert_( mh2.getCreatedDate().getMonth() == 12 )
-    self.assert_( mh2.getCreatedDate().getSecond() == 45 )
-    self.assert_( mh2.getCreator(0).getFamilyName() ==  "Keating" )
+    self.assertTrue( mh2.getCreatedDate().getMonth() == 12 )
+    self.assertTrue( mh2.getCreatedDate().getSecond() == 45 )
+    self.assertTrue( mh2.getCreator(0).getFamilyName() ==  "Keating" )
     mh2 = None
     mh = None
     pass  
@@ -210,13 +210,13 @@ class TestAnnotationCopyAndClone(unittest.TestCase):
     date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
     mh.setCreatedDate(date)
     date = None
-    self.assert_( mh.getCreatedDate().getMonth() == 12 )
-    self.assert_( mh.getCreatedDate().getSecond() == 45 )
-    self.assert_( mh.getCreator(0).getFamilyName() ==  "Keating" )
+    self.assertTrue( mh.getCreatedDate().getMonth() == 12 )
+    self.assertTrue( mh.getCreatedDate().getSecond() == 45 )
+    self.assertTrue( mh.getCreator(0).getFamilyName() ==  "Keating" )
     mh2 = libsbml.ModelHistory(mh)
-    self.assert_( mh2.getCreatedDate().getMonth() == 12 )
-    self.assert_( mh2.getCreatedDate().getSecond() == 45 )
-    self.assert_( mh2.getCreator(0).getFamilyName() ==  "Keating" )
+    self.assertTrue( mh2.getCreatedDate().getMonth() == 12 )
+    self.assertTrue( mh2.getCreatedDate().getSecond() == 45 )
+    self.assertTrue( mh2.getCreator(0).getFamilyName() ==  "Keating" )
     mh2 = None
     mh = None
     pass  

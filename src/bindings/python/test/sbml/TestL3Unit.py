@@ -54,20 +54,20 @@ class TestL3Unit(unittest.TestCase):
     pass  
 
   def test_L3_Unit_NS(self):
-    self.assert_( self.U.getNamespaces() != None )
-    self.assert_( self.U.getNamespaces().getLength() == 1 )
-    self.assert_((     "http://www.sbml.org/sbml/level3/version1/core" == self.U.getNamespaces().getURI(0) ))
+    self.assertTrue( self.U.getNamespaces() != None )
+    self.assertTrue( self.U.getNamespaces().getLength() == 1 )
+    self.assertTrue((     "http://www.sbml.org/sbml/level3/version1/core" == self.U.getNamespaces().getURI(0) ))
     pass  
 
   def test_L3_Unit_create(self):
-    self.assert_( self.U.getTypeCode() == libsbml.SBML_UNIT )
-    self.assert_( self.U.getMetaId() == "" )
-    self.assert_( self.U.getNotes() == None )
-    self.assert_( self.U.getAnnotation() == None )
-    self.assert_( self.U.getKind() == libsbml.UNIT_KIND_INVALID )
+    self.assertTrue( self.U.getTypeCode() == libsbml.SBML_UNIT )
+    self.assertTrue( self.U.getMetaId() == "" )
+    self.assertTrue( self.U.getNotes() == None )
+    self.assertTrue( self.U.getAnnotation() == None )
+    self.assertTrue( self.U.getKind() == libsbml.UNIT_KIND_INVALID )
     self.assertEqual( True, isnan(self.U.getExponentAsDouble()) )
     self.assertEqual( True, isnan(self.U.getMultiplier()) )
-    self.assert_( self.U.getScale() == SBML_INT_MAX )
+    self.assertTrue( self.U.getScale() == SBML_INT_MAX )
     self.assertEqual( False, self.U.isSetKind() )
     self.assertEqual( False, self.U.isSetExponent() )
     self.assertEqual( False, self.U.isSetMultiplier() )
@@ -80,15 +80,15 @@ class TestL3Unit(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(3,1)
     sbmlns.addNamespaces(xmlns)
     u = libsbml.Unit(sbmlns)
-    self.assert_( u.getTypeCode() == libsbml.SBML_UNIT )
-    self.assert_( u.getMetaId() == "" )
-    self.assert_( u.getNotes() == None )
-    self.assert_( u.getAnnotation() == None )
-    self.assert_( u.getLevel() == 3 )
-    self.assert_( u.getVersion() == 1 )
-    self.assert_( u.getNamespaces() != None )
-    self.assert_( u.getNamespaces().getLength() == 2 )
-    self.assert_( u.getKind() == libsbml.UNIT_KIND_INVALID )
+    self.assertTrue( u.getTypeCode() == libsbml.SBML_UNIT )
+    self.assertTrue( u.getMetaId() == "" )
+    self.assertTrue( u.getNotes() == None )
+    self.assertTrue( u.getAnnotation() == None )
+    self.assertTrue( u.getLevel() == 3 )
+    self.assertTrue( u.getVersion() == 1 )
+    self.assertTrue( u.getNamespaces() != None )
+    self.assertTrue( u.getNamespaces().getLength() == 2 )
+    self.assertTrue( u.getKind() == libsbml.UNIT_KIND_INVALID )
     self.assertEqual( True, isnan(u.getExponentAsDouble()) )
     self.assertEqual( True, isnan(u.getMultiplier()) )
     self.assertEqual( False, u.isSetKind() )
@@ -103,7 +103,7 @@ class TestL3Unit(unittest.TestCase):
     self.assertEqual( False, self.U.isSetExponent() )
     self.assertEqual( True, isnan(self.U.getExponentAsDouble()) )
     self.U.setExponent(exponent)
-    self.assert_( self.U.getExponentAsDouble() == exponent )
+    self.assertTrue( self.U.getExponentAsDouble() == exponent )
     self.assertEqual( True, self.U.isSetExponent() )
     pass  
 
@@ -129,7 +129,7 @@ class TestL3Unit(unittest.TestCase):
     kind =  "mole";
     self.assertEqual( False, self.U.isSetKind() )
     self.U.setKind(libsbml.UnitKind_forName(kind))
-    self.assert_( self.U.getKind() == libsbml.UNIT_KIND_MOLE )
+    self.assertTrue( self.U.getKind() == libsbml.UNIT_KIND_MOLE )
     self.assertEqual( True, self.U.isSetKind() )
     pass  
 
@@ -138,16 +138,16 @@ class TestL3Unit(unittest.TestCase):
     self.assertEqual( False, self.U.isSetMultiplier() )
     self.assertEqual( True, isnan(self.U.getMultiplier()) )
     self.U.setMultiplier(multiplier)
-    self.assert_( self.U.getMultiplier() == multiplier )
+    self.assertTrue( self.U.getMultiplier() == multiplier )
     self.assertEqual( True, self.U.isSetMultiplier() )
     pass  
 
   def test_L3_Unit_scale(self):
     scale = 2
     self.assertEqual( False, self.U.isSetScale() )
-    self.assert_( self.U.getScale() == SBML_INT_MAX )
+    self.assertTrue( self.U.getScale() == SBML_INT_MAX )
     self.U.setScale(scale)
-    self.assert_( self.U.getScale() == scale )
+    self.assertTrue( self.U.getScale() == scale )
     self.assertEqual( True, self.U.isSetScale() )
     pass  
 
