@@ -182,7 +182,7 @@ SBase::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 
 /** @cond doxygenLibsbmlInternal */
 SBase*
-SBase::getElementFromPluginsBySId(std::string id)
+SBase::getElementFromPluginsBySId(const std::string& id)
 {
   for (size_t i=0; i < mPlugins.size(); i++)
   {
@@ -196,7 +196,7 @@ SBase::getElementFromPluginsBySId(std::string id)
 
 /** @cond doxygenLibsbmlInternal */
 SBase*
-SBase::getElementFromPluginsByMetaId(std::string metaid)
+SBase::getElementFromPluginsByMetaId(const std::string& metaid)
 {
   for (size_t i=0; i < mPlugins.size(); i++)
   {
