@@ -1,0 +1,3716 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" metaid="fb7dc6ca_bc66_49e8_88c0_cff7aa23d14a" level="2" version="4">
+  <model metaid="ddcfae12_61e4_4b2a_b45a_a0b5aaa7dc57" id="MODEL1212030000" name="Proctor2013 - Effect of Aβ immunisation in Alzheimer&apos;s disease (deterministic version)">
+    <listOfUnitDefinitions>
+      <unitDefinition metaid="c48e3e91_5289_4cd2_9006_801dd534876e" id="substance">
+        <listOfUnits>
+          <unit metaid="_2249e70a_36c0_4eaa_aa6f_85d632f17492" kind="item"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment metaid="e1f7f7b8_6533_4aa7_8026_5714a339fff7" id="cell" size="1"/>
+    </listOfCompartments>
+    <listOfParameters>
+      <parameter metaid="_67f61a06_c72f_4c75_8fe6_5eb73afbbd6d" id="ksynp53mRNA" value="0.001"/>
+      <parameter metaid="a174cf43_42cb_4097_a80d_03f7e645989b" id="kdegp53mRNA" value="0.0001"/>
+      <parameter metaid="_03098e0c_aca8_4d42_a052_2168ccf87e24" id="ksynMdm2mRNA" value="0.0005"/>
+      <parameter metaid="e66cbfe7_f25d_4475_bf4f_939799cea7f1" id="kdegMdm2mRNA" value="0.0005"/>
+      <parameter metaid="_057c3c10_d0bf_4e46_9d23_83d2972a8660" id="ksynMdm2mRNAGSK3bp53" value="0.0007"/>
+      <parameter metaid="b5c650f3_9767_42fa_81ca_20bdeff885f0" id="ksynp53" value="0.007"/>
+      <parameter metaid="d28a41aa_0a81_4eab_a4eb_a5b93b98fd68" id="kdegp53" value="0.005"/>
+      <parameter metaid="_6c73ce36_8657_4d26_86bc_5dfd424ef0e4" id="kbinMdm2p53" value="0.001155"/>
+      <parameter metaid="_6e8c89c5_b6ac_406e_a863_94de06ed5b74" id="krelMdm2p53" value="1.155e-05"/>
+      <parameter metaid="fc3030fc_97b6_42b0_8b8c_600bf84a1d5e" id="kbinGSK3bp53" value="2e-06"/>
+      <parameter metaid="_0ecf07af_df59_4078_a3e8_8aef0ac08e02" id="krelGSK3bp53" value="0.002"/>
+      <parameter metaid="_45baec4c_8c07_46f2_bbc9_21cfc78e9610" id="ksynMdm2" value="0.000495"/>
+      <parameter metaid="be783c22_3992_4e5a_8a39_8f32a2ae7bee" id="kdegMdm2" value="0.01"/>
+      <parameter metaid="_9dfdc99c_b722_42ce_9039_11434a88d8ca" id="kbinE1Ub" value="0.0002"/>
+      <parameter metaid="_7c41b9b8_c7f7_4fc9_a152_2d1d1a84f05f" id="kbinE2Ub" value="0.001"/>
+      <parameter metaid="_8c4b778a_c7e0_49e1_a18e_089473a2ddb4" id="kp53Ub" value="5e-05"/>
+      <parameter metaid="_48968614_1290_47c4_89eb_1f6e94349bd5" id="kp53PolyUb" value="0.01"/>
+      <parameter metaid="edd0a70f_313b_40eb_9a11_bf2f9d41df84" id="kbinProt" value="2e-06"/>
+      <parameter metaid="_46438057_a872_4ea1_bfaa_4ee6d00f37bd" id="kactDUBp53" value="1e-07"/>
+      <parameter metaid="_7171aa39_5e5d_4e6d_99be_6b3f980014ee" id="kactDUBProtp53" value="0.0001"/>
+      <parameter metaid="_576f87bf_4558_4d21_a67e_b99d881110b8" id="kactDUBMdm2" value="1e-07"/>
+      <parameter metaid="e0b4cf98_bc59_443c_983f_5dcbd26a962a" id="kMdm2Ub" value="4.56e-06"/>
+      <parameter metaid="_256e4df1_e5b6_4690_a329_18f50594caba" id="kMdm2PUb" value="6.84e-06"/>
+      <parameter metaid="b41cd512_31e3_481d_9b1f_7167e9c38a32" id="kMdm2PolyUb" value="0.00456"/>
+      <parameter metaid="_4f8c183b_0a2c_4026_bb9e_0ff43fb27a7c" id="kdam" value="0.08"/>
+      <parameter metaid="_072ba3ab_8ee2_4484_9cc1_4ec619e183fd" id="krepair" value="2e-05"/>
+      <parameter metaid="_3100b69a_8a8c_4d8a_89a2_0a8f81cfc560" id="kactATM" value="0.0001"/>
+      <parameter metaid="_50a6c023_d2cb_46f6_8805_43b0aa3b116f" id="kinactATM" value="0.0005"/>
+      <parameter metaid="_43d2617f_cc0f_4235_bf1f_df0ff52b1a47" id="kphosp53" value="0.0002"/>
+      <parameter metaid="_3cb09d74_e1c4_417f_a02c_dcd1fbfe0b58" id="kdephosp53" value="0.5"/>
+      <parameter metaid="a9a0112c_0ec8_4ec9_b287_9d6eb8e8ec4c" id="kphosMdm2" value="2"/>
+      <parameter metaid="_7f19080c_6e31_4517_932a_df3dbe880ee9" id="kdephosMdm2" value="0.5"/>
+      <parameter metaid="_1a0fc402_b25e_4ead_a442_a91546b87f55" id="kphosMdm2GSK3b" value="0.005"/>
+      <parameter metaid="_08f8cb5f_359f_47c1_8207_78a41bff48a2" id="kphosMdm2GSK3bp53" value="0.5"/>
+      <parameter metaid="_446b82ec_239e_43ff_986f_9a4d6e682363" id="kphospTauGSK3bp53" value="0.1"/>
+      <parameter metaid="_8d613e2b_ea68_4ef8_96c4_8a9440076abd" id="kphospTauGSK3b" value="0.0002"/>
+      <parameter metaid="_1b497a87_6f95_484b_85c6_67da3c511c2b" id="kdephospTau" value="0.01"/>
+      <parameter metaid="_4ad83edd_f424_47d5_b9cc_3fbc3f5610f2" id="kbinMTTau" value="0.1"/>
+      <parameter metaid="_626d3f07_b5f1_4097_9bc9_dd75b34261f5" id="krelMTTau" value="0.0001"/>
+      <parameter metaid="_0bbbbb26_9a42_447c_bf6e_b5b423c6a8e9" id="ksynTau" value="8e-05"/>
+      <parameter metaid="c0064017_0a8a_4554_8536_edee1723e1d1" id="kbinTauProt" value="1.925e-07"/>
+      <parameter metaid="_7574558d_fb6b_4102_a724_94a0f839de1a" id="kdegTau20SProt" value="0.01"/>
+      <parameter metaid="_9c80d0df_afa8_4089_a868_736c0e5d2fd9" id="kaggTau" value="1e-08"/>
+      <parameter metaid="c9c445fd_d584_4f6f_8ee1_d6bddfd0313a" id="kaggTauP1" value="1e-08"/>
+      <parameter metaid="_9c38ce12_8875_48e8_9778_ea905dbe6a77" id="kaggTauP2" value="1e-07"/>
+      <parameter metaid="_992807bc_f367_4400_b076_c709bbd5d129" id="ktangfor" value="0.001"/>
+      <parameter metaid="d73a5a37_be34_4381_8f12_c699af2413fc" id="kinhibprot" value="1e-07"/>
+      <parameter metaid="_632413fc_ad15_472d_9362_7b3199b8ddc4" id="ksynp53mRNAAbeta" value="1e-05"/>
+      <parameter metaid="_99d4b00d_26ac_4d95_be8e_d52781b351e5" id="kdamROS" value="1e-05"/>
+      <parameter metaid="_6599b030_b206_44d3_a97e_fdd318a3f904" id="kgenROSAbeta" value="2e-05"/>
+      <parameter metaid="_8e61e645_95cd_4a22_b58b_fbf3628780a4" id="kgenROSPlaque" value="1e-05"/>
+      <parameter metaid="_9b4c566d_f3a7_4a21_acae_2810e5ead302" id="kgenROSGlia" value="1e-05"/>
+      <parameter metaid="e0068255_66c5_46ff_83cb_fe6a6de2ce6c" id="kproteff" value="1" constant="false"/>
+      <parameter metaid="_01329467_c503_4256_905a_b7eb681bdff4" id="kremROS" value="7e-05"/>
+      <parameter metaid="c8929b5e_7290_4de3_b79b_ec82dc7d4d6e" id="kprodAbeta" value="1.86e-05"/>
+      <parameter metaid="_6657b5e6_34a1_495c_9cb4_2fc9d9f039ad" id="kprodAbeta2" value="1.86e-05"/>
+      <parameter metaid="_2c08b7c5_9737_4b7c_a8c6_82eb0e057b06" id="kdegAbeta" value="1.5e-05"/>
+      <parameter metaid="b73b7eea_5231_4a4e_b221_68582cb1f27d" id="kaggAbeta" value="3e-06"/>
+      <parameter metaid="f1f013e8_d45e_496a_91e3_9b8bd9f0d48a" id="kdisaggAbeta" value="1e-06"/>
+      <parameter metaid="_0da63099_3a49_4560_97e8_463ac94d396c" id="kdisaggAbeta1" value="0.0002"/>
+      <parameter metaid="_8e505d05_e394_4320_9229_192d3ea61a49" id="kdisaggAbeta2" value="1e-06"/>
+      <parameter metaid="_758b89e5_3d5d_491b_91a9_65ad26d06b06" id="kdegAbetaGlia" value="0.005"/>
+      <parameter metaid="_3074dfbb_f91c_47ce_bcb8_c9f7c3efc6d8" id="kpf" value="0.2"/>
+      <parameter metaid="_5bc53052_57fa_4883_b78e_d385ae8c4177" id="kpg" value="0.15"/>
+      <parameter metaid="_94656fae_2cfc_4f43_ab48_6d5aad86b461" id="kpghalf" value="10"/>
+      <parameter metaid="e71e61dc_491a_4898_8889_5a438e2e8caa" id="kactglia1" value="6e-07"/>
+      <parameter metaid="db259d5a_d40c_47cf_bcc7_066bc1f91913" id="kactglia2" value="6e-07"/>
+      <parameter metaid="ad50b2eb_6d6f_4c1f_9812_70a9b401e94e" id="kinactglia1" value="5e-06"/>
+      <parameter metaid="_0f7e89a5_4fa2_4eb8_a21e_5feacbf44d70" id="kinactglia2" value="5e-06"/>
+      <parameter metaid="adbd5d75_d65a_4959_bf4a_e7da032130f7" id="kbinAbetaGlia" value="1e-05"/>
+      <parameter metaid="b09c1a1a_4d03_47f5_85f4_da79cc75a31d" id="krelAbetaGlia" value="5e-05"/>
+      <parameter metaid="_60cdd078_2dfb_42b6_b352_563f81901c79" id="kdegAntiAb" value="2.75e-06"/>
+      <parameter metaid="_604ebc2a_6524_4af8_adaa_9d40e19d5920" id="kbinAbantiAb" value="1e-06"/>
+      <parameter metaid="_9fcf839c_9c6d_45b0_92b5_c33e74920815" id="Sink" value="1" constant="true"/>
+      <parameter metaid="d27b3403_d098_4fbf_bbe4_a7c90667f3cf" id="Source" value="1" constant="true"/>
+      <parameter metaid="_61629820_0afa_4e3f_af5c_fa1f27cc661d" id="disaggPlaque2" value="0" constant="false"/>
+      <parameter metaid="_4f991834_2d5e_49a3_b081_fff98e40461c" id="disaggPlaque1" value="0" constant="false"/>
+      <parameter metaid="_268c4514_06d2_424d_b72a_40f6d8a1e56d" id="degAbetaGlia" value="0" constant="false"/>
+      <parameter metaid="f8456a67_3a1a_4463_b138_58a224dbf21d" id="AbetaDimer_antiAb" value="0" constant="false"/>
+      <parameter metaid="_1c6f33dd_1a2c_4864_a390_3ec912d01129" id="Abeta_antiAb" value="0" constant="false"/>
+      <parameter metaid="_1a7b6ee5_d6a5_47c8_a294_ba9d4f0d901c" id="antiAb" value="0" constant="false"/>
+      <parameter metaid="_93c21f4e_c9aa_4145_9d4a_90bdd39f8982" id="GliaA" value="0" constant="false"/>
+      <parameter metaid="_5dcec317_cfe5_4d23_973b_392542d9d2bf" id="GliaM2" value="0" constant="false"/>
+      <parameter metaid="_495dc17c_422b_4368_909d_0ce0b4f0f288" id="GliaM1" value="0" constant="false"/>
+      <parameter metaid="_05a254a0_a8f1_48eb_80c1_de280f0cd8b6" id="GliaI" value="100" constant="false"/>
+      <parameter metaid="d6f9a57f_2d1c_4fa2_9bd2_d3a9da0cdf5a" id="AbetaPlaque_GliaA" value="0" constant="false"/>
+      <parameter metaid="_259e4ba5_3cd8_4e57_bca3_2940bbe2f93e" id="AbetaDimer" value="0" constant="false"/>
+      <parameter metaid="a07b5412_4d9c_4731_be5d_bff57d320b78" id="AMP" value="1000" constant="true"/>
+      <parameter metaid="_993f0706_9c5f_456e_8455_218fbdc12edd" id="ADP" value="1000" constant="true"/>
+      <parameter metaid="_48dd638e_7cff_42f7_8011_4c8debea8a6a" id="ATP" value="10000" constant="true"/>
+      <parameter metaid="_8764e8ca_5950_4099_b393_eaf7cffc1f9e" id="NFT" value="0" constant="false"/>
+      <parameter metaid="e64c9653_fd0b_41b5_ae75_2497edf1e468" id="PP1" value="50" constant="false"/>
+      <parameter metaid="_3889c303_6f9c_4eb7_b4ee_5429fef0e4c9" id="Proteasome_Tau" value="0" constant="false"/>
+      <parameter metaid="_830a8688_07b9_4d53_b70d_87edc7d49dcb" id="AggTau_Proteasome" value="0" constant="false"/>
+      <parameter metaid="_093abe48_c278_4649_9fcd_47ae1b928f53" id="AggTau" value="0" constant="false"/>
+      <parameter metaid="_27620af3_63fb_40bc_9f6e_0581d6293853" id="MT_Tau" value="100" constant="false"/>
+      <parameter metaid="_7bc2cef7_af3d_4592_aac8_1a16a940663a" id="Tau_P2" value="0" constant="false"/>
+      <parameter metaid="_26c2d3a6_8ad4_4c5d_94be_266407e5ed08" id="Tau_P1" value="0" constant="false"/>
+      <parameter metaid="_72075df8_a895_481c_b968_09cd42a7d75d" id="Tau" value="0" constant="false"/>
+      <parameter metaid="_1db96310_0d08_4b59_a47f_ac22771b6794" id="AbetaPlaque" value="0" constant="false"/>
+      <parameter metaid="c6182eb7_2c5c_4de5_bdd0_bdd60feec7e8" id="AggAbeta_Proteasome" value="0" constant="false"/>
+      <parameter metaid="fd9fb37c_d30d_467b_bc60_841936e66829" id="Abeta" value="0" constant="false"/>
+      <parameter metaid="_9a1a2278_7e75_4a7e_9fa8_37bd6e44e8c4" id="GSK3b_p53_P" value="0" constant="false"/>
+      <parameter metaid="_244fb470_607a_4456_bbc9_5c841677a8ce" id="GSK3b_p53" value="0" constant="false"/>
+      <parameter metaid="e9763417_0cd2_4e39_a426_428dc3a6f897" id="GSK3b" value="500" constant="false"/>
+      <parameter metaid="da3cce5c_9544_4dd8_a5ba_ccf4951cfc76" id="Mdm2_P_Ub4_Proteasome" value="0" constant="false"/>
+      <parameter metaid="_98003030_6aa6_42bd_9172_a9a22e6027e3" id="Mdm2_Ub4_Proteasome" value="0" constant="false"/>
+      <parameter metaid="ffd164c1_9e07_418e_ba82_bf4ee5295118" id="p53_Ub4_Proteasome" value="0" constant="false"/>
+      <parameter metaid="_11bfb969_ebac_4a88_8dae_77855730a6f8" id="Mdm2_P_Ub4" value="0" constant="false"/>
+      <parameter metaid="fed25231_87d8_486a_8448_209f3cd1d454" id="Mdm2_P_Ub3" value="0" constant="false"/>
+      <parameter metaid="_053b2295_466e_451e_9d4c_856a8f0d12b1" id="Mdm2_P_Ub2" value="0" constant="false"/>
+      <parameter metaid="_338ec781_a100_49cb_ae01_91324ece9d8d" id="Mdm2_P_Ub" value="0" constant="false"/>
+      <parameter metaid="e70b6eba_5747_47f3_be0e_e19325db09e2" id="Mdm2_Ub4" value="0" constant="false"/>
+      <parameter metaid="_404d0900_43a2_4825_ba28_1c9be70150ee" id="Mdm2_Ub3" value="0" constant="false"/>
+      <parameter metaid="eef13cdf_2bdf_415e_bea4_c17a6af59465" id="Mdm2_Ub2" value="0" constant="false"/>
+      <parameter metaid="adcac53a_4d30_472b_96e7_9fc26163c950" id="Mdm2_Ub" value="0" constant="false"/>
+      <parameter metaid="_8e29d9ed_f8ac_476b_944b_e0ef369e6ea5" id="Mdm2_P1_p53_Ub4" value="0" constant="false"/>
+      <parameter metaid="_62fdf3a3_8c90_4dd2_b98c_a645053d47c6" id="Mdm2_p53_Ub4" value="0" constant="false"/>
+      <parameter metaid="_5f8026ed_3faf_48b5_b617_90931f2e37e3" id="Mdm2_p53_Ub3" value="0" constant="false"/>
+      <parameter metaid="eff9c09d_b529_4b2e_bde6_b339646f6a56" id="Mdm2_p53_Ub2" value="0" constant="false"/>
+      <parameter metaid="a456a7a2_bed8_4574_885b_d3a7ca7a3701" id="Mdm2_p53_Ub" value="0" constant="false"/>
+      <parameter metaid="cc38792f_e7dd_46e6_b855_b450da0f697c" id="DUB" value="200" constant="false"/>
+      <parameter metaid="_225b8d36_5463_4280_ba14_2ce40e51f4a8" id="Mdm2DUB" value="200" constant="false"/>
+      <parameter metaid="_2a95d641_360e_4849_94ad_d446992e8078" id="p53DUB" value="200" constant="false"/>
+      <parameter metaid="e4b98446_08f2_4f73_b2c9_3ce0e8ff4588" id="Ub" value="4000" constant="false"/>
+      <parameter metaid="_13841232_1868_4c8f_9eca_b01ad7ad7b84" id="Proteasome" value="500" constant="false"/>
+      <parameter metaid="_8749e95f_ad15_4bd3_9c09_f921c0af2e89" id="E2_Ub" value="0" constant="false"/>
+      <parameter metaid="_53ce3557_3f2a_4a10_b1cf_de326ab43e80" id="E1_Ub" value="0" constant="false"/>
+      <parameter metaid="_3af97553_9b55_4249_8e4c_0b5ff464fe6e" id="E2" value="100" constant="false"/>
+      <parameter metaid="_9f934cc2_34b5_43db_8441_ac61ef772765" id="E1" value="100" constant="false"/>
+      <parameter metaid="_58053aee_40ca_41ce_8ef4_8906cfc3deac" id="damDNA" value="0" constant="false"/>
+      <parameter metaid="_8ae6ab79_54b1_406f_b1a3_354ec4128dd1" id="ROS" value="0" constant="false"/>
+      <parameter metaid="ce9a9aba_b498_4851_b2cc_97e14445801c" id="IR" value="0" constant="false"/>
+      <parameter metaid="f1b00f32_33d6_454c_9114_c6e1739de78c" id="Mdm2_P" value="0" constant="false"/>
+      <parameter metaid="_3aa63311_f7d8_4c5a_8cbe_311a3377baa0" id="p53_P" value="0" constant="false"/>
+      <parameter metaid="_1d343c59_58fa_44db_8212_512a6f0cf4ff" id="ATMI" value="200" constant="false"/>
+      <parameter metaid="ac2a466c_3f96_40ba_9913_62cbb28ee035" id="ATMA" value="0" constant="false"/>
+      <parameter metaid="d842e783_ca6b_43e2_97ee_e45c190ba516" id="p53_mRNA" value="10" constant="false"/>
+      <parameter metaid="_19a492fa_7c8f_4e73_bfec_45151b4b7fd5" id="Mdm2_mRNA" value="10" constant="false"/>
+      <parameter metaid="f0db5407_7bc9_4372_a858_deb230a61784" id="Mdm2_p53" value="95" constant="false"/>
+      <parameter metaid="_60218117_19e3_40cf_b0fc_867bf3972cc6" id="p53" value="5" constant="false"/>
+      <parameter metaid="d8c427eb_75f1_48f8_8073_f0e34ff229f8" id="Mdm2" value="5" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="p53_mRNA">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> ksynp53mRNA </ci>
+              <ci> Source </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdegp53mRNA </ci>
+              <ci> p53_mRNA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> ksynp53 </ci>
+              <ci> p53_mRNA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> ksynp53 </ci>
+              <ci> p53_mRNA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> ksynp53mRNAAbeta </ci>
+              <ci> Abeta </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_mRNA">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> ksynMdm2 </ci>
+              <ci> Mdm2_mRNA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> ksynMdm2 </ci>
+              <ci> Mdm2_mRNA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> ksynMdm2mRNA </ci>
+              <ci> p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> ksynMdm2mRNA </ci>
+              <ci> p53_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> ksynMdm2mRNAGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> ksynMdm2mRNAGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdegMdm2mRNA </ci>
+              <ci> Mdm2_mRNA </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> ksynMdm2 </ci>
+              <ci> Mdm2_mRNA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinMdm2p53 </ci>
+              <ci> p53 </ci>
+              <ci> Mdm2 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> krelMdm2p53 </ci>
+              <ci> Mdm2_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kMdm2Ub </ci>
+              <ci> Mdm2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kbinProt </ci>
+              <ci> Mdm2_P1_p53_Ub4 </ci>
+              <ci> Proteasome </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphosMdm2 </ci>
+              <ci> Mdm2 </ci>
+              <ci> ATMA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kdephosMdm2 </ci>
+              <ci> Mdm2_P </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="p53">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> ksynMdm2mRNA </ci>
+              <ci> p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> ksynMdm2mRNA </ci>
+              <ci> p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinMdm2p53 </ci>
+              <ci> p53 </ci>
+              <ci> Mdm2 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> krelMdm2p53 </ci>
+              <ci> Mdm2_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinGSK3bp53 </ci>
+              <ci> GSK3b </ci>
+              <ci> p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> krelGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> ksynp53 </ci>
+              <ci> p53_mRNA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphosp53 </ci>
+              <ci> p53 </ci>
+              <ci> ATMA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kdephosp53 </ci>
+              <ci> p53_P </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="p53_P">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> ksynMdm2mRNA </ci>
+              <ci> p53_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> ksynMdm2mRNA </ci>
+              <ci> p53_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinGSK3bp53 </ci>
+              <ci> GSK3b </ci>
+              <ci> p53_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> krelGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphosp53 </ci>
+              <ci> p53 </ci>
+              <ci> ATMA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdephosp53 </ci>
+              <ci> p53_P </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="GSK3b_p53">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> ksynMdm2mRNAGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> ksynMdm2mRNAGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kbinGSK3bp53 </ci>
+              <ci> GSK3b </ci>
+              <ci> p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> krelGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphosMdm2GSK3bp53 </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> GSK3b_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphosMdm2GSK3bp53 </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> GSK3b_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+              <ci> Tau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+              <ci> Tau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+              <ci> Tau_P1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+              <ci> Tau_P1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kprodAbeta2 </ci>
+              <ci> GSK3b_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kprodAbeta2 </ci>
+              <ci> GSK3b_p53 </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="GSK3b_p53_P">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> ksynMdm2mRNAGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> ksynMdm2mRNAGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kbinGSK3bp53 </ci>
+              <ci> GSK3b </ci>
+              <ci> p53_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> krelGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphosMdm2GSK3bp53 </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> GSK3b_p53_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphosMdm2GSK3bp53 </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> GSK3b_p53_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+              <ci> Tau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+              <ci> Tau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+              <ci> Tau_P1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+              <ci> Tau_P1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kprodAbeta2 </ci>
+              <ci> GSK3b_p53_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kprodAbeta2 </ci>
+              <ci> GSK3b_p53_P </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_p53">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kbinMdm2p53 </ci>
+              <ci> p53 </ci>
+              <ci> Mdm2 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> krelMdm2p53 </ci>
+              <ci> Mdm2_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kp53Ub </ci>
+              <ci> E2_Ub </ci>
+              <ci> Mdm2_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub </ci>
+              <ci> p53DUB </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="GSK3b">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinGSK3bp53 </ci>
+              <ci> GSK3b </ci>
+              <ci> p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> krelGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinGSK3bp53 </ci>
+              <ci> GSK3b </ci>
+              <ci> p53_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> krelGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphosMdm2GSK3b </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> GSK3b </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphosMdm2GSK3b </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> GSK3b </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphospTauGSK3b </ci>
+              <ci> GSK3b </ci>
+              <ci> Tau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphospTauGSK3b </ci>
+              <ci> GSK3b </ci>
+              <ci> Tau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphospTauGSK3b </ci>
+              <ci> GSK3b </ci>
+              <ci> Tau_P1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphospTauGSK3b </ci>
+              <ci> GSK3b </ci>
+              <ci> Tau_P1 </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="E1_Ub">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> kbinE1Ub </ci>
+                  <ci> E1 </ci>
+                  <ci> Ub </ci>
+                  <ci> ATP </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 5000 </cn>
+                  <ci> ATP </ci>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinE2Ub </ci>
+              <ci> E2 </ci>
+              <ci> E1_Ub </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="E1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> kbinE1Ub </ci>
+                  <ci> E1 </ci>
+                  <ci> Ub </ci>
+                  <ci> ATP </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 5000 </cn>
+                  <ci> ATP </ci>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kbinE2Ub </ci>
+              <ci> E2 </ci>
+              <ci> E1_Ub </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Ub">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> kbinE1Ub </ci>
+                  <ci> E1 </ci>
+                  <ci> Ub </ci>
+                  <ci> ATP </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 5000 </cn>
+                  <ci> ATP </ci>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub4 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub3 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub2 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 4 </cn>
+              <ci> kdegMdm2 </ci>
+              <ci> Mdm2_Ub4_Proteasome </ci>
+              <ci> kproteff </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub3 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub2 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub </ci>
+              <ci> p53DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 4 </cn>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> kdegp53 </ci>
+                  <ci> kproteff </ci>
+                  <ci> p53_Ub4_Proteasome </ci>
+                  <ci> ATP </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 5000 </cn>
+                  <ci> ATP </ci>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub4 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub3 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub2 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 4 </cn>
+              <ci> kdegMdm2 </ci>
+              <ci> Mdm2_P_Ub4_Proteasome </ci>
+              <ci> kproteff </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="E2_Ub">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kbinE2Ub </ci>
+              <ci> E2 </ci>
+              <ci> E1_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kMdm2Ub </ci>
+              <ci> Mdm2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_Ub </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_Ub2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_Ub3 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kp53Ub </ci>
+              <ci> E2_Ub </ci>
+              <ci> Mdm2_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kp53PolyUb </ci>
+              <ci> Mdm2_p53_Ub </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kp53PolyUb </ci>
+              <ci> Mdm2_p53_Ub2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kp53PolyUb </ci>
+              <ci> Mdm2_p53_Ub3 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kMdm2PUb </ci>
+              <ci> Mdm2_P </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_P_Ub </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_P_Ub2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_P_Ub3 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="E2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinE2Ub </ci>
+              <ci> E2 </ci>
+              <ci> E1_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kMdm2Ub </ci>
+              <ci> Mdm2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_Ub </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_Ub2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_Ub3 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kp53Ub </ci>
+              <ci> E2_Ub </ci>
+              <ci> Mdm2_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kp53PolyUb </ci>
+              <ci> Mdm2_p53_Ub </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kp53PolyUb </ci>
+              <ci> Mdm2_p53_Ub2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kp53PolyUb </ci>
+              <ci> Mdm2_p53_Ub3 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kMdm2PUb </ci>
+              <ci> Mdm2_P </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_P_Ub </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_P_Ub2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_P_Ub3 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_Ub">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kMdm2Ub </ci>
+              <ci> Mdm2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_Ub </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub2 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_Ub2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_Ub </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_Ub2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub3 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub2 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_Ub3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_Ub2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_Ub3 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub4 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub3 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_Ub4">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_Ub3 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub4 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinProt </ci>
+              <ci> Mdm2_Ub4 </ci>
+              <ci> Proteasome </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2DUB">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub4 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub4 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub3 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub3 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub2 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub2 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub4 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub4 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub3 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub3 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub2 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub2 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_Ub4_Proteasome">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kbinProt </ci>
+              <ci> Mdm2_Ub4 </ci>
+              <ci> Proteasome </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdegMdm2 </ci>
+              <ci> Mdm2_Ub4_Proteasome </ci>
+              <ci> kproteff </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Proteasome">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinProt </ci>
+              <ci> Mdm2_Ub4 </ci>
+              <ci> Proteasome </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kdegMdm2 </ci>
+              <ci> Mdm2_Ub4_Proteasome </ci>
+              <ci> kproteff </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinProt </ci>
+              <ci> Mdm2_P1_p53_Ub4 </ci>
+              <ci> Proteasome </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> kdegp53 </ci>
+                  <ci> kproteff </ci>
+                  <ci> p53_Ub4_Proteasome </ci>
+                  <ci> ATP </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 5000 </cn>
+                  <ci> ATP </ci>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kinhibprot </ci>
+              <ci> AggTau </ci>
+              <ci> Proteasome </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kinhibprot </ci>
+              <ci> AbetaDimer </ci>
+              <ci> Proteasome </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinProt </ci>
+              <ci> Mdm2_P_Ub4 </ci>
+              <ci> Proteasome </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kdegMdm2 </ci>
+              <ci> Mdm2_P_Ub4_Proteasome </ci>
+              <ci> kproteff </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinTauProt </ci>
+              <ci> Tau </ci>
+              <ci> Proteasome </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kdegTau20SProt </ci>
+              <ci> Proteasome_Tau </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_p53_Ub">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kp53Ub </ci>
+              <ci> E2_Ub </ci>
+              <ci> Mdm2_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kp53PolyUb </ci>
+              <ci> Mdm2_p53_Ub </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub2 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub </ci>
+              <ci> p53DUB </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_p53_Ub2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kp53PolyUb </ci>
+              <ci> Mdm2_p53_Ub </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kp53PolyUb </ci>
+              <ci> Mdm2_p53_Ub2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub3 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub2 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_p53_Ub3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kp53PolyUb </ci>
+              <ci> Mdm2_p53_Ub2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kp53PolyUb </ci>
+              <ci> Mdm2_p53_Ub3 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub3 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_p53_Ub4">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kp53PolyUb </ci>
+              <ci> Mdm2_p53_Ub3 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphosMdm2GSK3b </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> GSK3b </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphosMdm2GSK3bp53 </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> GSK3b_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphosMdm2GSK3bp53 </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> GSK3b_p53_P </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="p53DUB">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub3 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub3 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub2 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub2 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub </ci>
+              <ci> p53DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub </ci>
+              <ci> p53DUB </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_P1_p53_Ub4">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphosMdm2GSK3b </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> GSK3b </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphosMdm2GSK3bp53 </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> GSK3b_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphosMdm2GSK3bp53 </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> GSK3b_p53_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinProt </ci>
+              <ci> Mdm2_P1_p53_Ub4 </ci>
+              <ci> Proteasome </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="p53_Ub4_Proteasome">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kbinProt </ci>
+              <ci> Mdm2_P1_p53_Ub4 </ci>
+              <ci> Proteasome </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> kdegp53 </ci>
+                  <ci> kproteff </ci>
+                  <ci> p53_Ub4_Proteasome </ci>
+                  <ci> ATP </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 5000 </cn>
+                  <ci> ATP </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="MT_Tau">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kbinMTTau </ci>
+              <ci> Tau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> krelMTTau </ci>
+              <ci> MT_Tau </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Tau">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinMTTau </ci>
+              <ci> Tau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> krelMTTau </ci>
+              <ci> MT_Tau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+              <ci> Tau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+              <ci> Tau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphospTauGSK3b </ci>
+              <ci> GSK3b </ci>
+              <ci> Tau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kdephospTau </ci>
+              <ci> Tau_P1 </ci>
+              <ci> PP1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 2 </cn>
+              </apply>
+              <ci> kaggTau </ci>
+              <apply>
+                <power/>
+                <ci> Tau </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kaggTau </ci>
+              <ci> Tau </ci>
+              <ci> AggTau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> ksynTau </ci>
+              <ci> Source </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinTauProt </ci>
+              <ci> Tau </ci>
+              <ci> Proteasome </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Tau_P1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+              <ci> Tau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+              <ci> Tau_P1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+              <ci> Tau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+              <ci> Tau_P1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphospTauGSK3b </ci>
+              <ci> GSK3b </ci>
+              <ci> Tau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphospTauGSK3b </ci>
+              <ci> GSK3b </ci>
+              <ci> Tau_P1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kdephospTau </ci>
+              <ci> Tau_P2 </ci>
+              <ci> PP1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdephospTau </ci>
+              <ci> Tau_P1 </ci>
+              <ci> PP1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 2 </cn>
+              </apply>
+              <ci> kaggTauP1 </ci>
+              <apply>
+                <power/>
+                <ci> Tau_P1 </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kaggTauP1 </ci>
+              <ci> Tau_P1 </ci>
+              <ci> AggTau </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Tau_P2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+              <ci> Tau_P1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+              <ci> Tau_P1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphospTauGSK3b </ci>
+              <ci> GSK3b </ci>
+              <ci> Tau_P1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdephospTau </ci>
+              <ci> Tau_P2 </ci>
+              <ci> PP1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 2 </cn>
+              </apply>
+              <ci> kaggTauP2 </ci>
+              <apply>
+                <power/>
+                <ci> Tau_P2 </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kaggTauP2 </ci>
+              <ci> Tau_P2 </ci>
+              <ci> AggTau </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="PP1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kdephospTau </ci>
+              <ci> Tau_P2 </ci>
+              <ci> PP1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdephospTau </ci>
+              <ci> Tau_P2 </ci>
+              <ci> PP1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kdephospTau </ci>
+              <ci> Tau_P1 </ci>
+              <ci> PP1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdephospTau </ci>
+              <ci> Tau_P1 </ci>
+              <ci> PP1 </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="AggTau">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 2 </cn>
+              <ci> kaggTauP1 </ci>
+              <apply>
+                <power/>
+                <ci> Tau_P1 </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 2 </cn>
+              <ci> kaggTauP1 </ci>
+              <ci> Tau_P1 </ci>
+              <ci> AggTau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kaggTauP1 </ci>
+              <ci> Tau_P1 </ci>
+              <ci> AggTau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 2 </cn>
+              <ci> kaggTauP2 </ci>
+              <apply>
+                <power/>
+                <ci> Tau_P2 </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 2 </cn>
+              <ci> kaggTauP2 </ci>
+              <ci> Tau_P2 </ci>
+              <ci> AggTau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kaggTauP2 </ci>
+              <ci> Tau_P2 </ci>
+              <ci> AggTau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 2 </cn>
+              <ci> kaggTau </ci>
+              <apply>
+                <power/>
+                <ci> Tau </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 2 </cn>
+              <ci> kaggTau </ci>
+              <ci> Tau </ci>
+              <ci> AggTau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kaggTau </ci>
+              <ci> Tau </ci>
+              <ci> AggTau </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 2 </cn>
+              </apply>
+              <ci> ktangfor </ci>
+              <apply>
+                <power/>
+                <ci> AggTau </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> ktangfor </ci>
+              <ci> AggTau </ci>
+              <ci> NFT </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kinhibprot </ci>
+              <ci> AggTau </ci>
+              <ci> Proteasome </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="NFT">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 2 </cn>
+              <ci> ktangfor </ci>
+              <apply>
+                <power/>
+                <ci> AggTau </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 2 </cn>
+              <ci> ktangfor </ci>
+              <ci> AggTau </ci>
+              <ci> NFT </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> ktangfor </ci>
+              <ci> AggTau </ci>
+              <ci> NFT </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="AggTau_Proteasome">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 1 </cn>
+            <ci> kinhibprot </ci>
+            <ci> AggTau </ci>
+            <ci> Proteasome </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Abeta">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kprodAbeta </ci>
+              <ci> Source </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kprodAbeta2 </ci>
+              <ci> GSK3b_p53 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kprodAbeta2 </ci>
+              <ci> GSK3b_p53_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdegAbeta </ci>
+              <ci> Abeta </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> ksynp53mRNAAbeta </ci>
+              <ci> Abeta </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> ksynp53mRNAAbeta </ci>
+              <ci> Abeta </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kgenROSAbeta </ci>
+              <ci> Abeta </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kgenROSAbeta </ci>
+              <ci> Abeta </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 2 </cn>
+              </apply>
+              <ci> kaggAbeta </ci>
+              <apply>
+                <power/>
+                <ci> Abeta </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 2 </cn>
+              <ci> kdisaggAbeta </ci>
+              <ci> AbetaDimer </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinAbantiAb </ci>
+              <ci> Abeta </ci>
+              <ci> antiAb </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="AggAbeta_Proteasome">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kinhibprot </ci>
+              <ci> AbetaDimer </ci>
+              <ci> Proteasome </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kgenROSAbeta </ci>
+              <ci> AggAbeta_Proteasome </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kgenROSAbeta </ci>
+              <ci> AggAbeta_Proteasome </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="AbetaDimer">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kinhibprot </ci>
+              <ci> AbetaDimer </ci>
+              <ci> Proteasome </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kaggAbeta </ci>
+              <apply>
+                <power/>
+                <ci> Abeta </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 2 </cn>
+              </apply>
+              <ci> kpf </ci>
+              <apply>
+                <power/>
+                <ci> AbetaDimer </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> kpg </ci>
+                  <ci> AbetaDimer </ci>
+                  <apply>
+                    <power/>
+                    <ci> AbetaPlaque </ci>
+                    <cn type="integer"> 2 </cn>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <power/>
+                    <ci> kpghalf </ci>
+                    <cn type="integer"> 2 </cn>
+                  </apply>
+                  <apply>
+                    <power/>
+                    <ci> AbetaPlaque </ci>
+                    <cn type="integer"> 2 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdisaggAbeta </ci>
+              <ci> AbetaDimer </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kdisaggAbeta1 </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kdisaggAbeta2 </ci>
+              <ci> antiAb </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinAbantiAb </ci>
+              <ci> AbetaDimer </ci>
+              <ci> antiAb </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="IR">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kdam </ci>
+              <ci> IR </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdam </ci>
+              <ci> IR </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="damDNA">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kdam </ci>
+              <ci> IR </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> krepair </ci>
+              <ci> damDNA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactATM </ci>
+              <ci> damDNA </ci>
+              <ci> ATMI </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactATM </ci>
+              <ci> damDNA </ci>
+              <ci> ATMI </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kdamROS </ci>
+              <ci> ROS </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="ATMA">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactATM </ci>
+              <ci> damDNA </ci>
+              <ci> ATMI </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphosp53 </ci>
+              <ci> p53 </ci>
+              <ci> ATMA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphosp53 </ci>
+              <ci> p53 </ci>
+              <ci> ATMA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphosMdm2 </ci>
+              <ci> Mdm2 </ci>
+              <ci> ATMA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kphosMdm2 </ci>
+              <ci> Mdm2 </ci>
+              <ci> ATMA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kinactATM </ci>
+              <ci> ATMA </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="ATMI">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactATM </ci>
+              <ci> damDNA </ci>
+              <ci> ATMI </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kinactATM </ci>
+              <ci> ATMA </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_P">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kphosMdm2 </ci>
+              <ci> Mdm2 </ci>
+              <ci> ATMA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdephosMdm2 </ci>
+              <ci> Mdm2_P </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kMdm2PUb </ci>
+              <ci> Mdm2_P </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_P_Ub">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kMdm2PUb </ci>
+              <ci> Mdm2_P </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_P_Ub </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub2 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_P_Ub2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_P_Ub </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_P_Ub2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub3 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub2 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_P_Ub3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_P_Ub2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_P_Ub3 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub4 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub3 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_P_Ub4">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_P_Ub3 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub4 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinProt </ci>
+              <ci> Mdm2_P_Ub4 </ci>
+              <ci> Proteasome </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Mdm2_P_Ub4_Proteasome">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kbinProt </ci>
+              <ci> Mdm2_P_Ub4 </ci>
+              <ci> Proteasome </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdegMdm2 </ci>
+              <ci> Mdm2_P_Ub4_Proteasome </ci>
+              <ci> kproteff </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="ROS">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kgenROSAbeta </ci>
+              <ci> Abeta </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kgenROSPlaque </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kgenROSAbeta </ci>
+              <ci> AggAbeta_Proteasome </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kdamROS </ci>
+              <ci> ROS </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdamROS </ci>
+              <ci> ROS </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kgenROSGlia </ci>
+              <ci> AbetaPlaque_GliaA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kremROS </ci>
+              <ci> ROS </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="AbetaPlaque">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kgenROSPlaque </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kgenROSPlaque </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kpf </ci>
+              <apply>
+                <power/>
+                <ci> AbetaDimer </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 2 </cn>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> kpg </ci>
+                  <ci> AbetaDimer </ci>
+                  <apply>
+                    <power/>
+                    <ci> AbetaPlaque </ci>
+                    <cn type="integer"> 2 </cn>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <power/>
+                    <ci> kpghalf </ci>
+                    <cn type="integer"> 2 </cn>
+                  </apply>
+                  <apply>
+                    <power/>
+                    <ci> AbetaPlaque </ci>
+                    <cn type="integer"> 2 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> kpg </ci>
+                  <ci> AbetaDimer </ci>
+                  <apply>
+                    <power/>
+                    <ci> AbetaPlaque </ci>
+                    <cn type="integer"> 2 </cn>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <power/>
+                    <ci> kpghalf </ci>
+                    <cn type="integer"> 2 </cn>
+                  </apply>
+                  <apply>
+                    <power/>
+                    <ci> AbetaPlaque </ci>
+                    <cn type="integer"> 2 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdisaggAbeta1 </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdisaggAbeta2 </ci>
+              <ci> antiAb </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactglia1 </ci>
+              <ci> GliaI </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactglia1 </ci>
+              <ci> GliaI </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactglia1 </ci>
+              <ci> GliaM1 </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactglia1 </ci>
+              <ci> GliaM1 </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinAbetaGlia </ci>
+              <ci> AbetaPlaque </ci>
+              <ci> GliaA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> krelAbetaGlia </ci>
+              <ci> AbetaPlaque_GliaA </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Proteasome_Tau">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kbinTauProt </ci>
+              <ci> Tau </ci>
+              <ci> Proteasome </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdegTau20SProt </ci>
+              <ci> Proteasome_Tau </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="disaggPlaque1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 1 </cn>
+            <ci> kdisaggAbeta1 </ci>
+            <ci> AbetaPlaque </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="antiAb">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kdisaggAbeta2 </ci>
+              <ci> antiAb </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdisaggAbeta2 </ci>
+              <ci> antiAb </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinAbantiAb </ci>
+              <ci> Abeta </ci>
+              <ci> antiAb </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinAbantiAb </ci>
+              <ci> AbetaDimer </ci>
+              <ci> antiAb </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <cn type="integer"> 10 </cn>
+              <ci> kdegAbeta </ci>
+              <ci> Abeta_antiAb </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <cn type="integer"> 10 </cn>
+              <ci> kdegAbeta </ci>
+              <ci> AbetaDimer_antiAb </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactglia2 </ci>
+              <ci> GliaM2 </ci>
+              <ci> antiAb </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactglia2 </ci>
+              <ci> GliaM2 </ci>
+              <ci> antiAb </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdegAntiAb </ci>
+              <ci> antiAb </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="disaggPlaque2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 1 </cn>
+            <ci> kdisaggAbeta2 </ci>
+            <ci> antiAb </ci>
+            <ci> AbetaPlaque </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Abeta_antiAb">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kbinAbantiAb </ci>
+              <ci> Abeta </ci>
+              <ci> antiAb </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <cn type="integer"> 10 </cn>
+              <ci> kdegAbeta </ci>
+              <ci> Abeta_antiAb </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="AbetaDimer_antiAb">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kbinAbantiAb </ci>
+              <ci> AbetaDimer </ci>
+              <ci> antiAb </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <cn type="integer"> 10 </cn>
+              <ci> kdegAbeta </ci>
+              <ci> AbetaDimer_antiAb </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="GliaM1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactglia1 </ci>
+              <ci> GliaI </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactglia1 </ci>
+              <ci> GliaM1 </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kinactglia2 </ci>
+              <ci> GliaM2 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kinactglia2 </ci>
+              <ci> GliaM1 </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="GliaI">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactglia1 </ci>
+              <ci> GliaI </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kinactglia2 </ci>
+              <ci> GliaM1 </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="GliaM2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactglia1 </ci>
+              <ci> GliaM1 </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kactglia2 </ci>
+              <ci> GliaM2 </ci>
+              <ci> antiAb </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kinactglia1 </ci>
+              <ci> GliaA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kinactglia2 </ci>
+              <ci> GliaM2 </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="GliaA">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kactglia2 </ci>
+              <ci> GliaM2 </ci>
+              <ci> antiAb </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kinactglia1 </ci>
+              <ci> GliaA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kbinAbetaGlia </ci>
+              <ci> AbetaPlaque </ci>
+              <ci> GliaA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> krelAbetaGlia </ci>
+              <ci> AbetaPlaque_GliaA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kdegAbetaGlia </ci>
+              <ci> AbetaPlaque_GliaA </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="AbetaPlaque_GliaA">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kbinAbetaGlia </ci>
+              <ci> AbetaPlaque </ci>
+              <ci> GliaA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> krelAbetaGlia </ci>
+              <ci> AbetaPlaque_GliaA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kdegAbetaGlia </ci>
+              <ci> AbetaPlaque_GliaA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <ci> kgenROSGlia </ci>
+              <ci> AbetaPlaque_GliaA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <ci> kgenROSGlia </ci>
+              <ci> AbetaPlaque_GliaA </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="degAbetaGlia">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 1 </cn>
+            <ci> kdegAbetaGlia </ci>
+            <ci> AbetaPlaque_GliaA </ci>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+    <listOfEvents>
+      <event metaid="_9d1ca394_8a7c_4d1e_950a_eafe0ac2fd93" id="ImmunizeCell">
+        <trigger metaid="_4497c4de_245a_4d2e_87ee_cc77407cd453">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <geq/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> t </csymbol>
+              <cn type="integer"> 345600 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment metaid="_0899789f_73ff_498b_97b7_4fad46a94b6a" variable="antiAb">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 50 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>
