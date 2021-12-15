@@ -170,13 +170,13 @@ jobs:
         run: |
           cmake --build . --config $BUILD_TYPE
 
-      - name: Build Unix R binaries from source package
-        if: matrix.platform != 'windows-latest'
-        shell: bash
-        working-directory: ${{runner.workspace}}/build
-        run: |
-          mkdir r-binaries
-          R CMD INSTALL -l r-binaries --build ./src/bindings/r/out/libSBML_5.19.2.tar.gz
+      # - name: Build Unix R binaries from source package
+        # if: matrix.platform != 'windows-latest'
+        # shell: bash
+        # working-directory: ${{runner.workspace}}/build
+        # run: |
+          # mkdir r-binaries
+          # R CMD INSTALL -l r-binaries --build ./src/bindings/r/out/libSBML_5.19.2.tar.gz
 
       ### run tests ###
       - name: Test
@@ -248,7 +248,7 @@ jobs:
             ${{env.ARTIFACT_NAME_SUFFIX}})
           path: |
             ${{runner.workspace}}/install/*
-            ${{runner.workspace}}/build/r-binaries/*
+#            ${{runner.workspace}}/build/r-binaries/*
           retention-days: 1
           if-no-files-found: error
   manylinuxbuild:
@@ -323,8 +323,8 @@ jobs:
           -DWITH_STATIC_RUNTIME=ON \
           -DPYTHON_USE_DYNAMIC_LOOKUP=ON
           cmake --build . --config $BUILD_TYPE
-          mkdir r-binaries
-          R CMD INSTALL -l r-binaries --build ./src/bindings/r/out/libSBML_5.19.2.tar.gz
+          # mkdir r-binaries
+          # R CMD INSTALL -l r-binaries --build ./src/bindings/r/out/libSBML_5.19.2.tar.gz
 
       - name: Test
         run: |
@@ -360,10 +360,10 @@ jobs:
             ${{env.ARTIFACT_NAME_SUFFIX}})
           path: ../install # paths handled differently by v1 - note that "./install/*" does not work
 
-      - name: Upload Manylinux2010 R binary archive
-        uses: actions/upload-artifact@v1 # note v1 used here, because v2 incompatible
-        with:
-          name:
-            Manylinux2010 R nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
-            ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ../build/r-binaries # paths handled differently by v1 - note that v1 doesn't allow multiple paths
+      # - name: Upload Manylinux2010 R binary archive
+        # uses: actions/upload-artifact@v1 # note v1 used here, because v2 incompatible
+        # with:
+          # name:
+            # Manylinux2010 R nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
+            # ${{env.ARTIFACT_NAME_SUFFIX}})
+          # path: ../build/r-binaries # paths handled differently by v1 - note that v1 doesn't allow multiple paths
