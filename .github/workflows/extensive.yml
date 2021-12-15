@@ -28,7 +28,7 @@ jobs:
         package_option:
           ["", "-DWITH_STABLE_PACKAGES=ON", "-DWITH_ALL_PACKAGES=ON"]
         language_bindings:
-          ["-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True -DWITH_R=True"]
+          ["-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True -DWITH_R=OFF"]
         include:
           # to test the other two XML parsers while avoiding a combinatorial explosion in the number of jobs,
           # we additionally include just two runs / OS : one for Expat, and one for Xerces
@@ -242,13 +242,13 @@ jobs:
         shell: bash
         run: cmake --build . --config $BUILD_TYPE
 
-      - name: Build Unix R binaries from source package
-        if: matrix.platform != 'windows-latest' && matrix.xml_parser_option == '-DWITH_LIBXML'
-        shell: bash
-        working-directory: ${{runner.workspace}}/build
-        run: |
-          mkdir r-binaries
-          R CMD INSTALL -l r-binaries --build ./src/bindings/r/out/libSBML_5.19.2.tar.gz
+      # - name: Build Unix R binaries from source package
+        # if: matrix.platform != 'windows-latest' && matrix.xml_parser_option == '-DWITH_LIBXML'
+        # shell: bash
+        # working-directory: ${{runner.workspace}}/build
+        # run: |
+          # mkdir r-binaries
+          # R CMD INSTALL -l r-binaries --build ./src/bindings/r/out/libSBML_5.19.2.tar.gz
 
       ### run tests ###
       - name: Test
