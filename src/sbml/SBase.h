@@ -350,7 +350,7 @@ public:
    *
    * @return pointer to the first element found with the given @p id.
    */
-  virtual SBase* getElementFromPluginsBySId(std::string id);
+  virtual SBase* getElementFromPluginsBySId(const std::string& id);
   /** @endcond */
   
   
@@ -364,7 +364,7 @@ public:
    *
    * @return pointer to the first element found with the given @p metaid.
    */
-  virtual SBase* getElementFromPluginsByMetaId(std::string metaid);
+  virtual SBase* getElementFromPluginsByMetaId(const std::string& metaid);
   /** @endcond */
 
   
@@ -3564,7 +3564,7 @@ protected:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
-  int setElementNamespace(const std::string &uri);
+  int setElementNamespace(const std::string& uri);
 
 
   /**

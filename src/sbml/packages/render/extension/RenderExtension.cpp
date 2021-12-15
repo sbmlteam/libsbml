@@ -252,7 +252,7 @@ RenderExtension::getURI(unsigned int sbmlLevel, unsigned int sbmlVersion, unsign
  *
  */
 unsigned int 
-RenderExtension::getLevel(const std::string &uri) const
+RenderExtension::getLevel(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -274,7 +274,7 @@ RenderExtension::getLevel(const std::string &uri) const
  *
  */
 unsigned int 
-RenderExtension::getVersion(const std::string &uri) const
+RenderExtension::getVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -300,7 +300,7 @@ RenderExtension::getVersion(const std::string &uri) const
  *
  */
 unsigned int
-RenderExtension::getPackageVersion(const std::string &uri) const
+RenderExtension::getPackageVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -328,7 +328,7 @@ RenderExtension::getPackageVersion(const std::string &uri) const
  *
  */
 SBMLNamespaces*
-RenderExtension::getSBMLExtensionNamespaces(const std::string &uri) const
+RenderExtension::getSBMLExtensionNamespaces(const std::string& uri) const
 {
   RenderPkgNamespaces* pkgns = NULL;
 

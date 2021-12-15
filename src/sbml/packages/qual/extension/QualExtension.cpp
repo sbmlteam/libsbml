@@ -232,7 +232,7 @@ QualExtension::getURI(unsigned int sbmlLevel, unsigned int sbmlVersion, unsigned
  *
  */
 unsigned int 
-QualExtension::getLevel(const std::string &uri) const
+QualExtension::getLevel(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -250,7 +250,7 @@ QualExtension::getLevel(const std::string &uri) const
  *
  */
 unsigned int 
-QualExtension::getVersion(const std::string &uri) const
+QualExtension::getVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -268,7 +268,7 @@ QualExtension::getVersion(const std::string &uri) const
  *
  */
 unsigned int
-QualExtension::getPackageVersion(const std::string &uri) const
+QualExtension::getPackageVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -289,7 +289,7 @@ QualExtension::getPackageVersion(const std::string &uri) const
  *
  */
 SBMLNamespaces*
-QualExtension::getSBMLExtensionNamespaces(const std::string &uri) const
+QualExtension::getSBMLExtensionNamespaces(const std::string& uri) const
 {
   QualPkgNamespaces* pkgns = NULL;
   if ( uri == getXmlnsL3V1V1())

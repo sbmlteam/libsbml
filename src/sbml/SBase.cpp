@@ -182,7 +182,7 @@ SBase::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 
 /** @cond doxygenLibsbmlInternal */
 SBase*
-SBase::getElementFromPluginsBySId(std::string id)
+SBase::getElementFromPluginsBySId(const std::string& id)
 {
   for (size_t i=0; i < mPlugins.size(); i++)
   {
@@ -196,7 +196,7 @@ SBase::getElementFromPluginsBySId(std::string id)
 
 /** @cond doxygenLibsbmlInternal */
 SBase*
-SBase::getElementFromPluginsByMetaId(std::string metaid)
+SBase::getElementFromPluginsByMetaId(const std::string& metaid)
 {
   for (size_t i=0; i < mPlugins.size(); i++)
   {
@@ -615,7 +615,7 @@ SBase::loadPlugins(SBMLNamespaces *sbmlns)
 
     for (int i=0; i < numxmlns; i++)
     {
-      const std::string &uri = xmlns->getURI(i);
+      const std::string& uri = xmlns->getURI(i);
       const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
 
       if (sbmlext && sbmlext->isEnabled())
@@ -7015,7 +7015,7 @@ SBase::setSBaseFields (const XMLToken& element)
  *
  */
 int
-SBase::setElementNamespace(const std::string &uri)
+SBase::setElementNamespace(const std::string& uri)
 {
   mURI = uri;
 

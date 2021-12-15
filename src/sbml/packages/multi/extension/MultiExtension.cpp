@@ -245,7 +245,7 @@ MultiExtension::getURI(unsigned int sbmlLevel,
  * Returns the SBML level with the given URI of this package.
  */
 unsigned int
-MultiExtension::getLevel(const std::string &uri) const
+MultiExtension::getLevel(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -260,7 +260,7 @@ MultiExtension::getLevel(const std::string &uri) const
  * Returns the SBML version with the given URI of this package.
  */
 unsigned int
-MultiExtension::getVersion(const std::string &uri) const
+MultiExtension::getVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -275,7 +275,7 @@ MultiExtension::getVersion(const std::string &uri) const
  * Returns the package version with the given URI of this package.
  */
 unsigned int
-MultiExtension::getPackageVersion(const std::string &uri) const
+MultiExtension::getPackageVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -290,7 +290,7 @@ MultiExtension::getPackageVersion(const std::string &uri) const
  * Returns an SBMLExtensionNamespaces<MultiExtension> object 
  */
 SBMLNamespaces*
-MultiExtension::getSBMLExtensionNamespaces(const std::string &uri) const
+MultiExtension::getSBMLExtensionNamespaces(const std::string& uri) const
 {
   MultiPkgNamespaces* pkgns = NULL;
   if (uri == getXmlnsL3V1V1())

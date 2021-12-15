@@ -144,7 +144,7 @@ const std::string&
 }
 
 unsigned int 
-	TestExtension::getLevel(const std::string &uri) const
+	TestExtension::getLevel(const std::string& uri) const
 {
 	if (uri == getXmlnsL3V1V1())
 	{
@@ -155,7 +155,7 @@ unsigned int
 }
 
 unsigned int 
-	TestExtension::getVersion(const std::string &uri) const
+	TestExtension::getVersion(const std::string& uri) const
 {
 	if (uri == getXmlnsL3V1V1())
 	{
@@ -166,7 +166,7 @@ unsigned int
 }
 
 unsigned int
-	TestExtension::getPackageVersion(const std::string &uri) const
+	TestExtension::getPackageVersion(const std::string& uri) const
 {
 	if (uri == getXmlnsL3V1V1())
 	{
@@ -177,7 +177,7 @@ unsigned int
 }
 
 SBMLNamespaces*
-	TestExtension::getSBMLExtensionNamespaces(const std::string &uri) const
+	TestExtension::getSBMLExtensionNamespaces(const std::string& uri) const
 {
 	TestPkgNamespaces* pkgns = NULL;
 	if ( uri == getXmlnsL3V1V1())
@@ -244,7 +244,7 @@ void
 }
 
 
-TestModelPlugin::TestModelPlugin (const std::string &uri, 
+TestModelPlugin::TestModelPlugin (const std::string& uri, 
 	const std::string &prefix,
 	TestPkgNamespaces *groupsns)
 	: SBasePlugin(uri,prefix, groupsns)
@@ -351,7 +351,7 @@ TestModelPlugin::accept (SBMLVisitor& v) const
 
 
 
-TestLOSPlugin::TestLOSPlugin(const std::string &uri,
+TestLOSPlugin::TestLOSPlugin(const std::string& uri,
   const std::string &prefix,
   TestPkgNamespaces *groupsns)
   : SBasePlugin(uri, prefix, groupsns)

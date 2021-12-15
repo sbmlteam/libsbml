@@ -311,7 +311,7 @@ SBMLExtensionRegistry::getSBasePluginCreators(const std::string& uri)
  * Get an SBasePluginCreator with the given extension point and URI pair
  */
 const SBasePluginCreatorBase* 
-SBMLExtensionRegistry::getSBasePluginCreator(const SBaseExtensionPoint& extPoint, const std::string &uri)
+SBMLExtensionRegistry::getSBasePluginCreator(const SBaseExtensionPoint& extPoint, const std::string& uri)
 {
   SBasePluginMapIter it = mSBasePluginMap.find(extPoint);
   if (it != mSBasePluginMap.end())

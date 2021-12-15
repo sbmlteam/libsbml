@@ -246,7 +246,7 @@ LayoutExtension::getURI(unsigned int sbmlLevel, unsigned int sbmlVersion, unsign
  * Returns the SBML level with the given URI of this package.
  */
 unsigned int 
-LayoutExtension::getLevel(const std::string &uri) const
+LayoutExtension::getLevel(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -265,7 +265,7 @@ LayoutExtension::getLevel(const std::string &uri) const
  * Returns the SBML version with the given URI of this package.
  */
 unsigned int 
-LayoutExtension::getVersion(const std::string &uri) const
+LayoutExtension::getVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -288,7 +288,7 @@ LayoutExtension::getVersion(const std::string &uri) const
  * Returns the package version with the given URI of this package.
  */
 unsigned int
-LayoutExtension::getPackageVersion(const std::string &uri) const
+LayoutExtension::getPackageVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -313,7 +313,7 @@ LayoutExtension::getPackageVersion(const std::string &uri) const
  * Null will be returned if the given uri is not defined in the corresponding package.
  */
 SBMLNamespaces*
-LayoutExtension::getSBMLExtensionNamespaces(const std::string &uri) const
+LayoutExtension::getSBMLExtensionNamespaces(const std::string& uri) const
 {
   LayoutPkgNamespaces* pkgns = NULL;
   if ( uri == getXmlnsL3V1V1())

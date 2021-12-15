@@ -105,7 +105,7 @@ public:
    *
    * @param compns the namespaces object for the package.
    */
-  CompSBasePlugin (const std::string &uri, const std::string &prefix, CompPkgNamespaces *compns);
+  CompSBasePlugin (const std::string& uri, const std::string &prefix, CompPkgNamespaces *compns);
 
 
   /**
