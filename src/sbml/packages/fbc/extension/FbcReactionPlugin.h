@@ -839,7 +839,7 @@ FbcReactionPlugin_setLowerFluxBound(FbcSBasePlugin_t * fbc, const char * LowerFl
 
 
 /**
- * Unsets the "upperFluxBound" attribute of the given FbcReactionPlugin_t structure.
+ * Unsets the "lowerFluxBound" attribute of the given FbcReactionPlugin_t structure.
  *
  * @param fbc the FbcReactionPlugin_t structure to unset.
  *
@@ -851,7 +851,7 @@ FbcReactionPlugin_setLowerFluxBound(FbcSBasePlugin_t * fbc, const char * LowerFl
  */
 LIBSBML_EXTERN
 int
-FbcReactionPlugin_unsetUpperFluxBound(FbcSBasePlugin_t * fbc);
+FbcReactionPlugin_unsetLowerFluxBound(FbcSBasePlugin_t * fbc);
 
 
 /**
