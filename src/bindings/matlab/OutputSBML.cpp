@@ -73,16 +73,16 @@ LIBSBML_CPP_NAMESPACE_USE
 //
 // OutputSBML.cpp
 
-SBMLDocument *
+SBMLDocument
 createSBMLDocument(GV& gv)
 {
-  SBMLDocument * sbmlDocument = new SBMLDocument(gv.details->getNamespaces());
+  SBMLDocument sbmlDocument = SBMLDocument(gv.details->getNamespaces());
 
   PkgMap pm = gv.details->getPackages();
   for (PkgIter it = pm.begin(); it != pm.end(); ++it)
   {
     const std::string& prefix = it->first;
-    sbmlDocument->setPackageRequired(prefix, getRequiredStatus(prefix, gv));
+    sbmlDocument.setPackageRequired(prefix, getRequiredStatus(prefix, gv));
   }
   return sbmlDocument;
 
@@ -223,7 +223,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   // we have not made persistent memory
   gv.freeMemory = false;
   FILE_CHAR pacFilename = NULL;
-  SBMLDocument *sbmlDocument;
+  SBMLDocument sbmlDocument;
   Model *sbmlModel;
   unsigned int outputVersion = 0;
 
@@ -253,7 +253,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     sbmlDocument = createSBMLDocument(gv);
 
     /* create a model within the document */
-    sbmlModel = sbmlDocument->createModel();
+    sbmlModel = sbmlDocument.createModel();
 
     StructureFields *sf = new StructureFields(sbmlModel, gv.modelArray, gv);
 
@@ -261,7 +261,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     sf->addAttributes(id);
 
 #ifdef USE_FBC
-    dealWithAnomalies(sbmlDocument, gv);
+    dealWithAnomalies(&sbmlDocument, gv);
 #endif
     /**********************************************************************
     * output the resulting model to specified file
@@ -271,7 +271,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     unsigned int nStatus = 0;
 #if USE_FILE_WCHAR
     {
-      char* sbml = writeSBMLToString(sbmlDocument);
+      char* sbml = writeSBMLToString(&sbmlDocument);
       if (sbml != NULL)
       {
         size_t len = strlen(sbml);
@@ -287,7 +287,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       }
     }
 #else
-    nStatus = writeSBML(sbmlDocument, pacFilename);
+    nStatus = writeSBML(&sbmlDocument, pacFilename);
 #endif
 
     if (nStatus != 1)
@@ -299,7 +299,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       mexPrintf("Document written\n");
     }
 
-    delete sbmlDocument;
+
     delete gv.details;
     delete sf;
   }

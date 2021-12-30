@@ -72,10 +72,10 @@ LIBSBML_CPP_NAMESPACE_USE
 ////////////////////////////////////////////////////////////////////////////
 //
 // TranslateSBML.cpp
-SBMLDocument*
+SBMLDocument
 readSBMLDocument(FILE_CHAR filename)
 {
-  SBMLDocument* doc = NULL;
+  SBMLDocument doc;
 #if USE_FILE_WCHAR
   if (endsWith(filename, ".xml") == 0)
   {
@@ -95,7 +95,7 @@ readSBMLDocument(FILE_CHAR filename)
     StringBuffer_appendChar(sb, 0);
 
     fclose(fp);
-    doc = readSBMLFromString(StringBuffer_getBuffer(sb));
+    doc = *(readSBMLFromString(StringBuffer_getBuffer(sb)));
     StringBuffer_free(sb);
   }
   else
@@ -103,18 +103,18 @@ readSBMLDocument(FILE_CHAR filename)
     size_t len = wcslen(filename);
     char* file = (char*) mxCalloc(len+1, sizeof(char));
     wcstombs(file, filename, len);
-    doc = readSBML(file);
+    doc = *readSBML(file);
     mxFree(file);
   }
 #else
-  doc = readSBML(filename); 
+  doc = *readSBML(filename); 
 #endif
 
   return doc;
 }
 
 void
-OutputErrorInformation(mxArray *plhs[], SBMLDocument* doc)
+OutputErrorInformation(mxArray *plhs[], SBMLDocument doc)
 {
   const char *error_struct[] =
   {
@@ -126,13 +126,13 @@ OutputErrorInformation(mxArray *plhs[], SBMLDocument* doc)
 
   mwSize errordims[2];
 
-  unsigned int totalerrors = doc->getNumErrors();
+  unsigned int totalerrors = doc.getNumErrors();
   errordims[0] = 1;
   errordims[1] = totalerrors;
   plhs[1] = mxCreateStructArray(2, errordims, 4, error_struct);
   for (unsigned int i = 0; i < totalerrors; ++i)
   {
-    const XMLError* e = (const XMLError*)(doc->getError(i));
+    const XMLError* e = (const XMLError*)(doc.getError(i));
     mxSetField(plhs[1], i, "line", CreateIntScalar(e->getLine()));
     mxSetField(plhs[1], i, "errorId", CreateIntScalar(e->getErrorId()));
     mxSetField(plhs[1], i, "severity", mxCreateString(e->getSeverityAsString().c_str()));
@@ -150,7 +150,7 @@ displayLine(const std::string& line)
 }
 
 void
-displayErrors(SBMLDocument* doc, unsigned int warnings, unsigned int errors, 
+displayErrors(SBMLDocument doc, unsigned int warnings, unsigned int errors, 
               unsigned int verboseFlag, unsigned int& listWarningsFlag)
 {
   std::ostringstream numErrs;
@@ -180,9 +180,9 @@ displayErrors(SBMLDocument* doc, unsigned int warnings, unsigned int errors,
 
     displayLine(numErrs.str());
   
-    for (unsigned int i = 0; i < doc->getNumErrors(); ++i)
+    for (unsigned int i = 0; i < doc.getNumErrors(); ++i)
     {
-      const XMLError* e = (const XMLError_t *) doc->getError(i);
+      const XMLError* e = (const XMLError_t *) doc.getError(i);
 
       if (listWarningsFlag == 1 || e->getSeverity() > 1)
       {
@@ -272,9 +272,9 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   FILE_CHAR pacFilename = validateInputOutputForTranslate(nlhs, plhs, nrhs, prhs, usingOctave, outputErrors,
     outputVersion, validateFlag, verboseFlag, gv);
 
-  SBMLDocument* sbmlDocument = readSBMLDocument(pacFilename);
+  SBMLDocument sbmlDocument = readSBMLDocument(pacFilename);
 
-  if (sbmlDocument->getModel() == NULL)
+  if (sbmlDocument.getModel() == NULL)
   {
    /* at this point - if there have been fatal errors 
     * dont try anything else
@@ -285,7 +285,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   {
     ///* check for errors at read */
     unsigned int errors = 0, warnings = 0;
-    unsigned int totalerrors = validateDocument(sbmlDocument, validateFlag, verboseFlag, errors, warnings);
+    unsigned int totalerrors = validateDocument(&sbmlDocument, validateFlag, verboseFlag, errors, warnings);
 
    ///*if errors occur report these - promt user as to whether to import the Model*/
     if (totalerrors != 0)
@@ -327,20 +327,20 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   
   if (readModel) 
   {
-    Model * sbmlModel = sbmlDocument->getModel();
-    gv.details = new ModelDetails(sbmlDocument, gv);
+    Model * sbmlModel = sbmlDocument.getModel();
+    gv.details = new ModelDetails(&sbmlDocument, gv);
     populatePackageLists(gv);
 
     std::string tc = "model";
     const std::string func = "TranslateSBML";
     StructureFields *sf = new StructureFields(tc, gv);
-    sf->createStructure(func, sbmlDocument);
+    sf->createStructure(func, &sbmlDocument);
 
 //    plhs[0] = sf->getStructure();
     mxArray* mxArgs[3];
     mxArgs[0] = mxDuplicateArray(sf->getStructure());
-    mxArgs[1] = CreateIntScalar(sbmlDocument->getLevel());
-    mxArgs[2] = CreateIntScalar(sbmlDocument->getVersion());
+    mxArgs[1] = CreateIntScalar(sbmlDocument.getLevel());
+    mxArgs[2] = CreateIntScalar(sbmlDocument.getVersion());
     mexCallMATLAB(1, &plhs[0], 3, mxArgs, "addLevelVersion");
     mxDestroyArray(mxArgs[0]);
     mxDestroyArray(mxArgs[1]);
@@ -358,8 +358,5 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     plhs[0] = mxCreateStructArray(0, 0, 0, NULL);
   }
-
-  // need to free the document!
-  delete sbmlDocument;
 }
 
