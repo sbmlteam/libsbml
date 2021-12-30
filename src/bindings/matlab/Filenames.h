@@ -24,9 +24,9 @@
     #define uint16_t unsigned short
 #endif
 
-FILE_CHAR readUnicodeString(const mxArray *prhs, mwSize length);
+FILE_CHAR readUnicodeString(const mxArray *prhs, mwSize length, GV& gv);
 
-FILE_CHAR readUnicodeStringFromArrays(mxArray *mxFilename[2]);
+FILE_CHAR readUnicodeStringFromArrays(mxArray *mxFilename[2], GV& gv);
 
 #if USE_FILE_WCHAR
     int endsWith(const wchar_t* fileName, const char* ext);

@@ -17,7 +17,7 @@
 #endif
 
 
-FILE_CHAR readUnicodeString(const mxArray *prhs, mwSize length)
+FILE_CHAR readUnicodeString(const mxArray *prhs, mwSize length, GV& gv)
 {
 #ifdef USE_OCTAVE
   char* ansii = (char *) mxCalloc(length, sizeof(char));
@@ -47,7 +47,7 @@ FILE_CHAR readUnicodeString(const mxArray *prhs, mwSize length)
   {
     reportError("readUnicodeString", 
       "This string uses characters that cannot be "
-      "expressed in UTF8, please rename the file.");
+      "expressed in UTF8, please rename the file.", gv);
   }
 
   return utf8;
@@ -58,14 +58,14 @@ FILE_CHAR readUnicodeString(const mxArray *prhs, mwSize length)
 }
 
 
-FILE_CHAR readUnicodeStringFromArrays(mxArray *mxFilename[2])
+FILE_CHAR readUnicodeStringFromArrays(mxArray *mxFilename[2], GV& gv)
 
 {
   mwSize nBuflen = (mxGetM(mxFilename[0])*mxGetN(mxFilename[0])+1);
-  FILE_CHAR pacTempString1 = readUnicodeString(mxFilename[0],nBuflen);
+  FILE_CHAR pacTempString1 = readUnicodeString(mxFilename[0],nBuflen, gv);
 
   mwSize nBufferLen = (mxGetM(mxFilename[1])*mxGetN(mxFilename[1])+1);
-  FILE_CHAR  pacTempString2 = readUnicodeString(mxFilename[1],nBufferLen);
+  FILE_CHAR  pacTempString2 = readUnicodeString(mxFilename[1],nBufferLen, gv);
   
 #if USE_FILE_WCHAR
   FILE_CHAR  pacFilename = (wchar_t *) mxCalloc(nBufferLen+nBuflen, sizeof(wchar_t));
@@ -127,7 +127,7 @@ browseForFilename(GV& gv)
   }
 
   /* get the filename returned */
-  filename = readUnicodeStringFromArrays(mxFilename);
+  filename = readUnicodeStringFromArrays(mxFilename, gv);
 
   mxDestroyArray(mxExt[0]);
   mxDestroyArray(mxFilename[1]);
@@ -149,7 +149,7 @@ FILE_CHAR validateFilenameForOutput(int nrhs, const mxArray *prhs[], GV& gv)
     }
 
     size_t nBuflen = (mxGetM(prhs[1])*mxGetN(prhs[1])+1);
-    filename = readUnicodeString(prhs[1], (mwSize)nBuflen);
+    filename = readUnicodeString(prhs[1], (mwSize)nBuflen, gv);
   }
   else
   {
@@ -204,7 +204,7 @@ getGivenFilename(const mxArray* prhs[], GV& gv)
 {
   FILE_CHAR filename = NULL;
   size_t nBufferLen  = mxGetNumberOfElements (prhs[0]) + 1;
-  filename = readUnicodeString(prhs[0], nBufferLen);
+  filename = readUnicodeString(prhs[0], nBufferLen, gv);
   if (filename == NULL)
   {
     reportError("TranslateSBML:inputArguments:filename", 
