@@ -141,12 +141,14 @@ foreach(mFile
 
 endforeach()
 
+# add test files
 
-if (WITH_CHECK)
+FILE(GLOB testfiles ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/test/*.m)
+FILE(GLOB testxmlfiles ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/test/test-data/*.xml)
 
-## take out octave tests for now
-	
-endif()
+install(FILES testfiles DESTINATION ${OCTAVE_PACKAGE_INSTALL_DIR}/test )
+install(FILES testxmlfiles DESTINATION ${OCTAVE_PACKAGE_INSTALL_DIR}/test/test-data )
+
 
 endif()
 
