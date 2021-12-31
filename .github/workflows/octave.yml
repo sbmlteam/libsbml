@@ -54,9 +54,9 @@ jobs:
       run: cmake -E tar cvzf ../octave_${{ matrix.os }}.tar.gz .
 
     - name: Test
-      working-directory: ${{runner.workspace}}/build/instdir/lib/octave/site/oct/x86_64-pc-linux-gnu
+      working-directory: ${{runner.workspace}}/build/instdir/lib/octave/site/oct/x86_64-pc-linux-gnu/test
       shell: bash
-      run: LD_LIBRARY_PATH=../../../.. octave --eval "../test/runTests.m"
+      run: LD_LIBRARY_PATH=../../../.. octave --eval "../runTests.m"
 
     - name: Upload
       uses: actions/upload-artifact@v1

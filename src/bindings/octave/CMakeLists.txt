@@ -143,11 +143,23 @@ endforeach()
 
 # add test files
 
-FILE(GLOB testfiles ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/test/*.m)
-FILE(GLOB testxmlfiles ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/test/test-data/*.xml)
+foreach(testfiles
+  runTests.m
+  testBinding.m
+  testReadFromFile1.m
+)
 
-install(FILES testfiles DESTINATION ${OCTAVE_PACKAGE_INSTALL_DIR}/test )
-install(FILES testxmlfiles DESTINATION ${OCTAVE_PACKAGE_INSTALL_DIR}/test/test-data )
+	install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/test/${testfiles} DESTINATION ${OCTAVE_PACKAGE_INSTALL_DIR}/test )
+
+endforeach()
+
+foreach(testxmlfiles
+  l1v1-branch.xml
+)
+
+	install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/test/test-data/${testxmlfiles} DESTINATION ${OCTAVE_PACKAGE_INSTALL_DIR}/test/test-data )
+
+endforeach()
 
 
 endif()
