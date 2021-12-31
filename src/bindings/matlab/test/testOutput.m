@@ -39,7 +39,7 @@ if exist('OCTAVE_VERSION')
   ff = dir('test-data');
   j = 1;
   for i=1:length(ff)
-    if (ff(i).isfolder == 0 && ~isempty(strfind(ff(i).name, '.xml')))
+    if (ff(i).isdir == 0 && ~isempty(strfind(ff(i).name, '.xml')))
       files(j) = ff(i);
       j = j+1;
     end;
