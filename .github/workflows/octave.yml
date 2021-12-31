@@ -56,7 +56,7 @@ jobs:
     - name: Test
       working-directory: ${{runner.workspace}}/build/instdir/lib/octave/site/oct/x86_64-pc-linux-gnu/test
       shell: bash
-      run: LD_LIBRARY_PATH=../../../.. octave --eval "runTests.m"
+      run: LD_LIBRARY_PATH=../../../.. octave --eval "runTests()"
 
     - name: Upload
       uses: actions/upload-artifact@v1
