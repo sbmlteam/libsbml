@@ -53,7 +53,7 @@ disp('Testing output model');
 fail = 0;
 test = 0;
 for i=1:length(files)
-  disp(sprintf('File: %s', files(i).name);
+  disp(sprintf('File: %s', files(i).name));
   if isInGroup(files(i).name, 'expected') == 0 || ...
           isInGroup(files(i).name, 'readerrors')
         disp(sprintf('Skipping %s', files(i).name));
@@ -224,7 +224,7 @@ end;
 
 
 disp ('************************************');
-disp('Overall tests:');
+disp('Overall tests in testOutput:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', fail));
 disp(sprintf('Pass rate: %d%%\n', ((test-fail)/test)*100));
@@ -269,7 +269,7 @@ catch
 end;
 
 disp ('************************************');
-disp('Overall tests:');
+disp('Overall invalid tests in testOutput:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', invalidFail));
 disp(sprintf('Pass rate: %d%%\n', ((test-invalidFail)/test)*100));
