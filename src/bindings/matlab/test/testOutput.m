@@ -31,15 +31,15 @@ function fail = testOutput(outdir, in_installer, fbcEnabled)
 % and also available online as http://sbml.org/software/sbmltoolbox/license.html
 %----------------------------------------------------------------------- -->
 
-if (~isdir(outdir))
-mkdir (outdir);
+if (~isfolder(outdir))
+  mkdir (outdir);
 end;
 
 if exist('OCTAVE_VERSION')
   ff = dir('test-data');
   j = 1;
   for i=1:length(ff)
-    if (ff(i).isdir == 0 && ~isempty(strfind(ff(i).name, '.xml')))
+    if (ff(i).isfolder == 0 && ~isempty(strfind(ff(i).name, '.xml')))
       files(j) = ff(i);
       j = j+1;
     end;
@@ -53,7 +53,7 @@ disp('Testing output model');
 fail = 0;
 test = 0;
 for i=1:length(files)
-files(i).name
+  disp(sprintf('File: %s', files(i).name);
   if isInGroup(files(i).name, 'expected') == 0 || ...
           isInGroup(files(i).name, 'readerrors')
         disp(sprintf('Skipping %s', files(i).name));
