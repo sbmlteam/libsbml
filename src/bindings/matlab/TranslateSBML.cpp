@@ -199,11 +199,11 @@ displayErrors(SBMLDocument& doc, unsigned int warnings, unsigned int errors,
 }
 
 unsigned int 
-validateDocument(SBMLDocument* doc, unsigned int validateFlag, unsigned int verboseFlag,
+validateDocument(SBMLDocument& doc, unsigned int validateFlag, unsigned int verboseFlag,
                  unsigned int& errors, unsigned int& warnings)
 {
   /* check for errors at read */
-  unsigned int totalerrors = doc->getNumErrors();
+  unsigned int totalerrors = doc.getNumErrors();
 
   if (validateFlag > 0)
   {
@@ -211,12 +211,12 @@ validateDocument(SBMLDocument* doc, unsigned int validateFlag, unsigned int verb
     {
       if (!answerYesToQuestion("There are errors found during reading. Do you want to continue validation? Enter y/n "))
       {
-        totalerrors += doc->checkConsistency();
+        totalerrors += doc.checkConsistency();
       }
     }
     else
     {
-      totalerrors += doc->checkConsistency();
+      totalerrors += doc.checkConsistency();
     }
   }
 
@@ -225,7 +225,7 @@ validateDocument(SBMLDocument* doc, unsigned int validateFlag, unsigned int verb
   */
   for (unsigned int i = 0; i < totalerrors; ++i)
   {
-    const XMLError * e = (const XMLError *) doc->getError(i);
+    const XMLError * e = (const XMLError *) doc.getError(i);
     if (e->getSeverity() < 2)
     {
       warnings = warnings + 1;
@@ -285,7 +285,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   {
     ///* check for errors at read */
     unsigned int errors = 0, warnings = 0;
-    unsigned int totalerrors = validateDocument(&sbmlDocument, validateFlag, verboseFlag, errors, warnings);
+    unsigned int totalerrors = validateDocument(sbmlDocument, validateFlag, verboseFlag, errors, warnings);
 
    ///*if errors occur report these - promt user as to whether to import the Model*/
     if (totalerrors != 0)
