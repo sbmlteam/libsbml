@@ -114,7 +114,7 @@ readSBMLDocument(FILE_CHAR filename)
 }
 
 void
-OutputErrorInformation(mxArray *plhs[], SBMLDocument doc)
+OutputErrorInformation(mxArray *plhs[], SBMLDocument& doc)
 {
   const char *error_struct[] =
   {
