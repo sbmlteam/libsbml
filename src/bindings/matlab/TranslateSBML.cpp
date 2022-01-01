@@ -150,7 +150,7 @@ displayLine(const std::string& line)
 }
 
 void
-displayErrors(SBMLDocument doc, unsigned int warnings, unsigned int errors, 
+displayErrors(SBMLDocument& doc, unsigned int warnings, unsigned int errors, 
               unsigned int verboseFlag, unsigned int& listWarningsFlag)
 {
   std::ostringstream numErrs;
