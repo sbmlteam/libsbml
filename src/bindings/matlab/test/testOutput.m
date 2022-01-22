@@ -33,9 +33,10 @@ function fail = testOutput(outdir, in_installer, fbcEnabled)
 
 if (~isfolder(outdir))
   mkdir (outdir);
-end;
-
+end
+is_octave = 0;
 if exist('OCTAVE_VERSION')
+  is_octave = 1;
   ff = dir('test-data');
   j = 1;
   for i=1:length(ff)
@@ -337,9 +338,13 @@ expected_files = { ...
 readerrors_files = {'readerror.xml', 'fatal.xml'};
 fbc_files = {'fbc.xml', 'fbcV2.xml', 'fbcL3V2V1.xml', 'fbcL3V2V2.xml'};
 
-
-group = eval(group_name + "_files");
-
+disp("IsInGroup")
+if is_octave == 0
+    group = eval(group_name + "_files");
+else
+    mygrp = strcat(group_name, "_files");
+    group = eval(mygrp);
+end
 if sum(ismember(group, filename)) == 1
   isInGroup = 1;
 else
