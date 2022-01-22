@@ -20,6 +20,12 @@ jobs:
     - name: Checkout submodules
       run: git submodule update --init --recursive
       
+    - name: update 
+      if: matrix.os == 'ubuntu-latest'
+      shell: bash
+      run: |
+           sudo apt-get update
+
     - name: add linux dependencies
       if: matrix.os == 'ubuntu-latest'
       shell: bash
