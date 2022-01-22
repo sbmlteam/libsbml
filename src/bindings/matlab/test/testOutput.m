@@ -343,7 +343,7 @@ if is_octave == 0
     group = eval(group_name + "_files");
 else
     mygrp = strcat(group_name, "_files");
-    group = eval(mygrp)
+    group = eval(mygrp);
 end
 if sum(ismember(group, filename)) == 1
   isInGroup = 1;
