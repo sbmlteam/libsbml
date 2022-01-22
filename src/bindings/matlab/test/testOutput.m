@@ -55,10 +55,10 @@ fail = 0;
 test = 0;
 for i=1:length(files)
   disp(sprintf('File: %s', files(i).name));
-  if isInGroup(files(i).name, 'expected') == 0 || ...
-          isInGroup(files(i).name, 'readerrors')
+  if isInGroup(files(i).name, 'expected', is_octave) == 0 || ...
+          isInGroup(files(i).name, 'readerrors', is_octave)
         disp(sprintf('Skipping %s', files(i).name));
-  elseif ~fbcEnabled && isInGroup(files(i).name, 'fbc')
+  elseif ~fbcEnabled && isInGroup(files(i).name, 'fbc', is_octave)
         disp(sprintf('Skipping %s', files(i).name));
     %donothing
   else
@@ -280,7 +280,7 @@ fail = fail + invalidFail;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % unexpected files cause problems
 
-function isInGroup = isInGroup(filename, group_name)
+function isInGroup = isInGroup(filename, group_name, is_octave)
 
 expected_files = { ...
 'algebraicRules.xml', ...
@@ -343,7 +343,7 @@ if is_octave == 0
     group = eval(group_name + "_files");
 else
     mygrp = strcat(group_name, "_files");
-    group = eval(mygrp);
+    group = eval(mygrp)
 end
 if sum(ismember(group, filename)) == 1
   isInGroup = 1;
