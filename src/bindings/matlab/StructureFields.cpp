@@ -1736,7 +1736,11 @@ StructureFields::readString(const std::string& name, unsigned int index, unsigne
   mxField = mxGetField(mxStructure, index, name.c_str());
   if (mxField != NULL)
   {
+#ifndef USE_OCTAVE
     value = mxArrayToUTF8String(mxField);
+#else
+    value = mxArrayToString(mxField);
+#endif
     if (value != NULL)
     {
       nStatus = 0;
