@@ -338,7 +338,6 @@ expected_files = { ...
 readerrors_files = {'readerror.xml', 'fatal.xml'};
 fbc_files = {'fbc.xml', 'fbcV2.xml', 'fbcL3V2V1.xml', 'fbcL3V2V2.xml'};
 
-disp("IsInGroup")
 if is_octave == 0
     group = eval(group_name + "_files");
 else
