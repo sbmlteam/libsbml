@@ -1736,7 +1736,7 @@ StructureFields::readString(const std::string& name, unsigned int index, unsigne
   mxField = mxGetField(mxStructure, index, name.c_str());
   if (mxField != NULL)
   {
-    value = mxArrayToString(mxField);
+    value = mxArrayToUTF8String(mxField);
     if (value != NULL)
     {
       nStatus = 0;
