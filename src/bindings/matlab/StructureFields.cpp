@@ -1585,15 +1585,6 @@ StructureFields::getRuleTypeCode(SBase* base)
   return retvalue;
 }
 
-void
-displayLine(const std::string& line)
-{
-  mxArray* mxErrors[1];
-  mxErrors[0] = mxCreateString(line.c_str());
-  mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
-  mxDestroyArray(mxErrors[0]);
-}
-
 
 char * 
 StructureFields::convertMathFormula(const std::string& pacFormula)

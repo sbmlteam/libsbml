@@ -140,15 +140,6 @@ OutputErrorInformation(mxArray *plhs[], SBMLDocument* doc)
   }
 }
 
-void 
-displayLine(const std::string& line)
-{
-  mxArray* mxErrors[1];
-  mxErrors[0] = mxCreateString(line.c_str());
-  mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
-  mxDestroyArray(mxErrors[0]);
-}
-
 void
 displayErrors(SBMLDocument* doc, unsigned int warnings, unsigned int errors, 
               unsigned int verboseFlag, unsigned int& listWarningsFlag)

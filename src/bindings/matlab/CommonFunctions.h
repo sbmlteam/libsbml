@@ -9,6 +9,8 @@ void FreeMem(GV& gv);
 
 void reportError(const std::string&id, const std::string& message, GV& gv);
 
+void displayLine(const std::string& line);
+
 mxArray * CreateIntScalar (int nValue);
 
 FieldType_t getFieldType(const char* type);
