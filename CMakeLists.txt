@@ -315,6 +315,11 @@ option(WITH_XERCES   "Use the Xerces XML parser library."    OFF)
 # Use C++ namespace.
 option(WITH_CPP_NAMESPACE "Use a C++ namespace for libSBML."   OFF)
 
+option(WITH_THREADSAFE_PARSER "Use a threadsafe parser."   OFF)
+if(WITH_THREADSAFE_PARSER)
+    add_definitions(-DLIBSBML_WITH_THREADSAFE_PARSER=1)
+endif()
+
 # Generate documentation.
 option(WITH_DOXYGEN  "Generate documentation for libSBML using Doxygen."  OFF )
 # marks as advanced, so as to hide documentation generation

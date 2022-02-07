@@ -91,6 +91,9 @@
 
 #include <sstream>
 #include <set>
+#ifdef LIBSBML_WITH_THREADSAFE_PARSER
+#include <mutex>
+#endif
 
 LIBSBML_CPP_NAMESPACE_USE
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -317,6 +320,9 @@ LIBSBML_CPP_NAMESPACE_END
 
   int sbml_yylex(void);
   L3Parser* l3p = NULL;
+#ifdef LIBSBML_WITH_THREADSAFE_PARSER
+  std::mutex l3p_mutex;
+#endif
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -1500,6 +1506,9 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
     L3ParserSettings l3ps = l3p->getDefaultL3ParserSettings();
     return SBML_parseL3FormulaWithSettings(formula, &l3ps);
   }
+#ifdef LIBSBML_WITH_THREADSAFE_PARSER
+    const std::lock_guard<std::mutex> lock(l3p_mutex);
+#endif
   l3p->clear();
   l3p->setInput(formula);
   l3p->model = settings->getModel();
