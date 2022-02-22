@@ -74,8 +74,8 @@ if (NOT EXISTS "${PYTHON_EXECUTABLE}")
 endif()
 
 
-set(JAVA_COMPATIBILITY "1.6" CACHE STRING
-  "Specify the source and target compatibility for the libsbml Java bindings. Leave empty to remove the parameter altogether.")
+set(JAVA_COMPATIBILITY "" CACHE STRING
+  "Specify the source and target compatibility for the libsbml Java bindings (for example 1.7). Leave empty to remove the parameter altogether.")
 
 
 ####################################################################
