@@ -1358,7 +1358,7 @@ if (WITH_LIBXML)
 file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "Requires.private: libxml-2.0 >= 2.6.22\n")
 endif()
 
-if (UNIX)
+if (UNIX OR MINGW)
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc"
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 endif()
