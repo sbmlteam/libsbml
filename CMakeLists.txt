@@ -31,18 +31,8 @@
 #
 ###############################################################################
 
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.12...3.19)
 project(libsbml)
-
-if(POLICY CMP0054)
-    cmake_policy(SET CMP0054 NEW)
-endif()
-
-if(POLICY CMP0058)
-    cmake_policy(SET CMP0058 OLD)
-endif()
-
-
 
 set(LIBSBML_ROOT_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}" CACHE PATH
     "Path to the libSBML root source directory")
@@ -134,6 +124,7 @@ add_custom_target(check COMMAND ${CMAKE_MAKE_PROGRAM} test)
 # cpack -G zip|deb|rpm|dmg|nsis
 #
 
+set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_NO_WARNINGS ON)
 include(InstallRequiredSystemLibraries)
 
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "An API library for reading/writing/manipulating SBML.")
@@ -165,6 +156,10 @@ else()
 endif()
 
 include(CPack)
+
+
+# add local modules to module path
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules;${CMAKE_MODULE_PATH}")
 
 
 ###############################################################################
@@ -423,64 +418,15 @@ set(LIBSBML_XML_LIBRARY_INCLUDE)
 set(LIBSBML_XML_LIBRARY_LIBS)
 
 if(WITH_EXPAT)
-  if (NOT LIBEXPAT_LIBRARY)
-    find_library(LIBEXPAT_LIBRARY
-        NAMES libexpat.lib expat
-        PATHS ${LIBSBML_DEPENDENCY_DIR}/lib
-              /usr/lib /usr/local/lib
-              /usr/lib/i386-linux-gnu
-        DOC "The file name of the Expat library."
-                )
-
-  endif()
-
-  if (NOT LIBEXPAT_INCLUDE_DIR)
-    find_path(LIBEXPAT_INCLUDE_DIR
-        NAMES expat.h
-        PATHS ${LIBSBML_DEPENDENCY_DIR}/include
-              /usr/include /usr/local/include
-              ${CMAKE_OSX_SYSROOT}/usr/include
-        DOC "The directory containing the Expat include files."
-              )
-  endif()
+    find_package(EXPAT REQUIRED)
 
     add_definitions( -DUSE_EXPAT )
     list(APPEND SWIG_EXTRA_ARGS -DUSE_EXPAT)
 
     set(LIBSBML_XML_LIBRARY "expat")
-    set(LIBSBML_XML_LIBRARY_INCLUDE ${LIBEXPAT_INCLUDE_DIR})
-    set(LIBSBML_XML_LIBRARY_LIBS ${LIBEXPAT_LIBRARY})
+    set(LIBSBML_XML_LIBRARY_INCLUDE {$EXPAT_INCLUDE_DIR})
+    set(LIBSBML_XML_LIBRARY_LIBS EXPAT::EXPAT)
 
-    if(NOT EXISTS "${LIBEXPAT_INCLUDE_DIR}/expat.h")
-        message(FATAL_ERROR
-"The include directory specified for Expat appears to be invalid.
-It should contain the file expat.h, but it does not.")
-    else()
-        if (LIBEXPAT_INCLUDE_DIR AND EXISTS "${LIBEXPAT_INCLUDE_DIR}/expat.h")
-            file(STRINGS "${LIBEXPAT_INCLUDE_DIR}/expat.h" expat_version_str
-                 REGEX "^#[\t ]*define[\t ]+XML_(MAJOR|MINOR|MICRO)_VERSION[\t ]+[0-9]+$")
-
-            unset(EXPAT_VERSION_STRING)
-            foreach(VPART MAJOR MINOR MICRO)
-                foreach(VLINE ${expat_version_str})
-                    if(VLINE MATCHES "^#[\t ]*define[\t ]+XML_${VPART}_VERSION[\t ]+([0-9]+)$")
-                        set(EXPAT_VERSION_PART "${CMAKE_MATCH_1}")
-                        if(EXPAT_VERSION_STRING)
-                            set(EXPAT_VERSION_STRING "${EXPAT_VERSION_STRING}.${EXPAT_VERSION_PART}")
-                        else()
-                            set(EXPAT_VERSION_STRING "${EXPAT_VERSION_PART}")
-                        endif()
-                    endif()
-                endforeach()
-            endforeach()
-
-            if (EXPAT_VERSION_STRING VERSION_LESS 1.95.9)
-                     message(FATAL_ERROR
-"Expat version ${EXPAT_VERSION_STRING} is not compatible with libSBML.
-Please use a version newer than 1.95.8 or an alternate XML parser.")
-            endif()
-        endif()
-    endif()
 endif(WITH_EXPAT)
 
 
@@ -841,9 +787,6 @@ endif(WITH_CSHARP)
 #
 
 if(WITH_CHECK)
-
-    # we do use tests, that require 2.8.4
-    cmake_minimum_required(VERSION 2.8.4)
 
     # set test timeout to 3000 as the normal time limit is not sufficient
     # for the comp tests

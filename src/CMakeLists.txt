@@ -407,8 +407,7 @@ if(WITH_EXPAT)
         sbml/xml/ExpatHandler.h
         sbml/xml/ExpatParser.h
     )
-    set(LIBSBML_LIBS ${LIBSBML_LIBS} ${LIBEXPAT_LIBRARY})
-    include_directories(${LIBEXPAT_INCLUDE_DIR})
+    set(LIBSBML_LIBS ${LIBSBML_LIBS} EXPAT::EXPAT)
 
 endif(WITH_EXPAT)
 
