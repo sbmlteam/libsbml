@@ -424,7 +424,7 @@ if(WITH_EXPAT)
     list(APPEND SWIG_EXTRA_ARGS -DUSE_EXPAT)
 
     set(LIBSBML_XML_LIBRARY "expat")
-    set(LIBSBML_XML_LIBRARY_INCLUDE {$EXPAT_INCLUDE_DIR})
+    set(LIBSBML_XML_LIBRARY_INCLUDE ${EXPAT_INCLUDE_DIR})
     set(LIBSBML_XML_LIBRARY_LIBS EXPAT::EXPAT)
 
 endif(WITH_EXPAT)
@@ -1073,6 +1073,7 @@ else(UNIX)
 
             endforeach(flag_var)
         add_definitions( -D_MT)
+        set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
         endif(WITH_STATIC_RUNTIME)
 
         # on VS enable multiprocessor build
