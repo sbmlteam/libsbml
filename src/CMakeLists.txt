@@ -243,7 +243,7 @@ macro(ADD_FUNCTION directory)
 
     set(prefix "sbml/")
 
-    if ("${directory}" STREQUAL "sbml")
+    if (directory STREQUAL "sbml")
         set(prefix "")
     endif()
 
@@ -259,8 +259,8 @@ macro(ADD_FUNCTION directory)
     # remove them, but that keeps their content from being found in searches, etc.
     # in IDEs such as VisualStudio.
     foreach(tempFile ${temp})
-        if ("${directory}" STREQUAL "validator/constraints")
-            if ("${tempFile}" MATCHES ".*Constraints.cpp")
+        if (directory STREQUAL "validator/constraints")
+            if (tempFile MATCHES ".*Constraints.cpp")
               set_source_files_properties(
                   ${tempFile}
                   PROPERTIES HEADER_FILE_ONLY true
@@ -268,7 +268,7 @@ macro(ADD_FUNCTION directory)
 #              list(REMOVE_ITEM temp "${tempFile}")
             endif()
         endif()
-        if ("${tempFile}" MATCHES ".*.cxx$")
+        if (tempFile MATCHES ".*.cxx$")
           set_source_files_properties(
               ${tempFile}
               PROPERTIES HEADER_FILE_ONLY true
