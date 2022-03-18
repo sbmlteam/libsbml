@@ -43,7 +43,7 @@ else()
   set (TEST_LIB multi)
 endif()
 
-set(TEST_LIBSBML_LIBS ${TEST_LIB} ${LIBCHECK_LIBRARY})
+set(TEST_LIBSBML_LIBS ${TEST_LIB} CHECK::CHECK)
 
 set(TEST_FILES 
     ${CPP_FILES} 
@@ -54,7 +54,7 @@ set(TEST_FILES
 include_directories(BEFORE ${LIBSBML_ROOT_SOURCE_DIR}/src)
 include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 
-include_directories(${LIBCHECK_INCLUDE_DIR})
+
 add_executable(test_multi_validator ${TEST_FILES})
 target_link_libraries(test_multi_validator ${TEST_LIBSBML_LIBS})
 add_test(test_multi_validator_run ${CMAKE_CURRENT_BINARY_DIR}/test_multi_validator ${CMAKE_CURRENT_SOURCE_DIR})
