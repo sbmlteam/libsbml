@@ -292,19 +292,16 @@ option (LIBSBML_SHARED_VERSION
 "Include version information into the compiled libSBML shared library." ON)
 mark_as_advanced(LIBSBML_SHARED_VERSION)
 
-# Enable the generation of unit tests. If enabled, all test runners
-# will be created and can be run with "make test" or ctest.
-# This won't work in Visual Studio 2003, so we disable this option there.
-#
-if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio 6" AND NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio 7")
-    option(WITH_CHECK
-"Compile the libSBML unit tests. (You can then run the tests with the
-command 'make test' or 'ctest'.)" OFF)
+# initial value for xml2 parser will default to ON, 
+# unless expat or xerces are chosen
+set(WITH_LIBXML_INITIAL ON)
+if (WITH_EXPAT OR WITH_XERCES)
+set(WITH_LIBXML_INITIAL OFF)
 endif()
 
 # Choose the xml parsing library to be used.
 option(WITH_EXPAT    "Use the Expat XML parser library."     OFF)
-option(WITH_LIBXML   "Use the libxml2 XML parser library."   ON )
+option(WITH_LIBXML   "Use the libxml2 XML parser library."   ${WITH_LIBXML_INITIAL})
 option(WITH_XERCES   "Use the Xerces XML parser library."    OFF)
 
 # Use C++ namespace.
