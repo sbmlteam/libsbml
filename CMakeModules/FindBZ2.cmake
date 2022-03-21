@@ -70,6 +70,11 @@ it does not.")
     endif()
 endif()
 
+if (LIBBZ_INCLUDE_DIR AND EXISTS "${LIBBZ_INCLUDE_DIR}/bzlib.h")
+    file(STRINGS "${LIBBZ_INCLUDE_DIR}/bzlib.h" BZLIB_H REGEX "bzip2/libbzip2 version [0-9]+\\.[^ ]+ of [0-9]+ ")
+    string(REGEX REPLACE ".* bzip2/libbzip2 version ([0-9]+\\.[^ ]+) of [0-9]+ .*" "\\1" LIBBZ_VERSION "${BZLIB_H}")
+endif ()
+
 if(NOT TARGET BZ2::BZ2)
   add_library(BZ2::BZ2 UNKNOWN IMPORTED)
   set_target_properties(BZ2::BZ2 PROPERTIES
@@ -83,5 +88,9 @@ include(FindPackageHandleStandardArgs)
 
 find_package_handle_standard_args(
     BZ2
+    VERSION_VAR   LIBBZ_VERSION
     REQUIRED_VARS LIBBZ_LIBRARY LIBBZ_INCLUDE_DIR
 )
+
+mark_as_advanced(LIBBZ_VERSION)
+
