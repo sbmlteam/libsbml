@@ -311,8 +311,7 @@ if(WITH_BZIP2)
         sbml/compress/bzfstream.h
         sbml/compress/bzfstream.cpp
         )
-  include_directories(${LIBBZ_INCLUDE_DIR})
-  set(LIBSBML_LIBS ${LIBSBML_LIBS} ${LIBBZ_LIBRARY})
+  set(LIBSBML_LIBS ${LIBSBML_LIBS} BZ2::BZ2)
 
 endif()
 
@@ -345,8 +344,7 @@ set(COMPRESS_SOURCES ${COMPRESS_SOURCES}
         )
     endif()
 
-    include_directories(${LIBZ_INCLUDE_DIR})
-    set(LIBSBML_LIBS ${LIBSBML_LIBS} ${LIBZ_LIBRARY})
+    set(LIBSBML_LIBS ${LIBSBML_LIBS} ZLIB::ZLIB)
 
 endif()
 
@@ -425,8 +423,7 @@ if(WITH_LIBXML)
         sbml/xml/LibXMLParser.h
         sbml/xml/LibXMLTranscode.h
     )
-    set(LIBSBML_LIBS ${LIBSBML_LIBS} ${LIBXML_LIBRARY})
-    include_directories(${LIBXML_INCLUDE_DIR})
+    set(LIBSBML_LIBS ${LIBSBML_LIBS} LIBXML::LIBXML)
 
 endif(WITH_LIBXML)
 
@@ -445,36 +442,13 @@ if(WITH_XERCES)
         sbml/xml/XercesTranscode.h
     )
 
-    set(LIBSBML_LIBS ${LIBSBML_LIBS} ${XERCES_LIBRARY})
-    include_directories(${XERCES_INCLUDE_DIR})
+    set(LIBSBML_LIBS ${LIBSBML_LIBS} XERCES::XERCES)
 
 
 endif(WITH_XERCES)
 
 source_group(xml FILES ${XML_SOURCES})
 set(LIBSBML_SOURCES ${LIBSBML_SOURCES} ${XML_SOURCES})
-
-###############################################################################
-#
-# this is a directory level operation!
-#
-if (MSVC)
-if (WITH_STATIC_RUNTIME)
-    foreach(flag_var
-        CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
-        CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO
-        CMAKE_C_FLAGS CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELEASE
-        CMAKE_C_FLAGS_MINSIZEREL CMAKE_C_FLAGS_RELWITHDEBINFO)
-
-        if(${flag_var} MATCHES "/MD")
-            string(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
-        endif(${flag_var} MATCHES "/MD")
-
-
-    endforeach(flag_var)
-    add_definitions( -D_MT)
-endif(WITH_STATIC_RUNTIME)
-endif(MSVC)
 
 ###############################################################################
 #

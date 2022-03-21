@@ -418,6 +418,7 @@ set(LIBSBML_XML_LIBRARY_INCLUDE)
 set(LIBSBML_XML_LIBRARY_LIBS)
 
 if(WITH_EXPAT)
+  
     find_package(EXPAT REQUIRED)
 
     add_definitions( -DUSE_EXPAT )
@@ -425,7 +426,7 @@ if(WITH_EXPAT)
 
     set(LIBSBML_XML_LIBRARY "expat")
     set(LIBSBML_XML_LIBRARY_INCLUDE ${EXPAT_INCLUDE_DIR})
-    set(LIBSBML_XML_LIBRARY_LIBS EXPAT::EXPAT)
+    set(LIBSBML_XML_LIBRARY_LIBS ${EXPAT_LIBRARY})
 
 endif(WITH_EXPAT)
 
@@ -436,28 +437,9 @@ endif(WITH_EXPAT)
 #
 set(USE_LIBXML OFF)
 if(WITH_LIBXML)
-  if (NOT LIBXML_LIBRARY)
-    find_library(LIBXML_LIBRARY
-        NAMES libxml2.lib xml2
-        PATHS /usr/lib /usr/local/lib
-              ${LIBSBML_DEPENDENCY_DIR}/lib
-        DOC "The file name of the libxml2 library."
-                )
-  endif()
 
-  if (NOT LIBXML_INCLUDE_DIR)
-    find_path(LIBXML_INCLUDE_DIR
-        NAMES libxml/parser.h
-        PATHS ${LIBSBML_DEPENDENCY_DIR}/include
-              /usr/include /usr/local/include
-              /usr/include/libxml2
-              ${CMAKE_OSX_SYSROOT}/usr/include/libxml2
-              /usr/local/include/libxml2
-
-        DOC "The directory containing the libxml2 include files."
-              )
-  endif()
-
+  find_package(LIBXML REQUIRED)
+  
   add_definitions( -DUSE_LIBXML )
   list(APPEND SWIG_EXTRA_ARGS -DUSE_LIBXML)
   set(USE_LIBXML ON)
@@ -466,11 +448,6 @@ if(WITH_LIBXML)
   set(LIBSBML_XML_LIBRARY_INCLUDE ${LIBXML_INCLUDE_DIR})
   set(LIBSBML_XML_LIBRARY_LIBS ${LIBXML_LIBRARY})
 
-  if(NOT EXISTS "${LIBXML_INCLUDE_DIR}/libxml/parser.h")
-        message(FATAL_ERROR
-"The include directory specified for libxml appears to be invalid.
-It should contain the file libxml/parser.h, but it does not.")
-  endif()
 endif(WITH_LIBXML)
 
 
@@ -480,69 +457,15 @@ endif(WITH_LIBXML)
 #
 
 if(WITH_XERCES)
+
+    find_package(XERCES REQUIRED)
+
     add_definitions( -DUSE_XERCES )
     list(APPEND SWIG_EXTRA_ARGS -DUSE_XERCES)
-
-    find_library(XERCES_LIBRARY
-        NAMES xerces-c_3.lib xerces-c
-        PATHS /usr/lib /usr/local/lib
-              ${LIBSBML_DEPENDENCY_DIR}/lib
-        DOC "The file name of the Xerces library."
-                )
-
-    find_path(XERCES_INCLUDE_DIR
-        NAMES xercesc/parsers/XercesDOMParser.hpp
-        PATHS /usr/include /usr/local/include
-              ${CMAKE_OSX_SYSROOT}/usr/include/xercesc
-              /usr/include/xercesc
-              /usr/local/include/xercesc
-              ${LIBSBML_DEPENDENCY_DIR}/include
-        DOC "The directory containing the Xerces include files."
-              )
-
-    if (EXISTS "${XERCES_INCLUDE_DIR}/xercesc/util/XercesVersion.hpp")
-        function(_myXercesC_GET_VERSION  version_hdr)
-            file(STRINGS ${version_hdr} _contents REGEX "^[ \t]*#define XERCES_VERSION_.*")
-            if(_contents)
-                string(REGEX REPLACE ".*#define XERCES_VERSION_MAJOR[ \t]+([0-9]+).*" "\\1" XercesC_MAJOR "${_contents}")
-                string(REGEX REPLACE ".*#define XERCES_VERSION_MINOR[ \t]+([0-9]+).*" "\\1" XercesC_MINOR "${_contents}")
-                string(REGEX REPLACE ".*#define XERCES_VERSION_REVISION[ \t]+([0-9]+).*" "\\1" XercesC_PATCH "${_contents}")
-
-                if(NOT XercesC_MAJOR MATCHES "^[0-9]+$")
-                    message(FATAL_ERROR "Version parsing failed for XERCES_VERSION_MAJOR!")
-                endif()
-                if(NOT XercesC_MINOR MATCHES "^[0-9]+$")
-                    message(FATAL_ERROR "Version parsing failed for XERCES_VERSION_MINOR!")
-                endif()
-                if(NOT XercesC_PATCH MATCHES "^[0-9]+$")
-                    message(FATAL_ERROR "Version parsing failed for XERCES_VERSION_REVISION!")
-                endif()
-
-                set(XercesC_VERSION "${XercesC_MAJOR}.${XercesC_MINOR}.${XercesC_PATCH}" PARENT_SCOPE)
-            else()
-                message(FATAL_ERROR "Include file ${version_hdr} does not exist or does not contain expected version information")
-            endif()
-        endfunction()
-
-        _myXercesC_GET_VERSION("${XERCES_INCLUDE_DIR}/xercesc/util/XercesVersion.hpp")
-        if (XercesC_VERSION VERSION_EQUAL 2.6.0)
-         message(FATAL_ERROR
-"Xerces version ${XercesC_VERSION} contains known bugs
-and is not compatible with libSBML. Please use a newer version of
-Xerces or an alternate XML parser.")
-        endif()
-    endif ()
 
     set(LIBSBML_XML_LIBRARY "xerces-c")
     set(LIBSBML_XML_LIBRARY_INCLUDE ${XERCES_INCLUDE_DIR})
     set(LIBSBML_XML_LIBRARY_LIBS ${XERCES_LIBRARY})
-
-    if(NOT EXISTS "${XERCES_INCLUDE_DIR}/xercesc/parsers/XercesDOMParser.hpp")
-        message(FATAL_ERROR
-"The include directory specified for Xerces appears to be invalid.
-It should contain the file xercesc/parsers/XercesDOMParser.hpp, but
-it does not.")
-    endif()
 
 endif(WITH_XERCES)
 
@@ -552,30 +475,7 @@ endif(WITH_XERCES)
 #
 
 set(BZIP_INITIAL_VALUE)
-if (NOT LIBBZ_LIBRARY)
-find_library(LIBBZ_LIBRARY
-    NAMES bzip2.lib bz2 libbz2.lib
-    PATHS /usr/lib /usr/local/lib
-          ${CMAKE_OSX_SYSROOT}/usr/lib
-          ${LIBSBML_DEPENDENCY_DIR}/lib
-          NO_DEFAULT_PATH
-          NO_CMAKE_ENVIRONMENT_PATH
-          NO_CMAKE_PATH
-          NO_SYSTEM_ENVIRONMENT_PATH
-          NO_CMAKE_SYSTEM_PATH
-
-          DOC "The file name of the bzip2 library."
-)
-endif()
-if (NOT LIBBZ_LIBRARY)
-find_library(LIBBZ_LIBRARY
-    NAMES bzip2.lib bz2 libbz2.lib
-    PATHS /usr/lib /usr/local/lib
-          ${CMAKE_OSX_SYSROOT}/usr/lib
-          ${LIBSBML_DEPENDENCY_DIR}/lib
-    DOC "The file name of the bzip2 library."
-)
-endif()
+find_package(BZ2 QUIET)
 
 if(EXISTS ${LIBBZ_LIBRARY})
     set(BZIP_INITIAL_VALUE ON)
@@ -586,54 +486,10 @@ endif()
 option(WITH_BZIP2    "Enable the use of bzip2 compression."  ${BZIP_INITIAL_VALUE})
 set(USE_BZ2 OFF)
 if(WITH_BZIP2)
-
-  if (NOT LIBBZ_INCLUDE_DIR)
-    find_path(LIBBZ_INCLUDE_DIR
-        NAMES bzlib.h bzip2/bzlib.h
-        PATHS ${CMAKE_OSX_SYSROOT}/usr/include
-              /usr/include /usr/local/include
-              ${LIBSBML_DEPENDENCY_DIR}/include
-              NO_DEFAULT_PATH
-        DOC "The directory containing the bzip2 include files."
-        )
-  endif()
-
-  if (NOT LIBBZ_INCLUDE_DIR)
-      find_path(LIBBZ_INCLUDE_DIR
-        NAMES bzlib.h bzip2/bzlib.h
-        PATHS ${CMAKE_OSX_SYSROOT}/usr/include
-              /usr/include /usr/local/include
-              ${LIBSBML_DEPENDENCY_DIR}/include
-        DOC "The directory containing the bzip2 include files."
-              )
-  endif()
-
+  find_package(BZ2 REQUIRED)
     set(USE_BZ2 ON)
     add_definitions( -DUSE_BZ2 )
   list(APPEND SWIG_EXTRA_ARGS -DUSE_BZ2)
-
-    # make sure that we have a valid bzip2 library
-    file(TO_CMAKE_PATH "${LIBBZ_LIBRARY}" LIBBZ2_CMAKE_PATH)
-    check_library_exists("${LIBBZ2_CMAKE_PATH}" "BZ2_bzCompressInit" "" LIBBZ_FOUND_SYMBOL)
-    if(NOT LIBBZ_FOUND_SYMBOL)
-        # this is odd, but on windows this check always fails! must be a
-        # bug in the current cmake version so for now only issue this
-        # warning on linux
-        if(UNIX)
-            message(WARNING
-"The chosen bz2 library does not appear to be valid because it is
-missing some required symbols. Please check that ${LIBBZ_LIBRARY}
-is the bzip2 library. For details about the error, please see
-${LIBSBML_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
-        endif()
-    endif()
-    if(NOT EXISTS "${LIBBZ_INCLUDE_DIR}/bzlib.h")
-        message(FATAL_ERROR
-"The include directory specified for the bz2 library does not
-appear to be valid.  It should contain the file bzlib.h, but
-it does not.")
-    endif()
-
 
 endif(WITH_BZIP2)
 
@@ -735,6 +591,14 @@ ${LIBSBML_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
 "The include directory specified for zlib does not appear to be
 valid. It should contain the file zlib.h, but it does not.")
     endif()
+
+  if(NOT TARGET ZLIB::ZLIB)
+    add_library(ZLIB::ZLIB UNKNOWN IMPORTED)
+    set_target_properties(ZLIB::ZLIB PROPERTIES
+      IMPORTED_LINK_INTERFACE_LANGUAGES "C"
+      IMPORTED_LOCATION "${LIBZ_LIBRARY}"
+      INTERFACE_INCLUDE_DIRECTORIES "${LIBZ_INCLUDE_DIR}")
+  endif()
 
 endif(WITH_ZLIB)
 
@@ -1006,27 +870,7 @@ else(UNIX)
         INSTALL(FILES ${WIN32_BINARIES} DESTINATION bin)
         file(GLOB WIN32_DEPENDENCIES ${LIBSBML_DEPENDENCY_DIR}/lib/*.lib)
         install(FILES ${WIN32_DEPENDENCIES} DESTINATION lib)
-        if(WITH_LIBXML)
-      if (EXTRA_LIBS STREQUAL "")
-        # populate EXTRA_LIBS variable
-              find_library(LIBICONV_LIBRARY
-                NAMES libiconv.lib iconv.lib iconv
-                PATHS /usr/lib /usr/local/lib
-                      ${CMAKE_OSX_SYSROOT}/usr/lib
-                      ${LIBSBML_DEPENDENCY_DIR}/lib
-                DOC "The file name of the libiconv library."
-              )
 
-        set(ADDITIONAL_LIBS)
-        if (EXISTS ${LIBICONV_LIBRARY})
-        set(ADDITIONAL_LIBS "${ADDITIONAL_LIBS}${LIBICONV_LIBRARY};")
-        endif()
-        if (EXISTS ${LIBZ_LIBRARY})
-        set(ADDITIONAL_LIBS "${ADDITIONAL_LIBS}${LIBZ_LIBRARY};")
-        endif()
-        set(EXTRA_LIBS "WS2_32.lib;${ADDITIONAL_LIBS}" CACHE STRING "List of additional libraries to link against." FORCE)
-      endif()
-    endif()
     elseif(CYGWIN)
         add_definitions(-DCYGWIN)
         set(BUILD_DEFINITIONS "${BUILD_DEFINITIONS} -DCYGWIN")

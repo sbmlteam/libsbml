@@ -92,7 +92,7 @@ if (NOT (EXPAT_INCLUDE_DIR AND EXPAT_LIBRARIES) OR NOT EXPAT_FOUND)
 
 endif () # Check for cached values
 
-# create an expat target to link against
+# create a target to link against
 if(NOT TARGET EXPAT::EXPAT)
   add_library(EXPAT::EXPAT UNKNOWN IMPORTED)
   set_target_properties(EXPAT::EXPAT PROPERTIES
