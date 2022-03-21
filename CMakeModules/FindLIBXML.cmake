@@ -20,13 +20,6 @@ if (NOT LIBXML_LIBRARY)
               )
   endif()
 
-
-if(NOT EXISTS "${LIBXML_INCLUDE_DIR}/libxml/parser.h")
-        message(FATAL_ERROR
-"The include directory specified for libxml appears to be invalid.
-It should contain the file libxml/parser.h, but it does not.")
-endif()
-
 if(LIBXML_INCLUDE_DIR AND EXISTS "${LIBXML_INCLUDE_DIR}/libxml/xmlversion.h")
     file(STRINGS "${LIBXML_INCLUDE_DIR}/libxml/xmlversion.h" libxml2_version_str
          REGEX "^#define[\t ]+LIBXML_DOTTED_VERSION[\t ]+\".*\"")

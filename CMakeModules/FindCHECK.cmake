@@ -6,16 +6,19 @@ find_library(LIBCHECK_LIBRARY
 )
 
 find_path(LIBCHECK_INCLUDE_DIR
-    NAMES check.h
-    PATHS /usr/include /usr/local/include  ${LIBSBML_DEPENDENCY_DIR}/include
+    NAMES  check.h
+    PATHS  /usr/include 
+           /usr/local/include  
+           ${LIBSBML_DEPENDENCY_DIR}/include
+           ~/Library/Frameworks
+           /Library/Frameworks
+           /sw/include        # Fink
+           /opt/local/include # MacPorts
+           /opt/csw/include   # Blastwave
+           /opt/include
+           /usr/freeware/include
     DOC "The directory containing the libcheck include files."
             )
-
-if(NOT EXISTS "${LIBCHECK_INCLUDE_DIR}/check.h")
-    message(FATAL_ERROR
-"The include directory specified for the 'check' library appears to be
-invalid. It should contain the file check.h, but it does not.")
-endif()
 
 if (LIBCHECK_INCLUDE_DIR AND EXISTS "${LIBCHECK_INCLUDE_DIR}/check.h")
 file(STRINGS "${LIBCHECK_INCLUDE_DIR}/check.h" check_version_str
@@ -38,7 +41,7 @@ endif ()
 
 # check that check compiles/links - needs cmake 3+
 set(CHECK_ADDITIONAL_LIBS)
-if (UNIX)
+if (UNIX AND NOT APPLE)
 if(${CMAKE_VERSION} VERSION_GREATER 3.0.0)
 set(CHECK_CHECK_CODE
 "
@@ -100,7 +103,7 @@ unset(CHECK_CHECK_TEST CACHE)
 set(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_FLAGS_CACHE})
 
 endif(${CMAKE_VERSION} VERSION_GREATER 3.0.0)
-endif (UNIX)
+endif (UNIX AND NOT APPLE)
 
 # create an LIBCHECK target to link against
 if(NOT TARGET CHECK::CHECK)

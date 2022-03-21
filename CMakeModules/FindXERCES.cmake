@@ -48,14 +48,6 @@ Xerces or an alternate XML parser.")
 endif()
 endif ()
 
-
-if(NOT EXISTS "${XERCES_INCLUDE_DIR}/xercesc/parsers/XercesDOMParser.hpp")
-message(FATAL_ERROR
-"The include directory specified for Xerces appears to be invalid.
-It should contain the file xercesc/parsers/XercesDOMParser.hpp, but
-it does not.")
-endif()
-
 if(NOT TARGET XERCES::XERCES)
   add_library(XERCES::XERCES UNKNOWN IMPORTED)
   set_target_properties(XERCES::XERCES PROPERTIES
