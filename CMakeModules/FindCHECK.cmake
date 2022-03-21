@@ -15,7 +15,26 @@ if(NOT EXISTS "${LIBCHECK_INCLUDE_DIR}/check.h")
     message(FATAL_ERROR
 "The include directory specified for the 'check' library appears to be
 invalid. It should contain the file check.h, but it does not.")
- endif()
+endif()
+
+if (LIBCHECK_INCLUDE_DIR AND EXISTS "${LIBCHECK_INCLUDE_DIR}/check.h")
+file(STRINGS "${LIBCHECK_INCLUDE_DIR}/check.h" check_version_str
+     REGEX "^#[\t ]*define[\t ]+CHECK_(MAJOR|MINOR|MICRO)_VERSION[\t ]+[(][0-9][)]+$")
+
+unset(LIBCHECK_VERSION)
+foreach(VPART MAJOR MINOR MICRO)
+    foreach(VLINE ${check_version_str})
+        if(VLINE MATCHES "^#[\t ]*define[\t ]+CHECK_${VPART}_VERSION[\t ]+[(]([0-9])[)]+$")
+            set(LIBCHECK_VERSION_PART "${CMAKE_MATCH_1}")
+            if(LIBCHECK_VERSION OR (LIBCHECK_VERSION STREQUAL "0"))
+                string(APPEND LIBCHECK_VERSION ".${LIBCHECK_VERSION_PART}")
+            else()
+                set(LIBCHECK_VERSION "${LIBCHECK_VERSION_PART}")
+            endif()
+        endif()
+    endforeach()
+endforeach()
+endif ()
 
 # check that check compiles/links - needs cmake 3+
 set(CHECK_ADDITIONAL_LIBS)
@@ -83,7 +102,7 @@ set(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_FLAGS_CACHE})
 endif(${CMAKE_VERSION} VERSION_GREATER 3.0.0)
 endif (UNIX)
 
-# create an expat target to link against
+# create an LIBCHECK target to link against
 if(NOT TARGET CHECK::CHECK)
   add_library(CHECK::CHECK UNKNOWN IMPORTED)
   set_target_properties(CHECK::CHECK PROPERTIES
@@ -98,7 +117,7 @@ include(FindPackageHandleStandardArgs)
 
 find_package_handle_standard_args(
     CHECK
+    VERSION_VAR   LIBCHECK_VERSION
     REQUIRED_VARS LIBCHECK_LIBRARY LIBCHECK_INCLUDE_DIR)
 
-mark_as_advanced(EXPAT_VERSION)
-      
+mark_as_advanced(LIBCHECK_VERSION)
