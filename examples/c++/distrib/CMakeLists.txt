@@ -50,18 +50,6 @@ foreach (example
   set_target_properties(example_distrib_cpp_${example} PROPERTIES OUTPUT_NAME ${example})
   target_link_libraries(example_distrib_cpp_${example} ${LIBSBML_LIBRARY}-static)
 
-  if (WITH_LIBXML)
-    target_link_libraries(example_distrib_cpp_${example} ${LIBXML_LIBRARY} ${EXTRA_LIBS})
-  endif(WITH_LIBXML)
-
-  if (WITH_ZLIB)
-    target_link_libraries(example_distrib_cpp_${example} ${LIBZ_LIBRARY})
-  endif(WITH_ZLIB)
-
-  if (WITH_BZIP2)
-    target_link_libraries(example_distrib_cpp_${example} ${LIBBZ_LIBRARY})
-  endif(WITH_BZIP2)
-
 endforeach()
 
 # install c++ examples

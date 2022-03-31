@@ -42,12 +42,12 @@ else()
   set (TEST_LIB comp)
 endif()
 
-set(TEST_LIBSBML_LIBS ${TEST_LIB} ${LIBCHECK_LIBRARY})
+set(TEST_LIBSBML_LIBS ${TEST_LIB} CHECK::CHECK)
 set(TEST_FILES ${CPP_FILES} ${C_FILES} ${H_FILES})
 include_directories(BEFORE ${LIBSBML_ROOT_SOURCE_DIR}/src)
 include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 
-include_directories(${LIBCHECK_INCLUDE_DIR})
+
 add_executable(test_comp_extensions ${TEST_FILES})
 target_link_libraries(test_comp_extensions ${TEST_LIBSBML_LIBS})
 add_test(test_comp_extensions_run ${CMAKE_CURRENT_BINARY_DIR}/test_comp_extensions) 
