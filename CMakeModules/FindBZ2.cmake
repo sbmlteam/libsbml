@@ -1,9 +1,12 @@
+string(TOUPPER ${PROJECT_NAME} _UPPER_PROJECT_NAME)
+set(_PROJECT_DEPENDENCY_DIR ${_UPPER_PROJECT_NAME}_DEPENDENCY_DIR)
+
 if (NOT LIBBZ_LIBRARY)
 find_library(LIBBZ_LIBRARY
     NAMES bzip2.lib bz2 libbz2.lib
     PATHS /usr/lib /usr/local/lib
           ${CMAKE_OSX_SYSROOT}/usr/lib
-          ${LIBSBML_DEPENDENCY_DIR}/lib
+          ${${_PROJECT_DEPENDENCY_DIR}}/lib
           NO_DEFAULT_PATH
           NO_CMAKE_ENVIRONMENT_PATH
           NO_CMAKE_PATH
@@ -19,7 +22,7 @@ find_library(LIBBZ_LIBRARY
     NAMES bzip2.lib bz2 libbz2.lib
     PATHS /usr/lib /usr/local/lib
           ${CMAKE_OSX_SYSROOT}/usr/lib
-          ${LIBSBML_DEPENDENCY_DIR}/lib
+          ${${_PROJECT_DEPENDENCY_DIR}}/lib
     DOC "The file name of the bzip2 library."
 )
 endif()
@@ -29,7 +32,7 @@ find_path(LIBBZ_INCLUDE_DIR
     NAMES bzlib.h bzip2/bzlib.h
     PATHS ${CMAKE_OSX_SYSROOT}/usr/include
           /usr/include /usr/local/include
-          ${LIBSBML_DEPENDENCY_DIR}/include
+          ${${_PROJECT_DEPENDENCY_DIR}}/include
           NO_DEFAULT_PATH
     DOC "The directory containing the bzip2 include files."
     )
@@ -40,7 +43,7 @@ if (NOT LIBBZ_INCLUDE_DIR)
     NAMES bzlib.h bzip2/bzlib.h
     PATHS ${CMAKE_OSX_SYSROOT}/usr/include
           /usr/include /usr/local/include
-          ${LIBSBML_DEPENDENCY_DIR}/include
+          ${${_PROJECT_DEPENDENCY_DIR}}/include
     DOC "The directory containing the bzip2 include files."
           )
 endif()

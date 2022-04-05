@@ -1,7 +1,10 @@
+string(TOUPPER ${PROJECT_NAME} _UPPER_PROJECT_NAME)
+set(_PROJECT_DEPENDENCY_DIR ${_UPPER_PROJECT_NAME}_DEPENDENCY_DIR)
+
 find_library(XERCES_LIBRARY
 NAMES xerces-c_3.lib xerces-c
 PATHS /usr/lib /usr/local/lib
-      ${LIBSBML_DEPENDENCY_DIR}/lib
+      ${${_PROJECT_DEPENDENCY_DIR}}/lib
 DOC "The file name of the Xerces library."
         )
 
@@ -11,7 +14,7 @@ PATHS /usr/include /usr/local/include
       ${CMAKE_OSX_SYSROOT}/usr/include/xercesc
       /usr/include/xercesc
       /usr/local/include/xercesc
-      ${LIBSBML_DEPENDENCY_DIR}/include
+      ${${_PROJECT_DEPENDENCY_DIR}}/include
 DOC "The directory containing the Xerces include files."
       )
 
