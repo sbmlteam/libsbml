@@ -1,8 +1,11 @@
+string(TOUPPER ${PROJECT_NAME} _UPPER_PROJECT_NAME)
+set(_PROJECT_DEPENDENCY_DIR ${_UPPER_PROJECT_NAME}_DEPENDENCY_DIR)
+
 if (NOT LIBXML_LIBRARY)
     find_library(LIBXML_LIBRARY
         NAMES libxml2.lib xml2
         PATHS /usr/lib /usr/local/lib
-              ${LIBSBML_DEPENDENCY_DIR}/lib
+              ${${_PROJECT_DEPENDENCY_DIR}}/lib
         DOC "The file name of the libxml2 library."
                 )
   endif()
@@ -10,7 +13,7 @@ if (NOT LIBXML_LIBRARY)
   if (NOT LIBXML_INCLUDE_DIR)
     find_path(LIBXML_INCLUDE_DIR
         NAMES libxml/parser.h
-        PATHS ${LIBSBML_DEPENDENCY_DIR}/include
+        PATHS ${${_PROJECT_DEPENDENCY_DIR}}/include
               /usr/include /usr/local/include
               /usr/include/libxml2
               ${CMAKE_OSX_SYSROOT}/usr/include/libxml2
@@ -35,7 +38,7 @@ find_library(LIBICONV_LIBRARY
 NAMES libiconv.lib iconv.lib iconv
 PATHS /usr/lib /usr/local/lib
         ${CMAKE_OSX_SYSROOT}/usr/lib
-        ${LIBSBML_DEPENDENCY_DIR}/lib
+        ${${_PROJECT_DEPENDENCY_DIR}}/lib
 DOC "The file name of the libiconv library."
 )
 

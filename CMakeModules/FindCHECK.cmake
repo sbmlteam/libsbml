@@ -1,7 +1,9 @@
+string(TOUPPER ${PROJECT_NAME} _UPPER_PROJECT_NAME)
+set(_PROJECT_DEPENDENCY_DIR ${_UPPER_PROJECT_NAME}_DEPENDENCY_DIR)
 
 find_library(LIBCHECK_LIBRARY
         NAMES check libcheck
-        PATHS /usr/lib /usr/local/lib ${LIBSBML_DEPENDENCY_DIR}/lib
+        PATHS /usr/lib /usr/local/lib ${${_PROJECT_DEPENDENCY_DIR}}/lib
         DOC "The file name of the libcheck library."
 )
 
@@ -9,7 +11,7 @@ find_path(LIBCHECK_INCLUDE_DIR
     NAMES  check.h
     PATHS  /usr/include 
            /usr/local/include  
-           ${LIBSBML_DEPENDENCY_DIR}/include
+           ${${_PROJECT_DEPENDENCY_DIR}}/include
            ~/Library/Frameworks
            /Library/Frameworks
            /sw/include        # Fink
