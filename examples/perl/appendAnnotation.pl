@@ -141,8 +141,8 @@ $cvterms_annotation = '<annotation>
 </rdf:RDF>
 </annotation>';
   
-  $s->appendAnnotation($cvterms_annotation);
-}
+$s->appendAnnotation($cvterms_annotation);
+
 
 # 
 # The above code can be replaced by the following code.
