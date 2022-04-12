@@ -48,6 +48,7 @@
 
 #include <string>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
+#include <xercesc/util/SecurityManager.hpp>
 
 #include <sbml/xml/XMLParser.h>
 #include <sbml/xml/XercesHandler.h>
@@ -158,6 +159,7 @@ protected:
   xercesc::SAX2XMLReader*  mReader;
   xercesc::InputSource*    mSource;
   xercesc::XMLPScanToken   mToken;
+  xercesc::SecurityManager* mSM;
   XercesHandler            mHandler;
 
 
