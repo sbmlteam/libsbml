@@ -3,7 +3,7 @@ set(_PROJECT_DEPENDENCY_DIR ${_UPPER_PROJECT_NAME}_DEPENDENCY_DIR)
 
 if (NOT LIBXML_LIBRARY)
     find_library(LIBXML_LIBRARY
-        NAMES libxml2.lib xml2
+        NAMES  libxml2s xml2s libxml2.lib xml2
         PATHS /usr/lib /usr/local/lib
               ${${_PROJECT_DEPENDENCY_DIR}}/lib
         DOC "The file name of the libxml2 library."
@@ -14,6 +14,7 @@ if (NOT LIBXML_LIBRARY)
     find_path(LIBXML_INCLUDE_DIR
         NAMES libxml/parser.h
         PATHS ${${_PROJECT_DEPENDENCY_DIR}}/include
+              ${${_PROJECT_DEPENDENCY_DIR}}/include/libxml2
               /usr/include /usr/local/include
               /usr/include/libxml2
               ${CMAKE_OSX_SYSROOT}/usr/include/libxml2
@@ -62,6 +63,64 @@ if(NOT TARGET LIBXML::LIBXML)
     INTERFACE_INCLUDE_DIRECTORIES "${LIBXML_INCLUDE_DIR}"
     INTERFACE_LINK_LIBRARIES "${ADDITIONAL_LIBS}"
   )
+endif()
+
+# figure out if we need XML_STATIC flag
+if (LIBXML_INCLUDE_DIR AND LIBXML_LIBRARY)
+  
+  set(LIBXML_LIBXML_CODE
+"
+#include <libxml/xmlversion.h>
+#include <libxml/parser.h>
+#include <stdio.h>
+
+int 
+main(void)
+{
+  LIBXML_TEST_VERSION
+  xmlKeepBlanksDefault(0);
+  xmlDocPtr doc = xmlParseFile(\"none\");
+  xmlCleanupParser();
+  return 0;
+}
+" 
+)
+
+set(CMAKE_REQUIRED_LIBRARIES_CACHE ${CMAKE_REQUIRED_LIBRARIES})
+set(CMAKE_REQUIRED_INCLUDES_CACHE ${CMAKE_REQUIRED_INCLUDES})
+set(CMAKE_REQUIRED_DEFINITIONS_CACHE ${CMAKE_REQUIRED_DEFINITIONS})
+
+unset(LIBXML_LIBXML_TEST)
+unset(LIBXML_LIBXML_TEST2)
+
+set(LIBXML_LIBXML_TEST)
+set(CMAKE_REQUIRED_LIBRARIES "${LIBXML_LIBRARY};${ADDITIONAL_LIBS}")
+set(CMAKE_REQUIRED_INCLUDES "${LIBXML_INCLUDE_DIR}")
+CHECK_C_SOURCE_COMPILES("${LIBXML_LIBXML_CODE}" LIBXML_LIBXML_TEST)
+
+
+message(STATUS "LIBXML_LIBXML_TEST = ${LIBXML_LIBXML_TEST}")
+
+if (NOT LIBXML_LIBXML_TEST)
+set(CMAKE_REQUIRED_LIBRARIES "${LIBXML_LIBRARY};${ADDITIONAL_LIBS}")
+set(CMAKE_REQUIRED_INCLUDES "${LIBXML_INCLUDE_DIR}")
+set(CMAKE_REQUIRED_DEFINITIONS "-DLIBXML_STATIC=1")
+
+CHECK_C_SOURCE_COMPILES("${LIBXML_LIBXML_CODE}" LIBXML_LIBXML_TEST2)
+message(STATUS "LIBXML_LIBXML_TEST2 = ${LIBXML_LIBXML_TEST2}")
+if (LIBXML_LIBXML_TEST2)
+  set_target_properties(LIBXML::LIBXML PROPERTIES
+    INTERFACE_COMPILE_DEFINITIONS "LIBXML_STATIC=1"
+    )
+else()
+  message(FATAL_ERROR "Unable to compile a test executable against LIBXML")
+endif()
+
+endif()
+
+set(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES_CACHE})
+set(CMAKE_REQUIRED_INCLUDES ${CMAKE_REQUIRED_INCLUDES_CACHE})
+set(CMAKE_REQUIRED_DEFINITIONS ${CMAKE_REQUIRED_DEFINITIONS_CACHE})
 endif()
   
 include(FindPackageHandleStandardArgs)
