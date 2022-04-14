@@ -77,19 +77,22 @@ if (EXPAT_INCLUDE_DIR AND EXISTS "${EXPAT_INCLUDE_DIR}/expat.h")
 file(STRINGS "${EXPAT_INCLUDE_DIR}/expat.h" expat_version_str
      REGEX "^#[\t ]*define[\t ]+XML_(MAJOR|MINOR|MICRO)_VERSION[\t ]+[0-9]+$")
 
-unset(EXPAT_VERSION)
+unset(EXPAT_VERSION CACHE)
+set(_STARTED FALSE)
 foreach(VPART MAJOR MINOR MICRO)
     foreach(VLINE ${expat_version_str})
         if(VLINE MATCHES "^#[\t ]*define[\t ]+XML_${VPART}_VERSION[\t ]+([0-9]+)$")
             set(EXPAT_VERSION_PART "${CMAKE_MATCH_1}")
-            if(EXPAT_VERSION)
+            if(_STARTED)
                 string(APPEND EXPAT_VERSION ".${EXPAT_VERSION_PART}")
             else()
                 set(EXPAT_VERSION "${EXPAT_VERSION_PART}")
+                set(_STARTED TRUE)
             endif()
         endif()
     endforeach()
 endforeach()
+unset(_STARTED)
 endif ()
 
 
@@ -104,7 +107,7 @@ endif()
 
 # figure out if we need XML_STATIC flag
 if (EXPAT_INCLUDE_DIR AND EXPAT_LIBRARY)
-  
+  enable_language(C)  
   set(EXPAT_EXPAT_CODE
 "
 #include <expat.h>
@@ -128,16 +131,12 @@ set(CMAKE_REQUIRED_LIBRARIES "${EXPAT_LIBRARY}")
 set(CMAKE_REQUIRED_INCLUDES "${EXPAT_INCLUDE_DIR}")
 CHECK_C_SOURCE_COMPILES("${EXPAT_EXPAT_CODE}" EXPAT_EXPAT_TEST)
 
-
-message(STATUS "EXPAT_EXPAT_TEST = ${EXPAT_EXPAT_TEST}")
-
 if (NOT EXPAT_EXPAT_TEST)
 set(CMAKE_REQUIRED_LIBRARIES "${EXPAT_LIBRARY}")
 set(CMAKE_REQUIRED_INCLUDES "${EXPAT_INCLUDE_DIR}")
 set(CMAKE_REQUIRED_DEFINITIONS "-DXML_STATIC=1")
 
 CHECK_C_SOURCE_COMPILES("${EXPAT_EXPAT_CODE}" EXPAT_EXPAT_TEST2)
-message(STATUS "EXPAT_EXPAT_TEST2 = ${EXPAT_EXPAT_TEST2}")
 if (EXPAT_EXPAT_TEST2)
   set_target_properties(EXPAT::EXPAT PROPERTIES
     INTERFACE_COMPILE_DEFINITIONS "XML_STATIC=1"
@@ -152,16 +151,6 @@ set(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES_CACHE})
 set(CMAKE_REQUIRED_INCLUDES ${CMAKE_REQUIRED_INCLUDES_CACHE})
 set(CMAKE_REQUIRED_DEFINITIONS ${CMAKE_REQUIRED_DEFINITIONS_CACHE})
 endif()
-
-# TODO: compilation against expat fails with static runtime currently
-#if (MSVC AND WITH_STATIC_RUNTIME)
-#  get_target_property(EXPAT_DEFS EXPAT::EXPAT INTERFACE_COMPILE_DEFINITIONS)
-#  set_target_properties(EXPAT::EXPAT PROPERTIES
-#    INTERFACE_COMPILE_DEFINITIONS "_CRT_RAND_S;${EXPAT_DEFS}"
-#    )
-#endif()
-
-
 
 include(FindPackageHandleStandardArgs)
 
