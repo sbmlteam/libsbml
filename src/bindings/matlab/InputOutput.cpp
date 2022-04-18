@@ -24,6 +24,14 @@ determinePlatform(GV& gv)
     reportError("OutputSBML:platformDetection", 
       "Could not determine platform", gv);
   }
+  else
+  {
+    if (strcmp(pacTempString1, "1") == 0)
+    {
+      usingOctave = 1;
+    }
+  }
+
 
   safe_free(pacTempString1);
   mxDestroyArray(mxOctave[0]);
