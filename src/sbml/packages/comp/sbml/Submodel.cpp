@@ -447,13 +447,13 @@ Submodel::getDeletion (unsigned int index) const
 }
 
 Deletion* 
-Submodel::getDeletion (std::string id)
+Submodel::getDeletion (const std::string& id)
 {
   return mListOfDeletions.get(id);
 }
 
 const Deletion* 
-Submodel::getDeletion (std::string id) const
+Submodel::getDeletion (const std::string& id) const
 {
   return mListOfDeletions.get(id);
 }

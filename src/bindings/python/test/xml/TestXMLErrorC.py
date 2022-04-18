@@ -39,25 +39,25 @@ class TestXMLErrorC(unittest.TestCase):
 
   def test_XMLError_create_C(self):
     error = libsbml.XMLError()
-    self.assert_( error != None )
-    self.assert_( error.isInfo() == False )
-    self.assert_( error.isWarning() == False )
-    self.assert_( error.isError() == False )
-    self.assert_( error.isFatal() == True )
+    self.assertTrue( error != None )
+    self.assertTrue( error.isInfo() == False )
+    self.assertTrue( error.isWarning() == False )
+    self.assertTrue( error.isError() == False )
+    self.assertTrue( error.isFatal() == True )
     _dummyList = [ error ]; _dummyList[:] = []; del _dummyList
     error = libsbml.XMLError(12345, "My message")
-    self.assert_( (  "My message" != error.getMessage() ) == False )
-    self.assert_( error.getErrorId() == 12345 )
+    self.assertTrue( (  "My message" != error.getMessage() ) == False )
+    self.assertTrue( error.getErrorId() == 12345 )
     _dummyList = [ error ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLError_variablesAsStrings(self):
     error = libsbml.XMLError(1003, "")
-    self.assert_( error.getErrorId() == 1003 )
-    self.assert_( error.getSeverity() == libsbml.LIBSBML_SEV_ERROR )
-    self.assert_((  "Error" == error.getSeverityAsString() ))
-    self.assert_( error.getCategory() == libsbml.LIBSBML_CAT_XML )
-    self.assert_((  "XML content" == error.getCategoryAsString() ))
+    self.assertTrue( error.getErrorId() == 1003 )
+    self.assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_ERROR )
+    self.assertTrue((  "Error" == error.getSeverityAsString() ))
+    self.assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_XML )
+    self.assertTrue((  "XML content" == error.getCategoryAsString() ))
     _dummyList = [ error ]; _dummyList[:] = []; del _dummyList
     pass  
 

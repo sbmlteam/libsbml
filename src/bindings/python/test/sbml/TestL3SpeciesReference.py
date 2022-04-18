@@ -53,31 +53,31 @@ class TestL3SpeciesReference(unittest.TestCase):
     pass  
 
   def test_L3_SpeciesReference_NS(self):
-    self.assert_( self.SR.getNamespaces() != None )
-    self.assert_( self.SR.getNamespaces().getLength() == 1 )
-    self.assert_((     "http://www.sbml.org/sbml/level3/version1/core" == self.SR.getNamespaces().getURI(0) ))
+    self.assertTrue( self.SR.getNamespaces() != None )
+    self.assertTrue( self.SR.getNamespaces().getLength() == 1 )
+    self.assertTrue((     "http://www.sbml.org/sbml/level3/version1/core" == self.SR.getNamespaces().getURI(0) ))
     pass  
 
   def test_L3_SpeciesReference_constant(self):
-    self.assert_( self.SR.isSetConstant() == False )
+    self.assertTrue( self.SR.isSetConstant() == False )
     self.SR.setConstant(True)
-    self.assert_( self.SR.getConstant() == True )
-    self.assert_( self.SR.isSetConstant() == True )
+    self.assertTrue( self.SR.getConstant() == True )
+    self.assertTrue( self.SR.isSetConstant() == True )
     self.SR.setConstant(False)
-    self.assert_( self.SR.getConstant() == False )
-    self.assert_( self.SR.isSetConstant() == True )
+    self.assertTrue( self.SR.getConstant() == False )
+    self.assertTrue( self.SR.isSetConstant() == True )
     pass  
 
   def test_L3_SpeciesReference_create(self):
-    self.assert_( self.SR.getTypeCode() == libsbml.SBML_SPECIES_REFERENCE )
-    self.assert_( self.SR.getMetaId() == "" )
-    self.assert_( self.SR.getNotes() == None )
-    self.assert_( self.SR.getAnnotation() == None )
-    self.assert_( self.SR.getId() == "" )
-    self.assert_( self.SR.getName() == "" )
-    self.assert_( self.SR.getSpecies() == "" )
+    self.assertTrue( self.SR.getTypeCode() == libsbml.SBML_SPECIES_REFERENCE )
+    self.assertTrue( self.SR.getMetaId() == "" )
+    self.assertTrue( self.SR.getNotes() == None )
+    self.assertTrue( self.SR.getAnnotation() == None )
+    self.assertTrue( self.SR.getId() == "" )
+    self.assertTrue( self.SR.getName() == "" )
+    self.assertTrue( self.SR.getSpecies() == "" )
     self.assertEqual( True, isnan(self.SR.getStoichiometry()) )
-    self.assert_( self.SR.getConstant() == False )
+    self.assertTrue( self.SR.getConstant() == False )
     self.assertEqual( False, self.SR.isSetId() )
     self.assertEqual( False, self.SR.isSetName() )
     self.assertEqual( False, self.SR.isSetSpecies() )
@@ -91,19 +91,19 @@ class TestL3SpeciesReference(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(3,1)
     sbmlns.addNamespaces(xmlns)
     sr = libsbml.SpeciesReference(sbmlns)
-    self.assert_( sr.getTypeCode() == libsbml.SBML_SPECIES_REFERENCE )
-    self.assert_( sr.getMetaId() == "" )
-    self.assert_( sr.getNotes() == None )
-    self.assert_( sr.getAnnotation() == None )
-    self.assert_( sr.getLevel() == 3 )
-    self.assert_( sr.getVersion() == 1 )
-    self.assert_( sr.getNamespaces() != None )
-    self.assert_( sr.getNamespaces().getLength() == 2 )
-    self.assert_( sr.getId() == "" )
-    self.assert_( sr.getName() == "" )
-    self.assert_( sr.getSpecies() == "" )
+    self.assertTrue( sr.getTypeCode() == libsbml.SBML_SPECIES_REFERENCE )
+    self.assertTrue( sr.getMetaId() == "" )
+    self.assertTrue( sr.getNotes() == None )
+    self.assertTrue( sr.getAnnotation() == None )
+    self.assertTrue( sr.getLevel() == 3 )
+    self.assertTrue( sr.getVersion() == 1 )
+    self.assertTrue( sr.getNamespaces() != None )
+    self.assertTrue( sr.getNamespaces().getLength() == 2 )
+    self.assertTrue( sr.getId() == "" )
+    self.assertTrue( sr.getName() == "" )
+    self.assertTrue( sr.getSpecies() == "" )
     self.assertEqual( True, isnan(sr.getStoichiometry()) )
-    self.assert_( sr.getConstant() == False )
+    self.assertTrue( sr.getConstant() == False )
     self.assertEqual( False, sr.isSetId() )
     self.assertEqual( False, sr.isSetName() )
     self.assertEqual( False, sr.isSetSpecies() )
@@ -130,7 +130,7 @@ class TestL3SpeciesReference(unittest.TestCase):
     id =  "mitochondria";
     self.assertEqual( False, self.SR.isSetId() )
     self.SR.setId(id)
-    self.assert_(( id == self.SR.getId() ))
+    self.assertTrue(( id == self.SR.getId() ))
     self.assertEqual( True, self.SR.isSetId() )
     if (self.SR.getId() == id):
       pass    
@@ -140,7 +140,7 @@ class TestL3SpeciesReference(unittest.TestCase):
     name =  "My_Favorite_Factory";
     self.assertEqual( False, self.SR.isSetName() )
     self.SR.setName(name)
-    self.assert_(( name == self.SR.getName() ))
+    self.assertTrue(( name == self.SR.getName() ))
     self.assertEqual( True, self.SR.isSetName() )
     if (self.SR.getName() == name):
       pass    
@@ -154,7 +154,7 @@ class TestL3SpeciesReference(unittest.TestCase):
     species =  "cell";
     self.assertEqual( False, self.SR.isSetSpecies() )
     self.SR.setSpecies(species)
-    self.assert_(( species == self.SR.getSpecies() ))
+    self.assertTrue(( species == self.SR.getSpecies() ))
     self.assertEqual( True, self.SR.isSetSpecies() )
     if (self.SR.getSpecies() == species):
       pass    
@@ -165,7 +165,7 @@ class TestL3SpeciesReference(unittest.TestCase):
     self.assertEqual( False, self.SR.isSetStoichiometry() )
     self.assertEqual( True, isnan(self.SR.getStoichiometry()) )
     self.SR.setStoichiometry(stoichiometry)
-    self.assert_( self.SR.getStoichiometry() == stoichiometry )
+    self.assertTrue( self.SR.getStoichiometry() == stoichiometry )
     self.assertEqual( True, self.SR.isSetStoichiometry() )
     self.SR.unsetStoichiometry()
     self.assertEqual( False, self.SR.isSetStoichiometry() )

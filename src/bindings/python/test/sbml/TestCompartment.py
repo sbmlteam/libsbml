@@ -50,17 +50,17 @@ class TestCompartment(unittest.TestCase):
     pass  
 
   def test_Compartment_create(self):
-    self.assert_( self.C.getTypeCode() == libsbml.SBML_COMPARTMENT )
-    self.assert_( self.C.getMetaId() == "" )
-    self.assert_( self.C.getNotes() == None )
-    self.assert_( self.C.getAnnotation() == None )
-    self.assert_( self.C.getId() == "" )
-    self.assert_( self.C.getName() == "" )
-    self.assert_( self.C.getUnits() == "" )
-    self.assert_( self.C.getOutside() == "" )
-    self.assert_( self.C.getSpatialDimensions() == 3 )
-    self.assert_( self.C.getVolume() == 1.0 )
-    self.assert_( self.C.getConstant() == True )
+    self.assertTrue( self.C.getTypeCode() == libsbml.SBML_COMPARTMENT )
+    self.assertTrue( self.C.getMetaId() == "" )
+    self.assertTrue( self.C.getNotes() == None )
+    self.assertTrue( self.C.getAnnotation() == None )
+    self.assertTrue( self.C.getId() == "" )
+    self.assertTrue( self.C.getName() == "" )
+    self.assertTrue( self.C.getUnits() == "" )
+    self.assertTrue( self.C.getOutside() == "" )
+    self.assertTrue( self.C.getSpatialDimensions() == 3 )
+    self.assertTrue( self.C.getVolume() == 1.0 )
+    self.assertTrue( self.C.getConstant() == True )
     self.assertEqual( False, self.C.isSetId() )
     self.assertEqual( False, self.C.isSetName() )
     self.assertEqual( False, self.C.isSetSize() )
@@ -72,14 +72,14 @@ class TestCompartment(unittest.TestCase):
   def test_Compartment_createWith(self):
     c = libsbml.Compartment(2,4)
     c.setId( "A")
-    self.assert_( c.getTypeCode() == libsbml.SBML_COMPARTMENT )
-    self.assert_( c.getMetaId() == "" )
-    self.assert_( c.getNotes() == None )
-    self.assert_( c.getAnnotation() == None )
-    self.assert_( c.getName() == "" )
-    self.assert_( c.getSpatialDimensions() == 3 )
-    self.assert_((  "A"      == c.getId() ))
-    self.assert_( c.getConstant() == True )
+    self.assertTrue( c.getTypeCode() == libsbml.SBML_COMPARTMENT )
+    self.assertTrue( c.getMetaId() == "" )
+    self.assertTrue( c.getNotes() == None )
+    self.assertTrue( c.getAnnotation() == None )
+    self.assertTrue( c.getName() == "" )
+    self.assertTrue( c.getSpatialDimensions() == 3 )
+    self.assertTrue((  "A"      == c.getId() ))
+    self.assertTrue( c.getConstant() == True )
     self.assertEqual( True, c.isSetId() )
     self.assertEqual( False, c.isSetName() )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
@@ -91,17 +91,17 @@ class TestCompartment(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(2,1)
     sbmlns.addNamespaces(xmlns)
     c = libsbml.Compartment(sbmlns)
-    self.assert_( c.getTypeCode() == libsbml.SBML_COMPARTMENT )
-    self.assert_( c.getMetaId() == "" )
-    self.assert_( c.getNotes() == None )
-    self.assert_( c.getAnnotation() == None )
-    self.assert_( c.getLevel() == 2 )
-    self.assert_( c.getVersion() == 1 )
-    self.assert_( c.getNamespaces() != None )
-    self.assert_( c.getNamespaces().getLength() == 2 )
-    self.assert_( c.getName() == "" )
-    self.assert_( c.getSpatialDimensions() == 3 )
-    self.assert_( c.getConstant() == True )
+    self.assertTrue( c.getTypeCode() == libsbml.SBML_COMPARTMENT )
+    self.assertTrue( c.getMetaId() == "" )
+    self.assertTrue( c.getNotes() == None )
+    self.assertTrue( c.getAnnotation() == None )
+    self.assertTrue( c.getLevel() == 2 )
+    self.assertTrue( c.getVersion() == 1 )
+    self.assertTrue( c.getNamespaces() != None )
+    self.assertTrue( c.getNamespaces().getLength() == 2 )
+    self.assertTrue( c.getName() == "" )
+    self.assertTrue( c.getSpatialDimensions() == 3 )
+    self.assertTrue( c.getConstant() == True )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -111,17 +111,17 @@ class TestCompartment(unittest.TestCase):
 
   def test_Compartment_getSpatialDimensions(self):
     self.C.setSpatialDimensions(1)
-    self.assert_( self.C.getSpatialDimensions() == 1 )
+    self.assertTrue( self.C.getSpatialDimensions() == 1 )
     pass  
 
   def test_Compartment_getsetConstant(self):
     self.C.setConstant(True)
-    self.assert_( self.C.getConstant() == True )
+    self.assertTrue( self.C.getConstant() == True )
     pass  
 
   def test_Compartment_getsetType(self):
     self.C.setCompartmentType( "cell")
-    self.assert_((  "cell"  == self.C.getCompartmentType() ))
+    self.assertTrue((  "cell"  == self.C.getCompartmentType() ))
     self.assertEqual( True, self.C.isSetCompartmentType() )
     self.C.unsetCompartmentType()
     self.assertEqual( False, self.C.isSetCompartmentType() )
@@ -131,13 +131,13 @@ class TestCompartment(unittest.TestCase):
     c = libsbml.Compartment(2,4)
     c.setId( "A")
     c.initDefaults()
-    self.assert_((  "A" == c.getId() ))
-    self.assert_( c.getName() == "" )
-    self.assert_( c.getUnits() == "" )
-    self.assert_( c.getOutside() == "" )
-    self.assert_( c.getSpatialDimensions() == 3 )
-    self.assert_( c.getVolume() == 1.0 )
-    self.assert_( c.getConstant() == True )
+    self.assertTrue((  "A" == c.getId() ))
+    self.assertTrue( c.getName() == "" )
+    self.assertTrue( c.getUnits() == "" )
+    self.assertTrue( c.getOutside() == "" )
+    self.assertTrue( c.getSpatialDimensions() == 3 )
+    self.assertTrue( c.getVolume() == 1.0 )
+    self.assertTrue( c.getConstant() == True )
     self.assertEqual( True, c.isSetId() )
     self.assertEqual( False, c.isSetName() )
     self.assertEqual( False, c.isSetSize() )
@@ -152,12 +152,12 @@ class TestCompartment(unittest.TestCase):
   def test_Compartment_setId(self):
     id =  "mitochondria";
     self.C.setId(id)
-    self.assert_(( id == self.C.getId() ))
+    self.assertTrue(( id == self.C.getId() ))
     self.assertEqual( True, self.C.isSetId() )
     if (self.C.getId() == id):
       pass    
     self.C.setId(self.C.getId())
-    self.assert_(( id == self.C.getId() ))
+    self.assertTrue(( id == self.C.getId() ))
     self.C.setId("")
     self.assertEqual( False, self.C.isSetId() )
     if (self.C.getId() != None):
@@ -167,12 +167,12 @@ class TestCompartment(unittest.TestCase):
   def test_Compartment_setName(self):
     name =  "My_Favorite_Factory";
     self.C.setName(name)
-    self.assert_(( name == self.C.getName() ))
+    self.assertTrue(( name == self.C.getName() ))
     self.assertEqual( True, self.C.isSetName() )
     if (self.C.getName() == name):
       pass    
     self.C.setName(self.C.getName())
-    self.assert_(( name == self.C.getName() ))
+    self.assertTrue(( name == self.C.getName() ))
     self.C.setName("")
     self.assertEqual( False, self.C.isSetName() )
     if (self.C.getName() != None):
@@ -182,12 +182,12 @@ class TestCompartment(unittest.TestCase):
   def test_Compartment_setOutside(self):
     outside =  "cell";
     self.C.setOutside(outside)
-    self.assert_(( outside == self.C.getOutside() ))
+    self.assertTrue(( outside == self.C.getOutside() ))
     self.assertEqual( True, self.C.isSetOutside() )
     if (self.C.getOutside() == outside):
       pass    
     self.C.setOutside(self.C.getOutside())
-    self.assert_(( outside == self.C.getOutside() ))
+    self.assertTrue(( outside == self.C.getOutside() ))
     self.C.setOutside("")
     self.assertEqual( False, self.C.isSetOutside() )
     if (self.C.getOutside() != None):
@@ -197,12 +197,12 @@ class TestCompartment(unittest.TestCase):
   def test_Compartment_setUnits(self):
     units =  "volume";
     self.C.setUnits(units)
-    self.assert_(( units == self.C.getUnits() ))
+    self.assertTrue(( units == self.C.getUnits() ))
     self.assertEqual( True, self.C.isSetUnits() )
     if (self.C.getUnits() == units):
       pass    
     self.C.setUnits(self.C.getUnits())
-    self.assert_(( units == self.C.getUnits() ))
+    self.assertTrue(( units == self.C.getUnits() ))
     self.C.setUnits("")
     self.assertEqual( False, self.C.isSetUnits() )
     if (self.C.getUnits() != None):
@@ -211,7 +211,7 @@ class TestCompartment(unittest.TestCase):
 
   def test_Compartment_unsetSize(self):
     self.C.setSize(0.2)
-    self.assert_( self.C.getSize() == 0.2 )
+    self.assertTrue( self.C.getSize() == 0.2 )
     self.assertEqual( True, self.C.isSetSize() )
     self.C.unsetSize()
     self.assertEqual( False, self.C.isSetSize() )
@@ -219,7 +219,7 @@ class TestCompartment(unittest.TestCase):
 
   def test_Compartment_unsetVolume(self):
     self.C.setVolume(1.0)
-    self.assert_( self.C.getVolume() == 1.0 )
+    self.assertTrue( self.C.getVolume() == 1.0 )
     self.C.unsetVolume()
     self.assertEqual( False, self.C.isSetVolume() )
     pass  

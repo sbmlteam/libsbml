@@ -183,7 +183,7 @@ CompExtension::getURI(unsigned int sbmlLevel, unsigned int sbmlVersion, unsigned
  * Returns the SBML level with the given URI of this package.
  */
 unsigned int 
-CompExtension::getLevel(const std::string &uri) const
+CompExtension::getLevel(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -198,7 +198,7 @@ CompExtension::getLevel(const std::string &uri) const
  * Returns the SBML version with the given URI of this package.
  */
 unsigned int 
-CompExtension::getVersion(const std::string &uri) const
+CompExtension::getVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -213,7 +213,7 @@ CompExtension::getVersion(const std::string &uri) const
  * Returns the package version with the given URI of this package.
  */
 unsigned int
-CompExtension::getPackageVersion(const std::string &uri) const
+CompExtension::getPackageVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -231,7 +231,7 @@ CompExtension::getPackageVersion(const std::string &uri) const
  * NULL will be returned if the given uri is not defined in the corresponding package.
  */
 SBMLNamespaces*
-CompExtension::getSBMLExtensionNamespaces(const std::string &uri) const
+CompExtension::getSBMLExtensionNamespaces(const std::string& uri) const
 {
   CompPkgNamespaces* pkgns = 0;
   if ( uri == getXmlnsL3V1V1())

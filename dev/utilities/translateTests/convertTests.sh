@@ -23,10 +23,9 @@ esac
 
 if [ "$FILE" = "" ]
 then
-echo "usage: convertTests subdir testfile"
+echo "usage: convertTests testfile"
 echo ""
-echo "Converts libSBML tests into Perl, Ruby, CSharp and Java"
-echo "subdir has to be one of: math, sbml, annotation, xml"
+echo "Converts libSBML tests into Python, Ruby, CSharp and Java"
 echo ""
 fi
 

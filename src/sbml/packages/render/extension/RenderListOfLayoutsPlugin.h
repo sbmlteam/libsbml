@@ -70,7 +70,7 @@ public:
   /**
    * Constructor
    */
-  RenderListOfLayoutsPlugin  (const std::string &uri, const std::string &prefix,
+  RenderListOfLayoutsPlugin  (const std::string& uri, const std::string &prefix,
                     RenderPkgNamespaces *groupsns);
 
 

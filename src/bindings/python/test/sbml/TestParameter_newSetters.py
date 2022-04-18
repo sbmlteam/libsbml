@@ -51,50 +51,50 @@ class TestParameter_newSetters(unittest.TestCase):
 
   def test_Parameter_setConstant1(self):
     i = self.P.setConstant(False)
-    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
-    self.assert_( self.P.getConstant() == False )
+    self.assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assertTrue( self.P.getConstant() == False )
     pass  
 
   def test_Parameter_setConstant2(self):
     p = libsbml.Parameter(2,2)
     i = p.setConstant(False)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( p.getConstant() == False )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( p.getConstant() == False )
     _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Parameter_setId1(self):
     i = self.P.setId( "1cell")
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, self.P.isSetId() )
     pass  
 
   def test_Parameter_setId2(self):
     i = self.P.setId( "cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.P.isSetId() )
-    self.assert_((  "cell"  == self.P.getId() ))
+    self.assertTrue((  "cell"  == self.P.getId() ))
     i = self.P.setId("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.P.isSetId() )
     pass  
 
   def test_Parameter_setName1(self):
     i = self.P.setName( "cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.P.isSetName() )
     i = self.P.unsetName()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.P.isSetName() )
     pass  
 
   def test_Parameter_setName2(self):
     p = libsbml.Parameter(2,2)
     i = p.setName( "1cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, p.isSetName() )
     i = p.unsetName()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, p.isSetName() )
     _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -102,52 +102,52 @@ class TestParameter_newSetters(unittest.TestCase):
   def test_Parameter_setName3(self):
     p = libsbml.Parameter(1,2)
     i = p.setName( "11pp")
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, p.isSetName() )
     i = p.setName("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, p.isSetName() )
     _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Parameter_setUnits1(self):
     i = self.P.setUnits( "1cell")
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, self.P.isSetUnits() )
     i = self.P.unsetUnits()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.P.isSetUnits() )
     pass  
 
   def test_Parameter_setUnits2(self):
     i = self.P.setUnits( "litre")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.P.isSetUnits() )
     i = self.P.unsetUnits()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.P.isSetUnits() )
     pass  
 
   def test_Parameter_setUnits3(self):
     i = self.P.setUnits("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.P.isSetUnits() )
     pass  
 
   def test_Parameter_setValue1(self):
     i = self.P.setValue(2.0)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.P.getValue() == 2.0 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.P.getValue() == 2.0 )
     self.assertEqual( True, self.P.isSetValue() )
     i = self.P.unsetValue()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.P.isSetValue() )
     pass  
 
   def test_Parameter_setValue2(self):
     p = libsbml.Parameter(2,2)
     i = p.unsetValue()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, p.isSetValue() )
     _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
     pass  

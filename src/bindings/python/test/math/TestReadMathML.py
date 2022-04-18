@@ -126,114 +126,114 @@ class TestReadMathML(unittest.TestCase):
   def test_element_abs(self):
     s = wrapMathML("<apply><abs/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "abs(x)" == self.F ))
+    self.assertTrue((  "abs(x)" == self.F ))
     pass  
 
   def test_element_and(self):
     s = wrapMathML("<apply> <and/> <ci>a</ci> <ci>b</ci> <ci>c</ci> </apply>"  
     )
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "and(a, b, c)" == self.F ))
+    self.assertTrue((  "and(a, b, c)" == self.F ))
     pass  
 
   def test_element_arccos(self):
     s = wrapMathML("<apply><arccos/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "acos(x)" == self.F ))
+    self.assertTrue((  "acos(x)" == self.F ))
     pass  
 
   def test_element_arccosh(self):
     s = wrapMathML("<apply><arccosh/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "arccosh(x)" == self.F ))
+    self.assertTrue((  "arccosh(x)" == self.F ))
     pass  
 
   def test_element_arccot(self):
     s = wrapMathML("<apply><arccot/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "arccot(x)" == self.F ))
+    self.assertTrue((  "arccot(x)" == self.F ))
     pass  
 
   def test_element_arccoth(self):
     s = wrapMathML("<apply><arccoth/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "arccoth(x)" == self.F ))
+    self.assertTrue((  "arccoth(x)" == self.F ))
     pass  
 
   def test_element_arccsc(self):
     s = wrapMathML("<apply><arccsc/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "arccsc(x)" == self.F ))
+    self.assertTrue((  "arccsc(x)" == self.F ))
     pass  
 
   def test_element_arccsch(self):
     s = wrapMathML("<apply><arccsch/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "arccsch(x)" == self.F ))
+    self.assertTrue((  "arccsch(x)" == self.F ))
     pass  
 
   def test_element_arcsec(self):
     s = wrapMathML("<apply><arcsec/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "arcsec(x)" == self.F ))
+    self.assertTrue((  "arcsec(x)" == self.F ))
     pass  
 
   def test_element_arcsech(self):
     s = wrapMathML("<apply><arcsech/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "arcsech(x)" == self.F ))
+    self.assertTrue((  "arcsech(x)" == self.F ))
     pass  
 
   def test_element_arcsin(self):
     s = wrapMathML("<apply><arcsin/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "asin(x)" == self.F ))
+    self.assertTrue((  "asin(x)" == self.F ))
     pass  
 
   def test_element_arcsinh(self):
     s = wrapMathML("<apply><arcsinh/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "arcsinh(x)" == self.F ))
+    self.assertTrue((  "arcsinh(x)" == self.F ))
     pass  
 
   def test_element_arctan(self):
     s = wrapMathML("<apply><arctan/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "atan(x)" == self.F ))
+    self.assertTrue((  "atan(x)" == self.F ))
     pass  
 
   def test_element_arctanh(self):
     s = wrapMathML("<apply><arctanh/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "arctanh(x)" == self.F ))
+    self.assertTrue((  "arctanh(x)" == self.F ))
     pass  
 
   def test_element_bug_apply_ci_1(self):
@@ -242,15 +242,15 @@ class TestReadMathML(unittest.TestCase):
     "  <cn> 1 </cn>" + 
     "</apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_FUNCTION )
-    self.assert_((  "Y" == self.N.getName() ))
-    self.assert_( self.N.getNumChildren() == 1 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_FUNCTION )
+    self.assertTrue((  "Y" == self.N.getName() ))
+    self.assertTrue( self.N.getNumChildren() == 1 )
     c = self.N.getLeftChild()
-    self.assert_( c != None )
-    self.assert_( c.getType() == libsbml.AST_REAL )
-    self.assert_( c.getReal() == 1 )
-    self.assert_( c.getNumChildren() == 0 )
+    self.assertTrue( c != None )
+    self.assertTrue( c.getType() == libsbml.AST_REAL )
+    self.assertTrue( c.getReal() == 1 )
+    self.assertTrue( c.getNumChildren() == 0 )
     pass  
 
   def test_element_bug_apply_ci_2(self):
@@ -260,54 +260,54 @@ class TestReadMathML(unittest.TestCase):
     "   definitionURL='http://www.sbml.org/sbml/symbols/time'> t </csymbol>" + 
     "</apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_FUNCTION )
-    self.assert_((  "Y" == self.N.getName() ))
-    self.assert_( self.N.getNumChildren() == 1 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_FUNCTION )
+    self.assertTrue((  "Y" == self.N.getName() ))
+    self.assertTrue( self.N.getNumChildren() == 1 )
     c = self.N.getLeftChild()
-    self.assert_( c != None )
-    self.assert_( c.getType() == libsbml.AST_NAME_TIME )
-    self.assert_((  "t" == c.getName() ))
-    self.assert_( c.getNumChildren() == 0 )
+    self.assertTrue( c != None )
+    self.assertTrue( c.getType() == libsbml.AST_NAME_TIME )
+    self.assertTrue((  "t" == c.getName() ))
+    self.assertTrue( c.getNumChildren() == 0 )
     pass  
 
   def test_element_bug_cn_e_notation_1(self):
     s = wrapMathML("<cn type='e-notation'> 2 <sep/> -8 </cn>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_REAL_E )
-    self.assert_( self.N.getMantissa() == 2.0 )
-    self.assert_( self.N.getExponent() == -8.0 )
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_REAL_E )
+    self.assertTrue( self.N.getMantissa() == 2.0 )
+    self.assertTrue( self.N.getExponent() == -8.0 )
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_bug_cn_e_notation_2(self):
     s = wrapMathML("<cn type='e-notation'> -3 <sep/> 4 </cn>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_REAL_E )
-    self.assert_( self.N.getMantissa() == -3.0 )
-    self.assert_( self.N.getExponent() == 4.0 )
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_REAL_E )
+    self.assertTrue( self.N.getMantissa() == -3.0 )
+    self.assertTrue( self.N.getExponent() == 4.0 )
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_bug_cn_e_notation_3(self):
     s = wrapMathML("<cn type='e-notation'> -6 <sep/> -1 </cn>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_REAL_E )
-    self.assert_( self.N.getMantissa() == -6.0 )
-    self.assert_( self.N.getExponent() == -1.0 )
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_REAL_E )
+    self.assertTrue( self.N.getMantissa() == -6.0 )
+    self.assertTrue( self.N.getExponent() == -1.0 )
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_bug_cn_integer_negative(self):
     s = wrapMathML("<cn type='integer'> -7 </cn>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_INTEGER )
-    self.assert_( self.N.getInteger() == -7 )
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_INTEGER )
+    self.assertTrue( self.N.getInteger() == -7 )
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_bug_csymbol_1(self):
@@ -318,19 +318,19 @@ class TestReadMathML(unittest.TestCase):
     "  <cn>5000</cn>" + 
     "</apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_RELATIONAL_GT )
-    self.assert_( self.N.getNumChildren() == 2 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_RELATIONAL_GT )
+    self.assertTrue( self.N.getNumChildren() == 2 )
     c = self.N.getLeftChild()
-    self.assert_( c != None )
-    self.assert_( c.getType() == libsbml.AST_NAME_TIME )
-    self.assert_((  "time" == c.getName() ))
-    self.assert_( c.getNumChildren() == 0 )
+    self.assertTrue( c != None )
+    self.assertTrue( c.getType() == libsbml.AST_NAME_TIME )
+    self.assertTrue((  "time" == c.getName() ))
+    self.assertTrue( c.getNumChildren() == 0 )
     c = self.N.getRightChild()
-    self.assert_( c != None )
-    self.assert_( c.getType() == libsbml.AST_REAL )
-    self.assert_( c.getReal() == 5000 )
-    self.assert_( c.getNumChildren() == 0 )
+    self.assertTrue( c != None )
+    self.assertTrue( c.getType() == libsbml.AST_REAL )
+    self.assertTrue( c.getReal() == 5000 )
+    self.assertTrue( c.getNumChildren() == 0 )
     pass  
 
   def test_element_bug_csymbol_delay_1(self):
@@ -341,20 +341,20 @@ class TestReadMathML(unittest.TestCase):
     "  <cn> 0.1 </cn>" + 
     "</apply>\n")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_FUNCTION_DELAY )
-    self.assert_((  "my_delay" == self.N.getName() ))
-    self.assert_( self.N.getNumChildren() == 2 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_FUNCTION_DELAY )
+    self.assertTrue((  "my_delay" == self.N.getName() ))
+    self.assertTrue( self.N.getNumChildren() == 2 )
     c = self.N.getLeftChild()
-    self.assert_( c != None )
-    self.assert_( c.getType() == libsbml.AST_NAME )
-    self.assert_((  "x" == c.getName() ))
-    self.assert_( c.getNumChildren() == 0 )
+    self.assertTrue( c != None )
+    self.assertTrue( c.getType() == libsbml.AST_NAME )
+    self.assertTrue((  "x" == c.getName() ))
+    self.assertTrue( c.getNumChildren() == 0 )
     c = self.N.getRightChild()
-    self.assert_( c != None )
-    self.assert_( c.getType() == libsbml.AST_REAL )
-    self.assert_( c.getReal() == 0.1 )
-    self.assert_( c.getNumChildren() == 0 )
+    self.assertTrue( c != None )
+    self.assertTrue( c.getType() == libsbml.AST_REAL )
+    self.assertTrue( c.getReal() == 0.1 )
+    self.assertTrue( c.getNumChildren() == 0 )
     pass  
 
   def test_element_bug_math_xmlns(self):
@@ -364,219 +364,219 @@ class TestReadMathML(unittest.TestCase):
     "  </foo:apply>" + 
     "</foo:math>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "1 + 2" == self.F ))
+    self.assertTrue((  "1 + 2" == self.F ))
     pass  
 
   def test_element_ceiling(self):
     s = wrapMathML("<apply><ceiling/><cn> 1.6 </cn></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "ceil(1.6)" == self.F ))
+    self.assertTrue((  "ceil(1.6)" == self.F ))
     pass  
 
   def test_element_ci(self):
     s = wrapMathML("<ci> x </ci>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_NAME )
-    self.assert_((  "x" == self.N.getName() ))
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_NAME )
+    self.assertTrue((  "x" == self.N.getName() ))
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_ci_definitionURL(self):
     s = wrapMathML("<ci definitionURL=\"foobar\"> x </ci>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_NAME )
-    self.assert_((  "x" == self.N.getName() ))
-    self.assert_( self.N.getNumChildren() == 0 )
-    self.assert_( self.N.getDefinitionURL().getValue(0) ==  "foobar" )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_NAME )
+    self.assertTrue((  "x" == self.N.getName() ))
+    self.assertTrue( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N.getDefinitionURL().getValue(0) ==  "foobar" )
     pass  
 
   def test_element_ci_surrounding_spaces_bug(self):
     s = wrapMathML("  <ci> s </ci>  ")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_NAME )
-    self.assert_((  "s" == self.N.getName() ))
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_NAME )
+    self.assertTrue((  "s" == self.N.getName() ))
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_cn_default(self):
     s = wrapMathML("<cn> 12345.7 </cn>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_REAL )
-    self.assert_( self.N.getReal() == 12345.7 )
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_REAL )
+    self.assertTrue( self.N.getReal() == 12345.7 )
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_cn_e_notation(self):
     s = wrapMathML("<cn type='e-notation'> 12.3 <sep/> 5 </cn>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_REAL_E )
-    self.assert_( self.N.getMantissa() == 12.3 )
-    self.assert_( self.N.getExponent() == 5 )
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_REAL_E )
+    self.assertTrue( self.N.getMantissa() == 12.3 )
+    self.assertTrue( self.N.getExponent() == 5 )
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_cn_integer(self):
     s = wrapMathML("<cn type='integer'> 12345 </cn>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_INTEGER )
-    self.assert_( self.N.getInteger() == 12345 )
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_INTEGER )
+    self.assertTrue( self.N.getInteger() == 12345 )
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_cn_rational(self):
     s = wrapMathML("<cn type='rational'> 12342 <sep/> 2342342 </cn>"  
     )
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_RATIONAL )
-    self.assert_( self.N.getNumerator() == 12342 )
-    self.assert_( self.N.getDenominator() == 2342342 )
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_RATIONAL )
+    self.assertTrue( self.N.getNumerator() == 12342 )
+    self.assertTrue( self.N.getDenominator() == 2342342 )
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_cn_real(self):
     s = wrapMathML("<cn type='real'> 12345.7 </cn>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_REAL )
-    self.assert_( self.N.getReal() == 12345.7 )
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_REAL )
+    self.assertTrue( self.N.getReal() == 12345.7 )
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_cn_units(self):
     s = wrapMathMLUnits("<cn sbml:units=\"mole\"> 12345.7 </cn>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_REAL )
-    self.assert_( self.N.getReal() == 12345.7 )
-    self.assert_( self.N.getUnits() ==  "mole"    )
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_REAL )
+    self.assertTrue( self.N.getReal() == 12345.7 )
+    self.assertTrue( self.N.getUnits() ==  "mole"    )
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_constants_exponentiale(self):
     s = wrapMathML("<exponentiale/>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_CONSTANT_E )
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_CONSTANT_E )
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_constants_false(self):
     s = wrapMathML("<false/>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_CONSTANT_FALSE )
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_CONSTANT_FALSE )
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_constants_infinity(self):
     s = wrapMathML("<infinity/>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_REAL )
-    self.assert_( util_isInf(self.N.getReal()) == True )
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_REAL )
+    self.assertTrue( util_isInf(self.N.getReal()) == True )
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_constants_notanumber(self):
     s = wrapMathML("<notanumber/>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_REAL )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_REAL )
     self.assertEqual( True, isnan(self.N.getReal()) )
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_constants_pi(self):
     s = wrapMathML("<pi/>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_CONSTANT_PI )
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_CONSTANT_PI )
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_constants_true(self):
     s = wrapMathML("<true/>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_CONSTANT_TRUE )
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_CONSTANT_TRUE )
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_cos(self):
     s = wrapMathML("<apply><cos/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "cos(x)" == self.F ))
+    self.assertTrue((  "cos(x)" == self.F ))
     pass  
 
   def test_element_cosh(self):
     s = wrapMathML("<apply><cosh/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "cosh(x)" == self.F ))
+    self.assertTrue((  "cosh(x)" == self.F ))
     pass  
 
   def test_element_cot(self):
     s = wrapMathML("<apply><cot/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "cot(x)" == self.F ))
+    self.assertTrue((  "cot(x)" == self.F ))
     pass  
 
   def test_element_coth(self):
     s = wrapMathML("<apply><coth/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "coth(x)" == self.F ))
+    self.assertTrue((  "coth(x)" == self.F ))
     pass  
 
   def test_element_csc(self):
     s = wrapMathML("<apply><csc/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "csc(x)" == self.F ))
+    self.assertTrue((  "csc(x)" == self.F ))
     pass  
 
   def test_element_csch(self):
     s = wrapMathML("<apply><csch/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "csch(x)" == self.F ))
+    self.assertTrue((  "csch(x)" == self.F ))
     pass  
 
   def test_element_csymbol_avogadro(self):
     s = wrapMathML("<csymbol encoding='text' " + "definitionURL='http://www.sbml.org/sbml/symbols/avogadro'> NA </csymbol>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_NAME_AVOGADRO )
-    self.assert_((  "NA" == self.N.getName() ))
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_NAME_AVOGADRO )
+    self.assertTrue((  "NA" == self.N.getName() ))
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_csymbol_delay_1(self):
     s = wrapMathML("<csymbol encoding='text' " + "definitionURL='http://www.sbml.org/sbml/symbols/delay'> delay </csymbol>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_FUNCTION_DELAY )
-    self.assert_((  "delay" == self.N.getName() ))
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_FUNCTION_DELAY )
+    self.assertTrue((  "delay" == self.N.getName() ))
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_csymbol_delay_2(self):
@@ -587,9 +587,9 @@ class TestReadMathML(unittest.TestCase):
     "  <cn> 0.1 </cn>" + 
     "</apply>\n")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "my_delay(x, 0.1)" == self.F ))
+    self.assertTrue((  "my_delay(x, 0.1)" == self.F ))
     pass  
 
   def test_element_csymbol_delay_3(self):
@@ -604,59 +604,59 @@ class TestReadMathML(unittest.TestCase):
     "  <ci> q </ci>" + 
     "</apply>\n")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "pow(delay(P, delta_t), q)" == self.F ))
+    self.assertTrue((  "pow(delay(P, delta_t), q)" == self.F ))
     pass  
 
   def test_element_csymbol_time(self):
     s = wrapMathML("<csymbol encoding='text' " + "definitionURL='http://www.sbml.org/sbml/symbols/time'> t </csymbol>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_NAME_TIME )
-    self.assert_((  "t" == self.N.getName() ))
-    self.assert_( self.N.getNumChildren() == 0 )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_NAME_TIME )
+    self.assertTrue((  "t" == self.N.getName() ))
+    self.assertTrue( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_eq(self):
     s = wrapMathML("<apply> <eq/> <ci>a</ci> <ci>b</ci> <ci>c</ci> </apply>"  
     )
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "eq(a, b, c)" == self.F ))
+    self.assertTrue((  "eq(a, b, c)" == self.F ))
     pass  
 
   def test_element_exp(self):
     s = wrapMathML("<apply><exp/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "exp(x)" == self.F ))
+    self.assertTrue((  "exp(x)" == self.F ))
     pass  
 
   def test_element_factorial(self):
     s = wrapMathML("<apply><factorial/><cn> 5 </cn></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "factorial(5)" == self.F ))
+    self.assertTrue((  "factorial(5)" == self.F ))
     pass  
 
   def test_element_floor(self):
     s = wrapMathML("<apply><floor/><cn> 1.2 </cn></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "floor(1.2)" == self.F ))
+    self.assertTrue((  "floor(1.2)" == self.F ))
     pass  
 
   def test_element_function_call_1(self):
     s = wrapMathML("<apply> <ci> foo </ci> <ci> x </ci> </apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "foo(x)" == self.F ))
+    self.assertTrue((  "foo(x)" == self.F ))
     pass  
 
   def test_element_function_call_2(self):
@@ -664,18 +664,18 @@ class TestReadMathML(unittest.TestCase):
     "                <apply> <ci> f </ci> <ci> x </ci> </apply>" + 
     "</apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "1 + f(x)" == self.F ))
+    self.assertTrue((  "1 + f(x)" == self.F ))
     pass  
 
   def test_element_geq(self):
     s = wrapMathML("<apply> <geq/> <cn>1</cn> <ci>x</ci> <cn>0</cn> </apply>"  
     )
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "geq(1, x, 0)" == self.F ))
+    self.assertTrue((  "geq(1, x, 0)" == self.F ))
     pass  
 
   def test_element_gt(self):
@@ -683,9 +683,9 @@ class TestReadMathML(unittest.TestCase):
     "              <apply> <minus/> <infinity/> <cn>1</cn> </apply>" + 
     "</apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "gt(INF, INF - 1)" == self.F ))
+    self.assertTrue((  "gt(INF, INF - 1)" == self.F ))
     pass  
 
   def test_element_invalid_mathml(self):
@@ -698,9 +698,9 @@ class TestReadMathML(unittest.TestCase):
     "</apply>" + 
     "</lambda>\n")
     self.N = libsbml.readMathMLFromString(None)
-    self.assert_( self.N == None )
+    self.assertTrue( self.N == None )
     # self.N = libsbml.readMathMLFromString(invalid)
-    # self.assert_( self.N != None )
+    # self.assertTrue( self.N != None )
     pass  
 
   def test_element_lambda(self):
@@ -711,26 +711,26 @@ class TestReadMathML(unittest.TestCase):
     "  </apply>" + 
     "</lambda>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "lambda(x, sin(x + 1))" == self.F ))
+    self.assertTrue((  "lambda(x, sin(x + 1))" == self.F ))
     pass  
 
   def test_element_leq(self):
     s = wrapMathML("<apply> <leq/> <cn>0</cn> <ci>x</ci> <cn>1</cn> </apply>"  
     )
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "leq(0, x, 1)" == self.F ))
+    self.assertTrue((  "leq(0, x, 1)" == self.F ))
     pass  
 
   def test_element_ln(self):
     s = wrapMathML("<apply><ln/><ci> a </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "log(a)" == self.F ))
+    self.assertTrue((  "log(a)" == self.F ))
     pass  
 
   def test_element_log_1(self):
@@ -738,17 +738,17 @@ class TestReadMathML(unittest.TestCase):
     "               <ci> x </ci>" + 
     "</apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "log(3, x)" == self.F ))
+    self.assertTrue((  "log(3, x)" == self.F ))
     pass  
 
   def test_element_log_2(self):
     s = wrapMathML("<apply> <log/> <ci> x </ci> </apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "log10(x)" == self.F ))
+    self.assertTrue((  "log10(x)" == self.F ))
     pass  
 
   def test_element_lt(self):
@@ -756,61 +756,61 @@ class TestReadMathML(unittest.TestCase):
     "              <cn>1</cn>" + 
     "</apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "lt(INF - INF, 1)" == self.F ))
+    self.assertTrue((  "lt(INF - INF, 1)" == self.F ))
     pass  
 
   def test_element_math(self):
     s = wrapXML("<math xmlns='http://www.w3.org/1998/Math/MathML'/>"  
     )
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
-    self.assert_( self.N.getType() == libsbml.AST_UNKNOWN )
+    self.assertTrue( self.N != None )
+    self.assertTrue( self.N.getType() == libsbml.AST_UNKNOWN )
     pass  
 
   def test_element_neq(self):
     s = wrapMathML("<apply> <neq/> <notanumber/> <notanumber/> </apply>"  
     )
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "neq(NaN, NaN)" == self.F ))
+    self.assertTrue((  "neq(NaN, NaN)" == self.F ))
     pass  
 
   def test_element_not(self):
     s = wrapMathML("<apply> <not/> <ci> TooShabby </ci> </apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "not(TooShabby)" == self.F ))
+    self.assertTrue((  "not(TooShabby)" == self.F ))
     pass  
 
   def test_element_operator_plus(self):
     s = wrapMathML("<apply> <plus/> <cn> 1 </cn> <cn> 2 </cn> <cn> 3 </cn> </apply>"  
     )
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "1 + 2 + 3" == self.F ))
+    self.assertTrue((  "1 + 2 + 3" == self.F ))
     pass  
 
   def test_element_operator_times(self):
     s = wrapMathML("<apply> <times/> <ci> x </ci> <ci> y </ci> <ci> z </ci> </apply>"  
     )
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "x * y * z" == self.F ))
+    self.assertTrue((  "x * y * z" == self.F ))
     pass  
 
   def test_element_or(self):
     s = wrapMathML("<apply> <or/> <ci>a</ci> <ci>b</ci> <ci>c</ci> <ci>d</ci> </apply>"  
     )
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "or(a, b, c, d)" == self.F ))
+    self.assertTrue((  "or(a, b, c, d)" == self.F ))
     pass  
 
   def test_element_piecewise(self):
@@ -829,9 +829,9 @@ class TestReadMathML(unittest.TestCase):
     "  </piece>" + 
     "</piecewise>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "piecewise(-x, lt(x, 0), 0, eq(x, 0), x, gt(x, 0))" == self.F ))
+    self.assertTrue((  "piecewise(-x, lt(x, 0), 0, eq(x, 0), x, gt(x, 0))" == self.F ))
     pass  
 
   def test_element_piecewise_otherwise(self):
@@ -845,17 +845,17 @@ class TestReadMathML(unittest.TestCase):
     "  </otherwise>" + 
     "</piecewise>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "piecewise(0, lt(x, 0), x)" == self.F ))
+    self.assertTrue((  "piecewise(0, lt(x, 0), x)" == self.F ))
     pass  
 
   def test_element_power(self):
     s = wrapMathML("<apply><power/> <ci>x</ci> <cn>3</cn> </apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "pow(x, 3)" == self.F ))
+    self.assertTrue((  "pow(x, 3)" == self.F ))
     pass  
 
   def test_element_root_1(self):
@@ -863,74 +863,74 @@ class TestReadMathML(unittest.TestCase):
     "               <ci> a </ci>" + 
     "</apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "root(3, a)" == self.F ))
+    self.assertTrue((  "root(3, a)" == self.F ))
     pass  
 
   def test_element_root_2(self):
     s = wrapMathML("<apply> <root/> <ci> a </ci> </apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "sqrt(a)" == self.F ))
+    self.assertTrue((  "sqrt(a)" == self.F ))
     pass  
 
   def test_element_sec(self):
     s = wrapMathML("<apply><sec/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "sec(x)" == self.F ))
+    self.assertTrue((  "sec(x)" == self.F ))
     pass  
 
   def test_element_sech(self):
     s = wrapMathML("<apply><sech/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "sech(x)" == self.F ))
+    self.assertTrue((  "sech(x)" == self.F ))
     pass  
 
   def test_element_sin(self):
     s = wrapMathML("<apply><sin/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "sin(x)" == self.F ))
+    self.assertTrue((  "sin(x)" == self.F ))
     pass  
 
   def test_element_sinh(self):
     s = wrapMathML("<apply><sinh/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "sinh(x)" == self.F ))
+    self.assertTrue((  "sinh(x)" == self.F ))
     pass  
 
   def test_element_tan(self):
     s = wrapMathML("<apply><tan/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "tan(x)" == self.F ))
+    self.assertTrue((  "tan(x)" == self.F ))
     pass  
 
   def test_element_tanh(self):
     s = wrapMathML("<apply><tanh/><ci> x </ci></apply>")
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "tanh(x)" == self.F ))
+    self.assertTrue((  "tanh(x)" == self.F ))
     pass  
 
   def test_element_xor(self):
     s = wrapMathML("<apply> <xor/> <ci>a</ci> <ci>b</ci> <ci>b</ci> <ci>a</ci> </apply>"  
     )
     self.N = libsbml.readMathMLFromString(s)
-    self.assert_( self.N != None )
+    self.assertTrue( self.N != None )
     self.F = libsbml.formulaToString(self.N)
-    self.assert_((  "xor(a, b, b, a)" == self.F ))
+    self.assertTrue((  "xor(a, b, b, a)" == self.F ))
     pass  
 
 def suite():

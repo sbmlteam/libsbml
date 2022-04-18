@@ -110,7 +110,7 @@ public:
    *
    * @param compns the namespaces object for the package.
    */
-  CompModelPlugin (const std::string &uri, const std::string &prefix,
+  CompModelPlugin (const std::string& uri, const std::string &prefix,
                    CompPkgNamespaces *compns);
 
 
@@ -268,7 +268,7 @@ public:
    * @return the Submodel in the ListOfSubmodels with the given identifier.
    * If no such submodel with identifier @p id exists, @c NULL is returned.
    */
-  Submodel* getSubmodel (std::string id);
+  Submodel* getSubmodel (const std::string& id);
 
 
   /**
@@ -281,7 +281,7 @@ public:
    * returned.
 
    */
-  const Submodel* getSubmodel (std::string id) const;
+  const Submodel* getSubmodel (const std::string& id) const;
 
 
   /**
@@ -400,7 +400,7 @@ public:
    * @return the Port in the ListOfPorts with the given identifier.  If the
    * identifier is invalid, @c NULL is returned.
    */
-  Port* getPort (std::string id);
+  Port* getPort (const std::string& id);
 
 
   /**
@@ -411,7 +411,7 @@ public:
    * @return the Port in the ListOfPorts with the given identifier.  If the
    * identifier is invalid, @c NULL is returned.
    */
-  const Port* getPort (std::string id) const;
+  const Port* getPort (const std::string& id) const;
 
 
   /**

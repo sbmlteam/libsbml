@@ -48,9 +48,9 @@ foreach(dir common extension sbml util validator validator/constraints)
 	
         # set the *Constraints.cpp files to be 'header' files so they won't be compiled--
         #  they are #included directly, instead.
-        if ("${dir}" STREQUAL "validator/constraints")
+        if (dir STREQUAL "validator/constraints")
             foreach(tempFile ${current})
-                if ("${tempFile}" MATCHES ".*Constraints.cpp")
+                if (tempFile MATCHES ".*Constraints.cpp")
                     set_source_files_properties(
                         ${tempFile}
                         PROPERTIES HEADER_FILE_ONLY true

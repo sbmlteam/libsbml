@@ -226,7 +226,7 @@ public:
    * @return the SBML Level for the given URI of this package, or @c 0 if the
    * given URI is invalid, or for a different package.
    */
-  virtual unsigned int getLevel(const std::string &uri) const;
+  virtual unsigned int getLevel(const std::string& uri) const;
 
 
   /**
@@ -238,7 +238,7 @@ public:
    * @return the SBML Version within the SBML Level for the given URI of this
    * package, or @c 0 if the given URI is invalid, or for a different package.
    */
-  virtual unsigned int getVersion(const std::string &uri) const;
+  virtual unsigned int getVersion(const std::string& uri) const;
 
 
   /**
@@ -251,7 +251,7 @@ public:
    * @return the version of the SBML Level&nbsp;3 package with the given URI,
    * or @c 0 if the given URI is invalid, or for a different package.
    */
-  virtual unsigned int getPackageVersion(const std::string &uri) const;
+  virtual unsigned int getPackageVersion(const std::string& uri) const;
 
 
   /**
@@ -264,7 +264,7 @@ public:
    * @c NULL if the URI is not defined in the Hierarchical %Model Composition
    * package.
    */
-  virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string &uri) const;
+  virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string& uri) const;
 
 
   /**

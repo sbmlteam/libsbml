@@ -179,7 +179,7 @@ public:
    * if the given URI is invalid.
    *
    */
-  virtual unsigned int getLevel(const std::string &uri) const;
+  virtual unsigned int getLevel(const std::string& uri) const;
 
 
   /**
@@ -190,7 +190,7 @@ public:
    * @return the SBML version with the given URI of this package. 0 will be returned
    * if the given URI is invalid.
    */
-  virtual unsigned int getVersion(const std::string &uri) const;
+  virtual unsigned int getVersion(const std::string& uri) const;
 
 
   /**
@@ -201,7 +201,7 @@ public:
    * @return the package version with the given URI of this package. 0 will be returned
    * if the given URI is invalid.
    */
-  virtual unsigned int getPackageVersion(const std::string &uri) const;
+  virtual unsigned int getPackageVersion(const std::string& uri) const;
 
 
   /**
@@ -213,7 +213,7 @@ public:
    * @return a RenderPkgNamespaces object corresponding to the given uri. @c NULL will
    * be returned if the given URI is not defined in render package.
    */
-  virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string &uri) const;
+  virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string& uri) const;
 
 
   /**

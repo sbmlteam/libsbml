@@ -40,11 +40,11 @@ class TestCopyAndClone(unittest.TestCase):
   def test_CompartmentType_assignmentOperator(self):
     o1 = libsbml.CompartmentType(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = libsbml.CompartmentType(2,4)
     o2 = o1
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -52,10 +52,10 @@ class TestCopyAndClone(unittest.TestCase):
   def test_CompartmentType_clone(self):
     o1 = libsbml.CompartmentType(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = o1.clone()
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -63,10 +63,10 @@ class TestCopyAndClone(unittest.TestCase):
   def test_CompartmentType_copyConstructor(self):
     o1 = libsbml.CompartmentType(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = libsbml.CompartmentType(o1)
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -75,13 +75,13 @@ class TestCopyAndClone(unittest.TestCase):
     o1 = libsbml.Compartment(2,4)
     o1.setId("c")
     o1.setOutside("c2")
-    self.assert_( o1.getId() ==  "c" )
-    self.assert_( o1.getOutside() ==  "c2" )
+    self.assertTrue( o1.getId() ==  "c" )
+    self.assertTrue( o1.getOutside() ==  "c2" )
     o2 = libsbml.Compartment(2,4)
     o2 = o1
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getOutside() ==  "c2" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getOutside() ==  "c2" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -90,12 +90,12 @@ class TestCopyAndClone(unittest.TestCase):
     o1 = libsbml.Compartment(2,4)
     o1.setId("c")
     o1.setOutside("c2")
-    self.assert_( o1.getId() ==  "c" )
-    self.assert_( o1.getOutside() ==  "c2" )
+    self.assertTrue( o1.getId() ==  "c" )
+    self.assertTrue( o1.getOutside() ==  "c2" )
     o2 = o1.clone()
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getOutside() ==  "c2" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getOutside() ==  "c2" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -104,12 +104,12 @@ class TestCopyAndClone(unittest.TestCase):
     o1 = libsbml.Compartment(2,4)
     o1.setId("c")
     o1.setOutside("c2")
-    self.assert_( o1.getId() ==  "c" )
-    self.assert_( o1.getOutside() ==  "c2" )
+    self.assertTrue( o1.getId() ==  "c" )
+    self.assertTrue( o1.getOutside() ==  "c2" )
     o2 = libsbml.Compartment(o1)
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getOutside() ==  "c2" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getOutside() ==  "c2" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -117,7 +117,7 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Constraint_assignmentOperator(self):
     o1 = libsbml.Constraint(2,4)
     o1.setMetaId("c")
-    self.assert_( o1.getMetaId() ==  "c" )
+    self.assertTrue( o1.getMetaId() ==  "c" )
     text = libsbml.XMLNode.convertStringToXMLNode(" Some text ")
     triple = libsbml.XMLTriple("p", "http://www.w3.org/1999/xhtml", "")
     att = libsbml.XMLAttributes()
@@ -134,16 +134,16 @@ class TestCopyAndClone(unittest.TestCase):
     o1.setMessage(message)
     math = None
     message = None
-    self.assert_( o1.getMath() != None )
+    self.assertTrue( o1.getMath() != None )
     msg = o1.getMessage()
-    self.assert_( msg != None )
+    self.assertTrue( msg != None )
     o2 = libsbml.Constraint(2,4)
     o2 = o1
-    self.assert_( o2.getMetaId() ==  "c" )
-    self.assert_( o2.getMath() != None )
+    self.assertTrue( o2.getMetaId() ==  "c" )
+    self.assertTrue( o2.getMath() != None )
     msg = o2.getMessage()
-    self.assert_( msg != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( msg != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -151,7 +151,7 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Constraint_clone(self):
     o1 = libsbml.Constraint(2,4)
     o1.setMetaId("c")
-    self.assert_( o1.getMetaId() ==  "c" )
+    self.assertTrue( o1.getMetaId() ==  "c" )
     text = libsbml.XMLNode.convertStringToXMLNode(" Some text ")
     triple = libsbml.XMLTriple("p", "http://www.w3.org/1999/xhtml", "")
     att = libsbml.XMLAttributes()
@@ -168,15 +168,15 @@ class TestCopyAndClone(unittest.TestCase):
     o1.setMessage(message)
     math = None
     message = None
-    self.assert_( o1.getMath() != None )
+    self.assertTrue( o1.getMath() != None )
     msg = o1.getMessage()
-    self.assert_( msg != None )
+    self.assertTrue( msg != None )
     o2 = o1.clone()
-    self.assert_( o2.getMetaId() ==  "c" )
-    self.assert_( o2.getMath() != None )
+    self.assertTrue( o2.getMetaId() ==  "c" )
+    self.assertTrue( o2.getMath() != None )
     msg = o2.getMessage()
-    self.assert_( msg != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( msg != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -184,7 +184,7 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Constraint_copyConstructor(self):
     o1 = libsbml.Constraint(2,4)
     o1.setMetaId("c")
-    self.assert_( o1.getMetaId() ==  "c" )
+    self.assertTrue( o1.getMetaId() ==  "c" )
     text = libsbml.XMLNode.convertStringToXMLNode(" Some text ")
     triple = libsbml.XMLTriple("p", "http://www.w3.org/1999/xhtml", "")
     att = libsbml.XMLAttributes()
@@ -201,15 +201,15 @@ class TestCopyAndClone(unittest.TestCase):
     o1.setMessage(message)
     math = None
     message = None
-    self.assert_( o1.getMath() != None )
+    self.assertTrue( o1.getMath() != None )
     msg = o1.getMessage()
-    self.assert_( msg != None )
+    self.assertTrue( msg != None )
     o2 = libsbml.Constraint(o1)
-    self.assert_( o2.getMetaId() ==  "c" )
-    self.assert_( o2.getMath() != None )
+    self.assertTrue( o2.getMetaId() ==  "c" )
+    self.assertTrue( o2.getMath() != None )
     msg = o2.getMessage()
-    self.assert_( msg != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( msg != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -219,11 +219,11 @@ class TestCopyAndClone(unittest.TestCase):
     node = libsbml.ASTNode(libsbml.AST_CONSTANT_PI)
     o1.setMath(node)
     node = None
-    self.assert_( o1.getMath() != None )
+    self.assertTrue( o1.getMath() != None )
     o2 = libsbml.Delay(2,4)
     o2 = o1
-    self.assert_( o1.getMath() != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o1.getMath() != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -233,10 +233,10 @@ class TestCopyAndClone(unittest.TestCase):
     node = libsbml.ASTNode(libsbml.AST_CONSTANT_PI)
     o1.setMath(node)
     node = None
-    self.assert_( o1.getMath() != None )
+    self.assertTrue( o1.getMath() != None )
     o2 = o1.clone()
-    self.assert_( o1.getMath() != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o1.getMath() != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -246,10 +246,10 @@ class TestCopyAndClone(unittest.TestCase):
     node = libsbml.ASTNode(libsbml.AST_CONSTANT_PI)
     o1.setMath(node)
     node = None
-    self.assert_( o1.getMath() != None )
+    self.assertTrue( o1.getMath() != None )
     o2 = libsbml.Delay(o1)
-    self.assert_( o2.getMath() != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getMath() != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -257,16 +257,16 @@ class TestCopyAndClone(unittest.TestCase):
   def test_EventAssignment_assignmentOperator(self):
     o1 = libsbml.EventAssignment(2,4)
     o1.setVariable("c2")
-    self.assert_( o1.getVariable() ==  "c2" )
+    self.assertTrue( o1.getVariable() ==  "c2" )
     node = libsbml.ASTNode(libsbml.AST_CONSTANT_PI)
     o1.setMath(node)
     node = None
-    self.assert_( o1.getMath() != None )
+    self.assertTrue( o1.getMath() != None )
     o2 = libsbml.EventAssignment(2,4)
     o2 = o1
-    self.assert_( o2.getVariable() ==  "c2" )
-    self.assert_( o2.getMath() != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getVariable() ==  "c2" )
+    self.assertTrue( o2.getMath() != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -274,15 +274,15 @@ class TestCopyAndClone(unittest.TestCase):
   def test_EventAssignment_clone(self):
     o1 = libsbml.EventAssignment(2,4)
     o1.setVariable("c2")
-    self.assert_( o1.getVariable() ==  "c2" )
+    self.assertTrue( o1.getVariable() ==  "c2" )
     node = libsbml.ASTNode(libsbml.AST_CONSTANT_PI)
     o1.setMath(node)
     node = None
-    self.assert_( o1.getMath() != None )
+    self.assertTrue( o1.getMath() != None )
     o2 = o1.clone()
-    self.assert_( o2.getVariable() ==  "c2" )
-    self.assert_( o2.getMath() != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getVariable() ==  "c2" )
+    self.assertTrue( o2.getMath() != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -290,15 +290,15 @@ class TestCopyAndClone(unittest.TestCase):
   def test_EventAssignment_copyConstructor(self):
     o1 = libsbml.EventAssignment(2,4)
     o1.setVariable("c2")
-    self.assert_( o1.getVariable() ==  "c2" )
+    self.assertTrue( o1.getVariable() ==  "c2" )
     node = libsbml.ASTNode(libsbml.AST_CONSTANT_PI)
     o1.setMath(node)
     node = None
-    self.assert_( o1.getMath() != None )
+    self.assertTrue( o1.getMath() != None )
     o2 = libsbml.EventAssignment(o1)
-    self.assert_( o2.getVariable() ==  "c2" )
-    self.assert_( o2.getMath() != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getVariable() ==  "c2" )
+    self.assertTrue( o2.getMath() != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -306,11 +306,11 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Event_assignmentOperator(self):
     o1 = libsbml.Event(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = libsbml.Event(2,4)
     o2 = o1
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -318,10 +318,10 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Event_clone(self):
     o1 = libsbml.Event(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = o1.clone()
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -329,10 +329,10 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Event_copyConstructor(self):
     o1 = libsbml.Event(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = libsbml.Event(o1)
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -340,16 +340,16 @@ class TestCopyAndClone(unittest.TestCase):
   def test_FunctionDefinition_assignmentOperator(self):
     o1 = libsbml.FunctionDefinition(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     node = libsbml.ASTNode(libsbml.AST_CONSTANT_PI)
     o1.setMath(node)
     node = None
-    self.assert_( o1.getMath() != None )
+    self.assertTrue( o1.getMath() != None )
     o2 = libsbml.FunctionDefinition(2,4)
     o2 = o1
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getMath() != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getMath() != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -357,15 +357,15 @@ class TestCopyAndClone(unittest.TestCase):
   def test_FunctionDefinition_clone(self):
     o1 = libsbml.FunctionDefinition(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     node = libsbml.ASTNode(libsbml.AST_CONSTANT_PI)
     o1.setMath(node)
     node = None
-    self.assert_( o1.getMath() != None )
+    self.assertTrue( o1.getMath() != None )
     o2 = o1.clone()
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getMath() != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getMath() != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -373,15 +373,15 @@ class TestCopyAndClone(unittest.TestCase):
   def test_FunctionDefinition_copyConstructor(self):
     o1 = libsbml.FunctionDefinition(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     node = libsbml.ASTNode(libsbml.AST_CONSTANT_PI)
     o1.setMath(node)
     node = None
-    self.assert_( o1.getMath() != None )
+    self.assertTrue( o1.getMath() != None )
     o2 = libsbml.FunctionDefinition(o1)
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getMath() != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getMath() != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -389,11 +389,11 @@ class TestCopyAndClone(unittest.TestCase):
   def test_InitialAssignment_assignmentOperator(self):
     o1 = libsbml.InitialAssignment(2,4)
     o1.setSymbol("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = libsbml.InitialAssignment(2,4)
     o2 = o1
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -401,10 +401,10 @@ class TestCopyAndClone(unittest.TestCase):
   def test_InitialAssignment_clone(self):
     o1 = libsbml.InitialAssignment(2,4)
     o1.setSymbol("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = o1.clone()
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -412,10 +412,10 @@ class TestCopyAndClone(unittest.TestCase):
   def test_InitialAssignment_copyConstructor(self):
     o1 = libsbml.InitialAssignment(2,4)
     o1.setSymbol("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = libsbml.InitialAssignment(o1)
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -426,13 +426,13 @@ class TestCopyAndClone(unittest.TestCase):
     p.setId("jake")
     o1.addParameter(p)
     p = None
-    self.assert_( o1.getNumParameters() == 1 )
-    self.assert_( o1.getParameter(0).getId() ==  "jake" )
+    self.assertTrue( o1.getNumParameters() == 1 )
+    self.assertTrue( o1.getParameter(0).getId() ==  "jake" )
     o2 = libsbml.KineticLaw(2,4)
     o2 = o1
-    self.assert_( o2.getNumParameters() == 1 )
-    self.assert_( o2.getParameter(0).getId() ==  "jake" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getNumParameters() == 1 )
+    self.assertTrue( o2.getParameter(0).getId() ==  "jake" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -443,12 +443,12 @@ class TestCopyAndClone(unittest.TestCase):
     p.setId("jake")
     o1.addParameter(p)
     p = None
-    self.assert_( o1.getNumParameters() == 1 )
-    self.assert_( o1.getParameter(0).getId() ==  "jake" )
+    self.assertTrue( o1.getNumParameters() == 1 )
+    self.assertTrue( o1.getParameter(0).getId() ==  "jake" )
     o2 = o1.clone()
-    self.assert_( o2.getNumParameters() == 1 )
-    self.assert_( o2.getParameter(0).getId() ==  "jake" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getNumParameters() == 1 )
+    self.assertTrue( o2.getParameter(0).getId() ==  "jake" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -459,12 +459,12 @@ class TestCopyAndClone(unittest.TestCase):
     p.setId("jake")
     o1.addParameter(p)
     p = None
-    self.assert_( o1.getNumParameters() == 1 )
-    self.assert_( o1.getParameter(0).getId() ==  "jake" )
+    self.assertTrue( o1.getNumParameters() == 1 )
+    self.assertTrue( o1.getParameter(0).getId() ==  "jake" )
     o2 = libsbml.KineticLaw(o1)
-    self.assert_( o2.getNumParameters() == 1 )
-    self.assert_( o2.getParameter(0).getId() ==  "jake" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getNumParameters() == 1 )
+    self.assertTrue( o2.getParameter(0).getId() ==  "jake" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -477,9 +477,9 @@ class TestCopyAndClone(unittest.TestCase):
     s = None
     o2 = libsbml.ListOf(2,1)
     o2 = o1
-    self.assert_( o2.size() == 1 )
-    self.assert_( o2.get(0).getId() ==  "species_1" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.size() == 1 )
+    self.assertTrue( o2.get(0).getId() ==  "species_1" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -491,9 +491,9 @@ class TestCopyAndClone(unittest.TestCase):
     o1.append(s)
     s = None
     o2 = o1.clone()
-    self.assert_( o2.size() == 1 )
-    self.assert_( o2.get(0).getId() ==  "species_1" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.size() == 1 )
+    self.assertTrue( o2.get(0).getId() ==  "species_1" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -505,9 +505,9 @@ class TestCopyAndClone(unittest.TestCase):
     o1.append(s)
     s = None
     o2 = libsbml.ListOf(o1)
-    self.assert_( o2.size() == 1 )
-    self.assert_( o2.get(0).getId() ==  "species_1" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.size() == 1 )
+    self.assertTrue( o2.get(0).getId() ==  "species_1" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -515,11 +515,11 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Parameter_assignmentOperator(self):
     o1 = libsbml.Parameter(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = libsbml.Parameter(2,4)
     o2 = o1
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -527,10 +527,10 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Parameter_clone(self):
     o1 = libsbml.Parameter(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = o1.clone()
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -538,10 +538,10 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Parameter_copyConstructor(self):
     o1 = libsbml.Parameter(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = libsbml.Parameter(o1)
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -549,19 +549,19 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Reaction_assignmentOperator(self):
     o1 = libsbml.Reaction(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     kl = libsbml.KineticLaw(2,4)
     kl.setMath(libsbml.parseFormula("1"))
     o1.setKineticLaw(kl)
     kl = None
-    self.assert_( o1.isSetKineticLaw() == True )
-    self.assert_( o1.getKineticLaw() != None )
+    self.assertTrue( o1.isSetKineticLaw() == True )
+    self.assertTrue( o1.getKineticLaw() != None )
     o2 = libsbml.Reaction(2,4)
     o2 = o1
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.isSetKineticLaw() == True )
-    self.assert_( o2.getKineticLaw() != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.isSetKineticLaw() == True )
+    self.assertTrue( o2.getKineticLaw() != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -569,18 +569,18 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Reaction_clone(self):
     o1 = libsbml.Reaction(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     kl = libsbml.KineticLaw(2,4)
     kl.setMath(libsbml.parseFormula("1"))
     o1.setKineticLaw(kl)
     kl = None
-    self.assert_( o1.isSetKineticLaw() == True )
-    self.assert_( o1.getKineticLaw() != None )
+    self.assertTrue( o1.isSetKineticLaw() == True )
+    self.assertTrue( o1.getKineticLaw() != None )
     o2 = o1.clone()
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.isSetKineticLaw() == True )
-    self.assert_( o2.getKineticLaw() != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.isSetKineticLaw() == True )
+    self.assertTrue( o2.getKineticLaw() != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -588,18 +588,18 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Reaction_copyConstructor(self):
     o1 = libsbml.Reaction(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     kl = libsbml.KineticLaw(2,4)
     kl.setMath(libsbml.parseFormula("1"))
     o1.setKineticLaw(kl)
     kl = None
-    self.assert_( o1.isSetKineticLaw() == True )
-    self.assert_( o1.getKineticLaw() != None )
+    self.assertTrue( o1.isSetKineticLaw() == True )
+    self.assertTrue( o1.getKineticLaw() != None )
     o2 = libsbml.Reaction(o1)
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.isSetKineticLaw() == True )
-    self.assert_( o2.getKineticLaw() != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.isSetKineticLaw() == True )
+    self.assertTrue( o2.getKineticLaw() != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -607,16 +607,16 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Rule_assignmentOperator(self):
     o1 = libsbml.RateRule(2,4)
     o1.setVariable("a")
-    self.assert_( o1.getVariable() ==  "a" )
+    self.assertTrue( o1.getVariable() ==  "a" )
     node = libsbml.ASTNode(libsbml.AST_CONSTANT_PI)
     o1.setMath(node)
     node = None
-    self.assert_( o1.isSetMath() == True )
+    self.assertTrue( o1.isSetMath() == True )
     o2 = libsbml.RateRule(2,4)
     o2 = o1
-    self.assert_( o2.getVariable() ==  "a" )
-    self.assert_( o2.isSetMath() == True )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getVariable() ==  "a" )
+    self.assertTrue( o2.isSetMath() == True )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -624,15 +624,15 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Rule_clone(self):
     o1 = libsbml.RateRule(2,1)
     o1.setVariable("a")
-    self.assert_( o1.getVariable() ==  "a" )
+    self.assertTrue( o1.getVariable() ==  "a" )
     node = libsbml.ASTNode(libsbml.AST_CONSTANT_PI)
     o1.setMath(node)
     node = None
-    self.assert_( o1.isSetMath() == True )
+    self.assertTrue( o1.isSetMath() == True )
     o2 = o1.clone()
-    self.assert_( o2.getVariable() ==  "a" )
-    self.assert_( o2.isSetMath() == True )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getVariable() ==  "a" )
+    self.assertTrue( o2.isSetMath() == True )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -640,15 +640,15 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Rule_copyConstructor(self):
     o1 = libsbml.RateRule(2,1)
     o1.setVariable("a")
-    self.assert_( o1.getVariable() ==  "a" )
+    self.assertTrue( o1.getVariable() ==  "a" )
     node = libsbml.ASTNode(libsbml.AST_CONSTANT_PI)
     o1.setMath(node)
     node = None
-    self.assert_( o1.isSetMath() == True )
+    self.assertTrue( o1.isSetMath() == True )
     o2 = libsbml.Rule(o1)
-    self.assert_( o2.getVariable() ==  "a" )
-    self.assert_( o2.isSetMath() == True )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getVariable() ==  "a" )
+    self.assertTrue( o2.isSetMath() == True )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -656,12 +656,12 @@ class TestCopyAndClone(unittest.TestCase):
   def test_SBMLDocument_assignmentOperator(self):
     o1 = libsbml.SBMLDocument()
     o1.setLevelAndVersion(2,1,False)
-    self.assert_( o1.getLevel() == 2 )
-    self.assert_( o1.getVersion() == 1 )
+    self.assertTrue( o1.getLevel() == 2 )
+    self.assertTrue( o1.getVersion() == 1 )
     o2 = libsbml.SBMLDocument()
     o2 = o1
-    self.assert_( o2.getLevel() == 2 )
-    self.assert_( o2.getVersion() == 1 )
+    self.assertTrue( o2.getLevel() == 2 )
+    self.assertTrue( o2.getVersion() == 1 )
     o2 = None
     o1 = None
     pass  
@@ -675,19 +675,19 @@ class TestCopyAndClone(unittest.TestCase):
     m.createReaction()
     m.setId("foo")
     o1.setModel(m)
-    self.assert_( o1.getLevel() == 1 )
-    self.assert_( o1.getVersion() == 1 )
-    self.assert_( o1.getModel().getId() ==  "foo" )
-    self.assert_( o1.getModel().getLevel() == 1 )
-    self.assert_( o1.getModel().getVersion() == 1 )
-    self.assert_( o1.getModel().getSBMLDocument() == o1 )
+    self.assertTrue( o1.getLevel() == 1 )
+    self.assertTrue( o1.getVersion() == 1 )
+    self.assertTrue( o1.getModel().getId() ==  "foo" )
+    self.assertTrue( o1.getModel().getLevel() == 1 )
+    self.assertTrue( o1.getModel().getVersion() == 1 )
+    self.assertTrue( o1.getModel().getSBMLDocument() == o1 )
     o2 = o1.clone()
-    self.assert_( o2.getLevel() == 1 )
-    self.assert_( o2.getVersion() == 1 )
-    self.assert_( o2.getModel().getId() ==  "foo" )
-    self.assert_( o2.getModel().getLevel() == 1 )
-    self.assert_( o2.getModel().getVersion() == 1 )
-    self.assert_( o2.getModel().getSBMLDocument() == o2 )
+    self.assertTrue( o2.getLevel() == 1 )
+    self.assertTrue( o2.getVersion() == 1 )
+    self.assertTrue( o2.getModel().getId() ==  "foo" )
+    self.assertTrue( o2.getModel().getLevel() == 1 )
+    self.assertTrue( o2.getModel().getVersion() == 1 )
+    self.assertTrue( o2.getModel().getSBMLDocument() == o2 )
     o2 = None
     o1 = None
     pass  
@@ -695,11 +695,11 @@ class TestCopyAndClone(unittest.TestCase):
   def test_SBMLDocument_copyConstructor(self):
     o1 = libsbml.SBMLDocument()
     o1.setLevelAndVersion(2,1,False)
-    self.assert_( o1.getLevel() == 2 )
-    self.assert_( o1.getVersion() == 1 )
+    self.assertTrue( o1.getLevel() == 2 )
+    self.assertTrue( o1.getVersion() == 1 )
     o2 = libsbml.SBMLDocument(o1)
-    self.assert_( o2.getLevel() == 2 )
-    self.assert_( o2.getVersion() == 1 )
+    self.assertTrue( o2.getLevel() == 2 )
+    self.assertTrue( o2.getVersion() == 1 )
     o2 = None
     o1 = None
     pass  
@@ -707,11 +707,11 @@ class TestCopyAndClone(unittest.TestCase):
   def test_SpeciesReference_assignmentOperator(self):
     o1 = libsbml.SpeciesReference(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = libsbml.SpeciesReference(2,4)
     o2 = o1
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -719,10 +719,10 @@ class TestCopyAndClone(unittest.TestCase):
   def test_SpeciesReference_clone(self):
     o1 = libsbml.SpeciesReference(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = o1.clone()
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -730,10 +730,10 @@ class TestCopyAndClone(unittest.TestCase):
   def test_SpeciesReference_copyConstructor(self):
     o1 = libsbml.SpeciesReference(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = libsbml.SpeciesReference(o1)
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -741,11 +741,11 @@ class TestCopyAndClone(unittest.TestCase):
   def test_SpeciesType_assignmentOperator(self):
     o1 = libsbml.SpeciesType(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = libsbml.SpeciesType(2,4)
     o2 = o1
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -753,10 +753,10 @@ class TestCopyAndClone(unittest.TestCase):
   def test_SpeciesType_clone(self):
     o1 = libsbml.SpeciesType(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = o1.clone()
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -764,10 +764,10 @@ class TestCopyAndClone(unittest.TestCase):
   def test_SpeciesType_copyConstructor(self):
     o1 = libsbml.SpeciesType(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = libsbml.SpeciesType(o1)
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -776,13 +776,13 @@ class TestCopyAndClone(unittest.TestCase):
     o1 = libsbml.Species(2,4)
     o1.setId("c")
     o1.setSpeciesType("c1")
-    self.assert_( o1.getId() ==  "c" )
-    self.assert_( o1.getSpeciesType() ==  "c1" )
+    self.assertTrue( o1.getId() ==  "c" )
+    self.assertTrue( o1.getSpeciesType() ==  "c1" )
     o2 = libsbml.Species(2,4)
     o2 = o1
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getSpeciesType() ==  "c1" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getSpeciesType() ==  "c1" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -791,12 +791,12 @@ class TestCopyAndClone(unittest.TestCase):
     o1 = libsbml.Species(2,4)
     o1.setId("c")
     o1.setSpeciesType("c1")
-    self.assert_( o1.getId() ==  "c" )
-    self.assert_( o1.getSpeciesType() ==  "c1" )
+    self.assertTrue( o1.getId() ==  "c" )
+    self.assertTrue( o1.getSpeciesType() ==  "c1" )
     o2 = o1.clone()
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getSpeciesType() ==  "c1" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getSpeciesType() ==  "c1" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -805,12 +805,12 @@ class TestCopyAndClone(unittest.TestCase):
     o1 = libsbml.Species(2,4)
     o1.setId("c")
     o1.setSpeciesType("c1")
-    self.assert_( o1.getId() ==  "c" )
-    self.assert_( o1.getSpeciesType() ==  "c1" )
+    self.assertTrue( o1.getId() ==  "c" )
+    self.assertTrue( o1.getSpeciesType() ==  "c1" )
     o2 = libsbml.Species(o1)
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getSpeciesType() ==  "c1" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getSpeciesType() ==  "c1" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -820,11 +820,11 @@ class TestCopyAndClone(unittest.TestCase):
     node = libsbml.ASTNode(libsbml.AST_CONSTANT_PI)
     o1.setMath(node)
     node = None
-    self.assert_( o1.getMath() != None )
+    self.assertTrue( o1.getMath() != None )
     o2 = libsbml.Trigger(2,4)
     o2 = o1
-    self.assert_( o1.getMath() != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o1.getMath() != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -834,10 +834,10 @@ class TestCopyAndClone(unittest.TestCase):
     node = libsbml.ASTNode(libsbml.AST_CONSTANT_PI)
     o1.setMath(node)
     node = None
-    self.assert_( o1.getMath() != None )
+    self.assertTrue( o1.getMath() != None )
     o2 = o1.clone()
-    self.assert_( o1.getMath() != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o1.getMath() != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -847,10 +847,10 @@ class TestCopyAndClone(unittest.TestCase):
     node = libsbml.ASTNode(libsbml.AST_CONSTANT_PI)
     o1.setMath(node)
     node = None
-    self.assert_( o1.getMath() != None )
+    self.assertTrue( o1.getMath() != None )
     o2 = libsbml.Trigger(o1)
-    self.assert_( o2.getMath() != None )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getMath() != None )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -858,11 +858,11 @@ class TestCopyAndClone(unittest.TestCase):
   def test_UnitDefinition_assignmentOperator(self):
     o1 = libsbml.UnitDefinition(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = libsbml.UnitDefinition(2,4)
     o2 = o1
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -870,10 +870,10 @@ class TestCopyAndClone(unittest.TestCase):
   def test_UnitDefinition_clone(self):
     o1 = libsbml.UnitDefinition(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = o1.clone()
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -881,10 +881,10 @@ class TestCopyAndClone(unittest.TestCase):
   def test_UnitDefinition_copyConstructor(self):
     o1 = libsbml.UnitDefinition(2,4)
     o1.setId("c")
-    self.assert_( o1.getId() ==  "c" )
+    self.assertTrue( o1.getId() ==  "c" )
     o2 = libsbml.UnitDefinition(o1)
-    self.assert_( o2.getId() ==  "c" )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getId() ==  "c" )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -892,11 +892,11 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Unit_assignmentOperator(self):
     o1 = libsbml.Unit(2,4)
     o1.setKind(libsbml.UNIT_KIND_MOLE)
-    self.assert_( o1.getKind() == libsbml.UNIT_KIND_MOLE )
+    self.assertTrue( o1.getKind() == libsbml.UNIT_KIND_MOLE )
     o2 = libsbml.Unit(2,4)
     o2 = o1
-    self.assert_( o2.getKind() == libsbml.UNIT_KIND_MOLE )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getKind() == libsbml.UNIT_KIND_MOLE )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -904,10 +904,10 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Unit_clone(self):
     o1 = libsbml.Unit(2,4)
     o1.setKind(libsbml.UNIT_KIND_MOLE)
-    self.assert_( o1.getKind() == libsbml.UNIT_KIND_MOLE )
+    self.assertTrue( o1.getKind() == libsbml.UNIT_KIND_MOLE )
     o2 = o1.clone()
-    self.assert_( o2.getKind() == libsbml.UNIT_KIND_MOLE )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getKind() == libsbml.UNIT_KIND_MOLE )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  
@@ -915,10 +915,10 @@ class TestCopyAndClone(unittest.TestCase):
   def test_Unit_copyConstructor(self):
     o1 = libsbml.Unit(2,4)
     o1.setKind(libsbml.UNIT_KIND_MOLE)
-    self.assert_( o1.getKind() == libsbml.UNIT_KIND_MOLE )
+    self.assertTrue( o1.getKind() == libsbml.UNIT_KIND_MOLE )
     o2 = libsbml.Unit(o1)
-    self.assert_( o2.getKind() == libsbml.UNIT_KIND_MOLE )
-    self.assert_( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
+    self.assertTrue( o2.getKind() == libsbml.UNIT_KIND_MOLE )
+    self.assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = None
     o1 = None
     pass  

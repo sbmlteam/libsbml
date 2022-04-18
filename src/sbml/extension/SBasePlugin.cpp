@@ -61,7 +61,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /*
  * Constructor
  */
-SBasePlugin::SBasePlugin (const std::string &uri, const std::string &prefix, 
+SBasePlugin::SBasePlugin (const std::string& uri, const std::string &prefix, 
                           SBMLNamespaces *sbmlns)
  : mSBMLExt(SBMLExtensionRegistry::getInstance().getExtensionInternal(uri))
   ,mSBML(NULL)
@@ -243,7 +243,7 @@ SBasePlugin::connectToParent (SBase* sbase)
  *
  */
 int
-SBasePlugin::setElementNamespace(const std::string &uri)
+SBasePlugin::setElementNamespace(const std::string& uri)
 {
 //  cout << "[DEBUG] SBasePlugin::setElementNamespace() " << uri << endl;
   mURI = uri;

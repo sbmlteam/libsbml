@@ -537,7 +537,7 @@ public:
    *
    * @return the Deletion in the ListOfDeletions with the given @p id.
    */
-  Deletion* getDeletion (std::string id);
+  Deletion* getDeletion (const std::string& id);
 
 
   /**
@@ -548,7 +548,7 @@ public:
    *
    * @return the Deletion in the ListOfDeletions with the given @p id.
    */
-  const Deletion* getDeletion (std::string id) const;
+  const Deletion* getDeletion (const std::string& id) const;
 
 
   /**

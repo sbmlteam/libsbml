@@ -122,7 +122,7 @@ public:
    */
   virtual int allowedInFunctionDefinition(ASTNodeType_t type) const;
 
-  ArraysASTPlugin(const std::string &uri);
+  ArraysASTPlugin(const std::string& uri);
 
 
   friend class L3ParserSettings;
