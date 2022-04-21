@@ -2675,7 +2675,10 @@ START_CONSTRAINT(SpatialBoundaryConditionCoordinateBoundaryMustBeBoundary, Bound
   {
     const CoordinateComponent* coord = geom->getCoordinateComponent(cc);
     if (coord->isSetBoundaryMax()) {
-      pre(coord->getBoundaryMax()->getId() != boundary);
+        pre(coord->getBoundaryMax()->getId() != boundary);
+    }
+    if (coord->isSetBoundaryMin()) {
+        pre(coord->getBoundaryMin()->getId() != boundary);
     }
   }
   msg = "A <boundaryCondition>";
