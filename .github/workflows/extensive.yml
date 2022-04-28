@@ -108,10 +108,9 @@ jobs:
           steps.cache-win-dependencies.outputs.cache-hit != 'true'
         shell: bash
         run: |
-          curl -L https://sourceforge.net/projects/sbml/files/libsbml/win-dependencies/libSBML_dependencies_vs15_release_x64_static.zip/download > dependencies.zip
-          unzip dependencies.zip -d dependencies
-          cp -r dependencies/libSBML\ Dependencies-1.0.0-b1-win64/* dependencies
-          rm -r dependencies/libSBML*
+          curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
+          unzip dependencies.zip
+          mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
           curl -L https://prdownloads.sourceforge.net/swig/swigwin-3.0.12.zip > swig.zip
           unzip -o swig.zip -d swig
 
@@ -141,6 +140,11 @@ jobs:
         run: |
           sudo apt-get install -y check libxerces-c-dev expat ccache
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
+          git clone https://github.com/libexpat/libexpat
+          cmake -G Ninja -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
+          cmake --build libexpat
+          cmake --install libexpat
+
 
       - name: Install MacOS dependencies
         # MacOS already has libxml2 by default
