@@ -54,10 +54,9 @@ jobs:
           steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
         shell: bash
         run: |
-          curl -L https://sourceforge.net/projects/sbml/files/libsbml/win-dependencies/libSBML_dependencies_vs15_release_x64_static.zip/download > dependencies.zip
-          unzip dependencies.zip -d dependencies
-          cp -r dependencies/libSBML\ Dependencies-1.0.0-b1-win64/* dependencies
-          rm -r dependencies/libSBML*
+          curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
+          unzip dependencies.zip
+          mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
 
       - name: Download SWIG on Windows
         if: matrix.platform == 'windows-latest'
