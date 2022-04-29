@@ -1121,7 +1121,6 @@ static
 const char* SBML_POLYGON_KIND_STRINGS[] =
 {
   "triangle"
-, "quadrilateral"
 , "invalid PolygonKind value"
 };
 
