@@ -1295,7 +1295,6 @@ InterpolationKind_isValidString(const char* code);
 typedef enum
 {
   SPATIAL_POLYGONKIND_TRIANGLE            /*!< The spatial polygonkind is @c "triangle". */
-//, SPATIAL_POLYGONKIND_QUADRILATERAL       /* The spatial polygonkind is @c "quadrilateral". */
 , SPATIAL_POLYGONKIND_INVALID             /*!< Invalid PolygonKind value. */
 } PolygonKind_t;
 

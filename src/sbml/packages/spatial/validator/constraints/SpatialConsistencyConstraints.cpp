@@ -2080,27 +2080,6 @@ START_CONSTRAINT(SpatialParametricObjectThreePointsForTriangles, ParametricObjec
 END_CONSTRAINT
 
 
-//// 1222153
-//START_CONSTRAINT(SpatialParametricObjectFourPointsForQuadrilaterals, ParametricObject, po)
-//{
-//  pre(po.getPolygonType() == SPATIAL_POLYGONKIND_QUADRILATERAL);
-//  pre(po.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
-//  pre(po.getActualPointIndexLength() % 4 != 0);
-//  stringstream ss_msg;
-//  ss_msg << "A <parametricObject>";
-//  if (po.isSetId())
-//  {
-//    ss_msg << " with id '" << po.getId() << "'";
-//  }
-//  ss_msg << " has a polygonType of 'quadrilateral' but " << po.getActualPointIndexLength();
-//  ss_msg << " entries, which is not a multiple of four.";
-//  msg = ss_msg.str();
-//
-//  inv(false);
-//}
-//END_CONSTRAINT
-
-
 // 1222155
 START_CONSTRAINT(SpatialParametricObjectIndexesMustBePoints, ParametricObject, po)
 {
