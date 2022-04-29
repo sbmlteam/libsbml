@@ -935,7 +935,6 @@ const char* SBML_SET_OPERATION_STRINGS[] =
 {
   "union"
 , "intersection"
-, "difference"
 , "invalid SetOperation value"
 };
 

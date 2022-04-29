@@ -2736,8 +2736,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "A <csgSetOperator> object must have the required attribute "
-    "'spatial:operationType', and may have the optional attributes "
-    "'spatial:complementA' and 'spatial:complementB'. No other attributes from "
+    "'spatial:operationType'. No other attributes from "
     "the SBML Level 3 Spatial Processes namespaces are permitted on a "
     "<csgSetOperator> object. ",
     { "L3V1 Spatial V1 Section"
@@ -2764,8 +2763,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The value of the attribute 'spatial:operationType' of a <csgSetOperator> "
     "object must conform to the syntax of SBML data type 'SetOperation' and may "
     "only take on the allowed values of 'SetOperation' defined in SBML; that "
-    "is, the value must be one of the following: 'union', 'intersection' or "
-    "'difference'.",
+    "is, the value must be one of the following: 'union', or 'intersection'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2790,46 +2788,6 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "A <listOfCSGNodes> object may have the optional SBML Level 3 Core "
     "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
     "3 Core namespaces are permitted on a <listOfCSGNodes> object.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1223250
-  { SpatialCSGSetOperatorTwoComplementsForDifference,
-    "Need two components for 'difference' type.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "If the attribute 'spatial:operationType' of a <csgSetOperator> has the value 'difference', it must also define values for the attributes 'spatial:complementA' and 'spatial:complementB'.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1223251
-  { SpatialCSGSetOperatorNoComplementsUnionIntersection,
-    "No components for 'union' or 'intersection' types.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "If the attribute 'spatial:operationType' of a <csgSetOperator> has the value 'union' or 'intersection', it must not define values for the attributes 'spatial:complementA' nor 'spatial:complementB'.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1223252
-  { SpatialCSGSetOperatorDifferenceMustHaveTwoChildren,
-    "A <csgSetOperator> difference must have two children.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "If the 'operationType' of a <csgSetOperator> is 'difference', it must have exactly two <csgNode> children.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1223253
-  { SpatialCSGSetOperatorComplementsMustReferenceChildren,
-    "The 'complement' attributes of a <csgSetOperator> must reference its children.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "The attributes 'complementA' and 'complementB' of a <csgSetOperator> must reference its two <csgNode> children.",
     { "L3V1 Spatial V1 Section"
     }
   },
