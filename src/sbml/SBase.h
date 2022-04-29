@@ -246,7 +246,7 @@ public:
    *
    * @return pointer to the first element found with the given identifier.
    */
-  const SBase* getElementBySId(const std::string& id) const;
+  virtual const SBase* getElementBySId(const std::string& id) const;
   
   /**
    * Returns the first child element it can find with a specific "metaid"
