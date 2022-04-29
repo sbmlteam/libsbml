@@ -50,11 +50,21 @@ set(OCTAVE_EXTRA_LIBS)
 set(OCTAVE_EXTRA_PATHS)
 if (UNIX)
 foreach(lib ${LIBSBML_LIBS})
-	get_filename_component(name ${lib} NAME_WE)	
-	get_filename_component(path ${lib} PATH)	
-	string(REGEX REPLACE "lib" "" name "${name}")
-	list(APPEND OCTAVE_EXTRA_LIBS -l${name})
-	list(APPEND OCTAVE_EXTRA_PATHS -L${path})
+
+  string(FIND "${library}" "::" index)
+
+  if (${index} GREATER 0)
+    # found dependent library
+    set(name $<TARGET_LINKER_FILE_BASE_NAME:${lib}>)
+    set(path $<TARGET_FILE_DIR:${lib}>)
+  else()
+    get_filename_component(name ${lib} NAME_WE)
+    get_filename_component(path ${lib} PATH)
+    string(REGEX REPLACE "lib" "" name "${name}")
+  endif()
+
+  list(APPEND OCTAVE_EXTRA_LIBS -l${name})
+  list(APPEND OCTAVE_EXTRA_PATHS -L${path})
 endforeach()
 endif()
 
