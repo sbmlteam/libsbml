@@ -1,16 +1,32 @@
 string(TOUPPER ${PROJECT_NAME} _UPPER_PROJECT_NAME)
 set(_PROJECT_DEPENDENCY_DIR ${_UPPER_PROJECT_NAME}_DEPENDENCY_DIR)
 
+find_library(LIBXML_LIBRARY
+    NAMES  libxml2s xml2s libxml2.lib xml2
+    PATHS ${${_PROJECT_DEPENDENCY_DIR}}/lib64
+          ${${_PROJECT_DEPENDENCY_DIR}}/lib
+    NO_DEFAULT_PATH
+)
+
+
 if (NOT LIBXML_LIBRARY)
     find_library(LIBXML_LIBRARY
         NAMES  libxml2s xml2s libxml2.lib xml2
         PATHS /usr/lib /usr/local/lib
               ${${_PROJECT_DEPENDENCY_DIR}}/lib
         DOC "The file name of the libxml2 library."
-                )
-  endif()
+    )
+endif()
 
-  if (NOT LIBXML_INCLUDE_DIR)
+find_path(LIBXML_INCLUDE_DIR
+    NAMES libxml/parser.h
+    PATHS ${${_PROJECT_DEPENDENCY_DIR}}/include
+          ${${_PROJECT_DEPENDENCY_DIR}}/include/libxml2
+    NO_DEFAULT_PATH
+)      
+
+
+if (NOT LIBXML_INCLUDE_DIR)
     find_path(LIBXML_INCLUDE_DIR
         NAMES libxml/parser.h
         PATHS ${${_PROJECT_DEPENDENCY_DIR}}/include
@@ -21,8 +37,8 @@ if (NOT LIBXML_LIBRARY)
               /usr/local/include/libxml2
 
         DOC "The directory containing the libxml2 include files."
-              )
-  endif()
+    )
+endif()
 
 if(LIBXML_INCLUDE_DIR AND EXISTS "${LIBXML_INCLUDE_DIR}/libxml/xmlversion.h")
     file(STRINGS "${LIBXML_INCLUDE_DIR}/libxml/xmlversion.h" libxml2_version_str
@@ -33,13 +49,13 @@ if(LIBXML_INCLUDE_DIR AND EXISTS "${LIBXML_INCLUDE_DIR}/libxml/xmlversion.h")
     unset(libxml2_version_str)
 endif()
 
-
 # populate EXTRA_LIBS variable
 find_library(LIBICONV_LIBRARY
 NAMES libiconv.lib iconv.lib iconv
-PATHS /usr/lib /usr/local/lib
-        ${CMAKE_OSX_SYSROOT}/usr/lib
-        ${${_PROJECT_DEPENDENCY_DIR}}/lib
+PATHS ${${_PROJECT_DEPENDENCY_DIR}}/lib64
+      ${${_PROJECT_DEPENDENCY_DIR}}/lib
+      /usr/lib /usr/local/lib
+      ${CMAKE_OSX_SYSROOT}/usr/lib
 DOC "The file name of the libiconv library."
 )
 
@@ -47,13 +63,13 @@ set(ADDITIONAL_LIBS)
 if (EXISTS ${LIBICONV_LIBRARY})
 set(ADDITIONAL_LIBS "${ADDITIONAL_LIBS}${LIBICONV_LIBRARY};")
 endif()
-if (EXISTS ${LIBZ_LIBRARY})
-set(ADDITIONAL_LIBS "${ADDITIONAL_LIBS}${LIBZ_LIBRARY};")
+find_package(ZLIB QUIET)
+if (EXISTS ${ZLIB_LIBRARY})
+set(ADDITIONAL_LIBS "${ADDITIONAL_LIBS}ZLIB::ZLIB;")
 endif()
 if (WIN32)
 set(ADDITIONAL_LIBS "WS2_32.lib;${ADDITIONAL_LIBS}")
 endif()
-
 
 if(NOT TARGET LIBXML::LIBXML)
   add_library(LIBXML::LIBXML UNKNOWN IMPORTED)
@@ -113,7 +129,12 @@ if (LIBXML_LIBXML_TEST2)
     INTERFACE_COMPILE_DEFINITIONS "LIBXML_STATIC=1"
     )
 else()
-  message(FATAL_ERROR "Unable to compile a test executable against LIBXML")
+    message(FATAL_ERROR "Unable to compile a test executable against LIBXML
+    
+    LIBXML_INCLUDE_DIR = ${LIBXML_INCLUDE_DIR}
+    LIBXML_LIBRARY     = ${LIBXML_LIBRARY}
+    
+    ")
 endif()
 
 endif()
