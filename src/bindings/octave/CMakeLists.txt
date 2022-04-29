@@ -42,10 +42,8 @@ endif()
 
 
 # get location of library
-get_property(sbml_location TARGET ${LIBSBML_LIBRARY} PROPERTY LOCATION)
-get_filename_component(sbml_path ${sbml_location} PATH)
-file(TO_CMAKE_PATH ${sbml_path} sbml_path)
-
+set(sbml_location $<TARGET_LINKER_FILE:${LIBSBML_LIBRARY}>)
+set(sbml_path $<TARGET_FILE_DIR:${LIBSBML_LIBRARY}>)
 
 # break up the libsbml library dependencies into paths and libraries
 set(OCTAVE_EXTRA_LIBS)
