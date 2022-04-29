@@ -2,7 +2,7 @@ string(TOUPPER ${PROJECT_NAME} _UPPER_PROJECT_NAME)
 set(_PROJECT_DEPENDENCY_DIR ${_UPPER_PROJECT_NAME}_DEPENDENCY_DIR)
 
 find_library(XERCES_LIBRARY
-NAMES xerces-c_3.lib xerces-c
+NAMES xerces-c_3.lib xerces-c_4.lib xerces-c
 PATHS /usr/lib /usr/local/lib
       ${${_PROJECT_DEPENDENCY_DIR}}/lib
 DOC "The file name of the Xerces library."

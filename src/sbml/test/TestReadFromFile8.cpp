@@ -56,6 +56,31 @@ BEGIN_C_DECLS
 
 extern char *TestDataDirectory;
 
+START_TEST (test_read_exploit)
+{
+  SBMLReader        reader;
+  SBMLDocument*     d;
+
+  std::string filename(TestDataDirectory);
+  filename += "exploit.xml";
+
+
+  // all we are testing, is whether we got into an endless loop while 
+  // reading the file or not
+  d = reader.readSBML(filename);
+
+  if (d == NULL)
+  {
+    fail("readSBML(\"exploit.xml\") returned a NULL pointer.");
+  }
+  
+  // there is no model, so it should be NULL
+  fail_unless( d->getModel() == NULL );
+  
+  delete d;
+}
+END_TEST
+
 
 START_TEST (test_read_l2v4_new)
 {
@@ -175,6 +200,7 @@ create_suite_TestReadFromFile8 (void)
 
 
   tcase_add_test(tcase, test_read_l2v4_new);
+  tcase_add_test(tcase, test_read_exploit);
 
   suite_add_tcase(suite, tcase);
 
