@@ -98,7 +98,7 @@ jobs:
           path: |
             ./dependencies
             ./swig
-          key: ${{ runner.os }}-dependencies-static
+          key: ${{ runner.os }}-dependencies-static-2
 
       - name: Download pre-built Windows dependencies and SWIG
         # Windows dependencies have to be in a subfolder called `dependencies`, directly under the git repository root.
