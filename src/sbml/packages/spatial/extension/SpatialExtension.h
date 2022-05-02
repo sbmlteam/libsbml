@@ -1055,7 +1055,6 @@ typedef enum
 {
   SPATIAL_SETOPERATION_UNION              /*!< The spatial setoperation is @c "union". */
 , SPATIAL_SETOPERATION_INTERSECTION       /*!< The spatial setoperation is @c "intersection". */
-, SPATIAL_SETOPERATION_DIFFERENCE         /*!< The spatial setoperation is @c "difference". */
 , SPATIAL_SETOPERATION_INVALID            /*!< Invalid SetOperation value. */
 } SetOperation_t;
 
@@ -1068,7 +1067,6 @@ typedef enum
  * @return A string corresponding to the given type:
  * "union",
  * "intersection",
- * "difference",
  * or @c NULL if the value is @sbmlconstant{SPATIAL_SETOPERATION_INVALID,
  * SetOperation_t} or another invalid enumeration value.
  *
@@ -1121,7 +1119,6 @@ SetOperation_parse(const char* code);
  * @return @c 1 (true) if the #SetOperation_t is
  * @sbmlconstant{SPATIAL_SETOPERATION_UNION, SetOperation_t},
  * @sbmlconstant{SPATIAL_SETOPERATION_INTERSECTION, SetOperation_t}, or
- * @sbmlconstant{SPATIAL_SETOPERATION_DIFFERENCE, SetOperation_t};
  * @c 0 (false) otherwise (including
  * @sbmlconstant{SPATIAL_SETOPERATION_INVALID, SetOperation_t}).
  *
@@ -1142,8 +1139,7 @@ SetOperation_isValid(SetOperation_t so);
  *
  * @return @c 1 (true) if the string is
  * "union",
- * "intersection",
- * "difference", or
+ * "intersection", or
  * "invalid SetOperation value";
  * @c 0 (false) otherwise.
  *
@@ -1299,7 +1295,6 @@ InterpolationKind_isValidString(const char* code);
 typedef enum
 {
   SPATIAL_POLYGONKIND_TRIANGLE            /*!< The spatial polygonkind is @c "triangle". */
-, SPATIAL_POLYGONKIND_QUADRILATERAL       /*!< The spatial polygonkind is @c "quadrilateral". */
 , SPATIAL_POLYGONKIND_INVALID             /*!< Invalid PolygonKind value. */
 } PolygonKind_t;
 
@@ -1311,7 +1306,6 @@ typedef enum
  *
  * @return A string corresponding to the given type:
  * "triangle",
- * "quadrilateral",
  * or @c NULL if the value is @sbmlconstant{SPATIAL_POLYGONKIND_INVALID,
  * PolygonKind_t} or another invalid enumeration value.
  *
@@ -1365,7 +1359,6 @@ PolygonKind_fromString(const char* code);
  *
  * @return @c 1 (true) if the #PolygonKind_t is
  * @sbmlconstant{SPATIAL_POLYGONKIND_TRIANGLE, PolygonKind_t}, or
- * @sbmlconstant{SPATIAL_POLYGONKIND_QUADRILATERAL, PolygonKind_t};
  * @c 0 (false) otherwise (including @sbmlconstant{SPATIAL_POLYGONKIND_INVALID,
  * PolygonKind_t}).
  *
@@ -1386,7 +1379,6 @@ PolygonKind_isValid(PolygonKind_t pk);
  *
  * @return @c 1 (true) if the string is
  * "triangle", or
- * "quadrilateral";
  * @c 0 (false) otherwise.
  *
  * @note The matching is case-sensitive: "triangle" will return @c 1 (true),

@@ -1459,113 +1459,6 @@ START_CONSTRAINT(SpatialCSGPrimitive2DShapes, CSGPrimitive, csgp)
 END_CONSTRAINT
 
 
-// 1223250
-START_CONSTRAINT(SpatialCSGSetOperatorTwoComplementsForDifference, CSGSetOperator, setop)
-{
-  bool fail = false;
-  pre(setop.getOperationType() == SPATIAL_SETOPERATION_DIFFERENCE);
-  msg = "A <csgSetOperator>";
-  if (setop.isSetId()) {
-    msg += " with the id '" + setop.getId() + "'";
-  }
-  msg += " has an 'operationType' of 'difference', but";
-  if (setop.isSetComplementA() == false) {
-    fail = true;
-    msg += " does not have a value for its 'complementA' attribute";
-  }
-  if (setop.isSetComplementB() == false) {
-    if (fail) {
-      msg += ", and also";
-    }
-    fail = true;
-    msg += " does not have a value for its 'complementB' attribute";
-  }
-  msg += ".";
-  inv(fail == false);
-}
-END_CONSTRAINT
-
-
-// 1223251
-START_CONSTRAINT(SpatialCSGSetOperatorNoComplementsUnionIntersection, CSGSetOperator, setop)
-{
-  bool fail = false;
-  SetOperation_t type = setop.getOperationType();
-  pre(type == SPATIAL_SETOPERATION_INTERSECTION || type == SPATIAL_SETOPERATION_UNION);
-  msg = "A <csgSetOperator>";
-  if (setop.isSetId()) {
-    msg += " with the id '" + setop.getId() + "'";
-  }
-  msg += " has an 'operationType' of '";
-  msg += setop.getOperationTypeAsString() + "', but";
-  if (setop.isSetComplementA()) {
-    fail = true;
-    msg += " has a value of '";
-    msg += setop.getComplementA() + "' for its 'complementA' attribute";
-  }
-  if (setop.isSetComplementB()) {
-    if (fail) {
-      msg += ", and also";
-    }
-    fail = true;
-    msg += " has a value of '";
-    msg += setop.getComplementB() + "' for its 'complementB' attribute";
-  }
-  msg += ".";
-  inv(fail == false);
-}
-END_CONSTRAINT
-
-
-// 1223252
-START_CONSTRAINT(SpatialCSGSetOperatorDifferenceMustHaveTwoChildren, CSGSetOperator, setop)
-{
-  bool fail = false;
-  pre(setop.getOperationType() == SPATIAL_SETOPERATION_DIFFERENCE);
-  unsigned int nchildren = setop.getNumCSGNodes();
-  if (nchildren != 2) {
-    stringstream ss_msg;
-    ss_msg << "A <csgSetOperator>";
-    if (setop.isSetId())
-    {
-      ss_msg << " with id '" << setop.getId() << "'";
-    }
-    ss_msg << " has an 'operationType' value of 'difference', but has ";
-    ss_msg << nchildren << " children.";
-    msg = ss_msg.str();
-
-    fail = true;
-  }
-  inv(fail == false);
-}
-END_CONSTRAINT
-
-
-// 1223253
-START_CONSTRAINT(SpatialCSGSetOperatorComplementsMustReferenceChildren, CSGSetOperator, setop)
-{
-  pre(setop.getOperationType() == SPATIAL_SETOPERATION_DIFFERENCE);
-  pre(setop.getNumCSGNodes()==2);
-  pre(setop.isSetComplementA());
-  pre(setop.isSetComplementB());
-  string child1 = setop.getCSGNode(0)->getId();
-  string child2 = setop.getCSGNode(1)->getId();
-  string compA = setop.getComplementA();
-  string compB = setop.getComplementB();
-  pre(!((child1 == compA && child2 == compB) || (child1 == compB && child2 == compA)));
-  msg = "A <csgSetOperator>";
-  if (setop.isSetId()) {
-    msg += " with the id '" + setop.getId() + "'";
-  }
-  msg += " has as 'complementA' value of '";
-  msg += compA + "', and a 'complementB' value of '" + compB;
-  msg += "', which are not the two IDs of its two children: '";
-  msg += child1 + "' and '" + child2 + "'.";
-  inv(false);
-}
-END_CONSTRAINT
-
-
 // 1223254
 START_CONSTRAINT(SpatialCSGSetOperatorShouldHaveTwoPlusChildren, CSGSetOperator, setop)
 {
@@ -2187,27 +2080,6 @@ START_CONSTRAINT(SpatialParametricObjectThreePointsForTriangles, ParametricObjec
 END_CONSTRAINT
 
 
-// 1222153
-START_CONSTRAINT(SpatialParametricObjectFourPointsForQuadrilaterals, ParametricObject, po)
-{
-  pre(po.getPolygonType() == SPATIAL_POLYGONKIND_QUADRILATERAL);
-  pre(po.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
-  pre(po.getActualPointIndexLength() % 4 != 0);
-  stringstream ss_msg;
-  ss_msg << "A <parametricObject>";
-  if (po.isSetId())
-  {
-    ss_msg << " with id '" << po.getId() << "'";
-  }
-  ss_msg << " has a polygonType of 'quadrilateral' but " << po.getActualPointIndexLength();
-  ss_msg << " entries, which is not a multiple of four.";
-  msg = ss_msg.str();
-
-  inv(false);
-}
-END_CONSTRAINT
-
-
 // 1222155
 START_CONSTRAINT(SpatialParametricObjectIndexesMustBePoints, ParametricObject, po)
 {
@@ -2264,16 +2136,9 @@ START_CONSTRAINT(SpatialParametricObjectFacesSameChirality, ParametricObject, po
   pre(po.isSetPolygonType());
   int groupsize;
   size_t len = po.getActualPointIndexLength();
-  if (po.getPolygonType() == SPATIAL_POLYGONKIND_QUADRILATERAL)
-  {
-    groupsize = 4;
-    pre(len % 4 == 0);
-  }
-  else 
-  {
-    groupsize = 3;
-    pre(len % 3 == 0);
-  }
+  pre(po.getPolygonType() == SPATIAL_POLYGONKIND_TRIANGLE);
+  groupsize = 3;
+  pre(len % 3 == 0);
   set<pair<int, int> > borders;
 
   int* data = new int[len];
@@ -2317,16 +2182,9 @@ START_CONSTRAINT(SpatialParametricObjectMaxTwoPointBorders, ParametricObject, po
   pre(po.isSetPolygonType());
   int groupsize;
   size_t len = po.getActualPointIndexLength();
-  if (po.getPolygonType() == SPATIAL_POLYGONKIND_QUADRILATERAL)
-  {
-    groupsize = 4;
-    pre(len % 4 == 0);
-  }
-  else 
-  {
-    groupsize = 3;
-    pre(len % 3 == 0);
-  }
+  pre(po.getPolygonType() == SPATIAL_POLYGONKIND_TRIANGLE);
+  groupsize = 3;
+  pre(len % 3 == 0);
   set<set<int> > triples;
 
   int* data = new int[len];
