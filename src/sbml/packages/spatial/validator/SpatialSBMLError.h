@@ -222,12 +222,10 @@ typedef enum
 , SpatialParametricObjectPointIndexLengthMustMatchUncompressed = 1222150
 , SpatialParametricObjectPointIndexLengthMustMatchCompressed  = 1222151
 , SpatialParametricObjectThreePointsForTriangles              = 1222152
-, SpatialParametricObjectFourPointsForQuadrilaterals          = 1222153
 , SpatialParametricObjectIndexesMustBePositiveIntegers        = 1222154
 , SpatialParametricObjectIndexesMustBePoints                  = 1222155
 , SpatialParametricObjectFacesSameChirality                   = 1222156
 , SpatialParametricObjectMaxTwoPointBorders                   = 1222157
-//, SpatialParametricObjectMaxOnePointJunctions                 = 1222158
 , SpatialCSGeometryAllowedCoreAttributes                      = 1222201
 , SpatialCSGeometryAllowedCoreElements                        = 1222202
 , SpatialCSGeometryAllowedElements                            = 1222203
@@ -304,10 +302,6 @@ typedef enum
 , SpatialCSGSetOperatorOperationTypeMustBeSetOperationEnum    = 1223205
 , SpatialCSGSetOperatorLOCSGNodesAllowedCoreElements          = 1223208
 , SpatialCSGSetOperatorLOCSGNodesAllowedCoreAttributes        = 1223209
-, SpatialCSGSetOperatorTwoComplementsForDifference             = 1223250
-, SpatialCSGSetOperatorNoComplementsUnionIntersection          = 1223251
-, SpatialCSGSetOperatorDifferenceMustHaveTwoChildren          = 1223252
-, SpatialCSGSetOperatorComplementsMustReferenceChildren       = 1223253
 , SpatialCSGSetOperatorShouldHaveTwoPlusChildren              = 1223254
 , SpatialSpatialSymbolReferenceAllowedCoreAttributes          = 1223301
 , SpatialSpatialSymbolReferenceAllowedCoreElements            = 1223302

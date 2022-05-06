@@ -935,7 +935,6 @@ const char* SBML_SET_OPERATION_STRINGS[] =
 {
   "union"
 , "intersection"
-, "difference"
 , "invalid SetOperation value"
 };
 
@@ -1121,7 +1120,6 @@ static
 const char* SBML_POLYGON_KIND_STRINGS[] =
 {
   "triangle"
-, "quadrilateral"
 , "invalid PolygonKind value"
 };
 
