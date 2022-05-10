@@ -1,6 +1,7 @@
 name: Nightly build (binaries)
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 5 * * *"
 
@@ -50,7 +51,7 @@ jobs:
           path: |
             ./dependencies
             ./swig
-          key: ${{ runner.os }}-dependencies-static
+          key: ${{ runner.os }}-dependencies-static-2
 
       - name: Download pre-built Windows dependencies and SWIG
         # Windows dependencies have to be in a subfolder called `dependencies`, directly under the git repository root.
@@ -60,10 +61,9 @@ jobs:
           steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
         shell: bash
         run: |
-          curl -L https://sourceforge.net/projects/sbml/files/libsbml/win-dependencies/libSBML_dependencies_vs15_release_x64_static.zip/download > dependencies.zip
-          unzip dependencies.zip -d dependencies
-          cp -r dependencies/libSBML\ Dependencies-1.0.0-b1-win64/* dependencies
-          rm -r dependencies/libSBML*
+          curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
+          unzip dependencies.zip
+          mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
           curl -L https://prdownloads.sourceforge.net/swig/swigwin-3.0.12.zip > swig.zip
           unzip -o swig.zip -d swig
 
@@ -87,12 +87,17 @@ jobs:
             echo R_INCLUDE_PATH="/c/Program Files/R/"$R_INCLUDE_DIR_VERSION"/include" >> "${GITHUB_ENV}"
 
       - name: Install Ubuntu dependencies
-        # ubuntu already has SWIG and expat by default
+        # ubuntu already has SWIG but expat is too old
         if: matrix.platform == 'ubuntu-18.04'
         shell: bash
         run: |
           sudo apt-get install -y check ccache
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
+          git clone https://github.com/libexpat/libexpat
+          cmake -G Ninja -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
+          cmake --build libexpat
+          cmake --install libexpat
+
 
       - name: Install MacOS dependencies
         # MacOS already has expat by default
@@ -300,6 +305,10 @@ jobs:
       - name: Install dependencies, configure, build
         run: |
           yum install -y libxml2-devel check-devel java-devel mono-devel R
+          git clone https://github.com/libexpat/libexpat
+          cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
+          cmake --build libexpat
+          cmake --install libexpat
           cd ..
           mkdir build
           cd build
