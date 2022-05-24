@@ -3294,7 +3294,7 @@ ASTNode_isLog10 (const ASTNode_t *node);
  * @param node the node to query.
  *
  * @return @c 1 (true) if @p node is a MathML logical operator (@c and, @c or,
- * @c not, @c xor), @c 0otherwise.
+ * @c not, @c xor), @c 0 otherwise.
  *
  * @memberof ASTNode_t
  */
