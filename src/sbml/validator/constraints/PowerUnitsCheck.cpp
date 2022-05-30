@@ -233,9 +233,9 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
 
       if (tempUD->isVariantOfDimensionless())
       {
-        SBMLTransforms::mapComponentValues(&m);
-        double value1 = SBMLTransforms::evaluateASTNode(child);
-        SBMLTransforms::clearComponentValues();
+        SBMLTransforms::IdValueMap values;
+        SBMLTransforms::getComponentValuesForModel(&m, values);
+        double value1 = SBMLTransforms::evaluateASTNode(child, values);
         if (!util_isNaN(value1))
         {
           if (floor(value1) != value1)
@@ -319,9 +319,9 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
       {
         // technically here there is an issue
         // stoichiometry is dimensionless
-        SBMLTransforms::mapComponentValues(&m);
-        double value1 = SBMLTransforms::evaluateASTNode(child, &m);
-        SBMLTransforms::clearComponentValues();
+        SBMLTransforms::IdValueMap values;
+        SBMLTransforms::getComponentValuesForModel(&m, values);
+        double value1 = SBMLTransforms::evaluateASTNode(child, values, &m);
         // but it may not be an integer
         if (util_isNaN(value1))
           // we cant check
