@@ -889,6 +889,30 @@ SBMLNamespaces_getSupportedNamespaces(int *length)
   SBMLNamespaces::freeSBMLNamespaces(const_cast<List*>(supported));
   return result;
 }
+
+LIBSBML_EXTERN
+int
+SBMLNamespaces_addPackageNamespace(SBMLNamespaces_t *sbmlns,
+                                   const char *pkgName,
+                                   unsigned int pkgVersion,
+                                   const char *prefix)
+{
+  if (sbmlns != NULL)
+    return sbmlns->addPackageNamespace(pkgName, pkgVersion, prefix);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+LIBSBML_EXTERN
+int
+SBMLNamespaces_addPackageNamespaces(SBMLNamespaces_t *sbmlns,
+                                    const XMLNamespaces_t * xmlns)
+{
+  if (sbmlns != NULL)
+    return sbmlns->addPackageNamespaces(xmlns);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
