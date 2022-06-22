@@ -5074,7 +5074,7 @@ SBase_hasValidLevelVersionNamespaceCombination(SBase_t *sb);
  */
 LIBSBML_EXTERN
 int
-SBase_getNumPlugins(SBase_t *sb);
+SBase_getNumPlugins(const SBase_t *sb);
 
 /**
  * Returns a plug-in structure (extension interface) for an SBML Level&nbsp;3
