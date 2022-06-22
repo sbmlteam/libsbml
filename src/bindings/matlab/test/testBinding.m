@@ -4,13 +4,13 @@ if (nargin == 0)
   install = 0;
 else
   install = 1;
-end;
+end
 
 if (strcmp(isoctave(), '0'))
   test = 15 + 36;
 else
   test = 15 + 36;
-end;
+end
 
 if (strcmp(isoctave(), '0'))
   Totalfail = doTestRuns(install, test);
@@ -26,7 +26,7 @@ disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));
 
 if (Totalfail == 0)
     disp('MATLAB binding tests successful.');
-end;
+end
 clear mex;
 clear functions;
 
@@ -118,7 +118,7 @@ catch
     disp ('Fatal Error!, tests cannot run due to')
     disp (lasterr)
     Totalfail = test;
-end;
+end
 
 
 
