@@ -112,11 +112,6 @@ if (WITH_DOXYGEN OR WITH_PYTHON)
   )
 endif()
 
-# add make dist and make check target as they are already familiar for
-# everyone using the gnumake build
-#add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
-#add_custom_target(check COMMAND ${CMAKE_MAKE_PROGRAM} test)
-
 ###############################################################################
 #
 # The next lines configure the parameters for packaging the binaries.
