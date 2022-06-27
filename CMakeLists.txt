@@ -573,7 +573,7 @@ if(WITH_ZLIB)
     add_definitions( -DUSE_ZLIB )
     list(APPEND SWIG_EXTRA_ARGS -DUSE_ZLIB)
 
-    if(NOT TARGET zlib)
+    if(NOT TARGET zlib::zlib)
       # make sure that we have a valid zip library
       file(TO_CMAKE_PATH "${LIBZ_LIBRARY}" LIBZ_CMAKE_PATH)
       check_library_exists("${LIBZ_CMAKE_PATH}" "gzopen" "" LIBZ_FOUND_SYMBOL)
