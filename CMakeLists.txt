@@ -573,29 +573,24 @@ if(WITH_ZLIB)
     add_definitions( -DUSE_ZLIB )
     list(APPEND SWIG_EXTRA_ARGS -DUSE_ZLIB)
 
+    # make sure that we have a valid zip library
+    file(TO_CMAKE_PATH "${LIBZ_LIBRARY}" LIBZ_CMAKE_PATH)
+    check_library_exists("${LIBZ_CMAKE_PATH}" "gzopen" "" LIBZ_FOUND_SYMBOL)
+    if(NOT LIBZ_FOUND_SYMBOL)
+      # this is odd, but on windows this check always fails! must be a
+      # bug in the current cmake version so for now only issue this
+      # warning on linux
+      if(UNIX)
+          message(WARNING
+              "The chosen zlib library does not appear to be valid because it is
+              missing certain required symbols. Please check that ${LIBZ_LIBRARY} is
+              the correct zlib library. For details about the error, please see
+              ${LIBSBML_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
+      endif()
+    endif()
+
+
     if(NOT TARGET zlib::zlib)
-      # make sure that we have a valid zip library
-      file(TO_CMAKE_PATH "${LIBZ_LIBRARY}" LIBZ_CMAKE_PATH)
-      check_library_exists("${LIBZ_CMAKE_PATH}" "gzopen" "" LIBZ_FOUND_SYMBOL)
-      if(NOT LIBZ_FOUND_SYMBOL)
-        # this is odd, but on windows this check always fails! must be a
-        # bug in the current cmake version so for now only issue this
-        # warning on linux
-        if(UNIX)
-            message(WARNING
-                "The chosen zlib library does not appear to be valid because it is
-                missing certain required symbols. Please check that ${LIBZ_LIBRARY} is
-                the correct zlib library. For details about the error, please see
-                ${LIBSBML_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
-        endif()
-      endif()
-
-      if(NOT EXISTS "${LIBZ_INCLUDE_DIR}/zlib.h")
-        message(FATAL_ERROR
-"The include directory specified for zlib does not appear to be
-valid. It should contain the file zlib.h, but it does not.")
-      endif()
-
       add_library(ZLIB::ZLIB UNKNOWN IMPORTED)
       set_target_properties(ZLIB::ZLIB PROPERTIES
         IMPORTED_LINK_INTERFACE_LANGUAGES "C"
