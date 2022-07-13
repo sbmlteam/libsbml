@@ -230,7 +230,7 @@ FbcSBasePlugin::createKeyValuePair()
 
   try
   {
-    FBC_CREATE_NS(fbcns, getSBMLNamespaces());
+    FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
     kvp = new KeyValuePair(fbcns);
     delete fbcns;
   }
