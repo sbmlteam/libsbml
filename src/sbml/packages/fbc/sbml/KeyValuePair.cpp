@@ -236,10 +236,9 @@ int
 KeyValuePair::setId(const std::string& id)
 {
   unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (coreLevel == 3 && pkgVersion == 3)
   {
     return SyntaxChecker::checkAndSetSId(id, mId);
   }
@@ -257,10 +256,9 @@ int
 KeyValuePair::setName(const std::string& name)
 {
   unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (coreLevel == 3 && pkgVersion == 3)
   {
     mName = name;
     return LIBSBML_OPERATION_SUCCESS;
@@ -279,10 +277,9 @@ int
 KeyValuePair::setKey(const std::string& key)
 {
   unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (coreLevel == 3 && pkgVersion == 3)
   {
     mKey = key;
     return LIBSBML_OPERATION_SUCCESS;
@@ -301,10 +298,9 @@ int
 KeyValuePair::setValue(const std::string& value)
 {
   unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (coreLevel == 3 && pkgVersion == 3)
   {
     mValue = value;
     return LIBSBML_OPERATION_SUCCESS;
@@ -323,10 +319,9 @@ int
 KeyValuePair::setUri(const std::string& uri)
 {
   unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (coreLevel == 3 && pkgVersion == 3)
   {
     mUri = uri;
     return LIBSBML_OPERATION_SUCCESS;
@@ -860,10 +855,9 @@ KeyValuePair::addExpectedAttributes(ExpectedAttributes& attributes)
   SBase::addExpectedAttributes(attributes);
 
   unsigned int level = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (level == 3 && pkgVersion == 3)
   {
     attributes.add("id");
     attributes.add("name");

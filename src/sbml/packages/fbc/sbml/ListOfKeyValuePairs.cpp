@@ -58,7 +58,7 @@ ListOfKeyValuePairs::ListOfKeyValuePairs(unsigned int level,
                                          unsigned int version,
                                          unsigned int pkgVersion)
   : ListOf(level, version)
-  , mXmlns ("")
+  , mXmlns ("http://sbml.org/fbc/keyvaluepair")
 {
   setSBMLNamespacesAndOwn(new FbcPkgNamespaces(level, version, pkgVersion));
 }
@@ -69,7 +69,7 @@ ListOfKeyValuePairs::ListOfKeyValuePairs(unsigned int level,
  */
 ListOfKeyValuePairs::ListOfKeyValuePairs(FbcPkgNamespaces *fbcns)
   : ListOf(fbcns)
-  , mXmlns ("")
+  , mXmlns ("http://sbml.org/fbc/keyvaluepair")
 {
   setElementNamespace(fbcns->getURI());
 }
@@ -139,6 +139,16 @@ ListOfKeyValuePairs::isSetXmlns() const
   return (mXmlns.empty() == false);
 }
 
+int 
+ListOfKeyValuePairs::setXmlns(const XMLNamespaces* xmlns, const std::string& prefix)
+{
+  if (xmlns == NULL)
+    mXmlns = "";
+  else
+    mXmlns = xmlns->getURI(prefix);
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
 
 /*
  * Sets the value of the "xmlns" attribute of this ListOfKeyValuePairs.
@@ -150,7 +160,7 @@ ListOfKeyValuePairs::setXmlns(const std::string& xmlns)
   unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (coreLevel == 3 && pkgVersion == 3)
   {
     mXmlns = xmlns;
     return LIBSBML_OPERATION_SUCCESS;
@@ -376,7 +386,7 @@ ListOfKeyValuePairs::hasRequiredAttributes() const
   unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && version == 1 && pkgVersion == 3)
+  if (level == 3 && pkgVersion == 3)
   {
     if (isSetXmlns() == false)
     {
@@ -424,15 +434,6 @@ void
 ListOfKeyValuePairs::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   ListOf::addExpectedAttributes(attributes);
-
-  unsigned int level = getLevel();
-  unsigned int coreVersion = getVersion();
-  unsigned int pkgVersion = getPackageVersion();
-
-  if (level == 3 && coreVersion == 1 && pkgVersion == 3)
-  {
-    attributes.add("xmlns");
-  }
 }
 
 /** @endcond */
@@ -482,7 +483,7 @@ ListOfKeyValuePairs::readAttributes(const XMLAttributes& attributes,
     }
   }
 
-  if (level == 3 && version == 1 && pkgVersion == 3)
+  if (level == 3 && pkgVersion == 3)
   {
     readL3V1V3Attributes(attributes);
   }
@@ -510,7 +511,11 @@ ListOfKeyValuePairs::readL3V1V3Attributes(const XMLAttributes& attributes)
   // xmlns string (use = "required" )
   // 
 
-  assigned = attributes.readInto("xmlns", mXmlns);
+  // xmlns is not one of the normal attributes and has to be handled differently
+  //assigned = attributes.readInto("xmlns", mXmlns);
+  setXmlns(getNamespaces());
+  assigned = !mXmlns.empty();
+
 
   if (assigned == true)
   {
@@ -519,16 +524,16 @@ ListOfKeyValuePairs::readL3V1V3Attributes(const XMLAttributes& attributes)
       logEmptyString(mXmlns, level, version, "<ListOfKeyValuePairs>");
     }
   }
-  else
-  {
-    if (log)
-    {
-      std::string message = "Fbc attribute 'xmlns' is missing from the "
-        "<ListOfKeyValuePairs> element.";
-      log->logPackageError("fbc", FbcKeyValuePairAllowedAttributes, pkgVersion, level, version,
-        message, getLine(), getColumn());
-    }
-  }
+  // else
+  // {
+  //   if (log)
+  //   {
+  //     std::string message = "Fbc attribute 'xmlns' is missing from the "
+  //       "<ListOfKeyValuePairs> element.";
+  //     log->logPackageError("fbc", FbcKeyValuePairAllowedAttributes, pkgVersion, level, version,
+  //       message, getLine(), getColumn());
+  //   }
+  // }
 }
 
 /** @endcond */
@@ -549,7 +554,7 @@ ListOfKeyValuePairs::writeAttributes(XMLOutputStream& stream) const
   unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && version == 1 && pkgVersion == 3)
+  if (level == 3 && pkgVersion == 3)
   {
     writeL3V1V3Attributes(stream);
   }
@@ -568,14 +573,27 @@ ListOfKeyValuePairs::writeAttributes(XMLOutputStream& stream) const
  */
 void
 ListOfKeyValuePairs::writeL3V1V3Attributes(XMLOutputStream& stream) const
-{
-  if (isSetXmlns() == true)
-  {
-    stream.writeAttribute("xmlns", getPrefix(), mXmlns);
-  }
+{  
 }
 
 /** @endcond */
+
+
+/*
+ * Writes the namespace
+ */
+void
+ListOfKeyValuePairs::writeXMLNS(XMLOutputStream& stream) const
+{
+
+  if (mXmlns.empty())
+    return;
+
+  XMLNamespaces xmlns;
+  std::string prefix = getPrefix();
+  xmlns.add(mXmlns, prefix);
+  stream << xmlns;
+}
 
 
 
