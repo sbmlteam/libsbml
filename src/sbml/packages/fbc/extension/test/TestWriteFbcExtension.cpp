@@ -451,10 +451,14 @@ START_TEST(test_FbcExtension_create_and_write_L3V1V3)
 
   FbcSBasePlugin* sbaseplugin3 = dynamic_cast<FbcSBasePlugin*>(objective->getPlugin("fbc"));
 
+  ListOfKeyValuePairs *kvp_list = sbaseplugin3->getListOfKeyValuePairs();
+  fail_unless(kvp_list->isSetXmlns());
+  fail_unless(kvp_list->getXmlns() == "http://sbml.org/fbc/keyvaluepair");
+
   KeyValuePair * kvp3 = sbaseplugin3->createKeyValuePair();
-  kvp3->setKey("key3");
-  kvp3->setUri("my_annotation");
-  kvp3->setValue("objective-value");
+  fail_unless(kvp3->setKey("key3") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(kvp3->setUri("my_annotation") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(kvp3->setValue("objective-value") == LIBSBML_OPERATION_SUCCESS);
 
   //FbcSBasePlugin* sbaseplugin4 = dynamic_cast<FbcSBasePlugin*>(document->getPlugin("fbc"));
   //// this dynamic cast is null
