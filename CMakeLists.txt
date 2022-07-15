@@ -419,7 +419,9 @@ set(LIBSBML_XML_LIBRARY_LIBS)
 
 if(WITH_EXPAT)
   
+    if(NOT TARGET EXPAT::EXPAT)
     find_package(EXPAT REQUIRED)
+    endif()
 
     add_definitions( -DUSE_EXPAT )
     list(APPEND SWIG_EXTRA_ARGS -DUSE_EXPAT)
