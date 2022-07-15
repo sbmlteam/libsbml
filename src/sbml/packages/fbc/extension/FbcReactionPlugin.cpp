@@ -995,6 +995,13 @@ FbcReactionPlugin::accept(SBMLVisitor& v) const
 
 
 LIBSBML_EXTERN
+GeneProductAssociation_t *
+FbcReactionPlugin_createGeneProductAssociation(FbcSBasePlugin_t * fbc)
+{
+  return  (fbc != NULL) ? static_cast<FbcReactionPlugin*>(fbc)->createGeneProductAssociation() : NULL;
+}
+
+LIBSBML_EXTERN
 char *
 FbcReactionPlugin_getUpperFluxBound(FbcSBasePlugin_t * fbc)
 {

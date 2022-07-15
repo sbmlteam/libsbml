@@ -723,6 +723,20 @@ BEGIN_C_DECLS
 
 
 /**
+ * Creates a new GeneProductAssociation_t object and adds it to the FbcReactionPlugin_t object.
+ *
+ * @param fbc the FbcReactionPlugin_t that should have the GeneProductAssociation_t added
+ *
+ * @copydetails doc_note_geneproduct_v2_only
+ *
+ * @return pointer to the newly created GeneProductAssociation_t object.
+ */
+LIBSBML_EXTERN
+GeneProductAssociation_t*
+FbcReactionPlugin_createGeneProductAssociation(FbcSBasePlugin_t * fbc);
+
+
+/**
  * Takes a FbcReactionPlugin_t structure and returns its "upperFluxBound" attribute.
  *
  * @param fbc the FbcReactionPlugin_t whose "upperFluxBound" attribute is sought.
