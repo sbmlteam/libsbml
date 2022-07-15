@@ -778,6 +778,56 @@ LIBSBML_EXTERN
 SBMLNamespaces_t **
 SBMLNamespaces_getSupportedNamespaces(int *length);
 
+/**
+ * Add an XML namespace (a pair of URI and prefix) of a package extension
+ * to the set of namespaces within this SBMLNamespaces object.
+ *
+ * The SBML Level and SBML Version of this object is used.
+ *
+ * @param sbmlns the SBMLNamespaces_t structure to add to.
+ * @param pkgName the string of package name (e.g. "layout", "multi").
+ * @param pkgVersion the package version.
+ * @param prefix the prefix of the package namespace to be added.
+ *        The package's name will be used if the given string is empty (default).
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ *
+ * @note An XML namespace of a non-registered package extension can't be
+ * added by this function (@sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * will be returned).
+ *
+ * @see addNamespace(@if java String, String@endif)
+ */
+LIBSBML_EXTERN
+int
+SBMLNamespaces_addPackageNamespace(SBMLNamespaces_t *sbmlns,
+                                   const char *pkgName,
+                                   unsigned int pkgVersion,
+                                   const char *prefix);
+
+/**
+ * Add the XML namespaces of package extensions in the given XMLNamespace
+ * object to the set of namespaces within this SBMLNamespaces object
+ * (Non-package XML namespaces are not added by this function).
+ *
+ * @param sbmlns the SBMLNamespaces_t structure to add to.
+ * @param xmlns the XML namespaces to be added.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ *
+ * @note XML namespaces of a non-registered package extensions are not
+ * added (just ignored) by this function. @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t} will be returned if the given
+ * xmlns is @c NULL.
+ */
+LIBSBML_EXTERN
+int
+SBMLNamespaces_addPackageNamespaces(SBMLNamespaces_t *sbmlns,
+                                    const XMLNamespaces_t * xmlns);
+
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
