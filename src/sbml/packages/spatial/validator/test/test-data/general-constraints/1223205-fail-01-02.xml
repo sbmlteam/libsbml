@@ -30,7 +30,7 @@
                 <spatial:csGeometry spatial:id="csGeometryDefinition_1" spatial:isActive="true">
                     <spatial:listOfCSGObjects>
                         <spatial:csgObject spatial:domainType="domainType_1" spatial:id="csgObject_1" spatial:ordinal="0">
-                            <spatial:csgSetOperator spatial:operationType="conjunction">
+                            <spatial:csgSetOperator spatial:operationType="conjunction" spatial:complementA="sphere1" spatial:complementB="cube1">
                                 <spatial:listOfCSGNodes>
                                     <spatial:csgPrimitive spatial:id="sphere1" spatial:primitiveType="sphere"/>
                                     <spatial:csgPrimitive spatial:id="cube1" spatial:primitiveType="cube"/>

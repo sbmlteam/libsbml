@@ -66,6 +66,8 @@
  *
  * <li> @c "intersection", TODO:add description
  *
+ * <li> @c "difference", TODO:add description
+ *
  * </ul>
  */
 
@@ -100,6 +102,8 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   SetOperation_t mOperationType;
+  std::string mComplementA;
+  std::string mComplementB;
   ListOfCSGNodes mCSGNodes;
 
   /** @endcond */
@@ -182,6 +186,7 @@ public:
    * The possible values returned by this method are:
    * @li @sbmlconstant{SPATIAL_SETOPERATION_UNION, SetOperation_t}
    * @li @sbmlconstant{SPATIAL_SETOPERATION_INTERSECTION, SetOperation_t}
+   * @li @sbmlconstant{SPATIAL_SETOPERATION_DIFFERENCE, SetOperation_t}
    * @li @sbmlconstant{SPATIAL_SETOPERATION_INVALID, SetOperation_t}
    */
   SetOperation_t getOperationType() const;
@@ -197,9 +202,28 @@ public:
    * The possible values returned by this method are:
    * @li @c "union"
    * @li @c "intersection"
+   * @li @c "difference"
    * @li @c "invalid SetOperation value"
    */
   std::string getOperationTypeAsString() const;
+
+
+  /**
+   * Returns the value of the "complementA" attribute of this CSGSetOperator.
+   *
+   * @return the value of the "complementA" attribute of this CSGSetOperator as
+   * a string.
+   */
+  const std::string& getComplementA() const;
+
+
+  /**
+   * Returns the value of the "complementB" attribute of this CSGSetOperator.
+   *
+   * @return the value of the "complementB" attribute of this CSGSetOperator as
+   * a string.
+   */
+  const std::string& getComplementB() const;
 
 
   /**
@@ -212,6 +236,26 @@ public:
    * @copydetails doc_csgsetoperator_operationType
    */
   bool isSetOperationType() const;
+
+
+  /**
+   * Predicate returning @c true if this CSGSetOperator's "complementA"
+   * attribute is set.
+   *
+   * @return @c true if this CSGSetOperator's "complementA" attribute has been
+   * set, otherwise @c false is returned.
+   */
+  bool isSetComplementA() const;
+
+
+  /**
+   * Predicate returning @c true if this CSGSetOperator's "complementB"
+   * attribute is set.
+   *
+   * @return @c true if this CSGSetOperator's "complementB" attribute has been
+   * set, otherwise @c false is returned.
+   */
+  bool isSetComplementB() const;
 
 
   /**
@@ -247,6 +291,34 @@ public:
 
 
   /**
+   * Sets the value of the "complementA" attribute of this CSGSetOperator.
+   *
+   * @param complementA std::string& value of the "complementA" attribute to be
+   * set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setComplementA(const std::string& complementA);
+
+
+  /**
+   * Sets the value of the "complementB" attribute of this CSGSetOperator.
+   *
+   * @param complementB std::string& value of the "complementB" attribute to be
+   * set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setComplementB(const std::string& complementB);
+
+
+  /**
    * Unsets the value of the "operationType" attribute of this CSGSetOperator.
    *
    * @copydetails doc_returns_one_success_code
@@ -255,6 +327,26 @@ public:
    * @copydetails doc_csgsetoperator_operationType
    */
   int unsetOperationType();
+
+
+  /**
+   * Unsets the value of the "complementA" attribute of this CSGSetOperator.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetComplementA();
+
+
+  /**
+   * Unsets the value of the "complementB" attribute of this CSGSetOperator.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetComplementB();
 
 
   /**
@@ -566,6 +658,13 @@ public:
    * @see removeCSGNode(unsigned int n)
    */
   CSGNode* removeCSGNode(const std::string& sid);
+
+
+  /**
+   * @copydoc doc_renamesidref_common
+   */
+  virtual void renameSIdRefs(const std::string& oldid,
+                             const std::string& newid);
 
 
   /**
@@ -1197,6 +1296,7 @@ CSGSetOperator_free(CSGSetOperator_t* csgso);
  * The possible values returned by this method are:
  * @li @sbmlconstant{SPATIAL_SETOPERATION_UNION, SetOperation_t}
  * @li @sbmlconstant{SPATIAL_SETOPERATION_INTERSECTION, SetOperation_t}
+ * @li @sbmlconstant{SPATIAL_SETOPERATION_DIFFERENCE, SetOperation_t}
  * @li @sbmlconstant{SPATIAL_SETOPERATION_INVALID, SetOperation_t}
  *
  * @memberof CSGSetOperator_t
@@ -1220,6 +1320,7 @@ CSGSetOperator_getOperationType(const CSGSetOperator_t * csgso);
  * The possible values returned by this method are:
  * @li @c "union"
  * @li @c "intersection"
+ * @li @c "difference"
  * @li @c "invalid SetOperation value"
  *
  * @memberof CSGSetOperator_t
@@ -1227,6 +1328,40 @@ CSGSetOperator_getOperationType(const CSGSetOperator_t * csgso);
 LIBSBML_EXTERN
 char *
 CSGSetOperator_getOperationTypeAsString(const CSGSetOperator_t * csgso);
+
+
+/**
+ * Returns the value of the "complementA" attribute of this CSGSetOperator_t.
+ *
+ * @param csgso the CSGSetOperator_t structure whose complementA is sought.
+ *
+ * @return the value of the "complementA" attribute of this CSGSetOperator_t as
+ * a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+char *
+CSGSetOperator_getComplementA(const CSGSetOperator_t * csgso);
+
+
+/**
+ * Returns the value of the "complementB" attribute of this CSGSetOperator_t.
+ *
+ * @param csgso the CSGSetOperator_t structure whose complementB is sought.
+ *
+ * @return the value of the "complementB" attribute of this CSGSetOperator_t as
+ * a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+char *
+CSGSetOperator_getComplementB(const CSGSetOperator_t * csgso);
 
 
 /**
@@ -1245,6 +1380,38 @@ CSGSetOperator_getOperationTypeAsString(const CSGSetOperator_t * csgso);
 LIBSBML_EXTERN
 int
 CSGSetOperator_isSetOperationType(const CSGSetOperator_t * csgso);
+
+
+/**
+ * Predicate returning @c 1 (true) if this CSGSetOperator_t's "complementA"
+ * attribute is set.
+ *
+ * @param csgso the CSGSetOperator_t structure.
+ *
+ * @return @c 1 (true) if this CSGSetOperator_t's "complementA" attribute has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_isSetComplementA(const CSGSetOperator_t * csgso);
+
+
+/**
+ * Predicate returning @c 1 (true) if this CSGSetOperator_t's "complementB"
+ * attribute is set.
+ *
+ * @param csgso the CSGSetOperator_t structure.
+ *
+ * @return @c 1 (true) if this CSGSetOperator_t's "complementB" attribute has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_isSetComplementB(const CSGSetOperator_t * csgso);
 
 
 /**
@@ -1294,6 +1461,48 @@ CSGSetOperator_setOperationTypeAsString(CSGSetOperator_t * csgso,
 
 
 /**
+ * Sets the value of the "complementA" attribute of this CSGSetOperator_t.
+ *
+ * @param csgso the CSGSetOperator_t structure.
+ *
+ * @param complementA const char * value of the "complementA" attribute to be
+ * set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_setComplementA(CSGSetOperator_t * csgso,
+                              const char * complementA);
+
+
+/**
+ * Sets the value of the "complementB" attribute of this CSGSetOperator_t.
+ *
+ * @param csgso the CSGSetOperator_t structure.
+ *
+ * @param complementB const char * value of the "complementB" attribute to be
+ * set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_setComplementB(CSGSetOperator_t * csgso,
+                              const char * complementB);
+
+
+/**
  * Unsets the value of the "operationType" attribute of this CSGSetOperator_t.
  *
  * @param csgso the CSGSetOperator_t structure.
@@ -1309,6 +1518,40 @@ CSGSetOperator_setOperationTypeAsString(CSGSetOperator_t * csgso,
 LIBSBML_EXTERN
 int
 CSGSetOperator_unsetOperationType(CSGSetOperator_t * csgso);
+
+
+/**
+ * Unsets the value of the "complementA" attribute of this CSGSetOperator_t.
+ *
+ * @param csgso the CSGSetOperator_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_unsetComplementA(CSGSetOperator_t * csgso);
+
+
+/**
+ * Unsets the value of the "complementB" attribute of this CSGSetOperator_t.
+ *
+ * @param csgso the CSGSetOperator_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_unsetComplementB(CSGSetOperator_t * csgso);
 
 
 /**

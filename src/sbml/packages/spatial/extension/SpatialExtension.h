@@ -1055,6 +1055,7 @@ typedef enum
 {
   SPATIAL_SETOPERATION_UNION              /*!< The spatial setoperation is @c "union". */
 , SPATIAL_SETOPERATION_INTERSECTION       /*!< The spatial setoperation is @c "intersection". */
+, SPATIAL_SETOPERATION_DIFFERENCE         /*!< The spatial setoperation is @c "difference". */
 , SPATIAL_SETOPERATION_INVALID            /*!< Invalid SetOperation value. */
 } SetOperation_t;
 
@@ -1067,6 +1068,7 @@ typedef enum
  * @return A string corresponding to the given type:
  * "union",
  * "intersection",
+ * "difference",
  * or @c NULL if the value is @sbmlconstant{SPATIAL_SETOPERATION_INVALID,
  * SetOperation_t} or another invalid enumeration value.
  *
@@ -1119,6 +1121,7 @@ SetOperation_parse(const char* code);
  * @return @c 1 (true) if the #SetOperation_t is
  * @sbmlconstant{SPATIAL_SETOPERATION_UNION, SetOperation_t},
  * @sbmlconstant{SPATIAL_SETOPERATION_INTERSECTION, SetOperation_t}, or
+ * @sbmlconstant{SPATIAL_SETOPERATION_DIFFERENCE, SetOperation_t};
  * @c 0 (false) otherwise (including
  * @sbmlconstant{SPATIAL_SETOPERATION_INVALID, SetOperation_t}).
  *
@@ -1139,7 +1142,8 @@ SetOperation_isValid(SetOperation_t so);
  *
  * @return @c 1 (true) if the string is
  * "union",
- * "intersection", or
+ * "intersection",
+ * "difference", or
  * "invalid SetOperation value";
  * @c 0 (false) otherwise.
  *

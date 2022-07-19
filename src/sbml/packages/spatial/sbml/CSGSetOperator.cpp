@@ -72,6 +72,8 @@ CSGSetOperator::CSGSetOperator(unsigned int level,
                                unsigned int pkgVersion)
   : CSGNode(level, version, pkgVersion)
   , mOperationType (SPATIAL_SETOPERATION_INVALID)
+  , mComplementA ("")
+  , mComplementB ("")
   , mCSGNodes (level, version, pkgVersion)
 {
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
@@ -86,6 +88,8 @@ CSGSetOperator::CSGSetOperator(unsigned int level,
 CSGSetOperator::CSGSetOperator(SpatialPkgNamespaces *spatialns)
   : CSGNode(spatialns)
   , mOperationType (SPATIAL_SETOPERATION_INVALID)
+  , mComplementA ("")
+  , mComplementB ("")
   , mCSGNodes (spatialns)
 {
   setElementNamespace(spatialns->getURI());
@@ -100,6 +104,8 @@ CSGSetOperator::CSGSetOperator(SpatialPkgNamespaces *spatialns)
 CSGSetOperator::CSGSetOperator(const CSGSetOperator& orig)
   : CSGNode( orig )
   , mOperationType ( orig.mOperationType )
+  , mComplementA ( orig.mComplementA )
+  , mComplementB ( orig.mComplementB )
   , mCSGNodes ( orig.mCSGNodes )
 {
   connectToChild();
@@ -116,6 +122,8 @@ CSGSetOperator::operator=(const CSGSetOperator& rhs)
   {
     CSGNode::operator=(rhs);
     mOperationType = rhs.mOperationType;
+    mComplementA = rhs.mComplementA;
+    mComplementB = rhs.mComplementB;
     mCSGNodes = rhs.mCSGNodes;
     connectToChild();
   }
@@ -163,6 +171,26 @@ CSGSetOperator::getOperationTypeAsString() const
 
 
 /*
+ * Returns the value of the "complementA" attribute of this CSGSetOperator.
+ */
+const std::string&
+CSGSetOperator::getComplementA() const
+{
+  return mComplementA;
+}
+
+
+/*
+ * Returns the value of the "complementB" attribute of this CSGSetOperator.
+ */
+const std::string&
+CSGSetOperator::getComplementB() const
+{
+  return mComplementB;
+}
+
+
+/*
  * Predicate returning @c true if this CSGSetOperator's "operationType"
  * attribute is set.
  */
@@ -170,6 +198,28 @@ bool
 CSGSetOperator::isSetOperationType() const
 {
   return (mOperationType != SPATIAL_SETOPERATION_INVALID);
+}
+
+
+/*
+ * Predicate returning @c true if this CSGSetOperator's "complementA" attribute
+ * is set.
+ */
+bool
+CSGSetOperator::isSetComplementA() const
+{
+  return (mComplementA.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true if this CSGSetOperator's "complementB" attribute
+ * is set.
+ */
+bool
+CSGSetOperator::isSetComplementB() const
+{
+  return (mComplementB.empty() == false);
 }
 
 
@@ -210,6 +260,42 @@ CSGSetOperator::setOperationType(const std::string& operationType)
 
 
 /*
+ * Sets the value of the "complementA" attribute of this CSGSetOperator.
+ */
+int
+CSGSetOperator::setComplementA(const std::string& complementA)
+{
+  if (!(SyntaxChecker::isValidInternalSId(complementA)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mComplementA = complementA;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the value of the "complementB" attribute of this CSGSetOperator.
+ */
+int
+CSGSetOperator::setComplementB(const std::string& complementB)
+{
+  if (!(SyntaxChecker::isValidInternalSId(complementB)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mComplementB = complementB;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Unsets the value of the "operationType" attribute of this CSGSetOperator.
  */
 int
@@ -217,6 +303,44 @@ CSGSetOperator::unsetOperationType()
 {
   mOperationType = SPATIAL_SETOPERATION_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the value of the "complementA" attribute of this CSGSetOperator.
+ */
+int
+CSGSetOperator::unsetComplementA()
+{
+  mComplementA.erase();
+
+  if (mComplementA.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "complementB" attribute of this CSGSetOperator.
+ */
+int
+CSGSetOperator::unsetComplementB()
+{
+  mComplementB.erase();
+
+  if (mComplementB.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -520,6 +644,25 @@ CSGSetOperator::removeCSGNode(const std::string& sid)
 
 
 /*
+ * @copydoc doc_renamesidref_common
+ */
+void
+CSGSetOperator::renameSIdRefs(const std::string& oldid,
+                              const std::string& newid)
+{
+  if (isSetComplementA() && mComplementA == oldid)
+  {
+    setComplementA(newid);
+  }
+
+  if (isSetComplementB() && mComplementB == oldid)
+  {
+    setComplementB(newid);
+  }
+}
+
+
+/*
  * Returns the XML element name of this CSGSetOperator object.
  */
 const std::string&
@@ -779,6 +922,16 @@ CSGSetOperator::getAttribute(const std::string& attributeName,
     value = getOperationTypeAsString();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
+  else if (attributeName == "complementA")
+  {
+    value = getComplementA();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "complementB")
+  {
+    value = getComplementB();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
 
   return return_value;
 }
@@ -801,6 +954,14 @@ CSGSetOperator::isSetAttribute(const std::string& attributeName) const
   if (attributeName == "operationType")
   {
     value = isSetOperationType();
+  }
+  else if (attributeName == "complementA")
+  {
+    value = isSetComplementA();
+  }
+  else if (attributeName == "complementB")
+  {
+    value = isSetComplementB();
   }
 
   return value;
@@ -894,6 +1055,14 @@ CSGSetOperator::setAttribute(const std::string& attributeName,
   {
     return_value = setOperationType(value);
   }
+  else if (attributeName == "complementA")
+  {
+    return_value = setComplementA(value);
+  }
+  else if (attributeName == "complementB")
+  {
+    return_value = setComplementB(value);
+  }
 
   return return_value;
 }
@@ -915,6 +1084,14 @@ CSGSetOperator::unsetAttribute(const std::string& attributeName)
   if (attributeName == "operationType")
   {
     value = unsetOperationType();
+  }
+  else if (attributeName == "complementA")
+  {
+    value = unsetComplementA();
+  }
+  else if (attributeName == "complementB")
+  {
+    value = unsetComplementB();
   }
 
   return value;
@@ -1218,6 +1395,9 @@ CSGSetOperator::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("operationType");
 
+  attributes.add("complementA");
+
+  attributes.add("complementB");
 }
 
 /** @endcond */
@@ -1306,6 +1486,64 @@ CSGSetOperator::readAttributes(const XMLAttributes& attributes,
     log->logPackageError("spatial", SpatialCSGSetOperatorAllowedAttributes,
       pkgVersion, level, version, message, getLine(), getColumn());
   }
+
+  // 
+  // complementA SIdRef (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("complementA", mComplementA);
+
+  if (assigned == true)
+  {
+    if (mComplementA.empty() == true)
+    {
+      logEmptyString(mComplementA, level, version, "<csgSetOperator>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mComplementA) == false)
+    {
+      std::string msg = "The complementA attribute on the <" + getElementName()
+        + ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mComplementA + "', which does not conform to the "
+        "syntax.";
+      log->logPackageError("spatial",
+        SpatialCSGSetOperatorComplementsMustReferenceChildren, pkgVersion, level,
+          version, msg, getLine(), getColumn());
+    }
+  }
+
+  // 
+  // complementB SIdRef (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("complementB", mComplementB);
+
+  if (assigned == true)
+  {
+    if (mComplementB.empty() == true)
+    {
+      logEmptyString(mComplementB, level, version, "<csgSetOperator>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mComplementB) == false)
+    {
+      std::string msg = "The complementB attribute on the <" + getElementName()
+        + ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mComplementB + "', which does not conform to the "
+        "syntax.";
+      log->logPackageError("spatial",
+        SpatialCSGSetOperatorComplementsMustReferenceChildren, pkgVersion, level,
+          version, msg, getLine(), getColumn());
+    }
+  }
 }
 
 /** @endcond */
@@ -1326,6 +1564,16 @@ CSGSetOperator::writeAttributes(XMLOutputStream& stream) const
   {
     stream.writeAttribute("operationType", getPrefix(),
       SetOperation_toString(mOperationType));
+  }
+
+  if (isSetComplementA() == true)
+  {
+    stream.writeAttribute("complementA", getPrefix(), mComplementA);
+  }
+
+  if (isSetComplementB() == true)
+  {
+    stream.writeAttribute("complementB", getPrefix(), mComplementB);
   }
 
   SBase::writeExtensionAttributes(stream);
@@ -1413,6 +1661,40 @@ CSGSetOperator_getOperationTypeAsString(const CSGSetOperator_t * csgso)
 
 
 /*
+ * Returns the value of the "complementA" attribute of this CSGSetOperator_t.
+ */
+LIBSBML_EXTERN
+char *
+CSGSetOperator_getComplementA(const CSGSetOperator_t * csgso)
+{
+  if (csgso == NULL)
+  {
+    return NULL;
+  }
+
+  return csgso->getComplementA().empty() ? NULL :
+    safe_strdup(csgso->getComplementA().c_str());
+}
+
+
+/*
+ * Returns the value of the "complementB" attribute of this CSGSetOperator_t.
+ */
+LIBSBML_EXTERN
+char *
+CSGSetOperator_getComplementB(const CSGSetOperator_t * csgso)
+{
+  if (csgso == NULL)
+  {
+    return NULL;
+  }
+
+  return csgso->getComplementB().empty() ? NULL :
+    safe_strdup(csgso->getComplementB().c_str());
+}
+
+
+/*
  * Predicate returning @c 1 (true) if this CSGSetOperator_t's "operationType"
  * attribute is set.
  */
@@ -1421,6 +1703,30 @@ int
 CSGSetOperator_isSetOperationType(const CSGSetOperator_t * csgso)
 {
   return (csgso != NULL) ? static_cast<int>(csgso->isSetOperationType()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this CSGSetOperator_t's "complementA"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_isSetComplementA(const CSGSetOperator_t * csgso)
+{
+  return (csgso != NULL) ? static_cast<int>(csgso->isSetComplementA()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this CSGSetOperator_t's "complementB"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_isSetComplementB(const CSGSetOperator_t * csgso)
+{
+  return (csgso != NULL) ? static_cast<int>(csgso->isSetComplementB()) : 0;
 }
 
 
@@ -1451,6 +1757,32 @@ CSGSetOperator_setOperationTypeAsString(CSGSetOperator_t * csgso,
 
 
 /*
+ * Sets the value of the "complementA" attribute of this CSGSetOperator_t.
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_setComplementA(CSGSetOperator_t * csgso,
+                              const char * complementA)
+{
+  return (csgso != NULL) ? csgso->setComplementA(complementA) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "complementB" attribute of this CSGSetOperator_t.
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_setComplementB(CSGSetOperator_t * csgso,
+                              const char * complementB)
+{
+  return (csgso != NULL) ? csgso->setComplementB(complementB) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
  * Unsets the value of the "operationType" attribute of this CSGSetOperator_t.
  */
 LIBSBML_EXTERN
@@ -1459,6 +1791,28 @@ CSGSetOperator_unsetOperationType(CSGSetOperator_t * csgso)
 {
   return (csgso != NULL) ? csgso->unsetOperationType() :
     LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "complementA" attribute of this CSGSetOperator_t.
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_unsetComplementA(CSGSetOperator_t * csgso)
+{
+  return (csgso != NULL) ? csgso->unsetComplementA() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "complementB" attribute of this CSGSetOperator_t.
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_unsetComplementB(CSGSetOperator_t * csgso)
+{
+  return (csgso != NULL) ? csgso->unsetComplementB() : LIBSBML_INVALID_OBJECT;
 }
 
 

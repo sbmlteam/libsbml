@@ -30,10 +30,15 @@
                 <spatial:csGeometry spatial:id="csGeometryDefinition_1" spatial:isActive="true">
                     <spatial:listOfCSGObjects>
                         <spatial:csgObject spatial:domainType="domainType_1" spatial:id="csgObject_1" spatial:ordinal="0">
-                            <spatial:csgSetOperator spatial:operationType="sameness" spatial:complementA="sphere1" spatial:complementB="cube1">
+                            <spatial:csgSetOperator spatial:operationType="union">
                                 <spatial:listOfCSGNodes>
-                                    <spatial:csgPrimitive spatial:id="sphere1" spatial:primitiveType="sphere"/>
-                                    <spatial:csgPrimitive spatial:id="cube1" spatial:primitiveType="cube"/>
+                                    <spatial:csgPrimitive spatial:id="sphere2" spatial:primitiveType="sphere"/>
+                                    <spatial:csgSetOperator spatial:operationType="difference" spatial:complementA="some_circle" spatial:complementB="cube1">
+                                        <spatial:listOfCSGNodes>
+                                            <spatial:csgPrimitive spatial:id="sphere1" spatial:primitiveType="sphere"/>
+                                            <spatial:csgPrimitive spatial:id="cube1" spatial:primitiveType="cube"/>
+                                        </spatial:listOfCSGNodes>
+                                    </spatial:csgSetOperator>
                                 </spatial:listOfCSGNodes>
                             </spatial:csgSetOperator>
                         </spatial:csgObject>
