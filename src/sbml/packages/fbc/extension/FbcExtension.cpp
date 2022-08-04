@@ -308,7 +308,7 @@ FbcExtension::getURI(unsigned int sbmlLevel,
  * Returns the SBML level with the given URI of this package.
  */
 unsigned int
-FbcExtension::getLevel(const std::string &uri) const
+FbcExtension::getLevel(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1() 
     || uri == getXmlnsL3V1V2()
@@ -325,7 +325,7 @@ FbcExtension::getLevel(const std::string &uri) const
  * Returns the SBML version with the given URI of this package.
  */
 unsigned int
-FbcExtension::getVersion(const std::string &uri) const
+FbcExtension::getVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1() 
     || uri == getXmlnsL3V1V2()
@@ -343,7 +343,7 @@ FbcExtension::getVersion(const std::string &uri) const
  * package.
  */
 unsigned int
-FbcExtension::getPackageVersion(const std::string &uri) const
+FbcExtension::getPackageVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -368,7 +368,7 @@ FbcExtension::getPackageVersion(const std::string &uri) const
  * Returns a FbcPkgNamespaces object.
  */
 SBMLNamespaces*
-FbcExtension::getSBMLExtensionNamespaces(const std::string &uri) const
+FbcExtension::getSBMLExtensionNamespaces(const std::string& uri) const
 {
   FbcPkgNamespaces* pkgns = NULL;
   if (uri == getXmlnsL3V1V1())

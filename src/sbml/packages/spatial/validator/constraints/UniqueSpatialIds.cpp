@@ -213,8 +213,14 @@ UniqueSpatialIds::doCheck (const Model& m)
     {
       const CoordinateComponent *cc = g->getCoordinateComponent(n);
       doCheckId(*cc);
-      doCheckId(*cc->getBoundaryMax());
-      doCheckId(*cc->getBoundaryMin());
+      if (cc->isSetBoundaryMax())
+      {
+          doCheckId(*cc->getBoundaryMax());
+      }
+      if (cc->isSetBoundaryMin())
+      {
+          doCheckId(*cc->getBoundaryMin());
+      }
     }
 
     size = g->getNumDomainTypes();

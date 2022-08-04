@@ -41,15 +41,15 @@ class TestListOf(unittest.TestCase):
     m = libsbml.Model(2,4)
     m.createCompartment()
     loc = m.getListOfCompartments()
-    self.assert_( loc.size() == 1 )
+    self.assertTrue( loc.size() == 1 )
     c = libsbml.Compartment(2,4)
     i = loc.append(c)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( loc.size() == 2 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( loc.size() == 2 )
     sp = libsbml.Species(2,4)
     i = loc.append(sp)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
-    self.assert_( loc.size() == 2 )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertTrue( loc.size() == 2 )
     _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ sp ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -62,15 +62,15 @@ class TestListOf(unittest.TestCase):
     lo.append(sp)
     lo.append(sp)
     lo.append(sp)
-    self.assert_( lo.size() == 5 )
+    self.assertTrue( lo.size() == 5 )
     lo.clear(True)
-    self.assert_( lo.size() == 0 )
+    self.assertTrue( lo.size() == 0 )
     lo.append(sp)
     lo.append(sp)
     lo.append(sp)
     lo.append(sp)
     lo.appendAndOwn(sp)
-    self.assert_( lo.size() == 5 )
+    self.assertTrue( lo.size() == 5 )
     elem = lo.get(0)
     _dummyList = [ elem ]; _dummyList[:] = []; del _dummyList
     elem = lo.get(1)
@@ -82,17 +82,17 @@ class TestListOf(unittest.TestCase):
     elem = lo.get(4)
     _dummyList = [ elem ]; _dummyList[:] = []; del _dummyList
     lo.clear(False)
-    self.assert_( lo.size() == 0 )
+    self.assertTrue( lo.size() == 0 )
     _dummyList = [ lo ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ListOf_create(self):
     lo = libsbml.ListOf(2,4)
-    self.assert_( lo.getTypeCode() == libsbml.SBML_LIST_OF )
-    self.assert_( lo.getNotes() == None )
-    self.assert_( lo.getAnnotation() == None )
-    self.assert_( lo.getMetaId() == "" )
-    self.assert_( lo.size() == 0 )
+    self.assertTrue( lo.getTypeCode() == libsbml.SBML_LIST_OF )
+    self.assertTrue( lo.getNotes() == None )
+    self.assertTrue( lo.getAnnotation() == None )
+    self.assertTrue( lo.getMetaId() == "" )
+    self.assertTrue( lo.size() == 0 )
     _dummyList = [ lo ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -103,13 +103,13 @@ class TestListOf(unittest.TestCase):
   def test_ListOf_remove(self):
     lo = libsbml.ListOf(2,4)
     sp = libsbml.Species(2,4)
-    self.assert_( lo.size() == 0 )
+    self.assertTrue( lo.size() == 0 )
     lo.append(sp)
     lo.append(sp)
     lo.append(sp)
     lo.append(sp)
     lo.append(sp)
-    self.assert_( lo.size() == 5 )
+    self.assertTrue( lo.size() == 5 )
     elem = lo.remove(0)
     _dummyList = [ elem ]; _dummyList[:] = []; del _dummyList
     elem = lo.remove(0)
@@ -120,13 +120,13 @@ class TestListOf(unittest.TestCase):
     _dummyList = [ elem ]; _dummyList[:] = []; del _dummyList
     elem = lo.remove(0)
     _dummyList = [ elem ]; _dummyList[:] = []; del _dummyList
-    self.assert_( lo.size() == 0 )
+    self.assertTrue( lo.size() == 0 )
     lo.append(sp)
     lo.append(sp)
     lo.append(sp)
     lo.append(sp)
     lo.appendAndOwn(sp)
-    self.assert_( lo.size() == 5 )
+    self.assertTrue( lo.size() == 5 )
     _dummyList = [ lo ]; _dummyList[:] = []; del _dummyList
     pass  
 

@@ -230,7 +230,7 @@ FbcSBasePlugin::createKeyValuePair()
 
   try
   {
-    FBC_CREATE_NS(fbcns, getSBMLNamespaces());
+    FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
     kvp = new KeyValuePair(fbcns);
     delete fbcns;
   }
@@ -901,8 +901,8 @@ FbcSBasePlugin::writeKeyValuePairsAnnotation(SBase* parentObject) const
   if (mKeyValuePairs.size() > 0)
   {
     XMLAttributes loga_attr = XMLAttributes();
-    loga_attr.add("xmlns", FbcExtension::getXmlnsL3V1V3());
-    XMLToken loga_token = XMLToken(XMLTriple("listOfKeyValuePairs", FbcExtension::getXmlnsL3V1V1(), ""), loga_attr);
+    loga_attr.add("xmlns", mKeyValuePairs.getXmlns());
+    XMLToken loga_token = XMLToken(XMLTriple("listOfKeyValuePairs", mKeyValuePairs.getXmlns(), ""), loga_attr);
     XMLNode loga = XMLNode(loga_token);
 
     for (unsigned int i = 0; i < mKeyValuePairs.size(); ++i)
@@ -943,9 +943,16 @@ FbcSBasePlugin::parseAnnotation(SBase *parentObject, XMLNode *pAnnotation)
   if (listOfKeyValuePairs.getNumChildren() == 0)
     return;
 
+  XMLNamespaces oldNs = listOfKeyValuePairs.getNamespaces();
+  
   // read the xml node, overriding that all errors are flagged as 
-  // warnings
+  // warnings  
   mKeyValuePairs.read(listOfKeyValuePairs, LIBSBML_OVERRIDE_WARNING);
+
+  // unfortunately the namespaces are overwritten at that point with the one from the 
+  // document, so restore it
+  mKeyValuePairs.setXmlns(&oldNs, listOfKeyValuePairs.getPrefix());
+
   // remove listOfLayouts annotation  
   parentObject->removeTopLevelAnnotationElement("listOfKeyValuePairs", "", false);
 

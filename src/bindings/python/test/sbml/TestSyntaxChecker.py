@@ -38,20 +38,20 @@ class TestSyntaxChecker(unittest.TestCase):
 
 
   def test_SyntaxChecker_validID(self):
-    self.assert_( libsbml.SyntaxChecker.isValidXMLID("cell") == True )
-    self.assert_( libsbml.SyntaxChecker.isValidXMLID("1cell") == False )
-    self.assert_( libsbml.SyntaxChecker.isValidXMLID("_cell") == True )
+    self.assertTrue( libsbml.SyntaxChecker.isValidXMLID("cell") == True )
+    self.assertTrue( libsbml.SyntaxChecker.isValidXMLID("1cell") == False )
+    self.assertTrue( libsbml.SyntaxChecker.isValidXMLID("_cell") == True )
     pass  
 
   def test_SyntaxChecker_validId(self):
-    self.assert_( libsbml.SyntaxChecker.isValidSBMLSId("cell") == True )
-    self.assert_( libsbml.SyntaxChecker.isValidSBMLSId("1cell") == False )
-    self.assert_( libsbml.SyntaxChecker.isValidSBMLSId("") == False )
+    self.assertTrue( libsbml.SyntaxChecker.isValidSBMLSId("cell") == True )
+    self.assertTrue( libsbml.SyntaxChecker.isValidSBMLSId("1cell") == False )
+    self.assertTrue( libsbml.SyntaxChecker.isValidSBMLSId("") == False )
     pass  
 
   def test_SyntaxChecker_validUnitId(self):
-    self.assert_( libsbml.SyntaxChecker.isValidUnitSId("cell") == True )
-    self.assert_( libsbml.SyntaxChecker.isValidUnitSId("1cell") == False )
+    self.assertTrue( libsbml.SyntaxChecker.isValidUnitSId("cell") == True )
+    self.assertTrue( libsbml.SyntaxChecker.isValidUnitSId("1cell") == False )
     pass  
 
   def test_SyntaxChecker_validXHTML(self):
@@ -70,18 +70,18 @@ class TestSyntaxChecker(unittest.TestCase):
     node = libsbml.XMLNode(token)
     node.addChild(n1)
     topnode.addChild(node)
-    self.assert_( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,None) == True )
-    self.assert_( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS24) == True )
-    self.assert_( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS31) == True )
+    self.assertTrue( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,None) == True )
+    self.assertTrue( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS24) == True )
+    self.assertTrue( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS31) == True )
     triple = libsbml.XMLTriple("html", "", "")
     token = libsbml.XMLToken(triple,att,ns)
     node = libsbml.XMLNode(token)
     node.addChild(n1)
     topnode.removeChild(0)
     topnode.addChild(node)
-    self.assert_( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,None) == True )
-    self.assert_( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS24) == False )
-    self.assert_( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS31) == True )
+    self.assertTrue( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,None) == True )
+    self.assertTrue( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS24) == False )
+    self.assertTrue( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS31) == True )
     triple = libsbml.XMLTriple("html", "", "")
     ns.clear()
     token = libsbml.XMLToken(triple,att,ns)
@@ -89,9 +89,9 @@ class TestSyntaxChecker(unittest.TestCase):
     node.addChild(n1)
     topnode.removeChild(0)
     topnode.addChild(node)
-    self.assert_( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,None) == False )
-    self.assert_( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS24) == False )
-    self.assert_( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS31) == False )
+    self.assertTrue( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,None) == False )
+    self.assertTrue( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS24) == False )
+    self.assertTrue( libsbml.SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS31) == False )
     pass  
 
 def suite():

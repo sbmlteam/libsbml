@@ -170,6 +170,20 @@ public:
    */
   int setXmlns(const std::string& xmlns);
 
+  /**
+   * Sets the value of the "xmlns" attribute of this ListOfKeyValuePairs.
+   *
+   * @param xmlns XMLNamespaces* value of the "xmlns" attribute to be set.
+   * @param prefix std::string& optional prefix (defaults to "")
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p xmlns = @c NULL or an empty string is
+   * equivalent to calling unsetXmlns().
+   */
+  int setXmlns(const XMLNamespaces* xmlns, const std::string& prefix="");
+
 
   /**
    * Unsets the value of the "xmlns" attribute of this ListOfKeyValuePairs.
@@ -501,6 +515,16 @@ protected:
 
   /** @endcond */
 
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the namespace
+   */
+  virtual void writeXMLNS(XMLOutputStream& stream) const;
+
+  /** @endcond */
 
 };
 

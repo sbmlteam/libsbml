@@ -158,7 +158,7 @@ SBMLResolverRegistry::~SBMLResolverRegistry()
 }
 
 SBMLDocument*
-SBMLResolverRegistry::resolve(const std::string &uri, const std::string baseUri/*=""*/) const
+SBMLResolverRegistry::resolve(const std::string& uri, const std::string baseUri/*=""*/) const
 {
   SBMLDocument* result = NULL;
   std::vector<const SBMLResolver*>::const_iterator it = mResolvers.begin();
@@ -173,7 +173,7 @@ SBMLResolverRegistry::resolve(const std::string &uri, const std::string baseUri/
 }
 
 SBMLUri* 
-SBMLResolverRegistry::resolveUri(const std::string &uri, const std::string baseUri/*=""*/) const
+SBMLResolverRegistry::resolveUri(const std::string& uri, const std::string baseUri/*=""*/) const
 {
   SBMLUri* result = NULL;
   std::vector<const SBMLResolver*>::const_iterator it = mResolvers.begin();

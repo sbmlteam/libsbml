@@ -1749,7 +1749,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The value of the attribute 'spatial:polygonType' of a <parametricObject> "
     "object must conform to the syntax of SBML data type 'PolygonKind' and may "
     "only take on the allowed values of 'PolygonKind' defined in SBML; that is, "
-    "the value must be one of the following: 'triangle' or 'quadrilateral'.",
+    "the value must be 'triangle'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1853,16 +1853,6 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "If the attribute 'spatial:polygonType' of a <parametricObject> has the value 'triangle', the number of uncompressed entries in its ArrayData child must be evenly divisible by three.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1222153
-  { SpatialParametricObjectFourPointsForQuadrilaterals,
-    "The number of point indexes must be divisible by four if polygonType is 'quadrilateral'.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "If the attribute 'spatial:polygonType' of a <parametricObject> has the value 'quadrilateral', the number of uncompressed entries in its ArrayData child must be evenly divisible by four.",
     { "L3V1 Spatial V1 Section"
     }
   },

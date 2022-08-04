@@ -51,13 +51,13 @@ class TestSpeciesConcentrationRule(unittest.TestCase):
     pass  
 
   def test_SpeciesConcentrationRule_create(self):
-    self.assert_( self.SCR.getTypeCode() == libsbml.SBML_ASSIGNMENT_RULE )
-    self.assert_( self.SCR.getL1TypeCode() == libsbml.SBML_SPECIES_CONCENTRATION_RULE )
-    self.assert_( self.SCR.getNotes() == None )
-    self.assert_( self.SCR.getAnnotation() == None )
-    self.assert_( self.SCR.getFormula() == "" )
-    self.assert_( self.SCR.getType() == libsbml.RULE_TYPE_SCALAR )
-    self.assert_( self.SCR.getVariable() == "" )
+    self.assertTrue( self.SCR.getTypeCode() == libsbml.SBML_ASSIGNMENT_RULE )
+    self.assertTrue( self.SCR.getL1TypeCode() == libsbml.SBML_SPECIES_CONCENTRATION_RULE )
+    self.assertTrue( self.SCR.getNotes() == None )
+    self.assertTrue( self.SCR.getAnnotation() == None )
+    self.assertTrue( self.SCR.getFormula() == "" )
+    self.assertTrue( self.SCR.getType() == libsbml.RULE_TYPE_SCALAR )
+    self.assertTrue( self.SCR.getVariable() == "" )
     self.assertEqual( False, self.SCR.isSetVariable() )
     pass  
 
@@ -68,13 +68,13 @@ class TestSpeciesConcentrationRule(unittest.TestCase):
   def test_SpeciesConcentrationRule_setSpecies(self):
     species =  "s2";
     self.SCR.setVariable(species)
-    self.assert_(( species == self.SCR.getVariable() ))
+    self.assertTrue(( species == self.SCR.getVariable() ))
     self.assertEqual( True, self.SCR.isSetVariable() )
     if (self.SCR.getVariable() == species):
       pass    
     s = self.SCR.getVariable()
     self.SCR.setVariable(s)
-    self.assert_(( species == self.SCR.getVariable() ))
+    self.assertTrue(( species == self.SCR.getVariable() ))
     self.SCR.setVariable("")
     self.assertEqual( False, self.SCR.isSetVariable() )
     if (self.SCR.getVariable() != None):

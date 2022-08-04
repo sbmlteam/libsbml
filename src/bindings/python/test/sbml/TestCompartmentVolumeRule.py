@@ -51,13 +51,13 @@ class TestCompartmentVolumeRule(unittest.TestCase):
     pass  
 
   def test_CompartmentVolumeRule_create(self):
-    self.assert_( self.CVR.getTypeCode() == libsbml.SBML_ASSIGNMENT_RULE )
-    self.assert_( self.CVR.getL1TypeCode() == libsbml.SBML_COMPARTMENT_VOLUME_RULE )
-    self.assert_( self.CVR.getNotes() == None )
-    self.assert_( self.CVR.getAnnotation() == None )
-    self.assert_( self.CVR.getFormula() == "" )
-    self.assert_( self.CVR.getType() == libsbml.RULE_TYPE_SCALAR )
-    self.assert_( self.CVR.getVariable() == "" )
+    self.assertTrue( self.CVR.getTypeCode() == libsbml.SBML_ASSIGNMENT_RULE )
+    self.assertTrue( self.CVR.getL1TypeCode() == libsbml.SBML_COMPARTMENT_VOLUME_RULE )
+    self.assertTrue( self.CVR.getNotes() == None )
+    self.assertTrue( self.CVR.getAnnotation() == None )
+    self.assertTrue( self.CVR.getFormula() == "" )
+    self.assertTrue( self.CVR.getType() == libsbml.RULE_TYPE_SCALAR )
+    self.assertTrue( self.CVR.getVariable() == "" )
     self.assertEqual( False, self.CVR.isSetVariable() )
     pass  
 
@@ -68,13 +68,13 @@ class TestCompartmentVolumeRule(unittest.TestCase):
   def test_CompartmentVolumeRule_setCompartment(self):
     compartment =  "cell";
     self.CVR.setVariable(compartment)
-    self.assert_(( compartment == self.CVR.getVariable() ))
+    self.assertTrue(( compartment == self.CVR.getVariable() ))
     self.assertEqual( True, self.CVR.isSetVariable() )
     if (self.CVR.getVariable() == compartment):
       pass    
     c = self.CVR.getVariable()
     self.CVR.setVariable(c)
-    self.assert_(( compartment == self.CVR.getVariable() ))
+    self.assertTrue(( compartment == self.CVR.getVariable() ))
     self.CVR.setVariable("")
     self.assertEqual( False, self.CVR.isSetVariable() )
     if (self.CVR.getVariable() != None):

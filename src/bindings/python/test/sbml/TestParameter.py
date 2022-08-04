@@ -50,14 +50,14 @@ class TestParameter(unittest.TestCase):
     pass  
 
   def test_Parameter_create(self):
-    self.assert_( self.P.getTypeCode() == libsbml.SBML_PARAMETER )
-    self.assert_( self.P.getMetaId() == "" )
-    self.assert_( self.P.getNotes() == None )
-    self.assert_( self.P.getAnnotation() == None )
-    self.assert_( self.P.getId() == "" )
-    self.assert_( self.P.getName() == "" )
-    self.assert_( self.P.getUnits() == "" )
-    self.assert_( self.P.getConstant() == True )
+    self.assertTrue( self.P.getTypeCode() == libsbml.SBML_PARAMETER )
+    self.assertTrue( self.P.getMetaId() == "" )
+    self.assertTrue( self.P.getNotes() == None )
+    self.assertTrue( self.P.getAnnotation() == None )
+    self.assertTrue( self.P.getId() == "" )
+    self.assertTrue( self.P.getName() == "" )
+    self.assertTrue( self.P.getUnits() == "" )
+    self.assertTrue( self.P.getConstant() == True )
     self.assertEqual( False, self.P.isSetId() )
     self.assertEqual( False, self.P.isSetName() )
     self.assertEqual( False, self.P.isSetValue() )
@@ -71,14 +71,14 @@ class TestParameter(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(2,1)
     sbmlns.addNamespaces(xmlns)
     object = libsbml.Parameter(sbmlns)
-    self.assert_( object.getTypeCode() == libsbml.SBML_PARAMETER )
-    self.assert_( object.getMetaId() == "" )
-    self.assert_( object.getNotes() == None )
-    self.assert_( object.getAnnotation() == None )
-    self.assert_( object.getLevel() == 2 )
-    self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != None )
-    self.assert_( object.getNamespaces().getLength() == 2 )
+    self.assertTrue( object.getTypeCode() == libsbml.SBML_PARAMETER )
+    self.assertTrue( object.getMetaId() == "" )
+    self.assertTrue( object.getNotes() == None )
+    self.assertTrue( object.getAnnotation() == None )
+    self.assertTrue( object.getLevel() == 2 )
+    self.assertTrue( object.getVersion() == 1 )
+    self.assertTrue( object.getNamespaces() != None )
+    self.assertTrue( object.getNamespaces().getLength() == 2 )
     _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -89,12 +89,12 @@ class TestParameter(unittest.TestCase):
   def test_Parameter_setId(self):
     id =  "Km1";
     self.P.setId(id)
-    self.assert_(( id == self.P.getId() ))
+    self.assertTrue(( id == self.P.getId() ))
     self.assertEqual( True, self.P.isSetId() )
     if (self.P.getId() == id):
       pass    
     self.P.setId(self.P.getId())
-    self.assert_(( id == self.P.getId() ))
+    self.assertTrue(( id == self.P.getId() ))
     self.P.setId("")
     self.assertEqual( False, self.P.isSetId() )
     if (self.P.getId() != None):
@@ -104,12 +104,12 @@ class TestParameter(unittest.TestCase):
   def test_Parameter_setName(self):
     name =  "Forward_Michaelis_Menten_Constant";
     self.P.setName(name)
-    self.assert_(( name == self.P.getName() ))
+    self.assertTrue(( name == self.P.getName() ))
     self.assertEqual( True, self.P.isSetName() )
     if (self.P.getName() == name):
       pass    
     self.P.setName(self.P.getName())
-    self.assert_(( name == self.P.getName() ))
+    self.assertTrue(( name == self.P.getName() ))
     self.P.setName("")
     self.assertEqual( False, self.P.isSetName() )
     if (self.P.getName() != None):
@@ -119,12 +119,12 @@ class TestParameter(unittest.TestCase):
   def test_Parameter_setUnits(self):
     units =  "second";
     self.P.setUnits(units)
-    self.assert_(( units == self.P.getUnits() ))
+    self.assertTrue(( units == self.P.getUnits() ))
     self.assertEqual( True, self.P.isSetUnits() )
     if (self.P.getUnits() == units):
       pass    
     self.P.setUnits(self.P.getUnits())
-    self.assert_(( units == self.P.getUnits() ))
+    self.assertTrue(( units == self.P.getUnits() ))
     self.P.setUnits("")
     self.assertEqual( False, self.P.isSetUnits() )
     if (self.P.getUnits() != None):

@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version3" level="3" version="1" fbc:required="false">
-<!--  <annotation>
-    <listOfKeyValuePairs xlns="http://www.sbml.org/sbml/level3/version1/fbc/version3">
-      <keyValuePair key="key4" value="doc-value" uri="my_annotation"/>
-    </listOfKeyValuePairs>
-  </annotation>
-  -->
   <model id="m" fbc:strict="true">
     <annotation>
       <listOfKeyValuePairs xmlns="http://www.sbml.org/sbml/level3/version1/fbc/version3">

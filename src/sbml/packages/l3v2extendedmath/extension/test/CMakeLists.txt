@@ -44,9 +44,9 @@ set(TEST_FILES ${CPP_FILES} ${C_FILES})
 include_directories(BEFORE ${LIBSBML_ROOT_SOURCE_DIR}/src )
 include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 
-include_directories(${LIBCHECK_INCLUDE_DIR})
+
 add_executable(test_extension_package_l3v2extendedmath ${TEST_FILES})
-target_link_libraries(test_extension_package_l3v2extendedmath ${LIBSBML_LIBRARY}-static ${LIBCHECK_LIBRARY})
+target_link_libraries(test_extension_package_l3v2extendedmath ${LIBSBML_LIBRARY}-static CHECK::CHECK)
 add_test(test_extension_package_l3v2extendedmath_run ${CMAKE_CURRENT_BINARY_DIR}/test_extension_package_l3v2extendedmath )
 set_tests_properties(test_extension_package_l3v2extendedmath_run  PROPERTIES ENVIRONMENT 
 	"srcdir=${CMAKE_CURRENT_SOURCE_DIR}")

@@ -135,7 +135,7 @@ L3v2extendedmathASTPlugin::~L3v2extendedmathASTPlugin()
 /*
 * Constructor
 */
-L3v2extendedmathASTPlugin::L3v2extendedmathASTPlugin(const std::string &uri)
+L3v2extendedmathASTPlugin::L3v2extendedmathASTPlugin(const std::string& uri)
   : ASTBasePlugin(uri)
 {
   mExtendedMathType = EM_L3V2;

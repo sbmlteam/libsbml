@@ -40,20 +40,20 @@ class TestCVTerms(unittest.TestCase):
   def test_CVTerm_addResource(self):
     term = libsbml.CVTerm(libsbml.MODEL_QUALIFIER)
     resource =  "GO6666";
-    self.assert_( term != None )
-    self.assert_( term.getQualifierType() == libsbml.MODEL_QUALIFIER )
+    self.assertTrue( term != None )
+    self.assertTrue( term.getQualifierType() == libsbml.MODEL_QUALIFIER )
     term.addResource(resource)
     xa = term.getResources()
-    self.assert_( xa.getLength() == 1 )
-    self.assert_((  "rdf:resource" == xa.getName(0) ))
-    self.assert_((  "GO6666" == xa.getValue(0) ))
+    self.assertTrue( xa.getLength() == 1 )
+    self.assertTrue((  "rdf:resource" == xa.getName(0) ))
+    self.assertTrue((  "GO6666" == xa.getValue(0) ))
     _dummyList = [ term ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_CVTerm_create(self):
     term = libsbml.CVTerm(libsbml.MODEL_QUALIFIER)
-    self.assert_( term != None )
-    self.assert_( term.getQualifierType() == libsbml.MODEL_QUALIFIER )
+    self.assertTrue( term != None )
+    self.assertTrue( term.getQualifierType() == libsbml.MODEL_QUALIFIER )
     _dummyList = [ term ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -73,13 +73,13 @@ class TestCVTerms(unittest.TestCase):
     bag.addChild(li)
     node.addChild(bag)
     term = libsbml.CVTerm(node)
-    self.assert_( term != None )
-    self.assert_( term.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
-    self.assert_( term.getBiologicalQualifierType() == libsbml.BQB_IS )
+    self.assertTrue( term != None )
+    self.assertTrue( term.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
+    self.assertTrue( term.getBiologicalQualifierType() == libsbml.BQB_IS )
     xa = term.getResources()
-    self.assert_( xa.getLength() == 1 )
-    self.assert_((  "rdf:resource" == xa.getName(0) ))
-    self.assert_((  "This is my resource" == xa.getValue(0) ))
+    self.assertTrue( xa.getLength() == 1 )
+    self.assertTrue((  "rdf:resource" == xa.getName(0) ))
+    self.assertTrue((  "This is my resource" == xa.getValue(0) ))
     _dummyList = [ qual_triple ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ bag_triple ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ li_triple ]; _dummyList[:] = []; del _dummyList
@@ -101,24 +101,24 @@ class TestCVTerms(unittest.TestCase):
     term.addResource(resource)
     term.addResource(resource1)
     number = term.getNumResources()
-    self.assert_( number == 2 )
-    self.assert_((  "GO6666" == term.getResourceURI(0) ))
-    self.assert_((  "OtherURI" == term.getResourceURI(1) ))
+    self.assertTrue( number == 2 )
+    self.assertTrue((  "GO6666" == term.getResourceURI(0) ))
+    self.assertTrue((  "OtherURI" == term.getResourceURI(1) ))
     _dummyList = [ term ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_CVTerm_set_get(self):
     term = libsbml.CVTerm(libsbml.MODEL_QUALIFIER)
-    self.assert_( term != None )
-    self.assert_( term.getQualifierType() == libsbml.MODEL_QUALIFIER )
+    self.assertTrue( term != None )
+    self.assertTrue( term.getQualifierType() == libsbml.MODEL_QUALIFIER )
     term.setModelQualifierType(libsbml.BQM_IS)
-    self.assert_( term != None )
-    self.assert_( term.getQualifierType() == libsbml.MODEL_QUALIFIER )
-    self.assert_( term.getModelQualifierType() == libsbml.BQM_IS )
+    self.assertTrue( term != None )
+    self.assertTrue( term.getQualifierType() == libsbml.MODEL_QUALIFIER )
+    self.assertTrue( term.getModelQualifierType() == libsbml.BQM_IS )
     term.setQualifierType(libsbml.BIOLOGICAL_QUALIFIER)
     term.setBiologicalQualifierType(libsbml.BQB_IS)
-    self.assert_( term.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
-    self.assert_( term.getBiologicalQualifierType() == libsbml.BQB_IS )
+    self.assertTrue( term.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
+    self.assertTrue( term.getBiologicalQualifierType() == libsbml.BQB_IS )
     _dummyList = [ term ]; _dummyList[:] = []; del _dummyList
     pass  
 

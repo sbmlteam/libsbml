@@ -84,7 +84,7 @@ public:
    *
    * @param qualns the namespaces object for the package.
    */
-  QualModelPlugin (const std::string &uri, const std::string &prefix,
+  QualModelPlugin (const std::string& uri, const std::string &prefix,
                     QualPkgNamespaces *qualns);
 
 

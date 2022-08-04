@@ -39,101 +39,101 @@ class TestSBMLNamespaces(unittest.TestCase):
 
   def test_SBMLNamespaces_L1V1(self):
     sbml = libsbml.SBMLNamespaces(1,1)
-    self.assert_( sbml.getLevel() == 1 )
-    self.assert_( sbml.getVersion() == 1 )
+    self.assertTrue( sbml.getLevel() == 1 )
+    self.assertTrue( sbml.getVersion() == 1 )
     ns = sbml.getNamespaces()
-    self.assert_( ns.getLength() == 1 )
-    self.assert_( ns.getURI(0) ==  "http://www.sbml.org/sbml/level1" )
-    self.assert_( ns.getPrefix(0) ==  "" )
+    self.assertTrue( ns.getLength() == 1 )
+    self.assertTrue( ns.getURI(0) ==  "http://www.sbml.org/sbml/level1" )
+    self.assertTrue( ns.getPrefix(0) ==  "" )
     sbml = None
     pass  
 
   def test_SBMLNamespaces_L1V2(self):
     sbml = libsbml.SBMLNamespaces(1,2)
-    self.assert_( sbml.getLevel() == 1 )
-    self.assert_( sbml.getVersion() == 2 )
+    self.assertTrue( sbml.getLevel() == 1 )
+    self.assertTrue( sbml.getVersion() == 2 )
     ns = sbml.getNamespaces()
-    self.assert_( ns.getLength() == 1 )
-    self.assert_( ns.getURI(0) ==  "http://www.sbml.org/sbml/level1" )
-    self.assert_( ns.getPrefix(0) ==  "" )
+    self.assertTrue( ns.getLength() == 1 )
+    self.assertTrue( ns.getURI(0) ==  "http://www.sbml.org/sbml/level1" )
+    self.assertTrue( ns.getPrefix(0) ==  "" )
     sbml = None
     pass  
 
   def test_SBMLNamespaces_L2V1(self):
     sbml = libsbml.SBMLNamespaces(2,1)
-    self.assert_( sbml.getLevel() == 2 )
-    self.assert_( sbml.getVersion() == 1 )
+    self.assertTrue( sbml.getLevel() == 2 )
+    self.assertTrue( sbml.getVersion() == 1 )
     ns = sbml.getNamespaces()
-    self.assert_( ns.getLength() == 1 )
-    self.assert_( ns.getURI(0) ==  "http://www.sbml.org/sbml/level2" )
-    self.assert_( ns.getPrefix(0) ==  "" )
+    self.assertTrue( ns.getLength() == 1 )
+    self.assertTrue( ns.getURI(0) ==  "http://www.sbml.org/sbml/level2" )
+    self.assertTrue( ns.getPrefix(0) ==  "" )
     sbml = None
     pass  
 
   def test_SBMLNamespaces_L2V2(self):
     sbml = libsbml.SBMLNamespaces(2,2)
-    self.assert_( sbml.getLevel() == 2 )
-    self.assert_( sbml.getVersion() == 2 )
+    self.assertTrue( sbml.getLevel() == 2 )
+    self.assertTrue( sbml.getVersion() == 2 )
     ns = sbml.getNamespaces()
-    self.assert_( ns.getLength() == 1 )
-    self.assert_( ns.getURI(0) ==  "http://www.sbml.org/sbml/level2/version2" )
-    self.assert_( ns.getPrefix(0) ==  "" )
+    self.assertTrue( ns.getLength() == 1 )
+    self.assertTrue( ns.getURI(0) ==  "http://www.sbml.org/sbml/level2/version2" )
+    self.assertTrue( ns.getPrefix(0) ==  "" )
     sbml = None
     pass  
 
   def test_SBMLNamespaces_L2V3(self):
     sbml = libsbml.SBMLNamespaces(2,3)
-    self.assert_( sbml.getLevel() == 2 )
-    self.assert_( sbml.getVersion() == 3 )
+    self.assertTrue( sbml.getLevel() == 2 )
+    self.assertTrue( sbml.getVersion() == 3 )
     ns = sbml.getNamespaces()
-    self.assert_( ns.getLength() == 1 )
-    self.assert_( ns.getURI(0) ==  "http://www.sbml.org/sbml/level2/version3" )
-    self.assert_( ns.getPrefix(0) ==  "" )
+    self.assertTrue( ns.getLength() == 1 )
+    self.assertTrue( ns.getURI(0) ==  "http://www.sbml.org/sbml/level2/version3" )
+    self.assertTrue( ns.getPrefix(0) ==  "" )
     sbml = None
     pass  
 
   def test_SBMLNamespaces_L2V4(self):
     sbml = libsbml.SBMLNamespaces(2,4)
-    self.assert_( sbml.getLevel() == 2 )
-    self.assert_( sbml.getVersion() == 4 )
+    self.assertTrue( sbml.getLevel() == 2 )
+    self.assertTrue( sbml.getVersion() == 4 )
     ns = sbml.getNamespaces()
-    self.assert_( ns.getLength() == 1 )
-    self.assert_( ns.getURI(0) ==  "http://www.sbml.org/sbml/level2/version4" )
-    self.assert_( ns.getPrefix(0) ==  "" )
+    self.assertTrue( ns.getLength() == 1 )
+    self.assertTrue( ns.getURI(0) ==  "http://www.sbml.org/sbml/level2/version4" )
+    self.assertTrue( ns.getPrefix(0) ==  "" )
     sbml = None
     pass  
 
   def test_SBMLNamespaces_L3V1(self):
     sbml = libsbml.SBMLNamespaces(3,1)
-    self.assert_( sbml.getLevel() == 3 )
-    self.assert_( sbml.getVersion() == 1 )
+    self.assertTrue( sbml.getLevel() == 3 )
+    self.assertTrue( sbml.getVersion() == 1 )
     ns = sbml.getNamespaces()
-    self.assert_( ns.getLength() == 1 )
-    self.assert_( ns.getURI(0) ==  "http://www.sbml.org/sbml/level3/version1/core" )
-    self.assert_( ns.getPrefix(0) ==  "" )
+    self.assertTrue( ns.getLength() == 1 )
+    self.assertTrue( ns.getURI(0) ==  "http://www.sbml.org/sbml/level3/version1/core" )
+    self.assertTrue( ns.getPrefix(0) ==  "" )
     sbml = None
     pass  
 
   def test_SBMLNamespaces_add_and_remove_namespaces(self):
     sbmlns = libsbml.SBMLNamespaces( 3,1 )
-    self.assert_( sbmlns.getLevel() == 3 )
-    self.assert_( sbmlns.getVersion() == 1 )
+    self.assertTrue( sbmlns.getLevel() == 3 )
+    self.assertTrue( sbmlns.getVersion() == 1 )
     sbmlns.addNamespace("http://www.sbml.org/sbml/level3/version1/group/version1",  "group")
     sbmlns.addNamespace("http://www.sbml.org/sbml/level3/version1/layout/version1", "layout")
     sbmlns.addNamespace("http://www.sbml.org/sbml/level3/version1/render/version1", "render")
     sbmlns.addNamespace("http://www.sbml.org/sbml/level3/version1/multi/version1",  "multi")
     ns = sbmlns.getNamespaces()
-    self.assert_( ns.getLength() == 5 )
-    self.assert_( ns.getURI(0) ==  "http://www.sbml.org/sbml/level3/version1/core" )
-    self.assert_( ns.getPrefix(0) ==  "" )
-    self.assert_( ns.getURI(1) ==  "http://www.sbml.org/sbml/level3/version1/group/version1" )
-    self.assert_( ns.getPrefix(1) ==  "group" )
-    self.assert_( ns.getURI(2) ==  "http://www.sbml.org/sbml/level3/version1/layout/version1" )
-    self.assert_( ns.getPrefix(2) ==  "layout" )
-    self.assert_( ns.getURI(3) ==  "http://www.sbml.org/sbml/level3/version1/render/version1" )
-    self.assert_( ns.getPrefix(3) ==  "render" )
-    self.assert_( ns.getURI(4) ==  "http://www.sbml.org/sbml/level3/version1/multi/version1" )
-    self.assert_( ns.getPrefix(4) ==  "multi" )
+    self.assertTrue( ns.getLength() == 5 )
+    self.assertTrue( ns.getURI(0) ==  "http://www.sbml.org/sbml/level3/version1/core" )
+    self.assertTrue( ns.getPrefix(0) ==  "" )
+    self.assertTrue( ns.getURI(1) ==  "http://www.sbml.org/sbml/level3/version1/group/version1" )
+    self.assertTrue( ns.getPrefix(1) ==  "group" )
+    self.assertTrue( ns.getURI(2) ==  "http://www.sbml.org/sbml/level3/version1/layout/version1" )
+    self.assertTrue( ns.getPrefix(2) ==  "layout" )
+    self.assertTrue( ns.getURI(3) ==  "http://www.sbml.org/sbml/level3/version1/render/version1" )
+    self.assertTrue( ns.getPrefix(3) ==  "render" )
+    self.assertTrue( ns.getURI(4) ==  "http://www.sbml.org/sbml/level3/version1/multi/version1" )
+    self.assertTrue( ns.getPrefix(4) ==  "multi" )
     sbmlns.removeNamespace("http://www.sbml.org/sbml/level3/version1/layout/version1")
     sbmlns.removeNamespace("http://www.sbml.org/sbml/level3/version1/group/version1")
     sbmlns.removeNamespace("http://www.sbml.org/sbml/level3/version1/render/version1")
@@ -141,13 +141,13 @@ class TestSBMLNamespaces(unittest.TestCase):
     pass  
 
   def test_SBMLNamespaces_getURI(self):
-    self.assert_( libsbml.SBMLNamespaces.getSBMLNamespaceURI(1,1) ==                              "http://www.sbml.org/sbml/level1" )
-    self.assert_( libsbml.SBMLNamespaces.getSBMLNamespaceURI(1,2) ==                              "http://www.sbml.org/sbml/level1" )
-    self.assert_( libsbml.SBMLNamespaces.getSBMLNamespaceURI(2,1) ==                              "http://www.sbml.org/sbml/level2" )
-    self.assert_( libsbml.SBMLNamespaces.getSBMLNamespaceURI(2,2) ==                              "http://www.sbml.org/sbml/level2/version2" )
-    self.assert_( libsbml.SBMLNamespaces.getSBMLNamespaceURI(2,3) ==                              "http://www.sbml.org/sbml/level2/version3" )
-    self.assert_( libsbml.SBMLNamespaces.getSBMLNamespaceURI(2,4) ==                              "http://www.sbml.org/sbml/level2/version4" )
-    self.assert_( libsbml.SBMLNamespaces.getSBMLNamespaceURI(3,1) ==                              "http://www.sbml.org/sbml/level3/version1/core" )
+    self.assertTrue( libsbml.SBMLNamespaces.getSBMLNamespaceURI(1,1) ==                              "http://www.sbml.org/sbml/level1" )
+    self.assertTrue( libsbml.SBMLNamespaces.getSBMLNamespaceURI(1,2) ==                              "http://www.sbml.org/sbml/level1" )
+    self.assertTrue( libsbml.SBMLNamespaces.getSBMLNamespaceURI(2,1) ==                              "http://www.sbml.org/sbml/level2" )
+    self.assertTrue( libsbml.SBMLNamespaces.getSBMLNamespaceURI(2,2) ==                              "http://www.sbml.org/sbml/level2/version2" )
+    self.assertTrue( libsbml.SBMLNamespaces.getSBMLNamespaceURI(2,3) ==                              "http://www.sbml.org/sbml/level2/version3" )
+    self.assertTrue( libsbml.SBMLNamespaces.getSBMLNamespaceURI(2,4) ==                              "http://www.sbml.org/sbml/level2/version4" )
+    self.assertTrue( libsbml.SBMLNamespaces.getSBMLNamespaceURI(3,1) ==                              "http://www.sbml.org/sbml/level3/version1/core" )
     pass  
 
 def suite():

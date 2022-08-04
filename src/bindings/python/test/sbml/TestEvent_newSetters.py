@@ -53,14 +53,14 @@ class TestEvent_newSetters(unittest.TestCase):
     e = libsbml.Event(2,2)
     ea = libsbml.EventAssignment(2,2)
     i = e.addEventAssignment(ea)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
     ea.setVariable( "f")
     i = e.addEventAssignment(ea)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
     ea.setMath(libsbml.parseFormula("a-n"))
     i = e.addEventAssignment(ea)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( e.getNumEventAssignments() == 1 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( e.getNumEventAssignments() == 1 )
     _dummyList = [ ea ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -71,8 +71,8 @@ class TestEvent_newSetters(unittest.TestCase):
     ea.setVariable( "f")
     ea.setMath(libsbml.parseFormula("a-n"))
     i = e.addEventAssignment(ea)
-    self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
-    self.assert_( e.getNumEventAssignments() == 0 )
+    self.assertTrue( i == libsbml.LIBSBML_VERSION_MISMATCH )
+    self.assertTrue( e.getNumEventAssignments() == 0 )
     _dummyList = [ ea ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -80,8 +80,8 @@ class TestEvent_newSetters(unittest.TestCase):
   def test_Event_addEventAssignment3(self):
     e = libsbml.Event(2,2)
     i = e.addEventAssignment(None)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
-    self.assert_( e.getNumEventAssignments() == 0 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_FAILED )
+    self.assertTrue( e.getNumEventAssignments() == 0 )
     _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -94,11 +94,11 @@ class TestEvent_newSetters(unittest.TestCase):
     ea1.setVariable( "c")
     ea1.setMath(libsbml.parseFormula("a-n"))
     i = e.addEventAssignment(ea)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( e.getNumEventAssignments() == 1 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( e.getNumEventAssignments() == 1 )
     i = e.addEventAssignment(ea1)
-    self.assert_( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
-    self.assert_( e.getNumEventAssignments() == 1 )
+    self.assertTrue( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
+    self.assertTrue( e.getNumEventAssignments() == 1 )
     _dummyList = [ ea ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ ea1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
@@ -107,9 +107,9 @@ class TestEvent_newSetters(unittest.TestCase):
   def test_Event_createEventAssignment(self):
     e = libsbml.Event(2,2)
     ea = e.createEventAssignment()
-    self.assert_( e.getNumEventAssignments() == 1 )
-    self.assert_( (ea).getLevel() == 2 )
-    self.assert_( (ea).getVersion() == 2 )
+    self.assertTrue( e.getNumEventAssignments() == 1 )
+    self.assertTrue( (ea).getLevel() == 2 )
+    self.assertTrue( (ea).getVersion() == 2 )
     _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -118,11 +118,11 @@ class TestEvent_newSetters(unittest.TestCase):
     Delay = libsbml.Delay(2,4)
     Delay.setMath(math1)
     i = self.E.setDelay(Delay)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.E.getDelay() != None )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.E.getDelay() != None )
     self.assertEqual( True, self.E.isSetDelay() )
     i = self.E.unsetDelay()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.E.isSetDelay() )
     pass  
 
@@ -130,64 +130,64 @@ class TestEvent_newSetters(unittest.TestCase):
     Delay = libsbml.Delay(2,1)
     Delay.setMath(libsbml.parseFormula("1"))
     i = self.E.setDelay(Delay)
-    self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
+    self.assertTrue( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assertEqual( False, self.E.isSetDelay() )
     i = self.E.unsetDelay()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     pass  
 
   def test_Event_setId1(self):
     id =  "1e1";
     i = self.E.setId(id)
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, self.E.isSetId() )
     pass  
 
   def test_Event_setId2(self):
     id =  "e1";
     i = self.E.setId(id)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_(( id == self.E.getId() ))
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue(( id == self.E.getId() ))
     self.assertEqual( True, self.E.isSetId() )
     i = self.E.unsetId()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.E.isSetId() )
     pass  
 
   def test_Event_setId3(self):
     i = self.E.setId("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.E.isSetId() )
     pass  
 
   def test_Event_setName1(self):
     name =  "3Set_k2";
     i = self.E.setName(name)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.E.isSetName() )
     pass  
 
   def test_Event_setName2(self):
     name =  "Set k2";
     i = self.E.setName(name)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_(( name == self.E.getName() ))
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue(( name == self.E.getName() ))
     self.assertEqual( True, self.E.isSetName() )
     i = self.E.unsetName()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.E.isSetName() )
     pass  
 
   def test_Event_setName3(self):
     i = self.E.setName("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.E.isSetName() )
     pass  
 
   def test_Event_setTimeUnits1(self):
     units =  "second";
     i = self.E.setTimeUnits(units)
-    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
     self.assertEqual( False, self.E.isSetTimeUnits() )
     pass  
 
@@ -195,11 +195,11 @@ class TestEvent_newSetters(unittest.TestCase):
     units =  "second";
     e = libsbml.Event(2,1)
     i = e.setTimeUnits(units)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_(( units == e.getTimeUnits() ))
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue(( units == e.getTimeUnits() ))
     self.assertEqual( True, e.isSetTimeUnits() )
     i = e.unsetTimeUnits()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, e.isSetTimeUnits() )
     _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -208,10 +208,10 @@ class TestEvent_newSetters(unittest.TestCase):
     units =  "1second";
     e = libsbml.Event(2,1)
     i = e.setTimeUnits(units)
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, e.isSetTimeUnits() )
     i = e.unsetTimeUnits()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, e.isSetTimeUnits() )
     _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -219,7 +219,7 @@ class TestEvent_newSetters(unittest.TestCase):
   def test_Event_setTimeUnits4(self):
     e = libsbml.Event(2,1)
     i = e.setTimeUnits("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, e.isSetTimeUnits() )
     _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -228,7 +228,7 @@ class TestEvent_newSetters(unittest.TestCase):
     trigger = libsbml.Trigger(2,1)
     trigger.setMath(libsbml.parseFormula("true"))
     i = self.E.setTrigger(trigger)
-    self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
+    self.assertTrue( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assertEqual( False, self.E.isSetTrigger() )
     pass  
 
@@ -237,26 +237,26 @@ class TestEvent_newSetters(unittest.TestCase):
     trigger = libsbml.Trigger(2,4)
     trigger.setMath(math1)
     i = self.E.setTrigger(trigger)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.E.getTrigger() != None )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.E.getTrigger() != None )
     self.assertEqual( True, self.E.isSetTrigger() )
     pass  
 
   def test_Event_setUseValuesFromTriggerTime1(self):
     e = libsbml.Event(2,4)
     i = e.setUseValuesFromTriggerTime(False)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( e.getUseValuesFromTriggerTime() == False )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( e.getUseValuesFromTriggerTime() == False )
     i = e.setUseValuesFromTriggerTime(True)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( e.getUseValuesFromTriggerTime() == True )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( e.getUseValuesFromTriggerTime() == True )
     _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Event_setUseValuesFromTriggerTime2(self):
     e = libsbml.Event(2,2)
     i = e.setUseValuesFromTriggerTime(False)
-    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
     _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 

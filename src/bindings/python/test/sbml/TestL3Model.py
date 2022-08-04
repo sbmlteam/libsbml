@@ -50,16 +50,16 @@ class TestL3Model(unittest.TestCase):
     pass  
 
   def test_L3_Model_NS(self):
-    self.assert_( self.M.getNamespaces() != None )
-    self.assert_( self.M.getNamespaces().getLength() == 1 )
-    self.assert_((     "http://www.sbml.org/sbml/level3/version1/core" == self.M.getNamespaces().getURI(0) ))
+    self.assertTrue( self.M.getNamespaces() != None )
+    self.assertTrue( self.M.getNamespaces().getLength() == 1 )
+    self.assertTrue((     "http://www.sbml.org/sbml/level3/version1/core" == self.M.getNamespaces().getURI(0) ))
     pass  
 
   def test_L3_Model_areaUnits(self):
     units =  "mole";
     self.assertEqual( False, self.M.isSetAreaUnits() )
     self.M.setAreaUnits(units)
-    self.assert_(( units == self.M.getAreaUnits() ))
+    self.assertTrue(( units == self.M.getAreaUnits() ))
     self.assertEqual( True, self.M.isSetAreaUnits() )
     if (self.M.getAreaUnits() == units):
       pass    
@@ -73,7 +73,7 @@ class TestL3Model(unittest.TestCase):
     units =  "mole";
     self.assertEqual( False, self.M.isSetConversionFactor() )
     self.M.setConversionFactor(units)
-    self.assert_(( units == self.M.getConversionFactor() ))
+    self.assertTrue(( units == self.M.getConversionFactor() ))
     self.assertEqual( True, self.M.isSetConversionFactor() )
     if (self.M.getConversionFactor() == units):
       pass    
@@ -84,18 +84,18 @@ class TestL3Model(unittest.TestCase):
     pass  
 
   def test_L3_Model_create(self):
-    self.assert_( self.M.getTypeCode() == libsbml.SBML_MODEL )
-    self.assert_( self.M.getMetaId() == "" )
-    self.assert_( self.M.getNotes() == None )
-    self.assert_( self.M.getAnnotation() == None )
-    self.assert_( self.M.getId() == "" )
-    self.assert_( self.M.getName() == "" )
-    self.assert_( self.M.getSubstanceUnits() == "" )
-    self.assert_( self.M.getTimeUnits() == "" )
-    self.assert_( self.M.getVolumeUnits() == "" )
-    self.assert_( self.M.getAreaUnits() == "" )
-    self.assert_( self.M.getLengthUnits() == "" )
-    self.assert_( self.M.getConversionFactor() == "" )
+    self.assertTrue( self.M.getTypeCode() == libsbml.SBML_MODEL )
+    self.assertTrue( self.M.getMetaId() == "" )
+    self.assertTrue( self.M.getNotes() == None )
+    self.assertTrue( self.M.getAnnotation() == None )
+    self.assertTrue( self.M.getId() == "" )
+    self.assertTrue( self.M.getName() == "" )
+    self.assertTrue( self.M.getSubstanceUnits() == "" )
+    self.assertTrue( self.M.getTimeUnits() == "" )
+    self.assertTrue( self.M.getVolumeUnits() == "" )
+    self.assertTrue( self.M.getAreaUnits() == "" )
+    self.assertTrue( self.M.getLengthUnits() == "" )
+    self.assertTrue( self.M.getConversionFactor() == "" )
     self.assertEqual( False, self.M.isSetId() )
     self.assertEqual( False, self.M.isSetName() )
     self.assertEqual( False, self.M.isSetSubstanceUnits() )
@@ -112,22 +112,22 @@ class TestL3Model(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(3,1)
     sbmlns.addNamespaces(xmlns)
     m = libsbml.Model(sbmlns)
-    self.assert_( m.getTypeCode() == libsbml.SBML_MODEL )
-    self.assert_( m.getMetaId() == "" )
-    self.assert_( m.getNotes() == None )
-    self.assert_( m.getAnnotation() == None )
-    self.assert_( m.getLevel() == 3 )
-    self.assert_( m.getVersion() == 1 )
-    self.assert_( m.getNamespaces() != None )
-    self.assert_( m.getNamespaces().getLength() == 2 )
-    self.assert_( m.getId() == "" )
-    self.assert_( m.getName() == "" )
-    self.assert_( m.getSubstanceUnits() == "" )
-    self.assert_( m.getTimeUnits() == "" )
-    self.assert_( m.getVolumeUnits() == "" )
-    self.assert_( m.getAreaUnits() == "" )
-    self.assert_( m.getLengthUnits() == "" )
-    self.assert_( m.getConversionFactor() == "" )
+    self.assertTrue( m.getTypeCode() == libsbml.SBML_MODEL )
+    self.assertTrue( m.getMetaId() == "" )
+    self.assertTrue( m.getNotes() == None )
+    self.assertTrue( m.getAnnotation() == None )
+    self.assertTrue( m.getLevel() == 3 )
+    self.assertTrue( m.getVersion() == 1 )
+    self.assertTrue( m.getNamespaces() != None )
+    self.assertTrue( m.getNamespaces().getLength() == 2 )
+    self.assertTrue( m.getId() == "" )
+    self.assertTrue( m.getName() == "" )
+    self.assertTrue( m.getSubstanceUnits() == "" )
+    self.assertTrue( m.getTimeUnits() == "" )
+    self.assertTrue( m.getVolumeUnits() == "" )
+    self.assertTrue( m.getAreaUnits() == "" )
+    self.assertTrue( m.getLengthUnits() == "" )
+    self.assertTrue( m.getConversionFactor() == "" )
     self.assertEqual( False, m.isSetId() )
     self.assertEqual( False, m.isSetName() )
     self.assertEqual( False, m.isSetSubstanceUnits() )
@@ -143,7 +143,7 @@ class TestL3Model(unittest.TestCase):
     units =  "mole";
     self.assertEqual( False, self.M.isSetExtentUnits() )
     self.M.setExtentUnits(units)
-    self.assert_(( units == self.M.getExtentUnits() ))
+    self.assertTrue(( units == self.M.getExtentUnits() ))
     self.assertEqual( True, self.M.isSetExtentUnits() )
     if (self.M.getExtentUnits() == units):
       pass    
@@ -161,7 +161,7 @@ class TestL3Model(unittest.TestCase):
     id =  "mitochondria";
     self.assertEqual( False, self.M.isSetId() )
     self.M.setId(id)
-    self.assert_(( id == self.M.getId() ))
+    self.assertTrue(( id == self.M.getId() ))
     self.assertEqual( True, self.M.isSetId() )
     if (self.M.getId() == id):
       pass    
@@ -175,7 +175,7 @@ class TestL3Model(unittest.TestCase):
     units =  "mole";
     self.assertEqual( False, self.M.isSetLengthUnits() )
     self.M.setLengthUnits(units)
-    self.assert_(( units == self.M.getLengthUnits() ))
+    self.assertTrue(( units == self.M.getLengthUnits() ))
     self.assertEqual( True, self.M.isSetLengthUnits() )
     if (self.M.getLengthUnits() == units):
       pass    
@@ -189,7 +189,7 @@ class TestL3Model(unittest.TestCase):
     name =  "My_Favorite_Factory";
     self.assertEqual( False, self.M.isSetName() )
     self.M.setName(name)
-    self.assert_(( name == self.M.getName() ))
+    self.assertTrue(( name == self.M.getName() ))
     self.assertEqual( True, self.M.isSetName() )
     if (self.M.getName() == name):
       pass    
@@ -203,7 +203,7 @@ class TestL3Model(unittest.TestCase):
     units =  "mole";
     self.assertEqual( False, self.M.isSetSubstanceUnits() )
     self.M.setSubstanceUnits(units)
-    self.assert_(( units == self.M.getSubstanceUnits() ))
+    self.assertTrue(( units == self.M.getSubstanceUnits() ))
     self.assertEqual( True, self.M.isSetSubstanceUnits() )
     if (self.M.getSubstanceUnits() == units):
       pass    
@@ -217,7 +217,7 @@ class TestL3Model(unittest.TestCase):
     units =  "mole";
     self.assertEqual( False, self.M.isSetTimeUnits() )
     self.M.setTimeUnits(units)
-    self.assert_(( units == self.M.getTimeUnits() ))
+    self.assertTrue(( units == self.M.getTimeUnits() ))
     self.assertEqual( True, self.M.isSetTimeUnits() )
     if (self.M.getTimeUnits() == units):
       pass    
@@ -231,7 +231,7 @@ class TestL3Model(unittest.TestCase):
     units =  "mole";
     self.assertEqual( False, self.M.isSetVolumeUnits() )
     self.M.setVolumeUnits(units)
-    self.assert_(( units == self.M.getVolumeUnits() ))
+    self.assertTrue(( units == self.M.getVolumeUnits() ))
     self.assertEqual( True, self.M.isSetVolumeUnits() )
     if (self.M.getVolumeUnits() == units):
       pass    

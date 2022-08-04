@@ -99,7 +99,7 @@ public:
    *
    * @param sbmlns the SBMLNamespaces object for the package.
    */
-  SBMLDocumentPlugin (const std::string &uri, const std::string &prefix,
+  SBMLDocumentPlugin (const std::string& uri, const std::string &prefix,
                       SBMLNamespaces *sbmlns);
 
 

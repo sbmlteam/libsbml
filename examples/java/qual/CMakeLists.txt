@@ -31,6 +31,10 @@
 
 find_package(Java COMPONENTS Development REQUIRED)
 
+if (JAVA_COMPATIBILITY)
+SET(COMPAT_ARGS "-source ${JAVA_COMPATIBILITY} -target ${JAVA_COMPATIBILITY}")
+endif()
+
 foreach(file 
 		qual_example1
 		)
@@ -44,8 +48,7 @@ foreach(file
 		COMMAND "${Java_JAVAC_EXECUTABLE}"
 		ARGS -cp ".${FILE_SEP}\"${CURRENT_JAR}\"${FILE_SEP}${CMAKE_CURRENT_SOURCE_DIR}"
 			 ${CURRENT_FILE}
-			 -source "${JAVA_COMPATIBILITY}"
-			 -target "${JAVA_COMPATIBILITY}"
+			 ${COMPAT_ARGS}
 			 -d ${CMAKE_CURRENT_BINARY_DIR}
 		MAIN_DEPENDENCY "${CMAKE_CURRENT_SOURCE_DIR}/../../../src/bindings/java/local.i"
 		WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"

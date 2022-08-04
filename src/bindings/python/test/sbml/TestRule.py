@@ -50,25 +50,25 @@ class TestRule(unittest.TestCase):
     pass  
 
   def test_Rule_init(self):
-    self.assert_( self.R.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE )
-    self.assert_( self.R.getMetaId() == "" )
-    self.assert_( self.R.getNotes() == None )
-    self.assert_( self.R.getAnnotation() == None )
-    self.assert_( self.R.getFormula() == "" )
-    self.assert_( self.R.getMath() == None )
+    self.assertTrue( self.R.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE )
+    self.assertTrue( self.R.getMetaId() == "" )
+    self.assertTrue( self.R.getNotes() == None )
+    self.assertTrue( self.R.getAnnotation() == None )
+    self.assertTrue( self.R.getFormula() == "" )
+    self.assertTrue( self.R.getMath() == None )
     pass  
 
   def test_Rule_setFormula(self):
     formula =  "k1*X0";
     self.R.setFormula(formula)
-    self.assert_(( formula == self.R.getFormula() ))
-    self.assert_( self.R.isSetFormula() == True )
+    self.assertTrue(( formula == self.R.getFormula() ))
+    self.assertTrue( self.R.isSetFormula() == True )
     if (self.R.getFormula() == formula):
       pass    
     self.R.setFormula(self.R.getFormula())
-    self.assert_(( formula == self.R.getFormula() ))
+    self.assertTrue(( formula == self.R.getFormula() ))
     self.R.setFormula( "")
-    self.assert_( self.R.isSetFormula() == False )
+    self.assertTrue( self.R.isSetFormula() == False )
     if (self.R.getFormula() != None):
       pass    
     pass  
@@ -76,10 +76,10 @@ class TestRule(unittest.TestCase):
   def test_Rule_setMath(self):
     math = libsbml.parseFormula("1 + 1")
     self.R.setMath(math)
-    self.assert_( self.R.getMath() != math )
+    self.assertTrue( self.R.getMath() != math )
     self.assertEqual( True, self.R.isSetMath() )
     self.R.setMath(self.R.getMath())
-    self.assert_( self.R.getMath() != math )
+    self.assertTrue( self.R.getMath() != math )
     self.R.setMath(None)
     self.assertEqual( False, self.R.isSetMath() )
     if (self.R.getMath() != None):

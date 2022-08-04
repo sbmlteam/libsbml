@@ -2187,27 +2187,6 @@ START_CONSTRAINT(SpatialParametricObjectThreePointsForTriangles, ParametricObjec
 END_CONSTRAINT
 
 
-// 1222153
-START_CONSTRAINT(SpatialParametricObjectFourPointsForQuadrilaterals, ParametricObject, po)
-{
-  pre(po.getPolygonType() == SPATIAL_POLYGONKIND_QUADRILATERAL);
-  pre(po.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
-  pre(po.getActualPointIndexLength() % 4 != 0);
-  stringstream ss_msg;
-  ss_msg << "A <parametricObject>";
-  if (po.isSetId())
-  {
-    ss_msg << " with id '" << po.getId() << "'";
-  }
-  ss_msg << " has a polygonType of 'quadrilateral' but " << po.getActualPointIndexLength();
-  ss_msg << " entries, which is not a multiple of four.";
-  msg = ss_msg.str();
-
-  inv(false);
-}
-END_CONSTRAINT
-
-
 // 1222155
 START_CONSTRAINT(SpatialParametricObjectIndexesMustBePoints, ParametricObject, po)
 {
@@ -2264,16 +2243,9 @@ START_CONSTRAINT(SpatialParametricObjectFacesSameChirality, ParametricObject, po
   pre(po.isSetPolygonType());
   int groupsize;
   size_t len = po.getActualPointIndexLength();
-  if (po.getPolygonType() == SPATIAL_POLYGONKIND_QUADRILATERAL)
-  {
-    groupsize = 4;
-    pre(len % 4 == 0);
-  }
-  else 
-  {
-    groupsize = 3;
-    pre(len % 3 == 0);
-  }
+  pre(po.getPolygonType() == SPATIAL_POLYGONKIND_TRIANGLE);
+  groupsize = 3;
+  pre(len % 3 == 0);
   set<pair<int, int> > borders;
 
   int* data = new int[len];
@@ -2317,16 +2289,9 @@ START_CONSTRAINT(SpatialParametricObjectMaxTwoPointBorders, ParametricObject, po
   pre(po.isSetPolygonType());
   int groupsize;
   size_t len = po.getActualPointIndexLength();
-  if (po.getPolygonType() == SPATIAL_POLYGONKIND_QUADRILATERAL)
-  {
-    groupsize = 4;
-    pre(len % 4 == 0);
-  }
-  else 
-  {
-    groupsize = 3;
-    pre(len % 3 == 0);
-  }
+  pre(po.getPolygonType() == SPATIAL_POLYGONKIND_TRIANGLE);
+  groupsize = 3;
+  pre(len % 3 == 0);
   set<set<int> > triples;
 
   int* data = new int[len];
@@ -2675,7 +2640,10 @@ START_CONSTRAINT(SpatialBoundaryConditionCoordinateBoundaryMustBeBoundary, Bound
   {
     const CoordinateComponent* coord = geom->getCoordinateComponent(cc);
     if (coord->isSetBoundaryMax()) {
-      pre(coord->getBoundaryMax()->getId() != boundary);
+        pre(coord->getBoundaryMax()->getId() != boundary);
+    }
+    if (coord->isSetBoundaryMin()) {
+        pre(coord->getBoundaryMin()->getId() != boundary);
     }
   }
   msg = "A <boundaryCondition>";

@@ -51,20 +51,20 @@ class TestCompartment_newSetters(unittest.TestCase):
 
   def test_Compartment_setCompartmentType1(self):
     i = self.C.setCompartmentType( "cell")
-    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
     self.assertEqual( False, self.C.isSetCompartmentType() )
     i = self.C.unsetCompartmentType()
-    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
     self.assertEqual( False, self.C.isSetCompartmentType() )
     pass  
 
   def test_Compartment_setCompartmentType2(self):
     c = libsbml.Compartment(2,2)
     i = c.setCompartmentType( "1cell")
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, c.isSetCompartmentType() )
     i = c.unsetCompartmentType()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetCompartmentType() )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -72,11 +72,11 @@ class TestCompartment_newSetters(unittest.TestCase):
   def test_Compartment_setCompartmentType3(self):
     c = libsbml.Compartment(2,2)
     i = c.setCompartmentType( "cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, c.isSetCompartmentType() )
-    self.assert_((  "cell"  == c.getCompartmentType() ))
+    self.assertTrue((  "cell"  == c.getCompartmentType() ))
     i = c.unsetCompartmentType()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetCompartmentType() )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -84,29 +84,29 @@ class TestCompartment_newSetters(unittest.TestCase):
   def test_Compartment_setCompartmentType4(self):
     c = libsbml.Compartment(2,2)
     i = c.setCompartmentType("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetCompartmentType() )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setConstant1(self):
     i = self.C.setConstant(False)
-    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
-    self.assert_( self.C.getConstant() == False )
+    self.assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assertTrue( self.C.getConstant() == False )
     pass  
 
   def test_Compartment_setConstant2(self):
     c = libsbml.Compartment(2,2)
     i = c.setConstant(False)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( c.getConstant() == False )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( c.getConstant() == False )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setId2(self):
     c = libsbml.Compartment(2,2)
     i = c.setId( "1cell")
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, c.isSetId() )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -114,171 +114,171 @@ class TestCompartment_newSetters(unittest.TestCase):
   def test_Compartment_setId3(self):
     c = libsbml.Compartment(2,2)
     i = c.setId( "cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, c.isSetId() )
-    self.assert_((  "cell"  == c.getId() ))
+    self.assertTrue((  "cell"  == c.getId() ))
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setId4(self):
     c = libsbml.Compartment(2,2)
     i = c.setId("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetId() )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setName1(self):
     i = self.C.setName( "cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.C.isSetName() )
     i = self.C.unsetName()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.C.isSetName() )
     pass  
 
   def test_Compartment_setName2(self):
     c = libsbml.Compartment(1,2)
     i = c.setName( "1cell")
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, c.isSetName() )
     i = c.unsetName()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetName() )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setName3(self):
     i = self.C.setName("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.C.isSetName() )
     pass  
 
   def test_Compartment_setOutside1(self):
     i = self.C.setOutside( "1cell")
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, self.C.isSetOutside() )
     i = self.C.unsetOutside()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.C.isSetOutside() )
     pass  
 
   def test_Compartment_setOutside2(self):
     i = self.C.setOutside( "litre")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.C.isSetOutside() )
     i = self.C.unsetOutside()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.C.isSetOutside() )
     pass  
 
   def test_Compartment_setOutside3(self):
     i = self.C.setOutside("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.C.isSetOutside() )
     pass  
 
   def test_Compartment_setSize1(self):
     i = self.C.setSize(2.0)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.C.getSize() == 2.0 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.C.getSize() == 2.0 )
     i = self.C.unsetSize()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     pass  
 
   def test_Compartment_setSize2(self):
     c = libsbml.Compartment(2,2)
     i = c.setSize(4)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( c.getSize() == 4 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( c.getSize() == 4 )
     self.assertEqual( True, c.isSetSize() )
     i = c.unsetSize()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetSize() )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setSpatialDimensions1(self):
     i = self.C.setSpatialDimensions(2)
-    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
-    self.assert_( self.C.getSpatialDimensions() == 3 )
+    self.assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assertTrue( self.C.getSpatialDimensions() == 3 )
     pass  
 
   def test_Compartment_setSpatialDimensions2(self):
     c = libsbml.Compartment(2,2)
     i = c.setSpatialDimensions(4)
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
-    self.assert_( c.getSpatialDimensions() == 3 )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( c.getSpatialDimensions() == 3 )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setSpatialDimensions3(self):
     c = libsbml.Compartment(2,2)
     i = c.setSpatialDimensions(2)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( c.getSpatialDimensions() == 2 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( c.getSpatialDimensions() == 2 )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setSpatialDimensions4(self):
     c = libsbml.Compartment(2,2)
     i = c.setSpatialDimensions(2.0)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( c.getSpatialDimensions() == 2 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( c.getSpatialDimensions() == 2 )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setSpatialDimensions5(self):
     c = libsbml.Compartment(2,2)
     i = c.setSpatialDimensions(2.2)
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
-    self.assert_( c.getSpatialDimensions() == 3 )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( c.getSpatialDimensions() == 3 )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setUnits1(self):
     i = self.C.setUnits( "1cell")
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, self.C.isSetUnits() )
     i = self.C.unsetUnits()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.C.isSetUnits() )
     pass  
 
   def test_Compartment_setUnits2(self):
     i = self.C.setUnits( "litre")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.C.isSetUnits() )
     i = self.C.unsetUnits()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.C.isSetUnits() )
     pass  
 
   def test_Compartment_setUnits3(self):
     i = self.C.setUnits("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.C.isSetUnits() )
     pass  
 
   def test_Compartment_setVolume1(self):
     i = self.C.setVolume(2.0)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.C.getVolume() == 2.0 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.C.getVolume() == 2.0 )
     self.assertEqual( True, self.C.isSetVolume() )
     i = self.C.unsetVolume()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.C.getVolume() == 1.0 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.C.getVolume() == 1.0 )
     self.assertEqual( True, self.C.isSetVolume() )
     pass  
 
   def test_Compartment_setVolume2(self):
     c = libsbml.Compartment(2,2)
     i = c.setVolume(4)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( c.getVolume() == 4.0 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( c.getVolume() == 4.0 )
     self.assertEqual( True, c.isSetVolume() )
     i = c.unsetVolume()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetVolume() )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  

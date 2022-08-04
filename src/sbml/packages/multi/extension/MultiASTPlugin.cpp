@@ -47,7 +47,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /*
  * Constructor
  */
-MultiASTPlugin::MultiASTPlugin (const std::string &uri)
+MultiASTPlugin::MultiASTPlugin (const std::string& uri)
   : ASTBasePlugin(uri)
     , mSpeciesReference       ( "" )
     , mRepresentationType ( "" )

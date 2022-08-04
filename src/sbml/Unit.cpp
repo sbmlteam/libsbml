@@ -2258,6 +2258,8 @@ Unit::readL3Attributes (const XMLAttributes& attributes)
   //
   mIsSetExponent = attributes.readInto("exponent", mExponentDouble, 
                                         getErrorLog(), false, getLine(), getColumn());
+  mExplicitlySetExponent = mIsSetExponent;
+
   if (!mIsSetExponent)
   {
     logError(AllowedAttributesOnUnit, level, version, 
@@ -2272,6 +2274,8 @@ Unit::readL3Attributes (const XMLAttributes& attributes)
   // scale  { use="required" }  (L3v1->)
   //
   mIsSetScale = attributes.readInto("scale", mScale, getErrorLog(), false, getLine(), getColumn());
+  mExplicitlySetScale = mIsSetScale;
+
   if (!mIsSetScale)
   {
     logError(AllowedAttributesOnUnit, level, version, 
@@ -2283,6 +2287,8 @@ Unit::readL3Attributes (const XMLAttributes& attributes)
   //
   mIsSetMultiplier = attributes.readInto("multiplier", mMultiplier, 
                                           getErrorLog(), false, getLine(), getColumn());
+  mExplicitlySetMultiplier = mIsSetMultiplier;
+
   if (!mIsSetMultiplier)
   {
     logError(AllowedAttributesOnUnit, level, version, 

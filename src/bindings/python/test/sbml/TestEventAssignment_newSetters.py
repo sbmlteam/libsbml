@@ -52,12 +52,12 @@ class TestEventAssignment_newSetters(unittest.TestCase):
   def test_EventAssignment_setMath1(self):
     math = libsbml.parseFormula("2 * k")
     i = self.E.setMath(math)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.E.getMath() != math )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.E.getMath() != math )
     self.assertEqual( True, self.E.isSetMath() )
     i = self.E.setMath(None)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.E.getMath() == None )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.E.getMath() == None )
     self.assertEqual( False, self.E.isSetMath() )
     _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -65,7 +65,7 @@ class TestEventAssignment_newSetters(unittest.TestCase):
   def test_EventAssignment_setMath2(self):
     math = libsbml.ASTNode(libsbml.AST_DIVIDE)
     i = self.E.setMath(math)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assertEqual( False, self.E.isSetMath() )
     _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -73,18 +73,18 @@ class TestEventAssignment_newSetters(unittest.TestCase):
   def test_EventAssignment_setVariable1(self):
     id =  "1e1";
     i = self.E.setVariable(id)
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, self.E.isSetVariable() )
     pass  
 
   def test_EventAssignment_setVariable2(self):
     id =  "e1";
     i = self.E.setVariable(id)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_(( id == self.E.getVariable() ))
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue(( id == self.E.getVariable() ))
     self.assertEqual( True, self.E.isSetVariable() )
     i = self.E.setVariable("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.E.isSetVariable() )
     pass  
 

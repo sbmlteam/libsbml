@@ -15,14 +15,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [windows-latest, macos-latest, ubuntu-16.04]
-        xml_parser_option: ["-DWITH_LIBXML"]
+        platform: [windows-latest, macos-latest, ubuntu-18.04]
+        xml_parser_option: ["-DWITH_EXPAT"]
         with_namespace: ["True"]
         strict: ["True"]
         with_examples: ["True"]
         package_option: ["-DWITH_ALL_PACKAGES=ON"]
         language_bindings:
-          ["-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True"]
+          [ "-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True"]
         cpp_standard: [98, 20]
     runs-on: ${{ matrix.platform }}
 
@@ -54,10 +54,9 @@ jobs:
           steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
         shell: bash
         run: |
-          curl -L https://sourceforge.net/projects/sbml/files/libsbml/win-dependencies/libSBML_dependencies_vs15_release_x64_static.zip/download > dependencies.zip
-          unzip dependencies.zip -d dependencies
-          cp -r dependencies/libSBML\ Dependencies-1.0.0-b1-win64/* dependencies
-          rm -r dependencies/libSBML*
+          curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
+          unzip dependencies.zip
+          mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
 
       - name: Download SWIG on Windows
         if: matrix.platform == 'windows-latest'
@@ -76,11 +75,17 @@ jobs:
 
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG and libxml2 by default
-        if: matrix.platform == 'ubuntu-16.04'
+        if: matrix.platform == 'ubuntu-18.04'
         shell: bash
         run: |
           sudo apt-get install -y check ccache
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
+          echo R_BINDINGS="-DWITH_R=True" >> "${GITHUB_ENV}"
+          git clone https://github.com/libexpat/libexpat
+          cmake -G Ninja -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
+          cmake --build libexpat
+          cmake --install libexpat
+
 
       - name: Install MacOS dependencies
         # MacOS already has libxml2 by default
@@ -120,7 +125,7 @@ jobs:
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build
 
-      - name: Configure CMake for default XML_parser (LIBXML2)
+      - name: Configure CMake for the selected XML_parser
         shell: bash
         working-directory: ${{runner.workspace}}/build
         run: |
@@ -134,8 +139,11 @@ jobs:
           -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
           -DWITH_EXAMPLES=${{matrix.with_examples}} \
+          -DWITH_LIBXML=OFF \
+          ${{matrix.xml_parser_option}}=True \
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
+          ${R_BINDINGS} \
           ${RUNTIME_LINKING_OPTION} \
           ${PYTHON_LINKING_OPTION}
 
@@ -149,3 +157,73 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         shell: bash
         run: ctest -V -C $BUILD_TYPE
+  manylinuxbuild:
+    name:
+      ${{ matrix.container }}, Parser option ${{ matrix.xml_parser_option }},
+      with namespaces ${{ matrix.with_namespace}}, strict includes ${{
+      matrix.strict }}, with examples ${{ matrix.with_examples}}, package option
+      ${{ matrix.package_option}}
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu-latest]
+        xml_parser_option: ["-DWITH_LIBXML"]
+        with_namespace: ["True"]
+        strict: ["True"]
+        with_examples: ["True"]
+        package_option: ["-DWITH_STABLE_PACKAGES=ON"]
+        cpp_standard: [98, 20]
+        language_bindings:
+          ["-DWITH_JAVA=True -DWITH_PYTHON=True -DWITH_CSHARP=True"]
+        container: ["quay.io/pypa/manylinux2010_x86_64"]
+    runs-on: ${{ matrix.platform }}
+    container: ${{ matrix.container}}
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: install Swig 4 from source
+        run: |
+          yum install -y pcre-devel
+          echo "SWIG_DIR=/usr/local/swig/" >> "${GITHUB_ENV}"
+          curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.0.2/swig-4.0.2.tar.gz/download > swig.tar.gz
+          tar -zxvf swig.tar.gz
+          cd swig-4.0.2/
+          ./configure --disable-dependency-tracking --prefix=$SWIG_DIR
+          make clean
+          make -j 2
+          make install
+          swig -version
+      - name: install CMake using pip
+        run: |
+          /opt/python/cp38-cp38/bin/pip install cmake
+          ln -s /opt/python/cp38-cp38/bin/cmake /usr/bin/cmake
+          ln -s /opt/python/cp38-cp38/bin/ctest /usr/bin/ctest
+          cmake --version
+          ctest --version
+      - name: Install dependencies, configure, build
+        run: |
+          yum install -y libxml2-devel check-devel java-devel mono-devel
+          cd ..
+          mkdir build
+          cd build
+          cmake ../libsbml \
+          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
+          -DWITH_CHECK=True \
+          -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
+          -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
+          -DWITH_EXAMPLES=${{matrix.with_examples}} \
+          -DWITH_LIBXML=OFF \
+          ${{matrix.xml_parser_option}}=True \
+          ${{matrix.package_option}} \
+          ${{matrix.language_bindings}} \
+          -DPYTHON_EXECUTABLE=/opt/python/cp38-cp38/bin/python \
+          -DPYTHON_INCLUDE_DIR=/opt/python/cp38-cp38/include/python3.8/ \
+          -DWITH_STATIC_RUNTIME=ON \
+          -DPYTHON_USE_DYNAMIC_LOOKUP=ON
+          cmake --build . --config $BUILD_TYPE
+
+      - name: Test
+        run: |
+          cd ../build
+          ctest -V -C $BUILD_TYPE

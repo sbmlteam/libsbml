@@ -59,15 +59,15 @@ class TestSBMLConvert(unittest.TestCase):
     sr1.setSpecies( "S1")
     sr2.setSpecies( "S2")
     sr3.setSpecies( "S5")
-    self.assert_( r.getNumModifiers() == 0 )
-    self.assert_( d.setLevelAndVersion(2,1,False) == True )
-    self.assert_( d.getLevel() == 2 )
-    self.assert_( d.getVersion() == 1 )
-    self.assert_( m.getReaction(0).getNumModifiers() == 2 )
+    self.assertTrue( r.getNumModifiers() == 0 )
+    self.assertTrue( d.setLevelAndVersion(2,1,False) == True )
+    self.assertTrue( d.getLevel() == 2 )
+    self.assertTrue( d.getVersion() == 1 )
+    self.assertTrue( m.getReaction(0).getNumModifiers() == 2 )
     ssr1 = m.getReaction(0).getModifier(0)
     ssr2 = m.getReaction(0).getModifier(1)
-    self.assert_((  "S3" == ssr1.getSpecies() ))
-    self.assert_((  "S4" == ssr2.getSpecies() ))
+    self.assertTrue((  "S3" == ssr1.getSpecies() ))
+    self.assertTrue((  "S4" == ssr2.getSpecies() ))
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -80,13 +80,13 @@ class TestSBMLConvert(unittest.TestCase):
     c.setSize(1.2)
     c.setConstant(True)
     c.setSpatialDimensions(3.4)
-    self.assert_( d.setLevelAndVersion(1,1,True) == False )
-    self.assert_( d.setLevelAndVersion(1,2,True) == False )
-    self.assert_( d.setLevelAndVersion(2,1,True) == False )
-    self.assert_( d.setLevelAndVersion(2,2,True) == False )
-    self.assert_( d.setLevelAndVersion(2,3,True) == False )
-    self.assert_( d.setLevelAndVersion(2,4,True) == False )
-    self.assert_( d.setLevelAndVersion(3,1,True) == True )
+    self.assertTrue( d.setLevelAndVersion(1,1,True) == False )
+    self.assertTrue( d.setLevelAndVersion(1,2,True) == False )
+    self.assertTrue( d.setLevelAndVersion(2,1,True) == False )
+    self.assertTrue( d.setLevelAndVersion(2,2,True) == False )
+    self.assertTrue( d.setLevelAndVersion(2,3,True) == False )
+    self.assertTrue( d.setLevelAndVersion(2,4,True) == False )
+    self.assertTrue( d.setLevelAndVersion(3,1,True) == True )
     pass  
 
   def test_SBMLConvert_convertFromL3_conversionFactor(self):
@@ -97,13 +97,13 @@ class TestSBMLConvert(unittest.TestCase):
     c = m.createParameter()
     c.setId(sid)
     c.setConstant(True)
-    self.assert_( d.setLevelAndVersion(1,1,True) == False )
-    self.assert_( d.setLevelAndVersion(1,2,True) == False )
-    self.assert_( d.setLevelAndVersion(2,1,True) == False )
-    self.assert_( d.setLevelAndVersion(2,2,True) == False )
-    self.assert_( d.setLevelAndVersion(2,3,True) == False )
-    self.assert_( d.setLevelAndVersion(2,4,True) == False )
-    self.assert_( d.setLevelAndVersion(3,1,True) == True )
+    self.assertTrue( d.setLevelAndVersion(1,1,True) == False )
+    self.assertTrue( d.setLevelAndVersion(1,2,True) == False )
+    self.assertTrue( d.setLevelAndVersion(2,1,True) == False )
+    self.assertTrue( d.setLevelAndVersion(2,2,True) == False )
+    self.assertTrue( d.setLevelAndVersion(2,3,True) == False )
+    self.assertTrue( d.setLevelAndVersion(2,4,True) == False )
+    self.assertTrue( d.setLevelAndVersion(3,1,True) == True )
     pass  
 
   def test_SBMLConvert_convertFromL3_initialValue(self):
@@ -112,27 +112,27 @@ class TestSBMLConvert(unittest.TestCase):
     e = m.createEvent()
     t = e.createTrigger()
     t.setInitialValue(False)
-    self.assert_( d.setLevelAndVersion(1,1,False) == False )
-    self.assert_( d.setLevelAndVersion(1,2,False) == True )
-    self.assert_( d.setLevelAndVersion(2,1,False) == True )
-    self.assert_( d.setLevelAndVersion(2,2,False) == True )
-    self.assert_( d.setLevelAndVersion(2,3,False) == True )
-    self.assert_( d.setLevelAndVersion(2,4,False) == True )
-    self.assert_( d.setLevelAndVersion(3,1,False) == True )
+    self.assertTrue( d.setLevelAndVersion(1,1,False) == False )
+    self.assertTrue( d.setLevelAndVersion(1,2,False) == True )
+    self.assertTrue( d.setLevelAndVersion(2,1,False) == True )
+    self.assertTrue( d.setLevelAndVersion(2,2,False) == True )
+    self.assertTrue( d.setLevelAndVersion(2,3,False) == True )
+    self.assertTrue( d.setLevelAndVersion(2,4,False) == True )
+    self.assertTrue( d.setLevelAndVersion(3,1,False) == True )
     pass  
 
   def test_SBMLConvert_convertFromL3_modelUnits(self):
     d = libsbml.SBMLDocument(3,1)
     m = d.createModel()
     m.setVolumeUnits( "litre")
-    self.assert_( m.getNumUnitDefinitions() == 0 )
-    self.assert_( d.setLevelAndVersion(2,4,False) == True )
+    self.assertTrue( m.getNumUnitDefinitions() == 0 )
+    self.assertTrue( d.setLevelAndVersion(2,4,False) == True )
     m = d.getModel()
-    self.assert_( m.getNumUnitDefinitions() == 1 )
+    self.assertTrue( m.getNumUnitDefinitions() == 1 )
     ud = m.getUnitDefinition(0)
-    self.assert_((  "volume" == ud.getId() ))
-    self.assert_( ud.getNumUnits() == 1 )
-    self.assert_( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_LITRE )
+    self.assertTrue((  "volume" == ud.getId() ))
+    self.assertTrue( ud.getNumUnits() == 1 )
+    self.assertTrue( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_LITRE )
     pass  
 
   def test_SBMLConvert_convertFromL3_persistent(self):
@@ -141,13 +141,13 @@ class TestSBMLConvert(unittest.TestCase):
     e = m.createEvent()
     t = e.createTrigger()
     t.setPersistent(False)
-    self.assert_( d.setLevelAndVersion(1,1,False) == False )
-    self.assert_( d.setLevelAndVersion(1,2,False) == True )
-    self.assert_( d.setLevelAndVersion(2,1,False) == True )
-    self.assert_( d.setLevelAndVersion(2,2,False) == True )
-    self.assert_( d.setLevelAndVersion(2,3,False) == True )
-    self.assert_( d.setLevelAndVersion(2,4,False) == True )
-    self.assert_( d.setLevelAndVersion(3,1,False) == True )
+    self.assertTrue( d.setLevelAndVersion(1,1,False) == False )
+    self.assertTrue( d.setLevelAndVersion(1,2,False) == True )
+    self.assertTrue( d.setLevelAndVersion(2,1,False) == True )
+    self.assertTrue( d.setLevelAndVersion(2,2,False) == True )
+    self.assertTrue( d.setLevelAndVersion(2,3,False) == True )
+    self.assertTrue( d.setLevelAndVersion(2,4,False) == True )
+    self.assertTrue( d.setLevelAndVersion(3,1,False) == True )
     pass  
 
   def test_SBMLConvert_convertFromL3_priority(self):
@@ -155,20 +155,20 @@ class TestSBMLConvert(unittest.TestCase):
     m = d.createModel()
     e = m.createEvent()
     p = e.createPriority()
-    self.assert_( d.setLevelAndVersion(1,1,False) == False )
-    self.assert_( d.setLevelAndVersion(1,2,False) == True )
-    self.assert_( d.setLevelAndVersion(2,1,False) == True )
-    self.assert_( d.setLevelAndVersion(2,2,False) == True )
-    self.assert_( d.setLevelAndVersion(2,3,False) == True )
-    self.assert_( d.setLevelAndVersion(2,4,False) == True )
-    self.assert_( d.setLevelAndVersion(3,1,False) == True )
+    self.assertTrue( d.setLevelAndVersion(1,1,False) == False )
+    self.assertTrue( d.setLevelAndVersion(1,2,False) == True )
+    self.assertTrue( d.setLevelAndVersion(2,1,False) == True )
+    self.assertTrue( d.setLevelAndVersion(2,2,False) == True )
+    self.assertTrue( d.setLevelAndVersion(2,3,False) == True )
+    self.assertTrue( d.setLevelAndVersion(2,4,False) == True )
+    self.assertTrue( d.setLevelAndVersion(3,1,False) == True )
     pass  
 
   def test_SBMLConvert_convertToL1_SBMLDocument(self):
     d = libsbml.SBMLDocument(2,1)
-    self.assert_( d.setLevelAndVersion(1,2,False) == True )
-    self.assert_( d.getLevel() == 1 )
-    self.assert_( d.getVersion() == 2 )
+    self.assertTrue( d.setLevelAndVersion(1,2,False) == True )
+    self.assertTrue( d.getLevel() == 1 )
+    self.assertTrue( d.getVersion() == 2 )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -183,8 +183,8 @@ class TestSBMLConvert(unittest.TestCase):
     s.setCompartment(sid)
     s.setInitialAmount(2.34)
     m.addSpecies(s)
-    self.assert_( d.setLevelAndVersion(1,2,True) == True )
-    self.assert_( s.getInitialAmount() == 2.34 )
+    self.assertTrue( d.setLevelAndVersion(1,2,True) == True )
+    self.assertTrue( s.getInitialAmount() == 2.34 )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -201,27 +201,27 @@ class TestSBMLConvert(unittest.TestCase):
     s.setCompartment(sid)
     s.setInitialConcentration(2.34)
     m.addSpecies(s)
-    self.assert_( d.setLevelAndVersion(1,2,True) == True )
+    self.assertTrue( d.setLevelAndVersion(1,2,True) == True )
     s1 = m.getSpecies(0)
-    self.assert_( s1 != None )
-    self.assert_((  "C" == s1.getCompartment() ))
-    self.assert_( m.getCompartment( "C").getSize() == 1.2 )
-    self.assert_( s1.getInitialConcentration() == 2.34 )
-    self.assert_( s1.isSetInitialConcentration() == True )
+    self.assertTrue( s1 != None )
+    self.assertTrue((  "C" == s1.getCompartment() ))
+    self.assertTrue( m.getCompartment( "C").getSize() == 1.2 )
+    self.assertTrue( s1.getInitialConcentration() == 2.34 )
+    self.assertTrue( s1.isSetInitialConcentration() == True )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLConvert_convertToL2_SBMLDocument(self):
     d = libsbml.SBMLDocument(1,2)
-    self.assert_( d.setLevelAndVersion(2,1,False) == True )
-    self.assert_( d.getLevel() == 2 )
-    self.assert_( d.getVersion() == 1 )
-    self.assert_( d.setLevelAndVersion(2,2,False) == True )
-    self.assert_( d.getLevel() == 2 )
-    self.assert_( d.getVersion() == 2 )
-    self.assert_( d.setLevelAndVersion(2,3,False) == True )
-    self.assert_( d.getLevel() == 2 )
-    self.assert_( d.getVersion() == 3 )
+    self.assertTrue( d.setLevelAndVersion(2,1,False) == True )
+    self.assertTrue( d.getLevel() == 2 )
+    self.assertTrue( d.getVersion() == 1 )
+    self.assertTrue( d.setLevelAndVersion(2,2,False) == True )
+    self.assertTrue( d.getLevel() == 2 )
+    self.assertTrue( d.getVersion() == 2 )
+    self.assertTrue( d.setLevelAndVersion(2,3,False) == True )
+    self.assertTrue( d.getLevel() == 2 )
+    self.assertTrue( d.getVersion() == 3 )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -230,13 +230,13 @@ class TestSBMLConvert(unittest.TestCase):
     d.createModel()
     annotation =  "<rdf/>\n<rdf/>";
     i = (d).setAnnotation(annotation)
-    self.assert_( d.getLevel() == 2 )
-    self.assert_( d.getVersion() == 1 )
-    self.assert_( (d).getAnnotation().getNumChildren() == 2 )
-    self.assert_( d.setLevelAndVersion(2,4,True) == True )
-    self.assert_( d.getLevel() == 2 )
-    self.assert_( d.getVersion() == 4 )
-    self.assert_( (d).getAnnotation().getNumChildren() == 1 )
+    self.assertTrue( d.getLevel() == 2 )
+    self.assertTrue( d.getVersion() == 1 )
+    self.assertTrue( (d).getAnnotation().getNumChildren() == 2 )
+    self.assertTrue( d.setLevelAndVersion(2,4,True) == True )
+    self.assertTrue( d.getLevel() == 2 )
+    self.assertTrue( d.getVersion() == 4 )
+    self.assertTrue( (d).getAnnotation().getNumChildren() == 1 )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -245,14 +245,14 @@ class TestSBMLConvert(unittest.TestCase):
     m = d.createModel()
     annotation =  "<rdf/>\n<rdf/>";
     i = (m).setAnnotation(annotation)
-    self.assert_( d.getLevel() == 2 )
-    self.assert_( d.getVersion() == 1 )
-    self.assert_( (m).getAnnotation().getNumChildren() == 2 )
-    self.assert_( d.setLevelAndVersion(2,4,True) == True )
-    self.assert_( d.getLevel() == 2 )
-    self.assert_( d.getVersion() == 4 )
+    self.assertTrue( d.getLevel() == 2 )
+    self.assertTrue( d.getVersion() == 1 )
+    self.assertTrue( (m).getAnnotation().getNumChildren() == 2 )
+    self.assertTrue( d.setLevelAndVersion(2,4,True) == True )
+    self.assertTrue( d.getLevel() == 2 )
+    self.assertTrue( d.getVersion() == 4 )
     m = d.getModel()
-    self.assert_( (m).getAnnotation().getNumChildren() == 1 )
+    self.assertTrue( (m).getAnnotation().getNumChildren() == 1 )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -262,9 +262,9 @@ class TestSBMLConvert(unittest.TestCase):
     sid =  "C";
     c = m.createCompartment()
     c.setId(sid)
-    self.assert_( d.setLevelAndVersion(3,1,False) == True )
+    self.assertTrue( d.setLevelAndVersion(3,1,False) == True )
     c1 = m.getCompartment(0)
-    self.assert_( c1.hasRequiredAttributes() == 1 )
+    self.assertTrue( c1.hasRequiredAttributes() == 1 )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -276,28 +276,28 @@ class TestSBMLConvert(unittest.TestCase):
     c.setId(sid)
     c.setSize(1.2)
     c.setUnits( "volume")
-    self.assert_( m.getNumUnitDefinitions() == 0 )
-    self.assert_( d.setLevelAndVersion(3,1,True) == True )
-    self.assert_( m.getNumUnitDefinitions() == 2 )
+    self.assertTrue( m.getNumUnitDefinitions() == 0 )
+    self.assertTrue( d.setLevelAndVersion(3,1,True) == True )
+    self.assertTrue( m.getNumUnitDefinitions() == 2 )
     ud = m.getUnitDefinition(0)
-    self.assert_( ud != None )
-    self.assert_((  "volume" == ud.getId() ))
-    self.assert_( ud.getNumUnits() == 1 )
+    self.assertTrue( ud != None )
+    self.assertTrue((  "volume" == ud.getId() ))
+    self.assertTrue( ud.getNumUnits() == 1 )
     u = ud.getUnit(0)
-    self.assert_( u.getKind() == libsbml.UNIT_KIND_LITRE )
-    self.assert_( u.getExponent() == 1 )
-    self.assert_( u.getMultiplier() == 1 )
-    self.assert_( u.getScale() == 0 )
+    self.assertTrue( u.getKind() == libsbml.UNIT_KIND_LITRE )
+    self.assertTrue( u.getExponent() == 1 )
+    self.assertTrue( u.getMultiplier() == 1 )
+    self.assertTrue( u.getScale() == 0 )
     ud = m.getUnitDefinition(1)
-    self.assert_( ud != None )
-    self.assert_((  "area" == ud.getId() ))
-    self.assert_( ud.getNumUnits() == 1 )
+    self.assertTrue( ud != None )
+    self.assertTrue((  "area" == ud.getId() ))
+    self.assertTrue( ud.getNumUnits() == 1 )
     u = ud.getUnit(0)
-    self.assert_( u.getKind() == libsbml.UNIT_KIND_METRE )
-    self.assert_( u.getExponent() == 2 )
-    self.assert_( u.getMultiplier() == 1 )
-    self.assert_( u.getScale() == 0 )
-    self.assert_((  "second" == m.getTimeUnits() ))
+    self.assertTrue( u.getKind() == libsbml.UNIT_KIND_METRE )
+    self.assertTrue( u.getExponent() == 2 )
+    self.assertTrue( u.getMultiplier() == 1 )
+    self.assertTrue( u.getScale() == 0 )
+    self.assertTrue((  "second" == m.getTimeUnits() ))
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -305,9 +305,9 @@ class TestSBMLConvert(unittest.TestCase):
     d = libsbml.SBMLDocument(2,2)
     m = d.createModel()
     e = m.createEvent()
-    self.assert_( d.setLevelAndVersion(3,1,False) == True )
+    self.assertTrue( d.setLevelAndVersion(3,1,False) == True )
     e1 = m.getEvent(0)
-    self.assert_( e1.hasRequiredAttributes() == 1 )
+    self.assertTrue( e1.hasRequiredAttributes() == 1 )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -326,12 +326,12 @@ class TestSBMLConvert(unittest.TestCase):
     kl.setFormula( "s*k")
     p = kl.createParameter()
     p.setId( "k")
-    self.assert_( kl.getNumLocalParameters() == 0 )
-    self.assert_( d.setLevelAndVersion(3,1,False) == True )
+    self.assertTrue( kl.getNumLocalParameters() == 0 )
+    self.assertTrue( d.setLevelAndVersion(3,1,False) == True )
     m = d.getModel()
     r = m.getReaction(0)
     kl = r.getKineticLaw()
-    self.assert_( kl.getNumLocalParameters() == 1 )
+    self.assertTrue( kl.getNumLocalParameters() == 1 )
     lp = kl.getLocalParameter(0)
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -342,9 +342,9 @@ class TestSBMLConvert(unittest.TestCase):
     sid =  "C";
     p = m.createParameter()
     p.setId(sid)
-    self.assert_( d.setLevelAndVersion(3,1,False) == True )
+    self.assertTrue( d.setLevelAndVersion(3,1,False) == True )
     p1 = m.getParameter(0)
-    self.assert_( p1.hasRequiredAttributes() == 1 )
+    self.assertTrue( p1.hasRequiredAttributes() == 1 )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -354,9 +354,9 @@ class TestSBMLConvert(unittest.TestCase):
     r = m.createReaction()
     sr = r.createProduct()
     sr.setSpecies( "s" )
-    self.assert_( d.setLevelAndVersion(3,1,False) == True )
+    self.assertTrue( d.setLevelAndVersion(3,1,False) == True )
     sr1 = m.getReaction(0).getProduct(0)
-    self.assert_( sr1.hasRequiredAttributes() == 1 )
+    self.assertTrue( sr1.hasRequiredAttributes() == 1 )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -366,9 +366,9 @@ class TestSBMLConvert(unittest.TestCase):
     r = m.createReaction()
     sr = r.createReactant()
     sr.setSpecies( "s" )
-    self.assert_( d.setLevelAndVersion(3,1,False) == True )
+    self.assertTrue( d.setLevelAndVersion(3,1,False) == True )
     sr1 = m.getReaction(0).getReactant(0)
-    self.assert_( sr1.hasRequiredAttributes() == 1 )
+    self.assertTrue( sr1.hasRequiredAttributes() == 1 )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -378,9 +378,9 @@ class TestSBMLConvert(unittest.TestCase):
     sid =  "C";
     r = m.createReaction()
     r.setId(sid)
-    self.assert_( d.setLevelAndVersion(3,1,False) == True )
+    self.assertTrue( d.setLevelAndVersion(3,1,False) == True )
     r1 = m.getReaction(0)
-    self.assert_( r1.hasRequiredAttributes() == 1 )
+    self.assertTrue( r1.hasRequiredAttributes() == 1 )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -391,9 +391,9 @@ class TestSBMLConvert(unittest.TestCase):
     s = m.createSpecies()
     s.setId(sid)
     s.setCompartment( "comp")
-    self.assert_( d.setLevelAndVersion(3,1,False) == True )
+    self.assertTrue( d.setLevelAndVersion(3,1,False) == True )
     s1 = m.getSpecies(0)
-    self.assert_( s1.hasRequiredAttributes() == 1 )
+    self.assertTrue( s1.hasRequiredAttributes() == 1 )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -411,16 +411,16 @@ class TestSBMLConvert(unittest.TestCase):
     sm = sr.createStoichiometryMath()
     ast = libsbml.parseFormula("c*2")
     sm.setMath(ast)
-    self.assert_( m.getNumRules() == 0 )
-    self.assert_( sr.isSetId() == False )
-    self.assert_( d.setLevelAndVersion(3,1,False) == True )
+    self.assertTrue( m.getNumRules() == 0 )
+    self.assertTrue( sr.isSetId() == False )
+    self.assertTrue( d.setLevelAndVersion(3,1,False) == True )
     m = d.getModel()
     r = m.getReaction(0)
     sr = r.getReactant(0)
-    self.assert_( m.getNumRules() == 1 )
-    self.assert_( sr.isSetId() == True )
+    self.assertTrue( m.getNumRules() == 1 )
+    self.assertTrue( sr.isSetId() == True )
     rule = m.getRule(0)
-    self.assert_( sr.getId() == rule.getVariable() )
+    self.assertTrue( sr.getId() == rule.getVariable() )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -429,9 +429,9 @@ class TestSBMLConvert(unittest.TestCase):
     m = d.createModel()
     e = m.createEvent()
     t = e.createTrigger()
-    self.assert_( d.setLevelAndVersion(3,1,False) == True )
+    self.assertTrue( d.setLevelAndVersion(3,1,False) == True )
     t1 = m.getEvent(0).getTrigger()
-    self.assert_( t1.hasRequiredAttributes() == 1 )
+    self.assertTrue( t1.hasRequiredAttributes() == 1 )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -443,9 +443,9 @@ class TestSBMLConvert(unittest.TestCase):
     ud.setId(sid)
     u = ud.createUnit()
     u.setKind(libsbml.UNIT_KIND_MOLE)
-    self.assert_( d.setLevelAndVersion(3,1,False) == True )
+    self.assertTrue( d.setLevelAndVersion(3,1,False) == True )
     u1 = m.getUnitDefinition(0).getUnit(0)
-    self.assert_( u1.hasRequiredAttributes() == 1 )
+    self.assertTrue( u1.hasRequiredAttributes() == 1 )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -457,10 +457,10 @@ class TestSBMLConvert(unittest.TestCase):
     c.setId(sid)
     c.setSize(1.2)
     c.setUnits( "volume")
-    self.assert_( d.setLevelAndVersion(1,3,True) == False )
-    self.assert_( d.setLevelAndVersion(2,7,True) == False )
-    self.assert_( d.setLevelAndVersion(3,5,True) == False )
-    self.assert_( d.setLevelAndVersion(4,1,True) == False )
+    self.assertTrue( d.setLevelAndVersion(1,3,True) == False )
+    self.assertTrue( d.setLevelAndVersion(2,7,True) == False )
+    self.assertTrue( d.setLevelAndVersion(3,5,True) == False )
+    self.assertTrue( d.setLevelAndVersion(4,1,True) == False )
     pass  
 
 def suite():

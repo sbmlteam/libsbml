@@ -1,6 +1,7 @@
 name: Nightly build (binaries)
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 5 * * *"
 
@@ -18,14 +19,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [windows-latest, macos-latest, ubuntu-16.04]
-        xml_parser_option: ["-DWITH_LIBXML"]
+        platform: [windows-latest, macos-latest, ubuntu-18.04]
+        xml_parser_option: ["-DWITH_EXPAT=ON"]
         with_namespace: ["True"]
         strict: ["True"]
         with_examples: ["True"]
         package_option: ["-DWITH_ALL_PACKAGES=ON", "-DWITH_STABLE_PACKAGES=ON"]
         language_bindings:
-          ["-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True"]
+          [
+            "-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True
+            -DWITH_R=OFF",
+          ]
     runs-on: ${{ matrix.platform }}
 
     steps:
@@ -47,7 +51,7 @@ jobs:
           path: |
             ./dependencies
             ./swig
-          key: ${{ runner.os }}-dependencies-static
+          key: ${{ runner.os }}-dependencies-static-2
 
       - name: Download pre-built Windows dependencies and SWIG
         # Windows dependencies have to be in a subfolder called `dependencies`, directly under the git repository root.
@@ -57,10 +61,9 @@ jobs:
           steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
         shell: bash
         run: |
-          curl -L https://sourceforge.net/projects/sbml/files/libsbml/win-dependencies/libSBML_dependencies_vs15_release_x64_static.zip/download > dependencies.zip
-          unzip dependencies.zip -d dependencies
-          cp -r dependencies/libSBML\ Dependencies-1.0.0-b1-win64/* dependencies
-          rm -r dependencies/libSBML*
+          curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
+          unzip dependencies.zip
+          mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
           curl -L https://prdownloads.sourceforge.net/swig/swigwin-3.0.12.zip > swig.zip
           unzip -o swig.zip -d swig
 
@@ -71,22 +74,45 @@ jobs:
         run: |
           echo $GITHUB_WORKSPACE"/swig/swigwin-3.0.12/" >> $GITHUB_PATH
           echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
+          ./dev/utilities/expdef/expdef64.exe -dRlib.def -l R.dll
+          echo R_PLATFORM_SPECIFIC_OPTIONS="-DR_LIB=${GITHUB_WORKSPACE}\Rlib.lib" >> "${GITHUB_ENV}"
+
+      - name: Find Windows R include path
+        # robust to R version changing
+        if: matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+            cd /c/Program\ Files/R/
+            R_INCLUDE_DIR_VERSION=$(ls -d *)
+            echo R_INCLUDE_PATH="/c/Program Files/R/"$R_INCLUDE_DIR_VERSION"/include" >> "${GITHUB_ENV}"
 
       - name: Install Ubuntu dependencies
-        # ubuntu already has SWIG and libxml2 by default
-        if: matrix.platform == 'ubuntu-16.04'
+        # ubuntu already has SWIG but expat is too old
+        if: matrix.platform == 'ubuntu-18.04'
         shell: bash
         run: |
           sudo apt-get install -y check ccache
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
+          git clone https://github.com/libexpat/libexpat
+          cmake -G Ninja -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
+          cmake --build libexpat
+          cmake --install libexpat
+
 
       - name: Install MacOS dependencies
-        # MacOS already has libxml2 by default
+        # MacOS already has expat by default
         if: matrix.platform == 'macos-latest'
         shell: bash
         run: |
           brew install check swig ccache
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
+
+      - name: Unix R options
+        if: matrix.platform != 'windows-latest'
+        shell: bash
+        run:
+          echo R_PLATFORM_SPECIFIC_OPTIONS="-DWITH_CREATE_R_SOURCE=ON
+          -DWITH_SKIP_R_BINARY=ON" >> "${GITHUB_ENV}"
 
       ### setup ccache, not on Windows ###
       - name: Prepare ccache timestamp
@@ -118,7 +144,7 @@ jobs:
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build
 
-      - name: Configure CMake for default XML_parser (LIBXML2)
+      - name: Configure CMake for XML_parser (expat)
         shell: bash
         working-directory: ${{runner.workspace}}/build
         run: |
@@ -134,8 +160,12 @@ jobs:
           -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
           -DWITH_EXAMPLES=${{matrix.with_examples}} \
+          -DWITH_LIBXML=OFF \
+          ${{matrix.xml_parser_option}} \
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
+          ${R_PLATFORM_SPECIFIC_OPTIONS} \
+          -DR_INCLUDE_DIRS="$R_INCLUDE_PATH" \
           ${RUNTIME_LINKING_OPTION} \
           ${PYTHON_LINKING_OPTION} \
 
@@ -144,6 +174,14 @@ jobs:
         shell: bash
         run: |
           cmake --build . --config $BUILD_TYPE
+
+      # - name: Build Unix R binaries from source package
+        # if: matrix.platform != 'windows-latest'
+        # shell: bash
+        # working-directory: ${{runner.workspace}}/build
+        # run: |
+          # mkdir r-binaries
+          # R CMD INSTALL -l r-binaries --build ./src/bindings/r/out/libSBML_5.19.3.tar.gz
 
       ### run tests ###
       - name: Test
@@ -200,17 +238,141 @@ jobs:
           name:
             MacOS (zip, libSBML ${{env.LIBSBML_VERSION}},
             ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ${{runner.workspace}}/install/*
+          path: |
+            ${{runner.workspace}}/install/*
+            ${{runner.workspace}}/build/r-binaries/*
           retention-days: 1
           if-no-files-found: error
 
       - name: Upload Ubuntu binary archive
-        if: matrix.platform == 'ubuntu-16.04'
+        if: matrix.platform == 'ubuntu-18.04'
         uses: actions/upload-artifact@v2
         with:
           name:
             Ubuntu nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
             ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ${{runner.workspace}}/install/*
+          path: |
+            ${{runner.workspace}}/install/*
+#            ${{runner.workspace}}/build/r-binaries/*
           retention-days: 1
           if-no-files-found: error
+  manylinuxbuild:
+    if: github.repository_owner == 'sbmlteam'
+    name:
+      ${{ matrix.container }}, Parser option ${{ matrix.xml_parser_option }},
+      with namespaces ${{ matrix.with_namespace}}, strict includes ${{
+      matrix.strict }}, with examples ${{ matrix.with_examples}}, package option
+      ${{ matrix.package_option}}
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu-latest]
+        xml_parser_option: ["-DWITH_EXPAT=ON"]
+        with_namespace: ["True"]
+        strict: ["True"]
+        with_examples: ["True"]
+        package_option: ["-DWITH_ALL_PACKAGES=ON", "-DWITH_STABLE_PACKAGES=ON"]
+        cpp_standard: [98]
+        language_bindings:
+          ["-DWITH_JAVA=True -DWITH_PYTHON=True -DWITH_CSHARP=True -DWITH_R=True"]
+        container: ["quay.io/pypa/manylinux2010_x86_64"]
+    runs-on: ${{ matrix.platform }}
+    container: ${{ matrix.container}}
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: install Swig 4 from source
+        run: |
+          yum install -y pcre-devel
+          echo "SWIG_DIR=/usr/local/swig/" >> "${GITHUB_ENV}"
+          curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.0.2/swig-4.0.2.tar.gz/download > swig.tar.gz
+          tar -zxvf swig.tar.gz
+          cd swig-4.0.2/
+          ./configure --disable-dependency-tracking --prefix=$SWIG_DIR
+          make clean
+          make -j 2
+          make install
+          swig -version
+
+      - name: install CMake using pip
+        run: |
+          /opt/python/cp38-cp38/bin/pip install cmake
+          ln -s /opt/python/cp38-cp38/bin/cmake /usr/bin/cmake
+          ln -s /opt/python/cp38-cp38/bin/ctest /usr/bin/ctest
+          cmake --version
+          ctest --version
+
+      - name: Install dependencies, configure, build
+        run: |
+          yum install -y libxml2-devel check-devel java-devel mono-devel R
+          git clone https://github.com/libexpat/libexpat
+          cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
+          cmake --build libexpat
+          cmake --install libexpat
+          cd ..
+          mkdir build
+          cd build
+          mkdir ../install
+          cmake ../libsbml \
+          -DCMAKE_INSTALL_PREFIX=../install \
+          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
+          -DWITH_CHECK=True \
+          -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
+          -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
+          -DWITH_EXAMPLES=${{matrix.with_examples}} \
+          -DWITH_LIBXML=OFF \
+          ${{matrix.xml_parser_option}} \
+          ${{matrix.package_option}} \
+          ${{matrix.language_bindings}} \
+          -DWITH_CREATE_R_SOURCE=ON \
+          -DWITH_SKIP_R_BINARY=ON \
+          -DPYTHON_EXECUTABLE=/opt/python/cp38-cp38/bin/python \
+          -DPYTHON_INCLUDE_DIR=/opt/python/cp38-cp38/include/python3.8/ \
+          -DWITH_STATIC_RUNTIME=ON \
+          -DPYTHON_USE_DYNAMIC_LOOKUP=ON
+          cmake --build . --config $BUILD_TYPE
+          # mkdir r-binaries
+          # R CMD INSTALL -l r-binaries --build ./src/bindings/r/out/libSBML_5.19.3.tar.gz
+
+      - name: Test
+        run: |
+          cd ../build
+          ctest -V -C $BUILD_TYPE
+
+      ### create binaries ###
+      - name: Install
+        run: |
+          cd ../build
+          cmake --install . --config $BUILD_TYPE
+
+      ### setup artifact environment ###
+      - name: Store libSBML version in environment
+        run: |
+          echo  "LIBSBML_VERSION=$( cat VERSION.txt)"  >> "${GITHUB_ENV}"
+
+      - name: Set artifact name suffix to stable packages
+        if: matrix.package_option=='-DWITH_STABLE_PACKAGES=ON'
+        run: |
+          echo "ARTIFACT_NAME_SUFFIX=stable-packages" >> "${GITHUB_ENV}"
+
+      - name: Set artifact name suffix to all packages
+        if: matrix.package_option=='-DWITH_ALL_PACKAGES=ON'
+        run: |
+          echo "ARTIFACT_NAME_SUFFIX=all-packages" >> "${GITHUB_ENV}"
+
+      - name: Upload Manylinux2010 binary archive
+        uses: actions/upload-artifact@v1 # note v1 used here, because v2 incompatible
+        with:
+          name:
+            Manylinux2010 nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
+            ${{env.ARTIFACT_NAME_SUFFIX}})
+          path: ../install # paths handled differently by v1 - note that "./install/*" does not work
+
+      # - name: Upload Manylinux2010 R binary archive
+        # uses: actions/upload-artifact@v1 # note v1 used here, because v2 incompatible
+        # with:
+          # name:
+            # Manylinux2010 R nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
+            # ${{env.ARTIFACT_NAME_SUFFIX}})
+          # path: ../build/r-binaries # paths handled differently by v1 - note that v1 doesn't allow multiple paths

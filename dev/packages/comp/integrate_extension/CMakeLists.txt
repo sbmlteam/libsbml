@@ -29,7 +29,7 @@
 ## and also available online as http://sbml.org/software/libsbml/license.html
 ## ------------------------------------------------------------------------ -->
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.4...3.19)
 
 # the project name should be the same name as the SBML package
 project(comp)
@@ -234,9 +234,6 @@ add_custom_target (remove
 #
 
 if(WITH_CHECK)
-
-    # we do use tests, that require 2.8.4 
-    cmake_minimum_required(VERSION 2.8.4)
 
     enable_testing()
     

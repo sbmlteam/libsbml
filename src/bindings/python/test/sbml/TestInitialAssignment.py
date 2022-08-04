@@ -50,12 +50,12 @@ class TestInitialAssignment(unittest.TestCase):
     pass  
 
   def test_InitialAssignment_create(self):
-    self.assert_( self.IA.getTypeCode() == libsbml.SBML_INITIAL_ASSIGNMENT )
-    self.assert_( self.IA.getMetaId() == "" )
-    self.assert_( self.IA.getNotes() == None )
-    self.assert_( self.IA.getAnnotation() == None )
-    self.assert_( self.IA.getSymbol() == "" )
-    self.assert_( self.IA.getMath() == None )
+    self.assertTrue( self.IA.getTypeCode() == libsbml.SBML_INITIAL_ASSIGNMENT )
+    self.assertTrue( self.IA.getMetaId() == "" )
+    self.assertTrue( self.IA.getNotes() == None )
+    self.assertTrue( self.IA.getAnnotation() == None )
+    self.assertTrue( self.IA.getSymbol() == "" )
+    self.assertTrue( self.IA.getMath() == None )
     pass  
 
   def test_InitialAssignment_createWithNS(self):
@@ -64,14 +64,14 @@ class TestInitialAssignment(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(2,3)
     sbmlns.addNamespaces(xmlns)
     object = libsbml.InitialAssignment(sbmlns)
-    self.assert_( object.getTypeCode() == libsbml.SBML_INITIAL_ASSIGNMENT )
-    self.assert_( object.getMetaId() == "" )
-    self.assert_( object.getNotes() == None )
-    self.assert_( object.getAnnotation() == None )
-    self.assert_( object.getLevel() == 2 )
-    self.assert_( object.getVersion() == 3 )
-    self.assert_( object.getNamespaces() != None )
-    self.assert_( object.getNamespaces().getLength() == 2 )
+    self.assertTrue( object.getTypeCode() == libsbml.SBML_INITIAL_ASSIGNMENT )
+    self.assertTrue( object.getMetaId() == "" )
+    self.assertTrue( object.getNotes() == None )
+    self.assertTrue( object.getAnnotation() == None )
+    self.assertTrue( object.getLevel() == 2 )
+    self.assertTrue( object.getVersion() == 3 )
+    self.assertTrue( object.getNamespaces() != None )
+    self.assertTrue( object.getNamespaces().getLength() == 2 )
     _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -83,19 +83,19 @@ class TestInitialAssignment(unittest.TestCase):
     math = libsbml.parseFormula("2 * k")
     self.IA.setMath(math)
     math1 = self.IA.getMath()
-    self.assert_( math1 != None )
+    self.assertTrue( math1 != None )
     formula = libsbml.formulaToString(math1)
-    self.assert_( formula != None )
-    self.assert_((  "2 * k" == formula ))
-    self.assert_( self.IA.getMath() != math )
+    self.assertTrue( formula != None )
+    self.assertTrue((  "2 * k" == formula ))
+    self.assertTrue( self.IA.getMath() != math )
     self.assertEqual( True, self.IA.isSetMath() )
     self.IA.setMath(self.IA.getMath())
     math1 = self.IA.getMath()
-    self.assert_( math1 != None )
+    self.assertTrue( math1 != None )
     formula = libsbml.formulaToString(math1)
-    self.assert_( formula != None )
-    self.assert_((  "2 * k" == formula ))
-    self.assert_( self.IA.getMath() != math )
+    self.assertTrue( formula != None )
+    self.assertTrue((  "2 * k" == formula ))
+    self.assertTrue( self.IA.getMath() != math )
     self.IA.setMath(None)
     self.assertEqual( False, self.IA.isSetMath() )
     if (self.IA.getMath() != None):
@@ -106,12 +106,12 @@ class TestInitialAssignment(unittest.TestCase):
   def test_InitialAssignment_setSymbol(self):
     Symbol =  "k2";
     self.IA.setSymbol(Symbol)
-    self.assert_(( Symbol == self.IA.getSymbol() ))
+    self.assertTrue(( Symbol == self.IA.getSymbol() ))
     self.assertEqual( True, self.IA.isSetSymbol() )
     if (self.IA.getSymbol() == Symbol):
       pass    
     self.IA.setSymbol(self.IA.getSymbol())
-    self.assert_(( Symbol == self.IA.getSymbol() ))
+    self.assertTrue(( Symbol == self.IA.getSymbol() ))
     self.IA.setSymbol("")
     self.assertEqual( False, self.IA.isSetSymbol() )
     if (self.IA.getSymbol() != None):

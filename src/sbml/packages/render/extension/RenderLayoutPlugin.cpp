@@ -57,7 +57,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
   /*
   * Constructor
   */
-  RenderLayoutPlugin::RenderLayoutPlugin (const std::string &uri, 
+  RenderLayoutPlugin::RenderLayoutPlugin (const std::string& uri, 
   const std::string &prefix,
   RenderPkgNamespaces *renderns)
   : SBasePlugin(uri,prefix, renderns)

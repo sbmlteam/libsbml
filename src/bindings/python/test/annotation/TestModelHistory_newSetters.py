@@ -43,8 +43,8 @@ class TestModelHistory_newSetters(unittest.TestCase):
     mc.setFamilyName( "Keating")
     mc.setGivenName( "Sarah")
     i = mh.addCreator(mc)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( mh.getNumCreators() == 1 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( mh.getNumCreators() == 1 )
     _dummyList = [ mc ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ mh ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -54,8 +54,8 @@ class TestModelHistory_newSetters(unittest.TestCase):
     mc = libsbml.ModelCreator()
     mc.setGivenName( "Sarah")
     i = mh.addCreator(mc)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
-    self.assert_( mh.getNumCreators() == 0 )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertTrue( mh.getNumCreators() == 0 )
     _dummyList = [ mc ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ mh ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -64,63 +64,63 @@ class TestModelHistory_newSetters(unittest.TestCase):
     mh = libsbml.ModelHistory()
     mc = None
     i = mh.addCreator(mc)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
-    self.assert_( mh.getNumCreators() == 0 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_FAILED )
+    self.assertTrue( mh.getNumCreators() == 0 )
     _dummyList = [ mh ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelHistory_setCreatedDate1(self):
     mh = libsbml.ModelHistory()
-    self.assert_( mh != None )
+    self.assertTrue( mh != None )
     date = libsbml.Date("2005-12-30T12:15:32+02:00")
     i = mh.setCreatedDate(date)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( mh.isSetCreatedDate() == True )
-    self.assert_( date != mh.getCreatedDate() )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( mh.isSetCreatedDate() == True )
+    self.assertTrue( date != mh.getCreatedDate() )
     dateChar = mh.getCreatedDate().getDateAsString()
-    self.assert_((  "2005-12-30T12:15:32+02:00" == dateChar ))
+    self.assertTrue((  "2005-12-30T12:15:32+02:00" == dateChar ))
     i = mh.setCreatedDate(None)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( mh.isSetCreatedDate() == False )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( mh.isSetCreatedDate() == False )
     _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ mh ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelHistory_setCreatedDate2(self):
     mh = libsbml.ModelHistory()
-    self.assert_( mh != None )
+    self.assertTrue( mh != None )
     date = libsbml.Date("Jan 12")
     i = mh.setCreatedDate(date)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
-    self.assert_( mh.isSetCreatedDate() == False )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertTrue( mh.isSetCreatedDate() == False )
     _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ mh ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelHistory_setModifiedDate1(self):
     mh = libsbml.ModelHistory()
-    self.assert_( mh != None )
+    self.assertTrue( mh != None )
     date = libsbml.Date("2005-12-30T12:15:32+02:00")
     i = mh.setModifiedDate(date)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( mh.isSetModifiedDate() == True )
-    self.assert_( date != mh.getModifiedDate() )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( mh.isSetModifiedDate() == True )
+    self.assertTrue( date != mh.getModifiedDate() )
     dateChar = mh.getModifiedDate().getDateAsString()
-    self.assert_((  "2005-12-30T12:15:32+02:00" == dateChar ))
+    self.assertTrue((  "2005-12-30T12:15:32+02:00" == dateChar ))
     i = mh.setModifiedDate(None)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
-    self.assert_( mh.isSetModifiedDate() == True )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_FAILED )
+    self.assertTrue( mh.isSetModifiedDate() == True )
     _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ mh ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelHistory_setModifiedDate2(self):
     mh = libsbml.ModelHistory()
-    self.assert_( mh != None )
+    self.assertTrue( mh != None )
     date = libsbml.Date(200,13,76,56,89,90,0,0,0)
     i = mh.setModifiedDate(date)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
-    self.assert_( mh.isSetModifiedDate() == False )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertTrue( mh.isSetModifiedDate() == False )
     _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ mh ]; _dummyList[:] = []; del _dummyList
     pass  
