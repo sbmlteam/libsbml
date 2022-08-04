@@ -16,7 +16,7 @@
       </compartment>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="S" compartment="comp" boundaryCondition="false" fbc:charge="2.5">
+      <species id="S" compartment="comp" boundaryCondition="false" hasOnlySubstanceUnits="false" constant="false" fbc:charge="2.5">
         <annotation>
           <listOfKeyValuePairs xmlns="http://sbml.org/fbc/keyvaluepair">
             <keyValuePair key="key1" value="species-value" uri="my_annotation"/>
