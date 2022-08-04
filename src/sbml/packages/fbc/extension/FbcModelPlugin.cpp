@@ -2547,6 +2547,14 @@ FbcModelPlugin_getNumFluxBounds(SBasePlugin_t * fbc)
 
 
 LIBSBML_EXTERN
+Objective_t*
+FbcModelPlugin_createObjective(SBasePlugin_t * fbc)
+{
+  return static_cast<FbcModelPlugin*>(fbc)->createObjective();
+}
+
+
+LIBSBML_EXTERN
 int
 FbcModelPlugin_addObjective(SBasePlugin_t * fbc, Objective_t * obj)
 {
@@ -2593,6 +2601,14 @@ FbcModelPlugin_setActiveObjectiveId(SBasePlugin_t * fbc, const char * activeId)
   return (fbc != NULL) 
     ? static_cast<FbcModelPlugin *>(fbc)->setActiveObjectiveId(activeId) 
     : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+GeneProduct_t*
+FbcModelPlugin_createGeneProduct(SBasePlugin_t * fbc)
+{
+  return static_cast<FbcModelPlugin*>(fbc)->createGeneProduct();
 }
 
 
