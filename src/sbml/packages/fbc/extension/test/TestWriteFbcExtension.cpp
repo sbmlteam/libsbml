@@ -427,7 +427,7 @@ START_TEST(test_FbcExtension_create_and_write_L3V1V3)
   udcc->setVariable("Avar");
   udcc->setVariableType("linear");
 
-  // check annotations on several types
+  //// check annotations on several types
   FbcSBasePlugin* sbaseplugin = dynamic_cast<FbcSBasePlugin*>(compartment->getPlugin("fbc"));
 
   KeyValuePair * kvp = sbaseplugin->createKeyValuePair();
@@ -460,21 +460,12 @@ START_TEST(test_FbcExtension_create_and_write_L3V1V3)
   fail_unless(kvp3->setUri("my_annotation") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(kvp3->setValue("objective-value") == LIBSBML_OPERATION_SUCCESS);
 
-  //FbcSBasePlugin* sbaseplugin4 = dynamic_cast<FbcSBasePlugin*>(document->getPlugin("fbc"));
-  //// this dynamic cast is null
-  //KeyValuePair * kvp4 = sbaseplugin4->createKeyValuePair();
-  //kvp4->setKey("key4");
-  //kvp4->setUri("my_annotation");
-  //kvp4->setValue("doc-value");
   string s1 = writeSBMLToStdString(document);
-
-  //cout << s1 << endl;
 
   char *filename = safe_strcat(TestDataDirectory, "fbc_example2_v3.xml");
   SBMLDocument *document1 = readSBMLFromFile(filename);
   string s2 = writeSBMLToStdString(document1);
 
-  //cout << endl << s2 << endl;
   fail_unless(s1 == s2);
 
   delete sbmlns;
