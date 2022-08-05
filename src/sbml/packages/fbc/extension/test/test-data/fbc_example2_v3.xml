@@ -24,6 +24,19 @@
         </annotation>
       </species>
     </listOfSpecies>
+    <listOfReactions>
+      <reaction id="r1" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="s1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <fbc:geneProductAssociation id="r_gpa" name="r_gpa">
+          <fbc:and>
+            <fbc:geneProductRef fbc:geneProduct="g1"/>
+            <fbc:geneProductRef fbc:geneProduct="g2"/>
+          </fbc:and>
+        </fbc:geneProductAssociation>
+      </reaction>
+    </listOfReactions>
     <fbc:listOfObjectives fbc:activeObjective="obj1">
       <fbc:objective fbc:id="obj1" fbc:type="maximize">
         <annotation>
@@ -36,6 +49,10 @@
         </fbc:listOfFluxObjectives>
       </fbc:objective>
     </fbc:listOfObjectives>
+    <fbc:listOfGeneProducts>
+      <fbc:geneProduct fbc:id="g1" fbc:label="g1"/>
+      <fbc:geneProduct fbc:id="g2" fbc:label="g2"/>
+    </fbc:listOfGeneProducts>
     <fbc:listOfUserDefinedConstraints>
       <fbc:userDefinedConstraint fbc:id="uc2" fbc:lowerBound="uc2lb" fbc:upperBound="uc2ub">
         <fbc:listOfUserDefinedConstraintComponents>

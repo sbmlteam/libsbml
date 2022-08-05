@@ -395,8 +395,21 @@ START_TEST(test_FbcExtension_create_and_write_L3V1V3)
   species->setId("S");
   species->setCompartment("comp");
   species->setBoundaryCondition(false);
+  species->setHasOnlySubstanceUnits(false);
+  species->setConstant(false);
   FbcSpeciesPlugin* splugin = dynamic_cast<FbcSpeciesPlugin*>(species->getPlugin("fbc"));
   splugin->setCharge(2.5);
+
+  // create reaction
+  Reaction * reaction = model->createReaction();
+  reaction->setId("r1");
+  reaction->setReversible(true);
+  reaction->setFast(false);
+
+  SpeciesReference * sr1 = reaction->createReactant();
+  sr1->setSpecies("s1");
+  sr1->setConstant(true);
+  sr1->setStoichiometry(1.0);
 
   // use fbc
 
@@ -459,6 +472,21 @@ START_TEST(test_FbcExtension_create_and_write_L3V1V3)
   fail_unless(kvp3->setKey("key3") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(kvp3->setUri("my_annotation") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(kvp3->setValue("objective-value") == LIBSBML_OPERATION_SUCCESS);
+
+  GeneProduct *gp1 = mplugin->createGeneProduct();
+  gp1->setId("g1");
+  gp1->setLabel("g1");
+
+  GeneProduct  *gp2 = mplugin->createGeneProduct();
+  gp2->setId("g2");
+  gp2->setLabel("g2");
+
+  FbcReactionPlugin *rplugin = dynamic_cast<FbcReactionPlugin*>(reaction->getPlugin("fbc"));
+  GeneProductAssociation *gpa = rplugin->createGeneProductAssociation();
+  gpa->setId("r_gpa");
+  gpa->setName("r_gpa");
+
+  gpa->setAssociation("g1 and g2", true, false);
 
   string s1 = writeSBMLToStdString(document);
 
