@@ -68,7 +68,7 @@ FluxObjective::FluxObjective (unsigned int level, unsigned int version, unsigned
   , mReaction ("")
   , mCoefficient (numeric_limits<double>::quiet_NaN())
   , mIsSetCoefficient (false)
-  , mVariableType (FBC_FBCVARIABLETYPE_INVALID)
+  , mVariableType (FBC_VARIABLE_TYPE_INVALID)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new FbcPkgNamespaces(level, version, pkgVersion));
@@ -85,7 +85,7 @@ FluxObjective::FluxObjective (FbcPkgNamespaces* fbcns)
   , mReaction ("")
   , mCoefficient (numeric_limits<double>::quiet_NaN())
   , mIsSetCoefficient (false)
-  , mVariableType (FBC_FBCVARIABLETYPE_INVALID)
+  , mVariableType (FBC_VARIABLE_TYPE_INVALID)
 {
   // set the element namespace of this object
   setElementNamespace(fbcns->getURI());
@@ -256,7 +256,7 @@ FluxObjective::isSetCoefficient() const
 bool
 FluxObjective::isSetVariableType() const
 {
-  return (mVariableType != FBC_FBCVARIABLETYPE_INVALID);
+  return (mVariableType != FBC_VARIABLE_TYPE_INVALID);
 }
 
 
@@ -317,7 +317,7 @@ FluxObjective::setVariableType(const FbcVariableType_t variableType)
   {
     if (FbcVariableType_isValid(variableType) == 0)
     {
-      mVariableType = FBC_FBCVARIABLETYPE_INVALID;
+      mVariableType = FBC_VARIABLE_TYPE_INVALID;
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
     }
     else
@@ -347,7 +347,7 @@ FluxObjective::setVariableType(const std::string& variableType)
   {
     mVariableType = FbcVariableType_fromString(variableType.c_str());
 
-    if (mVariableType == FBC_FBCVARIABLETYPE_INVALID)
+    if (mVariableType == FBC_VARIABLE_TYPE_INVALID)
     {
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
     }
@@ -444,7 +444,7 @@ FluxObjective::unsetCoefficient()
 int
 FluxObjective::unsetVariableType()
 {
-  mVariableType = FBC_FBCVARIABLETYPE_INVALID;
+  mVariableType = FBC_VARIABLE_TYPE_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -1525,7 +1525,7 @@ FluxObjective_getVariableType(const FluxObjective_t * fo)
 {
   if (fo == NULL)
   {
-    return FBC_FBCVARIABLETYPE_INVALID;
+    return FBC_VARIABLE_TYPE_INVALID;
   }
 
   return fo->getVariableType();

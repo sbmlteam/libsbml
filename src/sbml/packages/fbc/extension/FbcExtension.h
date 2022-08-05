@@ -479,9 +479,9 @@ typedef enum
  */
 typedef enum
 {
-  FBC_FBCVARIABLETYPE_LINEAR          /*!< The fbc fbcvariabletype is @c "linear". */
-, FBC_FBCVARIABLETYPE_QUADRATIC       /*!< The fbc fbcvariabletype is @c "quadratic". */
-, FBC_FBCVARIABLETYPE_INVALID         /*!< Invalid FbcVariableType value. */
+  FBC_VARIABLE_TYPE_LINEAR          /*!< The fbc fbcvariabletype is @c "linear". */
+, FBC_VARIABLE_TYPE_QUADRATIC       /*!< The fbc fbcvariabletype is @c "quadratic". */
+, FBC_VARIABLE_TYPE_INVALID         /*!< Invalid FbcVariableType value. */
 } FbcVariableType_t;
 
 
@@ -494,7 +494,7 @@ typedef enum
  * "linear",
  * "quadratic",
  * "invalid FbcVariableType value",
- * or @c NULL if the value is @sbmlconstant{FBC_FBCVARIABLETYPE_INVALID,
+ * or @c NULL if the value is @sbmlconstant{FBC_VARIABLE_TYPE_INVALID,
  * FbcVariableType_t} or another invalid enumeration value.
  *
  * @copydetails doc_returned_unowned_char
@@ -510,18 +510,18 @@ FbcVariableType_toString(FbcVariableType_t fvt);
 
 /**
  * Returns the #FbcVariableType_t enumeration corresponding to the given string
- * or @sbmlconstant{FBC_FBCVARIABLETYPE_INVALID, FbcVariableType_t} if there is
+ * or @sbmlconstant{FBC_VARIABLE_TYPE_INVALID, FbcVariableType_t} if there is
  * no such match.
  *
  * @param code the string to convert to a #FbcVariableType_t.
  *
  * @return the corresponding #FbcVariableType_t or
- * @sbmlconstant{FBC_FBCVARIABLETYPE_INVALID, FbcVariableType_t} if no match is
+ * @sbmlconstant{FBC_VARIABLE_TYPE_INVALID, FbcVariableType_t} if no match is
  * found.
  *
  * @note The matching is case-sensitive: "linear" will return
- * @sbmlconstant{FBC_FBCVARIABLETYPE_LINEAR, FbcVariableType_t}, but "Linear"
- * will return @sbmlconstant{FBC_FBCVARIABLETYPE_INVALID, FbcVariableType_t}.
+ * @sbmlconstant{FBC_VARIABLE_TYPE_LINEAR, FbcVariableType_t}, but "Linear"
+ * will return @sbmlconstant{FBC_VARIABLE_TYPE_INVALID, FbcVariableType_t}.
  *
  * @if conly
  * @memberof Fbc_t
@@ -539,9 +539,9 @@ FbcVariableType_fromString(const char* code);
  * @param fvt the #FbcVariableType_t enumeration to query.
  *
  * @return @c 1 (true) if the #FbcVariableType_t is
- * @sbmlconstant{FBC_FBCVARIABLETYPE_LINEAR, FbcVariableType_t}, or
- * @sbmlconstant{FBC_FBCVARIABLETYPE_QUADRATIC, FbcVariableType_t};
- * @c 0 (false) otherwise (including @sbmlconstant{FBC_FBCVARIABLETYPE_INVALID,
+ * @sbmlconstant{FBC_VARIABLE_TYPE_LINEAR, FbcVariableType_t}, or
+ * @sbmlconstant{FBC_VARIABLE_TYPE_QUADRATIC, FbcVariableType_t};
+ * @c 0 (false) otherwise (including @sbmlconstant{FBC_VARIABLE_TYPE_INVALID,
  * FbcVariableType_t}).
  *
  * @if conly
