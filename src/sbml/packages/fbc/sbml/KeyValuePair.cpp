@@ -1067,7 +1067,7 @@ KeyValuePair::writeAttributes(XMLOutputStream& stream) const
   unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && version == 1 && pkgVersion == 3)
+  if (level == 3 && pkgVersion == 3)
   {
     writeL3V1V3Attributes(stream);
   }
