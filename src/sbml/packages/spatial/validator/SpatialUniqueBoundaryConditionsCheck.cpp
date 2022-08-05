@@ -81,7 +81,7 @@ SpatialUniqueBoundaryConditionsCheck::check_(const Model& m, const Model&)
   if (m.getLevel() < 3) {
     return;
   }
-  set<pair<string, string> > dirichlet_targets, neumann_targets, robin_in_targets, robin_value_targets, robin_sum_targets;
+  set<pair<string, string> > dirichlet_targets, neumann_targets;
   for (unsigned long p = 0; p < m.getNumParameters(); p++) {
     const Parameter* param = m.getParameter(p);
     const SpatialParameterPlugin* spp = static_cast<const SpatialParameterPlugin*>(param->getPlugin("spatial"));
@@ -127,27 +127,6 @@ SpatialUniqueBoundaryConditionsCheck::check_(const Model& m, const Model&)
         logFailure(m);
         continue;
       }
-      if (robin_in_targets.find(bc_pair) != robin_in_targets.end()) {
-        if (bk != SPATIAL_BOUNDARYKIND_ROBIN_SUM && bk != SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT) {
-          msg += ", but another <boundaryCondition> of type 'Robin_inwardNormalGradientCoefficient' already exists for that species boundary.";
-          logFailure(m);
-          continue;
-        }
-      }
-      if (robin_value_targets.find(bc_pair) != robin_value_targets.end()) {
-        if (bk != SPATIAL_BOUNDARYKIND_ROBIN_SUM && bk != SPATIAL_BOUNDARYKIND_ROBIN_INWARD_NORMAL_GRADIENT_COEFFICIENT) {
-          msg += ", but another <boundaryCondition> of type 'Robin_valueCoefficient' already exists for that species boundary.";
-          logFailure(m);
-          continue;
-        }
-      }
-      if (robin_sum_targets.find(bc_pair) != robin_sum_targets.end()) {
-        if (bk != SPATIAL_BOUNDARYKIND_ROBIN_INWARD_NORMAL_GRADIENT_COEFFICIENT && bk != SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT) {
-          msg += ", but another <boundaryCondition> of type 'Robin_sum' already exists for that species boundary.";
-          logFailure(m);
-          continue;
-        }
-      }
 
 
       switch (bk) {
@@ -157,68 +136,7 @@ SpatialUniqueBoundaryConditionsCheck::check_(const Model& m, const Model&)
       case SPATIAL_BOUNDARYKIND_NEUMANN:
         neumann_targets.insert(bc_pair);
         break;
-      case SPATIAL_BOUNDARYKIND_ROBIN_INWARD_NORMAL_GRADIENT_COEFFICIENT:
-        robin_in_targets.insert(bc_pair);
-        break;
-      case SPATIAL_BOUNDARYKIND_ROBIN_SUM:
-        robin_sum_targets.insert(bc_pair);
-        break;
-      case SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT:
-        robin_value_targets.insert(bc_pair);
-        break;
       }
-    }
-  }
-
-  //Now check for exactly three Robin boundaries:
-  for (set<pair<string, string> >::iterator r_i_pair = robin_in_targets.begin(); r_i_pair != robin_in_targets.end(); r_i_pair++) {
-    pair<string, string> rip = *r_i_pair;
-    string msg1 = "A <boundaryCondition> has a variable of '";
-    msg1 += rip.first + "' and a target of '" + rip.second;
-    msg1 += "', with a type of 'Robin_inwardNormalGradientCoefficient', but there is no corresponding <boundaryCondition> with the same variable and target with type '";
-    if (robin_sum_targets.find(rip) == robin_sum_targets.end()) {
-      msg = msg1 + "Robin_sum'.";
-      logFailure(m);
-      robin_sum_targets.insert(rip);
-    }
-    if (robin_value_targets.find(rip) == robin_value_targets.end()) {
-      msg = msg1 + "Robin_valueCoefficient'.";
-      logFailure(m);
-      robin_value_targets.insert(rip);
-    }
-  }
-
-  for (set<pair<string, string> >::iterator r_i_pair = robin_sum_targets.begin(); r_i_pair != robin_sum_targets.end(); r_i_pair++) {
-    pair<string, string> rip = *r_i_pair;
-    string msg1 = "A <boundaryCondition> has a variable of '";
-    msg1 += rip.first + "' and a target of '" + rip.second;
-    msg1 += "', with a type of 'Robin_sum', but there is no corresponding <boundaryCondition> with the same variable and target with type '";
-    if (robin_in_targets.find(rip) == robin_in_targets.end()) {
-      msg = msg1 + "Robin_inwardNormalGradientCoefficient'.";
-      logFailure(m);
-      robin_in_targets.insert(rip);
-    }
-    if (robin_value_targets.find(rip) == robin_value_targets.end()) {
-      msg = msg1 + "Robin_valueCoefficient'.";
-      logFailure(m);
-      robin_value_targets.insert(rip);
-    }
-  }
-
-  for (set<pair<string, string> >::iterator r_i_pair = robin_value_targets.begin(); r_i_pair != robin_value_targets.end(); r_i_pair++) {
-    pair<string, string> rip = *r_i_pair;
-    string msg1 = "A <boundaryCondition> has a variable of '";
-    msg1 += rip.first + "' and a target of '" + rip.second;
-    msg1 += "', with a type of 'Robin_valueCoefficient', but there is no corresponding <boundaryCondition> with the same variable and target with type '";
-    if (robin_in_targets.find(rip) == robin_in_targets.end()) {
-      msg = msg1 + "Robin_inwardNormalGradientCoefficient'.";
-      logFailure(m);
-      robin_in_targets.insert(rip);
-    }
-    if (robin_sum_targets.find(rip) == robin_sum_targets.end()) {
-      msg = msg1 + "Robin_sum'.";
-      logFailure(m);
-      robin_sum_targets.insert(rip);
     }
   }
 }

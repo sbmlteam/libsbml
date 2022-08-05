@@ -465,10 +465,7 @@ SpatialExtension::init()
 static
 const char* SBML_BOUNDARY_KIND_STRINGS[] =
 {
-  "Robin_valueCoefficient"
-, "Robin_inwardNormalGradientCoefficient"
-, "Robin_sum"
-, "Neumann"
+  "Neumann"
 , "Dirichlet"
 , "invalid BoundaryKind value"
 };
@@ -481,7 +478,7 @@ LIBSBML_EXTERN
 const char*
 BoundaryKind_toString(BoundaryKind_t bk)
 {
-  int min = SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT;
+  int min = SPATIAL_BOUNDARYKIND_NEUMANN;
   int max = SPATIAL_BOUNDARYKIND_INVALID;
 
   if (bk < min || bk > max)
@@ -533,7 +530,7 @@ LIBSBML_EXTERN
 int
 BoundaryKind_isValid(BoundaryKind_t bk)
 {
-  int min = SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT;
+  int min = SPATIAL_BOUNDARYKIND_NEUMANN;
   int max = SPATIAL_BOUNDARYKIND_INVALID;
 
   if (bk < min || bk >= max)
