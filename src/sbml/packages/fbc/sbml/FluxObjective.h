@@ -235,9 +235,9 @@ public:
    * @if clike The value is drawn from the enumeration @ref FbcVariableType_t
    * @endif
    * The possible values returned by this method are:
-   * @li @sbmlconstant{FBC_FBCVARIABLETYPE_LINEAR, FbcVariableType_t}
-   * @li @sbmlconstant{FBC_FBCVARIABLETYPE_QUADRATIC, FbcVariableType_t}
-   * @li @sbmlconstant{FBC_FBCVARIABLETYPE_INVALID, FbcVariableType_t}
+   * @li @sbmlconstant{FBC_VARIABLE_TYPE_LINEAR, FbcVariableType_t}
+   * @li @sbmlconstant{FBC_VARIABLE_TYPE_QUADRATIC, FbcVariableType_t}
+   * @li @sbmlconstant{FBC_VARIABLE_TYPE_INVALID, FbcVariableType_t}
    */
   FbcVariableType_t getVariableType() const;
 
@@ -1167,9 +1167,9 @@ FluxObjective_getCoefficient(const FluxObjective_t * fo);
  * @if clike The value is drawn from the enumeration @ref FbcVariableType_t
  * @endif
  * The possible values returned by this method are:
- * @li @sbmlconstant{FBC_FBCVARIABLETYPE_LINEAR, FbcVariableType_t}
- * @li @sbmlconstant{FBC_FBCVARIABLETYPE_QUADRATIC, FbcVariableType_t}
- * @li @sbmlconstant{FBC_FBCVARIABLETYPE_INVALID, FbcVariableType_t}
+ * @li @sbmlconstant{FBC_VARIABLE_TYPE_LINEAR, FbcVariableType_t}
+ * @li @sbmlconstant{FBC_VARIABLE_TYPE_QUADRATIC, FbcVariableType_t}
+ * @li @sbmlconstant{FBC_VARIABLE_TYPE_INVALID, FbcVariableType_t}
  *
  * @memberof FluxObjective_t
  */

@@ -66,7 +66,7 @@ UserDefinedConstraintComponent::UserDefinedConstraintComponent(
   , mCoefficient (util_NaN())
   , mIsSetCoefficient (false)
   , mVariable ("")
-  , mVariableType (FBC_FBCVARIABLETYPE_INVALID)
+  , mVariableType (FBC_VARIABLE_TYPE_INVALID)
 {
   setSBMLNamespacesAndOwn(new FbcPkgNamespaces(level, version, pkgVersion));
 }
@@ -82,7 +82,7 @@ UserDefinedConstraintComponent::UserDefinedConstraintComponent(FbcPkgNamespaces
   , mCoefficient (util_NaN())
   , mIsSetCoefficient (false)
   , mVariable ("")
-  , mVariableType (FBC_FBCVARIABLETYPE_INVALID)
+  , mVariableType (FBC_VARIABLE_TYPE_INVALID)
 {
   setElementNamespace(fbcns->getURI());
   loadPlugins(fbcns);
@@ -260,7 +260,7 @@ UserDefinedConstraintComponent::isSetVariable() const
 bool
 UserDefinedConstraintComponent::isSetVariableType() const
 {
-  return (mVariableType != FBC_FBCVARIABLETYPE_INVALID);
+  return (mVariableType != FBC_VARIABLE_TYPE_INVALID);
 }
 
 
@@ -380,7 +380,7 @@ UserDefinedConstraintComponent::setVariableType(const FbcVariableType_t
   {
     if (FbcVariableType_isValid(variableType) == 0)
     {
-      mVariableType = FBC_FBCVARIABLETYPE_INVALID;
+      mVariableType = FBC_VARIABLE_TYPE_INVALID;
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
     }
     else
@@ -412,7 +412,7 @@ UserDefinedConstraintComponent::setVariableType(const std::string&
   {
     mVariableType = FbcVariableType_fromString(variableType.c_str());
 
-    if (mVariableType == FBC_FBCVARIABLETYPE_INVALID)
+    if (mVariableType == FBC_VARIABLE_TYPE_INVALID)
     {
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
     }
@@ -514,7 +514,7 @@ UserDefinedConstraintComponent::unsetVariable()
 int
 UserDefinedConstraintComponent::unsetVariableType()
 {
-  mVariableType = FBC_FBCVARIABLETYPE_INVALID;
+  mVariableType = FBC_VARIABLE_TYPE_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -1294,7 +1294,7 @@ UserDefinedConstraintComponent::writeAttributes(XMLOutputStream& stream) const
   unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && version == 1 && pkgVersion == 3)
+  if (level == 3 && pkgVersion == 3)
   {
     writeL3V1V3Attributes(stream);
   }
@@ -1477,7 +1477,7 @@ UserDefinedConstraintComponent_getVariableType(const
 {
   if (udcc == NULL)
   {
-    return FBC_FBCVARIABLETYPE_INVALID;
+    return FBC_VARIABLE_TYPE_INVALID;
   }
 
   return udcc->getVariableType();
