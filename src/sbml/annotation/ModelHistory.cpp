@@ -374,11 +374,14 @@ ModelHistory::hasRequiredAttributes()
 {
   bool valid = true;
   
-  if ( getNumCreators() < 1 ||
-      !isSetCreatedDate()  ||
-      !isSetModifiedDate() )
+  if ( getNumCreators() < 1)
+    // relax requirement for dates
+    //||
+      //!isSetCreatedDate()  ||
+      //!isSetModifiedDate() )
   {
     valid = false;
+    return valid;
   }
 
   unsigned int i = 0;
@@ -394,15 +397,19 @@ ModelHistory::hasRequiredAttributes()
     return valid;
   }
 
-  valid = getCreatedDate()->representsValidDate();
-
-  if (!valid) 
+  if (isSetCreatedDate())
   {
-    return valid;
+    valid = getCreatedDate()->representsValidDate();
+    if (!valid)
+    {
+      return valid;
+    }
   }
-  for (i = 0; i < getNumModifiedDates(); ++i)
+  i = 0;
+  while (valid && i < getNumModifiedDates())
   {
     valid = getModifiedDate(i)->representsValidDate();
+    i++;
   }
 
   return valid;
