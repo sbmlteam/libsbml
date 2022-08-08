@@ -312,7 +312,7 @@ RDFAnnotationParser::parseRDFAnnotation(
     history = deriveHistoryFromAnnotation(annotation);
   }
   // add a parent SBase object with level and version
-  if (parent != NULL)
+  if (history != NULL && parent != NULL)
   {
     history->setParentSBMLObject(parent);
   }
