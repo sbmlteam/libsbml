@@ -710,6 +710,7 @@ RDFAnnotationParser::parseModelHistory(const SBase *object)
   {
     return NULL;
   }
+  history->setParentSBMLObject(object);
 
   XMLNode *description = createRDFDescriptionWithHistory(object);
 

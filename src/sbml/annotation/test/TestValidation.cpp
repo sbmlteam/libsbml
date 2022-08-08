@@ -138,14 +138,15 @@ START_TEST (test_Validation_ModelHistory1)
 
   fail_unless (!(mh->hasRequiredAttributes()));
 
-  Date * date = new Date(2007, 12, 30, 12, 15, 45, 1, 2, 0);
-  mh->setCreatedDate(date);
+  // relaxed requirement 
+  //Date * date = new Date(2007, 12, 30, 12, 15, 45, 1, 2, 0);
+  //mh->setCreatedDate(date);
 
-  fail_unless (!(mh->hasRequiredAttributes()));
+  //fail_unless (!(mh->hasRequiredAttributes()));
 
-  mh->setModifiedDate(date);
+  //mh->setModifiedDate(date);
 
-  fail_unless (!(mh->hasRequiredAttributes()));
+  //fail_unless (!(mh->hasRequiredAttributes()));
 
   ModelCreator * mc = new ModelCreator();
   mc->setFamilyName("Keating");
@@ -157,7 +158,6 @@ START_TEST (test_Validation_ModelHistory1)
   
   delete mh;
   delete mc;
-  delete date;
 }
 END_TEST
 
