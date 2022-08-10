@@ -2263,10 +2263,19 @@ setValue(value, 0);
 
   /** @endcond */
 
-
+  /* returns true if astnodes are exactly the same
+  *  so 'a+4' == 'a+4'   
+  * but 'a+4' != '4+a'
+  */
   LIBSBML_EXTERN
-    bool equivalent(const ASTNode& rhs);
+    bool exactlyEqual(const ASTNode& rhs);
 
+/* calls
+  refactorNumbers();
+  encompassUnaryMinus();
+  createNonBinaryTree();
+  reorderArguments();
+*/
   LIBSBML_EXTERN
     void refactor();
 
@@ -2276,20 +2285,65 @@ setValue(value, 0);
   LIBSBML_EXTERN
     ASTNode* derivative(const std::string& variable);
 
+  LIBSBML_EXTERN
+  void printMath(unsigned int level = 0);
 protected:
 
   friend class SBMLRateRuleConverter;
 
-  void printMath(unsigned int level = 0);
+//  void printMath(unsigned int level = 0);
+  /* change all numbers to real*/
   void refactorNumbers();
+
     void reorderArguments();
-    void encompassUnaryMinus();
+
+  /* remove any instances of unary minus
+  * Level 0: -
+  * Level 1: 2
+  * becomes
+  * Level 0: -2
+  *
+  * Level 0: -
+  * Level 1: 2 * a
+  * Level 2: 2
+  * Level 2: a
+  * becomes
+  * Level 0: -2 * a
+  * Level 1: -2
+  * Level 1: a
+  *
+  * Level 0: -
+  * Level 1: b / a
+  * Level 2: b
+  * Level 2: a
+  * becomes
+  * Level 0: (-1*b)/a
+  * Level 1: -1*b
+  * Level 2: -1
+  * Level 2: b
+  * Level 1: a
+  */
+  void encompassUnaryMinus();
     void distributeFunctions();
-    void createNonBinaryTree();
-    //bool equivalent(const ASTNode& rhs);
-    //void refactor();
-    //void decompose();
-    //ASTNode* derivative(const std::string& variable);
+
+  /* create AST the is non binary
+    * Binary each node has 2 children 
+    * Level 0: a + b + (c + s)
+    * Level 1: a + b
+    * Level 2: a
+    * Level 2: b
+    * Level 1: c + s
+    * Level 2: c
+    * Level 2: s
+    *
+    * Non binary Node at Level 0 has 4 children
+    * Level 0: a + b + c + s
+    * Level 1: a
+    * Level 1: b
+    * Level 1: c
+    * Level 1: s
+  */
+  void createNonBinaryTree();
 
   ASTNode* derivativePlus(const std::string& variable);
   ASTNode* derivativeMinus(const std::string& variable);

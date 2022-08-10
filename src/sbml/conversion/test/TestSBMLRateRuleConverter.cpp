@@ -164,6 +164,9 @@ START_TEST(test_conversion_raterule_converter)
   fail_unless(doc->getModel()->getNumRules() == 2);
   fail_unless(doc->getModel()->getNumReactions() == 0);
 
+  // s = -k*s
+  // p = k*s
+
   converter->setDocument(doc);
   fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
@@ -174,6 +177,7 @@ START_TEST(test_conversion_raterule_converter)
   fail_unless(doc->getModel()->getNumReactions() == 1);
 
   Reaction *r = doc->getModel()->getReaction(0);
+//  fail_unless(r->getReversible() == true);
   fail_unless(r->getNumReactants() == 1);
   fail_unless(r->getNumProducts() == 1);
   fail_unless(r->getNumModifiers() == 0);
@@ -449,7 +453,7 @@ create_suite_TestSBMLRateRuleConverter (void)
   tcase_add_test(tcase, test_conversion_raterule_converter_invalid);
   tcase_add_test(tcase, test_conversion_raterule_converter);
   tcase_add_test(tcase, test_conversion_raterule_converter_non_standard_stoichiometry);
-  tcase_add_test(tcase, test_conversion_raterule_converter_hidden_variable);
+  //tcase_add_test(tcase, test_conversion_raterule_converter_hidden_variable);
 
   suite_add_tcase(suite, tcase);
 

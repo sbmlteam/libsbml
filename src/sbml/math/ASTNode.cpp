@@ -3506,9 +3506,15 @@ void ASTNode::clearPlugins()
   mPlugins.clear();
 }
 
+/* FUNCTIONS FOR INFER REACTIONS*/
+
+/* returns true if astnodes are exactly the same
+*  so 'a+4' == 'a+4'
+* but 'a+4' != '4+a'
+*/
 LIBSBML_EXTERN
 bool 
-ASTNode::equivalent(const ASTNode& rhs)
+ASTNode::exactlyEqual(const ASTNode& rhs)
 {
   bool equal = true;
   ASTNodeType_t type = getType();
@@ -3548,13 +3554,14 @@ ASTNode::equivalent(const ASTNode& rhs)
   unsigned int n = 0;
   while (equal && n < getNumChildren())
   {
-    equal = getChild(n)->equivalent(*(rhs.getChild(n)));
+    equal = getChild(n)->exactlyEqual(*(rhs.getChild(n)));
     n++;
   }
 
   return equal;
 }
 
+/* change all numbers to real*/
 void
 ASTNode::refactorNumbers()
 {
@@ -3570,7 +3577,6 @@ ASTNode::refactorNumbers()
     double value = getReal();
     setType(AST_REAL);
     setValue(value);
-
   }
 
   for (unsigned int n = 0; n < getNumChildren(); ++n)
@@ -3680,7 +3686,10 @@ ASTNode::printMath(unsigned int level)
   }
 }
 
-
+/* combine numbers:
+ * 3 + a + 2 becomes 3 + a + 2 + 5 
+ * i.e. lastchild is combined value of numbers 
+ */
 void
 ASTNode::combineNumbers(std::vector<unsigned int>& numbers,
   std::vector<unsigned int>& names,
@@ -3703,6 +3712,7 @@ ASTNode::combineNumbers(std::vector<unsigned int>& numbers,
       }
     }
     numberNode->setValue(number);
+    // add combined number as last child
     addChild(numberNode);
   }
   else
@@ -3710,6 +3720,9 @@ ASTNode::combineNumbers(std::vector<unsigned int>& numbers,
     bool dealtWith = false;
     // we only have one number want to see if we are followed by the same function
     // with another number
+
+    // TO DO
+    //since we have a non binary tree not sure this happens
     std::vector<unsigned int>::iterator it = others.begin();
     if (names.size() == 0 && others.size() > 0 && getChild(*it)->getType() == mType)
     {
@@ -3739,22 +3752,41 @@ ASTNode::combineNumbers(std::vector<unsigned int>& numbers,
     {
       for (std::vector<unsigned int>::iterator it = numbers.begin(); it != numbers.end(); ++it)
       {
+        // add number as last child
         addChild(getChild(*it)->deepCopy());
       }
     }
   }
 
 }
+
+/* create AST the is non binary
+* Binary each node has 2 children
+* Level 0: a + b + (c + s)
+* Level 1: a + b
+* Level 2: a
+* Level 2: b
+* Level 1: c + s
+* Level 2: c
+* Level 2: s
+*
+* Non binary Node at Level 0 has 4 children
+* Level 0: a + b + c + s
+* Level 1: a
+* Level 1: b
+* Level 1: c
+* Level 1: s
+*/
 void 
 ASTNode::createNonBinaryTree()
 {
   unsigned int origNumChildren = getNumChildren();
   if (mType != AST_TIMES && mType != AST_PLUS)
   {
+    // only applies to + *
     return;
   }
  
-
   for (unsigned int j = 0; j < origNumChildren; ++j)
   {
     if (getChild(j)->getType() == mType)
@@ -3779,6 +3811,11 @@ ASTNode::createNonBinaryTree()
   }
 }
 
+/* for plus or times order arguments so we have number + names + functions
+* 3.1 +b + 2 becomes 5.1 + b
+* 2 * 5 becomes 10
+* 
+*/
 void
 ASTNode::reorderArguments()
 {
@@ -3793,6 +3830,7 @@ ASTNode::reorderArguments()
 
     createVectorOfChildTypes(numbers, names, others);
 
+    // after this the last child will contain combined number
     combineNumbers(numbers, names, others);
 
     for (std::vector<unsigned int>::iterator it = names.begin(); it != names.end(); ++it)
@@ -3823,6 +3861,8 @@ ASTNode::reorderArguments()
   }
 }
 
+/* remove any instances of unary minus
+*/
 void
 ASTNode::encompassUnaryMinus()
 { 
@@ -3922,6 +3962,7 @@ ASTNode::distributeFunctions()
 
 }
 
+/* create an ast of appropriate form*/
 LIBSBML_EXTERN
 void 
 ASTNode::refactor()
@@ -4097,7 +4138,7 @@ ASTNode::derivativePlus(const std::string& variable)
   for (unsigned int n = 0; n < copy->getNumChildren(); ++n)
   {
     ASTNode* child_der = copy->getChild(n)->derivative(variable);
-    if (!(child_der->equivalent(*zero)))
+    if (!(child_der->exactlyEqual(*zero)))
     {
       derivative->addChild(child_der->deepCopy());
     }
@@ -4123,11 +4164,11 @@ ASTNode::derivativeMinus(const std::string& variable)
   // d (A - B)/dx = dA/dx - dB/dx
   ASTNode* child_derA = copy->getChild(0)->derivative(variable);
   ASTNode* child_derB = copy->getChild(1)->derivative(variable);
-  if (child_derB->equivalent(*zero))
+  if (child_derB->exactlyEqual(*zero))
   {
     derivative = child_derA->deepCopy();
   }
-  else if (child_derA->equivalent(*zero))
+  else if (child_derA->exactlyEqual(*zero))
   {
     derivative = new ASTNode(AST_MINUS);
     derivative->addChild(child_derB->deepCopy());
@@ -4163,13 +4204,13 @@ ASTNode::derivativeTimes(const std::string& variable)
   // d(A*B)/dx = B * dA/dx + A * dB/dx
   ASTNode* child_derA = copy->getChild(0)->derivative(variable);
   ASTNode* child_derB = copy->getChild(1)->derivative(variable);
-  if (child_derB->equivalent(*zero))
+  if (child_derB->exactlyEqual(*zero))
   {
     derivative = new ASTNode(AST_TIMES);
     derivative->addChild(copy->getChild(1)->deepCopy());
     derivative->addChild(child_derA->deepCopy());
   }
-  else if (child_derA->equivalent(*zero))
+  else if (child_derA->exactlyEqual(*zero))
   {
     derivative = new ASTNode(AST_TIMES);
     derivative->addChild(copy->getChild(0)->deepCopy());
@@ -4223,13 +4264,13 @@ ASTNode::derivativeDivide(const std::string& variable)
 
   ASTNode* child_derA = copy->getChild(0)->derivative(variable);
   ASTNode* child_derB = copy->getChild(1)->derivative(variable);
-  if (child_derB->equivalent(*zero))
+  if (child_derB->exactlyEqual(*zero))
   {
     nominator = new ASTNode(AST_TIMES);
     nominator->addChild(copy->getChild(1)->deepCopy());
     nominator->addChild(child_derA->deepCopy());
   }
-  else if (child_derA->equivalent(*zero))
+  else if (child_derA->exactlyEqual(*zero))
   {
     term1 = new ASTNode(AST_TIMES);
     term1->addChild(copy->getChild(0)->deepCopy());

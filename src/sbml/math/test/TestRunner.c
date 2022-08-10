@@ -81,6 +81,8 @@ Suite *create_suite_TestValidASTNode      (void);
 Suite *create_suite_TestChildFunctions    (void);
 Suite *create_suite_TestGetValue          (void);
 Suite *create_suite_TestReadFromFileL3V2(void);
+Suite *create_suite_TestInferRnFunctions (void);
+
 
 /**
  * Global.
@@ -148,6 +150,7 @@ main (void)
   srunner_add_suite( runner, create_suite_TestGetValue() );
 
   srunner_add_suite(runner, create_suite_TestReadFromFileL3V2());
+  srunner_add_suite(runner, create_suite_TestInferRnFunctions());
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */
 

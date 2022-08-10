@@ -349,7 +349,7 @@ SBMLRateRuleConverter::locateTerm(ASTNode * node)
   unsigned int index = 0;
   for (std::vector<ASTNode*>::iterator it = mTerms.begin(); it != mTerms.end(); ++it)
   {
-    if (node->equivalent(**it))
+    if (node->exactlyEqual(**it))
     {
       break;
     }
@@ -627,7 +627,7 @@ SBMLRateRuleConverter::addToTerms(ASTNode* node)
     std::vector<ASTNode*>::iterator it = mTerms.begin();
     while (!equivalent && it != mTerms.end())
     {
-      equivalent = term->equivalent(**it);
+      equivalent = term->exactlyEqual(**it);
       it++;
     }
     if (!equivalent)
@@ -669,87 +669,87 @@ SBMLRateRuleConverter::populateODEinfo()
 
   // implement Algo 3.1 here (hidden variables!)
   // check for hidden variables, and add an appropriate ODE if a hidden variable is found
-  List hiddenSpecies;
-  for(int odeIndex=0; odeIndex < mODEs.size(); odeIndex++)
-  {
-      std::pair<std::string, ASTNode*> ode = mODEs.at(odeIndex);
-      ASTNode* odeRHS = ode.second;
-      // Step 1: iterative, in-place replacement of any -x+y terms with y-x terms
-      reorderMinusXPlusYIteratively(odeRHS, model);
+  //List hiddenSpecies;
+  //for(int odeIndex=0; odeIndex < mODEs.size(); odeIndex++)
+  //{
+  //    std::pair<std::string, ASTNode*> ode = mODEs.at(odeIndex);
+  //    ASTNode* odeRHS = ode.second;
+  //    // Step 1: iterative, in-place replacement of any -x+y terms with y-x terms
+  //    reorderMinusXPlusYIteratively(odeRHS, model);
 
-      // Step 2 TODO
-      List* operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
-      ListIterator it = operators->begin();
-      while (it != operators->end())
-      {
-          ASTNode* currentNode = (ASTNode*)*it;
-          if (isKMinusXMinusY(currentNode, model))
-          {
-              // (a) introduce z=k-x-y with dz/dt = -dx/dt-dy/dt (add to list of additional ODEs to add at the end)
-              // TODO
-              // (b) replace in ALL ODEs (not just current) k-x-y with z (interior loop over mODEs again?)
-              // (c) replace in ALL ODEs (not just current) k+v-x-y with v+z
-              // (d) replace in ALL ODEs (not just current) k-x+w-y with w+z
-          }
-          it++;
-      }
-      // Step 3
-      it = operators->begin();
-      while (it != operators->end())
-      {
-          //TODO split into functions?
-          ASTNode* currentNode = (ASTNode*)*it;
-          if (isKMinusX(currentNode, model))
-          {
-              // remove constant k related to hidden variable found
-              model->removeParameter(currentNode->getLeftChild()->getName());
-              // remember x name and dxdt for later, before we replace the current node
-              std::string xName = std::string(currentNode->getRightChild()->getName());
-              ASTNode* dxdt = model->getRateRuleByVariable(xName)->getMath()->deepCopy();
+  //    // Step 2 TODO
+  //    List* operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
+  //    ListIterator it = operators->begin();
+  //    while (it != operators->end())
+  //    {
+  //        ASTNode* currentNode = (ASTNode*)*it;
+  //        if (isKMinusXMinusY(currentNode, model))
+  //        {
+  //            // (a) introduce z=k-x-y with dz/dt = -dx/dt-dy/dt (add to list of additional ODEs to add at the end)
+  //            // TODO
+  //            // (b) replace in ALL ODEs (not just current) k-x-y with z (interior loop over mODEs again?)
+  //            // (c) replace in ALL ODEs (not just current) k+v-x-y with v+z
+  //            // (d) replace in ALL ODEs (not just current) k-x+w-y with w+z
+  //        }
+  //        it++;
+  //    }
+  //    // Step 3
+  //    it = operators->begin();
+  //    while (it != operators->end())
+  //    {
+  //        //TODO split into functions?
+  //        ASTNode* currentNode = (ASTNode*)*it;
+  //        if (isKMinusX(currentNode, model))
+  //        {
+  //            // remove constant k related to hidden variable found
+  //            model->removeParameter(currentNode->getLeftChild()->getName());
+  //            // remember x name and dxdt for later, before we replace the current node
+  //            std::string xName = std::string(currentNode->getRightChild()->getName());
+  //            ASTNode* dxdt = model->getRateRuleByVariable(xName)->getMath()->deepCopy();
 
-              // (a)
-              // introduce z=k-x
-              Species* zSpecies = model->createSpecies(); //implicitly sets IsBoundaryCondition and IsConstant to false, which is what we want
-              const std::string zName = "z" + std::to_string(model->getNumSpecies());
-              zSpecies->setId(zName);
-              zSpecies->setMath(currentNode->deepCopy());
-              hiddenSpecies.add(zSpecies);
-              // TODO needs compartment?
+  //            // (a)
+  //            // introduce z=k-x
+  //            Species* zSpecies = model->createSpecies(); //implicitly sets IsBoundaryCondition and IsConstant to false, which is what we want
+  //            const std::string zName = "z" + std::to_string(model->getNumSpecies());
+  //            zSpecies->setId(zName);
+  //            zSpecies->setMath(currentNode->deepCopy());
+  //            hiddenSpecies.add(zSpecies);
+  //            // TODO needs compartment?
 
-              // replace k - x with z in current ODE
-              ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
-              z->setName(zName.c_str());
-              std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
-              ASTNode* currentParent = currentParentAndIndex.first;
-              int index = currentParentAndIndex.second;
-              currentParent->replaceChild(index, z, true);
-              // intentionally, don't delete z as it's now owned by currentParent!
+  //            // replace k - x with z in current ODE
+  //            ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
+  //            z->setName(zName.c_str());
+  //            std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
+  //            ASTNode* currentParent = currentParentAndIndex.first;
+  //            int index = currentParentAndIndex.second;
+  //            currentParent->replaceChild(index, z, true);
+  //            // intentionally, don't delete z as it's now owned by currentParent!
 
-              // add raterule defining dz/dz = -dxdt
-              RateRule* raterule = model->createRateRule();
-              raterule->setVariable(zName);
-              ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
-              ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
-              minus1->setValue(-1.0);
-              math->addChild(minus1);
-              math->addChild(dxdt);
-              raterule->setMath(math);
-              delete math; //its children dxdt and minus1 deleted as part of this.
+  //            // add raterule defining dz/dz = -dxdt
+  //            RateRule* raterule = model->createRateRule();
+  //            raterule->setVariable(zName);
+  //            ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
+  //            ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
+  //            minus1->setValue(-1.0);
+  //            math->addChild(minus1);
+  //            math->addChild(dxdt);
+  //            raterule->setMath(math);
+  //            delete math; //its children dxdt and minus1 deleted as part of this.
 
-              // TODO
-              // (b) replace in ALL ODEs (not just current) k-x with z
-              // (c) replace in ALL ODEs (not just current) k+v-x with v+z
-          }
-          it++;
-      }
-  }
+  //            // TODO
+  //            // (b) replace in ALL ODEs (not just current) k-x with z
+  //            // (c) replace in ALL ODEs (not just current) k+v-x with v+z
+  //        }
+  //        it++;
+  //    }
+  //}
 
-  // add all hidden species to the model
-  for (int hs=0; hs < hiddenSpecies.getSize(); hs++)
-  {
-      Species* hidden = (Species*) hiddenSpecies.get(hs);
-      addODEPair(hidden->getId(), model);
-  }
+  //// add all hidden species to the model
+  //for (int hs=0; hs < hiddenSpecies.getSize(); hs++)
+  //{
+  //    Species* hidden = (Species*) hiddenSpecies.get(hs);
+  //    addODEPair(hidden->getId(), model);
+  //}
 
   //create set of non decomposable terms used in ODES
   // catch any repeats so a term is only present once but may appear in
