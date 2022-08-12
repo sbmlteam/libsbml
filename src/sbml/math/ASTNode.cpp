@@ -3814,11 +3814,12 @@ ASTNode::createNonBinaryTree()
 /* for plus or times order arguments so we have number + names + functions
 * 3.1 +b + 2 becomes 5.1 + b
 * 2 * 5 becomes 10
-* 
+* sin(2+3) + 3.1 + b becomes 3.1 +b + sin(5) 
 */
-void
-ASTNode::reorderArguments()
+bool
+ASTNode::reorderArguments(unsigned int level)
 {
+  bool mayNeedReorder = false;
   if (mType == AST_TIMES || mType == AST_PLUS)
   {
     unsigned int origNumChildren = getNumChildren();
@@ -3852,13 +3853,24 @@ ASTNode::reorderArguments()
       ASTNode* child = getChild(0)->deepCopy();
       (*this) = *(child);
       delete child;
+      // but this may have comes from a part seen as other 
+      // and not been combined
+      // eg 5 * a * (3 + 4) 
+      // 3 + 4 is considered another func by times
+      if (names.size() == 0 && others.size() == 0 && level == 1)
+      {
+        mayNeedReorder = true;
+      }
     }
   }
 
   for (unsigned int i = 0; i < getNumChildren(); i++)
   {
-    getChild(i)->reorderArguments();
+    if(getChild(i)->reorderArguments(level + 1))
+      mayNeedReorder = true;
   }
+
+  return mayNeedReorder;
 }
 
 /* remove any instances of unary minus
@@ -3970,7 +3982,8 @@ ASTNode::refactor()
   refactorNumbers();
   encompassUnaryMinus();
   createNonBinaryTree();
-  reorderArguments();
+  if (reorderArguments())
+    refactor();
 }
 
 

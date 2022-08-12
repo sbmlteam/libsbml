@@ -2295,7 +2295,7 @@ protected:
   /* change all numbers to real*/
   void refactorNumbers();
 
-    void reorderArguments();
+  bool reorderArguments(unsigned int level=0 );
 
   /* remove any instances of unary minus
   * Level 0: -

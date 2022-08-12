@@ -365,22 +365,12 @@ START_TEST(test_reorder_args1_combine_numbers2)
   node->setValue(5.2);
   ASTNode * b = new ASTNode(AST_NAME);
   b->setName("b");
-  //ASTNode * c = new ASTNode(AST_NAME);
-  //c->setName("c");
-  //ASTNode * s = new ASTNode(AST_NAME);
-  //s->setName("s");
-
-  //node->addChild(a);
-  //node->addChild(b);
-  //node->addChild(c);
-  //node->addChild(s);
 
   fail_unless(n != NULL);
 
   fail_unless(node->exactlyEqual(*n) == false);
-  n->printMath();
+  
   n->refactor();
-  n->printMath();
 
   fail_unless(node->exactlyEqual(*n) == true);
   delete n;
@@ -405,17 +395,145 @@ START_TEST(test_reorder_args1_combine_numbers3)
     "</math>"
   );
   ASTNode * node = new ASTNode(AST_REAL);
-  node->setValue(5.2);
+  node->setValue(6.2);
+
+  fail_unless(n != NULL);
+
+  fail_unless(node->exactlyEqual(*n) == false);
+
+  n->refactor();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+START_TEST(test_reorder_args2)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <plus/>"
+    "  <apply>"
+    "    <sin/>"
+    "    <cn> 3.1 </cn>"
+    "  </apply>"
+    "    <cn> 3.1 </cn>"
+    "    <ci> b </ci>"
+    "  </apply>"
+    "</math>"
+  );
+  ASTNode * node = new ASTNode(AST_PLUS);
+  ASTNode * a = new ASTNode(AST_REAL);
+  a->setValue(3.1);
   ASTNode * b = new ASTNode(AST_NAME);
   b->setName("b");
-  //ASTNode * c = new ASTNode(AST_NAME);
+  ASTNode * c = new ASTNode(AST_FUNCTION_SIN);
+  ASTNode * d = new ASTNode(AST_REAL);
+  d->setValue(3.1);
+  c->addChild(d);
+
+  node->addChild(a);
+  node->addChild(b);
+  node->addChild(c);
+
+  fail_unless(n != NULL);
+
+  fail_unless(node->exactlyEqual(*n) == false);
+
+  n->refactor();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+START_TEST(test_reorder_args2_combine_numbers1)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <plus/>"
+    "  <apply>"
+    "    <sin/>"
+    "  <apply>"
+    "    <plus/>"
+    "    <cn> 2.2 </cn>"
+    "    <cn> 3.1 </cn>"
+    "  </apply>"
+    "  </apply>"
+    "    <cn> 3.1 </cn>"
+    "    <ci> b </ci>"
+    "  </apply>"
+    "</math>"
+  );
+  ASTNode * node = new ASTNode(AST_PLUS);
+  ASTNode * a = new ASTNode(AST_REAL);
+  a->setValue(3.1);
+  ASTNode * b = new ASTNode(AST_NAME);
+  b->setName("b");
+  ASTNode * c = new ASTNode(AST_FUNCTION_SIN);
+  ASTNode * d = new ASTNode(AST_REAL);
+  d->setValue(5.3);
+  c->addChild(d);
+
+  node->addChild(a);
+  node->addChild(b);
+  node->addChild(c);
+
+  fail_unless(n != NULL);
+
+  fail_unless(node->exactlyEqual(*n) == false);
+
+  n->refactor();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+START_TEST(test_reorder_args3)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <times/>"
+    "  <apply>"
+    "    <sin/>"
+    "  <apply>"
+    "    <plus/>"
+    "    <cn> 2.2 </cn>"
+    "    <cn> 3.1 </cn>"
+    "  </apply>"
+    "  </apply>"
+    "  <apply>"
+    "    <plus/>"
+    "    <cn> 1.2 </cn>"
+    "    <cn> 4.4 </cn>"
+    "  </apply>"
+    "    <ci> b </ci>"
+    "  </apply>"
+    "</math>"
+  );
+  ASTNode * node = new ASTNode(AST_TIMES);
+  ASTNode * a = new ASTNode(AST_REAL);
+  a->setValue(5.6);
+  ASTNode * b = new ASTNode(AST_NAME);
+  b->setName("b");
+  ASTNode * c = new ASTNode(AST_FUNCTION_SIN);
+  ASTNode * d = new ASTNode(AST_REAL);
+  d->setValue(5.3);
+  c->addChild(d);
   //c->setName("c");
   //ASTNode * s = new ASTNode(AST_NAME);
   //s->setName("s");
 
-  //node->addChild(a);
-  //node->addChild(b);
-  //node->addChild(c);
+  node->addChild(a);
+  node->addChild(b);
+  node->addChild(c);
   //node->addChild(s);
 
   fail_unless(n != NULL);
@@ -447,7 +565,10 @@ create_suite_TestInferRnFunctions()
   tcase_add_test(tcase, test_reorder_args1);
   tcase_add_test(tcase, test_reorder_args1_combine_numbers1);
   tcase_add_test(tcase, test_reorder_args1_combine_numbers2);
-  tcase_add_test(tcase, test_reorder_args1_combine_numbers3);
+  //tcase_add_test(tcase, test_reorder_args1_combine_numbers3);
+  tcase_add_test(tcase, test_reorder_args2);
+  tcase_add_test(tcase, test_reorder_args2_combine_numbers1);
+  tcase_add_test(tcase, test_reorder_args3);
 
   suite_add_tcase(suite, tcase);
 
