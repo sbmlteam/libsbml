@@ -3819,7 +3819,7 @@ ASTNode::createNonBinaryTree()
 bool
 ASTNode::reorderArguments(unsigned int level)
 {
-  bool mayNeedReorder = false;
+  bool mayNeedRefactor = false;
   if (mType == AST_TIMES || mType == AST_PLUS)
   {
     unsigned int origNumChildren = getNumChildren();
@@ -3859,7 +3859,7 @@ ASTNode::reorderArguments(unsigned int level)
       // 3 + 4 is considered another func by times
       if (names.size() == 0 && others.size() == 0 && level == 1)
       {
-        mayNeedReorder = true;
+        mayNeedRefactor = true;
       }
     }
   }
@@ -3867,10 +3867,10 @@ ASTNode::reorderArguments(unsigned int level)
   for (unsigned int i = 0; i < getNumChildren(); i++)
   {
     if(getChild(i)->reorderArguments(level + 1))
-      mayNeedReorder = true;
+      mayNeedRefactor = true;
   }
 
-  return mayNeedReorder;
+  return mayNeedRefactor;
 }
 
 /* remove any instances of unary minus
@@ -3985,6 +3985,14 @@ ASTNode::refactor()
   if (reorderArguments())
     refactor();
 }
+
+/*
+ * a decomposed ast is one where if the top level func is *or /
+ * the arguments are not sums
+ * (a + B) * c becomes ac + Bc
+ * (5 + 3)/(a-4) becomes 8/(a-4)
+ * (a + 4)/(
+ */
 
 
 LIBSBML_EXTERN

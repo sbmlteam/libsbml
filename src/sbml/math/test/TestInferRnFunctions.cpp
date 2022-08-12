@@ -527,20 +527,156 @@ START_TEST(test_reorder_args3)
   ASTNode * d = new ASTNode(AST_REAL);
   d->setValue(5.3);
   c->addChild(d);
-  //c->setName("c");
-  //ASTNode * s = new ASTNode(AST_NAME);
-  //s->setName("s");
 
   node->addChild(a);
   node->addChild(b);
   node->addChild(c);
-  //node->addChild(s);
+
+  fail_unless(n != NULL);
+
+  fail_unless(node->exactlyEqual(*n) == false);
+
+  n->refactor();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+START_TEST(test_decompose1)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <times/>"
+    "  <apply>"
+    "    <plus/>"
+    "    <cn> 2 </cn>"
+    "    <cn> 3 </cn>"
+    "  </apply>"
+    "  <apply>"
+    "    <plus/>"
+    "    <ci> a </ci>"
+    "    <cn> 4 </cn>"
+    "  </apply>"
+    "    <ci> b </ci>"
+    "  </apply>"
+    "</math>"
+  );
+  char* formula = "20.0*b + 5.0*a*b";
+  ASTNode * node = SBML_parseL3Formula(formula);
+
+  fail_unless(n != NULL);
+
+  fail_unless(node->exactlyEqual(*n) == false);
+
+  n->decompose();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+START_TEST(test_decompose2)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <times/>"
+    "  <apply>"
+    "    <plus/>"
+    "    <cn> 2 </cn>"
+    "    <cn> 3 </cn>"
+    "  </apply>"
+    "  <apply>"
+    "    <minus/>"
+    "    <ci> a </ci>"
+    "    <cn> 4 </cn>"
+    "  </apply>"
+    "    <ci> b </ci>"
+    "  </apply>"
+    "</math>"
+  );
+  char* formula = "5.0*a*b + (-20.0*b)";
+  L3ParserSettings * ps = new L3ParserSettings();
+  ps->setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+
+  fail_unless(n != NULL);
+
+  fail_unless(node->exactlyEqual(*n) == false);
+
+  n->decompose();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+START_TEST(test_decompose3)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <divide/>"
+    "  <apply>"
+    "    <plus/>"
+    "    <cn> 2 </cn>"
+    "    <cn> 3 </cn>"
+    "  </apply>"
+    "  <apply>"
+    "    <minus/>"
+    "    <ci> a </ci>"
+    "    <cn> 4 </cn>"
+    "  </apply>"
+    "  </apply>"
+    "</math>"
+  );
+  char* formula = "5.0/(a - 4.0)";
+  L3ParserSettings * ps = new L3ParserSettings();
+  ps->setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+
+  fail_unless(n != NULL);
+
+  fail_unless(node->exactlyEqual(*n) == false);
+
+  n->decompose();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+START_TEST(test_decompose4)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <divide/>"
+    "  <apply>"
+    "    <plus/>"
+    "    <ci> a </ci>"
+    "    <cn> 4 </cn>"
+    "  </apply>"
+    "    <cn> 4 </cn>"
+    "  </apply>"
+    "</math>"
+  );
+  char* formula = "a/4.0 - 1.0";
+  L3ParserSettings * ps = new L3ParserSettings();
+  ps->setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
 
   fail_unless(n != NULL);
 
   fail_unless(node->exactlyEqual(*n) == false);
   n->printMath();
-  n->refactor();
+  n->decompose();
   n->printMath();
 
   fail_unless(node->exactlyEqual(*n) == true);
@@ -569,6 +705,10 @@ create_suite_TestInferRnFunctions()
   tcase_add_test(tcase, test_reorder_args2);
   tcase_add_test(tcase, test_reorder_args2_combine_numbers1);
   tcase_add_test(tcase, test_reorder_args3);
+  tcase_add_test(tcase, test_decompose1);
+  tcase_add_test(tcase, test_decompose2);
+  tcase_add_test(tcase, test_decompose3);
+  //tcase_add_test(tcase, test_decompose4);
 
   suite_add_tcase(suite, tcase);
 
