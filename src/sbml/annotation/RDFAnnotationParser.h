@@ -139,7 +139,7 @@ public:
    * @return a pointer to the ModelHistory created.
    */
   static ModelHistory* parseRDFAnnotation(const XMLNode *annotation, 
-    const char* metaId = NULL, XMLInputStream* stream = NULL);
+    const char* metaId = NULL, XMLInputStream* stream = NULL, const SBase* parent = NULL);
 
 
   /**

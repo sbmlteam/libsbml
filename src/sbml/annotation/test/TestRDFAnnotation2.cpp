@@ -155,6 +155,8 @@ START_TEST (test_RDFAnnotation2_getModelHistory)
   fail_unless(Date_getHoursOffset(date) == 0);
   fail_unless(Date_getMinutesOffset(date) == 0);
   fail_unless(!strcmp(Date_getDateAsString(date), "2007-01-16T15:31:52Z"));
+
+  fail_unless(ModelHistory_hasRequiredAttributes(history) == 1);
 }
 END_TEST
 

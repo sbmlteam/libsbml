@@ -55,7 +55,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new ModelHistory.
  */
  ModelHistory::ModelHistory ():
-  mHasBeenModified (false)
+  mHasBeenModified (false),
+  mParentSBMLObject (NULL)
 {
   mCreatedDate = NULL;
 //  mModifiedDate = NULL;
@@ -112,6 +113,7 @@ ModelHistory::ModelHistory(const ModelHistory& orig)
     mCreatedDate = NULL;
   }
   mHasBeenModified = orig.mHasBeenModified;
+  mParentSBMLObject = orig.mParentSBMLObject;
   
 }
 
@@ -164,6 +166,7 @@ ModelHistory::operator=(const ModelHistory& rhs)
       mCreatedDate = NULL;
 
     mHasBeenModified = rhs.mHasBeenModified;
+    mParentSBMLObject = rhs.mParentSBMLObject;
   }
 
   return *this;
@@ -373,12 +376,25 @@ bool
 ModelHistory::hasRequiredAttributes()
 {
   bool valid = true;
+
+  const SBase * parent = getParentSBMLObject();
   
-  if ( getNumCreators() < 1 ||
-      !isSetCreatedDate()  ||
-      !isSetModifiedDate() )
+  if (parent == NULL || parent->getLevel() < 3)
   {
-    valid = false;
+    if (getNumCreators() < 1 ||
+      !isSetCreatedDate() ||
+      !isSetModifiedDate())
+    {
+      return false;
+    }
+  }
+  else
+  {
+    // remove restriction that dates be present in L3
+    if (getNumCreators() < 1)
+    {
+      return false;
+    }
   }
 
   unsigned int i = 0;
@@ -394,15 +410,19 @@ ModelHistory::hasRequiredAttributes()
     return valid;
   }
 
-  valid = getCreatedDate()->representsValidDate();
-
-  if (!valid) 
+  if (isSetCreatedDate())
   {
-    return valid;
+    valid = getCreatedDate()->representsValidDate();
+    if (!valid)
+    {
+      return valid;
+    }
   }
-  for (i = 0; i < getNumModifiedDates(); ++i)
+  i = 0;
+  while (valid && i < getNumModifiedDates())
   {
     valid = getModifiedDate(i)->representsValidDate();
+    i++;
   }
 
   return valid;
@@ -464,6 +484,38 @@ ModelHistory::resetModifiedFlags()
 
   mHasBeenModified = false;
 }
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+const SBase * 
+ModelHistory::getParentSBMLObject() const
+{
+  return mParentSBMLObject;
+}
+
+
+bool 
+ModelHistory::isSetParentSBMLObject() const
+{
+  return (mParentSBMLObject != NULL);
+}
+
+
+void 
+ModelHistory::setParentSBMLObject(const SBase * sb)
+{
+  mParentSBMLObject = sb;
+}
+
+
+int 
+ModelHistory::unsetParentSBMLObject()
+{
+  mParentSBMLObject = NULL;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
 /** @endcond */
 
 
