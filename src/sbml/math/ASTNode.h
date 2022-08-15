@@ -2292,9 +2292,15 @@ protected:
   friend class SBMLRateRuleConverter;
 
 //  void printMath(unsigned int level = 0);
+
   /* change all numbers to real*/
   void refactorNumbers();
 
+  /* for plus or times order arguments so we have number + names + functions
+  * 3.1 +b + 2 becomes 5.1 + b
+  * 2 * 5 becomes 10
+  * sin(2+3) + 3.1 + b becomes 3.1 +b + sin(5)
+  */
   bool reorderArguments(unsigned int level=0 );
 
   /* remove any instances of unary minus
@@ -2359,9 +2365,13 @@ protected:
     std::vector<unsigned int>& names,
     std::vector<unsigned int>& others);
 
-  void combineNumbers(std::vector<unsigned int>& numbers,
-    std::vector<unsigned int>& names,
-    std::vector<unsigned int>& others);
+  /* combine numbers:
+  * vector (3 2) becomes vector (3 2 5) if type is plus 
+  * or (3 2 6) if MULT or (3 2 1) if minus or (3 2 1.5) if divide 
+  * i.e. lastchild is combined value of numbers
+  */
+  ASTNode* combineNumbers(std::vector<unsigned int>& numbers);
+
   /** @cond doxygenLibsbmlInternal */
 
   LIBSBML_EXTERN

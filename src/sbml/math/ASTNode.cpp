@@ -3687,77 +3687,56 @@ ASTNode::printMath(unsigned int level)
 }
 
 /* combine numbers:
- * 3 + a + 2 becomes 3 + a + 2 + 5 
- * i.e. lastchild is combined value of numbers 
- */
-void
-ASTNode::combineNumbers(std::vector<unsigned int>& numbers,
-  std::vector<unsigned int>& names,
-  std::vector<unsigned int>& others)
+* returns AST that is number 
+* i.e. lastchild is combined value of numbers
+*/
+ASTNode*
+ASTNode::combineNumbers(std::vector<unsigned int>& numbers)
 {
-  if (numbers.size() > 1)
+  unsigned int num = numbers.size();
+  if (num == 0)
   {
-    std::vector<unsigned int>::iterator it = numbers.begin();
-    ASTNode* numberNode = getChild(*it)->deepCopy();
-    double number = numberNode->getValue();
-    for (it = numbers.begin() + 1; it != numbers.end(); ++it)
+    return NULL;
+  }
+
+  std::vector<unsigned int>::iterator it = numbers.end() - 1;
+  ASTNode* numberNode = getChild(*it)->deepCopy();
+  if (num == 1)
+  {
+    return numberNode;
+  }
+  double number = numberNode->getValue();
+  if (num == 2 && (mType == AST_MINUS || mType == AST_DIVIDE))
+  {
+    it = numbers.begin();
+    switch (mType)
     {
-      if (mType == AST_TIMES)
-      {
-        number = number * (getChild(*it)->getValue());
-      }
-      else
-      {
-        number = number + (getChild(*it)->getValue());
-      }
+    case AST_MINUS:
+      number = number - (getChild(*it)->getValue());
+      break;
+    case AST_DIVIDE:
+      number = number / (getChild(*it)->getValue());
+      break;
     }
-    numberNode->setValue(number);
-    // add combined number as last child
-    addChild(numberNode);
+
   }
   else
   {
-    bool dealtWith = false;
-    // we only have one number want to see if we are followed by the same function
-    // with another number
-
-    // TO DO
-    //since we have a non binary tree not sure this happens
-    std::vector<unsigned int>::iterator it = others.begin();
-    if (names.size() == 0 && others.size() > 0 && getChild(*it)->getType() == mType)
+    for (it = numbers.begin(); it != numbers.end() - 1; ++it)
     {
-      ASTNode* otherNode = getChild(*it)->deepCopy();
-      otherNode->reorderArguments();
-      if (otherNode->getNumChildren() > 0 && otherNode->getChild(0)->isNumber())
+      switch (mType)
       {
-        dealtWith = true;
-        std::vector<unsigned int>::iterator itnum = numbers.begin();
-        ASTNode* numberNode = getChild(*itnum);
-        double number = numberNode->getValue();
-        if (mType == AST_TIMES)
-        {
-          number = number * (otherNode->getChild(0)->getValue());
-        }
-        else
-        {
-          number = number + (otherNode->getChild(0)->getValue());
-        }
-        numberNode->setValue(number);
-        otherNode->replaceChild(0, numberNode->deepCopy(), true);
-        addChild(otherNode);
-      }
-    }
-
-    if (!dealtWith)
-    {
-      for (std::vector<unsigned int>::iterator it = numbers.begin(); it != numbers.end(); ++it)
-      {
-        // add number as last child
-        addChild(getChild(*it)->deepCopy());
+      case AST_TIMES:
+        number = number * (getChild(*it)->getValue());
+        break;
+      case AST_PLUS:
+        number = number + (getChild(*it)->getValue());
+        break;
       }
     }
   }
-
+  numberNode->setValue(number);
+  return numberNode;
 }
 
 /* create AST the is non binary
@@ -3819,37 +3798,62 @@ ASTNode::createNonBinaryTree()
 bool
 ASTNode::reorderArguments(unsigned int level)
 {
+  //cout << "begin reorder of\n";
+  //printMath();
   bool mayNeedRefactor = false;
-  if (mType == AST_TIMES || mType == AST_PLUS)
+  if (mType == AST_TIMES || mType == AST_PLUS || mType == AST_MINUS || mType == AST_DIVIDE)
   {
     unsigned int origNumChildren = getNumChildren();
 
     std::vector<unsigned int> numbers;
     std::vector<unsigned int> names;
     std::vector<unsigned int> others;
-    std::vector<unsigned int> used;
 
     createVectorOfChildTypes(numbers, names, others);
 
-    // after this the last child will contain combined number
-    combineNumbers(numbers, names, others);
-
-    for (std::vector<unsigned int>::iterator it = names.begin(); it != names.end(); ++it)
+    // after this the numberNode will contain combined number
+    ASTNode * numberNode = combineNumbers(numbers);
+    if (mType == AST_TIMES || mType == AST_PLUS)
     {
-      addChild(getChild(*it)->deepCopy());
+      if (numberNode != NULL)
+      {
+        addChild(numberNode->deepCopy());
+      }
+      for (std::vector<unsigned int>::iterator it = names.begin(); it != names.end(); ++it)
+      {
+        addChild(getChild(*it)->deepCopy());
+      }
+      for (std::vector<unsigned int>::iterator it = others.begin(); it != others.end(); ++it)
+      {
+        addChild(getChild(*it)->deepCopy());
+      }
     }
-    for (std::vector<unsigned int>::iterator it = others.begin(); it != others.end(); ++it)
+    else if (mType == AST_MINUS || mType == AST_DIVIDE)
     {
-      addChild(getChild(*it)->deepCopy());
+      // then the result is numerical if there were no other types
+      if ((names.size() == 0) && (others.size() == 0))
+      {
+        if (numberNode != NULL)
+        {
+          ASTNode* child = numberNode->deepCopy();
+          (*this) = *(child);
+          delete child;
+        }
+      }
+      // otherwise the expression is unchanged
+      // so either a single number or unchanges
+      // so we dont delete original
+      origNumChildren = 0;
     }
     for (unsigned int i = origNumChildren; i > 0; --i)
     {
-      ASTNode* rep = static_cast<ASTNode*>(mChildren->remove(i-1));
+      ASTNode* rep = static_cast<ASTNode*>(mChildren->remove(i - 1));
       delete rep;
     }
-    // if we now have only one child for plus or times we dont need the plus/times
+
+    // if we now have only one child for plus or times we dont need the operator
     if (getNumChildren() == 1)
-    { 
+    {
       ASTNode* child = getChild(0)->deepCopy();
       (*this) = *(child);
       delete child;
@@ -3862,6 +3866,16 @@ ASTNode::reorderArguments(unsigned int level)
         mayNeedRefactor = true;
       }
     }
+    else if (getNumChildren() == 0)
+    {
+      if (names.size() == 0 && others.size() == 0 && level == 1)
+      {
+        mayNeedRefactor = true;
+      }
+    }
+
+
+    
   }
 
   for (unsigned int i = 0; i < getNumChildren(); i++)
@@ -3869,6 +3883,8 @@ ASTNode::reorderArguments(unsigned int level)
     if(getChild(i)->reorderArguments(level + 1))
       mayNeedRefactor = true;
   }
+  //cout << "reorders as\n";
+  //printMath();
 
   return mayNeedRefactor;
 }
@@ -3983,7 +3999,9 @@ ASTNode::refactor()
   encompassUnaryMinus();
   createNonBinaryTree();
   if (reorderArguments())
+  {
     refactor();
+  }
 }
 
 /*
@@ -4002,7 +4020,7 @@ ASTNode::decompose()
   refactor();
   bool decompose = false;
   unsigned int childNo = 0;
-  ASTNodeType_t type;
+  ASTNodeType_t type, origType;
 
   if (getType() == AST_TIMES)
   {
@@ -4013,8 +4031,19 @@ ASTNode::decompose()
       {
         decompose = true;
         childNo = i;
+        origType = AST_TIMES;
         break;
       }
+    }
+  }
+  else if (getType() == AST_DIVIDE)
+  {
+    type = getChild(0)->getType();
+    if (type == AST_PLUS || type == AST_MINUS)
+    {
+      decompose = true;
+      childNo = 0;
+      origType = AST_DIVIDE;
     }
   }
   else
@@ -4044,9 +4073,10 @@ ASTNode::decompose()
       delete minusOne;
       return;
     }
+
     for (unsigned int j = 0; j < distrib->getNumChildren(); ++j)
     {
-      ASTNode* newTimes = new ASTNode(AST_TIMES);
+      ASTNode* newNode = new ASTNode(origType);
       if (type == AST_MINUS && j == 1)
       {
         ASTNode* first = otherChildren.at(0);
@@ -4057,17 +4087,17 @@ ASTNode::decompose()
         }
         else
         {
-          newTimes->addChild(minusOne->deepCopy());
+          newNode->addChild(minusOne->deepCopy());
         }
       }
+      newNode->addChild(distrib->getChild(j)->deepCopy());
       for (it = otherChildren.begin(); it != otherChildren.end(); it++)
       {
-        newTimes->addChild((*it)->deepCopy());
+        newNode->addChild((*it)->deepCopy());
       }
-      newTimes->addChild(distrib->getChild(j)->deepCopy());
-      newTimes->refactor();
-      this->addChild(newTimes->deepCopy());
-      delete newTimes;
+      newNode->refactor();
+      this->addChild(newNode->deepCopy());
+      delete newNode;
     }
     delete minusOne;
     delete distrib;

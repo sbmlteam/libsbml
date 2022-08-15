@@ -296,15 +296,9 @@ START_TEST(test_reorder_args1)
   a->setValue(2.1);
   ASTNode * b = new ASTNode(AST_NAME);
   b->setName("b");
-  //ASTNode * c = new ASTNode(AST_NAME);
-  //c->setName("c");
-  //ASTNode * s = new ASTNode(AST_NAME);
-  //s->setName("s");
 
   node->addChild(a);
   node->addChild(b);
-  //node->addChild(c);
-  //node->addChild(s);
 
   fail_unless(n != NULL);
 
@@ -383,6 +377,31 @@ START_TEST(test_reorder_args1_combine_numbers3)
   ASTNode *n = readMathMLFromString(
     "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
     "  <apply>"
+    "    <minus/>"
+    "    <cn> 3.1 </cn>"
+    "    <cn> 2.1 </cn>"
+    "  </apply>"
+    "</math>"
+  );
+  ASTNode * node = new ASTNode(AST_REAL);
+  node->setValue(1.0);
+  fail_unless(n != NULL);
+
+  fail_unless(node->exactlyEqual(*n) == false);
+
+  n->refactor();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+START_TEST(test_reorder_args1_combine_numbers4)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
     "    <plus/>"
     "  <apply>"
     "    <minus/>"
@@ -396,6 +415,34 @@ START_TEST(test_reorder_args1_combine_numbers3)
   );
   ASTNode * node = new ASTNode(AST_REAL);
   node->setValue(6.2);
+
+  fail_unless(n != NULL);
+
+  fail_unless(node->exactlyEqual(*n) == false);
+
+  n->refactor();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+START_TEST(test_reorder_args1_combine_numbers5)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <times/>"
+    "    <cn> 3.0 </cn>"
+    "    <cn> 2.1 </cn>"
+    "  </apply>"
+    "</math>"
+  );
+  ASTNode * node = new ASTNode(AST_REAL);
+  node->setValue(6.3);
+  ASTNode * b = new ASTNode(AST_NAME);
+  b->setName("b");
 
   fail_unless(n != NULL);
 
@@ -667,7 +714,7 @@ START_TEST(test_decompose4)
     "  </apply>"
     "</math>"
   );
-  char* formula = "a/4.0 - 1.0";
+  char* formula = "1.0 + (a/4.0)";
   L3ParserSettings * ps = new L3ParserSettings();
   ps->setParseCollapseMinus(true);
   ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
@@ -675,9 +722,76 @@ START_TEST(test_decompose4)
   fail_unless(n != NULL);
 
   fail_unless(node->exactlyEqual(*n) == false);
-  n->printMath();
+
   n->decompose();
-  n->printMath();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+START_TEST(test_decompose5)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <divide/>"
+    "  <apply>"
+    "    <minus/>"
+    "    <ci> a </ci>"
+    "    <cn> 3 </cn>"
+    "  </apply>"
+    "  <apply>"
+    "    <minus/>"
+    "    <cn> 10 </cn>"
+    "    <cn> 4 </cn>"
+    "  </apply>"
+    "  </apply>"
+    "</math>"
+  );
+  char* formula = "-0.5+(a/6.0)";
+  L3ParserSettings * ps = new L3ParserSettings();
+  ps->setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+
+  fail_unless(n != NULL);
+
+  fail_unless(node->exactlyEqual(*n) == false);
+
+  n->decompose();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+START_TEST(test_decompose6)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <divide/>"
+    "  <apply>"
+    "    <minus/>"
+    "    <ci> a </ci>"
+    "    <cn> 4 </cn>"
+    "  </apply>"
+    "    <cn> 4 </cn>"
+    "  </apply>"
+    "</math>"
+  );
+  char* formula = "-1.0 + (a/4.0)";
+  L3ParserSettings * ps = new L3ParserSettings();
+  ps->setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+
+  fail_unless(n != NULL);
+
+  fail_unless(node->exactlyEqual(*n) == false);
+
+  n->decompose();
 
   fail_unless(node->exactlyEqual(*n) == true);
   delete n;
@@ -701,14 +815,18 @@ create_suite_TestInferRnFunctions()
   tcase_add_test(tcase, test_reorder_args1);
   tcase_add_test(tcase, test_reorder_args1_combine_numbers1);
   tcase_add_test(tcase, test_reorder_args1_combine_numbers2);
-  //tcase_add_test(tcase, test_reorder_args1_combine_numbers3);
+  tcase_add_test(tcase, test_reorder_args1_combine_numbers3);
+  tcase_add_test(tcase, test_reorder_args1_combine_numbers4);
+  tcase_add_test(tcase, test_reorder_args1_combine_numbers5);
   tcase_add_test(tcase, test_reorder_args2);
   tcase_add_test(tcase, test_reorder_args2_combine_numbers1);
   tcase_add_test(tcase, test_reorder_args3);
   tcase_add_test(tcase, test_decompose1);
   tcase_add_test(tcase, test_decompose2);
   tcase_add_test(tcase, test_decompose3);
-  //tcase_add_test(tcase, test_decompose4);
+  tcase_add_test(tcase, test_decompose4);
+  tcase_add_test(tcase, test_decompose5);
+  tcase_add_test(tcase, test_decompose6);
 
   suite_add_tcase(suite, tcase);
 
