@@ -750,7 +750,7 @@ AdvectionCoefficient::readAttributes(const XMLAttributes& attributes,
 
       msg += " is '" + mVariable + "', which does not conform to the syntax.";
       log->logPackageError("spatial",
-        SpatialAdvectionCoefficientVariableMustBeSpecies, pkgVersion, level,
+        SpatialAdvectionCoefficientVariableMustBeSpeciesOrParam, pkgVersion, level,
           version, msg, getLine(), getColumn());
     }
   }

@@ -968,7 +968,7 @@ DiffusionCoefficient::readAttributes(const XMLAttributes& attributes,
 
       msg += " is '" + mVariable + "', which does not conform to the syntax.";
       log->logPackageError("spatial",
-        SpatialDiffusionCoefficientVariableMustBeSpecies, pkgVersion, level,
+        SpatialDiffusionCoefficientVariableMustBeSpeciesOrParam, pkgVersion, level,
           version, msg, getLine(), getColumn());
     }
   }

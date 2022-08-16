@@ -2931,12 +2931,12 @@ static const packageErrorTableEntry spatialErrorTable[] =
   },
 
   // 1223404
-  { SpatialDiffusionCoefficientVariableMustBeSpecies,
-    "The attribute 'variable' must point to Species object.",
+  { SpatialDiffusionCoefficientVariableMustBeSpeciesOrParam,
+    "The attribute 'variable' must point to Species or Parameter object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'spatial:variable' of a <diffusionCoefficient> "
-    "object must be the identifier of an existing <species> object defined in "
+    "object must be the identifier of an existing <species> or <parameter> object defined in "
     "the enclosing <model> object.",
     { "L3V1 Spatial V1 Section"
     }
@@ -3056,10 +3056,21 @@ static const packageErrorTableEntry spatialErrorTable[] =
 
   // 1223457
   { SpatialNoDiffusionCoefficientOverlap,
-    "No overlapping diffusion coefficients for the same species.",
+    "No overlapping diffusion coefficients for the same species or parameter.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "Any <species> may only have a single <diffusionCoefficient> that applies to any given cardinal axis or plane.  A <diffusionCoefficient> of type 'anisotropic' applies to the axis it references, and any plane in the <geometry> that contains that axis.  A <diffusionCoefficient> of type 'tensor' applies to the plane defined by the two axes it references.  A <diffusionCoefficient> of type 'isotropic' applies to all axes and planes in the <geometry>.",
+    "Any <species> or <parameter> may only have a single <diffusionCoefficient> that applies to any given cardinal axis or plane.  A <diffusionCoefficient> of type 'anisotropic' applies to the axis it references, and any plane in the <geometry> that contains that axis.  A <diffusionCoefficient> of type 'tensor' applies to the plane defined by the two axes it references.  A <diffusionCoefficient> of type 'isotropic' applies to all axes and planes in the <geometry>.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223458
+  { SpatialDiffusionCoefficientVariableMustNotBeSelf,
+    "The attribute 'variable' must not point to itself.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The value of the attribute 'spatial:variable' of a <diffusionCoefficient> "
+    "object must not be the identifier of its parent <parameter>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -3101,12 +3112,12 @@ static const packageErrorTableEntry spatialErrorTable[] =
   },
 
   // 1223504
-  { SpatialAdvectionCoefficientVariableMustBeSpecies,
-    "The attribute 'variable' must point to Species object.",
+  { SpatialAdvectionCoefficientVariableMustBeSpeciesOrParam,
+    "The attribute 'variable' must point to Species or Parameter object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'spatial:variable' of an <advectionCoefficient> "
-    "object must be the identifier of an existing <species> object defined in "
+    "object must be the identifier of an existing <species> or <parameter> object defined in "
     "the enclosing <model> object.",
     { "L3V1 Spatial V1 Section"
     }
@@ -3141,7 +3152,18 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'coordinate' and 'variable' attributes must be unique.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "No two <advectionCoefficient> elements in the same <model> may have the same values for the attributes 'species:variable' and 'species:coordinate'.  Only one advection coefficient may be defined per species per axis.",
+    "No two <advectionCoefficient> elements in the same <model> may have the same values for the attributes 'spatial:variable' and 'spatial:coordinate'.  Only one advection coefficient may be defined per species (or parameter) per axis.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223552
+  { SpatialAdvectionCoefficientVariableMustNotBeSelf,
+    "The attribute 'variable' must not point to itself.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The value of the attribute 'spatial:variable' of an <advectionCoefficient> "
+    "object must not be the identifier of its parent <parameter> object.",
     { "L3V1 Spatial V1 Section"
     }
   },

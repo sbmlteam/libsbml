@@ -315,7 +315,7 @@ typedef enum
 , SpatialDiffusionCoefficientAllowedCoreAttributes            = 1223401
 , SpatialDiffusionCoefficientAllowedCoreElements              = 1223402
 , SpatialDiffusionCoefficientAllowedAttributes                = 1223403
-, SpatialDiffusionCoefficientVariableMustBeSpecies            = 1223404
+, SpatialDiffusionCoefficientVariableMustBeSpeciesOrParam     = 1223404
 , SpatialDiffusionCoefficientTypeMustBeDiffusionKindEnum      = 1223405
 , SpatialDiffusionCoefficientCoordinateReference1MustBeCoordinateKindEnum= 1223406
 , SpatialDiffusionCoefficientCoordinateReference2MustBeCoordinateKindEnum= 1223407
@@ -327,13 +327,15 @@ typedef enum
 , SpatialDiffusionCoefficientCoordinateReferenceNoYIn1D       = 1223455
 , SpatialDiffusionCoefficientCoordinateReferenceNoZIn2D       = 1223456
 , SpatialNoDiffusionCoefficientOverlap                        = 1223457
+, SpatialDiffusionCoefficientVariableMustNotBeSelf            = 1223458
 , SpatialAdvectionCoefficientAllowedCoreAttributes            = 1223501
 , SpatialAdvectionCoefficientAllowedCoreElements              = 1223502
 , SpatialAdvectionCoefficientAllowedAttributes                = 1223503
-, SpatialAdvectionCoefficientVariableMustBeSpecies            = 1223504
+, SpatialAdvectionCoefficientVariableMustBeSpeciesOrParam     = 1223504
 , SpatialAdvectionCoefficientCoordinateMustBeCoordinateKindEnum= 1223505
 , SpatialAdvectionCoefficientUnits                            = 1223550
 , SpatialAdvectionCoefficientsMustBeUnique                    = 1223551
+, SpatialAdvectionCoefficientVariableMustNotBeSelf            = 1223552
 , SpatialBoundaryConditionAllowedCoreAttributes               = 1223601
 , SpatialBoundaryConditionAllowedCoreElements                 = 1223602
 , SpatialBoundaryConditionAllowedAttributes                   = 1223603
