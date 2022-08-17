@@ -80,7 +80,7 @@
         </listOfReactions>
         <listOfParameters>
             <parameter constant="false" id="id_3">
-                <spatial:diffusionCoefficient spatial:type="isotropic" spatial:variable="J0"/>
+                <spatial:diffusionCoefficient spatial:type="isotropic" spatial:variable="id_3"/>
             </parameter>
         </listOfParameters>
     </model>
