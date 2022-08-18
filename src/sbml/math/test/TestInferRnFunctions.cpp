@@ -799,13 +799,197 @@ START_TEST(test_decompose6)
 }
 END_TEST
 
+START_TEST(test_simplify1)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <times/>"
+    "  <apply>"
+    "    <minus/>"
+    "    <ci> a </ci>"
+    "    <cn> 4 </cn>"
+    "  </apply>"
+    "    <cn> 1.0 </cn>"
+    "  </apply>"
+    "</math>"
+  );
+  char* formula = "a-4.0";
+  L3ParserSettings * ps = new L3ParserSettings();
+  ps->setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+
+  fail_unless(n != NULL);
+
+  fail_unless(node->exactlyEqual(*n) == false);
+  n->refactor();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+START_TEST(test_simplify2)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <minus/>"
+    "  <apply>"
+    "    <plus/>"
+    "    <ci> a </ci>"
+    "    <cn> 4 </cn>"
+    "  </apply>"
+    "  <apply>"
+    "    <plus/>"
+    "    <ci> a </ci>"
+    "    <cn> 4 </cn>"
+    "  </apply>"
+    "  </apply>"
+    "</math>"
+  );
+  char* formula = "0.0";
+  ASTNode * node = SBML_parseL3Formula(formula);
+
+  fail_unless(n != NULL);
+
+  fail_unless(node->exactlyEqual(*n) == false);
+  n->refactor();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+START_TEST(test_simplify3)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <plus/>"
+    "  <apply>"
+    "    <plus/>"
+    "    <ci> a </ci>"
+    "    <cn> 4 </cn>"
+    "  </apply>"
+    "  <apply>"
+    "    <plus/>"
+    "    <ci> a </ci>"
+    "    <cn> 4 </cn>"
+    "  </apply>"
+    "  </apply>"
+    "</math>"
+  );
+  char* formula = "8.0 + 2.0*a";
+  ASTNode * node = SBML_parseL3Formula(formula);
+
+  fail_unless(n != NULL);
+
+  fail_unless(node->exactlyEqual(*n) == false);
+  n->refactor();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+START_TEST(test_simplify4)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <plus/>"
+    "    <ci> a </ci>"
+    "    <ci> a </ci>"
+    "  </apply>"
+    "</math>"
+  );
+  char* formula = "2.0*a";
+  ASTNode * node = SBML_parseL3Formula(formula);
+
+  fail_unless(n != NULL);
+
+  fail_unless(node->exactlyEqual(*n) == false);
+  n->refactor();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+START_TEST(test_simplify5)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <plus/>"
+    "    <ci> a </ci>"
+    "    <ci> b </ci>"
+    "    <cn> 1.2 </cn>"
+    "    <ci> b </ci>"
+    "  </apply>"
+    "</math>"
+  );
+  char* formula = "1.2 + a + 2.0*b";
+  ASTNode * node = SBML_parseL3Formula(formula);
+
+  fail_unless(n != NULL);
+
+  fail_unless(node->exactlyEqual(*n) == false);
+  n->refactor();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+
+START_TEST(test_simplify6)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <divide/>"
+    "  <apply>"
+    "    <plus/>"
+    "    <ci> a </ci>"
+    "    <cn> 4 </cn>"
+    "  </apply>"
+    "  <apply>"
+    "    <plus/>"
+    "    <ci> a </ci>"
+    "    <cn> 4 </cn>"
+    "  </apply>"
+    "  </apply>"
+    "</math>"
+  );
+  char* formula = "1.0";
+  ASTNode * node = SBML_parseL3Formula(formula);
+
+  fail_unless(n != NULL);
+
+  fail_unless(node->exactlyEqual(*n) == false);
+  n->refactor();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestInferRnFunctions()
 {
   Suite *suite = suite_create("TestInferRnFunctions");
   TCase *tcase = tcase_create("TestInferRnFunctions");
 
-  tcase_add_test( tcase, test_eqivalent);
+  tcase_add_test(tcase, test_eqivalent);
   tcase_add_test(tcase, test_refactor_numbers);
   tcase_add_test(tcase, test_encompass_uminus1);
   tcase_add_test(tcase, test_encompass_uminus2);
@@ -827,6 +1011,12 @@ create_suite_TestInferRnFunctions()
   tcase_add_test(tcase, test_decompose4);
   tcase_add_test(tcase, test_decompose5);
   tcase_add_test(tcase, test_decompose6);
+  tcase_add_test(tcase, test_simplify1);
+  tcase_add_test(tcase, test_simplify2);
+  tcase_add_test(tcase, test_simplify3);
+  tcase_add_test(tcase, test_simplify4);
+  tcase_add_test(tcase, test_simplify5);
+  tcase_add_test(tcase, test_simplify6);
 
   suite_add_tcase(suite, tcase);
 

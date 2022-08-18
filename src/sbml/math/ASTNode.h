@@ -2268,17 +2268,24 @@ setValue(value, 0);
   * but 'a+4' != '4+a'
   */
   LIBSBML_EXTERN
-    bool exactlyEqual(const ASTNode& rhs);
+  bool exactlyEqual(const ASTNode& rhs);
 
-/* calls
-  refactorNumbers();
-  encompassUnaryMinus();
-  createNonBinaryTree();
-  reorderArguments();
-*/
+  /* calls
+    refactorNumbers();
+    encompassUnaryMinus();
+    createNonBinaryTree();
+    reorderArguments();
+  */
   LIBSBML_EXTERN
-    void refactor();
+  void refactor();
 
+  /*
+  * a decomposed ast is one where if the top level func is *or /
+  * the arguments are not sums
+  * (a + B) * c becomes ac + Bc
+  * (5 + 3)/(a-4) becomes 8/(a-4)
+  * (a + 4)/4 becomes 1 + a/4
+  */
   LIBSBML_EXTERN
     void decompose();
 
@@ -2295,6 +2302,8 @@ protected:
 
   /* change all numbers to real*/
   void refactorNumbers();
+
+  void simplify();
 
   /* for plus or times order arguments so we have number + names + functions
   * 3.1 +b + 2 becomes 5.1 + b
@@ -2330,7 +2339,7 @@ protected:
   * Level 1: a
   */
   void encompassUnaryMinus();
-    void distributeFunctions();
+    
 
   /* create AST the is non binary
     * Binary each node has 2 children 
@@ -2365,12 +2374,14 @@ protected:
     std::vector<unsigned int>& names,
     std::vector<unsigned int>& others);
 
+
   /* combine numbers:
-  * vector (3 2) becomes vector (3 2 5) if type is plus 
-  * or (3 2 6) if MULT or (3 2 1) if minus or (3 2 1.5) if divide 
-  * i.e. lastchild is combined value of numbers
+  * return an AST representing combined no 
   */
   ASTNode* combineNumbers(std::vector<unsigned int>& numbers);
+
+  //========================================================
+
 
   /** @cond doxygenLibsbmlInternal */
 

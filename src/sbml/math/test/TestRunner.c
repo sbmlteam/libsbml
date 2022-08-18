@@ -151,6 +151,7 @@ main (void)
 
   srunner_add_suite(runner, create_suite_TestReadFromFileL3V2());
   srunner_add_suite(runner, create_suite_TestInferRnFunctions());
+  srunner_add_suite(runner, create_suite_TestDerivativeFunctions());
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */
 

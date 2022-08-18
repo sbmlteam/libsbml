@@ -3586,6 +3586,13 @@ ASTNode::refactorNumbers()
 
 }
 
+
+/*
+* produce three vectors of ASTNodes
+* numbers : any nodes representing just a number
+* names : any nodes representing a variable i.e.a node of type AST_NAME (in alphabetical order)
+* others : any nodes that are not numbers/names - usually functions 
+*/
 void
 ASTNode::createVectorOfChildTypes(std::vector<unsigned int>& numbers,
   std::vector<unsigned int>& names,
@@ -3790,6 +3797,86 @@ ASTNode::createNonBinaryTree()
   }
 }
 
+
+void
+ASTNode::simplify()
+{
+  unsigned int numChildren = getNumChildren();
+  ASTNode *zero = new ASTNode(AST_REAL);
+  zero->setValue(0.0);
+  ASTNode *one = new ASTNode(AST_REAL);
+  one->setValue(1.0);
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+
+  // if we now have only one child for plus or times we dont need the operator
+  if (numChildren == 1 && (mType == AST_PLUS || mType == AST_TIMES))
+  {
+    ASTNode* child = getChild(0)->deepCopy();
+    (*this) = *(child);
+    delete child;
+  }
+
+  // if we have 1 * x * ... dont need 1
+  if (mType == AST_TIMES && util_isEqual(getChild(0)->getValue(), 1.0))
+  {
+    ASTNode * newNode = new ASTNode(AST_TIMES);
+    for (unsigned int i = 1; i < numChildren; ++i)
+    {
+      newNode->addChild(getChild(i)->deepCopy());
+    }
+    (*this) = *(newNode);
+    delete newNode;
+    simplify();
+  }
+
+  // if we have A - A should be 0
+  if (mType == AST_MINUS && getChild(0)->exactlyEqual(*getChild(1)))
+  {
+      ASTNode* child = zero->deepCopy();
+      (*this) = *(child);
+      delete child;
+  }
+
+  // if we have A + A should get 2 * A
+  // or n + a + a should get n + 2*a
+  // or n + a + b + b should get n + a + 2*b
+
+  if (mType == AST_PLUS)
+  {
+    bool match = false;
+    unsigned int i;
+    // do we have two children same
+    for (i = 1; i <= getNumChildren()-1; ++i)
+    {
+      if (getChild(i - 1)->exactlyEqual(*getChild(i)))
+      {
+        match = true;
+        break;
+      }
+    }
+    if (match)
+    {
+        ASTNode * newNode = new ASTNode(AST_TIMES);
+        newNode->addChild(two->deepCopy());
+        newNode->addChild(getChild(i-1)->deepCopy());
+        this->replaceChild(i - 1, newNode, true);
+        this->removeChild(i, true);
+        simplify();
+    }
+  }
+  // if we have A/A should be 1
+  if (mType == AST_DIVIDE && getChild(0)->exactlyEqual(*getChild(1)))
+  {
+    ASTNode* child = one->deepCopy();
+    (*this) = *(child);
+    delete child;
+  }
+
+  delete zero;
+  delete one;
+  delete two;
+}
 /* for plus or times order arguments so we have number + names + functions
 * 3.1 +b + 2 becomes 5.1 + b
 * 2 * 5 becomes 10
@@ -3798,8 +3885,6 @@ ASTNode::createNonBinaryTree()
 bool
 ASTNode::reorderArguments(unsigned int level)
 {
-  //cout << "begin reorder of\n";
-  //printMath();
   bool mayNeedRefactor = false;
   if (mType == AST_TIMES || mType == AST_PLUS || mType == AST_MINUS || mType == AST_DIVIDE)
   {
@@ -3841,7 +3926,7 @@ ASTNode::reorderArguments(unsigned int level)
         }
       }
       // otherwise the expression is unchanged
-      // so either a single number or unchanges
+      // so either a single number or unchanged
       // so we dont delete original
       origNumChildren = 0;
     }
@@ -3850,29 +3935,45 @@ ASTNode::reorderArguments(unsigned int level)
       ASTNode* rep = static_cast<ASTNode*>(mChildren->remove(i - 1));
       delete rep;
     }
-
+    simplify();
     // if we now have only one child for plus or times we dont need the operator
-    if (getNumChildren() == 1)
-    {
-      ASTNode* child = getChild(0)->deepCopy();
-      (*this) = *(child);
-      delete child;
-      // but this may have comes from a part seen as other 
-      // and not been combined
-      // eg 5 * a * (3 + 4) 
-      // 3 + 4 is considered another func by times
+    ////if (numChildren == 1 && (mType == AST_PLUS || mType == AST_TIMES))
+    ////{
+    ////  ASTNode* child = getChild(0)->deepCopy();
+    ////  (*this) = *(child);
+    ////  delete child;
+    ////  // but this may have comes from a part seen as other 
+    ////  // and not been combined
+    ////  // eg 5 * a * (3 + 4) 
+    ////  // 3 + 4 is considered another func by times
+    ////  if (names.size() == 0 && others.size() == 0 && level == 1)
+    ////  {
+    ////    mayNeedRefactor = true;
+    ////  }
+    ////}
+    ////else if (numChildren == 2 && mType == AST_TIMES && util_isEqual(getChild(0)->getValue(), 1.0) )
+    ////{
+    ////  ASTNode* child = getChild(1)->deepCopy();
+    ////  (*this) = *(child);
+    ////  delete child;
+
+    ////}
+    ////else if (numChildren == 2 && mType == AST_MINUS && getChild(0)->exactlyEqual(*getChild(1)))
+    ////{
+    ////  ASTNode *zero = new ASTNode(AST_REAL);
+    ////  zero->setValue(0.0);
+    ////  ASTNode* child = zero->deepCopy();
+    ////  (*this) = *(child);
+    ////  delete child;
+
+    ////}
+    ////else if (numChildren == 0)
+    ////{
       if (names.size() == 0 && others.size() == 0 && level == 1)
       {
         mayNeedRefactor = true;
       }
-    }
-    else if (getNumChildren() == 0)
-    {
-      if (names.size() == 0 && others.size() == 0 && level == 1)
-      {
-        mayNeedRefactor = true;
-      }
-    }
+    //}
 
 
     
@@ -3883,8 +3984,6 @@ ASTNode::reorderArguments(unsigned int level)
     if(getChild(i)->reorderArguments(level + 1))
       mayNeedRefactor = true;
   }
-  //cout << "reorders as\n";
-  //printMath();
 
   return mayNeedRefactor;
 }
@@ -3960,36 +4059,6 @@ ASTNode::encompassUnaryMinus()
 
 }
 
-//LIBSBML_EXTERN
-void
-ASTNode::distributeFunctions()
-{
-  if (getType() == AST_TIMES && getNumChildren() > 1)
-  {
-    ASTNode* firstChild = getChild(0);
-    ASTNode* secondChild = getChild(1);
-    if (firstChild->isNumber() && 
-      secondChild->getType() == AST_PLUS)
-    {
-      ASTNode* newPlus = new ASTNode(AST_PLUS);
-      for (unsigned int i = 0; i < secondChild->getNumChildren(); ++i)
-      {
-        ASTNode * timesOne = new ASTNode(AST_TIMES);
-        timesOne->addChild(firstChild);
-        timesOne->addChild(secondChild->getChild(i));
-        ASTNode * copyTimesOne = timesOne->deepCopy();
-        newPlus->addChild(copyTimesOne);
-        delete timesOne;
-      }
-      ASTNode * copyNewPlus = newPlus->deepCopy();
-      (*this) = (*copyNewPlus);
-      delete newPlus;
-
-    }
-  }
-
-}
-
 /* create an ast of appropriate form*/
 LIBSBML_EXTERN
 void 
@@ -4009,10 +4078,8 @@ ASTNode::refactor()
  * the arguments are not sums
  * (a + B) * c becomes ac + Bc
  * (5 + 3)/(a-4) becomes 8/(a-4)
- * (a + 4)/(
+ * (a + 4)/4 becomes 1 + a/4
  */
-
-
 LIBSBML_EXTERN
 void
 ASTNode::decompose()
@@ -4120,6 +4187,7 @@ ASTNode::derivative(const std::string& variable)
   zero->setValue(0.0);
   ASTNode * derivative = NULL;
 
+  //dy/dx = 0
   if (!(copy->containsVariable(variable)))
   {
     derivative = zero->deepCopy();
@@ -4131,15 +4199,11 @@ ASTNode::derivative(const std::string& variable)
     switch (type)
     {
     case AST_NAME:
-      // dx/dx == 1 and dy/dx = 0 
+      // dx/dx == 1
       if (copy->getName() == variable)
       {
         derivative = new ASTNode(AST_REAL);
         derivative->setValue((double)(1.0));
-      }
-      else
-      {
-        derivative = zero->deepCopy();
       }
       break;
     case AST_CONSTANT_E:
@@ -4149,7 +4213,7 @@ ASTNode::derivative(const std::string& variable)
     case AST_REAL:
     case AST_REAL_E:
     case AST_RATIONAL:
-      // d(constant)/dx = 0
+      // d(constant)/dx = 0 - will be caught above
       derivative = zero->deepCopy();
       break;
     case AST_PLUS:
@@ -4257,6 +4321,7 @@ ASTNode::derivativeTimes(const std::string& variable)
   ASTNode* child_derB = copy->getChild(1)->derivative(variable);
   if (child_derB->exactlyEqual(*zero))
   {
+    // shouldnt get here as refactorng will put fns of x last
     derivative = new ASTNode(AST_TIMES);
     derivative->addChild(copy->getChild(1)->deepCopy());
     derivative->addChild(child_derA->deepCopy());
@@ -4343,7 +4408,6 @@ ASTNode::derivativeDivide(const std::string& variable)
     nominator = new ASTNode(AST_MINUS);
     nominator->addChild(term1->deepCopy());
     nominator->addChild(term2->deepCopy());
-
   }
   derivative = new ASTNode(AST_DIVIDE);
   derivative->addChild(nominator->deepCopy());
