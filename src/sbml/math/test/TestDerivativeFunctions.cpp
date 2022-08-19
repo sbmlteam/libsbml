@@ -346,6 +346,105 @@ START_TEST(test_deriv_divide2)
 END_TEST
 
 
+START_TEST(test_deriv_minus)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <minus/>"
+    "  <apply>"
+    "    <times/>"
+    "    <ci> x </ci>"
+    "    <cn> 2.0 </cn>"
+    "  </apply>"
+    "    <ci> y </ci>"
+    "  </apply>"
+    "</math>"
+  );
+
+  fail_unless(n != NULL);
+  const std::string& x = "x";
+
+  char* formula = "2.0";
+  ASTNode * node = SBML_parseL3Formula(formula);
+
+  ASTNode *deriv = n->derivative(x);
+  fail_unless(deriv->exactlyEqual(*node) == true);
+  delete n;
+  delete node;
+  delete deriv;
+}
+END_TEST
+
+
+START_TEST(test_deriv_minus1)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <minus/>"
+    "    <ci> y </ci>"
+    "  <apply>"
+    "    <times/>"
+    "    <ci> x </ci>"
+    "    <ci> x </ci>"
+    "  </apply>"
+    "  </apply>"
+    "</math>"
+  );
+
+  fail_unless(n != NULL);
+  const std::string& x = "x";
+
+  char* formula = "(-2.0*x)";
+  L3ParserSettings * ps = new L3ParserSettings();
+  ps->setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+
+  ASTNode *deriv = n->derivative(x);
+  fail_unless(deriv->exactlyEqual(*node) == true);
+  delete n;
+  delete node;
+  delete deriv;
+}
+END_TEST
+
+
+START_TEST(test_deriv_minus2)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <minus/>"
+    "  <apply>"
+    "    <times/>"
+    "    <ci> x </ci>"
+    "    <cn> 2 </cn>"
+    "  </apply>"
+    "  <apply>"
+    "    <times/>"
+    "    <ci> x </ci>"
+    "    <ci> x </ci>"
+    "  </apply>"
+    "  </apply>"
+    "</math>"
+  );
+
+  fail_unless(n != NULL);
+  const std::string& x = "x";
+
+  char* formula = "2.0-(2.0*x)";
+  ASTNode * node = SBML_parseL3Formula(formula);
+
+  ASTNode *deriv = n->derivative(x);
+  fail_unless(deriv->exactlyEqual(*node) == true);
+  delete n;
+  delete node;
+  delete deriv;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestDerivativeFunctions()
 {
@@ -362,6 +461,9 @@ create_suite_TestDerivativeFunctions()
   tcase_add_test(tcase, test_deriv_divide);
   tcase_add_test(tcase, test_deriv_divide1);
   tcase_add_test(tcase, test_deriv_divide2);
+  tcase_add_test(tcase, test_deriv_minus);
+  tcase_add_test(tcase, test_deriv_minus1);
+  tcase_add_test(tcase, test_deriv_minus2);
 
   suite_add_tcase(suite, tcase);
 
