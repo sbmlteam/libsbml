@@ -3713,7 +3713,8 @@ ASTNode::combineNumbers(std::vector<unsigned int>& numbers)
     return numberNode;
   }
   double number = numberNode->getValue();
-  if (num == 2 && (mType == AST_MINUS || mType == AST_DIVIDE))
+  if (num == 2 && (mType == AST_MINUS || mType == AST_DIVIDE ||
+    mType == AST_POWER || mType == AST_FUNCTION_POWER))
   {
     it = numbers.begin();
     switch (mType)
@@ -3723,6 +3724,10 @@ ASTNode::combineNumbers(std::vector<unsigned int>& numbers)
       break;
     case AST_DIVIDE:
       number = number / (getChild(*it)->getValue());
+      break;
+    case AST_POWER:
+    case AST_FUNCTION_POWER:
+      number = pow(number, getChild(*it)->getValue());
       break;
     }
 
@@ -3872,10 +3877,38 @@ ASTNode::simplify()
     (*this) = *(child);
     delete child;
   }
+  // if we have A^1 just have A
+  if ((mType == AST_POWER || mType == AST_FUNCTION_POWER) && getChild(1)->exactlyEqual(*one))
+  {
+    ASTNode* child = getChild(0)->deepCopy();
+    (*this) = *(child);
+    delete child;
+  }
+  // if we have A^0 just have 1
+  if ((mType == AST_POWER || mType == AST_FUNCTION_POWER) && getChild(1)->exactlyEqual(*zero))
+  {
+    ASTNode* child = one->deepCopy();
+    (*this) = *(child);
+    delete child;
+  }
 
   delete zero;
   delete one;
   delete two;
+}
+
+void
+ASTNode::convertToPower()
+{
+  //root has two child 1st degree 2nd subject
+  ASTNode *c1 = getChild(0);
+  double root = c1->getValue();
+  c1->setValue(1.0 / root);
+  ASTNode *newNode = new ASTNode(AST_POWER);
+  newNode->addChild(getChild(1)->deepCopy());
+  newNode->addChild(c1->deepCopy());
+  (*this) = (*newNode);
+  delete newNode;
 }
 /* for plus or times order arguments so we have number + names + functions
 * 3.1 +b + 2 becomes 5.1 + b
@@ -3885,8 +3918,14 @@ ASTNode::simplify()
 bool
 ASTNode::reorderArguments(unsigned int level)
 {
+  if (mType == AST_FUNCTION_ROOT)
+  {
+    convertToPower();
+  }
   bool mayNeedRefactor = false;
-  if (mType == AST_TIMES || mType == AST_PLUS || mType == AST_MINUS || mType == AST_DIVIDE)
+  
+  if (mType == AST_TIMES || mType == AST_PLUS || mType == AST_MINUS || mType == AST_DIVIDE
+    || mType == AST_POWER || mType == AST_FUNCTION_POWER)
   {
     unsigned int origNumChildren = getNumChildren();
 
@@ -3913,7 +3952,7 @@ ASTNode::reorderArguments(unsigned int level)
         addChild(getChild(*it)->deepCopy());
       }
     }
-    else if (mType == AST_MINUS || mType == AST_DIVIDE)
+    else if (mType == AST_MINUS || mType == AST_DIVIDE || mType == AST_POWER || mType == AST_FUNCTION_POWER)
     {
       // then the result is numerical if there were no other types
       if ((names.size() == 0) && (others.size() == 0))
@@ -3935,50 +3974,15 @@ ASTNode::reorderArguments(unsigned int level)
       ASTNode* rep = static_cast<ASTNode*>(mChildren->remove(i - 1));
       delete rep;
     }
+
     simplify();
-    // if we now have only one child for plus or times we dont need the operator
-    ////if (numChildren == 1 && (mType == AST_PLUS || mType == AST_TIMES))
-    ////{
-    ////  ASTNode* child = getChild(0)->deepCopy();
-    ////  (*this) = *(child);
-    ////  delete child;
-    ////  // but this may have comes from a part seen as other 
-    ////  // and not been combined
-    ////  // eg 5 * a * (3 + 4) 
-    ////  // 3 + 4 is considered another func by times
-    ////  if (names.size() == 0 && others.size() == 0 && level == 1)
-    ////  {
-    ////    mayNeedRefactor = true;
-    ////  }
-    ////}
-    ////else if (numChildren == 2 && mType == AST_TIMES && util_isEqual(getChild(0)->getValue(), 1.0) )
-    ////{
-    ////  ASTNode* child = getChild(1)->deepCopy();
-    ////  (*this) = *(child);
-    ////  delete child;
 
-    ////}
-    ////else if (numChildren == 2 && mType == AST_MINUS && getChild(0)->exactlyEqual(*getChild(1)))
-    ////{
-    ////  ASTNode *zero = new ASTNode(AST_REAL);
-    ////  zero->setValue(0.0);
-    ////  ASTNode* child = zero->deepCopy();
-    ////  (*this) = *(child);
-    ////  delete child;
-
-    ////}
-    ////else if (numChildren == 0)
-    ////{
-      if (names.size() == 0 && others.size() == 0 && level == 1)
-      {
-        mayNeedRefactor = true;
-      }
-    //}
-
-
-    
+    if (names.size() == 0 && others.size() == 0 && level == 1)
+    {
+      mayNeedRefactor = true;
+    }
   }
-
+  
   for (unsigned int i = 0; i < getNumChildren(); i++)
   {
     if(getChild(i)->reorderArguments(level + 1))
@@ -4228,6 +4232,11 @@ ASTNode::derivative(const std::string& variable)
     case AST_DIVIDE:
       derivative = derivativeDivide(variable);
       break;
+    case AST_POWER:
+    case AST_FUNCTION_POWER:
+      derivative = derivativePower(variable);
+      break;
+
 
     default:
       break;
@@ -4432,14 +4441,33 @@ ASTNode::derivativePower(const std::string& variable)
 {
   ASTNode *copy = deepCopy();
   copy->decompose();
-  ASTNode *zero = new ASTNode(AST_REAL);
-  zero->setValue(0.0);
+  ASTNode *exp = new ASTNode(AST_REAL);
+  ASTNode *mult = new ASTNode(AST_REAL);
+  ASTNode *power = new ASTNode(AST_POWER);
+
   ASTNode * derivative = NULL;
+
+  // dA^n/dx where n is number = nA^(n-1)
+  if (copy->getChild(1)->isNumber())
+  { 
+    ASTNode* A = copy->getChild(0);
+    double n = copy->getChild(1)->getValue();
+    exp->setValue(n - 1);
+    power->addChild(A->deepCopy());
+    power->addChild(exp->deepCopy());
+    mult->setValue(n);
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(mult->deepCopy());
+    derivative->addChild(power->deepCopy());
+  }
 
   derivative->decompose();
 
-  delete zero;
   delete copy;
+  delete exp;
+  delete mult;
+  delete power;
   return derivative;
 }
 

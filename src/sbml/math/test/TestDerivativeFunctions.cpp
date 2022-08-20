@@ -302,10 +302,12 @@ START_TEST(test_deriv_divide1)
   fail_unless(n != NULL);
   const std::string& x = "x";
 
-  char* formula = "4.1/4.1^2.0";
+  char* formula = "4.1";
   ASTNode * node = SBML_parseL3Formula(formula);
 
   ASTNode *deriv = n->derivative(x);
+  node->printMath();
+  deriv->printMath();
 
   fail_unless(deriv->exactlyEqual(*node) == true);
   delete n;
@@ -445,6 +447,162 @@ START_TEST(test_deriv_minus2)
 END_TEST
 
 
+START_TEST(test_deriv_power)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <power/>"
+    "    <ci> x </ci>"
+    "  <apply>"
+    "    <minus/>"
+    "    <cn> 2 </cn>"
+    "    <cn> 2 </cn>"
+    "  </apply>"
+    "  </apply>"
+    "</math>"
+  );
+
+  fail_unless(n != NULL);
+  const std::string& x = "x";
+
+  char* formula = "0.0";
+  ASTNode * node = SBML_parseL3Formula(formula);
+
+  ASTNode *deriv = n->derivative(x);
+  fail_unless(deriv->exactlyEqual(*node) == true);
+  delete n;
+  delete node;
+  delete deriv;
+}
+END_TEST
+
+
+START_TEST(test_deriv_power1)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <power/>"
+    "    <ci> x </ci>"
+    "    <cn> 2 </cn>"
+    "  </apply>"
+    "</math>"
+  );
+
+  fail_unless(n != NULL);
+  const std::string& x = "x";
+
+  char* formula = "2.0*x";
+  ASTNode * node = SBML_parseL3Formula(formula);
+
+  ASTNode *deriv = n->derivative(x);
+  fail_unless(deriv->exactlyEqual(*node) == true);
+  delete n;
+  delete node;
+  delete deriv;
+}
+END_TEST
+
+
+START_TEST(test_deriv_power2)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <power/>"
+    "  <apply>"
+    "    <times/>"
+    "    <ci> x </ci>"
+    "    <cn> 2 </cn>"
+    "  </apply>"
+    "    <cn> 3 </cn>"
+    "  </apply>"
+    "</math>"
+  );
+
+  fail_unless(n != NULL);
+  const std::string& x = "x";
+
+  char* formula = "3.0*((2.0*x)^2.0)";
+  ASTNode * node = SBML_parseL3Formula(formula);
+
+  ASTNode *deriv = n->derivative(x);
+  fail_unless(deriv->exactlyEqual(*node) == true);
+  delete n;
+  delete node;
+  delete deriv;
+}
+END_TEST
+
+
+START_TEST(test_deriv_root)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <root/>"
+    "  <apply>"
+    "    <times/>"
+    "    <ci> x </ci>"
+    "    <cn> 2 </cn>"
+    "  </apply>"
+    "  </apply>"
+    "</math>"
+  );
+
+  fail_unless(n != NULL);
+  const std::string& x = "x";
+
+  char* formula = "0.5*((2.0*x)^-0.5)";
+  L3ParserSettings * ps = new L3ParserSettings();
+  ps->setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+
+  ASTNode *deriv = n->derivative(x);
+
+  fail_unless(deriv->exactlyEqual(*node) == true);
+  delete n;
+  delete node;
+  delete deriv;
+}
+END_TEST
+
+
+START_TEST(test_deriv_root1)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <root/>"
+    "    <degree><cn> 4 </cn></degree>"
+    "  <apply>"
+    "    <times/>"
+    "    <ci> x </ci>"
+    "    <cn> 2 </cn>"
+    "  </apply>"
+    "  </apply>"
+    "</math>"
+  );
+
+  fail_unless(n != NULL);
+  const std::string& x = "x";
+
+  char* formula = "0.25*((2.0*x)^-0.75)";
+  L3ParserSettings * ps = new L3ParserSettings();
+  ps->setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+
+  ASTNode *deriv = n->derivative(x);
+
+  fail_unless(deriv->exactlyEqual(*node) == true);
+  delete n;
+  delete node;
+  delete deriv;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestDerivativeFunctions()
 {
@@ -464,6 +622,11 @@ create_suite_TestDerivativeFunctions()
   tcase_add_test(tcase, test_deriv_minus);
   tcase_add_test(tcase, test_deriv_minus1);
   tcase_add_test(tcase, test_deriv_minus2);
+  tcase_add_test(tcase, test_deriv_power);
+  tcase_add_test(tcase, test_deriv_power1);
+  tcase_add_test(tcase, test_deriv_power2);
+  tcase_add_test(tcase, test_deriv_root);
+  tcase_add_test(tcase, test_deriv_root1);
 
   suite_add_tcase(suite, tcase);
 

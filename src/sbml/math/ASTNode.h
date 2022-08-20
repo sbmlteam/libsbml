@@ -2360,6 +2360,8 @@ protected:
   */
   void createNonBinaryTree();
 
+  void convertToPower();
+
   ASTNode* derivativePlus(const std::string& variable);
   ASTNode* derivativeMinus(const std::string& variable);
   ASTNode* derivativeTimes(const std::string& variable);

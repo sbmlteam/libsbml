@@ -337,7 +337,7 @@ START_TEST(test_reorder_args1_combine_numbers1)
 
   fail_unless(node->exactlyEqual(*n) == false);
   n->refactor();
-
+  
   fail_unless(node->exactlyEqual(*n) == true);
   delete n;
   delete node;
@@ -983,6 +983,30 @@ START_TEST(test_simplify6)
 END_TEST
 
 
+START_TEST(test_convertToPower)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <root/>"
+    "    <ci> a </ci>"
+    "  </apply>"
+    "</math>"
+  );
+  char* formula = "a^(0.5)";
+  ASTNode * node = SBML_parseL3Formula(formula);
+
+  fail_unless(n != NULL);
+  fail_unless(node->exactlyEqual(*n) == false);
+  n->refactor();
+
+  fail_unless(node->exactlyEqual(*n) == true);
+  delete n;
+  delete node;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestInferRnFunctions()
 {
@@ -1017,6 +1041,7 @@ create_suite_TestInferRnFunctions()
   tcase_add_test(tcase, test_simplify4);
   tcase_add_test(tcase, test_simplify5);
   tcase_add_test(tcase, test_simplify6);
+  tcase_add_test(tcase, test_convertToPower);
 
   suite_add_tcase(suite, tcase);
 
