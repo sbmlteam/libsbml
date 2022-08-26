@@ -983,7 +983,7 @@ START_TEST(test_simplify6)
 END_TEST
 
 
-START_TEST(test_convertToPower)
+START_TEST(test_convertRootToPower)
 {
   ASTNode *n = readMathMLFromString(
     "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
@@ -1041,7 +1041,7 @@ create_suite_TestInferRnFunctions()
   tcase_add_test(tcase, test_simplify4);
   tcase_add_test(tcase, test_simplify5);
   tcase_add_test(tcase, test_simplify6);
-  tcase_add_test(tcase, test_convertToPower);
+  tcase_add_test(tcase, test_convertRootToPower);
 
   suite_add_tcase(suite, tcase);
 

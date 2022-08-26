@@ -2287,10 +2287,17 @@ setValue(value, 0);
   * (a + 4)/4 becomes 1 + a/4
   */
   LIBSBML_EXTERN
-    void decompose();
+  void decompose();
 
+  /*
+  * Returns an ASTNode representing the derivative w.r.t variable
+  * e.g. Node represents 2*x^2 
+  *      variable = "x"
+  * returns Node representing 4 * x 
+  * since d(2*x^2)/dx = 4*x
+  */
   LIBSBML_EXTERN
-    ASTNode* derivative(const std::string& variable);
+  ASTNode* derivative(const std::string& variable);
 
   LIBSBML_EXTERN
   void printMath(unsigned int level = 0);
@@ -2303,6 +2310,10 @@ protected:
   /* change all numbers to real*/
   void refactorNumbers();
 
+  /*
+  * simplify the node based on math i.e 1 * x becomes x
+  * see inline
+  */
   void simplify();
 
   /* for plus or times order arguments so we have number + names + functions
@@ -2360,18 +2371,31 @@ protected:
   */
   void createNonBinaryTree();
 
-  void convertToPower();
+  /*
+  * change a root node to power ie root(2, x) becomes x^0.5
+  */
+  void convertRootToPower();
 
+  /*
+  * returns derivativeof particular function
+  * i.e. derivativePlus gets a function A + B and returns d(A+B)/dx
+  */
   ASTNode* derivativePlus(const std::string& variable);
   ASTNode* derivativeMinus(const std::string& variable);
   ASTNode* derivativeTimes(const std::string& variable);
   ASTNode* derivativeDivide(const std::string& variable);
   ASTNode* derivativePower(const std::string& variable);
-  ASTNode* derivativeRoot(const std::string& variable);
   ASTNode* derivativeLog(const std::string& variable);
+  ASTNode* derivativeLn(const std::string& variable);
   ASTNode* derivativeExp(const std::string& variable);
 
 
+  /*
+  * produce three vectors of the child index of the ASTNodes
+  * numbers : any nodes representing just a number
+  * names : any nodes representing a variable i.e.a node of type AST_NAME (in alphabetical order)
+  * others : any nodes that are not numbers/names - usually functions
+  */
   void createVectorOfChildTypes(std::vector<unsigned int>& numbers,
     std::vector<unsigned int>& names,
     std::vector<unsigned int>& others);

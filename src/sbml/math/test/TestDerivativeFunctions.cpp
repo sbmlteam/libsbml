@@ -306,8 +306,6 @@ START_TEST(test_deriv_divide1)
   ASTNode * node = SBML_parseL3Formula(formula);
 
   ASTNode *deriv = n->derivative(x);
-  node->printMath();
-  deriv->printMath();
 
   fail_unless(deriv->exactlyEqual(*node) == true);
   delete n;
@@ -603,6 +601,192 @@ START_TEST(test_deriv_root1)
 END_TEST
 
 
+START_TEST(test_deriv_log)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <log/>"
+    "    <ci> x </ci>"
+    "  </apply>"
+    "</math>"
+  );
+
+  fail_unless(n != NULL);
+  const std::string& x = "x";
+
+  char* formula = "1.0/(x*ln(10.0))";
+  L3ParserSettings * ps = new L3ParserSettings();
+  ps->setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+
+  ASTNode *deriv = n->derivative(x);
+
+  fail_unless(deriv->exactlyEqual(*node) == true);
+  delete n;
+  delete node;
+  delete deriv;
+}
+END_TEST
+
+
+START_TEST(test_deriv_log1)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <log/>"
+    "    <logbase><cn> 4 </cn></logbase>"
+    "  <apply>"
+    "    <times/>"
+    "    <ci> x </ci>"
+    "    <cn> 2 </cn>"
+    "  </apply>"
+    "  </apply>"
+    "</math>"
+  );
+
+  fail_unless(n != NULL);
+  const std::string& x = "x";
+
+  char* formula = "2.0/(ln(4.0)*(2.0*x))";
+  L3ParserSettings * ps = new L3ParserSettings();
+  ps->setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+
+  ASTNode *deriv = n->derivative(x);
+
+  fail_unless(deriv->exactlyEqual(*node) == true);
+  delete n;
+  delete node;
+  delete deriv;
+}
+END_TEST
+
+
+START_TEST(test_deriv_ln)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <ln/>"
+    "    <ci> x </ci>"
+    "  </apply>"
+    "</math>"
+  );
+
+  fail_unless(n != NULL);
+  const std::string& x = "x";
+
+  char* formula = "1.0/x";
+  L3ParserSettings * ps = new L3ParserSettings();
+  ps->setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+
+  ASTNode *deriv = n->derivative(x);
+
+  fail_unless(deriv->exactlyEqual(*node) == true);
+  delete n;
+  delete node;
+  delete deriv;
+}
+END_TEST
+
+
+START_TEST(test_deriv_ln1)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <ln/>"
+    "  <apply>"
+    "    <times/>"
+    "    <ci> x </ci>"
+    "    <cn> 2 </cn>"
+    "  </apply>"
+    "  </apply>"
+    "</math>"
+  );
+
+  fail_unless(n != NULL);
+  const std::string& x = "x";
+
+  char* formula = "2.0/(2.0*x)";
+  L3ParserSettings * ps = new L3ParserSettings();
+  ps->setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+
+  ASTNode *deriv = n->derivative(x);
+
+  fail_unless(deriv->exactlyEqual(*node) == true);
+  delete n;
+  delete node;
+  delete deriv;
+}
+END_TEST
+
+
+START_TEST(test_deriv_exp)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <exp/>"
+    "    <ci> x </ci>"
+    "  </apply>"
+    "</math>"
+  );
+
+  fail_unless(n != NULL);
+  const std::string& x = "x";
+
+  char* formula = "exp(x)";
+  L3ParserSettings * ps = new L3ParserSettings();
+  ps->setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+
+  ASTNode *deriv = n->derivative(x);
+
+  fail_unless(deriv->exactlyEqual(*node) == true);
+  delete n;
+  delete node;
+  delete deriv;
+}
+END_TEST
+
+START_TEST(test_deriv_exp1)
+{
+  ASTNode *n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <exp/>"
+    "  <apply>"
+    "    <times/>"
+    "    <ci> x </ci>"
+    "    <cn> 2 </cn>"
+    "  </apply>"
+    "  </apply>"
+    "</math>"
+  );
+
+  fail_unless(n != NULL);
+  const std::string& x = "x";
+
+  char* formula = "2.0*exp(2.0*x)";
+  L3ParserSettings * ps = new L3ParserSettings();
+  ps->setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+
+  ASTNode *deriv = n->derivative(x);
+
+  fail_unless(deriv->exactlyEqual(*node) == true);
+  delete n;
+  delete node;
+  delete deriv;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestDerivativeFunctions()
 {
@@ -627,6 +811,12 @@ create_suite_TestDerivativeFunctions()
   tcase_add_test(tcase, test_deriv_power2);
   tcase_add_test(tcase, test_deriv_root);
   tcase_add_test(tcase, test_deriv_root1);
+  tcase_add_test(tcase, test_deriv_log);
+  tcase_add_test(tcase, test_deriv_log1);
+  tcase_add_test(tcase, test_deriv_ln);
+  tcase_add_test(tcase, test_deriv_ln1);
+  tcase_add_test(tcase, test_deriv_exp);
+  tcase_add_test(tcase, test_deriv_exp1);
 
   suite_add_tcase(suite, tcase);
 

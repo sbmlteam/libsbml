@@ -43,7 +43,7 @@
 #include <sbml/math/FormulaParser.h>
 
 #include <string>
-
+#include <iostream>
 #include <check.h>
 
 LIBSBML_CPP_NAMESPACE_USE
@@ -343,9 +343,10 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	converter->setDocument(doc);
 	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
+  std::cout << writeSBMLToStdString(doc);
 	fail_unless(doc->getModel()->getNumCompartments() == 1);
 	fail_unless(doc->getModel()->getNumSpecies() == 5); // should be first failure while 3.1. is missing.
-	fail_unless(doc->getModel()->getNumParameters() == 4);
+	fail_unless(doc->getModel()->getNumParameters() == 5);
 	fail_unless(doc->getModel()->getNumRules() == 0);
 	fail_unless(doc->getModel()->getNumReactions() == 3);
 
@@ -371,7 +372,7 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	fail_unless(util_isEqual(srCdc25->getStoichiometry(), 1));
 
 	srMpfi = r0->getReactant(1);
-	fail_unless(srMpfi->getSpecies() == "z");
+	fail_unless(srMpfi->getSpecies() == "z10");
 	fail_unless(util_isEqual(srMpfi->getStoichiometry(), 1));
 
 	// products
@@ -385,7 +386,7 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 
 	// kinetic law
 	const char* kl = SBML_formulaToL3String(r0->getKineticLaw()->getMath());
-	fail_unless(strcmp(kl, "k1*MPFi*Cdc25"));
+	fail_unless(strcmp(kl, "k1*z10*Cdc25"));
 	safe_free((char*)kl);
 
 	// Reaction 1
@@ -411,7 +412,7 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	fail_unless(util_isEqual(srWee1->getStoichiometry(), 1.0));
 
 	srMpfi = r1->getProduct(1);
-	fail_unless(srMpfi->getSpecies() == "z");
+	fail_unless(srMpfi->getSpecies() == "z10");
 	fail_unless(util_isEqual(srMpfi->getStoichiometry(), 1.0));
 
 	// kinetic law
@@ -450,10 +451,10 @@ create_suite_TestSBMLRateRuleConverter (void)
   Suite *suite = suite_create("SBMLRateRuleConverter");
   TCase *tcase = tcase_create("SBMLRateRuleConverter");
 
-  tcase_add_test(tcase, test_conversion_raterule_converter_invalid);
-  tcase_add_test(tcase, test_conversion_raterule_converter);
-  tcase_add_test(tcase, test_conversion_raterule_converter_non_standard_stoichiometry);
-  //tcase_add_test(tcase, test_conversion_raterule_converter_hidden_variable);
+  //tcase_add_test(tcase, test_conversion_raterule_converter_invalid);
+  //tcase_add_test(tcase, test_conversion_raterule_converter);
+  //tcase_add_test(tcase, test_conversion_raterule_converter_non_standard_stoichiometry);
+  tcase_add_test(tcase, test_conversion_raterule_converter_hidden_variable);
 
   suite_add_tcase(suite, tcase);
 

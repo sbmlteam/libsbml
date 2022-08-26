@@ -3588,7 +3588,7 @@ ASTNode::refactorNumbers()
 
 
 /*
-* produce three vectors of ASTNodes
+* produce three vectors of the child index of the ASTNodes
 * numbers : any nodes representing just a number
 * names : any nodes representing a variable i.e.a node of type AST_NAME (in alphabetical order)
 * others : any nodes that are not numbers/names - usually functions 
@@ -3681,12 +3681,6 @@ ASTNode::printMath(unsigned int level)
   std::cout << "Level " << level << ": " << str << std::endl;
   safe_free((char *)(str));
 
-  //cout << ((node->returnsBoolean()) ? "Boolean\n" : "Not boolean\n");
-
-  //cout << "node is " << &node << endl;
-  //const ASTBase *parent = node->getPlugin("arrays")->getParentASTObject();
-  //cout << "plugin points to parent " << &parent << endl;
-
   for (unsigned int i = 0; i < getNumChildren(); i++)
   {
     getChild(i)->printMath(level + 1);
@@ -3695,7 +3689,6 @@ ASTNode::printMath(unsigned int level)
 
 /* combine numbers:
 * returns AST that is number 
-* i.e. lastchild is combined value of numbers
 */
 ASTNode*
 ASTNode::combineNumbers(std::vector<unsigned int>& numbers)
@@ -3802,7 +3795,10 @@ ASTNode::createNonBinaryTree()
   }
 }
 
-
+/*
+* simplify the node based on math i.e 1 * x becomes x
+* see inline 
+*/
 void
 ASTNode::simplify()
 {
@@ -3897,8 +3893,11 @@ ASTNode::simplify()
   delete two;
 }
 
+/*
+* change a root node to power ie root(2, x) becomes x^0.5
+*/
 void
-ASTNode::convertToPower()
+ASTNode::convertRootToPower()
 {
   //root has two child 1st degree 2nd subject
   ASTNode *c1 = getChild(0);
@@ -3920,7 +3919,7 @@ ASTNode::reorderArguments(unsigned int level)
 {
   if (mType == AST_FUNCTION_ROOT)
   {
-    convertToPower();
+    convertRootToPower();
   }
   bool mayNeedRefactor = false;
   
@@ -4181,6 +4180,13 @@ ASTNode::decompose()
   refactor();
 }
 
+/*
+* Returns an ASTNode representing the derivative w.r.t variable
+* e.g. Node represents 2*x^2
+*      variable = "x"
+* returns Node representing 4 * x
+* since d(2*x^2)/dx = 4*x
+*/
 LIBSBML_EXTERN
 ASTNode* 
 ASTNode::derivative(const std::string& variable)
@@ -4236,6 +4242,17 @@ ASTNode::derivative(const std::string& variable)
     case AST_FUNCTION_POWER:
       derivative = derivativePower(variable);
       break;
+    case AST_FUNCTION_LOG:
+      derivative = derivativeLog(variable);
+      break;
+    case AST_FUNCTION_LN:
+      derivative = derivativeLn(variable);
+      break;
+
+    case AST_FUNCTION_EXP:
+      derivative = derivativeExp(variable);
+      break;
+
 
 
     default:
@@ -4472,33 +4489,57 @@ ASTNode::derivativePower(const std::string& variable)
 }
 
 ASTNode*
-ASTNode::derivativeRoot(const std::string& variable)
+ASTNode::derivativeLog(const std::string& variable)
 {
   ASTNode *copy = deepCopy();
   copy->decompose();
-  ASTNode *zero = new ASTNode(AST_REAL);
-  zero->setValue(0.0);
   ASTNode * derivative = NULL;
+
+  //d(log(base, x)/dx = 1/(ln(base) * x)
+  //d(log(base,A)/dx = dA/dx / (ln(base) *A)
+
+  // in log function child0 is base
+  ASTNode *ln = new ASTNode(AST_FUNCTION_LN);
+  ASTNode *number = new ASTNode(AST_REAL);
+  number->setValue((double)(copy->getChild(0)->getValue()));
+  ln->addChild(number->deepCopy());
+
+  ASTNode *times = new ASTNode(AST_TIMES);
+  times->addChild(ln->deepCopy());
+  times->addChild(copy->getChild(1)->deepCopy());
+
+  derivative = new ASTNode(AST_DIVIDE);
+  derivative->addChild(getChild(1)->derivative(variable)->deepCopy());
+  derivative->addChild(times->deepCopy());
+
 
   derivative->decompose();
 
-  delete zero;
+  delete number;
+  delete ln;
+  delete times;
   delete copy;
   return derivative;
 }
 
 ASTNode*
-ASTNode::derivativeLog(const std::string& variable)
+ASTNode::derivativeLn(const std::string& variable)
 {
   ASTNode *copy = deepCopy();
   copy->decompose();
-  ASTNode *zero = new ASTNode(AST_REAL);
-  zero->setValue(0.0);
   ASTNode * derivative = NULL;
+
+  //d(ln(x)/dx = 1/(x)
+  //d(ln(A)/dx = dA/dx / (A)
+
+
+  derivative = new ASTNode(AST_DIVIDE);
+  derivative->addChild(getChild(0)->derivative(variable)->deepCopy());
+  derivative->addChild(getChild(0)->deepCopy());
+
 
   derivative->decompose();
 
-  delete zero;
   delete copy;
   return derivative;
 }
@@ -4508,13 +4549,19 @@ ASTNode::derivativeExp(const std::string& variable)
 {
   ASTNode *copy = deepCopy();
   copy->decompose();
-  ASTNode *zero = new ASTNode(AST_REAL);
-  zero->setValue(0.0);
   ASTNode * derivative = NULL;
+
+  //d(exp(x)/dx = exp(x)
+  //d(exp(A)/dx = dA/dx * exp(A)
+
+
+  derivative = new ASTNode(AST_TIMES);
+  derivative->addChild(getChild(0)->derivative(variable)->deepCopy());
+  derivative->addChild(copy->deepCopy());
+
 
   derivative->decompose();
 
-  delete zero;
   delete copy;
   return derivative;
 }

@@ -82,6 +82,7 @@ Suite *create_suite_TestChildFunctions    (void);
 Suite *create_suite_TestGetValue          (void);
 Suite *create_suite_TestReadFromFileL3V2(void);
 Suite *create_suite_TestInferRnFunctions (void);
+Suite *create_suite_TestDerivativeFunctions(void);
 
 
 /**

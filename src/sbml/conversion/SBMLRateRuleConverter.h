@@ -286,7 +286,7 @@ private:
    * @param model the model that contains the node
    * @return true if the node is a variable species/parameter
    */
-  bool isVariableSpecies(ASTNode* node, Model* model);
+  bool isVariableSpeciesOrParameter(ASTNode* node, Model* model);
   
   /**
    * Checks whether a node is a constant number or constant parameter in a model.

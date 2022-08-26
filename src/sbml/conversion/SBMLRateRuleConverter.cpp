@@ -205,14 +205,17 @@ SBMLRateRuleConverter::convert()
     return returnValue;
   }
 
+  // Fages algo 3.6 Steps 1-2
   populateODEinfo();
   if (getMathNotSupportedFlag() == true)
   {
     return LIBSBML_OPERATION_FAILED;
   }
 
+  // Fages algo 3.6 Step 3-4a-d
   populateReactionCoefficients();
 
+  // Fages algo 3.6 Step 4e
   reconstructModel();
 
   return LIBSBML_OPERATION_SUCCESS;
@@ -324,7 +327,7 @@ void
 SBMLRateRuleConverter::addODEPair(std::string id, Model* model)
 {
   ASTNode * zeroNode = SBML_parseL3Formula("0");
-  Rule* rr = model->getRuleByVariable(id);
+  Rule* rr = model->getRateRuleByVariable(id);
   if (rr!= NULL && rr->getType() == RULE_TYPE_RATE)
   {
     ASTNode * math;
@@ -332,7 +335,6 @@ SBMLRateRuleConverter::addODEPair(std::string id, Model* model)
     {
       math = rr->getMath()->deepCopy();
       // TO DO return boolean to check this worked
-   // af   math->decompose();
     }
     else
     {
@@ -539,6 +541,14 @@ SBMLRateRuleConverter::isPositive(const ASTNode* node, bool& posDeriv)
     }
     signDetermined = true;
   }
+  else if (type == AST_NAME)
+  {
+    // variable first always consider >0
+    if (mDerivSign == POSITIVE_DERIVATIVE) posDeriv = true;
+    else if (mDerivSign == NEGATIVE_DERIVATIVE) posDeriv = false;
+    signDetermined = true;
+
+  }
 
   unsigned int n = 0;
   while (!signDetermined && n < node->getNumChildren())
@@ -645,6 +655,7 @@ SBMLRateRuleConverter::populateODEinfo()
 {
   Model* model = mDocument->getModel();
 
+  // Fages algo 3.6 create set O
   // create pairs of variables and their corresponding ODE
   // eg. ODEs[0] = [S1, -k1*S1]
   //     ODES[1] = [S2, k1*S1]
@@ -669,88 +680,87 @@ SBMLRateRuleConverter::populateODEinfo()
 
   // implement Algo 3.1 here (hidden variables!)
   // check for hidden variables, and add an appropriate ODE if a hidden variable is found
-  //List hiddenSpecies;
-  //for(int odeIndex=0; odeIndex < mODEs.size(); odeIndex++)
-  //{
-  //    std::pair<std::string, ASTNode*> ode = mODEs.at(odeIndex);
-  //    ASTNode* odeRHS = ode.second;
-  //    // Step 1: iterative, in-place replacement of any -x+y terms with y-x terms
-  //    reorderMinusXPlusYIteratively(odeRHS, model);
+  List hiddenSpecies;
+  for(int odeIndex=0; odeIndex < mODEs.size(); odeIndex++)
+  {
+    cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+      std::pair<std::string, ASTNode*> ode = mODEs.at(odeIndex);
+      ASTNode* odeRHS = ode.second;
+      odeRHS->reduceToBinary();
+ //      Step 1: iterative, in-place replacement of any -x+y terms with y-x terms
+      reorderMinusXPlusYIteratively(odeRHS, model);
 
-  //    // Step 2 TODO
-  //    List* operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
-  //    ListIterator it = operators->begin();
-  //    while (it != operators->end())
-  //    {
-  //        ASTNode* currentNode = (ASTNode*)*it;
-  //        if (isKMinusXMinusY(currentNode, model))
-  //        {
-  //            // (a) introduce z=k-x-y with dz/dt = -dx/dt-dy/dt (add to list of additional ODEs to add at the end)
-  //            // TODO
-  //            // (b) replace in ALL ODEs (not just current) k-x-y with z (interior loop over mODEs again?)
-  //            // (c) replace in ALL ODEs (not just current) k+v-x-y with v+z
-  //            // (d) replace in ALL ODEs (not just current) k-x+w-y with w+z
-  //        }
-  //        it++;
-  //    }
-  //    // Step 3
-  //    it = operators->begin();
-  //    while (it != operators->end())
-  //    {
-  //        //TODO split into functions?
-  //        ASTNode* currentNode = (ASTNode*)*it;
-  //        if (isKMinusX(currentNode, model))
-  //        {
-  //            // remove constant k related to hidden variable found
-  //            model->removeParameter(currentNode->getLeftChild()->getName());
-  //            // remember x name and dxdt for later, before we replace the current node
-  //            std::string xName = std::string(currentNode->getRightChild()->getName());
-  //            ASTNode* dxdt = model->getRateRuleByVariable(xName)->getMath()->deepCopy();
+      // Step 2 TODO
+      List* operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
+      ListIterator it = operators->begin();
+      while (it != operators->end())
+      {
+          ASTNode* currentNode = (ASTNode*)*it;
+          if (isKMinusXMinusY(currentNode, model))
+          {
+              // (a) introduce z=k-x-y with dz/dt = -dx/dt-dy/dt (add to list of additional ODEs to add at the end)
+              // TODO
+              // (b) replace in ALL ODEs (not just current) k-x-y with z (interior loop over mODEs again?)
+              // (c) replace in ALL ODEs (not just current) k+v-x-y with v+z
+              // (d) replace in ALL ODEs (not just current) k-x+w-y with w+z
+          }
+          it++;
+      }
+      // Step 3
+      it = operators->begin();
+      while (it != operators->end())
+      {
+          ASTNode* currentNode = (ASTNode*)*it;
+          if (isKMinusX(currentNode, model))
+          {
+              // remember x name and dxdt for later, before we replace the current node
+              std::string xName = std::string(currentNode->getRightChild()->getName());
 
-  //            // (a)
-  //            // introduce z=k-x
-  //            Species* zSpecies = model->createSpecies(); //implicitly sets IsBoundaryCondition and IsConstant to false, which is what we want
-  //            const std::string zName = "z" + std::to_string(model->getNumSpecies());
-  //            zSpecies->setId(zName);
-  //            zSpecies->setMath(currentNode->deepCopy());
-  //            hiddenSpecies.add(zSpecies);
-  //            // TODO needs compartment?
+              // (a)
+              // introduce z=k-x
+              Parameter* zParam = model->createParameter();
+              const std::string zName = "z" + std::to_string(model->getNumParameters());
+              zParam->setId(zName);
+              zParam->setConstant(false);
+              hiddenSpecies.add(zParam);
 
-  //            // replace k - x with z in current ODE
-  //            ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
-  //            z->setName(zName.c_str());
-  //            std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
-  //            ASTNode* currentParent = currentParentAndIndex.first;
-  //            int index = currentParentAndIndex.second;
-  //            currentParent->replaceChild(index, z, true);
-  //            // intentionally, don't delete z as it's now owned by currentParent!
+              // replace k - x with z in current ODE
+              ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
+              z->setName(zName.c_str());
+              std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
+              ASTNode* currentParent = currentParentAndIndex.first;
+              int index = currentParentAndIndex.second;
+              currentParent->replaceChild(index, z, true);
+              // intentionally, don't delete z as it's now owned by currentParent!
 
-  //            // add raterule defining dz/dz = -dxdt
-  //            RateRule* raterule = model->createRateRule();
-  //            raterule->setVariable(zName);
-  //            ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
-  //            ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
-  //            minus1->setValue(-1.0);
-  //            math->addChild(minus1);
-  //            math->addChild(dxdt);
-  //            raterule->setMath(math);
-  //            delete math; //its children dxdt and minus1 deleted as part of this.
+              // add raterule defining dz/dt = -dxdt
+              ASTNode* dxdt = odeRHS->deepCopy();
+              RateRule* raterule = model->createRateRule();
+              raterule->setVariable(zName);
+              ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
+              ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
+              minus1->setValue(-1.0);
+              math->addChild(minus1);
+              math->addChild(dxdt);
+              raterule->setMath(math);
+              delete math; //its children dxdt and minus1 deleted as part of this.
 
-  //            // TODO
-  //            // (b) replace in ALL ODEs (not just current) k-x with z
-  //            // (c) replace in ALL ODEs (not just current) k+v-x with v+z
-  //        }
-  //        it++;
-  //    }
-  //}
+              // TODO
+              // (b) replace in ALL ODEs (not just current) k-x with z
+              // (c) replace in ALL ODEs (not just current) k+v-x with v+z
+          }
+          it++;
+      }
+  }
 
-  //// add all hidden species to the model
-  //for (int hs=0; hs < hiddenSpecies.getSize(); hs++)
-  //{
-  //    Species* hidden = (Species*) hiddenSpecies.get(hs);
-  //    addODEPair(hidden->getId(), model);
-  //}
+  // add all hidden species to the model
+  for (int hs=0; hs < hiddenSpecies.getSize(); hs++)
+  {
+      Parameter* hidden = (Parameter*) hiddenSpecies.get(hs);
+      addODEPair(hidden->getId(), model);
+  }
 
+  // Fages algo 3.6 Step 1
   //create set of non decomposable terms used in ODES
   // catch any repeats so a term is only present once but may appear in
   // multiple ODEs; numerical multipliers are ignored
@@ -760,8 +770,10 @@ SBMLRateRuleConverter::populateODEinfo()
 
   for (unsigned int n = 0; n < mODEs.size(); n++)
   {
-    ASTNode* node = mODEs.at(n).second;
+      cout << mODEs.at(n).first << ": " << SBML_formulaToL3String(mODEs.at(n).second) << endl;
+      ASTNode* node = mODEs.at(n).second;
     node->decompose();
+    // Fages algo 3.6 Step 2
     createTerms(node);
   }
 
@@ -801,6 +813,7 @@ SBMLRateRuleConverter::populateODEinfo()
   for (unsigned int n = 0; n < mTerms.size(); n++)
   {
     ASTNode* node = mTerms.at(n);
+    cout << SBML_formulaToL3String(node) << endl;
     std::vector<double> coeffVector = populateCoefficientVector(n);
     mCoefficients.push_back(std::make_pair(node, coeffVector));
     mDerivSign = POSITIVE_DERIVATIVE;
@@ -822,12 +835,16 @@ SBMLRateRuleConverter::getMathNotSupportedFlag() const
 void
 SBMLRateRuleConverter::populateReactionCoefficients()
 {
+  // Fages algo 3.6 Step 4a
   createInitialValues();
   unsigned int i = 0;
   for (setCoeffIt it = mCoefficients.begin(); it != mCoefficients.end(); ++it)
   {
+    // Fages algo 3.6 Step 4b
     analyseCoefficient(it->second, i);
+    // Fages algo 3.6 Step 4c
     analysePosDerivative(it->second, i);
+    // Fages algo 3.6 Step 4d
     analyseNegDerivative(it->second, i);
     i++;
   }
@@ -916,13 +933,13 @@ bool SBMLRateRuleConverter::isMinusXPlusY(ASTNode* node, Model* model)
 
     // if right child is not a variable species, it's not -x+y
     ASTNode* rightChild = node->getRightChild();
-    if (!isVariableSpecies(rightChild, model))
+    if (!isVariableSpeciesOrParameter(rightChild, model))
         return false;
 
     // if we get to this point, the only thing left to check is 
     // whether the ->left->right grandchild (the x in -x+y) is a variable species.
     ASTNode* grandChild = leftChild->getRightChild();
-    return isVariableSpecies(grandChild, model);
+    return isVariableSpeciesOrParameter(grandChild, model);
 }
 
 // helper function to determine whether a node is the second "-" in a k-x-y expression, where x,y are variable species and k is a numerical constant or a parameter
@@ -936,9 +953,9 @@ bool SBMLRateRuleConverter::isKMinusXMinusY(ASTNode* node, Model* model)
     if (node->getType() != ASTNodeType_t::AST_MINUS)
         return false;
 
-    // if right child is not a variable species, it's not k-x-y
+    // if right child is not a variable, it's not k-x-y
     ASTNode* rightChild = node->getRightChild();
-    if(!isVariableSpecies(rightChild, model))
+    if(!isVariableSpeciesOrParameter(rightChild, model))
         return false;
 
     // if left child is not a minus, it's not k-x-y
@@ -953,7 +970,7 @@ bool SBMLRateRuleConverter::isKMinusXMinusY(ASTNode* node, Model* model)
     // if we've gotten this far, what's left to check are the children of the left child (k and x)
     ASTNode* k = leftChild->getLeftChild();
     ASTNode* x = leftChild->getRightChild();
-    return isNumericalConstantOrConstantParameter(k, model) && isVariableSpecies(x, model);
+    return isNumericalConstantOrConstantParameter(k, model) && isVariableSpeciesOrParameter(x, model);
 }
 
 // check whether a node is the minus sign in a k-x expression
@@ -969,7 +986,7 @@ bool SBMLRateRuleConverter::isKMinusX(ASTNode* node, Model* model)
 
     // if right child is not a variable species, it's not k-x
     ASTNode* rightChild = node->getRightChild();
-    if (!isVariableSpecies(rightChild, model))
+    if (!isVariableSpeciesOrParameter(rightChild, model))
         return false;
 
     // if left child is not a numerical constant or a parameter, it's not k-x - else it is!
@@ -977,15 +994,15 @@ bool SBMLRateRuleConverter::isKMinusX(ASTNode* node, Model* model)
     return isNumericalConstantOrConstantParameter(leftChild, model);
 }
 
-bool SBMLRateRuleConverter::isVariableSpecies(ASTNode* node, Model* model)
+bool SBMLRateRuleConverter::isVariableSpeciesOrParameter(ASTNode* node, Model* model)
 {
     if (!node->isName()) // some nodes, like * operators, don't seem to have a name in the first place
         return false;
     Species* species = model->getSpecies(node->getName());
     Parameter* parameter = model->getParameter(node->getName()); // some species in rate rules may be defined as variable parameters
-    bool isVariableSpecies = (species != NULL && !species->getConstant());
+    bool isVariableSpeciesOrParameter = (species != NULL && !species->getConstant());
     bool isVariableParameter = (parameter!=NULL && !parameter->getConstant());
-    return isVariableSpecies || isVariableParameter;
+    return isVariableSpeciesOrParameter || isVariableParameter;
 }
 
 bool SBMLRateRuleConverter::isNumericalConstantOrConstantParameter(ASTNode* node, Model* model)
@@ -1076,8 +1093,9 @@ SBMLRateRuleConverter::createReactions()
     int id = mDocument->getModel()->getNumReactions();
     const std::string reactionId = "J" + std::to_string(id);
     r->setId(reactionId);
+    bool itemAdded = false;
     for (unsigned int j = 0; j < mODEs.size(); ++j)
-    {
+    { 
       double stoichiometry = 1.0;
       if (mReactants[i][j] > 0)
       {
@@ -1086,6 +1104,7 @@ SBMLRateRuleConverter::createReactions()
         sr->setSpecies(mODEs[j].first);
         sr->setStoichiometry(stoichiometry);
         sr->setConstant(true);
+        itemAdded = true;
       }
       if (mProducts[i][j] > 0)
       {
@@ -1094,14 +1113,23 @@ SBMLRateRuleConverter::createReactions()
         sr->setSpecies(mODEs[j].first);
         sr->setStoichiometry(stoichiometry);
         sr->setConstant(true);
+        itemAdded = true;
       }
       if (mModifiers[i][j] > 0 && r->getModifier(mODEs[j].first) == NULL)
       {
         ModifierSpeciesReference *sr = r->createModifier();
         sr->setSpecies(mODEs[j].first);
+        itemAdded = true;
       }
-      KineticLaw *kl = r->createKineticLaw();
-      kl->setMath(it->first);
+      if (itemAdded && !r->isSetKineticLaw())
+      {
+        KineticLaw *kl = r->createKineticLaw();
+        kl->setMath(it->first);
+      }
+    }
+    if (!itemAdded)
+    {
+      delete (mDocument->getModel()->removeReaction(id));
     }
     i++;
   }
