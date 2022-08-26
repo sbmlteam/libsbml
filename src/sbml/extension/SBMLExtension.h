@@ -448,7 +448,7 @@ public:
    *
    * @copydetails doc_note_override_in_extensions
    */
-  virtual unsigned int getLevel(const std::string &uri) const = 0;
+  virtual unsigned int getLevel(const std::string& uri) const = 0;
 
 
   /**
@@ -460,7 +460,7 @@ public:
    *
    * @copydetails doc_note_override_in_extensions
    */
-  virtual unsigned int getVersion(const std::string &uri) const = 0;
+  virtual unsigned int getVersion(const std::string& uri) const = 0;
 
 
   /**
@@ -472,7 +472,7 @@ public:
    *
    * @copydetails doc_note_override_in_extensions
    */
-  virtual unsigned int getPackageVersion(const std::string &uri) const = 0;
+  virtual unsigned int getPackageVersion(const std::string& uri) const = 0;
 
 
   /**
@@ -518,7 +518,7 @@ SBMLExtensionNamespaces<LayoutExtension>
    *
    * @copydetails doc_note_override_in_extensions
    */
-  virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string &uri) const = 0;
+  virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string& uri) const = 0;
 
 
   /**

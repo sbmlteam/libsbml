@@ -21,9 +21,6 @@
 					<dcterms:created rdf:parseType="Resource">
 						<dcterms:W3CDTF>2005-02-02T14:56:11</dcterms:W3CDTF>
 					</dcterms:created>
-					<dcterms:modified rdf:parseType="Resource">
-						<dcterms:W3CDTF>2006-05-30T10:46:02</dcterms:W3CDTF>
-					</dcterms:modified>
 				</rdf:Description>
 			</rdf:RDF>
 		</annotation>

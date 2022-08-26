@@ -243,7 +243,7 @@ macro(ADD_FUNCTION directory)
 
     set(prefix "sbml/")
 
-    if ("${directory}" STREQUAL "sbml")
+    if (directory STREQUAL "sbml")
         set(prefix "")
     endif()
 
@@ -259,8 +259,8 @@ macro(ADD_FUNCTION directory)
     # remove them, but that keeps their content from being found in searches, etc.
     # in IDEs such as VisualStudio.
     foreach(tempFile ${temp})
-        if ("${directory}" STREQUAL "validator/constraints")
-            if ("${tempFile}" MATCHES ".*Constraints.cpp")
+        if (directory STREQUAL "validator/constraints")
+            if (tempFile MATCHES ".*Constraints.cpp")
               set_source_files_properties(
                   ${tempFile}
                   PROPERTIES HEADER_FILE_ONLY true
@@ -268,7 +268,7 @@ macro(ADD_FUNCTION directory)
 #              list(REMOVE_ITEM temp "${tempFile}")
             endif()
         endif()
-        if ("${tempFile}" MATCHES ".*.cxx$")
+        if (tempFile MATCHES ".*.cxx$")
           set_source_files_properties(
               ${tempFile}
               PROPERTIES HEADER_FILE_ONLY true
@@ -311,8 +311,7 @@ if(WITH_BZIP2)
         sbml/compress/bzfstream.h
         sbml/compress/bzfstream.cpp
         )
-  include_directories(${LIBBZ_INCLUDE_DIR})
-  set(LIBSBML_LIBS ${LIBSBML_LIBS} ${LIBBZ_LIBRARY})
+  set(LIBSBML_LIBS ${LIBSBML_LIBS} BZ2::BZ2)
 
 endif()
 
@@ -345,8 +344,7 @@ set(COMPRESS_SOURCES ${COMPRESS_SOURCES}
         )
     endif()
 
-    include_directories(${LIBZ_INCLUDE_DIR})
-    set(LIBSBML_LIBS ${LIBSBML_LIBS} ${LIBZ_LIBRARY})
+    set(LIBSBML_LIBS ${LIBSBML_LIBS} ZLIB::ZLIB)
 
 endif()
 
@@ -407,8 +405,7 @@ if(WITH_EXPAT)
         sbml/xml/ExpatHandler.h
         sbml/xml/ExpatParser.h
     )
-    set(LIBSBML_LIBS ${LIBSBML_LIBS} ${LIBEXPAT_LIBRARY})
-    include_directories(${LIBEXPAT_INCLUDE_DIR})
+    set(LIBSBML_LIBS ${LIBSBML_LIBS} EXPAT::EXPAT)
 
 endif(WITH_EXPAT)
 
@@ -426,8 +423,7 @@ if(WITH_LIBXML)
         sbml/xml/LibXMLParser.h
         sbml/xml/LibXMLTranscode.h
     )
-    set(LIBSBML_LIBS ${LIBSBML_LIBS} ${LIBXML_LIBRARY})
-    include_directories(${LIBXML_INCLUDE_DIR})
+    set(LIBSBML_LIBS ${LIBSBML_LIBS} LIBXML::LIBXML)
 
 endif(WITH_LIBXML)
 
@@ -446,36 +442,13 @@ if(WITH_XERCES)
         sbml/xml/XercesTranscode.h
     )
 
-    set(LIBSBML_LIBS ${LIBSBML_LIBS} ${XERCES_LIBRARY})
-    include_directories(${XERCES_INCLUDE_DIR})
+    set(LIBSBML_LIBS ${LIBSBML_LIBS} XERCES::XERCES)
 
 
 endif(WITH_XERCES)
 
 source_group(xml FILES ${XML_SOURCES})
 set(LIBSBML_SOURCES ${LIBSBML_SOURCES} ${XML_SOURCES})
-
-###############################################################################
-#
-# this is a directory level operation!
-#
-if (MSVC)
-if (WITH_STATIC_RUNTIME)
-    foreach(flag_var
-        CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
-        CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO
-        CMAKE_C_FLAGS CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELEASE
-        CMAKE_C_FLAGS_MINSIZEREL CMAKE_C_FLAGS_RELWITHDEBINFO)
-
-        if(${flag_var} MATCHES "/MD")
-            string(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
-        endif(${flag_var} MATCHES "/MD")
-
-
-    endforeach(flag_var)
-    add_definitions( -D_MT)
-endif(WITH_STATIC_RUNTIME)
-endif(MSVC)
 
 ###############################################################################
 #
@@ -498,7 +471,8 @@ endif()
 
 target_link_libraries(${LIBSBML_LIBRARY} ${LIBSBML_LIBS} ${EXTRA_LIBS})
 
-INSTALL(TARGETS ${LIBSBML_LIBRARY} EXPORT ${LIBSBML_LIBRARY}-config
+INSTALL(TARGETS ${LIBSBML_LIBRARY} 
+        EXPORT ${LIBSBML_LIBRARY}-targets
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -506,11 +480,17 @@ INSTALL(TARGETS ${LIBSBML_LIBRARY} EXPORT ${LIBSBML_LIBRARY}-config
 )
 
 # and install the exported target configuration
-INSTALL(EXPORT ${LIBSBML_LIBRARY}-config
+INSTALL(EXPORT ${LIBSBML_LIBRARY}-targets
         DESTINATION ${PACKAGE_CONFIG_DIR}
 )
 
 if (${CMAKE_VERSION} VERSION_GREATER 2.8.7)
+CONFIGURE_PACKAGE_CONFIG_FILE(
+  ${CMAKE_CURRENT_LIST_DIR}/libsbml-config.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-config.cmake
+  INSTALL_DESTINATION ${PACKAGE_CONFIG_DIR}
+)
+
 WRITE_BASIC_PACKAGE_VERSION_FILE(
   ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-config-version.cmake 
   VERSION ${PROJECT_VERSION}
@@ -518,7 +498,9 @@ WRITE_BASIC_PACKAGE_VERSION_FILE(
 )
   
 INSTALL(
-  FILES ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-config-version.cmake
+  FILES 
+    ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-config-version.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-config.cmake
   DESTINATION ${PACKAGE_CONFIG_DIR}
 )
 endif()
@@ -538,7 +520,7 @@ endif(WIN32 AND NOT CYGWIN)
 target_link_libraries(${LIBSBML_LIBRARY}-static ${LIBSBML_LIBS} ${EXTRA_LIBS})
 
 INSTALL(TARGETS ${LIBSBML_LIBRARY}-static
-        EXPORT  ${LIBSBML_LIBRARY}-static-config
+        EXPORT  ${LIBSBML_LIBRARY}-static-targets
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -546,11 +528,17 @@ INSTALL(TARGETS ${LIBSBML_LIBRARY}-static
 )
 
 # and install the exported target configuration
-INSTALL(EXPORT ${LIBSBML_LIBRARY}-static-config 
+INSTALL(EXPORT ${LIBSBML_LIBRARY}-static-targets
         DESTINATION ${PACKAGE_CONFIG_DIR}
 )
 
 if (${CMAKE_VERSION} VERSION_GREATER 2.8.7)
+
+CONFIGURE_PACKAGE_CONFIG_FILE(
+  ${CMAKE_CURRENT_LIST_DIR}/libsbml-static-config.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-static-config.cmake
+  INSTALL_DESTINATION ${PACKAGE_CONFIG_DIR})
+
 WRITE_BASIC_PACKAGE_VERSION_FILE(
   ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-static-config-version.cmake
   VERSION ${PROJECT_VERSION}
@@ -559,6 +547,7 @@ WRITE_BASIC_PACKAGE_VERSION_FILE(
 
 INSTALL(FILES 
   ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-static-config-version.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-static-config.cmake
   DESTINATION ${PACKAGE_CONFIG_DIR}
 )
 endif()

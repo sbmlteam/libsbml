@@ -62,12 +62,6 @@
  * Level&nbsp;3 Version&nbsp;1 Spatial specification, the following are the
  * allowable values for "type":
  * <ul>
- * <li> @c "Robin_valueCoefficient", TODO:add description
- *
- * <li> @c "Robin_inwardNormalGradientCoefficient", TODO:add description
- *
- * <li> @c "Robin_sum", TODO:add description
- *
  * <li> @c "Neumann", TODO:add description
  *
  * <li> @c "Dirichlet", TODO:add description
@@ -198,11 +192,6 @@ public:
    * @if clike The value is drawn from the enumeration @ref BoundaryKind_t
    * @endif
    * The possible values returned by this method are:
-   * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT,
-   * BoundaryKind_t}
-   * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_INWARD_NORMAL_GRADIENT_COEFFICIENT,
-   * BoundaryKind_t}
-   * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_SUM, BoundaryKind_t}
    * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_NEUMANN, BoundaryKind_t}
    * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_DIRICHLET, BoundaryKind_t}
    * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID, BoundaryKind_t}
@@ -218,9 +207,6 @@ public:
    *
    * @copydetails doc_boundarycondition_type
    * The possible values returned by this method are:
-   * @li @c "Robin_valueCoefficient"
-   * @li @c "Robin_inwardNormalGradientCoefficient"
-   * @li @c "Robin_sum"
    * @li @c "Neumann"
    * @li @c "Dirichlet"
    * @li @c "invalid BoundaryKind value"
@@ -888,11 +874,6 @@ BoundaryCondition_getVariable(const BoundaryCondition_t * bc);
  * @copydetails doc_boundarycondition_type
  * @if clike The value is drawn from the enumeration @ref BoundaryKind_t @endif
  * The possible values returned by this method are:
- * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT,
- * BoundaryKind_t}
- * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_INWARD_NORMAL_GRADIENT_COEFFICIENT,
- * BoundaryKind_t}
- * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_SUM, BoundaryKind_t}
  * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_NEUMANN, BoundaryKind_t}
  * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_DIRICHLET, BoundaryKind_t}
  * @li @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID, BoundaryKind_t}
@@ -916,9 +897,6 @@ BoundaryCondition_getType(const BoundaryCondition_t * bc);
  *
  * @copydetails doc_boundarycondition_type
  * The possible values returned by this method are:
- * @li @c "Robin_valueCoefficient"
- * @li @c "Robin_inwardNormalGradientCoefficient"
- * @li @c "Robin_sum"
  * @li @c "Neumann"
  * @li @c "Dirichlet"
  * @li @c "invalid BoundaryKind value"

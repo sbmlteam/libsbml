@@ -1213,7 +1213,7 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
     if (RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
     {
       mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation, 
-                                            getMetaId().c_str(), &(stream));
+                                            getMetaId().c_str(), &(stream), this);
 
       if (mHistory != NULL && mHistory->hasRequiredAttributes() == false)
       {

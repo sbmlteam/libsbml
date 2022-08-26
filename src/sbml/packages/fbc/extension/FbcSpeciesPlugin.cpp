@@ -126,7 +126,7 @@ parseChemicalFormula(std::string& chemicalFormula,
       message += "' when expecting a capital letter.";
       if (species)
       {
-        message += "The chemicalFormula '";
+        message += " The chemicalFormula '";
         message += chemicalFormula;
         if (species->isSetId())
         {

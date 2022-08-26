@@ -248,7 +248,8 @@ ModelHistory*
 RDFAnnotationParser::parseRDFAnnotation(
      const XMLNode * annotation, 
      const char* metaId, 
-     XMLInputStream* stream /*= NULL*/)
+     XMLInputStream* stream /*= NULL*/,
+     const SBase* parent)
 {
   ModelHistory * history = NULL;
 
@@ -310,7 +311,11 @@ RDFAnnotationParser::parseRDFAnnotation(
   {
     history = deriveHistoryFromAnnotation(annotation);
   }
-  
+  // add a parent SBase object with level and version
+  if (history != NULL && parent != NULL)
+  {
+    history->setParentSBMLObject(parent);
+  }
   return history;
 }
 
@@ -710,6 +715,7 @@ RDFAnnotationParser::parseModelHistory(const SBase *object)
   {
     return NULL;
   }
+  history->setParentSBMLObject(object);
 
   XMLNode *description = createRDFDescriptionWithHistory(object);
 

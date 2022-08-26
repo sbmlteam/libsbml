@@ -46,7 +46,7 @@ class TestSBMLConstructorException(unittest.TestCase):
     except ValueError:
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
 
@@ -142,7 +142,7 @@ class TestSBMLConstructorException(unittest.TestCase):
     except ValueError:
        s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
     
@@ -179,7 +179,7 @@ class TestSBMLConstructorException(unittest.TestCase):
     except ValueError:
        s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
 
@@ -270,7 +270,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
     try:
@@ -366,7 +366,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 	
     msg = ""
     
@@ -402,7 +402,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
     try:
@@ -494,7 +494,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
     try:
@@ -567,7 +567,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
     try:
@@ -640,7 +640,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
     try:
@@ -713,7 +713,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
     try:
@@ -786,7 +786,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
     try:
@@ -857,7 +857,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
     try:
@@ -934,7 +934,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
     
@@ -973,7 +973,7 @@ class TestSBMLConstructorException(unittest.TestCase):
     except ValueError:
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
     try:
@@ -1050,7 +1050,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
     
@@ -1094,7 +1094,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
     
@@ -1138,7 +1138,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
     
@@ -1182,7 +1182,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
     
@@ -1226,7 +1226,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
     
@@ -1270,7 +1270,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
     
@@ -1314,7 +1314,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
 
@@ -1358,7 +1358,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
 
@@ -1402,7 +1402,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
 
@@ -1434,7 +1434,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
 
@@ -1466,7 +1466,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
 
@@ -1498,7 +1498,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
   pass
   
   def test_SBMLDocument_constructor(self):
@@ -1522,7 +1522,7 @@ class TestSBMLConstructorException(unittest.TestCase):
       inst = sys.exc_info()[1]
       s = None
     pass
-    self.assert_(s != None)
+    self.assertTrue(s != None)
 
     msg = ""
 

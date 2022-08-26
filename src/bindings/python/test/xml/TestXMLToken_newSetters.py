@@ -43,27 +43,27 @@ class TestXMLToken_newSetters(unittest.TestCase):
     token = libsbml.XMLToken(triple,attr)
     xt2 = libsbml.XMLTriple("name3", "http://name3.org/", "p3")
     i = token.addAttr( "name1", "val1")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.getAttributesLength() == 1 )
-    self.assert_( token.isAttributesEmpty() == False )
-    self.assert_( (  "name1" != token.getAttrName(0) ) == False )
-    self.assert_( (  "val1"  != token.getAttrValue(0) ) == False )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.getAttributesLength() == 1 )
+    self.assertTrue( token.isAttributesEmpty() == False )
+    self.assertTrue( (  "name1" != token.getAttrName(0) ) == False )
+    self.assertTrue( (  "val1"  != token.getAttrValue(0) ) == False )
     i = token.addAttr( "name2", "val2", "http://name1.org/", "p1")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.getAttributesLength() == 2 )
-    self.assert_( token.isAttributesEmpty() == False )
-    self.assert_( (  "name2" != token.getAttrName(1) ) == False )
-    self.assert_( (  "val2"  != token.getAttrValue(1) ) == False )
-    self.assert_( (  "http://name1.org/" != token.getAttrURI(1) ) == False )
-    self.assert_( (  "p1"    != token.getAttrPrefix(1) ) == False )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.getAttributesLength() == 2 )
+    self.assertTrue( token.isAttributesEmpty() == False )
+    self.assertTrue( (  "name2" != token.getAttrName(1) ) == False )
+    self.assertTrue( (  "val2"  != token.getAttrValue(1) ) == False )
+    self.assertTrue( (  "http://name1.org/" != token.getAttrURI(1) ) == False )
+    self.assertTrue( (  "p1"    != token.getAttrPrefix(1) ) == False )
     i = token.addAttr(xt2, "val2")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.getAttributesLength() == 3 )
-    self.assert_( token.isAttributesEmpty() == False )
-    self.assert_( (  "name3" != token.getAttrName(2) ) == False )
-    self.assert_( (  "val2"  != token.getAttrValue(2) ) == False )
-    self.assert_( (  "http://name3.org/" != token.getAttrURI(2) ) == False )
-    self.assert_( (  "p3"    != token.getAttrPrefix(2) ) == False )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.getAttributesLength() == 3 )
+    self.assertTrue( token.isAttributesEmpty() == False )
+    self.assertTrue( (  "name3" != token.getAttrName(2) ) == False )
+    self.assertTrue( (  "val2"  != token.getAttrValue(2) ) == False )
+    self.assertTrue( (  "http://name3.org/" != token.getAttrURI(2) ) == False )
+    self.assertTrue( (  "p3"    != token.getAttrPrefix(2) ) == False )
     _dummyList = [ xt2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
@@ -75,17 +75,17 @@ class TestXMLToken_newSetters(unittest.TestCase):
     token = libsbml.XMLToken(triple)
     xt2 = libsbml.XMLTriple("name3", "http://name3.org/", "p3")
     i = token.addAttr( "name1", "val1")
-    self.assert_( i == libsbml.LIBSBML_INVALID_XML_OPERATION )
-    self.assert_( token.getAttributesLength() == 0 )
-    self.assert_( token.isAttributesEmpty() == True )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_XML_OPERATION )
+    self.assertTrue( token.getAttributesLength() == 0 )
+    self.assertTrue( token.isAttributesEmpty() == True )
     i = token.addAttr( "name2", "val2", "http://name1.org/", "p1")
-    self.assert_( i == libsbml.LIBSBML_INVALID_XML_OPERATION )
-    self.assert_( token.getAttributesLength() == 0 )
-    self.assert_( token.isAttributesEmpty() == True )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_XML_OPERATION )
+    self.assertTrue( token.getAttributesLength() == 0 )
+    self.assertTrue( token.isAttributesEmpty() == True )
     i = token.addAttr(xt2, "val2")
-    self.assert_( i == libsbml.LIBSBML_INVALID_XML_OPERATION )
-    self.assert_( token.getAttributesLength() == 0 )
-    self.assert_( token.isAttributesEmpty() == True )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_XML_OPERATION )
+    self.assertTrue( token.getAttributesLength() == 0 )
+    self.assertTrue( token.isAttributesEmpty() == True )
     _dummyList = [ xt2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
@@ -95,12 +95,12 @@ class TestXMLToken_newSetters(unittest.TestCase):
     triple = libsbml.XMLTriple("test","","")
     attr = libsbml.XMLAttributes()
     token = libsbml.XMLToken(triple,attr)
-    self.assert_( token.getNamespacesLength() == 0 )
-    self.assert_( token.isNamespacesEmpty() == True )
+    self.assertTrue( token.getNamespacesLength() == 0 )
+    self.assertTrue( token.isNamespacesEmpty() == True )
     i = token.addNamespace( "http://test1.org/", "test1")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.getNamespacesLength() == 1 )
-    self.assert_( token.isNamespacesEmpty() == False )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.getNamespacesLength() == 1 )
+    self.assertTrue( token.isNamespacesEmpty() == False )
     _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
@@ -109,12 +109,12 @@ class TestXMLToken_newSetters(unittest.TestCase):
   def test_XMLToken_newSetters_addNamespaces2(self):
     triple = libsbml.XMLTriple("test","","")
     token = libsbml.XMLToken(triple)
-    self.assert_( token.getNamespacesLength() == 0 )
-    self.assert_( token.isNamespacesEmpty() == True )
+    self.assertTrue( token.getNamespacesLength() == 0 )
+    self.assertTrue( token.isNamespacesEmpty() == True )
     i = token.addNamespace( "http://test1.org/", "test1")
-    self.assert_( i == libsbml.LIBSBML_INVALID_XML_OPERATION )
-    self.assert_( token.getNamespacesLength() == 0 )
-    self.assert_( token.isNamespacesEmpty() == True )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_XML_OPERATION )
+    self.assertTrue( token.getNamespacesLength() == 0 )
+    self.assertTrue( token.isNamespacesEmpty() == True )
     _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -127,11 +127,11 @@ class TestXMLToken_newSetters(unittest.TestCase):
     xt1 = libsbml.XMLTriple("name1", "http://name1.org/", "p1")
     nattr.add(xt1, "val1")
     i = token.setAttributes(nattr)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.isAttributesEmpty() == False )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.isAttributesEmpty() == False )
     i = token.clearAttributes()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.isAttributesEmpty() == True )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.isAttributesEmpty() == True )
     _dummyList = [ nattr ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
@@ -144,17 +144,17 @@ class TestXMLToken_newSetters(unittest.TestCase):
     attr = libsbml.XMLAttributes()
     token = libsbml.XMLToken(triple,attr)
     ns = libsbml.XMLNamespaces()
-    self.assert_( token.getNamespacesLength() == 0 )
-    self.assert_( token.isNamespacesEmpty() == True )
+    self.assertTrue( token.getNamespacesLength() == 0 )
+    self.assertTrue( token.isNamespacesEmpty() == True )
     ns.add( "http://test1.org/", "test1")
     i = token.setNamespaces(ns)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.getNamespacesLength() == 1 )
-    self.assert_( token.isNamespacesEmpty() == False )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.getNamespacesLength() == 1 )
+    self.assertTrue( token.isNamespacesEmpty() == False )
     i = token.clearNamespaces()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.getNamespacesLength() == 0 )
-    self.assert_( token.isNamespacesEmpty() == True )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.getNamespacesLength() == 0 )
+    self.assertTrue( token.isNamespacesEmpty() == True )
     _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
@@ -171,28 +171,28 @@ class TestXMLToken_newSetters(unittest.TestCase):
     i = token.addAttr( "name2", "val2", "http://name1.org/", "p1")
     i = token.addAttr(xt2, "val2")
     i = token.addAttr( "name4", "val4")
-    self.assert_( token.getAttributes().getLength() == 4 )
+    self.assertTrue( token.getAttributes().getLength() == 4 )
     i = token.removeAttr(7)
-    self.assert_( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
+    self.assertTrue( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
     i = token.removeAttr( "name7")
-    self.assert_( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
+    self.assertTrue( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
     i = token.removeAttr( "name7", "namespaces7")
-    self.assert_( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
+    self.assertTrue( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
     i = token.removeAttr(xt1)
-    self.assert_( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
-    self.assert_( token.getAttributes().getLength() == 4 )
+    self.assertTrue( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
+    self.assertTrue( token.getAttributes().getLength() == 4 )
     i = token.removeAttr(3)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.getAttributes().getLength() == 3 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.getAttributes().getLength() == 3 )
     i = token.removeAttr( "name1")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.getAttributes().getLength() == 2 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.getAttributes().getLength() == 2 )
     i = token.removeAttr( "name2", "http://name1.org/")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.getAttributes().getLength() == 1 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.getAttributes().getLength() == 1 )
     i = token.removeAttr(xt2)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.getAttributes().getLength() == 0 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.getAttributes().getLength() == 0 )
     _dummyList = [ xt1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ xt2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
@@ -205,13 +205,13 @@ class TestXMLToken_newSetters(unittest.TestCase):
     attr = libsbml.XMLAttributes()
     token = libsbml.XMLToken(triple,attr)
     token.addNamespace( "http://test1.org/", "test1")
-    self.assert_( token.getNamespacesLength() == 1 )
+    self.assertTrue( token.getNamespacesLength() == 1 )
     i = token.removeNamespace(4)
-    self.assert_( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
-    self.assert_( token.getNamespacesLength() == 1 )
+    self.assertTrue( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
+    self.assertTrue( token.getNamespacesLength() == 1 )
     i = token.removeNamespace(0)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.getNamespacesLength() == 0 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.getNamespacesLength() == 0 )
     _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
@@ -222,13 +222,13 @@ class TestXMLToken_newSetters(unittest.TestCase):
     attr = libsbml.XMLAttributes()
     token = libsbml.XMLToken(triple,attr)
     token.addNamespace( "http://test1.org/", "test1")
-    self.assert_( token.getNamespacesLength() == 1 )
+    self.assertTrue( token.getNamespacesLength() == 1 )
     i = token.removeNamespace( "test2")
-    self.assert_( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
-    self.assert_( token.getNamespacesLength() == 1 )
+    self.assertTrue( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
+    self.assertTrue( token.getNamespacesLength() == 1 )
     i = token.removeNamespace( "test1")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.getNamespacesLength() == 0 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.getNamespacesLength() == 0 )
     _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
@@ -242,8 +242,8 @@ class TestXMLToken_newSetters(unittest.TestCase):
     xt1 = libsbml.XMLTriple("name1", "http://name1.org/", "p1")
     nattr.add(xt1, "val1")
     i = token.setAttributes(nattr)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.isAttributesEmpty() == False )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.isAttributesEmpty() == False )
     _dummyList = [ nattr ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
@@ -258,8 +258,8 @@ class TestXMLToken_newSetters(unittest.TestCase):
     xt1 = libsbml.XMLTriple("name1", "http://name1.org/", "p1")
     nattr.add(xt1, "val1")
     i = token.setAttributes(nattr)
-    self.assert_( i == libsbml.LIBSBML_INVALID_XML_OPERATION )
-    self.assert_( token.isAttributesEmpty() == True )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_XML_OPERATION )
+    self.assertTrue( token.isAttributesEmpty() == True )
     _dummyList = [ nattr ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
@@ -268,24 +268,24 @@ class TestXMLToken_newSetters(unittest.TestCase):
 
   def test_XMLToken_newSetters_setEOF(self):
     token = libsbml.XMLToken()
-    self.assert_( token.isEnd() == False )
+    self.assertTrue( token.isEnd() == False )
     i = token.setEOF()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.isEnd() == False )
-    self.assert_( token.isStart() == False )
-    self.assert_( token.isText() == False )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.isEnd() == False )
+    self.assertTrue( token.isStart() == False )
+    self.assertTrue( token.isText() == False )
     _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLToken_newSetters_setEnd(self):
     token = libsbml.XMLToken()
-    self.assert_( token.isEnd() == False )
+    self.assertTrue( token.isEnd() == False )
     i = token.setEnd()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.isEnd() == True )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.isEnd() == True )
     i = token.unsetEnd()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.isEnd() == False )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.isEnd() == False )
     _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -294,13 +294,13 @@ class TestXMLToken_newSetters(unittest.TestCase):
     attr = libsbml.XMLAttributes()
     token = libsbml.XMLToken(triple,attr)
     ns = libsbml.XMLNamespaces()
-    self.assert_( token.getNamespacesLength() == 0 )
-    self.assert_( token.isNamespacesEmpty() == True )
+    self.assertTrue( token.getNamespacesLength() == 0 )
+    self.assertTrue( token.isNamespacesEmpty() == True )
     ns.add( "http://test1.org/", "test1")
     i = token.setNamespaces(ns)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( token.getNamespacesLength() == 1 )
-    self.assert_( token.isNamespacesEmpty() == False )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( token.getNamespacesLength() == 1 )
+    self.assertTrue( token.isNamespacesEmpty() == False )
     _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
@@ -311,13 +311,13 @@ class TestXMLToken_newSetters(unittest.TestCase):
     triple = libsbml.XMLTriple("test","","")
     token = libsbml.XMLToken(triple)
     ns = libsbml.XMLNamespaces()
-    self.assert_( token.getNamespacesLength() == 0 )
-    self.assert_( token.isNamespacesEmpty() == True )
+    self.assertTrue( token.getNamespacesLength() == 0 )
+    self.assertTrue( token.isNamespacesEmpty() == True )
     ns.add( "http://test1.org/", "test1")
     i = token.setNamespaces(ns)
-    self.assert_( i == libsbml.LIBSBML_INVALID_XML_OPERATION )
-    self.assert_( token.getNamespacesLength() == 0 )
-    self.assert_( token.isNamespacesEmpty() == True )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_XML_OPERATION )
+    self.assertTrue( token.getNamespacesLength() == 0 )
+    self.assertTrue( token.isNamespacesEmpty() == True )
     _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ ns ]; _dummyList[:] = []; del _dummyList
@@ -327,8 +327,8 @@ class TestXMLToken_newSetters(unittest.TestCase):
     triple = libsbml.XMLTriple("test","","")
     token = libsbml.XMLToken()
     i = token.setTriple(triple)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_((  "test" == token.getName() ))
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue((  "test" == token.getName() ))
     _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -337,7 +337,7 @@ class TestXMLToken_newSetters(unittest.TestCase):
     triple = libsbml.XMLTriple("test","","")
     token = libsbml.XMLToken("This is text")
     i = token.setTriple(triple)
-    self.assert_( i == libsbml.LIBSBML_INVALID_XML_OPERATION )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_XML_OPERATION )
     _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
     pass  

@@ -907,7 +907,7 @@ START_CONSTRAINT(SpatialDiffusionCoefficientCoordinateReferenceNoYIn1D, Diffusio
 }
 END_CONSTRAINT
 
-// 1223455
+// 1223456
 START_CONSTRAINT(SpatialDiffusionCoefficientCoordinateReferenceNoZIn2D, DiffusionCoefficient, dc)
 {
   bool fail = false;
@@ -952,12 +952,12 @@ START_CONSTRAINT(SpatialDiffusionCoefficientCoordinateReferenceNoZIn2D, Diffusio
 END_CONSTRAINT
 
 // 1223504
-START_CONSTRAINT(SpatialAdvectionCoefficientVariableMustBeSpecies, AdvectionCoefficient, ac)
+START_CONSTRAINT(SpatialAdvectionCoefficientVariableMustBeSpeciesOrParam, AdvectionCoefficient, ac)
 {
   bool fail = false;
   pre(ac.isSetVariable());
 
-  if (m.getSpecies(ac.getVariable()) == NULL) {
+  if (m.getSpecies(ac.getVariable()) == NULL && m.getParameter(ac.getVariable()) == NULL) {
     fail = true;
     stringstream ss_msg;
     ss_msg << "An <advectionCoefficient>";
@@ -965,11 +965,33 @@ START_CONSTRAINT(SpatialAdvectionCoefficientVariableMustBeSpecies, AdvectionCoef
     {
       ss_msg << " with id '" << ac.getId() << "'";
     }
-    ss_msg << " references a variable '" << ac.getVariable() << "', which is not the ID of a <species> in the <model>.";
+    ss_msg << " references a variable '" << ac.getVariable() << "', which is not the ID of a <species> or <parameter> in the <model>.";
     msg = ss_msg.str();
   }
 
   inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1223552
+START_CONSTRAINT(SpatialAdvectionCoefficientVariableMustNotBeSelf, AdvectionCoefficient, ac)
+{
+    bool fail = false;
+    pre(ac.isSetVariable());
+    const SBase* parent = ac.getParentSBMLObject();
+    pre(parent != NULL);
+    pre(parent->getId() == ac.getVariable());
+
+    stringstream ss_msg;
+    ss_msg << "An <advectionCoefficient>";
+    if (ac.isSetId())
+    {
+        ss_msg << " with id '" << ac.getId() << "'";
+    }
+    ss_msg << " references its parent parameter '" << ac.getVariable() << "'.";
+    msg = ss_msg.str();
+    inv(false);
 }
 END_CONSTRAINT
 
@@ -2187,27 +2209,6 @@ START_CONSTRAINT(SpatialParametricObjectThreePointsForTriangles, ParametricObjec
 END_CONSTRAINT
 
 
-// 1222153
-START_CONSTRAINT(SpatialParametricObjectFourPointsForQuadrilaterals, ParametricObject, po)
-{
-  pre(po.getPolygonType() == SPATIAL_POLYGONKIND_QUADRILATERAL);
-  pre(po.getCompression() == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
-  pre(po.getActualPointIndexLength() % 4 != 0);
-  stringstream ss_msg;
-  ss_msg << "A <parametricObject>";
-  if (po.isSetId())
-  {
-    ss_msg << " with id '" << po.getId() << "'";
-  }
-  ss_msg << " has a polygonType of 'quadrilateral' but " << po.getActualPointIndexLength();
-  ss_msg << " entries, which is not a multiple of four.";
-  msg = ss_msg.str();
-
-  inv(false);
-}
-END_CONSTRAINT
-
-
 // 1222155
 START_CONSTRAINT(SpatialParametricObjectIndexesMustBePoints, ParametricObject, po)
 {
@@ -2264,16 +2265,9 @@ START_CONSTRAINT(SpatialParametricObjectFacesSameChirality, ParametricObject, po
   pre(po.isSetPolygonType());
   int groupsize;
   size_t len = po.getActualPointIndexLength();
-  if (po.getPolygonType() == SPATIAL_POLYGONKIND_QUADRILATERAL)
-  {
-    groupsize = 4;
-    pre(len % 4 == 0);
-  }
-  else 
-  {
-    groupsize = 3;
-    pre(len % 3 == 0);
-  }
+  pre(po.getPolygonType() == SPATIAL_POLYGONKIND_TRIANGLE);
+  groupsize = 3;
+  pre(len % 3 == 0);
   set<pair<int, int> > borders;
 
   int* data = new int[len];
@@ -2317,16 +2311,9 @@ START_CONSTRAINT(SpatialParametricObjectMaxTwoPointBorders, ParametricObject, po
   pre(po.isSetPolygonType());
   int groupsize;
   size_t len = po.getActualPointIndexLength();
-  if (po.getPolygonType() == SPATIAL_POLYGONKIND_QUADRILATERAL)
-  {
-    groupsize = 4;
-    pre(len % 4 == 0);
-  }
-  else 
-  {
-    groupsize = 3;
-    pre(len % 3 == 0);
-  }
+  pre(po.getPolygonType() == SPATIAL_POLYGONKIND_TRIANGLE);
+  groupsize = 3;
+  pre(len % 3 == 0);
   set<set<int> > triples;
 
   int* data = new int[len];
@@ -2646,18 +2633,39 @@ END_CONSTRAINT
 
 
 // 1223404
-START_CONSTRAINT(SpatialDiffusionCoefficientVariableMustBeSpecies, DiffusionCoefficient, dc)
+START_CONSTRAINT(SpatialDiffusionCoefficientVariableMustBeSpeciesOrParam, DiffusionCoefficient, dc)
 {
   pre(dc.isSetVariable());
   string variable = dc.getVariable();
-  pre(m.getSpecies(variable)==NULL);
+  pre(m.getSpecies(variable)==NULL && m.getParameter(variable)==NULL);
   msg = "A <diffusionCoefficient>";
   if (dc.isSetId()) {
     msg += " with the id '" + dc.getId() + "'";
   }
-  msg += " has a value of '" + variable + "' for its 'variable', but the model does not contain a <species> with that id.";
+  msg += " has a value of '" + variable + "' for its 'variable', but the model does not contain a <species> or <parameter> with that id.";
 
   inv(false);
+}
+END_CONSTRAINT
+
+
+// 1223458
+START_CONSTRAINT(SpatialDiffusionCoefficientVariableMustNotBeSelf, DiffusionCoefficient, dc)
+{
+    pre(dc.isSetVariable());
+    const SBase* parent = dc.getParentSBMLObject();
+    pre(parent != NULL);
+    pre(parent->getId() == dc.getVariable());
+
+    stringstream ss_msg;
+    ss_msg << "A <diffusionCoefficient>";
+    if (dc.isSetId())
+    {
+        ss_msg << " with id '" << dc.getId() << "'";
+    }
+    ss_msg << " references its parent parameter '" << dc.getVariable() << "'.";
+    msg = ss_msg.str();
+    inv(false);
 }
 END_CONSTRAINT
 
@@ -2675,7 +2683,10 @@ START_CONSTRAINT(SpatialBoundaryConditionCoordinateBoundaryMustBeBoundary, Bound
   {
     const CoordinateComponent* coord = geom->getCoordinateComponent(cc);
     if (coord->isSetBoundaryMax()) {
-      pre(coord->getBoundaryMax()->getId() != boundary);
+        pre(coord->getBoundaryMax()->getId() != boundary);
+    }
+    if (coord->isSetBoundaryMin()) {
+        pre(coord->getBoundaryMin()->getId() != boundary);
     }
   }
   msg = "A <boundaryCondition>";

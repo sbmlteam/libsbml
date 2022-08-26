@@ -280,7 +280,7 @@ int ASTBasePlugin::allowedInFunctionDefinition(ASTNodeType_t type) const
 /*
  * Constructor
  */
-ASTBasePlugin::ASTBasePlugin(const std::string &uri)
+ASTBasePlugin::ASTBasePlugin(const std::string& uri)
   : mSBMLExt(SBMLExtensionRegistry::getInstance().getExtensionInternal(uri))
   , mParentASTNode(NULL)
   , mURI(uri)
@@ -408,7 +408,7 @@ ASTBasePlugin::connectToParent(ASTNode* astbase)
  *
  */
 int
-ASTBasePlugin::setElementNamespace(const std::string &uri)
+ASTBasePlugin::setElementNamespace(const std::string& uri)
 {
   mURI = uri;
 

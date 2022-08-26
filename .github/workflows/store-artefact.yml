@@ -1,6 +1,7 @@
 name: Nightly build (binaries)
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 5 * * *"
 
@@ -18,8 +19,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [windows-latest, macos-latest, ubuntu-16.04]
-        xml_parser_option: ["-DWITH_LIBXML"]
+        platform: [windows-latest, macos-latest, ubuntu-18.04]
+        xml_parser_option: ["-DWITH_EXPAT=ON"]
         with_namespace: ["True"]
         strict: ["True"]
         with_examples: ["True"]
@@ -27,7 +28,7 @@ jobs:
         language_bindings:
           [
             "-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True
-            -DWITH_R=True",
+            -DWITH_R=OFF",
           ]
     runs-on: ${{ matrix.platform }}
 
@@ -50,7 +51,7 @@ jobs:
           path: |
             ./dependencies
             ./swig
-          key: ${{ runner.os }}-dependencies-static
+          key: ${{ runner.os }}-dependencies-static-2
 
       - name: Download pre-built Windows dependencies and SWIG
         # Windows dependencies have to be in a subfolder called `dependencies`, directly under the git repository root.
@@ -60,10 +61,9 @@ jobs:
           steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
         shell: bash
         run: |
-          curl -L https://sourceforge.net/projects/sbml/files/libsbml/win-dependencies/libSBML_dependencies_vs15_release_x64_static.zip/download > dependencies.zip
-          unzip dependencies.zip -d dependencies
-          cp -r dependencies/libSBML\ Dependencies-1.0.0-b1-win64/* dependencies
-          rm -r dependencies/libSBML*
+          curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
+          unzip dependencies.zip
+          mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
           curl -L https://prdownloads.sourceforge.net/swig/swigwin-3.0.12.zip > swig.zip
           unzip -o swig.zip -d swig
 
@@ -76,18 +76,31 @@ jobs:
           echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
           ./dev/utilities/expdef/expdef64.exe -dRlib.def -l R.dll
           echo R_PLATFORM_SPECIFIC_OPTIONS="-DR_LIB=${GITHUB_WORKSPACE}\Rlib.lib" >> "${GITHUB_ENV}"
-          echo R_INCLUDE_PATH="/c/Program Files/R/R-4.1.0/include" >> "${GITHUB_ENV}"
+
+      - name: Find Windows R include path
+        # robust to R version changing
+        if: matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+            cd /c/Program\ Files/R/
+            R_INCLUDE_DIR_VERSION=$(ls -d *)
+            echo R_INCLUDE_PATH="/c/Program Files/R/"$R_INCLUDE_DIR_VERSION"/include" >> "${GITHUB_ENV}"
 
       - name: Install Ubuntu dependencies
-        # ubuntu already has SWIG and libxml2 by default
-        if: matrix.platform == 'ubuntu-16.04'
+        # ubuntu already has SWIG but expat is too old
+        if: matrix.platform == 'ubuntu-18.04'
         shell: bash
         run: |
           sudo apt-get install -y check ccache
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
+          git clone https://github.com/libexpat/libexpat
+          cmake -G Ninja -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
+          cmake --build libexpat
+          cmake --install libexpat
+
 
       - name: Install MacOS dependencies
-        # MacOS already has libxml2 by default
+        # MacOS already has expat by default
         if: matrix.platform == 'macos-latest'
         shell: bash
         run: |
@@ -131,7 +144,7 @@ jobs:
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build
 
-      - name: Configure CMake for default XML_parser (LIBXML2)
+      - name: Configure CMake for XML_parser (expat)
         shell: bash
         working-directory: ${{runner.workspace}}/build
         run: |
@@ -147,6 +160,8 @@ jobs:
           -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
           -DWITH_EXAMPLES=${{matrix.with_examples}} \
+          -DWITH_LIBXML=OFF \
+          ${{matrix.xml_parser_option}} \
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
           ${R_PLATFORM_SPECIFIC_OPTIONS} \
@@ -160,13 +175,13 @@ jobs:
         run: |
           cmake --build . --config $BUILD_TYPE
 
-      - name: Build Unix R binaries from source package
-        if: matrix.platform != 'windows-latest'
-        shell: bash
-        working-directory: ${{runner.workspace}}/build
-        run: |
-          mkdir r-binaries
-          R CMD INSTALL -l r-binaries --build ./src/bindings/r/out/libSBML_5.19.1.tar.gz
+      # - name: Build Unix R binaries from source package
+        # if: matrix.platform != 'windows-latest'
+        # shell: bash
+        # working-directory: ${{runner.workspace}}/build
+        # run: |
+          # mkdir r-binaries
+          # R CMD INSTALL -l r-binaries --build ./src/bindings/r/out/libSBML_5.19.3.tar.gz
 
       ### run tests ###
       - name: Test
@@ -230,7 +245,7 @@ jobs:
           if-no-files-found: error
 
       - name: Upload Ubuntu binary archive
-        if: matrix.platform == 'ubuntu-16.04'
+        if: matrix.platform == 'ubuntu-18.04'
         uses: actions/upload-artifact@v2
         with:
           name:
@@ -238,7 +253,7 @@ jobs:
             ${{env.ARTIFACT_NAME_SUFFIX}})
           path: |
             ${{runner.workspace}}/install/*
-            ${{runner.workspace}}/build/r-binaries/*
+#            ${{runner.workspace}}/build/r-binaries/*
           retention-days: 1
           if-no-files-found: error
   manylinuxbuild:
@@ -252,7 +267,7 @@ jobs:
       fail-fast: false
       matrix:
         platform: [ubuntu-latest]
-        xml_parser_option: ["-DWITH_LIBXML"]
+        xml_parser_option: ["-DWITH_EXPAT=ON"]
         with_namespace: ["True"]
         strict: ["True"]
         with_examples: ["True"]
@@ -290,6 +305,10 @@ jobs:
       - name: Install dependencies, configure, build
         run: |
           yum install -y libxml2-devel check-devel java-devel mono-devel R
+          git clone https://github.com/libexpat/libexpat
+          cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
+          cmake --build libexpat
+          cmake --install libexpat
           cd ..
           mkdir build
           cd build
@@ -302,6 +321,8 @@ jobs:
           -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
           -DWITH_EXAMPLES=${{matrix.with_examples}} \
+          -DWITH_LIBXML=OFF \
+          ${{matrix.xml_parser_option}} \
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
           -DWITH_CREATE_R_SOURCE=ON \
@@ -311,8 +332,8 @@ jobs:
           -DWITH_STATIC_RUNTIME=ON \
           -DPYTHON_USE_DYNAMIC_LOOKUP=ON
           cmake --build . --config $BUILD_TYPE
-          mkdir r-binaries
-          R CMD INSTALL -l r-binaries --build ./src/bindings/r/out/libSBML_5.19.1.tar.gz
+          # mkdir r-binaries
+          # R CMD INSTALL -l r-binaries --build ./src/bindings/r/out/libSBML_5.19.3.tar.gz
 
       - name: Test
         run: |
@@ -348,10 +369,10 @@ jobs:
             ${{env.ARTIFACT_NAME_SUFFIX}})
           path: ../install # paths handled differently by v1 - note that "./install/*" does not work
 
-      - name: Upload Manylinux2010 R binary archive
-        uses: actions/upload-artifact@v1 # note v1 used here, because v2 incompatible
-        with:
-          name:
-            Manylinux2010 R nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
-            ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ../build/r-binaries # paths handled differently by v1 - note that v1 doesn't allow multiple paths
+      # - name: Upload Manylinux2010 R binary archive
+        # uses: actions/upload-artifact@v1 # note v1 used here, because v2 incompatible
+        # with:
+          # name:
+            # Manylinux2010 R nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
+            # ${{env.ARTIFACT_NAME_SUFFIX}})
+          # path: ../build/r-binaries # paths handled differently by v1 - note that v1 doesn't allow multiple paths

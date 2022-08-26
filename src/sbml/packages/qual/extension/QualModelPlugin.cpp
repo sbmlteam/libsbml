@@ -57,7 +57,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /*
  * Constructor
  */
-QualModelPlugin::QualModelPlugin (const std::string &uri, 
+QualModelPlugin::QualModelPlugin (const std::string& uri, 
                                   const std::string &prefix,
                                   QualPkgNamespaces *qualns)
   : SBasePlugin(uri,prefix, qualns)

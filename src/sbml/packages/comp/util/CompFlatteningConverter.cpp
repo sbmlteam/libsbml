@@ -1325,7 +1325,7 @@ CompFlatteningConverter::analyseDocument()
  
 /** @cond doxygenLibsbmlInternal */
 bool 
-CompFlatteningConverter::getRequiredStatus(const std::string & package)
+CompFlatteningConverter::getRequiredStatus(const std::string& package)
 {
   bool required = true;
 

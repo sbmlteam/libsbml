@@ -66,9 +66,21 @@
         <listOfSpecies>
             <species boundaryCondition="false" compartment="compartment" constant="false" hasOnlySubstanceUnits="false" id="species_1" spatial:isSpatial="true"/>
         </listOfSpecies>
+        <listOfReactions>
+          <reaction id="J0" reversible="true" fast="false" spatial:isLocal="false">
+            <listOfReactants>
+              <speciesReference species="species_1" stoichiometry="1" constant="true"/>
+            </listOfReactants>
+            <kineticLaw>
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <cn type="integer"> 2 </cn>
+              </math>
+            </kineticLaw>
+          </reaction>
+        </listOfReactions>
         <listOfParameters>
             <parameter constant="false" id="id_3">
-                <spatial:diffusionCoefficient spatial:type="isotropic" spatial:variable="id_3"/>
+                <spatial:diffusionCoefficient spatial:type="isotropic" spatial:variable="J0"/>
             </parameter>
         </listOfParameters>
     </model>

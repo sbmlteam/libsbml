@@ -53,11 +53,11 @@ class TestUnitDefinition_newSetters(unittest.TestCase):
     m = libsbml.UnitDefinition(2,2)
     p = libsbml.Unit(2,2)
     i = m.addUnit(p)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
     p.setKind(libsbml.UNIT_KIND_MOLE)
     i = m.addUnit(p)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( m.getNumUnits() == 1 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( m.getNumUnits() == 1 )
     _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -67,8 +67,8 @@ class TestUnitDefinition_newSetters(unittest.TestCase):
     p = libsbml.Unit(2,1)
     p.setKind(libsbml.UNIT_KIND_MOLE)
     i = m.addUnit(p)
-    self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
-    self.assert_( m.getNumUnits() == 0 )
+    self.assertTrue( i == libsbml.LIBSBML_VERSION_MISMATCH )
+    self.assertTrue( m.getNumUnits() == 0 )
     _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -78,8 +78,8 @@ class TestUnitDefinition_newSetters(unittest.TestCase):
     p = libsbml.Unit(1,2)
     p.setKind(libsbml.UNIT_KIND_MOLE)
     i = m.addUnit(p)
-    self.assert_( i == libsbml.LIBSBML_LEVEL_MISMATCH )
-    self.assert_( m.getNumUnits() == 0 )
+    self.assertTrue( i == libsbml.LIBSBML_LEVEL_MISMATCH )
+    self.assertTrue( m.getNumUnits() == 0 )
     _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -88,53 +88,53 @@ class TestUnitDefinition_newSetters(unittest.TestCase):
     m = libsbml.UnitDefinition(2,2)
     p = None
     i = m.addUnit(p)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
-    self.assert_( m.getNumUnits() == 0 )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_FAILED )
+    self.assertTrue( m.getNumUnits() == 0 )
     _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_createUnit(self):
     m = libsbml.UnitDefinition(2,2)
     p = m.createUnit()
-    self.assert_( m.getNumUnits() == 1 )
-    self.assert_( (p).getLevel() == 2 )
-    self.assert_( (p).getVersion() == 2 )
+    self.assertTrue( m.getNumUnits() == 1 )
+    self.assertTrue( (p).getLevel() == 2 )
+    self.assertTrue( (p).getVersion() == 2 )
     _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_setId1(self):
     i = self.UD.setId( "mmls")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_((  "mmls" == self.UD.getId() ))
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue((  "mmls" == self.UD.getId() ))
     self.assertEqual( True, self.UD.isSetId() )
     i = self.UD.setId("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.UD.isSetId() )
     i = self.UD.setId( "123")
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, self.UD.isSetId() )
     pass  
 
   def test_UnitDefinition_setName1(self):
     i = self.UD.setName( "mmls")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_((  "mmls" == self.UD.getName() ))
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue((  "mmls" == self.UD.getName() ))
     self.assertEqual( True, self.UD.isSetName() )
     i = self.UD.setName("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.UD.isSetName() )
     i = self.UD.setName( "123")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.UD.isSetName() )
     pass  
 
   def test_UnitDefinition_setName2(self):
     i = self.UD.setName( "mmls")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_((  "mmls" == self.UD.getName() ))
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue((  "mmls" == self.UD.getName() ))
     self.assertEqual( True, self.UD.isSetName() )
     i = self.UD.unsetName()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.UD.isSetName() )
     pass  
 

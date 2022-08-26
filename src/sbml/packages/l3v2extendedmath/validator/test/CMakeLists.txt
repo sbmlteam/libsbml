@@ -42,7 +42,7 @@ else()
   set (TEST_LIB l3v2extendedmath)
 endif()
 
-set(TEST_LIBSBML_LIBS ${TEST_LIB} ${LIBCHECK_LIBRARY})
+set(TEST_LIBSBML_LIBS ${TEST_LIB} CHECK::CHECK)
 
 set(TEST_FILES 
     ${CPP_FILES} 
@@ -53,7 +53,7 @@ set(TEST_FILES
 include_directories(BEFORE ${LIBSBML_ROOT_SOURCE_DIR}/src)
 include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 
-include_directories(${LIBCHECK_INCLUDE_DIR})
+
 add_executable(test_l3v2extendedmath_validator ${TEST_FILES})
 target_link_libraries(test_l3v2extendedmath_validator ${TEST_LIBSBML_LIBS})
 add_test(test_l3v2extendedmath_validator_run ${CMAKE_CURRENT_BINARY_DIR}/test_l3v2extendedmath_validator ${CMAKE_CURRENT_SOURCE_DIR})

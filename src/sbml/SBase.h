@@ -246,7 +246,7 @@ public:
    *
    * @return pointer to the first element found with the given identifier.
    */
-  const SBase* getElementBySId(const std::string& id) const;
+  virtual const SBase* getElementBySId(const std::string& id) const;
   
   /**
    * Returns the first child element it can find with a specific "metaid"
@@ -350,7 +350,7 @@ public:
    *
    * @return pointer to the first element found with the given @p id.
    */
-  virtual SBase* getElementFromPluginsBySId(std::string id);
+  virtual SBase* getElementFromPluginsBySId(const std::string& id);
   /** @endcond */
   
   
@@ -364,7 +364,7 @@ public:
    *
    * @return pointer to the first element found with the given @p metaid.
    */
-  virtual SBase* getElementFromPluginsByMetaId(std::string metaid);
+  virtual SBase* getElementFromPluginsByMetaId(const std::string& metaid);
   /** @endcond */
 
   
@@ -3564,7 +3564,7 @@ protected:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
-  int setElementNamespace(const std::string &uri);
+  int setElementNamespace(const std::string& uri);
 
 
   /**
@@ -5074,7 +5074,7 @@ SBase_hasValidLevelVersionNamespaceCombination(SBase_t *sb);
  */
 LIBSBML_EXTERN
 int
-SBase_getNumPlugins(SBase_t *sb);
+SBase_getNumPlugins(const SBase_t *sb);
 
 /**
  * Returns a plug-in structure (extension interface) for an SBML Level&nbsp;3

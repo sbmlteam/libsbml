@@ -385,6 +385,16 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
+
+  // record the SBML Object on which this ModelHistory is set
+
+  const SBase * getParentSBMLObject() const;
+  bool isSetParentSBMLObject() const;
+  void setParentSBMLObject(const SBase * sb);
+  int unsetParentSBMLObject();
+
+  friend class RDFAnnotationParser;
+
   /* Can have more than one creator. */
 
   List * mCreators;
@@ -400,6 +410,8 @@ protected:
   List * mModifiedDates;
 
   bool mHasBeenModified;
+  const SBase *mParentSBMLObject;
+
 
 
   /** @endcond */

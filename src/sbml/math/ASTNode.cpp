@@ -3187,7 +3187,7 @@ ASTNode::getASTPlugin(const SBMLNamespaces * sbmlns)
       int numxmlns = xmlns->getLength();
       for (int i = 0; i < numxmlns; i++)
       {
-        const std::string &uri = xmlns->getURI(i);
+        const std::string& uri = xmlns->getURI(i);
         const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
 
         if (sbmlext && sbmlext->isEnabled())
@@ -3262,7 +3262,7 @@ ASTNode::getASTPlugin(const SBMLNamespaces * sbmlns) const
       int numxmlns = xmlns->getLength();
       for (int i = 0; i < numxmlns; i++)
       {
-        const std::string &uri = xmlns->getURI(i);
+        const std::string& uri = xmlns->getURI(i);
         const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
 
         if (sbmlext && sbmlext->isEnabled())
@@ -3385,7 +3385,7 @@ ASTNode::loadASTPlugins(const SBMLNamespaces * sbmlns)
       int numxmlns = xmlns->getLength();
       for (int i = 0; i < numxmlns; i++)
       {
-        const std::string &uri = xmlns->getURI(i);
+        const std::string& uri = xmlns->getURI(i);
         const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
 
         if (sbmlext && sbmlext->isEnabled())

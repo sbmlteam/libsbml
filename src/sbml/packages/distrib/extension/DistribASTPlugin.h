@@ -118,7 +118,7 @@ public:
    */
   virtual int allowedInFunctionDefinition(ASTNodeType_t type) const;
 
-  DistribASTPlugin(const std::string &uri);
+  DistribASTPlugin(const std::string& uri);
 
 };
 

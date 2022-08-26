@@ -59,7 +59,7 @@ class TestXMLOutputStream(unittest.TestCase):
     stream.endElement( "testcr")
     expected =  "<testcr chars=\"one\" amp=\"&amp;\" deccr=\"&#0168;\" hexcr=\"&#x00a8;\" lhexcr=\"&#x00A8;\" nodeccr1=\"&amp;#01688\" nodeccr2=\"&amp;#;\" nodeccr3=\"&amp;#00a8;\" nodeccr4=\"&amp;#00A8;\" nohexcr1=\"&amp;#x;\" nohexcr2=\"&amp;#xABCD\"/>";
     s = oss.str()
-    self.assert_(( expected == s ))
+    self.assertTrue(( expected == s ))
     _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -80,7 +80,7 @@ class TestXMLOutputStream(unittest.TestCase):
     stream.endElement( "fred")
     expected =  "<fred chars=\"two\" bool=\"true\" double=\"2.4\" long=\"123456789\" uint=\"5\" int=\"-3\"/>";
     s = oss.str()
-    self.assert_(( expected == s ))
+    self.assertTrue(( expected == s ))
     _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -101,19 +101,19 @@ class TestXMLOutputStream(unittest.TestCase):
     stream.endElement( "testpde")
     expected =  "<testpde amp=\"&amp;\" apos=\"&apos;\" gt=\"&gt;\" lt=\"&lt;\" quot=\"&quot;\" pdeamp=\"&amp;\" pdeapos=\"&apos;\" pdegt=\"&gt;\" pdelt=\"&lt;\" pdequot=\"&quot;\"/>";
     s = oss.str()
-    self.assert_(( expected == s ))
+    self.assertTrue(( expected == s ))
     _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLOutputStream_createStdout(self):
     stream = libsbml.XMLOutputStream(libsbml.cout,"UTF-8",False)
-    self.assert_( stream != None )
+    self.assertTrue( stream != None )
     _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLOutputStream_createStdoutWithProgramInfo(self):
     stream = libsbml.XMLOutputStream(libsbml.cout,"UTF-8",False, "foo", "bar")
-    self.assert_( stream != None )
+    self.assertTrue( stream != None )
     _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -121,9 +121,9 @@ class TestXMLOutputStream(unittest.TestCase):
     expected =  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
     oss = libsbml.ostringstream()
     stream = libsbml.XMLOutputStream(oss,"UTF-8",True)
-    self.assert_( stream != None )
+    self.assertTrue( stream != None )
     str = oss.str()
-    self.assert_(( expected == str ))
+    self.assertTrue(( expected == str ))
     _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -131,19 +131,19 @@ class TestXMLOutputStream(unittest.TestCase):
     expected =  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
     oss = libsbml.ostringstream()
     stream = libsbml.XMLOutputStream(oss,"UTF-8",True, "", "")
-    self.assert_( stream != None )
+    self.assertTrue( stream != None )
     str = oss.str()
-    self.assert_(( expected == str ))
+    self.assertTrue(( expected == str ))
     _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLOutputStream_startEnd(self):
     oss = libsbml.ostringstream()
     stream = libsbml.XMLOutputStream(oss,"",False)
-    self.assert_( stream != None )
+    self.assertTrue( stream != None )
     stream.startEndElement( "id")
     str = oss.str()
-    self.assert_((  "<id/>" == str ))
+    self.assertTrue((  "<id/>" == str ))
     _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList
     pass  
 

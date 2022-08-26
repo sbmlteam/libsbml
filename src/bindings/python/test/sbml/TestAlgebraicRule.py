@@ -50,25 +50,25 @@ class TestAlgebraicRule(unittest.TestCase):
     pass  
 
   def test_AlgebraicRule_create(self):
-    self.assert_( self.AR.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE )
-    self.assert_( self.AR.getMetaId() == "" )
-    self.assert_( self.AR.getNotes() == None )
-    self.assert_( self.AR.getAnnotation() == None )
-    self.assert_( self.AR.getFormula() == "" )
-    self.assert_( self.AR.getMath() == None )
+    self.assertTrue( self.AR.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE )
+    self.assertTrue( self.AR.getMetaId() == "" )
+    self.assertTrue( self.AR.getNotes() == None )
+    self.assertTrue( self.AR.getAnnotation() == None )
+    self.assertTrue( self.AR.getFormula() == "" )
+    self.assertTrue( self.AR.getMath() == None )
     pass  
 
   def test_AlgebraicRule_createWithFormula(self):
     ar = libsbml.AlgebraicRule(2,4)
     ar.setFormula( "1 + 1")
-    self.assert_( ar.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE )
-    self.assert_( ar.getMetaId() == "" )
+    self.assertTrue( ar.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE )
+    self.assertTrue( ar.getMetaId() == "" )
     math = ar.getMath()
-    self.assert_( math != None )
+    self.assertTrue( math != None )
     formula = libsbml.formulaToString(math)
-    self.assert_( formula != None )
-    self.assert_((  "1 + 1" == formula ))
-    self.assert_(( formula == ar.getFormula() ))
+    self.assertTrue( formula != None )
+    self.assertTrue((  "1 + 1" == formula ))
+    self.assertTrue(( formula == ar.getFormula() ))
     _dummyList = [ ar ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -76,10 +76,10 @@ class TestAlgebraicRule(unittest.TestCase):
     math = libsbml.parseFormula("1 + 1")
     ar = libsbml.AlgebraicRule(2,4)
     ar.setMath(math)
-    self.assert_( ar.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE )
-    self.assert_( ar.getMetaId() == "" )
-    self.assert_((  "1 + 1" == ar.getFormula() ))
-    self.assert_( ar.getMath() != math )
+    self.assertTrue( ar.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE )
+    self.assertTrue( ar.getMetaId() == "" )
+    self.assertTrue((  "1 + 1" == ar.getFormula() ))
+    self.assertTrue( ar.getMath() != math )
     _dummyList = [ ar ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -89,14 +89,14 @@ class TestAlgebraicRule(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(2,3)
     sbmlns.addNamespaces(xmlns)
     r = libsbml.AlgebraicRule(sbmlns)
-    self.assert_( r.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE )
-    self.assert_( r.getMetaId() == "" )
-    self.assert_( r.getNotes() == None )
-    self.assert_( r.getAnnotation() == None )
-    self.assert_( r.getLevel() == 2 )
-    self.assert_( r.getVersion() == 3 )
-    self.assert_( r.getNamespaces() != None )
-    self.assert_( r.getNamespaces().getLength() == 2 )
+    self.assertTrue( r.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE )
+    self.assertTrue( r.getMetaId() == "" )
+    self.assertTrue( r.getNotes() == None )
+    self.assertTrue( r.getAnnotation() == None )
+    self.assertTrue( r.getLevel() == 2 )
+    self.assertTrue( r.getVersion() == 3 )
+    self.assertTrue( r.getNamespaces() != None )
+    self.assertTrue( r.getNamespaces().getLength() == 2 )
     _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     pass  
 

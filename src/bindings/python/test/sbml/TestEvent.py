@@ -50,20 +50,20 @@ class TestEvent(unittest.TestCase):
     pass  
 
   def test_Event_create(self):
-    self.assert_( self.E.getTypeCode() == libsbml.SBML_EVENT )
-    self.assert_( self.E.getMetaId() == "" )
-    self.assert_( self.E.getNotes() == None )
-    self.assert_( self.E.getAnnotation() == None )
-    self.assert_( self.E.getId() == "" )
-    self.assert_( self.E.getName() == "" )
-    self.assert_( self.E.getTrigger() == None )
-    self.assert_( self.E.getDelay() == None )
-    self.assert_( self.E.getTimeUnits() == "" )
+    self.assertTrue( self.E.getTypeCode() == libsbml.SBML_EVENT )
+    self.assertTrue( self.E.getMetaId() == "" )
+    self.assertTrue( self.E.getNotes() == None )
+    self.assertTrue( self.E.getAnnotation() == None )
+    self.assertTrue( self.E.getId() == "" )
+    self.assertTrue( self.E.getName() == "" )
+    self.assertTrue( self.E.getTrigger() == None )
+    self.assertTrue( self.E.getDelay() == None )
+    self.assertTrue( self.E.getTimeUnits() == "" )
     self.assertEqual( False, self.E.isSetId() )
     self.assertEqual( False, self.E.isSetTrigger() )
     self.assertEqual( False, self.E.isSetDelay() )
     self.assertEqual( True, self.E.isSetUseValuesFromTriggerTime() )
-    self.assert_( self.E.getNumEventAssignments() == 0 )
+    self.assertTrue( self.E.getNumEventAssignments() == 0 )
     pass  
 
   def test_Event_createWithNS(self):
@@ -72,14 +72,14 @@ class TestEvent(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(2,4)
     sbmlns.addNamespaces(xmlns)
     object = libsbml.Event(sbmlns)
-    self.assert_( object.getTypeCode() == libsbml.SBML_EVENT )
-    self.assert_( object.getMetaId() == "" )
-    self.assert_( object.getNotes() == None )
-    self.assert_( object.getAnnotation() == None )
-    self.assert_( object.getLevel() == 2 )
-    self.assert_( object.getVersion() == 4 )
-    self.assert_( object.getNamespaces() != None )
-    self.assert_( object.getNamespaces().getLength() == 2 )
+    self.assertTrue( object.getTypeCode() == libsbml.SBML_EVENT )
+    self.assertTrue( object.getMetaId() == "" )
+    self.assertTrue( object.getNotes() == None )
+    self.assertTrue( object.getAnnotation() == None )
+    self.assertTrue( object.getLevel() == 2 )
+    self.assertTrue( object.getVersion() == 4 )
+    self.assertTrue( object.getNamespaces() != None )
+    self.assertTrue( object.getNamespaces().getLength() == 2 )
     _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -100,8 +100,8 @@ class TestEvent(unittest.TestCase):
     e.setId( "e1")
     e.setName( "Set k2 to zero when P1 <= t")
     e.addEventAssignment(ea)
-    self.assert_( e.getNumEventAssignments() == 1 )
-    self.assert_( e.getEventAssignment(0) != ea )
+    self.assertTrue( e.getNumEventAssignments() == 1 )
+    self.assertTrue( e.getEventAssignment(0) != ea )
     _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -111,12 +111,12 @@ class TestEvent(unittest.TestCase):
     o2 = self.E.createEventAssignment()
     o3 = self.E.createEventAssignment()
     o3.setVariable("test")
-    self.assert_( self.E.removeEventAssignment(0) == o1 )
-    self.assert_( self.E.getNumEventAssignments() == 2 )
-    self.assert_( self.E.removeEventAssignment(0) == o2 )
-    self.assert_( self.E.getNumEventAssignments() == 1 )
-    self.assert_( self.E.removeEventAssignment("test") == o3 )
-    self.assert_( self.E.getNumEventAssignments() == 0 )
+    self.assertTrue( self.E.removeEventAssignment(0) == o1 )
+    self.assertTrue( self.E.getNumEventAssignments() == 2 )
+    self.assertTrue( self.E.removeEventAssignment(0) == o2 )
+    self.assertTrue( self.E.getNumEventAssignments() == 1 )
+    self.assertTrue( self.E.removeEventAssignment("test") == o3 )
+    self.assertTrue( self.E.getNumEventAssignments() == 0 )
     _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
@@ -127,12 +127,12 @@ class TestEvent(unittest.TestCase):
     Delay = libsbml.Delay(2,4)
     Delay.setMath(math1)
     self.E.setDelay(Delay)
-    self.assert_( self.E.getDelay() != None )
+    self.assertTrue( self.E.getDelay() != None )
     self.assertEqual( True, self.E.isSetDelay() )
     if (self.E.getDelay() == Delay):
       pass    
     self.E.setDelay(self.E.getDelay())
-    self.assert_( self.E.getDelay() != Delay )
+    self.assertTrue( self.E.getDelay() != Delay )
     self.E.setDelay(None)
     self.assertEqual( False, self.E.isSetDelay() )
     if (self.E.getDelay() != None):
@@ -142,12 +142,12 @@ class TestEvent(unittest.TestCase):
   def test_Event_setId(self):
     id =  "e1";
     self.E.setId(id)
-    self.assert_(( id == self.E.getId() ))
+    self.assertTrue(( id == self.E.getId() ))
     self.assertEqual( True, self.E.isSetId() )
     if (self.E.getId() == id):
       pass    
     self.E.setId(self.E.getId())
-    self.assert_(( id == self.E.getId() ))
+    self.assertTrue(( id == self.E.getId() ))
     self.E.setId("")
     self.assertEqual( False, self.E.isSetId() )
     if (self.E.getId() != None):
@@ -157,12 +157,12 @@ class TestEvent(unittest.TestCase):
   def test_Event_setName(self):
     name =  "Set_k2";
     self.E.setName(name)
-    self.assert_(( name == self.E.getName() ))
+    self.assertTrue(( name == self.E.getName() ))
     self.assertEqual( True, self.E.isSetName() )
     if (self.E.getName() == name):
       pass    
     self.E.setName(self.E.getName())
-    self.assert_(( name == self.E.getName() ))
+    self.assertTrue(( name == self.E.getName() ))
     self.E.setName("")
     self.assertEqual( False, self.E.isSetName() )
     if (self.E.getName() != None):
@@ -173,12 +173,12 @@ class TestEvent(unittest.TestCase):
     E1 = libsbml.Event(2,1)
     units =  "second";
     E1.setTimeUnits(units)
-    self.assert_(( units == E1.getTimeUnits() ))
+    self.assertTrue(( units == E1.getTimeUnits() ))
     self.assertEqual( True, E1.isSetTimeUnits() )
     if (E1.getTimeUnits() == units):
       pass    
     E1.setTimeUnits(E1.getTimeUnits())
-    self.assert_(( units == E1.getTimeUnits() ))
+    self.assertTrue(( units == E1.getTimeUnits() ))
     E1.setTimeUnits("")
     self.assertEqual( False, E1.isSetTimeUnits() )
     if (E1.getTimeUnits() != None):
@@ -191,12 +191,12 @@ class TestEvent(unittest.TestCase):
     trigger = libsbml.Trigger(2,4)
     trigger.setMath(math1)
     self.E.setTrigger(trigger)
-    self.assert_( self.E.getTrigger() != None )
+    self.assertTrue( self.E.getTrigger() != None )
     self.assertEqual( True, self.E.isSetTrigger() )
     if (self.E.getTrigger() == trigger):
       pass    
     self.E.setTrigger(self.E.getTrigger())
-    self.assert_( self.E.getTrigger() != trigger )
+    self.assertTrue( self.E.getTrigger() != trigger )
     self.E.setTrigger(None)
     self.assertEqual( False, self.E.isSetTrigger() )
     if (self.E.getTrigger() != None):
@@ -206,9 +206,9 @@ class TestEvent(unittest.TestCase):
   def test_Event_setUseValuesFromTriggerTime(self):
     object = libsbml.Event(2,4)
     object.setUseValuesFromTriggerTime(False)
-    self.assert_( object.getUseValuesFromTriggerTime() == False )
+    self.assertTrue( object.getUseValuesFromTriggerTime() == False )
     object.setUseValuesFromTriggerTime(True)
-    self.assert_( object.getUseValuesFromTriggerTime() == True )
+    self.assertTrue( object.getUseValuesFromTriggerTime() == True )
     _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 

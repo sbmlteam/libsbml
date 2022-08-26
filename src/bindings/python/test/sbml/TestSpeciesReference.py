@@ -50,14 +50,14 @@ class TestSpeciesReference(unittest.TestCase):
     pass  
 
   def test_SpeciesReference_create(self):
-    self.assert_( self.SR.getTypeCode() == libsbml.SBML_SPECIES_REFERENCE )
-    self.assert_( self.SR.getMetaId() == "" )
-    self.assert_( self.SR.getNotes() == None )
-    self.assert_( self.SR.getAnnotation() == None )
-    self.assert_( self.SR.getSpecies() == "" )
-    self.assert_( self.SR.getStoichiometry() == 1 )
-    self.assert_( self.SR.getStoichiometryMath() == None )
-    self.assert_( self.SR.getDenominator() == 1 )
+    self.assertTrue( self.SR.getTypeCode() == libsbml.SBML_SPECIES_REFERENCE )
+    self.assertTrue( self.SR.getMetaId() == "" )
+    self.assertTrue( self.SR.getNotes() == None )
+    self.assertTrue( self.SR.getAnnotation() == None )
+    self.assertTrue( self.SR.getSpecies() == "" )
+    self.assertTrue( self.SR.getStoichiometry() == 1 )
+    self.assertTrue( self.SR.getStoichiometryMath() == None )
+    self.assertTrue( self.SR.getDenominator() == 1 )
     self.assertEqual( False, self.SR.isSetSpecies() )
     self.assertEqual( False, self.SR.isSetStoichiometryMath() )
     pass  
@@ -68,14 +68,14 @@ class TestSpeciesReference(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(2,1)
     sbmlns.addNamespaces(xmlns)
     object = libsbml.SpeciesReference(sbmlns)
-    self.assert_( object.getTypeCode() == libsbml.SBML_SPECIES_REFERENCE )
-    self.assert_( object.getMetaId() == "" )
-    self.assert_( object.getNotes() == None )
-    self.assert_( object.getAnnotation() == None )
-    self.assert_( object.getLevel() == 2 )
-    self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != None )
-    self.assert_( object.getNamespaces().getLength() == 2 )
+    self.assertTrue( object.getTypeCode() == libsbml.SBML_SPECIES_REFERENCE )
+    self.assertTrue( object.getMetaId() == "" )
+    self.assertTrue( object.getNotes() == None )
+    self.assertTrue( object.getAnnotation() == None )
+    self.assertTrue( object.getLevel() == 2 )
+    self.assertTrue( object.getVersion() == 1 )
+    self.assertTrue( object.getNamespaces() != None )
+    self.assertTrue( object.getNamespaces().getLength() == 2 )
     _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -86,12 +86,12 @@ class TestSpeciesReference(unittest.TestCase):
   def test_SpeciesReference_setId(self):
     species =  "X0";
     self.SR.setId(species)
-    self.assert_(( species == self.SR.getId() ))
+    self.assertTrue(( species == self.SR.getId() ))
     self.assertEqual( True, self.SR.isSetId() )
     if (self.SR.getId() == species):
       pass    
     self.SR.setId(self.SR.getId())
-    self.assert_(( species == self.SR.getId() ))
+    self.assertTrue(( species == self.SR.getId() ))
     self.SR.setId("")
     self.assertEqual( False, self.SR.isSetId() )
     if (self.SR.getId() != None):
@@ -101,12 +101,12 @@ class TestSpeciesReference(unittest.TestCase):
   def test_SpeciesReference_setSpecies(self):
     species =  "X0";
     self.SR.setSpecies(species)
-    self.assert_(( species == self.SR.getSpecies() ))
+    self.assertTrue(( species == self.SR.getSpecies() ))
     self.assertEqual( True, self.SR.isSetSpecies() )
     if (self.SR.getSpecies() == species):
       pass    
     self.SR.setSpecies(self.SR.getSpecies())
-    self.assert_(( species == self.SR.getSpecies() ))
+    self.assertTrue(( species == self.SR.getSpecies() ))
     self.SR.setSpecies("")
     self.assertEqual( False, self.SR.isSetSpecies() )
     if (self.SR.getSpecies() != None):
@@ -119,10 +119,10 @@ class TestSpeciesReference(unittest.TestCase):
     stoich.setMath(math)
     self.SR.setStoichiometryMath(stoich)
     math1 = self.SR.getStoichiometryMath()
-    self.assert_( math1 != None )
+    self.assertTrue( math1 != None )
     formula = libsbml.formulaToString(math1.getMath())
-    self.assert_( formula != None )
-    self.assert_((  "k3 / k2" == formula ))
+    self.assertTrue( formula != None )
+    self.assertTrue((  "k3 / k2" == formula ))
     self.assertEqual( True, self.SR.isSetStoichiometryMath() )
     pass  
 

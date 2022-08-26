@@ -185,7 +185,7 @@ FbcReactionPlugin::writeElements (XMLOutputStream& stream) const
   // dont want to write <fbc:geneProductAssociation/> 
   // so check it actual has something in
   if (isSetGeneProductAssociation() == true && getLevel() == 3 
-    && getPackageVersion() == 2 && getGeneProductAssociation()->getAssociation() != NULL) 
+    && getPackageVersion() > 1 && getGeneProductAssociation()->getAssociation() != NULL) 
   { 
     mGeneProductAssociation->write(stream);
   } 
@@ -993,6 +993,13 @@ FbcReactionPlugin::accept(SBMLVisitor& v) const
 
 #endif /* __cplusplus */
 
+
+LIBSBML_EXTERN
+GeneProductAssociation_t *
+FbcReactionPlugin_createGeneProductAssociation(FbcSBasePlugin_t * fbc)
+{
+  return  (fbc != NULL) ? static_cast<FbcReactionPlugin*>(fbc)->createGeneProductAssociation() : NULL;
+}
 
 LIBSBML_EXTERN
 char *

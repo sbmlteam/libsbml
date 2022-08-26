@@ -23,7 +23,7 @@ Table of contents
 * [Contributing](#contributing)
 * [License](#license)
 * [Authors and history](#authors-and-history)
-* [Acknowledgments](#authors-and-acknowledgments)
+* [Acknowledgments](#acknowledgments)
 
 
 Introduction
@@ -51,7 +51,7 @@ Installation
 
 A **stable release** of libSBML includes support for SBML Level&nbsp;3 Core and all accepted SBML &nbsp;3 packages, as well as support for packages that are currently under development. An **experimental-only release** only updates code for the SBML Level&nbsp;3 packages under development.
 
-Before the year 2020, we used SourceForge for our code repository and software downloads.  Our software releases for libSBML are currently still done from SourceForge at this location:
+Before the year 2020, we used SourceForge for our code repository and software downloads.  Though you can find the source code releases on GitHub, our **binary** software releases for libSBML are currently still done from SourceForge at the following location:
 
 <p align="center"><b>
 ↓ ↓ ↓<br>
@@ -63,17 +63,20 @@ We provide Zenodo DOIs for specific releases, so that you can cite the exact ver
 
 * libSBML-5.19.0 &rArr; [10.5281/zenodo.4293358](https://doi.org/10.5281/zenodo.4293358)
 * libSBML-5.18.0 &rArr; [10.5281/zenodo.2645216](https://doi.org/10.5281/zenodo.2645216)
-* libSBML-5.17.0 &rArr; [10.5281/zenodo.1250696](https://doi.org/10.5281/zenodo.)
-* libSBML-5.16.0 &rArr; [10.5281/zenodo.1095483](https://doi.org/10.5281/zenodo.)
-* libSBML-5.15.0 &rArr; [10.5281/zenodo.495344](https://doi.org/10.5281/zenodo.)
+* libSBML-5.17.0 &rArr; [10.5281/zenodo.1250696](https://doi.org/10.5281/zenodo.1250696)
+* libSBML-5.16.0 &rArr; [10.5281/zenodo.1095483](https://doi.org/10.5281/zenodo.1095483)
+* libSBML-5.15.0 &rArr; [10.5281/zenodo.495344](https://doi.org/10.5281/zenodo.495344)
+
+If you'd like to include the latest features, binaries of the latest `development` branch of `SBMLTeam/libsbml` are [built nightly](artefacts.md) by the CI/CD system.
+Further information for developers about the CI/CD system can be found [here](ci.md).
 
 
 Usage
 -----
 
-Please read the file [NEWS.txt](NEWS.txt) for highlights about recent changes in libSBML and important information.
+Please read the file [NEWS.txt]() for highlights about recent changes in libSBML and important information.
 
-Documentation is available online at http://sbml.org/Software/libSBML
+Documentation is available online at http://sbml.org/software/libsbml
 
 
 Getting help
@@ -121,6 +124,18 @@ LibSBML's main authors are [Sarah M. Keating](https://github.com/skeating), [Fra
 * Jamie J Quinn
 * Fengkai Zhang
 
+
+Research notice
+---------------
+Please note that this repository is participating in a study into sustainability
+ of open source projects. Data will be gathered about this repository for
+ approximately the next 12 months, starting from July 2021.
+
+Data collected will include number of contributors, number of PRs, time taken to
+ close/merge these PRs, and issues closed.
+
+For more information, please visit
+[this informational page](https://sustainable-open-science-and-software.github.io/) or download the [participant information sheet](https://sustainable-open-science-and-software.github.io/assets/PIS_sustainable_software.pdf).
 
 Acknowledgments
 ---------------

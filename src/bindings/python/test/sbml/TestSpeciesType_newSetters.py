@@ -51,51 +51,51 @@ class TestSpeciesType_newSetters(unittest.TestCase):
 
   def test_SpeciesType_setId2(self):
     i = self.ST.setId( "1cell")
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, self.ST.isSetId() )
     pass  
 
   def test_SpeciesType_setId3(self):
     i = self.ST.setId( "cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.ST.isSetId() )
-    self.assert_((  "cell"  == self.ST.getId() ))
+    self.assertTrue((  "cell"  == self.ST.getId() ))
     pass  
 
   def test_SpeciesType_setId4(self):
     i = self.ST.setId( "cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.ST.isSetId() )
-    self.assert_((  "cell"  == self.ST.getId() ))
+    self.assertTrue((  "cell"  == self.ST.getId() ))
     i = self.ST.setId("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.ST.isSetId() )
     pass  
 
   def test_SpeciesType_setName1(self):
     i = self.ST.setName( "cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.ST.isSetName() )
     i = self.ST.unsetName()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.ST.isSetName() )
     pass  
 
   def test_SpeciesType_setName2(self):
     i = self.ST.setName( "1cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.ST.isSetName() )
     i = self.ST.unsetName()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.ST.isSetName() )
     pass  
 
   def test_SpeciesType_setName3(self):
     i = self.ST.setName( "cell")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.ST.isSetName() )
     i = self.ST.setName("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.ST.isSetName() )
     pass  
 

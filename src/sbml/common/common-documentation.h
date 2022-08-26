@@ -2348,11 +2348,11 @@ const std::string& GroupsExtension::getXmlnsL3V1V1 ()
  * method returns the nickname of the package (e.g., "layout",
  * "groups").
  *
- * @li <code>virtual unsigned int getLevel(const std::string &uri) const
+ * @li <code>virtual unsigned int getLevel(const std::string& uri) const
  * =0</code>. This method returns the SBML Level with the given URI of
  * this package.
  *
- * @li <code>virtual unsigned int getVersion(const std::string &uri)
+ * @li <code>virtual unsigned int getVersion(const std::string& uri)
  * const =0</code>. This method returns the SBML Version with the given
  * URI of this package.
  *
@@ -2377,7 +2377,7 @@ const std::string& GroupsExtension::getName() const
   return getPackageName();
 }
 
-unsigned int GroupsExtension::getLevel(const std::string &uri) const
+unsigned int GroupsExtension::getLevel(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
     return 3;
@@ -2385,7 +2385,7 @@ unsigned int GroupsExtension::getLevel(const std::string &uri) const
     return 0;
 }
 
-unsigned int GroupsExtension::getVersion(const std::string &uri) const
+unsigned int GroupsExtension::getVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
     return 1;
@@ -2393,7 +2393,7 @@ unsigned int GroupsExtension::getVersion(const std::string &uri) const
     return 0;
 }
 
-unsigned int GroupsExtension::getPackageVersion(const std::string &uri) const
+unsigned int GroupsExtension::getPackageVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
     return 1;
@@ -2479,7 +2479,7 @@ Group g = new Group(&gpns);        // Creates a Group object.
  * is overridden in the class <code>GroupsExtension</code> as follows:
 @code{.cpp}
 SBMLNamespaces*
-GroupsExtension::getSBMLExtensionNamespaces(const std::string &uri) const
+GroupsExtension::getSBMLExtensionNamespaces(const std::string& uri) const
 {
   GroupsPkgNamespaces* pkgns = NULL;
   if ( uri == getXmlnsL3V1V1())

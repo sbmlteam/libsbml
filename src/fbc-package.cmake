@@ -38,7 +38,7 @@ include(${LIBSBML_ROOT_SOURCE_DIR}/fbc-package.cmake)
 #build up sources
 set(FBC_SOURCES)
 
-# go through all directtories: common, extension and sbml
+# go through all directories
 foreach(dir common extension sbml util validator validator/constraints)
 
   # add to include directory
@@ -50,9 +50,9 @@ foreach(dir common extension sbml util validator validator/constraints)
   
   # set the *Constraints.cpp files to be 'header' files so they won't be compiled--
   #  they are #included directly, instead.
-  if ("${dir}" STREQUAL "validator/constraints")
+  if (dir STREQUAL "validator/constraints")
       foreach(tempFile ${current})
-          if ("${tempFile}" MATCHES ".*Constraints.cpp")
+          if (tempFile MATCHES ".*Constraints.cpp")
               set_source_files_properties(
                   ${tempFile}
                   PROPERTIES HEADER_FILE_ONLY true

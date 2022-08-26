@@ -1749,7 +1749,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The value of the attribute 'spatial:polygonType' of a <parametricObject> "
     "object must conform to the syntax of SBML data type 'PolygonKind' and may "
     "only take on the allowed values of 'PolygonKind' defined in SBML; that is, "
-    "the value must be one of the following: 'triangle' or 'quadrilateral'.",
+    "the value must be 'triangle'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1853,16 +1853,6 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "If the attribute 'spatial:polygonType' of a <parametricObject> has the value 'triangle', the number of uncompressed entries in its ArrayData child must be evenly divisible by three.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1222153
-  { SpatialParametricObjectFourPointsForQuadrilaterals,
-    "The number of point indexes must be divisible by four if polygonType is 'quadrilateral'.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "If the attribute 'spatial:polygonType' of a <parametricObject> has the value 'quadrilateral', the number of uncompressed entries in its ArrayData child must be evenly divisible by four.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -2941,12 +2931,12 @@ static const packageErrorTableEntry spatialErrorTable[] =
   },
 
   // 1223404
-  { SpatialDiffusionCoefficientVariableMustBeSpecies,
-    "The attribute 'variable' must point to Species object.",
+  { SpatialDiffusionCoefficientVariableMustBeSpeciesOrParam,
+    "The attribute 'variable' must point to Species or Parameter object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'spatial:variable' of a <diffusionCoefficient> "
-    "object must be the identifier of an existing <species> object defined in "
+    "object must be the identifier of an existing <species> or <parameter> object defined in "
     "the enclosing <model> object.",
     { "L3V1 Spatial V1 Section"
     }
@@ -3066,10 +3056,21 @@ static const packageErrorTableEntry spatialErrorTable[] =
 
   // 1223457
   { SpatialNoDiffusionCoefficientOverlap,
-    "No overlapping diffusion coefficients for the same species.",
+    "No overlapping diffusion coefficients for the same species or parameter.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "Any <species> may only have a single <diffusionCoefficient> that applies to any given cardinal axis or plane.  A <diffusionCoefficient> of type 'anisotropic' applies to the axis it references, and any plane in the <geometry> that contains that axis.  A <diffusionCoefficient> of type 'tensor' applies to the plane defined by the two axes it references.  A <diffusionCoefficient> of type 'isotropic' applies to all axes and planes in the <geometry>.",
+    "Any <species> or <parameter> may only have a single <diffusionCoefficient> that applies to any given cardinal axis or plane.  A <diffusionCoefficient> of type 'anisotropic' applies to the axis it references, and any plane in the <geometry> that contains that axis.  A <diffusionCoefficient> of type 'tensor' applies to the plane defined by the two axes it references.  A <diffusionCoefficient> of type 'isotropic' applies to all axes and planes in the <geometry>.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223458
+  { SpatialDiffusionCoefficientVariableMustNotBeSelf,
+    "The attribute 'variable' must not point to itself.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The value of the attribute 'spatial:variable' of a <diffusionCoefficient> "
+    "object must not be the identifier of its parent <parameter>.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -3111,12 +3112,12 @@ static const packageErrorTableEntry spatialErrorTable[] =
   },
 
   // 1223504
-  { SpatialAdvectionCoefficientVariableMustBeSpecies,
-    "The attribute 'variable' must point to Species object.",
+  { SpatialAdvectionCoefficientVariableMustBeSpeciesOrParam,
+    "The attribute 'variable' must point to Species or Parameter object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'spatial:variable' of an <advectionCoefficient> "
-    "object must be the identifier of an existing <species> object defined in "
+    "object must be the identifier of an existing <species> or <parameter> object defined in "
     "the enclosing <model> object.",
     { "L3V1 Spatial V1 Section"
     }
@@ -3151,7 +3152,18 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'coordinate' and 'variable' attributes must be unique.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "No two <advectionCoefficient> elements in the same <model> may have the same values for the attributes 'species:variable' and 'species:coordinate'.  Only one advection coefficient may be defined per species per axis.",
+    "No two <advectionCoefficient> elements in the same <model> may have the same values for the attributes 'spatial:variable' and 'spatial:coordinate'.  Only one advection coefficient may be defined per species (or parameter) per axis.",
+    { "L3V1 Spatial V1 Section"
+    }
+  },
+
+  // 1223552
+  { SpatialAdvectionCoefficientVariableMustNotBeSelf,
+    "The attribute 'variable' must not point to itself.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The value of the attribute 'spatial:variable' of an <advectionCoefficient> "
+    "object must not be the identifier of its parent <parameter> object.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -3214,8 +3226,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The value of the attribute 'spatial:type' of a <boundaryCondition> object "
     "must conform to the syntax of SBML data type 'BoundaryKind' and may only "
     "take on the allowed values of 'BoundaryKind' defined in SBML; that is, the "
-    "value must be one of the following: 'Robin_valueCoefficient', "
-    "'Robin_inwardNormalGradientCoefficient', 'Robin_sum', 'Neumann' or "
+    "value must be one of the following: 'Neumann' or "
     "'Dirichlet'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -3260,7 +3271,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Each BoundaryCondition must define only one boundary.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "For every combination of species and boundary, there must be at most exactly one <boundaryCondition> of type 'Neumann', or exactly one <boundaryCondition> of type 'Dirichlet', or exactly three <boundaryCondition> elements, one of each of the three 'Robin' types.",
+    "For every combination of species and boundary, there must be at most exactly one <boundaryCondition> of type 'Neumann', or exactly one <boundaryCondition> of type 'Dirichlet'.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -3281,36 +3292,6 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_WARNING,
     "The units of a <parameter> with a <boundaryCondition> child of type 'Neumann' should be the units of concentration of the referenced <species>, times length/time.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1223654
-  { SpatialRobinValueCoefficientUnits,
-    "A 'Robin_valueCoefficient' BoundaryCondition's units should scale with dimensionless.",
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_WARNING,
-    "The units of a <parameter> with a <boundaryCondition> child of type 'Robin_valueCoefficient' should should scale with the other 'Robin' boundary conditions for the same species and boundary, with suggested base units of dimensionless.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1223655
-  { SpatialInwardNormalGradientCoefficientUnits,
-    "A 'Robin_inwardNormalGradientCoefficient' BoundaryCondition's units should scale with 1/length.",
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_WARNING,
-    "The units of a <parameter> with a <boundaryCondition> child of type 'Robin_inwardNormalGradientCoefficient' should should scale with the other 'Robin' boundary conditions for the same species and boundary, with suggested base units of 1/length.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1223656
-  { SpatialRobinSumUnits,
-    "A 'Robin_sum' BoundaryCondition's units should scale with concentration.",
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_WARNING,
-    "The units of a <parameter> with a <boundaryCondition> child of type 'Robin_sum' should should scale with the other 'Robin' boundary conditions for the same species and boundary, with suggested base units of the concentration of the referenced <species>.",
     { "L3V1 Spatial V1 Section"
     }
   },

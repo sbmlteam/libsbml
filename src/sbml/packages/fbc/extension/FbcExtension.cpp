@@ -308,7 +308,7 @@ FbcExtension::getURI(unsigned int sbmlLevel,
  * Returns the SBML level with the given URI of this package.
  */
 unsigned int
-FbcExtension::getLevel(const std::string &uri) const
+FbcExtension::getLevel(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1() 
     || uri == getXmlnsL3V1V2()
@@ -325,7 +325,7 @@ FbcExtension::getLevel(const std::string &uri) const
  * Returns the SBML version with the given URI of this package.
  */
 unsigned int
-FbcExtension::getVersion(const std::string &uri) const
+FbcExtension::getVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1() 
     || uri == getXmlnsL3V1V2()
@@ -343,7 +343,7 @@ FbcExtension::getVersion(const std::string &uri) const
  * package.
  */
 unsigned int
-FbcExtension::getPackageVersion(const std::string &uri) const
+FbcExtension::getPackageVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -368,7 +368,7 @@ FbcExtension::getPackageVersion(const std::string &uri) const
  * Returns a FbcPkgNamespaces object.
  */
 SBMLNamespaces*
-FbcExtension::getSBMLExtensionNamespaces(const std::string &uri) const
+FbcExtension::getSBMLExtensionNamespaces(const std::string& uri) const
 {
   FbcPkgNamespaces* pkgns = NULL;
   if (uri == getXmlnsL3V1V1())
@@ -701,8 +701,8 @@ LIBSBML_EXTERN
 const char*
 FbcVariableType_toString(FbcVariableType_t fvt)
 {
-  int min = FBC_FBCVARIABLETYPE_LINEAR;
-  int max = FBC_FBCVARIABLETYPE_INVALID;
+  int min = FBC_VARIABLE_TYPE_LINEAR;
+  int max = FBC_VARIABLE_TYPE_INVALID;
 
   if (fvt < min || fvt > max)
   {
@@ -715,7 +715,7 @@ FbcVariableType_toString(FbcVariableType_t fvt)
 
 /*
  * Returns the #FbcVariableType_t enumeration corresponding to the given string
- * or @sbmlconstant{FBC_FBCVARIABLETYPE_INVALID, FbcVariableType_t} if there is
+ * or @sbmlconstant{FBC_VARIABLE_TYPE_INVALID, FbcVariableType_t} if there is
  * no such match.
  */
 LIBSBML_EXTERN
@@ -733,7 +733,7 @@ FbcVariableType_fromString(const char* code)
     }
   }
 
-  return FBC_FBCVARIABLETYPE_INVALID;
+  return FBC_VARIABLE_TYPE_INVALID;
 }
 
 
@@ -745,8 +745,8 @@ LIBSBML_EXTERN
 int
 FbcVariableType_isValid(FbcVariableType_t fvt)
 {
-  int min = FBC_FBCVARIABLETYPE_LINEAR;
-  int max = FBC_FBCVARIABLETYPE_INVALID;
+  int min = FBC_VARIABLE_TYPE_LINEAR;
+  int max = FBC_VARIABLE_TYPE_INVALID;
 
   if (fvt < min || fvt >= max)
   {

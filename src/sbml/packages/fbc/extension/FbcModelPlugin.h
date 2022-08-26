@@ -1844,6 +1844,24 @@ FbcModelPlugin_getNumFluxBounds(SBasePlugin_t * fmp);
 
 
 /**
+ * Creates a new Objective_t object, adds it to this FbcModelPlugin_t object
+ * and returns the created object.
+ *
+ * @param fmp the FbcModelPlugin_t structure to which the
+ * Objective_t should be added.
+ *
+ * @return a new Objective_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof FbcModelPlugin_t
+ */
+LIBSBML_EXTERN
+Objective_t*
+FbcModelPlugin_createObjective(SBasePlugin_t * fmp);
+
+
+/**
  * Appends a copy of the given Objective_t structure to the given FbcModelPlugin_t
  * structure.
  *
@@ -1930,6 +1948,24 @@ FbcModelPlugin_getActiveObjectiveId(SBasePlugin_t * fmp);
 LIBSBML_EXTERN
 int
 FbcModelPlugin_setActiveObjectiveId(SBasePlugin_t * fmp, const char * activeObjective);
+
+
+/**
+ * Creates a new GeneProduct_t object, adds it to this FbcModelPlugin_t object
+ * and returns the created object.
+ *
+ * @param fmp the FbcModelPlugin_t structure to which the
+ * GeneProduct_t should be added.
+ *
+ * @return a new GeneProduct_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof FbcModelPlugin_t
+ */
+LIBSBML_EXTERN
+GeneProduct_t*
+FbcModelPlugin_createGeneProduct(SBasePlugin_t * fmp);
 
 
 /**

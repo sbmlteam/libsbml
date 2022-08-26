@@ -434,10 +434,7 @@ typedef enum
  */
 typedef enum
 {
-  SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT                        /*!< The spatial boundarykind is @c "Robin_valueCoefficient". */
-, SPATIAL_BOUNDARYKIND_ROBIN_INWARD_NORMAL_GRADIENT_COEFFICIENT       /*!< The spatial boundarykind is @c "Robin_inwardNormalGradientCoefficient". */
-, SPATIAL_BOUNDARYKIND_ROBIN_SUM                                      /*!< The spatial boundarykind is @c "Robin_sum". */
-, SPATIAL_BOUNDARYKIND_NEUMANN                                        /*!< The spatial boundarykind is @c "Neumann". */
+  SPATIAL_BOUNDARYKIND_NEUMANN                                        /*!< The spatial boundarykind is @c "Neumann". */
 , SPATIAL_BOUNDARYKIND_DIRICHLET                                      /*!< The spatial boundarykind is @c "Dirichlet". */
 , SPATIAL_BOUNDARYKIND_INVALID                                        /*!< Invalid BoundaryKind value. */
 } BoundaryKind_t;
@@ -449,9 +446,6 @@ typedef enum
  * @param bk the #BoundaryKind_t enumeration value to convert.
  *
  * @return A string corresponding to the given type:
- * "Robin_valueCoefficient",
- * "Robin_inwardNormalGradientCoefficient",
- * "Robin_sum",
  * "Neumann",
  * "Dirichlet",
  * or @c NULL if the value is @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID,
@@ -485,9 +479,9 @@ BoundaryKind_parse(const char* code);
  * @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID, BoundaryKind_t} if no match is
  * found.
  *
- * @note The matching is case-sensitive: "Robin_valueCoefficient" will return
- * @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT, BoundaryKind_t},
- * but "Robin_valueCoefficient" will return
+ * @note The matching is case-sensitive: "Neumann" will return
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_NEUMANN, BoundaryKind_t},
+ * but "neumann" will return
  * @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID, BoundaryKind_t}.
  *
  * @if conly
@@ -506,10 +500,6 @@ BoundaryKind_fromString(const char* code);
  * @param bk the #BoundaryKind_t enumeration to query.
  *
  * @return @c 1 (true) if the #BoundaryKind_t is
- * @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT, BoundaryKind_t},
- * @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_INWARD_NORMAL_GRADIENT_COEFFICIENT,
- * BoundaryKind_t},
- * @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_SUM, BoundaryKind_t},
  * @sbmlconstant{SPATIAL_BOUNDARYKIND_NEUMANN, BoundaryKind_t}, or
  * @sbmlconstant{SPATIAL_BOUNDARYKIND_DIRICHLET, BoundaryKind_t};
  * @c 0 (false) otherwise (including
@@ -531,16 +521,13 @@ BoundaryKind_isValid(BoundaryKind_t bk);
  * @param code the string to query.
  *
  * @return @c 1 (true) if the string is
- * "Robin_valueCoefficient",
- * "Robin_inwardNormalGradientCoefficient",
- * "Robin_sum",
  * "Neumann",
  * "Dirichlet", or
  * "invalid BoundaryKind value";
  * @c 0 (false) otherwise.
  *
- * @note The matching is case-sensitive: "Robin_valueCoefficient" will return
- * @c 1 (true), but "Robin_valueCoefficient" will return @c 0 (false).
+ * @note The matching is case-sensitive: "Neumann" will return
+ * @c 1 (true), but "neumann" will return @c 0 (false).
  *
  * @if conly
  * @memberof Spatial_t
@@ -1299,7 +1286,6 @@ InterpolationKind_isValidString(const char* code);
 typedef enum
 {
   SPATIAL_POLYGONKIND_TRIANGLE            /*!< The spatial polygonkind is @c "triangle". */
-, SPATIAL_POLYGONKIND_QUADRILATERAL       /*!< The spatial polygonkind is @c "quadrilateral". */
 , SPATIAL_POLYGONKIND_INVALID             /*!< Invalid PolygonKind value. */
 } PolygonKind_t;
 
@@ -1311,7 +1297,6 @@ typedef enum
  *
  * @return A string corresponding to the given type:
  * "triangle",
- * "quadrilateral",
  * or @c NULL if the value is @sbmlconstant{SPATIAL_POLYGONKIND_INVALID,
  * PolygonKind_t} or another invalid enumeration value.
  *
@@ -1365,7 +1350,6 @@ PolygonKind_fromString(const char* code);
  *
  * @return @c 1 (true) if the #PolygonKind_t is
  * @sbmlconstant{SPATIAL_POLYGONKIND_TRIANGLE, PolygonKind_t}, or
- * @sbmlconstant{SPATIAL_POLYGONKIND_QUADRILATERAL, PolygonKind_t};
  * @c 0 (false) otherwise (including @sbmlconstant{SPATIAL_POLYGONKIND_INVALID,
  * PolygonKind_t}).
  *
@@ -1386,7 +1370,6 @@ PolygonKind_isValid(PolygonKind_t pk);
  *
  * @return @c 1 (true) if the string is
  * "triangle", or
- * "quadrilateral";
  * @c 0 (false) otherwise.
  *
  * @note The matching is case-sensitive: "triangle" will return @c 1 (true),
