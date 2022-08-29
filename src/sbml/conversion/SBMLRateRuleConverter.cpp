@@ -207,6 +207,7 @@ SBMLRateRuleConverter::convert()
 
   // Fages algo 3.6 Steps 1-2
   populateODEinfo();
+
   if (getMathNotSupportedFlag() == true)
   {
     return LIBSBML_OPERATION_FAILED;
@@ -678,12 +679,15 @@ SBMLRateRuleConverter::populateODEinfo()
     }
   }
 
+  for (int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+  {
+    cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+  }
   // implement Algo 3.1 here (hidden variables!)
   // check for hidden variables, and add an appropriate ODE if a hidden variable is found
   List hiddenSpecies;
   for(int odeIndex=0; odeIndex < mODEs.size(); odeIndex++)
   {
-    cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
       std::pair<std::string, ASTNode*> ode = mODEs.at(odeIndex);
       ASTNode* odeRHS = ode.second;
       odeRHS->reduceToBinary();
@@ -698,6 +702,7 @@ SBMLRateRuleConverter::populateODEinfo()
           ASTNode* currentNode = (ASTNode*)*it;
           if (isKMinusXMinusY(currentNode, model))
           {
+            currentNode->printMath();
               // (a) introduce z=k-x-y with dz/dt = -dx/dt-dy/dt (add to list of additional ODEs to add at the end)
               // TODO
               // (b) replace in ALL ODEs (not just current) k-x-y with z (interior loop over mODEs again?)
@@ -759,6 +764,10 @@ SBMLRateRuleConverter::populateODEinfo()
       Parameter* hidden = (Parameter*) hiddenSpecies.get(hs);
       addODEPair(hidden->getId(), model);
   }
+  for (int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+  {
+    cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+  }
 
   // Fages algo 3.6 Step 1
   //create set of non decomposable terms used in ODES
@@ -770,8 +779,7 @@ SBMLRateRuleConverter::populateODEinfo()
 
   for (unsigned int n = 0; n < mODEs.size(); n++)
   {
-      cout << mODEs.at(n).first << ": " << SBML_formulaToL3String(mODEs.at(n).second) << endl;
-      ASTNode* node = mODEs.at(n).second;
+    ASTNode* node = mODEs.at(n).second;
     node->decompose();
     // Fages algo 3.6 Step 2
     createTerms(node);
@@ -813,7 +821,6 @@ SBMLRateRuleConverter::populateODEinfo()
   for (unsigned int n = 0; n < mTerms.size(); n++)
   {
     ASTNode* node = mTerms.at(n);
-    cout << SBML_formulaToL3String(node) << endl;
     std::vector<double> coeffVector = populateCoefficientVector(n);
     mCoefficients.push_back(std::make_pair(node, coeffVector));
     mDerivSign = POSITIVE_DERIVATIVE;
@@ -824,8 +831,66 @@ SBMLRateRuleConverter::populateODEinfo()
     mNegDerivative.push_back(negDerVector);
   }
 
+  for (unsigned int n = 0; n < mTerms.size(); n++)
+  {
+    ASTNode* node = mTerms.at(n);
+    cout << "Term " << n << ": " << SBML_formulaToL3String(node) << endl;
+  }
 }
 
+bool
+SBMLRateRuleConverter::addHiddenVariablesForKMinusX(ASTNode* odeRHS, List* hiddenSpecies, 
+                                                    List* operators, Model* model)
+{
+  ListIterator it = operators->begin();
+  //while (it != operators->end())
+  //{
+  //  ASTNode* currentNode = (ASTNode*)*it;
+  //  pairString KX = isKMinusX(currentNode, model);
+  //  if (KX.first.empty() == false)
+  //  {
+  //    // remember x name for later, before we replace the current node
+  //    std::string xName = std::string(currentNode->getRightChild()->getName());
+  //    const std::string zName = "z" + std::to_string(model->getNumParameters());
+
+  //      // introduce z=k-x
+  //      Parameter* zParam = model->createParameter();
+  //      zParam->setId(zName);
+  //      zParam->setConstant(false);
+  //      hiddenSpecies->add(zParam);
+
+  //      // add raterule defining dz/dt = -dxdt
+  //      ASTNode* dxdt = odeRHS->deepCopy();
+  //      RateRule* raterule = model->createRateRule();
+  //      raterule->setVariable(zName);
+  //      ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
+  //      ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
+  //      minus1->setValue(-1.0);
+  //      math->addChild(minus1);
+  //      math->addChild(dxdt);
+  //      raterule->setMath(math);
+  //      delete math; //its children dxdt and minus1 deleted as part of this.
+
+  //    //  variableAdded = true;
+  //    //}
+  //    // replace k - x with z in current ODE
+  //    ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
+  //    z->setName(zName.c_str());
+  //    std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
+  //    ASTNode* currentParent = currentParentAndIndex.first;
+  //    int index = currentParentAndIndex.second;
+  //    if (currentParent != NULL)
+  //    {
+  //      currentParent->replaceChild(index, z, true);
+  //      // intentionally, don't delete z as it's now owned by currentParent!
+  //    }
+
+  //                 // (c) replace in ALL ODEs (not just current) k+v-x with v+z
+  //  }
+  //  it++;
+  //}
+  return true;
+}
 bool 
 SBMLRateRuleConverter::getMathNotSupportedFlag() const
 {

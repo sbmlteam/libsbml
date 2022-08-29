@@ -67,6 +67,7 @@ typedef enum
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+typedef std::pair<std::string, std::string > pairString;
 
 
 class LIBSBML_EXTERN SBMLRateRuleConverter : public SBMLConverter
@@ -173,6 +174,7 @@ public:
   virtual ConversionProperties getDefaultProperties() const;
 
   // helper functions whilst creating code
+  typedef std::pair<std::string, std::string > pairString;
 
   typedef std::vector<std::pair<ASTNode*, std::vector<double> > > setCoeff;
   typedef std::vector<std::pair<ASTNode*, std::vector<double> > >::iterator setCoeffIt;
@@ -239,6 +241,9 @@ private:
   // functions that represents steps of algo 3.1
 
   void reorderMinusXPlusYIteratively(ASTNode* odeRHS, Model* model);
+
+  bool addHiddenVariablesForKMinusX(ASTNode* odeRHS, List* hiddenSpecies,
+    List* operators, Model* model);
 
   // additional helper functions for algo 3.1
 
@@ -309,6 +314,7 @@ private:
   setRnCoeffs mProducts;
   setRnCoeffs mReactants;
   setRnCoeffs mModifiers;
+  std::vector< std::pair< pairString, std::string > > kMinusX;
 
   /** @endcond */
 
