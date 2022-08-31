@@ -711,51 +711,55 @@ SBMLRateRuleConverter::populateODEinfo()
           }
           it++;
       }
+      addHiddenVariablesForKMinusX(odeRHS, &hiddenSpecies, operators, model);
       // Step 3
-      it = operators->begin();
-      while (it != operators->end())
-      {
-          ASTNode* currentNode = (ASTNode*)*it;
-          if (isKMinusX(currentNode, model))
-          {
-              // remember x name and dxdt for later, before we replace the current node
-              std::string xName = std::string(currentNode->getRightChild()->getName());
+      //it = operators->begin();
+      //while (it != operators->end())
+      //{
+      //    ASTNode* currentNode = (ASTNode*)*it;
+      //    if (isKMinusX(currentNode, model))
+      //    {
+      //        // remember x name for later, before we replace the current node
+      //        std::string xName = std::string(currentNode->getRightChild()->getName());
 
-              // (a)
-              // introduce z=k-x
-              Parameter* zParam = model->createParameter();
-              const std::string zName = "z" + std::to_string(model->getNumParameters());
-              zParam->setId(zName);
-              zParam->setConstant(false);
-              hiddenSpecies.add(zParam);
+      //        // (a)
+      //        // introduce z=k-x
+      //        Parameter* zParam = model->createParameter();
+      //        const std::string zName = "z" + std::to_string(model->getNumParameters());
+      //        zParam->setId(zName);
+      //        zParam->setConstant(false);
+      //        hiddenSpecies.add(zParam);
 
-              // replace k - x with z in current ODE
-              ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
-              z->setName(zName.c_str());
-              std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
-              ASTNode* currentParent = currentParentAndIndex.first;
-              int index = currentParentAndIndex.second;
-              currentParent->replaceChild(index, z, true);
-              // intentionally, don't delete z as it's now owned by currentParent!
+      //        // replace k - x with z in current ODE
+      //        ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
+      //        z->setName(zName.c_str());
+      //        std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
+      //        ASTNode* currentParent = currentParentAndIndex.first;
+      //        int index = currentParentAndIndex.second;
+      //        if (currentParent != NULL)
+      //        {
+      //          currentParent->replaceChild(index, z, true);
+      //          // intentionally, don't delete z as it's now owned by currentParent!
+      //        }
 
-              // add raterule defining dz/dt = -dxdt
-              ASTNode* dxdt = odeRHS->deepCopy();
-              RateRule* raterule = model->createRateRule();
-              raterule->setVariable(zName);
-              ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
-              ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
-              minus1->setValue(-1.0);
-              math->addChild(minus1);
-              math->addChild(dxdt);
-              raterule->setMath(math);
-              delete math; //its children dxdt and minus1 deleted as part of this.
+      //        // add raterule defining dz/dt = -dxdt
+      //        ASTNode* dxdt = odeRHS->deepCopy();
+      //        RateRule* raterule = model->createRateRule();
+      //        raterule->setVariable(zName);
+      //        ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
+      //        ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
+      //        minus1->setValue(-1.0);
+      //        math->addChild(minus1);
+      //        math->addChild(dxdt);
+      //        raterule->setMath(math);
+      //        delete math; //its children dxdt and minus1 deleted as part of this.
 
-              // TODO
-              // (b) replace in ALL ODEs (not just current) k-x with z
-              // (c) replace in ALL ODEs (not just current) k+v-x with v+z
-          }
-          it++;
-      }
+      //        // TODO
+      //        // (b) replace in ALL ODEs (not just current) k-x with z
+      //        // (c) replace in ALL ODEs (not just current) k+v-x with v+z
+      //    }
+      //    it++;
+      //}
   }
 
   // add all hidden species to the model
@@ -764,6 +768,7 @@ SBMLRateRuleConverter::populateODEinfo()
       Parameter* hidden = (Parameter*) hiddenSpecies.get(hs);
       addODEPair(hidden->getId(), model);
   }
+  cout << "After\n";
   for (int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
   {
     cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
@@ -838,57 +843,92 @@ SBMLRateRuleConverter::populateODEinfo()
   }
 }
 
+std::string
+SBMLRateRuleConverter::parameterKminusXAlreadyCreated(pairString kx)
+{
+  std::string renamed = "";
+  bool match = false;
+  unsigned int i = 0;
+  while (!match && i < kMinusX.size())
+  {
+    if (kMinusX.at(i).first == kx)
+    {
+      renamed = kMinusX.at(i).second;
+      match = true;
+    }
+    i++;
+  }
+  return renamed;
+}
 bool
 SBMLRateRuleConverter::addHiddenVariablesForKMinusX(ASTNode* odeRHS, List* hiddenSpecies, 
                                                     List* operators, Model* model)
 {
   ListIterator it = operators->begin();
-  //while (it != operators->end())
-  //{
-  //  ASTNode* currentNode = (ASTNode*)*it;
-  //  pairString KX = isKMinusX(currentNode, model);
-  //  if (KX.first.empty() == false)
-  //  {
-  //    // remember x name for later, before we replace the current node
-  //    std::string xName = std::string(currentNode->getRightChild()->getName());
-  //    const std::string zName = "z" + std::to_string(model->getNumParameters());
+  while (it != operators->end())
+  {
+    ASTNode* currentNode = (ASTNode*)*it;
+    pairString KX = isKMinusX(currentNode, model);
+    if (KX.first.empty() == false)
+    {
+      std::string zName = parameterKminusXAlreadyCreated(KX);
+      if (!zName.empty())
+      {
 
-  //      // introduce z=k-x
-  //      Parameter* zParam = model->createParameter();
-  //      zParam->setId(zName);
-  //      zParam->setConstant(false);
-  //      hiddenSpecies->add(zParam);
+        // replace k - x with z in current ODE
+        ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
+        z->setName(zName.c_str());
+        std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
+        ASTNode* currentParent = currentParentAndIndex.first;
+        int index = currentParentAndIndex.second;
+        if (currentParent != NULL)
+        {
+          currentParent->replaceChild(index, z, true);
+          // intentionally, don't delete z as it's now owned by currentParent!
+        }
 
-  //      // add raterule defining dz/dt = -dxdt
-  //      ASTNode* dxdt = odeRHS->deepCopy();
-  //      RateRule* raterule = model->createRateRule();
-  //      raterule->setVariable(zName);
-  //      ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
-  //      ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
-  //      minus1->setValue(-1.0);
-  //      math->addChild(minus1);
-  //      math->addChild(dxdt);
-  //      raterule->setMath(math);
-  //      delete math; //its children dxdt and minus1 deleted as part of this.
+      }
+      else
+      {
+        const std::string zName = "z" + std::to_string(model->getNumParameters());
+        kMinusX.push_back(make_pair(KX, zName));
 
-  //    //  variableAdded = true;
-  //    //}
-  //    // replace k - x with z in current ODE
-  //    ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
-  //    z->setName(zName.c_str());
-  //    std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
-  //    ASTNode* currentParent = currentParentAndIndex.first;
-  //    int index = currentParentAndIndex.second;
-  //    if (currentParent != NULL)
-  //    {
-  //      currentParent->replaceChild(index, z, true);
-  //      // intentionally, don't delete z as it's now owned by currentParent!
-  //    }
+        // replace k - x with z in current ODE
+        ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
+        z->setName(zName.c_str());
+        std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
+        ASTNode* currentParent = currentParentAndIndex.first;
+        int index = currentParentAndIndex.second;
+        if (currentParent != NULL)
+        {
+          currentParent->replaceChild(index, z, true);
+          // intentionally, don't delete z as it's now owned by currentParent!
+        }
+        // introduce z=k-x
+        Parameter* zParam = model->createParameter();
+        zParam->setId(zName);
+        zParam->setConstant(false);
+        hiddenSpecies->add(zParam);
 
-  //                 // (c) replace in ALL ODEs (not just current) k+v-x with v+z
-  //  }
-  //  it++;
-  //}
+        // add raterule defining dz/dt = -dxdt
+        ASTNode* dxdt = odeRHS->deepCopy();
+        RateRule* raterule = model->createRateRule();
+        raterule->setVariable(zName);
+        ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
+        ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
+        minus1->setValue(-1.0);
+        math->addChild(minus1);
+        math->addChild(dxdt);
+        raterule->setMath(math);
+        delete math; //its children dxdt and minus1 deleted as part of this.
+      }
+      //  variableAdded = true;
+      //}
+
+                   // (c) replace in ALL ODEs (not just current) k+v-x with v+z
+    }
+    it++;
+  }
   return true;
 }
 bool 
@@ -1039,24 +1079,27 @@ bool SBMLRateRuleConverter::isKMinusXMinusY(ASTNode* node, Model* model)
 }
 
 // check whether a node is the minus sign in a k-x expression
-bool SBMLRateRuleConverter::isKMinusX(ASTNode* node, Model* model)
+pairString SBMLRateRuleConverter::isKMinusX(ASTNode* node, Model* model)
 {
     // if node is not binary, it's not k-x
     if (node->getNumChildren() != 2)
-        return false;
+      return make_pair("", "");
 
     // if node is not a minus, it's not "-" in k-x
     if (node->getType() != ASTNodeType_t::AST_MINUS)
-        return false;
+      return make_pair("", "");
 
     // if right child is not a variable species, it's not k-x
     ASTNode* rightChild = node->getRightChild();
     if (!isVariableSpeciesOrParameter(rightChild, model))
-        return false;
+      return make_pair("", "");
 
     // if left child is not a numerical constant or a parameter, it's not k-x - else it is!
     ASTNode* leftChild = node->getLeftChild();
-    return isNumericalConstantOrConstantParameter(leftChild, model);
+    if (isNumericalConstantOrConstantParameter(leftChild, model))
+      return make_pair(leftChild->getName(), rightChild->getName());
+    else
+      return make_pair("", "");
 }
 
 bool SBMLRateRuleConverter::isVariableSpeciesOrParameter(ASTNode* node, Model* model)
@@ -1160,7 +1203,7 @@ SBMLRateRuleConverter::createReactions()
     r->setId(reactionId);
     bool itemAdded = false;
     for (unsigned int j = 0; j < mODEs.size(); ++j)
-    { 
+    {
       double stoichiometry = 1.0;
       if (mReactants[i][j] > 0)
       {
@@ -1186,12 +1229,34 @@ SBMLRateRuleConverter::createReactions()
         sr->setSpecies(mODEs[j].first);
         itemAdded = true;
       }
-      if (itemAdded && !r->isSetKineticLaw())
+    }
+    if (itemAdded && !r->isSetKineticLaw())
+    {
+      KineticLaw *kl = r->createKineticLaw();
+      kl->setMath(it->first);
+    }
+      
+    // check whetherkinetic law uses a species not listed as p/r/m
+    if (r->isSetKineticLaw())
+    { 
+        
+      cout << r->getNumProducts() << " prods\n";
+      List* names = r->getKineticLaw()->getMath()->getListOfNodes((ASTNodePredicate)ASTNode_isName);
+      ListIterator it = names->begin();
+      while (it != names->end())
       {
-        KineticLaw *kl = r->createKineticLaw();
-        kl->setMath(it->first);
+        ASTNode* node = (ASTNode*)*it;
+        std::string n = node->getName();
+        if (mDocument->getModel()->getSpecies(n) != NULL && r->getReactant(n) == NULL && 
+          r->getProduct(n) == NULL && r->getModifier(n) == NULL)
+        {
+          ModifierSpeciesReference *sr = r->createModifier();
+          sr->setSpecies(n);
+        }
+        it++;
       }
     }
+
     if (!itemAdded)
     {
       delete (mDocument->getModel()->removeReaction(id));

@@ -272,7 +272,7 @@ private:
    * @param model the model that might contain k and x
    * @return true if the node is the minus in k-x, false otherwise
    */
-  bool isKMinusX(ASTNode* node, Model* model);
+  pairString isKMinusX(ASTNode* node, Model* model);
 
   /**
    * Searches for a node's parent and its index as the parent's child in a one-directional tree (nodes know their children, but not their parent).
@@ -302,6 +302,11 @@ private:
    */
   bool isNumericalConstantOrConstantParameter(ASTNode* node, Model* model);
 
+  /*
+  * takes a pair of strings aleady identified as representing k-x
+  * return index of pair if a parameter has already been created for this
+  */
+  std::string parameterKminusXAlreadyCreated(pairString kx);
   // member variables populated during analysis
   //typedef std::vector<std::pair<ASTNode*, std::vector<double> > > setCoeff;
   std::vector< std::pair< std::string, ASTNode*> > mODEs;

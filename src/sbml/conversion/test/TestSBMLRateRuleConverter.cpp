@@ -46,7 +46,25 @@
 #include <iostream>
 #include <check.h>
 
+using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
+BEGIN_C_DECLS
+
+static bool
+equals(const char* expected, const char* actual)
+{
+  if (!strcmp(expected, actual)) return true;
+
+  printf("\nStrings are not equal:\n");
+  printf("Expected:\n[%s]\n", expected);
+  printf("Actual:\n[%s]\n", actual);
+
+  return false;
+}
+
+extern char *TestDataDirectory;
+
+
 
 // helper function to set up a parameter with 0 value
 Parameter* setupZeroParameter(Model* model, const char* name, bool is_constant)
@@ -58,7 +76,6 @@ Parameter* setupZeroParameter(Model* model, const char* name, bool is_constant)
 	return parameter;
 }
 
-BEGIN_C_DECLS
 
 
 extern char *TestDataDirectory;
@@ -177,7 +194,7 @@ START_TEST(test_conversion_raterule_converter)
   fail_unless(doc->getModel()->getNumReactions() == 1);
 
   Reaction *r = doc->getModel()->getReaction(0);
-//  fail_unless(r->getReversible() == true);
+  fail_unless(r->getReversible() == false);
   fail_unless(r->getNumReactants() == 1);
   fail_unless(r->getNumProducts() == 1);
   fail_unless(r->getNumModifiers() == 0);
@@ -343,7 +360,6 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	converter->setDocument(doc);
 	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
-  std::cout << writeSBMLToStdString(doc);
 	fail_unless(doc->getModel()->getNumCompartments() == 1);
 	fail_unless(doc->getModel()->getNumSpecies() == 5); // should be first failure while 3.1. is missing.
 	fail_unless(doc->getModel()->getNumParameters() == 5);
@@ -372,7 +388,7 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	fail_unless(util_isEqual(srCdc25->getStoichiometry(), 1));
 
 	srMpfi = r0->getReactant(1);
-	fail_unless(srMpfi->getSpecies() == "z10");
+	fail_unless(srMpfi->getSpecies() == "z9");
 	fail_unless(util_isEqual(srMpfi->getStoichiometry(), 1));
 
 	// products
@@ -386,7 +402,7 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 
 	// kinetic law
 	const char* kl = SBML_formulaToL3String(r0->getKineticLaw()->getMath());
-	fail_unless(strcmp(kl, "k1*z10*Cdc25"));
+	fail_unless(strcmp(kl, "k1*z9*Cdc25"));
 	safe_free((char*)kl);
 
 	// Reaction 1
@@ -412,7 +428,7 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	fail_unless(util_isEqual(srWee1->getStoichiometry(), 1.0));
 
 	srMpfi = r1->getProduct(1);
-	fail_unless(srMpfi->getSpecies() == "z10");
+	fail_unless(srMpfi->getSpecies() == "z9");
 	fail_unless(util_isEqual(srMpfi->getStoichiometry(), 1.0));
 
 	// kinetic law
@@ -445,6 +461,38 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 }
 END_TEST
 
+START_TEST(test_model1)
+{
+  ConversionProperties props;
+  props.addOption("inferReactions", true);
+
+  SBMLConverter* converter = new SBMLRateRuleConverter();
+  converter->setProperties(&props);
+
+  std::string filename(TestDataDirectory);
+  filename += "mraterules.xml";
+  std::string filename1(TestDataDirectory);
+  filename1 += "mreact.xml";
+
+  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+  converter->setDocument(d);
+  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+  SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
+  std::string out = writeSBMLToStdString(d);
+  std::string expected = writeSBMLToStdString(d1);
+
+  fail_unless(equals(expected.c_str(), out.c_str()));
+
+  delete converter;
+  delete d;
+  delete d1;
+}
+END_TEST
+
+
+
 Suite *
 create_suite_TestSBMLRateRuleConverter (void)
 { 
@@ -456,6 +504,7 @@ create_suite_TestSBMLRateRuleConverter (void)
   tcase_add_test(tcase, test_conversion_raterule_converter_non_standard_stoichiometry);
   tcase_add_test(tcase, test_conversion_raterule_converter_hidden_variable);
 
+  tcase_add_test(tcase, test_model1);
   suite_add_tcase(suite, tcase);
 
   return suite;
