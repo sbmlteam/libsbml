@@ -63,6 +63,32 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 typedef std::pair<std::string, std::string > pairString;
 
+typedef enum
+{
+  TYPE_K_MINUS_X_MINUS_Y
+  , TYPE_K_PLUS_V_MINUS_X_MINUS_Y
+  , TYPE_K_MINUS_X_PLUS_W_MINUS_Y
+  , TYPE_K_MINUS_X
+  , TYPE_K_PLUS_V_MINUS_
+  , TYPE_UNKNOWN
+} ExpressionType_t;
+
+/*
+*
+|*/
+struct SubstitutionValues_t {
+  std::string k_value;
+  std::string x_value;
+  std::string y_value;
+  ASTNode* v_expression;
+  ASTNode* w_expression;
+  ExpressionType_t type;
+  ASTNode* current;
+  std::string z_value;
+  unsigned int odeIndex;
+};
+
+
 
 class LIBSBML_EXTERN ExpressionAnalyser
 {
@@ -121,9 +147,10 @@ private:
 
   void reorderMinusXPlusYIteratively(ASTNode* odeRHS);
 
-  bool addHiddenVariablesForKMinusX(ASTNode* odeRHS, List* hiddenSpecies,
-    List* operators);
+  bool addHiddenVariablesForKMinusX(List* hiddenSpecies);
 
+  void analyse();
+  bool analyseNode(ASTNode* node, SubstitutionValues_t* value);
   // additional helper functions for algo 3.1
 
   /**
@@ -180,7 +207,7 @@ private:
   * takes a pair of strings aleady identified as representing k-x
   * return index of pair if a parameter has already been created for this
   */
-  std::string parameterKminusXAlreadyCreated(pairString kx);
+  std::string parameterAlreadyCreated(SubstitutionValues_t *value);
  
   // member variables populated during analysis
   std::vector< std::pair< std::string, ASTNode*> > mODEs;
@@ -188,6 +215,8 @@ private:
   std::vector< std::pair< pairString, std::string > > kMinusX;
 
   Model* mModel;
+
+  std::vector <SubstitutionValues_t*> mExpressions;
 
   /** @endcond */
 

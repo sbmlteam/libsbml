@@ -120,104 +120,160 @@ ExpressionAnalyser::setModel(Model* model)
   return LIBSBML_OPERATION_SUCCESS;
 }
 
+bool
+ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
+{
+  // if node is not binary, it's not k-x
+  if (node->getNumChildren() != 2)
+    return false;
 
+  // if node is not a minus, it's not "-" in k-x
+  if (node->getType() != ASTNodeType_t::AST_MINUS)
+    return false;
+
+  // if right child is not a variable species, it's not k-x
+  ASTNode* rightChild = node->getRightChild();
+  if (!isVariableSpeciesOrParameter(rightChild))
+    return false;
+
+  // if left child is not a numerical constant or a parameter, it's not k-x - else it is!
+  ASTNode* leftChild = node->getLeftChild();
+  if (isNumericalConstantOrConstantParameter(leftChild))
+  {
+    value->k_value = leftChild->getName();
+    value->x_value = rightChild->getName();
+    value->type = TYPE_K_MINUS_X;
+    value->current = node;
+    return true;
+  }
+  else
+    return false;
+
+}
 void
-ExpressionAnalyser::detectHiddenSpecies(List * hiddenSpecies)
+ExpressionAnalyser::analyse()
 {
   for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
   {
     std::pair<std::string, ASTNode*> ode = mODEs.at(odeIndex);
     ASTNode* odeRHS = ode.second;
     odeRHS->reduceToBinary();
-    //      Step 1: iterative, in-place replacement of any -x+y terms with y-x terms
-    reorderMinusXPlusYIteratively(odeRHS);
-
-    // Step 2 TODO
     List* operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
     ListIterator it = operators->begin();
     while (it != operators->end())
     {
       ASTNode* currentNode = (ASTNode*)*it;
-      if (isKMinusXMinusY(currentNode))
+      SubstitutionValues_t* value = new SubstitutionValues_t;
+      value->type = TYPE_UNKNOWN;
+      if (analyseNode(currentNode, value))
       {
-        currentNode->printMath();
-        // (a) introduce z=k-x-y with dz/dt = -dx/dt-dy/dt (add to list of additional ODEs to add at the end)
-        // TODO
-        // (b) replace in ALL ODEs (not just current) k-x-y with z (interior loop over mODEs again?)
-        // (c) replace in ALL ODEs (not just current) k+v-x-y with v+z
-        // (d) replace in ALL ODEs (not just current) k-x+w-y with w+z
+        value->odeIndex = odeIndex;
+
+        mExpressions.push_back(value);
       }
       it++;
     }
-    addHiddenVariablesForKMinusX(odeRHS, hiddenSpecies, operators);
-    // Step 3
-    //it = operators->begin();
-    //while (it != operators->end())
-    //{
-    //    ASTNode* currentNode = (ASTNode*)*it;
-    //    if (isKMinusX(currentNode, mModel))
-    //    {
-    //        // remember x name for later, before we replace the current node
-    //        std::string xName = std::string(currentNode->getRightChild()->getName());
-
-    //        // (a)
-    //        // introduce z=k-x
-    //        Parameter* zParam = mModel->createParameter();
-    //        const std::string zName = "z" + std::to_string(mModel->getNumParameters());
-    //        zParam->setId(zName);
-    //        zParam->setConstant(false);
-    //        hiddenSpecies.add(zParam);
-
-    //        // replace k - x with z in current ODE
-    //        ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
-    //        z->setName(zName.c_str());
-    //        std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
-    //        ASTNode* currentParent = currentParentAndIndex.first;
-    //        int index = currentParentAndIndex.second;
-    //        if (currentParent != NULL)
-    //        {
-    //          currentParent->replaceChild(index, z, true);
-    //          // intentionally, don't delete z as it's now owned by currentParent!
-    //        }
-
-    //        // add raterule defining dz/dt = -dxdt
-    //        ASTNode* dxdt = odeRHS->deepCopy();
-    //        RateRule* raterule = mModel->createRateRule();
-    //        raterule->setVariable(zName);
-    //        ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
-    //        ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
-    //        minus1->setValue(-1.0);
-    //        math->addChild(minus1);
-    //        math->addChild(dxdt);
-    //        raterule->setMath(math);
-    //        delete math; //its children dxdt and minus1 deleted as part of this.
-
-    //        // TODO
-    //        // (b) replace in ALL ODEs (not just current) k-x with z
-    //        // (c) replace in ALL ODEs (not just current) k+v-x with v+z
-    //    }
-    //    it++;
-    //}
   }
+}
 
-  //return hiddenSpecies;
+void
+ExpressionAnalyser::detectHiddenSpecies(List * hiddenSpecies)
+{
+  analyse();
+  //for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+  //{
+  //  std::pair<std::string, ASTNode*> ode = mODEs.at(odeIndex);
+  //  ASTNode* odeRHS = ode.second;
+  //  odeRHS->reduceToBinary();
+  //  //      Step 1: iterative, in-place replacement of any -x+y terms with y-x terms
+  //  reorderMinusXPlusYIteratively(odeRHS);
+
+  //  // Step 2 TODO
+  //  List* operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
+  //  ListIterator it = operators->begin();
+  //  while (it != operators->end())
+  //  {
+  //    ASTNode* currentNode = (ASTNode*)*it;
+  //    if (isKMinusXMinusY(currentNode))
+  //    {
+  //      currentNode->printMath();
+  //      // (a) introduce z=k-x-y with dz/dt = -dx/dt-dy/dt (add to list of additional ODEs to add at the end)
+  //      // TODO
+  //      // (b) replace in ALL ODEs (not just current) k-x-y with z (interior loop over mODEs again?)
+  //      // (c) replace in ALL ODEs (not just current) k+v-x-y with v+z
+  //      // (d) replace in ALL ODEs (not just current) k-x+w-y with w+z
+  //    }
+  //    it++;
+  //  }
+    addHiddenVariablesForKMinusX(hiddenSpecies);
+  //  // Step 3
+  //  //it = operators->begin();
+  //  //while (it != operators->end())
+  //  //{
+  //  //    ASTNode* currentNode = (ASTNode*)*it;
+  //  //    if (isKMinusX(currentNode, mModel))
+  //  //    {
+  //  //        // remember x name for later, before we replace the current node
+  //  //        std::string xName = std::string(currentNode->getRightChild()->getName());
+
+  //  //        // (a)
+  //  //        // introduce z=k-x
+  //  //        Parameter* zParam = mModel->createParameter();
+  //  //        const std::string zName = "z" + std::to_string(mModel->getNumParameters());
+  //  //        zParam->setId(zName);
+  //  //        zParam->setConstant(false);
+  //  //        hiddenSpecies.add(zParam);
+
+  //  //        // replace k - x with z in current ODE
+  //  //        ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
+  //  //        z->setName(zName.c_str());
+  //  //        std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
+  //  //        ASTNode* currentParent = currentParentAndIndex.first;
+  //  //        int index = currentParentAndIndex.second;
+  //  //        if (currentParent != NULL)
+  //  //        {
+  //  //          currentParent->replaceChild(index, z, true);
+  //  //          // intentionally, don't delete z as it's now owned by currentParent!
+  //  //        }
+
+  //  //        // add raterule defining dz/dt = -dxdt
+  //  //        ASTNode* dxdt = odeRHS->deepCopy();
+  //  //        RateRule* raterule = mModel->createRateRule();
+  //  //        raterule->setVariable(zName);
+  //  //        ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
+  //  //        ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
+  //  //        minus1->setValue(-1.0);
+  //  //        math->addChild(minus1);
+  //  //        math->addChild(dxdt);
+  //  //        raterule->setMath(math);
+  //  //        delete math; //its children dxdt and minus1 deleted as part of this.
+
+  //  //        // TODO
+  //  //        // (b) replace in ALL ODEs (not just current) k-x with z
+  //  //        // (c) replace in ALL ODEs (not just current) k+v-x with v+z
+  //  //    }
+  //  //    it++;
+  //  //}
+
+  //}
+  ////return hiddenSpecies;
 }
 
 bool
-ExpressionAnalyser::addHiddenVariablesForKMinusX(ASTNode* odeRHS, List* hiddenSpecies, 
-                                                    List* operators)
+ExpressionAnalyser::addHiddenVariablesForKMinusX(List* hiddenSpecies)
 {
-  ListIterator it = operators->begin();
-  while (it != operators->end())
+  for (unsigned int i = 0; i < mExpressions.size(); i++)
   {
-    ASTNode* currentNode = (ASTNode*)*it;
-    pairString KX = isKMinusX(currentNode);
-    if (KX.first.empty() == false)
-    {
-      std::string zName = parameterKminusXAlreadyCreated(KX);
+    SubstitutionValues_t *exp = mExpressions.at(i);
+    ASTNode* currentNode = exp->current;
+    ASTNode* odeRHS = mODEs.at(exp->odeIndex).second;
+    pairString KX = make_pair(exp->k_value, exp->x_value);
+    //if (KX.first.empty() == false)
+    //{
+      std::string zName = parameterAlreadyCreated(exp);
       if (!zName.empty())
       {
-
+       ////////////////////func
         // replace k - x with z in current ODE
         ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
         z->setName(zName.c_str());
@@ -233,8 +289,9 @@ ExpressionAnalyser::addHiddenVariablesForKMinusX(ASTNode* odeRHS, List* hiddenSp
       }
       else
       {
+        //////////// get unique namer
         const std::string zName = "z" + std::to_string(mModel->getNumParameters());
-        kMinusX.push_back(make_pair(KX, zName));
+        exp->z_value = zName;
 
         // replace k - x with z in current ODE
         ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
@@ -247,6 +304,7 @@ ExpressionAnalyser::addHiddenVariablesForKMinusX(ASTNode* odeRHS, List* hiddenSp
           currentParent->replaceChild(index, z, true);
           // intentionally, don't delete z as it's now owned by currentParent!
         }
+       //////////////////////// funcs
         // introduce z=k-x
         Parameter* zParam = mModel->createParameter();
         zParam->setId(zName);
@@ -254,7 +312,7 @@ ExpressionAnalyser::addHiddenVariablesForKMinusX(ASTNode* odeRHS, List* hiddenSp
         hiddenSpecies->add(zParam);
 
         // add raterule defining dz/dt = -dxdt
-        ASTNode* dxdt = odeRHS->deepCopy();
+        ASTNode* dxdt = odeRHS->deepCopy();  //////////////////////// fluke that ode= dx/dt
         RateRule* raterule = mModel->createRateRule();
         raterule->setVariable(zName);
         ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
@@ -267,24 +325,25 @@ ExpressionAnalyser::addHiddenVariablesForKMinusX(ASTNode* odeRHS, List* hiddenSp
       }
       //  variableAdded = true;
       //}
-
+ //   }
                    // (c) replace in ALL ODEs (not just current) k+v-x with v+z
-    }
-    it++;
-  }
+    } // end for
+  //  it++;
+  //}
   return true;
 }
 std::string
-ExpressionAnalyser::parameterKminusXAlreadyCreated(pairString kx)
+ExpressionAnalyser::parameterAlreadyCreated(SubstitutionValues_t* exp)
 {
   std::string renamed = "";
   bool match = false;
   unsigned int i = 0;
-  while (!match && i < kMinusX.size())
+  while (!match && i < mExpressions.size())
   {
-    if (kMinusX.at(i).first == kx)
+    if (mExpressions.at(i)->type == exp->type && mExpressions.at(i)->k_value == exp->k_value &&
+      mExpressions.at(i)->x_value == exp->x_value && mExpressions.at(i)->z_value.empty() != true)
     {
-      renamed = kMinusX.at(i).second;
+      renamed = mExpressions.at(i)->z_value;
       match = true;
     }
     i++;
@@ -308,7 +367,7 @@ bool ExpressionAnalyser::isMinusXPlusY(ASTNode* node)
     if (leftChild->getType() != ASTNodeType_t::AST_MINUS)
         return false;
 
-    // if right child is not a variable species, it's not -x+y
+    // if right child is not a variable species (y), it's not -x+y
     ASTNode* rightChild = node->getRightChild();
     if (!isVariableSpeciesOrParameter(rightChild))
         return false;
@@ -407,15 +466,28 @@ void ExpressionAnalyser::reorderMinusXPlusYIteratively(ASTNode* odeRHS)
         while (it != operators->end())
         {
             ASTNode* currentNode = (ASTNode*)*it;
+            cout << "C node: " << SBML_formulaToL3String(currentNode) << endl;
             if (isMinusXPlusY(currentNode))
             {
+              // we have a binary node that is (k-x) + y
                 //Swap -x+y node for y-x node
-                ASTNode* yMinusX = new ASTNode(ASTNodeType_t::AST_MINUS);
-                std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
-                ASTNode* currentParent = currentParentAndIndex.first;
+              ASTNode* yMinusX = new ASTNode(ASTNodeType_t::AST_MINUS);
+              std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
+              ASTNode* currentParent = currentParentAndIndex.first;
+              if (currentParent == NULL)
+              {
+                // ode is whole expression
+                ASTNode* y = currentNode->getRightChild();
+                ASTNode* x = currentNode->getLeftChild()->getRightChild();
+                ASTNode* k = currentNode->getLeftChild()->getLeftChild();
+                
+              }
+              else
+              {
                 int index = currentParentAndIndex.second;
                 currentParent->replaceChild(index, yMinusX, true);
                 numMinusXPlusY++;
+              }
             }
             it++;
         }
