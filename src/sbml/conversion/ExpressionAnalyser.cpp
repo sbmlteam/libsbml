@@ -142,13 +142,27 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
   {
     value->k_value = leftChild->getName();
     value->x_value = rightChild->getName();
+    value->dxdt_expression = getODEFor(rightChild->getName());
     value->type = TYPE_K_MINUS_X;
     value->current = node;
     return true;
   }
   else
     return false;
+}
 
+ASTNode*
+ExpressionAnalyser::getODEFor(std::string name)
+{
+  for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+  {
+    std::pair<std::string, ASTNode*> ode = mODEs.at(odeIndex);
+    if (name == ode.first)
+    {
+      return ode.second;
+    }
+  }
+  return NULL;
 }
 void
 ExpressionAnalyser::analyse()
@@ -259,6 +273,61 @@ ExpressionAnalyser::detectHiddenSpecies(List * hiddenSpecies)
   ////return hiddenSpecies;
 }
 
+void
+ExpressionAnalyser::replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement)
+{
+  std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(replaced, node);
+  ASTNode* currentParent = currentParentAndIndex.first;
+  int index = currentParentAndIndex.second;
+  if (currentParent != NULL)
+  {
+    currentParent->replaceChild(index, replacement, false);
+    // intentionally, don't delete replacement as it's now owned by currentParent!
+  }
+
+}
+
+void
+ExpressionAnalyser::replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* replaced, std::string var)
+{
+  ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
+  z->setName(var.c_str());
+  replaceExpressionInNodeWithNode(node, replaced, z);
+}
+
+std::string
+ExpressionAnalyser::getUniqueNewParameterName()
+{
+  return "z" + std::to_string(mModel->getNumParameters());
+}
+
+void
+ExpressionAnalyser::addParameterAndRateRule(List* hiddenSpecies, SubstitutionValues_t *exp)
+{
+  // introduce z=k-x
+  Parameter* zParam = mModel->createParameter();
+  zParam->setId(exp->z_value);
+  zParam->setConstant(false);
+  hiddenSpecies->add(zParam);
+
+  // replace k - x with z in dxdt
+  replaceExpressionInNodeWithVar(exp->dxdt_expression, exp->current, exp->z_value);
+
+  // add raterule defining dz/dt = -dxdt
+  ASTNode* dxdt = exp->dxdt_expression->deepCopy();  //////////////////////// fluke that ode= dx/dt
+  RateRule* raterule = mModel->createRateRule();
+  raterule->setVariable(exp->z_value);
+  ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
+  ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
+  minus1->setValue(-1.0);
+  math->addChild(minus1);
+  math->addChild(dxdt);
+  raterule->setMath(math);
+  delete math; //its children dxdt and minus1 deleted as part of this.
+
+}
+
+
 bool
 ExpressionAnalyser::addHiddenVariablesForKMinusX(List* hiddenSpecies)
 {
@@ -267,71 +336,26 @@ ExpressionAnalyser::addHiddenVariablesForKMinusX(List* hiddenSpecies)
     SubstitutionValues_t *exp = mExpressions.at(i);
     ASTNode* currentNode = exp->current;
     ASTNode* odeRHS = mODEs.at(exp->odeIndex).second;
-    pairString KX = make_pair(exp->k_value, exp->x_value);
-    //if (KX.first.empty() == false)
-    //{
       std::string zName = parameterAlreadyCreated(exp);
       if (!zName.empty())
       {
-       ////////////////////func
-        // replace k - x with z in current ODE
-        ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
-        z->setName(zName.c_str());
-        std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
-        ASTNode* currentParent = currentParentAndIndex.first;
-        int index = currentParentAndIndex.second;
-        if (currentParent != NULL)
-        {
-          currentParent->replaceChild(index, z, true);
-          // intentionally, don't delete z as it's now owned by currentParent!
-        }
-
+        replaceExpressionInNodeWithVar(odeRHS, currentNode, zName);
       }
       else
       {
-        //////////// get unique namer
-        const std::string zName = "z" + std::to_string(mModel->getNumParameters());
+        std::string zName = getUniqueNewParameterName();
         exp->z_value = zName;
 
         // replace k - x with z in current ODE
-        ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
-        z->setName(zName.c_str());
-        std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
-        ASTNode* currentParent = currentParentAndIndex.first;
-        int index = currentParentAndIndex.second;
-        if (currentParent != NULL)
-        {
-          currentParent->replaceChild(index, z, true);
-          // intentionally, don't delete z as it's now owned by currentParent!
-        }
-       //////////////////////// funcs
-        // introduce z=k-x
-        Parameter* zParam = mModel->createParameter();
-        zParam->setId(zName);
-        zParam->setConstant(false);
-        hiddenSpecies->add(zParam);
+        replaceExpressionInNodeWithVar(odeRHS, currentNode, zName);
+        addParameterAndRateRule(hiddenSpecies, exp);
 
-        // add raterule defining dz/dt = -dxdt
-        ASTNode* dxdt = odeRHS->deepCopy();  //////////////////////// fluke that ode= dx/dt
-        RateRule* raterule = mModel->createRateRule();
-        raterule->setVariable(zName);
-        ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
-        ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
-        minus1->setValue(-1.0);
-        math->addChild(minus1);
-        math->addChild(dxdt);
-        raterule->setMath(math);
-        delete math; //its children dxdt and minus1 deleted as part of this.
       }
-      //  variableAdded = true;
-      //}
- //   }
-                   // (c) replace in ALL ODEs (not just current) k+v-x with v+z
     } // end for
-  //  it++;
-  //}
   return true;
 }
+
+
 std::string
 ExpressionAnalyser::parameterAlreadyCreated(SubstitutionValues_t* exp)
 {
@@ -499,7 +523,7 @@ std::pair<ASTNode*, int> ExpressionAnalyser::getParentNode(ASTNode* child, ASTNo
 {
     for (unsigned int i = 0; i < root->getNumChildren(); i++)
     {
-        if (root->getChild(i) == child)
+        if (root->getChild(i)->exactlyEqual(*(child)))
         {
             return std::pair<ASTNode*, int>(root, i);
         }

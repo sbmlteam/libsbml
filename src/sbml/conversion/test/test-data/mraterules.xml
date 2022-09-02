@@ -5,8 +5,8 @@
       <compartment metaid="COPASI1" id="compartment" name="compartment" spatialDimensions="3" size="1" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="a" name="c" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
       <species id="c" name="c" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
+      <species id="a" name="c" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
       <species id="b" name="b" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>

@@ -80,6 +80,7 @@ struct SubstitutionValues_t {
   std::string k_value;
   std::string x_value;
   std::string y_value;
+  ASTNode * dxdt_expression;
   ASTNode* v_expression;
   ASTNode* w_expression;
   ExpressionType_t type;
@@ -151,6 +152,23 @@ private:
 
   void analyse();
   bool analyseNode(ASTNode* node, SubstitutionValues_t* value);
+  
+  /*
+  * return the ode corresponding to variable 'name'
+  */
+  ASTNode* getODEFor(std::string name);
+
+  /*
+  * 
+  */
+  void addParameterAndRateRule(List* hiddenSpecies, SubstitutionValues_t *exp);
+
+  void replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
+
+  void replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* replaced, std::string var);
+
+  std::string getUniqueNewParameterName();
+
   // additional helper functions for algo 3.1
 
   /**
