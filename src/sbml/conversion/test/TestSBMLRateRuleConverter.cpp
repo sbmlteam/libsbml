@@ -461,7 +461,7 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 }
 END_TEST
 
-START_TEST(test_model1)
+START_TEST(test_model)
 {
   ConversionProperties props;
   props.addOption("inferReactions", true);
@@ -492,6 +492,37 @@ START_TEST(test_model1)
 END_TEST
 
 
+START_TEST(test_model1)
+{
+  ConversionProperties props;
+  props.addOption("inferReactions", true);
+
+  SBMLConverter* converter = new SBMLRateRuleConverter();
+  converter->setProperties(&props);
+
+  std::string filename(TestDataDirectory);
+  filename += "mraterules1.xml";
+  std::string filename1(TestDataDirectory);
+  filename1 += "mreact1.xml";
+
+  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+  converter->setDocument(d);
+  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+  SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
+  std::string out = writeSBMLToStdString(d);
+  std::string expected = writeSBMLToStdString(d1);
+
+  fail_unless(equals(expected.c_str(), out.c_str()));
+
+  delete converter;
+  delete d;
+  delete d1;
+}
+END_TEST
+
+
 
 Suite *
 create_suite_TestSBMLRateRuleConverter (void)
@@ -503,6 +534,7 @@ create_suite_TestSBMLRateRuleConverter (void)
   tcase_add_test(tcase, test_conversion_raterule_converter);
   tcase_add_test(tcase, test_conversion_raterule_converter_non_standard_stoichiometry);
   tcase_add_test(tcase, test_conversion_raterule_converter_hidden_variable);
+  tcase_add_test(tcase, test_model);
 
   tcase_add_test(tcase, test_model1);
   suite_add_tcase(suite, tcase);

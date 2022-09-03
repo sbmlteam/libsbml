@@ -493,7 +493,7 @@ SBMLRateRuleConverter::determineDerivativeSign(std::string variable, ASTNode* te
   ListIterator it = names->begin();
   while (!found && it != names->end())
   {
-    if (strcmp(variable.c_str(),((ASTNode *)(*it))->getName()))
+    if (strcmp(variable.c_str(),((ASTNode *)(*it))->getName()) == 0)
     {
       found = true;
     }
@@ -503,6 +503,7 @@ SBMLRateRuleConverter::determineDerivativeSign(std::string variable, ASTNode* te
   if (!found)
   {
     posDeriv = false;
+    signDetermined = true;
   }
   else
   {
@@ -605,8 +606,6 @@ SBMLRateRuleConverter::createTerms(ASTNode* node)
 void 
 SBMLRateRuleConverter::addToTerms(ASTNode* node)
 {
-  node->printMath();
-  double number = 0;
   if (node == NULL)
   {
     mMathNotSupported = true;
@@ -734,6 +733,11 @@ SBMLRateRuleConverter::populateODEinfo()
     // Fages algo 3.6 Step 2
     createTerms(node);
   }
+  for (unsigned int n = 0; n < mTerms.size(); n++)
+  {
+    ASTNode* node = mTerms.at(n);
+    cout << "Term " << n << ": " << SBML_formulaToL3String(node) << endl;
+  }
 
   // cooefficients
   // these are a set of numerical coefficients of each term as it occurs in each ODE
@@ -781,11 +785,6 @@ SBMLRateRuleConverter::populateODEinfo()
     mNegDerivative.push_back(negDerVector);
   }
 
-  for (unsigned int n = 0; n < mTerms.size(); n++)
-  {
-    ASTNode* node = mTerms.at(n);
-    cout << "Term " << n << ": " << SBML_formulaToL3String(node) << endl;
-  }
 }
 
 bool 
@@ -965,8 +964,6 @@ SBMLRateRuleConverter::createReactions()
     // check whetherkinetic law uses a species not listed as p/r/m
     if (r->isSetKineticLaw())
     { 
-        
-      cout << r->getNumProducts() << " prods\n";
       List* names = r->getKineticLaw()->getMath()->getListOfNodes((ASTNodePredicate)ASTNode_isName);
       ListIterator it = names->begin();
       while (it != names->end())
