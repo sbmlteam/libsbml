@@ -81,10 +81,11 @@ struct SubstitutionValues_t {
   std::string x_value;
   std::string y_value;
   ASTNode * dxdt_expression;
+  ASTNode * dydt_expression;
   ASTNode* v_expression;
   ASTNode* w_expression;
   ExpressionType_t type;
-  ASTNode* current;
+  const ASTNode* current;
   std::string z_value;
   unsigned int odeIndex;
 };
@@ -163,12 +164,13 @@ private:
   */
   void addParameterAndRateRule(List* hiddenSpecies, SubstitutionValues_t *exp);
 
-  void replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
+  void replaceExpressionInNodeWithNode(ASTNode* node, const ASTNode* replaced, ASTNode* replacement);
 
-  void replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* replaced, std::string var);
+  void replaceExpressionInNodeWithVar(ASTNode* node, const ASTNode* replaced, std::string var);
 
   std::string getUniqueNewParameterName();
 
+  bool hasParentExpressionAlready(SubstitutionValues_t* value);
   // additional helper functions for algo 3.1
 
   /**
@@ -203,7 +205,7 @@ private:
    * @param root root node of the tree to search
    * @return pair of parent and index - or (nullptr, NAN) if not found.
    */
-  std::pair<ASTNode*, int> getParentNode(ASTNode* child, ASTNode* root);
+  std::pair<ASTNode*, int> getParentNode(const ASTNode* child, const ASTNode* root);
 
   /**
    * Checks whether a node is a variable species or a variable parameter in a model.
