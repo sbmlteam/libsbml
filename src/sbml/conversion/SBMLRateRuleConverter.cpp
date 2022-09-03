@@ -605,6 +605,7 @@ SBMLRateRuleConverter::createTerms(ASTNode* node)
 void 
 SBMLRateRuleConverter::addToTerms(ASTNode* node)
 {
+  node->printMath();
   double number = 0;
   if (node == NULL)
   {
@@ -621,6 +622,19 @@ SBMLRateRuleConverter::addToTerms(ASTNode* node)
     if (term->getChild(0)->isNumber())
     {
       term->removeChild(0, true);
+    }
+    // if we are just left with * 1 child remove times
+    if (term->getNumChildren() == 1)
+    {
+      ASTNode* child = term->getChild(0)->deepCopy();
+      term = child;
+      // if term is +/- then go back to create term and do not process further
+      if (term->getType() == AST_PLUS || term->getType() == AST_MINUS)
+      {
+        createTerms(term);
+        delete term;
+        return;
+      }
     }
   }
   else if (term->isNumber())
