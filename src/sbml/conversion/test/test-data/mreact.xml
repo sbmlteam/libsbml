@@ -6,12 +6,12 @@
     </listOfCompartments>
     <listOfSpecies>
       <species id="c" name="c" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
-      <species id="a" name="c" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
+      <species id="a" name="a" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
       <species id="b" name="b" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
-      <species id="z1" compartment="compartment" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="z1" compartment="compartment" initialAmount="0.2" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
-      <parameter id="k" value="0.1"/>
+      <parameter id="k" value="1.2"/>
     </listOfParameters>
     <listOfReactions>
       <reaction id="J1" reversible="false" fast="false">
