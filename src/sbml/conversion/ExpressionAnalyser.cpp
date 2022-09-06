@@ -96,7 +96,7 @@ ExpressionAnalyser::~ExpressionAnalyser ()
     }
   }
   mODEs.clear();
-
+  SBMLTransforms::clearComponentValues();
 }
 
 /*
@@ -117,8 +117,15 @@ int
 ExpressionAnalyser::setModel(Model* model)
 {
   mModel = model;
+  SBMLTransforms::mapComponentValues(model);
   return LIBSBML_OPERATION_SUCCESS;
 }
+
+/*
+* Check whether the expression has a parent expression which may already have been analysed 
+* in which case we do not need to re analyse the child expression
+* e.g. if we have k-x-y do not need to analyse k-x
+*/
 bool
 ExpressionAnalyser::hasParentExpressionAlready(SubstitutionValues_t* value)
 {
@@ -126,9 +133,9 @@ ExpressionAnalyser::hasParentExpressionAlready(SubstitutionValues_t* value)
   for (unsigned int i = mExpressions.size(); i > 0; i--)
   {
     SubstitutionValues_t* exp = mExpressions.at(i - 1);
-    if (value->type == TYPE_K_MINUS_X && exp->type == TYPE_K_MINUS_X_MINUS_Y)
+    if (value->type == TYPE_K_MINUS_X || value->type == TYPE_K_MINUS_X_MINUS_Y)
     {
-      if (value->odeIndex == exp->odeIndex && value->dxdt_expression == exp->dxdt_expression  &&
+      if (value->type == exp->type && value->dxdt_expression == exp->dxdt_expression  &&
         value->k_value == exp->k_value && value->x_value == exp->x_value)
       {
         match = true;
@@ -179,6 +186,10 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
   return false;
 }
 
+/*
+* Return the ODE for the given variable 
+* or an ASTNode representing zero if there is no time derivative
+*/
 ASTNode*
 ExpressionAnalyser::getODEFor(std::string name)
 {
@@ -190,7 +201,9 @@ ExpressionAnalyser::getODEFor(std::string name)
       return ode.second;
     }
   }
-  return NULL;
+  ASTNode* zero = new ASTNode(AST_REAL);
+  zero->setValue(0.0);
+  return zero->deepCopy();
 }
 void
 ExpressionAnalyser::analyse()
@@ -224,7 +237,7 @@ ExpressionAnalyser::analyse()
 void
 ExpressionAnalyser::detectHiddenSpecies(List * hiddenSpecies)
 {
-  analyse();
+ analyse();
   //for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
   //{
   //  std::pair<std::string, ASTNode*> ode = mODEs.at(odeIndex);
@@ -304,12 +317,16 @@ ExpressionAnalyser::detectHiddenSpecies(List * hiddenSpecies)
   ////return hiddenSpecies;
 }
 
+/*
+* Replace a child node within a node with the given replacement mode
+*
+* param node ASTNode * parent node containing node to be replaced
+* param replaced ASTNode * node to be replaced if found in parent node
+* param replacement
+*/
 void
-ExpressionAnalyser::replaceExpressionInNodeWithNode(ASTNode* node, const ASTNode* replaced, ASTNode* replacement)
+ExpressionAnalyser::replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement)
 {
-  cout << "ode: " << SBML_formulaToL3String(node) << endl;
-  cout << "to replace: " << SBML_formulaToL3String(replaced) << endl;
-  cout << "with: " << SBML_formulaToL3String(replacement) << endl;
   // we might be replcing the whole node
   if (node == replaced)
   {
@@ -318,21 +335,25 @@ ExpressionAnalyser::replaceExpressionInNodeWithNode(ASTNode* node, const ASTNode
   }
   else
   {
-    std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(replaced, node);
-    ASTNode* currentParent = currentParentAndIndex.first;
-    int index = currentParentAndIndex.second;
-    if (currentParent != NULL)
+    std::pair<ASTNode*, int>currentParentAndIndex = make_pair((ASTNode*)NULL, (int)(NAN));
+    ASTNode* currentParent;
+    int index;
+    do
     {
-      currentParent->replaceChild(index, replacement, false);
-      // intentionally, don't delete replacement as it's now owned by currentParent!
-    }
+      currentParentAndIndex = getParentNode(replaced, node);
+      currentParent = currentParentAndIndex.first;
+      index = currentParentAndIndex.second;
+      if (currentParent != NULL)
+      {
+        currentParent->replaceChild(index, replacement->deepCopy(), false);
+        // intentionally, don't delete replacement as it's now owned by currentParent!
+      }
+    } while (currentParent != NULL);
   }
-  cout << "ode: " << SBML_formulaToL3String(node) << endl;
-
 }
 
 void
-ExpressionAnalyser::replaceExpressionInNodeWithVar(ASTNode* node, const ASTNode* replaced, std::string var)
+ExpressionAnalyser::replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* replaced, std::string var)
 {
   ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
   z->setName(var.c_str());
@@ -345,27 +366,53 @@ ExpressionAnalyser::getUniqueNewParameterName()
   return "z" + std::to_string(mModel->getNumParameters());
 }
 
+
 void
 ExpressionAnalyser::addParameterAndRateRule(List* hiddenSpecies, SubstitutionValues_t *exp)
 {
-  // introduce z=k-x
+  // introduce z
   Parameter* zParam = mModel->createParameter();
   zParam->setId(exp->z_value);
   zParam->setConstant(false);
+  zParam->setValue(SBMLTransforms::evaluateASTNode(exp->current, mModel));
   hiddenSpecies->add(zParam);
 
-  // replace k - x with z in dxdt
-  replaceExpressionInNodeWithVar(exp->dxdt_expression, exp->current, exp->z_value);
+  if (exp->type == TYPE_K_MINUS_X)
+  {
+    replaceExpressionInNodeWithVar(exp->dxdt_expression, exp->current, exp->z_value);
+  }
+  else if (exp->type == TYPE_K_MINUS_X_MINUS_Y)
+  {
+    replaceExpressionInNodeWithVar(exp->dxdt_expression, exp->current, exp->z_value);
+    replaceExpressionInNodeWithVar(exp->dydt_expression, exp->current, exp->z_value);
 
-  // add raterule defining dz/dt = -dxdt
-  ASTNode* dxdt = exp->dxdt_expression->deepCopy();  //////////////////////// fluke that ode= dx/dt
+  }
+
+  // add raterule defining dz/dt
+  ASTNode* dxdt = exp->dxdt_expression->deepCopy(); 
   RateRule* raterule = mModel->createRateRule();
   raterule->setVariable(exp->z_value);
   ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
   ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
   minus1->setValue(-1.0);
-  math->addChild(minus1);
-  math->addChild(dxdt);
+  switch (exp->type)
+  {
+  case TYPE_K_MINUS_X:
+    // dz/dt = -dx/dt
+    math->addChild(minus1);
+    math->addChild(dxdt);
+    break;
+  case TYPE_K_MINUS_X_MINUS_Y:
+    // dz/dt = - (dx/dt + dy/dt)
+    ASTNode* dydt = exp->dydt_expression->deepCopy();
+    ASTNode* plus = new ASTNode(AST_PLUS);
+    plus->addChild(dxdt);
+    plus->addChild(dydt);
+    math->addChild(minus1);
+    math->addChild(plus);
+
+    break;
+  }
   raterule->setMath(math);
   delete math; //its children dxdt and minus1 deleted as part of this.
 
@@ -378,7 +425,7 @@ ExpressionAnalyser::addHiddenVariablesForKMinusX(List* hiddenSpecies)
   for (unsigned int i = 0; i < mExpressions.size(); i++)
   {
     SubstitutionValues_t *exp = mExpressions.at(i);
-    const ASTNode* currentNode = exp->current;
+    ASTNode* currentNode = exp->current;
     ASTNode* odeRHS = mODEs.at(exp->odeIndex).second;
       std::string zName = parameterAlreadyCreated(exp);
       if (!zName.empty())
@@ -534,7 +581,6 @@ void ExpressionAnalyser::reorderMinusXPlusYIteratively(ASTNode* odeRHS)
         while (it != operators->end())
         {
             ASTNode* currentNode = (ASTNode*)*it;
-            cout << "C node: " << SBML_formulaToL3String(currentNode) << endl;
             if (isMinusXPlusY(currentNode))
             {
               // we have a binary node that is (k-x) + y
@@ -565,7 +611,7 @@ void ExpressionAnalyser::reorderMinusXPlusYIteratively(ASTNode* odeRHS)
 
 std::pair<ASTNode*, int> ExpressionAnalyser::getParentNode(const ASTNode* child, const ASTNode* root)
 {
-    for (unsigned int i = 0; i < root->getNumChildren(); i++)
+  for (unsigned int i = 0; i < root->getNumChildren(); i++)
     {
         if (root->getChild(i)->exactlyEqual(*(child)))
         {
@@ -574,7 +620,11 @@ std::pair<ASTNode*, int> ExpressionAnalyser::getParentNode(const ASTNode* child,
     }
     for (unsigned int i = 0; i < root->getNumChildren(); i++)
     {
-        return getParentNode(child, root->getChild(i));
+      std::pair<ASTNode*, int> parent = getParentNode(child, root->getChild(i));
+      if (parent.first != NULL)
+      {
+        return parent;
+      }
     }
     return std::pair<ASTNode*, int>(NULL, (int)(NAN));
 }

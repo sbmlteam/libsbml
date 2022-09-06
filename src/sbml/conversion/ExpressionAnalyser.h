@@ -85,7 +85,7 @@ struct SubstitutionValues_t {
   ASTNode* v_expression;
   ASTNode* w_expression;
   ExpressionType_t type;
-  const ASTNode* current;
+  ASTNode* current;
   std::string z_value;
   unsigned int odeIndex;
 };
@@ -135,9 +135,17 @@ public:
    */
   virtual ~ExpressionAnalyser ();
 
+  /*
+  *  Set the value of the ODE pairs
+  */
   int setODEPairs(std::vector< std::pair< std::string, ASTNode*> > odes);
 
+
+  /*
+  *  Set the model
+  */
   int setModel(Model* m);
+
 
   void detectHiddenSpecies(List * hiddenSpecies);
 
@@ -155,7 +163,8 @@ private:
   bool analyseNode(ASTNode* node, SubstitutionValues_t* value);
   
   /*
-  * return the ode corresponding to variable 'name'
+  * Return the ODE for the given variable
+  * or an ASTNode representing zero if there is no time derivative
   */
   ASTNode* getODEFor(std::string name);
 
@@ -164,9 +173,9 @@ private:
   */
   void addParameterAndRateRule(List* hiddenSpecies, SubstitutionValues_t *exp);
 
-  void replaceExpressionInNodeWithNode(ASTNode* node, const ASTNode* replaced, ASTNode* replacement);
+  void replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
 
-  void replaceExpressionInNodeWithVar(ASTNode* node, const ASTNode* replaced, std::string var);
+  void replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* replaced, std::string var);
 
   std::string getUniqueNewParameterName();
 
