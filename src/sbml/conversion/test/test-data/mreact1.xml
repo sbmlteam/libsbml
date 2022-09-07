@@ -5,61 +5,74 @@
       <compartment metaid="COPASI1" id="compartment" name="compartment" spatialDimensions="3" size="1" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="c" name="c" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
-      <species id="a" name="c" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
-      <species id="b" name="b" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
-      <species id="d" compartment="compartment" initialAmount="0.1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
-      <species id="z4" compartment="compartment" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
-      <species id="z5" compartment="compartment" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="b" compartment="compartment" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="a" compartment="compartment" initialAmount="1.1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="c" compartment="compartment" initialAmount="0.9" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="d" compartment="compartment" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="z6" compartment="compartment" initialAmount="0.1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
-      <parameter id="k" value="0.1"/>
-      <parameter id="e" value="0.1" constant="false"/>
-      <parameter id="f" value="0.1" constant="false"/>
+      <parameter id="k" value="1.1"/>
+      <parameter id="e" value="1.1"/>
     </listOfParameters>
     <listOfReactions>
       <reaction id="J1" reversible="false" fast="false">
         <listOfReactants>
+          <speciesReference species="b" stoichiometry="1"/>
           <speciesReference species="a" stoichiometry="1"/>
-          <speciesReference species="z4" stoichiometry="1"/>
+          <speciesReference species="z6" stoichiometry="1"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="c" stoichiometry="1"/>
-          <speciesReference species="z4" stoichiometry="2"/>
+          <speciesReference species="b" stoichiometry="2"/>
+          <speciesReference species="z6" stoichiometry="1"/>
         </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="b"/>
-        </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
               <ci> b </ci>
-              <ci> z4 </ci>
+              <ci> z6 </ci>
             </apply>
           </math>
         </kineticLaw>
       </reaction>
       <reaction id="J2" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="b" stoichiometry="1"/>
+          <speciesReference species="c" stoichiometry="1"/>
+          <speciesReference species="z6" stoichiometry="1"/>
+        </listOfReactants>
         <listOfProducts>
-          <speciesReference species="d" stoichiometry="1"/>
+          <speciesReference species="c" stoichiometry="2"/>
+          <speciesReference species="z6" stoichiometry="1"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <ci> k </ci>
+            <apply>
+              <times/>
+              <ci> c </ci>
+              <ci> z6 </ci>
+            </apply>
           </math>
         </kineticLaw>
       </reaction>
       <reaction id="J3" reversible="false" fast="false">
         <listOfReactants>
-          <speciesReference species="z5" stoichiometry="1"/>
+          <speciesReference species="a" stoichiometry="1"/>
+          <speciesReference species="c" stoichiometry="1"/>
+          <speciesReference species="z6" stoichiometry="1"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="z5" stoichiometry="1"/>
+          <speciesReference species="a" stoichiometry="2"/>
+          <speciesReference species="z6" stoichiometry="1"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <ci> z5 </ci>
+            <apply>
+              <times/>
+              <ci> a </ci>
+              <ci> z6 </ci>
+            </apply>
           </math>
         </kineticLaw>
       </reaction>

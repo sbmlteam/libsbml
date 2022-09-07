@@ -426,7 +426,10 @@ ExpressionAnalyser::addHiddenVariablesForKMinusX(List* hiddenSpecies)
   {
     SubstitutionValues_t *exp = mExpressions.at(i);
     ASTNode* currentNode = exp->current;
-    ASTNode* odeRHS = mODEs.at(exp->odeIndex).second;
+    for (unsigned int j = 0; j < mODEs.size(); j++)
+    {
+      std::pair<std::string, ASTNode*> ode = mODEs.at(j);
+      ASTNode* odeRHS = ode.second;
       std::string zName = parameterAlreadyCreated(exp);
       if (!zName.empty())
       {
@@ -437,12 +440,13 @@ ExpressionAnalyser::addHiddenVariablesForKMinusX(List* hiddenSpecies)
         std::string zName = getUniqueNewParameterName();
         exp->z_value = zName;
 
-        // replace k - x with z in current ODE
+        // replace exp with z in current ODE
         replaceExpressionInNodeWithVar(odeRHS, currentNode, zName);
         addParameterAndRateRule(hiddenSpecies, exp);
 
       }
-    } // end for
+    }
+  } // end for
   return true;
 }
 
