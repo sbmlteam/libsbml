@@ -135,7 +135,7 @@ ExpressionAnalyser::hasParentExpressionAlready(SubstitutionValues_t* value)
     SubstitutionValues_t* exp = mExpressions.at(i - 1);
     if (value->type == TYPE_K_MINUS_X || value->type == TYPE_K_MINUS_X_MINUS_Y)
     {
-      if (value->type == exp->type && value->dxdt_expression == exp->dxdt_expression  &&
+      if (value->dxdt_expression == exp->dxdt_expression  &&
         value->k_value == exp->k_value && value->x_value == exp->x_value)
       {
         match = true;
