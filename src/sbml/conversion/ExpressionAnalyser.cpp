@@ -127,22 +127,76 @@ ExpressionAnalyser::setModel(Model* model)
 * e.g. if we have k-x-y do not need to analyse k-x
 */
 bool
-ExpressionAnalyser::hasParentExpressionAlready(SubstitutionValues_t* value)
+ExpressionAnalyser::hasExpressionAlreadyRecorded(SubstitutionValues_t* value)
 {
-  bool match = false;
   for (unsigned int i = mExpressions.size(); i > 0; i--)
   {
     SubstitutionValues_t* exp = mExpressions.at(i - 1);
-    if (value->type == TYPE_K_MINUS_X || value->type == TYPE_K_MINUS_X_MINUS_Y)
+    switch (value->type)
     {
-      if (value->dxdt_expression == exp->dxdt_expression  &&
-        value->k_value == exp->k_value && value->x_value == exp->x_value)
+    case TYPE_K_MINUS_X_MINUS_Y:
+      if (value->k_value == exp->k_value  &&
+        value->x_value == exp->x_value &&
+        value->y_value == exp->y_value &&
+        value->dxdt_expression == exp->dxdt_expression &&
+        value->dydt_expression == exp->dydt_expression)
       {
-        match = true;
+        return true;
       }
+      break;
+    case TYPE_K_PLUS_V_MINUS_X_MINUS_Y:
+      if (value->k_value == exp->k_value  &&
+        value->x_value == exp->x_value &&
+        value->y_value == exp->y_value &&
+        value->dxdt_expression == exp->dxdt_expression &&
+        value->dydt_expression == exp->dydt_expression &&
+        value->v_expression == exp->v_expression)
+      {
+        return true;
+      }
+      break;
+    case TYPE_K_MINUS_X_PLUS_W_MINUS_Y:
+      if (value->k_value == exp->k_value  &&
+        value->x_value == exp->x_value &&
+        value->y_value == exp->y_value &&
+        value->dxdt_expression == exp->dxdt_expression &&
+        value->dydt_expression == exp->dydt_expression &&
+        value->w_expression == exp->w_expression)
+      {
+        return true;
+      }
+      break;
+    case TYPE_K_MINUS_X:
+      if (value->k_value == exp->k_value  &&
+        value->x_value == exp->x_value &&
+        value->dxdt_expression == exp->dxdt_expression)
+      {
+        return true;
+      }
+      break;
+    case TYPE_K_PLUS_V_MINUS_X:
+      if (value->k_value == exp->k_value  &&
+        value->x_value == exp->x_value &&
+        value->dxdt_expression == exp->dxdt_expression &&
+        value->v_expression == exp->v_expression)
+      {
+        return true;
+      }
+      break;
+    case TYPE_MINUS_X_PLUS_Y:
+      if (value->x_value == exp->x_value &&
+        value->y_value == exp->y_value &&
+        value->dxdt_expression == exp->dxdt_expression &&
+        value->dydt_expression == exp->dydt_expression)
+      {
+        return true;
+      }
+      break;
+    default:
+      break;
     }
   }
-  return match;
+  return false;
 }
 
 
@@ -153,7 +207,6 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
   ASTNodeType_t type = node->getType();
   ASTNode* rightChild = node->getRightChild();
   ASTNode* leftChild = node->getLeftChild();
-
   switch (type)
   {
   case AST_PLUS:
@@ -181,10 +234,11 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
     break;
 
   case AST_MINUS:
-    //          -                  -
-    //        k   x             -     y
-    //                        k   x
+    //          -                  -               -
+    //        k   x             -     y        +      x
+    //                        k   x         k     v
     //  k-x or k-x-y node binary; right child (x,y) is variable
+    //  k+v-x; right child x var; left child plus node with left child k constant
     if (numChildren != 2 || !isVariableSpeciesOrParameter(rightChild))
       return false;
     // if left child is  numerical constant or a parameter, it IS k-x
@@ -193,7 +247,20 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
       value->k_value = leftChild->getName();
       value->x_value = rightChild->getName();
       value->dxdt_expression = getODEFor(rightChild->getName());
+      value->dydt_expression = NULL;
       value->type = TYPE_K_MINUS_X;
+      value->current = node;
+      return true;
+    }
+    else if (leftChild->getType() == AST_PLUS 
+      && isNumericalConstantOrConstantParameter(leftChild->getChild(0)))
+    {
+      value->k_value = leftChild->getChild(0)->getName();
+      value->x_value = rightChild->getName();
+      value->dxdt_expression = getODEFor(rightChild->getName());
+      value->dydt_expression = NULL;
+      value->v_expression = leftChild->getChild(1);
+      value->type = TYPE_K_PLUS_V_MINUS_X;
       value->current = node;
       return true;
     }
@@ -213,6 +280,7 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
   default:
     return false;
   }
+  return false;
 }
 
 /*
@@ -258,7 +326,7 @@ ExpressionAnalyser::analyse(bool minusXPlusYOnly)
       if (analyseNode(currentNode, value))
       {
         value->odeIndex = odeIndex;
-        if (!hasParentExpressionAlready(value))
+        if (!hasExpressionAlreadyRecorded(value))
         {
           mExpressions.push_back(value);
         }
@@ -279,10 +347,6 @@ ExpressionAnalyser::detectHiddenSpecies(List * hiddenSpecies)
   //  odeRHS->reduceToBinary();
   //  //      Step 1: iterative, in-place replacement of any -x+y terms with y-x terms
   reorderMinusXPlusYIteratively();
-  for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
-  {
-    cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
-  }
   mExpressions.clear();
   analyse();
 
@@ -367,6 +431,9 @@ ExpressionAnalyser::detectHiddenSpecies(List * hiddenSpecies)
 void
 ExpressionAnalyser::replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement)
 {
+  cout << "node: " << SBML_formulaToL3String(node) << endl;
+  cout << "with: " << SBML_formulaToL3String(replaced) << endl;
+  cout << "by: " << SBML_formulaToL3String(replacement) << endl;
   // we might be replcing the whole node
   if (node == replaced)
   {
@@ -417,17 +484,6 @@ ExpressionAnalyser::addParameterAndRateRule(List* hiddenSpecies, SubstitutionVal
   zParam->setValue(SBMLTransforms::evaluateASTNode(exp->current, mModel));
   hiddenSpecies->add(zParam);
 
-  if (exp->type == TYPE_K_MINUS_X)
-  {
-    replaceExpressionInNodeWithVar(exp->dxdt_expression, exp->current, exp->z_value);
-  }
-  else if (exp->type == TYPE_K_MINUS_X_MINUS_Y)
-  {
-    replaceExpressionInNodeWithVar(exp->dxdt_expression, exp->current, exp->z_value);
-    replaceExpressionInNodeWithVar(exp->dydt_expression, exp->current, exp->z_value);
-
-  }
-
   // add raterule defining dz/dt
   ASTNode* dxdt = exp->dxdt_expression->deepCopy(); 
   RateRule* raterule = mModel->createRateRule();
@@ -438,6 +494,7 @@ ExpressionAnalyser::addParameterAndRateRule(List* hiddenSpecies, SubstitutionVal
   switch (exp->type)
   {
   case TYPE_K_MINUS_X:
+  case TYPE_K_PLUS_V_MINUS_X:
     // dz/dt = -dx/dt
     math->addChild(minus1);
     math->addChild(dxdt);
@@ -458,6 +515,43 @@ ExpressionAnalyser::addParameterAndRateRule(List* hiddenSpecies, SubstitutionVal
 
 }
 
+void
+ExpressionAnalyser::replaceExpressionWithNewParameter(ASTNode* ode, SubstitutionValues_t* exp)
+{
+  if (exp->type == TYPE_K_MINUS_X || exp->type == TYPE_K_MINUS_X_MINUS_Y)
+  {
+    replaceExpressionInNodeWithVar(ode, exp->current, exp->z_value);
+    if (exp->dxdt_expression != NULL)
+    {
+      replaceExpressionInNodeWithVar(exp->dxdt_expression, exp->current, exp->z_value);
+    }
+    if (exp->dydt_expression != NULL)
+    {
+      replaceExpressionInNodeWithVar(exp->dydt_expression, exp->current, exp->z_value);
+    }
+
+  }
+  if (exp->type == TYPE_K_PLUS_V_MINUS_X)
+  {
+    ASTNode* replacement = new ASTNode(AST_PLUS);
+    ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
+    z->setName(exp->z_value.c_str());
+    ASTNode *v = exp->v_expression->deepCopy();
+    replacement->addChild(z);
+    replacement->addChild(v);
+    replaceExpressionInNodeWithNode(ode, exp->current, replacement);
+    if (exp->dxdt_expression != NULL)
+    {
+      replaceExpressionInNodeWithNode(exp->dxdt_expression, exp->current, replacement);
+    }
+    if (exp->dydt_expression != NULL)
+    {
+      replaceExpressionInNodeWithNode(exp->dydt_expression, exp->current, replacement);
+    }
+
+  }
+}
+
 
 bool
 ExpressionAnalyser::addHiddenVariablesForKMinusX(List* hiddenSpecies)
@@ -473,18 +567,18 @@ ExpressionAnalyser::addHiddenVariablesForKMinusX(List* hiddenSpecies)
       std::string zName = parameterAlreadyCreated(exp);
       if (!zName.empty())
       {
-        replaceExpressionInNodeWithVar(odeRHS, currentNode, zName);
+        replaceExpressionWithNewParameter(odeRHS, exp);
       }
       else
       {
         std::string zName = getUniqueNewParameterName();
         exp->z_value = zName;
 
-        // replace exp with z in current ODE
-        replaceExpressionInNodeWithVar(odeRHS, currentNode, zName);
+        replaceExpressionWithNewParameter(odeRHS, exp);
         addParameterAndRateRule(hiddenSpecies, exp);
 
       }
+      cout << "ode: " << SBML_formulaToL3String(odeRHS) << endl;
     }
   } // end for
   return true;
@@ -510,88 +604,9 @@ ExpressionAnalyser::parameterAlreadyCreated(SubstitutionValues_t* exp)
   return renamed;
 }
 
-// helper function to determine whether a node is the "+" in a -x+y expression, where x,y are variable species.
-bool ExpressionAnalyser::isMinusXPlusY(ASTNode* node)
-{
-    //if node is not binary, it's not -x+y
-    if (node->getNumChildren() != 2)
-        return false;
-
-    // if node is not a plus, it's not -x+y
-    if (node->getType() != ASTNodeType_t::AST_PLUS)
-        return false;
-
-    // if left child is not a minus, it's not -x+y
-    ASTNode* leftChild = node->getLeftChild();
-    if (leftChild->getType() != ASTNodeType_t::AST_MINUS)
-        return false;
-
-    // if right child is not a variable species (y), it's not -x+y
-    ASTNode* rightChild = node->getRightChild();
-    if (!isVariableSpeciesOrParameter(rightChild))
-        return false;
-
-    // if we get to this point, the only thing left to check is 
-    // whether the ->left->right grandchild (the x in -x+y) is a variable species.
-    ASTNode* grandChild = leftChild->getRightChild();
-    return isVariableSpeciesOrParameter(grandChild);
-}
-
-// helper function to determine whether a node is the second "-" in a k-x-y expression, where x,y are variable species and k is a numerical constant or a parameter
-bool ExpressionAnalyser::isKMinusXMinusY(ASTNode* node)
-{
-    // if node is not binary, it's not k-x-y
-    if (node->getNumChildren() != 2)
-        return false;
-
-    // if node is not a minus, it's not the second "-" in k-x-y
-    if (node->getType() != ASTNodeType_t::AST_MINUS)
-        return false;
-
-    // if right child is not a variable, it's not k-x-y
-    ASTNode* rightChild = node->getRightChild();
-    if(!isVariableSpeciesOrParameter(rightChild))
-        return false;
-
-    // if left child is not a minus, it's not k-x-y
-    ASTNode* leftChild = node->getLeftChild();
-    if (leftChild->getType() != ASTNodeType_t::AST_MINUS)
-        return false;
-
-    // if left child is not binary, it's not k-x-y
-    if (leftChild->getNumChildren() != 2)
-        return false;
-
-    // if we've gotten this far, what's left to check are the children of the left child (k and x)
-    ASTNode* k = leftChild->getLeftChild();
-    ASTNode* x = leftChild->getRightChild();
-    return isNumericalConstantOrConstantParameter(k) && isVariableSpeciesOrParameter(x);
-}
-
-// check whether a node is the minus sign in a k-x expression
-pairString ExpressionAnalyser::isKMinusX(ASTNode* node)
-{
-    // if node is not binary, it's not k-x
-    if (node->getNumChildren() != 2)
-      return make_pair("", "");
-
-    // if node is not a minus, it's not "-" in k-x
-    if (node->getType() != ASTNodeType_t::AST_MINUS)
-      return make_pair("", "");
-
-    // if right child is not a variable species, it's not k-x
-    ASTNode* rightChild = node->getRightChild();
-    if (!isVariableSpeciesOrParameter(rightChild))
-      return make_pair("", "");
-
-    // if left child is not a numerical constant or a parameter, it's not k-x - else it is!
-    ASTNode* leftChild = node->getLeftChild();
-    if (isNumericalConstantOrConstantParameter(leftChild))
-      return make_pair(leftChild->getName(), rightChild->getName());
-    else
-      return make_pair("", "");
-}
-
+/*
+ * Check whether for node is a name node representing species or a non constant parameter
+*/
 bool ExpressionAnalyser::isVariableSpeciesOrParameter(ASTNode* node)
 {
     if (!node->isName()) // some nodes, like * operators, don't seem to have a name in the first place
@@ -603,6 +618,9 @@ bool ExpressionAnalyser::isVariableSpeciesOrParameter(ASTNode* node)
     return isVariableSpeciesOrParameter || isVariableParameter;
 }
 
+/*
+* Check whether for node is a name node representing a constant parameter or a numerical node
+*/
 bool ExpressionAnalyser::isNumericalConstantOrConstantParameter(ASTNode* node)
 {
     if (!node->isName()) // some nodes, like * operators, don't seem to have a name in the first place

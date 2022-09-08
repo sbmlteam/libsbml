@@ -581,6 +581,36 @@ START_TEST(test_model3)
 END_TEST
 
 
+START_TEST(test_model4)
+{
+  ConversionProperties props;
+  props.addOption("inferReactions", true);
+
+  SBMLConverter* converter = new SBMLRateRuleConverter();
+  converter->setProperties(&props);
+
+  std::string filename(TestDataDirectory);
+  filename += "mraterules4.xml";
+  std::string filename1(TestDataDirectory);
+  filename1 += "mreact4.xml";
+  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+  converter->setDocument(d);
+  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+  SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
+  std::string out = writeSBMLToStdString(d);
+  std::string expected = writeSBMLToStdString(d1);
+
+  fail_unless(equals(expected.c_str(), out.c_str()));
+
+  delete converter;
+  delete d;
+  delete d1;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestSBMLRateRuleConverter (void)
 { 
@@ -595,6 +625,7 @@ create_suite_TestSBMLRateRuleConverter (void)
   tcase_add_test(tcase, test_model1);
   tcase_add_test(tcase, test_model2);
   tcase_add_test(tcase, test_model3);
+  tcase_add_test(tcase, test_model4);
 
   suite_add_tcase(suite, tcase);
 

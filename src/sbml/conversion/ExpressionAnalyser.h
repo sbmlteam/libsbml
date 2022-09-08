@@ -180,32 +180,12 @@ private:
 
   std::string getUniqueNewParameterName();
 
-  bool hasParentExpressionAlready(SubstitutionValues_t* value);
+  void replaceExpressionWithNewParameter(ASTNode* ode, SubstitutionValues_t* exp);
+    /*
+   * Loops through expressions already recorded and checks for exact matches
+   */
+  bool hasExpressionAlreadyRecorded(SubstitutionValues_t* value);
   // additional helper functions for algo 3.1
-
-  /**
-   * Checks whether a node is the plus sign in an expression -x+y, where x and y are variable species or variable parameters in a model.
-   *
-   * @param node the node to check
-   * @return true if node is + in -x+y, otherwise false
-   */
-  bool isMinusXPlusY(ASTNode* node);
-
-  /**
-   * Checks whether a node is the second minus sign in an expression k-x-y, where x and y are variable species or variable parameters, and k is constant number or constant parameter, in a model.
-   * 
-   * @param node the node to check
-   * @return true if node is second minus in k-x-y, other false
-   */
-  bool isKMinusXMinusY(ASTNode* node);
-
-  /**
-   * Checks whether a node is the minus sign in a k-x expression, where x is a variable species or variable parameter, and k is constant number or constant parameter, in a model.
-   *
-   * @param node the node to check
-   * @return true if the node is the minus in k-x, false otherwise
-   */
-  pairString isKMinusX(ASTNode* node);
 
   /**
    * Searches for a node's parent and its index as the parent's child in a one-directional tree (nodes know their children, but not their parent).
