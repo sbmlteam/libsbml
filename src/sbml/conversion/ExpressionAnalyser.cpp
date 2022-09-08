@@ -154,36 +154,65 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
   ASTNode* rightChild = node->getRightChild();
   ASTNode* leftChild = node->getLeftChild();
 
-  //  k-x or k-x-y node binary; minus; right child (x,y) is variable
-  if (numChildren !=2 || type != AST_MINUS || !isVariableSpeciesOrParameter(rightChild))
-    return false;
-
-  // 
-
-  // if left child is  numerical constant or a parameter, it IS k-x
-  if (isNumericalConstantOrConstantParameter(leftChild))
+  switch (type)
   {
-    value->k_value = leftChild->getName();
-    value->x_value = rightChild->getName();
-    value->dxdt_expression = getODEFor(rightChild->getName());
-    value->type = TYPE_K_MINUS_X;
-    value->current = node;
-    return true;
-  }
-  else
-  {
-    // if left child is k-x then we have k-x-y
-    if (analyseNode(leftChild, value))
+  case AST_PLUS:
+    //  -x+y node binary; plus; left child type minus; rightchild var/const
+    //           +
+    //        -     y
+    //        x
+    if (numChildren != 2 || rightChild->getType() != AST_NAME
+      || leftChild->getType() != ASTNodeType_t::AST_MINUS
+      || leftChild->getNumChildren() != 1)
+      return false;
+
+    // if we get to this point, the only thing left to check is 
+    // whether the ->left->right grandchild (the x in -x+y) is a variable species.
+    if (isVariableSpeciesOrParameter(leftChild->getChild(0)))
     {
+      value->x_value = leftChild->getChild(0)->getName();
       value->y_value = rightChild->getName();
       value->dydt_expression = getODEFor(rightChild->getName());
-      value->type = TYPE_K_MINUS_X_MINUS_Y;
+      value->dxdt_expression = getODEFor(leftChild->getChild(0)->getName());
+      value->type = TYPE_MINUS_X_PLUS_Y;
       value->current = node;
       return true;
-
     }
+    break;
+
+  case AST_MINUS:
+    //          -                  -
+    //        k   x             -     y
+    //                        k   x
+    //  k-x or k-x-y node binary; right child (x,y) is variable
+    if (numChildren != 2 || !isVariableSpeciesOrParameter(rightChild))
+      return false;
+    // if left child is  numerical constant or a parameter, it IS k-x
+    if (isNumericalConstantOrConstantParameter(leftChild))
+    {
+      value->k_value = leftChild->getName();
+      value->x_value = rightChild->getName();
+      value->dxdt_expression = getODEFor(rightChild->getName());
+      value->type = TYPE_K_MINUS_X;
+      value->current = node;
+      return true;
+    }
+    else
+    {
+      // if left child is k-x then we have k-x-y
+      if (analyseNode(leftChild, value))
+      {
+        value->y_value = rightChild->getName();
+        value->dydt_expression = getODEFor(rightChild->getName());
+        value->type = TYPE_K_MINUS_X_MINUS_Y;
+        value->current = node;
+        return true;
+      }
+    }
+    break;
+  default:
+    return false;
   }
-  return false;
 }
 
 /*
@@ -206,7 +235,7 @@ ExpressionAnalyser::getODEFor(std::string name)
   return zero->deepCopy();
 }
 void
-ExpressionAnalyser::analyse()
+ExpressionAnalyser::analyse(bool minusXPlusYOnly)
 {
   for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
   {
@@ -219,6 +248,11 @@ ExpressionAnalyser::analyse()
     while (it != operators->end())
     {
       ASTNode* currentNode = (ASTNode*)*it;
+      if (minusXPlusYOnly && currentNode->getType() != AST_PLUS)
+      {
+        it++;
+        continue;
+      }
       SubstitutionValues_t* value = new SubstitutionValues_t;
       value->type = TYPE_UNKNOWN;
       if (analyseNode(currentNode, value))
@@ -237,14 +271,20 @@ ExpressionAnalyser::analyse()
 void
 ExpressionAnalyser::detectHiddenSpecies(List * hiddenSpecies)
 {
- analyse();
+ analyse(true);
   //for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
   //{
   //  std::pair<std::string, ASTNode*> ode = mODEs.at(odeIndex);
   //  ASTNode* odeRHS = ode.second;
   //  odeRHS->reduceToBinary();
   //  //      Step 1: iterative, in-place replacement of any -x+y terms with y-x terms
-  //  reorderMinusXPlusYIteratively(odeRHS);
+  reorderMinusXPlusYIteratively();
+  for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+  {
+    cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+  }
+  mExpressions.clear();
+  analyse();
 
   //  // Step 2 TODO
   //  List* operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
@@ -573,44 +613,27 @@ bool ExpressionAnalyser::isNumericalConstantOrConstantParameter(ASTNode* node)
     return isNumericalConstant || isConstantParameter;
 }
 
-void ExpressionAnalyser::reorderMinusXPlusYIteratively(ASTNode* odeRHS)
+/*
+* Reorder any instance of - x + y with y - x in the set of ODEs.
+* Fages Algorithm 3.1 Step 1
+*/
+void ExpressionAnalyser::reorderMinusXPlusYIteratively()
 {
-    int numMinusXPlusY = INT16_MAX;
-    while (numMinusXPlusY != 0)
-    {
-        // since check is centred on a node that is + or -, we can iterate over operator nodes in tree
-        numMinusXPlusY = 0;
-        List* operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
-        ListIterator it = operators->begin();
-        while (it != operators->end())
-        {
-            ASTNode* currentNode = (ASTNode*)*it;
-            if (isMinusXPlusY(currentNode))
-            {
-              // we have a binary node that is (k-x) + y
-                //Swap -x+y node for y-x node
-              ASTNode* yMinusX = new ASTNode(ASTNodeType_t::AST_MINUS);
-              std::pair<ASTNode*, int> currentParentAndIndex = getParentNode(currentNode, odeRHS);
-              ASTNode* currentParent = currentParentAndIndex.first;
-              if (currentParent == NULL)
-              {
-                // ode is whole expression
-                ASTNode* y = currentNode->getRightChild();
-                ASTNode* x = currentNode->getLeftChild()->getRightChild();
-                ASTNode* k = currentNode->getLeftChild()->getLeftChild();
-                
-              }
-              else
-              {
-                int index = currentParentAndIndex.second;
-                currentParent->replaceChild(index, yMinusX, true);
-                numMinusXPlusY++;
-              }
-            }
-            it++;
-        }
-        delete operators;
-    }
+  for (unsigned int i = 0; i < mExpressions.size(); i++)
+  {
+    SubstitutionValues_t* exp = mExpressions.at(i);
+    if (exp->type != TYPE_MINUS_X_PLUS_Y)
+      continue;
+    ASTNode* ode = (mODEs.at(exp->odeIndex)).second;
+    ASTNode* replacement = new ASTNode(AST_MINUS);
+    ASTNode* y = new ASTNode(AST_NAME);
+    y->setName((exp->y_value).c_str());
+    ASTNode* x = new ASTNode(AST_NAME);
+    x->setName((exp->x_value).c_str());
+    replacement->addChild(y);
+    replacement->addChild(x);
+    replaceExpressionInNodeWithNode(ode, exp->current, replacement);
+  }
 }
 
 std::pair<ASTNode*, int> ExpressionAnalyser::getParentNode(const ASTNode* child, const ASTNode* root)

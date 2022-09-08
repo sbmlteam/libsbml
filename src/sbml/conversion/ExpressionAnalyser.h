@@ -65,11 +65,12 @@ typedef std::pair<std::string, std::string > pairString;
 
 typedef enum
 {
-  TYPE_K_MINUS_X_MINUS_Y
+    TYPE_K_MINUS_X_MINUS_Y
   , TYPE_K_PLUS_V_MINUS_X_MINUS_Y
   , TYPE_K_MINUS_X_PLUS_W_MINUS_Y
   , TYPE_K_MINUS_X
-  , TYPE_K_PLUS_V_MINUS_
+  , TYPE_K_PLUS_V_MINUS_X
+  , TYPE_MINUS_X_PLUS_Y
   , TYPE_UNKNOWN
 } ExpressionType_t;
 
@@ -155,11 +156,11 @@ private:
 
   // functions that represents steps of algo 3.1
 
-  void reorderMinusXPlusYIteratively(ASTNode* odeRHS);
+  void reorderMinusXPlusYIteratively();
 
   bool addHiddenVariablesForKMinusX(List* hiddenSpecies);
 
-  void analyse();
+  void analyse(bool minusXPlusYOnly = false);
   bool analyseNode(ASTNode* node, SubstitutionValues_t* value);
   
   /*
