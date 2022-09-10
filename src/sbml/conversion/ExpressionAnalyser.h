@@ -172,7 +172,7 @@ private:
   /*
   * 
   */
-  void addParameterAndRateRule(List* hiddenSpecies, SubstitutionValues_t *exp);
+  void addParametersAndRateRules(List* hiddenSpecies);
 
   void replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
 
@@ -180,12 +180,18 @@ private:
 
   std::string getUniqueNewParameterName();
 
+  /*
+  * check that the variable names in these two expressions match
+  */
+  bool matchesVariables(SubstitutionValues_t* exp, SubstitutionValues_t* exp1);
+
+  
   void replaceExpressionWithNewParameter(ASTNode* ode, SubstitutionValues_t* exp);
-    /*
+
+  /*
    * Loops through expressions already recorded and checks for exact matches
    */
   bool hasExpressionAlreadyRecorded(SubstitutionValues_t* value);
-  // additional helper functions for algo 3.1
 
   /**
    * Searches for a node's parent and its index as the parent's child in a one-directional tree (nodes know their children, but not their parent).
@@ -214,10 +220,10 @@ private:
   bool isNumericalConstantOrConstantParameter(ASTNode* node);
 
   /*
-  * takes a pair of strings aleady identified as representing k-x
-  * return index of pair if a parameter has already been created for this
+  * Have we already created a parameter for this expression
+  * if so, return index of matching exp
   */
-  std::string parameterAlreadyCreated(SubstitutionValues_t *value);
+  int parameterAlreadyCreated(SubstitutionValues_t *value);
  
   // member variables populated during analysis
   std::vector< std::pair< std::string, ASTNode*> > mODEs;

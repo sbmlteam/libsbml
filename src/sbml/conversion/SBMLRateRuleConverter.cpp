@@ -693,10 +693,10 @@ SBMLRateRuleConverter::populateODEinfo()
     }
   }
 
-  for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
-  {
-    cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
-  }
+  //for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+  //{
+  //  cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+  //}
   // implement Algo 3.1 here (hidden variables!)
   // check for hidden variables, and add an appropriate ODE if a hidden variable is found
   ExpressionAnalyser *ea = new ExpressionAnalyser();
@@ -712,11 +712,11 @@ SBMLRateRuleConverter::populateODEinfo()
       Parameter* hidden = (Parameter*) hiddenSpecies.get(hs);
       addODEPair(hidden->getId(), model);
   }
-  cout << "After\n";
-  for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
-  {
-    cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
-  }
+  //cout << "After\n";
+  //for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+  //{
+  //  cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+  //}
 
   // Fages algo 3.6 Step 1
   //create set of non decomposable terms used in ODES
@@ -733,11 +733,11 @@ SBMLRateRuleConverter::populateODEinfo()
     // Fages algo 3.6 Step 2
     createTerms(node);
   }
-  for (unsigned int n = 0; n < mTerms.size(); n++)
-  {
-    ASTNode* node = mTerms.at(n);
-    cout << "Term " << n << ": " << SBML_formulaToL3String(node) << endl;
-  }
+  //for (unsigned int n = 0; n < mTerms.size(); n++)
+  //{
+  //  ASTNode* node = mTerms.at(n);
+  //  cout << "Term " << n << ": " << SBML_formulaToL3String(node) << endl;
+  //}
 
   // cooefficients
   // these are a set of numerical coefficients of each term as it occurs in each ODE
