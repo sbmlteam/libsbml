@@ -8,10 +8,10 @@
       <species id="c" name="c" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
       <species id="a" name="a" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
       <species id="b" name="b" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
-      <species id="z2" compartment="compartment" initialAmount="0.2" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="z2" compartment="compartment" initialAmount="1.1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
-      <parameter id="k" value="1" constant="true"/>
+      <parameter id="k" value="2.1" constant="true"/>
       <parameter id="w" value="0.2" constant="false"/>
     </listOfParameters>
     <listOfReactions>

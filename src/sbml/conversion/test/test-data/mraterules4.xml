@@ -10,7 +10,7 @@
             <species id="b" name="b" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
         </listOfSpecies>
         <listOfParameters>
-            <parameter id="k" value="1.0" constant="true"/>
+            <parameter id="k" value="2.1" constant="true"/>
             <parameter id="w" value="0.2" constant="false"/>
         </listOfParameters>
         <listOfRules>
