@@ -53,6 +53,7 @@
 
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLNode.h>
+#include <sbml/math/L3Parser.h>
 
 /** @cond doxygenIgnored */
 

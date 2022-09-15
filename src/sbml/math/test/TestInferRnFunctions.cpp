@@ -47,6 +47,7 @@
 #include <check.h>
 
 #include <sbml/math/FormulaParser.h>
+#include <sbml/math/L3Parser.h>
 #include <sbml/math/FormulaFormatter.h>
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>

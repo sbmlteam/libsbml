@@ -46,7 +46,7 @@
 #include <sbml/Model.h>
 #include <sbml/ModifierSpeciesReference.h>
 #include <sbml/conversion/ExpressionAnalyser.h>
-
+#include <sbml/math/L3FormulaFormatter.h>
 #ifdef __cplusplus
 
 #include <algorithm>

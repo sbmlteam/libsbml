@@ -42,12 +42,11 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <sbml/SBMLTypes.h>
 
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-
 
 
 ExpressionAnalyser::ExpressionAnalyser() :
@@ -252,38 +251,50 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
     //        k   x           -     y    
     //                      k   x      
     //  k-x or k-x-y node binary; right child (x,y) is variable
-    //          -                    - 
-    //      +      x            -         y
-    //   k     v            +      a
-    //                  k      v
+    //          -                    -                          -
+    //      +      x            -         y              +            y
+    //   k     v            +      x                 -       w
+    //                  k      v                 k       x
     //  k+v-x; right child x var; left child plus node with left child k constant
     //  k+v-x-y; rightchild var y; left child minus == k+v-x
+    //  k-x+w-y; rightchild var y; left child plus with left child == k-x 
     if (numChildren != 2 || !isVariableSpeciesOrParameter(rightChild))
       return false;
-    // if left child is  numerical constant or a parameter, it IS k-x
-    if (isNumericalConstantOrConstantParameter(leftChild) && rightChild->isName())
+    // if left child is  numerical constant or a parameter and right child variable, it IS k-x
+    if (isNumericalConstantOrConstantParameter(leftChild) 
+      && isVariableSpeciesOrParameter(rightChild))
     {
       value->k_value = leftChild->getName();
       value->x_value = rightChild->getName();
       value->dxdt_expression = getODEFor(rightChild->getName());
-      value->dydt_expression = NULL;
       value->type = TYPE_K_MINUS_X;
       value->current = node;
       return true;
     }
     // left child + with it's left child const we have k+v-x
-    else if (leftChild->getType() == AST_PLUS 
-      && isNumericalConstantOrConstantParameter(leftChild->getChild(0)))
+    // left child + with it's left child k-x we have k-x+w-y
+    else if (leftChild->getType() == AST_PLUS)
     {
-      value->k_value = leftChild->getChild(0)->getName();
-      value->x_value = rightChild->getName();
-      value->dxdt_expression = getODEFor(rightChild->getName());
-      value->v_expression = leftChild->getChild(1);
-      value->type = TYPE_K_PLUS_V_MINUS_X;
-      value->current = node;
-      return true;
+      if (isNumericalConstantOrConstantParameter(leftChild->getChild(0)))
+      {
+        value->k_value = leftChild->getChild(0)->getName();
+        value->x_value = rightChild->getName();
+        value->dxdt_expression = getODEFor(rightChild->getName());
+        value->v_expression = leftChild->getChild(1);
+        value->type = TYPE_K_PLUS_V_MINUS_X;
+        value->current = node;
+        return true;
+      }
+      else if (analyseNode(leftChild->getChild(0), value) && value->type == TYPE_K_MINUS_X)
+      {
+        value->y_value = rightChild->getName();
+        value->dydt_expression = getODEFor(rightChild->getName());
+        value->w_expression = leftChild->getChild(1);
+        value->type = TYPE_K_MINUS_X_PLUS_W_MINUS_Y;
+        value->current = node;
+        return true;
+      }
     }
-    // left child + with it's right child var we have (exp)-y
     else if (leftChild->getType() == AST_MINUS
       && isVariableSpeciesOrParameter(leftChild->getRightChild()))
     {
@@ -308,10 +319,8 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
           return true;
         }
       }
-      // or if left child is k-x we have k-x-y
       return false;
     }
-
     else
     {
       // if left child is k-x then we have k-x-y
@@ -586,6 +595,7 @@ ExpressionAnalyser::addParametersAndRateRules(List* hiddenSpecies)
         break;
       case TYPE_K_MINUS_X_MINUS_Y:
       case TYPE_K_PLUS_V_MINUS_X_MINUS_Y:
+      case TYPE_K_MINUS_X_PLUS_W_MINUS_Y:
         // dz/dt = - (dx/dt + dy/dt)
         ASTNode* dydt = exp->dydt_expression->deepCopy();
         ASTNode* plus = new ASTNode(AST_PLUS);
@@ -633,6 +643,37 @@ ExpressionAnalyser::replaceExpressionWithNewParameter(ASTNode* ode, Substitution
     ASTNode *v = exp->v_expression->deepCopy();
     replacement->addChild(z);
     replacement->addChild(v);
+    replaceExpressionInNodeWithNode(ode, exp->current, replacement);
+    //cout << "ode in new param node: " << SBML_formulaToL3String(ode) << endl;
+    for (unsigned int i = 0; i < mExpressions.size(); i++)
+    {
+      SubstitutionValues_t *thisexp = mExpressions.at(i);
+
+      if (thisexp->dxdt_expression != NULL)
+      {
+        //cout << "dxdt_b4: " << SBML_formulaToL3String(thisexp->dxdt_expression) << endl;
+        replaceExpressionInNodeWithNode(thisexp->dxdt_expression, exp->current, replacement);
+        //cout << "dxdt: " << SBML_formulaToL3String(thisexp->dxdt_expression) << endl;
+      }
+      if (thisexp->dydt_expression != NULL)
+      {
+        //cout << "dydt_b4: " << SBML_formulaToL3String(thisexp->dydt_expression) << endl;
+        replaceExpressionInNodeWithNode(thisexp->dydt_expression, exp->current, replacement);
+        //cout << "dydt: " << SBML_formulaToL3String(thisexp->dydt_expression) << endl;
+      }
+    }
+  }
+  if (exp->type == TYPE_K_MINUS_X_PLUS_W_MINUS_Y)
+  {
+    ASTNode* replacement = new ASTNode(AST_PLUS);
+    ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
+    z->setName(exp->z_value.c_str());
+    ASTNode *v = exp->w_expression->deepCopy();
+    replacement->addChild(z);
+    replacement->addChild(v);
+    //cout << "ode in new param node: " << SBML_formulaToL3String(ode) << endl;
+    //cout << "current in new param node: " << SBML_formulaToL3String(exp->current) << endl;
+    //cout << "replace in new param node: " << SBML_formulaToL3String(replacement) << endl;
     replaceExpressionInNodeWithNode(ode, exp->current, replacement);
     //cout << "ode in new param node: " << SBML_formulaToL3String(ode) << endl;
     for (unsigned int i = 0; i < mExpressions.size(); i++)

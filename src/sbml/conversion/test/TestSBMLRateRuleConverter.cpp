@@ -657,7 +657,7 @@ START_TEST(test_model6)
 
   converter->setDocument(d);
   fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-  writeSBML(d, filename1.c_str());
+
   SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
   std::string out = writeSBMLToStdString(d);
   std::string expected = writeSBMLToStdString(d1);
@@ -687,6 +687,7 @@ create_suite_TestSBMLRateRuleConverter (void)
   tcase_add_test(tcase, test_model3);
   tcase_add_test(tcase, test_model4);
   tcase_add_test(tcase, test_model5);
+  tcase_add_test(tcase, test_model6);
 
   suite_add_tcase(suite, tcase);
 
