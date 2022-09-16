@@ -57,18 +57,20 @@
 #include <sbml/SBMLNamespaces.h>
 #include <sbml/conversion/SBMLConverter.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
+#include <sbml/math/ASTNode.h>
 
 typedef enum
 {
   POSITIVE_DERIVATIVE
   , NEGATIVE_DERIVATIVE
 } DerivativeSign_t;
+
+
 #ifdef __cplusplus
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-typedef std::pair<std::string, std::string > pairString;
-
+typedef std::vector< std::pair< std::string, ASTNode*> > pairODEs;
 
 class LIBSBML_EXTERN SBMLRateRuleConverter : public SBMLConverter
 {
@@ -181,7 +183,7 @@ public:
   typedef std::vector< std::vector<double> > setRnCoeffs;
   typedef std::vector< std::pair< std::string, ASTNode*> >::iterator odeIt;
 
-  std::vector<std::pair<std::string, ASTNode*> > getOde() { return mODEs; };
+  pairODEs getOde() { return mODEs; };
 
   setCoeff getCoeff() { return mCoefficients; };
   setRnCoeffs getReactants() { return mReactants; };
@@ -240,7 +242,7 @@ private:
 
 
   // member variables populated during analysis
-  std::vector< std::pair< std::string, ASTNode*> > mODEs;
+  pairODEs mODEs;
   std::vector<ASTNode*> mTerms;
   setCoeff mCoefficients;
   std::vector< std::vector<bool> > mPosDerivative;

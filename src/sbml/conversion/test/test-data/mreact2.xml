@@ -8,7 +8,7 @@
       <species id="c" name="c" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
       <species id="a" name="c" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
       <species id="b" name="b" compartment="compartment" initialConcentration="1" boundaryCondition="false" constant="false"/>
-      <species id="z1" compartment="compartment" initialAmount="0.1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="newVar1" compartment="compartment" initialAmount="0.1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
       <parameter id="k" value="2.1"/>
@@ -16,15 +16,15 @@
     <listOfReactions>
       <reaction id="J1" reversible="false" fast="false">
         <listOfReactants>
-          <speciesReference species="z1" stoichiometry="1"/>
+          <speciesReference species="newVar1" stoichiometry="1"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="c" stoichiometry="1"/>
-          <speciesReference species="z1" stoichiometry="2"/>
+          <speciesReference species="newVar1" stoichiometry="2"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <ci> z1 </ci>
+            <ci> newVar1 </ci>
           </math>
         </kineticLaw>
       </reaction>

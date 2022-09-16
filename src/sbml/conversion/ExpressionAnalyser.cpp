@@ -36,28 +36,39 @@
 
 #include <sbml/conversion/ExpressionAnalyser.h>
 
-#ifdef __cplusplus
 
 #include <algorithm>
 #include <string>
 #include <vector>
 #include <map>
 #include <sbml/SBMLTypes.h>
+#include <sbml/math/ASTNodeType.h>
+#include <sbml/conversion/SBMLRateRuleConverter.h>
+
+#ifdef __cplusplus
 
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-ExpressionAnalyser::ExpressionAnalyser() :
-   mODEs (NULL)
-  ,mModel (NULL)
+ExpressionAnalyser::ExpressionAnalyser()
 {
 }
 
+
+ExpressionAnalyser::ExpressionAnalyser(Model * m, pairODEs odes)
+{
+  mModel = m;
+  mODEs = odes;
+  SBMLTransforms::mapComponentValues(mModel);
+  mModel->populateAllElementIdList();
+  mNewVarName = "newVar";
+  mNewVarCount = 1;
+}
+
 ExpressionAnalyser::ExpressionAnalyser(const ExpressionAnalyser& orig) :
-   mODEs(NULL)
-  , mModel(NULL)
+  mModel( orig.mModel)
 {
 }
 
@@ -475,7 +486,14 @@ ExpressionAnalyser::replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* repla
 std::string
 ExpressionAnalyser::getUniqueNewParameterName()
 {
-  return "z" + std::to_string(mModel->getNumParameters());
+  std::string& name = mNewVarName + to_string(mNewVarCount);
+  IdList ids = mModel->getAllElementIdList();
+  while (ids.contains(name))
+  {
+    mNewVarCount++;
+    name = mNewVarName + std::to_string(mNewVarCount);
+  }
+  return name;
 }
 
 

@@ -9,7 +9,7 @@
       <species id="Cdc25" compartment="addedCompartment" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
       <species id="Wee1" compartment="addedCompartment" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
       <species id="Clock" compartment="addedCompartment" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
-      <species id="z9" compartment="addedCompartment" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="newVar1" compartment="addedCompartment" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
       <parameter id="c" value="1" constant="true"/>
@@ -23,7 +23,7 @@
       <reaction id="J1" reversible="false">
         <listOfReactants>
           <speciesReference species="Cdc25" stoichiometry="1" constant="true"/>
-          <speciesReference species="z9" stoichiometry="1" constant="true"/>
+          <speciesReference species="newVar1" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="MPF" stoichiometry="1" constant="true"/>
@@ -35,7 +35,7 @@
               <times/>
               <ci> Cdc25 </ci>
               <ci> k1 </ci>
-              <ci> z9 </ci>
+              <ci> newVar1 </ci>
             </apply>
           </math>
         </kineticLaw>
@@ -47,7 +47,7 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="Wee1" stoichiometry="1" constant="true"/>
-          <speciesReference species="z9" stoichiometry="1" constant="true"/>
+          <speciesReference species="newVar1" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">

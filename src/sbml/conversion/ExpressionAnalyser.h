@@ -56,12 +56,12 @@
 
 #include <sbml/common/extern.h>
 #include <sbml/math/ASTNode.h>
+#include <sbml/conversion/SBMLRateRuleConverter.h>
 
 #ifdef __cplusplus
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-typedef std::pair<std::string, std::string > pairString;
 
 typedef enum
 {
@@ -102,6 +102,12 @@ public:
    * Creates a new ExpressionAnalyser object.
    */
   ExpressionAnalyser();
+
+
+  /**
+  * Creates a new ExpressionAnalyser object with Model and ODEs
+  */
+  ExpressionAnalyser(Model* m, pairODEs ode);
 
 
   /**
@@ -226,14 +232,17 @@ private:
   int parameterAlreadyCreated(SubstitutionValues_t *value);
  
   // member variables populated during analysis
-  std::vector< std::pair< std::string, ASTNode*> > mODEs;
-
-  std::vector< std::pair< pairString, std::string > > kMinusX;
+  pairODEs mODEs;
 
   Model* mModel;
 
   std::vector <SubstitutionValues_t*> mExpressions;
 
+  // variables to ensure unique new parameter name
+
+  std::string mNewVarName;
+
+  unsigned int mNewVarCount;
   /** @endcond */
 
 };

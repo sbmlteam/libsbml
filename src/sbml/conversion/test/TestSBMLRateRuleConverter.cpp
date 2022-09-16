@@ -388,7 +388,7 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	fail_unless(util_isEqual(srCdc25->getStoichiometry(), 1));
 
 	srMpfi = r0->getReactant(1);
-	fail_unless(srMpfi->getSpecies() == "z9");
+	fail_unless(srMpfi->getSpecies() == "newVar1");
 	fail_unless(util_isEqual(srMpfi->getStoichiometry(), 1));
 
 	// products
@@ -428,7 +428,7 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	fail_unless(util_isEqual(srWee1->getStoichiometry(), 1.0));
 
 	srMpfi = r1->getProduct(1);
-	fail_unless(srMpfi->getSpecies() == "z9");
+	fail_unless(srMpfi->getSpecies() == "newVar1");
 	fail_unless(util_isEqual(srMpfi->getStoichiometry(), 1.0));
 
 	// kinetic law

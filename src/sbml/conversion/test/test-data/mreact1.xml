@@ -9,7 +9,7 @@
       <species id="a" compartment="compartment" initialAmount="1.1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
       <species id="c" compartment="compartment" initialAmount="0.9" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
       <species id="d" compartment="compartment" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
-      <species id="z6" compartment="compartment" initialAmount="0.1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="newVar1" compartment="compartment" initialAmount="0.1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
       <parameter id="k" value="1.1"/>
@@ -20,18 +20,18 @@
         <listOfReactants>
           <speciesReference species="b" stoichiometry="1"/>
           <speciesReference species="a" stoichiometry="1"/>
-          <speciesReference species="z6" stoichiometry="1"/>
+          <speciesReference species="newVar1" stoichiometry="1"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="b" stoichiometry="2"/>
-          <speciesReference species="z6" stoichiometry="1"/>
+          <speciesReference species="newVar1" stoichiometry="1"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
               <ci> b </ci>
-              <ci> z6 </ci>
+              <ci> newVar1 </ci>
             </apply>
           </math>
         </kineticLaw>
@@ -40,18 +40,18 @@
         <listOfReactants>
           <speciesReference species="b" stoichiometry="1"/>
           <speciesReference species="c" stoichiometry="1"/>
-          <speciesReference species="z6" stoichiometry="1"/>
+          <speciesReference species="newVar1" stoichiometry="1"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="c" stoichiometry="2"/>
-          <speciesReference species="z6" stoichiometry="1"/>
+          <speciesReference species="newVar1" stoichiometry="1"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
               <ci> c </ci>
-              <ci> z6 </ci>
+              <ci> newVar1 </ci>
             </apply>
           </math>
         </kineticLaw>
@@ -60,18 +60,18 @@
         <listOfReactants>
           <speciesReference species="a" stoichiometry="1"/>
           <speciesReference species="c" stoichiometry="1"/>
-          <speciesReference species="z6" stoichiometry="1"/>
+          <speciesReference species="newVar1" stoichiometry="1"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="a" stoichiometry="2"/>
-          <speciesReference species="z6" stoichiometry="1"/>
+          <speciesReference species="newVar1" stoichiometry="1"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
               <ci> a </ci>
-              <ci> z6 </ci>
+              <ci> newVar1 </ci>
             </apply>
           </math>
         </kineticLaw>

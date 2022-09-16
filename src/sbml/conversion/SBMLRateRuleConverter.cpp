@@ -699,9 +699,7 @@ SBMLRateRuleConverter::populateODEinfo()
   //}
   // implement Algo 3.1 here (hidden variables!)
   // check for hidden variables, and add an appropriate ODE if a hidden variable is found
-  ExpressionAnalyser *ea = new ExpressionAnalyser();
-  ea->setModel(model);
-  ea->setODEPairs(mODEs);
+  ExpressionAnalyser *ea = new ExpressionAnalyser(model, mODEs);
 
 
   List hiddenSpecies;
