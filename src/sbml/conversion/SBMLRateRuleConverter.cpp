@@ -916,13 +916,15 @@ void
 SBMLRateRuleConverter::createReactions()
 {
   unsigned int i = 0;
+  char number[4];
   for (setCoeffIt it = mCoefficients.begin(); it != mCoefficients.end(); ++it)
   {
     Reaction *r = mDocument->getModel()->createReaction();
     r->setReversible(false);
     r->setFast(false);
     int id = mDocument->getModel()->getNumReactions();
-    const std::string reactionId = "J" + std::to_string(id);
+    sprintf(number, "%u", id);
+    const std::string reactionId = "J" + string(number);
     r->setId(reactionId);
     bool itemAdded = false;
     for (unsigned int j = 0; j < mODEs.size(); ++j)

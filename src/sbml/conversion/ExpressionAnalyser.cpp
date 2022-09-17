@@ -485,13 +485,17 @@ ExpressionAnalyser::replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* repla
 
 std::string
 ExpressionAnalyser::getUniqueNewParameterName()
-{
-  std::string& name = mNewVarName + to_string(mNewVarCount);
+{ 
+  char number[4];
+  sprintf(number, "%u", mNewVarCount);
+
+  std::string& name = mNewVarName + string(number);
   IdList ids = mModel->getAllElementIdList();
   while (ids.contains(name))
   {
     mNewVarCount++;
-    name = mNewVarName + std::to_string(mNewVarCount);
+    sprintf(number, "%u", mNewVarCount);
+    name = mNewVarName + string(number);
   }
   return name;
 }
