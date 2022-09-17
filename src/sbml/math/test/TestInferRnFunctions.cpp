@@ -771,7 +771,6 @@ START_TEST(test_decompose6)
     "  </apply>"
     "</math>"
   );
-  char* formula = "-1.0 + (a/4.0)";
   L3ParserSettings * ps = new L3ParserSettings();
   ps->setParseCollapseMinus(true);
   ASTNode * node = SBML_parseL3FormulaWithSettings("-1.0+(a/4.0)", ps);
