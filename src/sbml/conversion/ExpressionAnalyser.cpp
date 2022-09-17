@@ -239,7 +239,7 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
     //        -     y
     //        x
     if (numChildren != 2 || rightChild->getType() != AST_NAME
-      || leftChild->getType() != ASTNodeType_t::AST_MINUS
+      || leftChild->getType() != AST_MINUS
       || leftChild->getNumChildren() != 1)
       return false;
 
@@ -478,7 +478,7 @@ ExpressionAnalyser::replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* repl
 void
 ExpressionAnalyser::replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* replaced, std::string var)
 {
-  ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
+  ASTNode* z = new ASTNode(AST_NAME);
   z->setName(var.c_str());
   replaceExpressionInNodeWithNode(node, replaced, z);
 }
@@ -506,7 +506,7 @@ ExpressionAnalyser::addParametersAndRateRules(List* hiddenSpecies)
     if (mModel->getParameter(exp->z_value) == NULL)
     {
       // create expression for z
-      ASTNode* kx = new ASTNode(ASTNodeType_t::AST_MINUS);
+      ASTNode* kx = new ASTNode(AST_MINUS);
       ASTNode* k = new ASTNode(AST_NAME);
       k->setName(exp->k_value.c_str());
       ASTNode* x = new ASTNode(AST_NAME);
@@ -514,15 +514,15 @@ ExpressionAnalyser::addParametersAndRateRules(List* hiddenSpecies)
       kx->addChild(k);
       kx->addChild(x);
 
-      ASTNode* zNode = new ASTNode(ASTNodeType_t::AST_MINUS);
+      ASTNode* zNode = new ASTNode(AST_MINUS);
 
 
       // add raterule defining dz/dt
       ASTNode* dxdt = exp->dxdt_expression->deepCopy();
       RateRule* raterule = mModel->createRateRule();
       raterule->setVariable(exp->z_value);
-      ASTNode* math = new ASTNode(ASTNodeType_t::AST_TIMES);
-      ASTNode* minus1 = new ASTNode(ASTNodeType_t::AST_REAL);
+      ASTNode* math = new ASTNode(AST_TIMES);
+      ASTNode* minus1 = new ASTNode(AST_REAL);
       minus1->setValue(-1.0);
 
       switch (exp->type)
@@ -597,7 +597,7 @@ ExpressionAnalyser::replaceExpressionWithNewParameter(ASTNode* ode, Substitution
   if (exp->type == TYPE_K_PLUS_V_MINUS_X || exp->type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y)
   {
     ASTNode* replacement = new ASTNode(AST_PLUS);
-    ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
+    ASTNode* z = new ASTNode(AST_NAME);
     z->setName(exp->z_value.c_str());
     ASTNode *v = exp->v_expression->deepCopy();
     replacement->addChild(z);
@@ -625,7 +625,7 @@ ExpressionAnalyser::replaceExpressionWithNewParameter(ASTNode* ode, Substitution
   if (exp->type == TYPE_K_MINUS_X_PLUS_W_MINUS_Y)
   {
     ASTNode* replacement = new ASTNode(AST_PLUS);
-    ASTNode* z = new ASTNode(ASTNodeType_t::AST_NAME);
+    ASTNode* z = new ASTNode(AST_NAME);
     z->setName(exp->z_value.c_str());
     ASTNode *v = exp->w_expression->deepCopy();
     replacement->addChild(z);
