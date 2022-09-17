@@ -489,7 +489,7 @@ ExpressionAnalyser::getUniqueNewParameterName()
   char number[4];
   sprintf(number, "%u", mNewVarCount);
 
-  std::string& name = mNewVarName + string(number);
+  std::string name = mNewVarName + string(number);
   IdList ids = mModel->getAllElementIdList();
   while (ids.contains(name))
   {
@@ -529,6 +529,9 @@ ExpressionAnalyser::addParametersAndRateRules(List* hiddenSpecies)
       ASTNode* minus1 = new ASTNode(AST_REAL);
       minus1->setValue(-1.0);
 
+      ASTNode* dydt = NULL;
+      ASTNode* plus = NULL;
+      ASTNode* y = NULL;
       switch (exp->type)
       {
       case TYPE_K_MINUS_X:
@@ -545,19 +548,21 @@ ExpressionAnalyser::addParametersAndRateRules(List* hiddenSpecies)
       case TYPE_K_PLUS_V_MINUS_X_MINUS_Y:
       case TYPE_K_MINUS_X_PLUS_W_MINUS_Y:
         // dz/dt = - (dx/dt + dy/dt)
-        ASTNode* dydt = exp->dydt_expression->deepCopy();
-        ASTNode* plus = new ASTNode(AST_PLUS);
+        dydt = exp->dydt_expression->deepCopy();
+        plus = new ASTNode(AST_PLUS);
         plus->addChild(dxdt);
         plus->addChild(dydt);
         math->addChild(minus1);
         math->addChild(plus);
 
         // z = k-x-y
-        ASTNode* y = new ASTNode(AST_NAME);
+        y = new ASTNode(AST_NAME);
         y->setName(exp->y_value.c_str());
         zNode->addChild(kx);
         zNode->addChild(y);
 
+        break;
+      default:
         break;
       }
       raterule->setMath(math);
