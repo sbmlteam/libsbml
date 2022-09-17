@@ -78,13 +78,11 @@ START_TEST (test_eqivalent)
     );
 
   fail_unless( n != NULL );
-  char* formula = "s+4.1";
-  ASTNode *node = SBML_parseFormula(formula);
+  ASTNode *node = SBML_parseFormula("s+4.1");
 
   fail_unless(node->exactlyEqual(*n) == true);
 
-  char* formula1 = "4.1+s";
-  ASTNode *node1 = SBML_parseFormula(formula1);
+  ASTNode *node1 = SBML_parseFormula("4.1+s");
 
   fail_unless(node1->exactlyEqual(*n) == false);
   delete n;
@@ -107,8 +105,7 @@ START_TEST(test_refactor_numbers)
   );
   // n treats 4 as real
   fail_unless(n != NULL);
-  char* formula = "4+s";
-  ASTNode *node = SBML_parseFormula(formula);
+  ASTNode *node = SBML_parseFormula("4+s");
   // nodetreats 4 as integer
 
   fail_unless(node->exactlyEqual(*n) == false);
@@ -134,8 +131,7 @@ START_TEST(test_encompass_uminus1)
   );
  
   fail_unless(n != NULL);
-  char* formula = "-(4.1)";
-  ASTNode *node = SBML_parseFormula(formula);
+  ASTNode *node = SBML_parseFormula("-(4.1)");
 
   fail_unless(node->exactlyEqual(*n) == false);
 
@@ -164,8 +160,7 @@ START_TEST(test_encompass_uminus2)
   );
 
   fail_unless(n != NULL);
-  char* formula = "-4.1*s";
-  ASTNode *node = SBML_parseFormula(formula);
+  ASTNode *node = SBML_parseFormula("-4.1*s");
 
   fail_unless(node->exactlyEqual(*n) == false);
 
@@ -193,8 +188,7 @@ START_TEST(test_encompass_uminus3)
   );
 
   fail_unless(n != NULL);
-  char* formula = "(-1.0*a)/s";
-  ASTNode *node = SBML_parseFormula(formula);
+  ASTNode *node = SBML_parseFormula("(-1.0*a)/s");
 
   fail_unless(node->exactlyEqual(*n) == false);
 
@@ -222,8 +216,7 @@ START_TEST(test_encompass_uminus4)
   );
 
   fail_unless(n != NULL);
-  char* formula = "-1.0*(a+s)";
-  ASTNode *node = SBML_parseFormula(formula);
+  ASTNode *node = SBML_parseFormula("-1.0*(a+s)");
 
   fail_unless(node->exactlyEqual(*n) == false);
 
@@ -612,8 +605,7 @@ START_TEST(test_decompose1)
     "  </apply>"
     "</math>"
   );
-  char* formula = "20.0*b + 5.0*a*b";
-  ASTNode * node = SBML_parseL3Formula(formula);
+  ASTNode * node = SBML_parseL3Formula("20.0*b + 5.0*a*b");
 
   fail_unless(n != NULL);
 
@@ -647,10 +639,9 @@ START_TEST(test_decompose2)
     "  </apply>"
     "</math>"
   );
-  char* formula = "5.0*a*b + (-20.0*b)";
   L3ParserSettings * ps = new L3ParserSettings();
   ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("5.0*a*b + (-20.0*b)", ps);
 
   fail_unless(n != NULL);
 
@@ -683,10 +674,9 @@ START_TEST(test_decompose3)
     "  </apply>"
     "</math>"
   );
-  char* formula = "5.0/(a - 4.0)";
   L3ParserSettings * ps = new L3ParserSettings();
   ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("5.0/(a - 4.0)", ps);
 
   fail_unless(n != NULL);
 
@@ -715,10 +705,9 @@ START_TEST(test_decompose4)
     "  </apply>"
     "</math>"
   );
-  char* formula = "1.0 + (a/4.0)";
   L3ParserSettings * ps = new L3ParserSettings();
   ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("1.0 + (a/4.0)", ps);
 
   fail_unless(n != NULL);
 
@@ -751,10 +740,9 @@ START_TEST(test_decompose5)
     "  </apply>"
     "</math>"
   );
-  char* formula = "-0.5+(a/6.0)";
   L3ParserSettings * ps = new L3ParserSettings();
   ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("-0.5+(a/6.0)", ps);
 
   fail_unless(n != NULL);
 
@@ -786,7 +774,7 @@ START_TEST(test_decompose6)
   char* formula = "-1.0 + (a/4.0)";
   L3ParserSettings * ps = new L3ParserSettings();
   ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("-1.0+(a/4.0)", ps);
 
   fail_unless(n != NULL);
 
@@ -815,10 +803,9 @@ START_TEST(test_simplify1)
     "  </apply>"
     "</math>"
   );
-  char* formula = "a-4.0";
   L3ParserSettings * ps = new L3ParserSettings();
   ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings(formula, ps);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("a-4.0", ps);
 
   fail_unless(n != NULL);
 
@@ -850,8 +837,7 @@ START_TEST(test_simplify2)
     "  </apply>"
     "</math>"
   );
-  char* formula = "0.0";
-  ASTNode * node = SBML_parseL3Formula(formula);
+  ASTNode * node = SBML_parseL3Formula("0.0");
 
   fail_unless(n != NULL);
 
@@ -883,8 +869,7 @@ START_TEST(test_simplify3)
     "  </apply>"
     "</math>"
   );
-  char* formula = "8.0 + 2.0*a";
-  ASTNode * node = SBML_parseL3Formula(formula);
+  ASTNode * node = SBML_parseL3Formula("8.0 + 2.0*a");
 
   fail_unless(n != NULL);
 
@@ -908,8 +893,7 @@ START_TEST(test_simplify4)
     "  </apply>"
     "</math>"
   );
-  char* formula = "2.0*a";
-  ASTNode * node = SBML_parseL3Formula(formula);
+  ASTNode * node = SBML_parseL3Formula("2.0*a");
 
   fail_unless(n != NULL);
 
@@ -935,8 +919,7 @@ START_TEST(test_simplify5)
     "  </apply>"
     "</math>"
   );
-  char* formula = "1.2 + a + 2.0*b";
-  ASTNode * node = SBML_parseL3Formula(formula);
+  ASTNode * node = SBML_parseL3Formula("1.2 + a + 2.0*b");
 
   fail_unless(n != NULL);
 
@@ -969,8 +952,7 @@ START_TEST(test_simplify6)
     "  </apply>"
     "</math>"
   );
-  char* formula = "1.0";
-  ASTNode * node = SBML_parseL3Formula(formula);
+  ASTNode * node = SBML_parseL3Formula("1.0");
 
   fail_unless(n != NULL);
 
@@ -994,8 +976,7 @@ START_TEST(test_convertRootToPower)
     "  </apply>"
     "</math>"
   );
-  char* formula = "a^(0.5)";
-  ASTNode * node = SBML_parseL3Formula(formula);
+  ASTNode * node = SBML_parseL3Formula("a^(0.5)");
 
   fail_unless(n != NULL);
   fail_unless(node->exactlyEqual(*n) == false);
