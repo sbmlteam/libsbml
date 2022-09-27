@@ -1,0 +1,2766 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" metaid="fb7dc6ca_bc66_49e8_88c0_cff7aa23d14a" level="2" version="4">
+  <model metaid="ddcfae12_61e4_4b2a_b45a_a0b5aaa7dc57" id="MODEL1212030000" name="Proctor2013 - Effect of Aβ immunisation in Alzheimer&apos;s disease (deterministic version)">
+    <listOfUnitDefinitions>
+      <unitDefinition metaid="c48e3e91_5289_4cd2_9006_801dd534876e" id="substance">
+        <listOfUnits>
+          <unit metaid="_2249e70a_36c0_4eaa_aa6f_85d632f17492" kind="item"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment metaid="e1f7f7b8_6533_4aa7_8026_5714a339fff7" id="cell" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species metaid="d8c427eb_75f1_48f8_8073_f0e34ff229f8" id="Mdm2" compartment="cell" initialAmount="5" hasOnlySubstanceUnits="true"/>
+      <species metaid="_60218117_19e3_40cf_b0fc_867bf3972cc6" id="p53" compartment="cell" initialAmount="5" hasOnlySubstanceUnits="true"/>
+      <species metaid="f0db5407_7bc9_4372_a858_deb230a61784" id="Mdm2_p53" compartment="cell" initialAmount="95" hasOnlySubstanceUnits="true"/>
+      <species metaid="_19a492fa_7c8f_4e73_bfec_45151b4b7fd5" id="Mdm2_mRNA" compartment="cell" initialAmount="10" hasOnlySubstanceUnits="true"/>
+      <species metaid="d842e783_ca6b_43e2_97ee_e45c190ba516" id="p53_mRNA" compartment="cell" initialAmount="10" hasOnlySubstanceUnits="true"/>
+      <species metaid="ac2a466c_3f96_40ba_9913_62cbb28ee035" id="ATMA" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_1d343c59_58fa_44db_8212_512a6f0cf4ff" id="ATMI" compartment="cell" initialAmount="200" hasOnlySubstanceUnits="true"/>
+      <species metaid="_3aa63311_f7d8_4c5a_8cbe_311a3377baa0" id="p53_P" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="f1b00f32_33d6_454c_9114_c6e1739de78c" id="Mdm2_P" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="ce9a9aba_b498_4851_b2cc_97e14445801c" id="IR" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_8ae6ab79_54b1_406f_b1a3_354ec4128dd1" id="ROS" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_58053aee_40ca_41ce_8ef4_8906cfc3deac" id="damDNA" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_9f934cc2_34b5_43db_8441_ac61ef772765" id="E1" compartment="cell" initialAmount="100" hasOnlySubstanceUnits="true"/>
+      <species metaid="_3af97553_9b55_4249_8e4c_0b5ff464fe6e" id="E2" compartment="cell" initialAmount="100" hasOnlySubstanceUnits="true"/>
+      <species metaid="_53ce3557_3f2a_4a10_b1cf_de326ab43e80" id="E1_Ub" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_8749e95f_ad15_4bd3_9c09_f921c0af2e89" id="E2_Ub" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_13841232_1868_4c8f_9eca_b01ad7ad7b84" id="Proteasome" compartment="cell" initialAmount="500" hasOnlySubstanceUnits="true"/>
+      <species metaid="e4b98446_08f2_4f73_b2c9_3ce0e8ff4588" id="Ub" compartment="cell" initialAmount="4000" hasOnlySubstanceUnits="true"/>
+      <species metaid="_2a95d641_360e_4849_94ad_d446992e8078" id="p53DUB" compartment="cell" initialAmount="200" hasOnlySubstanceUnits="true"/>
+      <species metaid="_225b8d36_5463_4280_ba14_2ce40e51f4a8" id="Mdm2DUB" compartment="cell" initialAmount="200" hasOnlySubstanceUnits="true"/>
+      <species metaid="cc38792f_e7dd_46e6_b855_b450da0f697c" id="DUB" compartment="cell" initialAmount="200" hasOnlySubstanceUnits="true"/>
+      <species metaid="a456a7a2_bed8_4574_885b_d3a7ca7a3701" id="Mdm2_p53_Ub" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="eff9c09d_b529_4b2e_bde6_b339646f6a56" id="Mdm2_p53_Ub2" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_5f8026ed_3faf_48b5_b617_90931f2e37e3" id="Mdm2_p53_Ub3" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_62fdf3a3_8c90_4dd2_b98c_a645053d47c6" id="Mdm2_p53_Ub4" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_8e29d9ed_f8ac_476b_944b_e0ef369e6ea5" id="Mdm2_P1_p53_Ub4" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="adcac53a_4d30_472b_96e7_9fc26163c950" id="Mdm2_Ub" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="eef13cdf_2bdf_415e_bea4_c17a6af59465" id="Mdm2_Ub2" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_404d0900_43a2_4825_ba28_1c9be70150ee" id="Mdm2_Ub3" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="e70b6eba_5747_47f3_be0e_e19325db09e2" id="Mdm2_Ub4" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_338ec781_a100_49cb_ae01_91324ece9d8d" id="Mdm2_P_Ub" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_053b2295_466e_451e_9d4c_856a8f0d12b1" id="Mdm2_P_Ub2" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="fed25231_87d8_486a_8448_209f3cd1d454" id="Mdm2_P_Ub3" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_11bfb969_ebac_4a88_8dae_77855730a6f8" id="Mdm2_P_Ub4" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="ffd164c1_9e07_418e_ba82_bf4ee5295118" id="p53_Ub4_Proteasome" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_98003030_6aa6_42bd_9172_a9a22e6027e3" id="Mdm2_Ub4_Proteasome" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="da3cce5c_9544_4dd8_a5ba_ccf4951cfc76" id="Mdm2_P_Ub4_Proteasome" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="e9763417_0cd2_4e39_a426_428dc3a6f897" id="GSK3b" compartment="cell" initialAmount="500" hasOnlySubstanceUnits="true"/>
+      <species metaid="_244fb470_607a_4456_bbc9_5c841677a8ce" id="GSK3b_p53" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_9a1a2278_7e75_4a7e_9fa8_37bd6e44e8c4" id="GSK3b_p53_P" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="fd9fb37c_d30d_467b_bc60_841936e66829" id="Abeta" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="c6182eb7_2c5c_4de5_bdd0_bdd60feec7e8" id="AggAbeta_Proteasome" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_1db96310_0d08_4b59_a47f_ac22771b6794" id="AbetaPlaque" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_72075df8_a895_481c_b968_09cd42a7d75d" id="Tau" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_26c2d3a6_8ad4_4c5d_94be_266407e5ed08" id="Tau_P1" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_7bc2cef7_af3d_4592_aac8_1a16a940663a" id="Tau_P2" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_27620af3_63fb_40bc_9f6e_0581d6293853" id="MT_Tau" compartment="cell" initialAmount="100" hasOnlySubstanceUnits="true"/>
+      <species metaid="_093abe48_c278_4649_9fcd_47ae1b928f53" id="AggTau" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_830a8688_07b9_4d53_b70d_87edc7d49dcb" id="AggTau_Proteasome" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_3889c303_6f9c_4eb7_b4ee_5429fef0e4c9" id="Proteasome_Tau" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="e64c9653_fd0b_41b5_ae75_2497edf1e468" id="PP1" compartment="cell" initialAmount="50" hasOnlySubstanceUnits="true"/>
+      <species metaid="_8764e8ca_5950_4099_b393_eaf7cffc1f9e" id="NFT" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_48dd638e_7cff_42f7_8011_4c8debea8a6a" id="ATP" compartment="cell" initialAmount="10000" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+      <species metaid="_993f0706_9c5f_456e_8455_218fbdc12edd" id="ADP" compartment="cell" initialAmount="1000" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+      <species metaid="a07b5412_4d9c_4731_be5d_bff57d320b78" id="AMP" compartment="cell" initialAmount="1000" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+      <species metaid="_259e4ba5_3cd8_4e57_bca3_2940bbe2f93e" id="AbetaDimer" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="d6f9a57f_2d1c_4fa2_9bd2_d3a9da0cdf5a" id="AbetaPlaque_GliaA" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_05a254a0_a8f1_48eb_80c1_de280f0cd8b6" id="GliaI" compartment="cell" initialAmount="100" hasOnlySubstanceUnits="true"/>
+      <species metaid="_495dc17c_422b_4368_909d_0ce0b4f0f288" id="GliaM1" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_5dcec317_cfe5_4d23_973b_392542d9d2bf" id="GliaM2" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_93c21f4e_c9aa_4145_9d4a_90bdd39f8982" id="GliaA" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_1a7b6ee5_d6a5_47c8_a294_ba9d4f0d901c" id="antiAb" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_1c6f33dd_1a2c_4864_a390_3ec912d01129" id="Abeta_antiAb" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="f8456a67_3a1a_4463_b138_58a224dbf21d" id="AbetaDimer_antiAb" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_268c4514_06d2_424d_b72a_40f6d8a1e56d" id="degAbetaGlia" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_4f991834_2d5e_49a3_b081_fff98e40461c" id="disaggPlaque1" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="_61629820_0afa_4e3f_af5c_fa1f27cc661d" id="disaggPlaque2" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species metaid="d27b3403_d098_4fbf_bbe4_a7c90667f3cf" sboTerm="SBO:0000291" id="Source" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+      <species metaid="_9fcf839c_9c6d_45b0_92b5_c33e74920815" sboTerm="SBO:0000291" id="Sink" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter metaid="_67f61a06_c72f_4c75_8fe6_5eb73afbbd6d" id="ksynp53mRNA" value="0.001"/>
+      <parameter metaid="a174cf43_42cb_4097_a80d_03f7e645989b" id="kdegp53mRNA" value="0.0001"/>
+      <parameter metaid="_03098e0c_aca8_4d42_a052_2168ccf87e24" id="ksynMdm2mRNA" value="0.0005"/>
+      <parameter metaid="e66cbfe7_f25d_4475_bf4f_939799cea7f1" id="kdegMdm2mRNA" value="0.0005"/>
+      <parameter metaid="_057c3c10_d0bf_4e46_9d23_83d2972a8660" id="ksynMdm2mRNAGSK3bp53" value="0.0007"/>
+      <parameter metaid="b5c650f3_9767_42fa_81ca_20bdeff885f0" id="ksynp53" value="0.007"/>
+      <parameter metaid="d28a41aa_0a81_4eab_a4eb_a5b93b98fd68" id="kdegp53" value="0.005"/>
+      <parameter metaid="_6c73ce36_8657_4d26_86bc_5dfd424ef0e4" id="kbinMdm2p53" value="0.001155"/>
+      <parameter metaid="_6e8c89c5_b6ac_406e_a863_94de06ed5b74" id="krelMdm2p53" value="1.155e-05"/>
+      <parameter metaid="fc3030fc_97b6_42b0_8b8c_600bf84a1d5e" id="kbinGSK3bp53" value="2e-06"/>
+      <parameter metaid="_0ecf07af_df59_4078_a3e8_8aef0ac08e02" id="krelGSK3bp53" value="0.002"/>
+      <parameter metaid="_45baec4c_8c07_46f2_bbc9_21cfc78e9610" id="ksynMdm2" value="0.000495"/>
+      <parameter metaid="be783c22_3992_4e5a_8a39_8f32a2ae7bee" id="kdegMdm2" value="0.01"/>
+      <parameter metaid="_9dfdc99c_b722_42ce_9039_11434a88d8ca" id="kbinE1Ub" value="0.0002"/>
+      <parameter metaid="_7c41b9b8_c7f7_4fc9_a152_2d1d1a84f05f" id="kbinE2Ub" value="0.001"/>
+      <parameter metaid="_8c4b778a_c7e0_49e1_a18e_089473a2ddb4" id="kp53Ub" value="5e-05"/>
+      <parameter metaid="_48968614_1290_47c4_89eb_1f6e94349bd5" id="kp53PolyUb" value="0.01"/>
+      <parameter metaid="edd0a70f_313b_40eb_9a11_bf2f9d41df84" id="kbinProt" value="2e-06"/>
+      <parameter metaid="_46438057_a872_4ea1_bfaa_4ee6d00f37bd" id="kactDUBp53" value="1e-07"/>
+      <parameter metaid="_7171aa39_5e5d_4e6d_99be_6b3f980014ee" id="kactDUBProtp53" value="0.0001"/>
+      <parameter metaid="_576f87bf_4558_4d21_a67e_b99d881110b8" id="kactDUBMdm2" value="1e-07"/>
+      <parameter metaid="e0b4cf98_bc59_443c_983f_5dcbd26a962a" id="kMdm2Ub" value="4.56e-06"/>
+      <parameter metaid="_256e4df1_e5b6_4690_a329_18f50594caba" id="kMdm2PUb" value="6.84e-06"/>
+      <parameter metaid="b41cd512_31e3_481d_9b1f_7167e9c38a32" id="kMdm2PolyUb" value="0.00456"/>
+      <parameter metaid="_4f8c183b_0a2c_4026_bb9e_0ff43fb27a7c" id="kdam" value="0.08"/>
+      <parameter metaid="_072ba3ab_8ee2_4484_9cc1_4ec619e183fd" id="krepair" value="2e-05"/>
+      <parameter metaid="_3100b69a_8a8c_4d8a_89a2_0a8f81cfc560" id="kactATM" value="0.0001"/>
+      <parameter metaid="_50a6c023_d2cb_46f6_8805_43b0aa3b116f" id="kinactATM" value="0.0005"/>
+      <parameter metaid="_43d2617f_cc0f_4235_bf1f_df0ff52b1a47" id="kphosp53" value="0.0002"/>
+      <parameter metaid="_3cb09d74_e1c4_417f_a02c_dcd1fbfe0b58" id="kdephosp53" value="0.5"/>
+      <parameter metaid="a9a0112c_0ec8_4ec9_b287_9d6eb8e8ec4c" id="kphosMdm2" value="2"/>
+      <parameter metaid="_7f19080c_6e31_4517_932a_df3dbe880ee9" id="kdephosMdm2" value="0.5"/>
+      <parameter metaid="_1a0fc402_b25e_4ead_a442_a91546b87f55" id="kphosMdm2GSK3b" value="0.005"/>
+      <parameter metaid="_08f8cb5f_359f_47c1_8207_78a41bff48a2" id="kphosMdm2GSK3bp53" value="0.5"/>
+      <parameter metaid="_446b82ec_239e_43ff_986f_9a4d6e682363" id="kphospTauGSK3bp53" value="0.1"/>
+      <parameter metaid="_8d613e2b_ea68_4ef8_96c4_8a9440076abd" id="kphospTauGSK3b" value="0.0002"/>
+      <parameter metaid="_1b497a87_6f95_484b_85c6_67da3c511c2b" id="kdephospTau" value="0.01"/>
+      <parameter metaid="_4ad83edd_f424_47d5_b9cc_3fbc3f5610f2" id="kbinMTTau" value="0.1"/>
+      <parameter metaid="_626d3f07_b5f1_4097_9bc9_dd75b34261f5" id="krelMTTau" value="0.0001"/>
+      <parameter metaid="_0bbbbb26_9a42_447c_bf6e_b5b423c6a8e9" id="ksynTau" value="8e-05"/>
+      <parameter metaid="c0064017_0a8a_4554_8536_edee1723e1d1" id="kbinTauProt" value="1.925e-07"/>
+      <parameter metaid="_7574558d_fb6b_4102_a724_94a0f839de1a" id="kdegTau20SProt" value="0.01"/>
+      <parameter metaid="_9c80d0df_afa8_4089_a868_736c0e5d2fd9" id="kaggTau" value="1e-08"/>
+      <parameter metaid="c9c445fd_d584_4f6f_8ee1_d6bddfd0313a" id="kaggTauP1" value="1e-08"/>
+      <parameter metaid="_9c38ce12_8875_48e8_9778_ea905dbe6a77" id="kaggTauP2" value="1e-07"/>
+      <parameter metaid="_992807bc_f367_4400_b076_c709bbd5d129" id="ktangfor" value="0.001"/>
+      <parameter metaid="d73a5a37_be34_4381_8f12_c699af2413fc" id="kinhibprot" value="1e-07"/>
+      <parameter metaid="_632413fc_ad15_472d_9362_7b3199b8ddc4" id="ksynp53mRNAAbeta" value="1e-05"/>
+      <parameter metaid="_99d4b00d_26ac_4d95_be8e_d52781b351e5" id="kdamROS" value="1e-05"/>
+      <parameter metaid="_6599b030_b206_44d3_a97e_fdd318a3f904" id="kgenROSAbeta" value="2e-05"/>
+      <parameter metaid="_8e61e645_95cd_4a22_b58b_fbf3628780a4" id="kgenROSPlaque" value="1e-05"/>
+      <parameter metaid="_9b4c566d_f3a7_4a21_acae_2810e5ead302" id="kgenROSGlia" value="1e-05"/>
+      <parameter metaid="e0068255_66c5_46ff_83cb_fe6a6de2ce6c" id="kproteff" value="1" constant="false"/>
+      <parameter metaid="_01329467_c503_4256_905a_b7eb681bdff4" id="kremROS" value="7e-05"/>
+      <parameter metaid="c8929b5e_7290_4de3_b79b_ec82dc7d4d6e" id="kprodAbeta" value="1.86e-05"/>
+      <parameter metaid="_6657b5e6_34a1_495c_9cb4_2fc9d9f039ad" id="kprodAbeta2" value="1.86e-05"/>
+      <parameter metaid="_2c08b7c5_9737_4b7c_a8c6_82eb0e057b06" id="kdegAbeta" value="1.5e-05"/>
+      <parameter metaid="b73b7eea_5231_4a4e_b221_68582cb1f27d" id="kaggAbeta" value="3e-06"/>
+      <parameter metaid="f1f013e8_d45e_496a_91e3_9b8bd9f0d48a" id="kdisaggAbeta" value="1e-06"/>
+      <parameter metaid="_0da63099_3a49_4560_97e8_463ac94d396c" id="kdisaggAbeta1" value="0.0002"/>
+      <parameter metaid="_8e505d05_e394_4320_9229_192d3ea61a49" id="kdisaggAbeta2" value="1e-06"/>
+      <parameter metaid="_758b89e5_3d5d_491b_91a9_65ad26d06b06" id="kdegAbetaGlia" value="0.005"/>
+      <parameter metaid="_3074dfbb_f91c_47ce_bcb8_c9f7c3efc6d8" id="kpf" value="0.2"/>
+      <parameter metaid="_5bc53052_57fa_4883_b78e_d385ae8c4177" id="kpg" value="0.15"/>
+      <parameter metaid="_94656fae_2cfc_4f43_ab48_6d5aad86b461" id="kpghalf" value="10"/>
+      <parameter metaid="e71e61dc_491a_4898_8889_5a438e2e8caa" id="kactglia1" value="6e-07"/>
+      <parameter metaid="db259d5a_d40c_47cf_bcc7_066bc1f91913" id="kactglia2" value="6e-07"/>
+      <parameter metaid="ad50b2eb_6d6f_4c1f_9812_70a9b401e94e" id="kinactglia1" value="5e-06"/>
+      <parameter metaid="_0f7e89a5_4fa2_4eb8_a21e_5feacbf44d70" id="kinactglia2" value="5e-06"/>
+      <parameter metaid="adbd5d75_d65a_4959_bf4a_e7da032130f7" id="kbinAbetaGlia" value="1e-05"/>
+      <parameter metaid="b09c1a1a_4d03_47f5_85f4_da79cc75a31d" id="krelAbetaGlia" value="5e-05"/>
+      <parameter metaid="_60cdd078_2dfb_42b6_b352_563f81901c79" id="kdegAntiAb" value="2.75e-06"/>
+      <parameter metaid="_604ebc2a_6524_4af8_adaa_9d40e19d5920" id="kbinAbantiAb" value="1e-06"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction metaid="e1c6fe1c_fbca_4c61_975a_df1fd50a58ac" id="p53mRNASynthesis" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_68f8f901_6bc0_4b50_baf0_83929af5fc2b" species="Source"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="fafba704_6660_4668_9f38_15a7d12f0262" species="p53_mRNA"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="fcf02244_6e6e_43fc_ab84_f6431af3b93b" species="Source"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_4a7822d6_cc16_49bc_a643_65ef09dd3b0b">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> ksynp53mRNA </ci>
+              <ci> Source </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_1b674f02_311a_4611_b4ee_6ee1f8c43ab9" id="p53mRNADegradation" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_809ca669_f4bf_4048_8696_8571f8201511" species="p53_mRNA"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_44fbe1a9_1794_4f15_abce_2c0aab7ce024" species="Sink"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="e6acf0f6_f326_495d_adf7_75b6276f6040" species="p53_mRNA"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_2d612e36_3640_40b6_8646_b3d0066e4b99">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kdegp53mRNA </ci>
+              <ci> p53_mRNA </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="baf11f5d_15be_45e6_bd50_f74d7b54e68e" id="Mdm2Synthesis" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_8cc434f5_d863_40d7_9a36_37b185a58206" species="Mdm2_mRNA"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="c3f64490_ebd0_4d6b_aca9_35627c7cbe85" species="Mdm2_mRNA"/>
+          <speciesReference metaid="d8602631_30b6_4e87_9515_9bab0d513e9e" species="Mdm2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="d6075159_4543_4267_937b_07484cc5f98f" species="Mdm2_mRNA"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_73ad6b88_0d03_4350_b552_449bcc764c89">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> ksynMdm2 </ci>
+              <ci> Mdm2_mRNA </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="a7e32bf0_8593_458d_9048_949eb7263f3e" id="Mdm2mRNASynthesis1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="e30bc281_c978_423a_99e0_919c510c6f20" species="p53"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="b86aef07_7966_441b_b045_38d392ff0bb2" species="p53"/>
+          <speciesReference metaid="_147136cc_059d_498e_919f_e4656c16eb01" species="Mdm2_mRNA"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_4321bc8f_4009_4511_bc69_8943078c5fe6" species="p53"/>
+        </listOfModifiers>
+        <kineticLaw metaid="c2bf97a9_c3bd_49e9_b78b_e0591917ca97">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> ksynMdm2mRNA </ci>
+              <ci> p53 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="daf74fdd_bc6f_49e4_a47c_b3b21224e1a3" id="Mdm2mRNASynthesis2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="fc1aa2a6_71c7_48a9_8e1d_f1513c9d289d" species="p53_P"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="f3fd6792_ebc5_4963_b83e_67d93f38ffce" species="p53_P"/>
+          <speciesReference metaid="aa17966c_69e7_4c43_938c_1057095ea421" species="Mdm2_mRNA"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="ab85a26f_59a3_4ba9_9b14_6e3f6ab7d6a9" species="p53_P"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_7a1f5574_3eca_412b_acc8_227a26cc251e">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> ksynMdm2mRNA </ci>
+              <ci> p53_P </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_9da3a3b4_1517_4bf4_9906_6789e86d1562" id="Mdm2mRNASynthesis3" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_36cd113e_c0a0_4a95_aecd_d2856ea9064e" species="GSK3b_p53"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_998851fb_4e7f_45db_8633_a091314cb285" species="GSK3b_p53"/>
+          <speciesReference metaid="_19a49df5_161c_4a4e_868b_45913bddb6e1" species="Mdm2_mRNA"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_48e3a038_49a8_4f37_b531_9d8c42e680cb" species="GSK3b_p53"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_314bb00a_88dd_4caf_8357_4aa7496a799a">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> ksynMdm2mRNAGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_28a651d5_5bca_44f7_a8e0_11247c43a626" id="Mdm2mRNASynthesis4" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="f67b5336_9491_4ecc_b1b5_7009a7de67b0" species="GSK3b_p53_P"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_0dc3b538_b20b_43ba_8d3b_74d957f9e29d" species="GSK3b_p53_P"/>
+          <speciesReference metaid="_54439d13_9b62_4d96_8110_7fd808eb85bd" species="Mdm2_mRNA"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_2621e5fe_4014_4c1b_8108_32d15a273e89" species="GSK3b_p53_P"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_5d80a9ea_73c6_4eb7_a99d_a14d7d90d8cd">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> ksynMdm2mRNAGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_4d1d3a96_202a_43e2_8d5b_fcdb12718649" id="Mdm2mRNADegradation" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_72f3e88e_20ad_4de0_a8b3_91889465271a" species="Mdm2_mRNA"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_57c4bf73_d990_4c92_b76e_c1f7d8f94d0d" species="Sink"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_45fc9a1c_d895_499b_921e_c3e0ff753971" species="Mdm2_mRNA"/>
+        </listOfModifiers>
+        <kineticLaw metaid="c294e94e_4370_465a_881f_252a4bef1992">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kdegMdm2mRNA </ci>
+              <ci> Mdm2_mRNA </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_726ec7b0_0a59_4ba7_81f9_62e749b6f247" id="P53Mdm2Binding" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="de4f420e_7c83_49b8_8ba3_e6b48925cf8c" species="p53"/>
+          <speciesReference metaid="_8ff07e17_f07e_4c4d_9f23_2d168e4f8694" species="Mdm2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="fc5774fb_97a6_4bb6_8b9e_7bf9ecb4b5a4" species="Mdm2_p53"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_14910ba5_b936_466d_b6f2_e0203d270e21" species="p53"/>
+          <modifierSpeciesReference metaid="_431673ae_b57b_4ebc_8a0a_f12ac5a5b37e" species="Mdm2"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_67bc693f_6262_494f_9191_f970d6297eaf">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kbinMdm2p53 </ci>
+              <ci> p53 </ci>
+              <ci> Mdm2 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_81dac7f1_eb23_4110_960e_068f7fbec058" id="P53Mdm2Release" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_51ca6412_971a_4258_8dff_d0e2d3a02935" species="Mdm2_p53"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_12051d51_59ca_4dac_ae05_12a3e649d358" species="p53"/>
+          <speciesReference metaid="_8d2baf29_f1ed_46b8_bcde_58404e06e9bb" species="Mdm2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="aaac0675_176d_412e_b5de_9ad1ff004c94" species="Mdm2_p53"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_98acddda_53f1_4a04_b5f4_ec2ea05c019f">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> krelMdm2p53 </ci>
+              <ci> Mdm2_p53 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="aa1c7706_defd_4f58_a24d_ff971c5bc42a" id="GSK3p53Binding" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_72c37637_0e54_4e29_9c50_cef25aab106c" species="GSK3b"/>
+          <speciesReference metaid="_0bd07646_8ef2_4022_8e7f_c65f15ea9666" species="p53"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="a5ef97e8_29c2_441e_9259_790d7051dbff" species="GSK3b_p53"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_014c3fc8_2fff_4f37_9851_98556186ffc5" species="GSK3b"/>
+          <modifierSpeciesReference metaid="_8900ec7a_2515_422a_9972_f37574895276" species="p53"/>
+        </listOfModifiers>
+        <kineticLaw metaid="a34f5dbe_7678_42a6_83f4_8d477fa4ea7c">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kbinGSK3bp53 </ci>
+              <ci> GSK3b </ci>
+              <ci> p53 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_744b6a86_9399_4438_8bd8_5724ca76b673" id="GSK3p53Release" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_7698b4c2_9345_47b4_b702_84c2de883474" species="GSK3b_p53"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="fa389b09_11b5_41c8_b5c2_cf2ec5ebb812" species="GSK3b"/>
+          <speciesReference metaid="fc26b5a4_068e_4d23_b9e2_050b42dd60ea" species="p53"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_6fbad68a_01aa_4fd9_ac9f_f7a690ce4c5f" species="GSK3b_p53"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_559fd4ba_1ec2_4839_af57_e54420897de5">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> krelGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_5540ab92_699f_4253_9a64_a37c57020672" id="GSK3p53PBinding" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_766c386f_39c8_4b2d_9c4b_6b2813282699" species="GSK3b"/>
+          <speciesReference metaid="e3f95c12_83c8_47bb_aada_04259df8f565" species="p53_P"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_576861dd_6c75_40b6_a477_205fd3d1e0d8" species="GSK3b_p53_P"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="c7e52a95_7349_4f63_912e_200bb240cddc" species="GSK3b"/>
+          <modifierSpeciesReference metaid="_8a79da8f_c782_4495_a36f_ac7b1b0d1dd4" species="p53_P"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_5b98a43d_159e_41d7_913c_03af3f52de11">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kbinGSK3bp53 </ci>
+              <ci> GSK3b </ci>
+              <ci> p53_P </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_46fad6bb_6fc5_4d91_95a5_db9dcc99923f" id="GSK3_p53PRelease" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_16ab7038_2013_4e95_8444_91d800b50fd4" species="GSK3b_p53_P"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_8674d2d8_1882_4c3a_9109_623be07910e3" species="GSK3b"/>
+          <speciesReference metaid="dd8863fc_b819_4dc4_b369_5c921c66b6c0" species="p53_P"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_610810d6_9b0c_48c7_a517_94cf3fca286e" species="GSK3b_p53_P"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_80a9f199_718a_491a_bc5c_58ab88885874">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> krelGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="b89ffacc_2b26_484f_af51_6c8a19e4408b" id="E1UbBinding" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="e526cdc4_3286_47ff_910f_3fe3fc4322b1" species="E1"/>
+          <speciesReference metaid="f3f98a82_afa3_4ab5_a20d_5a42694fa432" species="Ub"/>
+          <speciesReference metaid="_51c55f0d_b1b5_4545_ac6b_d37f919edf3b" species="ATP"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_3ffab371_9b06_4469_94e1_06617469c50e" species="E1_Ub"/>
+          <speciesReference metaid="acf0c394_3af0_4b2c_8d8f_7f057ddc77b0" species="AMP"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="cfd20c9d_e254_4263_9201_7b90d5d335bf" species="E1"/>
+          <modifierSpeciesReference metaid="a8899bd9_0034_4102_af4e_9e4505cdc3e1" species="Ub"/>
+          <modifierSpeciesReference metaid="d846954a_2b94_4316_b885_ba6c18bc6de0" species="ATP"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_89128290_382f_4e87_a67f_a7634c12ab04">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> kbinE1Ub </ci>
+                <ci> E1 </ci>
+                <ci> Ub </ci>
+                <ci> ATP </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 5000 </cn>
+                <ci> ATP </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="e5b87102_4867_4849_b94b_4fdd50d037d8" id="E2UbBinding" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="b1f3ca68_cb4d_4046_a025_1d2fa128e400" species="E2"/>
+          <speciesReference metaid="_8e32da87_eb36_46b2_9553_f22ead777f18" species="E1_Ub"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="e1063c98_71b8_4714_8ff8_589498404dcf" species="E2_Ub"/>
+          <speciesReference metaid="_700bfdcc_e631_4b51_939d_c3de68cb1e1f" species="E1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_5bd4f83a_0cf5_4285_af90_bb77bb4e021a" species="E2"/>
+          <modifierSpeciesReference metaid="cafa6d3f_43f3_4305_a315_c258653cb4a8" species="E1_Ub"/>
+        </listOfModifiers>
+        <kineticLaw metaid="a493f382_718a_47de_8468_aa00063e6c28">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kbinE2Ub </ci>
+              <ci> E2 </ci>
+              <ci> E1_Ub </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="fe5330fe_f95f_46dc_a0be_6c7956780210" id="Mdm2Ubiquitination" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_6bef232b_45c5_48c6_80e1_77d05a17d47c" species="Mdm2"/>
+          <speciesReference metaid="da7bae00_3e3b_452f_a349_00340aad82d0" species="E2_Ub"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="fd266d4b_3c99_4ed8_a2cd_2d56f0108eba" species="Mdm2_Ub"/>
+          <speciesReference metaid="d641f24b_37df_4c5b_8451_8aea598731cc" species="E2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_259619f0_f153_447a_a41a_d6f433d0c6fb" species="Mdm2"/>
+          <modifierSpeciesReference metaid="c5d0d8fa_d915_435d_925d_988a6d00086d" species="E2_Ub"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_79a82868_716a_4396_ae8d_0ca1ecfefe09">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kMdm2Ub </ci>
+              <ci> Mdm2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="c6bee4b9_49e3_4014_a1d1_8a39414d63e0" id="Mdm2polyUbiquitination1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="a2675e8f_58da_43f0_b02a_8b48219c7e89" species="Mdm2_Ub"/>
+          <speciesReference metaid="_8c690088_f4e1_4488_945d_11482d6c6080" species="E2_Ub"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_1d0906b3_731a_4fa9_bef8_deb67127b15b" species="Mdm2_Ub2"/>
+          <speciesReference metaid="_66469792_3197_4c93_829f_d4f6e256baf6" species="E2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_53a9dd84_1655_40c6_8f4c_d16e634e37dd" species="Mdm2_Ub"/>
+          <modifierSpeciesReference metaid="ee8c0919_c78e_469f_ba25_3b91a0ef875e" species="E2_Ub"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_50ef59f2_584a_4192_9c3a_7c151ec8515e">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_Ub </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_9b33cd24_4ced_4c0a_b7fb_923b03b191b3" id="Mdm2polyUbiquitination2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_7e5ded24_88f9_44bc_86c6_535a09f5dc71" species="Mdm2_Ub2"/>
+          <speciesReference metaid="_97383eab_e228_447e_98f4_1a0731af0641" species="E2_Ub"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_1aa6b493_1664_4a9f_b0c2_5165b10e9e9f" species="Mdm2_Ub3"/>
+          <speciesReference metaid="_3e3d4988_43c9_4754_b05f_346d878d8da7" species="E2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="bf76e3df_07bd_4747_b3c6_edc405dfec48" species="Mdm2_Ub2"/>
+          <modifierSpeciesReference metaid="_4456c4ca_f7ce_4bb0_8e93_e4af47d4792f" species="E2_Ub"/>
+        </listOfModifiers>
+        <kineticLaw metaid="f3f8dd40_03b6_4bc8_acba_57be64d887c5">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_Ub2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_20113e87_def6_471e_a512_987d9e81c841" id="Mdm2polyUbiquitination3" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_408db250_c940_4559_9e34_bca203898b5e" species="Mdm2_Ub3"/>
+          <speciesReference metaid="aa45d533_be17_4e2a_a82c_8275f5dac937" species="E2_Ub"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_25f5190b_52d6_4f34_8d6c_b355840da9e1" species="Mdm2_Ub4"/>
+          <speciesReference metaid="_8612ad1e_bb16_49af_a724_6d746d28d60b" species="E2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="e47a110c_70dd_4341_8429_a0e56307e260" species="Mdm2_Ub3"/>
+          <modifierSpeciesReference metaid="d0bd2dcf_aa3c_4c88_b104_c67a5ef1b617" species="E2_Ub"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_8e9f997e_ce11_4e8b_86af_e9ba7156abd2">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_Ub3 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_46947912_e7ed_432f_9cd2_f994c9450193" id="Mdm2Deubiquitination4" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_52357e0a_d77c_4ff2_a6be_982819a099ca" species="Mdm2_Ub4"/>
+          <speciesReference metaid="_74c8e768_1865_4605_a925_b0dd1c66cb22" species="Mdm2DUB"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="a7a007f2_dabe_4544_be83_2453c9954b8c" species="Mdm2_Ub3"/>
+          <speciesReference metaid="e1292eb6_202d_44f3_b89c_a932827fa0ad" species="Mdm2DUB"/>
+          <speciesReference metaid="c4e90123_ec81_415a_b3af_f37b4945ad92" species="Ub"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_73cd03ea_e311_4427_a2b5_c02cfa312b9a" species="Mdm2_Ub4"/>
+          <modifierSpeciesReference metaid="_50d9a313_31ad_450a_a872_d3d3c512a459" species="Mdm2DUB"/>
+        </listOfModifiers>
+        <kineticLaw metaid="a4443865_611d_4d3e_868b_64296653ade9">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub4 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="cebf3655_d005_4b4e_b9a4_930e30d0aca9" id="Mdm2Deubiquitination3" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="f0df1b04_0e2f_4763_8d96_7db735432c11" species="Mdm2_Ub3"/>
+          <speciesReference metaid="_93e7b5d5_e810_4362_aa7c_f5eb4debe4e6" species="Mdm2DUB"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_30c02f7f_4533_4e5d_bc51_e76370aecc3d" species="Mdm2_Ub2"/>
+          <speciesReference metaid="cd9c7a25_0d97_4546_b528_befc572a63c9" species="Mdm2DUB"/>
+          <speciesReference metaid="_235106f6_2a06_4306_883a_6d9ab681cd30" species="Ub"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="f9b2f77d_be82_4593_9ea3_42bd6daac189" species="Mdm2_Ub3"/>
+          <modifierSpeciesReference metaid="_4261cfdf_d9f9_442f_9c46_9e06cb7890f6" species="Mdm2DUB"/>
+        </listOfModifiers>
+        <kineticLaw metaid="ca4040d7_4b8d_47cd_b3ee_ae507834c9b5">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub3 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_8614fba8_67d7_4f84_b5f6_2a71f64bbc2f" id="Mdm2Deubiquitination2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_68feb497_7d71_44e6_a795_cc9999578f08" species="Mdm2_Ub2"/>
+          <speciesReference metaid="dc03e91f_5b4d_4b71_92e8_5b559dca5a5f" species="Mdm2DUB"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_6f21d9c6_e4a8_456c_8e5f_8051156492cb" species="Mdm2_Ub"/>
+          <speciesReference metaid="fe8dd7d3_076e_4608_b195_38f3b60c9327" species="Mdm2DUB"/>
+          <speciesReference metaid="_69e78d43_f1b8_48b1_b9c6_227fd3886709" species="Ub"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_7b051054_22c2_493d_bc11_ce4026c1b2ff" species="Mdm2_Ub2"/>
+          <modifierSpeciesReference metaid="_2a052498_52e4_487d_bbf1_2d0c35645eea" species="Mdm2DUB"/>
+        </listOfModifiers>
+        <kineticLaw metaid="cfb63170_4439_467e_8ddc_3cf4fb6626bb">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub2 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_1e7eff66_e577_462c_90b1_5179ba810f1e" id="Mdm2Deubiquitination1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="fa200209_3882_4159_8e12_bcd1fc5fa953" species="Mdm2_Ub"/>
+          <speciesReference metaid="_1e72f7c6_4b2a_43e1_b411_e5add17b0268" species="Mdm2DUB"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_2321ffb5_6ae1_4c04_91ed_3a592a10d930" species="Mdm2"/>
+          <speciesReference metaid="c7af4d29_28d9_48d6_8ed3_cd070b6f84a7" species="Mdm2DUB"/>
+          <speciesReference metaid="eee81fcb_f2c1_491b_b80a_2dd7df16eeec" species="Ub"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_414a74a3_49b9_4d20_b8cc_06e76b4c702f" species="Mdm2_Ub"/>
+          <modifierSpeciesReference metaid="b200d798_8f77_4a02_9aea_162a30521317" species="Mdm2DUB"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_250fc150_3707_4230_84cf_16454c15b83c">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_Ub </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_6532b6a5_a468_49b2_a48c_d68f03e94199" id="Mdm2ProteasomeBinding1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_8903f2ee_ab80_4528_8f32_3da0de8654ef" species="Mdm2_Ub4"/>
+          <speciesReference metaid="f1955860_dc77_4fb4_abbe_678ad2e1b3ed" species="Proteasome"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_4632b6c0_1fbd_491d_a001_c51a62a5c828" species="Mdm2_Ub4_Proteasome"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_43e05fed_f05c_4604_915c_cbce25cb1225" species="Mdm2_Ub4"/>
+          <modifierSpeciesReference metaid="c09db4fe_25ae_4d8f_a496_06f3bc708afa" species="Proteasome"/>
+        </listOfModifiers>
+        <kineticLaw metaid="f5c6ed89_0a23_4c67_92ee_8ea721c9740a">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kbinProt </ci>
+              <ci> Mdm2_Ub4 </ci>
+              <ci> Proteasome </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_1b8c2657_0ceb_491d_9fa5_33f0904ffbb4" id="Mdm2Degradation" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_2c2b374c_acbf_428d_a826_1f87a51a5ab1" species="Mdm2_Ub4_Proteasome"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_7b7b91fa_adeb_4f90_9de3_46592e29c030" species="Proteasome"/>
+          <speciesReference metaid="f7698010_8e90_4e1a_9722_be8893169f33" species="Ub" stoichiometry="4"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_1261bf95_7b15_4d49_9a85_0ce8f4a0dd16" species="Mdm2_Ub4_Proteasome"/>
+        </listOfModifiers>
+        <kineticLaw metaid="bdcab313_2b8f_4eb6_ba5a_c7f4935bdb7b">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kdegMdm2 </ci>
+              <ci> Mdm2_Ub4_Proteasome </ci>
+              <ci> kproteff </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_177314f5_70ed_4c3a_b4bd_cfdbde7bd6c1" id="p53Synthesis" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="b513c03e_5159_4948_b344_eab2a2005ade" species="p53_mRNA"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_133e9276_0fc0_4cb6_b1e5_127b7b31ab70" species="p53"/>
+          <speciesReference metaid="ba5df382_acd5_4b82_a58d_dbbc7c270337" species="p53_mRNA"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_570e056b_d225_4a43_a519_2023a11cad15" species="p53_mRNA"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_96eaa98c_66cd_448a_a8de_78621450b7a1">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> ksynp53 </ci>
+              <ci> p53_mRNA </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="f3008e0f_b40b_456d_bd38_5980ba7e2ac7" id="p53Monoubiquitination" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_1ab54d26_2aa2_4474_9e97_96d96ef9d2f5" species="E2_Ub"/>
+          <speciesReference metaid="_8fb26ac8_28e9_4e31_9153_bf75d8e23dc2" species="Mdm2_p53"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_75939f60_04cf_4f28_94e3_db19b6131eb9" species="Mdm2_p53_Ub"/>
+          <speciesReference metaid="_29e5215b_c968_46c5_b88c_ed840ee8db35" species="E2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_7f15c568_4613_46ec_93b9_c2521eb664dc" species="E2_Ub"/>
+          <modifierSpeciesReference metaid="aeb3057b_7eaa_4157_925d_06b69e76b448" species="Mdm2_p53"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_56574a27_6172_4b87_bde8_86250210a4d9">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kp53Ub </ci>
+              <ci> E2_Ub </ci>
+              <ci> Mdm2_p53 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_7deba8b0_043e_46a0_87ae_a560cd949297" id="p53Polyubiquitination1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_0cfab630_e65a_4fbb_a091_d99353e1196f" species="Mdm2_p53_Ub"/>
+          <speciesReference metaid="bf3b5d05_4772_4c30_a9c7_fcc096f19674" species="E2_Ub"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_16b5040d_d32c_4964_be14_67801323f1cd" species="Mdm2_p53_Ub2"/>
+          <speciesReference metaid="_06ff9474_62eb_424a_bf11_4e6a10da9f85" species="E2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_87256b79_31e7_4723_af4b_d178ca3187b9" species="Mdm2_p53_Ub"/>
+          <modifierSpeciesReference metaid="bfc0e01e_95a6_4d76_a669_959a5dfc76af" species="E2_Ub"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_28ae4118_bf52_4424_974a_06d20e7c3897">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kp53PolyUb </ci>
+              <ci> Mdm2_p53_Ub </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_9d3fb58b_883e_460d_879c_ff9902e42f99" id="p53Polyubiquitination2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="efc63dd8_0fff_4635_9a32_4eba49ed0694" species="Mdm2_p53_Ub2"/>
+          <speciesReference metaid="_76280817_4767_4736_9738_c3645047e5c3" species="E2_Ub"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="f493a694_a305_4383_bf50_6002725458ec" species="Mdm2_p53_Ub3"/>
+          <speciesReference metaid="ff9195ee_3284_4f9f_8c29_d8d4804f385b" species="E2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_332b4d3a_860a_4045_93b3_09e132eead0d" species="Mdm2_p53_Ub2"/>
+          <modifierSpeciesReference metaid="ee762faa_f400_494c_b5cd_e7926253a876" species="E2_Ub"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_51f2902a_e258_47e0_8f99_128295283a6b">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kp53PolyUb </ci>
+              <ci> Mdm2_p53_Ub2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_0f7fab4a_f3a1_4d78_abb1_fa3588e5cbb2" id="p53Polyubiquitination3" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_7975a918_5af3_437d_ab47_01037365db85" species="Mdm2_p53_Ub3"/>
+          <speciesReference metaid="_83271a8e_8337_4404_9ba0_0aa4ece7f7b3" species="E2_Ub"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="f2d01ca8_c6eb_47d9_ab1c_d38bd50d43b5" species="Mdm2_p53_Ub4"/>
+          <speciesReference metaid="aebee344_3fa3_4b2d_878f_b69928a559d7" species="E2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_089b5aa4_3fce_4e29_904d_df6af95d5ec0" species="Mdm2_p53_Ub3"/>
+          <modifierSpeciesReference metaid="d3c149cc_9ad4_42a9_b207_bd9650772c7d" species="E2_Ub"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_69320db6_073c_41bc_8be7_de128b38531c">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kp53PolyUb </ci>
+              <ci> Mdm2_p53_Ub3 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_093d90e5_bb77_4322_8e41_b3ab4d52ba63" id="p53Deubiqutination4" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_1adca3b1_ef0a_493d_987d_80a689bf4373" species="Mdm2_p53_Ub4"/>
+          <speciesReference metaid="_8d22a3e4_ec82_4848_b256_dd042c857bbf" species="p53DUB"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_79a861d8_7257_43f6_ab4c_f98e47e7dda5" species="Mdm2_p53_Ub3"/>
+          <speciesReference metaid="_0f8a56dd_58e3_4a35_9b7c_63627164ae9b" species="p53DUB"/>
+          <speciesReference metaid="_476a4bf1_7961_4bca_b6dd_886df19c1875" species="Ub"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_0a9e58ef_0a49_4968_a59d_edf072142573" species="Mdm2_p53_Ub4"/>
+          <modifierSpeciesReference metaid="a67c0fe5_805a_4883_80ce_085a0d88d56d" species="p53DUB"/>
+        </listOfModifiers>
+        <kineticLaw metaid="d1de44f1_bbcb_4480_8c57_a6ba1219a1f7">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_197cec8a_7839_4909_a745_b317281cac40" id="p53Deubiquitination3" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_5a779838_798c_4220_a6d1_52979ec1ba95" species="Mdm2_p53_Ub3"/>
+          <speciesReference metaid="_21687f3f_ed82_4008_b7d4_c7446bb7e8c3" species="p53DUB"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="d0f57294_4986_4e64_9140_ef51f6a45597" species="Mdm2_p53_Ub2"/>
+          <speciesReference metaid="eabacdad_526f_40a9_b834_ac0a0d9faf4d" species="p53DUB"/>
+          <speciesReference metaid="_73dec4e5_8169_4f81_957f_1c756ea780e2" species="Ub"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_2b56c74e_bc1b_4ca4_a950_676472bbeedd" species="Mdm2_p53_Ub3"/>
+          <modifierSpeciesReference metaid="_248ba122_6220_4c78_a780_669c1351f860" species="p53DUB"/>
+        </listOfModifiers>
+        <kineticLaw metaid="c41afe52_268d_4bd6_9d13_335071817bf9">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub3 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_36b53547_d03b_4331_ba3c_eb71c7ae0ee5" id="p53Deubiquitination2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_57383926_e165_4437_88b9_5d1361ba14d2" species="Mdm2_p53_Ub2"/>
+          <speciesReference metaid="_9f9ae7da_ce0c_4722_9c46_0ff6123d4647" species="p53DUB"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_83e56235_ae83_4625_b1aa_ba480fc5b005" species="Mdm2_p53_Ub"/>
+          <speciesReference metaid="_18227c98_787a_41bc_8c0e_64414767166c" species="p53DUB"/>
+          <speciesReference metaid="_93274e1e_5de8_4ebf_b289_8164e6870cb1" species="Ub"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="aa4a6ca4_e7d5_433a_ad66_3c22f573d838" species="Mdm2_p53_Ub2"/>
+          <modifierSpeciesReference metaid="ff451ded_a98a_462a_87c9_1b9d8194350d" species="p53DUB"/>
+        </listOfModifiers>
+        <kineticLaw metaid="c11042bb_638b_4ce4_884a_81456dcecf8c">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub2 </ci>
+              <ci> p53DUB </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_13183413_1a8c_4d0c_b4a5_3653397b6cfd" id="p53Deubiquitination1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="d0de6858_e9b5_45a3_b87a_e617f0c302ee" species="Mdm2_p53_Ub"/>
+          <speciesReference metaid="_3151e761_f683_4a2c_86f6_6f625b5a33e2" species="p53DUB"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="bc4d1b33_5270_4946_82eb_5aa524a2e62d" species="Mdm2_p53"/>
+          <speciesReference metaid="_1f2285d5_6740_4f86_8347_8846c0be6409" species="p53DUB"/>
+          <speciesReference metaid="_4eae3aab_fc11_48d7_ad37_844dc37a0fdf" species="Ub"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_8438d4c2_7537_4281_b9d3_65beeab4e72f" species="Mdm2_p53_Ub"/>
+          <modifierSpeciesReference metaid="_0ad9f017_3028_46a8_9658_e1a01a571df7" species="p53DUB"/>
+        </listOfModifiers>
+        <kineticLaw metaid="da3f7b8e_8a8d_471f_a15f_0a29f40bd8ad">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kactDUBp53 </ci>
+              <ci> Mdm2_p53_Ub </ci>
+              <ci> p53DUB </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="b828cb00_e24e_4d42_b015_42d6fa78d028" id="Mdm2GSK3phosphorylation1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_84884def_f68e_4b69_acc6_b45ff56ce414" species="Mdm2_p53_Ub4"/>
+          <speciesReference metaid="_5c71f137_d67e_45d8_ae33_8bc04d6aef74" species="GSK3b"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_25e80637_fe98_42ca_8820_8ecd83faeeb7" species="Mdm2_P1_p53_Ub4"/>
+          <speciesReference metaid="_5b082ffb_008b_48a8_b20e_49ad7f1e11c6" species="GSK3b"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="a5ebaf65_41c4_477c_804c_1de5eec4041a" species="Mdm2_p53_Ub4"/>
+          <modifierSpeciesReference metaid="ea4f6e51_cbd9_4aec_99b3_64945c2b2428" species="GSK3b"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_56e69d72_f5c8_4823_8f6e_3aa7c159323c">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kphosMdm2GSK3b </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> GSK3b </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="e9795f25_e8df_44cd_b815_e883b89ebafa" id="Mdm2GSK3phosphorylation2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_59a45806_a67a_4e7b_b3e7_10a6a3c597dc" species="Mdm2_p53_Ub4"/>
+          <speciesReference metaid="_3d38b8b6_6373_47e9_bbb2_2f64cef8fe77" species="GSK3b_p53"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="f46d9ea4_1aa1_43f5_84ac_4bfe8fdbd86f" species="Mdm2_P1_p53_Ub4"/>
+          <speciesReference metaid="_77f4a2ce_a1b1_42c7_b245_e99163f7af54" species="GSK3b_p53"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_1d44b90a_3657_4961_8829_e906afb2bd0d" species="Mdm2_p53_Ub4"/>
+          <modifierSpeciesReference metaid="fc1559a5_0411_45d2_b765_f76c3e6d4616" species="GSK3b_p53"/>
+        </listOfModifiers>
+        <kineticLaw metaid="fbc0dab7_6a40_41e4_9df3_ff396a2a62e1">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kphosMdm2GSK3bp53 </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> GSK3b_p53 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_33fd2501_1773_4069_b026_242ffd09f34b" id="Mdm2GSK3phosphorylation3" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_1dcfe83a_4ac9_4c81_ab5f_974f333fa39f" species="Mdm2_p53_Ub4"/>
+          <speciesReference metaid="_265bbb39_96bd_402f_953d_3f60aad5806a" species="GSK3b_p53_P"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="e1ac9690_271e_4fca_a5c8_9ef74de24287" species="Mdm2_P1_p53_Ub4"/>
+          <speciesReference metaid="_9db2ab81_a24e_40b2_86e3_fa79fbfa1c6e" species="GSK3b_p53_P"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="c4465220_1657_4076_8248_fcc0b43d800b" species="Mdm2_p53_Ub4"/>
+          <modifierSpeciesReference metaid="_0cca21bb_2587_41d9_930f_580237579394" species="GSK3b_p53_P"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_18ea67fc_0820_447a_b34b_d9148274c173">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kphosMdm2GSK3bp53 </ci>
+              <ci> Mdm2_p53_Ub4 </ci>
+              <ci> GSK3b_p53_P </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="a14865af_f214_4f0c_9b4e_8fe573e7c855" id="p53ProteasomeBinding1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_59a201ad_2d20_4865_983b_decf8181c7ff" species="Mdm2_P1_p53_Ub4"/>
+          <speciesReference metaid="_058793b4_760f_4fb9_a38d_720222ce5567" species="Proteasome"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_7d51f14c_b37b_4c7a_b2d4_43c4c0c4657d" species="p53_Ub4_Proteasome"/>
+          <speciesReference metaid="_35b095b2_6e4f_4e78_bc01_970c7eb9af89" species="Mdm2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_51b231de_b5bd_4f66_a8e6_0f1085d15b38" species="Mdm2_P1_p53_Ub4"/>
+          <modifierSpeciesReference metaid="_5fd4e5fa_45a5_4c28_9438_7c0299d462d5" species="Proteasome"/>
+        </listOfModifiers>
+        <kineticLaw metaid="bd6391a3_57c0_4eca_9f1c_8d0058e054f5">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kbinProt </ci>
+              <ci> Mdm2_P1_p53_Ub4 </ci>
+              <ci> Proteasome </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_7ea321ad_e394_4190_8fda_1a2c5d1ca863" id="Degradationp53_Ub4" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_18fc0cd6_0178_4d0c_a6d2_e75d499ca201" species="p53_Ub4_Proteasome"/>
+          <speciesReference metaid="_6f19d968_47f4_4bc5_a078_507776c7e241" species="ATP"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_931e83b1_4212_49f1_b2e5_e7ce6ce8b68f" species="Ub" stoichiometry="4"/>
+          <speciesReference metaid="_8e5e889d_9ec8_4acb_b841_6f599171f97a" species="Proteasome"/>
+          <speciesReference metaid="_21ab40da_799f_4b5d_b3af_724c5ef077f4" species="ADP"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_58851063_d69b_4df9_ab54_f2ab1038a63a" species="p53_Ub4_Proteasome"/>
+          <modifierSpeciesReference metaid="_60d4559f_6bc8_4b2b_9223_0e5d428cfee7" species="ATP"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_110b7263_35cd_4307_806e_1b008876171a">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> kdegp53 </ci>
+                <ci> kproteff </ci>
+                <ci> p53_Ub4_Proteasome </ci>
+                <ci> ATP </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 5000 </cn>
+                <ci> ATP </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="f66faceb_a2fd_4ae8_a599_e13ac6ddbda5" id="TauMTbinding" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_34b5a67a_fd57_4a92_be93_33e47e59a938" species="Tau"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="a93d7c86_bcdb_4235_a176_ceef6f173bb3" species="MT_Tau"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="a9b17615_1c29_4565_a3ae_9f07155418df" species="Tau"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_560c95f1_1f1c_4c56_86e9_554f6fbef686">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kbinMTTau </ci>
+              <ci> Tau </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="d465abd2_9574_4820_a45d_934c6255f255" id="TauMTrelease" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="d8fbc952_15bf_4535_b1b3_a30f39e87933" species="MT_Tau"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="df427677_9cd6_4135_a6e0_9044e2e7d16c" species="Tau"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_1776fbdb_a87c_487d_a865_e717ccfe28d9" species="MT_Tau"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_2088fe20_4f76_48be_b6fd_e1b776a35531">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> krelMTTau </ci>
+              <ci> MT_Tau </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_9e26b363_261a_4e01_8641_1634c1f5a98c" id="Tauphosphorylation1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="f7961817_a364_4522_b0f8_459bc583b5d7" species="GSK3b_p53"/>
+          <speciesReference metaid="bfdf7f13_2946_4a51_b973_01de51c726f6" species="Tau"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_97833020_562f_416a_923f_dee16afe40ba" species="GSK3b_p53"/>
+          <speciesReference metaid="f394d04a_a552_46e9_8554_2483472126a6" species="Tau_P1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_8800854e_01bb_4032_9867_140d96c22480" species="GSK3b_p53"/>
+          <modifierSpeciesReference metaid="_766b36d7_08c3_449c_8328_695228890cc1" species="Tau"/>
+        </listOfModifiers>
+        <kineticLaw metaid="daf476d2_fafd_41cd_bd82_ef3b630d845a">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+              <ci> Tau </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="cfa5ee81_644b_4654_9af3_ffd9aec3ea64" id="Tauphosphorylation2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="b517e064_004e_45c8_88e3_333a8d784c1d" species="GSK3b_p53"/>
+          <speciesReference metaid="_8bd1eff6_a0d0_4c76_bf4d_b9b829a5939f" species="Tau_P1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="b9d7bc08_b9b9_4bff_84ce_e8f6ff6d8e32" species="GSK3b_p53"/>
+          <speciesReference metaid="_36d6d5c3_bfcd_4886_a028_54d6f6f2b0e4" species="Tau_P2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_14717731_a98a_4251_8fb0_af25ee2ccd8c" species="GSK3b_p53"/>
+          <modifierSpeciesReference metaid="c8048b0f_5d09_46d3_b325_a2bbc32e87f0" species="Tau_P1"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_50183ceb_6af2_40f7_ac00_068960018a4e">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53 </ci>
+              <ci> Tau_P1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="a733b0de_d40a_49b4_bc33_ea235d308540" id="Tauphosphorylation3" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_107ec729_9a63_489c_a0f0_684d63e88a72" species="GSK3b_p53_P"/>
+          <speciesReference metaid="_8d5dd05a_6830_46c2_b2c5_8d86686a4d82" species="Tau"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_083a203f_4ee8_48c7_8a0b_2b1a94053f41" species="GSK3b_p53_P"/>
+          <speciesReference metaid="b55d5a1b_973f_4316_af41_7d2926adf962" species="Tau_P1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_304b3e75_cd15_411e_a474_a34f4f8409a7" species="GSK3b_p53_P"/>
+          <modifierSpeciesReference metaid="_19597fcb_82f3_412f_b480_eb44f37d5974" species="Tau"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_7a2382e7_ad90_4754_9d31_a4d79306e907">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+              <ci> Tau </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="cae6d06f_eb3b_49b9_b389_5b324f956d2e" id="Tauphosphorylation4" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="fcebec61_06e2_46b4_8cbd_adfefc26ef53" species="GSK3b_p53_P"/>
+          <speciesReference metaid="_203db308_0e0e_441c_b701_0f70e98c58fb" species="Tau_P1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="e6e7b53d_7452_415c_bf42_396afebb4023" species="GSK3b_p53_P"/>
+          <speciesReference metaid="_28f3cc26_c909_46dd_ba58_ac1370db5886" species="Tau_P2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="c4d4dd95_cf31_412d_8de0_09e1c67922ea" species="GSK3b_p53_P"/>
+          <modifierSpeciesReference metaid="bd77f09c_783a_45c0_8577_4e012199da88" species="Tau_P1"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_4fb5265c_260c_4481_bad3_9132117dc6e1">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kphospTauGSK3bp53 </ci>
+              <ci> GSK3b_p53_P </ci>
+              <ci> Tau_P1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_30b4499b_bd9c_486e_8733_c477423685f5" id="Tauphosphorylation5" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="e8243f69_9de9_4cf9_b9a0_8892f5af6105" species="GSK3b"/>
+          <speciesReference metaid="ef6f404f_2351_4a53_b817_3070ba0c91cf" species="Tau"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="d0a4442a_aed7_48c1_a5c6_3b7600333695" species="GSK3b"/>
+          <speciesReference metaid="_1eb4b4b2_d27e_4b4f_8b2e_452923616ced" species="Tau_P1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="d63364e2_4f82_4399_a173_bb3b4928438f" species="GSK3b"/>
+          <modifierSpeciesReference metaid="b6b8db1e_d232_4271_be59_5dee1649e8e2" species="Tau"/>
+        </listOfModifiers>
+        <kineticLaw metaid="fd6aa0c2_bdce_4b42_bcd1_0b3a92653dd4">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kphospTauGSK3b </ci>
+              <ci> GSK3b </ci>
+              <ci> Tau </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_06f35071_ee05_4347_bc36_f4d11bb4637e" id="Tauphosphorylation6" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_5a9f9f25_10b4_4878_aee9_83b6b78c06dd" species="GSK3b"/>
+          <speciesReference metaid="_439da263_f83e_451c_8b89_171118126662" species="Tau_P1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_4e689951_a7cd_49f5_a193_34d94dff9ac4" species="GSK3b"/>
+          <speciesReference metaid="_73185b9c_8455_464a_989c_b26d164ebac9" species="Tau_P2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="f6df6b55_1d50_4446_8a21_972a39ff3082" species="GSK3b"/>
+          <modifierSpeciesReference metaid="_293b0547_cec9_4a82_988b_d47b7eec5a3b" species="Tau_P1"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_9571489d_c118_42e0_ab44_59c75b29aa74">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kphospTauGSK3b </ci>
+              <ci> GSK3b </ci>
+              <ci> Tau_P1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="bbd8fb1c_77ce_48a3_b085_62f2c938facc" id="Taudephosphorylation1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_5433eb89_4659_4fb7_baa8_6def6d8583f6" species="Tau_P2"/>
+          <speciesReference metaid="f48b343b_8dd2_4b1c_96b3_00eb49958c57" species="PP1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_46a0782d_6ec1_44e4_8686_91b764c7729b" species="Tau_P1"/>
+          <speciesReference metaid="f85e44bd_1477_47b5_9b3e_4a7079ffee58" species="PP1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_9b9d5ae4_a191_48c8_a28d_71df55a3020a" species="Tau_P2"/>
+          <modifierSpeciesReference metaid="_4c27c22a_c4e5_4ae6_8a3f_6d39a8c8228a" species="PP1"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_8ca9741e_6230_407d_98c7_93d932838405">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kdephospTau </ci>
+              <ci> Tau_P2 </ci>
+              <ci> PP1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="c1cd6461_0b3e_46d4_82cf_d97ea7898bb9" id="Taudephosphorylation2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_5c33c6a1_e82e_423b_91f2_69c0252df656" species="Tau_P1"/>
+          <speciesReference metaid="c9a4bd98_35e0_4a6a_8dbb_e5c9621c9abf" species="PP1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="ee449f60_e7a1_4245_a56d_22c9c06e6f95" species="Tau"/>
+          <speciesReference metaid="dbd71438_f993_426b_a355_bce0ed5fc888" species="PP1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_33407515_7a07_4694_8e8f_b55069ed0752" species="Tau_P1"/>
+          <modifierSpeciesReference metaid="_6d77cffa_170c_4d77_8ad6_0a3a78e52eb6" species="PP1"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_7538fd0b_604b_4678_9157_37a6d0700479">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kdephospTau </ci>
+              <ci> Tau_P1 </ci>
+              <ci> PP1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_274c50f8_7ae6_476b_acce_a9046e37ea62" id="TauP1Aggregation1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="e02d5188_d435_4827_a6fc_60e09561513b" species="Tau_P1" stoichiometry="2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_0cd08593_4b59_41d4_94fa_d8fb01e99e7c" species="AggTau" stoichiometry="2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_8d2127e2_ca43_4b2d_a693_38ccb5341958" species="Tau_P1"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_2898eb49_a322_4636_8901_7d51c87a7dee">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kaggTauP1 </ci>
+              <apply>
+                <power/>
+                <ci> Tau_P1 </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_055a0ec8_d5f6_4bd9_bc15_c5daa7b4a247" id="TauP1Aggregation2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="d94d0f0a_993c_4216_8bb4_b3a3f3929df0" species="Tau_P1"/>
+          <speciesReference metaid="_1aa756be_01ff_468f_8706_0d14a0bfe8b7" species="AggTau"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_71267bd7_fd4b_4cc1_aa53_fa0a1980c283" species="AggTau" stoichiometry="2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_94096d59_0a30_4186_b2fd_96959b6f67e4" species="Tau_P1"/>
+          <modifierSpeciesReference metaid="c79036ca_7a26_4c4d_923f_57863cce52da" species="AggTau"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_0f8d8313_5ecd_497c_93a3_5de11b73eb0e">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kaggTauP1 </ci>
+              <ci> Tau_P1 </ci>
+              <ci> AggTau </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="d7e80f41_9800_40d5_a028_5c06b93eb7ee" id="TauP2Aggregation1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_8b8da4f3_c948_47b3_9a49_6b266767393e" species="Tau_P2" stoichiometry="2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_337ef703_e507_485c_bc55_7270b9391552" species="AggTau" stoichiometry="2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_53b90b6f_c73f_4158_a179_fbf6bc071c7a" species="Tau_P2"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_4672904e_4b4f_41f6_b7e9_8258b36c038e">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kaggTauP2 </ci>
+              <apply>
+                <power/>
+                <ci> Tau_P2 </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_0e7a20b4_197f_455b_b15d_826d15429363" id="TauP2Aggregation2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="a14c8d54_10fb_477c_bd28_c138a4a20072" species="Tau_P2"/>
+          <speciesReference metaid="_934fd6cd_5c72_4c33_bb92_b9ef4fa0e68c" species="AggTau"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="cd9b81d5_006d_4c41_a54a_848dfdf647ba" species="AggTau" stoichiometry="2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_96c0d4dd_ec75_48e6_8d4c_16a662b87263" species="Tau_P2"/>
+          <modifierSpeciesReference metaid="b1e09cac_d106_4a02_8a30_7e8c21927629" species="AggTau"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_44539c30_44b0_4d8a_b4fc_5781346e2325">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kaggTauP2 </ci>
+              <ci> Tau_P2 </ci>
+              <ci> AggTau </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_3d10ed19_0f77_42fe_a8b7_9ab72e6f8f7c" id="TauAggregation1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="c5e6e827_e13e_4b33_9727_7a9c67e94e77" species="Tau" stoichiometry="2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="e51c7909_f414_491b_b5af_0d369743fb67" species="AggTau" stoichiometry="2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_001bbcdd_dc54_46b0_b461_1cc129b32551" species="Tau"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_9425d6c7_1ac9_455d_bb15_f44c37e340ed">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kaggTau </ci>
+              <apply>
+                <power/>
+                <ci> Tau </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_29e70075_3590_43b6_92d1_036789dc338a" id="TauAggregation2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_5afe69b8_9a47_4705_92cd_17c10b2a255b" species="Tau"/>
+          <speciesReference metaid="a0121306_d849_4c43_8efc_c305e2d89307" species="AggTau"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="df91618a_cead_457e_b550_65cd643918a1" species="AggTau" stoichiometry="2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="cd770208_a8ac_42db_8d92_1d3f9b3a86bb" species="Tau"/>
+          <modifierSpeciesReference metaid="afcb69ac_434d_4d4f_bbbd_3e465837fa42" species="AggTau"/>
+        </listOfModifiers>
+        <kineticLaw metaid="d4a27690_31d7_4384_84a1_adbfa0d15b77">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kaggTau </ci>
+              <ci> Tau </ci>
+              <ci> AggTau </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_9fb31755_8e56_484b_adbd_ddcf88c945c6" id="TangleFormation1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_55f8b120_a851_454e_ad38_60781f47a9e4" species="AggTau" stoichiometry="2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_062b36fa_c888_41f6_84e1_3d7b43f6c124" species="NFT" stoichiometry="2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_3dde309c_8fb3_4ed3_82fb_51f5ccc13061" species="AggTau"/>
+        </listOfModifiers>
+        <kineticLaw metaid="f39f4910_4293_4bb5_86a9_6126530c5cd1">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> ktangfor </ci>
+              <apply>
+                <power/>
+                <ci> AggTau </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_6fbd399f_2556_4ec2_a66b_5c328150b50e" id="TangleFormation2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_96bc381a_13c3_48ce_9900_1377bd2c9b2c" species="AggTau"/>
+          <speciesReference metaid="_862174ea_dc5f_4b20_823f_abd7ae6dd2b6" species="NFT"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="e95410d6_2975_41be_9ac3_5aa69b80e07e" species="NFT" stoichiometry="2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_0fb2606d_61bf_49f8_89b2_9c81a2df8dd7" species="AggTau"/>
+          <modifierSpeciesReference metaid="c25f6100_abce_43fa_9365_ebf7dcdebdb2" species="NFT"/>
+        </listOfModifiers>
+        <kineticLaw metaid="d71873f5_2445_4f60_b07d_e4ef094d6943">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> ktangfor </ci>
+              <ci> AggTau </ci>
+              <ci> NFT </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_03632c8b_dcbe_47d2_85ed_a8f4a2d6087c" id="ProteasomeInhibitionAggTau" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="e8d8bd89_d3d5_4273_8fa8_31f6014f69e7" species="AggTau"/>
+          <speciesReference metaid="_35095497_2cdf_41ea_8d87_861f4ff66638" species="Proteasome"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_4c00e4df_e274_4191_a2df_59bde4ed56d0" species="AggTau_Proteasome"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_53e376e5_f290_4e92_91cc_09914e8d8b99" species="AggTau"/>
+          <modifierSpeciesReference metaid="ae1a1185_f228_40b5_a5ff_18a5882e7f05" species="Proteasome"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_1b7aaa98_3773_4035_bdcf_75066c38e890">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kinhibprot </ci>
+              <ci> AggTau </ci>
+              <ci> Proteasome </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_23c2c13e_856f_49fb_8e21_13ab18005d23" id="Abetaproduction1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_0336b7af_1cc7_4b9f_8073_c62de3a293cb" species="Source"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_2493efa9_6eeb_4ed4_addc_6390bc40b4f0" species="Abeta"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_0b68c55e_81bb_4bc1_a694_aa018f350f92" species="Source"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_8f7671ee_7865_4c26_a4fd_0afbb4d3caae">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kprodAbeta </ci>
+              <ci> Source </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="f1847d5e_3473_4866_9048_db070ef6e905" id="Abetaproduction2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_0969e0c1_ec49_46de_bd5a_209b4a042d6d" species="GSK3b_p53"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="d795a4a0_a760_4361_8bc6_56f45a7b95de" species="Abeta"/>
+          <speciesReference metaid="e8952de6_cba7_4d3a_a93f_8b69cec16675" species="GSK3b_p53"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_50622d02_262e_4837_b6ef_a14b7e2d409c" species="GSK3b_p53"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_32c04b8a_9cd4_4991_8746_9031992f16f8">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kprodAbeta2 </ci>
+              <ci> GSK3b_p53 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_931f417b_58b7_405e_909a_69c75b93c094" id="Abetaproduction3" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_3a58d092_a1d5_498f_93fc_defc622dc879" species="GSK3b_p53_P"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="a1128f7b_80df_4fb6_a650_9c3a2561dbcb" species="Abeta"/>
+          <speciesReference metaid="_6a3f5794_0321_48d8_b6f4_eb331a2c7a12" species="GSK3b_p53_P"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="e2a363aa_761d_4f42_88a0_186defd6b1df" species="GSK3b_p53_P"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_33cb0c06_f993_4e81_9348_88bd03e17112">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kprodAbeta2 </ci>
+              <ci> GSK3b_p53_P </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="e2acad7e_6b8f_45ae_b663_de32c35b0418" id="ProteasomeInhibitionAbeta" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="b118cd8c_782d_4118_895c_5cf403164a5b" species="AbetaDimer"/>
+          <speciesReference metaid="d8f9abd0_08d6_4b60_bbdc_f06af7efad4c" species="Proteasome"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="d4e66094_80c9_40bc_a743_6c8186949b79" species="AggAbeta_Proteasome"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_901b5b4e_44c1_494e_b0d7_542883239776" species="AbetaDimer"/>
+          <modifierSpeciesReference metaid="ff22cf1b_7322_47ba_baf5_955b56743343" species="Proteasome"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_3eac92d5_09c1_43ce_a6d1_1a7aa593fa59">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kinhibprot </ci>
+              <ci> AbetaDimer </ci>
+              <ci> Proteasome </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_32da9470_021d_42de_83d7_59449a775b60" id="AbetaDegradation" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_2a94df4f_d08d_4d3d_b707_1aca107210d3" species="Abeta"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="ecb0ced8_023a_4efa_a2f7_9c848a2ff815" species="Sink"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="bb039d72_6c3d_4f95_8564_562864165ec1" species="Abeta"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_084dedac_1620_406f_9352_58269425199a">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kdegAbeta </ci>
+              <ci> Abeta </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_3ee899f5_92f2_4bc4_9012_bf3d540434f1" id="p53transcriptionViaAbeta" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_0d39c823_875c_47b5_ae4f_eb3cde2556f8" species="Abeta"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_139d2383_ba43_4a8c_9865_96d76283f924" species="p53_mRNA"/>
+          <speciesReference metaid="_2207c5a0_efe6_40de_a7b1_8a1cf78aecab" species="Abeta"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_8e94fb99_82f8_4754_aba4_bb7b7ca13068" species="Abeta"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_1a3e3748_cba0_44ff_8083_09b490ab499f">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> ksynp53mRNAAbeta </ci>
+              <ci> Abeta </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_3538946c_a278_446e_9f8b_d6f5ddd58abc" id="DNAdamage" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_47df70ed_b753_42a7_8bcc_8e405e814c7f" species="IR"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="e8b0b9f0_0be7_4b96_8910_af5501beb23a" species="IR"/>
+          <speciesReference metaid="_9d6536cd_141f_464b_bc15_0d167da2be3d" species="damDNA"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_653c991c_d13f_47d8_8d88_a6fdbc2b8e21" species="IR"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_16272617_ff41_4873_bfef_eb96f1f086c3">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kdam </ci>
+              <ci> IR </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="e1a571ad_f8ee_49c2_ad0d_3ed5e05d33eb" id="DNArepair" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="acffa222_2234_45a7_a9ee_c5136e42e109" species="damDNA"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="f0c0ab5c_f22d_43c3_9c6f_983495351d4c" species="Sink"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_2ee7afdc_1a95_496c_b85b_e5d16c734518" species="damDNA"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_355aecf5_ac7f_40f7_8998_030f8451842b">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> krepair </ci>
+              <ci> damDNA </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_45699d37_270d_4858_bd46_b548596b19c9" id="ATMactivation" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="c4b76aca_998f_410f_a763_5bae167b2492" species="damDNA"/>
+          <speciesReference metaid="e889cac8_3f8b_4040_9981_6f05d2148e2f" species="ATMI"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_09103f1d_79bd_415c_843a_e122d26eb8fc" species="damDNA"/>
+          <speciesReference metaid="fef1da69_9680_4187_84c8_d11f1cd6102b" species="ATMA"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_161c68de_0c63_4e1c_9625_bfd5e9e9af13" species="damDNA"/>
+          <modifierSpeciesReference metaid="fe1c7791_f825_40d1_b8ac_d4419ac72d87" species="ATMI"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_35227bee_8770_47c7_8daf_7dca5a392293">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kactATM </ci>
+              <ci> damDNA </ci>
+              <ci> ATMI </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_76c28faf_e396_4ca0_ad1e_8ba71218b1b4" id="p53phosphorylation" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_166f8568_b42b_4d89_8750_1e3bf36bdd8f" species="p53"/>
+          <speciesReference metaid="_15dba60f_d6fc_44ad_b5d8_a8d8af6fe2d2" species="ATMA"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_641b701d_2b6d_4209_b9fd_6f901edec3ec" species="p53_P"/>
+          <speciesReference metaid="ab98ffcc_4863_48cd_b768_1970f3871f65" species="ATMA"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_5d5b8dad_a4ea_4e23_b845_bda5a4ed600a" species="p53"/>
+          <modifierSpeciesReference metaid="b271b0f2_8759_4368_97ee_9cb29b9f63a7" species="ATMA"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_11e429d1_eccd_4c5f_94e5_b4f4ffd9e31d">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kphosp53 </ci>
+              <ci> p53 </ci>
+              <ci> ATMA </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="cc68bb62_bd76_4d8c_8a4a_bd228a03ad3d" id="p53dephosphorylation" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_4a7cc657_ffef_4a0b_949f_ce54f6dbcd3b" species="p53_P"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_68941cbc_7e91_4f7e_a622_bb111f7bee57" species="p53"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="c2f0afe0_a2c0_464d_a057_9979a353304a" species="p53_P"/>
+        </listOfModifiers>
+        <kineticLaw metaid="b33a354c_7f99_4995_abda_6ac8ad509e3b">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kdephosp53 </ci>
+              <ci> p53_P </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_7f623d04_c771_4ce6_9b16_446bb9e39804" id="Mdm2phosphorylation" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="d4ff56c1_ed6b_4d72_a544_f574be8dbbd9" species="Mdm2"/>
+          <speciesReference metaid="_9deaf28c_4611_40da_9243_6533e8c493bd" species="ATMA"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="b29b50ee_7755_4664_96f1_345d4da535ac" species="Mdm2_P"/>
+          <speciesReference metaid="_4f55e22a_fbff_4497_b576_2e40e7c10f37" species="ATMA"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_2be2ba00_6c41_4538_8ee3_8b92441c6e10" species="Mdm2"/>
+          <modifierSpeciesReference metaid="c98b7f1c_723e_40fc_ba4c_de653262e446" species="ATMA"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_46e66d9a_017d_43e2_b16b_99ec7c874b6b">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kphosMdm2 </ci>
+              <ci> Mdm2 </ci>
+              <ci> ATMA </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="df9af698_1861_459d_9a17_0fa99d3b73d2" id="Mdm2dephosphorylation" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_97ad46df_b263_4b0e_abd2_fc604bba03d4" species="Mdm2_P"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_7fcad63f_979e_4278_b19f_497cc4c0818f" species="Mdm2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_5e536153_2ded_4db5_a278_2d7269f346c5" species="Mdm2_P"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_37c1ff18_b306_4284_a036_1722c164542c">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kdephosMdm2 </ci>
+              <ci> Mdm2_P </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="a9b8c802_f06f_489e_b379_29986d09ae84" id="Mdm2PUbiquitination" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="fb165c6c_3f80_4108_af6f_23853dbb9344" species="Mdm2_P"/>
+          <speciesReference metaid="ce91d346_8c00_4c85_a2a2_232f059365a2" species="E2_Ub"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="e9527616_118d_4c89_bdf9_ff4855a2873f" species="Mdm2_P_Ub"/>
+          <speciesReference metaid="d061d7ab_6932_4975_8846_4716ed7f95a7" species="E2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_60a22b88_69c1_4e22_8900_7c4dfaba6906" species="Mdm2_P"/>
+          <modifierSpeciesReference metaid="c6604dd3_a407_4d99_8005_3b776e9a4ba3" species="E2_Ub"/>
+        </listOfModifiers>
+        <kineticLaw metaid="b19fb684_6a10_47c7_a757_fcc12f904994">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kMdm2PUb </ci>
+              <ci> Mdm2_P </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="d7ae4eeb_c424_46b6_b860_9d7f55a51598" id="Mdm2PpolyUbiquitination1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="ff92183d_04c0_41e7_ac47_0298d59cd03f" species="Mdm2_P_Ub"/>
+          <speciesReference metaid="_720633f1_11d5_4dcd_8861_71a8a2f5c677" species="E2_Ub"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="f0eafe4e_cf72_4fd1_a39b_c7f8a74cd110" species="Mdm2_P_Ub2"/>
+          <speciesReference metaid="_95dea53d_632d_4b67_adf6_e244b7fcc5bf" species="E2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="bfca5cec_d22c_4846_94c2_c36726540ae7" species="Mdm2_P_Ub"/>
+          <modifierSpeciesReference metaid="_2ee7e65a_cfe1_4f55_8e4c_fffc3fce9b2c" species="E2_Ub"/>
+        </listOfModifiers>
+        <kineticLaw metaid="f0c7445c_f5e1_413a_acc7_767f68eb4443">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_P_Ub </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_921cf7cd_e8f1_4ce4_8852_0ad5f0fc15aa" id="Mdm2PpolyUbiquitination2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_8a7d69fe_3116_4040_951d_c344f39b413b" species="Mdm2_P_Ub2"/>
+          <speciesReference metaid="_232a3540_cbbc_420b_aa47_1724e0753752" species="E2_Ub"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="f8ca7c24_188c_4922_bbc8_feb88ea52752" species="Mdm2_P_Ub3"/>
+          <speciesReference metaid="_4edd6c8c_ade0_4421_a07d_6cab01ef7967" species="E2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="f7ccbe39_3b2e_4c51_b918_ebca23d768ea" species="Mdm2_P_Ub2"/>
+          <modifierSpeciesReference metaid="d0192a19_75a8_4382_868b_67c823a60710" species="E2_Ub"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_05cb3b4c_2a86_4f4c_a82e_49ec3fc3adcb">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_P_Ub2 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_7d0d6b32_0a78_474a_9c0d_925096464a13" id="Mdm2PpolyUbiquitination3" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="a3920313_0c58_49d0_a0ed_d3b82615ebaa" species="Mdm2_P_Ub3"/>
+          <speciesReference metaid="_0ecd2444_3bc0_4eb3_ba05_26b23fbf9cb1" species="E2_Ub"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_082bd98a_7390_4ed3_8c7c_819c2ee7d25e" species="Mdm2_P_Ub4"/>
+          <speciesReference metaid="_25b33ccd_5f92_47ae_9a40_6aace6bca71c" species="E2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_9586ff8a_a399_4334_8977_8a44c90023db" species="Mdm2_P_Ub3"/>
+          <modifierSpeciesReference metaid="_5b87e754_5686_41f4_ac36_5e1f61856809" species="E2_Ub"/>
+        </listOfModifiers>
+        <kineticLaw metaid="cd3aefb4_fae5_4c9c_9a3e_8e619b275948">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kMdm2PolyUb </ci>
+              <ci> Mdm2_P_Ub3 </ci>
+              <ci> E2_Ub </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="d4e3b440_6771_40ca_9d27_955e1e0ddb37" id="Mdm2PDeubiquitination4" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="e2062272_8631_4d2e_9751_fd8e536c78c0" species="Mdm2_P_Ub4"/>
+          <speciesReference metaid="bb0c0cbf_b804_4be5_81a1_6d255e304e65" species="Mdm2DUB"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_4e552c4f_364e_480d_b7ab_6faa7e27f444" species="Mdm2_P_Ub3"/>
+          <speciesReference metaid="_0f02482c_9476_4870_9c06_bba88c00ee3d" species="Mdm2DUB"/>
+          <speciesReference metaid="c74b8525_6261_412a_bc82_efda50e98a52" species="Ub"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_140596be_5e24_4cbc_aa16_ea4944f0d2ec" species="Mdm2_P_Ub4"/>
+          <modifierSpeciesReference metaid="_8fa11c00_0b73_4318_964f_81e6ac80e7f5" species="Mdm2DUB"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_77acce23_0acb_4fbf_9037_a930309dfa86">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub4 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_5c442b5c_335a_4427_9c37_8ab7a39118a7" id="Mdm2PDeubiquitination3" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_8ee8263c_6084_4fb6_8d85_58deabc59a7d" species="Mdm2_P_Ub3"/>
+          <speciesReference metaid="_3d4dd713_cf1d_4a2f_b33d_8b4b36ef1b5f" species="Mdm2DUB"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="e3f1ed16_dd45_4b21_bd7f_af0eae592694" species="Mdm2_P_Ub2"/>
+          <speciesReference metaid="_916907b2_2382_4366_ae0b_e19133ed82c3" species="Mdm2DUB"/>
+          <speciesReference metaid="d54c61fa_ebac_4dd5_8737_89eaa8e01303" species="Ub"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_791ab125_373f_4cb9_b9bc_84416b67f1fa" species="Mdm2_P_Ub3"/>
+          <modifierSpeciesReference metaid="ab9e41b4_113c_44bd_bb66_8886d7efbc99" species="Mdm2DUB"/>
+        </listOfModifiers>
+        <kineticLaw metaid="c15a4e97_b1f1_4233_9d2a_6cf02bb907d1">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub3 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_9e4f518f_eb1d_4a6b_bbc6_1016edebb19f" id="Mdm2PDeubiquitination2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_0a225b5b_268c_4a0a_b849_8797a38443d9" species="Mdm2_P_Ub2"/>
+          <speciesReference metaid="_52d50c09_d04c_4f4c_ace7_16864793c2dd" species="Mdm2DUB"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_300b5450_7eba_4012_aaf4_5384d0ec291f" species="Mdm2_P_Ub"/>
+          <speciesReference metaid="_03bd353a_b56d_4ca7_9069_7fa0b2222f89" species="Mdm2DUB"/>
+          <speciesReference metaid="a8ee29fc_e421_4c47_b580_0eac5a97202c" species="Ub"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_9fd153f6_1d11_4469_9026_09f20273d2af" species="Mdm2_P_Ub2"/>
+          <modifierSpeciesReference metaid="_15ca3dac_dba3_4255_ac95_794d74bb3cfc" species="Mdm2DUB"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_25d3d4b0_490e_4b5d_aa52_31071fdf59dd">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub2 </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_38201262_2e6b_473f_ac3f_7b100d25479d" id="Mdm2PDeubiquitination1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="d1be5300_1528_4e86_8f19_9e2df287d014" species="Mdm2_P_Ub"/>
+          <speciesReference metaid="d9edc86b_71ba_465c_8e5a_799ccd89b2ca" species="Mdm2DUB"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="e76f05ba_eef4_424b_b248_b7f84858ba0c" species="Mdm2_P"/>
+          <speciesReference metaid="_11af1168_e5f0_4b99_b4ed_079d1d27c864" species="Mdm2DUB"/>
+          <speciesReference metaid="_354c175a_7f6c_4ea6_b7d0_6accbd39c26c" species="Ub"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="a02c6436_c009_4cfd_829e_06b0250f240a" species="Mdm2_P_Ub"/>
+          <modifierSpeciesReference metaid="_748f47bd_588b_42f6_93af_eb911697aa38" species="Mdm2DUB"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_2d546b7f_582f_4c71_b92c_37baea67bfbb">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kactDUBMdm2 </ci>
+              <ci> Mdm2_P_Ub </ci>
+              <ci> Mdm2DUB </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_1830aeba_0673_4138_a341_b11f5f74baf0" id="Mdm2PProteasomeBinding1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_05562b10_fa82_44c1_b2fa_1d366f941609" species="Mdm2_P_Ub4"/>
+          <speciesReference metaid="f87b009e_456b_43a3_85a8_341d34a252cf" species="Proteasome"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_95b69ef1_0d51_4a28_b585_03c12bc8d1bb" species="Mdm2_P_Ub4_Proteasome"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="f75e1956_ab07_4b47_987d_ce166c8a6ed3" species="Mdm2_P_Ub4"/>
+          <modifierSpeciesReference metaid="_8bc7b77d_c50e_49a3_bb99_0f277fff0c76" species="Proteasome"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_817bc5ee_451c_4d3c_8f44_3cf5150801ef">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kbinProt </ci>
+              <ci> Mdm2_P_Ub4 </ci>
+              <ci> Proteasome </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="f3153f8f_d54e_4a5e_ba47_ea61ed5c4954" id="Mdm2PDegradation" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_88969a4b_606e_4494_b707_2db42f9b90af" species="Mdm2_P_Ub4_Proteasome"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_8c7bcc09_fddc_4227_b7c5_63a7c608423b" species="Proteasome"/>
+          <speciesReference metaid="a72a18ea_20ae_4f07_b07c_205f55ff2150" species="Ub" stoichiometry="4"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_4194a2c3_0d40_45f1_bc1e_de67ced53795" species="Mdm2_P_Ub4_Proteasome"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_9c482ccd_2f0e_4e81_b15c_9e272e9547d6">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kdegMdm2 </ci>
+              <ci> Mdm2_P_Ub4_Proteasome </ci>
+              <ci> kproteff </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_9a0dc7ce_007a_434b_8f30_bb9c940bcf2e" id="ATMInactivation" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="be9af7e2_0408_4e84_920b_64aa6d59340f" species="ATMA"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_89d5ddc5_910d_439d_84ff_b2e0e8d54662" species="ATMI"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_14e84d72_ed15_4584_9dbd_9e492e06da2d" species="ATMA"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_3e0c4603_c2b9_48fc_8d29_ed4f202727f1">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kinactATM </ci>
+              <ci> ATMA </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_3a167843_b6b1_4859_a7c0_a44b5272f992" id="AbetaROSproduction1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_0782712f_a87b_4f36_a51f_1f5b12ba52bc" species="Abeta"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_4f184a72_ada9_4cc3_809a_a6227ab8c98d" species="Abeta"/>
+          <speciesReference metaid="ed584403_1b41_47a9_8477_fe5e5dacf556" species="ROS"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_615f7929_ae4d_468b_afcc_ba0130ae215f" species="Abeta"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_9c5997f4_ddaa_4e4b_bcb9_46c0358f1c2e">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kgenROSAbeta </ci>
+              <ci> Abeta </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_4ce335c2_711e_4796_9352_0de810b53d8c" id="PlaqueROSproduction" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="d17a5f37_0874_416b_894e_7f9112ff0267" species="AbetaPlaque"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="f66a34ce_f460_484e_bb76_4aa006a26c28" species="AbetaPlaque"/>
+          <speciesReference metaid="_5b704f10_c2e0_41c4_a5a8_b6b81e402b55" species="ROS"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_7e049b60_9fde_4831_93f5_c0e38bda3764" species="AbetaPlaque"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_70957451_27aa_45d8_b281_f1f805250274">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kgenROSPlaque </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="ae297d80_c7f3_4de9_a4fd_bb9e948b7667" id="AggAbetaROSproduction2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_1f578afa_aa07_4aee_bd98_84786a871cef" species="AggAbeta_Proteasome"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="e00e5d8a_5657_405c_96f2_c1f24df4e749" species="AggAbeta_Proteasome"/>
+          <speciesReference metaid="_0252a276_a45e_4e5d_b2f3_d6ec2bc597ef" species="ROS"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_9636293c_9562_45ad_bea2_3d9486b9f9fa" species="AggAbeta_Proteasome"/>
+        </listOfModifiers>
+        <kineticLaw metaid="d4471e2b_ec63_448f_b6b7_296055868cc0">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kgenROSAbeta </ci>
+              <ci> AggAbeta_Proteasome </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_18354624_5d2e_4baf_9e62_73650bcd6da6" id="ROSDNAdamage" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_2460d947_fd69_4def_a018_10cbc742e1c7" species="ROS"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="a1849613_a972_43ef_994c_b713e1ebd418" species="ROS"/>
+          <speciesReference metaid="_8a4be89e_98c3_4d60_9916_0b86b194f1cb" species="damDNA"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_0d07e232_10eb_4477_9bde_bb0108780a77" species="ROS"/>
+        </listOfModifiers>
+        <kineticLaw metaid="dd902bd9_0438_4d74_b65e_6396b8681abc">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kdamROS </ci>
+              <ci> ROS </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="e5febe70_a2b8_4c6b_beb2_b65e02452146" id="TauSynthesis" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="cb2c97fc_9ff2_4bed_ad91_481cc7243745" species="Source"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_02a32387_fc43_41be_bfe7_72464842f28f" species="Tau"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_62139641_beb3_4f44_bce1_78725a1f728b" species="Source"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_7deb2fd7_cf02_47f2_b16a_8976556a5445">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> ksynTau </ci>
+              <ci> Source </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_1e599692_1517_43d6_8ffd_4b23358b8bfd" id="TauProteasomeBinding" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="b4fef229_25e9_499d_9e27_bf0a94e9e8c5" species="Tau"/>
+          <speciesReference metaid="_01227a7b_2054_4a20_ada0_bb4b466d6258" species="Proteasome"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="aa2fcd8c_3bcc_4d01_9ba1_2928788f2564" species="Proteasome_Tau"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_4e266036_46c5_4c66_b49b_84dacd4abcbf" species="Tau"/>
+          <modifierSpeciesReference metaid="bf41580c_4449_44e5_bdd5_e3f9acc4541d" species="Proteasome"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_9ddbd325_8df7_4956_9266_b7aee9ba29d8">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kbinTauProt </ci>
+              <ci> Tau </ci>
+              <ci> Proteasome </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_5440c7c7_7c7b_4a35_bdf3_c54df48f4cc7" id="Tau20SProteasomeDegradation" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="a23b6e8e_75aa_44b2_a8e0_d5b0d6f36530" species="Proteasome_Tau"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="e144d76d_caf2_4fc2_beed_2ed88c3148fc" species="Proteasome"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_37d27338_bf95_4455_9034_1abb28d2dcaf" species="Proteasome_Tau"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_6ca06ca4_e0f9_4450_999a_52a6884ce160">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kdegTau20SProt </ci>
+              <ci> Proteasome_Tau </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_3aded42d_0e56_4bfe_9ed3_433e41344022" id="AbetaAggregation1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_70d9cecc_c396_4be8_a664_b386bc38c387" species="Abeta" stoichiometry="2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_57d20aac_f174_4e50_b8fe_017d8c569ad2" species="AbetaDimer"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="e4da1933_d1e2_4612_9908_f7a694ac4313" species="Abeta"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_72a71e89_81df_42e5_b174_ab71119de400">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kaggAbeta </ci>
+              <apply>
+                <power/>
+                <ci> Abeta </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="fdd1f983_1086_46c0_9f73_8a0d25881229" id="AbetaPlaqueFormation1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="c271c2bb_1046_4d24_9a59_e1168e8025e7" species="AbetaDimer" stoichiometry="2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="cfa5a9e1_5dfa_4db5_9e0e_a78aa73722c7" species="AbetaPlaque"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="a0e750f4_e2da_4185_95bb_64d29c222068" species="AbetaDimer"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_5ccaa70f_567f_4313_8244_907e21bcd2ad">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kpf </ci>
+              <apply>
+                <power/>
+                <ci> AbetaDimer </ci>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <cn> 0.5 </cn>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="d29bbbc6_917c_411c_87be_c027882e9eb0" id="AbetaPlaqueGrowth" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_7ae9dc6f_042b_4350_b8fe_1dc8b345196b" species="AbetaDimer"/>
+          <speciesReference metaid="_1886e31d_0366_44e8_9df2_7fe42773d131" species="AbetaPlaque"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="e1bd75d0_b254_4662_a663_ed345ba0f3cf" species="AbetaPlaque" stoichiometry="2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_459299be_ac67_49a7_9aab_813493571e83" species="AbetaDimer"/>
+          <modifierSpeciesReference metaid="d245d54a_392b_4511_bc75_b411db33b9b0" species="AbetaPlaque"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_3bc7f4bf_bc46_4497_ab97_64844c263584">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> kpg </ci>
+                <ci> AbetaDimer </ci>
+                <apply>
+                  <power/>
+                  <ci> AbetaPlaque </ci>
+                  <cn type="integer"> 2 </cn>
+                </apply>
+              </apply>
+              <apply>
+                <plus/>
+                <apply>
+                  <power/>
+                  <ci> kpghalf </ci>
+                  <cn type="integer"> 2 </cn>
+                </apply>
+                <apply>
+                  <power/>
+                  <ci> AbetaPlaque </ci>
+                  <cn type="integer"> 2 </cn>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_4cf4e094_f604_4b0f_bc16_e7defbe1b727" id="AbetaDisaggregation1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_37f6461a_b69f_4746_8908_5c8127559456" species="AbetaDimer"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_326358f3_2e93_4f2c_b779_6ba68787a96f" species="Abeta" stoichiometry="2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="d997c1f6_f4c5_47e4_be83_4523c5994b59" species="AbetaDimer"/>
+        </listOfModifiers>
+        <kineticLaw metaid="c4f6d1cb_8354_42a9_8dd3_ba1a0e2661ce">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kdisaggAbeta </ci>
+              <ci> AbetaDimer </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="a7328a20_c527_4b90_b989_c0406534ab08" id="AbetaDisaggregation3" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_8fbdf985_f3e8_489a_b438_1ee75686d2cd" species="AbetaPlaque"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="d5c4e09e_8165_441c_8676_6e6ad54c1dc6" species="AbetaDimer"/>
+          <speciesReference metaid="f155fe60_e662_4dbe_97f7_6ac805282f6e" species="disaggPlaque1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_1d258b2f_57a7_41fa_9892_b2deea059050" species="AbetaPlaque"/>
+        </listOfModifiers>
+        <kineticLaw metaid="b07ef97e_7ca2_4f59_a454_4e265877654a">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kdisaggAbeta1 </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_811815b5_3312_44f1_8a78_0a681d226379" id="AbetaDisaggregation4" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_5fec82c4_b27d_459d_b85e_ee19219a7e51" species="AbetaPlaque"/>
+          <speciesReference metaid="_750da000_beb1_4262_a59b_1b8cafe58023" species="antiAb"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="c3351e7c_ec42_49b0_a80d_cbf6a97819b6" species="AbetaDimer"/>
+          <speciesReference metaid="febecc40_2c22_4ebc_8219_adddee0322a6" species="antiAb"/>
+          <speciesReference metaid="_5065562d_dc85_4c55_a110_94ebd9bd2d74" species="disaggPlaque2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_7433ea24_ddc0_47e4_897b_678666b820eb" species="antiAb"/>
+          <modifierSpeciesReference metaid="_129eae18_a35e_4c5e_80de_70278de19701" species="AbetaPlaque"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_80e69199_cb5f_44bb_9d28_5582e850058a">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kdisaggAbeta2 </ci>
+              <ci> antiAb </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="b6fdc552_90d3_4bb6_96e4_e4940bb60ecc" id="Abeta_antiAbBinding" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_9e99005a_56ab_4a17_b99d_167c3d713251" species="Abeta"/>
+          <speciesReference metaid="_10c60236_0163_45d7_b4cb_49706e3fd800" species="antiAb"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_76be5c7a_3703_4941_9b09_29f4f3f8a96a" species="Abeta_antiAb"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_00310e5c_f013_4fc7_bba8_f29b6079cb49" species="Abeta"/>
+          <modifierSpeciesReference metaid="b4a45d16_e24c_44ed_a311_cc5a74d7238f" species="antiAb"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_27a0827a_9f35_4bf2_a230_c6f5ad9d71ad">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kbinAbantiAb </ci>
+              <ci> Abeta </ci>
+              <ci> antiAb </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="aaeef9a1_77f9_492c_b476_fb392e138e00" id="AbetaDimer_antiAbBinding" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_31d6e228_5a08_4f8e_a25e_3fdfcae650ce" species="AbetaDimer"/>
+          <speciesReference metaid="_8a975967_ab79_4e68_aae5_3f39a83dd3b9" species="antiAb"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_9286be20_f6aa_4b3c_832c_99e1adb795fb" species="AbetaDimer_antiAb"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_774b2a0b_2c8b_49bb_914d_31a57424a540" species="AbetaDimer"/>
+          <modifierSpeciesReference metaid="_49566830_69ea_4394_97ff_ef68ed7bfa52" species="antiAb"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_47ecf41a_e9ae_4c80_acdf_500ea2de4bab">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kbinAbantiAb </ci>
+              <ci> AbetaDimer </ci>
+              <ci> antiAb </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_594e2a69_c661_4f3f_8f93_df4cfffeec4d" id="Abeta_antiAbDegredation" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_4f1f6ce3_52f3_4f3c_bc14_1ed35021be1c" species="Abeta_antiAb"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_37c5fa96_eb16_4839_9da6_a135056b0545" species="antiAb"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="dde7f072_7d64_42e4_addd_8b4ec116246d" species="Abeta_antiAb"/>
+        </listOfModifiers>
+        <kineticLaw metaid="e33481f6_bbfb_4f4d_9305_553231938035">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <cn type="integer"> 10 </cn>
+              <ci> kdegAbeta </ci>
+              <ci> Abeta_antiAb </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="caf0c6ed_b016_40ff_86db_dc3a60511653" id="AbetaDimer_antiAbDegredation" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_503638a7_b5d7_4a58_a9db_ba9fb40681a1" species="AbetaDimer_antiAb"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_7c54b337_f97b_48ba_9821_bfc0066987cc" species="antiAb"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_5b534ca3_bb8f_4e47_8f2d_aa98b56a7162" species="AbetaDimer_antiAb"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_920c6844_fad7_4eaa_86b9_744e0448530e">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <cn type="integer"> 10 </cn>
+              <ci> kdegAbeta </ci>
+              <ci> AbetaDimer_antiAb </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_7c957d91_25cf_4933_8bd1_c3246620520f" id="GliaActivationStep1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="a31ea8b9_ba87_41b3_9a8b_2274ecd2523c" species="GliaI"/>
+          <speciesReference metaid="b817d317_42a0_40ca_aeaa_5f3c7fe7ffdd" species="AbetaPlaque"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_1da4b2fc_4b4d_4968_9588_3a79e064f816" species="GliaM1"/>
+          <speciesReference metaid="dc93e554_746f_46cb_a7d0_43ebbc2b4d60" species="AbetaPlaque"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="d7ce48e8_52f4_4bcd_aded_b55546e60491" species="GliaI"/>
+          <modifierSpeciesReference metaid="_7875fcaa_c8e7_4328_931c_148e48b8ff2b" species="AbetaPlaque"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_91cb35d3_1734_440a_a979_bad2a9a8fbec">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kactglia1 </ci>
+              <ci> GliaI </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_6d49fa85_b3c7_41b0_ab84_e3325a984196" id="GliaActivationStep2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_9a45792c_b4fb_4cc3_9b31_00e841a3cc6c" species="GliaM1"/>
+          <speciesReference metaid="_91637dd2_55a7_49f2_a484_24f457e157f4" species="AbetaPlaque"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="e10a2c1a_38bd_41f2_9b06_d587959271dd" species="GliaM2"/>
+          <speciesReference metaid="_00ed4c61_901c_482c_80ab_0f860cd53b89" species="AbetaPlaque"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="a30444f3_f4fb_4def_800c_5f24edf15785" species="GliaM1"/>
+          <modifierSpeciesReference metaid="_9e290fc8_c851_4ab0_8d87_ce7cb7c5506c" species="AbetaPlaque"/>
+        </listOfModifiers>
+        <kineticLaw metaid="c1c15307_5492_49dd_ba1b_e1e62c7ad07f">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kactglia1 </ci>
+              <ci> GliaM1 </ci>
+              <ci> AbetaPlaque </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_2e76a2ea_b9a1_4a11_960b_1d9e3eee7c8b" id="GliaActivationStep3" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_0c522f63_99b3_4dcb_bf5c_598041ec9945" species="GliaM2"/>
+          <speciesReference metaid="_36a027f9_d43a_4802_b5dc_61e94b3b0158" species="antiAb"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_6cefeec3_f407_404f_a792_bf050bc881d4" species="GliaA"/>
+          <speciesReference metaid="dcfb8fc9_af7d_414e_ada8_8a956ea885b3" species="antiAb"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="a00404ee_9bee_457b_92fa_cc8adb70464b" species="GliaM2"/>
+          <modifierSpeciesReference metaid="_30d49ce9_ef3f_42ec_a483_a7d0468c41af" species="antiAb"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_38eea98f_c4fc_476d_a685_f39dee0c2a1b">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kactglia2 </ci>
+              <ci> GliaM2 </ci>
+              <ci> antiAb </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_7f77fa62_81d2_46b3_b172_23576cd92ce8" id="GliaInactivationStep1" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_983db3cc_f434_4a05_8412_0e3106edac95" species="GliaA"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_5f6fec5a_0b62_4a28_881c_9ed063693ff4" species="GliaM2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_36b3c40b_8995_4a9d_907f_3c23da7039b7" species="GliaA"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_6d2366b2_2761_4a32_a0b5_f56493f509b1">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kinactglia1 </ci>
+              <ci> GliaA </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_26413141_6fd5_4140_9645_a0a4b8e6aecc" id="GliaInactivationStep2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="e8d334bf_9f81_41c3_8eeb_5000dbb55743" species="GliaM2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_6613ac2d_bbcd_4787_b066_3e0ee35c358e" species="GliaM1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_89e29cc8_4bb7_4c14_b835_589c471ac973" species="GliaM2"/>
+        </listOfModifiers>
+        <kineticLaw metaid="f5e35119_f08c_42fa_9fdf_e69e7e77d85e">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kinactglia2 </ci>
+              <ci> GliaM2 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="ef9a4afd_9b0e_4c65_b3de_e2462519848c" id="GliaInactivationStep3" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_3a133754_be1b_4857_b92f_8218855b5c12" species="GliaM1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_4b274bb4_8ae4_4f56_ac1e_cab3ad23c3c7" species="GliaI"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_1fa9e5bc_9014_4ed0_9c54_600176160d25" species="GliaM1"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_2bed5d7f_99dd_498b_8687_bfbd96dcd661">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kinactglia2 </ci>
+              <ci> GliaM1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_77c9c3ef_a264_4ba4_bfd0_4a98b79399c7" id="AbetaBindingToGlia" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_68e1c638_93fa_448a_9bd4_432213fd3382" species="AbetaPlaque"/>
+          <speciesReference metaid="_3cd41a30_42b2_4aae_8fa4_ca64b63bd27d" species="GliaA"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="cbaf9ede_da68_47e6_947d_cfb9b2bacfcc" species="AbetaPlaque_GliaA"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="c23c5304_d2bf_481a_8fa4_b38e7ff416df" species="AbetaPlaque"/>
+          <modifierSpeciesReference metaid="_4c383103_759f_4f34_9de0_7a23588bd5cf" species="GliaA"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_791c78be_440f_4f98_80be_8aeb58078fae">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kbinAbetaGlia </ci>
+              <ci> AbetaPlaque </ci>
+              <ci> GliaA </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="ef0cb1a0_f1c9_42a7_b349_8c8b519ed3e5" id="AbetaReleaseFromGlia" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_01686fdd_9a88_40e7_ac15_742e309b8a17" species="AbetaPlaque_GliaA"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="b8d36aca_3629_4a08_a2e8_4cb292963a88" species="AbetaPlaque"/>
+          <speciesReference metaid="_5505bd29_5dd4_449f_85f7_032018c91352" species="GliaA"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="b5678f70_a912_4557_90e6_65ef69e471a9" species="AbetaPlaque_GliaA"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_29bbca44_8145_40d7_9615_e2d95aee6d66">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> krelAbetaGlia </ci>
+              <ci> AbetaPlaque_GliaA </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_8a439ac7_051a_426e_a694_c4c4a1f8c421" id="AbetaPlaqueClearanceByGlia" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_9d0cdba6_c9f7_4589_9550_3fb273a01386" species="AbetaPlaque_GliaA"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_310fc9e8_57f4_470b_bb5e_fd21982830f1" species="GliaA"/>
+          <speciesReference metaid="_3f4b8edc_8bdc_4474_9cfc_44a58e536f90" species="degAbetaGlia"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="d3a97397_8e65_4451_b473_82ab44593091" species="AbetaPlaque_GliaA"/>
+        </listOfModifiers>
+        <kineticLaw metaid="a5c68b60_f1f7_41d7_8a22_94348d6deb31">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kdegAbetaGlia </ci>
+              <ci> AbetaPlaque_GliaA </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="c3e5070e_8d34_4dbd_b267_1fc083314364" id="ROSgenerationByGlia" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_13415fd2_0d71_408f_ab3b_e08ae9c9d028" species="AbetaPlaque_GliaA"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_25c235f7_2bb8_4736_94da_e3e8c983173d" species="AbetaPlaque_GliaA"/>
+          <speciesReference metaid="e1d7cbbd_4c37_40c2_a7f2_bdda7d53e31f" species="ROS"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_16b99d7f_5421_4ba0_8e63_0fe9edcedce1" species="AbetaPlaque_GliaA"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_46bff151_e89f_45b2_8ea3_fd96a0ceac23">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kgenROSGlia </ci>
+              <ci> AbetaPlaque_GliaA </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_3dad6712_6a60_48d9_9963_5f47e8abc298" id="antiAbRemoval" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="f04f209d_9fd3_48b7_b262_cd1afe6543f7" species="antiAb"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="d9fb4929_5dec_4589_9916_9c90d5c37570" species="Sink"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_52f92e2e_630f_43ab_8bea_fc3a45db0fc1" species="antiAb"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_64247581_1d0f_4dad_8a73_9c1b9dad2717">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kdegAntiAb </ci>
+              <ci> antiAb </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="_738c7de8_98c8_4561_a709_cd073ef61cbc" id="ROSremoval" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_6e3c9f13_8083_4600_a717_51b26bcd000c" species="ROS"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_73d7c41c_fdcf_494d_9690_cc7d7dba952a" species="Sink"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_2a66bff6_a2d3_4d3e_8257_859118932513" species="ROS"/>
+        </listOfModifiers>
+        <kineticLaw metaid="ef91005c_8332_4207_925e_f5d3f4b36cbb">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kremROS </ci>
+              <ci> ROS </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <listOfEvents>
+      <event metaid="_9d1ca394_8a7c_4d1e_950a_eafe0ac2fd93" id="ImmunizeCell">
+        <trigger metaid="_4497c4de_245a_4d2e_87ee_cc77407cd453">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <geq/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> t </csymbol>
+              <cn type="integer"> 345600 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment metaid="_0899789f_73ff_498b_97b7_4fad46a94b6a" variable="antiAb">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 50 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>

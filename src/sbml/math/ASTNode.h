@@ -390,7 +390,7 @@ public:
    * @see insertChild(unsigned int n, ASTNode* disownedChild)
    */
   LIBSBML_EXTERN
-  int removeChild(unsigned int n);
+  int removeChild(unsigned int n, bool delremoved = false);
 
 
   /**
@@ -2263,8 +2263,152 @@ setValue(value, 0);
 
   /** @endcond */
 
+  /* returns true if astnodes are exactly the same
+  *  so 'a+4' == 'a+4'   
+  * but 'a+4' != '4+a'
+  */
+  LIBSBML_EXTERN
+  bool exactlyEqual(const ASTNode& rhs);
 
+  /* calls
+    refactorNumbers();
+    encompassUnaryMinus();
+    createNonBinaryTree();
+    reorderArguments();
+  */
+  LIBSBML_EXTERN
+  void refactor();
+
+  /*
+  * a decomposed ast is one where if the top level func is *or /
+  * the arguments are not sums
+  * (a + B) * c becomes ac + Bc
+  * (5 + 3)/(a-4) becomes 8/(a-4)
+  * (a + 4)/4 becomes 1 + a/4
+  */
+  LIBSBML_EXTERN
+  void decompose();
+
+  /*
+  * Returns an ASTNode representing the derivative w.r.t variable
+  * e.g. Node represents 2*x^2 
+  *      variable = "x"
+  * returns Node representing 4 * x 
+  * since d(2*x^2)/dx = 4*x
+  */
+  LIBSBML_EXTERN
+  ASTNode* derivative(const std::string& variable);
+
+  LIBSBML_EXTERN
+  void printMath(unsigned int level = 0);
 protected:
+
+  friend class SBMLRateRuleConverter;
+
+//  void printMath(unsigned int level = 0);
+
+  /* change all numbers to real*/
+  void refactorNumbers();
+
+  /*
+  * simplify the node based on math i.e 1 * x becomes x
+  * see inline
+  */
+  void simplify();
+
+  /* for plus or times order arguments so we have number + names + functions
+  * 3.1 +b + 2 becomes 5.1 + b
+  * 2 * 5 becomes 10
+  * sin(2+3) + 3.1 + b becomes 3.1 +b + sin(5)
+  */
+  bool reorderArguments(unsigned int level=0 );
+
+  /* remove any instances of unary minus
+  * Level 0: -
+  * Level 1: 2
+  * becomes
+  * Level 0: -2
+  *
+  * Level 0: -
+  * Level 1: 2 * a
+  * Level 2: 2
+  * Level 2: a
+  * becomes
+  * Level 0: -2 * a
+  * Level 1: -2
+  * Level 1: a
+  *
+  * Level 0: -
+  * Level 1: b / a
+  * Level 2: b
+  * Level 2: a
+  * becomes
+  * Level 0: (-1*b)/a
+  * Level 1: -1*b
+  * Level 2: -1
+  * Level 2: b
+  * Level 1: a
+  */
+  void encompassUnaryMinus();
+    
+
+  /* create AST the is non binary
+    * Binary each node has 2 children 
+    * Level 0: a + b + (c + s)
+    * Level 1: a + b
+    * Level 2: a
+    * Level 2: b
+    * Level 1: c + s
+    * Level 2: c
+    * Level 2: s
+    *
+    * Non binary Node at Level 0 has 4 children
+    * Level 0: a + b + c + s
+    * Level 1: a
+    * Level 1: b
+    * Level 1: c
+    * Level 1: s
+  */
+  void createNonBinaryTree();
+
+  /*
+  * change a root node to power ie root(2, x) becomes x^0.5
+  */
+  void convertRootToPower();
+
+  /*
+  * returns derivativeof particular function
+  * i.e. derivativePlus gets a function A + B and returns d(A+B)/dx
+  */
+  ASTNode* derivativePlus(const std::string& variable);
+  ASTNode* derivativeMinus(const std::string& variable);
+  ASTNode* derivativeTimes(const std::string& variable);
+  ASTNode* derivativeDivide(const std::string& variable);
+  ASTNode* derivativePower(const std::string& variable);
+  ASTNode* derivativeLog(const std::string& variable);
+  ASTNode* derivativeLn(const std::string& variable);
+  ASTNode* derivativeExp(const std::string& variable);
+
+
+  /*
+  * produce three vectors of the child index of the ASTNodes
+  * numbers : any nodes representing just a number
+  * names : any nodes representing a variable i.e.a node of type AST_NAME (in alphabetical order)
+  * others : any nodes that are not numbers/names - usually functions
+  */
+  void createVectorOfChildTypes(std::vector<unsigned int>& numbers,
+    std::vector<unsigned int>& names,
+    std::vector<unsigned int>& others);
+
+
+  /* combine numbers:
+  * return an AST representing combined no 
+  */
+  ASTNode* combineNumbers(std::vector<unsigned int>& numbers);
+
+  //========================================================
+
+
   /** @cond doxygenLibsbmlInternal */
 
   LIBSBML_EXTERN
