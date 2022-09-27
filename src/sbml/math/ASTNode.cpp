@@ -3980,6 +3980,8 @@ ASTNode::reorderArguments(unsigned int level)
     {
       mayNeedRefactor = true;
     }
+
+    delete numberNode;
   }
   
   for (unsigned int i = 0; i < getNumChildren(); i++)
@@ -3987,7 +3989,7 @@ ASTNode::reorderArguments(unsigned int level)
     if(getChild(i)->reorderArguments(level + 1))
       mayNeedRefactor = true;
   }
-
+  
   return mayNeedRefactor;
 }
 
@@ -4509,7 +4511,7 @@ ASTNode::derivativeLog(const std::string& variable)
   times->addChild(copy->getChild(1)->deepCopy());
 
   derivative = new ASTNode(AST_DIVIDE);
-  derivative->addChild(getChild(1)->derivative(variable)->deepCopy());
+  derivative->addChild(getChild(1)->derivative(variable));
   derivative->addChild(times->deepCopy());
 
 
@@ -4534,7 +4536,7 @@ ASTNode::derivativeLn(const std::string& variable)
 
 
   derivative = new ASTNode(AST_DIVIDE);
-  derivative->addChild(getChild(0)->derivative(variable)->deepCopy());
+  derivative->addChild(getChild(0)->derivative(variable));
   derivative->addChild(getChild(0)->deepCopy());
 
 
@@ -4556,7 +4558,7 @@ ASTNode::derivativeExp(const std::string& variable)
 
 
   derivative = new ASTNode(AST_TIMES);
-  derivative->addChild(getChild(0)->derivative(variable)->deepCopy());
+  derivative->addChild(getChild(0)->derivative(variable));
   derivative->addChild(copy->deepCopy());
 
 

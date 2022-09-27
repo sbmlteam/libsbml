@@ -361,6 +361,7 @@ START_TEST(test_reorder_args1_combine_numbers2)
   n->refactor();
 
   fail_unless(node->exactlyEqual(*n) == true);
+  delete b;
   delete n;
   delete node;
 }
@@ -445,6 +446,7 @@ START_TEST(test_reorder_args1_combine_numbers5)
   n->refactor();
 
   fail_unless(node->exactlyEqual(*n) == true);
+  delete b;
   delete n;
   delete node;
 }
@@ -639,9 +641,9 @@ START_TEST(test_decompose2)
     "  </apply>"
     "</math>"
   );
-  L3ParserSettings * ps = new L3ParserSettings();
-  ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("5.0*a*b + (-20.0*b)", ps);
+  L3ParserSettings ps;
+  ps.setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("5.0*a*b + (-20.0*b)", &ps);
 
   fail_unless(n != NULL);
 
@@ -674,9 +676,9 @@ START_TEST(test_decompose3)
     "  </apply>"
     "</math>"
   );
-  L3ParserSettings * ps = new L3ParserSettings();
-  ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("5.0/(a - 4.0)", ps);
+  L3ParserSettings ps;
+  ps.setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("5.0/(a - 4.0)", &ps);
 
   fail_unless(n != NULL);
 
@@ -705,9 +707,9 @@ START_TEST(test_decompose4)
     "  </apply>"
     "</math>"
   );
-  L3ParserSettings * ps = new L3ParserSettings();
-  ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("1.0 + (a/4.0)", ps);
+  L3ParserSettings ps;
+  ps.setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("1.0 + (a/4.0)", &ps);
 
   fail_unless(n != NULL);
 
@@ -740,9 +742,9 @@ START_TEST(test_decompose5)
     "  </apply>"
     "</math>"
   );
-  L3ParserSettings * ps = new L3ParserSettings();
-  ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("-0.5+(a/6.0)", ps);
+  L3ParserSettings ps;
+  ps.setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("-0.5+(a/6.0)", &ps);
 
   fail_unless(n != NULL);
 
@@ -771,9 +773,9 @@ START_TEST(test_decompose6)
     "  </apply>"
     "</math>"
   );
-  L3ParserSettings * ps = new L3ParserSettings();
-  ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("-1.0+(a/4.0)", ps);
+  L3ParserSettings ps;
+  ps.setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("-1.0+(a/4.0)", &ps);
 
   fail_unless(n != NULL);
 
@@ -802,9 +804,9 @@ START_TEST(test_simplify1)
     "  </apply>"
     "</math>"
   );
-  L3ParserSettings * ps = new L3ParserSettings();
-  ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("a-4.0", ps);
+  L3ParserSettings ps;
+  ps.setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("a-4.0", &ps);
 
   fail_unless(n != NULL);
 

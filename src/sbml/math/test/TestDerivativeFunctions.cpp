@@ -266,9 +266,9 @@ START_TEST(test_deriv_divide)
   fail_unless(n != NULL);
   const std::string& x = "x";
 
-  L3ParserSettings * ps = new L3ParserSettings();
-  ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("(-4.1)/x^2.0", ps);
+  L3ParserSettings ps;
+  ps.setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("(-4.1)/x^2.0", &ps);
 
   ASTNode *deriv = n->derivative(x);
 
@@ -386,9 +386,9 @@ START_TEST(test_deriv_minus1)
   fail_unless(n != NULL);
   const std::string& x = "x";
 
-  L3ParserSettings * ps = new L3ParserSettings();
-  ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("(-2.0*x)", ps);
+  L3ParserSettings ps;
+  ps.setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("(-2.0*x)", &ps);
 
   ASTNode *deriv = n->derivative(x);
   fail_unless(deriv->exactlyEqual(*node) == true);
@@ -537,9 +537,9 @@ START_TEST(test_deriv_root)
   fail_unless(n != NULL);
   const std::string& x = "x";
 
-  L3ParserSettings * ps = new L3ParserSettings();
-  ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("0.5*((2.0*x)^-0.5)", ps);
+  L3ParserSettings ps;
+  ps.setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("0.5*((2.0*x)^-0.5)", &ps);
 
   ASTNode *deriv = n->derivative(x);
 
@@ -570,9 +570,9 @@ START_TEST(test_deriv_root1)
   fail_unless(n != NULL);
   const std::string& x = "x";
 
-  L3ParserSettings * ps = new L3ParserSettings();
-  ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("0.25*((2.0*x)^-0.75)", ps);
+  L3ParserSettings ps;
+  ps.setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("0.25*((2.0*x)^-0.75)", &ps);
 
   ASTNode *deriv = n->derivative(x);
 
@@ -598,9 +598,9 @@ START_TEST(test_deriv_log)
   fail_unless(n != NULL);
   const std::string& x = "x";
 
-  L3ParserSettings * ps = new L3ParserSettings();
-  ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("1.0/(x*ln(10.0))", ps);
+  L3ParserSettings ps;
+  ps.setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("1.0/(x*ln(10.0))", &ps);
 
   ASTNode *deriv = n->derivative(x);
 
@@ -631,9 +631,9 @@ START_TEST(test_deriv_log1)
   fail_unless(n != NULL);
   const std::string& x = "x";
 
-  L3ParserSettings * ps = new L3ParserSettings();
-  ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("2.0/(ln(4.0)*(2.0*x))", ps);
+  L3ParserSettings ps;
+  ps.setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("2.0/(ln(4.0)*(2.0*x))", &ps);
 
   ASTNode *deriv = n->derivative(x);
 
@@ -659,9 +659,9 @@ START_TEST(test_deriv_ln)
   fail_unless(n != NULL);
   const std::string& x = "x";
 
-  L3ParserSettings * ps = new L3ParserSettings();
-  ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("1.0/x", ps);
+  L3ParserSettings ps;
+  ps.setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("1.0/x", &ps);
 
   ASTNode *deriv = n->derivative(x);
 
@@ -691,9 +691,9 @@ START_TEST(test_deriv_ln1)
   fail_unless(n != NULL);
   const std::string& x = "x";
 
-  L3ParserSettings * ps = new L3ParserSettings();
-  ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("2.0/(2.0*x)", ps);
+  L3ParserSettings ps;
+  ps.setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("2.0/(2.0*x)", &ps);
 
   ASTNode *deriv = n->derivative(x);
 
@@ -719,9 +719,9 @@ START_TEST(test_deriv_exp)
   fail_unless(n != NULL);
   const std::string& x = "x";
 
-  L3ParserSettings * ps = new L3ParserSettings();
-  ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("exp(x)", ps);
+  L3ParserSettings ps;
+  ps.setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("exp(x)", &ps);
 
   ASTNode *deriv = n->derivative(x);
 
@@ -750,9 +750,9 @@ START_TEST(test_deriv_exp1)
   fail_unless(n != NULL);
   const std::string& x = "x";
 
-  L3ParserSettings * ps = new L3ParserSettings();
-  ps->setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("2.0*exp(2.0*x)", ps);
+  L3ParserSettings ps;
+  ps.setParseCollapseMinus(true);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("2.0*exp(2.0*x)", &ps);
 
   ASTNode *deriv = n->derivative(x);
 
