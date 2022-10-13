@@ -8,6 +8,10 @@
 #include <sbml/math/ASTNode.h>
 #include <sbml/extension/SBasePlugin.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
+#ifdef USE_FBC
+#include <sbml/packages/fbc/sbml/FbcAssociation.h>
+#endif // USE_FBC
+
 
 
 #ifdef USE_OCTAVE
