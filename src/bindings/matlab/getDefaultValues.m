@@ -52,13 +52,13 @@ pkgCount = 0;
 if (nargin > 3)
     if (nargin < 5)
         error('not enough arguments');
-    end;
+    end
     pkgCount = length(varargin{4});
  %   packages = cell(1, pkgCount);
   %  pkgVersion = zeros(1, pkgCount);
     packages = varargin{4};
     pkgVersion = varargin{5};
-end;
+end
 
 
     defaultValues = [];
@@ -124,7 +124,7 @@ switch (typecode)
     fhandle = str2func('getUnitDefinitionDefaultValues');
   otherwise
     done = 0; 
-end;
+end
 
 if done == 1
   [defaultValues] = feval(fhandle, level, version);
@@ -135,14 +135,14 @@ else
         [found, fhandle] = getFields(typecode, packages{i}, 0);
         if (found == 1)
             break;
-        end;
+        end
         i = i + 1;
-    end;
+    end
     if (found == 1)
         [defaultValues] = feval(fhandle, level, version, pkgVersion(i));
         done = 1;
-    end;
-end;
+    end
+end
  
 if (done == 1 && pkgCount > 0)
     % we may need to extend the fields 
@@ -153,10 +153,10 @@ if (done == 1 && pkgCount > 0)
             copySBML = defaultValues;
             [newdefaultValues] = feval(fhandle, level, version, pkgVersion(i));
             defaultValues = [copySBML, newdefaultValues];
-        end;
+        end
         i = i + 1;
-    end;
-end;
+    end
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [found, fhandle] = getFields(typecode, pkg, extension)
@@ -166,27 +166,27 @@ function [found, fhandle] = getFields(typecode, pkg, extension)
         if (extension)
             if (isFBCExtension(typecode))
         [found, fhandle] = getFBCDefaultValueFunction(typecode);
-            end;
+            end
         else
         [found, fhandle] = getFBCDefaultValueFunction(typecode);
-        end;
+        end
     elseif strcmp(pkg, 'qual')
       if (extension)
         if (isQUALExtension(typecode))
           [found, fhandle] = getQUALDefaultValueFunction(typecode);
-        end;
+        end
       else
         [found, fhandle] = getQUALDefaultValueFunction(typecode);
-      end;
+      end
     elseif strcmp(pkg, 'groups')
       if (extension)
         if (isGROUPSExtension(typecode))
           [found, fhandle] = getGROUPSDefaultValueFunction(typecode);
-        end;
+        end
       else
         [found, fhandle] = getGROUPSDefaultValueFunction(typecode);
-      end;
-    end;
+      end
+    end
 %%%%% REMOVE END
 %%%%% ADD ADDITIONAL
 
@@ -203,21 +203,21 @@ function extend = isFBCExtension(typecode)
             extend = 1;
     case {'SBML_FBC_SBASE', 'FBCSBase', 'SBML_SBASE', 'SBase', 'sbase'}
       extend = 1;
-   end;
+   end
    
 function extend = isQUALExtension(typecode)
   extend = 0;
   switch (typecode)
     case {'SBML_QUAL_MODEL', 'QUALModel', 'SBML_MODEL', 'Model', 'model'}
       extend = 1;
-  end;
+  end
 
 function extend = isGROUPSExtension(typecode)
   extend = 0;
   switch (typecode)
     case {'SBML_GROUPS_MODEL', 'GROUPSModel', 'SBML_MODEL', 'Model', 'model'}
       extend = 1;
-  end;
+  end
 %%%% ADD isExtension
 %%%% ADD isExtension
 %%%% END isExtension
@@ -260,7 +260,7 @@ function [found, fhandle] = getFBCDefaultValueFunction(typecode)
     otherwise
       fhandle = str2func('disp');
       found = 0;
-    end;
+  end
 
 function [found, fhandle] = getQUALDefaultValueFunction(typecode)
   found = 1;
@@ -282,7 +282,7 @@ function [found, fhandle] = getQUALDefaultValueFunction(typecode)
     otherwise
       fhandle = str2func('disp');
       found = 0;
-  end;
+  end
 
 function [found, fhandle] = getGROUPSDefaultValueFunction(typecode)
   found = 1;
@@ -296,7 +296,7 @@ function [found, fhandle] = getGROUPSDefaultValueFunction(typecode)
     otherwise
       fhandle = str2func('disp');
       found = 0;
-  end;
+  end
 %%%% ADD getFieldname
 %%%% ADD getFieldname
 %%%% END getFieldname
@@ -317,7 +317,7 @@ function [defaultValues] = getAlgebraicRuleDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = {
@@ -389,7 +389,7 @@ elseif (level == 2)
 			               '', ...
 			               '', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -422,8 +422,8 @@ elseif (level == 3)
 			               '', ...
                                        '', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getAssignmentRuleDefaultValues(level, version)
@@ -441,7 +441,7 @@ function [defaultValues] = getAssignmentRuleDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = [];
@@ -502,7 +502,7 @@ elseif (level == 2)
 			               '', ...
 			               '', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -535,8 +535,8 @@ elseif (level == 3)
 			               '', ...
                                        '', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getCompartmentDefaultValues(level, version)
@@ -554,7 +554,7 @@ function [defaultValues] = getCompartmentDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = {
@@ -638,7 +638,7 @@ elseif (level == 2)
 			               int32(0), ...
 			               int32(0), ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -674,8 +674,8 @@ elseif (level == 3)
 			               int32(0), ...
 			               int32(0), ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getCompartmentTypeDefaultValues(level, version)
@@ -693,7 +693,7 @@ function [defaultValues] = getCompartmentTypeDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = [];
@@ -730,14 +730,14 @@ elseif (level == 2)
 			               '', ...
 			               '', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = [];
         elseif (version == 2)
 		defaultValues = [];
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getCompartmentVolumeRuleDefaultValues(level, version)
@@ -755,7 +755,7 @@ function [defaultValues] = getCompartmentVolumeRuleDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = {
@@ -779,14 +779,14 @@ elseif (level == 2)
 		defaultValues = [];
     elseif (version == 4 || version == 5)
 		defaultValues = [];
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = [];
         elseif (version == 2)
 		defaultValues = [];
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getConstraintDefaultValues(level, version)
@@ -804,7 +804,7 @@ function [defaultValues] = getConstraintDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = [];
@@ -842,7 +842,7 @@ elseif (level == 2)
 			               '', ...
 			               '', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -868,8 +868,8 @@ elseif (level == 3)
                                        '', ...
                                        '', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getDelayDefaultValues(level, version)
@@ -887,7 +887,7 @@ function [defaultValues] = getDelayDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = [];
@@ -915,7 +915,7 @@ elseif (level == 2)
 			               int32(-1), ...
 			               '', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -939,8 +939,8 @@ elseif (level == 3)
                                        '', ...
                                        '', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getEventAssignmentDefaultValues(level, version)
@@ -958,7 +958,7 @@ function [defaultValues] = getEventAssignmentDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = [];
@@ -1003,7 +1003,7 @@ elseif (level == 2)
 			               '', ...
 			               '', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -1029,8 +1029,8 @@ elseif (level == 3)
                                        '', ...
                                        '', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getEventDefaultValues(level, version)
@@ -1048,7 +1048,7 @@ function [defaultValues] = getEventDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = [];
@@ -1108,7 +1108,7 @@ elseif (level == 2)
 			               [], ...
 			               [], ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -1142,8 +1142,8 @@ elseif (level == 3)
 			               [], ...
 			               [], ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getFunctionDefinitionDefaultValues(level, version)
@@ -1161,7 +1161,7 @@ function [defaultValues] = getFunctionDefinitionDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = [];
@@ -1210,7 +1210,7 @@ elseif (level == 2)
 			               '', ...
 			               '', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -1236,8 +1236,8 @@ elseif (level == 3)
 			               '', ...
 			               '', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getInitialAssignmentDefaultValues(level, version)
@@ -1255,7 +1255,7 @@ function [defaultValues] = getInitialAssignmentDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = [];
@@ -1293,7 +1293,7 @@ elseif (level == 2)
 			               '', ...
 			               '', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -1319,8 +1319,8 @@ elseif (level == 3)
                                        '', ...
                                        '', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getKineticLawDefaultValues(level, version)
@@ -1338,7 +1338,7 @@ function [defaultValues] = getKineticLawDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = {
@@ -1397,7 +1397,7 @@ elseif (level == 2)
 			               '', ...
 			               [], ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -1423,8 +1423,8 @@ elseif (level == 3)
                                        '', ...
                                        '', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getLocalParameterDefaultValues(level, version)
@@ -1442,7 +1442,7 @@ function [defaultValues] = getLocalParameterDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = [];
@@ -1455,7 +1455,7 @@ elseif (level == 2)
 		defaultValues = [];
     elseif (version == 4 || version == 5)
 		defaultValues = [];
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -1485,8 +1485,8 @@ elseif (level == 3)
 			               '', ...
 			               int32(0), ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getModelDefaultValues(level, version)
@@ -1504,7 +1504,7 @@ function [defaultValues] = getModelDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = {
@@ -1627,7 +1627,7 @@ elseif (level == 2)
 			               '', ...
 			               [], ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -1698,8 +1698,8 @@ elseif (level == 3)
                            '', ...
 			               [], ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getModifierSpeciesReferenceDefaultValues(level, version)
@@ -1717,7 +1717,7 @@ function [defaultValues] = getModifierSpeciesReferenceDefaultValues(level, versi
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = [];
@@ -1764,7 +1764,7 @@ elseif (level == 2)
 			               '', ...
 			               '', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -1790,8 +1790,8 @@ elseif (level == 3)
 			               '', ...
 			               '', ...
  		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getParameterDefaultValues(level, version)
@@ -1809,7 +1809,7 @@ function [defaultValues] = getParameterDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = {
@@ -1878,7 +1878,7 @@ elseif (level == 2)
 			               int32(0), ...
 			               int32(0), ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -1910,8 +1910,8 @@ elseif (level == 3)
 			               int32(0), ...
 			               int32(0), ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getParameterRuleDefaultValues(level, version)
@@ -1929,7 +1929,7 @@ function [defaultValues] = getParameterRuleDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = {
@@ -1953,14 +1953,14 @@ elseif (level == 2)
 		defaultValues = [];
     elseif (version == 4 || version == 5)
 		defaultValues = [];
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = [];
         elseif (version == 2)
 		defaultValues = [];
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getPriorityDefaultValues(level, version)
@@ -1978,7 +1978,7 @@ function [defaultValues] = getPriorityDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = [];
@@ -1991,7 +1991,7 @@ elseif (level == 2)
 		defaultValues = [];
     elseif (version == 4 || version == 5)
 		defaultValues = [];
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -2015,8 +2015,8 @@ elseif (level == 3)
                                        '', ...
                                        '', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getRateRuleDefaultValues(level, version)
@@ -2034,7 +2034,7 @@ function [defaultValues] = getRateRuleDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = [];
@@ -2095,7 +2095,7 @@ elseif (level == 2)
 			               '', ...
 			               '', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -2128,8 +2128,8 @@ elseif (level == 3)
 			               '', ...
                                        '', ...
  		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getReactionDefaultValues(level, version)
@@ -2147,7 +2147,7 @@ function [defaultValues] = getReactionDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = {
@@ -2230,7 +2230,7 @@ elseif (level == 2)
 			               int32(0), ...
 			               int32(0), ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -2268,8 +2268,8 @@ elseif (level == 3)
 			               int32(0), ...
 			               '', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getSpeciesConcentrationRuleDefaultValues(level, version)
@@ -2287,7 +2287,7 @@ function [defaultValues] = getSpeciesConcentrationRuleDefaultValues(level, versi
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = {
@@ -2311,14 +2311,14 @@ elseif (level == 2)
 		defaultValues = [];
     elseif (version == 4 || version == 5)
 		defaultValues = [];
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = [];
         elseif (version == 2)
 		defaultValues = [];
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getSpeciesDefaultValues(level, version)
@@ -2336,7 +2336,7 @@ function [defaultValues] = getSpeciesDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = {
@@ -2441,7 +2441,7 @@ elseif (level == 2)
 			               int32(0), ...
 			               int32(0), ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -2485,8 +2485,8 @@ elseif (level == 3)
 			               int32(0), ...
 			               '', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getSpeciesReferenceDefaultValues(level, version)
@@ -2504,7 +2504,7 @@ function [defaultValues] = getSpeciesReferenceDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = {
@@ -2567,7 +2567,7 @@ elseif (level == 2)
 			               1, ...
 			               [], ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -2599,8 +2599,8 @@ elseif (level == 3)
 			               int32(0), ...
 			               int32(0), ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getSpeciesTypeDefaultValues(level, version)
@@ -2618,7 +2618,7 @@ function [defaultValues] = getSpeciesTypeDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = [];
@@ -2655,14 +2655,14 @@ elseif (level == 2)
 			               '', ...
 			               '', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = [];
         elseif (version == 2)
 		defaultValues = [];
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getStoichiometryMathDefaultValues(level, version)
@@ -2680,7 +2680,7 @@ function [defaultValues] = getStoichiometryMathDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = [];
@@ -2708,14 +2708,14 @@ elseif (level == 2)
 			               int32(-1), ...
 			               '', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = [];
         elseif (version == 2)
 		defaultValues = [];
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getTriggerDefaultValues(level, version)
@@ -2733,7 +2733,7 @@ function [defaultValues] = getTriggerDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = [];
@@ -2761,7 +2761,7 @@ elseif (level == 2)
 			               int32(-1), ...
 			               '', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -2789,8 +2789,8 @@ elseif (level == 3)
                                        '', ...
                                        '', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getUnitDefaultValues(level, version)
@@ -2808,7 +2808,7 @@ function [defaultValues] = getUnitDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = {
@@ -2868,7 +2868,7 @@ elseif (level == 2)
 			               int32(0), ...
 			               1.0, ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -2898,8 +2898,8 @@ elseif (level == 3)
                                        '', ...
                                        '', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [defaultValues] = getUnitDefinitionDefaultValues(level, version)
@@ -2917,7 +2917,7 @@ function [defaultValues] = getUnitDefinitionDefaultValues(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	defaultValues = {
@@ -2971,7 +2971,7 @@ elseif (level == 2)
 			               '', ...
 			               [], ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		defaultValues = {
@@ -2997,14 +2997,14 @@ elseif (level == 3)
 			               '', ...
 			               [], ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [SBMLfieldnames, nNumberFields] = getFBCModelDefaultValues(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3046,9 +3046,9 @@ function [SBMLfieldnames, nNumberFields] = getFBCModelDefaultValues(level, ...
         int32(3), ...
         };
         nNumberFields = 9;
-    end;
-  end;
-end;
+    end
+  end
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3056,7 +3056,7 @@ function [SBMLfieldnames, nNumberFields] = getFBCSpeciesDefaultValues(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3093,9 +3093,9 @@ function [SBMLfieldnames, nNumberFields] = getFBCSpeciesDefaultValues(level, ...
         int32(3), ...
         };
         nNumberFields = 6;
-    end;
-  end;
-end;
+    end
+  end
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3103,7 +3103,7 @@ function [SBMLfieldnames, nNumberFields] = getFBCReactionDefaultValues(level, ..
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3131,9 +3131,9 @@ function [SBMLfieldnames, nNumberFields] = getFBCReactionDefaultValues(level, ..
         int32(3), ...
         };
         nNumberFields = 6;
-    end;
-  end;
-end;
+    end
+  end
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3141,7 +3141,7 @@ function [SBMLfieldnames, nNumberFields] = getFBCSBaseDefaultValues(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3159,9 +3159,9 @@ function [SBMLfieldnames, nNumberFields] = getFBCSBaseDefaultValues(level, ...
         int32(3), ...
         };
         nNumberFields = 5;
-    end;
-  end;
-end;
+    end
+  end
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3169,7 +3169,7 @@ function [SBMLfieldnames, nNumberFields] = getFluxBoundDefaultValues(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3197,9 +3197,9 @@ function [SBMLfieldnames, nNumberFields] = getFluxBoundDefaultValues(level, ...
         nNumberFields = 15;
       else if (pkgVersion == 2)
       else if (pkgVersion == 3)
-    end;
-  end;
-end;
+    end
+  end
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3207,7 +3207,7 @@ function [SBMLfieldnames, nNumberFields] = getObjectiveDefaultValues(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3265,9 +3265,9 @@ function [SBMLfieldnames, nNumberFields] = getObjectiveDefaultValues(level, ...
         int32(3), ...
         };
         nNumberFields = 13;
-    end;
-  end;
-end;
+    end
+  end
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3275,7 +3275,7 @@ function [SBMLfieldnames, nNumberFields] = getFluxObjectiveDefaultValues(level, 
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3337,9 +3337,9 @@ function [SBMLfieldnames, nNumberFields] = getFluxObjectiveDefaultValues(level, 
         int32(3), ...
         };
         nNumberFields = 15;
-    end;
-  end;
-end;
+    end
+  end
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3347,7 +3347,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductDefaultValues(level, ..
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3389,9 +3389,9 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductDefaultValues(level, ..
         int32(3), ...
         };
         nNumberFields = 13;
-    end;
-  end;
-end;
+    end
+  end
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3399,7 +3399,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductRefDefaultValues(level,
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3439,9 +3439,9 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductRefDefaultValues(level,
         int32(3), ...
         };
         nNumberFields = 12;
-    end;
-  end;
-end;
+    end
+  end
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3449,7 +3449,7 @@ function [SBMLfieldnames, nNumberFields] = getFbcAndDefaultValues(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3485,9 +3485,9 @@ function [SBMLfieldnames, nNumberFields] = getFbcAndDefaultValues(level, ...
         int32(3), ...
         };
         nNumberFields = 10;
-    end;
-  end;
-end;
+    end
+  end
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3495,7 +3495,7 @@ function [SBMLfieldnames, nNumberFields] = getFbcOrDefaultValues(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3531,9 +3531,9 @@ function [SBMLfieldnames, nNumberFields] = getFbcOrDefaultValues(level, ...
         int32(3), ...
         };
         nNumberFields = 10;
-    end;
-  end;
-end;
+    end
+  end
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3541,7 +3541,7 @@ function [SBMLfieldnames, nNumberFields] = getAssociationDefaultValues(level, ..
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3575,9 +3575,9 @@ function [SBMLfieldnames, nNumberFields] = getAssociationDefaultValues(level, ..
         int32(3), ...
         };
         nNumberFields = 9;
-    end;
-  end;
-end;
+    end
+  end
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3585,7 +3585,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductAssociationDefaultValue
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3625,9 +3625,9 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductAssociationDefaultValue
         int32(3), ...
         };
         nNumberFields = 12;
-    end;
-  end;
-end;
+    end
+  end
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3635,7 +3635,7 @@ function [SBMLfieldnames, nNumberFields] = getUserDefinedConstraintComponentDefa
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3663,9 +3663,9 @@ function [SBMLfieldnames, nNumberFields] = getUserDefinedConstraintComponentDefa
         int32(3), ...
         };
         nNumberFields = 15;
-    end;
-  end;
-end;
+    end
+  end
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3673,7 +3673,7 @@ function [SBMLfieldnames, nNumberFields] = getUserDefinedConstraintDefaultValues
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3700,9 +3700,9 @@ function [SBMLfieldnames, nNumberFields] = getUserDefinedConstraintDefaultValues
         int32(3), ...
         };
         nNumberFields = 14;
-    end;
-  end;
-end;
+    end
+  end
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3710,7 +3710,7 @@ function [SBMLfieldnames, nNumberFields] = getKeyValuePairDefaultValues(level, .
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3737,15 +3737,15 @@ function [SBMLfieldnames, nNumberFields] = getKeyValuePairDefaultValues(level, .
         int32(3), ...
         };
         nNumberFields = 14;
-    end;
-  end;
-end;
+    end
+  end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [SBMLfieldnames, nNumberFields] = getQUALModelDefaultValues(level, ...
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3759,9 +3759,9 @@ version, pkgVersion)
         [], ...
         };
         nNumberFields = 3;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3769,7 +3769,7 @@ function [SBMLfieldnames, nNumberFields] = getQualitativeSpeciesDefaultValues(le
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3795,9 +3795,9 @@ version, pkgVersion)
         int32(pkgVersion), ...
         };
         nNumberFields = 15;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3805,7 +3805,7 @@ function [SBMLfieldnames, nNumberFields] = getTransitionDefaultValues(level, ...
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3831,9 +3831,9 @@ version, pkgVersion)
         int32(pkgVersion), ...
         };
         nNumberFields = 14;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3841,7 +3841,7 @@ function [SBMLfieldnames, nNumberFields] = getInputDefaultValues(level, ...
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3867,9 +3867,9 @@ version, pkgVersion)
         int32(pkgVersion), ...
         };
         nNumberFields = 15;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3877,7 +3877,7 @@ function [SBMLfieldnames, nNumberFields] = getOutputDefaultValues(level, ...
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3902,9 +3902,9 @@ version, pkgVersion)
         int32(pkgVersion), ...
         };
         nNumberFields = 14;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3912,7 +3912,7 @@ function [SBMLfieldnames, nNumberFields] = getDefaultTermDefaultValues(level, ..
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3933,9 +3933,9 @@ version, pkgVersion)
         int32(pkgVersion), ...
         };
         nNumberFields = 10;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3943,7 +3943,7 @@ function [SBMLfieldnames, nNumberFields] = getFunctionTermDefaultValues(level, .
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3965,9 +3965,9 @@ version, pkgVersion)
         int32(pkgVersion), ...
         };
         nNumberFields = 11;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3975,7 +3975,7 @@ function [SBMLfieldnames, nNumberFields] = getGROUPSModelDefaultValues(level, ..
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3988,9 +3988,9 @@ version, pkgVersion)
         [], ...
         };
         nNumberFields = 2;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3998,7 +3998,7 @@ function [SBMLfieldnames, nNumberFields] = getGroupDefaultValues(level, ...
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -4022,9 +4022,9 @@ version, pkgVersion)
         int32(pkgVersion), ...
         };
         nNumberFields = 13;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -4032,7 +4032,7 @@ function [SBMLfieldnames, nNumberFields] = getMemberDefaultValues(level, ...
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -4056,9 +4056,9 @@ version, pkgVersion)
         int32(pkgVersion), ...
         };
         nNumberFields = 13;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 %%%% ADD functions
 %%%% ADD functions
@@ -4075,28 +4075,28 @@ if ~isIntegralNumber(level)
 	error('level must be an integer');
 elseif ~isIntegralNumber(version)
 	error('version must be an integer');
-end;
+end
 
 if (level < 1 || level > 3)
 	error('current SBML levels are 1, 2 or 3');
-end;
+end
 
 if (level == 1)
 	if (version < 1 || version > 2)
 		error('SBMLToolbox supports versions 1-2 of SBML Level 1');
-	end;
+	end
 
 elseif (level == 2)
 	if (version < 1 || version > 5)
 		error('SBMLToolbox supports versions 1-5 of SBML Level 2');
-	end;
+	end
 
 elseif (level == 3)
 	if (version < 1 || version > 2)
 		error('SBMLToolbox supports version 1-2 of SBML Level 3');
-	end;
+	end
 
-end;
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function value = isIntegralNumber(number)
@@ -4113,8 +4113,8 @@ elseif (isnumeric(number))
     % if it is an integer 
     if (number == fix(number))
         value = 1;
-    end;
-end;
+    end
+end
 
 
 
