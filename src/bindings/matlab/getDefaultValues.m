@@ -3046,9 +3046,9 @@ function [SBMLfieldnames, nNumberFields] = getFBCModelDefaultValues(level, ...
         int32(3), ...
         };
         nNumberFields = 9;
+      end
     end
   end
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3093,9 +3093,9 @@ function [SBMLfieldnames, nNumberFields] = getFBCSpeciesDefaultValues(level, ...
         int32(3), ...
         };
         nNumberFields = 6;
+      end
     end
   end
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3131,9 +3131,9 @@ function [SBMLfieldnames, nNumberFields] = getFBCReactionDefaultValues(level, ..
         int32(3), ...
         };
         nNumberFields = 6;
+      end
     end
   end
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3159,9 +3159,9 @@ function [SBMLfieldnames, nNumberFields] = getFBCSBaseDefaultValues(level, ...
         int32(3), ...
         };
         nNumberFields = 5;
+      end
     end
   end
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3195,11 +3195,11 @@ function [SBMLfieldnames, nNumberFields] = getFluxBoundDefaultValues(level, ...
         int32(1), ...
         };
         nNumberFields = 15;
-      else if (pkgVersion == 2)
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 2)    
+      elseif (pkgVersion == 3)
+      end
     end
   end
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3231,7 +3231,7 @@ function [SBMLfieldnames, nNumberFields] = getObjectiveDefaultValues(level, ...
         int32(1), ...
         };
         nNumberFields = 13;
-      else if (pkgVersion == 2)
+      elseif (pkgVersion == 2)
         SBMLfieldnames = {
         'SBML_FBC_OBJECTIVE', ...
         '', ...
@@ -3248,7 +3248,7 @@ function [SBMLfieldnames, nNumberFields] = getObjectiveDefaultValues(level, ...
         int32(2), ...
         };
         nNumberFields = 13;
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_OBJECTIVE', ...
         '', ...
@@ -3265,9 +3265,9 @@ function [SBMLfieldnames, nNumberFields] = getObjectiveDefaultValues(level, ...
         int32(3), ...
         };
         nNumberFields = 13;
+      end
     end
   end
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3300,7 +3300,7 @@ function [SBMLfieldnames, nNumberFields] = getFluxObjectiveDefaultValues(level, 
         int32(1), ...
         };
         nNumberFields = 14;
-      else if (pkgVersion == 2)
+      elseif (pkgVersion == 2)
         SBMLfieldnames = {
         'SBML_FBC_FLUXOBJECTIVE', ...
         '', ...
@@ -3318,7 +3318,7 @@ function [SBMLfieldnames, nNumberFields] = getFluxObjectiveDefaultValues(level, 
         int32(2), ...
         };
         nNumberFields = 14;
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_FLUXOBJECTIVE', ...
         '', ...
@@ -3337,9 +3337,9 @@ function [SBMLfieldnames, nNumberFields] = getFluxObjectiveDefaultValues(level, 
         int32(3), ...
         };
         nNumberFields = 15;
+      end
     end
   end
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3355,7 +3355,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductDefaultValues(level, ..
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
+      elseif (pkgVersion == 2)
         SBMLfieldnames = {
         'SBML_FBC_GENEPRODUCT', ...
         '', ...
@@ -3372,7 +3372,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductDefaultValues(level, ..
         int32(2), ...
         };
         nNumberFields = 13;
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_GENEPRODUCT', ...
         '', ...
@@ -3389,9 +3389,9 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductDefaultValues(level, ..
         int32(3), ...
         };
         nNumberFields = 13;
+      end
     end
   end
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3407,7 +3407,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductRefDefaultValues(level,
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
+      elseif (pkgVersion == 2)
         SBMLfieldnames = {
         'SBML_FBC_GENEPRODUCTREF', ...
         '', ...
@@ -3423,7 +3423,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductRefDefaultValues(level,
         int32(2), ...
         };
         nNumberFields = 12;
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_GENEPRODUCTREF', ...
         '', ...
@@ -3439,9 +3439,9 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductRefDefaultValues(level,
         int32(3), ...
         };
         nNumberFields = 12;
+      end
     end
   end
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3457,7 +3457,7 @@ function [SBMLfieldnames, nNumberFields] = getFbcAndDefaultValues(level, ...
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
+      elseif (pkgVersion == 2)
         SBMLfieldnames = {
         'SBML_FBC_AND', ...
         '', ...
@@ -3471,7 +3471,7 @@ function [SBMLfieldnames, nNumberFields] = getFbcAndDefaultValues(level, ...
         int32(2), ...
         };
         nNumberFields = 10;
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_AND', ...
         '', ...
@@ -3485,9 +3485,9 @@ function [SBMLfieldnames, nNumberFields] = getFbcAndDefaultValues(level, ...
         int32(3), ...
         };
         nNumberFields = 10;
+      end
     end
   end
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3503,7 +3503,7 @@ function [SBMLfieldnames, nNumberFields] = getFbcOrDefaultValues(level, ...
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
+      elseif (pkgVersion == 2)
         SBMLfieldnames = {
         'SBML_FBC_OR', ...
         '', ...
@@ -3517,7 +3517,7 @@ function [SBMLfieldnames, nNumberFields] = getFbcOrDefaultValues(level, ...
         int32(2), ...
         };
         nNumberFields = 10;
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_OR', ...
         '', ...
@@ -3531,9 +3531,9 @@ function [SBMLfieldnames, nNumberFields] = getFbcOrDefaultValues(level, ...
         int32(3), ...
         };
         nNumberFields = 10;
+      end
     end
   end
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3549,7 +3549,7 @@ function [SBMLfieldnames, nNumberFields] = getAssociationDefaultValues(level, ..
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
+      elseif (pkgVersion == 2)
         SBMLfieldnames = {
         'SBML_FBC_ASSOCIATION', ...
         '', ...
@@ -3562,7 +3562,7 @@ function [SBMLfieldnames, nNumberFields] = getAssociationDefaultValues(level, ..
         int32(2), ...
         };
         nNumberFields = 9;
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_ASSOCIATION', ...
         '', ...
@@ -3575,9 +3575,9 @@ function [SBMLfieldnames, nNumberFields] = getAssociationDefaultValues(level, ..
         int32(3), ...
         };
         nNumberFields = 9;
+      end
     end
   end
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3593,7 +3593,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductAssociationDefaultValue
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
+      elseif (pkgVersion == 2)
         SBMLfieldnames = {
         'SBML_FBC_GENEPRODUCTASSOCIATION', ...
         '', ...
@@ -3609,7 +3609,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductAssociationDefaultValue
         int32(2), ...
         };
         nNumberFields = 12;
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_GENEPRODUCTASSOCIATION', ...
         '', ...
@@ -3625,9 +3625,9 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductAssociationDefaultValue
         int32(3), ...
         };
         nNumberFields = 12;
+      end
     end
   end
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3643,8 +3643,8 @@ function [SBMLfieldnames, nNumberFields] = getUserDefinedConstraintComponentDefa
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 2)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_USERDEFINEDCONSTRAINTCOMPONENT', ...
         '', ...
@@ -3663,9 +3663,9 @@ function [SBMLfieldnames, nNumberFields] = getUserDefinedConstraintComponentDefa
         int32(3), ...
         };
         nNumberFields = 15;
+      end
     end
   end
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3681,8 +3681,8 @@ function [SBMLfieldnames, nNumberFields] = getUserDefinedConstraintDefaultValues
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 2)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_USERDEFINEDCONSTRAINT', ...
         '', ...
@@ -3700,9 +3700,9 @@ function [SBMLfieldnames, nNumberFields] = getUserDefinedConstraintDefaultValues
         int32(3), ...
         };
         nNumberFields = 14;
+      end
     end
   end
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3718,8 +3718,8 @@ function [SBMLfieldnames, nNumberFields] = getKeyValuePairDefaultValues(level, .
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 2)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_KEYVALUEPAIR', ...
         '', ...
@@ -3737,14 +3737,8 @@ function [SBMLfieldnames, nNumberFields] = getKeyValuePairDefaultValues(level, .
         int32(3), ...
         };
         nNumberFields = 14;
+      end
     end
-  end
-end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [SBMLfieldnames, nNumberFields] = getQUALModelDefaultValues(level, ...
-version, pkgVersion)
-  if (~isValidLevelVersionCombination(level, version))
-    error ('invalid level/version combination');
   end
 
   SBMLfieldnames = [];
