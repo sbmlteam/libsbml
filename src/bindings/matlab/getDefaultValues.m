@@ -244,8 +244,7 @@ function [found, fhandle] = getFBCDefaultValueFunction(typecode)
     case {'SBML_FBC_GENEPRODUCTASSOCIATION', 'GeneProductAssociation', 'geneProductAssociation', 'fbc_geneProductAssociation'}
       fhandle = str2func('getGeneProductAssociationDefaultValues');
     case {'SBML_FBC_USERDEFINEDCONSTRAINTCOMPONENT', 'UserDefinedConstraintComponent', 'userDefinedConstraintComponent', 'fbc_userDefinedConstraintComponent'}
-      fhandle =
-        str2func('getUserDefinedConstraintComponentDefaultValues');
+      fhandle = str2func('getUserDefinedConstraintComponentDefaultValues');
     case {'SBML_FBC_USERDEFINEDCONSTRAINT', 'UserDefinedConstraint', 'userDefinedConstraint', 'fbc_userDefinedConstraint'}
       fhandle = str2func('getUserDefinedConstraintDefaultValues');
     case {'SBML_FBC_KEYVALUEPAIR', 'KeyValuePair', 'keyValuePair', 'fbc_keyValuePair'}
