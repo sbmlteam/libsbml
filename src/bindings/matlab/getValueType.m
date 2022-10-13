@@ -52,13 +52,13 @@ pkgCount = 0;
 if (nargin > 3)
     if (nargin < 5)
         error('not enough arguments');
-    end;
+    end
     pkgCount = length(varargin{4});
  %   packages = cell(1, pkgCount);
   %  pkgVersion = zeros(1, pkgCount);
     packages = varargin{4};
     pkgVersion = varargin{5};
-end;
+end
 
 
     valueType = [];
@@ -127,7 +127,7 @@ switch (typecode)
     fhandle = str2func('getUnitDefinitionValueType');
   otherwise
     done = 0; 
-end;
+end
 
 if done == 1
   [valueType] = feval(fhandle, level, version);
@@ -138,14 +138,14 @@ else
         [found, fhandle] = getValues(typecode, packages{i}, 0);
         if (found == 1)
             break;
-        end;
+        end
         i = i + 1;
-    end;
+    end
     if (found == 1)
         [valueType] = feval(fhandle, level, version, pkgVersion(i));
         done = 1;
-    end;
-end;
+    end
+end
  
 if (done == 1 && pkgCount > 0)
     % we may need to extend the fields 
@@ -156,10 +156,10 @@ if (done == 1 && pkgCount > 0)
             copySBML = valueType;
             [newValueType] = feval(fhandle, level, version, pkgVersion(i));
             valueType = [copySBML, newValueType];
-        end;
+        end
         i = i + 1;
-    end;
-end;
+    end
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [found, fhandle] = getValues(typecode, pkg, extension)
@@ -169,27 +169,27 @@ function [found, fhandle] = getValues(typecode, pkg, extension)
         if (extension)
             if (isFBCExtension(typecode))
                 [found, fhandle] = getFBCValueFunction(typecode);
-            end;
+            end
         else
              [found, fhandle] = getFBCValueFunction(typecode);           
-        end;
+        end
     elseif strcmp(pkg, 'qual')
       if (extension)
         if (isQUALExtension(typecode))
           [found, fhandle] = getQUALValueTypeFunction(typecode);
-        end;
+        end
       else
         [found, fhandle] = getQUALValueTypeFunction(typecode);
-      end;
+      end
     elseif strcmp(pkg, 'groups')
       if (extension)
         if (isGROUPSExtension(typecode))
           [found, fhandle] = getGROUPSValueTypeFunction(typecode);
-        end;
+        end
       else
         [found, fhandle] = getGROUPSValueTypeFunction(typecode);
-      end;
-    end;
+      end
+    end
 %%%%% REMOVE END
 %%%%% ADD ADDITIONAL
 	
@@ -205,20 +205,20 @@ function extend = isFBCExtension(typecode)
             extend = 1;
     case {'SBML_FBC_SBASE', 'FBCSBase', 'SBML_SBASE', 'SBase', 'sbase'}
       extend = 1;
-  end;
+  end
 function extend = isQUALExtension(typecode)
   extend = 0;
   switch (typecode)
     case {'SBML_QUAL_MODEL', 'QUALModel', 'SBML_MODEL', 'Model', 'model'}
       extend = 1;
-  end;
+  end
 
 function extend = isGROUPSExtension(typecode)
   extend = 0;
   switch (typecode)
     case {'SBML_GROUPS_MODEL', 'GROUPSModel', 'SBML_MODEL', 'Model', 'model'}
       extend = 1;
-  end;
+  end
 %%%% ADD isExtension
 %%%% ADD isExtension
 %%%% END isExtension
@@ -261,7 +261,7 @@ function [found, fhandle] = getFBCValueFunction(typecode)
         otherwise
           fhandle = str2func('disp');
           found = 0;
-    end;
+    end
 
 function [found, fhandle] = getQUALValueTypeFunction(typecode)
   found = 1;
@@ -283,7 +283,7 @@ function [found, fhandle] = getQUALValueTypeFunction(typecode)
     otherwise
       fhandle = str2func('disp');
       found = 0;
-  end;
+  end
 
 function [found, fhandle] = getGROUPSValueTypeFunction(typecode)
   found = 1;
@@ -297,7 +297,7 @@ function [found, fhandle] = getGROUPSValueTypeFunction(typecode)
     otherwise
       fhandle = str2func('disp');
       found = 0;
-  end;
+  end
 %%%% ADD getFieldname
 %%%% ADD getFieldname
 %%%% END getFieldname
@@ -319,7 +319,7 @@ function [valueType] = getAlgebraicRuleValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = {
@@ -391,7 +391,7 @@ elseif (level == 2)
 			               'char', ...
 			               'char', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -425,8 +425,8 @@ elseif (level == 3)
                                        'char', ...
 
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getAssignmentRuleValueType(level, version)
@@ -444,7 +444,7 @@ function [valueType] = getAssignmentRuleValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = [];
@@ -505,7 +505,7 @@ elseif (level == 2)
 			               'char', ...
 			               'char', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -538,8 +538,8 @@ elseif (level == 3)
 			               'char', ...
                                        'char', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getCompartmentValueType(level, version)
@@ -557,7 +557,7 @@ function [valueType] = getCompartmentValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = {
@@ -641,7 +641,7 @@ elseif (level == 2)
 			               'bool', ...
 			               'bool', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -677,8 +677,8 @@ elseif (level == 3)
 			               'bool', ...
 			               'bool', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getCompartmentTypeValueType(level, version)
@@ -696,7 +696,7 @@ function [valueType] = getCompartmentTypeValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = [];
@@ -733,14 +733,14 @@ elseif (level == 2)
 			               'char', ...
 			               'char', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = [];
         elseif (version == 2)
 		valueType = [];
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getCompartmentVolumeRuleValueType(level, version)
@@ -758,7 +758,7 @@ function [valueType] = getCompartmentVolumeRuleValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = {
@@ -782,14 +782,14 @@ elseif (level == 2)
 		valueType = [];
     elseif (version == 4 || version == 5)
 		valueType = [];
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = [];
         elseif (version == 2)
 		valueType = [];
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getConstraintValueType(level, version)
@@ -807,7 +807,7 @@ function [valueType] = getConstraintValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = [];
@@ -845,7 +845,7 @@ elseif (level == 2)
 			               'char', ...
 			               'char', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -871,8 +871,8 @@ elseif (level == 3)
                                        'char', ...
                                        'char', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getDelayValueType(level, version)
@@ -890,7 +890,7 @@ function [valueType] = getDelayValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = [];
@@ -918,7 +918,7 @@ elseif (level == 2)
 			               'int', ...
 			               'char', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -942,8 +942,8 @@ elseif (level == 3)
                                        'char', ...
                                        'char', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getEventAssignmentValueType(level, version)
@@ -961,7 +961,7 @@ function [valueType] = getEventAssignmentValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = [];
@@ -1006,7 +1006,7 @@ elseif (level == 2)
 			               'char', ...
 			               'char', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -1032,8 +1032,8 @@ elseif (level == 3)
                                        'char', ...
                                        'char', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getEventValueType(level, version)
@@ -1051,7 +1051,7 @@ function [valueType] = getEventValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = [];
@@ -1111,7 +1111,7 @@ elseif (level == 2)
 			               'structure', ...
 			               'structure', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -1145,8 +1145,8 @@ elseif (level == 3)
 			               'structure', ...
 			               'structure', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getFunctionDefinitionValueType(level, version)
@@ -1164,7 +1164,7 @@ function [valueType] = getFunctionDefinitionValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = [];
@@ -1213,7 +1213,7 @@ elseif (level == 2)
 			               'char', ...
 			               'char', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -1239,8 +1239,8 @@ elseif (level == 3)
 			               'char', ...
 			               'char', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getInitialAssignmentValueType(level, version)
@@ -1258,7 +1258,7 @@ function [valueType] = getInitialAssignmentValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = [];
@@ -1296,7 +1296,7 @@ elseif (level == 2)
 			               'char', ...
 			               'char', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -1322,8 +1322,8 @@ elseif (level == 3)
                                        'char', ...
                                        'char', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getKineticLawValueType(level, version)
@@ -1341,7 +1341,7 @@ function [valueType] = getKineticLawValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = {
@@ -1400,7 +1400,7 @@ elseif (level == 2)
 			               'char', ...
 			               'structure', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -1426,8 +1426,8 @@ elseif (level == 3)
                                        'char', ...
                                        'char', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getLocalParameterValueType(level, version)
@@ -1445,7 +1445,7 @@ function [valueType] = getLocalParameterValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = [];
@@ -1458,7 +1458,7 @@ elseif (level == 2)
 		valueType = [];
     elseif (version == 4 || version == 5)
 		valueType = [];
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -1488,8 +1488,8 @@ elseif (level == 3)
 			               'char', ...
 			               'bool', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getModelValueType(level, version)
@@ -1507,7 +1507,7 @@ function [valueType] = getModelValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = {
@@ -1630,7 +1630,7 @@ elseif (level == 2)
 			               'char', ...
 			               'structure', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -1701,8 +1701,8 @@ elseif (level == 3)
                            'char', ...
 			               'structure', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getModifierSpeciesReferenceValueType(level, version)
@@ -1720,7 +1720,7 @@ function [valueType] = getModifierSpeciesReferenceValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = [];
@@ -1767,7 +1767,7 @@ elseif (level == 2)
 			               'char', ...
 			               'char', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -1793,8 +1793,8 @@ elseif (level == 3)
 			               'char', ...
 			               'char', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getParameterValueType(level, version)
@@ -1812,7 +1812,7 @@ function [valueType] = getParameterValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = {
@@ -1881,7 +1881,7 @@ elseif (level == 2)
 			               'bool', ...
 			               'bool', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -1913,8 +1913,8 @@ elseif (level == 3)
 			               'bool', ...
 			               'bool', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getParameterRuleValueType(level, version)
@@ -1932,7 +1932,7 @@ function [valueType] = getParameterRuleValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = {
@@ -1956,14 +1956,14 @@ elseif (level == 2)
 		valueType = [];
     elseif (version == 4 || version == 5)
 		valueType = [];
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = [];
         elseif (version == 2)
 		valueType = [];
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getPriorityValueType(level, version)
@@ -1981,7 +1981,7 @@ function [valueType] = getPriorityValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = [];
@@ -1994,7 +1994,7 @@ elseif (level == 2)
 		valueType = [];
     elseif (version == 4 || version == 5)
 		valueType = [];
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -2018,8 +2018,8 @@ elseif (level == 3)
                                        'char', ...
                                        'char', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getRateRuleValueType(level, version)
@@ -2037,7 +2037,7 @@ function [valueType] = getRateRuleValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = [];
@@ -2098,7 +2098,7 @@ elseif (level == 2)
 			               'char', ...
 			               'char', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -2131,8 +2131,8 @@ elseif (level == 3)
 			               'char', ...
                                        'char', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getReactionValueType(level, version)
@@ -2150,7 +2150,7 @@ function [valueType] = getReactionValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = {
@@ -2233,7 +2233,7 @@ elseif (level == 2)
 			               'bool', ...
 			               'bool', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -2271,8 +2271,8 @@ elseif (level == 3)
 			               'bool', ...
 			               'char', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getSpeciesConcentrationRuleValueType(level, version)
@@ -2290,7 +2290,7 @@ function [valueType] = getSpeciesConcentrationRuleValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = {
@@ -2314,14 +2314,14 @@ elseif (level == 2)
 		valueType = [];
     elseif (version == 4 || version == 5)
 		valueType = [];
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = [];
         elseif (version == 2)
 		valueType = [];
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getSpeciesValueType(level, version)
@@ -2339,7 +2339,7 @@ function [valueType] = getSpeciesValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = {
@@ -2444,7 +2444,7 @@ elseif (level == 2)
 			               'bool', ...
 			               'bool', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -2488,8 +2488,8 @@ elseif (level == 3)
 			               'bool', ...
 			               'char', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getSpeciesReferenceValueType(level, version)
@@ -2507,7 +2507,7 @@ function [valueType] = getSpeciesReferenceValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = {
@@ -2570,7 +2570,7 @@ elseif (level == 2)
 			               'double', ...
 			               'structure', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -2602,8 +2602,8 @@ elseif (level == 3)
 			               'bool', ...
 			               'bool', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getSpeciesTypeValueType(level, version)
@@ -2621,7 +2621,7 @@ function [valueType] = getSpeciesTypeValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = [];
@@ -2658,14 +2658,14 @@ elseif (level == 2)
 			               'char', ...
 			               'char', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = [];
         elseif (version == 2)
 		valueType = [];
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getStoichiometryMathValueType(level, version)
@@ -2683,7 +2683,7 @@ function [valueType] = getStoichiometryMathValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = [];
@@ -2711,14 +2711,14 @@ elseif (level == 2)
 			               'int', ...
 			               'char', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = [];
         elseif (version == 2)
 		valueType = [];
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getTriggerValueType(level, version)
@@ -2736,7 +2736,7 @@ function [valueType] = getTriggerValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = [];
@@ -2764,7 +2764,7 @@ elseif (level == 2)
 			               'int', ...
 			               'char', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -2792,8 +2792,8 @@ elseif (level == 3)
                                        'char', ...
                                        'char', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getUnitValueType(level, version)
@@ -2811,7 +2811,7 @@ function [valueType] = getUnitValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = {
@@ -2871,7 +2871,7 @@ elseif (level == 2)
 			               'int', ...
 			               'double', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -2901,8 +2901,8 @@ elseif (level == 3)
                                        'char', ...
                                        'char', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valueType] = getUnitDefinitionValueType(level, version)
@@ -2920,7 +2920,7 @@ function [valueType] = getUnitDefinitionValueType(level, version)
 
 if ~isValidLevelVersionCombination(level, version)
 	error('invalid level/version combination');
-end;
+end
 
 if (level == 1)
 	valueType = {
@@ -2974,7 +2974,7 @@ elseif (level == 2)
 			               'char', ...
 			               'structure', ...
 		                };
-	end;
+	end
 elseif (level == 3)
 	if (version == 1)
 		valueType = {
@@ -3000,14 +3000,14 @@ elseif (level == 3)
 			               'char', ...
 			               'structure', ...
 		                };
-	end;
-end;
+	end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [SBMLfieldnames, nNumberFields] = getFBCModelValueType(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3049,9 +3049,9 @@ function [SBMLfieldnames, nNumberFields] = getFBCModelValueType(level, ...
         'uint', ...
         };
         nNumberFields = 9;
-    end;
-  end;
-end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3059,7 +3059,7 @@ function [SBMLfieldnames, nNumberFields] = getFBCSpeciesValueType(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3096,9 +3096,9 @@ function [SBMLfieldnames, nNumberFields] = getFBCSpeciesValueType(level, ...
         'uint', ...
         };
         nNumberFields = 6;
-    end;
-  end;
-end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3106,7 +3106,7 @@ function [SBMLfieldnames, nNumberFields] = getFBCReactionValueType(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3134,9 +3134,9 @@ function [SBMLfieldnames, nNumberFields] = getFBCReactionValueType(level, ...
         'uint', ...
         };
         nNumberFields = 6;
-    end;
-  end;
-end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3144,7 +3144,7 @@ function [SBMLfieldnames, nNumberFields] = getFBCSBaseValueType(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3162,9 +3162,9 @@ function [SBMLfieldnames, nNumberFields] = getFBCSBaseValueType(level, ...
         'uint', ...
         };
         nNumberFields = 5;
-    end;
-  end;
-end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3172,7 +3172,7 @@ function [SBMLfieldnames, nNumberFields] = getFluxBoundValueType(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3198,11 +3198,11 @@ function [SBMLfieldnames, nNumberFields] = getFluxBoundValueType(level, ...
         'uint', ...
         };
         nNumberFields = 15;
-      else if (pkgVersion == 2)
-      else if (pkgVersion == 3)
-    end;
-  end;
-end;
+      elseif (pkgVersion == 2)
+      elseif (pkgVersion == 3)
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3210,7 +3210,7 @@ function [SBMLfieldnames, nNumberFields] = getObjectiveValueType(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3234,7 +3234,7 @@ function [SBMLfieldnames, nNumberFields] = getObjectiveValueType(level, ...
         'uint', ...
         };
         nNumberFields = 13;
-      else if (pkgVersion == 2)
+      elseif (pkgVersion == 2)
         SBMLfieldnames = {
         'SBML_FBC_OBJECTIVE', ...
         'char', ...
@@ -3251,7 +3251,7 @@ function [SBMLfieldnames, nNumberFields] = getObjectiveValueType(level, ...
         'uint', ...
         };
         nNumberFields = 13;
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_OBJECTIVE', ...
         'char', ...
@@ -3268,9 +3268,9 @@ function [SBMLfieldnames, nNumberFields] = getObjectiveValueType(level, ...
         'uint', ...
         };
         nNumberFields = 13;
-    end;
-  end;
-end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3278,7 +3278,7 @@ function [SBMLfieldnames, nNumberFields] = getFluxObjectiveValueType(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3303,7 +3303,7 @@ function [SBMLfieldnames, nNumberFields] = getFluxObjectiveValueType(level, ...
         'uint', ...
         };
         nNumberFields = 14;
-      else if (pkgVersion == 2)
+      elseif (pkgVersion == 2)
         SBMLfieldnames = {
         'SBML_FBC_FLUXOBJECTIVE', ...
         'char', ...
@@ -3321,7 +3321,7 @@ function [SBMLfieldnames, nNumberFields] = getFluxObjectiveValueType(level, ...
         'uint', ...
         };
         nNumberFields = 14;
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_FLUXOBJECTIVE', ...
         'char', ...
@@ -3340,9 +3340,9 @@ function [SBMLfieldnames, nNumberFields] = getFluxObjectiveValueType(level, ...
         'uint', ...
         };
         nNumberFields = 15;
-    end;
-  end;
-end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3350,7 +3350,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductValueType(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3358,7 +3358,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductValueType(level, ...
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
+      elseif (pkgVersion == 2)
         SBMLfieldnames = {
         'SBML_FBC_GENEPRODUCT', ...
         'char', ...
@@ -3375,7 +3375,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductValueType(level, ...
         'uint', ...
         };
         nNumberFields = 13;
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_GENEPRODUCT', ...
         'char', ...
@@ -3392,9 +3392,9 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductValueType(level, ...
         'uint', ...
         };
         nNumberFields = 13;
-    end;
-  end;
-end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3402,7 +3402,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductRefValueType(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3410,7 +3410,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductRefValueType(level, ...
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
+      elseif (pkgVersion == 2)
         SBMLfieldnames = {
         'SBML_FBC_GENEPRODUCTREF', ...
         'char', ...
@@ -3426,7 +3426,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductRefValueType(level, ...
         'uint', ...
         };
         nNumberFields = 12;
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_GENEPRODUCTREF', ...
         'char', ...
@@ -3442,9 +3442,9 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductRefValueType(level, ...
         'uint', ...
         };
         nNumberFields = 12;
-    end;
-  end;
-end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3452,7 +3452,7 @@ function [SBMLfieldnames, nNumberFields] = getFbcAndValueType(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3460,7 +3460,7 @@ function [SBMLfieldnames, nNumberFields] = getFbcAndValueType(level, ...
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
+      elseif (pkgVersion == 2)
         SBMLfieldnames = {
         'SBML_FBC_AND', ...
         'char', ...
@@ -3474,7 +3474,7 @@ function [SBMLfieldnames, nNumberFields] = getFbcAndValueType(level, ...
         'uint', ...
         };
         nNumberFields = 10;
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_AND', ...
         'char', ...
@@ -3488,9 +3488,9 @@ function [SBMLfieldnames, nNumberFields] = getFbcAndValueType(level, ...
         'uint', ...
         };
         nNumberFields = 10;
-    end;
-  end;
-end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3498,7 +3498,7 @@ function [SBMLfieldnames, nNumberFields] = getFbcOrValueType(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3506,7 +3506,7 @@ function [SBMLfieldnames, nNumberFields] = getFbcOrValueType(level, ...
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
+      elseif (pkgVersion == 2)
         SBMLfieldnames = {
         'SBML_FBC_OR', ...
         'char', ...
@@ -3520,7 +3520,7 @@ function [SBMLfieldnames, nNumberFields] = getFbcOrValueType(level, ...
         'uint', ...
         };
         nNumberFields = 10;
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_OR', ...
         'char', ...
@@ -3534,9 +3534,9 @@ function [SBMLfieldnames, nNumberFields] = getFbcOrValueType(level, ...
         'uint', ...
         };
         nNumberFields = 10;
-    end;
-  end;
-end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3544,7 +3544,7 @@ function [SBMLfieldnames, nNumberFields] = getAssociationValueType(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3552,7 +3552,7 @@ function [SBMLfieldnames, nNumberFields] = getAssociationValueType(level, ...
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
+      elseif (pkgVersion == 2)
         SBMLfieldnames = {
         'SBML_FBC_ASSOCIATION', ...
         'char', ...
@@ -3565,7 +3565,7 @@ function [SBMLfieldnames, nNumberFields] = getAssociationValueType(level, ...
         'uint', ...
         };
         nNumberFields = 9;
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_ASSOCIATION', ...
         'char', ...
@@ -3578,9 +3578,9 @@ function [SBMLfieldnames, nNumberFields] = getAssociationValueType(level, ...
         'uint', ...
         };
         nNumberFields = 9;
-    end;
-  end;
-end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3588,7 +3588,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductAssociationValueType(le
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3596,7 +3596,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductAssociationValueType(le
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
+      elseif (pkgVersion == 2)
         SBMLfieldnames = {
         'SBML_FBC_GENEPRODUCTASSOCIATION', ...
         'char', ...
@@ -3612,7 +3612,7 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductAssociationValueType(le
         'uint', ...
         };
         nNumberFields = 12;
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_GENEPRODUCTASSOCIATION', ...
         'char', ...
@@ -3628,9 +3628,9 @@ function [SBMLfieldnames, nNumberFields] = getGeneProductAssociationValueType(le
         'uint', ...
         };
         nNumberFields = 12;
-    end;
-  end;
-end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3638,7 +3638,7 @@ function [SBMLfieldnames, nNumberFields] = getUserDefinedConstraintComponentValu
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3646,8 +3646,8 @@ function [SBMLfieldnames, nNumberFields] = getUserDefinedConstraintComponentValu
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 2)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_USERDEFINEDCONSTRAINTCOMPONENT', ...
         'char', ...
@@ -3666,9 +3666,9 @@ function [SBMLfieldnames, nNumberFields] = getUserDefinedConstraintComponentValu
         'uint', ...
         };
         nNumberFields = 15;
-    end;
-  end;
-end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3676,7 +3676,7 @@ function [SBMLfieldnames, nNumberFields] = getUserDefinedConstraintValueType(lev
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3684,8 +3684,8 @@ function [SBMLfieldnames, nNumberFields] = getUserDefinedConstraintValueType(lev
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 2)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_USERDEFINEDCONSTRAINT', ...
         'char', ...
@@ -3703,9 +3703,9 @@ function [SBMLfieldnames, nNumberFields] = getUserDefinedConstraintValueType(lev
         'uint', ...
         };
         nNumberFields = 14;
-    end;
-  end;
-end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3713,7 +3713,7 @@ function [SBMLfieldnames, nNumberFields] = getKeyValuePairValueType(level, ...
                                                        version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3721,8 +3721,8 @@ function [SBMLfieldnames, nNumberFields] = getKeyValuePairValueType(level, ...
   if (level == 3)
     if (version < 3)
       if (pkgVersion == 1)
-      else if (pkgVersion == 2)
-      else if (pkgVersion == 3)
+      elseif (pkgVersion == 2)
+      elseif (pkgVersion == 3)
         SBMLfieldnames = {
         'SBML_FBC_KEYVALUEPAIR', ...
         'char', ...
@@ -3740,15 +3740,17 @@ function [SBMLfieldnames, nNumberFields] = getKeyValuePairValueType(level, ...
         'uint', ...
         };
         nNumberFields = 14;
-    end;
-  end;
-end;
+      end
+    end
+  end
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [SBMLfieldnames, nNumberFields] = getQUALModelValueType(level, ...
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3762,9 +3764,9 @@ version, pkgVersion)
         'structure', ...
         };
         nNumberFields = 3;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3772,7 +3774,7 @@ function [SBMLfieldnames, nNumberFields] = getQualitativeSpeciesValueType(level,
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3798,9 +3800,9 @@ version, pkgVersion)
         'uint', ...
         };
         nNumberFields = 15;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3808,7 +3810,7 @@ function [SBMLfieldnames, nNumberFields] = getTransitionValueType(level, ...
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3834,9 +3836,9 @@ version, pkgVersion)
         'uint', ...
         };
         nNumberFields = 14;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3844,7 +3846,7 @@ function [SBMLfieldnames, nNumberFields] = getInputValueType(level, ...
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3870,9 +3872,9 @@ version, pkgVersion)
         'uint', ...
         };
         nNumberFields = 15;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3880,7 +3882,7 @@ function [SBMLfieldnames, nNumberFields] = getOutputValueType(level, ...
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3905,9 +3907,9 @@ version, pkgVersion)
         'uint', ...
         };
         nNumberFields = 14;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3915,7 +3917,7 @@ function [SBMLfieldnames, nNumberFields] = getDefaultTermValueType(level, ...
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3936,9 +3938,9 @@ version, pkgVersion)
         'uint', ...
         };
         nNumberFields = 10;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3946,7 +3948,7 @@ function [SBMLfieldnames, nNumberFields] = getFunctionTermValueType(level, ...
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3968,9 +3970,9 @@ version, pkgVersion)
         'uint', ...
         };
         nNumberFields = 11;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3978,7 +3980,7 @@ function [SBMLfieldnames, nNumberFields] = getGROUPSModelValueType(level, ...
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -3991,9 +3993,9 @@ version, pkgVersion)
         'structure', ...
         };
         nNumberFields = 2;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -4001,7 +4003,7 @@ function [SBMLfieldnames, nNumberFields] = getGroupValueType(level, ...
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -4025,9 +4027,9 @@ version, pkgVersion)
         'uint', ...
         };
         nNumberFields = 13;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -4035,7 +4037,7 @@ function [SBMLfieldnames, nNumberFields] = getMemberValueType(level, ...
 version, pkgVersion)
   if (~isValidLevelVersionCombination(level, version))
     error ('invalid level/version combination');
-  end;
+  end
 
   SBMLfieldnames = [];
   nNumberFields = 0;
@@ -4059,9 +4061,9 @@ version, pkgVersion)
         'uint', ...
         };
         nNumberFields = 13;
-      end;
-    end;
-  end;
+      end
+    end
+  end
 
 
 %%%% ADD functions
@@ -4078,28 +4080,28 @@ if ~isIntegralNumber(level)
 	error('level must be an integer');
 elseif ~isIntegralNumber(version)
 	error('version must be an integer');
-end;
+end
 
 if (level < 1 || level > 3)
 	error('current SBML levels are 1, 2 or 3');
-end;
+end
 
 if (level == 1)
 	if (version < 1 || version > 2)
 		error('SBMLToolbox supports versions 1-2 of SBML Level 1');
-	end;
+	end
 
 elseif (level == 2)
 	if (version < 1 || version > 5)
 		error('SBMLToolbox supports versions 1-5 of SBML Level 2');
-	end;
+	end
 
 elseif (level == 3)
 	if (version < 1 || version > 2)
 		error('SBMLToolbox supports version 1-2 of SBML Level 3');
-	end;
+	end
 
-end;
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function value = isIntegralNumber(number)
@@ -4116,8 +4118,8 @@ elseif (isnumeric(number))
     % if it is an integer 
     if (number == fix(number))
         value = 1;
-    end;
-end;
+    end
+end
 
 
 

@@ -3741,21 +3741,6 @@ function [SBMLfieldnames, nNumberFields] = getKeyValuePairDefaultValues(level, .
     end
   end
 
-  SBMLfieldnames = [];
-  nNumberFields = 0;
-
-  if (level == 3)
-    if (version < 3)
-      if (pkgVersion == 1)
-        SBMLfieldnames = {
-        int32(pkgVersion), ...
-        [], ...
-        [], ...
-        };
-        nNumberFields = 3;
-      end
-    end
-  end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
