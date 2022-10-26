@@ -407,7 +407,7 @@ StructureFields::createStructure(const std::string& functionId, SBase* base,
 {
   std::string fieldname;
   unsigned int total_no = base->getNumObjects(sbmlTC);
-  if (usePlugin)
+  if (usePlugin && total_no == 0)
   {
     total_no = base->getPlugin(prefix)->getNumObjects(sbmlTC);
   }
