@@ -884,7 +884,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_WARNING,
     "The attribute 'spatial:unitSize' on a <compartmentMapping> must have a value "
-    "between 0 and 1, inclusive.",
+    "between 0 and 1, inclusive, when the dimensions of the referenced compartments have the same dimensions.",
     { "L3V1 Spatial V1 Section"
     }
   },
