@@ -882,7 +882,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
   { SpatialCompartmentMappingUnitSizeMustBeFraction,
     "The 'unitSize' attribute must be between 0 and 1.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_WARNING,
     "The attribute 'spatial:unitSize' on a <compartmentMapping> must have a value "
     "between 0 and 1, inclusive.",
     { "L3V1 Spatial V1 Section"
