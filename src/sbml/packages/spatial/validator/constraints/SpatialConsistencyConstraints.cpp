@@ -664,6 +664,17 @@ END_CONSTRAINT
 // 1221350
 START_CONSTRAINT(SpatialCompartmentMappingUnitSizeMustBeFraction, CompartmentMapping, cmap)
 {
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+  pre(plug != NULL);
+  const Compartment *pComp = dynamic_cast<const Compartment*>(cmap.getParentSBMLObject());
+  pre(pComp != NULL);
+  pre(plug->isSetGeometry());
+  DomainType* pDomain = plug->getGeometry()->getDomainType(cmap.getDomainType());
+  pre(pDomain != NULL);
+  // this constraint should only apply when 
+  // the domainType has the same dimension as the compartment
+  pre(pComp->getSpatialDimensions() == pDomain->getSpatialDimensions());
+
   bool fail = false;
   if (cmap.isSetUnitSize() && (cmap.getUnitSize() > 1 || cmap.getUnitSize() < 0)) {
     fail = true;
