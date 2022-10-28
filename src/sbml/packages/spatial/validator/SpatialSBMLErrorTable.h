@@ -882,9 +882,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
   { SpatialCompartmentMappingUnitSizeMustBeFraction,
     "The 'unitSize' attribute must be between 0 and 1.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:unitSize' on a <compartmentMapping> must have a value "
-    "between 0 and 1, inclusive.",
+    LIBSBML_SEV_WARNING,
+    "The attribute 'spatial:unitSize' on a <compartmentMapping> should have a value "
+    "between 0 and 1, inclusive, when the dimensions of the referenced compartments are the same.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -894,7 +894,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "The 'unitSize' attributes should sum to 1.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_WARNING,
-    "The values of the 'spatial:unitSize' attributes of every <compartmentMapping> with the same 'spatial:domainType' should sum to 1.",
+    "The values of the 'spatial:unitSize' attributes of every <compartmentMapping> with the same 'spatial:domainType' should sum to 1, when the dimensions of the referenced compartments are the same.",
     { "L3V1 Spatial V1 Section"
     }
   },
