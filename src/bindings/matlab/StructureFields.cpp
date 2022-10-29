@@ -1133,7 +1133,9 @@ StructureFields::usingPlugin(const std::string& prefix, SBase* base)
     {
       usePlugin = true;
     }
-    else if (base != NULL && base->getPlugin(prefix) != NULL)
+    // need to account for a sbase plugin from same pkg which will be on aa elements
+//    else if (base != NULL && base->getPlugin(prefix) != NULL)
+    else if (base != NULL && base->getPackageName() != prefix) // THIS FIXES BUT WONT READ 
     {
       usePlugin = true;
     }
