@@ -16,7 +16,7 @@ m = getSBMLDefaultStruct('parameter', 2, 4);
 [test, fail] = doTest(isfield(m, 'value') == 1, test, fail);
 
 m = getSBMLDefaultStruct('model', 3, 1, {'fbc'}, (1));
-[test, fail] = doTest(length(fieldnames(m)) == 35, test, fail);
+[test, fail] = doTest(length(fieldnames(m)) == 37, test, fail);
 [test, fail] = doTest(isfield(m, 'fbc_version') == 1, test, fail);
 [test, fail] = doTest(m.SBML_level == 3, test, fail);
 [test, fail] = doTest(m.SBML_version == 1, test, fail);
