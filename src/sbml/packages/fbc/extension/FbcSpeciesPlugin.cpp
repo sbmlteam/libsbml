@@ -678,7 +678,7 @@ FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
 
   if (attributeName == "charge")
   {
-    value = getCharge();
+    value = getChargeAsDouble();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
 
