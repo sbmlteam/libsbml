@@ -488,6 +488,12 @@ FbcSBasePlugin::getAttribute(const std::string& attributeName,
 {
   int return_value = SBasePlugin::getAttribute(attributeName, value);
 
+  if (attributeName == "xmlns")
+  {
+    value = getListOfKeyValuePairs()->getXmlns();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
   return return_value;
 }
 
@@ -505,6 +511,11 @@ bool
 FbcSBasePlugin::isSetAttribute(const std::string& attributeName) const
 {
   bool value = SBasePlugin::isSetAttribute(attributeName);
+
+  if (attributeName == "xmlns")
+  {
+    value = getListOfKeyValuePairs()->isSetXmlns();
+  }
 
   return value;
 }
@@ -593,6 +604,11 @@ FbcSBasePlugin::setAttribute(const std::string& attributeName,
 {
   int return_value = SBasePlugin::setAttribute(attributeName, value);
 
+  if (attributeName == "xmlns")
+  {
+    return_value = getListOfKeyValuePairs()->setXmlns(value);
+  }
+
   return return_value;
 }
 
@@ -609,6 +625,10 @@ int
 FbcSBasePlugin::unsetAttribute(const std::string& attributeName)
 {
   int value = SBasePlugin::unsetAttribute(attributeName);
+  if (attributeName == "xmlns")
+  {
+    value = getListOfKeyValuePairs()->unsetXmlns();
+  }
 
   return value;
 }
