@@ -410,6 +410,12 @@ StructureFields::createStructure(const std::string& functionId, SBase* base,
   if (usePlugin && total_no == 0)
   {
     total_no = base->getPlugin(prefix)->getNumObjects(sbmlTC);
+    // we may have an SBase plugin
+    if (total_no == 0)
+    {
+      SBase * sbase = static_cast<SBase*>(base);
+      total_no = sbase->getPlugin(prefix)->getNumObjects(sbmlTC);
+    }
   }
   mwSize dims[2] = {1, total_no};
 
