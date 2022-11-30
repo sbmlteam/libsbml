@@ -78,6 +78,7 @@ jobs:
         if: matrix.platform == 'ubuntu-latest'
         shell: bash
         run: |
+          sudo apt-get update
           sudo apt-get install -y check ccache
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
           echo R_BINDINGS="-DWITH_R=True" >> "${GITHUB_ENV}"
