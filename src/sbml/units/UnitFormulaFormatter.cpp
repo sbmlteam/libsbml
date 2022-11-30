@@ -377,7 +377,10 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node,
 
   if(node->getType() == AST_FUNCTION)
   {
-    const FunctionDefinition *fd = 
+    // The function name get lost by ASTNode::reduceToBinary when it has more
+    // than one parameter. So we need to check we have a name before calling
+    // model->getFunctionDefinition to avoid crashing.
+    const FunctionDefinition *fd = node->getName() == NULL ? NULL :
                                model->getFunctionDefinition(node->getName());
     if (fd && fd->isSetMath())
     {
