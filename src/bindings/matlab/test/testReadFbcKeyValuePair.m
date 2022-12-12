@@ -2,9 +2,9 @@ function y = testReadFbcKeyValuePair(silent)
 
 filename = fullfile(pwd,'test-data', 'fbc_kvp.xml');
 
-m = TranslateSBML(filename);
+m = TranslateSBML(filename, 0, 0);
 
-test = 26;
+test = 31;
 Totalfail = 0;
 
 Totalfail = Totalfail + fail_unless(m.SBML_level == 3);
@@ -39,11 +39,16 @@ Totalfail = Totalfail + fail_unless(m.fbc_version == 3);
   Totalfail = Totalfail + fail_unless( strcmp( m.species(1).fbc_kvp_xmlns, 'http://sbml.org/fbc/keyvaluepair'             ));
 
   Totalfail = Totalfail + fail_unless( length(m.fbc_objective(1).fbc_keyValuePair) == 1);
-%   Totalfail = Totalfail + fail_unless( strcmp( m.fbc_objective(1).fbc_keyValuePair(1).fbc_key, 'key3'             ));
-%   Totalfail = Totalfail + fail_unless( strcmp( m.fbc_objective(1).fbc_keyValuePair(1).fbc_value, 'objective-value'             ));
-%   Totalfail = Totalfail + fail_unless( strcmp( m.fbc_objective(1).fbc_keyValuePair(1).fbc_uri, 'my_annotation'             ));
-%   Totalfail = Totalfail + fail_unless( strcmp( m.fbc_objective(1).fbc_kvp_xmlns, 'http://www.sbml.org/sbml/level3/version1/fbc/version3'             ));
+  Totalfail = Totalfail + fail_unless( strcmp( m.fbc_objective(1).fbc_keyValuePair(1).fbc_key, 'key3'             ));
+  Totalfail = Totalfail + fail_unless( strcmp( m.fbc_objective(1).fbc_keyValuePair(1).fbc_value, 'objective-value'             ));
+  Totalfail = Totalfail + fail_unless( strcmp( m.fbc_objective(1).fbc_keyValuePair(1).fbc_uri, 'my_annotation'             ));
+  Totalfail = Totalfail + fail_unless( strcmp( m.fbc_objective(1).fbc_kvp_xmlns, 'http://sbml.org/fbc/keyvaluepair_obj'             ));
 
+  Totalfail = Totalfail + fail_unless( length(m.fbc_objective(1).fbc_fluxObjective(1).fbc_keyValuePair) == 1);
+  Totalfail = Totalfail + fail_unless( strcmp( m.fbc_objective(1).fbc_fluxObjective(1).fbc_keyValuePair(1).fbc_key, 'key4'             ));
+  Totalfail = Totalfail + fail_unless( strcmp( m.fbc_objective(1).fbc_fluxObjective(1).fbc_keyValuePair(1).fbc_value, 'fluxobjective-value'             ));
+  Totalfail = Totalfail + fail_unless( strcmp( m.fbc_objective(1).fbc_fluxObjective(1).fbc_keyValuePair(1).fbc_uri, 'my_annotation'             ));
+  Totalfail = Totalfail + fail_unless( strcmp( m.fbc_objective(1).fbc_fluxObjective(1).fbc_kvp_xmlns, 'http://sbml.org/fbc/keyvaluepair_fluxobj'             ));
 
 
 if (silent == 0)
