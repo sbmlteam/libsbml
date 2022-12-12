@@ -32,7 +32,7 @@ public:
   void addAttributes(const std::string& functionId, unsigned int index = 0, 
                      unsigned int total_no = 0);
 
-  void createStructure(const std::string& functionId, SBase* base, bool usePlugin = false, 
+  void createStructure(const std::string& functionId, SBase* base, bool usePlugin_cs = false, 
                        const std::string& prefix = "");
 
   const std::string& getTypeCode() const { return sbmlTC; };
@@ -60,7 +60,7 @@ private:
                          unsigned int index);
 
   void addStructureField(const std::string& functionId, SBase* base,
-    unsigned int index, FieldValues_t field, bool usePlugin);
+    unsigned int index, FieldValues_t field, bool usePlugin_sf);
 
   void addChildElement(FieldValues_t field, unsigned int index);
 
@@ -140,7 +140,7 @@ private:
                        unsigned int index, unsigned int total_no);
 
 
-  bool usingPlugin(const std::string& prefix, SBase* base = NULL);
+  bool usingPlugin(const std::string& prefix, SBase* base = NULL, const std::string& name = "" );
 
   mxArray* getNamespacesStructure();
 
