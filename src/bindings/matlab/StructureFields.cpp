@@ -1277,7 +1277,7 @@ StructureFields::addChildElement(FieldValues_t field, unsigned int index)
   if (mxChild == NULL) return;
   else if (n == 0) return;
 
-  bool usePlugin = usingPlugin(field.prefix);
+  bool usePlugin = usingPlugin(field.prefix, NULL, field.fieldName.c_str());
 
   for (unsigned int i = 0; i < n; ++i)
   {
@@ -1391,7 +1391,7 @@ StructureFields::setAttribute(FieldValues_t field,
   unsigned int uvalue;
   bool bvalue;
   double dvalue;
-  bool usePlugin = usingPlugin(field.prefix);
+  bool usePlugin = usingPlugin(field.prefix, NULL, field.fieldName);
   const ASTNode *ast = NULL;
 
   switch(field.type)
