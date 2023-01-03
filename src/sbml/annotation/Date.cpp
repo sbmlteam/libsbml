@@ -368,7 +368,7 @@ Date::setSignOffset    (unsigned int sign)
 int 
 Date::setHoursOffset    (unsigned int hour)
 {
-  if (/*hour < 0 ||*/ hour > 12)
+  if (/*hour < 0 ||*/ hour > 14)
   {
     mHoursOffset = 0;
     parseDateNumbersToString();
@@ -645,7 +645,8 @@ Date::representsValidDate()
       getMinute() > 59 ||
       getSecond() > 59 ||
       getSignOffset() > 1 ||
-      getHoursOffset() > 11 ||
+      (getSignOffset() == 0 && getHoursOffset() > 12) ||
+      (getSignOffset() == 1 && getHoursOffset() > 14) ||
       getMinutesOffset() > 59)
   {
     valid = false;
