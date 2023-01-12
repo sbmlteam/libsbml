@@ -45,7 +45,10 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.lang.reflect.*;
 
-import org.sbml.libsbml.test.*;
+import org.sbml.libsbml.test.annotation.*;
+import org.sbml.libsbml.test.math.*;
+import org.sbml.libsbml.test.sbml.*;
+import org.sbml.libsbml.test.xml.*;
 import org.sbml.libsbml.*;
 
 public class AutoTestRunner
