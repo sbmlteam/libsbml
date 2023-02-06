@@ -21,7 +21,7 @@ jobs:
       fail-fast: false
       matrix:
         xml_parser_option: ["-DWITH_LIBXML"]
-        platform: [windows-latest, macos-latest, ubuntu-18.04]
+        platform: [windows-latest, macos-latest, ubuntu-latest]
         with_namespace: ["True", "False"]
         strict: ["True"]
         with_examples: ["True"]
@@ -64,14 +64,14 @@ jobs:
             language_bindings: ""
           # extra Ubuntu runs
           - xml_parser_option: "-DWITH_EXPAT"
-            platform: ubuntu-18.04
+            platform: ubuntu-latest
             with_namespace: "True"
             strict: "True"
             with_examples: "True"
             package_option: "-DWITH_ALL_PACKAGES=ON"
             language_bindings: ""
           - xml_parser_option: "-DWITH_XERCES"
-            platform: ubuntu-18.04
+            platform: ubuntu-latest
             with_namespace: "True"
             strict: "True"
             with_examples: "True"
@@ -135,9 +135,10 @@ jobs:
 
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG and libxml2 by default
-        if: matrix.platform == 'ubuntu-18.04'
+        if: matrix.platform == 'ubuntu-latest'
         shell: bash
         run: |
+          sudo apt-get update
           sudo apt-get install -y check libxerces-c-dev expat ccache
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
           git clone https://github.com/libexpat/libexpat

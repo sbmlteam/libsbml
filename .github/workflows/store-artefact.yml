@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [windows-latest, macos-latest, ubuntu-18.04]
+        platform: [windows-latest, macos-latest, ubuntu-latest]
         xml_parser_option: ["-DWITH_EXPAT=ON"]
         with_namespace: ["True"]
         strict: ["True"]
@@ -88,9 +88,10 @@ jobs:
 
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG but expat is too old
-        if: matrix.platform == 'ubuntu-18.04'
+        if: matrix.platform == 'ubuntu-latest'
         shell: bash
         run: |
+          sudo apt-get update
           sudo apt-get install -y check ccache
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
           git clone https://github.com/libexpat/libexpat
@@ -245,7 +246,7 @@ jobs:
           if-no-files-found: error
 
       - name: Upload Ubuntu binary archive
-        if: matrix.platform == 'ubuntu-18.04'
+        if: matrix.platform == 'ubuntu-latest'
         uses: actions/upload-artifact@v2
         with:
           name:

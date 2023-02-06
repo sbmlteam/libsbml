@@ -159,6 +159,23 @@ START_TEST (test_Date_getDateAsString)
 }
 END_TEST
 
+START_TEST (test_Date_representsValidDate)
+{
+  Date_t * date = Date_createFromValues(2023, 1, 3, 18, 0, 23, 0, 12, 0);
+
+  fail_unless(date != NULL);
+  fail_unless(Date_representsValidDate(date));
+
+  Date_setHoursOffset(date, 14);
+  fail_unless(!Date_representsValidDate(date));
+
+  Date_setSignOffset(date, 1);
+  fail_unless(Date_representsValidDate(date));
+
+  Date_free(date);
+}
+END_TEST
+
 START_TEST(test_ModelCreator_create)
 {
   ModelCreator_t * mc = ModelCreator_create();
@@ -427,6 +444,7 @@ create_suite_ModelHistory (void)
   tcase_add_test( tcase, test_Date_createFromString  );
   tcase_add_test( tcase, test_Date_setters  );
   tcase_add_test( tcase, test_Date_getDateAsString  );
+  tcase_add_test( tcase, test_Date_representsValidDate  );
   tcase_add_test( tcase, test_ModelCreator_create  );
   tcase_add_test( tcase, test_ModelCreator_setters  );
   tcase_add_test( tcase, test_ModelHistory_create  );

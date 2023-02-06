@@ -15,14 +15,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [windows-latest, macos-latest, ubuntu-18.04]
+        platform: [windows-latest, macos-latest, ubuntu-latest]
         xml_parser_option: ["-DWITH_EXPAT"]
         with_namespace: ["True"]
         strict: ["True"]
         with_examples: ["True"]
         package_option: ["-DWITH_ALL_PACKAGES=ON"]
         language_bindings:
-          [ "-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True"]
+          [ "-DWITH_JAVA=True -DWITH_CSHARP=True"]
         cpp_standard: [98, 20]
     runs-on: ${{ matrix.platform }}
 
@@ -72,14 +72,17 @@ jobs:
         shell: bash
         run: |
           echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
+          echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON" >> "${GITHUB_ENV}"
+          
 
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG and libxml2 by default
-        if: matrix.platform == 'ubuntu-18.04'
+        if: matrix.platform == 'ubuntu-latest'
         shell: bash
         run: |
+          sudo apt-get update
           sudo apt-get install -y check ccache
-          echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
+          echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON -DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
           echo R_BINDINGS="-DWITH_R=True" >> "${GITHUB_ENV}"
           git clone https://github.com/libexpat/libexpat
           cmake -G Ninja -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
