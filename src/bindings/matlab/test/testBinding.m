@@ -112,6 +112,13 @@ try
   Totalfail = Totalfail + testReadFromFile16(install);
   if (FbcEnabled == 1)
     Totalfail = Totalfail + testReadFromFileFbc1(install);
+    Totalfail = Totalfail + testReadFromFileFbc2(install);
+    Totalfail = Totalfail + testReadFromFileFbc3(install);
+    Totalfail = Totalfail + testReadFromFileFbc4(install);
+    Totalfail = Totalfail + testReadWriteGeneProductIds(install);
+    Totalfail = Totalfail + testReadWriteGeneProducts(install, 'Out-test1');
+    Totalfail = Totalfail + testReadFbcKeyValuePair(install);
+    Totalfail = Totalfail + testAddKeyValuePairs(install);
   end
 
   Totalfail = Totalfail + testIsSBMLModel(install, FbcEnabled);
