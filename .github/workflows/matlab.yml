@@ -47,14 +47,14 @@ jobs:
         -DWITH_EXPAT=ON \
         -DWITH_MATLAB=ON \
         -DWITH_STABLE_PACKAGES=ON \
-        -DMATLAB_ROOT_PATH=/opt/matlab-batch
+        -DMATLAB_ROOT_PATH=/usr/local/MATLAB/R2021a
 
     - name: Build
       working-directory: ${{runner.workspace}}/build
       shell: bash
       run: cmake --build . --config Debug
 
-    - name: Test
-      working-directory: ${{runner.workspace}}/build
-      shell: bash
-      run: ctest -V -C Debug
+    - name: Run Test
+      uses: matlab-actions/run-command@v1
+      with:
+        command: cd('build/src/bindings/matlab/test'); runTests
