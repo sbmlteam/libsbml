@@ -33,6 +33,19 @@
 
 if(WITH_MATLAB)
 SET(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${CMAKE_MODULE_PATH}) 
+
+if (NOT MATLAB_ROOT_PATH)
+  # try and find matlab in path
+  find_program(MATLAB_COMMAND NAMES matlab matlab.exe)
+  if (MATLAB_COMMAND)
+    # if we have it in the path, it will be of form <matlab_version>/bin/matlab, 
+    # so take the DIRECTORY component twice
+    get_filename_component(MATLAB_BIN_PATH ${MATLAB_COMMAND} DIRECTORY)
+    get_filename_component(MATLAB_ROOT ${MATLAB_BIN_PATH} DIRECTORY)
+    set(MATLAB_ROOT_PATH ${MATLAB_ROOT} CACHE STRING "Matlab root directory" FORCE)
+  endif()
+endif()
+
 find_package(Matlab)
 
 # on windows let us build the library using MSVC, on Linux and OS X we choose
@@ -124,12 +137,7 @@ file(GLOB matlab_scripts "${CMAKE_CURRENT_SOURCE_DIR}/../matlab/*.m"
 install(FILES ${matlab_scripts} DESTINATION ${MATLAB_PACKAGE_INSTALL_DIR})
 
 # add test cases
-if (WITH_CHECK)
-	
-	add_subdirectory(test)	
-
-endif()
-
+add_subdirectory(test)	
 
 endif()
 

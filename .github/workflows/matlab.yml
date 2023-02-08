@@ -46,8 +46,7 @@ jobs:
         -DWITH_LIBXML=OFF \
         -DWITH_EXPAT=ON \
         -DWITH_MATLAB=ON \
-        -DWITH_STABLE_PACKAGES=ON \
-        -DMATLAB_ROOT_PATH=/usr/local/MATLAB/R2021a
+        -DWITH_STABLE_PACKAGES=ON 
 
     - name: Build
       working-directory: ${{runner.workspace}}/build
