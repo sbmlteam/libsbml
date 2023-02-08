@@ -43,7 +43,8 @@ jobs:
         -DWITH_LIBXML=OFF \
         -DWITH_EXPAT=ON \
         -DWITH_MATLAB=ON \
-        -DWITH_STABLE_PACKAGES=ON
+        -DWITH_STABLE_PACKAGES=ON \
+        -DMATLAB_ROOT_PATH=/opt/matlab-batch
 
     - name: Build
       working-directory: ${{runner.workspace}}/build
