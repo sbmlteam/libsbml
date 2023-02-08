@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
-    - name: Configure MATLAB
-      uses: actions/setup-matlab@v1
+    - name: Set up MATLAB
+      uses: matlab-actions/setup-matlab@v1
       with:
-        matlab-version: ${{ env.MATLAB_VERSION }}
+        release: ${{ env.MATLAB_VERSION }}
 
     - name: Install Ubuntu dependencies
       # ubuntu already has SWIG and libxml2 by default
