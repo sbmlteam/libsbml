@@ -16,8 +16,8 @@ jobs:
 
     - name: Set up MATLAB
       uses: matlab-actions/setup-matlab@v1
-      with:
-        release: ${{ env.MATLAB_VERSION }}
+      # with:
+      #   release: ${{ env.MATLAB_VERSION }}
 
     - name: Install Ubuntu dependencies
       shell: bash
