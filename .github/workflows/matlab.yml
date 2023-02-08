@@ -57,4 +57,4 @@ jobs:
     - name: Run Test
       uses: matlab-actions/run-command@v1
       with:
-        command: cd('build/src/bindings/matlab/test'); runTests
+        command: cd('../build/src/bindings/matlab/test'); runTests

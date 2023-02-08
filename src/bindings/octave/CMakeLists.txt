@@ -218,6 +218,9 @@ fbcV2Labels.xml
 fbc_groups.xml
 fbc_qual.xml
 fbc_qual_groups.xml
+fbcV3.xml
+fbcV3_1.xml
+fbc_kvp.xml
 funcDefsWithInitialAssignments.xml
 functionDefinition.xml
 groups-example1.xml
