@@ -4,6 +4,8 @@ on: [push]
 
 env:
   MATLAB_VERSION: R2021a
+  CC: gcc-9
+  CXX: g++-9
 
 jobs:
   build:
