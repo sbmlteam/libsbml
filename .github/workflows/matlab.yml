@@ -32,6 +32,9 @@ jobs:
     - name: Create Build Environment
       run: cmake -E make_directory ${{runner.workspace}}/build
 
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+
     - name: Configure
       shell: bash
       working-directory: ${{runner.workspace}}/build
