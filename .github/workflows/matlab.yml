@@ -12,14 +12,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - uses: seanmiddleditch/gha-setup-ninja@master
+
     - name: Set up MATLAB
       uses: matlab-actions/setup-matlab@v1
       with:
         release: ${{ env.MATLAB_VERSION }}
 
     - name: Install Ubuntu dependencies
-      # ubuntu already has SWIG and libxml2 by default
-      if: matrix.platform == 'ubuntu-latest'
       shell: bash
       run: |
         sudo apt-get update
