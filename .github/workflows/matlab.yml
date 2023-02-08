@@ -32,8 +32,8 @@ jobs:
     - name: Create Build Environment
       run: cmake -E make_directory ${{runner.workspace}}/build
 
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
+    # - name: Setup tmate session
+    #   uses: mxschmitt/action-tmate@v3
 
     - name: Configure
       shell: bash
@@ -52,7 +52,9 @@ jobs:
     - name: Build
       working-directory: ${{runner.workspace}}/build
       shell: bash
-      run: cmake --build . --config Debug
+      run: |
+        cmake --build . --config Debug --target matlab_binding_TranslateSBML
+        cmake --build . --config Debug --target matlab_binding_OutputSBML
 
     - name: Run Test
       uses: matlab-actions/run-command@v1
