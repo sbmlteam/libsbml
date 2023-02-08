@@ -42,7 +42,7 @@ jobs:
       working-directory: ${{runner.workspace}}/build
       shell: bash
       run: |
-          cmake -DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_BZIP2=ON -DWITH_CHECK=OFF -DWITH_EXPAT=ON -DWITH_LIBXML=OFF -DWITH_OCTAVE=ON $GITHUB_WORKSPACE
+          cmake -DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_BZIP2=ON -DWITH_CHECK=OFF -DWITH_EXPAT=ON -DWITH_LIBXML=OFF -DWITH_OCTAVE=ON -DWITH_STABLE_PACKAGES=ON $GITHUB_WORKSPACE
 
     - name: Build
       working-directory: ${{runner.workspace}}/build
