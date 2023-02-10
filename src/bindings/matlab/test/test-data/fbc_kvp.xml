@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version3" level="3" version="1" fbc:required="false">
-  <model id="m" fbc:strict="true">
+  <model id="m" substanceUnits="mole" timeUnits="second" volumeUnits="litre" extentUnits="mole" fbc:strict="false">
     <annotation>
       <listOfKeyValuePairs xmlns="http://www.sbml.org/sbml/level3/version1/fbc/version3">
         <keyValuePair key="key2" value="model-value" uri="my_annotation"/>
       </listOfKeyValuePairs>
     </annotation>
+    <listOfUnitDefinitions>
+      <unitDefinition id="vol_per_time">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
     <listOfCompartments>
       <compartment id="comp" spatialDimensions="3" size="1" constant="true">
         <annotation>
@@ -16,7 +24,7 @@
       </compartment>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="S" compartment="comp" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2.5">
+      <species id="S" compartment="comp" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" initialAmount="20" fbc:charge="2.5">
         <annotation>
           <listOfKeyValuePairs xmlns="http://sbml.org/fbc/keyvaluepair">
             <keyValuePair key="key1" value="species-value" uri="my_annotation"/>
@@ -25,6 +33,25 @@
         </annotation>
       </species>
     </listOfSpecies>
+    <listOfReactions>
+      <reaction id="J0" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="S" constant="false"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> S </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="vol_per_time"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
     <fbc:listOfObjectives fbc:activeObjective="obj1">
       <fbc:objective fbc:id="obj1" fbc:type="maximize">
         <annotation>
