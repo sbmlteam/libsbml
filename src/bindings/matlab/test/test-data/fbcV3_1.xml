@@ -93,7 +93,7 @@
           </listOfLocalParameters>
         </kineticLaw>
         <fbc:geneProductAssociation fbc:id="gg3">
-          <fbc:or metaid="ss">
+          <fbc:or metaid="ss1">
             <fbc:geneProductRef fbc:geneProduct="g_1"/>
             <fbc:geneProductRef fbc:geneProduct="g_2"/>
             <fbc:and>
