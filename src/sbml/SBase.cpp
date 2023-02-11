@@ -6526,6 +6526,10 @@ SBase::checkDefaultNamespace(const XMLNamespaces* xmlns,
                              const std::string& elementName,
                              const std::string prefix)
 {
+  // listOfKeyValuePairs can be in any NS
+  if (elementName == "listOfKeyValuePairs")
+    return;
+
   //
   // checks if the given default namespace (if any) is a valid
   // SBML namespace
