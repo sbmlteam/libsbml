@@ -14,7 +14,7 @@ these documents.</caption>
 
 <tr class="align-text-bottom">
     <td style="white-space: nowrap">
-      <a class="spec-link" target="_blank" href="http://co.mbine.org/specifications/sbml.level-3.version-2">
+      <a class="spec-link" target="_blank" href="https://identifiers.org/combine.specifications:sbml.level-3.version-2.core">
         <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;3 Version&nbsp;2 Core (Release&nbsp;1)</a>
     </td>
     <td>
@@ -27,7 +27,7 @@ these documents.</caption>
 
 <tr class="align-text-bottom" style="border-bottom: 1px solid #aaa">
   <td style="white-space: nowrap">
-    <a class="spec-link" target="_blank" href="http://co.mbine.org/specifications/sbml.level-3.version-1">
+    <a class="spec-link" target="_blank" href="https://identifiers.org/combine.specifications:sbml.level-3.version-1">
       <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;3 Version&nbsp;1 Core (Release&nbsp;2)</a>
   </td>
   <td>
@@ -40,7 +40,7 @@ these documents.</caption>
 
 <tr class="align-text-bottom">
     <td style="white-space: nowrap">
-        <a class="spec-link" target="_blank" href="https://sourceforge.net/projects/sbml/files/specifications/Level%202%20Ver.%205/sbml-level-2-version-5-rel-1.pdf">
+        <a class="spec-link" target="_blank" href="https://identifiers.org/combine.specifications:sbml.level-2.version-5">
             <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;5 (Release&nbsp;1)</a>
     </td>
     <td style="white-space: nowrap">
@@ -53,7 +53,7 @@ these documents.</caption>
 
 <tr class="align-text-bottom">
     <td style="white-space: nowrap">
-        <a class="spec-link" target="_blank" href="http://iweb.dl.sourceforge.net/project/sbml/specifications/Level%202%20Ver.%204/sbml-level-2-version-4-rel-1.pdf">
+        <a class="spec-link" target="_blank" href="https://identifiers.org/combine.specifications:sbml.level-2.version-4">
             <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;4 (Release&nbsp;1)</a>
     </td>
     <td style="white-space: nowrap">
@@ -66,7 +66,7 @@ these documents.</caption>
 
 <tr class="align-text-bottom">
     <td style="white-space: nowrap">
-        <a class="spec-link" target="_blank" href="http://iweb.dl.sourceforge.net/project/sbml/specifications/Level%202%20Ver.%203/sbml-level-2-version-3-rel-2.pdf">
+        <a class="spec-link" target="_blank" href="https://identifiers.org/combine.specifications:sbml.level-2.version-3">
             <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;3 (Release&nbsp;2)</a>
     </td>
     <td style="white-space: nowrap">
@@ -79,7 +79,7 @@ these documents.</caption>
 
 <tr class="align-text-bottom">
     <td style="white-space: nowrap">
-        <a class="spec-link" target="_blank" href="http://iweb.dl.sourceforge.net/project/sbml/specifications/Level%202%20Ver.%202/sbml-level-2-version-2-rev1.pdf">
+        <a class="spec-link" target="_blank" href="https://identifiers.org/combine.specifications:sbml.level-2.version-2">
             <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;2 (Release&nbsp;1)</a>
     </td>
     <td style="white-space: nowrap">
@@ -92,7 +92,7 @@ these documents.</caption>
 
 <tr class="align-text-bottom">
     <td class="align-bottom" style="white-space: nowrap">
-        <a class="spec-link" target="_blank" href="http://iweb.dl.sourceforge.net/project/sbml/specifications/Level%202%20Ver.%201/sbml-level-2-v1.pdf">
+        <a class="spec-link" target="_blank" href="https://identifiers.org/combine.specifications:sbml.level-2.version-1">
             <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;1 (Release&nbsp;1)</a>
     </td>
     <td class="align-bottom" style="white-space: nowrap">
@@ -105,7 +105,7 @@ Has significant limitations; use later L2 versions instead.
 </tr>
 
 <tr class="align-text-bottom" style="border-top: 1px solid #aaa"><td>
-    <a class="spec-link" target="_blank" href="http://iweb.dl.sourceforge.net/project/sbml/specifications/Level%201%20Ver.%202/sbml-level-1-v2.pdf">
+    <a class="spec-link" target="_blank" href="https://identifiers.org/combine.specifications:sbml.level-1.version-2">
         <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;1 Version&nbsp;2 (Release&nbsp;1)</a>
 </td>
 <td>
@@ -118,7 +118,7 @@ Has significant limitations; use later L2 versions instead.
 
 <tr class="align-text-bottom">
     <td style="white-space: nowrap">
-        <a class="spec-link" target="_blank" href="http://www.sbml.org/specifications/sbml-level-1/version-1/sbml-level-1.pdf">
+        <a class="spec-link" target="_blank" href="https://www.sbml.org/specifications/sbml-level-1/version-1/sbml-level-1.pdf">
             <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;1 Version&nbsp;1 (Release&nbsp;1)</a>
     </td><td style="text-align: center">
 (No errata list)
