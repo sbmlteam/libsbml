@@ -1,0 +1,63 @@
+name: Matlab (ubuntu) build and test
+
+on: [push]
+
+env:
+  MATLAB_VERSION: R2021a
+  CC: gcc-9
+  CXX: g++-9
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - uses: seanmiddleditch/gha-setup-ninja@master
+
+    - name: Set up MATLAB
+      uses: matlab-actions/setup-matlab@v1
+      # with:
+      #   release: ${{ env.MATLAB_VERSION }}
+
+    - name: Install Ubuntu dependencies
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y check ccache
+        git clone https://github.com/libexpat/libexpat
+        cmake -G Ninja -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
+        cmake --build libexpat
+        cmake --install libexpat
+
+    - name: Create Build Environment
+      run: cmake -E make_directory ${{runner.workspace}}/build
+
+    # - name: Setup tmate session
+    #   uses: mxschmitt/action-tmate@v3
+
+    - name: Configure
+      shell: bash
+      working-directory: ${{runner.workspace}}/build
+      run: |
+        cmake $GITHUB_WORKSPACE \
+        -G "Ninja" \
+        -DCMAKE_BUILD_TYPE=Debug \
+        -DWITH_CHECK=ON \
+        -DWITH_LIBXML=OFF \
+        -DWITH_EXPAT=ON \
+        -DWITH_MATLAB=ON \
+        -DWITH_STABLE_PACKAGES=ON 
+
+    - name: Build
+      working-directory: ${{runner.workspace}}/build
+      shell: bash
+      run: |
+        cmake --build . --config Debug --target matlab_binding_TranslateSBML
+        cmake --build . --config Debug --target matlab_binding_OutputSBML
+
+    - name: Run Test
+      uses: matlab-actions/run-command@v1
+      with:
+        command: cd('../build/src/bindings/matlab/test'); runTests

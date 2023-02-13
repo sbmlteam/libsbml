@@ -61,10 +61,6 @@
         </kineticLaw>
       </reaction>
     </listOfReactions>
-    <fbc:listOfFluxBounds>
-      <fbc:fluxBound fbc:id="s" fbc:reaction="J0" fbc:operation="equal" fbc:value="10"/>
-      <fbc:fluxBound fbc:reaction="J0" fbc:operation="lessEqual" fbc:value="12"/>
-    </fbc:listOfFluxBounds>
     <fbc:listOfObjectives fbc:activeObjective="obj1">
       <fbc:objective fbc:id="c" fbc:type="maximize">
         <fbc:listOfFluxObjectives>
@@ -73,6 +69,10 @@
         </fbc:listOfFluxObjectives>
       </fbc:objective>
     </fbc:listOfObjectives>
+    <fbc:listOfFluxBounds>
+      <fbc:fluxBound fbc:id="s" fbc:reaction="J0" fbc:operation="equal" fbc:value="10"/>
+      <fbc:fluxBound fbc:reaction="J0" fbc:operation="lessEqual" fbc:value="12"/>
+    </fbc:listOfFluxBounds>
     <qual:listOfQualitativeSpecies>
       <qual:qualitativeSpecies qual:id="s1" qual:compartment="c" qual:constant="false" qual:name="sss" qual:initialLevel="1" qual:maxLevel="4"/>
     </qual:listOfQualitativeSpecies>

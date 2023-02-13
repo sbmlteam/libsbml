@@ -248,6 +248,11 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   GV gv;
   // we have not made persistent memory
   gv.freeMemory = false;
+
+  // default values
+  gv.fbcUsingId = false;
+  gv.fbcAddGeneProducts = true;
+
   std::ostringstream numErrs;
   /* determine whether we are in octave or matlab */
   unsigned int usingOctave = determinePlatform(gv);

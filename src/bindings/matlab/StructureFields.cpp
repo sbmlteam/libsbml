@@ -8,6 +8,10 @@
 #include <sbml/math/ASTNode.h>
 #include <sbml/extension/SBasePlugin.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
+#ifdef USE_FBC
+#include <sbml/packages/fbc/sbml/FbcAssociation.h>
+#endif // USE_FBC
+
 
 
 #ifdef USE_OCTAVE
@@ -233,6 +237,22 @@ StructureFields::populateFields()
   mxDestroyArray(mxOutputs[2]);
   mxDestroyArray(mxOutputs[3]);
 
+
+  // get structure returns fieldnames, default values and value types
+  // fieldnames are an array of arrays giving values for several aspects of the structure 
+  // 		SBMLfieldnames = { {'typecode','','',0,0}, ...
+  //{'metaid', 'metaid', '', 1, 20}, ...
+  //{'notes', 'notes', '', 1, 1}, ...
+  //{'annotation', 'annotation', '', 1, 2}, ...
+  //{'formula', 'formula', '', 1, 5}, ...
+  //{'variable', 'variable', '', 1, 20}, ...
+  //{'species', 'species', '', 1, 20}, ...
+  //{'compartment', 'compartment', '', 1, 20}, ...
+  //{'name', 'name', '', 1, 20}, ...
+  //{'units', 'units', '', 1, 20}, ...
+  //
+  //{name of the field, sbml name, prefix, is sbml attribute, type enum}
+
   for (unsigned int i = 0; i < nNumberFields; ++i)
   {
     FieldValues_t field;
@@ -383,13 +403,19 @@ StructureFields::getValueType(unsigned int i, const std::string& id)
 
 void
 StructureFields::createStructure(const std::string& functionId, SBase* base, 
-                                 bool usePlugin, const std::string& prefix)
+                                 bool usePlugin_cs, const std::string& prefix)
 {
   std::string fieldname;
   unsigned int total_no = base->getNumObjects(sbmlTC);
-  if (usePlugin)
+  if (usePlugin_cs && total_no == 0)
   {
     total_no = base->getPlugin(prefix)->getNumObjects(sbmlTC);
+    // we may have an SBase plugin
+    if (total_no == 0)
+    {
+      SBase * sbase = static_cast<SBase*>(base);
+      total_no = sbase->getPlugin(prefix)->getNumObjects(sbmlTC);
+    }
   }
   mwSize dims[2] = {1, total_no};
 
@@ -407,7 +433,7 @@ StructureFields::createStructure(const std::string& functionId, SBase* base,
   for (unsigned int i = 0; i < total_no; ++i)
   {
     SBase* child = base->getObject(sbmlTC, i);
-    if (usePlugin)
+    if (usePlugin_cs)
     {
       child = base->getPlugin(prefix)->getObject(sbmlTC, i);
     }
@@ -429,7 +455,7 @@ StructureFields::populateStructure(const std::string& functionId, SBase* base, u
     FieldValues_t field = mFields.at(i);
     type = field.type;
     nameType = field.fieldnameType;
-    bool usePlugin = usingPlugin(field.prefix, base);
+    bool usePlugin_ps = usingPlugin(field.prefix, base, field.fieldName);
 
     if (type == TYPE_ELEMENT)
     {
@@ -442,7 +468,7 @@ StructureFields::populateStructure(const std::string& functionId, SBase* base, u
           break;
       default:
           StructureFields *sf = new StructureFields(field.sbmlName, gv);
-          sf->createStructure(functionId + ":" + field.fieldName, base, usePlugin, field.prefix);
+          sf->createStructure(functionId + ":" + field.fieldName, base, usePlugin_ps, field.prefix);
           mxSetField(mxStructure, index, field.fieldName.c_str(), mxDuplicateArray(sf->getStructure()));
           sf->freeStructureMemory();
           delete sf;
@@ -455,7 +481,7 @@ StructureFields::populateStructure(const std::string& functionId, SBase* base, u
     }
     else
     {
-      addStructureField(functionId, base, index, field, usePlugin);
+      addStructureField(functionId, base, index, field, usePlugin_ps);
     }
 
   }
@@ -651,7 +677,7 @@ StructureFields::getCVTermsStructure(SBase* base)
 void
 StructureFields::addStructureField(const std::string& functionId, SBase* base,
   unsigned int index, FieldValues_t field,
-  bool usePlugin)
+  bool usePlugin_sf)
 {
   std::string value;
   int ivalue;
@@ -663,23 +689,23 @@ StructureFields::addStructureField(const std::string& functionId, SBase* base,
   case TYPE_UNKNOWN:
 
   case TYPE_CHAR:
-    value = getStringValue(functionId, base, field, usePlugin);
+    value = getStringValue(functionId, base, field, usePlugin_sf);
     mxSetField(mxStructure, index, field.fieldName.c_str(), mxCreateString(value.c_str()));
     break;
   case TYPE_BOOL:
-    bvalue = getBoolValue(functionId, base, field, usePlugin);
+    bvalue = getBoolValue(functionId, base, field, usePlugin_sf);
     mxSetField(mxStructure, index, field.fieldName.c_str(), CreateIntScalar(bvalue));
     break;
   case TYPE_UINT:
-    uvalue = getUintValue(functionId, base, field, usePlugin);
+    uvalue = getUintValue(functionId, base, field, usePlugin_sf);
     mxSetField(mxStructure, index, field.fieldName.c_str(), CreateIntScalar(uvalue));
     break;
   case TYPE_INT:
-    ivalue = getIntValue(functionId, base, field, usePlugin);
+    ivalue = getIntValue(functionId, base, field, usePlugin_sf);
     mxSetField(mxStructure, index, field.fieldName.c_str(), CreateIntScalar(ivalue));
     break;
   case TYPE_DOUBLE:
-    dvalue = getDoubleValue(functionId, base, field, usePlugin);
+    dvalue = getDoubleValue(functionId, base, field, usePlugin_sf);
     mxSetField(mxStructure, index, field.fieldName.c_str(), mxCreateDoubleScalar(dvalue));
     break;
   case TYPE_ELEMENT:
@@ -1104,7 +1130,7 @@ StructureFields::dealWithRateOfSymbol(ASTNode* math)
 // general need to know function
 
 bool 
-StructureFields::usingPlugin(const std::string& prefix, SBase* base)
+StructureFields::usingPlugin(const std::string& prefix, SBase* base, const std::string& name)
 {
   bool usePlugin = false;
   if (prefix.size() > 0)
@@ -1113,10 +1139,17 @@ StructureFields::usingPlugin(const std::string& prefix, SBase* base)
     {
       usePlugin = true;
     }
-    else if (base != NULL && base->getPlugin(prefix) != NULL)
+    // need to account for a sbase plugin from same pkg which will be on all elements
+    else if (base != NULL && base->getPackageName() != prefix) // THIS FIXES BUT WONT READ 
     {
       usePlugin = true;
     }
+#ifdef USE_FBC
+    if (name == "fbc_keyValuePair" || name == "fbc_kvp_xmlns")
+    {
+      usePlugin = true;
+    }
+#endif
   }
 
   return usePlugin;
@@ -1244,7 +1277,7 @@ StructureFields::addChildElement(FieldValues_t field, unsigned int index)
   if (mxChild == NULL) return;
   else if (n == 0) return;
 
-  bool usePlugin = usingPlugin(field.prefix);
+  bool usePlugin = usingPlugin(field.prefix, NULL, field.fieldName.c_str());
 
   for (unsigned int i = 0; i < n; ++i)
   {
@@ -1358,7 +1391,7 @@ StructureFields::setAttribute(FieldValues_t field,
   unsigned int uvalue;
   bool bvalue;
   double dvalue;
-  bool usePlugin = usingPlugin(field.prefix);
+  bool usePlugin = usingPlugin(field.prefix, NULL, field.fieldName);
   const ASTNode *ast = NULL;
 
   switch(field.type)

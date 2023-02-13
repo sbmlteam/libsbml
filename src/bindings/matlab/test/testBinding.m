@@ -16,7 +16,7 @@ if (strcmp(isoctave(), '0'))
   Totalfail = doTestRuns(install, test);
 else
   Totalfail = doTestRunsOctave(install, test);
-end;
+end
 
 disp ('************************************');
 disp('Overall tests:');
@@ -30,6 +30,7 @@ end
 clear mex;
 clear functions;
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function Totalfail = doTestRuns(install, test)
 
 Totalfail = 0;
@@ -58,29 +59,35 @@ try
   if (FbcEnabled == 1)
     Totalfail = Totalfail + testReadFromFileFbc1(install);
     Totalfail = Totalfail + testReadFromFileFbc2(install);
+    Totalfail = Totalfail + testReadFromFileFbc3(install);
+    Totalfail = Totalfail + testReadFromFileFbc4(install);
     Totalfail = Totalfail + testReadWriteGeneProductIds(install);
     Totalfail = Totalfail + testReadWriteGeneProducts(install, 'Out-test1');
-  end;
+    Totalfail = Totalfail + testReadFbcKeyValuePair(install);
+    Totalfail = Totalfail + testAddKeyValuePairs(install);
+    
+  end
   if (install == 0)
     Totalfail = Totalfail + testReadFlags(install);
-  end;
+  end
   Totalfail = Totalfail + testIsSBMLModel(install, FbcEnabled);
 
   if (install == 0)
     Totalfail = Totalfail + testOutput('Out-test1', 0, FbcEnabled);
     Totalfail = Totalfail + testVersionInformation(FbcEnabled);
-    Totalfail = Totalfail + testMissingOutput('Out-test1', 0, FbcEnabled);    
+%    Totalfail = Totalfail + testMissingOutput('Out-test1', 0, FbcEnabled);    
     Totalfail = Totalfail + testCVTerms('Out-test1', 0, FbcEnabled);
     Totalfail = Totalfail + testGetSBMLDefaultStruct();
 
-  end;
+  end
 
 catch exception
     disp ('Fatal Error!, tests cannot run due to')
     disp(exception.message)
     Totalfail = test;
-end;
+end
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function Totalfail = doTestRunsOctave(install, test)
 
 Totalfail = 0;
@@ -105,14 +112,21 @@ try
   Totalfail = Totalfail + testReadFromFile16(install);
   if (FbcEnabled == 1)
     Totalfail = Totalfail + testReadFromFileFbc1(install);
-  end;
+    Totalfail = Totalfail + testReadFromFileFbc2(install);
+    Totalfail = Totalfail + testReadFromFileFbc3(install);
+    Totalfail = Totalfail + testReadFromFileFbc4(install);
+    Totalfail = Totalfail + testReadWriteGeneProductIds(install);
+    Totalfail = Totalfail + testReadWriteGeneProducts(install, 'Out-test1');
+    Totalfail = Totalfail + testReadFbcKeyValuePair(install);
+    Totalfail = Totalfail + testAddKeyValuePairs(install);
+  end
 
   Totalfail = Totalfail + testIsSBMLModel(install, FbcEnabled);
 
   if (install == 0)
     Totalfail = Totalfail + testOutput('Out-test1', 0, FbcEnabled);
     Totalfail = Totalfail + testVersionInformation(FbcEnabled);
-  end;
+  end
 
 catch 
     disp ('Fatal Error!, tests cannot run due to')

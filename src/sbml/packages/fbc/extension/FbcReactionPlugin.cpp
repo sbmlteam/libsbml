@@ -904,7 +904,7 @@ FbcReactionPlugin::createChildObject(const std::string& elementName)
     return createGeneProductAssociation();
   }
 
-  return obj;
+  return FbcSBasePlugin::createChildObject(elementName);
 }
 
 /** @endcond */
@@ -929,7 +929,7 @@ FbcReactionPlugin::getNumObjects(const std::string& elementName)
     }
   }
 
-  return n;
+  return FbcSBasePlugin::getNumObjects(elementName);
 }
 
 /** @endcond */
@@ -952,7 +952,7 @@ FbcReactionPlugin::getObject(const std::string& elementName,
     return getGeneProductAssociation();
   }
 
-  return obj;
+  return FbcSBasePlugin::getObject(elementName, index);
 }
 
 /** @endcond */

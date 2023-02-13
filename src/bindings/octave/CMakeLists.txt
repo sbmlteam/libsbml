@@ -156,7 +156,6 @@ foreach(mFile
 endforeach()
 
 # add test files
-
 foreach(testfiles
   compareFiles.m
   runTests.m
@@ -185,8 +184,12 @@ foreach(testfiles
   testReadFromFile9.m
   testReadFromFileFbc1.m
   testReadFromFileFbc2.m
+  testReadFromFileFbc3.m
+  testReadFromFileFbc4.m
   testReadWriteGeneProductIds.m
   testReadWriteGeneProducts.m
+  testReadFbcKeyValuePair.m
+  testAddKeyValuePairs.m
   testVersionInformation.m)
 
 	install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/test/${testfiles} DESTINATION ${OCTAVE_PACKAGE_INSTALL_DIR}/test )
@@ -215,6 +218,9 @@ fbcV2Labels.xml
 fbc_groups.xml
 fbc_qual.xml
 fbc_qual_groups.xml
+fbcV3.xml
+fbcV3_1.xml
+fbc_kvp.xml
 funcDefsWithInitialAssignments.xml
 functionDefinition.xml
 groups-example1.xml

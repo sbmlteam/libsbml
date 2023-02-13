@@ -193,7 +193,7 @@ dealWithAnomalies(SBMLDocument* sbmlDocument, GV& gv)
 
     // the gene product associations in fbc v2
     unsigned int vers = StructureFields::readUint(gv.modelArray, "fbc_version", 0, gv);
-    if (vers == 2)
+    if (vers > 1)
     {
       addGeneProductAssociations(sbmlDocument, gv);
     }
