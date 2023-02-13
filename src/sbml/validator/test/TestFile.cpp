@@ -241,6 +241,16 @@ TestFile::getFilesIn ( const string& directory,
         if (num == 29)
           continue;
       }
+      else if (id == 10103)
+      {
+        // this test if for namespaces on key value pairs 
+        // which libsbml will onle recognise if FBC is enabled
+#ifndef USE_FBC
+        if (num == 12)
+          continue;
+
+#endif
+      }
 
       if ((begin == 0 && end == 0) || (id >= begin && id <= end))
       {
