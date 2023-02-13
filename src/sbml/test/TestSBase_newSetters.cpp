@@ -2280,6 +2280,81 @@ START_TEST (test_SBase_setModelHistoryL3)
 END_TEST
 
 
+START_TEST(test_SBase_setModelHistoryL3_no_date)
+{
+  Species_t sb(3, 1);
+  sb.setMetaId("_s");
+  ModelHistory_t *mh = ModelHistory_create();
+  ModelCreator_t * mc = ModelCreator_create();
+
+  ModelCreator_setFamilyName(mc, "Keating");
+  ModelCreator_setGivenName(mc, "Sarah");
+  ModelCreator_setEmail(mc, "sbml-team@caltech.edu");
+  ModelCreator_setOrganisation(mc, "UH");
+
+  ModelHistory_addCreator(mh, mc);
+
+  int i = SBase_setModelHistory(&sb, mh);
+
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(SBase_isSetModelHistory(&sb) == 1);
+
+  ModelHistory_free(mh);
+  mh = SBase_getModelHistory(&sb);
+
+  fail_unless(mh != NULL);
+
+  SBase_unsetModelHistory(&sb);
+  mh = SBase_getModelHistory(&sb);
+
+  fail_unless(SBase_isSetModelHistory(&sb) == 0);
+  fail_unless(mh == NULL);
+
+  ModelCreator_free(mc);
+}
+END_TEST
+
+
+START_TEST(test_SBase_setModelHistoryL3_noParent)
+{
+  Species_t sb(3, 1);
+  sb.setMetaId("_s");
+  ModelHistory_t *mh = ModelHistory_create();
+  ModelCreator_t * mc = ModelCreator_create();
+  Date_t * date =
+    Date_createFromValues(2005, 12, 30, 12, 15, 45, 1, 2, 0);
+
+  ModelCreator_setFamilyName(mc, "Keating");
+  ModelCreator_setGivenName(mc, "Sarah");
+  ModelCreator_setEmail(mc, "sbml-team@caltech.edu");
+  ModelCreator_setOrganisation(mc, "UH");
+
+  ModelHistory_addCreator(mh, mc);
+  ModelHistory_setCreatedDate(mh, date);
+  ModelHistory_setModifiedDate(mh, date);
+
+  int i = SBase_setModelHistory(&sb, mh);
+
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(SBase_isSetModelHistory(&sb) == 1);
+
+  ModelHistory_free(mh);
+  mh = SBase_getModelHistory(&sb);
+
+  fail_unless(mh != NULL);
+
+  SBase_unsetModelHistory(&sb);
+  mh = SBase_getModelHistory(&sb);
+
+  fail_unless(SBase_isSetModelHistory(&sb) == 0);
+  fail_unless(mh == NULL);
+
+  ModelCreator_free(mc);
+  Date_free(date);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBase_newSetters (void)
 {
@@ -2331,6 +2406,8 @@ create_suite_SBase_newSetters (void)
   tcase_add_test(tcase, test_SBase_setModelHistory   );
   tcase_add_test(tcase, test_SBase_setModelHistory_Model   );
   tcase_add_test(tcase, test_SBase_setModelHistoryL3   );
+  tcase_add_test(tcase, test_SBase_setModelHistoryL3_no_date);
+  tcase_add_test(tcase, test_SBase_setModelHistoryL3_noParent);
 
   suite_add_tcase(suite, tcase);
 

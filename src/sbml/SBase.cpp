@@ -2229,43 +2229,62 @@ SBase::appendNotes(const std::string& notes)
 int
 SBase::setModelHistory(ModelHistory * history)
 {
+  // if there is no parent then the required attributes are not
+  // correctly identified
+  bool dummyParent = false;
+  if (history != NULL && history->getParentSBMLObject() == NULL)
+  {
+    history->setParentSBMLObject(this);
+    dummyParent = true;
+  }
+
+  int status = LIBSBML_OPERATION_SUCCESS;
+
   /* ModelHistory is only allowed on Model in L2
    * but on any element in L3
    */
   if (getLevel() < 3 && getTypeCode() != SBML_MODEL)
   {
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+    status = LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
   // shouldnt add a history to an object with no metaid
-  if (!isSetMetaId())
+  if (status == LIBSBML_OPERATION_SUCCESS && !isSetMetaId())
   {
-    return LIBSBML_MISSING_METAID;
+    status = LIBSBML_MISSING_METAID;
   }
+  
+  if (status == LIBSBML_OPERATION_SUCCESS)
+  {
+    if (mHistory == history)
+    {
+      status = LIBSBML_OPERATION_SUCCESS;
+    }
+    else if (history == NULL)
+    {
+      delete mHistory;
+      mHistory = NULL;
+      mHistoryChanged = true;
+      status = LIBSBML_OPERATION_SUCCESS;
+    }
+    else if (!(history->hasRequiredAttributes()))
+    {
+      delete mHistory;
+      mHistory = NULL;
+      status = LIBSBML_INVALID_OBJECT;
+    }
+    else
+    {
+      delete mHistory;
+      mHistory = static_cast<ModelHistory*>(history->clone());
+      mHistoryChanged = true;
+      status = LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+  // if we set a dummy parent unset
+  if (dummyParent)
+    history->unsetParentSBMLObject();
 
-  if (mHistory == history)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (history == NULL)
-  {
-    delete mHistory;
-    mHistory = NULL;
-    mHistoryChanged = true;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (!(history->hasRequiredAttributes()))
-  {
-    delete mHistory;
-    mHistory = NULL;
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else
-  {
-    delete mHistory;
-    mHistory = static_cast<ModelHistory*>( history->clone() );
-    mHistoryChanged = true;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  return status;
 }
 
 
