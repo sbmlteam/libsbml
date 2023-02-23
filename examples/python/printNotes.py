@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ## 
 ## @file    printNotes.py
 ## @brief   Prints notes strings for each element

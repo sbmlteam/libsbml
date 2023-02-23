@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## \file    appendAnnotation.py
 ## \brief   adds annotation strings to a model and a species

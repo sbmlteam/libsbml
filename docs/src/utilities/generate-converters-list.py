@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # @file   generate-converters-list.py
 # @brief  Generate libsbml-converters.txt, a list of SBML converter classes

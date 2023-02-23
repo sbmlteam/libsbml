@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # =============================================================================
 # @file   writeErrorTable.py
 # @brief  Write documentation for SBML error codes

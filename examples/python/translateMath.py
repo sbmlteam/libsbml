@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ## 
 ## @file    translateMath.py
 ## @brief   Translates infix formulas into MathML and vice-versa

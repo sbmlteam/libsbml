@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## @file    validateSBML.py
 ## @brief   Validates one or more SBML files

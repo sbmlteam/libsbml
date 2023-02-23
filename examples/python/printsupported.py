@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ## 
 ## @file    printsupported.cs
 ## @brief   Prints all SBML Levels and Versions supported by this version 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ## 
 ## @file    evaluateCustomMath.py
 ## @brief   evaluates the given formula

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # @file    doc-filter-csharp.py
 # @brief   Post-process libSBML's csharp doc strings for use by Doxygen.

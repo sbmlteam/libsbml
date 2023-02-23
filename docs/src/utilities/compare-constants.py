@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # @file    compare-constants.py
 # @brief   Compare the constants in the substitution files to the current list

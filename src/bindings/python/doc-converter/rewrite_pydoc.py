@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## @file    rewrite_pydoc.py
 ## @brief   Convert libSBML Python doc file to something readable as docstrings

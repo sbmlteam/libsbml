@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ## 
 ## @file    convertSBML.py
 ## @brief   Converts SBML documents between levels

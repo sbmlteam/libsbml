@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## @file    flattenArrays.py
 ## @brief   Flattens the arrays code from the given SBML file.

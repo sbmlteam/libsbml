@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## @file    readSBML.py
 ## @brief   Similar to validateSBML, but without the validation

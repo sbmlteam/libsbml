@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ## 
 ## @file    inlineInitialAssignments.py
 ## @brief   inlines all initial assignments directly
