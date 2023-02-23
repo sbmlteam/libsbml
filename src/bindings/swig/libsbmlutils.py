@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # @file   libsbmlutils.py
 # @brief  Common utility code used by some of our other Python programs.

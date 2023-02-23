@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## \file    addModelHistory.py
 ## \brief   adds Model History to a model

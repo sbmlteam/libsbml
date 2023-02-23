@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ## 
 ## @file    printMath.py
 ## @brief   Prints Rule, Reaction, and Event formulas in a given SBML Document

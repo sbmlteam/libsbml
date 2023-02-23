@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 #  @file    fbc_example1.py
 #  @brief   SBML FBC example

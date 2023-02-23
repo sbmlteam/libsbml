@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # @file   doc-filter-c.py
 # @brief  Post-process libSBML's source files for creating C docs with Doxygen.

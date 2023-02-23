@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## @file    flattenModel.py
 ## @brief   Flattens the comp code from the given SBML file.

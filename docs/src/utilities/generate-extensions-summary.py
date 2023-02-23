@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # @file    generate-extensions-summary.py
 # @brief   Create a page summarizing libSBML L3 extensions for Java

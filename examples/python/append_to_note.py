@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## \file    append_to_note.py
 ## \brief   adds to the notes of an element in a document

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ## 
 ## @file    replaceOneFD.py
 ## @brief   replaces a given function definition in a specific part of the model

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## \file    addingEvidenceCodes_2.py
 ## \brief   adds evidence codes to a species in a model

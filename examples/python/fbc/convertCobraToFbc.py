@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## @file    convertCobraToFbc.py
 ## @brief   Convert COBRA L2 to L3 with FBC

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## \file    addingEvidenceCodes_1.py
 ## \brief   adds controlled vocabulary terms to a reaction in a model

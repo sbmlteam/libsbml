@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ## 
 ## @file    printModel.py
 ## @brief   Prints some information about the top-level model

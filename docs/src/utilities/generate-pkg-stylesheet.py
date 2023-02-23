@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # @file    generate-pkg-stylesheet.py
 # @brief   Create a stylesheet for libSBML package extensions

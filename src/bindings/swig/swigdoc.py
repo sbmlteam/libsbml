@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # @file   swigdoc.py
 # @brief  Creates documentation for C#, Java, Python, and Perl.

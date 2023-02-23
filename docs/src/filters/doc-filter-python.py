@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- python-indent-offset: 2 -*-
 #
 # @file    doc-filter-python.py

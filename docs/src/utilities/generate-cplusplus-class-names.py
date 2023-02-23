@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # @file   generate-cplusplus-class-names.py
 # @brief  Generate a list of classes defined in libSBML

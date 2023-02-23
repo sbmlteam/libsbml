@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # @file    compare-classes.py
 # @brief   Compare classes in C++ code to those documented via Doxygen
