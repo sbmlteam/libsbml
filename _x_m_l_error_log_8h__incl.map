@@ -1,0 +1,20 @@
+<map id="XMLErrorLog.h" name="XMLErrorLog.h">
+<area shape="rect" id="node1" title="Stores errors (and messages) encountered while processing XML." alt="" coords="576,5,692,32"/>
+<area shape="rect" id="node2" href="$_x_m_l_extern_8h.html" title="Defines LIBLAX_EXTERN." alt="" coords="6,155,176,181"/>
+<area shape="rect" id="node4" href="$_x_m_l_error_8h.html" title="Represents errors (and messages) encountered during an XML parse." alt="" coords="439,80,596,107"/>
+<area shape="rect" id="node6" href="$sbmlfwd_8h.html" title="Forward declarations for all opaque C types." alt="" coords="200,155,387,181"/>
+<area shape="rect" id="node14" title=" " alt="" coords="742,155,800,181"/>
+<area shape="rect" id="node16" title=" " alt="" coords="671,80,751,107"/>
+<area shape="rect" id="node17" title=" " alt="" coords="776,80,838,107"/>
+<area shape="rect" id="node18" title=" " alt="" coords="863,80,906,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="93,483,260,524"/>
+<area shape="rect" id="node5" title=" " alt="" coords="578,237,644,263"/>
+<area shape="rect" id="node11" href="$util_8h.html" title="Utility functions." alt="" coords="412,155,528,181"/>
+<area shape="rect" id="node13" title=" " alt="" coords="603,155,667,181"/>
+<area shape="rect" id="node15" href="$operation_return_values_8h.html" title="Enumeration of values returned by operations within libSBML." alt="" coords="586,319,810,360"/>
+<area shape="rect" id="node7" href="$libsbml-config_8h.html" title="Decides whether to #include Unix or Windows configuration variables." alt="" coords="212,229,378,271"/>
+<area shape="rect" id="node8" title=" " alt="" coords="93,319,260,360"/>
+<area shape="rect" id="node9" href="$libsbml-version_8h.html" title="Define libSBML version numbers for access from client software." alt="" coords="336,319,502,360"/>
+<area shape="rect" id="node10" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="394,408,567,435"/>
+<area shape="rect" id="node12" title=" " alt="" coords="428,237,503,263"/>
+</map>

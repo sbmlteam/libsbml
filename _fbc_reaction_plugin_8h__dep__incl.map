@@ -1,0 +1,11 @@
+<map id="FbcReactionPlugin.h" name="FbcReactionPlugin.h">
+<area shape="rect" id="node1" title="Implementation of the FbcReactionPlugin class." alt="" coords="613,5,768,32"/>
+<area shape="rect" id="node2" href="$_fbc_extension_types_8h.html" title="Includes all SBML types of the fbc package extension in a single header file." alt="" coords="439,80,598,107"/>
+<area shape="rect" id="node8" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="623,80,759,107"/>
+<area shape="rect" id="node9" href="$_fbc_reaction_plugin_8cpp.html" title="Implementation of the FbcReactionPlugin class." alt="" coords="783,80,953,107"/>
+<area shape="rect" id="node3" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="5,155,192,181"/>
+<area shape="rect" id="node4" href="$_fbc_to_cobra_converter_8cpp.html" title="Implementation of a fbc 2 cobra converter." alt="" coords="216,155,403,181"/>
+<area shape="rect" id="node5" href="$_fbc_v1_to_v2_converter_8cpp.html" title="Implementation of a fbc v1 to fbc v2 converter." alt="" coords="427,155,610,181"/>
+<area shape="rect" id="node6" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="634,155,817,181"/>
+<area shape="rect" id="node7" href="$_fbc_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="841,155,970,181"/>
+</map>

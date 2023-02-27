@@ -1,0 +1,11 @@
+<map id="CompValidator.h" name="CompValidator.h">
+<area shape="rect" id="node1" title="Base class for SBML CompValidators." alt="" coords="469,5,599,32"/>
+<area shape="rect" id="node2" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="5,155,236,181"/>
+<area shape="rect" id="node3" href="$_comp_s_b_m_l_document_plugin_8h.html" title="Definition of CompSBMLDocumentPlugin, the plugin class of comp package for the Model element." alt="" coords="427,80,641,107"/>
+<area shape="rect" id="node6" href="$_comp_validator_8cpp.html" title=" " alt="" coords="711,229,855,256"/>
+<area shape="rect" id="node4" href="$_comp_extension_types_8h.html" title="Include all SBML types of Comp extension in a single header file." alt="" coords="261,155,434,181"/>
+<area shape="rect" id="node7" href="$_comp_extension_8cpp.html" title="Implementation of CompExtension, the core module of comp package." alt="" coords="459,155,609,181"/>
+<area shape="rect" id="node8" href="$_external_model_definition_8cpp.html" title="Implementation of ExternalModelDefinition, the SBase&#45;derived class of the comp package." alt="" coords="633,155,840,181"/>
+<area shape="rect" id="node9" href="$_submodel_8cpp.html" title="Implementation of Submodel, the SBase&#45;derived class of the comp package." alt="" coords="865,155,979,181"/>
+<area shape="rect" id="node5" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="239,229,455,256"/>
+</map>

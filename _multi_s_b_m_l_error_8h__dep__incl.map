@@ -1,0 +1,25 @@
+<map id="MultiSBMLError.h" name="MultiSBMLError.h">
+<area shape="rect" id="node1" title=": Implementation of the MultiSBMLError class" alt="" coords="2245,5,2378,32"/>
+<area shape="rect" id="node2" href="$_multi_compartment_plugin_8cpp.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="5,87,217,114"/>
+<area shape="rect" id="node3" href="$_multi_list_of_reactions_plugin_8cpp.html" title=": Implementation of the MultiListOfReactionsPlugin class" alt="" coords="241,87,465,114"/>
+<area shape="rect" id="node4" href="$_multi_model_plugin_8cpp.html" title=": Implementation of the MultiModelPlugin class" alt="" coords="489,87,651,114"/>
+<area shape="rect" id="node5" href="$_multi_s_b_m_l_document_plugin_8cpp.html" title=": Implementation of the MultiSBMLDocumentPlugin class" alt="" coords="676,87,901,114"/>
+<area shape="rect" id="node6" href="$_multi_simple_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSimpleSpeciesReferencePlugin class" alt="" coords="926,80,1142,121"/>
+<area shape="rect" id="node7" href="$_multi_species_plugin_8cpp.html" title=": Implementation of the MultiSpeciesPlugin class" alt="" coords="1167,87,1339,114"/>
+<area shape="rect" id="node8" href="$_binding_site_species_type_8cpp.html" title=": Implementation of the BindingSiteSpeciesType class" alt="" coords="1363,87,1566,114"/>
+<area shape="rect" id="node9" href="$_compartment_reference_8cpp.html" title=": Implementation of the CompartmentReference class" alt="" coords="1590,87,1795,114"/>
+<area shape="rect" id="node10" href="$_in_species_type_bond_8cpp.html" title=": Implementation of the InSpeciesTypeBond class" alt="" coords="1820,87,1995,114"/>
+<area shape="rect" id="node11" href="$_intra_species_reaction_8cpp.html" title=": Implementation of the IntraSpeciesReaction class" alt="" coords="2019,87,2206,114"/>
+<area shape="rect" id="node12" href="$_multi_species_type_8cpp.html" title=": Implementation of the MultiSpeciesType class" alt="" coords="2230,87,2393,114"/>
+<area shape="rect" id="node13" href="$_outward_binding_site_8cpp.html" title=": Implementation of the OutwardBindingSite class" alt="" coords="2417,87,2595,114"/>
+<area shape="rect" id="node14" href="$_possible_species_feature_value_8cpp.html" title=": Implementation of the PossibleSpeciesFeatureValue class" alt="" coords="2620,87,2859,114"/>
+<area shape="rect" id="node15" href="$_species_feature_8cpp.html" title=": Implementation of the SpeciesFeature class" alt="" coords="2883,87,3031,114"/>
+<area shape="rect" id="node16" href="$_species_feature_type_8cpp.html" title=": Implementation of the SpeciesFeatureType class" alt="" coords="3055,87,3234,114"/>
+<area shape="rect" id="node17" href="$_species_feature_value_8cpp.html" title=": Implementation of the SpeciesFeatureValue class" alt="" coords="3258,87,3442,114"/>
+<area shape="rect" id="node18" href="$_species_type_component_index_8cpp.html" title=": Implementation of the SpeciesTypeComponentIndex class" alt="" coords="3466,87,3706,114"/>
+<area shape="rect" id="node19" href="$_species_type_component_map_in_product_8cpp.html" title=": Implementation of the SpeciesTypeComponentMapInProduct class" alt="" coords="3731,80,3948,121"/>
+<area shape="rect" id="node20" href="$_species_type_instance_8cpp.html" title=": Implementation of the SpeciesTypeInstance class" alt="" coords="3973,87,4157,114"/>
+<area shape="rect" id="node21" href="$_sub_list_of_species_features_8cpp.html" title=": Implementation of the SubListOfSpeciesFeatures class" alt="" coords="4181,87,4399,114"/>
+<area shape="rect" id="node22" href="$_multi_s_b_m_l_error_table_8h.html" title=": Implementation of the MultiSBMLErrorTable class" alt="" coords="4423,87,4591,114"/>
+<area shape="rect" id="node23" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="4434,169,4581,196"/>
+</map>

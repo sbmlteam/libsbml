@@ -1,0 +1,5 @@
+<map id="FbcOr" name="FbcOr">
+<area shape="rect" id="node1" title="@sbmlpackage{fbc}" alt="" coords="35,155,95,181"/>
+<area shape="rect" id="node2" href="$class_fbc_association.html" title="@sbmlpackage{fbc}" alt="" coords="5,80,125,107"/>
+<area shape="rect" id="node3" href="$class_s_base.html" title="@sbmlpackage{core}" alt="" coords="34,5,97,32"/>
+</map>

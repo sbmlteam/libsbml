@@ -1,0 +1,26 @@
+var _line_ending_8cpp =
+[
+    [ "LineEnding_clone", "_line_ending_8cpp.html#aceab72d4289eb9af2b458616f3446a9b", null ],
+    [ "LineEnding_create", "_line_ending_8cpp.html#af3876cc8a60dd65ad1868d2a0b7c8318", null ],
+    [ "LineEnding_createBoundingBox", "_line_ending_8cpp.html#a711a3feab8eca18651a654786848a9ee", null ],
+    [ "LineEnding_createGroup", "_line_ending_8cpp.html#a4377420e283e7dcf7e82e7667b4a5ee4", null ],
+    [ "LineEnding_free", "_line_ending_8cpp.html#a0f4d940c6a39a01e63f423067d40b27a", null ],
+    [ "LineEnding_getBoundingBox", "_line_ending_8cpp.html#a8b069edfdd7d27555848682da8cb8822", null ],
+    [ "LineEnding_getEnableRotationalMapping", "_line_ending_8cpp.html#a3b1e5908f033a0e371c0168911a28141", null ],
+    [ "LineEnding_getGroup", "_line_ending_8cpp.html#a9aa97de9d0f0b37e4d10d2378734602a", null ],
+    [ "LineEnding_getId", "_line_ending_8cpp.html#a662b08b5b13ec65720cb1de09654056d", null ],
+    [ "LineEnding_hasRequiredAttributes", "_line_ending_8cpp.html#a09ae39c3aa1749f673e045c1d0d77244", null ],
+    [ "LineEnding_hasRequiredElements", "_line_ending_8cpp.html#adac5c433bbabd6afc9b3c675d31cc7bf", null ],
+    [ "LineEnding_isSetBoundingBox", "_line_ending_8cpp.html#a32232a5f179a95bc8d285e78fa3dd981", null ],
+    [ "LineEnding_isSetEnableRotationalMapping", "_line_ending_8cpp.html#a5ade116a49fea65c883e3e3871fcbb4b", null ],
+    [ "LineEnding_isSetGroup", "_line_ending_8cpp.html#a1fdd1ed2cc510f349eb0387ee7199b7e", null ],
+    [ "LineEnding_isSetId", "_line_ending_8cpp.html#adeb4b6ee5be0de9beac7b23c0589687b", null ],
+    [ "LineEnding_setBoundingBox", "_line_ending_8cpp.html#acd9a9b8e8533a7bf1bff79c99af5912f", null ],
+    [ "LineEnding_setEnableRotationalMapping", "_line_ending_8cpp.html#a6a9d6eef2f15d735973448cf1b775297", null ],
+    [ "LineEnding_setGroup", "_line_ending_8cpp.html#a2c61d73f3c1b6d8e221b7ae7d16aa23f", null ],
+    [ "LineEnding_setId", "_line_ending_8cpp.html#a5ea27889dbaa2fac6a6a7958211ce38c", null ],
+    [ "LineEnding_unsetBoundingBox", "_line_ending_8cpp.html#ace13b4a8ca4cf5bc8647711a172e6592", null ],
+    [ "LineEnding_unsetEnableRotationalMapping", "_line_ending_8cpp.html#a0cdb51e017385edac3191a98fd1711dc", null ],
+    [ "LineEnding_unsetGroup", "_line_ending_8cpp.html#aa872a00bdbf1bf09b04b52c579fa13a9", null ],
+    [ "LineEnding_unsetId", "_line_ending_8cpp.html#afe59b36d90c9f92225239a108c121957", null ]
+];

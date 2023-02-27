@@ -1,0 +1,20 @@
+<map id="qualfwd.h" name="qualfwd.h">
+<area shape="rect" id="node1" title="SBML Qual C structure declarations." alt="" coords="364,5,449,32"/>
+<area shape="rect" id="node2" href="$_qual_extension_types_8h.html" title="Include all SBML types of qual extension in a single header file." alt="" coords="396,379,561,405"/>
+<area shape="rect" id="node4" href="$_default_term_8h.html" title="Implementation of the DefaultTerm class." alt="" coords="140,80,255,107"/>
+<area shape="rect" id="node6" href="$_function_term_8h.html" title="Implementation of the FunctionTerm class." alt="" coords="247,155,369,181"/>
+<area shape="rect" id="node8" href="$_transition_8h.html" title="Implementation of the Transition class." alt="" coords="311,229,409,256"/>
+<area shape="rect" id="node13" href="$_input_8h.html" title="Implementation of the Input class." alt="" coords="444,155,511,181"/>
+<area shape="rect" id="node15" href="$_output_8h.html" title="Implementation of the Output class." alt="" coords="550,155,629,181"/>
+<area shape="rect" id="node17" href="$_qualitative_species_8h.html" title="Implementation of the QualitativeSpecies class." alt="" coords="759,229,915,256"/>
+<area shape="rect" id="node3" href="$_qual_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="411,453,547,480"/>
+<area shape="rect" id="node5" href="$_default_term_8cpp.html" title="Implementation of the DefaultTerm class." alt="" coords="94,155,223,181"/>
+<area shape="rect" id="node7" href="$_function_term_8cpp.html" title="Implementation of the FunctionTerm class." alt="" coords="144,304,280,331"/>
+<area shape="rect" id="node9" href="$_qual_model_plugin_8h.html" title="Definition of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="692,304,836,331"/>
+<area shape="rect" id="node12" href="$_transition_8cpp.html" title="Implementation of the Transition class." alt="" coords="304,304,416,331"/>
+<area shape="rect" id="node10" href="$_qual_extension_8cpp.html" title="Implementation of QualExtension, the core module of qual package." alt="" coords="818,379,961,405"/>
+<area shape="rect" id="node11" href="$_qual_model_plugin_8cpp.html" title="Implementation of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="635,379,794,405"/>
+<area shape="rect" id="node14" href="$_input_8cpp.html" title="Implementation of the Input class." alt="" coords="484,229,567,256"/>
+<area shape="rect" id="node16" href="$_output_8cpp.html" title="Implementation of the Output class." alt="" coords="641,229,735,256"/>
+<area shape="rect" id="node18" href="$_qualitative_species_8cpp.html" title="Implementation of the QualitativeSpecies class." alt="" coords="860,304,1031,331"/>
+</map>

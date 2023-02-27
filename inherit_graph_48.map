@@ -1,0 +1,10 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_validator.html" title="@sbmlpackage{core}" alt="" coords="5,157,85,184"/>
+<area shape="rect" id="node2" href="$class_comp_validator.html" title="@sbmlpackage{comp}" alt="" coords="137,5,256,32"/>
+<area shape="rect" id="node3" href="$class_fbc_validator.html" title="@sbmlpackage{fbc}" alt="" coords="145,56,248,83"/>
+<area shape="rect" id="node4" href="$class_groups_validator.html" title="@sbmlpackage{groups}" alt="" coords="133,107,260,133"/>
+<area shape="rect" id="node5" href="$class_layout_validator.html" title="@sbmlpackage{layout}" alt="" coords="135,157,259,184"/>
+<area shape="rect" id="node6" href="$class_multi_validator.html" title="@sbmlpackage{multi}" alt="" coords="140,208,253,235"/>
+<area shape="rect" id="node7" href="$class_qual_validator.html" title="@sbmlpackage{qual}" alt="" coords="141,259,252,285"/>
+<area shape="rect" id="node8" href="$class_render_validator.html" title="@sbmlpackage{render}" alt="" coords="133,309,260,336"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="SBMLInternalValidator.h" name="SBMLInternalValidator.h">
+<area shape="rect" id="node1" title="Definition of SBMLInternalValidator, the validator for all internal validation performed by libSBML." alt="" coords="110,5,287,32"/>
+<area shape="rect" id="node2" href="$_s_b_m_l_internal_validator_8cpp.html" title="Implementation of SBMLInternalValidator, the validator for all internal validation performed by libSB..." alt="" coords="5,80,197,107"/>
+<area shape="rect" id="node3" href="$_s_b_m_l_document_8cpp.html" title="Implementation of the top&#45;level container for an SBML Model and associated data." alt="" coords="221,80,373,107"/>
+</map>

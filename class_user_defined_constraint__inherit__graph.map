@@ -1,0 +1,4 @@
+<map id="UserDefinedConstraint" name="UserDefinedConstraint">
+<area shape="rect" id="node1" title="@sbmlpackage{fbc}" alt="" coords="5,80,175,107"/>
+<area shape="rect" id="node2" href="$class_s_base.html" title="@sbmlpackage{core}" alt="" coords="59,5,121,32"/>
+</map>

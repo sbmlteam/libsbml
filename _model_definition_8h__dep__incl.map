@@ -1,0 +1,14 @@
+<map id="ModelDefinition.h" name="ModelDefinition.h">
+<area shape="rect" id="node1" title="Definition of ModelDefinition, the SBase derived class of the comp package." alt="" coords="481,5,618,32"/>
+<area shape="rect" id="node2" href="$_comp_extension_types_8h.html" title="Include all SBML types of Comp extension in a single header file." alt="" coords="128,229,301,256"/>
+<area shape="rect" id="node5" href="$_comp_s_b_m_l_document_plugin_8h.html" title="Definition of CompSBMLDocumentPlugin, the plugin class of comp package for the Model element." alt="" coords="507,155,722,181"/>
+<area shape="rect" id="node10" href="$_list_of_model_definitions_8h.html" title="Definition of ListOfModelDefinitions, the SBase derived class of modelDefinitions package." alt="" coords="394,80,577,107"/>
+<area shape="rect" id="node12" href="$_model_definition_8cpp.html" title="Implementation of ModelDefinition, the SBase&#45;derived class of the comp package." alt="" coords="747,155,899,181"/>
+<area shape="rect" id="node3" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="5,304,221,331"/>
+<area shape="rect" id="node4" href="$_comp_validator_8cpp.html" title=" " alt="" coords="245,304,389,331"/>
+<area shape="rect" id="node6" href="$_comp_extension_8cpp.html" title="Implementation of CompExtension, the core module of comp package." alt="" coords="697,229,847,256"/>
+<area shape="rect" id="node7" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="871,229,1102,256"/>
+<area shape="rect" id="node8" href="$_external_model_definition_8cpp.html" title="Implementation of ExternalModelDefinition, the SBase&#45;derived class of the comp package." alt="" coords="326,229,533,256"/>
+<area shape="rect" id="node9" href="$_submodel_8cpp.html" title="Implementation of Submodel, the SBase&#45;derived class of the comp package." alt="" coords="557,229,672,256"/>
+<area shape="rect" id="node11" href="$_list_of_model_definitions_8cpp.html" title="Implementation of ListOfModelDefinitions from the comp package." alt="" coords="285,155,483,181"/>
+</map>

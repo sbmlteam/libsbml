@@ -1,0 +1,13 @@
+<map id="XMLNamespaces.h" name="XMLNamespaces.h">
+<area shape="rect" id="node1" title="A list of XMLNamespace declarations (URI/prefix pairs)" alt="" coords="401,5,547,32"/>
+<area shape="rect" id="node2" href="$_x_m_l_extern_8h.html" title="Defines LIBLAX_EXTERN." alt="" coords="5,162,175,189"/>
+<area shape="rect" id="node4" href="$sbmlfwd_8h.html" title="Forward declarations for all opaque C types." alt="" coords="250,80,437,107"/>
+<area shape="rect" id="node9" href="$operation_return_values_8h.html" title="Enumeration of values returned by operations within libSBML." alt="" coords="518,155,742,196"/>
+<area shape="rect" id="node10" title=" " alt="" coords="511,80,570,107"/>
+<area shape="rect" id="node11" title=" " alt="" coords="595,80,657,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="155,408,321,449"/>
+<area shape="rect" id="node5" href="$libsbml-config_8h.html" title="Decides whether to #include Unix or Windows configuration variables." alt="" coords="281,155,448,196"/>
+<area shape="rect" id="node6" title=" " alt="" coords="301,244,468,285"/>
+<area shape="rect" id="node7" href="$libsbml-version_8h.html" title="Define libSBML version numbers for access from client software." alt="" coords="492,244,659,285"/>
+<area shape="rect" id="node8" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="489,333,662,360"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="RenderInformationBase" name="RenderInformationBase">
+<area shape="rect" id="node1" title="@sbmlpackage{render}" alt="" coords="113,80,289,107"/>
+<area shape="rect" id="node3" href="$class_global_render_information.html" title="@sbmlpackage{render}" alt="" coords="5,155,192,181"/>
+<area shape="rect" id="node4" href="$class_local_render_information.html" title="@sbmlpackage{render}" alt="" coords="216,155,395,181"/>
+<area shape="rect" id="node2" href="$class_s_base.html" title="@sbmlpackage{core}" alt="" coords="170,5,233,32"/>
+</map>

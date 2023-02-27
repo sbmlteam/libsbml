@@ -1,0 +1,22 @@
+<map id="Port.h" name="Port.h">
+<area shape="rect" id="node1" title="Definition of Port, the SBase derived class of the comp package." alt="" coords="1488,5,1548,32"/>
+<area shape="rect" id="node2" href="$_comp_extension_types_8h.html" title="Include all SBML types of Comp extension in a single header file." alt="" coords="1618,229,1791,256"/>
+<area shape="rect" id="node5" href="$_comp_base_8cpp.html" title="Implementation of CompBase, the base class of extension entities plugged in SBase derived classes in ..." alt="" coords="5,229,124,256"/>
+<area shape="rect" id="node6" href="$_deletion_8cpp.html" title="Implementation of Deletion, the SBaseRef derived class of deletions package." alt="" coords="1630,80,1734,107"/>
+<area shape="rect" id="node7" href="$_list_of_ports_8h.html" title="Definition of ListOfPorts, the SBase derived class of ports package." alt="" coords="1296,80,1401,107"/>
+<area shape="rect" id="node20" href="$_port_8cpp.html" title="Implementation of Port, the SBase&#45;derived class of the comp package." alt="" coords="1481,155,1555,181"/>
+<area shape="rect" id="node3" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="1162,304,1378,331"/>
+<area shape="rect" id="node4" href="$_comp_validator_8cpp.html" title=" " alt="" coords="1633,304,1777,331"/>
+<area shape="rect" id="node8" href="$_comp_model_plugin_8h.html" title="Definition of CompModelPlugin, the plugin class of comp package for the Model element." alt="" coords="823,155,975,181"/>
+<area shape="rect" id="node18" href="$_list_of_ports_8cpp.html" title="Implementation of ListOfPorts." alt="" coords="1337,155,1457,181"/>
+<area shape="rect" id="node19" href="$_model_definition_8cpp.html" title="Implementation of ModelDefinition, the SBase&#45;derived class of the comp package." alt="" coords="1110,155,1262,181"/>
+<area shape="rect" id="node9" href="$_comp_extension_8cpp.html" title="Implementation of CompExtension, the core module of comp package." alt="" coords="755,304,905,331"/>
+<area shape="rect" id="node10" href="$_comp_model_plugin_8cpp.html" title="Implementation of CompModelPlugin, the plugin class of comp package for the SBase element." alt="" coords="1024,229,1191,256"/>
+<area shape="rect" id="node11" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="1215,229,1445,256"/>
+<area shape="rect" id="node12" href="$_replaced_by_8cpp.html" title="Implementation of ReplacedBy, the SBaseRef derived class of the comp package." alt="" coords="1469,229,1593,256"/>
+<area shape="rect" id="node13" href="$_replaced_element_8cpp.html" title="Implementation of ReplacedElement, the SBaseRef derived class of replacedElements package." alt="" coords="149,229,311,256"/>
+<area shape="rect" id="node14" href="$_replacing_8cpp.html" title="Implementation of Replacing, the SBaseRef derived class of Replacings package." alt="" coords="336,229,449,256"/>
+<area shape="rect" id="node15" href="$_s_base_ref_8cpp.html" title="Implementation of SBaseRef, the SBase&#45;derived class of the comp package." alt="" coords="473,229,584,256"/>
+<area shape="rect" id="node16" href="$_submodel_8cpp.html" title="Implementation of Submodel, the SBase&#45;derived class of the comp package." alt="" coords="609,229,723,256"/>
+<area shape="rect" id="node17" href="$_comp_flattening_converter_8h.html" title="Definition of a first flattening converter." alt="" coords="799,229,1000,256"/>
+</map>

@@ -1,0 +1,16 @@
+<map id="CompModelPlugin.h" name="CompModelPlugin.h">
+<area shape="rect" id="node1" title="Definition of CompModelPlugin, the plugin class of comp package for the Model element." alt="" coords="929,5,1081,32"/>
+<area shape="rect" id="node2" href="$_comp_extension_types_8h.html" title="Include all SBML types of Comp extension in a single header file." alt="" coords="5,80,179,107"/>
+<area shape="rect" id="node5" href="$_comp_extension_8cpp.html" title="Implementation of CompExtension, the core module of comp package." alt="" coords="1067,155,1218,181"/>
+<area shape="rect" id="node6" href="$_comp_model_plugin_8cpp.html" title="Implementation of CompModelPlugin, the plugin class of comp package for the SBase element." alt="" coords="429,80,595,107"/>
+<area shape="rect" id="node7" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="619,80,850,107"/>
+<area shape="rect" id="node8" href="$_comp_base_8cpp.html" title="Implementation of CompBase, the base class of extension entities plugged in SBase derived classes in ..." alt="" coords="874,80,993,107"/>
+<area shape="rect" id="node9" href="$_replaced_by_8cpp.html" title="Implementation of ReplacedBy, the SBaseRef derived class of the comp package." alt="" coords="1017,80,1141,107"/>
+<area shape="rect" id="node10" href="$_replaced_element_8cpp.html" title="Implementation of ReplacedElement, the SBaseRef derived class of replacedElements package." alt="" coords="1165,80,1328,107"/>
+<area shape="rect" id="node11" href="$_replacing_8cpp.html" title="Implementation of Replacing, the SBaseRef derived class of Replacings package." alt="" coords="1353,80,1466,107"/>
+<area shape="rect" id="node12" href="$_s_base_ref_8cpp.html" title="Implementation of SBaseRef, the SBase&#45;derived class of the comp package." alt="" coords="1490,80,1601,107"/>
+<area shape="rect" id="node13" href="$_submodel_8cpp.html" title="Implementation of Submodel, the SBase&#45;derived class of the comp package." alt="" coords="1625,80,1740,107"/>
+<area shape="rect" id="node14" href="$_comp_flattening_converter_8h.html" title="Definition of a first flattening converter." alt="" coords="203,80,405,107"/>
+<area shape="rect" id="node3" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="192,155,408,181"/>
+<area shape="rect" id="node4" href="$_comp_validator_8cpp.html" title=" " alt="" coords="20,155,164,181"/>
+</map>

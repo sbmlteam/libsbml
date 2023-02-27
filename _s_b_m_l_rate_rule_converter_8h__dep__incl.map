@@ -1,0 +1,8 @@
+<map id="SBMLRateRuleConverter.h" name="SBMLRateRuleConverter.h">
+<area shape="rect" id="node1" title="Definition of SBMLRateRuleConverter, a converter from raterule to reaction." alt="" coords="175,5,367,32"/>
+<area shape="rect" id="node2" href="$_expression_analyser_8cpp.html" title="Implementation of ExpressionAnalyser." alt="" coords="5,155,181,181"/>
+<area shape="rect" id="node3" href="$_expression_analyser_8h.html" title="Definition of ExpressionAnalyser, a class for analysing expressions." alt="" coords="131,80,293,107"/>
+<area shape="rect" id="node4" href="$_s_b_m_l_rate_rule_converter_8cpp.html" title="Implementation of SBMLRateRuleConverter, a converter from raterule to reaction." alt="" coords="206,155,413,181"/>
+<area shape="rect" id="node5" href="$_register_converters_8cpp.html" title="Registers all available converters." alt="" coords="409,80,583,107"/>
+<area shape="rect" id="node6" href="$_s_b_m_l_converter_registry_8cpp.html" title="Implementation of SBMLConverterRegistry, a registry of available converters." alt="" coords="437,155,638,181"/>
+</map>

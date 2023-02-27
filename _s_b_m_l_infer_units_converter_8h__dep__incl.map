@@ -1,0 +1,7 @@
+<map id="SBMLInferUnitsConverter.h" name="SBMLInferUnitsConverter.h">
+<area shape="rect" id="node1" title="Definition of SBMLInferUnitsConverter, infers units for parameters." alt="" coords="205,5,402,32"/>
+<area shape="rect" id="node2" href="$_register_converters_8cpp.html" title="Registers all available converters." alt="" coords="19,80,193,107"/>
+<area shape="rect" id="node4" href="$_s_b_m_l_converter_types_8h.html" title="Definition of SBMLConverterTypes." alt="" coords="218,80,389,107"/>
+<area shape="rect" id="node5" href="$_s_b_m_l_infer_units_converter_8cpp.html" title="Implementation of SBMLInferUnitsConverter." alt="" coords="413,80,625,107"/>
+<area shape="rect" id="node3" href="$_s_b_m_l_converter_registry_8cpp.html" title="Implementation of SBMLConverterRegistry, a registry of available converters." alt="" coords="5,155,207,181"/>
+</map>

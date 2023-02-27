@@ -1,0 +1,12 @@
+<map id="SBMLDocumentPlugin" name="SBMLDocumentPlugin">
+<area shape="rect" id="node1" title="@sbmlpackage{core}" alt="" coords="156,183,321,209"/>
+<area shape="rect" id="node3" href="$class_comp_s_b_m_l_document_plugin.html" title="@sbmlpackage{comp}" alt="" coords="391,5,594,32"/>
+<area shape="rect" id="node4" href="$class_fbc_s_b_m_l_document_plugin.html" title="@sbmlpackage{fbc}" alt="" coords="399,56,587,83"/>
+<area shape="rect" id="node5" href="$class_groups_s_b_m_l_document_plugin.html" title="@sbmlpackage{groups}" alt="" coords="387,107,598,133"/>
+<area shape="rect" id="node6" href="$class_layout_s_b_m_l_document_plugin.html" title="@sbmlpackage{layout}" alt="" coords="388,157,597,184"/>
+<area shape="rect" id="node7" href="$class_multi_s_b_m_l_document_plugin.html" title="@sbmlpackage{multi}" alt="" coords="393,208,592,235"/>
+<area shape="rect" id="node8" href="$class_qual_s_b_m_l_document_plugin.html" title="@sbmlpackage{qual}" alt="" coords="395,259,590,285"/>
+<area shape="rect" id="node9" href="$class_render_s_b_m_l_document_plugin.html" title="@sbmlpackage{render}" alt="" coords="387,309,598,336"/>
+<area shape="rect" id="node10" href="$class_s_b_m_l_document_plugin_not_required.html" title="@sbmlpackage{core}" alt="" coords="369,360,616,387"/>
+<area shape="rect" id="node2" href="$class_s_base_plugin.html" title="@sbmlpackage{core}" alt="" coords="5,183,108,209"/>
+</map>

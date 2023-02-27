@@ -1,0 +1,4 @@
+<map id="GroupsModelPlugin" name="GroupsModelPlugin">
+<area shape="rect" id="node1" title="@sbmlpackage{groups}" alt="" coords="5,80,153,107"/>
+<area shape="rect" id="node2" href="$class_s_base_plugin.html" title="@sbmlpackage{core}" alt="" coords="28,5,131,32"/>
+</map>

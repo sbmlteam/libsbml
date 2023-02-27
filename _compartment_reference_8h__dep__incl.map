@@ -1,0 +1,9 @@
+<map id="CompartmentReference.h" name="CompartmentReference.h">
+<area shape="rect" id="node1" title=": Implementation of the CompartmentReference class" alt="" coords="189,5,379,32"/>
+<area shape="rect" id="node2" href="$_multi_extension_types_8h.html" title=": Implementation of the MultiExtensionTypes class" alt="" coords="5,155,173,181"/>
+<area shape="rect" id="node4" href="$_multi_compartment_plugin_8h.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="185,80,383,107"/>
+<area shape="rect" id="node7" href="$_compartment_reference_8cpp.html" title=": Implementation of the CompartmentReference class" alt="" coords="407,80,612,107"/>
+<area shape="rect" id="node3" href="$_multi_validator_8cpp.html" title=": Implementation of the MultiValidator class" alt="" coords="20,229,159,256"/>
+<area shape="rect" id="node5" href="$_multi_compartment_plugin_8cpp.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="198,155,410,181"/>
+<area shape="rect" id="node6" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="435,155,581,181"/>
+</map>

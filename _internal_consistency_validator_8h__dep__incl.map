@@ -1,0 +1,9 @@
+<map id="InternalConsistencyValidator.h" name="InternalConsistencyValidator.h">
+<area shape="rect" id="node1" title=" " alt="" coords="307,5,527,32"/>
+<area shape="rect" id="node2" href="$_s_b_m_l_level_version_converter_8h.html" title="Definition of SBMLLevelVersionConverter, the base class for SBML conversion." alt="" coords="195,80,411,107"/>
+<area shape="rect" id="node7" href="$_s_b_m_l_internal_validator_8cpp.html" title="Implementation of SBMLInternalValidator, the validator for all internal validation performed by libSB..." alt="" coords="435,80,627,107"/>
+<area shape="rect" id="node3" href="$_register_converters_8cpp.html" title="Registers all available converters." alt="" coords="19,155,193,181"/>
+<area shape="rect" id="node5" href="$_s_b_m_l_converter_types_8h.html" title="Definition of SBMLConverterTypes." alt="" coords="218,155,389,181"/>
+<area shape="rect" id="node6" href="$_s_b_m_l_level_version_converter_8cpp.html" title="Implementation of SBMLLevelVersionConverter, the base class of package extensions." alt="" coords="413,155,644,181"/>
+<area shape="rect" id="node4" href="$_s_b_m_l_converter_registry_8cpp.html" title="Implementation of SBMLConverterRegistry, a registry of available converters." alt="" coords="5,229,207,256"/>
+</map>

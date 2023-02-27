@@ -1,0 +1,11 @@
+<map id="GraphicalObject" name="GraphicalObject">
+<area shape="rect" id="node1" title="@sbmlpackage{layout}" alt="" coords="116,157,243,184"/>
+<area shape="rect" id="node3" href="$class_compartment_glyph.html" title="@sbmlpackage{layout}" alt="" coords="303,5,454,32"/>
+<area shape="rect" id="node4" href="$class_general_glyph.html" title="@sbmlpackage{layout}" alt="" coords="323,56,434,83"/>
+<area shape="rect" id="node5" href="$class_reaction_glyph.html" title="@sbmlpackage{layout}" alt="" coords="320,107,437,133"/>
+<area shape="rect" id="node6" href="$class_reference_glyph.html" title="@sbmlpackage{layout}" alt="" coords="315,157,442,184"/>
+<area shape="rect" id="node7" href="$class_species_glyph.html" title="@sbmlpackage{layout}" alt="" coords="323,208,434,235"/>
+<area shape="rect" id="node8" href="$class_species_reference_glyph.html" title="@sbmlpackage{layout}" alt="" coords="291,259,467,285"/>
+<area shape="rect" id="node9" href="$class_text_glyph.html" title="@sbmlpackage{layout}" alt="" coords="335,309,422,336"/>
+<area shape="rect" id="node2" href="$class_s_base.html" title="@sbmlpackage{core}" alt="" coords="5,157,68,184"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="FunctionTerm.h" name="FunctionTerm.h">
+<area shape="rect" id="node1" title="Implementation of the FunctionTerm class." alt="" coords="34,5,155,32"/>
+<area shape="rect" id="node2" href="$_qual_extension_types_8h.html" title="Include all SBML types of qual extension in a single header file." alt="" coords="48,229,213,256"/>
+<area shape="rect" id="node4" href="$_function_term_8cpp.html" title="Implementation of the FunctionTerm class." alt="" coords="26,155,162,181"/>
+<area shape="rect" id="node5" href="$_transition_8h.html" title="Implementation of the Transition class." alt="" coords="151,80,248,107"/>
+<area shape="rect" id="node3" href="$_qual_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="62,304,198,331"/>
+<area shape="rect" id="node6" href="$_qual_model_plugin_8h.html" title="Definition of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="237,155,381,181"/>
+<area shape="rect" id="node9" href="$_transition_8cpp.html" title="Implementation of the Transition class." alt="" coords="405,155,517,181"/>
+<area shape="rect" id="node7" href="$_qual_extension_8cpp.html" title="Implementation of QualExtension, the core module of qual package." alt="" coords="238,229,380,256"/>
+<area shape="rect" id="node8" href="$_qual_model_plugin_8cpp.html" title="Implementation of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="404,229,563,256"/>
+</map>

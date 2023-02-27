@@ -1,0 +1,8 @@
+<map id="Replacing" name="Replacing">
+<area shape="rect" id="node1" title="@sbmlpackage{comp}" alt="" coords="82,229,169,256"/>
+<area shape="rect" id="node5" href="$class_replaced_by.html" title="@sbmlpackage{comp}" alt="" coords="5,304,104,331"/>
+<area shape="rect" id="node6" href="$class_replaced_element.html" title="@sbmlpackage{comp}" alt="" coords="128,304,264,331"/>
+<area shape="rect" id="node2" href="$class_s_base_ref.html" title="@sbmlpackage{comp}" alt="" coords="83,155,167,181"/>
+<area shape="rect" id="node3" href="$class_comp_base.html" title="@sbmlpackage{comp}" alt="" coords="79,80,171,107"/>
+<area shape="rect" id="node4" href="$class_s_base.html" title="@sbmlpackage{core}" alt="" coords="94,5,157,32"/>
+</map>

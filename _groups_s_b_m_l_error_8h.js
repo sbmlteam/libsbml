@@ -1,0 +1,38 @@
+var _groups_s_b_m_l_error_8h =
+[
+    [ "GroupsSBMLErrorCode_t", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4", [
+      [ "GroupsUnknown", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4ab99339b0aeea35c3437c38437f31eb01", null ],
+      [ "GroupsNSUndeclared", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4a7066e7df25bb25038175af4d55b07239", null ],
+      [ "GroupsElementNotInNs", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4a0e80e463468e241c3434cd67f4216ca2", null ],
+      [ "GroupsDuplicateComponentId", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4aa7c2e1163621252793e14c5f5a09903a", null ],
+      [ "GroupsIdSyntaxRule", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4ace2566b7ebe59f2d2ac9c784ae4704fd", null ],
+      [ "GroupsAttributeRequiredMissing", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4ae25346463d55734597a3818b89d71647", null ],
+      [ "GroupsAttributeRequiredMustBeBoolean", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4afa50f2a90fe05cf141244814a01e106d", null ],
+      [ "GroupsAttributeRequiredMustHaveValue", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4a099b59e0ee282429a9fb8a7c437dde10", null ],
+      [ "GroupsModelAllowedElements", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4ab8844335bd445705c9f4c022c9008da9", null ],
+      [ "GroupsModelEmptyLOElements", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4acf3a7af9ecc4c145f04be3c208c8fa17", null ],
+      [ "GroupsModelLOGroupsAllowedCoreElements", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4a70292cc77f57b0947cba975e090c5c41", null ],
+      [ "GroupsModelLOGroupsAllowedCoreAttributes", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4a8b77e93893760156f0dd139aeff0541b", null ],
+      [ "GroupsGroupAllowedCoreAttributes", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4a1bf0c5c73d850809bc0e7469d3b82507", null ],
+      [ "GroupsGroupAllowedCoreElements", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4acb94ff87d5a0d954a7740ebf4378fce7", null ],
+      [ "GroupsGroupAllowedAttributes", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4ae4bfdbefccfca05b5281c9f294150cd3", null ],
+      [ "GroupsGroupAllowedElements", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4ad81ae50aaeca6300fef65aa213ee25c9", null ],
+      [ "GroupsGroupKindMustBeGroupKindEnum", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4a689eab9b1ddcddc99f90a4f97d6bd581", null ],
+      [ "GroupsGroupNameMustBeString", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4a4da59ec85997ebd5baacba04b5308189", null ],
+      [ "GroupsGroupEmptyLOElements", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4adfb13b246f4853e9297fb532ab0861f6", null ],
+      [ "GroupsGroupLOMembersAllowedCoreElements", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4a0a1b4283e8f08ea6b55705d7ab454c1a", null ],
+      [ "GroupsGroupLOMembersAllowedCoreAttributes", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4aba8a355f24e5854b3248855505e84e70", null ],
+      [ "GroupsGroupLOMembersAllowedAttributes", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4ac189e616a20101ac7f99526a006c0276", null ],
+      [ "GroupsLOMembersNameMustBeString", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4a9bb4731e94a62a1b3b54c26858ac0aaa", null ],
+      [ "GroupsLOMembersConsistentReferences", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4a17fc5d7a0732b327f457df1792a30d7d", null ],
+      [ "GroupsNotCircularReferences", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4a7d12c88e655a98ea1bc934728d09b04c", null ],
+      [ "GroupsMemberAllowedCoreAttributes", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4a0503e9c41d9b513dd225be94cefae929", null ],
+      [ "GroupsMemberAllowedCoreElements", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4a583d97abdbb819ad0bcb868de117bec9", null ],
+      [ "GroupsMemberAllowedAttributes", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4ad86ce69299bd10929ae76d19f29fc7a6", null ],
+      [ "GroupsMemberNameMustBeString", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4a66d3b10ee81ebe7cad612403dca72b92", null ],
+      [ "GroupsMemberIdRefMustBeSBase", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4acae21eee7e824c4dd6d366db51923b58", null ],
+      [ "GroupsMemberMetaIdRefMustBeSBase", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4a6ae35870bd143506ff5fec7052382015", null ],
+      [ "GroupsMemberIdRefMustBeSId", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4accab6b7921e648fe3c55813825df6f27", null ],
+      [ "GroupsMemberMetaIdRefMustBeID", "_groups_s_b_m_l_error_8h.html#adb65a9bcd30645a49fde96d7d2cfb2e4ae14c3c1b4bee32004883e26429d5cb1d", null ]
+    ] ]
+];

@@ -1,0 +1,7 @@
+<map id="SBMLUri.h" name="SBMLUri.h">
+<area shape="rect" id="node1" title="Definition of SBMLUri, the utility class for handling URIs." alt="" coords="385,5,475,32"/>
+<area shape="rect" id="node2" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="5,80,236,107"/>
+<area shape="rect" id="node3" href="$_s_b_m_l_file_resolver_8cpp.html" title="Implementation of SBMLFileResolver, the file system based resolver for SBML Documents." alt="" coords="260,80,424,107"/>
+<area shape="rect" id="node4" href="$_s_b_m_l_resolver_8cpp.html" title="Implementation of SBMLResolver, the base class of package extensions." alt="" coords="449,80,590,107"/>
+<area shape="rect" id="node5" href="$_s_b_m_l_uri_8cpp.html" title="Implementation of SBMLUri, the utility class for handling uris." alt="" coords="614,80,718,107"/>
+</map>

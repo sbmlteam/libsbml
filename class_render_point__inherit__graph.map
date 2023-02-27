@@ -1,0 +1,5 @@
+<map id="RenderPoint" name="RenderPoint">
+<area shape="rect" id="node1" title="@sbmlpackage{render}" alt="" coords="27,80,129,107"/>
+<area shape="rect" id="node3" href="$class_render_cubic_bezier.html" title="@sbmlpackage{render}" alt="" coords="5,155,151,181"/>
+<area shape="rect" id="node2" href="$class_s_base.html" title="@sbmlpackage{core}" alt="" coords="47,5,109,32"/>
+</map>

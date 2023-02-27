@@ -1,0 +1,12 @@
+<map id="SBMLFileResolver.h" name="SBMLFileResolver.h">
+<area shape="rect" id="node1" title="A file&#45;based resolver for SBML Documents." alt="" coords="149,5,299,32"/>
+<area shape="rect" id="node2" href="$sbmlfwd_8h.html" title="Forward declarations for all opaque C types." alt="" coords="5,169,192,196"/>
+<area shape="rect" id="node8" title=" " alt="" coords="273,169,332,196"/>
+<area shape="rect" id="node9" title=" " alt="" coords="261,87,323,114"/>
+<area shape="rect" id="node10" href="$_s_b_m_l_resolver_8h.html" title="Definition of SBMLResolver, the base class for resolving SBML documents." alt="" coords="78,80,237,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="265,497,431,539"/>
+<area shape="rect" id="node4" href="$libsbml-config_8h.html" title="Decides whether to #include Unix or Windows configuration variables." alt="" coords="171,244,338,285"/>
+<area shape="rect" id="node5" title=" " alt="" coords="77,333,243,375"/>
+<area shape="rect" id="node6" href="$libsbml-version_8h.html" title="Define libSBML version numbers for access from client software." alt="" coords="267,333,434,375"/>
+<area shape="rect" id="node7" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="261,423,435,449"/>
+</map>

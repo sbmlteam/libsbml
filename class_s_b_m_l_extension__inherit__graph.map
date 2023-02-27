@@ -1,0 +1,10 @@
+<map id="SBMLExtension" name="SBMLExtension">
+<area shape="rect" id="node1" title="@sbmlpackage{core}" alt="" coords="5,157,128,184"/>
+<area shape="rect" id="node2" href="$class_comp_extension.html" title="@sbmlpackage{comp}" alt="" coords="180,5,304,32"/>
+<area shape="rect" id="node3" href="$class_fbc_extension.html" title="@sbmlpackage{fbc}" alt="" coords="187,56,297,83"/>
+<area shape="rect" id="node4" href="$class_groups_extension.html" title="@sbmlpackage{groups}" alt="" coords="176,107,308,133"/>
+<area shape="rect" id="node5" href="$class_layout_extension.html" title="@sbmlpackage{layout}" alt="" coords="177,157,307,184"/>
+<area shape="rect" id="node6" href="$class_multi_extension.html" title="@sbmlpackage{multi}" alt="" coords="183,208,301,235"/>
+<area shape="rect" id="node7" href="$class_qual_extension.html" title="@sbmlpackage{qual}" alt="" coords="184,259,300,285"/>
+<area shape="rect" id="node8" href="$class_render_extension.html" title="@sbmlpackage{render}" alt="" coords="176,309,308,336"/>
+</map>

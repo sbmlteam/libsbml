@@ -1,0 +1,6 @@
+<map id="SBMLFileResolver.h" name="SBMLFileResolver.h">
+<area shape="rect" id="node1" title="A file&#45;based resolver for SBML Documents." alt="" coords="253,5,403,32"/>
+<area shape="rect" id="node2" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="5,80,221,107"/>
+<area shape="rect" id="node3" href="$_s_b_m_l_file_resolver_8cpp.html" title="Implementation of SBMLFileResolver, the file system based resolver for SBML Documents." alt="" coords="246,80,410,107"/>
+<area shape="rect" id="node4" href="$_s_b_m_l_resolver_registry_8cpp.html" title="Implementation of SBMLResolverRegistry, a registry of available resolvers." alt="" coords="435,80,629,107"/>
+</map>

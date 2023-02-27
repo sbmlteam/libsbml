@@ -1,0 +1,16 @@
+<map id="XMLToken.h" name="XMLToken.h">
+<area shape="rect" id="node1" title="A unit of XML syntax, either an XML element or text." alt="" coords="249,7,347,33"/>
+<area shape="rect" id="node2" href="$_x_m_l_extern_8h.html" title="Defines LIBLAX_EXTERN." alt="" coords="5,231,175,257"/>
+<area shape="rect" id="node4" href="$_x_m_l_attributes_8h.html" title="XMLAttributes are a list of name/value pairs for XML elements." alt="" coords="346,81,538,108"/>
+<area shape="rect" id="node5" href="$sbmlfwd_8h.html" title="Forward declarations for all opaque C types." alt="" coords="205,231,391,257"/>
+<area shape="rect" id="node11" title=" " alt="" coords="505,231,563,257"/>
+<area shape="rect" id="node3" title=" " alt="" coords="73,559,240,600"/>
+<area shape="rect" id="node10" href="$operation_return_values_8h.html" title="Enumeration of values returned by operations within libSBML." alt="" coords="459,305,683,347"/>
+<area shape="rect" id="node12" title=" " alt="" coords="556,156,619,183"/>
+<area shape="rect" id="node13" title=" " alt="" coords="643,156,729,183"/>
+<area shape="rect" id="node14" href="$_x_m_l_triple_8h.html" title="Stores an XML namespace triple." alt="" coords="217,156,379,183"/>
+<area shape="rect" id="node6" href="$libsbml-config_8h.html" title="Decides whether to #include Unix or Windows configuration variables." alt="" coords="217,305,384,347"/>
+<area shape="rect" id="node7" title=" " alt="" coords="411,395,577,436"/>
+<area shape="rect" id="node8" href="$libsbml-version_8h.html" title="Define libSBML version numbers for access from client software." alt="" coords="220,395,387,436"/>
+<area shape="rect" id="node9" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="219,484,393,511"/>
+</map>

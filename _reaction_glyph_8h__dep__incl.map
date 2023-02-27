@@ -1,0 +1,44 @@
+<map id="ReactionGlyph.h" name="ReactionGlyph.h">
+<area shape="rect" id="node1" title="Definition of ReactionGlyph for SBML Layout." alt="" coords="682,5,811,32"/>
+<area shape="rect" id="node2" href="$_layout_extension_types_8h.html" title="Include all SBML types of layout extension in a single header file." alt="" coords="516,229,694,256"/>
+<area shape="rect" id="node8" href="$_general_glyph_8cpp.html" title="Implementation of GeneralGlyph for SBML Layout." alt="" coords="25,155,164,181"/>
+<area shape="rect" id="node9" href="$_layout_8h.html" title="Definition of Layout for SBML Layout." alt="" coords="946,80,1024,107"/>
+<area shape="rect" id="node19" href="$_reaction_glyph_8cpp.html" title="Implementation of ReactionGlyph for SBML Layout." alt="" coords="2973,155,3117,181"/>
+<area shape="rect" id="node3" href="$_graphical_object_8cpp.html" title="Implementation of GraphicalObject for SBML Layout." alt="" coords="140,304,294,331"/>
+<area shape="rect" id="node4" href="$_layout_validator_8cpp.html" title="Implementation of the LayoutValidator class." alt="" coords="318,304,468,331"/>
+<area shape="rect" id="node5" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="493,304,717,331"/>
+<area shape="rect" id="node6" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="741,304,944,331"/>
+<area shape="rect" id="node7" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="968,304,1114,331"/>
+<area shape="rect" id="node10" href="$_layout_model_plugin_8h.html" title="Definition of LayoutModelPlugin, the plugin class of layout package for Model element." alt="" coords="1087,155,1246,181"/>
+<area shape="rect" id="node13" href="$_layout_annotation_8cpp.html" title="Layout annotation I/O." alt="" coords="1084,229,1248,256"/>
+<area shape="rect" id="node15" href="$_layout_species_reference_plugin_8h.html" title="Definition of LayoutSpeciesReferencePlugin, the plugin class of layout package (Level2) for the Speci..." alt="" coords="1270,155,1505,181"/>
+<area shape="rect" id="node17" href="$_compartment_glyph_8cpp.html" title="Implementation of CompartmentGlyph for SBML Layout." alt="" coords="2771,155,2948,181"/>
+<area shape="rect" id="node18" href="$_layout_8cpp.html" title="Implementation of Layout for SBML Layout." alt="" coords="188,155,281,181"/>
+<area shape="rect" id="node20" href="$_species_glyph_8cpp.html" title="Implementation of SpeciesGlyph for SBML Layout." alt="" coords="306,155,443,181"/>
+<area shape="rect" id="node21" href="$_species_reference_glyph_8cpp.html" title="Implementation of SpeciesReferenceGlyph for SBML Layout." alt="" coords="468,155,670,181"/>
+<area shape="rect" id="node22" href="$_text_glyph_8cpp.html" title="Implementation of TextGlyph for SBML Layout." alt="" coords="694,155,809,181"/>
+<area shape="rect" id="node23" href="$_layout_annotation_8h.html" title="Layout annotation I/O." alt="" coords="2597,155,2746,181"/>
+<area shape="rect" id="node42" href="$_render_layout_plugin_8cpp.html" title="Implementation of RenderLayoutPlugin, the plugin class of the fbc package for the Model element." alt="" coords="833,155,1012,181"/>
+<area shape="rect" id="node11" href="$_layout_extension_8cpp.html" title="Implementation of LayoutExtension, the core module of layout package." alt="" coords="902,229,1060,256"/>
+<area shape="rect" id="node12" href="$_layout_model_plugin_8cpp.html" title="Implementation of LayoutModelPlugin, the plugin class of layout package for the Model element." alt="" coords="1273,229,1446,256"/>
+<area shape="rect" id="node14" href="$_render_extension_8cpp.html" title="Implementation of RenderExtension, the core module of the render package." alt="" coords="719,229,878,256"/>
+<area shape="rect" id="node16" href="$_layout_species_reference_plugin_8cpp.html" title="Implementation of LayoutSpeciesReferencePlugin, the plugin object of layout package (Level2) for the ..." alt="" coords="1471,229,1720,256"/>
+<area shape="rect" id="node24" href="$_ellipse_8cpp.html" title="Implementation of the Ellipse class." alt="" coords="3624,229,3716,256"/>
+<area shape="rect" id="node25" href="$_global_style_8cpp.html" title="Implementation of the GlobalStyle class." alt="" coords="3740,229,3864,256"/>
+<area shape="rect" id="node26" href="$_gradient_stop_8cpp.html" title="class representing a stop in a gradient definition" alt="" coords="3888,229,4023,256"/>
+<area shape="rect" id="node27" href="$_image_8cpp.html" title="Implementation of the Image class." alt="" coords="4048,229,4138,256"/>
+<area shape="rect" id="node28" href="$_linear_gradient_8cpp.html" title="Implementation of the LinearGradient class." alt="" coords="4163,229,4308,256"/>
+<area shape="rect" id="node29" href="$_list_of_curve_elements_8cpp.html" title="storage class for curve elements" alt="" coords="4333,229,4520,256"/>
+<area shape="rect" id="node30" href="$_list_of_gradient_stops_8cpp.html" title="Implementation of the ListOfGradientStops class." alt="" coords="1745,229,1924,256"/>
+<area shape="rect" id="node31" href="$_local_render_information_8cpp.html" title="Implementation of the LocalRenderInformation class." alt="" coords="1948,229,2153,256"/>
+<area shape="rect" id="node32" href="$_local_style_8cpp.html" title="class for representing a local style" alt="" coords="2178,229,2294,256"/>
+<area shape="rect" id="node33" href="$_polygon_8cpp.html" title="Implementation of the Polygon class." alt="" coords="2318,229,2420,256"/>
+<area shape="rect" id="node34" href="$_radial_gradient_8cpp.html" title="Implementation of the RadialGradient class." alt="" coords="2444,229,2590,256"/>
+<area shape="rect" id="node35" href="$_rectangle_8cpp.html" title="Implementation of the Rectangle class." alt="" coords="2614,229,2729,256"/>
+<area shape="rect" id="node36" href="$_render_cubic_bezier_8cpp.html" title="Implementation of the RenderCubicBezier class." alt="" coords="2753,229,2924,256"/>
+<area shape="rect" id="node37" href="$_render_curve_8cpp.html" title="Implementation of the RenderCurve class." alt="" coords="2948,229,3081,256"/>
+<area shape="rect" id="node38" href="$_render_group_8cpp.html" title="Implementation of the RenderGroup class." alt="" coords="3106,229,3240,256"/>
+<area shape="rect" id="node39" href="$_render_point_8cpp.html" title="Implementation of the RenderPoint class." alt="" coords="3265,229,3393,256"/>
+<area shape="rect" id="node40" href="$_style_8cpp.html" title="Implementation of the Style class." alt="" coords="3417,229,3500,256"/>
+<area shape="rect" id="node41" href="$_text_8cpp.html" title="Implementation of the Text class." alt="" coords="3524,229,3600,256"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="SBMLTypeCodes.h" name="SBMLTypeCodes.h">
+<area shape="rect" id="node1" title="Enumeration to identify SBML objects at runtime." alt="" coords="199,5,338,32"/>
+<area shape="rect" id="node2" href="$libsbml-config_8h.html" title="Decides whether to #include Unix or Windows configuration variables." alt="" coords="125,80,292,121"/>
+<area shape="rect" id="node6" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="217,259,390,285"/>
+<area shape="rect" id="node3" title=" " alt="" coords="64,333,231,375"/>
+<area shape="rect" id="node4" title=" " alt="" coords="29,169,196,211"/>
+<area shape="rect" id="node5" href="$libsbml-version_8h.html" title="Define libSBML version numbers for access from client software." alt="" coords="220,169,387,211"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="ListOfUserDefinedConstraints" name="ListOfUserDefinedConstraints">
+<area shape="rect" id="node1" title="@sbmlpackage{fbc}" alt="" coords="5,155,220,181"/>
+<area shape="rect" id="node2" href="$class_list_of.html" title="@sbmlpackage{core}" alt="" coords="83,80,143,107"/>
+<area shape="rect" id="node3" href="$class_s_base.html" title="@sbmlpackage{core}" alt="" coords="81,5,144,32"/>
+</map>

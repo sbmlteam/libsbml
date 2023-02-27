@@ -1,0 +1,62 @@
+<map id="Transformation.h" name="Transformation.h">
+<area shape="rect" id="node1" title="abstract class for representing 3D affine transformations" alt="" coords="1258,5,1390,32"/>
+<area shape="rect" id="node2" href="$_render_extension_types_8h.html" title="Definition of RenderExtensionTypes." alt="" coords="2631,827,2812,853"/>
+<area shape="rect" id="node9" href="$_transformation_8cpp.html" title="class representing a 3D affine transformation" alt="" coords="371,528,517,555"/>
+<area shape="rect" id="node10" href="$_transformation2_d_8h.html" title="abstract base class for representing 2D affine transformations" alt="" coords="1249,80,1399,107"/>
+<area shape="rect" id="node3" href="$_render_layout_plugin_8cpp.html" title="Implementation of RenderLayoutPlugin, the plugin class of the fbc package for the Model element." alt="" coords="2819,976,2997,1003"/>
+<area shape="rect" id="node4" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="2429,901,2632,928"/>
+<area shape="rect" id="node5" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="2648,976,2795,1003"/>
+<area shape="rect" id="node6" href="$_render_utilities_8h.html" title="Definition of RenderUtilities, a class of utility functions for the render package." alt="" coords="2656,901,2787,928"/>
+<area shape="rect" id="node8" href="$_render_validator_8cpp.html" title="Definition of RenderValidator." alt="" coords="2253,901,2405,928"/>
+<area shape="rect" id="node7" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="277,976,501,1003"/>
+<area shape="rect" id="node11" href="$_graphical_primitive1_d_8h.html" title="Definition of the GraphicalPrimitive1D class." alt="" coords="1237,155,1411,181"/>
+<area shape="rect" id="node32" href="$_transformation2_d_8cpp.html" title="class representing a 2D affine transformation" alt="" coords="915,528,1080,555"/>
+<area shape="rect" id="node58" href="$_image_8h.html" title="Definition of the Image class." alt="" coords="753,453,828,480"/>
+<area shape="rect" id="node60" href="$_list_of_drawables_8h.html" title="Definition of the ListOfDrawables class." alt="" coords="1760,229,1901,256"/>
+<area shape="rect" id="node12" href="$_graphical_primitive1_d_8cpp.html" title="abstract base class for graphical 1D objects" alt="" coords="1978,528,2166,555"/>
+<area shape="rect" id="node13" href="$_graphical_primitive2_d_8h.html" title="Definition of the GraphicalPrimitive2D class." alt="" coords="1440,229,1613,256"/>
+<area shape="rect" id="node54" href="$_render_curve_8h.html" title="Definition of the RenderCurve class." alt="" coords="954,453,1073,480"/>
+<area shape="rect" id="node56" href="$_text_8h.html" title="Definition of the Text class." alt="" coords="936,229,997,256"/>
+<area shape="rect" id="node14" href="$_default_values_8h.html" title="Definition of the DefaultValues class." alt="" coords="171,528,296,555"/>
+<area shape="rect" id="node27" href="$_ellipse_8h.html" title="Definition of the Ellipse class." alt="" coords="1412,453,1489,480"/>
+<area shape="rect" id="node29" href="$_graphical_primitive2_d_8cpp.html" title="Implementation of the GraphicalPrimitive2D class." alt="" coords="2839,528,3027,555"/>
+<area shape="rect" id="node33" href="$_line_ending_8h.html" title="class representing line endings, e.g." alt="" coords="2143,379,2249,405"/>
+<area shape="rect" id="node39" href="$_polygon_8h.html" title="class representing a polygon" alt="" coords="1301,453,1387,480"/>
+<area shape="rect" id="node41" href="$_rectangle_8h.html" title="Definition of the Rectangle class." alt="" coords="1817,453,1916,480"/>
+<area shape="rect" id="node43" href="$_render_group_8h.html" title="Definition of the RenderGroup class." alt="" coords="1673,304,1791,331"/>
+<area shape="rect" id="node15" href="$_default_values_8cpp.html" title="Implementation of the DefaultValues class." alt="" coords="375,603,515,629"/>
+<area shape="rect" id="node16" href="$_list_of_global_render_information_8h.html" title="Definition of the ListOfGlobalRenderInformation class." alt="" coords="115,603,351,629"/>
+<area shape="rect" id="node23" href="$_list_of_local_render_information_8h.html" title="Definition of the ListOfLocalRenderInformation class." alt="" coords="2449,677,2677,704"/>
+<area shape="rect" id="node17" href="$_render_list_of_layouts_plugin_8h.html" title="Definition of RenderListOfLayoutsPlugin, the plugin class of fbc package for the Model element." alt="" coords="357,752,566,779"/>
+<area shape="rect" id="node19" href="$_global_render_information_8cpp.html" title="class for the storage of global render information" alt="" coords="55,752,268,779"/>
+<area shape="rect" id="node20" href="$_global_render_information_8h.html" title="Definition of the GlobalRenderInformation class." alt="" coords="419,677,618,704"/>
+<area shape="rect" id="node22" href="$_list_of_global_render_information_8cpp.html" title="Implementation of the ListOfGlobalRenderInformation class." alt="" coords="144,677,395,704"/>
+<area shape="rect" id="node18" href="$_render_extension_8cpp.html" title="Implementation of RenderExtension, the core module of the render package." alt="" coords="1913,827,2071,853"/>
+<area shape="rect" id="node21" href="$_render_information_base_8cpp.html" title="Implementation of the RenderInformationBase class." alt="" coords="2164,752,2367,779"/>
+<area shape="rect" id="node24" href="$_render_layout_plugin_8h.html" title="Definition of RenderLayoutPlugin, the plugin class of fbc package for the Model element." alt="" coords="3293,752,3457,779"/>
+<area shape="rect" id="node25" href="$_list_of_local_render_information_8cpp.html" title="Implementation of the ListOfLocalRenderInformation class." alt="" coords="2441,752,2684,779"/>
+<area shape="rect" id="node26" href="$_local_render_information_8cpp.html" title="Implementation of the LocalRenderInformation class." alt="" coords="2809,752,3015,779"/>
+<area shape="rect" id="node28" href="$_ellipse_8cpp.html" title="Implementation of the Ellipse class." alt="" coords="1281,528,1373,555"/>
+<area shape="rect" id="node30" href="$_list_of_drawables_8cpp.html" title="Implementation of the ListOfDrawables class." alt="" coords="1449,528,1605,555"/>
+<area shape="rect" id="node31" href="$_render_group_8cpp.html" title="Implementation of the RenderGroup class." alt="" coords="1629,528,1763,555"/>
+<area shape="rect" id="node34" href="$_line_ending_8cpp.html" title="class representing line endings,e.g." alt="" coords="2695,528,2815,555"/>
+<area shape="rect" id="node35" href="$_list_of_line_endings_8h.html" title="Definition of the ListOfLineEndings class." alt="" coords="2194,453,2345,480"/>
+<area shape="rect" id="node37" href="$_render_information_base_8h.html" title="Definition of the RenderInformationBase class." alt="" coords="2482,528,2670,555"/>
+<area shape="rect" id="node36" href="$_list_of_line_endings_8cpp.html" title="Implementation of the ListOfLineEndings class." alt="" coords="2241,528,2407,555"/>
+<area shape="rect" id="node38" href="$_local_render_information_8h.html" title="Definition of the LocalRenderInformation class." alt="" coords="3583,603,3774,629"/>
+<area shape="rect" id="node40" href="$_polygon_8cpp.html" title="Implementation of the Polygon class." alt="" coords="1155,528,1256,555"/>
+<area shape="rect" id="node42" href="$_rectangle_8cpp.html" title="Implementation of the Rectangle class." alt="" coords="1788,528,1903,555"/>
+<area shape="rect" id="node44" href="$_style_8h.html" title="Definition of the Style class." alt="" coords="3245,379,3312,405"/>
+<area shape="rect" id="node45" href="$_global_style_8h.html" title="Definition of the GlobalStyle class." alt="" coords="3264,453,3373,480"/>
+<area shape="rect" id="node49" href="$_style_8cpp.html" title="Implementation of the Style class." alt="" coords="3900,603,3983,629"/>
+<area shape="rect" id="node50" href="$_local_style_8h.html" title="Definition of the LocalStyle class." alt="" coords="3819,453,3920,480"/>
+<area shape="rect" id="node46" href="$_global_style_8cpp.html" title="Implementation of the GlobalStyle class." alt="" coords="3242,603,3366,629"/>
+<area shape="rect" id="node47" href="$_list_of_global_styles_8h.html" title="Definition of the ListOfGlobalStyles class." alt="" coords="3384,528,3539,555"/>
+<area shape="rect" id="node48" href="$_list_of_global_styles_8cpp.html" title="Implementation of the ListOfGlobalStyles class." alt="" coords="3390,603,3559,629"/>
+<area shape="rect" id="node51" href="$_list_of_local_styles_8h.html" title="Definition of the ListOfLocalStyles class." alt="" coords="4001,528,4148,555"/>
+<area shape="rect" id="node53" href="$_local_style_8cpp.html" title="class for representing a local style" alt="" coords="4243,603,4359,629"/>
+<area shape="rect" id="node52" href="$_list_of_local_styles_8cpp.html" title="Implementation of the ListOfLocalStyles class." alt="" coords="4058,603,4219,629"/>
+<area shape="rect" id="node55" href="$_render_curve_8cpp.html" title="Implementation of the RenderCurve class." alt="" coords="757,528,891,555"/>
+<area shape="rect" id="node57" href="$_text_8cpp.html" title="Implementation of the Text class." alt="" coords="802,304,878,331"/>
+<area shape="rect" id="node59" href="$_image_8cpp.html" title="Implementation of the Image class." alt="" coords="541,528,632,555"/>
+</map>

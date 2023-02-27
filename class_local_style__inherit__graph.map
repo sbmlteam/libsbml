@@ -1,0 +1,5 @@
+<map id="LocalStyle" name="LocalStyle">
+<area shape="rect" id="node1" title="@sbmlpackage{render}" alt="" coords="5,155,95,181"/>
+<area shape="rect" id="node2" href="$class_style.html" title="@sbmlpackage{render}" alt="" coords="23,80,77,107"/>
+<area shape="rect" id="node3" href="$class_s_base.html" title="@sbmlpackage{core}" alt="" coords="19,5,81,32"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="ListOfEvents" name="ListOfEvents">
+<area shape="rect" id="node1" title="@sbmlpackage{core}" alt="" coords="5,155,109,181"/>
+<area shape="rect" id="node2" href="$class_list_of.html" title="@sbmlpackage{core}" alt="" coords="27,80,87,107"/>
+<area shape="rect" id="node3" href="$class_s_base.html" title="@sbmlpackage{core}" alt="" coords="26,5,89,32"/>
+</map>

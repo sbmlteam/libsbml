@@ -1,0 +1,10 @@
+<map id="ConversionOption.h" name="ConversionOption.h">
+<area shape="rect" id="node1" title="Definition of ConversionOption, the class encapsulating conversion options." alt="" coords="236,5,387,32"/>
+<area shape="rect" id="node2" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="222,333,395,360"/>
+<area shape="rect" id="node4" href="$sbmlfwd_8h.html" title="Forward declarations for all opaque C types." alt="" coords="218,80,405,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="429,80,487,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="349,408,516,449"/>
+<area shape="rect" id="node5" href="$libsbml-config_8h.html" title="Decides whether to #include Unix or Windows configuration variables." alt="" coords="228,155,395,196"/>
+<area shape="rect" id="node6" title=" " alt="" coords="37,244,204,285"/>
+<area shape="rect" id="node7" href="$libsbml-version_8h.html" title="Define libSBML version numbers for access from client software." alt="" coords="228,244,395,285"/>
+</map>

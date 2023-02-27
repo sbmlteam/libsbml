@@ -1,0 +1,13 @@
+<map id="ReferenceGlyph.h" name="ReferenceGlyph.h">
+<area shape="rect" id="node1" title="Definition of ReferenceGlyph for SBML Layout." alt="" coords="633,5,771,32"/>
+<area shape="rect" id="node2" href="$_layout_extension_types_8h.html" title="Include all SBML types of layout extension in a single header file." alt="" coords="381,155,559,181"/>
+<area shape="rect" id="node8" href="$_general_glyph_8cpp.html" title="Implementation of GeneralGlyph for SBML Layout." alt="" coords="583,155,722,181"/>
+<area shape="rect" id="node9" href="$_general_glyph_8h.html" title="Definition of GeneralGlyph for SBML Layout." alt="" coords="690,80,813,107"/>
+<area shape="rect" id="node11" href="$_reference_glyph_8cpp.html" title="Implementation of ReferenceGlyph for SBML Layout." alt="" coords="864,155,1017,181"/>
+<area shape="rect" id="node3" href="$_graphical_object_8cpp.html" title="Implementation of GraphicalObject for SBML Layout." alt="" coords="5,229,159,256"/>
+<area shape="rect" id="node4" href="$_layout_validator_8cpp.html" title="Implementation of the LayoutValidator class." alt="" coords="183,229,333,256"/>
+<area shape="rect" id="node5" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="358,229,582,256"/>
+<area shape="rect" id="node6" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="606,229,809,256"/>
+<area shape="rect" id="node7" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="833,229,979,256"/>
+<area shape="rect" id="node10" href="$_layout_8cpp.html" title="Implementation of Layout for SBML Layout." alt="" coords="746,155,839,181"/>
+</map>

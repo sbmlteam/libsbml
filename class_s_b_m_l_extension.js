@@ -1,0 +1,25 @@
+var class_s_b_m_l_extension =
+[
+    [ "SBMLExtension", "class_s_b_m_l_extension.html#acd291cc9f7aa2aab1d1677640b410ebe", null ],
+    [ "SBMLExtension", "class_s_b_m_l_extension.html#a2fe36937195858d25f5035eefca7eaec", null ],
+    [ "~SBMLExtension", "class_s_b_m_l_extension.html#a95d65b8a9f6f1b5aa15cd4dffb1d1623", null ],
+    [ "addL2Namespaces", "class_s_b_m_l_extension.html#ae19fdaba58552e049823b8522dd00a84", null ],
+    [ "clone", "class_s_b_m_l_extension.html#aa552bb74343a2834676c9455dae0d321", null ],
+    [ "enableL2NamespaceForDocument", "class_s_b_m_l_extension.html#a59934841d8bf516f91a65f58b81656bc", null ],
+    [ "getLevel", "class_s_b_m_l_extension.html#a0faaa25235d4ff098063e900b14997e4", null ],
+    [ "getName", "class_s_b_m_l_extension.html#aef7d6f355ae691deccd3570abf58a2b9", null ],
+    [ "getNumOfSBasePlugins", "class_s_b_m_l_extension.html#ab35b36ff7d227a0208d7275d33b03385", null ],
+    [ "getNumOfSupportedPackageURI", "class_s_b_m_l_extension.html#a003e8909497d756f3d445313659ba349", null ],
+    [ "getPackageVersion", "class_s_b_m_l_extension.html#a1774e7ed5b506877030ca7a12c1036c3", null ],
+    [ "getSBMLExtensionNamespaces", "class_s_b_m_l_extension.html#adef6e8ca87139c205a6b9d6547652492", null ],
+    [ "getStringFromTypeCode", "class_s_b_m_l_extension.html#aa89eaf90f4aede2a8e7cfa2569faed7a", null ],
+    [ "getSupportedPackageURI", "class_s_b_m_l_extension.html#a4e2a1486543f02fcb1bfb5398da8f21a", null ],
+    [ "getURI", "class_s_b_m_l_extension.html#aa52aa477b26373326fa4ad134c09f79e", null ],
+    [ "getVersion", "class_s_b_m_l_extension.html#a7c6a568d781bd80a3c5e010562d47ce5", null ],
+    [ "isEnabled", "class_s_b_m_l_extension.html#a0aa3323b197036449a005c63ed771a6e", null ],
+    [ "isInUse", "class_s_b_m_l_extension.html#aa9f53e3085b1b10bbd9c6cc6154e17bf", null ],
+    [ "isSupported", "class_s_b_m_l_extension.html#a5c01f215a642a9d87a9b69605dcc8cf6", null ],
+    [ "operator=", "class_s_b_m_l_extension.html#ab7759d11aaa3b68b3b2b0ab4ca0b1984", null ],
+    [ "removeL2Namespaces", "class_s_b_m_l_extension.html#a9b54ff284884d119564c20950517b862", null ],
+    [ "setEnabled", "class_s_b_m_l_extension.html#a636f80a87e2a063bf2e6389e3fbe52f3", null ]
+];

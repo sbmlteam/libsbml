@@ -1,0 +1,7 @@
+<map id="SBMLLocalParameterConverter.h" name="SBMLLocalParameterConverter.h">
+<area shape="rect" id="node1" title="Definition of SBMLLocalParameterConverter, a converter replacing local parameters with global ones." alt="" coords="186,5,421,32"/>
+<area shape="rect" id="node2" href="$_register_converters_8cpp.html" title="Registers all available converters." alt="" coords="19,80,193,107"/>
+<area shape="rect" id="node4" href="$_s_b_m_l_converter_types_8h.html" title="Definition of SBMLConverterTypes." alt="" coords="218,80,389,107"/>
+<area shape="rect" id="node5" href="$_s_b_m_l_local_parameter_converter_8cpp.html" title="Implementation of SBMLLocalParameterConverter, a converter replacing local parameters with global one..." alt="" coords="413,80,663,107"/>
+<area shape="rect" id="node3" href="$_s_b_m_l_converter_registry_8cpp.html" title="Implementation of SBMLConverterRegistry, a registry of available converters." alt="" coords="5,155,207,181"/>
+</map>

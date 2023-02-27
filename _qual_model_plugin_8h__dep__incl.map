@@ -1,0 +1,7 @@
+<map id="QualModelPlugin.h" name="QualModelPlugin.h">
+<area shape="rect" id="node1" title="Definition of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="195,5,339,32"/>
+<area shape="rect" id="node2" href="$_qual_extension_types_8h.html" title="Include all SBML types of qual extension in a single header file." alt="" coords="5,80,171,107"/>
+<area shape="rect" id="node4" href="$_qual_extension_8cpp.html" title="Implementation of QualExtension, the core module of qual package." alt="" coords="195,80,338,107"/>
+<area shape="rect" id="node5" href="$_qual_model_plugin_8cpp.html" title="Implementation of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="362,80,521,107"/>
+<area shape="rect" id="node3" href="$_qual_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="20,155,156,181"/>
+</map>

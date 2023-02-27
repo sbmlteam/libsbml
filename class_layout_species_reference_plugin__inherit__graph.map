@@ -1,0 +1,4 @@
+<map id="LayoutSpeciesReferencePlugin" name="LayoutSpeciesReferencePlugin">
+<area shape="rect" id="node1" title="@sbmlpackage{layout}" alt="" coords="5,80,228,107"/>
+<area shape="rect" id="node2" href="$class_s_base_plugin.html" title="@sbmlpackage{core}" alt="" coords="65,5,168,32"/>
+</map>

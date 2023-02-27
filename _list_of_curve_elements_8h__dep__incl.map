@@ -1,0 +1,22 @@
+<map id="ListOfCurveElements.h" name="ListOfCurveElements.h">
+<area shape="rect" id="node1" title="Definition of the ListOfCurveElements class." alt="" coords="624,5,795,32"/>
+<area shape="rect" id="node2" href="$_list_of_curve_elements_8cpp.html" title="storage class for curve elements" alt="" coords="376,80,563,107"/>
+<area shape="rect" id="node3" href="$_polygon_8h.html" title="class representing a polygon" alt="" coords="730,80,817,107"/>
+<area shape="rect" id="node18" href="$_render_curve_8h.html" title="Definition of the RenderCurve class." alt="" coords="587,80,706,107"/>
+<area shape="rect" id="node20" href="$_render_point_8cpp.html" title="Implementation of the RenderPoint class." alt="" coords="841,80,969,107"/>
+<area shape="rect" id="node4" href="$_render_extension_types_8h.html" title="Definition of RenderExtensionTypes." alt="" coords="683,155,864,181"/>
+<area shape="rect" id="node11" href="$_graphical_primitive1_d_8cpp.html" title="abstract base class for graphical 1D objects" alt="" coords="889,155,1077,181"/>
+<area shape="rect" id="node12" href="$_graphical_primitive2_d_8cpp.html" title="Implementation of the GraphicalPrimitive2D class." alt="" coords="1407,155,1595,181"/>
+<area shape="rect" id="node13" href="$_list_of_drawables_8cpp.html" title="Implementation of the ListOfDrawables class." alt="" coords="1101,155,1257,181"/>
+<area shape="rect" id="node14" href="$_polygon_8cpp.html" title="Implementation of the Polygon class." alt="" coords="1281,155,1383,181"/>
+<area shape="rect" id="node15" href="$_render_group_8cpp.html" title="Implementation of the RenderGroup class." alt="" coords="163,155,298,181"/>
+<area shape="rect" id="node16" href="$_transformation_8cpp.html" title="class representing a 3D affine transformation" alt="" coords="323,155,469,181"/>
+<area shape="rect" id="node17" href="$_transformation2_d_8cpp.html" title="class representing a 2D affine transformation" alt="" coords="493,155,659,181"/>
+<area shape="rect" id="node5" href="$_render_layout_plugin_8cpp.html" title="Implementation of RenderLayoutPlugin, the plugin class of the fbc package for the Model element." alt="" coords="356,304,535,331"/>
+<area shape="rect" id="node6" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="811,229,1013,256"/>
+<area shape="rect" id="node7" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="807,304,953,331"/>
+<area shape="rect" id="node8" href="$_render_utilities_8h.html" title="Definition of RenderUtilities, a class of utility functions for the render package." alt="" coords="605,229,736,256"/>
+<area shape="rect" id="node10" href="$_render_validator_8cpp.html" title="Definition of RenderValidator." alt="" coords="1037,229,1189,256"/>
+<area shape="rect" id="node9" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="559,304,783,331"/>
+<area shape="rect" id="node19" href="$_render_curve_8cpp.html" title="Implementation of the RenderCurve class." alt="" coords="5,155,139,181"/>
+</map>

@@ -1,0 +1,34 @@
+/**
+ * @file    libsbml-c-stylesheet.css
+ * @brief   Additional stylesheet used for C documentation.
+ * @author  Michael Hucka
+ *
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ */
+
+/* This makes the text of some tabs narrower.
+   (The reason it's the functions.html file is that in doxygen-layout-c.xml,
+   we redefine the title to be "Alphabetical Listings".) */
+
+.tablist li a[href="functions.html"],
+.tablist li a[href="annotated.html"]
+{
+  letter-spacing: -1px;
+}
+
+.tablist li a[href="functions_vars.html"],
+.tablist li a[href="functions_type.html"]
+{
+  display: none;
+}
+
+/* Hide the "Variables" and "Typedefs" sections b/c they're incomplete
+   and basically useless, because of how libSBML works.
+ */
+
+#nav-tree-contents ul li ul.children_ul li ul.children_ul li:nth-child(2) li:nth-child(3),
+#nav-tree-contents ul li ul.children_ul li ul.children_ul li:nth-child(2) li:nth-child(4)
+{
+  display: none;
+}

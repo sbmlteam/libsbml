@@ -1,0 +1,4 @@
+<map id="MultiCompartmentPlugin" name="MultiCompartmentPlugin">
+<area shape="rect" id="node1" title="@sbmlpackage{multi}" alt="" coords="5,80,191,107"/>
+<area shape="rect" id="node2" href="$class_s_base_plugin.html" title="@sbmlpackage{core}" alt="" coords="47,5,149,32"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="SBMLResolver.h" name="SBMLResolver.h">
+<area shape="rect" id="node1" title="Definition of SBMLResolver, the base class for resolving SBML documents." alt="" coords="549,5,676,32"/>
+<area shape="rect" id="node2" href="$_s_b_m_l_file_resolver_8h.html" title="A file&#45;based resolver for SBML Documents." alt="" coords="482,80,631,107"/>
+<area shape="rect" id="node5" href="$_s_b_m_l_resolver_registry_8cpp.html" title="Implementation of SBMLResolverRegistry, a registry of available resolvers." alt="" coords="501,155,695,181"/>
+<area shape="rect" id="node6" href="$_s_b_m_l_resolver_8cpp.html" title="Implementation of SBMLResolver, the base class of package extensions." alt="" coords="706,80,847,107"/>
+<area shape="rect" id="node7" href="$_s_b_m_l_resolver_registry_8h.html" title="Definition of SBMLResolverRegistry, a registry of available resolvers." alt="" coords="279,80,458,107"/>
+<area shape="rect" id="node3" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="261,155,477,181"/>
+<area shape="rect" id="node4" href="$_s_b_m_l_file_resolver_8cpp.html" title="Implementation of SBMLFileResolver, the file system based resolver for SBML Documents." alt="" coords="720,155,884,181"/>
+<area shape="rect" id="node8" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="5,155,236,181"/>
+</map>

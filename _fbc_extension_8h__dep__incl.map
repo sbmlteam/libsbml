@@ -1,0 +1,54 @@
+<map id="FbcExtension.h" name="FbcExtension.h">
+<area shape="rect" id="node1" title="Definition of FbcExtension, the core module of fbc package." alt="" coords="1586,5,1707,32"/>
+<area shape="rect" id="node2" href="$_fbc_extension_types_8h.html" title="Includes all SBML types of the fbc package extension in a single header file." alt="" coords="1422,483,1580,509"/>
+<area shape="rect" id="node8" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="293,483,429,509"/>
+<area shape="rect" id="node9" href="$_fbc_model_plugin_8cpp.html" title="Implementation of FbcModelPlugin, the plugin class of the fbc package for the Model element." alt="" coords="1906,483,2058,509"/>
+<area shape="rect" id="node10" href="$_fbc_model_plugin_8h.html" title="Definition of FbcModelPlugin, the plugin class of fbc package for the Model element." alt="" coords="1835,408,1972,435"/>
+<area shape="rect" id="node14" href="$_fbc_s_b_m_l_document_plugin_8h.html" title="Implementation of the FbcSBMLDocumentPlugin class." alt="" coords="44,408,244,435"/>
+<area shape="rect" id="node16" href="$_association_8cpp.html" title="Implementation of Association, the contents of a GeneAssociation." alt="" coords="3180,483,3304,509"/>
+<area shape="rect" id="node17" href="$_association_8h.html" title="Definition of Association, the contents of a GeneAssociation." alt="" coords="1684,251,1793,278"/>
+<area shape="rect" id="node18" href="$_gene_association_8h.html" title="Definition of GeneAssociation, the SBase derived class of the fbc package." alt="" coords="1484,333,1627,360"/>
+<area shape="rect" id="node21" href="$_gene_association_8cpp.html" title="Implementation of GeneAssociation, the SBase derived class of the fbc package." alt="" coords="1499,408,1658,435"/>
+<area shape="rect" id="node22" href="$_fbc_and_8h.html" title="Implementation of the FbcAnd class." alt="" coords="3097,408,3180,435"/>
+<area shape="rect" id="node25" href="$_fbc_association_8h.html" title="Implementation of the FbcAssociation class." alt="" coords="2859,251,2991,278"/>
+<area shape="rect" id="node26" href="$_fbc_or_8h.html" title="Implementation of the FbcOr class." alt="" coords="3002,408,3072,435"/>
+<area shape="rect" id="node27" href="$_gene_product_association_8h.html" title="Implementation of the GeneProductAssociation class." alt="" coords="1753,333,1945,360"/>
+<area shape="rect" id="node30" href="$_gene_product_ref_8h.html" title="Implementation of the GeneProductRef class." alt="" coords="2838,408,2977,435"/>
+<area shape="rect" id="node31" href="$_flux_bound_8cpp.html" title="Implementation of FluxBound, the SBase derived class of the fbc package." alt="" coords="895,408,1014,435"/>
+<area shape="rect" id="node32" href="$_flux_bound_8h.html" title="Definition of FluxBound, the SBase derived class of the fbc package." alt="" coords="962,333,1064,360"/>
+<area shape="rect" id="node33" href="$_flux_objective_8cpp.html" title="Implementation of the FluxObjective class." alt="" coords="1369,162,1508,189"/>
+<area shape="rect" id="node34" href="$_flux_objective_8h.html" title="Definition of FluxObjective, the SBase derived class of the fbc package." alt="" coords="1320,80,1444,107"/>
+<area shape="rect" id="node35" href="$_objective_8h.html" title="Definition of Objective, the SBase derived class of the fbc package." alt="" coords="1198,162,1294,189"/>
+<area shape="rect" id="node36" href="$_objective_8cpp.html" title="Implementation of the Objective class." alt="" coords="1082,251,1192,278"/>
+<area shape="rect" id="node37" href="$_gene_product_8h.html" title="Implementation of the GeneProduct class." alt="" coords="1292,333,1409,360"/>
+<area shape="rect" id="node39" href="$_key_value_pair_8h.html" title="Definition of the KeyValuePair class." alt="" coords="718,162,836,189"/>
+<area shape="rect" id="node43" href="$_list_of_key_value_pairs_8h.html" title="Definition of the ListOfKeyValuePairs class." alt="" coords="526,251,689,278"/>
+<area shape="rect" id="node45" href="$_list_of_user_defined_constraint_components_8h.html" title="Definition of the ListOfUserDefinedConstraintComponents class." alt="" coords="2403,155,2610,196"/>
+<area shape="rect" id="node47" href="$_user_defined_constraint_8h.html" title="Definition of the UserDefinedConstraint class." alt="" coords="2077,251,2258,278"/>
+<area shape="rect" id="node48" href="$_list_of_user_defined_constraints_8h.html" title="Definition of the ListOfUserDefinedConstraints class." alt="" coords="2222,333,2449,360"/>
+<area shape="rect" id="node52" href="$_user_defined_constraint_component_8h.html" title="Definition of the UserDefinedConstraintComponent class." alt="" coords="2237,80,2493,107"/>
+<area shape="rect" id="node3" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="988,557,1174,584"/>
+<area shape="rect" id="node4" href="$_fbc_to_cobra_converter_8cpp.html" title="Implementation of a fbc 2 cobra converter." alt="" coords="1198,557,1385,584"/>
+<area shape="rect" id="node5" href="$_fbc_v1_to_v2_converter_8cpp.html" title="Implementation of a fbc v1 to fbc v2 converter." alt="" coords="1410,557,1592,584"/>
+<area shape="rect" id="node6" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="1616,557,1799,584"/>
+<area shape="rect" id="node7" href="$_fbc_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="1823,557,1952,584"/>
+<area shape="rect" id="node11" href="$_fbc_association_8cpp.html" title="Implementation of the FbcAssociation class." alt="" coords="2777,483,2924,509"/>
+<area shape="rect" id="node12" href="$_gene_product_association_8cpp.html" title="Implementation of the GeneProductAssociation class." alt="" coords="2546,483,2752,509"/>
+<area shape="rect" id="node13" href="$_gene_product_ref_8cpp.html" title="Implementation of the GeneProductRef class." alt="" coords="2278,483,2431,509"/>
+<area shape="rect" id="node15" href="$_fbc_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the FbcSBMLDocumentPlugin class." alt="" coords="36,483,251,509"/>
+<area shape="rect" id="node19" href="$_fbc_species_plugin_8h.html" title="Definition of FbcSpeciesPlugin, the plugin class of the fbc package for the Species element." alt="" coords="494,408,641,435"/>
+<area shape="rect" id="node20" href="$_fbc_species_plugin_8cpp.html" title="Implementation of FbcSpeciesPlugin, the plugin class of the fbc package for the Species element." alt="" coords="478,483,641,509"/>
+<area shape="rect" id="node23" href="$_fbc_and_8cpp.html" title="Implementation of the FbcAnd class." alt="" coords="3059,483,3156,509"/>
+<area shape="rect" id="node24" href="$_fbc_or_8cpp.html" title="Implementation of the FbcOr class." alt="" coords="2948,483,3035,509"/>
+<area shape="rect" id="node28" href="$_fbc_reaction_plugin_8h.html" title="Implementation of the FbcReactionPlugin class." alt="" coords="665,408,820,435"/>
+<area shape="rect" id="node29" href="$_fbc_reaction_plugin_8cpp.html" title="Implementation of the FbcReactionPlugin class." alt="" coords="666,483,835,509"/>
+<area shape="rect" id="node38" href="$_gene_product_8cpp.html" title="Implementation of the GeneProduct class." alt="" coords="1343,408,1475,435"/>
+<area shape="rect" id="node40" href="$_fbc_s_base_plugin_8h.html" title="Definition of the FbcSBasePlugin class." alt="" coords="698,333,835,360"/>
+<area shape="rect" id="node42" href="$_key_value_pair_8cpp.html" title="Implementation of the KeyValuePair class." alt="" coords="542,333,674,360"/>
+<area shape="rect" id="node41" href="$_fbc_s_base_plugin_8cpp.html" title="Implementation of the FbcSBasePlugin class." alt="" coords="318,408,470,435"/>
+<area shape="rect" id="node44" href="$_list_of_key_value_pairs_8cpp.html" title="Implementation of the ListOfKeyValuePairs class." alt="" coords="338,333,517,360"/>
+<area shape="rect" id="node46" href="$_list_of_user_defined_constraint_components_8cpp.html" title="Implementation of the ListOfUserDefinedConstraintComponents class." alt="" coords="2628,244,2835,285"/>
+<area shape="rect" id="node51" href="$_user_defined_constraint_component_8cpp.html" title="Implementation of the UserDefinedConstraintComponent class." alt="" coords="2334,251,2604,278"/>
+<area shape="rect" id="node50" href="$_user_defined_constraint_8cpp.html" title="Implementation of the UserDefinedConstraint class." alt="" coords="2466,408,2662,435"/>
+<area shape="rect" id="node49" href="$_list_of_user_defined_constraints_8cpp.html" title="Implementation of the ListOfUserDefinedConstraints class." alt="" coords="2200,408,2442,435"/>
+</map>

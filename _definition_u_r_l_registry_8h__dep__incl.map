@@ -1,0 +1,6 @@
+<map id="DefinitionURLRegistry.h" name="DefinitionURLRegistry.h">
+<area shape="rect" id="node1" title="Definition of DefinitionURLRegistry, a registry of available DefinitionURLs." alt="" coords="184,5,359,32"/>
+<area shape="rect" id="node2" href="$_definition_u_r_l_registry_8cpp.html" title="Implementation of DefinitionURLRegistry, a registry of available DefinitionURLs." alt="" coords="5,80,196,107"/>
+<area shape="rect" id="node3" href="$_math_m_l_8cpp.html" title="Utilities for reading and writing MathML to/from text strings." alt="" coords="221,80,322,107"/>
+<area shape="rect" id="node4" href="$_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="346,80,453,107"/>
+</map>

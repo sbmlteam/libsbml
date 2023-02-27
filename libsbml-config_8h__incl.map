@@ -1,0 +1,7 @@
+<map id="libsbml&#45;config.h" name="libsbml&#45;config.h">
+<area shape="rect" id="node1" title="Decides whether to #include Unix or Windows configuration variables." alt="" coords="85,5,212,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,244,172,285"/>
+<area shape="rect" id="node3" title=" " alt="" coords="65,80,232,121"/>
+<area shape="rect" id="node4" href="$libsbml-version_8h.html" title="Define libSBML version numbers for access from client software." alt="" coords="256,80,423,121"/>
+<area shape="rect" id="node5" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="158,169,331,196"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="LayoutExtensionTypes.h" name="LayoutExtensionTypes.h">
+<area shape="rect" id="node1" title="Include all SBML types of layout extension in a single header file." alt="" coords="381,5,559,32"/>
+<area shape="rect" id="node2" href="$_graphical_object_8cpp.html" title="Implementation of GraphicalObject for SBML Layout." alt="" coords="5,80,159,107"/>
+<area shape="rect" id="node3" href="$_layout_validator_8cpp.html" title="Implementation of the LayoutValidator class." alt="" coords="183,80,333,107"/>
+<area shape="rect" id="node4" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="358,80,582,107"/>
+<area shape="rect" id="node5" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="606,80,809,107"/>
+<area shape="rect" id="node6" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="833,80,979,107"/>
+</map>

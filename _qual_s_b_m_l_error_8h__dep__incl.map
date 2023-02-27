@@ -1,0 +1,13 @@
+<map id="QualSBMLError.h" name="QualSBMLError.h">
+<area shape="rect" id="node1" title="Represents SBML errors and other diagnostics." alt="" coords="725,5,855,32"/>
+<area shape="rect" id="node2" href="$_qual_model_plugin_8cpp.html" title="Implementation of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="5,80,164,107"/>
+<area shape="rect" id="node3" href="$_qual_s_b_m_l_document_plugin_8cpp.html" title="Implementation of QualSBMLDocumentPlugin, the plugin class of qual package for the SBase element." alt="" coords="188,80,411,107"/>
+<area shape="rect" id="node4" href="$_default_term_8cpp.html" title="Implementation of the DefaultTerm class." alt="" coords="435,80,564,107"/>
+<area shape="rect" id="node5" href="$_function_term_8cpp.html" title="Implementation of the FunctionTerm class." alt="" coords="589,80,725,107"/>
+<area shape="rect" id="node6" href="$_input_8cpp.html" title="Implementation of the Input class." alt="" coords="749,80,831,107"/>
+<area shape="rect" id="node7" href="$_output_8cpp.html" title="Implementation of the Output class." alt="" coords="855,80,949,107"/>
+<area shape="rect" id="node8" href="$_qualitative_species_8cpp.html" title="Implementation of the QualitativeSpecies class." alt="" coords="973,80,1143,107"/>
+<area shape="rect" id="node9" href="$_transition_8cpp.html" title="Implementation of the Transition class." alt="" coords="1167,80,1279,107"/>
+<area shape="rect" id="node10" href="$_qual_s_b_m_l_error_table_8h.html" title="Represents SBML errors and other diagnostics." alt="" coords="1303,80,1469,107"/>
+<area shape="rect" id="node11" href="$_qual_extension_8cpp.html" title="Implementation of QualExtension, the core module of qual package." alt="" coords="1315,155,1457,181"/>
+</map>

@@ -1,0 +1,28 @@
+var class_s_b_m_l_extension_namespaces =
+[
+    [ "SBMLExtensionNamespaces", "class_s_b_m_l_extension_namespaces.html#a9cd9a9a7f2270c61b579300ca887c56a", null ],
+    [ "~SBMLExtensionNamespaces", "class_s_b_m_l_extension_namespaces.html#a73a683cc3bcc340c8cbfc156285d9fab", null ],
+    [ "SBMLExtensionNamespaces", "class_s_b_m_l_extension_namespaces.html#aeaf35369115bcb947c7987266f99580e", null ],
+    [ "addNamespace", "class_s_b_m_l_extension_namespaces.html#aa7e3f28eac7f190899ffb96e09f58de3", null ],
+    [ "addNamespaces", "class_s_b_m_l_extension_namespaces.html#a53e2bb38daba0aa7896f5b908d7e449c", null ],
+    [ "addPackageNamespace", "class_s_b_m_l_extension_namespaces.html#a62e14049cbdd4fd55807b7e89f0503d5", null ],
+    [ "addPackageNamespaces", "class_s_b_m_l_extension_namespaces.html#a5c7a8383df72538e8c4f48a64517e876", null ],
+    [ "clone", "class_s_b_m_l_extension_namespaces.html#a439c10a006c7b427afdc04a60c85edf0", null ],
+    [ "freeSBMLNamespaces", "class_s_b_m_l_extension_namespaces.html#a9feaeee8c306bbaf3eb6d9cda01f2eb5", null ],
+    [ "getLevel", "class_s_b_m_l_extension_namespaces.html#ac84f016b64d6c5839eb295826fcfca9d", null ],
+    [ "getLevel", "class_s_b_m_l_extension_namespaces.html#af15af1a3a61a20c5daae7251f90ae2cf", null ],
+    [ "getNamespaces", "class_s_b_m_l_extension_namespaces.html#a4c396de9a5ab7b9c8d5f62e74ed510e9", null ],
+    [ "getNamespaces", "class_s_b_m_l_extension_namespaces.html#a2cf5a89bab8994942cec432c55c05ce5", null ],
+    [ "getPackageName", "class_s_b_m_l_extension_namespaces.html#ab3b27546a4f0a8cd86c2f77c164b82c7", null ],
+    [ "getPackageVersion", "class_s_b_m_l_extension_namespaces.html#a5474934f629b290d1257053c8817e9fc", null ],
+    [ "getSBMLNamespaceURI", "class_s_b_m_l_extension_namespaces.html#aee2cebbe9a1f5f6453b64918e649eda4", null ],
+    [ "getSupportedNamespaces", "class_s_b_m_l_extension_namespaces.html#ace0d7eba913a23b34e01f9d9c3430858", null ],
+    [ "getURI", "class_s_b_m_l_extension_namespaces.html#a2dccc96a5c824dde60fb484db82be22e", null ],
+    [ "getVersion", "class_s_b_m_l_extension_namespaces.html#add98b46f7ac546bc26f0f272e14a9a8c", null ],
+    [ "getVersion", "class_s_b_m_l_extension_namespaces.html#a3e60a610af304f717f1466b2da0e5696", null ],
+    [ "isSBMLNamespace", "class_s_b_m_l_extension_namespaces.html#a67554eecafe6bd18a71c86253b4c31f1", null ],
+    [ "isValidCombination", "class_s_b_m_l_extension_namespaces.html#a65ff67326a3d65cf009c1c83f52a1b5d", null ],
+    [ "operator=", "class_s_b_m_l_extension_namespaces.html#a6e81f267634b36ca8512665d09187af3", null ],
+    [ "removeNamespace", "class_s_b_m_l_extension_namespaces.html#a94426d995dc9a4bc552687020d498f09", null ],
+    [ "removePackageNamespace", "class_s_b_m_l_extension_namespaces.html#a8166f0c4a7f5a2b6b8eab06be94bcff8", null ]
+];

@@ -1,0 +1,8 @@
+<map id="XMLConstructorException.h" name="XMLConstructorException.h">
+<area shape="rect" id="node1" title="XMLConstructorException an exception thrown by XML classes." alt="" coords="365,5,567,32"/>
+<area shape="rect" id="node2" href="$_x_m_l_attributes_8cpp.html" title="XMLAttributes are a list of name/value pairs for XMLElements." alt="" coords="5,80,148,107"/>
+<area shape="rect" id="node3" href="$_x_m_l_constructor_exception_8cpp.html" title="XMLConstructorException an exception thrown by XML classes." alt="" coords="173,80,389,107"/>
+<area shape="rect" id="node4" href="$_x_m_l_error_8cpp.html" title="Represents errors (and messages) encountered during an XML parse." alt="" coords="413,80,519,107"/>
+<area shape="rect" id="node5" href="$_x_m_l_namespaces_8cpp.html" title="A list of XMLNamespace declarations (URI/prefix pairs)" alt="" coords="544,80,705,107"/>
+<area shape="rect" id="node6" href="$_x_m_l_triple_8cpp.html" title="Stores an XML namespace triple." alt="" coords="729,80,840,107"/>
+</map>
