@@ -36,8 +36,6 @@ find_package(Doxygen)
 
 if (NOT EXISTS "${DOXYGEN_EXECUTABLE}")
 		message(FATAL_ERROR "Cannot generate documentation, please install doxygen / specify the DOXYGEN_EXECUTABLE.")
-else()
-		message(WARNING "Creating Documentation with CMake is experimental. Please consider configuring with gnumake, to generate documentation.")
 endif()
 
 # determine doxygen version
@@ -93,9 +91,13 @@ macro(createManual lang)
 	make_directory(${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api)
 	make_directory(${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api/search)
 
-	file(GLOB graphics_files ${CMAKE_CURRENT_SOURCE_DIR}/src/common-graphics/*.jpg)
-	foreach(graphic ${graphics_files})
-		file(COPY ${graphic} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api)
+	# copy files
+	file(GLOB graphics_files ${CMAKE_CURRENT_SOURCE_DIR}/src/common-graphics/*)
+	set(FILES_TO_COPY ${graphics_files})
+	file(GLOB graphics_files ${CMAKE_CURRENT_SOURCE_DIR}/src/css/*)
+	list(APPEND FILES_TO_COPY ${graphics_files})
+	foreach(file ${FILES_TO_COPY})
+		file(COPY ${file} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api)
 	endforeach()
 
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api output_path)
@@ -106,6 +108,7 @@ macro(createManual lang)
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/doxygen-tabs.css tabs_css)
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/css/search.png search_png)
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/css/search.css search_css)
+	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/css/libsbml-package-stylesheet.css package_css)
 
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/doxygen-config-${lang}.txt api_doc)
 
@@ -113,6 +116,18 @@ macro(createManual lang)
 		OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api/index.html
 		#COMMAND "${CMAKE_COMMAND}"
 		#ARGS -E remove_directory ${output_path}
+		COMMAND ${PYTHON_EXECUTABLE}
+		ARGS   utilities/generate-class-name-list.py ${LIBSBML_ROOT_SOURCE_DIR}/src > ${CMAKE_CURRENT_SOURCE_DIR}/src/class-list.txt
+		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src
+		
+		COMMAND ${PYTHON_EXECUTABLE}
+		ARGS   utilities/generate-converters-list.py  ${CMAKE_CURRENT_SOURCE_DIR}/src/class-list.txt > ${CMAKE_CURRENT_SOURCE_DIR}/src/libsbml-converters.txt
+		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src		
+
+		COMMAND ${PYTHON_EXECUTABLE}
+		ARGS   utilities/generate-pkg-stylesheet.py  ${LIBSBML_ROOT_SOURCE_DIR}/src/sbml/packages  > ${CMAKE_CURRENT_SOURCE_DIR}/src/css/libsbml-package-stylesheet.css
+		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src		
+
 		COMMAND ${DOXYGEN_EXECUTABLE}
 		ARGS   ${api_doc}
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src
@@ -128,6 +143,12 @@ macro(createManual lang)
 		ARGS -E copy
 			${sbml_js}
 			${output_path}
+
+		COMMAND "${CMAKE_COMMAND}"
+		ARGS -E copy
+			${package_css}
+			${output_path}
+				
 #		COMMAND "${CMAKE_COMMAND}"
 #		ARGS -E copy
 #			${tabs_css}
@@ -144,6 +165,7 @@ macro(createManual lang)
 		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
 
 	)
+
 
 	add_custom_target(api_docs_${lang} ALL DEPENDS
 		${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api/index.html
