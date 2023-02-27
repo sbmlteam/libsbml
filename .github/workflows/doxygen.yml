@@ -41,7 +41,6 @@ jobs:
         -DWITH_CHECK=OFF \
         -DWITH_LIBXML=OFF \
         -DWITH_EXPAT=ON \
-        -DWITH_MATLAB=ON \
         -DWITH_STABLE_PACKAGES=ON \
         -DWITH_DOXYGEN=ON
 
