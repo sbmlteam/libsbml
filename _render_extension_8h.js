@@ -1,6 +1,5 @@
 var _render_extension_8h =
 [
-    [ "RenderExtension", "class_render_extension.html", "class_render_extension" ],
     [ "RENDER_CREATE_NS", "_render_extension_8h.html#a0c8816388376654e573b7860dfdc0043", null ],
     [ "RenderPkgNamespaces", "_render_extension_8h.html#ace3a1a6a94cad016d73f438eb84caea9", null ],
     [ "FillRule_t", "_render_extension_8h.html#a2da43f151a70e5f5137fa22d47b5abe9", [

@@ -1,6 +1,5 @@
 var _comp_extension_8h =
 [
-    [ "CompExtension", "class_comp_extension.html", "class_comp_extension" ],
     [ "COMP_CREATE_NS", "_comp_extension_8h.html#a2d233c216cb65c30cda0479efbfeb278", null ],
     [ "CompPkgNamespaces", "_comp_extension_8h.html#a8911b85e512ab92f7ddaa039c45cd84b", null ],
     [ "SBMLCompTypeCode_t", "_comp_extension_8h.html#abc7f70ec4f615c9b30237b635e97b02c", [

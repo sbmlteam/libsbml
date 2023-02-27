@@ -1,6 +1,5 @@
 var _c_v_term_8h =
 [
-    [ "CVTerm", "class_c_v_term.html", "class_c_v_term" ],
     [ "BiolQualifierType_t", "_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18", [
       [ "BQB_IS", "_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a7b4a827435b6f39f8122620589252d89", null ],
       [ "BQB_HAS_PART", "_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18abcb372d7076d076d536093dda97c3dd5", null ],

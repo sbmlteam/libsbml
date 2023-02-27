@@ -1,6 +1,5 @@
 var _multi_extension_8h =
 [
-    [ "MultiExtension", "class_multi_extension.html", "class_multi_extension" ],
     [ "MULTI_CREATE_NS", "_multi_extension_8h.html#a0170f97d5d81a0ac9c0ad66455546124", null ],
     [ "MultiPkgNamespaces", "_multi_extension_8h.html#aa5c376752aab9bc4506bd1a28c7abd61", null ],
     [ "SBMLMultiTypeCode_t", "_multi_extension_8h.html#a54a694d9d4ceb85711785c5ff879e1c8", [

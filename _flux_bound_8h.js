@@ -1,7 +1,5 @@
 var _flux_bound_8h =
 [
-    [ "FluxBound", "class_flux_bound.html", "class_flux_bound" ],
-    [ "ListOfFluxBounds", "class_list_of_flux_bounds.html", "class_list_of_flux_bounds" ],
     [ "FluxBoundOperation_t", "_flux_bound_8h.html#a3e567ff8eafa9bbca3b7e7e82a0d4ab3", [
       [ "FLUXBOUND_OPERATION_LESS_EQUAL", "_flux_bound_8h.html#a3e567ff8eafa9bbca3b7e7e82a0d4ab3af6aee1fe2dbf8973e62848e41aac7f21", null ],
       [ "FLUXBOUND_OPERATION_GREATER_EQUAL", "_flux_bound_8h.html#a3e567ff8eafa9bbca3b7e7e82a0d4ab3aa83a78af047079c3120cfa7c2e3b71d3", null ],

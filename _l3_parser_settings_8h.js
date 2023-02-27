@@ -1,6 +1,5 @@
 var _l3_parser_settings_8h =
 [
-    [ "L3ParserSettings", "class_l3_parser_settings.html", "class_l3_parser_settings" ],
     [ "L3P_AVOGADRO_IS_CSYMBOL", "_l3_parser_settings_8h.html#a111179be89a34ee5ff4c45303bc1dc12", null ],
     [ "L3P_AVOGADRO_IS_NAME", "_l3_parser_settings_8h.html#a454fdbfde0ab74506f40a6555e9abdff", null ],
     [ "L3P_COLLAPSE_UNARY_MINUS", "_l3_parser_settings_8h.html#a86e969c8b902c44e7ae5901bfceeaf9e", null ],

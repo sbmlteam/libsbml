@@ -1,0 +1,13 @@
+<map id="Domain.h" name="Domain.h">
+<area shape="rect" id="node1" title="Definition of the Domain class." alt="" coords="133,5,218,32"/>
+<area shape="rect" id="node2" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="5,304,185,331"/>
+<area shape="rect" id="node4" href="$_domain_8cpp.html" title="Implementation of the Domain class." alt="" coords="125,155,225,181"/>
+<area shape="rect" id="node5" href="$_list_of_domains_8h.html" title="Definition of the ListOfDomains class." alt="" coords="222,80,353,107"/>
+<area shape="rect" id="node3" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="20,379,171,405"/>
+<area shape="rect" id="node6" href="$_geometry_8h.html" title="Definition of the Geometry class." alt="" coords="249,155,347,181"/>
+<area shape="rect" id="node11" href="$_list_of_domains_8cpp.html" title="Implementation of the ListOfDomains class." alt="" coords="371,155,516,181"/>
+<area shape="rect" id="node7" href="$_spatial_model_plugin_8h.html" title="Definition of the SpatialModelPlugin class." alt="" coords="209,229,368,256"/>
+<area shape="rect" id="node10" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="393,229,505,256"/>
+<area shape="rect" id="node8" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="209,304,368,331"/>
+<area shape="rect" id="node9" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="392,304,567,331"/>
+</map>

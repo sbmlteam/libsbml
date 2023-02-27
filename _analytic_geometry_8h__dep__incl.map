@@ -1,0 +1,10 @@
+<map id="AnalyticGeometry.h" name="AnalyticGeometry.h">
+<area shape="rect" id="node1" title="Definition of the AnalyticGeometry class." alt="" coords="464,5,615,32"/>
+<area shape="rect" id="node2" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="5,80,185,107"/>
+<area shape="rect" id="node4" href="$_analytic_geometry_8cpp.html" title="Implementation of the AnalyticGeometry class." alt="" coords="210,80,375,107"/>
+<area shape="rect" id="node5" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="399,80,511,107"/>
+<area shape="rect" id="node6" href="$_geometry_definition_8cpp.html" title="Implementation of the GeometryDefinition class." alt="" coords="536,80,713,107"/>
+<area shape="rect" id="node7" href="$_list_of_geometry_definitions_8cpp.html" title="Implementation of the ListOfGeometryDefinitions class." alt="" coords="737,80,960,107"/>
+<area shape="rect" id="node8" href="$_mixed_geometry_8cpp.html" title="Implementation of the MixedGeometry class." alt="" coords="984,80,1135,107"/>
+<area shape="rect" id="node3" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="20,155,171,181"/>
+</map>

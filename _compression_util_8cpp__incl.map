@@ -1,0 +1,12 @@
+<map id="CompressionUtil.cpp" name="CompressionUtil.cpp">
+<area shape="rect" id="node1" title="Functions useful for various compression algorithms." alt="" coords="238,5,395,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,244,172,285"/>
+<area shape="rect" id="node3" title=" " alt="" coords="65,87,123,114"/>
+<area shape="rect" id="node4" title=" " alt="" coords="147,87,214,114"/>
+<area shape="rect" id="node5" title=" " alt="" coords="239,87,301,114"/>
+<area shape="rect" id="node6" title=" " alt="" coords="326,87,401,114"/>
+<area shape="rect" id="node7" title=" " alt="" coords="425,87,499,114"/>
+<area shape="rect" id="node8" title=" " alt="" coords="523,87,785,114"/>
+<area shape="rect" id="node9" href="$operation_return_values_8h.html" title="Enumeration of values returned by operations within libSBML." alt="" coords="809,80,1033,121"/>
+<area shape="rect" id="node10" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="449,169,622,196"/>
+</map>

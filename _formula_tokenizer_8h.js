@@ -1,7 +1,5 @@
 var _formula_tokenizer_8h =
 [
-    [ "FormulaTokenizer_t", "struct_formula_tokenizer__t.html", "struct_formula_tokenizer__t" ],
-    [ "Token_t", "struct_token__t.html", "struct_token__t" ],
     [ "TokenType_t", "_formula_tokenizer_8h.html#abf84b8f73da30c0f59581856a399081c", [
       [ "TT_PLUS", "_formula_tokenizer_8h.html#abf84b8f73da30c0f59581856a399081ca0f2837347e9a2adf07b867fa2a940102", null ],
       [ "TT_MINUS", "_formula_tokenizer_8h.html#abf84b8f73da30c0f59581856a399081ca9fc72faeca1a0f2ef59a4b2fe0bee266", null ],

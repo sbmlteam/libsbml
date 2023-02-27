@@ -1,0 +1,23 @@
+<map id="GeometryDefinition.h" name="GeometryDefinition.h">
+<area shape="rect" id="node1" title="Definition of the GeometryDefinition class." alt="" coords="556,5,719,32"/>
+<area shape="rect" id="node2" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="1103,304,1283,331"/>
+<area shape="rect" id="node4" href="$_analytic_geometry_8h.html" title="Definition of the AnalyticGeometry class." alt="" coords="274,155,425,181"/>
+<area shape="rect" id="node7" href="$_geometry_definition_8cpp.html" title="Implementation of the GeometryDefinition class." alt="" coords="258,229,435,256"/>
+<area shape="rect" id="node10" href="$_c_s_geometry_8h.html" title="Definition of the CSGeometry class." alt="" coords="551,155,665,181"/>
+<area shape="rect" id="node12" href="$_list_of_geometry_definitions_8h.html" title="Definition of the ListOfGeometryDefinitions class." alt="" coords="605,80,811,107"/>
+<area shape="rect" id="node17" href="$_mixed_geometry_8h.html" title="Definition of the MixedGeometry class." alt="" coords="745,155,881,181"/>
+<area shape="rect" id="node18" href="$_parametric_geometry_8h.html" title="Definition of the ParametricGeometry class." alt="" coords="906,155,1073,181"/>
+<area shape="rect" id="node20" href="$_sampled_field_geometry_8h.html" title="Definition of the SampledFieldGeometry class." alt="" coords="1097,155,1282,181"/>
+<area shape="rect" id="node3" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="1118,379,1269,405"/>
+<area shape="rect" id="node5" href="$_analytic_geometry_8cpp.html" title="Implementation of the AnalyticGeometry class." alt="" coords="68,229,233,256"/>
+<area shape="rect" id="node6" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="1137,229,1249,256"/>
+<area shape="rect" id="node8" href="$_list_of_geometry_definitions_8cpp.html" title="Implementation of the ListOfGeometryDefinitions class." alt="" coords="665,229,887,256"/>
+<area shape="rect" id="node9" href="$_mixed_geometry_8cpp.html" title="Implementation of the MixedGeometry class." alt="" coords="911,229,1062,256"/>
+<area shape="rect" id="node11" href="$_c_s_geometry_8cpp.html" title="Implementation of the CSGeometry class." alt="" coords="511,229,641,256"/>
+<area shape="rect" id="node13" href="$_geometry_8h.html" title="Definition of the Geometry class." alt="" coords="1539,155,1637,181"/>
+<area shape="rect" id="node14" href="$_spatial_model_plugin_8h.html" title="Definition of the SpatialModelPlugin class." alt="" coords="1858,229,2017,256"/>
+<area shape="rect" id="node15" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="1762,304,1921,331"/>
+<area shape="rect" id="node16" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="1945,304,2119,331"/>
+<area shape="rect" id="node19" href="$_parametric_geometry_8cpp.html" title="Implementation of the ParametricGeometry class." alt="" coords="1325,229,1507,256"/>
+<area shape="rect" id="node21" href="$_sampled_field_geometry_8cpp.html" title="Implementation of the SampledFieldGeometry class." alt="" coords="1583,229,1783,256"/>
+</map>

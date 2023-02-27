@@ -1,6 +1,5 @@
 var _s_b_o_8h =
 [
-    [ "SBO", "class_s_b_o.html", "class_s_b_o" ],
     [ "ParentIter", "_s_b_o_8h.html#a1291cef2e3c1db3b8b058defe25715b4", null ],
     [ "ParentMap", "_s_b_o_8h.html#ad13aed287d9638d52a4d76be547b9435", null ],
     [ "ParentRange", "_s_b_o_8h.html#a5f2e35c69afa7b534bd4db12feeee108", null ],

@@ -1,0 +1,9 @@
+<map id="AdvectionCoefficient.h" name="AdvectionCoefficient.h">
+<area shape="rect" id="node1" title="Definition of the AdvectionCoefficient class." alt="" coords="188,5,357,32"/>
+<area shape="rect" id="node2" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="5,155,185,181"/>
+<area shape="rect" id="node4" href="$_spatial_parameter_plugin_8h.html" title="Definition of the SpatialParameterPlugin class." alt="" coords="179,80,366,107"/>
+<area shape="rect" id="node7" href="$_advection_coefficient_8cpp.html" title="Implementation of the AdvectionCoefficient class." alt="" coords="390,80,574,107"/>
+<area shape="rect" id="node3" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="20,229,171,256"/>
+<area shape="rect" id="node5" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="209,155,368,181"/>
+<area shape="rect" id="node6" href="$_spatial_parameter_plugin_8cpp.html" title="Implementation of the SpatialParameterPlugin class." alt="" coords="392,155,593,181"/>
+</map>

@@ -12,7 +12,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="@sbmlpackage{comp}">
+<g id="a_node1"><a xlink:title="\ @ @ . .">
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-19.5 152,-19.5 152,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="76" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">CompSBMLDocumentPlugin</text>
 </a>
@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_s_b_m_l_document_plugin.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node2"><a xlink:href="class_s_b_m_l_document_plugin.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="14,-56.5 14,-75.5 138,-75.5 138,-56.5 14,-56.5"/>
 <text text-anchor="middle" x="76" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLDocumentPlugin</text>
 </a>
@@ -36,7 +36,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="class_s_base_plugin.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node3"><a xlink:href="class_s_base_plugin.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="37.5,-112.5 37.5,-131.5 114.5,-131.5 114.5,-112.5 37.5,-112.5"/>
 <text text-anchor="middle" x="76" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBasePlugin</text>
 </a>

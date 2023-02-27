@@ -1,6 +1,5 @@
 var _layout_extension_8h =
 [
-    [ "LayoutExtension", "class_layout_extension.html", "class_layout_extension" ],
     [ "LAYOUT_CREATE_NS", "_layout_extension_8h.html#a7d37ee3237fc7274f8f2fe4695720b0f", null ],
     [ "LayoutPkgNamespaces", "_layout_extension_8h.html#a063e6a6d033452af55abd11770e62e09", null ],
     [ "SBMLLayoutTypeCode_t", "_layout_extension_8h.html#a6b80c825e1507341de5540b8e7de003d", [

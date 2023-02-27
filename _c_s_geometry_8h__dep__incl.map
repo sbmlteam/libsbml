@@ -1,0 +1,10 @@
+<map id="CSGeometry.h" name="CSGeometry.h">
+<area shape="rect" id="node1" title="Definition of the CSGeometry class." alt="" coords="446,5,561,32"/>
+<area shape="rect" id="node2" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="5,80,185,107"/>
+<area shape="rect" id="node4" href="$_c_s_geometry_8cpp.html" title="Implementation of the CSGeometry class." alt="" coords="209,80,339,107"/>
+<area shape="rect" id="node5" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="363,80,475,107"/>
+<area shape="rect" id="node6" href="$_geometry_definition_8cpp.html" title="Implementation of the GeometryDefinition class." alt="" coords="500,80,677,107"/>
+<area shape="rect" id="node7" href="$_list_of_geometry_definitions_8cpp.html" title="Implementation of the ListOfGeometryDefinitions class." alt="" coords="701,80,924,107"/>
+<area shape="rect" id="node8" href="$_mixed_geometry_8cpp.html" title="Implementation of the MixedGeometry class." alt="" coords="948,80,1099,107"/>
+<area shape="rect" id="node3" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="20,155,171,181"/>
+</map>

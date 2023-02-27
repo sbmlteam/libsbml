@@ -1,0 +1,13 @@
+<map id="TransformationComponent.h" name="TransformationComponent.h">
+<area shape="rect" id="node1" title="Definition of the TransformationComponent class." alt="" coords="523,5,729,32"/>
+<area shape="rect" id="node2" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="5,155,185,181"/>
+<area shape="rect" id="node4" href="$_c_s_g_homogeneous_transformation_8h.html" title="Definition of the CSGHomogeneousTransformation class." alt="" coords="499,80,753,107"/>
+<area shape="rect" id="node11" href="$_transformation_component_8cpp.html" title="Implementation of the TransformationComponent class." alt="" coords="777,80,1000,107"/>
+<area shape="rect" id="node3" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="20,229,171,256"/>
+<area shape="rect" id="node5" href="$_c_s_g_homogeneous_transformation_8cpp.html" title="Implementation of the CSGHomogeneousTransformation class." alt="" coords="209,155,477,181"/>
+<area shape="rect" id="node6" href="$_c_s_g_node_8cpp.html" title="Implementation of the CSGNode class." alt="" coords="501,155,612,181"/>
+<area shape="rect" id="node7" href="$_c_s_g_object_8cpp.html" title="Implementation of the CSGObject class." alt="" coords="636,155,755,181"/>
+<area shape="rect" id="node8" href="$_c_s_g_set_operator_8cpp.html" title="Implementation of the CSGSetOperator class." alt="" coords="779,155,932,181"/>
+<area shape="rect" id="node9" href="$_c_s_g_transformation_8cpp.html" title="Implementation of the CSGTransformation class." alt="" coords="956,155,1131,181"/>
+<area shape="rect" id="node10" href="$_list_of_c_s_g_nodes_8cpp.html" title="Implementation of the ListOfCSGNodes class." alt="" coords="1155,155,1310,181"/>
+</map>

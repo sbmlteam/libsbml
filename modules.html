@@ -155,13 +155,563 @@ The list includes classes that are not defined in any SBML specification;
 these utility classes are provided by libSBML to implement various kinds of
 functionality useful in the context of working with SBML content.
  </td></tr>
-<tr id="row_1_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__fbc.html" target="_self">Flux Balance Constraints</a></td><td class="desc"> </td></tr>
-<tr id="row_2_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__groups.html" target="_self">Groups</a></td><td class="desc"> </td></tr>
-<tr id="row_3_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__comp.html" target="_self">Hierarchical Model Composition</a></td><td class="desc"> </td></tr>
-<tr id="row_4_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__layout.html" target="_self">Layout</a></td><td class="desc"> </td></tr>
-<tr id="row_5_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__multi.html" target="_self">Multistate, Multicomponent and Multicompartment Species</a></td><td class="desc"> </td></tr>
-<tr id="row_6_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__qual.html" target="_self">Qualitative Models</a></td><td class="desc"> </td></tr>
-<tr id="row_7_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__render.html" target="_self">Render</a></td><td class="desc"> </td></tr>
+<tr id="row_1_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__fbc.html" target="_self">Flux Balance Constraints</a></td><td class="desc"><p> The libSBML &ldquo;fbc&rdquo; extension implements support for the SBML
+Level&nbsp;3 <em>Flux Balance Constraints</em> package.  It can be used in SBML Level&nbsp;3 Version&nbsp;1 and Version&nbsp;2 documents.
+
+<h2>Introduction</h2>
+
+<p> Constraint based modeling is a widely accepted methodology used to analyze
+and study biological networks on both a small and whole organism (genome)
+scale. Typically these models are underdetermined and constraint based
+methods (e.g. linear, quadratic optimization) are used to optimize specific
+model properties. This is assumed to occur under a defined set of constraints
+(e.g. stoichiometric, metabolic) and bounds (e.g. thermodynamic, experimental
+and environmental) on the values that the solution fluxes can obtain.
+
+<p> Perhaps the most well known (and widely used) analysis method is Flux
+Balance Analysis (FBA), which is performed on Genome Scale
+Reconstructions. When using FBA, a target flux is optimized (e.g., to
+maximize a flux to biomass or minimize ATP production) while other fluxes can
+be bounded to simulate a selected growth environment or specific metabolic
+state.
+
+<p> As constraint based models are generally underdetermined, i.e., few or
+none of the kinetic rate equations and related parameters are known, it is
+crucial that a model definition includes the ability to define optimization
+parameters such as objective functions, flux bounds and constraints.  This is
+not well-supported in SBML Level&nbsp;3 Core.  The question of how to best
+encode constraint-based models in SBML is not new.  However, advances in the
+methods used to construct genome scale constraint-based models and the wider
+adoption of constraint based modeling in biotechnological/medical
+applications have led to a rapid increase in both the number of models being
+constructed and the tools used to analyze them.
+
+<p> Faced with such growth, both in number and diversity, the need for a
+standardized data format for the definition, exchange and annotation of
+constraint based models has become critical. As the core model components
+(e.g., species, reactions, stoichiometry) can already be efficiently
+described in SBML, the Flux Balance Constraints (FBC) package is designed to
+extend SBML Level&nbsp;3 Core by adding the elements necessary to encode current
+and future constraint-based models.
+
+<p> In version 2 of this package, the ability to encode gene products and
+gene product references was added, and the encoding of flux bounds was modified
+to reference parameters, instead of holding directly-encoded values.
+
+<h2>Authors</h2>
+
+The primary authors of the SBML Level,&nbsp;3 Flux Balance Constraints package are Brett G. Olivier and Frank T. Bergmann.
+
+<h2>The specification for this SBML package</h2>
+
+<p style="color: #880000"> This API documentation for libSBML does not
+provide a complete explanation of the SBML Level&nbsp;3 Flux Balance
+Constraints (&ldquo;fbc&rdquo;) package.  If you are developing software
+that uses &ldquo;fbc&rdquo;, you are strongly urged to read the actual
+specification for the package.  A link to the specification document current
+is provided below, along with a link to the page of known issues (if any).
+
+<table border="0" class="centered text-table width80 normal-font alt-row-colors" style="padding-bottom: 0.5em">
+  <caption class="top-caption">Specification for SBML Level&nbsp;3 
+    Flux Balance Constraints, current at the time of this libSBML release
+    (5.19.7).  Note: an Internet connection is required to access
+    these documents.</caption>
+<tr>
+<th style="text-align: left">Specification (in PDF format)</th>
+<th style="text-align: left">Known issues</th>
+</tr>
+
+<tr><td>
+<a class="spec-link" target="_blank" href="http://identifiers.org/combine.specifications/sbml.level-3.version-1.fbc.version-1.release-1">
+  <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Flux Balance Constraints package, Version&nbsp;1 Release&nbsp;1</a>
+</td><td>
+<a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Flux_Balance_Constraints_%28flux%29/Confirmed_issues_in_the_Flux_Balance_Constraints_package_specification">
+  <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+</td></tr>
+<tr><td>
+<a class="spec-link" target="_blank" href="http://identifiers.org/combine.specifications/sbml.level-3.version-1.fbc.version-2.release-1">
+  <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Flux Balance Constraints package, Version&nbsp;2 Release&nbsp;1</a>
+</td><td>
+<a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Flux_Balance_Constraints_%28flux%29/Confirmed_issues_in_the_Flux_Balance_Constraints_package_specification">
+  <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+</td></tr>
+</table>
+ </td></tr>
+<tr id="row_2_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__groups.html" target="_self">Groups</a></td><td class="desc"><p> The libSBML &ldquo;groups&rdquo; extension implements support for the SBML Level&nbsp;3 <em>Groups</em> package.
+
+<h2>Introduction</h2>
+
+The SBML Level&nbsp;3 Groups package offers a more flexible mechanism for indicating that components of an SBML model are related in some way.  The nature of the relationship is left up to the modeler, and can be clarified by means of annotations on model components.  Groups may contain either the same or different types of SBML objects, and groups may be nested if desired.  There are no predefined behavioral semantics associated with groups.
+
+The term <em>groups</em> is used in this package rather than <em>types</em>, because the latter would imply stronger behavioral constraints on objects than what Groups provides. This package only provides a way of conceptually grouping components of a model.  It does not provide a way to define types in the computer science sense; therefore, a different term is appropriate.
+
+<h2>Authors</h2>
+
+The primary authors of the SBML Level&nbsp;3 Groups specification are Michael Hucka and Lucian P. Smith.
+
+<h2>The specification for this SBML package</h2>
+
+<p style="color: #880000"> This API documentation for libSBML does not provide a complete explanation of the SBML Level&nbsp;3 Groups package (whose nickname is also &ldquo;groups&rdquo;).  If you are developing software that uses &ldquo;groups&rdquo;, you are strongly urged to read the actual specification for the package.  A link to the specification document current is provided below, along with a link to the page of known issues (if any).
+
+<table border="0" class="centered text-table width80 normal-font alt-row-colors" style="padding-bottom: 0.5em">
+  <caption class="top-caption">Specification for SBML Level&nbsp;3 
+    Groups, current at the time of this libSBML release
+    (5.19.7).  Note: an Internet connection is required
+    to access these documents.</caption>
+<tr>
+<th style="text-align: left">Specification (in PDF format)</th>
+<th style="text-align: left">Known issues</th>
+</tr>
+
+<tr><td>
+
+<a class="spec-link" target="_blank" href="http://identifiers.org/combine.specifications/sbml.level-3.version-1.groups.version-1.release-1"> <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Groups package, Version&nbsp;1 Release&nbsp;1</a> </td><td>
+
+<a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Groups/Confirmed_issues_in_the_Groups_package_specification"> <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+
+</td></tr>
+</table>
+ </td></tr>
+<tr id="row_3_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__comp.html" target="_self">Hierarchical Model Composition</a></td><td class="desc"><p> The libSBML &ldquo;comp&rdquo; extension implements support for the SBML Level&nbsp;3
+<em>Hierarchical Model Composition</em> package.  It can be used in SBML Level&nbsp;3 Version&nbsp;1 and Version&nbsp;2 documents.
+
+<h2>Introduction</h2>
+
+<p> In the context of SBML, <em>hierarchical model composition</em> refers to
+the ability to include models as submodels inside another model. The goal is
+to support the ability of modelers and software tools to do such things as
+(1) decompose larger models into smaller ones, as a way to manage complexity;
+(2) incorporate multiple instances of a given model within one or more
+enclosing models, to avoid literal duplication of repeated elements; and (3)
+create libraries of reusable, tested models, much as is done in software
+development and other engineering fields. SBML Level 3 Version 1 Core, by
+itself, has no direct support for allowing a model to include other models as
+submodels.  The Level&nbsp;3 Hierarchical Model Composition package adds the
+missing capabilities.  The figure below illustrates some of the scenarios
+targeted by this package.
+
+<figure> <object class="centered" type="image/svg+xml" data="comp-examples.svg" height="330px"></object>
+<figcaption>Two examples of model configuration supported by the
+&ldquo;comp&rdquo; package: (left) a model composed of a submodel
+that is itself composed of submodels; (right) a model composed of submodels,
+one of which is defined in an external file.</figcaption>
+</figure>
+
+<h2>Authors</h2>
+
+The primary authors of the SBML Level&nbsp;3 Hierarchical Model Composition specification are Lucian P. Smith, Michael Hucka, Stefan Hoops, Andrew Finney, Martin Ginkel, Chris J. Myers, Ion Moraru and Wolfram Liebermeister.
+
+<h2>The specification for this SBML package</h2>
+
+<p style="color: #880000"> This API documentation for libSBML does not
+provide a complete explanation of the SBML Level&nbsp;3 Hierarchical Model
+Composition (&ldquo;comp&rdquo;) package.  If you are developing software
+that uses &ldquo;comp&rdquo;, you are strongly urged to read the actual
+specification for the package.  A link to the specification document current
+is provided below, along with a link to the page of known issues (if any).
+
+<table border="0" class="centered text-table normal-font alt-row-colors" style="padding-bottom: 0.5em">
+  <caption class="top-caption">Specification for SBML Level&nbsp;3 
+    Hierarchical Model Composition, current at the time of this libSBML release
+    (5.19.7).  Note: an Internet connection is required to access
+    these documents.</caption>
+<tr>
+<th style="text-align: left">Specification (in PDF format)</th>
+<th style="text-align: left">Known issues</th>
+</tr>
+
+<tr><td>
+<a class="spec-link" target="_blank" href="http://sbml.org/specifications/sbml-level-3/version-1/comp/sbml-comp-version-1-release-3.pdf">
+  <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Hierarchical Model Composition package, Version&nbsp;1 Release&nbsp;3</a>
+</td><td>
+<a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Hierarchical_Model_Composition_%28comp%29/Confirmed_issues_in_the_Hierarchical_Model_Composition_package_specification">
+  <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+</td></tr>
+</table>
+ </td></tr>
+<tr id="row_4_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__layout.html" target="_self">Layout</a></td><td class="desc"><p> The libSBML &ldquo;layout&rdquo; extension implements support for the
+SBML Level&nbsp;3 <em>Layout</em> package.  It can be used in SBML Level&nbsp;3 Version&nbsp;1 and Version&nbsp;2 documents.
+
+<h2>Introduction</h2>
+
+<p> The layout of a reaction network diagram should be described as a graphical
+representation of species and reactions, and not as an arbitrary drawing or
+graph. This means that existing languages for the description of vector
+drawings (SVG) or general graphs cannot be used.  While it may seem
+unnecessary to invent a new language when an existing one like SVG could in
+principle be used to describe the layout of a reaction network, there are
+good reasons to have a language tailored specifically for the layout of SBML
+models.  Presumably, most programs that will use this SBML extension are
+primarily programs dealing with biochemical models. Internally, they will
+have data structures for species and reactions, so it will be natural for
+them to describe the layout of the reaction network also in terms of species
+and reactions (and not in terms of, e.g., polygons or splines). Thus, the
+<b>LayoutClass</b> object defined by this SBML Layout package has a similar
+structure like the SBML <b>Model</b> object and contains lists of graphical
+representations of compartments, species, and reactions.  Additional layout
+elements and relationships can be represented by using other custom objects
+defined by this package.
+
+<center>
+<figure>
+<img src="layout-example.png">
+<figcaption>Example of different renderings of the same layout.</figcaption>
+</figure>
+</center>
+
+<p> Another important question is the level of detail that the description
+should provide. For simplicity, only the layout (i.e., the position of the
+different graphical objects) of the diagram is encoded, not the details of
+how it should be rendered; the latter is left to the SBML Level&nbsp;3 Render
+package.  The figure at right illustrates this distinction. All three
+diagrams could be renderings of the same layout and would be described by
+identical SBML files. No information about colors, line styles, fonts, etc.,
+is present in the layout description.
+
+<p> The next question is how the relation between the model and the layout 
+should be established. There seems to be a consensus that one model 
+element can be represented by several layout elements. For example, it 
+can be useful to have several representations of one species in the 
+layout to avoid crossing lines. This can be accomplished if every layout 
+element has a field that refers to the id of a model element. 
+
+<p> There are also cases where a layout element does not correspondent to 
+exactly one model element. One example is when a layout shows a 
+simplified version of a model in which one reaction in the layout 
+corresponds to several reactions and intermediate species in the model. 
+This is the reason why the field in the layout elements that refers to 
+the model elements is optional: to allow layout objects that do not have 
+a specific counterpart in the SBML model. 
+
+<p> The result of all this is a way to describe the graphical layout of a 
+reaction network in biochemical terms. This layout can be closely tied 
+to the model. A graphical editor, for example, would 
+typically create a layout that is closely connected (by a one-to-several 
+relation from the model elements to the layout elements) to the model. 
+A more general layout design program could create a layout that is 
+not so closely tied to the model; for example, it could create a layout 
+that shows a simplified version of the model. 
+
+
+<h2>Historical considerations</h2>
+
+<p> Historically, the SBML Layout package has been used to encode the layout
+of SBML Level&nbsp;2 models; indeed, the original version of the package was
+developed in the context of SBML Level&nbsp;2.  The approach used with
+Level&nbsp;2 is to store the layout information as SBML annotations, i.e.,
+using SBML <code>&lt;annotation&gt;</code> elements.  The following XML
+namespace must be used for layout annotations in Level&nbsp;2 models:
+
+<center>
+<code>http://projects.eml.org/bcb/sbml/level2</code>
+</center>
+
+<p> A minimal example in this case would look like the following:
+
+<pre class="fragment">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1"&gt;
+  &lt;model&gt;
+    &lt;annotation&gt;
+      &lt;listOfLayouts xmlns="http://projects.eml.org/bcb/sbml/level2"&gt;
+        ...
+      &lt;/listOfLayouts&gt;
+    &lt;/annotation&gt;
+  &lt;/model&gt;
+&lt;/sbml&gt;
+</pre>
+
+<h3>Special libSBML behavior for Level&nbsp;2 Layout</h3>
+
+<p> Due to the way that the encoding difference discussed above affects
+legacy applications, libSBML implements special behavior for the Layout
+package: it <em>always</em> creates a Layout plugin object for any SBML
+Level&nbsp;2 document it reads in, regardless of whether that document
+actually uses Layout constructs.  This is unlike the case for SBML
+Level&nbsp;3 documents that use Layout&mdash;for them, libSBML will
+<em>not</em> create a plugin object unless the document actually declares the
+use of the Layout package (via the usual Level&nbsp;3 namespace declaration
+for Level&nbsp;3 packages).
+
+<p>
+This has the following consequence.  If an application queries for the
+presence of Layout in an SBML Level&nbsp;2 document by testing only for
+the existence of the plugin object, <strong>it will always get a positive
+result</strong>; in other words, the presence of a Layout extension
+object is not an indication of whether a read-in Level&nbsp;2 document
+does or does not use SBML Layout.  Instead, callers have to query
+explicitly for the existence of layout information.
+
+<p> The special, always-available Level&nbsp;2 Layout behavior was motivated
+by a desire to support legacy applications.  In SBML Level&nbsp;3, the Layout
+package uses the normal SBML Level&nbsp;3 scheme of requiring declarations on
+the SBML document element.  This means that upon reading a model, libSBML
+knows right away whether it contains layout information.  In SBML
+Level&nbsp;2, there is no top-level declaration because layout is stored as
+annotations in the body of the model.  Detecting the presence of layout
+information when reading a Level&nbsp;2 model requires parsing the
+annotations.  For efficiency reasons, libSBML normally does not parse
+annotations automatically when reading a model.  However, applications that
+predated the introduction of Level&nbsp;3 Layout and the updated version of
+libSBML never had to do anything special to enable parsing layout; the
+facilities were always available for every Level&nbsp;2 model as long as
+libSBML was compiled with Layout support.  To avoid burdening developers of
+legacy applications with the need to modify their software, libSBML provides
+backward compatibility by always preloading the Layout package extension when
+reading Level&nbsp;2 models.  The same applies to the creation of
+Level&nbsp;2 models: with the plugin-oriented libSBML, applications normally
+would have to take deliberate steps to activate package code, instantiate
+objects, manage namespaces, and so on.  LibSBML again loads the Layout
+package plugin automatically when creating a Level&nbsp;2 model, thereby
+making the APIs available to legacy applications without further work on
+their part.
+
+<h3>Testing for Level&nbsp;2 Layout</h3>
+
+The following are examples of code fragments that could be used to test for
+the presence of layout data in a Level&nbsp;2 model.
+
+<ul>
+
+<li><em>For the case of C++</em>:
+<div class="fragment" style="margin-top: 0.5em">
+<div class="line"><span class="comment">// Assume &quot;m&quot; below is a Model object.</span></div>
+<div class="line"><a class="code" href="class_layout_model_plugin.html">LayoutModelPlugin</a>* lmp = <span class="keyword">static_cast&lt;</span><a class="code" href="class_layout_model_plugin.html">LayoutModelPlugin</a>*<span class="keyword">&gt;</span>(m-&gt;getPlugin(<span class="stringliteral">&quot;layout&quot;</span>));</div>
+<div class="line"><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> numLayouts = lmp-&gt;<a class="code" href="class_layout_model_plugin.html#af4f263428d5587079194ac093187c9d2">getNumLayouts</a>();</div>
+<div class="line"><span class="comment">// If numLayouts is greater than zero, then the model uses Layout.</span></div>
+</div>
+</li>
+
+<li><em>For the case of Python</em>:
+<div class="fragment" style="margin-top: 0.5em"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment"># Assume &quot;doc&quot; below is an SBMLDocument object.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;m = doc.getModel()</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keywordflow">if</span> m != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    layoutPlugin = m.getPlugin(<span class="stringliteral">&#39;layout&#39;</span>)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    <span class="keywordflow">if</span> layoutPlugin != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        numLayouts = layoutPlugin.getNumLayouts()</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        <span class="comment"># If numLayouts is greater than zero, then the model uses Layout.</span></div>
+</div>
+</li>
+
+<li><em>For the case of Java</em>:
+<div class="fragment" style="margin-top: 0.5em"><div class="line"><span class="comment">// Assume &quot;doc&quot; below is an SBMLDocument object.</span></div>
+<div class="line"><a class="code" href="class_model.html">Model</a> m = doc.getModel();</div>
+<div class="line"><a class="code" href="class_layout_model_plugin.html">LayoutModelPlugin</a> lmp = (<a class="code" href="class_layout_model_plugin.html">LayoutModelPlugin</a>) m.getPlugin(<span class="stringliteral">&quot;layout&quot;</span>);</div>
+<div class="line"><span class="keywordflow">if</span> (lmp != null)</div>
+<div class="line">{</div>
+<div class="line">  <span class="keywordtype">int</span> numLayouts = lmp.getNumLayouts();</div>
+<div class="line">  <span class="comment">// If numLayouts is greater than zero, then the model uses Layout.</span></div>
+<div class="line">}</div>
+</div>
+</li>
+
+<li><em>For the case of C#</em>:
+<div class="fragment" style="margin-top: 0.5em"><div class="line"><span class="comment">// Assume &quot;doc&quot; below is an SBMLDocument object.</span></div>
+<div class="line"><a class="code" href="class_model.html">Model</a> m = doc.getModel();</div>
+<div class="line"><a class="code" href="class_layout_model_plugin.html">LayoutModelPlugin</a> lmp = (<a class="code" href="class_layout_model_plugin.html">LayoutModelPlugin</a>) m.getPlugin(<span class="stringliteral">&quot;layout&quot;</span>);</div>
+<div class="line"><span class="keywordflow">if</span> (lmp != null)</div>
+<div class="line">{</div>
+<div class="line">  <span class="keywordtype">int</span> numLayouts = lmp.getNumLayouts();</div>
+<div class="line">  <span class="comment">// If numLayouts is greater than zero, then the model uses Layout.</span></div>
+<div class="line">}</div>
+</div></li>
+
+</ul>
+
+
+<h2>Authors</h2>
+
+The primary authors of the SBML Level&nbsp;3 Layout specification are Ralph Gauges, Ursula Rost, Sven Sahle, Katja Wengler and Frank T. Bergmann.
+
+<h2>The specification for this SBML package</h2>
+
+<p style="color: #880000"> This API documentation for libSBML does not
+provide a complete explanation of the SBML Level&nbsp;3 Layout
+(&ldquo;layout&rdquo;) package.  If you are developing software that uses
+&ldquo;layout&rdquo;, you are strongly urged to read the actual specification
+for the package.  A link to the specification document current is provided
+below, along with a link to the page of known issues (if any).
+
+<table border="0" class="centered text-table normal-font alt-row-colors" style="padding-bottom: 0.5em">
+  <caption class="top-caption">Specification for SBML Level&nbsp;3 Layout,
+    current at the time of this libSBML release (5.19.7).  Note:
+    an Internet connection is required to access these documents.</caption>
+<tr>
+<th style="text-align: left">Specification (in PDF format)</th>
+<th style="text-align: left">Known issues</th>
+</tr>
+
+<tr><td>
+<a class="spec-link" target="_blank" href="http://identifiers.org/combine.specifications/sbml.level-3.version-1.layout.version-1.release-1">
+  <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Layout package, Version&nbsp;1 Release&nbsp;1</a>
+</td><td>
+<a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Layout_%28layout%29/Confirmed_issues_in_the_Layout_package_specification">
+  <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+</td></tr>
+</table>
+ </td></tr>
+<tr id="row_5_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__multi.html" target="_self">Multistate, Multicomponent and Multicompartment Species</a></td><td class="desc"><p> The libSBML &ldquo;multi&rdquo; extension implements support for the SBML Level&nbsp;3 <em>Multistate, Multicomponent and Multicompartment Species</em> package.
+
+<h2>Introduction</h2>
+
+The SBML Level&nbsp;3 Multistate, Multicomponent and Multicompartment Species (multi) package provides an extension of SBML Level&nbsp;3 that supports encoding models with molecular complexes that have multiple components and can exist in multiple states and in multiple compartments. One of its goals also is to provide a platform for sharing models based on the specifications of bimolecular interactions and the rules governing such interactions.  In addition, this specification includes features to support multicompartment species (species that are described as residing in more than one compartment).
+
+<h2>Authors</h2>
+
+The primary authors of the SBML Level&nbsp;3 Multistate, Multicomponent and Multicompartment Species specification are Fenkgai Zhang and Martin Meier-Schellersheim.
+
+<h2>The specification for this SBML package</h2>
+
+<p style="color: #880000"> This API documentation for libSBML does not provide a complete explanation of the SBML Level&nbsp;3 Multistate, Multicomponent and Multicompartment Species package (whose nickname is &ldquo;multi&rdquo;).  If you are developing software that uses &ldquo;multi&rdquo;, you are strongly urged to read the actual specification for the package.  A link to the specification document current is provided below, along with a link to the page of known issues (if any).
+
+<table border="0" class="centered text-table width80 normal-font alt-row-colors" style="padding-bottom: 0.5em">
+  <caption class="top-caption">Specification for the SBML Level&nbsp;3 
+    Multistate, Multicomponent and Multicompartment Species package,
+    current at the time of
+    this libSBML release (5.19.7).  Note: an Internet
+    connection is required to access these documents.</caption>
+<tr>
+<th style="text-align: left">Specification (in PDF format)</th>
+<th style="text-align: left">Known issues</th>
+</tr>
+
+<tr><td>
+
+<a class="spec-link" target="_blank" href="http://identifiers.org/combine.specifications/sbml.level-3.version-1.multi.version-1.release-1"> <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Multistate, Multicomponent and Multicompartment Species package, Version&nbsp;1 Release&nbsp;1</a> </td><td>
+
+<a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Multi/Confirmed_issues_in_the_Multi_package_specification"> <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+
+</td></tr>
+</table>
+ </td></tr>
+<tr id="row_6_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__qual.html" target="_self">Qualitative Models</a></td><td class="desc"><p> The libSBML &ldquo;qual&rdquo; extension implements support for the SBML
+Level&nbsp;3 <em>Qualitative Models</em> package.  It can be used in SBML Level&nbsp;3 Version&nbsp;1 and Version&nbsp;2 documents.
+
+<h2>Introduction</h2>
+
+<p> Quantitative methods for modeling biological networks require an
+in-depth knowledge of the biochemical reactions and their stoichiometric and
+kinetic parameters. In many practical cases, this knowledge is missing. This
+has led to the development of several qualitative modeling methods using
+information such as gene expression data coming from functional genomic
+experiments.
+
+<p> The qualitative models contemplated in this SBML Level&nbsp;3 package for
+<em>Qualitative Models</em> are essentially based on the definition of
+<em>regulatory</em> or <em>influence graphs</em>. The components of these
+models differ from the species and reactions used in current SBML models. For
+example, qualitative models typically associate discrete levels of activities
+with entity pools; the processes involving them cannot be described as
+reactions per se but rather as transitions between states. These systems can
+be viewed as reactive systems, whose dynamics are represented by means of
+state transition graphs (or other Kripke structures representing, in the form
+of a graph, which nodes are the reachable states and in which the edges are
+the state transitions). In this context, logical regulatory networks (Boolean
+or multi-valued) and standard Petri nets are the two formalisms mostly used
+in biology that give rise to such behaviors. Published models using these
+approaches cover, far from exhaustively, gene regulatory networks, signalling
+pathways and metabolic pathways.
+
+<p> Despite differences from traditional SBML models, it is desirable to
+bring these classes of models under a common format scheme. The purpose of
+this Qualitative Models package for SBML Level&nbsp;3 is to support encoding
+qualitative models in SBML.
+
+<h2>Authors</h2>
+
+The primary authors of the SBML Level&nbsp3; Qualitative Models specification are Claudine Chaouiya, Sarah M. Keating, Duncan Berenguier, Aur&eacute;lien Naldi, Denis Thieffry, Martijn P. van&nbsp;Iersel and Tom&aacute;s<span class="combining-char">&#814;</span>Helikar.
+
+
+<h2>The specification for this SBML package</h2>
+
+<p style="color: #880000"> This API documentation for libSBML does not
+provide a complete explanation of the SBML Level&nbsp;3 Qualitative Models
+(&ldquo;qual&rdquo;) package.  If you are developing software that uses
+&ldquo;qual&rdquo;, you are strongly urged to read the actual specification
+for the package.  A link to the specification document current is provided
+below, along with a link to the page of known issues (if any).
+
+<table border="0" class="centered text-table normal-font alt-row-colors" style="padding-bottom: 0.5em">
+  <caption class="top-caption">Specification for SBML Level&nbsp;3 
+    Qualitative Models, current at the time of this libSBML release
+    (5.19.7).  Note: an Internet connection is required to access
+    these documents.</caption>
+<tr>
+<th style="text-align: left">Specification (in PDF format)</th>
+<th style="text-align: left">Known issues</th>
+</tr>
+
+<tr><td>
+<a class="spec-link" target="_blank" href="http://identifiers.org/combine.specifications/sbml.level-3.version-1.qual.version-1.release-1">
+  <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Qualitative Models package, Version&nbsp;1 Release&nbsp;1</a>
+</td><td>
+<a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Qualitative_Models_%28qual%29/Confirmed_issues_in_the_Qualitative_Models_package_specification">
+  <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+</td></tr>
+</table>
+ </td></tr>
+<tr id="row_7_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__render.html" target="_self">Render</a></td><td class="desc"><p> The libSBML &ldquo;render&rdquo; extension implements support for the SBML
+Level&nbsp;3 <em>Graphical Rendering</em> ("render") package.  It can be used
+in SBML Level&nbsp;3 Version&nbsp;1 and Version&nbsp;2 documents.
+
+<h2>Introduction</h2>
+
+<p> The graphical depiction of a reaction network diagram should be described
+  as graphical representations of species and reactions, and not as arbitrary
+  drawing or graph.  While it may seem unnecessary to invent a new language
+  when an existing one like SVG could in principle be used to describe the
+  layout of a reaction network, there are good reasons to have a language
+  tailored specifically for the layout of SBML models.  For example, most
+  programs that will use this SBML extension are primarily programs dealing
+  with biochemical models.  Internally, they will have data structures for
+  species and reactions, so it will also be natural for them to depict the
+  reaction network in terms of species and reactions (and not in terms of,
+  e.g., polygons or splines).
+
+  <p> The Graphical Rendering ("render") package for SBML Level&nbsp;3 is a
+  companion to the Graphical Layout ("layout") package.  Together, they
+  provide a complete format for describing the layout of a diagram
+  and the visual rendition of the entities within it.
+
+ <h2>Authors</h2>
+
+ The primary authors of the SBML Level&nbsp;3 Render specification are Frank
+ T. Bergmann, Sarah M. Keating, Ralph Gauges, Sven Sahle and Katja Wengler.
+
+ <h2>The specification for this SBML package</h2>
+
+ <p style="color: #880000"> This API documentation for libSBML does not
+   provide a complete explanation of the SBML Level&nbsp;3
+   &ldquo;render&rdquo; package.  If you are developing software that uses
+   &ldquo;render&rdquo;, you are strongly urged to read the actual
+   specification for the package.  A link to the specification document
+   current is provided below, along with a link to the page of known issues
+   (if any).
+
+   <table border="0" class="centered text-table normal-font alt-row-colors" style="padding-bottom: 0.5em">
+     <caption class="top-caption">Specification for SBML Level&nbsp;3 Render,
+       current at the time of this libSBML release (5.19.7).  Note:
+       an Internet connection is required to access these documents.</caption>
+     <tr>
+       <th style="text-align: left">Specification (in PDF format)</th>
+       <th style="text-align: left">Known issues</th>
+     </tr>
+
+     <tr><td>
+       <a class="spec-link" target="_blank" href="http://identifiers.org/combine.specifications/sbml.level-3.version-1.render.version-1.release-1">
+         <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Render package, Version&nbsp;1 Release&nbsp;1</a>
+     </td><td>
+       <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Render_%28render%29/Confirmed_issues_in_the_Render_package_specification">
+         <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+     </td></tr>
+   </table>
+ </td></tr>
+<tr id="row_8_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__spatial.html" target="_self">Spatial</a></td><td class="desc"><p> The libSBML &ldquo;spatial&rdquo; extension implements support for the SBML
+Level&nbsp;3 <em>Spatial</em> ("spatial") package.  It can be used
+in SBML Level&nbsp;3 Version&nbsp;1 and Version&nbsp;2 documents.
+
+<h2>Introduction</h2>
+ </td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->

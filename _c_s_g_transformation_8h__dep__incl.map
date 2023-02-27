@@ -1,0 +1,18 @@
+<map id="CSGTransformation.h" name="CSGTransformation.h">
+<area shape="rect" id="node1" title="Definition of the CSGTransformation class." alt="" coords="856,5,1015,32"/>
+<area shape="rect" id="node2" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="297,155,477,181"/>
+<area shape="rect" id="node4" href="$_c_s_g_homogeneous_transformation_8h.html" title="Definition of the CSGHomogeneousTransformation class." alt="" coords="541,80,794,107"/>
+<area shape="rect" id="node9" href="$_c_s_g_transformation_8cpp.html" title="Implementation of the CSGTransformation class." alt="" coords="1271,155,1445,181"/>
+<area shape="rect" id="node11" href="$_c_s_g_rotation_8h.html" title="Definition of the CSGRotation class." alt="" coords="1095,80,1211,107"/>
+<area shape="rect" id="node13" href="$_c_s_g_scale_8h.html" title="Definition of the CSGScale class." alt="" coords="818,80,914,107"/>
+<area shape="rect" id="node15" href="$_c_s_g_translation_8h.html" title="Definition of the CSGTranslation class." alt="" coords="939,80,1071,107"/>
+<area shape="rect" id="node3" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="312,229,463,256"/>
+<area shape="rect" id="node5" href="$_c_s_g_homogeneous_transformation_8cpp.html" title="Implementation of the CSGHomogeneousTransformation class." alt="" coords="5,155,273,181"/>
+<area shape="rect" id="node6" href="$_c_s_g_node_8cpp.html" title="Implementation of the CSGNode class." alt="" coords="636,155,747,181"/>
+<area shape="rect" id="node7" href="$_c_s_g_object_8cpp.html" title="Implementation of the CSGObject class." alt="" coords="771,155,889,181"/>
+<area shape="rect" id="node8" href="$_c_s_g_set_operator_8cpp.html" title="Implementation of the CSGSetOperator class." alt="" coords="913,155,1067,181"/>
+<area shape="rect" id="node10" href="$_list_of_c_s_g_nodes_8cpp.html" title="Implementation of the ListOfCSGNodes class." alt="" coords="1091,155,1246,181"/>
+<area shape="rect" id="node12" href="$_c_s_g_rotation_8cpp.html" title="Implementation of the CSGRotation class." alt="" coords="1641,155,1771,181"/>
+<area shape="rect" id="node14" href="$_c_s_g_scale_8cpp.html" title="Implementation of the CSGScale class." alt="" coords="501,155,612,181"/>
+<area shape="rect" id="node16" href="$_c_s_g_translation_8cpp.html" title="Implementation of the CSGTranslation class." alt="" coords="1470,155,1617,181"/>
+</map>

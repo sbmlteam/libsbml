@@ -87,13 +87,11 @@ $(document).ready(function(){initNavTree('class_c_v_term.html',''); initResizabl
 <a href="class_c_v_term-members.html">List of all members</a> &#124;
 <a href="#pub-methods">Public Member Functions</a>  </div>
   <div class="headertitle">
-<div class="title">CVTerm Class Reference</div>  </div>
+<div class="title">CVTerm Class Reference<div class="ingroups"><a class="el" href="group__core.html">Core libSBML</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>@sbmlpackage{core}<br  />
-</p>
- A MIRIAM-compliant controlled vocabulary term.</p>
+<div class="textblock"><p>\ @ @ . . </p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  This class is not prescribed by
@@ -101,10 +99,10 @@ the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
 <p>The SBML Level&#160;2 and Level&#160;3 specifications define a simple format for annotating models when (a) referring to controlled vocabulary terms and database identifiers that define and describe biological and biochemical entities, and (b) describing the creator of a model and the model's modification history. This SBML format is a concrete syntax that conforms to the guidelines of MIRIAM (<a href="http://www.nature.com/nbt/journal/v23/n12/abs/nbt1156.html" target="_blank">"Minimum
-  Information Requested in the Annotation of biochemical Models"</a>, <em>Nature Biotechnology</em>, vol. 23, no. 12, Dec. 2005). The format uses a subset of W3C RDF (<a href="http://www.w3.org/RDF/" target="_blank">Resource Description Format</a>). In order to help application developers work with annotations in this format, libSBML provides several helper classes that provide higher-level interfaces to the data elements; these classes include <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a>, <a class="el" href="class_model_creator.html" title="@sbmlpackage{core}">ModelCreator</a>, <a class="el" href="class_model_history.html" title="@sbmlpackage{core}">ModelHistory</a>, <a class="el" href="class_r_d_f_annotation_parser.html" title="@sbmlpackage{core}">RDFAnnotationParser</a>, and <a class="el" href="class_date.html" title="@sbmlpackage{core}">Date</a>.</p>
+  Information Requested in the Annotation of biochemical Models"</a>, <em>Nature Biotechnology</em>, vol. 23, no. 12, Dec. 2005). The format uses a subset of W3C RDF (<a href="http://www.w3.org/RDF/" target="_blank">Resource Description Format</a>). In order to help application developers work with annotations in this format, libSBML provides several helper classes that provide higher-level interfaces to the data elements; these classes include <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>, <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>, <a class="el" href="class_model_history.html" title="\ @ @ . &#39; .">ModelHistory</a>, <a class="el" href="class_r_d_f_annotation_parser.html" title="\ @ @ . /.">RDFAnnotationParser</a>, and <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>.</p>
 <h1><a class="anchor" id="annotation-parts"></a>
 Components of an SBML annotation</h1>
-<p>The SBML annotation format consists of RDF-based content placed inside an <code>&lt;annotation&gt;</code> element attached to an SBML component such as <a class="el" href="class_species.html" title="@sbmlpackage{core}">Species</a>, <a class="el" href="class_compartment.html" title="@sbmlpackage{core}">Compartment</a>, etc. A small change was introduced in SBML Level&#160;2 Version&#160;5 and SBML Level&#160;3 Version&#160;2 to permit nested annotations: lower Versions of the SBML specifications did not explicitly allow this. We first describe the different parts of SBML annotations in XML form for SBML Level&#160;2 below Version&#160;5 and SBML Level&#160;3 below Version&#160;2:</p>
+<p>The SBML annotation format consists of RDF-based content placed inside an <code>&lt;annotation&gt;</code> element attached to an SBML component such as <a class="el" href="class_species.html" title="\ @ @ . &lt;&gt;&lt;/&gt; &; .">Species</a>, <a class="el" href="class_compartment.html" title="\ @ @ . , .">Compartment</a>, etc. A small change was introduced in SBML Level&#160;2 Version&#160;5 and SBML Level&#160;3 Version&#160;2 to permit nested annotations: lower Versions of the SBML specifications did not explicitly allow this. We first describe the different parts of SBML annotations in XML form for SBML Level&#160;2 below Version&#160;5 and SBML Level&#160;3 below Version&#160;2:</p>
 <pre class="fragment">
 &lt;<span style="background-color: #bbb">SBML_ELEMENT</span> <span style="background-color: #d0eed0">+++</span> metaid=&quot;<span style="border-bottom: 1px solid black">meta id</span>&quot; <span style="background-color: #d0eed0">+++</span>&gt;
   <span style="background-color: #d0eed0">+++</span>
@@ -131,7 +129,7 @@ Components of an SBML annotation</h1>
   &lt;/annotation&gt;
   <span style="background-color: #d0eed0">+++</span>
 &lt;/<span style="background-color: #bbb">SBML_ELEMENT</span>&gt;
-</pre><p>In the template above, the placeholder <span class="code" style="background-color: #bbb">SBML_ELEMENT</span> stands for the XML tag name of an SBML model component (e.g., <code>model</code>, <code>reaction</code>, etc.) and the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="@sbmlpackage{core}">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, the symbol <span class="code" style="background-color: #d0eed0">+++</span> is a placeholder for either no content or valid XML content that is not defined by this annotation scheme, and the ellipses <span class="code" style="background-color: #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element. The optional content <span class="code" style="background-color: #e0e0e0; border-bottom: 2px dotted #888">HISTORY</span> is a creation and modification history; in libSBML, this is stored using <a class="el" href="class_model_history.html" title="@sbmlpackage{core}">ModelHistory</a> objects.</p>
+</pre><p>In the template above, the placeholder <span class="code" style="background-color: #bbb">SBML_ELEMENT</span> stands for the XML tag name of an SBML model component (e.g., <code>model</code>, <code>reaction</code>, etc.) and the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, the symbol <span class="code" style="background-color: #d0eed0">+++</span> is a placeholder for either no content or valid XML content that is not defined by this annotation scheme, and the ellipses <span class="code" style="background-color: #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element. The optional content <span class="code" style="background-color: #e0e0e0; border-bottom: 2px dotted #888">HISTORY</span> is a creation and modification history; in libSBML, this is stored using <a class="el" href="class_model_history.html" title="\ @ @ . &#39; .">ModelHistory</a> objects.</p>
 <p>The placeholder <span class="code" style="background-color:
   #bbb">RELATION_ELEMENT</span> refers to a BioModels.net qualifier element name. This is an element in either the XML namespace <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier). Note that these namespace URIs are only labels, and not actual Web locations, which means you cannot visit an address such as <code>"http://biomodels.net/model-qualifiers"</code> in your browser or try to have your application access it. Refer instead to the enumerations <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> and <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18" title="Enumeration of possible biological qualifiers used for annotations.">BiolQualifierType_t</a> for a list of the available relationship elements that can be used for <span class="code" style="background-color: #bbb">RELATION_ELEMENT</span>.</p>
 <p>The <span class="code" style="background-color: #d0d0ee">URI</span> is a required data value that uniquely identifies a resource and data within that resource to which the annotation refers. Again, being URIs, these do not refer to physical Web locations; nevertheless, applications will often want a means of finding the resource to which a given <span class="code" style="background-color: #d0d0ee">URI</span> refers. Providing the facilities for this task is the purpose of MIRIAM Resources, described in detail online at <a href="http://biomodels.net/miriam" target="_blank">http://biomodels.net/miriam</a>) and also in the paper <a href="http://www.biomedcentral.com/1752-0509/1/58" target="_blank">"MIRIAM Resources: tools to generate and
@@ -167,19 +165,19 @@ Components of an SBML annotation</h1>
 <p>For more information about SBML annotations in general, please refer to Section&#160;6 in the SBML Level&#160;2 (Versions 2&ndash;4) or Level&#160;3 specification documents.</p>
 <h1><a class="anchor" id="cvterm-parts"></a>
 The parts of a CVTerm</h1>
-<p>Annotations that refer to controlled vocabularies are managed in libSBML using <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> objects. The relation-resource pairs discussed in the previous section are the "controlled vocabulary" terms that <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> is designed to store and manipulate. A set of RDF-based annotations attached to a given SBML <code>&lt;annotation&gt;</code> element are read by <a class="el" href="class_r_d_f_annotation_parser.html" title="@sbmlpackage{core}">RDFAnnotationParser</a> and converted into a list of these <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> objects. Each <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object instance stores the following components of an annotation:</p>
+<p>Annotations that refer to controlled vocabularies are managed in libSBML using <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects. The relation-resource pairs discussed in the previous section are the "controlled vocabulary" terms that <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> is designed to store and manipulate. A set of RDF-based annotations attached to a given SBML <code>&lt;annotation&gt;</code> element are read by <a class="el" href="class_r_d_f_annotation_parser.html" title="\ @ @ . /.">RDFAnnotationParser</a> and converted into a list of these <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects. Each <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object instance stores the following components of an annotation:</p>
 <ul>
 <li>
 <p class="startli">The <em>qualifier</em>, which can be a BioModels.net "biological
-  qualifier", a BioModels.net "model qualifier", or an unknown qualifier (as far as the <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> class is concerned). Qualifiers are used in MIRIAM to indicate the nature of the relationship between the object being annotated and the resource. In <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a>, the qualifiers can be manipulated using the methods <a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">CVTerm::getQualifierType()</a>, <a class="el" href="class_c_v_term.html#a15b7c72643e984ed85ddc19259a0abc9" title="Sets the QualifierType_t of this CVTerm object.">CVTerm::setQualifierType()</a>, and related methods.</p>
+  qualifier", a BioModels.net "model qualifier", or an unknown qualifier (as far as the <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> class is concerned). Qualifiers are used in MIRIAM to indicate the nature of the relationship between the object being annotated and the resource. In <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>, the qualifiers can be manipulated using the methods <a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">CVTerm::getQualifierType()</a>, <a class="el" href="class_c_v_term.html#a15b7c72643e984ed85ddc19259a0abc9" title="Sets the QualifierType_t of this CVTerm object.">CVTerm::setQualifierType()</a>, and related methods.</p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli">The <em>resource</em>, represented by a URI (which, we must remind developers, is not the same as a URL). In the <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> class, the resource component can be manipulated using the methods <a class="el" href="class_c_v_term.html#a9e89cb717ad01eb49bc560162c11f89c" title="Adds a resource reference to this CVTerm object.">CVTerm::addResource()</a> and <a class="el" href="class_c_v_term.html#ada1c8d3271d5feeb467e5d51938f70cf" title="Removes a resource URI from the set of resources stored in this CVTerm object.">CVTerm::removeResource()</a>.</p>
+<p class="startli">The <em>resource</em>, represented by a URI (which, we must remind developers, is not the same as a URL). In the <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> class, the resource component can be manipulated using the methods <a class="el" href="class_c_v_term.html#a9e89cb717ad01eb49bc560162c11f89c" title="Adds a resource reference to this CVTerm object.">CVTerm::addResource()</a> and <a class="el" href="class_c_v_term.html#ada1c8d3271d5feeb467e5d51938f70cf" title="Removes a resource URI from the set of resources stored in this CVTerm object.">CVTerm::removeResource()</a>.</p>
 <p class="endli"></p>
 </li>
 </ul>
-<p>Note that a <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> contains a single qualifier, but possibly more than one resource. This corresponds to the possibility of an annotation that points to multiple resources, all of which are qualified by the same BioModels.net qualifier. The <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object class supports this by supporting a list of resources.</p>
+<p>Note that a <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> contains a single qualifier, but possibly more than one resource. This corresponds to the possibility of an annotation that points to multiple resources, all of which are qualified by the same BioModels.net qualifier. The <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object class supports this by supporting a list of resources.</p>
 <p>Detailed explanations of the qualifiers defined by BioModels.net can be found at <a href="http://co.mbine.org/standards/qualifiers" target="_blank">http://co.mbine.org/standards/qualifiers</a>. </p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="add_c_v_terms_8cpp-example.html#_a8">addCVTerms.cpp</a>, <a class="el" href="adding_evidence_codes_1_8cpp-example.html#_a10">addingEvidenceCodes_1.cpp</a>, and <a class="el" href="adding_evidence_codes_2_8cpp-example.html#_a10">addingEvidenceCodes_2.cpp</a>.</dd>
 </dl>
@@ -187,103 +185,103 @@ The parts of a CVTerm</h1>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ac00f6329aa7cdcbdd2a45ad46d3f1cc6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#ac00f6329aa7cdcbdd2a45ad46d3f1cc6">addNestedCVTerm</a> (const <a class="el" href="class_c_v_term.html">CVTerm</a> *term)</td></tr>
-<tr class="memdesc:ac00f6329aa7cdcbdd2a45ad46d3f1cc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a copy of the given <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object to the list of nested <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> objects within this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#ac00f6329aa7cdcbdd2a45ad46d3f1cc6">More...</a><br /></td></tr>
+<tr class="memdesc:ac00f6329aa7cdcbdd2a45ad46d3f1cc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a copy of the given <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object to the list of nested <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects within this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#ac00f6329aa7cdcbdd2a45ad46d3f1cc6">More...</a><br /></td></tr>
 <tr class="separator:ac00f6329aa7cdcbdd2a45ad46d3f1cc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e89cb717ad01eb49bc560162c11f89c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a9e89cb717ad01eb49bc560162c11f89c">addResource</a> (const std::string &amp;resource)</td></tr>
-<tr class="memdesc:a9e89cb717ad01eb49bc560162c11f89c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a resource reference to this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#a9e89cb717ad01eb49bc560162c11f89c">More...</a><br /></td></tr>
+<tr class="memdesc:a9e89cb717ad01eb49bc560162c11f89c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a resource reference to this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#a9e89cb717ad01eb49bc560162c11f89c">More...</a><br /></td></tr>
 <tr class="separator:a9e89cb717ad01eb49bc560162c11f89c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd19e688db3461de109a283ed1ef0324"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_term.html">CVTerm</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#acd19e688db3461de109a283ed1ef0324">clone</a> () const</td></tr>
-<tr class="memdesc:acd19e688db3461de109a283ed1ef0324"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#acd19e688db3461de109a283ed1ef0324">More...</a><br /></td></tr>
+<tr class="memdesc:acd19e688db3461de109a283ed1ef0324"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#acd19e688db3461de109a283ed1ef0324">More...</a><br /></td></tr>
 <tr class="separator:acd19e688db3461de109a283ed1ef0324"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a40e51cd0486717a7d76d6fc55e3f80"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a4a40e51cd0486717a7d76d6fc55e3f80">CVTerm</a> (const <a class="el" href="class_c_v_term.html">CVTerm</a> &amp;orig)</td></tr>
-<tr class="memdesc:a4a40e51cd0486717a7d76d6fc55e3f80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor; creates a copy of a <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#a4a40e51cd0486717a7d76d6fc55e3f80">More...</a><br /></td></tr>
+<tr class="memdesc:a4a40e51cd0486717a7d76d6fc55e3f80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor; creates a copy of a <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#a4a40e51cd0486717a7d76d6fc55e3f80">More...</a><br /></td></tr>
 <tr class="separator:a4a40e51cd0486717a7d76d6fc55e3f80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4a80c17eaa1e1966f7c77fa5be17f36"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#ae4a80c17eaa1e1966f7c77fa5be17f36">CVTerm</a> (const <a class="el" href="class_x_m_l_node.html">XMLNode</a> node)</td></tr>
-<tr class="memdesc:ae4a80c17eaa1e1966f7c77fa5be17f36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> from the given <a class="el" href="class_x_m_l_node.html" title="@sbmlpackage{core}">XMLNode</a>.  <a href="class_c_v_term.html#ae4a80c17eaa1e1966f7c77fa5be17f36">More...</a><br /></td></tr>
+<tr class="memdesc:ae4a80c17eaa1e1966f7c77fa5be17f36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> from the given <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>.  <a href="class_c_v_term.html#ae4a80c17eaa1e1966f7c77fa5be17f36">More...</a><br /></td></tr>
 <tr class="separator:ae4a80c17eaa1e1966f7c77fa5be17f36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a847033f25a895802a3030944cc31877b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a847033f25a895802a3030944cc31877b">CVTerm</a> (<a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5">QualifierType_t</a> type=<a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a5a56e414a1f5ecad18d93f6975a58fd4">UNKNOWN_QUALIFIER</a>)</td></tr>
-<tr class="memdesc:a847033f25a895802a3030944cc31877b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a>, optionally with the given <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5" title="Enumeration used to indicate the type of BioModels.net qualifier in a given CVTerm object.">QualifierType_t</a> value <code>type</code> .  <a href="class_c_v_term.html#a847033f25a895802a3030944cc31877b">More...</a><br /></td></tr>
+<tr class="memdesc:a847033f25a895802a3030944cc31877b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>, optionally with the given <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5" title="Enumeration used to indicate the type of BioModels.net qualifier in a given CVTerm object.">QualifierType_t</a> value <code>type</code> .  <a href="class_c_v_term.html#a847033f25a895802a3030944cc31877b">More...</a><br /></td></tr>
 <tr class="separator:a847033f25a895802a3030944cc31877b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a62cf4b78acff2fa5fe467878a97471"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18">BiolQualifierType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a9a62cf4b78acff2fa5fe467878a97471">getBiologicalQualifierType</a> ()</td></tr>
-<tr class="memdesc:a9a62cf4b78acff2fa5fe467878a97471"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the biological qualifier type of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#a9a62cf4b78acff2fa5fe467878a97471">More...</a><br /></td></tr>
+<tr class="memdesc:a9a62cf4b78acff2fa5fe467878a97471"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the biological qualifier type of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#a9a62cf4b78acff2fa5fe467878a97471">More...</a><br /></td></tr>
 <tr class="separator:a9a62cf4b78acff2fa5fe467878a97471"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb7baf415d0e1a41ae677a607639b212"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18">BiolQualifierType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#aeb7baf415d0e1a41ae677a607639b212">getBiologicalQualifierType</a> () const</td></tr>
-<tr class="memdesc:aeb7baf415d0e1a41ae677a607639b212"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the biological qualifier type of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#aeb7baf415d0e1a41ae677a607639b212">More...</a><br /></td></tr>
+<tr class="memdesc:aeb7baf415d0e1a41ae677a607639b212"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the biological qualifier type of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#aeb7baf415d0e1a41ae677a607639b212">More...</a><br /></td></tr>
 <tr class="separator:aeb7baf415d0e1a41ae677a607639b212"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50838d08fec0a16ba120e0ee3b0138f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_list.html">List</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a50838d08fec0a16ba120e0ee3b0138f7">getListNestedCVTerms</a> ()</td></tr>
-<tr class="memdesc:a50838d08fec0a16ba120e0ee3b0138f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> objects contained within this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#a50838d08fec0a16ba120e0ee3b0138f7">More...</a><br /></td></tr>
+<tr class="memdesc:a50838d08fec0a16ba120e0ee3b0138f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects contained within this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#a50838d08fec0a16ba120e0ee3b0138f7">More...</a><br /></td></tr>
 <tr class="separator:a50838d08fec0a16ba120e0ee3b0138f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20127744c309f87971e5ca675219cbdb"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_list.html">List</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a20127744c309f87971e5ca675219cbdb">getListNestedCVTerms</a> () const</td></tr>
-<tr class="memdesc:a20127744c309f87971e5ca675219cbdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> objects contained within this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#a20127744c309f87971e5ca675219cbdb">More...</a><br /></td></tr>
+<tr class="memdesc:a20127744c309f87971e5ca675219cbdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects contained within this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#a20127744c309f87971e5ca675219cbdb">More...</a><br /></td></tr>
 <tr class="separator:a20127744c309f87971e5ca675219cbdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87d543fa4b27f9550663b5e49a745ae5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d">ModelQualifierType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a87d543fa4b27f9550663b5e49a745ae5">getModelQualifierType</a> ()</td></tr>
-<tr class="memdesc:a87d543fa4b27f9550663b5e49a745ae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the model qualifier type of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#a87d543fa4b27f9550663b5e49a745ae5">More...</a><br /></td></tr>
+<tr class="memdesc:a87d543fa4b27f9550663b5e49a745ae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the model qualifier type of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#a87d543fa4b27f9550663b5e49a745ae5">More...</a><br /></td></tr>
 <tr class="separator:a87d543fa4b27f9550663b5e49a745ae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac425c4b718eb537605c97299d40825a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d">ModelQualifierType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#ac425c4b718eb537605c97299d40825a1">getModelQualifierType</a> () const</td></tr>
-<tr class="memdesc:ac425c4b718eb537605c97299d40825a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the model qualifier type of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#ac425c4b718eb537605c97299d40825a1">More...</a><br /></td></tr>
+<tr class="memdesc:ac425c4b718eb537605c97299d40825a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the model qualifier type of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#ac425c4b718eb537605c97299d40825a1">More...</a><br /></td></tr>
 <tr class="separator:ac425c4b718eb537605c97299d40825a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a508b27e3759f59a3d2ab925e98240c4f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_term.html">CVTerm</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a508b27e3759f59a3d2ab925e98240c4f">getNestedCVTerm</a> (unsigned int n)</td></tr>
-<tr class="memdesc:a508b27e3759f59a3d2ab925e98240c4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the nth <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> in the list of CVTerms of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#a508b27e3759f59a3d2ab925e98240c4f">More...</a><br /></td></tr>
+<tr class="memdesc:a508b27e3759f59a3d2ab925e98240c4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the nth <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> in the list of CVTerms of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#a508b27e3759f59a3d2ab925e98240c4f">More...</a><br /></td></tr>
 <tr class="separator:a508b27e3759f59a3d2ab925e98240c4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad747593730457b6f15141a619e727fa6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_c_v_term.html">CVTerm</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#ad747593730457b6f15141a619e727fa6">getNestedCVTerm</a> (unsigned int n) const</td></tr>
-<tr class="memdesc:ad747593730457b6f15141a619e727fa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the nth <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> in the list of CVTerms of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#ad747593730457b6f15141a619e727fa6">More...</a><br /></td></tr>
+<tr class="memdesc:ad747593730457b6f15141a619e727fa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the nth <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> in the list of CVTerms of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#ad747593730457b6f15141a619e727fa6">More...</a><br /></td></tr>
 <tr class="separator:ad747593730457b6f15141a619e727fa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d720513d793077426dfa498c041199a"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a2d720513d793077426dfa498c041199a">getNumNestedCVTerms</a> () const</td></tr>
-<tr class="memdesc:a2d720513d793077426dfa498c041199a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> objects nested within this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#a2d720513d793077426dfa498c041199a">More...</a><br /></td></tr>
+<tr class="memdesc:a2d720513d793077426dfa498c041199a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects nested within this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#a2d720513d793077426dfa498c041199a">More...</a><br /></td></tr>
 <tr class="separator:a2d720513d793077426dfa498c041199a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50fa94510d64fffad5628f332c41996d"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a50fa94510d64fffad5628f332c41996d">getNumResources</a> ()</td></tr>
-<tr class="memdesc:a50fa94510d64fffad5628f332c41996d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of resources for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#a50fa94510d64fffad5628f332c41996d">More...</a><br /></td></tr>
+<tr class="memdesc:a50fa94510d64fffad5628f332c41996d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of resources for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#a50fa94510d64fffad5628f332c41996d">More...</a><br /></td></tr>
 <tr class="separator:a50fa94510d64fffad5628f332c41996d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57597f59ff3b13c990fd304545746128"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a57597f59ff3b13c990fd304545746128">getNumResources</a> () const</td></tr>
-<tr class="memdesc:a57597f59ff3b13c990fd304545746128"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of resources for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#a57597f59ff3b13c990fd304545746128">More...</a><br /></td></tr>
+<tr class="memdesc:a57597f59ff3b13c990fd304545746128"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of resources for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#a57597f59ff3b13c990fd304545746128">More...</a><br /></td></tr>
 <tr class="separator:a57597f59ff3b13c990fd304545746128"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b907de797ea8bf157365c2ba761ab8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5">QualifierType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f">getQualifierType</a> ()</td></tr>
-<tr class="memdesc:a3b907de797ea8bf157365c2ba761ab8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the qualifier type of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f">More...</a><br /></td></tr>
+<tr class="memdesc:a3b907de797ea8bf157365c2ba761ab8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the qualifier type of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f">More...</a><br /></td></tr>
 <tr class="separator:a3b907de797ea8bf157365c2ba761ab8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac95fa32653451ac503736ee5ea199503"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5">QualifierType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#ac95fa32653451ac503736ee5ea199503">getQualifierType</a> () const</td></tr>
-<tr class="memdesc:ac95fa32653451ac503736ee5ea199503"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the qualifier type of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#ac95fa32653451ac503736ee5ea199503">More...</a><br /></td></tr>
+<tr class="memdesc:ac95fa32653451ac503736ee5ea199503"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the qualifier type of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#ac95fa32653451ac503736ee5ea199503">More...</a><br /></td></tr>
 <tr class="separator:ac95fa32653451ac503736ee5ea199503"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc00e18c6ee9526fde2962d8fda17936"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#abc00e18c6ee9526fde2962d8fda17936">getResources</a> ()</td></tr>
-<tr class="memdesc:abc00e18c6ee9526fde2962d8fda17936"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the resource references for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#abc00e18c6ee9526fde2962d8fda17936">More...</a><br /></td></tr>
+<tr class="memdesc:abc00e18c6ee9526fde2962d8fda17936"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the resource references for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#abc00e18c6ee9526fde2962d8fda17936">More...</a><br /></td></tr>
 <tr class="separator:abc00e18c6ee9526fde2962d8fda17936"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0daebda3f286b6df04a5f56c8a9d2deb"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a0daebda3f286b6df04a5f56c8a9d2deb">getResources</a> () const</td></tr>
-<tr class="memdesc:a0daebda3f286b6df04a5f56c8a9d2deb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the resources for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#a0daebda3f286b6df04a5f56c8a9d2deb">More...</a><br /></td></tr>
+<tr class="memdesc:a0daebda3f286b6df04a5f56c8a9d2deb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the resources for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#a0daebda3f286b6df04a5f56c8a9d2deb">More...</a><br /></td></tr>
 <tr class="separator:a0daebda3f286b6df04a5f56c8a9d2deb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abfb4a752aeda41589f0ff4fab9d3fa88"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#abfb4a752aeda41589f0ff4fab9d3fa88">getResourceURI</a> (unsigned int n)</td></tr>
-<tr class="memdesc:abfb4a752aeda41589f0ff4fab9d3fa88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the <em>n</em>th resource for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#abfb4a752aeda41589f0ff4fab9d3fa88">More...</a><br /></td></tr>
+<tr class="memdesc:abfb4a752aeda41589f0ff4fab9d3fa88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the <em>n</em>th resource for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#abfb4a752aeda41589f0ff4fab9d3fa88">More...</a><br /></td></tr>
 <tr class="separator:abfb4a752aeda41589f0ff4fab9d3fa88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade2ad7fcf8d6e86bb0bb5d1d6b827c24"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#ade2ad7fcf8d6e86bb0bb5d1d6b827c24">getResourceURI</a> (unsigned int n) const</td></tr>
-<tr class="memdesc:ade2ad7fcf8d6e86bb0bb5d1d6b827c24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the <em>n</em>th resource for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#ade2ad7fcf8d6e86bb0bb5d1d6b827c24">More...</a><br /></td></tr>
+<tr class="memdesc:ade2ad7fcf8d6e86bb0bb5d1d6b827c24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the <em>n</em>th resource for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#ade2ad7fcf8d6e86bb0bb5d1d6b827c24">More...</a><br /></td></tr>
 <tr class="separator:ade2ad7fcf8d6e86bb0bb5d1d6b827c24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a724a4f1b03dfd397874941a5928a5df7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a724a4f1b03dfd397874941a5928a5df7">hasRequiredAttributes</a> ()</td></tr>
-<tr class="memdesc:a724a4f1b03dfd397874941a5928a5df7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> if all the required elements for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object have been set.  <a href="class_c_v_term.html#a724a4f1b03dfd397874941a5928a5df7">More...</a><br /></td></tr>
+<tr class="memdesc:a724a4f1b03dfd397874941a5928a5df7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> if all the required elements for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object have been set.  <a href="class_c_v_term.html#a724a4f1b03dfd397874941a5928a5df7">More...</a><br /></td></tr>
 <tr class="separator:a724a4f1b03dfd397874941a5928a5df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a729bace5f74a09761fae6870b4c1734a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_term.html">CVTerm</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a729bace5f74a09761fae6870b4c1734a">operator=</a> (const <a class="el" href="class_c_v_term.html">CVTerm</a> &amp;rhs)</td></tr>
-<tr class="memdesc:a729bace5f74a09761fae6870b4c1734a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a>.  <a href="class_c_v_term.html#a729bace5f74a09761fae6870b4c1734a">More...</a><br /></td></tr>
+<tr class="memdesc:a729bace5f74a09761fae6870b4c1734a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>.  <a href="class_c_v_term.html#a729bace5f74a09761fae6870b4c1734a">More...</a><br /></td></tr>
 <tr class="separator:a729bace5f74a09761fae6870b4c1734a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44d215c2125f0204a8998ace75f310a2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_term.html">CVTerm</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a44d215c2125f0204a8998ace75f310a2">removeNestedCVTerm</a> (unsigned int n)</td></tr>
-<tr class="memdesc:a44d215c2125f0204a8998ace75f310a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the nth <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> in the list of CVTerms of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object and returns a pointer to it.  <a href="class_c_v_term.html#a44d215c2125f0204a8998ace75f310a2">More...</a><br /></td></tr>
+<tr class="memdesc:a44d215c2125f0204a8998ace75f310a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the nth <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> in the list of CVTerms of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object and returns a pointer to it.  <a href="class_c_v_term.html#a44d215c2125f0204a8998ace75f310a2">More...</a><br /></td></tr>
 <tr class="separator:a44d215c2125f0204a8998ace75f310a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada1c8d3271d5feeb467e5d51938f70cf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#ada1c8d3271d5feeb467e5d51938f70cf">removeResource</a> (std::string resource)</td></tr>
-<tr class="memdesc:ada1c8d3271d5feeb467e5d51938f70cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a resource URI from the set of resources stored in this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#ada1c8d3271d5feeb467e5d51938f70cf">More...</a><br /></td></tr>
+<tr class="memdesc:ada1c8d3271d5feeb467e5d51938f70cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a resource URI from the set of resources stored in this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#ada1c8d3271d5feeb467e5d51938f70cf">More...</a><br /></td></tr>
 <tr class="separator:ada1c8d3271d5feeb467e5d51938f70cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bfe817c66a8f42b5ca9e58849e10dd6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a4bfe817c66a8f42b5ca9e58849e10dd6">setBiologicalQualifierType</a> (<a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18">BiolQualifierType_t</a> type)</td></tr>
-<tr class="memdesc:a4bfe817c66a8f42b5ca9e58849e10dd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18" title="Enumeration of possible biological qualifiers used for annotations.">BiolQualifierType_t</a> value of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#a4bfe817c66a8f42b5ca9e58849e10dd6">More...</a><br /></td></tr>
+<tr class="memdesc:a4bfe817c66a8f42b5ca9e58849e10dd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18" title="Enumeration of possible biological qualifiers used for annotations.">BiolQualifierType_t</a> value of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#a4bfe817c66a8f42b5ca9e58849e10dd6">More...</a><br /></td></tr>
 <tr class="separator:a4bfe817c66a8f42b5ca9e58849e10dd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a646929460f9fbaa37402c0db89db2ded"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a646929460f9fbaa37402c0db89db2ded">setBiologicalQualifierType</a> (const std::string &amp;qualifier)</td></tr>
-<tr class="memdesc:a646929460f9fbaa37402c0db89db2ded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18" title="Enumeration of possible biological qualifiers used for annotations.">BiolQualifierType_t</a> of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#a646929460f9fbaa37402c0db89db2ded">More...</a><br /></td></tr>
+<tr class="memdesc:a646929460f9fbaa37402c0db89db2ded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18" title="Enumeration of possible biological qualifiers used for annotations.">BiolQualifierType_t</a> of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#a646929460f9fbaa37402c0db89db2ded">More...</a><br /></td></tr>
 <tr class="separator:a646929460f9fbaa37402c0db89db2ded"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20e2b17804c48c451e91fc411ed81f50"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a20e2b17804c48c451e91fc411ed81f50">setModelQualifierType</a> (const std::string &amp;qualifier)</td></tr>
-<tr class="memdesc:a20e2b17804c48c451e91fc411ed81f50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> value of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#a20e2b17804c48c451e91fc411ed81f50">More...</a><br /></td></tr>
+<tr class="memdesc:a20e2b17804c48c451e91fc411ed81f50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> value of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#a20e2b17804c48c451e91fc411ed81f50">More...</a><br /></td></tr>
 <tr class="separator:a20e2b17804c48c451e91fc411ed81f50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a147dd5c4b2f81710f74afd214212e64c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a147dd5c4b2f81710f74afd214212e64c">setModelQualifierType</a> (<a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d">ModelQualifierType_t</a> type)</td></tr>
-<tr class="memdesc:a147dd5c4b2f81710f74afd214212e64c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> value of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#a147dd5c4b2f81710f74afd214212e64c">More...</a><br /></td></tr>
+<tr class="memdesc:a147dd5c4b2f81710f74afd214212e64c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> value of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#a147dd5c4b2f81710f74afd214212e64c">More...</a><br /></td></tr>
 <tr class="separator:a147dd5c4b2f81710f74afd214212e64c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15b7c72643e984ed85ddc19259a0abc9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a15b7c72643e984ed85ddc19259a0abc9">setQualifierType</a> (<a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5">QualifierType_t</a> type)</td></tr>
-<tr class="memdesc:a15b7c72643e984ed85ddc19259a0abc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5" title="Enumeration used to indicate the type of BioModels.net qualifier in a given CVTerm object.">QualifierType_t</a> of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.  <a href="class_c_v_term.html#a15b7c72643e984ed85ddc19259a0abc9">More...</a><br /></td></tr>
+<tr class="memdesc:a15b7c72643e984ed85ddc19259a0abc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5" title="Enumeration used to indicate the type of BioModels.net qualifier in a given CVTerm object.">QualifierType_t</a> of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.  <a href="class_c_v_term.html#a15b7c72643e984ed85ddc19259a0abc9">More...</a><br /></td></tr>
 <tr class="separator:a15b7c72643e984ed85ddc19259a0abc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e7bfdf4c63adbe647ac3ff38aa45587"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_term.html#a7e7bfdf4c63adbe647ac3ff38aa45587">~CVTerm</a> ()</td></tr>
-<tr class="memdesc:a7e7bfdf4c63adbe647ac3ff38aa45587"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a>.  <a href="class_c_v_term.html#a7e7bfdf4c63adbe647ac3ff38aa45587">More...</a><br /></td></tr>
+<tr class="memdesc:a7e7bfdf4c63adbe647ac3ff38aa45587"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>.  <a href="class_c_v_term.html#a7e7bfdf4c63adbe647ac3ff38aa45587">More...</a><br /></td></tr>
 <tr class="separator:a7e7bfdf4c63adbe647ac3ff38aa45587"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -303,8 +301,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates an empty <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a>, optionally with the given <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5" title="Enumeration used to indicate the type of BioModels.net qualifier in a given CVTerm object.">QualifierType_t</a> value <code>type</code> . </p>
-<p>This method creates an empty <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. The possible qualifier types usable as values of <code>type</code> are <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a212caf1da8ffd70753c854a0458d9c79">MODEL_QUALIFIERendif </a></p>
+<p>Creates an empty <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>, optionally with the given <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5" title="Enumeration used to indicate the type of BioModels.net qualifier in a given CVTerm object.">QualifierType_t</a> value <code>type</code> . </p>
+<p>This method creates an empty <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. The possible qualifier types usable as values of <code>type</code> are <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a212caf1da8ffd70753c854a0458d9c79">MODEL_QUALIFIERendif </a></p>
 
 </div>
 </div>
@@ -324,15 +322,15 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> from the given <a class="el" href="class_x_m_l_node.html" title="@sbmlpackage{core}">XMLNode</a>. </p>
-<p>This method creates a <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object from the given <a class="el" href="class_x_m_l_node.html" title="@sbmlpackage{core}">XMLNode</a> object <code>node</code>. <a class="el" href="class_x_m_l_node.html" title="@sbmlpackage{core}">XMLNode</a> is libSBML's representation of a node in an XML tree of elements, and each such element can be placed in a namespace. This constructor looks for the element to be in the XML namespaces <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) and <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier), and if they are, creates <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> objects for the result.</p>
+<p>Creates a new <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> from the given <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </p>
+<p>This method creates a <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object from the given <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> object <code>node</code>. <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> is libSBML's representation of a node in an XML tree of elements, and each such element can be placed in a namespace. This constructor looks for the element to be in the XML namespaces <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) and <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier), and if they are, creates <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects for the result.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">node</td><td>an XMLNode representing a <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a>.</td></tr>
+    <tr><td class="paramname">node</td><td>an XMLNode representing a <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This method assumes that the given <a class="el" href="class_x_m_l_node.html" title="@sbmlpackage{core}">XMLNode</a> object <code>node</code> is of the correct structural form. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This method assumes that the given <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> object <code>node</code> is of the correct structural form. </dd></dl>
 
 </div>
 </div>
@@ -351,7 +349,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Destroys this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a>. </p>
+<p>Destroys this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>. </p>
 
 </div>
 </div>
@@ -371,10 +369,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copy constructor; creates a copy of a <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Copy constructor; creates a copy of a <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">orig</td><td>the <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> instance to copy. </td></tr>
+    <tr><td class="paramname">orig</td><td>the <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> instance to copy. </td></tr>
   </table>
   </dd>
 </dl>
@@ -398,10 +396,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Adds a copy of the given <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object to the list of nested <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> objects within this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Adds a copy of the given <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object to the list of nested <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects within this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">term</td><td>the <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> to assign.</td></tr>
+    <tr><td class="paramname">term</td><td>the <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> to assign.</td></tr>
   </table>
   </dd>
 </dl>
@@ -427,7 +425,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Adds a resource reference to this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Adds a resource reference to this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <p>The specific RDF element used in this SBML format for referring to external entities is <code>&lt;rdf:Description&gt;</code>, with a <code>&lt;rdf:Bag&gt;</code> element containing one or more <code>&lt;rdf:li&gt;</code> elements. Each such element refers to a data item in an external resource; the resource and data item are together identified uniquely using a URI. The following template illustrates the structure:</p>
 <pre class="fragment">
 &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
@@ -440,9 +438,9 @@ Public Member Functions</h2></td></tr>
   &lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
   <span style="background-color: #edd">...</span>
 &lt;/rdf:Description&gt;
-</pre><p>In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="@sbmlpackage{core}">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color: #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element. The placeholder <span class="code" style="background-color: #bbb"> RELATION_ELEMENT</span> refers to a BioModels.net qualifier element name. This is an element in either the XML namespace <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier).</p>
-<p>The <span class="code" style="background-color: #d0d0ee">resource URI</span> is a required data value that uniquely identifies a resource and data within that resource to which the annotation refers. The present method allows callers to add a reference to a resource URI with the same relationship to the enclosing SBML object. (In other words, the argument to this method is a <span class="code" style="background-color: #d0d0ee">resource URI</span> as shown in the XML fragment above.) Resources are stored in this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object within an <a class="el" href="class_x_m_l_attributes.html" title="@sbmlpackage{core}">XMLAttributes</a> object.</p>
-<p>The relationship of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> to the enclosing SBML object can be determined using the <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> methods such as <a class="el" href="class_c_v_term.html#a87d543fa4b27f9550663b5e49a745ae5" title="Returns the model qualifier type of this CVTerm object.">CVTerm::getModelQualifierType()</a> and <a class="el" href="class_c_v_term.html#a9a62cf4b78acff2fa5fe467878a97471" title="Returns the biological qualifier type of this CVTerm object.">CVTerm::getBiologicalQualifierType()</a>.</p>
+</pre><p>In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color: #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element. The placeholder <span class="code" style="background-color: #bbb"> RELATION_ELEMENT</span> refers to a BioModels.net qualifier element name. This is an element in either the XML namespace <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier).</p>
+<p>The <span class="code" style="background-color: #d0d0ee">resource URI</span> is a required data value that uniquely identifies a resource and data within that resource to which the annotation refers. The present method allows callers to add a reference to a resource URI with the same relationship to the enclosing SBML object. (In other words, the argument to this method is a <span class="code" style="background-color: #d0d0ee">resource URI</span> as shown in the XML fragment above.) Resources are stored in this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object within an <a class="el" href="class_x_m_l_attributes.html" title="\ @ @ . .">XMLAttributes</a> object.</p>
+<p>The relationship of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> to the enclosing SBML object can be determined using the <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> methods such as <a class="el" href="class_c_v_term.html#a87d543fa4b27f9550663b5e49a745ae5" title="Returns the model qualifier type of this CVTerm object.">CVTerm::getModelQualifierType()</a> and <a class="el" href="class_c_v_term.html#a9a62cf4b78acff2fa5fe467878a97471" title="Returns the biological qualifier type of this CVTerm object.">CVTerm::getBiologicalQualifierType()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">resource</td><td>a string representing the URI of the resource and data item being referenced; e.g., <code>"http://www.geneontology.org/#GO:0005892"</code>.</td></tr>
@@ -472,8 +470,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates and returns a deep copy of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the (deep) copy of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </dd></dl>
+<p>Creates and returns a deep copy of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the (deep) copy of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </dd></dl>
 
 </div>
 </div>
@@ -492,7 +490,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the biological qualifier type of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Returns the biological qualifier type of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="section user"><dt></dt><dd>The RDF element used in the SBML format for referring to external entities is <code>&lt;rdf:Description&gt;</code>, with a <code>&lt;rdf:Bag&gt;</code> element inside of it containing one or more <code>&lt;rdf:li&gt;</code> elements. The following template illustrates the structure: <pre class="fragment">
 &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
 &#160;&#160;<span style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span>
@@ -504,9 +502,9 @@ Public Member Functions</h2></td></tr>
 &#160;&#160;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
 &#160;&#160;<span style="background-color: #edd">...</span>
 &lt;/rdf:Description&gt;
-</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="@sbmlpackage{core}">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
+</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
 #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element.</dd></dl>
-<p>The placeholder <span class="code" style="background-color: #bbb"> RELATION_ELEMENT</span> refers to a BioModels.net qualifier element name. This is an element in either the XML namespace <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier). Callers will typically use <a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">CVTerm::getQualifierType()</a> to find out the type of qualifier relevant to this particular <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object, then if it is a <em>biological</em> qualifier, use the present method to determine the specific qualifier.</p>
+<p>The placeholder <span class="code" style="background-color: #bbb"> RELATION_ELEMENT</span> refers to a BioModels.net qualifier element name. This is an element in either the XML namespace <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier). Callers will typically use <a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">CVTerm::getQualifierType()</a> to find out the type of qualifier relevant to this particular <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object, then if it is a <em>biological</em> qualifier, use the present method to determine the specific qualifier.</p>
 <p>Annotations with biological qualifiers express a relationship between an annotation resource and the <em>biological concept</em> represented by a given object in the model. The diagram below illustrates the relationship in this case:</p>
 <div class="image">
 <img src="biology-qualifiers.png" alt=""/>
@@ -535,7 +533,7 @@ Relationship expressed by biological qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the biological qualifier type of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Returns the biological qualifier type of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="section user"><dt></dt><dd>The RDF element used in the SBML format for referring to external entities is <code>&lt;rdf:Description&gt;</code>, with a <code>&lt;rdf:Bag&gt;</code> element inside of it containing one or more <code>&lt;rdf:li&gt;</code> elements. The following template illustrates the structure: <pre class="fragment">
 &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
 &#160;&#160;<span style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span>
@@ -547,9 +545,9 @@ Relationship expressed by biological qualifiers</div></div>
 &#160;&#160;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
 &#160;&#160;<span style="background-color: #edd">...</span>
 &lt;/rdf:Description&gt;
-</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="@sbmlpackage{core}">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
+</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
 #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element.</dd></dl>
-<p>The placeholder <span class="code" style="background-color: #bbb"> RELATION_ELEMENT</span> refers to a BioModels.net qualifier element name. This is an element in either the XML namespace <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier). Callers will typically use <a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">CVTerm::getQualifierType()</a> to find out the type of qualifier relevant to this particular <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object, then if it is a <em>biological</em> qualifier, use the present method to determine the specific qualifier.</p>
+<p>The placeholder <span class="code" style="background-color: #bbb"> RELATION_ELEMENT</span> refers to a BioModels.net qualifier element name. This is an element in either the XML namespace <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier). Callers will typically use <a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">CVTerm::getQualifierType()</a> to find out the type of qualifier relevant to this particular <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object, then if it is a <em>biological</em> qualifier, use the present method to determine the specific qualifier.</p>
 <p>Annotations with biological qualifiers express a relationship between an annotation resource and the <em>biological concept</em> represented by a given object in the model. The diagram below illustrates the relationship in this case:</p>
 <div class="image">
 <img src="biology-qualifiers.png" alt=""/>
@@ -578,8 +576,8 @@ Relationship expressed by biological qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns a list of <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> objects contained within this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the list of CVTerms for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </dd></dl>
+<p>Returns a list of <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects contained within this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the list of CVTerms for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </dd></dl>
 
 </div>
 </div>
@@ -598,8 +596,8 @@ Relationship expressed by biological qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns a list of <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> objects contained within this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the list of CVTerms for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </dd></dl>
+<p>Returns a list of <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects contained within this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the list of CVTerms for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </dd></dl>
 
 </div>
 </div>
@@ -618,7 +616,7 @@ Relationship expressed by biological qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the model qualifier type of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Returns the model qualifier type of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="section user"><dt></dt><dd>The RDF element used in the SBML format for referring to external entities is <code>&lt;rdf:Description&gt;</code>, with a <code>&lt;rdf:Bag&gt;</code> element inside of it containing one or more <code>&lt;rdf:li&gt;</code> elements. The following template illustrates the structure: <pre class="fragment">
 &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
 &#160;&#160;<span style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span>
@@ -630,9 +628,9 @@ Relationship expressed by biological qualifiers</div></div>
 &#160;&#160;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
 &#160;&#160;<span style="background-color: #edd">...</span>
 &lt;/rdf:Description&gt;
-</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="@sbmlpackage{core}">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
+</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
 #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element.</dd></dl>
-<p>The placeholder <span class="code" style="background-color: #bbb"> RELATION_ELEMENT</span> refers to a BioModels.net qualifier element name. This is an element in either the XML namespace <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier). Callers will typically use <a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">CVTerm::getQualifierType()</a> to find out the type of qualifier relevant to this particular <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object, then if it is a <em>model</em> qualifier, use the present method to determine the specific qualifier.</p>
+<p>The placeholder <span class="code" style="background-color: #bbb"> RELATION_ELEMENT</span> refers to a BioModels.net qualifier element name. This is an element in either the XML namespace <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier). Callers will typically use <a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">CVTerm::getQualifierType()</a> to find out the type of qualifier relevant to this particular <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object, then if it is a <em>model</em> qualifier, use the present method to determine the specific qualifier.</p>
 <p>Annotations with model qualifiers express a relationship between an annotation resource and the <em>modeling concept</em> represented by a given object in the model. The diagram below illustrates the relationship in this case:</p>
 <div class="image">
 <img src="model-qualifiers.png" alt=""/>
@@ -661,7 +659,7 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the model qualifier type of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Returns the model qualifier type of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="section user"><dt></dt><dd>The RDF element used in the SBML format for referring to external entities is <code>&lt;rdf:Description&gt;</code>, with a <code>&lt;rdf:Bag&gt;</code> element inside of it containing one or more <code>&lt;rdf:li&gt;</code> elements. The following template illustrates the structure: <pre class="fragment">
 &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
 &#160;&#160;<span style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span>
@@ -673,9 +671,9 @@ Relationship expressed by model qualifiers</div></div>
 &#160;&#160;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
 &#160;&#160;<span style="background-color: #edd">...</span>
 &lt;/rdf:Description&gt;
-</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="@sbmlpackage{core}">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
+</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
 #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element.</dd></dl>
-<p>The placeholder <span class="code" style="background-color: #bbb"> RELATION_ELEMENT</span> refers to a BioModels.net qualifier element name. This is an element in either the XML namespace <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier). Callers will typically use <a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">CVTerm::getQualifierType()</a> to find out the type of qualifier relevant to this particular <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object, then if it is a <em>model</em> qualifier, use the present method to determine the specific qualifier.</p>
+<p>The placeholder <span class="code" style="background-color: #bbb"> RELATION_ELEMENT</span> refers to a BioModels.net qualifier element name. This is an element in either the XML namespace <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier). Callers will typically use <a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">CVTerm::getQualifierType()</a> to find out the type of qualifier relevant to this particular <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object, then if it is a <em>model</em> qualifier, use the present method to determine the specific qualifier.</p>
 <p>Annotations with model qualifiers express a relationship between an annotation resource and the <em>modeling concept</em> represented by a given object in the model. The diagram below illustrates the relationship in this case:</p>
 <div class="image">
 <img src="model-qualifiers.png" alt=""/>
@@ -705,14 +703,14 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the nth <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> in the list of CVTerms of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Returns the nth <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> in the list of CVTerms of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td>unsigned int the index of the <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> to retrieve.</td></tr>
+    <tr><td class="paramname">n</td><td>unsigned int the index of the <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> to retrieve.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> in the list of CVTerms for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object or <code>NULL</code> if no such object exists. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> in the list of CVTerms for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object or <code>NULL</code> if no such object exists. </dd></dl>
 
 </div>
 </div>
@@ -732,14 +730,14 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the nth <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> in the list of CVTerms of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Returns the nth <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> in the list of CVTerms of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td>unsigned int the index of the <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> to retrieve.</td></tr>
+    <tr><td class="paramname">n</td><td>unsigned int the index of the <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> to retrieve.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> in the list of CVTerms for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object or <code>NULL</code> if no such object exists. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> in the list of CVTerms for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object or <code>NULL</code> if no such object exists. </dd></dl>
 
 </div>
 </div>
@@ -758,9 +756,9 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the number of <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> objects nested within this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the number of CVTerms nested within this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>this does not recurse through potentially nested <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> objects within a given nested <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a>. It returns the number of terms immediately nested within this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a>. </dd></dl>
+<p>Returns the number of <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects nested within this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the number of CVTerms nested within this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>this does not recurse through potentially nested <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects within a given nested <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>. It returns the number of terms immediately nested within this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>. </dd></dl>
 
 </div>
 </div>
@@ -779,7 +777,7 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the number of resources for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Returns the number of resources for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="section user"><dt></dt><dd>The RDF element used in the SBML format for referring to external entities is <code>&lt;rdf:Description&gt;</code>, with a <code>&lt;rdf:Bag&gt;</code> element inside of it containing one or more <code>&lt;rdf:li&gt;</code> elements. The following template illustrates the structure: <pre class="fragment">
 &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
 &#160;&#160;<span style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span>
@@ -791,10 +789,10 @@ Relationship expressed by model qualifiers</div></div>
 &#160;&#160;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
 &#160;&#160;<span style="background-color: #edd">...</span>
 &lt;/rdf:Description&gt;
-</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="@sbmlpackage{core}">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
+</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
 #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element.</dd></dl>
-<p>The fragment above illustrates that there can be more than one resource referenced by a given relationship annotation (i.e., the <span class="code" style="background-color: #d0d0ee">resource URI</span> values associated with a particular <span class="code" style="background-color: #bbb">RELATION_ELEMENT</span>). The present method returns a count of the resources stored in this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.</p>
-<dl class="section return"><dt>Returns</dt><dd>the number of resources in the set of <a class="el" href="class_x_m_l_attributes.html" title="@sbmlpackage{core}">XMLAttributes</a> of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a>.</dd></dl>
+<p>The fragment above illustrates that there can be more than one resource referenced by a given relationship annotation (i.e., the <span class="code" style="background-color: #d0d0ee">resource URI</span> values associated with a particular <span class="code" style="background-color: #bbb">RELATION_ELEMENT</span>). The present method returns a count of the resources stored in this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.</p>
+<dl class="section return"><dt>Returns</dt><dd>the number of resources in the set of <a class="el" href="class_x_m_l_attributes.html" title="\ @ @ . .">XMLAttributes</a> of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_c_v_term.html#abc00e18c6ee9526fde2962d8fda17936" title="Returns the resource references for this CVTerm object.">getResources()</a> </dd>
 <dd>
 <a class="el" href="class_c_v_term.html#abfb4a752aeda41589f0ff4fab9d3fa88" title="Returns the value of the nth resource for this CVTerm object.">getResourceURI(unsigned int n)</a> </dd></dl>
@@ -816,7 +814,7 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the number of resources for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Returns the number of resources for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="section user"><dt></dt><dd>The RDF element used in the SBML format for referring to external entities is <code>&lt;rdf:Description&gt;</code>, with a <code>&lt;rdf:Bag&gt;</code> element inside of it containing one or more <code>&lt;rdf:li&gt;</code> elements. The following template illustrates the structure: <pre class="fragment">
 &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
 &#160;&#160;<span style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span>
@@ -828,10 +826,10 @@ Relationship expressed by model qualifiers</div></div>
 &#160;&#160;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
 &#160;&#160;<span style="background-color: #edd">...</span>
 &lt;/rdf:Description&gt;
-</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="@sbmlpackage{core}">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
+</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
 #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element.</dd></dl>
-<p>The fragment above illustrates that there can be more than one resource referenced by a given relationship annotation (i.e., the <span class="code" style="background-color: #d0d0ee">resource URI</span> values associated with a particular <span class="code" style="background-color: #bbb">RELATION_ELEMENT</span>). The present method returns a count of the resources stored in this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object.</p>
-<dl class="section return"><dt>Returns</dt><dd>the number of resources in the set of <a class="el" href="class_x_m_l_attributes.html" title="@sbmlpackage{core}">XMLAttributes</a> of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a>.</dd></dl>
+<p>The fragment above illustrates that there can be more than one resource referenced by a given relationship annotation (i.e., the <span class="code" style="background-color: #d0d0ee">resource URI</span> values associated with a particular <span class="code" style="background-color: #bbb">RELATION_ELEMENT</span>). The present method returns a count of the resources stored in this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object.</p>
+<dl class="section return"><dt>Returns</dt><dd>the number of resources in the set of <a class="el" href="class_x_m_l_attributes.html" title="\ @ @ . .">XMLAttributes</a> of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_c_v_term.html#abc00e18c6ee9526fde2962d8fda17936" title="Returns the resource references for this CVTerm object.">getResources()</a> </dd>
 <dd>
 <a class="el" href="class_c_v_term.html#abfb4a752aeda41589f0ff4fab9d3fa88" title="Returns the value of the nth resource for this CVTerm object.">getResourceURI(unsigned int n)</a> </dd></dl>
@@ -853,7 +851,7 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the qualifier type of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Returns the qualifier type of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="section user"><dt></dt><dd>The RDF element used in the SBML format for referring to external entities is <code>&lt;rdf:Description&gt;</code>, with a <code>&lt;rdf:Bag&gt;</code> element inside of it containing one or more <code>&lt;rdf:li&gt;</code> elements. The following template illustrates the structure: <pre class="fragment">
 &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
 &#160;&#160;<span style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span>
@@ -865,9 +863,9 @@ Relationship expressed by model qualifiers</div></div>
 &#160;&#160;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
 &#160;&#160;<span style="background-color: #edd">...</span>
 &lt;/rdf:Description&gt;
-</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="@sbmlpackage{core}">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
+</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
 #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element.</dd></dl>
-<p>The placeholder <span class="code" style="background-color: #bbb"> RELATION_ELEMENT</span> refers to a BioModels.net qualifier element name. This is an element in either the XML namespace <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier). The present method returns a code identifying which one of these two relationship namespaces is being used; any other qualifier in libSBML is considered unknown (as far as the <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> class is concerned). Consequently, this method will return one of the following values:</p>
+<p>The placeholder <span class="code" style="background-color: #bbb"> RELATION_ELEMENT</span> refers to a BioModels.net qualifier element name. This is an element in either the XML namespace <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier). The present method returns a code identifying which one of these two relationship namespaces is being used; any other qualifier in libSBML is considered unknown (as far as the <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> class is concerned). Consequently, this method will return one of the following values:</p>
 <ul>
 <li><a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a212caf1da8ffd70753c854a0458d9c79">MODEL_QUALIFIERendif </a></li>
 </ul>
@@ -889,7 +887,7 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the qualifier type of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Returns the qualifier type of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="section user"><dt></dt><dd>The RDF element used in the SBML format for referring to external entities is <code>&lt;rdf:Description&gt;</code>, with a <code>&lt;rdf:Bag&gt;</code> element inside of it containing one or more <code>&lt;rdf:li&gt;</code> elements. The following template illustrates the structure: <pre class="fragment">
 &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
 &#160;&#160;<span style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span>
@@ -901,9 +899,9 @@ Relationship expressed by model qualifiers</div></div>
 &#160;&#160;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
 &#160;&#160;<span style="background-color: #edd">...</span>
 &lt;/rdf:Description&gt;
-</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="@sbmlpackage{core}">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
+</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
 #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element.</dd></dl>
-<p>The placeholder <span class="code" style="background-color: #bbb"> RELATION_ELEMENT</span> refers to a BioModels.net qualifier element name. This is an element in either the XML namespace <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier). The present method returns a code identifying which one of these two relationship namespaces is being used; any other qualifier in libSBML is considered unknown (as far as the <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> class is concerned). Consequently, this method will return one of the following values:</p>
+<p>The placeholder <span class="code" style="background-color: #bbb"> RELATION_ELEMENT</span> refers to a BioModels.net qualifier element name. This is an element in either the XML namespace <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier). The present method returns a code identifying which one of these two relationship namespaces is being used; any other qualifier in libSBML is considered unknown (as far as the <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> class is concerned). Consequently, this method will return one of the following values:</p>
 <ul>
 <li><a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a212caf1da8ffd70753c854a0458d9c79">MODEL_QUALIFIERendif </a></li>
 </ul>
@@ -925,7 +923,7 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the resource references for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Returns the resource references for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="section user"><dt></dt><dd>The RDF element used in the SBML format for referring to external entities is <code>&lt;rdf:Description&gt;</code>, with a <code>&lt;rdf:Bag&gt;</code> element inside of it containing one or more <code>&lt;rdf:li&gt;</code> elements. The following template illustrates the structure: <pre class="fragment">
 &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
 &#160;&#160;<span style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span>
@@ -937,11 +935,11 @@ Relationship expressed by model qualifiers</div></div>
 &#160;&#160;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
 &#160;&#160;<span style="background-color: #edd">...</span>
 &lt;/rdf:Description&gt;
-</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="@sbmlpackage{core}">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
+</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
 #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element.</dd></dl>
-<p>The <span class="code" style="background-color: #d0d0ee">resource URI</span> values shown in the template above are stored internally in <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> objects using an <a class="el" href="class_x_m_l_attributes.html" title="@sbmlpackage{core}">XMLAttributes</a> object. Each attribute stored inside the <a class="el" href="class_x_m_l_attributes.html" title="@sbmlpackage{core}">XMLAttributes</a> will have the same name (specifically, &quot;<code>rdf:resource</code>&quot;) but a different value, and the value will be a <span class="code" style="background-color: #d0d0ee"> resource URI</span> shown in the XML template above.</p>
-<p>A valid <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> entity must always have at least one resource and a value for the relationship qualifier.</p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_attributes.html" title="@sbmlpackage{core}">XMLAttributes</a> that store the resources of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a>.</dd></dl>
+<p>The <span class="code" style="background-color: #d0d0ee">resource URI</span> values shown in the template above are stored internally in <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects using an <a class="el" href="class_x_m_l_attributes.html" title="\ @ @ . .">XMLAttributes</a> object. Each attribute stored inside the <a class="el" href="class_x_m_l_attributes.html" title="\ @ @ . .">XMLAttributes</a> will have the same name (specifically, &quot;<code>rdf:resource</code>&quot;) but a different value, and the value will be a <span class="code" style="background-color: #d0d0ee"> resource URI</span> shown in the XML template above.</p>
+<p>A valid <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> entity must always have at least one resource and a value for the relationship qualifier.</p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_attributes.html" title="\ @ @ . .">XMLAttributes</a> that store the resources of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">getQualifierType()</a> </dd>
 <dd>
 <a class="el" href="class_c_v_term.html#a9e89cb717ad01eb49bc560162c11f89c" title="Adds a resource reference to this CVTerm object.">addResource(const std::string&amp; resource)</a> </dd>
@@ -965,7 +963,7 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the resources for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Returns the resources for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="section user"><dt></dt><dd>The RDF element used in the SBML format for referring to external entities is <code>&lt;rdf:Description&gt;</code>, with a <code>&lt;rdf:Bag&gt;</code> element inside of it containing one or more <code>&lt;rdf:li&gt;</code> elements. The following template illustrates the structure: <pre class="fragment">
 &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
 &#160;&#160;<span style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span>
@@ -977,11 +975,11 @@ Relationship expressed by model qualifiers</div></div>
 &#160;&#160;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
 &#160;&#160;<span style="background-color: #edd">...</span>
 &lt;/rdf:Description&gt;
-</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="@sbmlpackage{core}">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
+</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
 #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element.</dd></dl>
-<p>The <span class="code" style="background-color: #d0d0ee">resource URI</span> values shown in the template above are stored internally in <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> objects using an <a class="el" href="class_x_m_l_attributes.html" title="@sbmlpackage{core}">XMLAttributes</a> object. Each attribute stored inside the <a class="el" href="class_x_m_l_attributes.html" title="@sbmlpackage{core}">XMLAttributes</a> will have the same name (specifically, &quot;<code>rdf:resource</code>&quot;) but a different value, and the value will be a <span class="code" style="background-color: #d0d0ee"> resource URI</span> shown in the XML template above.</p>
-<p>A valid <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> entity must always have at least one resource and a value for the relationship qualifier.</p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_attributes.html" title="@sbmlpackage{core}">XMLAttributes</a> that store the resources of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a>.</dd></dl>
+<p>The <span class="code" style="background-color: #d0d0ee">resource URI</span> values shown in the template above are stored internally in <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects using an <a class="el" href="class_x_m_l_attributes.html" title="\ @ @ . .">XMLAttributes</a> object. Each attribute stored inside the <a class="el" href="class_x_m_l_attributes.html" title="\ @ @ . .">XMLAttributes</a> will have the same name (specifically, &quot;<code>rdf:resource</code>&quot;) but a different value, and the value will be a <span class="code" style="background-color: #d0d0ee"> resource URI</span> shown in the XML template above.</p>
+<p>A valid <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> entity must always have at least one resource and a value for the relationship qualifier.</p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_attributes.html" title="\ @ @ . .">XMLAttributes</a> that store the resources of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">getQualifierType()</a> </dd>
 <dd>
 <a class="el" href="class_c_v_term.html#a9e89cb717ad01eb49bc560162c11f89c" title="Adds a resource reference to this CVTerm object.">addResource(const std::string&amp; resource)</a> </dd>
@@ -1006,7 +1004,7 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the value of the <em>n</em>th resource for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Returns the value of the <em>n</em>th resource for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="section user"><dt></dt><dd>The RDF element used in the SBML format for referring to external entities is <code>&lt;rdf:Description&gt;</code>, with a <code>&lt;rdf:Bag&gt;</code> element inside of it containing one or more <code>&lt;rdf:li&gt;</code> elements. The following template illustrates the structure: <pre class="fragment">
 &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
 &#160;&#160;<span style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span>
@@ -1018,16 +1016,16 @@ Relationship expressed by model qualifiers</div></div>
 &#160;&#160;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
 &#160;&#160;<span style="background-color: #edd">...</span>
 &lt;/rdf:Description&gt;
-</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="@sbmlpackage{core}">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
+</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
 #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element.</dd></dl>
-<p>The fragment above illustrates that there can be more than one resource referenced by a given relationship annotation (i.e., the <span class="code" style="background-color: #d0d0ee">resource URI</span> values associated with a particular <span class="code" style="background-color: #bbb">RELATION_ELEMENT</span>). LibSBML stores all resource URIs in a single <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object for a given relationship. Callers can use <a class="el" href="class_c_v_term.html#a50fa94510d64fffad5628f332c41996d" title="Returns the number of resources for this CVTerm object.">CVTerm::getNumResources()</a> to find out how many resources are stored in this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object, then call this method to retrieve the <em>n</em>th resource URI.</p>
+<p>The fragment above illustrates that there can be more than one resource referenced by a given relationship annotation (i.e., the <span class="code" style="background-color: #d0d0ee">resource URI</span> values associated with a particular <span class="code" style="background-color: #bbb">RELATION_ELEMENT</span>). LibSBML stores all resource URIs in a single <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object for a given relationship. Callers can use <a class="el" href="class_c_v_term.html#a50fa94510d64fffad5628f332c41996d" title="Returns the number of resources for this CVTerm object.">CVTerm::getNumResources()</a> to find out how many resources are stored in this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object, then call this method to retrieve the <em>n</em>th resource URI.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">n</td><td>the index of the resource to query.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>string representing the value of the nth resource in the set of <a class="el" href="class_x_m_l_attributes.html" title="@sbmlpackage{core}">XMLAttributes</a> of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a>.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>string representing the value of the nth resource in the set of <a class="el" href="class_x_m_l_attributes.html" title="\ @ @ . .">XMLAttributes</a> of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_c_v_term.html#a50fa94510d64fffad5628f332c41996d" title="Returns the number of resources for this CVTerm object.">getNumResources()</a> </dd>
 <dd>
 <a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">getQualifierType()</a> </dd></dl>
@@ -1050,7 +1048,7 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the value of the <em>n</em>th resource for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Returns the value of the <em>n</em>th resource for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="section user"><dt></dt><dd>The RDF element used in the SBML format for referring to external entities is <code>&lt;rdf:Description&gt;</code>, with a <code>&lt;rdf:Bag&gt;</code> element inside of it containing one or more <code>&lt;rdf:li&gt;</code> elements. The following template illustrates the structure: <pre class="fragment">
 &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
 &#160;&#160;<span style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span>
@@ -1062,16 +1060,16 @@ Relationship expressed by model qualifiers</div></div>
 &#160;&#160;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
 &#160;&#160;<span style="background-color: #edd">...</span>
 &lt;/rdf:Description&gt;
-</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="@sbmlpackage{core}">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
+</pre> In the template above, the placeholder <span class="code" style="border-bottom: 1px solid black">meta id</span> stands for the element's meta identifier, which is a field available on all SBML components derived from the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> base object class. The <span style="border-bottom: 2px dotted #888">dotted</span> portions are optional, and the ellipses <span class="code" style="background-color:
 #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element.</dd></dl>
-<p>The fragment above illustrates that there can be more than one resource referenced by a given relationship annotation (i.e., the <span class="code" style="background-color: #d0d0ee">resource URI</span> values associated with a particular <span class="code" style="background-color: #bbb">RELATION_ELEMENT</span>). LibSBML stores all resource URIs in a single <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object for a given relationship. Callers can use <a class="el" href="class_c_v_term.html#a50fa94510d64fffad5628f332c41996d" title="Returns the number of resources for this CVTerm object.">CVTerm::getNumResources()</a> to find out how many resources are stored in this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object, then call this method to retrieve the <em>n</em>th resource URI.</p>
+<p>The fragment above illustrates that there can be more than one resource referenced by a given relationship annotation (i.e., the <span class="code" style="background-color: #d0d0ee">resource URI</span> values associated with a particular <span class="code" style="background-color: #bbb">RELATION_ELEMENT</span>). LibSBML stores all resource URIs in a single <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object for a given relationship. Callers can use <a class="el" href="class_c_v_term.html#a50fa94510d64fffad5628f332c41996d" title="Returns the number of resources for this CVTerm object.">CVTerm::getNumResources()</a> to find out how many resources are stored in this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object, then call this method to retrieve the <em>n</em>th resource URI.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">n</td><td>the index of the resource to query.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>string representing the value of the nth resource in the set of <a class="el" href="class_x_m_l_attributes.html" title="@sbmlpackage{core}">XMLAttributes</a> of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a>.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>string representing the value of the nth resource in the set of <a class="el" href="class_x_m_l_attributes.html" title="\ @ @ . .">XMLAttributes</a> of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_c_v_term.html#a50fa94510d64fffad5628f332c41996d" title="Returns the number of resources for this CVTerm object.">getNumResources()</a> </dd>
 <dd>
 <a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">getQualifierType()</a> </dd></dl>
@@ -1093,8 +1091,8 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Predicate returning <code>true</code> if all the required elements for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object have been set. </p>
-<dl class="section note"><dt>Note</dt><dd>The required attributes for a <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> are: <ul>
+<p>Predicate returning <code>true</code> if all the required elements for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object have been set. </p>
+<dl class="section note"><dt>Note</dt><dd>The required attributes for a <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> are: <ul>
 <li>a <em>qualifier type</em>, which can be either a model qualifier or a biological qualifier </li>
 <li>at least one resource </li>
 </ul>
@@ -1118,7 +1116,7 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Assignment operator for <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a>. </p>
+<p>Assignment operator for <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">rhs</td><td>the object whose values are used as the basis of the assignment. </td></tr>
@@ -1144,14 +1142,14 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Removes the nth <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> in the list of CVTerms of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object and returns a pointer to it. </p>
+<p>Removes the nth <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> in the list of CVTerms of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object and returns a pointer to it. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td>unsigned int the index of the <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> to retrieve.</td></tr>
+    <tr><td class="paramname">n</td><td>unsigned int the index of the <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> to retrieve.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a pointer to the nth <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> in the list of CVTerms for this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a pointer to the nth <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> in the list of CVTerms for this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </dd></dl>
 
 </div>
 </div>
@@ -1171,7 +1169,7 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Removes a resource URI from the set of resources stored in this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Removes a resource URI from the set of resources stored in this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">resource</td><td>a string representing the resource URI to remove; e.g., <code>"http://www.geneontology.org/#GO:0005892"</code>.</td></tr>
@@ -1200,7 +1198,7 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18" title="Enumeration of possible biological qualifiers used for annotations.">BiolQualifierType_t</a> value of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Sets the <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18" title="Enumeration of possible biological qualifiers used for annotations.">BiolQualifierType_t</a> value of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">type</td><td>the <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18" title="Enumeration of possible biological qualifiers used for annotations.">BiolQualifierType_t</a> value.</td></tr>
@@ -1231,7 +1229,7 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18" title="Enumeration of possible biological qualifiers used for annotations.">BiolQualifierType_t</a> of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Sets the <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18" title="Enumeration of possible biological qualifiers used for annotations.">BiolQualifierType_t</a> of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">qualifier</td><td>the string representing a biology qualifier.</td></tr>
@@ -1260,7 +1258,7 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> value of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Sets the <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> value of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">qualifier</td><td>the string representing a model qualifier.</td></tr>
@@ -1289,7 +1287,7 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> value of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Sets the <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> value of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">type</td><td>the <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> value.</td></tr>
@@ -1318,7 +1316,7 @@ Relationship expressed by model qualifiers</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5" title="Enumeration used to indicate the type of BioModels.net qualifier in a given CVTerm object.">QualifierType_t</a> of this <a class="el" href="class_c_v_term.html" title="@sbmlpackage{core}">CVTerm</a> object. </p>
+<p>Sets the <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5" title="Enumeration used to indicate the type of BioModels.net qualifier in a given CVTerm object.">QualifierType_t</a> of this <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">type</td><td>the <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5" title="Enumeration used to indicate the type of BioModels.net qualifier in a given CVTerm object.">QualifierType_t</a> value.</td></tr>

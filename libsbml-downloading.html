@@ -87,7 +87,367 @@ $(document).ready(function(){initNavTree('libsbml-downloading.html',''); initRes
 <div class="title">Downloading libSBML </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"> </div></div><!-- contents -->
+<div class="textblock"><!-- ====================================================================== -->
+
+<p> Please use the following table to find the appropriate instructions for
+your situation:
+
+<table class="text-table borderless centered"><tr><td>
+<ul class="tight-list" style="margin-top: 0.25em; margin-bottom: 0; list-style-type: none">
+<li><a href="#dl-matlab">1. MATLAB</a></li>
+<li><a href="#dl-python">2. Python</a>
+<ul class="tight-list" style="margin-top: 0.25em; margin-bottom: 0; list-style-type: none">
+<li><a href="#dl-python-conda">2.1 Using Conda</li>
+<li><a href="#dl-python-pipy">2.2 Using PyPI</li>
+<li><a href="#dl-python-linux">2.3 Using Linux's <code>apt-get</code> and <code>yum</code> together with online repositories</li>
+<li><a href="#dl-python-windows">2.4 Using the Windows libSBML installer for Python</li>
+</ul></li>
+<li><a href="#dl-not-python-not-r">3. C, C++, C#, Java, JavaScript, Perl, PHP or Ruby</a></li>
+<li><a href="#dl-r">4. R</a>
+<ul class="tight-list" style="margin-top: 0.25em; margin-bottom: 0; list-style-type: none">
+<li><a href="#dl-r-gui">4.1 Using the R GUI</a></li>
+<li><a href="#dl-r-shell">4.2 Using a shell command</a></li>
+</ul></li>
+<li><a href="#dl-src">5. Other languages</a></li>
+</table>
+
+
+<!-- ---------------------------------------------------------------------- -->
+<h2><a class="anchor" name="dl-matlab">1. MATLAB</a></h2>
+<!-- ---------------------------------------------------------------------- -->
+
+<p> For <em>stable</em> releases of libSBML, we provide a unified installer
+for all versions of MATLAB and all operating systems. The result is ready to
+  run after installation; it <strong>does not need compilation</strong>, and
+only requires you tell MATLAB where you placed the files. Here are the steps:
+
+<ol> <li> <a target="_blank"
+href="http://sf.net/projects/sbml/files/libsbml/5.19.7/stable/MATLAB%20interface">Download
+the distribution archive</a> from SourceForge.
+
+<li>Extract the archive somewhere on your local computer.
+
+  <li>Start your copy of MATLAB, then <em>either</em>:
+    <ol style="list-style-type: lower-alpha">
+
+      <ol style="list-style-type: lower-alpha">
+<li>Add that folder to your MATLAB path using MATLAB's <code>addPath</code>
+command.
+
+<li>Verify it works: change into that folder within your running MATLAB
+environment and issue the command <code>TranslateSBML('test.xml')</code>. If
+all is well, the output will be a MATLAB data structure.
+
+<li>Save the changes to your MATLAB path for future use. You can
+use MATLAB's standard <code>savepath</code> command.
+</ol>
+    </ol>
+<i>or</i>
+<ol style="list-style-type: lower-alpha">
+  <li>Navigate to the directory where you extracted the archive.
+    <li>Run <code>installSBML</code>, which performs the above steps.
+</ol>
+    </ol>
+
+<p> Note that the MATLAB installation archive contains <em>only</em> the MATLAB
+interface; it does <strong>not</strong> contain the core libSBML library or language
+libSBML API interfaces for other programming languages.
+
+
+<!-- ---------------------------------------------------------------------- -->
+<h2><a class="anchor" name="dl-python">2. Python</a></h2>
+<!-- ---------------------------------------------------------------------- -->
+
+<p> We provide four ways to obtain the libSBML Python interface. Please use
+whichever one you prefer.
+
+
+<!-- ---------------------------------------------------------------------- -->
+<h3><a class="anchor" name="dl-python-conda">2.1 Using Conda</a></h3>
+
+<p> We provide a distribution of the libSBML Python interface through <a
+target="_blank" href="http://anaconda.org/sbmlteam">Anaconda Cloud</a>,
+making it accessible through <a target="_blank"
+href="http://conda.pydata.org/docs">conda</a>.  To install it this way,
+follow these instructions:
+
+<ul>
+<li> <em>To get the stable version of libSBML</em>:
+<pre class="fragment">
+conda install -c SBMLTeam python-libsbml
+</pre>
+
+<li> <em>To get the experimental version of libSBML</em>: 
+<pre class="fragment">
+conda install -c SBMLTeam python-libsbml-experimental
+</pre>
+</ul>
+
+<p>
+After this, you should be able to access the Python language interface for
+libSBML directly from your Python interpreter by importing it like any other
+Python module.  In other words, <code>import libsbml</code> should work in
+your Python interpreter.
+
+
+<!-- ---------------------------------------------------------------------- -->
+<h3><a class="anchor" name="dl-python-pypi">2.2 Using PyPI</a></h3>
+
+<p> <em>Important</em>: the default version of <code>pip</code> on your
+system may not be appropriate for the version of Python you want to use. (For
+example, the default <code>pip</code> may be for Python&nbsp;2.7, which will
+not work if you want to use Python&nbsp;3.x.) If you do not have
+<code>pip</code> installed for a given version of Python, a reliable way to
+install it is the following:
+
+<ol>
+<li> Download <a href="https://bootstrap.pypa.io/get-pip.py">get-pip.py</a>.</li>
+
+<li> Run the following command in a shell terminal, where <span
+class="placeholder">version</span> is your version of Python (e.g., 3):
+<pre class="fragment">
+sudo python<span class="placeholder-nospace">version</span> get-pip.py
+</pre>
+An example of the command line above is the following: <code>sudo python3 get-pip.py</code>.
+</li>
+</ol>
+
+Assuming you have either <code>pip2</code> or <code>pip3</code> on your system, then to 
+get the <em>stable</em> release of libSBML, execute the following command:
+
+<pre class="fragment">
+sudo pip<span class="placeholder-nospace">version</span> install python-libsbml
+</pre>
+
+<p> where <span class="placeholder">version</span> is either <code>2</code> 
+or  <code>3</code> depending on whether you want to use Python 2 or Python 3. 
+Alternatively, for the <em>experimental</em> release of libSBML, use the
+following command instead:
+
+<pre class="fragment">
+sudo pip<span class="placeholder-nospace">version</span> install python-libsbml-experimental
+</pre>
+</ol>
+
+<p> Note that in all cases, the process <strong>will take a long time</strong>
+because it must install and build dependent libraries. If all goes well, 
+the steps above should result in <code>pip</code> eventually printing the 
+following message to tell you has it finished successfully:
+
+<pre class="fragment">
+<em><span style="font-weight: normal; font-family: Helvetica, Arial, Sans; color: #999">[... much text omitted ...]</span></em>
+Successfully installed python-libsbml
+Cleaning up...
+</pre>
+
+<p> After this, you should be able to access the Python language interface
+for libSBML on your computer directly from your Python interpreter by
+importing it like any other Python module.  In other words,
+<nobr><code>import libsbml</code></nobr> should work when typed into your
+Python interpreter.
+
+
+<!-- ---------------------------------------------------------------------- -->
+<h3><a class="anchor" name="dl-python-linux">2.3 Using Linux's
+<code>apt-get</code> or <code>yum</code></a></h3>
+
+<p> If you are running Linux, and you prefer to use the standard over-the-air
+installation tools provided by your operating system (e.g., <code>yum</code>
+and <code>apt-get</code>), you can take advantage of binary packages we
+provide using the <a target="_blank"
+href="https://build.opensuse.org">OpenSUSE Build System</a> (OBS) for many
+different flavors of Linux including CentOS, Fedora, Ubuntu, and others:
+
+<ul>
+<li><em>For the stable release</em>: 
+<code><a target="_blank" 
+href="http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml">
+python-libsbml</a></code>.
+
+<li><em>For the experimental release</em>:
+<code><a target="_blank" 
+href="http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml-experimental">
+python-libsbml-experimental</a></code>.
+
+</ul>
+</ul>
+
+<p> As an example, the following is a screenshot of the page currently found
+at the <a target="_blank"
+href="http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml">
+python-libsbml</a> page. From this page, clicking on the name of an operating
+system will display the instructions for what to do:
+
+<center style="width: 500px; margin: 1em auto">
+  <a target="_blank" href="http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml">
+<img class="screenshot" style="border: 1px solid #ccc" width="500px"
+     src="obs-download-python-libsbml.png"
+     alt="Image of the OBS page Python stable installers"></a>
+<p style="font-style: italic"> Screenshot of the OBS <a
+target="_blank"
+href="http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml">
+python-libsbml</a> page for different Linux systems.</center>
+
+<p> After following the instructions to install the appropriate binary
+distribution on your computer, you should be able to access the Python
+language interface for libSBML on your computer directly from your Python
+interpreter. In other words, <nobr><code>import libsbml</code></nobr> should
+work when typed into your Python interpreter.
+
+
+<!-- ---------------------------------------------------------------------- -->
+<h3><a class="anchor" name="dl-python-windows">2.4 Using the Windows libSBML installer for Python</a></h3>
+
+<p> You can take advantage of executable installers that we make available
+for that platform. They can be found in a subdirectory named <em>python</em>
+within each of the Windows subdirectories (<a target="_blank"
+href="https://sourceforge.net/projects/sbml/files/libsbml/5.19.7/stable/Windows">stable</a>
+and <a target="_blank"
+href="https://sourceforge.net/projects/sbml/files/libsbml/5.19.7/experimental/binaries">experimental</a>)
+on SourceForge</a>. There are different installers for different versions of
+Python. The following screenshot shows an example.
+
+<center style="width: 500px; margin: 1em auto">
+  <a target="_blank" href="http://sf.net/projects/sbml/files/libsbml/5.19.7/stable/Windows/64-bit/python">
+<img class="screenshot" style="border: 1px solid #ccc" width="500px"
+     src="sourceforge-download-windows.png"
+     alt="Image of SourceForge download page for the Windows libSBML installers"></a>
+<p style="font-style: italic"> Screenshot of the <a target="_blank"
+href="http://sf.net/projects/sbml/files/libsbml/5.19.7/stable/Windows/64-bit/python">SourceForge download
+page</a> for the 64-bit Windows stable libSBML installers.
+</center>
+
+<p> After you download an appropriate <code>.exe</code> file for your system,
+run the installer. The installer will lead you through the installation
+process.
+
+
+<!-- ---------------------------------------------------------------------- -->
+<h2><a class="anchor" name="dl-not-python-not-r">3. C, C++, C#, Java, JavaScript, Perl, PHP or Ruby</a></h2>
+<!-- ---------------------------------------------------------------------- -->
+
+<p> The installation packages in the libSBML <a target="_blank"
+href="http://sf.net/projects/sbml/files/libsbml/5.19.7">SourceForge download
+site</a> contain interfaces for C, C++, C#, Java, JavaScript, Perl, PhP,
+Python, and Ruby in the same package. (However, there are better ways to get
+the Python interface, as explained <a target="_blank"
+href="#dl-python">above</a>.) The download area has two subdirectories: one
+for stable releases of libSBML, and one for experimental releases.  The
+<em>stable</em> releases contain support for only the accepted parts of SBML,
+while the <em>experimental</em> releases contain code for SBML Level&nbsp;3
+packages still in development.
+
+<center style="width: 500px; margin: 1em auto">
+  <a target="_blank" href="http://sf.net/projects/sbml/files/libsbml/5.19.7">
+<img class="screenshot" style="border: 1px solid #ccc" width="500px"
+     src="sourceforge-download.png"
+     alt="Image of SourceForge download page for libSBML"></a>
+<p style="font-style: italic"> Screenshot of the <a target="_blank"
+href="http://sf.net/projects/sbml/files/libsbml/5.19.7">SourceForge download
+page</a> for libSBML.
+</center>
+
+<p> Click on either <em>stable</em> or <em>experimental</em>, and then
+navigate to a subdirectory matching your operating system platform.  Download
+the appropriate installer or package file for your platform, and use the
+appropriate platform-specific approach to install the software. (E.g., if you
+downloaded a Mac <code>.dmg</code> file, double-click the file in the Mac
+Finder to mount the disk image, open the image contents in the Finder,
+and finally, double-click the <code>.pkg</code> file contained inside.)
+
+
+<!-- ---------------------------------------------------------------------- -->
+<h2><a class="anchor" name="dl-r">4. R</a></h2>
+<!-- ---------------------------------------------------------------------- -->
+
+We provide installers for the stable version of the libSBML R language
+interface for Linux, Mac OS X and Windows. Download the version that is
+appropriate for your situation:
+
+<ul> 
+
+<li> <em>For <strong>Linux and Mac OS X</strong></em>: Download the <a
+target="_blank"
+href="http://sf.net/projects/sbml/files/libsbml/5.19.7/stable/R%20interface">libSBML
+R source package</a> from SourceForge.
+
+<li> <em>For <strong>Windows</strong></em>: Download the <a target="_blank"
+href="https://sourceforge.net/projects/sbml/files/libsbml/5.19.7/stable/Windows/64-bit/R%20interface">64-bit
+version</a> or the <a target="_blank"
+href="https://sourceforge.net/projects/sbml/files/libsbml/5.19.7/stable/Windows/32-bit/R%20interface">32-bit
+version</a> of the binary installer for R.
+
+</ul>
+
+<p> Once you have downloaded the appropriate version, one more step is
+required to install the libSBML R interface. You can do this step in
+<strong>one of two ways</strong>: either using the R graphical interface, or
+using a terminal/shell command.  These approaches are explained below.
+
+
+<!-- ---------------------------------------------------------------------- -->
+<h3><a class="anchor" name="dl-r-gui">4.1 Using the R GUI</a></h3>
+
+<p> From the R menu "<strong>Packages</strong>" or
+"<strong>Packages&nbsp;&amp;&nbsp;Data</strong>" (depending on your operating
+system), select the "<strong>Package Installer</strong>" item.  You will be
+presented with an interface that lets you install a local binary package.
+Use that interface to navigate to the directory where you copied the libSBML
+archive file, and select the archive file for installation.
+
+
+<!-- ---------------------------------------------------------------------- -->
+<h3><a class="anchor" name="dl-r-shell">4.2 Using a shell command</a></h3>
+
+<p> Suppose that the path to the libSBML R archive on your computer is <span
+class="placeholder">archive</span>.  Execute the following command in a
+terminal/shell window (note: <em>not</em> in the R command line
+interpreter!):
+
+<pre class="fragment">
+R CMD INSTALL <span class="placeholder">archive</span>
+</pre>
+
+<p> If all goes well, you should see R print messages. If you're using the
+source package, it will be something such as the following (the paths on your
+computer may differ):
+<pre class="fragment">
+* installing to library '/Library/Frameworks/R.framework/Versions/3.1/Resources/library'
+* installing *binary* package 'libSBML' ...
+* DONE (libSBML) 
+</pre>
+</ul>
+
+<p> whereas if you are using a binary package, the messages will be something
+like the following instead:
+
+<pre class="fragment">
+> utils:::menuInstallLocal()
+  package ‘libSBML’ successfully unpacked and MD5 sums checked
+>
+</pre>
+
+<p> From this point forward, you should be able to call on libSBML functions
+from within your copy of R. You can test whether the installation was
+successful by trying the following command in R:
+<pre class="fragment">
+library('libSBML')
+</pre>
+
+<p> If R does not report an error when you execute this command, then the
+libSBML R interface is probably installed correctly.
+
+
+<!-- ---------------------------------------------------------------------- -->
+<h2><a class="anchor" name="dl-src">5. Other languages</a></h2>
+<!-- ---------------------------------------------------------------------- -->
+
+<p> If no installation package is available for
+your particular platform, or you have special requirements for libSBML's
+configuration, you can always build libSBML from sources.  The process for
+doing that is the topic a separate section, <a
+href="libsbml-installation.html">Building and installing libSBML </a>.
+ </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- HTML footer for Doxygen -->

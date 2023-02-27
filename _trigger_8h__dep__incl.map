@@ -1,11 +1,11 @@
 <map id="Trigger.h" name="Trigger.h">
-<area shape="rect" id="node1" title="Definition of Trigger." alt="" coords="9321,5,9399,32"/>
-<area shape="rect" id="node2" href="$_event_8h.html" title="Definitions of Event and ListOfEvents." alt="" coords="9325,80,9395,107"/>
+<area shape="rect" id="node1" title="Definition of Trigger." alt="" coords="9755,5,9832,32"/>
+<area shape="rect" id="node2" href="$_event_8h.html" title="Definitions of Event and ListOfEvents." alt="" coords="9758,80,9829,107"/>
 <area shape="rect" id="node42" href="$_s_b_m_l_types_8h.html" title="Include all SBML types in a single header file." alt="" coords="3180,237,3287,263"/>
-<area shape="rect" id="node101" href="$_trigger_8cpp.html" title="Implementation of Trigger." alt="" coords="16070,237,16162,263"/>
-<area shape="rect" id="node3" href="$_event_8cpp.html" title="Implementations of Event and ListOfEvents." alt="" coords="15959,237,16046,263"/>
-<area shape="rect" id="node4" href="$_model_8h.html" title="Definition of Model." alt="" coords="9323,155,9397,181"/>
-<area shape="rect" id="node5" href="$_r_d_f_annotation_parser_8cpp.html" title="RDFAnnotation I/O." alt="" coords="15751,237,15935,263"/>
+<area shape="rect" id="node101" href="$_trigger_8cpp.html" title="Implementation of Trigger." alt="" coords="17166,237,17258,263"/>
+<area shape="rect" id="node3" href="$_event_8cpp.html" title="Implementations of Event and ListOfEvents." alt="" coords="17055,237,17142,263"/>
+<area shape="rect" id="node4" href="$_model_8h.html" title="Definition of Model." alt="" coords="9756,155,9831,181"/>
+<area shape="rect" id="node5" href="$_r_d_f_annotation_parser_8cpp.html" title="RDFAnnotation I/O." alt="" coords="16847,237,17031,263"/>
 <area shape="rect" id="node6" href="$_s_b_m_l_function_definition_converter_8cpp.html" title="Implementation of SBMLFunctionDefinitionConverter, a converter replacing function definitions." alt="" coords="1253,468,1520,495"/>
 <area shape="rect" id="node7" href="$_s_b_m_l_id_converter_8cpp.html" title="Implementation of SBMLIdConverter, a converter renaming SIds." alt="" coords="1544,468,1704,495"/>
 <area shape="rect" id="node8" href="$_s_b_m_l_infer_units_converter_8cpp.html" title="Implementation of SBMLInferUnitsConverter." alt="" coords="2857,468,3069,495"/>
@@ -63,7 +63,7 @@
 <area shape="rect" id="node118" href="$_fbc_reaction_plugin_8cpp.html" title="Implementation of the FbcReactionPlugin class." alt="" coords="13242,237,13411,263"/>
 <area shape="rect" id="node119" href="$_fbc_s_base_plugin_8cpp.html" title="Implementation of the FbcSBasePlugin class." alt="" coords="13436,237,13588,263"/>
 <area shape="rect" id="node120" href="$_fbc_species_plugin_8cpp.html" title="Implementation of FbcSpeciesPlugin, the plugin class of the fbc package for the Species element." alt="" coords="5407,393,5569,420"/>
-<area shape="rect" id="node121" href="$_fbc_species_plugin_8h.html" title="Definition of FbcSpeciesPlugin, the plugin class of the fbc package for the Species element." alt="" coords="5275,319,5421,345"/>
+<area shape="rect" id="node121" href="$_fbc_species_plugin_8h.html" title="Definition of FbcSpeciesPlugin, the plugin class of the fbc package for the Species element." alt="" coords="5329,319,5476,345"/>
 <area shape="rect" id="node122" href="$_groups_model_plugin_8cpp.html" title="Implementation of the GroupsModelPlugin class." alt="" coords="13613,237,13787,263"/>
 <area shape="rect" id="node123" href="$_member_8cpp.html" title="Implementation of the Member class." alt="" coords="13811,237,13914,263"/>
 <area shape="rect" id="node124" href="$_layout_model_plugin_8h.html" title="Definition of LayoutModelPlugin, the plugin class of layout package for Model element." alt="" coords="7287,319,7446,345"/>
@@ -72,13 +72,18 @@
 <area shape="rect" id="node134" href="$_render_graphical_object_plugin_8h.html" title="Definition of RenderGraphicalObjectPlugin, the plugin class of the render package for the GraphicalOb..." alt="" coords="6972,237,7196,263"/>
 <area shape="rect" id="node140" href="$_render_layout_plugin_8h.html" title="Definition of RenderLayoutPlugin, the plugin class of fbc package for the Model element." alt="" coords="7769,237,7933,263"/>
 <area shape="rect" id="node141" href="$_render_list_of_layouts_plugin_8h.html" title="Definition of RenderListOfLayoutsPlugin, the plugin class of fbc package for the Model element." alt="" coords="7322,237,7531,263"/>
-<area shape="rect" id="node142" href="$_multi_compartment_plugin_8cpp.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="14198,237,14410,263"/>
-<area shape="rect" id="node143" href="$_multi_list_of_reactions_plugin_8cpp.html" title=": Implementation of the MultiListOfReactionsPlugin class" alt="" coords="14433,237,14657,263"/>
-<area shape="rect" id="node144" href="$_multi_model_plugin_8cpp.html" title=": Implementation of the MultiModelPlugin class" alt="" coords="14681,237,14844,263"/>
-<area shape="rect" id="node145" href="$_multi_simple_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSimpleSpeciesReferencePlugin class" alt="" coords="14868,229,15084,271"/>
-<area shape="rect" id="node146" href="$_multi_species_plugin_8cpp.html" title=": Implementation of the MultiSpeciesPlugin class" alt="" coords="15109,237,15281,263"/>
-<area shape="rect" id="node147" href="$_multi_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSpeciesReferencePlugin class" alt="" coords="15305,237,15543,263"/>
-<area shape="rect" id="node148" href="$_qual_model_plugin_8cpp.html" title="Implementation of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="15567,237,15726,263"/>
+<area shape="rect" id="node142" href="$_spatial_compartment_plugin_8cpp.html" title="Implementation of the SpatialCompartmentPlugin class." alt="" coords="14197,237,14421,263"/>
+<area shape="rect" id="node143" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="14446,237,14621,263"/>
+<area shape="rect" id="node144" href="$_spatial_parameter_plugin_8cpp.html" title="Implementation of the SpatialParameterPlugin class." alt="" coords="14645,237,14846,263"/>
+<area shape="rect" id="node145" href="$_spatial_reaction_plugin_8cpp.html" title="Implementation of the SpatialReactionPlugin class." alt="" coords="14870,237,15061,263"/>
+<area shape="rect" id="node146" href="$_spatial_species_plugin_8cpp.html" title="Implementation of the SpatialSpeciesPlugin class." alt="" coords="15085,237,15269,263"/>
+<area shape="rect" id="node147" href="$_multi_compartment_plugin_8cpp.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="15294,237,15506,263"/>
+<area shape="rect" id="node148" href="$_multi_list_of_reactions_plugin_8cpp.html" title=": Implementation of the MultiListOfReactionsPlugin class" alt="" coords="15529,237,15753,263"/>
+<area shape="rect" id="node149" href="$_multi_model_plugin_8cpp.html" title=": Implementation of the MultiModelPlugin class" alt="" coords="15777,237,15940,263"/>
+<area shape="rect" id="node150" href="$_multi_simple_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSimpleSpeciesReferencePlugin class" alt="" coords="15964,229,16180,271"/>
+<area shape="rect" id="node151" href="$_multi_species_plugin_8cpp.html" title=": Implementation of the MultiSpeciesPlugin class" alt="" coords="16205,237,16377,263"/>
+<area shape="rect" id="node152" href="$_multi_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSpeciesReferencePlugin class" alt="" coords="16401,237,16639,263"/>
+<area shape="rect" id="node153" href="$_qual_model_plugin_8cpp.html" title="Implementation of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="16663,237,16822,263"/>
 <area shape="rect" id="node43" href="$_expression_analyser_8cpp.html" title="Implementation of ExpressionAnalyser." alt="" coords="467,543,643,569"/>
 <area shape="rect" id="node44" href="$_s_b_m_l_converter_8h.html" title="Definition of SBMLConverter, the base class for SBML conversion." alt="" coords="2516,319,2649,345"/>
 <area shape="rect" id="node78" href="$_comp_validator_8cpp.html" title=" " alt="" coords="2713,617,2857,644"/>

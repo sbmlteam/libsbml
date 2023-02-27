@@ -1,6 +1,5 @@
 var _association_8h =
 [
-    [ "Association", "class_association.html", "class_association" ],
     [ "AssociationTypeCode_t", "_association_8h.html#aef03f00c87f9ebec7bebe6afeea8645f", [
       [ "GENE_ASSOCIATION", "_association_8h.html#aef03f00c87f9ebec7bebe6afeea8645fac20ae8aa3e7b5d4d674a2451ddc16f70", null ],
       [ "AND_ASSOCIATION", "_association_8h.html#aef03f00c87f9ebec7bebe6afeea8645fa3aeb776c10a4985e8bed50e79ab170c9", null ],

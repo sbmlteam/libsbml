@@ -1,0 +1,12 @@
+<map id="SpatialPoints.h" name="SpatialPoints.h">
+<area shape="rect" id="node1" title="Definition of the SpatialPoints class." alt="" coords="376,5,495,32"/>
+<area shape="rect" id="node2" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="5,155,185,181"/>
+<area shape="rect" id="node4" href="$_parametric_geometry_8h.html" title="Definition of the ParametricGeometry class." alt="" coords="352,80,519,107"/>
+<area shape="rect" id="node10" href="$_spatial_points_8cpp.html" title="Implementation of the SpatialPoints class." alt="" coords="543,80,677,107"/>
+<area shape="rect" id="node3" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="20,229,171,256"/>
+<area shape="rect" id="node5" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="210,155,322,181"/>
+<area shape="rect" id="node6" href="$_geometry_definition_8cpp.html" title="Implementation of the GeometryDefinition class." alt="" coords="347,155,524,181"/>
+<area shape="rect" id="node7" href="$_list_of_geometry_definitions_8cpp.html" title="Implementation of the ListOfGeometryDefinitions class." alt="" coords="548,155,771,181"/>
+<area shape="rect" id="node8" href="$_mixed_geometry_8cpp.html" title="Implementation of the MixedGeometry class." alt="" coords="795,155,945,181"/>
+<area shape="rect" id="node9" href="$_parametric_geometry_8cpp.html" title="Implementation of the ParametricGeometry class." alt="" coords="969,155,1152,181"/>
+</map>

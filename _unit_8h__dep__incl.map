@@ -1,9 +1,9 @@
 <map id="Unit.h" name="Unit.h">
-<area shape="rect" id="node1" title="Definitions of Unit and ListOfUnits." alt="" coords="7232,5,7293,32"/>
+<area shape="rect" id="node1" title="Definitions of Unit and ListOfUnits." alt="" coords="7548,5,7609,32"/>
 <area shape="rect" id="node2" href="$_s_b_m_l_types_8h.html" title="Include all SBML types in a single header file." alt="" coords="2917,237,3024,263"/>
-<area shape="rect" id="node68" href="$_unit_8cpp.html" title="Implementations of Unit and ListOfUnits." alt="" coords="7275,155,7351,181"/>
-<area shape="rect" id="node69" href="$_unit_definition_8cpp.html" title="Implementations of SBML&#39;s UnitDefinition and ListOfUnitDefinitions." alt="" coords="7376,155,7515,181"/>
-<area shape="rect" id="node70" href="$_unit_definition_8h.html" title="Definitions of UnitDefinition and ListOfUnitDefinitions." alt="" coords="7151,80,7275,107"/>
+<area shape="rect" id="node68" href="$_unit_8cpp.html" title="Implementations of Unit and ListOfUnits." alt="" coords="7591,155,7667,181"/>
+<area shape="rect" id="node69" href="$_unit_definition_8cpp.html" title="Implementations of SBML&#39;s UnitDefinition and ListOfUnitDefinitions." alt="" coords="7692,155,7831,181"/>
+<area shape="rect" id="node70" href="$_unit_definition_8h.html" title="Definitions of UnitDefinition and ListOfUnitDefinitions." alt="" coords="7467,80,7591,107"/>
 <area shape="rect" id="node3" href="$_expression_analyser_8cpp.html" title="Implementation of ExpressionAnalyser." alt="" coords="5644,543,5820,569"/>
 <area shape="rect" id="node4" href="$_s_b_m_l_converter_8h.html" title="Definition of SBMLConverter, the base class for SBML conversion." alt="" coords="2560,319,2693,345"/>
 <area shape="rect" id="node51" href="$_comp_validator_8cpp.html" title=" " alt="" coords="2801,617,2945,644"/>
@@ -69,7 +69,7 @@
 <area shape="rect" id="node65" href="$_s_b_m_l_internal_validator_8h.html" title="Definition of SBMLInternalValidator, the validator for all internal validation performed by libSBML." alt="" coords="5217,393,5394,420"/>
 <area shape="rect" id="node67" href="$_s_b_m_l_validator_8cpp.html" title="Implementation of SBMLValidator, the base class for user callable SBML validators." alt="" coords="3765,393,3907,420"/>
 <area shape="rect" id="node66" href="$_s_b_m_l_internal_validator_8cpp.html" title="Implementation of SBMLInternalValidator, the validator for all internal validation performed by libSB..." alt="" coords="5399,468,5591,495"/>
-<area shape="rect" id="node71" href="$_model_8h.html" title="Definition of Model." alt="" coords="7176,155,7251,181"/>
+<area shape="rect" id="node71" href="$_model_8h.html" title="Definition of Model." alt="" coords="7492,155,7567,181"/>
 <area shape="rect" id="node72" href="$_r_d_f_annotation_parser_8cpp.html" title="RDFAnnotation I/O." alt="" coords="4387,237,4571,263"/>
 <area shape="rect" id="node73" href="$_a_s_t_node_8cpp.html" title="Abstract Syntax Tree (AST) for representing formula trees." alt="" coords="4595,237,4703,263"/>
 <area shape="rect" id="node74" href="$_algebraic_rule_8cpp.html" title="Implementations of AlgebraicRule." alt="" coords="4728,237,4867,263"/>
@@ -105,8 +105,8 @@
 <area shape="rect" id="node104" href="$_list_of_deletions_8cpp.html" title="Implementation of ListOfDeletions." alt="" coords="9427,237,9576,263"/>
 <area shape="rect" id="node105" href="$_list_of_external_model_definitions_8cpp.html" title="Implementation of ListOfExternalModelDefinitions." alt="" coords="9600,237,9851,263"/>
 <area shape="rect" id="node106" href="$_list_of_submodels_8cpp.html" title="Implementation of ListOfSubmodels." alt="" coords="9875,237,10034,263"/>
-<area shape="rect" id="node107" href="$_model_definition_8h.html" title="Definition of ModelDefinition, the SBase derived class of the comp package." alt="" coords="5929,319,6066,345"/>
-<area shape="rect" id="node113" href="$_fbc_model_plugin_8cpp.html" title="Implementation of FbcModelPlugin, the plugin class of the fbc package for the Model element." alt="" coords="6636,319,6788,345"/>
+<area shape="rect" id="node107" href="$_model_definition_8h.html" title="Definition of ModelDefinition, the SBase derived class of the comp package." alt="" coords="5927,319,6065,345"/>
+<area shape="rect" id="node113" href="$_fbc_model_plugin_8cpp.html" title="Implementation of FbcModelPlugin, the plugin class of the fbc package for the Model element." alt="" coords="6571,319,6723,345"/>
 <area shape="rect" id="node114" href="$_fbc_model_plugin_8h.html" title="Definition of FbcModelPlugin, the plugin class of fbc package for the Model element." alt="" coords="10058,237,10195,263"/>
 <area shape="rect" id="node118" href="$_gene_product_association_8cpp.html" title="Implementation of the GeneProductAssociation class." alt="" coords="10039,319,10246,345"/>
 <area shape="rect" id="node120" href="$_fbc_reaction_plugin_8cpp.html" title="Implementation of the FbcReactionPlugin class." alt="" coords="10423,237,10593,263"/>
@@ -121,15 +121,20 @@
 <area shape="rect" id="node136" href="$_render_graphical_object_plugin_8h.html" title="Definition of RenderGraphicalObjectPlugin, the plugin class of the render package for the GraphicalOb..." alt="" coords="11120,237,11344,263"/>
 <area shape="rect" id="node142" href="$_render_layout_plugin_8h.html" title="Definition of RenderLayoutPlugin, the plugin class of fbc package for the Model element." alt="" coords="11703,237,11867,263"/>
 <area shape="rect" id="node143" href="$_render_list_of_layouts_plugin_8h.html" title="Definition of RenderListOfLayoutsPlugin, the plugin class of fbc package for the Model element." alt="" coords="11470,237,11679,263"/>
-<area shape="rect" id="node144" href="$_multi_compartment_plugin_8cpp.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="12151,237,12363,263"/>
-<area shape="rect" id="node145" href="$_multi_list_of_reactions_plugin_8cpp.html" title=": Implementation of the MultiListOfReactionsPlugin class" alt="" coords="12387,237,12611,263"/>
-<area shape="rect" id="node146" href="$_multi_model_plugin_8cpp.html" title=": Implementation of the MultiModelPlugin class" alt="" coords="12635,237,12797,263"/>
-<area shape="rect" id="node147" href="$_multi_simple_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSimpleSpeciesReferencePlugin class" alt="" coords="12821,229,13037,271"/>
-<area shape="rect" id="node148" href="$_multi_species_plugin_8cpp.html" title=": Implementation of the MultiSpeciesPlugin class" alt="" coords="13062,237,13234,263"/>
-<area shape="rect" id="node149" href="$_multi_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSpeciesReferencePlugin class" alt="" coords="13258,237,13497,263"/>
-<area shape="rect" id="node150" href="$_qual_model_plugin_8cpp.html" title="Implementation of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="13521,237,13679,263"/>
+<area shape="rect" id="node144" href="$_spatial_compartment_plugin_8cpp.html" title="Implementation of the SpatialCompartmentPlugin class." alt="" coords="12151,237,12375,263"/>
+<area shape="rect" id="node145" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="12399,237,12574,263"/>
+<area shape="rect" id="node146" href="$_spatial_parameter_plugin_8cpp.html" title="Implementation of the SpatialParameterPlugin class." alt="" coords="12598,237,12799,263"/>
+<area shape="rect" id="node147" href="$_spatial_reaction_plugin_8cpp.html" title="Implementation of the SpatialReactionPlugin class." alt="" coords="12823,237,13014,263"/>
+<area shape="rect" id="node148" href="$_spatial_species_plugin_8cpp.html" title="Implementation of the SpatialSpeciesPlugin class." alt="" coords="13039,237,13223,263"/>
+<area shape="rect" id="node149" href="$_multi_compartment_plugin_8cpp.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="13247,237,13459,263"/>
+<area shape="rect" id="node150" href="$_multi_list_of_reactions_plugin_8cpp.html" title=": Implementation of the MultiListOfReactionsPlugin class" alt="" coords="13483,237,13707,263"/>
+<area shape="rect" id="node151" href="$_multi_model_plugin_8cpp.html" title=": Implementation of the MultiModelPlugin class" alt="" coords="13731,237,13893,263"/>
+<area shape="rect" id="node152" href="$_multi_simple_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSimpleSpeciesReferencePlugin class" alt="" coords="13917,229,14133,271"/>
+<area shape="rect" id="node153" href="$_multi_species_plugin_8cpp.html" title=": Implementation of the MultiSpeciesPlugin class" alt="" coords="14158,237,14330,263"/>
+<area shape="rect" id="node154" href="$_multi_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSpeciesReferencePlugin class" alt="" coords="14354,237,14593,263"/>
+<area shape="rect" id="node155" href="$_qual_model_plugin_8cpp.html" title="Implementation of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="14617,237,14775,263"/>
 <area shape="rect" id="node108" href="$_comp_s_b_m_l_document_plugin_8h.html" title="Definition of CompSBMLDocumentPlugin, the plugin class of comp package for the Model element." alt="" coords="5954,468,6169,495"/>
-<area shape="rect" id="node110" href="$_list_of_model_definitions_8h.html" title="Definition of ListOfModelDefinitions, the SBase derived class of modelDefinitions package." alt="" coords="6035,393,6218,420"/>
+<area shape="rect" id="node110" href="$_list_of_model_definitions_8h.html" title="Definition of ListOfModelDefinitions, the SBase derived class of modelDefinitions package." alt="" coords="6034,393,6217,420"/>
 <area shape="rect" id="node112" href="$_model_definition_8cpp.html" title="Implementation of ModelDefinition, the SBase&#45;derived class of the comp package." alt="" coords="6415,468,6567,495"/>
 <area shape="rect" id="node109" href="$_external_model_definition_8cpp.html" title="Implementation of ExternalModelDefinition, the SBase&#45;derived class of the comp package." alt="" coords="6042,543,6249,569"/>
 <area shape="rect" id="node111" href="$_list_of_model_definitions_8cpp.html" title="Implementation of ListOfModelDefinitions from the comp package." alt="" coords="6193,468,6391,495"/>

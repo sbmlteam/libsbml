@@ -1,7 +1,5 @@
 var _output_8h =
 [
-    [ "ListOfOutputs", "class_list_of_outputs.html", "class_list_of_outputs" ],
-    [ "Output", "class_output.html", "class_output" ],
     [ "OutputTransitionEffect_t", "_output_8h.html#a7dc6c2506571b62f95a72481147d891d", [
       [ "OUTPUT_TRANSITION_EFFECT_PRODUCTION", "_output_8h.html#a7dc6c2506571b62f95a72481147d891dadb70c46c641a44afc31ff270a23919c3", null ],
       [ "OUTPUT_TRANSITION_EFFECT_ASSIGNMENT_LEVEL", "_output_8h.html#a7dc6c2506571b62f95a72481147d891da992f5f98a2f9adae9eff484be162f0b2", null ],

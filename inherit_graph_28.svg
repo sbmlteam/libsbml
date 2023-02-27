@@ -12,7 +12,7 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="class_s_base_plugin_creator_base.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node1"><a xlink:href="class_s_base_plugin_creator_base.html" target="_top" xlink:title="\ @ @ . %.">
 <polygon fill="white" stroke="black" points="0,-11.5 0,-30.5 137,-30.5 137,-11.5 0,-11.5"/>
 <text text-anchor="middle" x="68.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBasePluginCreatorBase</text>
 </a>
@@ -21,7 +21,7 @@
 <!-- Node1 -->
 <g id="node2" class="node">
 <title>Node1</title>
-<g id="a_node2"><a xlink:href="class_s_base_plugin_creator.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node2"><a xlink:href="class_s_base_plugin_creator.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="173,-0.5 173,-41.5 364,-41.5 364,-0.5 173,-0.5"/>
 <text text-anchor="start" x="181" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBasePluginCreator</text>
 <text text-anchor="start" x="181" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; SBasePluginType, SBMLExtension</text>

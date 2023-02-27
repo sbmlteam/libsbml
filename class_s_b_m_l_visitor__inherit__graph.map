@@ -1,5 +1,5 @@
 <map id="SBMLVisitor" name="SBMLVisitor">
-<area shape="rect" id="node1" title="@sbmlpackage{core}" alt="" coords="5,183,104,209"/>
+<area shape="rect" id="node1" title="\ @ @ . ." alt="" coords="5,208,104,235"/>
 <area shape="rect" id="node2" title=" " alt="" coords="156,5,323,32"/>
 <area shape="rect" id="node3" title=" " alt="" coords="163,56,315,83"/>
 <area shape="rect" id="node4" title=" " alt="" coords="152,107,327,133"/>
@@ -7,5 +7,6 @@
 <area shape="rect" id="node6" title=" " alt="" coords="158,208,321,235"/>
 <area shape="rect" id="node7" title=" " alt="" coords="160,259,319,285"/>
 <area shape="rect" id="node8" title=" " alt="" coords="152,309,327,336"/>
-<area shape="rect" id="node9" title=" " alt="" coords="175,360,304,387"/>
+<area shape="rect" id="node9" title=" " alt="" coords="152,360,327,387"/>
+<area shape="rect" id="node10" title=" " alt="" coords="175,411,304,437"/>
 </map>

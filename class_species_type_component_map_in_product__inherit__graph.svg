@@ -12,7 +12,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="@sbmlpackage{multi}">
+<g id="a_node1"><a xlink:title="\ @ @ . .">
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 163,-30.5 163,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">SpeciesTypeComponentMapIn</text>
 <text text-anchor="middle" x="81.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Product</text>
@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_s_base.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node2"><a xlink:href="class_s_base.html" target="_top" xlink:title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">
 <polygon fill="white" stroke="black" points="58,-67.5 58,-86.5 105,-86.5 105,-67.5 58,-67.5"/>
 <text text-anchor="middle" x="81.5" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBase</text>
 </a>

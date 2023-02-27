@@ -1,0 +1,13 @@
+<map id="OrdinalMapping.h" name="OrdinalMapping.h">
+<area shape="rect" id="node1" title="Definition of the OrdinalMapping class." alt="" coords="363,5,500,32"/>
+<area shape="rect" id="node2" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="5,229,185,256"/>
+<area shape="rect" id="node4" href="$_list_of_ordinal_mappings_8h.html" title="Definition of the ListOfOrdinalMappings class." alt="" coords="340,80,523,107"/>
+<area shape="rect" id="node11" href="$_ordinal_mapping_8cpp.html" title="Implementation of the OrdinalMapping class." alt="" coords="523,155,675,181"/>
+<area shape="rect" id="node3" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="20,304,171,331"/>
+<area shape="rect" id="node5" href="$_list_of_ordinal_mappings_8cpp.html" title="Implementation of the ListOfOrdinalMappings class." alt="" coords="142,155,339,181"/>
+<area shape="rect" id="node6" href="$_mixed_geometry_8h.html" title="Definition of the MixedGeometry class." alt="" coords="363,155,499,181"/>
+<area shape="rect" id="node7" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="210,229,322,256"/>
+<area shape="rect" id="node8" href="$_geometry_definition_8cpp.html" title="Implementation of the GeometryDefinition class." alt="" coords="347,229,524,256"/>
+<area shape="rect" id="node9" href="$_list_of_geometry_definitions_8cpp.html" title="Implementation of the ListOfGeometryDefinitions class." alt="" coords="548,229,771,256"/>
+<area shape="rect" id="node10" href="$_mixed_geometry_8cpp.html" title="Implementation of the MixedGeometry class." alt="" coords="795,229,945,256"/>
+</map>

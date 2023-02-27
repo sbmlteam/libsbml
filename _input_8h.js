@@ -1,7 +1,5 @@
 var _input_8h =
 [
-    [ "Input", "class_input.html", "class_input" ],
-    [ "ListOfInputs", "class_list_of_inputs.html", "class_list_of_inputs" ],
     [ "InputSign_t", "_input_8h.html#a86eeba8e351e8915575b3cdb3ffcd1f5", [
       [ "INPUT_SIGN_POSITIVE", "_input_8h.html#a86eeba8e351e8915575b3cdb3ffcd1f5a943666b46f79ca1b75b3541e6414490b", null ],
       [ "INPUT_SIGN_NEGATIVE", "_input_8h.html#a86eeba8e351e8915575b3cdb3ffcd1f5a842aeb9457ead2071fb95cfc81c84c66", null ],

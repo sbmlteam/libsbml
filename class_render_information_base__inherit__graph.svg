@@ -12,7 +12,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="@sbmlpackage{render}">
+<g id="a_node1"><a xlink:title="\ @ @ . .">
 <polygon fill="#bfbfbf" stroke="black" points="81,-56.5 81,-75.5 213,-75.5 213,-56.5 81,-56.5"/>
 <text text-anchor="middle" x="147" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">RenderInformationBase</text>
 </a>
@@ -21,7 +21,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="class_global_render_information.html" target="_top" xlink:title="@sbmlpackage{render}">
+<g id="a_node3"><a xlink:href="class_global_render_information.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 140,-19.5 140,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="70" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">GlobalRenderInformation</text>
 </a>
@@ -36,7 +36,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="class_local_render_information.html" target="_top" xlink:title="@sbmlpackage{render}">
+<g id="a_node4"><a xlink:href="class_local_render_information.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="158,-0.5 158,-19.5 292,-19.5 292,-0.5 158,-0.5"/>
 <text text-anchor="middle" x="225" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">LocalRenderInformation</text>
 </a>
@@ -51,7 +51,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_s_base.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node2"><a xlink:href="class_s_base.html" target="_top" xlink:title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">
 <polygon fill="white" stroke="black" points="123.5,-112.5 123.5,-131.5 170.5,-131.5 170.5,-112.5 123.5,-112.5"/>
 <text text-anchor="middle" x="147" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBase</text>
 </a>

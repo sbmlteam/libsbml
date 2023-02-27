@@ -83,13 +83,287 @@ $(document).ready(function(){initNavTree('group__fbc.html',''); initResizable();
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
 <div class="title">Flux Balance Constraints</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>  
-</p>
+<p><p> The libSBML &ldquo;fbc&rdquo; extension implements support for the SBML
+Level&nbsp;3 <em>Flux Balance Constraints</em> package.  It can be used in SBML Level&nbsp;3 Version&nbsp;1 and Version&nbsp;2 documents.
+
+<h2>Introduction</h2>
+
+<p> Constraint based modeling is a widely accepted methodology used to analyze
+and study biological networks on both a small and whole organism (genome)
+scale. Typically these models are underdetermined and constraint based
+methods (e.g. linear, quadratic optimization) are used to optimize specific
+model properties. This is assumed to occur under a defined set of constraints
+(e.g. stoichiometric, metabolic) and bounds (e.g. thermodynamic, experimental
+and environmental) on the values that the solution fluxes can obtain.
+
+<p> Perhaps the most well known (and widely used) analysis method is Flux
+Balance Analysis (FBA), which is performed on Genome Scale
+Reconstructions. When using FBA, a target flux is optimized (e.g., to
+maximize a flux to biomass or minimize ATP production) while other fluxes can
+be bounded to simulate a selected growth environment or specific metabolic
+state.
+
+<p> As constraint based models are generally underdetermined, i.e., few or
+none of the kinetic rate equations and related parameters are known, it is
+crucial that a model definition includes the ability to define optimization
+parameters such as objective functions, flux bounds and constraints.  This is
+not well-supported in SBML Level&nbsp;3 Core.  The question of how to best
+encode constraint-based models in SBML is not new.  However, advances in the
+methods used to construct genome scale constraint-based models and the wider
+adoption of constraint based modeling in biotechnological/medical
+applications have led to a rapid increase in both the number of models being
+constructed and the tools used to analyze them.
+
+<p> Faced with such growth, both in number and diversity, the need for a
+standardized data format for the definition, exchange and annotation of
+constraint based models has become critical. As the core model components
+(e.g., species, reactions, stoichiometry) can already be efficiently
+described in SBML, the Flux Balance Constraints (FBC) package is designed to
+extend SBML Level&nbsp;3 Core by adding the elements necessary to encode current
+and future constraint-based models.
+
+<p> In version 2 of this package, the ability to encode gene products and
+gene product references was added, and the encoding of flux bounds was modified
+to reference parameters, instead of holding directly-encoded values.
+
+<h2>Authors</h2>
+
+The primary authors of the SBML Level,&nbsp;3 Flux Balance Constraints package are Brett G. Olivier and Frank T. Bergmann.
+
+<h2>The specification for this SBML package</h2>
+
+<p style="color: #880000"> This API documentation for libSBML does not
+provide a complete explanation of the SBML Level&nbsp;3 Flux Balance
+Constraints (&ldquo;fbc&rdquo;) package.  If you are developing software
+that uses &ldquo;fbc&rdquo;, you are strongly urged to read the actual
+specification for the package.  A link to the specification document current
+is provided below, along with a link to the page of known issues (if any).
+
+<table border="0" class="centered text-table width80 normal-font alt-row-colors" style="padding-bottom: 0.5em">
+  <caption class="top-caption">Specification for SBML Level&nbsp;3 
+    Flux Balance Constraints, current at the time of this libSBML release
+    (5.19.7).  Note: an Internet connection is required to access
+    these documents.</caption>
+<tr>
+<th style="text-align: left">Specification (in PDF format)</th>
+<th style="text-align: left">Known issues</th>
+</tr>
+
+<tr><td>
+<a class="spec-link" target="_blank" href="http://identifiers.org/combine.specifications/sbml.level-3.version-1.fbc.version-1.release-1">
+  <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Flux Balance Constraints package, Version&nbsp;1 Release&nbsp;1</a>
+</td><td>
+<a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Flux_Balance_Constraints_%28flux%29/Confirmed_issues_in_the_Flux_Balance_Constraints_package_specification">
+  <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+</td></tr>
+<tr><td>
+<a class="spec-link" target="_blank" href="http://identifiers.org/combine.specifications/sbml.level-3.version-1.fbc.version-2.release-1">
+  <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Flux Balance Constraints package, Version&nbsp;2 Release&nbsp;1</a>
+</td><td>
+<a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Flux_Balance_Constraints_%28flux%29/Confirmed_issues_in_the_Flux_Balance_Constraints_package_specification">
+  <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+</td></tr>
+</table>
+  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_association.html">Association</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . &amp;;&amp;; &amp;;1.  <a href="class_association.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cobra_to_fbc_converter.html">CobraToFbcConverter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . 3 &amp;;&amp;; .  <a href="class_cobra_to_fbc_converter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_and.html">FbcAnd</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . &amp;;&amp;;  <a href="class_fbc_and.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_association.html">FbcAssociation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . , ,  <a href="class_fbc_association.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_extension.html">FbcExtension</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . &amp;;&amp;; .  <a href="class_fbc_extension.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_model_plugin.html">FbcModelPlugin</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_fbc_model_plugin.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_or.html">FbcOr</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . &amp;;&amp;;  <a href="class_fbc_or.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_pkg_namespaces.html">FbcPkgNamespaces</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . &amp;;&amp;; .  <a href="class_fbc_pkg_namespaces.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_reaction_plugin.html">FbcReactionPlugin</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . &amp;;&amp;; .  <a href="class_fbc_reaction_plugin.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_fbc_s_base_plugin.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_s_b_m_l_document_plugin.html">FbcSBMLDocumentPlugin</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . &amp;;&amp;; .  <a href="class_fbc_s_b_m_l_document_plugin.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_fbc_species_plugin.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_to_cobra_converter.html">FbcToCobraConverter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . 3 &amp;;&amp;; .  <a href="class_fbc_to_cobra_converter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_v1_to_v2_converter.html">FbcV1ToV2Converter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . &amp;;&amp;; 1 2  <a href="class_fbc_v1_to_v2_converter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_v2_to_v1_converter.html">FbcV2ToV1Converter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . &amp;;&amp;; 2 1  <a href="class_fbc_v2_to_v1_converter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_validator.html">FbcValidator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_fbc_validator.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_flux_bound.html">FluxBound</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_flux_bound.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_flux_objective.html">FluxObjective</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_flux_objective.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gene_association.html">GeneAssociation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . &amp;;&amp;; &amp;;1.  <a href="class_gene_association.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gene_product.html">GeneProduct</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ .  <a href="class_gene_product.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gene_product_association.html">GeneProductAssociation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ .  <a href="class_gene_product_association.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gene_product_ref.html">GeneProductRef</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ .  <a href="class_gene_product_ref.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_key_value_pair.html">KeyValuePair</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . : .  <a href="class_key_value_pair.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_list_of_fbc_associations.html">ListOfFbcAssociations</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_list_of_fbc_associations.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_list_of_flux_bounds.html">ListOfFluxBounds</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_list_of_flux_bounds.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_list_of_flux_objectives.html">ListOfFluxObjectives</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_list_of_flux_objectives.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_list_of_gene_associations.html">ListOfGeneAssociations</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_list_of_gene_associations.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_list_of_gene_products.html">ListOfGeneProducts</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_list_of_gene_products.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_list_of_key_value_pairs.html">ListOfKeyValuePairs</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . : .  <a href="class_list_of_key_value_pairs.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_list_of_objectives.html">ListOfObjectives</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_list_of_objectives.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_list_of_user_defined_constraint_components.html">ListOfUserDefinedConstraintComponents</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . : class.  <a href="class_list_of_user_defined_constraint_components.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_list_of_user_defined_constraints.html">ListOfUserDefinedConstraints</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . : .  <a href="class_list_of_user_defined_constraints.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_objective.html">Objective</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_objective.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_user_defined_constraint.html">UserDefinedConstraint</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . : .  <a href="class_user_defined_constraint.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_user_defined_constraint_component.html">UserDefinedConstraintComponent</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . : .  <a href="class_user_defined_constraint_component.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p> The libSBML &ldquo;fbc&rdquo; extension implements support for the SBML
+Level&nbsp;3 <em>Flux Balance Constraints</em> package.  It can be used in SBML Level&nbsp;3 Version&nbsp;1 and Version&nbsp;2 documents.
+
+<h2>Introduction</h2>
+
+<p> Constraint based modeling is a widely accepted methodology used to analyze
+and study biological networks on both a small and whole organism (genome)
+scale. Typically these models are underdetermined and constraint based
+methods (e.g. linear, quadratic optimization) are used to optimize specific
+model properties. This is assumed to occur under a defined set of constraints
+(e.g. stoichiometric, metabolic) and bounds (e.g. thermodynamic, experimental
+and environmental) on the values that the solution fluxes can obtain.
+
+<p> Perhaps the most well known (and widely used) analysis method is Flux
+Balance Analysis (FBA), which is performed on Genome Scale
+Reconstructions. When using FBA, a target flux is optimized (e.g., to
+maximize a flux to biomass or minimize ATP production) while other fluxes can
+be bounded to simulate a selected growth environment or specific metabolic
+state.
+
+<p> As constraint based models are generally underdetermined, i.e., few or
+none of the kinetic rate equations and related parameters are known, it is
+crucial that a model definition includes the ability to define optimization
+parameters such as objective functions, flux bounds and constraints.  This is
+not well-supported in SBML Level&nbsp;3 Core.  The question of how to best
+encode constraint-based models in SBML is not new.  However, advances in the
+methods used to construct genome scale constraint-based models and the wider
+adoption of constraint based modeling in biotechnological/medical
+applications have led to a rapid increase in both the number of models being
+constructed and the tools used to analyze them.
+
+<p> Faced with such growth, both in number and diversity, the need for a
+standardized data format for the definition, exchange and annotation of
+constraint based models has become critical. As the core model components
+(e.g., species, reactions, stoichiometry) can already be efficiently
+described in SBML, the Flux Balance Constraints (FBC) package is designed to
+extend SBML Level&nbsp;3 Core by adding the elements necessary to encode current
+and future constraint-based models.
+
+<p> In version 2 of this package, the ability to encode gene products and
+gene product references was added, and the encoding of flux bounds was modified
+to reference parameters, instead of holding directly-encoded values.
+
+<h2>Authors</h2>
+
+The primary authors of the SBML Level,&nbsp;3 Flux Balance Constraints package are Brett G. Olivier and Frank T. Bergmann.
+
+<h2>The specification for this SBML package</h2>
+
+<p style="color: #880000"> This API documentation for libSBML does not
+provide a complete explanation of the SBML Level&nbsp;3 Flux Balance
+Constraints (&ldquo;fbc&rdquo;) package.  If you are developing software
+that uses &ldquo;fbc&rdquo;, you are strongly urged to read the actual
+specification for the package.  A link to the specification document current
+is provided below, along with a link to the page of known issues (if any).
+
+<table border="0" class="centered text-table width80 normal-font alt-row-colors" style="padding-bottom: 0.5em">
+  <caption class="top-caption">Specification for SBML Level&nbsp;3 
+    Flux Balance Constraints, current at the time of this libSBML release
+    (5.19.7).  Note: an Internet connection is required to access
+    these documents.</caption>
+<tr>
+<th style="text-align: left">Specification (in PDF format)</th>
+<th style="text-align: left">Known issues</th>
+</tr>
+
+<tr><td>
+<a class="spec-link" target="_blank" href="http://identifiers.org/combine.specifications/sbml.level-3.version-1.fbc.version-1.release-1">
+  <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Flux Balance Constraints package, Version&nbsp;1 Release&nbsp;1</a>
+</td><td>
+<a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Flux_Balance_Constraints_%28flux%29/Confirmed_issues_in_the_Flux_Balance_Constraints_package_specification">
+  <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+</td></tr>
+<tr><td>
+<a class="spec-link" target="_blank" href="http://identifiers.org/combine.specifications/sbml.level-3.version-1.fbc.version-2.release-1">
+  <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Flux Balance Constraints package, Version&nbsp;2 Release&nbsp;1</a>
+</td><td>
+<a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Flux_Balance_Constraints_%28flux%29/Confirmed_issues_in_the_Flux_Balance_Constraints_package_specification">
+  <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+</td></tr>
+</table>
  </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for Doxygen -->

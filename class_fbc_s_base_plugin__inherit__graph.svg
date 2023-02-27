@@ -12,7 +12,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="@sbmlpackage{fbc}">
+<g id="a_node1"><a xlink:title="\ @ @ . .">
 <polygon fill="#bfbfbf" stroke="black" points="119,-56.5 119,-75.5 213,-75.5 213,-56.5 119,-56.5"/>
 <text text-anchor="middle" x="166" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcSBasePlugin</text>
 </a>
@@ -21,7 +21,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="class_fbc_model_plugin.html" target="_top" xlink:title="@sbmlpackage{fbc}">
+<g id="a_node3"><a xlink:href="class_fbc_model_plugin.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 94,-19.5 94,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="47" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcModelPlugin</text>
 </a>
@@ -36,7 +36,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="class_fbc_reaction_plugin.html" target="_top" xlink:title="@sbmlpackage{fbc}">
+<g id="a_node4"><a xlink:href="class_fbc_reaction_plugin.html" target="_top" xlink:title="\ @ @ . &amp;;&amp;; .">
 <polygon fill="white" stroke="black" points="112.5,-0.5 112.5,-19.5 219.5,-19.5 219.5,-0.5 112.5,-0.5"/>
 <text text-anchor="middle" x="166" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcReactionPlugin</text>
 </a>
@@ -51,7 +51,7 @@
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="class_fbc_species_plugin.html" target="_top" xlink:title="@sbmlpackage{fbc}">
+<g id="a_node5"><a xlink:href="class_fbc_species_plugin.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="237.5,-0.5 237.5,-19.5 338.5,-19.5 338.5,-0.5 237.5,-0.5"/>
 <text text-anchor="middle" x="288" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcSpeciesPlugin</text>
 </a>
@@ -66,7 +66,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_s_base_plugin.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node2"><a xlink:href="class_s_base_plugin.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="127.5,-112.5 127.5,-131.5 204.5,-131.5 204.5,-112.5 127.5,-112.5"/>
 <text text-anchor="middle" x="166" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBasePlugin</text>
 </a>

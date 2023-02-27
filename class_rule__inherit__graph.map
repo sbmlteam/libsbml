@@ -1,7 +1,7 @@
 <map id="Rule" name="Rule">
-<area shape="rect" id="node1" title="@sbmlpackage{core}" alt="" coords="180,80,231,107"/>
-<area shape="rect" id="node3" href="$class_algebraic_rule.html" title="@sbmlpackage{core}" alt="" coords="5,155,117,181"/>
-<area shape="rect" id="node4" href="$class_assignment_rule.html" title="@sbmlpackage{core}" alt="" coords="141,155,269,181"/>
-<area shape="rect" id="node5" href="$class_rate_rule.html" title="@sbmlpackage{core}" alt="" coords="294,155,375,181"/>
-<area shape="rect" id="node2" href="$class_s_base.html" title="@sbmlpackage{core}" alt="" coords="174,5,237,32"/>
+<area shape="rect" id="node1" title="\ @ @ . &lt;&gt;&lt;/&gt; ." alt="" coords="180,80,231,107"/>
+<area shape="rect" id="node3" href="$class_algebraic_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt;0 = (&lt;&gt;&lt;/&gt;)&lt;/&gt;." alt="" coords="5,155,117,181"/>
+<area shape="rect" id="node4" href="$class_assignment_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt; = (&lt;&gt;&lt;/&gt;)&lt;/&gt;." alt="" coords="141,155,269,181"/>
+<area shape="rect" id="node5" href="$class_rate_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt;/ = (&lt;&gt;&lt;/&gt;)&lt;/&gt;." alt="" coords="294,155,375,181"/>
+<area shape="rect" id="node2" href="$class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , ." alt="" coords="174,5,237,32"/>
 </map>

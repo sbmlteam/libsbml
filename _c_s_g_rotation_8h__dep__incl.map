@@ -1,0 +1,11 @@
+<map id="CSGRotation.h" name="CSGRotation.h">
+<area shape="rect" id="node1" title="Definition of the CSGRotation class." alt="" coords="493,5,609,32"/>
+<area shape="rect" id="node2" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="5,80,185,107"/>
+<area shape="rect" id="node4" href="$_c_s_g_node_8cpp.html" title="Implementation of the CSGNode class." alt="" coords="209,80,320,107"/>
+<area shape="rect" id="node5" href="$_c_s_g_object_8cpp.html" title="Implementation of the CSGObject class." alt="" coords="344,80,463,107"/>
+<area shape="rect" id="node6" href="$_c_s_g_rotation_8cpp.html" title="Implementation of the CSGRotation class." alt="" coords="486,80,617,107"/>
+<area shape="rect" id="node7" href="$_c_s_g_set_operator_8cpp.html" title="Implementation of the CSGSetOperator class." alt="" coords="641,80,795,107"/>
+<area shape="rect" id="node8" href="$_c_s_g_transformation_8cpp.html" title="Implementation of the CSGTransformation class." alt="" coords="819,80,993,107"/>
+<area shape="rect" id="node9" href="$_list_of_c_s_g_nodes_8cpp.html" title="Implementation of the ListOfCSGNodes class." alt="" coords="1018,80,1173,107"/>
+<area shape="rect" id="node3" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="20,155,171,181"/>
+</map>

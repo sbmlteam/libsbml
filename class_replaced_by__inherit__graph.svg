@@ -12,7 +12,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="@sbmlpackage{comp}">
+<g id="a_node1"><a xlink:title="\ @ @ . .">
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-19.5 74,-19.5 74,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="37" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">ReplacedBy</text>
 </a>
@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_replacing.html" target="_top" xlink:title="@sbmlpackage{comp}">
+<g id="a_node2"><a xlink:href="class_replacing.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="4.5,-56.5 4.5,-75.5 69.5,-75.5 69.5,-56.5 4.5,-56.5"/>
 <text text-anchor="middle" x="37" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">Replacing</text>
 </a>
@@ -36,7 +36,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="class_s_base_ref.html" target="_top" xlink:title="@sbmlpackage{comp}">
+<g id="a_node3"><a xlink:href="class_s_base_ref.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="5.5,-112.5 5.5,-131.5 68.5,-131.5 68.5,-112.5 5.5,-112.5"/>
 <text text-anchor="middle" x="37" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBaseRef</text>
 </a>
@@ -51,7 +51,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="class_comp_base.html" target="_top" xlink:title="@sbmlpackage{comp}">
+<g id="a_node4"><a xlink:href="class_comp_base.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="2.5,-168.5 2.5,-187.5 71.5,-187.5 71.5,-168.5 2.5,-168.5"/>
 <text text-anchor="middle" x="37" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">CompBase</text>
 </a>
@@ -66,7 +66,7 @@
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="class_s_base.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node5"><a xlink:href="class_s_base.html" target="_top" xlink:title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">
 <polygon fill="white" stroke="black" points="13.5,-224.5 13.5,-243.5 60.5,-243.5 60.5,-224.5 13.5,-224.5"/>
 <text text-anchor="middle" x="37" y="-231.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBase</text>
 </a>

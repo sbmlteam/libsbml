@@ -83,13 +83,115 @@ $(document).ready(function(){initNavTree('group__groups.html',''); initResizable
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
 <div class="title">Groups</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>  
-</p>
+<p><p> The libSBML &ldquo;groups&rdquo; extension implements support for the SBML Level&nbsp;3 <em>Groups</em> package.
+
+<h2>Introduction</h2>
+
+The SBML Level&nbsp;3 Groups package offers a more flexible mechanism for indicating that components of an SBML model are related in some way.  The nature of the relationship is left up to the modeler, and can be clarified by means of annotations on model components.  Groups may contain either the same or different types of SBML objects, and groups may be nested if desired.  There are no predefined behavioral semantics associated with groups.
+
+The term <em>groups</em> is used in this package rather than <em>types</em>, because the latter would imply stronger behavioral constraints on objects than what Groups provides. This package only provides a way of conceptually grouping components of a model.  It does not provide a way to define types in the computer science sense; therefore, a different term is appropriate.
+
+<h2>Authors</h2>
+
+The primary authors of the SBML Level&nbsp;3 Groups specification are Michael Hucka and Lucian P. Smith.
+
+<h2>The specification for this SBML package</h2>
+
+<p style="color: #880000"> This API documentation for libSBML does not provide a complete explanation of the SBML Level&nbsp;3 Groups package (whose nickname is also &ldquo;groups&rdquo;).  If you are developing software that uses &ldquo;groups&rdquo;, you are strongly urged to read the actual specification for the package.  A link to the specification document current is provided below, along with a link to the page of known issues (if any).
+
+<table border="0" class="centered text-table width80 normal-font alt-row-colors" style="padding-bottom: 0.5em">
+  <caption class="top-caption">Specification for SBML Level&nbsp;3 
+    Groups, current at the time of this libSBML release
+    (5.19.7).  Note: an Internet connection is required
+    to access these documents.</caption>
+<tr>
+<th style="text-align: left">Specification (in PDF format)</th>
+<th style="text-align: left">Known issues</th>
+</tr>
+
+<tr><td>
+
+<a class="spec-link" target="_blank" href="http://identifiers.org/combine.specifications/sbml.level-3.version-1.groups.version-1.release-1"> <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Groups package, Version&nbsp;1 Release&nbsp;1</a> </td><td>
+
+<a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Groups/Confirmed_issues_in_the_Groups_package_specification"> <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+
+</td></tr>
+</table>
+  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_group.html">Group</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_group.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_groups_extension.html">GroupsExtension</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_groups_extension.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_groups_model_plugin.html">GroupsModelPlugin</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_groups_model_plugin.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_groups_pkg_namespaces.html">GroupsPkgNamespaces</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_groups_pkg_namespaces.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_groups_s_b_m_l_document_plugin.html">GroupsSBMLDocumentPlugin</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_groups_s_b_m_l_document_plugin.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_groups_validator.html">GroupsValidator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . &amp;;&amp;; .  <a href="class_groups_validator.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_list_of_groups.html">ListOfGroups</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_list_of_groups.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_list_of_members.html">ListOfMembers</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_list_of_members.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_member.html">Member</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . a <a class="el" href="class_group.html" title="\ @ @ . .">Group</a>.  <a href="class_member.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p> The libSBML &ldquo;groups&rdquo; extension implements support for the SBML Level&nbsp;3 <em>Groups</em> package.
+
+<h2>Introduction</h2>
+
+The SBML Level&nbsp;3 Groups package offers a more flexible mechanism for indicating that components of an SBML model are related in some way.  The nature of the relationship is left up to the modeler, and can be clarified by means of annotations on model components.  Groups may contain either the same or different types of SBML objects, and groups may be nested if desired.  There are no predefined behavioral semantics associated with groups.
+
+The term <em>groups</em> is used in this package rather than <em>types</em>, because the latter would imply stronger behavioral constraints on objects than what Groups provides. This package only provides a way of conceptually grouping components of a model.  It does not provide a way to define types in the computer science sense; therefore, a different term is appropriate.
+
+<h2>Authors</h2>
+
+The primary authors of the SBML Level&nbsp;3 Groups specification are Michael Hucka and Lucian P. Smith.
+
+<h2>The specification for this SBML package</h2>
+
+<p style="color: #880000"> This API documentation for libSBML does not provide a complete explanation of the SBML Level&nbsp;3 Groups package (whose nickname is also &ldquo;groups&rdquo;).  If you are developing software that uses &ldquo;groups&rdquo;, you are strongly urged to read the actual specification for the package.  A link to the specification document current is provided below, along with a link to the page of known issues (if any).
+
+<table border="0" class="centered text-table width80 normal-font alt-row-colors" style="padding-bottom: 0.5em">
+  <caption class="top-caption">Specification for SBML Level&nbsp;3 
+    Groups, current at the time of this libSBML release
+    (5.19.7).  Note: an Internet connection is required
+    to access these documents.</caption>
+<tr>
+<th style="text-align: left">Specification (in PDF format)</th>
+<th style="text-align: left">Known issues</th>
+</tr>
+
+<tr><td>
+
+<a class="spec-link" target="_blank" href="http://identifiers.org/combine.specifications/sbml.level-3.version-1.groups.version-1.release-1"> <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Groups package, Version&nbsp;1 Release&nbsp;1</a> </td><td>
+
+<a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Groups/Confirmed_issues_in_the_Groups_package_specification"> <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+
+</td></tr>
+</table>
  </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for Doxygen -->

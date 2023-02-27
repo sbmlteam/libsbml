@@ -1,6 +1,5 @@
 var _qual_extension_8h =
 [
-    [ "QualExtension", "class_qual_extension.html", "class_qual_extension" ],
     [ "QUAL_CREATE_NS", "_qual_extension_8h.html#a277cdb66c93abe0dfbecb773793d85a9", null ],
     [ "QualPkgNamespaces", "_qual_extension_8h.html#a8f57ec7714cd67a89f467b462ac360b0", null ],
     [ "SBMLQualTypeCode_t", "_qual_extension_8h.html#a117e637b035f3c2c4f291518b1a059ae", [

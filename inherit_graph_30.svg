@@ -12,7 +12,7 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="class_s_b_m_l_converter.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node1"><a xlink:href="class_s_b_m_l_converter.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="0,-342.5 0,-361.5 92,-361.5 92,-342.5 0,-342.5"/>
 <text text-anchor="middle" x="46" y="-349.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLConverter</text>
 </a>
@@ -21,7 +21,7 @@
 <!-- Node1 -->
 <g id="node2" class="node">
 <title>Node1</title>
-<g id="a_node2"><a xlink:href="class_cobra_to_fbc_converter.html" target="_top" xlink:title="@sbmlpackage{fbc}">
+<g id="a_node2"><a xlink:href="class_cobra_to_fbc_converter.html" target="_top" xlink:title="\ @ @ . 3 &amp;;&amp;; .">
 <polygon fill="white" stroke="black" points="157.5,-684.5 157.5,-703.5 278.5,-703.5 278.5,-684.5 157.5,-684.5"/>
 <text text-anchor="middle" x="218" y="-691.5" font-family="Helvetica,sans-Serif" font-size="10.00">CobraToFbcConverter</text>
 </a>
@@ -36,7 +36,7 @@
 <!-- Node2 -->
 <g id="node3" class="node">
 <title>Node2</title>
-<g id="a_node3"><a xlink:href="class_comp_flattening_converter.html" target="_top" xlink:title="@sbmlpackage{comp}">
+<g id="a_node3"><a xlink:href="class_comp_flattening_converter.html" target="_top" xlink:title="\ @ @ . &quot;&quot; , .">
 <polygon fill="white" stroke="black" points="146.5,-646.5 146.5,-665.5 289.5,-665.5 289.5,-646.5 146.5,-646.5"/>
 <text text-anchor="middle" x="218" y="-653.5" font-family="Helvetica,sans-Serif" font-size="10.00">CompFlatteningConverter</text>
 </a>
@@ -51,7 +51,7 @@
 <!-- Node3 -->
 <g id="node4" class="node">
 <title>Node3</title>
-<g id="a_node4"><a xlink:href="class_fbc_to_cobra_converter.html" target="_top" xlink:title="@sbmlpackage{fbc}">
+<g id="a_node4"><a xlink:href="class_fbc_to_cobra_converter.html" target="_top" xlink:title="\ @ @ . 3 &amp;;&amp;; .">
 <polygon fill="white" stroke="black" points="157.5,-608.5 157.5,-627.5 278.5,-627.5 278.5,-608.5 157.5,-608.5"/>
 <text text-anchor="middle" x="218" y="-615.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcToCobraConverter</text>
 </a>
@@ -66,7 +66,7 @@
 <!-- Node4 -->
 <g id="node5" class="node">
 <title>Node4</title>
-<g id="a_node5"><a xlink:href="class_fbc_v1_to_v2_converter.html" target="_top" xlink:title="@sbmlpackage{fbc}">
+<g id="a_node5"><a xlink:href="class_fbc_v1_to_v2_converter.html" target="_top" xlink:title="\ @ @ . &amp;;&amp;; 1 2">
 <polygon fill="white" stroke="black" points="159,-570.5 159,-589.5 277,-589.5 277,-570.5 159,-570.5"/>
 <text text-anchor="middle" x="218" y="-577.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcV1ToV2Converter</text>
 </a>
@@ -81,7 +81,7 @@
 <!-- Node5 -->
 <g id="node6" class="node">
 <title>Node5</title>
-<g id="a_node6"><a xlink:href="class_fbc_v2_to_v1_converter.html" target="_top" xlink:title="@sbmlpackage{fbc}">
+<g id="a_node6"><a xlink:href="class_fbc_v2_to_v1_converter.html" target="_top" xlink:title="\ @ @ . &amp;;&amp;; 2 1">
 <polygon fill="white" stroke="black" points="159,-532.5 159,-551.5 277,-551.5 277,-532.5 159,-532.5"/>
 <text text-anchor="middle" x="218" y="-539.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcV2ToV1Converter</text>
 </a>
@@ -96,7 +96,7 @@
 <!-- Node6 -->
 <g id="node7" class="node">
 <title>Node6</title>
-<g id="a_node7"><a xlink:href="class_render_layout_converter.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node7"><a xlink:href="class_render_layout_converter.html" target="_top" xlink:title="\ @ @ . between the Level 3 package version and the Level 2 annotation version.">
 <polygon fill="white" stroke="black" points="152,-494.5 152,-513.5 284,-513.5 284,-494.5 152,-494.5"/>
 <text text-anchor="middle" x="218" y="-501.5" font-family="Helvetica,sans-Serif" font-size="10.00">RenderLayoutConverter</text>
 </a>
@@ -111,7 +111,7 @@
 <!-- Node7 -->
 <g id="node8" class="node">
 <title>Node7</title>
-<g id="a_node8"><a xlink:href="class_s_b_m_l_function_definition_converter.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node8"><a xlink:href="class_s_b_m_l_function_definition_converter.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="128,-456.5 128,-475.5 308,-475.5 308,-456.5 128,-456.5"/>
 <text text-anchor="middle" x="218" y="-463.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLFunctionDefinitionConverter</text>
 </a>
@@ -126,7 +126,7 @@
 <!-- Node8 -->
 <g id="node9" class="node">
 <title>Node8</title>
-<g id="a_node9"><a xlink:href="class_s_b_m_l_id_converter.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node9"><a xlink:href="class_s_b_m_l_id_converter.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="167.5,-418.5 167.5,-437.5 268.5,-437.5 268.5,-418.5 167.5,-418.5"/>
 <text text-anchor="middle" x="218" y="-425.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLIdConverter</text>
 </a>
@@ -141,7 +141,7 @@
 <!-- Node9 -->
 <g id="node10" class="node">
 <title>Node9</title>
-<g id="a_node10"><a xlink:href="class_s_b_m_l_infer_units_converter.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node10"><a xlink:href="class_s_b_m_l_infer_units_converter.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="148,-380.5 148,-399.5 288,-399.5 288,-380.5 148,-380.5"/>
 <text text-anchor="middle" x="218" y="-387.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLInferUnitsConverter</text>
 </a>
@@ -156,7 +156,7 @@
 <!-- Node10 -->
 <g id="node11" class="node">
 <title>Node10</title>
-<g id="a_node11"><a xlink:href="class_s_b_m_l_initial_assignment_converter.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node11"><a xlink:href="class_s_b_m_l_initial_assignment_converter.html" target="_top" xlink:title="\ @ @ . &lt;&gt; &lt;/&gt;.">
 <polygon fill="white" stroke="black" points="129.5,-342.5 129.5,-361.5 306.5,-361.5 306.5,-342.5 129.5,-342.5"/>
 <text text-anchor="middle" x="218" y="-349.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLInitialAssignmentConverter</text>
 </a>
@@ -171,7 +171,7 @@
 <!-- Node11 -->
 <g id="node12" class="node">
 <title>Node11</title>
-<g id="a_node12"><a xlink:href="class_s_b_m_l_level1_version1_converter.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node12"><a xlink:href="class_s_b_m_l_level1_version1_converter.html" target="_top" xlink:title="\ @ @ . / .">
 <polygon fill="white" stroke="black" points="135,-304.5 135,-323.5 301,-323.5 301,-304.5 135,-304.5"/>
 <text text-anchor="middle" x="218" y="-311.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLLevel1Version1Converter</text>
 </a>
@@ -186,7 +186,7 @@
 <!-- Node12 -->
 <g id="node13" class="node">
 <title>Node12</title>
-<g id="a_node13"><a xlink:href="class_s_b_m_l_level_version_converter.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node13"><a xlink:href="class_s_b_m_l_level_version_converter.html" target="_top" xlink:title="\ @ @ . / .">
 <polygon fill="white" stroke="black" points="141,-266.5 141,-285.5 295,-285.5 295,-266.5 141,-266.5"/>
 <text text-anchor="middle" x="218" y="-273.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLLevelVersionConverter</text>
 </a>
@@ -201,7 +201,7 @@
 <!-- Node13 -->
 <g id="node14" class="node">
 <title>Node13</title>
-<g id="a_node14"><a xlink:href="class_s_b_m_l_local_parameter_converter.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node14"><a xlink:href="class_s_b_m_l_local_parameter_converter.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="134.5,-228.5 134.5,-247.5 301.5,-247.5 301.5,-228.5 134.5,-228.5"/>
 <text text-anchor="middle" x="218" y="-235.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLLocalParameterConverter</text>
 </a>
@@ -216,7 +216,7 @@
 <!-- Node14 -->
 <g id="node15" class="node">
 <title>Node14</title>
-<g id="a_node15"><a xlink:href="class_s_b_m_l_rate_of_converter.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node15"><a xlink:href="class_s_b_m_l_rate_of_converter.html" target="_top" xlink:title="\ @ @ . &#39;&#39; .">
 <polygon fill="white" stroke="black" points="155.5,-190.5 155.5,-209.5 280.5,-209.5 280.5,-190.5 155.5,-190.5"/>
 <text text-anchor="middle" x="218" y="-197.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLRateOfConverter</text>
 </a>
@@ -231,7 +231,7 @@
 <!-- Node15 -->
 <g id="node16" class="node">
 <title>Node15</title>
-<g id="a_node16"><a xlink:href="class_s_b_m_l_rate_rule_converter.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node16"><a xlink:href="class_s_b_m_l_rate_rule_converter.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="150,-152.5 150,-171.5 286,-171.5 286,-152.5 150,-152.5"/>
 <text text-anchor="middle" x="218" y="-159.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLRateRuleConverter</text>
 </a>
@@ -246,7 +246,7 @@
 <!-- Node16 -->
 <g id="node17" class="node">
 <title>Node16</title>
-<g id="a_node17"><a xlink:href="class_s_b_m_l_reaction_converter.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node17"><a xlink:href="class_s_b_m_l_reaction_converter.html" target="_top" xlink:title="\ @ @ . &lt;&gt; &lt;/&gt;.">
 <polygon fill="white" stroke="black" points="151,-114.5 151,-133.5 285,-133.5 285,-114.5 151,-114.5"/>
 <text text-anchor="middle" x="218" y="-121.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLReactionConverter</text>
 </a>
@@ -261,7 +261,7 @@
 <!-- Node17 -->
 <g id="node18" class="node">
 <title>Node17</title>
-<g id="a_node18"><a xlink:href="class_s_b_m_l_rule_converter.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node18"><a xlink:href="class_s_b_m_l_rule_converter.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="161.5,-76.5 161.5,-95.5 274.5,-95.5 274.5,-76.5 161.5,-76.5"/>
 <text text-anchor="middle" x="218" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLRuleConverter</text>
 </a>
@@ -276,7 +276,7 @@
 <!-- Node18 -->
 <g id="node19" class="node">
 <title>Node18</title>
-<g id="a_node19"><a xlink:href="class_s_b_m_l_strip_package_converter.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node19"><a xlink:href="class_s_b_m_l_strip_package_converter.html" target="_top" xlink:title="\ @ @ . 3 .">
 <polygon fill="white" stroke="black" points="141,-38.5 141,-57.5 295,-57.5 295,-38.5 141,-38.5"/>
 <text text-anchor="middle" x="218" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLStripPackageConverter</text>
 </a>
@@ -291,7 +291,7 @@
 <!-- Node19 -->
 <g id="node20" class="node">
 <title>Node19</title>
-<g id="a_node20"><a xlink:href="class_s_b_m_l_units_converter.html" target="_top" xlink:title="@sbmlpackage{core}">
+<g id="a_node20"><a xlink:href="class_s_b_m_l_units_converter.html" target="_top" xlink:title="\ @ @ . &#39; .">
 <polygon fill="white" stroke="black" points="159.5,-0.5 159.5,-19.5 276.5,-19.5 276.5,-0.5 159.5,-0.5"/>
 <text text-anchor="middle" x="218" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLUnitsConverter</text>
 </a>

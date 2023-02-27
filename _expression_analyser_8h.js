@@ -1,6 +1,5 @@
 var _expression_analyser_8h =
 [
-    [ "ExpressionAnalyser", "class_expression_analyser.html", "class_expression_analyser" ],
     [ "SubstitutionValues_t", "struct_substitution_values__t.html", "struct_substitution_values__t" ],
     [ "ExpressionType_t", "_expression_analyser_8h.html#ad1c5e2fa4c0ed8ded6aeaddee41cf6b9", [
       [ "TYPE_K_MINUS_X_MINUS_Y", "_expression_analyser_8h.html#ad1c5e2fa4c0ed8ded6aeaddee41cf6b9a276e4e4a40665b4962c6341ed260ada0", null ],

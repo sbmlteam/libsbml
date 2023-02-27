@@ -1,12 +1,12 @@
 <map id="CompBase" name="CompBase">
-<area shape="rect" id="node1" title="@sbmlpackage{comp}" alt="" coords="205,80,297,107"/>
-<area shape="rect" id="node3" href="$class_external_model_definition.html" title="@sbmlpackage{comp}" alt="" coords="5,155,184,181"/>
-<area shape="rect" id="node4" href="$class_s_base_ref.html" title="@sbmlpackage{comp}" alt="" coords="209,155,293,181"/>
-<area shape="rect" id="node10" href="$class_submodel.html" title="@sbmlpackage{comp}" alt="" coords="317,155,403,181"/>
-<area shape="rect" id="node2" href="$class_s_base.html" title="@sbmlpackage{core}" alt="" coords="219,5,282,32"/>
-<area shape="rect" id="node5" href="$class_deletion.html" title="@sbmlpackage{comp}" alt="" coords="125,229,203,256"/>
-<area shape="rect" id="node6" href="$class_port.html" title="@sbmlpackage{comp}" alt="" coords="227,229,275,256"/>
-<area shape="rect" id="node7" href="$class_replacing.html" title="@sbmlpackage{comp}" alt="" coords="299,229,386,256"/>
-<area shape="rect" id="node8" href="$class_replaced_by.html" title="@sbmlpackage{comp}" alt="" coords="223,304,321,331"/>
-<area shape="rect" id="node9" href="$class_replaced_element.html" title="@sbmlpackage{comp}" alt="" coords="345,304,481,331"/>
+<area shape="rect" id="node1" title="\ @ @ . ." alt="" coords="205,80,297,107"/>
+<area shape="rect" id="node3" href="$class_external_model_definition.html" title="\ @ @ . ." alt="" coords="5,155,184,181"/>
+<area shape="rect" id="node4" href="$class_s_base_ref.html" title="\ @ @ . ." alt="" coords="209,155,293,181"/>
+<area shape="rect" id="node10" href="$class_submodel.html" title="\ @ @ . ." alt="" coords="317,155,403,181"/>
+<area shape="rect" id="node2" href="$class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , ." alt="" coords="219,5,282,32"/>
+<area shape="rect" id="node5" href="$class_deletion.html" title="\ @ @ . % ." alt="" coords="125,229,203,256"/>
+<area shape="rect" id="node6" href="$class_port.html" title="\ @ @ . ." alt="" coords="227,229,275,256"/>
+<area shape="rect" id="node7" href="$class_replacing.html" title="\ @ @ . ." alt="" coords="299,229,386,256"/>
+<area shape="rect" id="node8" href="$class_replaced_by.html" title="\ @ @ . ." alt="" coords="223,304,321,331"/>
+<area shape="rect" id="node9" href="$class_replaced_element.html" title="\ @ @ . ." alt="" coords="345,304,481,331"/>
 </map>

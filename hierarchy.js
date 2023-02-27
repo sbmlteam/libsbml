@@ -37,8 +37,24 @@ var hierarchy =
     [ "RelAbsVector", "class_rel_abs_vector.html", null ],
     [ "RenderPkgNamespaces", "class_render_pkg_namespaces.html", null ],
     [ "SBase", "class_s_base.html", [
+      [ "AdjacentDomains", "class_adjacent_domains.html", null ],
+      [ "AdvectionCoefficient", "class_advection_coefficient.html", null ],
+      [ "AnalyticVolume", "class_analytic_volume.html", null ],
       [ "Association", "class_association.html", null ],
+      [ "Boundary", "class_boundary.html", null ],
+      [ "BoundaryCondition", "class_boundary_condition.html", null ],
       [ "BoundingBox", "class_bounding_box.html", null ],
+      [ "CSGNode", "class_c_s_g_node.html", [
+        [ "CSGPrimitive", "class_c_s_g_primitive.html", null ],
+        [ "CSGSetOperator", "class_c_s_g_set_operator.html", null ],
+        [ "CSGTransformation", "class_c_s_g_transformation.html", [
+          [ "CSGHomogeneousTransformation", "class_c_s_g_homogeneous_transformation.html", null ],
+          [ "CSGRotation", "class_c_s_g_rotation.html", null ],
+          [ "CSGScale", "class_c_s_g_scale.html", null ],
+          [ "CSGTranslation", "class_c_s_g_translation.html", null ]
+        ] ]
+      ] ],
+      [ "CSGObject", "class_c_s_g_object.html", null ],
       [ "ColorDefinition", "class_color_definition.html", null ],
       [ "CompBase", "class_comp_base.html", [
         [ "ExternalModelDefinition", "class_external_model_definition.html", null ],
@@ -53,14 +69,19 @@ var hierarchy =
         [ "Submodel", "class_submodel.html", null ]
       ] ],
       [ "Compartment", "class_compartment.html", null ],
+      [ "CompartmentMapping", "class_compartment_mapping.html", null ],
       [ "CompartmentReference", "class_compartment_reference.html", null ],
       [ "CompartmentType", "class_compartment_type.html", null ],
       [ "Constraint", "class_constraint.html", null ],
+      [ "CoordinateComponent", "class_coordinate_component.html", null ],
       [ "Curve", "class_curve.html", null ],
       [ "DefaultTerm", "class_default_term.html", null ],
       [ "DefaultValues", "class_default_values.html", null ],
       [ "Delay", "class_delay.html", null ],
+      [ "DiffusionCoefficient", "class_diffusion_coefficient.html", null ],
       [ "Dimensions", "class_dimensions.html", null ],
+      [ "Domain", "class_domain.html", null ],
+      [ "DomainType", "class_domain_type.html", null ],
       [ "Event", "class_event.html", null ],
       [ "EventAssignment", "class_event_assignment.html", null ],
       [ "FbcAssociation", "class_fbc_association.html", [
@@ -75,6 +96,14 @@ var hierarchy =
       [ "GeneAssociation", "class_gene_association.html", null ],
       [ "GeneProduct", "class_gene_product.html", null ],
       [ "GeneProductAssociation", "class_gene_product_association.html", null ],
+      [ "Geometry", "class_geometry.html", null ],
+      [ "GeometryDefinition", "class_geometry_definition.html", [
+        [ "AnalyticGeometry", "class_analytic_geometry.html", null ],
+        [ "CSGeometry", "class_c_s_geometry.html", null ],
+        [ "MixedGeometry", "class_mixed_geometry.html", null ],
+        [ "ParametricGeometry", "class_parametric_geometry.html", null ],
+        [ "SampledFieldGeometry", "class_sampled_field_geometry.html", null ]
+      ] ],
       [ "GradientBase", "class_gradient_base.html", [
         [ "LinearGradient", "class_linear_gradient.html", null ],
         [ "RadialGradient", "class_radial_gradient.html", null ]
@@ -93,6 +122,7 @@ var hierarchy =
       [ "InSpeciesTypeBond", "class_in_species_type_bond.html", null ],
       [ "InitialAssignment", "class_initial_assignment.html", null ],
       [ "Input", "class_input.html", null ],
+      [ "InteriorPoint", "class_interior_point.html", null ],
       [ "KeyValuePair", "class_key_value_pair.html", null ],
       [ "KineticLaw", "class_kinetic_law.html", null ],
       [ "Layout", "class_layout.html", null ],
@@ -100,14 +130,21 @@ var hierarchy =
         [ "CubicBezier", "class_cubic_bezier.html", null ]
       ] ],
       [ "ListOf", "class_list_of.html", [
+        [ "ListOfAdjacentDomains", "class_list_of_adjacent_domains.html", null ],
+        [ "ListOfAnalyticVolumes", "class_list_of_analytic_volumes.html", null ],
+        [ "ListOfCSGNodes", "class_list_of_c_s_g_nodes.html", null ],
+        [ "ListOfCSGObjects", "class_list_of_c_s_g_objects.html", null ],
         [ "ListOfColorDefinitions", "class_list_of_color_definitions.html", null ],
         [ "ListOfCompartmentGlyphs", "class_list_of_compartment_glyphs.html", null ],
         [ "ListOfCompartmentReferences", "class_list_of_compartment_references.html", null ],
         [ "ListOfCompartmentTypes", "class_list_of_compartment_types.html", null ],
         [ "ListOfCompartments", "class_list_of_compartments.html", null ],
         [ "ListOfConstraints", "class_list_of_constraints.html", null ],
+        [ "ListOfCoordinateComponents", "class_list_of_coordinate_components.html", null ],
         [ "ListOfCurveElements", "class_list_of_curve_elements.html", null ],
         [ "ListOfDeletions", "class_list_of_deletions.html", null ],
+        [ "ListOfDomainTypes", "class_list_of_domain_types.html", null ],
+        [ "ListOfDomains", "class_list_of_domains.html", null ],
         [ "ListOfDrawables", "class_list_of_drawables.html", null ],
         [ "ListOfEventAssignments", "class_list_of_event_assignments.html", null ],
         [ "ListOfEvents", "class_list_of_events.html", null ],
@@ -119,6 +156,7 @@ var hierarchy =
         [ "ListOfFunctionTerms", "class_list_of_function_terms.html", null ],
         [ "ListOfGeneAssociations", "class_list_of_gene_associations.html", null ],
         [ "ListOfGeneProducts", "class_list_of_gene_products.html", null ],
+        [ "ListOfGeometryDefinitions", "class_list_of_geometry_definitions.html", null ],
         [ "ListOfGlobalRenderInformation", "class_list_of_global_render_information.html", null ],
         [ "ListOfGlobalStyles", "class_list_of_global_styles.html", null ],
         [ "ListOfGradientDefinitions", "class_list_of_gradient_definitions.html", null ],
@@ -128,6 +166,7 @@ var hierarchy =
         [ "ListOfInSpeciesTypeBonds", "class_list_of_in_species_type_bonds.html", null ],
         [ "ListOfInitialAssignments", "class_list_of_initial_assignments.html", null ],
         [ "ListOfInputs", "class_list_of_inputs.html", null ],
+        [ "ListOfInteriorPoints", "class_list_of_interior_points.html", null ],
         [ "ListOfKeyValuePairs", "class_list_of_key_value_pairs.html", null ],
         [ "ListOfLayouts", "class_list_of_layouts.html", null ],
         [ "ListOfLineEndings", "class_list_of_line_endings.html", null ],
@@ -138,11 +177,13 @@ var hierarchy =
         [ "ListOfModelDefinitions", "class_list_of_model_definitions.html", null ],
         [ "ListOfMultiSpeciesTypes", "class_list_of_multi_species_types.html", null ],
         [ "ListOfObjectives", "class_list_of_objectives.html", null ],
+        [ "ListOfOrdinalMappings", "class_list_of_ordinal_mappings.html", null ],
         [ "ListOfOutputs", "class_list_of_outputs.html", null ],
         [ "ListOfOutwardBindingSites", "class_list_of_outward_binding_sites.html", null ],
         [ "ListOfParameters", "class_list_of_parameters.html", [
           [ "ListOfLocalParameters", "class_list_of_local_parameters.html", null ]
         ] ],
+        [ "ListOfParametricObjects", "class_list_of_parametric_objects.html", null ],
         [ "ListOfPorts", "class_list_of_ports.html", null ],
         [ "ListOfPossibleSpeciesFeatureValues", "class_list_of_possible_species_feature_values.html", null ],
         [ "ListOfQualitativeSpecies", "class_list_of_qualitative_species.html", null ],
@@ -151,6 +192,8 @@ var hierarchy =
         [ "ListOfReferenceGlyphs", "class_list_of_reference_glyphs.html", null ],
         [ "ListOfReplacedElements", "class_list_of_replaced_elements.html", null ],
         [ "ListOfRules", "class_list_of_rules.html", null ],
+        [ "ListOfSampledFields", "class_list_of_sampled_fields.html", null ],
+        [ "ListOfSampledVolumes", "class_list_of_sampled_volumes.html", null ],
         [ "ListOfSpecies", "class_list_of_species.html", null ],
         [ "ListOfSpeciesFeatureTypes", "class_list_of_species_feature_types.html", null ],
         [ "ListOfSpeciesFeatureValues", "class_list_of_species_feature_values.html", null ],
@@ -179,11 +222,13 @@ var hierarchy =
         [ "BindingSiteSpeciesType", "class_binding_site_species_type.html", null ]
       ] ],
       [ "Objective", "class_objective.html", null ],
+      [ "OrdinalMapping", "class_ordinal_mapping.html", null ],
       [ "Output", "class_output.html", null ],
       [ "OutwardBindingSite", "class_outward_binding_site.html", null ],
       [ "Parameter", "class_parameter.html", [
         [ "LocalParameter", "class_local_parameter.html", null ]
       ] ],
+      [ "ParametricObject", "class_parametric_object.html", null ],
       [ "Point", "class_point.html", null ],
       [ "PossibleSpeciesFeatureValue", "class_possible_species_feature_value.html", null ],
       [ "Priority", "class_priority.html", null ],
@@ -204,10 +249,14 @@ var hierarchy =
         [ "RateRule", "class_rate_rule.html", null ]
       ] ],
       [ "SBMLDocument", "class_s_b_m_l_document.html", null ],
+      [ "SampledField", "class_sampled_field.html", null ],
+      [ "SampledVolume", "class_sampled_volume.html", null ],
       [ "SimpleSpeciesReference", "class_simple_species_reference.html", [
         [ "ModifierSpeciesReference", "class_modifier_species_reference.html", null ],
         [ "SpeciesReference", "class_species_reference.html", null ]
       ] ],
+      [ "SpatialPoints", "class_spatial_points.html", null ],
+      [ "SpatialSymbolReference", "class_spatial_symbol_reference.html", null ],
       [ "Species", "class_species.html", null ],
       [ "SpeciesFeature", "class_species_feature.html", null ],
       [ "SpeciesFeatureType", "class_species_feature_type.html", null ],
@@ -237,6 +286,7 @@ var hierarchy =
           [ "Image", "class_image.html", null ]
         ] ]
       ] ],
+      [ "TransformationComponent", "class_transformation_component.html", null ],
       [ "Transition", "class_transition.html", null ],
       [ "Trigger", "class_trigger.html", null ],
       [ "Unit", "class_unit.html", null ],
@@ -276,8 +326,14 @@ var hierarchy =
         [ "MultiSBMLDocumentPlugin", "class_multi_s_b_m_l_document_plugin.html", null ],
         [ "QualSBMLDocumentPlugin", "class_qual_s_b_m_l_document_plugin.html", null ],
         [ "RenderSBMLDocumentPlugin", "class_render_s_b_m_l_document_plugin.html", null ],
-        [ "SBMLDocumentPluginNotRequired", "class_s_b_m_l_document_plugin_not_required.html", null ]
-      ] ]
+        [ "SBMLDocumentPluginNotRequired", "class_s_b_m_l_document_plugin_not_required.html", null ],
+        [ "SpatialSBMLDocumentPlugin", "class_spatial_s_b_m_l_document_plugin.html", null ]
+      ] ],
+      [ "SpatialCompartmentPlugin", "class_spatial_compartment_plugin.html", null ],
+      [ "SpatialModelPlugin", "class_spatial_model_plugin.html", null ],
+      [ "SpatialParameterPlugin", "class_spatial_parameter_plugin.html", null ],
+      [ "SpatialReactionPlugin", "class_spatial_reaction_plugin.html", null ],
+      [ "SpatialSpeciesPlugin", "class_spatial_species_plugin.html", null ]
     ] ],
     [ "SBasePluginCreatorBase", "class_s_base_plugin_creator_base.html", [
       [ "SBasePluginCreator< SBasePluginType, SBMLExtensionType >", "class_s_base_plugin_creator.html", null ]
@@ -312,7 +368,8 @@ var hierarchy =
       [ "LayoutExtension", "class_layout_extension.html", null ],
       [ "MultiExtension", "class_multi_extension.html", null ],
       [ "QualExtension", "class_qual_extension.html", null ],
-      [ "RenderExtension", "class_render_extension.html", null ]
+      [ "RenderExtension", "class_render_extension.html", null ],
+      [ "SpatialExtension", "class_spatial_extension.html", null ]
     ] ],
     [ "SBMLExtensionRegister< SBMLExtensionType >", "class_s_b_m_l_extension_register.html", null ],
     [ "SBMLExtensionRegistry", "class_s_b_m_l_extension_registry.html", null ],
@@ -331,6 +388,7 @@ var hierarchy =
     [ "SBMLVisitor", "class_s_b_m_l_visitor.html", null ],
     [ "SBMLWriter", "class_s_b_m_l_writer.html", null ],
     [ "SBO", "class_s_b_o.html", null ],
+    [ "SpatialPkgNamespaces", "class_spatial_pkg_namespaces.html", null ],
     [ "SubstitutionValues_t", "struct_substitution_values__t.html", null ],
     [ "SyntaxChecker", "class_syntax_checker.html", null ],
     [ "Token_t", "struct_token__t.html", null ],
@@ -341,7 +399,8 @@ var hierarchy =
       [ "LayoutValidator", "class_layout_validator.html", null ],
       [ "MultiValidator", "class_multi_validator.html", null ],
       [ "QualValidator", "class_qual_validator.html", null ],
-      [ "RenderValidator", "class_render_validator.html", null ]
+      [ "RenderValidator", "class_render_validator.html", null ],
+      [ "SpatialValidator", "class_spatial_validator.html", null ]
     ] ],
     [ "VConstraint", "class_v_constraint.html", null ],
     [ "XMLAttributes", "class_x_m_l_attributes.html", null ],

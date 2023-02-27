@@ -1,6 +1,5 @@
 var _s_b_m_l_error_8h =
 [
-    [ "SBMLError", "class_s_b_m_l_error.html", "class_s_b_m_l_error" ],
     [ "SBMLErrorCategory_t", "_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187", [
       [ "LIBSBML_CAT_SBML", "_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187aca66ca7d0bb7a579a2339739fbd7b2d1", null ],
       [ "LIBSBML_CAT_SBML_L1_COMPAT", "_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187ac42322b69d50e4cbac0c697ee721b733", null ],

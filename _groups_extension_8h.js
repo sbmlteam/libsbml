@@ -1,6 +1,5 @@
 var _groups_extension_8h =
 [
-    [ "GroupsExtension", "class_groups_extension.html", "class_groups_extension" ],
     [ "GROUPS_CREATE_NS", "_groups_extension_8h.html#a7666abc43b2dbf9471f93d66dac6472a", null ],
     [ "GroupsPkgNamespaces", "_groups_extension_8h.html#adee9b080ccff4167ff881364bd7aa902", null ],
     [ "GroupKind_t", "_groups_extension_8h.html#a694e53b03766f3518893708f3167a384", [

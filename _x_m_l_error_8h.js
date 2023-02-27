@@ -1,6 +1,5 @@
 var _x_m_l_error_8h =
 [
-    [ "XMLError", "class_x_m_l_error.html", "class_x_m_l_error" ],
     [ "XMLErrorCategory_t", "_x_m_l_error_8h.html#a8bd887250dc4e0fe8e4ff95d68b3fbf0", [
       [ "LIBSBML_CAT_INTERNAL", "_x_m_l_error_8h.html#a8bd887250dc4e0fe8e4ff95d68b3fbf0acd305c87f2b8d6ec9dda10ba3f67c933", null ],
       [ "LIBSBML_CAT_SYSTEM", "_x_m_l_error_8h.html#a8bd887250dc4e0fe8e4ff95d68b3fbf0aa562af75a498e1655df6e843453d1744", null ],
