@@ -1,7 +1,10 @@
 name: Documentation generation
 
 on: 
-  workflow_dispatch
+  workflow_dispatch:
+  push:
+    branches:
+      - "cmake-documentation"
 
 jobs:
   build:
