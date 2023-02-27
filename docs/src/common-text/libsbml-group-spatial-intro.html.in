@@ -1,0 +1,5 @@
+<p> The libSBML &ldquo;spatial&rdquo; extension implements support for the SBML
+Level&nbsp;3 <em>Spatial</em> ("spatial") package.  It can be used
+in SBML Level&nbsp;3 Version&nbsp;1 and Version&nbsp;2 documents.
+
+<h2>Introduction</h2>

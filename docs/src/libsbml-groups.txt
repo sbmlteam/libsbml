@@ -45,3 +45,9 @@
 @htmlinclude libsbml-group-qual-intro.html
 
 */
+
+/** @defgroup spatial Spatial
+
+@htmlinclude libsbml-group-spatial-intro.html
+
+*/

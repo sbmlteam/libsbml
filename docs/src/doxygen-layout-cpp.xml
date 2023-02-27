@@ -13,6 +13,7 @@
       <tab type="user" url="@ref layout" title="Layout"/>
       <tab type="user" url="@ref render" title="Render"/>
       <tab type="user" url="@ref qual"   title="Qualitative Models"/>
+      <tab type="user" url="@ref spatial"   title="Spatial"/>
     </tab>
     <tab type="namespaces" visible="no" title="">
       <tab type="namespacelist" visible="no" title="" intro=""/>
