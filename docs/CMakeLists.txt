@@ -172,118 +172,24 @@ endforeach()
 
 # create C-api manuals
 macro(createManual lang)
-	make_directory(${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api)
-	make_directory(${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api/search)
-
-	# copy files
-	file(GLOB graphics_files ${CMAKE_CURRENT_SOURCE_DIR}/src/common-graphics/*)
-	set(FILES_TO_COPY ${graphics_files})
-	file(GLOB graphics_files ${CMAKE_CURRENT_SOURCE_DIR}/src/css/*)
-	list(APPEND FILES_TO_COPY ${graphics_files})
-	foreach(file ${FILES_TO_COPY})
-		file(COPY ${file} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api)
-	endforeach()
-
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api output_path)
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api/search search_path)
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/common-graphics/official-sbml-supported-40.jpg logo_file)
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/css/right-arrow-2x.png right_arrow)
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/sbml.js sbml_js)
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/doxygen-tabs.css tabs_css)
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/css/search.png search_png)
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/css/search.css search_css)
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/css/libsbml-package-stylesheet.css package_css)
-
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/doxygen-config-${lang}.txt api_doc)
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/doxygen-config-${lang}.1.txt api_doc_1)
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/doxygen-config-${lang}.2.txt api_doc_2)
-
-
-	file(READ ${api_doc} DOXYGEN_CONFIG)
-	file(WRITE ${api_doc_1} ${DOXYGEN_CONFIG})
-	file(APPEND ${api_doc_1} "
-ALIASES += sbmlpackage{1}=\"@addindex \\1\"
-	")
-	file(WRITE ${api_doc_2} ${DOXYGEN_CONFIG})
-	file(APPEND ${api_doc_2} "
-ALIASES += sbmlpackage{1}=\"@ingroup \\1\"
-	")
-
 	ADD_CUSTOM_COMMAND(
 		OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api/index.html
-		#COMMAND "${CMAKE_COMMAND}"
-		#ARGS -E remove_directory ${output_path}
-		COMMAND ${PYTHON_EXECUTABLE}
-		ARGS   utilities/generate-class-name-list.py ${LIBSBML_ROOT_SOURCE_DIR}/src > ${CMAKE_CURRENT_SOURCE_DIR}/src/class-list.txt
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src
-		
-		COMMAND ${PYTHON_EXECUTABLE}
-		ARGS   utilities/generate-converters-list.py  ${CMAKE_CURRENT_SOURCE_DIR}/src/class-list.txt > ${CMAKE_CURRENT_SOURCE_DIR}/src/libsbml-converters.txt
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src		
 
-		COMMAND ${PYTHON_EXECUTABLE}
-		ARGS   utilities/generate-pkg-stylesheet.py  ${LIBSBML_ROOT_SOURCE_DIR}/src/sbml/packages  > ${CMAKE_CURRENT_SOURCE_DIR}/src/css/libsbml-package-stylesheet.css
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src		
 
-		COMMAND ${DOXYGEN_EXECUTABLE}
-		ARGS   ${api_doc_1}
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src
-		
-		# SAVE INDEX
+		# call create manual script
 		COMMAND "${CMAKE_COMMAND}"
-		ARGS -DOPERATION="store"
-			 -DGENERATOR_DIR=${output_path}
-			 -DOUTPUT_DIR=${CMAKE_CURRENT_SOURCE_DIR}/src/tmp-${lang}-api
-			 -P "${CMAKE_CURRENT_SOURCE_DIR}/index-helper.cmake"
-
-		COMMAND "${CMAKE_COMMAND}"
-		ARGS -E copy
-			${logo_file}
-			${output_path}
-
-		COMMAND ${DOXYGEN_EXECUTABLE}
-		ARGS   ${api_doc_2}
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src
-		
-		# RESTORE INDEX
-		COMMAND "${CMAKE_COMMAND}"
-		ARGS -DOPERATION="restore"
-			 -DGENERATOR_DIR=${output_path}
-			 -DOUTPUT_DIR=${CMAKE_CURRENT_SOURCE_DIR}/src/tmp-${lang}-api
-			 -P "${CMAKE_CURRENT_SOURCE_DIR}/index-helper.cmake"
-
-		COMMAND "${CMAKE_COMMAND}"
-		ARGS -E copy
-			${logo_file}
-			${output_path}
-		COMMAND "${CMAKE_COMMAND}"
-		ARGS -E copy
-			${right_arrow}
-			${output_path}
-		COMMAND "${CMAKE_COMMAND}"
-		ARGS -E copy
-			${sbml_js}
-			${output_path}
-
-		COMMAND "${CMAKE_COMMAND}"
-		ARGS -E copy
-			${package_css}
-			${output_path}
-				
-#		COMMAND "${CMAKE_COMMAND}"
-#		ARGS -E copy
-#			${tabs_css}
-#			${output_path}
-		COMMAND "${CMAKE_COMMAND}"
-		ARGS -E copy
-			${search_png}
-			${search_path}
-		COMMAND "${CMAKE_COMMAND}"
-		ARGS -E copy
-			${search_css}
-			${search_path}
+		ARGS -DLANGUAGE="${lang}"
+			 -DROOT_DIR=${LIBSBML_ROOT_SOURCE_DIR}
+			 -DSRC_DIR=${CMAKE_CURRENT_SOURCE_DIR}
+			 -DOUTPUT_DIR=${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api/
+			 -DPYTHON_EXECUTABLE=${PYTHON_EXECUTABLE}
+			 -DDOXYGEN_EXECUTABLE=${DOXYGEN_EXECUTABLE}
+			 -P "${CMAKE_CURRENT_SOURCE_DIR}/create-manual.cmake"
+			
 		COMMENT "Generate ${lang}-API Documentation"
 		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
+		        ${CMAKE_CURRENT_SOURCE_DIR}/create-manual.cmake
+				${CMAKE_CURRENT_SOURCE_DIR}/index-helper.cmake
 				${CMAKE_CURRENT_SOURCE_DIR}/src/doxygen-config-${lang}.txt
 				${CMAKE_CURRENT_SOURCE_DIR}/src/doxygen-config-${lang}.txt.cmake
 
