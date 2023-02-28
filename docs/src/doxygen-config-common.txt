@@ -575,7 +575,6 @@ INPUT =                                    \
   ../../src/sbml/packages/spatial/common    \
   ../../src/sbml/packages/spatial/extension \
   ../../src/sbml/packages/spatial/sbml      \
-  ../../src/sbml/packages/spatial/util      \ 
   ../../src/sbml/packages/spatial/validator \
   ../../src/sbml/packages/multi/common    \
   ../../src/sbml/packages/multi/extension \
