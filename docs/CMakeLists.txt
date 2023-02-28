@@ -152,6 +152,7 @@ foreach( lang "common" "c" "cpp" "perl" "python" "csharp")
 configure_file(
 	${CMAKE_CURRENT_SOURCE_DIR}/src/doxygen-config-${lang}.txt.cmake
 	${CMAKE_CURRENT_SOURCE_DIR}/src/doxygen-config-${lang}.txt
+	@ONLY
 )
 endforeach()
 
@@ -165,8 +166,6 @@ foreach(file ${HTML_TEMPLATES})
 		@ONLY
 	)
 endforeach()
-
-
 
 # create C-api manuals
 macro(createManual lang)

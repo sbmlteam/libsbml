@@ -111,6 +111,23 @@
  * all of the functionality available. @endif@~
  *
  * <!-- ------------------------------------------------------------------- -->
+ * @class doc_returns_success_code
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_returns_one_success_code
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ This particular
+ * function only does one thing irrespective of user input or 
+ * object state, and thus will only return a single value:
+ *
+ * <!-- ------------------------------------------------------------------- -->
  * @class doc_what_are_xmlnamespaces
  *
  * @par
@@ -2010,6 +2027,7 @@ void example (SBase sb)
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_renamesidref_common
  *
+ * @par
  * Replaces all uses of a given @c SIdRef type attribute value with another
  * value.
  *
@@ -2027,6 +2045,7 @@ void example (SBase sb)
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_renameunitsidref_common
  *
+ * @par
  * Replaces all uses of a given @c UnitSIdRef type attribute value with
  * another value.
  *
@@ -2044,6 +2063,7 @@ void example (SBase sb)
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_renamemetasidref_common
  *
+ * @par
  * Replaces all uses of a given meta identifier attribute value with
  * another value.
  *
@@ -2254,23 +2274,6 @@ if (config != None) {
  * contains the units of any parameters in the model.  Finally, subsequent
  * elements of the list record the units derived for each mathematical
  * expression encountered within the model.
- *
- * <!-- ------------------------------------------------------------------- -->
- * @class doc_returns_success_code
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- *
- * <!-- ------------------------------------------------------------------- -->
- * @class doc_returns_one_success_code
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ This particular
- * function only does one thing irrespective of user input or 
- * object state, and thus will only return a single value:
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_extension_sbmlextension
