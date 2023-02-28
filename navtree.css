@@ -41,16 +41,17 @@
 }
 
 #nav-tree .label {
+  margin:0px;
   padding:0px;
+  font: 12px 'Lucida Grande',Geneva,Helvetica,Arial,sans-serif;
 }
 
 #nav-tree .label a {
-
+  padding:2px;
 }
 
 #nav-tree .selected a {
   text-decoration:none;
-  margin:0px;
   color:#fff;
 }
 
@@ -62,12 +63,11 @@
 #nav-tree .item {
   margin:0px;
   padding:0px;
-  margin-left: -12px;
 }
 
 #nav-tree {
   padding: 0px 0px;
-  background-color: #fafafa;
+  background-color: #FAFAFF; 
   font-size:14px;
   overflow:auto;
 }
@@ -81,65 +81,61 @@
 }
 
 #side-nav {
-  padding:0 10px 0 0;
+  padding:0 6px 0 0;
   margin: 0px;
   display:block;
   position: absolute;
   left: 0px;
-  width: 280px;
+  width: 240px;
 }
 
 .ui-resizable .ui-resizable-handle {
   display:block;
 }
 
-/* Hover pop-up effect */
-.ui-resizable .ui-resizable-handle:hover {
-  box-shadow: 1px 1px 2px 1px #444;
-  -moz-box-shadow: 1px 1px 2px 1px #444;
-  -webkit-box-shadow: 1px 1px 2px 1px #444;
-}
-
 .ui-resizable-e {
-  background-color: #ddd;
-  border-left: 1px dotted #aaa;
-  border-right: 1px dotted #aaa;
-  border-top: none;
-  border-bottom: 1px solid #888;
-  background: linear-gradient(45deg, white 25%, #ddd 25%, #ccc 50%, white 50%, white 75%);
-  background-size: 5px 5px;
-  cursor: e-resize;
-  height: 100%;
-  right: 0;
-  top: 0px;
-  width: 8px;
+  background-image:url("splitbar.png");
+  background-size:100%;
+  background-repeat:repeat-y;
+  background-attachment: scroll;
+  cursor:ew-resize;
+  height:100%;
+  right:0;
+  top:0;
+  width:6px;
 }
 
 .ui-resizable-handle {
-  display: none;
-  font-size: 0.1px;
-  position: absolute;
-  z-index: 1;
+  display:none;
+  font-size:0.1px;
+  position:absolute;
+  z-index:1;
 }
 
 #nav-tree-contents {
-  font-family: "Noto Sans", Helvetica, Arial, Sans, sans-serif;
-  margin: 0px;
-  padding-right: 0;
+  margin: 6px 0px 0px 0px;
 }
 
 #nav-tree {
-  padding-top: 5px;
-  background-color: #f0f0f0;
+  background-image:url('nav_h.png');
+  background-repeat:repeat-x;
+  background-color: #F9FAFC;
   -webkit-overflow-scrolling : touch; /* iOS 5+ */
 }
 
 #nav-sync {
-  display: hidden;
   position:absolute;
   top:5px;
   right:24px;
   z-index:0;
+}
+
+#nav-sync img {
+  opacity:0.3;
+}
+
+#nav-sync img:hover {
+  opacity:0.9;
 }
 
 @media print
@@ -148,27 +144,3 @@
   div.ui-resizable-handle { display: none; position: relative; }
 }
 
-#side-nav .item {
-    font-size: 11px;
-    line-height: 18px;
-}
-
-#side-nav .item span:not(.label):after {
-    color: rgb(135, 158, 201);
-    content: "\25cf";
-    float: right;
-    padding-right: 6px;
-    font-size: 12px;
-}
-
-#side-nav .label {
-    vertical-align: middle;
-}
-
-#side-nav li .label {
-}
-
-#side-nav .label a {
-    font-family: "Noto Sans", Helvetica, Arial, Sans, sans-serif;
-    font-weight: 700;
-}    

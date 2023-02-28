@@ -17,6 +17,13 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="libsbml-doxygen-stylesheet.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -122,7 +129,7 @@ Inheritance diagram for RateRule:</div>
 </ul>
 <p>In SBML Level&#160;2 and Level&#160;3 Version&#160;1, the "math" subelement of the <a class="el" href="class_rate_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt;/ = (&lt;&gt;&lt;/&gt;)&lt;/&gt;.">RateRule</a> is required. In SBML Level&#160;3 Version&#160;2, this rule is relaxed, and the subelement is optional. If a <a class="el" href="class_rate_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt;/ = (&lt;&gt;&lt;/&gt;)&lt;/&gt;.">RateRule</a> with no "math" child is present in the model, the rate at which its referenced "variable" changes over time is undefined. This may represent a situation where the model itself is unfinished, or the missing information may be provided by an SBML Level&#160;3 package.</p>
 <p>If the variable attribute of a <a class="el" href="class_rate_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt;/ = (&lt;&gt;&lt;/&gt;)&lt;/&gt;.">RateRule</a> object references an object in an SBML namespace that is not understood by the interpreter reading a given SBML document (that is, if the object is defined by an SBML Level&#160;3 package that the software does not support), the rate rule must be ignored&ndash;the object's value will not need to be set, as the interpreter could not understand that package. If an interpreter cannot establish whether a referenced object is missing from the model or instead is defined in an SBML namespace not understood by the interpreter, it may produce a warning to the user. (The latter situation may only arise if an SBML package is present in the SBML document with a package:required attribute of "true".)</p>
-<p>In the context of a simulation, rate rules are in effect for simulation time <em>t</em> &gt; <em>0</em>. Please consult the relevant SBML specification for additional information about the semantics of assignments, rules, and entity values for simulation time <em>t</em> <img class="formulaInl" alt="$\leq$" src="form_2.png"/> <em>0</em>.</p>
+<p>In the context of a simulation, rate rules are in effect for simulation time <em>t</em> &gt; <em>0</em>. Please consult the relevant SBML specification for additional information about the semantics of assignments, rules, and entity values for simulation time <em>t</em> \(\leq\) <em>0</em>.</p>
 <p>As mentioned in the description of <a class="el" href="class_assignment_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt; = (&lt;&gt;&lt;/&gt;)&lt;/&gt;.">AssignmentRule</a>, a model must not contain more than one <a class="el" href="class_rate_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt;/ = (&lt;&gt;&lt;/&gt;)&lt;/&gt;.">RateRule</a> or <a class="el" href="class_assignment_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt; = (&lt;&gt;&lt;/&gt;)&lt;/&gt;.">AssignmentRule</a> object having the same value of "variable"; in other words, in the set of all assignment rules and rate rules in an SBML model, each variable appearing in the left-hand sides can only appear once. This simply follows from the fact that an indeterminate system would result if a model contained more than one assignment rule for the same variable or both an assignment rule and a rate rule for the same variable.</p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>

@@ -17,6 +17,13 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="libsbml-doxygen-stylesheet.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -107,7 +114,7 @@ Inheritance diagram for Constraint:</div>
 <p><a class="el" href="class_constraint.html" title="\ @ @ . &lt;&gt;&lt;/&gt;, .">Constraint</a> was introduced in SBML Level&#160;2 Version&#160;2. It is not available in earlier versions of Level&#160;2 nor in any version of Level&#160;1.</p>
 <h1><a class="anchor" id="constraint-semantics"></a>
 Semantics of Constraints</h1>
-<p>In the context of a simulation, a <a class="el" href="class_constraint.html" title="\ @ @ . &lt;&gt;&lt;/&gt;, .">Constraint</a> has effect at all times <em>t <img class="formulaInl" alt="$\geq$" src="form_1.png"/> 0</em>. Each <a class="el" href="class_constraint.html" title="\ @ @ . &lt;&gt;&lt;/&gt;, .">Constraint</a>'s "math" subelement is first evaluated after any <a class="el" href="class_initial_assignment.html" title="\ @ @ . &lt;&gt; &lt;/&gt;, .">InitialAssignment</a> definitions in a model at <em>t = 0</em> and can conceivably trigger at that point. (In other words, a simulation could fail a constraint immediately.)</p>
+<p>In the context of a simulation, a <a class="el" href="class_constraint.html" title="\ @ @ . &lt;&gt;&lt;/&gt;, .">Constraint</a> has effect at all times <em>t \(\geq\) 0</em>. Each <a class="el" href="class_constraint.html" title="\ @ @ . &lt;&gt;&lt;/&gt;, .">Constraint</a>'s "math" subelement is first evaluated after any <a class="el" href="class_initial_assignment.html" title="\ @ @ . &lt;&gt; &lt;/&gt;, .">InitialAssignment</a> definitions in a model at <em>t = 0</em> and can conceivably trigger at that point. (In other words, a simulation could fail a constraint immediately.)</p>
 <p><a class="el" href="class_constraint.html" title="\ @ @ . &lt;&gt;&lt;/&gt;, .">Constraint</a> structures <em>cannot and should not</em> be used to compute the dynamical behavior of a model as part of, for example, simulation. Constraints may be used as input to non-dynamical analysis, for instance by expressing flux constraints for flux balance analysis.</p>
 <p>The results of a simulation of a model containing a constraint are invalid from any simulation time at and after a point when the function given by the "math" subelement returns a value of <code>false</code>. Invalid simulation results do not make a prediction of the behavior of the biochemical reaction network represented by the model. The precise behavior of simulation tools is left undefined with respect to constraints. If invalid results are detected with respect to a given constraint, the "message" subelement may optionally be displayed to the user. The simulation tool may also halt the simulation or clearly delimit in output data the simulation time point at which the simulation results become invalid.</p>
 <p>SBML does not impose restrictions on duplicate <a class="el" href="class_constraint.html" title="\ @ @ . &lt;&gt;&lt;/&gt;, .">Constraint</a> definitions or the order of evaluation of <a class="el" href="class_constraint.html" title="\ @ @ . &lt;&gt;&lt;/&gt;, .">Constraint</a> objects in a model. It is possible for a model to define multiple constraints all with the same mathematical expression. Since the failure of any constraint indicates that the model simulation has entered an invalid state, a system is not required to attempt to detect whether other constraints in the model have failed once any one constraint has failed. </p>
