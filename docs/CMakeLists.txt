@@ -147,12 +147,6 @@ endif()
 
 set(PACKAGE_NAME "libSBML")
 
-set(LOGO_FILES 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/common-graphics/official-sbml-supported-32.jpg
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/common-graphics/official-sbml-supported-40.jpg
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/common-graphics/official-sbml-supported-70.png
-)
-
 # replace variables as needed
 foreach( lang "common" "c" "cpp" "perl" "python" "csharp")
 configure_file(
@@ -178,7 +172,6 @@ endforeach()
 macro(createManual lang)
 	ADD_CUSTOM_COMMAND(
 		OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api/index.html
-
 
 		# call create manual script
 		COMMAND "${CMAKE_COMMAND}"
@@ -208,7 +201,6 @@ macro(createManual lang)
 		add_dependencies(api_docs_${lang} api_docs_python_py)
 	endif()
 	
-
 	install(DIRECTORY ${output_path} DESTINATION ${MISC_PREFIX}docs )
 
 endmacro()

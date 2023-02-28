@@ -107,6 +107,8 @@ foreach(file ${REMAINING_FILES})
   file(COPY ${file} DESTINATION ${OUTPUT_DIR})
 endforeach()
 
-# rename files
-file(RENAME ${OUTPUT_DIR}/libsbml-doxygen-tabs.css ${OUTPUT_DIR}/tabs.css)
-file(RENAME ${OUTPUT_DIR}/libsbml-doxygen-navtree.css ${OUTPUT_DIR}/navtree.css)
+# rename files (unfortunately the css will need changing for newer doxygen versions)
+#file(RENAME ${OUTPUT_DIR}/tabs.css ${OUTPUT_DIR}/doxy_tabs.css)
+#file(RENAME ${OUTPUT_DIR}/navtree.css ${OUTPUT_DIR}/doxy_navtree.css)
+#file(RENAME ${OUTPUT_DIR}/libsbml-doxygen-tabs.css ${OUTPUT_DIR}/tabs.css)
+#file(RENAME ${OUTPUT_DIR}/libsbml-doxygen-navtree.css ${OUTPUT_DIR}/navtree.css)

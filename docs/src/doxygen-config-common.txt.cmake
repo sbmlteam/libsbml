@@ -583,7 +583,10 @@ INPUT =                                    \
   ../../src/sbml/packages/qual/common      \
   ../../src/sbml/packages/qual/extension   \
   ../../src/sbml/packages/qual/sbml        \
-  ../../src/sbml/packages/qual/validator
+  ../../src/sbml/packages/qual/validator \
+  ../../src/sbml/common/common-documentation.h \
+  ../../src/sbml/common/common-sbmlerror-codes.h
+  
 
 # The RECURSIVE tag can be used to turn specify whether or not subdirectories 
 # should be searched for input files as well. Possible values are YES and NO. 
@@ -773,6 +776,20 @@ IGNORE_PREFIX          =
 # generate HTML output.
 
 GENERATE_HTML          = YES
+
+
+# Enable the USE_MATHJAX option to render $\mbox{\LaTeX}$ formulas using 
+# MathJax (see https://www.mathjax.org) which uses client side JavaScript 
+# for the rendering instead of using pre-rendered bitmaps. Use this if you 
+# do not have $\mbox{\LaTeX}$ installed or if you want to formulas look 
+# prettier in the HTML output. When enabled you may also need to install 
+# MathJax separately and configure the path to it using the MATHJAX_RELPATH option.
+USE_MATHJAX            = YES
+
+# MATHJAX_FORMAT = SVG
+
+MATHJAX_RELPATH = https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5
+
 
 # The HTML_FILE_EXTENSION tag can be used to specify the file extension for 
 # each generated HTML page (for example: .htm,.php,.asp). If it is left blank 
