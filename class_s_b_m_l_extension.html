@@ -100,18 +100,19 @@ $(document).ready(function(){initNavTree('class_s_b_m_l_extension.html',''); ini
 <div class="dynheader">
 Inheritance diagram for SBMLExtension:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_s_b_m_l_extension__inherit__graph.svg" width="314" height="392"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_s_b_m_l_extension__inherit__graph.svg" width="314" height="392"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>\ @ @ . 3 . </p>
+<div class="textblock"><p><br  />
+</p>
+ Base class for SBML Level 3 package plug-ins.</p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  This class is not prescribed by
 the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
-<p>The <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> class is a component of the libSBML package extension mechanism. It is an abstract class that is extended by each package extension implementation. The <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> class provides methods for managing common attributes of package extensions (e.g., package name, package version), registration of instantiated <a class="el" href="class_s_base_plugin_creator.html" title="\ @ @ . .">SBasePluginCreator</a> objects, and initialization/registration of package extensions when the library code for the package is loaded.</p>
+<p>The <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> class is a component of the libSBML package extension mechanism. It is an abstract class that is extended by each package extension implementation. The <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> class provides methods for managing common attributes of package extensions (e.g., package name, package version), registration of instantiated <a class="el" href="class_s_base_plugin_creator.html">SBasePluginCreator</a> objects, and initialization/registration of package extensions when the library code for the package is loaded.</p>
 <h1><a class="anchor" id="sbmlextension-howto"></a>
 How to extend SBMLExtension for a package implementation</h1>
 <h1><a class="anchor" id="sbmlextension-l2-special"></a>
@@ -123,10 +124,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae19fdaba58552e049823b8522dd00a84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the package's Level&#160;2 namespace(s).  <a href="class_s_b_m_l_extension.html#ae19fdaba58552e049823b8522dd00a84">More...</a><br /></td></tr>
 <tr class="separator:ae19fdaba58552e049823b8522dd00a84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa552bb74343a2834676c9455dae0d321"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension.html#aa552bb74343a2834676c9455dae0d321">clone</a> () const =0</td></tr>
-<tr class="memdesc:aa552bb74343a2834676c9455dae0d321"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> object.  <a href="class_s_b_m_l_extension.html#aa552bb74343a2834676c9455dae0d321">More...</a><br /></td></tr>
+<tr class="memdesc:aa552bb74343a2834676c9455dae0d321"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object.  <a href="class_s_b_m_l_extension.html#aa552bb74343a2834676c9455dae0d321">More...</a><br /></td></tr>
 <tr class="separator:aa552bb74343a2834676c9455dae0d321"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59934841d8bf516f91a65f58b81656bc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension.html#a59934841d8bf516f91a65f58b81656bc">enableL2NamespaceForDocument</a> (<a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *doc) const</td></tr>
-<tr class="memdesc:a59934841d8bf516f91a65f58b81656bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to enable the package on the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object.  <a href="class_s_b_m_l_extension.html#a59934841d8bf516f91a65f58b81656bc">More...</a><br /></td></tr>
+<tr class="memdesc:a59934841d8bf516f91a65f58b81656bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to enable the package on the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object.  <a href="class_s_b_m_l_extension.html#a59934841d8bf516f91a65f58b81656bc">More...</a><br /></td></tr>
 <tr class="separator:a59934841d8bf516f91a65f58b81656bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0faaa25235d4ff098063e900b14997e4"><td class="memItemLeft" align="right" valign="top">virtual unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension.html#a0faaa25235d4ff098063e900b14997e4">getLevel</a> (const std::string &amp;uri) const =0</td></tr>
 <tr class="memdesc:a0faaa25235d4ff098063e900b14997e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the SBML Level associated with the given XML namespace URI.  <a href="class_s_b_m_l_extension.html#a0faaa25235d4ff098063e900b14997e4">More...</a><br /></td></tr>
@@ -135,7 +136,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aef7d6f355ae691deccd3570abf58a2b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the nickname of this package.  <a href="class_s_b_m_l_extension.html#aef7d6f355ae691deccd3570abf58a2b9">More...</a><br /></td></tr>
 <tr class="separator:aef7d6f355ae691deccd3570abf58a2b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab35b36ff7d227a0208d7275d33b03385"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension.html#ab35b36ff7d227a0208d7275d33b03385">getNumOfSBasePlugins</a> () const</td></tr>
-<tr class="memdesc:ab35b36ff7d227a0208d7275d33b03385"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of <a class="el" href="class_s_base_plugin_creator_base.html" title="\ @ @ . %.">SBasePluginCreatorBase</a> objects stored in this object.  <a href="class_s_b_m_l_extension.html#ab35b36ff7d227a0208d7275d33b03385">More...</a><br /></td></tr>
+<tr class="memdesc:ab35b36ff7d227a0208d7275d33b03385"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of <a class="el" href="class_s_base_plugin_creator_base.html">SBasePluginCreatorBase</a> objects stored in this object.  <a href="class_s_b_m_l_extension.html#ab35b36ff7d227a0208d7275d33b03385">More...</a><br /></td></tr>
 <tr class="separator:ab35b36ff7d227a0208d7275d33b03385"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a003e8909497d756f3d445313659ba349"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension.html#a003e8909497d756f3d445313659ba349">getNumOfSupportedPackageURI</a> () const</td></tr>
 <tr class="memdesc:a003e8909497d756f3d445313659ba349"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of supported package namespace URIs.  <a href="class_s_b_m_l_extension.html#a003e8909497d756f3d445313659ba349">More...</a><br /></td></tr>
@@ -144,7 +145,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a1774e7ed5b506877030ca7a12c1036c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the package version associated with the given XML namespace URI.  <a href="class_s_b_m_l_extension.html#a1774e7ed5b506877030ca7a12c1036c3">More...</a><br /></td></tr>
 <tr class="separator:a1774e7ed5b506877030ca7a12c1036c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adef6e8ca87139c205a6b9d6547652492"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension.html#adef6e8ca87139c205a6b9d6547652492">getSBMLExtensionNamespaces</a> (const std::string &amp;uri) const =0</td></tr>
-<tr class="memdesc:adef6e8ca87139c205a6b9d6547652492"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a specialized <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object corresponding to a given namespace URI.  <a href="class_s_b_m_l_extension.html#adef6e8ca87139c205a6b9d6547652492">More...</a><br /></td></tr>
+<tr class="memdesc:adef6e8ca87139c205a6b9d6547652492"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a specialized <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object corresponding to a given namespace URI.  <a href="class_s_b_m_l_extension.html#adef6e8ca87139c205a6b9d6547652492">More...</a><br /></td></tr>
 <tr class="separator:adef6e8ca87139c205a6b9d6547652492"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa89eaf90f4aede2a8e7cfa2569faed7a"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension.html#aa89eaf90f4aede2a8e7cfa2569faed7a">getStringFromTypeCode</a> (int typeCode) const =0</td></tr>
 <tr class="memdesc:aa89eaf90f4aede2a8e7cfa2569faed7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string representation of a type code.  <a href="class_s_b_m_l_extension.html#aa89eaf90f4aede2a8e7cfa2569faed7a">More...</a><br /></td></tr>
@@ -162,19 +163,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a0aa3323b197036449a005c63ed771a6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if this package is enabled.  <a href="class_s_b_m_l_extension.html#a0aa3323b197036449a005c63ed771a6e">More...</a><br /></td></tr>
 <tr class="separator:a0aa3323b197036449a005c63ed771a6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9f53e3085b1b10bbd9c6cc6154e17bf"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension.html#aa9f53e3085b1b10bbd9c6cc6154e17bf">isInUse</a> (<a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *doc) const</td></tr>
-<tr class="memdesc:aa9f53e3085b1b10bbd9c6cc6154e17bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this extension is being used by the given <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>.  <a href="class_s_b_m_l_extension.html#aa9f53e3085b1b10bbd9c6cc6154e17bf">More...</a><br /></td></tr>
+<tr class="memdesc:aa9f53e3085b1b10bbd9c6cc6154e17bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this extension is being used by the given <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>.  <a href="class_s_b_m_l_extension.html#aa9f53e3085b1b10bbd9c6cc6154e17bf">More...</a><br /></td></tr>
 <tr class="separator:aa9f53e3085b1b10bbd9c6cc6154e17bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c01f215a642a9d87a9b69605dcc8cf6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension.html#a5c01f215a642a9d87a9b69605dcc8cf6">isSupported</a> (const std::string &amp;uri) const</td></tr>
 <tr class="memdesc:a5c01f215a642a9d87a9b69605dcc8cf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if the given XML namespace URI is supported by this package extension.  <a href="class_s_b_m_l_extension.html#a5c01f215a642a9d87a9b69605dcc8cf6">More...</a><br /></td></tr>
 <tr class="separator:a5c01f215a642a9d87a9b69605dcc8cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7759d11aaa3b68b3b2b0ab4ca0b1984"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension.html#ab7759d11aaa3b68b3b2b0ab4ca0b1984">operator=</a> (const <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> &amp;rhs)</td></tr>
-<tr class="memdesc:ab7759d11aaa3b68b3b2b0ab4ca0b1984"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a>.  <a href="class_s_b_m_l_extension.html#ab7759d11aaa3b68b3b2b0ab4ca0b1984">More...</a><br /></td></tr>
+<tr class="memdesc:ab7759d11aaa3b68b3b2b0ab4ca0b1984"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a>.  <a href="class_s_b_m_l_extension.html#ab7759d11aaa3b68b3b2b0ab4ca0b1984">More...</a><br /></td></tr>
 <tr class="separator:ab7759d11aaa3b68b3b2b0ab4ca0b1984"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b54ff284884d119564c20950517b862"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension.html#a9b54ff284884d119564c20950517b862">removeL2Namespaces</a> (<a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> *xmlns) const</td></tr>
 <tr class="memdesc:a9b54ff284884d119564c20950517b862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the package's Level&#160;2 namespace(s).  <a href="class_s_b_m_l_extension.html#a9b54ff284884d119564c20950517b862">More...</a><br /></td></tr>
 <tr class="separator:a9b54ff284884d119564c20950517b862"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd291cc9f7aa2aab1d1677640b410ebe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension.html#acd291cc9f7aa2aab1d1677640b410ebe">SBMLExtension</a> ()</td></tr>
-<tr class="memdesc:acd291cc9f7aa2aab1d1677640b410ebe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor; creates a new <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> object.  <a href="class_s_b_m_l_extension.html#acd291cc9f7aa2aab1d1677640b410ebe">More...</a><br /></td></tr>
+<tr class="memdesc:acd291cc9f7aa2aab1d1677640b410ebe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor; creates a new <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object.  <a href="class_s_b_m_l_extension.html#acd291cc9f7aa2aab1d1677640b410ebe">More...</a><br /></td></tr>
 <tr class="separator:acd291cc9f7aa2aab1d1677640b410ebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fe36937195858d25f5035eefca7eaec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension.html#a2fe36937195858d25f5035eefca7eaec">SBMLExtension</a> (const <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> &amp;orig)</td></tr>
 <tr class="memdesc:a2fe36937195858d25f5035eefca7eaec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="class_s_b_m_l_extension.html#a2fe36937195858d25f5035eefca7eaec">More...</a><br /></td></tr>
@@ -183,7 +184,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a636f80a87e2a063bf2e6389e3fbe52f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable this package.  <a href="class_s_b_m_l_extension.html#a636f80a87e2a063bf2e6389e3fbe52f3">More...</a><br /></td></tr>
 <tr class="separator:a636f80a87e2a063bf2e6389e3fbe52f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95d65b8a9f6f1b5aa15cd4dffb1d1623"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension.html#a95d65b8a9f6f1b5aa15cd4dffb1d1623">~SBMLExtension</a> ()</td></tr>
-<tr class="memdesc:a95d65b8a9f6f1b5aa15cd4dffb1d1623"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy this <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> object.  <a href="class_s_b_m_l_extension.html#a95d65b8a9f6f1b5aa15cd4dffb1d1623">More...</a><br /></td></tr>
+<tr class="memdesc:a95d65b8a9f6f1b5aa15cd4dffb1d1623"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy this <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object.  <a href="class_s_b_m_l_extension.html#a95d65b8a9f6f1b5aa15cd4dffb1d1623">More...</a><br /></td></tr>
 <tr class="separator:a95d65b8a9f6f1b5aa15cd4dffb1d1623"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -202,7 +203,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Constructor; creates a new <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> object. </p>
+<p>Constructor; creates a new <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object. </p>
 
 </div>
 </div>
@@ -223,10 +224,10 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Copy constructor. </p>
-<p>This creates a copy of an <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> object.</p>
+<p>This creates a copy of an <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">orig</td><td>the <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> object to copy. </td></tr>
+    <tr><td class="paramname">orig</td><td>the <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object to copy. </td></tr>
   </table>
   </dd>
 </dl>
@@ -256,7 +257,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroy this <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> object. </p>
+<p>Destroy this <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object. </p>
 
 </div>
 </div>
@@ -286,11 +287,11 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Adds the package's Level&#160;2 namespace(s). </p>
-<dl class="section user"><dt></dt><dd>This method is related to special facilities designed to support legacy behaviors surrounding SBML Level&#160;2 models. Due to the historical background of the SBML Layout package, libSBML implements special behavior for that package: it <em>always</em> creates a Layout plugin object for any SBML Level&#160;2 document it reads in, regardless of whether that document actually uses Layout constructs. Since Level&#160;2 does not use namespaces on the top level of the SBML document object, libSBML simply keys off the fact that the model is a Level&#160;2 model. To allow the extensions for the Layout and Render (and possibly other) packages to support this behavior, the <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> class contains special methods to allow packages to hook themselves into the Level&#160;2 parsing apparatus when necessary.</dd></dl>
-<p>This virtual method should be overridden by all package extensions that want to serialize to an SBML Level&#160;2 annotation. In Level&#160;2, the XML namespace declaration for the package is not placed on the top-level SBML document object but rather inside individual annotations. <a class="el" href="class_s_b_m_l_extension.html#ae19fdaba58552e049823b8522dd00a84" title="Adds the package&#39;s Level&#160;2 namespace(s).">addL2Namespaces()</a> is invoked automatically for Level&#160;2 documents when an SBMLExtensionNamespace object is created; <a class="el" href="class_s_b_m_l_extension.html#a9b54ff284884d119564c20950517b862" title="Removes the package&#39;s Level&#160;2 namespace(s).">removeL2Namespaces()</a> is automatically invoked by <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> to prevent the namespace(s) from being put on the top-level SBML Level&#160;2 element (because Level&#160;2 doesn't support namespaces there); and <a class="el" href="class_s_b_m_l_extension.html#a59934841d8bf516f91a65f58b81656bc" title="Called to enable the package on the SBMLDocument object.">enableL2NamespaceForDocument()</a> is called automatically when any SBML document (of any Level/Version) is read in.</p>
+<dl class="section user"><dt></dt><dd>This method is related to special facilities designed to support legacy behaviors surrounding SBML Level&#160;2 models. Due to the historical background of the SBML Layout package, libSBML implements special behavior for that package: it <em>always</em> creates a Layout plugin object for any SBML Level&#160;2 document it reads in, regardless of whether that document actually uses Layout constructs. Since Level&#160;2 does not use namespaces on the top level of the SBML document object, libSBML simply keys off the fact that the model is a Level&#160;2 model. To allow the extensions for the Layout and Render (and possibly other) packages to support this behavior, the <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> class contains special methods to allow packages to hook themselves into the Level&#160;2 parsing apparatus when necessary.</dd></dl>
+<p>This virtual method should be overridden by all package extensions that want to serialize to an SBML Level&#160;2 annotation. In Level&#160;2, the XML namespace declaration for the package is not placed on the top-level SBML document object but rather inside individual annotations. <a class="el" href="class_s_b_m_l_extension.html#ae19fdaba58552e049823b8522dd00a84" title="Adds the package&#39;s Level&#160;2 namespace(s).">addL2Namespaces()</a> is invoked automatically for Level&#160;2 documents when an SBMLExtensionNamespace object is created; <a class="el" href="class_s_b_m_l_extension.html#a9b54ff284884d119564c20950517b862" title="Removes the package&#39;s Level&#160;2 namespace(s).">removeL2Namespaces()</a> is automatically invoked by <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> to prevent the namespace(s) from being put on the top-level SBML Level&#160;2 element (because Level&#160;2 doesn't support namespaces there); and <a class="el" href="class_s_b_m_l_extension.html#a59934841d8bf516f91a65f58b81656bc" title="Called to enable the package on the SBMLDocument object.">enableL2NamespaceForDocument()</a> is called automatically when any SBML document (of any Level/Version) is read in.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">xmlns</td><td>an <a class="el" href="class_x_m_l_namespaces.html" title="\ @ @ . .">XMLNamespaces</a> object that will be used for the annotation. Implementation should override this method with something that adds the package's namespace(s) to the set of namespaces in <code>xmlns</code>. For instance, here is the code from the Layout package extension: <div class="fragment"><div class="line"><span class="keywordflow">if</span> (!xmlns-&gt;containsUri( <a class="code" href="class_layout_extension.html#a8f8bf65f9c0a77d93aaad218f8df8375">LayoutExtension::getXmlnsL2</a>()))</div>
+    <tr><td class="paramname">xmlns</td><td>an <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> object that will be used for the annotation. Implementation should override this method with something that adds the package's namespace(s) to the set of namespaces in <code>xmlns</code>. For instance, here is the code from the Layout package extension: <div class="fragment"><div class="line"><span class="keywordflow">if</span> (!xmlns-&gt;containsUri( <a class="code" href="class_layout_extension.html#a8f8bf65f9c0a77d93aaad218f8df8375">LayoutExtension::getXmlnsL2</a>()))</div>
 <div class="line">  xmlns-&gt;add(<a class="code" href="class_layout_extension.html#a8f8bf65f9c0a77d93aaad218f8df8375">LayoutExtension::getXmlnsL2</a>(), <span class="stringliteral">&quot;layout&quot;</span>);</div>
 <div class="ttc" id="aclass_layout_extension_html_a8f8bf65f9c0a77d93aaad218f8df8375"><div class="ttname"><a href="class_layout_extension.html#a8f8bf65f9c0a77d93aaad218f8df8375">LayoutExtension::getXmlnsL2</a></div><div class="ttdeci">static const std::string &amp; getXmlnsL2()</div><div class="ttdoc">Returns the XML namespace URI of the SBML Level&amp;#160;2 version of the package implemented by this libSBML ...</div><div class="ttdef"><b>Definition:</b> LayoutExtension.cpp:109</div></div>
 </div><!-- fragment --> </td></tr>
@@ -325,8 +326,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>a (deep) copy of this <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> object.</dd></dl>
+<p>Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>a (deep) copy of this <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object.</dd></dl>
 
 <p>Implemented in <a class="el" href="class_spatial_extension.html#a11a762948b0dd8c67883d2f7ea196526">SpatialExtension</a>, <a class="el" href="class_render_extension.html#aecfc37563df570d96379c0c304810ba7">RenderExtension</a>, <a class="el" href="class_qual_extension.html#a55175b2bdb89ef1dcd24f909e556c280">QualExtension</a>, <a class="el" href="class_multi_extension.html#a15edd4a9b4c3a98ec6cdecab42953fb9">MultiExtension</a>, <a class="el" href="class_layout_extension.html#a83837a57782a174fed2a3540346d80e0">LayoutExtension</a>, <a class="el" href="class_groups_extension.html#af085db0ba8b77dc87a53f321c7d676af">GroupsExtension</a>, <a class="el" href="class_fbc_extension.html#a9328cd795f3b86f1361a60d36f5ab78d">FbcExtension</a>, and <a class="el" href="class_comp_extension.html#a175ac697a219754408c79601fb5ab348">CompExtension</a>.</p>
 
@@ -356,12 +357,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called to enable the package on the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object. </p>
-<dl class="section user"><dt></dt><dd>This method is related to special facilities designed to support legacy behaviors surrounding SBML Level&#160;2 models. Due to the historical background of the SBML Layout package, libSBML implements special behavior for that package: it <em>always</em> creates a Layout plugin object for any SBML Level&#160;2 document it reads in, regardless of whether that document actually uses Layout constructs. Since Level&#160;2 does not use namespaces on the top level of the SBML document object, libSBML simply keys off the fact that the model is a Level&#160;2 model. To allow the extensions for the Layout and Render (and possibly other) packages to support this behavior, the <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> class contains special methods to allow packages to hook themselves into the Level&#160;2 parsing apparatus when necessary.</dd></dl>
-<p>This virtual method should be overridden by all package extensions that want to serialize to an SBML Level&#160;2 annotation. In Level&#160;2, the XML namespace declaration for the package is not placed on the top-level SBML document object but rather inside individual annotations. <a class="el" href="class_s_b_m_l_extension.html#ae19fdaba58552e049823b8522dd00a84" title="Adds the package&#39;s Level&#160;2 namespace(s).">addL2Namespaces()</a> is invoked automatically for Level&#160;2 documents when an SBMLExtensionNamespace object is created; <a class="el" href="class_s_b_m_l_extension.html#a9b54ff284884d119564c20950517b862" title="Removes the package&#39;s Level&#160;2 namespace(s).">removeL2Namespaces()</a> is automatically invoked by <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> to prevent the namespace(s) from being put on the top-level SBML Level&#160;2 element (because Level&#160;2 doesn't support namespaces there); and <a class="el" href="class_s_b_m_l_extension.html#a59934841d8bf516f91a65f58b81656bc" title="Called to enable the package on the SBMLDocument object.">enableL2NamespaceForDocument()</a> is called automatically when any SBML document (of any Level/Version) is read in.</p>
+<p>Called to enable the package on the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. </p>
+<dl class="section user"><dt></dt><dd>This method is related to special facilities designed to support legacy behaviors surrounding SBML Level&#160;2 models. Due to the historical background of the SBML Layout package, libSBML implements special behavior for that package: it <em>always</em> creates a Layout plugin object for any SBML Level&#160;2 document it reads in, regardless of whether that document actually uses Layout constructs. Since Level&#160;2 does not use namespaces on the top level of the SBML document object, libSBML simply keys off the fact that the model is a Level&#160;2 model. To allow the extensions for the Layout and Render (and possibly other) packages to support this behavior, the <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> class contains special methods to allow packages to hook themselves into the Level&#160;2 parsing apparatus when necessary.</dd></dl>
+<p>This virtual method should be overridden by all package extensions that want to serialize to an SBML Level&#160;2 annotation. In Level&#160;2, the XML namespace declaration for the package is not placed on the top-level SBML document object but rather inside individual annotations. <a class="el" href="class_s_b_m_l_extension.html#ae19fdaba58552e049823b8522dd00a84" title="Adds the package&#39;s Level&#160;2 namespace(s).">addL2Namespaces()</a> is invoked automatically for Level&#160;2 documents when an SBMLExtensionNamespace object is created; <a class="el" href="class_s_b_m_l_extension.html#a9b54ff284884d119564c20950517b862" title="Removes the package&#39;s Level&#160;2 namespace(s).">removeL2Namespaces()</a> is automatically invoked by <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> to prevent the namespace(s) from being put on the top-level SBML Level&#160;2 element (because Level&#160;2 doesn't support namespaces there); and <a class="el" href="class_s_b_m_l_extension.html#a59934841d8bf516f91a65f58b81656bc" title="Called to enable the package on the SBMLDocument object.">enableL2NamespaceForDocument()</a> is called automatically when any SBML document (of any Level/Version) is read in.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">doc</td><td>the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object for the model. Implementations should override this method with something that enables the package based on the package's namespace(s). For example, here is the code from the Layout package extension: <div class="fragment"><div class="line"><span class="keywordflow">if</span> (doc-&gt;getLevel() == 2)</div>
+    <tr><td class="paramname">doc</td><td>the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object for the model. Implementations should override this method with something that enables the package based on the package's namespace(s). For example, here is the code from the Layout package extension: <div class="fragment"><div class="line"><span class="keywordflow">if</span> (doc-&gt;getLevel() == 2)</div>
 <div class="line">  doc-&gt;enablePackage(<a class="code" href="class_layout_extension.html#a8f8bf65f9c0a77d93aaad218f8df8375">LayoutExtension::getXmlnsL2</a>(), <span class="stringliteral">&quot;layout&quot;</span>, <span class="keyword">true</span>);</div>
 </div><!-- fragment --> </td></tr>
   </table>
@@ -455,8 +456,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the number of <a class="el" href="class_s_base_plugin_creator_base.html" title="\ @ @ . %.">SBasePluginCreatorBase</a> objects stored in this object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the total number of <a class="el" href="class_s_base_plugin_creator_base.html" title="\ @ @ . %.">SBasePluginCreatorBase</a> objects stored in this SBMLExtension-derived object. </dd></dl>
+<p>Returns the number of <a class="el" href="class_s_base_plugin_creator_base.html">SBasePluginCreatorBase</a> objects stored in this object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the total number of <a class="el" href="class_s_base_plugin_creator_base.html">SBasePluginCreatorBase</a> objects stored in this SBMLExtension-derived object. </dd></dl>
 
 </div>
 </div>
@@ -541,9 +542,9 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a specialized <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object corresponding to a given namespace URI. </p>
-<p>LibSBML package extensions each define a subclass of <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a>. This object has the form </p><pre class="fragment">SBMLExtensionNamespaces&lt;class SBMLExtensionType&gt;
-</pre><p> For example, this kind of object for the <a class="el" href="class_layout.html" title="\ @ @ . .">Layout</a> package is </p><pre class="fragment">SBMLExtensionNamespaces&lt;LayoutExtension&gt;
+<p>Returns a specialized <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object corresponding to a given namespace URI. </p>
+<p>LibSBML package extensions each define a subclass of <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a>. This object has the form </p><pre class="fragment">SBMLExtensionNamespaces&lt;class SBMLExtensionType&gt;
+</pre><p> For example, this kind of object for the <a class="el" href="class_layout.html">Layout</a> package is </p><pre class="fragment">SBMLExtensionNamespaces&lt;LayoutExtension&gt;
 </pre><p>The present method returns the appropriate object corresponding to the given XML namespace URI in argument <code>uri</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -551,7 +552,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>an <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a> object, or <code>NULL</code> if the given <code>uri</code> is not defined in the corresponding package.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>an <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> object, or <code>NULL</code> if the given <code>uri</code> is not defined in the corresponding package.</dd></dl>
 
 <p>Implemented in <a class="el" href="class_spatial_extension.html#a12e2d49414119abd9a5e8f7fa93a13a0">SpatialExtension</a>, <a class="el" href="class_render_extension.html#a26acbed2f247fde7258744aae3423a0c">RenderExtension</a>, <a class="el" href="class_qual_extension.html#a76973fd8afa52cbb835889781756e117">QualExtension</a>, <a class="el" href="class_multi_extension.html#afbedb7b4d48c2c07bc69fe03897e2517">MultiExtension</a>, <a class="el" href="class_layout_extension.html#a4e05322d9560777b3e2127834e78670c">LayoutExtension</a>, <a class="el" href="class_groups_extension.html#a8fe5a23c00cc6bd89c7deda1b944ca06">GroupsExtension</a>, <a class="el" href="class_fbc_extension.html#a94a3a36413192f758f2f2b175692be11">FbcExtension</a>, and <a class="el" href="class_comp_extension.html#a5da383749a92af19b72cd8429a8046fb">CompExtension</a>.</p>
 
@@ -758,7 +759,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Indicates whether this extension is being used by the given <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>. </p>
+<p>Indicates whether this extension is being used by the given <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>. </p>
 <p>The default implementation returns <code>true</code>. This means that when a document had this extension enabled, it will not be possible to convert it to SBML Level&#160;2 as we cannot make sure that the extension can be converted.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -809,7 +810,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Assignment operator for <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a>. </p>
+<p>Assignment operator for <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">rhs</td><td>the object whose values are used as the basis of the assignment. </td></tr>
@@ -844,11 +845,11 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Removes the package's Level&#160;2 namespace(s). </p>
-<dl class="section user"><dt></dt><dd>This method is related to special facilities designed to support legacy behaviors surrounding SBML Level&#160;2 models. Due to the historical background of the SBML Layout package, libSBML implements special behavior for that package: it <em>always</em> creates a Layout plugin object for any SBML Level&#160;2 document it reads in, regardless of whether that document actually uses Layout constructs. Since Level&#160;2 does not use namespaces on the top level of the SBML document object, libSBML simply keys off the fact that the model is a Level&#160;2 model. To allow the extensions for the Layout and Render (and possibly other) packages to support this behavior, the <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> class contains special methods to allow packages to hook themselves into the Level&#160;2 parsing apparatus when necessary.</dd></dl>
-<p>This virtual method should be overridden by all package extensions that want to serialize to an SBML Level&#160;2 annotation. In Level&#160;2, the XML namespace declaration for the package is not placed on the top-level SBML document object but rather inside individual annotations. <a class="el" href="class_s_b_m_l_extension.html#ae19fdaba58552e049823b8522dd00a84" title="Adds the package&#39;s Level&#160;2 namespace(s).">addL2Namespaces()</a> is invoked automatically for Level&#160;2 documents when an SBMLExtensionNamespace object is created; <a class="el" href="class_s_b_m_l_extension.html#a9b54ff284884d119564c20950517b862" title="Removes the package&#39;s Level&#160;2 namespace(s).">removeL2Namespaces()</a> is automatically invoked by <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> to prevent the namespace(s) from being put on the top-level SBML Level&#160;2 element (because Level&#160;2 doesn't support namespaces there); and <a class="el" href="class_s_b_m_l_extension.html#a59934841d8bf516f91a65f58b81656bc" title="Called to enable the package on the SBMLDocument object.">enableL2NamespaceForDocument()</a> is called automatically when any SBML document (of any Level/Version) is read in.</p>
+<dl class="section user"><dt></dt><dd>This method is related to special facilities designed to support legacy behaviors surrounding SBML Level&#160;2 models. Due to the historical background of the SBML Layout package, libSBML implements special behavior for that package: it <em>always</em> creates a Layout plugin object for any SBML Level&#160;2 document it reads in, regardless of whether that document actually uses Layout constructs. Since Level&#160;2 does not use namespaces on the top level of the SBML document object, libSBML simply keys off the fact that the model is a Level&#160;2 model. To allow the extensions for the Layout and Render (and possibly other) packages to support this behavior, the <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> class contains special methods to allow packages to hook themselves into the Level&#160;2 parsing apparatus when necessary.</dd></dl>
+<p>This virtual method should be overridden by all package extensions that want to serialize to an SBML Level&#160;2 annotation. In Level&#160;2, the XML namespace declaration for the package is not placed on the top-level SBML document object but rather inside individual annotations. <a class="el" href="class_s_b_m_l_extension.html#ae19fdaba58552e049823b8522dd00a84" title="Adds the package&#39;s Level&#160;2 namespace(s).">addL2Namespaces()</a> is invoked automatically for Level&#160;2 documents when an SBMLExtensionNamespace object is created; <a class="el" href="class_s_b_m_l_extension.html#a9b54ff284884d119564c20950517b862" title="Removes the package&#39;s Level&#160;2 namespace(s).">removeL2Namespaces()</a> is automatically invoked by <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> to prevent the namespace(s) from being put on the top-level SBML Level&#160;2 element (because Level&#160;2 doesn't support namespaces there); and <a class="el" href="class_s_b_m_l_extension.html#a59934841d8bf516f91a65f58b81656bc" title="Called to enable the package on the SBMLDocument object.">enableL2NamespaceForDocument()</a> is called automatically when any SBML document (of any Level/Version) is read in.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">xmlns</td><td>an <a class="el" href="class_x_m_l_namespaces.html" title="\ @ @ . .">XMLNamespaces</a> object that will be used for the annotation. Implementations should override this method with something that removes the package's namespace(s) from the set of namespaces in <code>xmlns</code>. For instance, here is the code from the Layout package extension: <div class="fragment"><div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">int</span> n = 0; n &lt; xmlns-&gt;getNumNamespaces(); n++)</div>
+    <tr><td class="paramname">xmlns</td><td>an <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> object that will be used for the annotation. Implementations should override this method with something that removes the package's namespace(s) from the set of namespaces in <code>xmlns</code>. For instance, here is the code from the Layout package extension: <div class="fragment"><div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">int</span> n = 0; n &lt; xmlns-&gt;getNumNamespaces(); n++)</div>
 <div class="line">{</div>
 <div class="line">  <span class="keywordflow">if</span> (xmlns-&gt;getURI(n) == <a class="code" href="class_layout_extension.html#a8f8bf65f9c0a77d93aaad218f8df8375">LayoutExtension::getXmlnsL2</a>())</div>
 <div class="line">    xmlns-&gt;remove(n);</div>

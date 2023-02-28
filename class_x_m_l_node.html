@@ -101,27 +101,28 @@ $(document).ready(function(){initNavTree('class_x_m_l_node.html',''); initResiza
 <div class="dynheader">
 Inheritance diagram for XMLNode:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_x_m_l_node__inherit__graph.svg" width="98" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_x_m_l_node__inherit__graph.svg" width="98" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>\ @ @ . ' . </p>
-<p>LibSBML implements an XML abstraction layer. This layer presents a uniform XML interface to calling programs regardless of which underlying XML parser libSBML has actually been configured to use. The basic data object in the XML abstraction is a <em>node</em>, represented by <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>.</p>
-<p>An <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> can contain any number of children. Each child is another <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>, thereby forming a tree. The methods <a class="el" href="class_x_m_l_node.html#a44be07ab2c8661102741f79d6fcc7b93" title="Returns the number of children for this XMLNode.">XMLNode::getNumChildren()</a> and <a class="el" href="class_x_m_l_node.html#a02d5d8c64c480eacf80941ad851deacd" title="Returns the nth child of this XMLNode.">XMLNode::getChild()</a> can be used to access the tree structure starting from a given node.</p>
-<p>Each <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> is subclassed from <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a>, and thus has the same methods available as <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a>. These methods include <a class="el" href="class_x_m_l_token.html#acf4ac2b2be53e5ef56632c9ec3bf0c25" title="Returns the XML namespaces declared for this token.">XMLToken::getNamespaces()</a>, <a class="el" href="class_x_m_l_token.html#aed5b4fbfad7ebd29e94feb092771ccf9" title="Returns the XML namespace prefix of token.">XMLToken::getPrefix()</a>, <a class="el" href="class_x_m_l_token.html#ab3a3f9fb7e0c88444ed43633bb18ec2f" title="Returns the (unqualified) name of token.">XMLToken::getName()</a>, <a class="el" href="class_x_m_l_token.html#a2b2c321b3c628fefb5c87c31e4d8dd9b" title="Returns the XML namespace URI of token.">XMLToken::getURI()</a>, and <a class="el" href="class_x_m_l_token.html#a25eb82b0e44aa0bad9af110041b319cf" title="Returns the attributes of the XML element represented by this token.">XMLToken::getAttributes()</a>.</p>
+<div class="textblock"><p><br  />
+</p>
+ A node in libSBML's XML document tree.</p>
+<p>LibSBML implements an XML abstraction layer. This layer presents a uniform XML interface to calling programs regardless of which underlying XML parser libSBML has actually been configured to use. The basic data object in the XML abstraction is a <em>node</em>, represented by <a class="el" href="class_x_m_l_node.html">XMLNode</a>.</p>
+<p>An <a class="el" href="class_x_m_l_node.html">XMLNode</a> can contain any number of children. Each child is another <a class="el" href="class_x_m_l_node.html">XMLNode</a>, thereby forming a tree. The methods <a class="el" href="class_x_m_l_node.html#a44be07ab2c8661102741f79d6fcc7b93" title="Returns the number of children for this XMLNode.">XMLNode::getNumChildren()</a> and <a class="el" href="class_x_m_l_node.html#a02d5d8c64c480eacf80941ad851deacd" title="Returns the nth child of this XMLNode.">XMLNode::getChild()</a> can be used to access the tree structure starting from a given node.</p>
+<p>Each <a class="el" href="class_x_m_l_node.html">XMLNode</a> is subclassed from <a class="el" href="class_x_m_l_token.html">XMLToken</a>, and thus has the same methods available as <a class="el" href="class_x_m_l_token.html">XMLToken</a>. These methods include <a class="el" href="class_x_m_l_token.html#acf4ac2b2be53e5ef56632c9ec3bf0c25" title="Returns the XML namespaces declared for this token.">XMLToken::getNamespaces()</a>, <a class="el" href="class_x_m_l_token.html#aed5b4fbfad7ebd29e94feb092771ccf9" title="Returns the XML namespace prefix of token.">XMLToken::getPrefix()</a>, <a class="el" href="class_x_m_l_token.html#ab3a3f9fb7e0c88444ed43633bb18ec2f" title="Returns the (unqualified) name of token.">XMLToken::getName()</a>, <a class="el" href="class_x_m_l_token.html#a2b2c321b3c628fefb5c87c31e4d8dd9b" title="Returns the XML namespace URI of token.">XMLToken::getURI()</a>, and <a class="el" href="class_x_m_l_token.html#a25eb82b0e44aa0bad9af110041b319cf" title="Returns the attributes of the XML element represented by this token.">XMLToken::getAttributes()</a>.</p>
 <h1><a class="anchor" id="xmlnode-str2xmlnode"></a>
 Conversion between an XML string and an XMLNode</h1>
-<p>LibSBML provides the following utility functions for converting an XML string (e.g., <code>&lt;annotation&gt;...&lt;/annotation&gt;</code>) to/from an <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> object.</p>
+<p>LibSBML provides the following utility functions for converting an XML string (e.g., <code>&lt;annotation&gt;...&lt;/annotation&gt;</code>) to/from an <a class="el" href="class_x_m_l_node.html">XMLNode</a> object.</p>
 <ul>
-<li><a class="el" href="class_x_m_l_node.html#a9431852ad49f526a4bf3c9afdc95fe62" title="Returns a string representation of this XMLNode.">XMLNode::toXMLString()</a> returns a string representation of the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> object.</li>
+<li><a class="el" href="class_x_m_l_node.html#a9431852ad49f526a4bf3c9afdc95fe62" title="Returns a string representation of this XMLNode.">XMLNode::toXMLString()</a> returns a string representation of the <a class="el" href="class_x_m_l_node.html">XMLNode</a> object.</li>
 </ul>
 <ul>
-<li><a class="el" href="class_x_m_l_node.html#a3b018589d7d8e2fdeff43b9c0045ea55" title="Returns a string representation of a given XMLNode.">XMLNode::convertXMLNodeToString()</a> (static function) returns a string representation of the given <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> object.</li>
+<li><a class="el" href="class_x_m_l_node.html#a3b018589d7d8e2fdeff43b9c0045ea55" title="Returns a string representation of a given XMLNode.">XMLNode::convertXMLNodeToString()</a> (static function) returns a string representation of the given <a class="el" href="class_x_m_l_node.html">XMLNode</a> object.</li>
 </ul>
 <ul>
-<li><a class="el" href="class_x_m_l_node.html#abe475aad26e52c716bb171ebfab85c39" title="Returns an XMLNode which is derived from a string containing XML content.">XMLNode::convertStringToXMLNode()</a> (static function) returns an <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> object converted from the given XML string.</li>
+<li><a class="el" href="class_x_m_l_node.html#abe475aad26e52c716bb171ebfab85c39" title="Returns an XMLNode which is derived from a string containing XML content.">XMLNode::convertStringToXMLNode()</a> (static function) returns an <a class="el" href="class_x_m_l_node.html">XMLNode</a> object converted from the given XML string.</li>
 </ul>
-<p>The returned <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> object by <a class="el" href="class_x_m_l_node.html#abe475aad26e52c716bb171ebfab85c39" title="Returns an XMLNode which is derived from a string containing XML content.">XMLNode::convertStringToXMLNode()</a> is a dummy root (container) <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> if the given XML string has two or more top-level elements (e.g., &quot;<code>&lt;p&gt;...&lt;/p&gt;&lt;p&gt;...&lt;/p&gt;</code>&quot;). In the dummy root node, each top-level element in the given XML string is contained as a child <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. <a class="el" href="class_x_m_l_token.html#ae963b35615525f8af949373c5765a230" title="Returns true if this token is an end of file marker.">XMLToken::isEOF()</a> can be used to identify if the returned <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> object is a dummy node or not. Here is an example: </p><div class="fragment"><div class="line"><span class="comment">// Checks if the XMLNode object returned by XMLNode::convertStringToXMLNode()</span></div>
+<p>The returned <a class="el" href="class_x_m_l_node.html">XMLNode</a> object by <a class="el" href="class_x_m_l_node.html#abe475aad26e52c716bb171ebfab85c39" title="Returns an XMLNode which is derived from a string containing XML content.">XMLNode::convertStringToXMLNode()</a> is a dummy root (container) <a class="el" href="class_x_m_l_node.html">XMLNode</a> if the given XML string has two or more top-level elements (e.g., &quot;<code>&lt;p&gt;...&lt;/p&gt;&lt;p&gt;...&lt;/p&gt;</code>&quot;). In the dummy root node, each top-level element in the given XML string is contained as a child <a class="el" href="class_x_m_l_node.html">XMLNode</a>. <a class="el" href="class_x_m_l_token.html#ae963b35615525f8af949373c5765a230" title="Returns true if this token is an end of file marker.">XMLToken::isEOF()</a> can be used to identify if the returned <a class="el" href="class_x_m_l_node.html">XMLNode</a> object is a dummy node or not. Here is an example: </p><div class="fragment"><div class="line"><span class="comment">// Checks if the XMLNode object returned by XMLNode::convertStringToXMLNode()</span></div>
 <div class="line"><span class="comment">// is a dummy root node:</span></div>
 <div class="line"> </div>
 <div class="line">std::string str = <span class="stringliteral">&quot;...&quot;</span>;</div>
@@ -146,7 +147,7 @@ Conversion between an XML string and an XMLNode</h1>
 <div class="line">  <span class="comment">// Root node is NOT a dummy node.</span></div>
 <div class="line">  ...</div>
 <div class="line">}</div>
-<div class="ttc" id="aclass_x_m_l_node_html"><div class="ttname"><a href="class_x_m_l_node.html">XMLNode</a></div><div class="ttdoc">\ @ @ . ' .</div><div class="ttdef"><b>Definition:</b> XMLNode.h:178</div></div>
+<div class="ttc" id="aclass_x_m_l_node_html"><div class="ttname"><a href="class_x_m_l_node.html">XMLNode</a></div><div class="ttdef"><b>Definition:</b> XMLNode.h:178</div></div>
 <div class="ttc" id="aclass_x_m_l_node_html_a02d5d8c64c480eacf80941ad851deacd"><div class="ttname"><a href="class_x_m_l_node.html#a02d5d8c64c480eacf80941ad851deacd">XMLNode::getChild</a></div><div class="ttdeci">XMLNode &amp; getChild(unsigned int n)</div><div class="ttdoc">Returns the nth child of this XMLNode.</div><div class="ttdef"><b>Definition:</b> XMLNode.cpp:328</div></div>
 <div class="ttc" id="aclass_x_m_l_node_html_a44be07ab2c8661102741f79d6fcc7b93"><div class="ttname"><a href="class_x_m_l_node.html#a44be07ab2c8661102741f79d6fcc7b93">XMLNode::getNumChildren</a></div><div class="ttdeci">unsigned int getNumChildren() const</div><div class="ttdoc">Returns the number of children for this XMLNode.</div><div class="ttdef"><b>Definition:</b> XMLNode.cpp:506</div></div>
 <div class="ttc" id="aclass_x_m_l_node_html_abe475aad26e52c716bb171ebfab85c39"><div class="ttname"><a href="class_x_m_l_node.html#abe475aad26e52c716bb171ebfab85c39">XMLNode::convertStringToXMLNode</a></div><div class="ttdeci">static XMLNode * convertStringToXMLNode(const std::string &amp;xmlstr, const XMLNamespaces *xmlns=NULL)</div><div class="ttdoc">Returns an XMLNode which is derived from a string containing XML content.</div><div class="ttdef"><b>Definition:</b> XMLNode.cpp:606</div></div>
@@ -163,7 +164,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a4557b10140fcd61dab77f69c0b86b87d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an attribute to the XML element represented by this token.  <a href="class_x_m_l_token.html#a4557b10140fcd61dab77f69c0b86b87d">More...</a><br /></td></tr>
 <tr class="separator:a4557b10140fcd61dab77f69c0b86b87d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c25373a33be80bd0f28e54a80be2044"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a1c25373a33be80bd0f28e54a80be2044">addChild</a> (const <a class="el" href="class_x_m_l_node.html">XMLNode</a> &amp;node)</td></tr>
-<tr class="memdesc:a1c25373a33be80bd0f28e54a80be2044"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a copy of <code>node</code> as a child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>.  <a href="class_x_m_l_node.html#a1c25373a33be80bd0f28e54a80be2044">More...</a><br /></td></tr>
+<tr class="memdesc:a1c25373a33be80bd0f28e54a80be2044"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a copy of <code>node</code> as a child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a>.  <a href="class_x_m_l_node.html#a1c25373a33be80bd0f28e54a80be2044">More...</a><br /></td></tr>
 <tr class="separator:a1c25373a33be80bd0f28e54a80be2044"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51b55c6dfa29b482c45d7f61e2a2abae"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#a51b55c6dfa29b482c45d7f61e2a2abae">addNamespace</a> (const std::string &amp;uri, const std::string prefix=&quot;&quot;)</td></tr>
 <tr class="memdesc:a51b55c6dfa29b482c45d7f61e2a2abae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends an XML namespace declaration to this token.  <a href="class_x_m_l_token.html#a51b55c6dfa29b482c45d7f61e2a2abae">More...</a><br /></td></tr>
@@ -172,28 +173,28 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a64e389f37be54e6abb0d11d89b40d91e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends characters to the text content of token.  <a href="class_x_m_l_token.html#a64e389f37be54e6abb0d11d89b40d91e">More...</a><br /></td></tr>
 <tr class="separator:a64e389f37be54e6abb0d11d89b40d91e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02317b2903faab5e4b5fa6bacd6ba185"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#a02317b2903faab5e4b5fa6bacd6ba185">clearAttributes</a> ()</td></tr>
-<tr class="memdesc:a02317b2903faab5e4b5fa6bacd6ba185"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all attributes of this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object.  <a href="class_x_m_l_token.html#a02317b2903faab5e4b5fa6bacd6ba185">More...</a><br /></td></tr>
+<tr class="memdesc:a02317b2903faab5e4b5fa6bacd6ba185"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all attributes of this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object.  <a href="class_x_m_l_token.html#a02317b2903faab5e4b5fa6bacd6ba185">More...</a><br /></td></tr>
 <tr class="separator:a02317b2903faab5e4b5fa6bacd6ba185"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b9b94ff6797c5169056557ad137389f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#a2b9b94ff6797c5169056557ad137389f">clearNamespaces</a> ()</td></tr>
 <tr class="memdesc:a2b9b94ff6797c5169056557ad137389f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all XML namespace declarations from this token.  <a href="class_x_m_l_token.html#a2b9b94ff6797c5169056557ad137389f">More...</a><br /></td></tr>
 <tr class="separator:a2b9b94ff6797c5169056557ad137389f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7bfe27cb9b8f715a33c5a688b0e8ee88"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_x_m_l_node.html">XMLNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a7bfe27cb9b8f715a33c5a688b0e8ee88">clone</a> () const</td></tr>
-<tr class="memdesc:a7bfe27cb9b8f715a33c5a688b0e8ee88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> object.  <a href="class_x_m_l_node.html#a7bfe27cb9b8f715a33c5a688b0e8ee88">More...</a><br /></td></tr>
+<tr class="memdesc:a7bfe27cb9b8f715a33c5a688b0e8ee88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_x_m_l_node.html">XMLNode</a> object.  <a href="class_x_m_l_node.html#a7bfe27cb9b8f715a33c5a688b0e8ee88">More...</a><br /></td></tr>
 <tr class="separator:a7bfe27cb9b8f715a33c5a688b0e8ee88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56c2a16b990471ca2c5da6f3bff5b9fa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a56c2a16b990471ca2c5da6f3bff5b9fa">equals</a> (const <a class="el" href="class_x_m_l_node.html">XMLNode</a> &amp;other, bool ignoreURI=false, bool ignoreAttributeValues=false) const</td></tr>
-<tr class="memdesc:a56c2a16b990471ca2c5da6f3bff5b9fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> against another <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> returning true if both nodes represent the same XML tree, or false otherwise.  <a href="class_x_m_l_node.html#a56c2a16b990471ca2c5da6f3bff5b9fa">More...</a><br /></td></tr>
+<tr class="memdesc:a56c2a16b990471ca2c5da6f3bff5b9fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare this <a class="el" href="class_x_m_l_node.html">XMLNode</a> against another <a class="el" href="class_x_m_l_node.html">XMLNode</a> returning true if both nodes represent the same XML tree, or false otherwise.  <a href="class_x_m_l_node.html#a56c2a16b990471ca2c5da6f3bff5b9fa">More...</a><br /></td></tr>
 <tr class="separator:a56c2a16b990471ca2c5da6f3bff5b9fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25eb82b0e44aa0bad9af110041b319cf"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#a25eb82b0e44aa0bad9af110041b319cf">getAttributes</a> () const</td></tr>
 <tr class="memdesc:a25eb82b0e44aa0bad9af110041b319cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the attributes of the XML element represented by this token.  <a href="class_x_m_l_token.html#a25eb82b0e44aa0bad9af110041b319cf">More...</a><br /></td></tr>
 <tr class="separator:a25eb82b0e44aa0bad9af110041b319cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a604907127dd25094f73f4723060cd6fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#a604907127dd25094f73f4723060cd6fe">getAttributesLength</a> () const</td></tr>
-<tr class="memdesc:a604907127dd25094f73f4723060cd6fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of attributes on this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object.  <a href="class_x_m_l_token.html#a604907127dd25094f73f4723060cd6fe">More...</a><br /></td></tr>
+<tr class="memdesc:a604907127dd25094f73f4723060cd6fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of attributes on this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object.  <a href="class_x_m_l_token.html#a604907127dd25094f73f4723060cd6fe">More...</a><br /></td></tr>
 <tr class="separator:a604907127dd25094f73f4723060cd6fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee7431330304746a92b730e9ccebbf3f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#aee7431330304746a92b730e9ccebbf3f">getAttrIndex</a> (const std::string &amp;name, const std::string uri=&quot;&quot;) const</td></tr>
 <tr class="memdesc:aee7431330304746a92b730e9ccebbf3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the attribute with the given name and namespace URI.  <a href="class_x_m_l_token.html#aee7431330304746a92b730e9ccebbf3f">More...</a><br /></td></tr>
 <tr class="separator:aee7431330304746a92b730e9ccebbf3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac10343edba950a6f22e5db2eb423996b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#ac10343edba950a6f22e5db2eb423996b">getAttrIndex</a> (const <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> &amp;triple) const</td></tr>
-<tr class="memdesc:ac10343edba950a6f22e5db2eb423996b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the attribute defined by the given <a class="el" href="class_x_m_l_triple.html" title="\ @ @ . .">XMLTriple</a> object.  <a href="class_x_m_l_token.html#ac10343edba950a6f22e5db2eb423996b">More...</a><br /></td></tr>
+<tr class="memdesc:ac10343edba950a6f22e5db2eb423996b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the attribute defined by the given <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> object.  <a href="class_x_m_l_token.html#ac10343edba950a6f22e5db2eb423996b">More...</a><br /></td></tr>
 <tr class="separator:ac10343edba950a6f22e5db2eb423996b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb770a8721bb24f8c1a1e00046ab9304"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#abb770a8721bb24f8c1a1e00046ab9304">getAttrName</a> (int index) const</td></tr>
 <tr class="memdesc:abb770a8721bb24f8c1a1e00046ab9304"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of the <em>n</em>th attribute in this token's list of attributes.  <a href="class_x_m_l_token.html#abb770a8721bb24f8c1a1e00046ab9304">More...</a><br /></td></tr>
@@ -211,7 +212,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:abadcb807680c7a330c7ea9b313d3d6ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the attribute with a given name and XML namespace URI.  <a href="class_x_m_l_token.html#abadcb807680c7a330c7ea9b313d3d6ef">More...</a><br /></td></tr>
 <tr class="separator:abadcb807680c7a330c7ea9b313d3d6ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1e8af3d2160c327cc8ed955c567499c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#ac1e8af3d2160c327cc8ed955c567499c">getAttrValue</a> (const <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> &amp;triple) const</td></tr>
-<tr class="memdesc:ac1e8af3d2160c327cc8ed955c567499c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the attribute specified by a given <a class="el" href="class_x_m_l_triple.html" title="\ @ @ . .">XMLTriple</a> object.  <a href="class_x_m_l_token.html#ac1e8af3d2160c327cc8ed955c567499c">More...</a><br /></td></tr>
+<tr class="memdesc:ac1e8af3d2160c327cc8ed955c567499c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the attribute specified by a given <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> object.  <a href="class_x_m_l_token.html#ac1e8af3d2160c327cc8ed955c567499c">More...</a><br /></td></tr>
 <tr class="separator:ac1e8af3d2160c327cc8ed955c567499c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa104c724eb5b1d696a7b9776d6cc36bc"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#aa104c724eb5b1d696a7b9776d6cc36bc">getAttrValue</a> (int index) const</td></tr>
 <tr class="memdesc:aa104c724eb5b1d696a7b9776d6cc36bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the <em>n</em>th attribute in this token's list of attributes.  <a href="class_x_m_l_token.html#aa104c724eb5b1d696a7b9776d6cc36bc">More...</a><br /></td></tr>
@@ -220,22 +221,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:abea8ba88316d9eba5eee22ab5d89c196"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the character text of token.  <a href="class_x_m_l_token.html#abea8ba88316d9eba5eee22ab5d89c196">More...</a><br /></td></tr>
 <tr class="separator:abea8ba88316d9eba5eee22ab5d89c196"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13604a6e392a8526bd70eda48f6e7200"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_x_m_l_node.html">XMLNode</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a13604a6e392a8526bd70eda48f6e7200">getChild</a> (const std::string &amp;name)</td></tr>
-<tr class="memdesc:a13604a6e392a8526bd70eda48f6e7200"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the first child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> with the corresponding name.  <a href="class_x_m_l_node.html#a13604a6e392a8526bd70eda48f6e7200">More...</a><br /></td></tr>
+<tr class="memdesc:a13604a6e392a8526bd70eda48f6e7200"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the first child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a> with the corresponding name.  <a href="class_x_m_l_node.html#a13604a6e392a8526bd70eda48f6e7200">More...</a><br /></td></tr>
 <tr class="separator:a13604a6e392a8526bd70eda48f6e7200"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2240d7a21e9990355d1502d10fa9f024"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_x_m_l_node.html">XMLNode</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a2240d7a21e9990355d1502d10fa9f024">getChild</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:a2240d7a21e9990355d1502d10fa9f024"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the first child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> with the corresponding name.  <a href="class_x_m_l_node.html#a2240d7a21e9990355d1502d10fa9f024">More...</a><br /></td></tr>
+<tr class="memdesc:a2240d7a21e9990355d1502d10fa9f024"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the first child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a> with the corresponding name.  <a href="class_x_m_l_node.html#a2240d7a21e9990355d1502d10fa9f024">More...</a><br /></td></tr>
 <tr class="separator:a2240d7a21e9990355d1502d10fa9f024"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02d5d8c64c480eacf80941ad851deacd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_x_m_l_node.html">XMLNode</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a02d5d8c64c480eacf80941ad851deacd">getChild</a> (unsigned int n)</td></tr>
-<tr class="memdesc:a02d5d8c64c480eacf80941ad851deacd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>.  <a href="class_x_m_l_node.html#a02d5d8c64c480eacf80941ad851deacd">More...</a><br /></td></tr>
+<tr class="memdesc:a02d5d8c64c480eacf80941ad851deacd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a>.  <a href="class_x_m_l_node.html#a02d5d8c64c480eacf80941ad851deacd">More...</a><br /></td></tr>
 <tr class="separator:a02d5d8c64c480eacf80941ad851deacd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe90fba581502c48f5931742bb51b4a7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_x_m_l_node.html">XMLNode</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#abe90fba581502c48f5931742bb51b4a7">getChild</a> (unsigned int n) const</td></tr>
-<tr class="memdesc:abe90fba581502c48f5931742bb51b4a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>.  <a href="class_x_m_l_node.html#abe90fba581502c48f5931742bb51b4a7">More...</a><br /></td></tr>
+<tr class="memdesc:abe90fba581502c48f5931742bb51b4a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a>.  <a href="class_x_m_l_node.html#abe90fba581502c48f5931742bb51b4a7">More...</a><br /></td></tr>
 <tr class="separator:abe90fba581502c48f5931742bb51b4a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a891be63a2aa15685febbb658e70c4328"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#a891be63a2aa15685febbb658e70c4328">getColumn</a> () const</td></tr>
 <tr class="memdesc:a891be63a2aa15685febbb658e70c4328"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the column number at which this token occurs in the input.  <a href="class_x_m_l_token.html#a891be63a2aa15685febbb658e70c4328">More...</a><br /></td></tr>
 <tr class="separator:a891be63a2aa15685febbb658e70c4328"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55928de887e58bb62fc3f558739b2daa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a55928de887e58bb62fc3f558739b2daa">getIndex</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:a55928de887e58bb62fc3f558739b2daa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the index of the first child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> with the given name.  <a href="class_x_m_l_node.html#a55928de887e58bb62fc3f558739b2daa">More...</a><br /></td></tr>
+<tr class="memdesc:a55928de887e58bb62fc3f558739b2daa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the index of the first child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a> with the given name.  <a href="class_x_m_l_node.html#a55928de887e58bb62fc3f558739b2daa">More...</a><br /></td></tr>
 <tr class="separator:a55928de887e58bb62fc3f558739b2daa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07687edeb6cd5d5e1b57c93afb772300"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#a07687edeb6cd5d5e1b57c93afb772300">getLine</a> () const</td></tr>
 <tr class="memdesc:a07687edeb6cd5d5e1b57c93afb772300"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the line number at which this token occurs in the input.  <a href="class_x_m_l_token.html#a07687edeb6cd5d5e1b57c93afb772300">More...</a><br /></td></tr>
@@ -268,7 +269,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:adb1c8a9e4b3cd5522290b87b193722a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the URI of the <em>n</em>th XML namespace declared on this token.  <a href="class_x_m_l_token.html#adb1c8a9e4b3cd5522290b87b193722a1">More...</a><br /></td></tr>
 <tr class="separator:adb1c8a9e4b3cd5522290b87b193722a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44be07ab2c8661102741f79d6fcc7b93"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a44be07ab2c8661102741f79d6fcc7b93">getNumChildren</a> () const</td></tr>
-<tr class="memdesc:a44be07ab2c8661102741f79d6fcc7b93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of children for this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>.  <a href="class_x_m_l_node.html#a44be07ab2c8661102741f79d6fcc7b93">More...</a><br /></td></tr>
+<tr class="memdesc:a44be07ab2c8661102741f79d6fcc7b93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of children for this <a class="el" href="class_x_m_l_node.html">XMLNode</a>.  <a href="class_x_m_l_node.html#a44be07ab2c8661102741f79d6fcc7b93">More...</a><br /></td></tr>
 <tr class="separator:a44be07ab2c8661102741f79d6fcc7b93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed5b4fbfad7ebd29e94feb092771ccf9"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#aed5b4fbfad7ebd29e94feb092771ccf9">getPrefix</a> () const</td></tr>
 <tr class="memdesc:aed5b4fbfad7ebd29e94feb092771ccf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the XML namespace prefix of token.  <a href="class_x_m_l_token.html#aed5b4fbfad7ebd29e94feb092771ccf9">More...</a><br /></td></tr>
@@ -280,13 +281,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a928dd71b5da0f4e630b1f18c6d68b890"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if an attribute with a given name and namespace URI exists.  <a href="class_x_m_l_token.html#a928dd71b5da0f4e630b1f18c6d68b890">More...</a><br /></td></tr>
 <tr class="separator:a928dd71b5da0f4e630b1f18c6d68b890"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b2d75e7a15853c83d61aaec4900e116"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#a0b2d75e7a15853c83d61aaec4900e116">hasAttr</a> (const <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> &amp;triple) const</td></tr>
-<tr class="memdesc:a0b2d75e7a15853c83d61aaec4900e116"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if an attribute defined by a given <a class="el" href="class_x_m_l_triple.html" title="\ @ @ . .">XMLTriple</a> object exists.  <a href="class_x_m_l_token.html#a0b2d75e7a15853c83d61aaec4900e116">More...</a><br /></td></tr>
+<tr class="memdesc:a0b2d75e7a15853c83d61aaec4900e116"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if an attribute defined by a given <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> object exists.  <a href="class_x_m_l_token.html#a0b2d75e7a15853c83d61aaec4900e116">More...</a><br /></td></tr>
 <tr class="separator:a0b2d75e7a15853c83d61aaec4900e116"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5903003d559f9d0290fd60e41366c2e5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#a5903003d559f9d0290fd60e41366c2e5">hasAttr</a> (int index) const</td></tr>
 <tr class="memdesc:a5903003d559f9d0290fd60e41366c2e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if an attribute with the given index exists.  <a href="class_x_m_l_token.html#a5903003d559f9d0290fd60e41366c2e5">More...</a><br /></td></tr>
 <tr class="separator:a5903003d559f9d0290fd60e41366c2e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e5a6a3b186debd410f18574a563de10"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a5e5a6a3b186debd410f18574a563de10">hasChild</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:a5e5a6a3b186debd410f18574a563de10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a boolean indicating whether this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> has a child with the given name.  <a href="class_x_m_l_node.html#a5e5a6a3b186debd410f18574a563de10">More...</a><br /></td></tr>
+<tr class="memdesc:a5e5a6a3b186debd410f18574a563de10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a boolean indicating whether this <a class="el" href="class_x_m_l_node.html">XMLNode</a> has a child with the given name.  <a href="class_x_m_l_node.html#a5e5a6a3b186debd410f18574a563de10">More...</a><br /></td></tr>
 <tr class="separator:a5e5a6a3b186debd410f18574a563de10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c0f09a70ce764293a973c97a7e8de4a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#a0c0f09a70ce764293a973c97a7e8de4a">hasNamespaceNS</a> (const std::string &amp;uri, const std::string &amp;prefix) const</td></tr>
 <tr class="memdesc:a0c0f09a70ce764293a973c97a7e8de4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if this token has an XML namespace with a given prefix and URI combination.  <a href="class_x_m_l_token.html#a0c0f09a70ce764293a973c97a7e8de4a">More...</a><br /></td></tr>
@@ -298,7 +299,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a19ff7469fc6d34a1f797da9901f2f1dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if this token has an XML namespace with a given URI.  <a href="class_x_m_l_token.html#a19ff7469fc6d34a1f797da9901f2f1dd">More...</a><br /></td></tr>
 <tr class="separator:a19ff7469fc6d34a1f797da9901f2f1dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab22439cd49bfddd49f36474e2bc23c95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_x_m_l_node.html">XMLNode</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#ab22439cd49bfddd49f36474e2bc23c95">insertChild</a> (unsigned int n, const <a class="el" href="class_x_m_l_node.html">XMLNode</a> &amp;node)</td></tr>
-<tr class="memdesc:ab22439cd49bfddd49f36474e2bc23c95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a copy of the given node as the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>.  <a href="class_x_m_l_node.html#ab22439cd49bfddd49f36474e2bc23c95">More...</a><br /></td></tr>
+<tr class="memdesc:ab22439cd49bfddd49f36474e2bc23c95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a copy of the given node as the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a>.  <a href="class_x_m_l_node.html#ab22439cd49bfddd49f36474e2bc23c95">More...</a><br /></td></tr>
 <tr class="separator:ab22439cd49bfddd49f36474e2bc23c95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c094a5459116dc8ca1f93bdaf1b0949"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#a2c094a5459116dc8ca1f93bdaf1b0949">isAttributesEmpty</a> () const</td></tr>
 <tr class="memdesc:a2c094a5459116dc8ca1f93bdaf1b0949"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if this token has no attributes.  <a href="class_x_m_l_token.html#a2c094a5459116dc8ca1f93bdaf1b0949">More...</a><br /></td></tr>
@@ -325,7 +326,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a9e5f9506affaefd91d24150d15a21281"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if this token represents an XML text element.  <a href="class_x_m_l_token.html#a9e5f9506affaefd91d24150d15a21281">More...</a><br /></td></tr>
 <tr class="separator:a9e5f9506affaefd91d24150d15a21281"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13a099f21de99b8a4cbb7f78a211efb6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_x_m_l_node.html">XMLNode</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a13a099f21de99b8a4cbb7f78a211efb6">operator=</a> (const <a class="el" href="class_x_m_l_node.html">XMLNode</a> &amp;rhs)</td></tr>
-<tr class="memdesc:a13a099f21de99b8a4cbb7f78a211efb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>.  <a href="class_x_m_l_node.html#a13a099f21de99b8a4cbb7f78a211efb6">More...</a><br /></td></tr>
+<tr class="memdesc:a13a099f21de99b8a4cbb7f78a211efb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_x_m_l_node.html">XMLNode</a>.  <a href="class_x_m_l_node.html#a13a099f21de99b8a4cbb7f78a211efb6">More...</a><br /></td></tr>
 <tr class="separator:a13a099f21de99b8a4cbb7f78a211efb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a069eb01ce499152e7da6d890db4232de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#a069eb01ce499152e7da6d890db4232de">removeAttr</a> (const std::string &amp;name, const std::string uri=&quot;&quot;)</td></tr>
 <tr class="memdesc:a069eb01ce499152e7da6d890db4232de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an attribute from the XML element represented by this token.  <a href="class_x_m_l_token.html#a069eb01ce499152e7da6d890db4232de">More...</a><br /></td></tr>
@@ -337,7 +338,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a4ed4e8119bc50559a88b95c2e7932090"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the <em>n</em>th attribute from the XML element represented by this token.  <a href="class_x_m_l_token.html#a4ed4e8119bc50559a88b95c2e7932090">More...</a><br /></td></tr>
 <tr class="separator:a4ed4e8119bc50559a88b95c2e7932090"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d7a5bb2c6a951f76212675caa399377"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_x_m_l_node.html">XMLNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a2d7a5bb2c6a951f76212675caa399377">removeChild</a> (unsigned int n)</td></tr>
-<tr class="memdesc:a2d7a5bb2c6a951f76212675caa399377"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> and returns the removed node.  <a href="class_x_m_l_node.html#a2d7a5bb2c6a951f76212675caa399377">More...</a><br /></td></tr>
+<tr class="memdesc:a2d7a5bb2c6a951f76212675caa399377"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a> and returns the removed node.  <a href="class_x_m_l_node.html#a2d7a5bb2c6a951f76212675caa399377">More...</a><br /></td></tr>
 <tr class="separator:a2d7a5bb2c6a951f76212675caa399377"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1911ddafee6f3bce0fcf5885f3b9cd16"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a1911ddafee6f3bce0fcf5885f3b9cd16">removeChildren</a> ()</td></tr>
 <tr class="memdesc:a1911ddafee6f3bce0fcf5885f3b9cd16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all children from this node.  <a href="class_x_m_l_node.html#a1911ddafee6f3bce0fcf5885f3b9cd16">More...</a><br /></td></tr>
@@ -352,7 +353,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a5f7f047728380a22c17ec735287da6de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the attributes on the XML element represented by this token.  <a href="class_x_m_l_token.html#a5f7f047728380a22c17ec735287da6de">More...</a><br /></td></tr>
 <tr class="separator:a5f7f047728380a22c17ec735287da6de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d1a6af2872acb75f6f32dd91018c48d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#a8d1a6af2872acb75f6f32dd91018c48d">setCharacters</a> (const std::string &amp;chars)</td></tr>
-<tr class="memdesc:a8d1a6af2872acb75f6f32dd91018c48d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the characters for this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a>.  <a href="class_x_m_l_token.html#a8d1a6af2872acb75f6f32dd91018c48d">More...</a><br /></td></tr>
+<tr class="memdesc:a8d1a6af2872acb75f6f32dd91018c48d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the characters for this <a class="el" href="class_x_m_l_token.html">XMLToken</a>.  <a href="class_x_m_l_token.html#a8d1a6af2872acb75f6f32dd91018c48d">More...</a><br /></td></tr>
 <tr class="separator:a8d1a6af2872acb75f6f32dd91018c48d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85783786e0219ac1d822e37df460b587"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#a85783786e0219ac1d822e37df460b587">setEnd</a> ()</td></tr>
 <tr class="memdesc:a85783786e0219ac1d822e37df460b587"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declares that this token represents an XML element end tag.  <a href="class_x_m_l_token.html#a85783786e0219ac1d822e37df460b587">More...</a><br /></td></tr>
@@ -370,43 +371,43 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a9f80ab90e7f1509b2828686c1d96490a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints a string representation of the underlying token stream.  <a href="class_x_m_l_token.html#a9f80ab90e7f1509b2828686c1d96490a">More...</a><br /></td></tr>
 <tr class="separator:a9f80ab90e7f1509b2828686c1d96490a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9431852ad49f526a4bf3c9afdc95fe62"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a9431852ad49f526a4bf3c9afdc95fe62">toXMLString</a> () const</td></tr>
-<tr class="memdesc:a9431852ad49f526a4bf3c9afdc95fe62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string representation of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>.  <a href="class_x_m_l_node.html#a9431852ad49f526a4bf3c9afdc95fe62">More...</a><br /></td></tr>
+<tr class="memdesc:a9431852ad49f526a4bf3c9afdc95fe62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string representation of this <a class="el" href="class_x_m_l_node.html">XMLNode</a>.  <a href="class_x_m_l_node.html#a9431852ad49f526a4bf3c9afdc95fe62">More...</a><br /></td></tr>
 <tr class="separator:a9431852ad49f526a4bf3c9afdc95fe62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7b55ffbe6762bf67cae0af092f4bd59"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_token.html#ac7b55ffbe6762bf67cae0af092f4bd59">unsetEnd</a> ()</td></tr>
 <tr class="memdesc:ac7b55ffbe6762bf67cae0af092f4bd59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declares that this token no longer represents an XML start/end element.  <a href="class_x_m_l_token.html#ac7b55ffbe6762bf67cae0af092f4bd59">More...</a><br /></td></tr>
 <tr class="separator:ac7b55ffbe6762bf67cae0af092f4bd59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a719b115adfb642594107854189559ff2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a719b115adfb642594107854189559ff2">XMLNode</a> ()</td></tr>
-<tr class="memdesc:a719b115adfb642594107854189559ff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new empty <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> with no children.  <a href="class_x_m_l_node.html#a719b115adfb642594107854189559ff2">More...</a><br /></td></tr>
+<tr class="memdesc:a719b115adfb642594107854189559ff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new empty <a class="el" href="class_x_m_l_node.html">XMLNode</a> with no children.  <a href="class_x_m_l_node.html#a719b115adfb642594107854189559ff2">More...</a><br /></td></tr>
 <tr class="separator:a719b115adfb642594107854189559ff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6bc5570614d9ee24d8bbd62ec3ec56a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a6bc5570614d9ee24d8bbd62ec3ec56a3">XMLNode</a> (const std::string &amp;chars, const unsigned int line=0, const unsigned int column=0)</td></tr>
-<tr class="memdesc:a6bc5570614d9ee24d8bbd62ec3ec56a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a text <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>.  <a href="class_x_m_l_node.html#a6bc5570614d9ee24d8bbd62ec3ec56a3">More...</a><br /></td></tr>
+<tr class="memdesc:a6bc5570614d9ee24d8bbd62ec3ec56a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a text <a class="el" href="class_x_m_l_node.html">XMLNode</a>.  <a href="class_x_m_l_node.html#a6bc5570614d9ee24d8bbd62ec3ec56a3">More...</a><br /></td></tr>
 <tr class="separator:a6bc5570614d9ee24d8bbd62ec3ec56a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac86771ab653407944a03a4cf215c602"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#aac86771ab653407944a03a4cf215c602">XMLNode</a> (const <a class="el" href="class_x_m_l_node.html">XMLNode</a> &amp;orig)</td></tr>
-<tr class="memdesc:aac86771ab653407944a03a4cf215c602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor; creates a copy of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>.  <a href="class_x_m_l_node.html#aac86771ab653407944a03a4cf215c602">More...</a><br /></td></tr>
+<tr class="memdesc:aac86771ab653407944a03a4cf215c602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor; creates a copy of this <a class="el" href="class_x_m_l_node.html">XMLNode</a>.  <a href="class_x_m_l_node.html#aac86771ab653407944a03a4cf215c602">More...</a><br /></td></tr>
 <tr class="separator:aac86771ab653407944a03a4cf215c602"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21843419c9e9725e3e3089e5ddfa7e2c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a21843419c9e9725e3e3089e5ddfa7e2c">XMLNode</a> (const <a class="el" href="class_x_m_l_token.html">XMLToken</a> &amp;token)</td></tr>
-<tr class="memdesc:a21843419c9e9725e3e3089e5ddfa7e2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> by copying an <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object.  <a href="class_x_m_l_node.html#a21843419c9e9725e3e3089e5ddfa7e2c">More...</a><br /></td></tr>
+<tr class="memdesc:a21843419c9e9725e3e3089e5ddfa7e2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_x_m_l_node.html">XMLNode</a> by copying an <a class="el" href="class_x_m_l_token.html">XMLToken</a> object.  <a href="class_x_m_l_node.html#a21843419c9e9725e3e3089e5ddfa7e2c">More...</a><br /></td></tr>
 <tr class="separator:a21843419c9e9725e3e3089e5ddfa7e2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b2fbc1a3e6cbbf090b1e338be287bd9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a5b2fbc1a3e6cbbf090b1e338be287bd9">XMLNode</a> (const <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> &amp;triple, const unsigned int line=0, const unsigned int column=0)</td></tr>
-<tr class="memdesc:a5b2fbc1a3e6cbbf090b1e338be287bd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an end element <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>.  <a href="class_x_m_l_node.html#a5b2fbc1a3e6cbbf090b1e338be287bd9">More...</a><br /></td></tr>
+<tr class="memdesc:a5b2fbc1a3e6cbbf090b1e338be287bd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an end element <a class="el" href="class_x_m_l_node.html">XMLNode</a>.  <a href="class_x_m_l_node.html#a5b2fbc1a3e6cbbf090b1e338be287bd9">More...</a><br /></td></tr>
 <tr class="separator:a5b2fbc1a3e6cbbf090b1e338be287bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d39b71036a280ba768bf4c0429faf82"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a0d39b71036a280ba768bf4c0429faf82">XMLNode</a> (const <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> &amp;triple, const <a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a> &amp;attributes, const unsigned int line=0, const unsigned int column=0)</td></tr>
-<tr class="memdesc:a0d39b71036a280ba768bf4c0429faf82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a start element <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> with the given set of attributes.  <a href="class_x_m_l_node.html#a0d39b71036a280ba768bf4c0429faf82">More...</a><br /></td></tr>
+<tr class="memdesc:a0d39b71036a280ba768bf4c0429faf82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a start element <a class="el" href="class_x_m_l_node.html">XMLNode</a> with the given set of attributes.  <a href="class_x_m_l_node.html#a0d39b71036a280ba768bf4c0429faf82">More...</a><br /></td></tr>
 <tr class="separator:a0d39b71036a280ba768bf4c0429faf82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34ee7242a58c6ce81b20ef1388dae21d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a34ee7242a58c6ce81b20ef1388dae21d">XMLNode</a> (const <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> &amp;triple, const <a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a> &amp;attributes, const <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> &amp;namespaces, const unsigned int line=0, const unsigned int column=0)</td></tr>
-<tr class="memdesc:a34ee7242a58c6ce81b20ef1388dae21d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new start element <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> with the given set of attributes and namespace declarations.  <a href="class_x_m_l_node.html#a34ee7242a58c6ce81b20ef1388dae21d">More...</a><br /></td></tr>
+<tr class="memdesc:a34ee7242a58c6ce81b20ef1388dae21d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new start element <a class="el" href="class_x_m_l_node.html">XMLNode</a> with the given set of attributes and namespace declarations.  <a href="class_x_m_l_node.html#a34ee7242a58c6ce81b20ef1388dae21d">More...</a><br /></td></tr>
 <tr class="separator:a34ee7242a58c6ce81b20ef1388dae21d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae652023d7f98430de2027471ef9d9065"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#ae652023d7f98430de2027471ef9d9065">~XMLNode</a> ()</td></tr>
-<tr class="memdesc:ae652023d7f98430de2027471ef9d9065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>.  <a href="class_x_m_l_node.html#ae652023d7f98430de2027471ef9d9065">More...</a><br /></td></tr>
+<tr class="memdesc:ae652023d7f98430de2027471ef9d9065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_x_m_l_node.html">XMLNode</a>.  <a href="class_x_m_l_node.html#ae652023d7f98430de2027471ef9d9065">More...</a><br /></td></tr>
 <tr class="separator:ae652023d7f98430de2027471ef9d9065"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:abe475aad26e52c716bb171ebfab85c39"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_x_m_l_node.html">XMLNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#abe475aad26e52c716bb171ebfab85c39">convertStringToXMLNode</a> (const std::string &amp;xmlstr, const <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> *xmlns=NULL)</td></tr>
-<tr class="memdesc:abe475aad26e52c716bb171ebfab85c39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> which is derived from a string containing XML content.  <a href="class_x_m_l_node.html#abe475aad26e52c716bb171ebfab85c39">More...</a><br /></td></tr>
+<tr class="memdesc:abe475aad26e52c716bb171ebfab85c39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="class_x_m_l_node.html">XMLNode</a> which is derived from a string containing XML content.  <a href="class_x_m_l_node.html#abe475aad26e52c716bb171ebfab85c39">More...</a><br /></td></tr>
 <tr class="separator:abe475aad26e52c716bb171ebfab85c39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b018589d7d8e2fdeff43b9c0045ea55"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a3b018589d7d8e2fdeff43b9c0045ea55">convertXMLNodeToString</a> (const <a class="el" href="class_x_m_l_node.html">XMLNode</a> *node)</td></tr>
-<tr class="memdesc:a3b018589d7d8e2fdeff43b9c0045ea55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string representation of a given <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>.  <a href="class_x_m_l_node.html#a3b018589d7d8e2fdeff43b9c0045ea55">More...</a><br /></td></tr>
+<tr class="memdesc:a3b018589d7d8e2fdeff43b9c0045ea55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string representation of a given <a class="el" href="class_x_m_l_node.html">XMLNode</a>.  <a href="class_x_m_l_node.html#a3b018589d7d8e2fdeff43b9c0045ea55">More...</a><br /></td></tr>
 <tr class="separator:a3b018589d7d8e2fdeff43b9c0045ea55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -425,7 +426,7 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new empty <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> with no children. </p>
+<p>Creates a new empty <a class="el" href="class_x_m_l_node.html">XMLNode</a> with no children. </p>
 
 </div>
 </div>
@@ -445,10 +446,10 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> by copying an <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object. </p>
+<p>Creates a new <a class="el" href="class_x_m_l_node.html">XMLNode</a> by copying an <a class="el" href="class_x_m_l_token.html">XMLToken</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">token</td><td><a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> to be copied to <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </td></tr>
+    <tr><td class="paramname">token</td><td><a class="el" href="class_x_m_l_token.html">XMLToken</a> to be copied to <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -499,12 +500,12 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new start element <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> with the given set of attributes and namespace declarations. </p>
+<p>Creates a new start element <a class="el" href="class_x_m_l_node.html">XMLNode</a> with the given set of attributes and namespace declarations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">triple</td><td><a class="el" href="class_x_m_l_triple.html" title="\ @ @ . .">XMLTriple</a>. </td></tr>
-    <tr><td class="paramname">attributes</td><td><a class="el" href="class_x_m_l_attributes.html" title="\ @ @ . .">XMLAttributes</a>, the attributes to set. </td></tr>
-    <tr><td class="paramname">namespaces</td><td><a class="el" href="class_x_m_l_namespaces.html" title="\ @ @ . .">XMLNamespaces</a>, the namespaces to set. </td></tr>
+    <tr><td class="paramname">triple</td><td><a class="el" href="class_x_m_l_triple.html">XMLTriple</a>. </td></tr>
+    <tr><td class="paramname">attributes</td><td><a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a>, the attributes to set. </td></tr>
+    <tr><td class="paramname">namespaces</td><td><a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a>, the namespaces to set. </td></tr>
     <tr><td class="paramname">line</td><td>an unsigned int, the line number (default = 0). </td></tr>
     <tr><td class="paramname">column</td><td>an unsigned int, the column number (default = 0). </td></tr>
   </table>
@@ -551,11 +552,11 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a start element <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> with the given set of attributes. </p>
+<p>Creates a start element <a class="el" href="class_x_m_l_node.html">XMLNode</a> with the given set of attributes. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">triple</td><td><a class="el" href="class_x_m_l_triple.html" title="\ @ @ . .">XMLTriple</a>. </td></tr>
-    <tr><td class="paramname">attributes</td><td><a class="el" href="class_x_m_l_attributes.html" title="\ @ @ . .">XMLAttributes</a>, the attributes to set. </td></tr>
+    <tr><td class="paramname">triple</td><td><a class="el" href="class_x_m_l_triple.html">XMLTriple</a>. </td></tr>
+    <tr><td class="paramname">attributes</td><td><a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a>, the attributes to set. </td></tr>
     <tr><td class="paramname">line</td><td>an unsigned int, the line number (default = 0). </td></tr>
     <tr><td class="paramname">column</td><td>an unsigned int, the column number (default = 0). </td></tr>
   </table>
@@ -596,10 +597,10 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates an end element <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </p>
+<p>Creates an end element <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">triple</td><td><a class="el" href="class_x_m_l_triple.html" title="\ @ @ . .">XMLTriple</a>. </td></tr>
+    <tr><td class="paramname">triple</td><td><a class="el" href="class_x_m_l_triple.html">XMLTriple</a>. </td></tr>
     <tr><td class="paramname">line</td><td>an unsigned int, the line number (default = 0). </td></tr>
     <tr><td class="paramname">column</td><td>an unsigned int, the column number (default = 0). </td></tr>
   </table>
@@ -640,10 +641,10 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a text <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </p>
+<p>Creates a text <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">chars</td><td>a string, the text to be added to the <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a>. </td></tr>
+    <tr><td class="paramname">chars</td><td>a string, the text to be added to the <a class="el" href="class_x_m_l_token.html">XMLToken</a>. </td></tr>
     <tr><td class="paramname">line</td><td>an unsigned int, the line number (default = 0). </td></tr>
     <tr><td class="paramname">column</td><td>an unsigned int, the column number (default = 0). </td></tr>
   </table>
@@ -675,7 +676,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroys this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </p>
+<p>Destroys this <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </p>
 
 </div>
 </div>
@@ -695,10 +696,10 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copy constructor; creates a copy of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </p>
+<p>Copy constructor; creates a copy of this <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">orig</td><td>the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> instance to copy. </td></tr>
+    <tr><td class="paramname">orig</td><td>the <a class="el" href="class_x_m_l_node.html">XMLNode</a> instance to copy. </td></tr>
   </table>
   </dd>
 </dl>
@@ -812,11 +813,11 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Adds a copy of <code>node</code> as a child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </p>
+<p>Adds a copy of <code>node</code> as a child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </p>
 <p>The given <code>node</code> is added at the end of the list of children.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">node</td><td>the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> to be added as child.</td></tr>
+    <tr><td class="paramname">node</td><td>the <a class="el" href="class_x_m_l_node.html">XMLNode</a> to be added as child.</td></tr>
   </table>
   </dd>
 </dl>
@@ -863,7 +864,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Appends an XML namespace declaration to this token. </p>
-<p>The namespace added will be defined by the given XML namespace URI and an optional prefix. If this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object already possesses an XML namespace declaration with the given <code>prefix</code>, then the existing XML namespace URI will be overwritten by the new one given by <code>uri</code>.</p>
+<p>The namespace added will be defined by the given XML namespace URI and an optional prefix. If this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object already possesses an XML namespace declaration with the given <code>prefix</code>, then the existing XML namespace URI will be overwritten by the new one given by <code>uri</code>.</p>
 <dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATIONendif  uri a string, the XML namespace URI for the namespace.  prefix a string, the namespace prefix to use.   OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESSendif </a></dd></dl>
 
 </div>
@@ -893,7 +894,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Appends characters to the text content of token. </p>
-<p>This method only makes sense for <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> objects that contains text. If this method is called on a token that represents an XML start or end tag, it will return the code <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILEDendif </a></p>
+<p>This method only makes sense for <a class="el" href="class_x_m_l_token.html">XMLToken</a> objects that contains text. If this method is called on a token that represents an XML start or end tag, it will return the code <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILEDendif </a></p>
 
 </div>
 </div>
@@ -920,7 +921,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Removes all attributes of this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object. </p>
+<p>Removes all attributes of this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object. </p>
 <dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATIONendif   OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESSendif </a></dd></dl>
 
 </div>
@@ -968,8 +969,8 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates and returns a deep copy of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the (deep) copy of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> object. </dd></dl>
+<p>Creates and returns a deep copy of this <a class="el" href="class_x_m_l_node.html">XMLNode</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the (deep) copy of this <a class="el" href="class_x_m_l_node.html">XMLNode</a> object. </dd></dl>
 
 </div>
 </div>
@@ -1007,17 +1008,17 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns an <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> which is derived from a string containing XML content. </p>
+<p>Returns an <a class="el" href="class_x_m_l_node.html">XMLNode</a> which is derived from a string containing XML content. </p>
 <p>The XML namespace must be defined using argument <code>xmlns</code> if the corresponding XML namespace attribute is not part of the string of the first argument.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">xmlstr</td><td>string to be converted to a XML node. </td></tr>
-    <tr><td class="paramname">xmlns</td><td><a class="el" href="class_x_m_l_namespaces.html" title="\ @ @ . .">XMLNamespaces</a> the namespaces to set (default value is <code>NULL</code>).</td></tr>
+    <tr><td class="paramname">xmlns</td><td><a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> the namespaces to set (default value is <code>NULL</code>).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>The caller owns the returned <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> and is reponsible for deleting it. The returned <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> object is a dummy root (container) <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> if the top-level element in the given XML string is NOT <code>&lt;html&gt;</code>, <code>&lt;body&gt;</code>, <code>&lt;annotation&gt;</code>, or <code>&lt;notes&gt;</code>. In the dummy root node, each top-level element in the given XML string is contained as a child <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. <a class="el" href="class_x_m_l_token.html#ae963b35615525f8af949373c5765a230" title="Returns true if this token is an end of file marker.">XMLToken::isEOF()</a> can be used to identify if the returned <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> object is a dummy node.</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> which is converted from string <code>xmlstr</code>. If the conversion failed, this method returns <code>NULL</code>. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The caller owns the returned <a class="el" href="class_x_m_l_node.html">XMLNode</a> and is reponsible for deleting it. The returned <a class="el" href="class_x_m_l_node.html">XMLNode</a> object is a dummy root (container) <a class="el" href="class_x_m_l_node.html">XMLNode</a> if the top-level element in the given XML string is NOT <code>&lt;html&gt;</code>, <code>&lt;body&gt;</code>, <code>&lt;annotation&gt;</code>, or <code>&lt;notes&gt;</code>. In the dummy root node, each top-level element in the given XML string is contained as a child <a class="el" href="class_x_m_l_node.html">XMLNode</a>. <a class="el" href="class_x_m_l_token.html#ae963b35615525f8af949373c5765a230" title="Returns true if this token is an end of file marker.">XMLToken::isEOF()</a> can be used to identify if the returned <a class="el" href="class_x_m_l_node.html">XMLNode</a> object is a dummy node.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="class_x_m_l_node.html">XMLNode</a> which is converted from string <code>xmlstr</code>. If the conversion failed, this method returns <code>NULL</code>. </dd></dl>
 
 </div>
 </div>
@@ -1045,10 +1046,10 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a string representation of a given <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </p>
+<p>Returns a string representation of a given <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">node</td><td>the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> to be represented as a string.</td></tr>
+    <tr><td class="paramname">node</td><td>the <a class="el" href="class_x_m_l_node.html">XMLNode</a> to be represented as a string.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1088,23 +1089,23 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Compare this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> against another <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> returning true if both nodes represent the same XML tree, or false otherwise. </p>
+<p>Compare this <a class="el" href="class_x_m_l_node.html">XMLNode</a> against another <a class="el" href="class_x_m_l_node.html">XMLNode</a> returning true if both nodes represent the same XML tree, or false otherwise. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">other</td><td>another <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> to compare against.</td></tr>
+    <tr><td class="paramname">other</td><td>another <a class="el" href="class_x_m_l_node.html">XMLNode</a> to compare against.</td></tr>
     <tr><td class="paramname">ignoreURI</td><td>whether to ignore the namespace URI when doing the comparison.</td></tr>
     <tr><td class="paramname">ignoreAttributeValues</td><td>whetehr to ignore attribute values when doing the comparison.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean indicating whether this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> represents the same XML tree as another.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>boolean indicating whether this <a class="el" href="class_x_m_l_node.html">XMLNode</a> represents the same XML tree as another.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">other</td><td>another <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> to compare against</td></tr>
+    <tr><td class="paramname">other</td><td>another <a class="el" href="class_x_m_l_node.html">XMLNode</a> to compare against</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean indicating whether this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> represents the same XML tree as another. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>boolean indicating whether this <a class="el" href="class_x_m_l_node.html">XMLNode</a> represents the same XML tree as another. </dd></dl>
 
 </div>
 </div>
@@ -1132,7 +1133,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the attributes of the XML element represented by this token. </p>
-<dl class="section return"><dt>Returns</dt><dd>the attributes of this XML element, stored in an <a class="el" href="class_x_m_l_attributes.html" title="\ @ @ . .">XMLAttributes</a> object. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the attributes of this XML element, stored in an <a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a> object. </dd></dl>
 
 </div>
 </div>
@@ -1159,7 +1160,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the number of attributes on this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object. </p>
+<p>Returns the number of attributes on this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object. </p>
 <dl class="section return"><dt>Returns</dt><dd>the number of attributes possessed by this token.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#a5903003d559f9d0290fd60e41366c2e5" title="Returns true if an attribute with the given index exists.">hasAttr()</a> </dd></dl>
 
@@ -1235,14 +1236,14 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the index of the attribute defined by the given <a class="el" href="class_x_m_l_triple.html" title="\ @ @ . .">XMLTriple</a> object. </p>
+<p>Returns the index of the attribute defined by the given <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">triple</td><td>the <a class="el" href="class_x_m_l_triple.html" title="\ @ @ . .">XMLTriple</a> object that defines the attribute whose index is being sought.</td></tr>
+    <tr><td class="paramname">triple</td><td>the <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> object that defines the attribute whose index is being sought.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the index of an attribute with the given <a class="el" href="class_x_m_l_triple.html" title="\ @ @ . .">XMLTriple</a> object, or <code>-1</code> if no such attribute is present on this token. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the index of an attribute with the given <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> object, or <code>-1</code> if no such attribute is present on this token. </dd></dl>
 
 </div>
 </div>
@@ -1277,7 +1278,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the name of the attribute located at position <code>n</code> in the list of attributes possessed by this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the name of the attribute located at position <code>n</code> in the list of attributes possessed by this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#a5903003d559f9d0290fd60e41366c2e5" title="Returns true if an attribute with the given index exists.">hasAttr()</a> </dd>
 <dd>
 <a class="el" href="class_x_m_l_token.html#a604907127dd25094f73f4723060cd6fe" title="Returns the number of attributes on this XMLToken object.">getAttributesLength()</a> </dd></dl>
@@ -1315,7 +1316,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the XML namespace prefix of the attribute located at position <code>n</code> in the list of attributes possessed by this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the XML namespace prefix of the attribute located at position <code>n</code> in the list of attributes possessed by this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#a5903003d559f9d0290fd60e41366c2e5" title="Returns true if an attribute with the given index exists.">hasAttr()</a> </dd>
 <dd>
 <a class="el" href="class_x_m_l_token.html#a604907127dd25094f73f4723060cd6fe" title="Returns the number of attributes on this XMLToken object.">getAttributesLength()</a> </dd></dl>
@@ -1354,7 +1355,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the prefixed name of the attribute located at position <code>n</code> in the list of attributes possessed by this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the prefixed name of the attribute located at position <code>n</code> in the list of attributes possessed by this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object.</dd></dl>
 
 </div>
 </div>
@@ -1389,7 +1390,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the XML namespace URI of the attribute located at position <code>n</code> in the list of attributes possessed by this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the XML namespace URI of the attribute located at position <code>n</code> in the list of attributes possessed by this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object.</dd></dl>
 
 </div>
 </div>
@@ -1464,10 +1465,10 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the value of the attribute specified by a given <a class="el" href="class_x_m_l_triple.html" title="\ @ @ . .">XMLTriple</a> object. </p>
+<p>Returns the value of the attribute specified by a given <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">triple</td><td>an <a class="el" href="class_x_m_l_triple.html" title="\ @ @ . .">XMLTriple</a> describing the attribute whose value is being sought.</td></tr>
+    <tr><td class="paramname">triple</td><td>an <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> describing the attribute whose value is being sought.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1507,7 +1508,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the value of the attribute located at position <code>n</code> in the list of attributes possessed by this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the value of the attribute located at position <code>n</code> in the list of attributes possessed by this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object.</dd></dl>
 
 </div>
 </div>
@@ -1558,7 +1559,7 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the first child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> with the corresponding name. </p>
+<p>Returns the first child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a> with the corresponding name. </p>
 <p>If no child with corrsponding name can be found, this method returns an empty node.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1566,7 +1567,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the first child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> with given name.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the first child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a> with given name.</dd></dl>
 <p>If no child with corrsponding name can be found, this method returns an empty node.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1574,7 +1575,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the first child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> with given name. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the first child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a> with given name. </dd></dl>
 
 </div>
 </div>
@@ -1594,7 +1595,7 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the first child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> with the corresponding name. </p>
+<p>Returns the first child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a> with the corresponding name. </p>
 <p>If no child with corrsponding name can be found, this method returns an empty node.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1602,7 +1603,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the first child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> with given name.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the first child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a> with given name.</dd></dl>
 <p>If no child with corrsponding name can be found, this method returns an empty node.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1610,7 +1611,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the first child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> with given name. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the first child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a> with given name. </dd></dl>
 
 </div>
 </div>
@@ -1630,7 +1631,7 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </p>
+<p>Returns the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </p>
 <p>If the index <code>n</code> is greater than the number of child nodes, this method returns an empty node.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1638,7 +1639,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </dd></dl>
 
 </div>
 </div>
@@ -1658,7 +1659,7 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </p>
+<p>Returns the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </p>
 <p>If the index <code>n</code> is greater than the number of child nodes, this method returns an empty node.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1666,7 +1667,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </dd></dl>
 
 </div>
 </div>
@@ -1694,7 +1695,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the column number at which this token occurs in the input. </p>
-<dl class="section return"><dt>Returns</dt><dd>the column at which this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> occurred. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the column at which this <a class="el" href="class_x_m_l_token.html">XMLToken</a> occurred. </dd></dl>
 
 </div>
 </div>
@@ -1714,14 +1715,14 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Return the index of the first child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> with the given name. </p>
+<p>Return the index of the first child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a> with the given name. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">name</td><td>a string, the name of the child for which the index is required.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the index of the first child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> with the given name, or <code>-1</code> if not present. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the index of the first child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a> with the given name, or <code>-1</code> if not present. </dd></dl>
 
 </div>
 </div>
@@ -1749,7 +1750,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the line number at which this token occurs in the input. </p>
-<dl class="section return"><dt>Returns</dt><dd>the line at which this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> occurred. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the line at which this <a class="el" href="class_x_m_l_token.html">XMLToken</a> occurred. </dd></dl>
 
 </div>
 </div>
@@ -1812,7 +1813,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the index of the given declaration, or <code>-1</code> if no such namespace URI is present on this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the index of the given declaration, or <code>-1</code> if no such namespace URI is present on this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object. </dd></dl>
 
 </div>
 </div>
@@ -1847,7 +1848,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the index of the given declaration, or <code>-1</code> if no such namespace URI is present on this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the index of the given declaration, or <code>-1</code> if no such namespace URI is present on this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object. </dd></dl>
 
 </div>
 </div>
@@ -1882,8 +1883,8 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the prefix of an XML namespace declaration on this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>If there is no XML namespace with the given <code>uri</code> declared on this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object, this method will return an empty string. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the prefix of an XML namespace declaration on this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If there is no XML namespace with the given <code>uri</code> declared on this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object, this method will return an empty string. </dd></dl>
 
 </div>
 </div>
@@ -1918,8 +1919,8 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the prefix of an XML namespace declaration in the <a class="el" href="class_x_m_l_namespaces.html" title="\ @ @ . .">XMLNamespaces</a> (by position).</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>If <code>index</code> is out of range, this method will return an empty string. <a class="el" href="class_x_m_l_token.html#a6af59569ca097bc9695f7deb0131e2dd" title="Returns the number of XML namespaces declared on this token.">XMLToken::getNamespacesLength()</a> can be used to find out how many namespaces are defined on this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the prefix of an XML namespace declaration in the <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> (by position).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If <code>index</code> is out of range, this method will return an empty string. <a class="el" href="class_x_m_l_token.html#a6af59569ca097bc9695f7deb0131e2dd" title="Returns the number of XML namespaces declared on this token.">XMLToken::getNamespacesLength()</a> can be used to find out how many namespaces are defined on this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#a6af59569ca097bc9695f7deb0131e2dd" title="Returns the number of XML namespaces declared on this token.">getNamespacesLength()</a> </dd></dl>
 
 </div>
@@ -1976,7 +1977,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the number of XML namespaces declared on this token. </p>
-<dl class="section return"><dt>Returns</dt><dd>the number of XML namespaces stored in the <a class="el" href="class_x_m_l_namespaces.html" title="\ @ @ . .">XMLNamespaces</a> object of this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the number of XML namespaces stored in the <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> object of this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object. </dd></dl>
 
 </div>
 </div>
@@ -2012,7 +2013,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the URI of an XML namespace declaration given its prefix.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>If there is no XML namespace with the given <code>prefix</code> stored in the <a class="el" href="class_x_m_l_namespaces.html" title="\ @ @ . .">XMLNamespaces</a> object of this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object, this method will return an empty string. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If there is no XML namespace with the given <code>prefix</code> stored in the <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> object of this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object, this method will return an empty string. </dd></dl>
 
 </div>
 </div>
@@ -2047,7 +2048,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the URI of the <em>n</em>th XML namespace stored in the <a class="el" href="class_x_m_l_namespaces.html" title="\ @ @ . .">XMLNamespaces</a> object in this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the URI of the <em>n</em>th XML namespace stored in the <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> object in this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If <code>index</code> is out of range, this method will return an empty string.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#a6af59569ca097bc9695f7deb0131e2dd" title="Returns the number of XML namespaces declared on this token.">getNamespacesLength()</a> </dd></dl>
 
@@ -2068,8 +2069,8 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the number of children for this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the number of children for this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </dd></dl>
+<p>Returns the number of children for this <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the number of children for this <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </dd></dl>
 
 </div>
 </div>
@@ -2200,14 +2201,14 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns <code>true</code> if an attribute defined by a given <a class="el" href="class_x_m_l_triple.html" title="\ @ @ . .">XMLTriple</a> object exists. </p>
+<p>Returns <code>true</code> if an attribute defined by a given <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> object exists. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">triple</td><td>an <a class="el" href="class_x_m_l_triple.html" title="\ @ @ . .">XMLTriple</a> object describing the attribute being sought.</td></tr>
+    <tr><td class="paramname">triple</td><td>an <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> object describing the attribute being sought.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if an attribute matching the properties of the given <a class="el" href="class_x_m_l_triple.html" title="\ @ @ . .">XMLTriple</a> object exists in the list of attributes on this token, <code>false</code> otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if an attribute matching the properties of the given <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> object exists in the list of attributes on this token, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -2262,14 +2263,14 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Return a boolean indicating whether this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> has a child with the given name. </p>
+<p>Return a boolean indicating whether this <a class="el" href="class_x_m_l_node.html">XMLNode</a> has a child with the given name. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">name</td><td>a string, the name of the child to be checked.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean indicating whether this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> has a child with the given name. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>boolean indicating whether this <a class="el" href="class_x_m_l_node.html">XMLNode</a> has a child with the given name. </dd></dl>
 
 </div>
 </div>
@@ -2315,7 +2316,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if an XML namespace with the given URI/prefix pair is contained in the <a class="el" href="class_x_m_l_namespaces.html" title="\ @ @ . .">XMLNamespaces</a> object of this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object, <code>false</code> otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if an XML namespace with the given URI/prefix pair is contained in the <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> object of this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -2350,7 +2351,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if an XML Namespace with the given URI is contained in the <a class="el" href="class_x_m_l_namespaces.html" title="\ @ @ . .">XMLNamespaces</a> of this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a>, <code>false</code> otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if an XML Namespace with the given URI is contained in the <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> of this <a class="el" href="class_x_m_l_token.html">XMLToken</a>, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -2385,7 +2386,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if an XML namespace with the given URI is contained in the <a class="el" href="class_x_m_l_namespaces.html" title="\ @ @ . .">XMLNamespaces</a> object of this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object, <code>false</code> otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if an XML namespace with the given URI is contained in the <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> object of this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -2415,12 +2416,12 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Inserts a copy of the given node as the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </p>
-<p>If the given index <code>n</code> is out of range for this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> instance, the <code>node</code> is added at the end of the list of children. Even in that situation, this method does not throw an error.</p>
+<p>Inserts a copy of the given node as the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </p>
+<p>If the given index <code>n</code> is out of range for this <a class="el" href="class_x_m_l_node.html">XMLNode</a> instance, the <code>node</code> is added at the end of the list of children. Even in that situation, this method does not throw an error.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">n</td><td>an integer, the index at which the given node is inserted. </td></tr>
-    <tr><td class="paramname">node</td><td>an <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> to be inserted as <code>n</code>th child.</td></tr>
+    <tr><td class="paramname">node</td><td>an <a class="el" href="class_x_m_l_node.html">XMLNode</a> to be inserted as <code>n</code>th child.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2452,7 +2453,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if this token has no attributes. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the list of attributes on <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object is empty, <code>false</code> otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the list of attributes on <a class="el" href="class_x_m_l_token.html">XMLToken</a> object is empty, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -2480,8 +2481,8 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if this token represents an XML element. </p>
-<p>This generic predicate returns <code>true</code> if the element is either a start or end tag, and <code>false</code> if it's a text object. The related methods <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a>:<a class="el" href="class_x_m_l_token.html#ade7cb99aac8335048f2654af9582f6c9" title="Returns true if this token represents an XML start element.">isStart()</a>, <a class="el" href="class_x_m_l_token.html#ad0a44a5db108d63aadf29b326bda3d21" title="Returns true if this token represents an XML end element.">XMLToken::isEnd()</a> and <a class="el" href="class_x_m_l_token.html#a9e5f9506affaefd91d24150d15a21281" title="Returns true if this token represents an XML text element.">XMLToken::isText()</a> are more specific predicates.</p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object represents an XML element, <code>false</code> otherwise.</dd></dl>
+<p>This generic predicate returns <code>true</code> if the element is either a start or end tag, and <code>false</code> if it's a text object. The related methods <a class="el" href="class_x_m_l_token.html">XMLToken</a>:<a class="el" href="class_x_m_l_token.html#ade7cb99aac8335048f2654af9582f6c9" title="Returns true if this token represents an XML start element.">isStart()</a>, <a class="el" href="class_x_m_l_token.html#ad0a44a5db108d63aadf29b326bda3d21" title="Returns true if this token represents an XML end element.">XMLToken::isEnd()</a> and <a class="el" href="class_x_m_l_token.html#a9e5f9506affaefd91d24150d15a21281" title="Returns true if this token represents an XML text element.">XMLToken::isText()</a> are more specific predicates.</p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object represents an XML element, <code>false</code> otherwise.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#ade7cb99aac8335048f2654af9582f6c9" title="Returns true if this token represents an XML start element.">isStart()</a> </dd>
 <dd>
 <a class="el" href="class_x_m_l_token.html#ad0a44a5db108d63aadf29b326bda3d21" title="Returns true if this token represents an XML end element.">isEnd()</a> </dd>
@@ -2514,7 +2515,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if this token represents an XML end element. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object represents an XML end element, <code>false</code> otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object represents an XML end element, <code>false</code> otherwise.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#ade7cb99aac8335048f2654af9582f6c9" title="Returns true if this token represents an XML start element.">isStart()</a> </dd>
 <dd>
 <a class="el" href="class_x_m_l_token.html#aa8833beadc3f06ae3e4b6cdfcac322ef" title="Returns true if this token represents an XML element.">isElement()</a> </dd>
@@ -2550,11 +2551,11 @@ Static Public Member Functions</h2></td></tr>
 <p>Returns <code>true</code> if this token represents an XML end element for a particular start element. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">element</td><td><a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a>, the element with which the current object should be compared to determined whether the current object is a start element for the given one.</td></tr>
+    <tr><td class="paramname">element</td><td><a class="el" href="class_x_m_l_token.html">XMLToken</a>, the element with which the current object should be compared to determined whether the current object is a start element for the given one.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object represents an XML end tag for the start tag given by <code>element</code>, <code>false</code> otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object represents an XML end tag for the start tag given by <code>element</code>, <code>false</code> otherwise.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#aa8833beadc3f06ae3e4b6cdfcac322ef" title="Returns true if this token represents an XML element.">isElement()</a> </dd>
 <dd>
 <a class="el" href="class_x_m_l_token.html#ade7cb99aac8335048f2654af9582f6c9" title="Returns true if this token represents an XML start element.">isStart()</a> </dd>
@@ -2589,7 +2590,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if this token is an end of file marker. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object represents the end of the input, <code>false</code> otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object represents the end of the input, <code>false</code> otherwise.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#a6ce5f5ffe6df85ab02124abf91c6b61a" title="Declares that this token is an end-of-file/input marker.">setEOF()</a> </dd></dl>
 
 </div>
@@ -2618,7 +2619,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if there are no namespaces declared on this token. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the <a class="el" href="class_x_m_l_namespaces.html" title="\ @ @ . .">XMLNamespaces</a> object stored in this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> token is empty, <code>false</code> otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> object stored in this <a class="el" href="class_x_m_l_token.html">XMLToken</a> token is empty, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -2646,7 +2647,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if this token represents an XML start element. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> is an XML start element, <code>false</code> otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> is an XML start element, <code>false</code> otherwise.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#aa8833beadc3f06ae3e4b6cdfcac322ef" title="Returns true if this token represents an XML element.">isElement()</a> </dd>
 <dd>
 <a class="el" href="class_x_m_l_token.html#ad0a44a5db108d63aadf29b326bda3d21" title="Returns true if this token represents an XML end element.">isEnd()</a> </dd>
@@ -2679,7 +2680,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if this token represents an XML text element. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> is an XML text element, <code>false</code> otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> is an XML text element, <code>false</code> otherwise.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#aa8833beadc3f06ae3e4b6cdfcac322ef" title="Returns true if this token represents an XML element.">isElement()</a> </dd>
 <dd>
 <a class="el" href="class_x_m_l_token.html#ade7cb99aac8335048f2654af9582f6c9" title="Returns true if this token represents an XML start element.">isStart()</a> </dd>
@@ -2704,10 +2705,10 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Assignment operator for <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </p>
+<p>Assignment operator for <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td>the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> object whose values are used as the basis of the assignment. </td></tr>
+    <tr><td class="paramname">rhs</td><td>the <a class="el" href="class_x_m_l_node.html">XMLNode</a> object whose values are used as the basis of the assignment. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2827,8 +2828,8 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Removes the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> and returns the removed node. </p>
-<p>It is important to keep in mind that a given <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> may have more than one child. Calling this method erases all existing references to child nodes <em>after</em> the given position <code>n</code>. If the index <code>n</code> is greater than the number of child nodes in this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>, this method takes no action (and returns <code>NULL</code>).</p>
+<p>Removes the <code>n</code>th child of this <a class="el" href="class_x_m_l_node.html">XMLNode</a> and returns the removed node. </p>
+<p>It is important to keep in mind that a given <a class="el" href="class_x_m_l_node.html">XMLNode</a> may have more than one child. Calling this method erases all existing references to child nodes <em>after</em> the given position <code>n</code>. If the index <code>n</code> is greater than the number of child nodes in this <a class="el" href="class_x_m_l_node.html">XMLNode</a>, this method takes no action (and returns <code>NULL</code>).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">n</td><td>an integer, the index of the node to be removed.</td></tr>
@@ -2973,8 +2974,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Sets the characters for this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a>. </p>
-<p>This method only makes sense for <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> objects that contains text. If this method is called on a token that represents an XML start or end tag, it will return the code <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILEDendif </a></p>
+<p>Sets the characters for this <a class="el" href="class_x_m_l_token.html">XMLToken</a>. </p>
+<p>This method only makes sense for <a class="el" href="class_x_m_l_token.html">XMLToken</a> objects that contains text. If this method is called on a token that represents an XML start or end tag, it will return the code <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILEDendif </a></p>
 
 </div>
 </div>
@@ -3123,7 +3124,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Prints a string representation of the underlying token stream. </p>
 <p>This method is intended for debugging purposes.</p>
-<dl class="section return"><dt>Returns</dt><dd>a text string representing this <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> object. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a text string representing this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object. </dd></dl>
 
 </div>
 </div>
@@ -3142,8 +3143,8 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns a string representation of this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>a string derived from this <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </dd></dl>
+<p>Returns a string representation of this <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>a string derived from this <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </dd></dl>
 
 </div>
 </div>

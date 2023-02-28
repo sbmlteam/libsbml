@@ -98,7 +98,9 @@ $(document).ready(function(){initNavTree('class_s_b_o.html',''); initResizable()
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>\ @ @ . . </p>
+<div class="textblock"><p><br  />
+</p>
+ Facilities for using the Systems Biology Ontology.</p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  This class is not prescribed by
@@ -106,21 +108,21 @@ the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
 <p>The values of "id" attributes on SBML components allow the components to be cross-referenced within a model. The values of "name" attributes on SBML components provide the opportunity to assign them meaningful labels suitable for display to humans. The specific identifiers and labels used in a model necessarily must be unrestricted by SBML, so that software and users are free to pick whatever they need. However, this freedom makes it more difficult for software tools to determine, without additional human intervention, the semantics of models more precisely than the semantics provided by the SBML object classes defined in other sections of this document. For example, there is nothing inherent in a parameter with identifier <code>k</code> that would indicate to a software tool it is a first-order rate constant (if that's what <code>k</code> happened to be in some given model). However, one may need to convert a model between different representations (e.g., Henri-Michaelis-Menten versus elementary steps), or to use it with different modeling approaches (discrete or continuous). One may also need to relate the model components with other description formats such as SBGN (<a href="http://www.sbgn.org/" target="_blank">http://www.sbgn.org/</a>) using deeper semantics. Although an advanced software tool <em>might</em> be able to deduce the semantics of some model components through detailed analysis of the kinetic rate expressions and other parts of the model, this quickly becomes infeasible for any but the simplest of models.</p>
-<p>An approach to solving this problem is to associate model components with terms from carefully curated controlled vocabularies (CVs). This is the purpose of the optional "sboTerm" attribute provided on the SBML class <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a>. The "sboTerm" attribute always refers to terms belonging to the Systems Biology Ontology (<a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a>).</p>
+<p>An approach to solving this problem is to associate model components with terms from carefully curated controlled vocabularies (CVs). This is the purpose of the optional "sboTerm" attribute provided on the SBML class <a class="el" href="class_s_base.html">SBase</a>. The "sboTerm" attribute always refers to terms belonging to the Systems Biology Ontology (<a class="el" href="class_s_b_o.html">SBO</a>).</p>
 <h1><a class="anchor" id="use"></a>
 Use of SBO</h1>
 <p>Labeling model components with terms from shared controlled vocabularies allows a software tool to identify each component using identifiers that are not tool-specific. An example of where this is useful is the desire by many software developers to provide users with meaningful names for reaction rate equations. Software tools with editing interfaces frequently provide these names in menus or lists of choices for users. However, without a standardized set of names or identifiers shared between developers, a given software package cannot reliably interpret the names or identifiers of reactions used in models written by other tools.</p>
 <p>The first solution that might come to mind is to stipulate that certain common reactions always have the same name (e.g., "Michaelis-Menten"), but this is simply impossible to do: not only do humans often disagree on the names themselves, but it would not allow for correction of errors or updates to the list of predefined names except by issuing new releases of the SBML specification&mdash;to say nothing of many other limitations with this approach. Moreover, the parameters and variables that appear in rate expressions also need to be identified in a way that software tools can interpret mechanically, implying that the names of these entities would also need to be regulated.</p>
-<p>The Systems Biology Ontology (<a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a>) provides terms for identifying most elements of SBML. The relationship implied by an "sboTerm" on an SBML model component is <em>is-a</em> between the characteristic of the component meant to be described by SBO on this element and the SBO term identified by the value of the "sboTerm". By adding SBO term references on the components of a model, a software tool can provide additional details using independent, shared vocabularies that can enable <em>other</em> software tools to recognize precisely what the component is meant to be. Those tools can then act on that information. For example, if the SBO identifier <code>"SBO:0000049"</code> is assigned to the concept of "first-order irreversible mass-action kinetics,
-continuous framework", and a given <a class="el" href="class_kinetic_law.html" title="\ @ @ . .">KineticLaw</a> object in a model has an "sboTerm" attribute with this value, then regardless of the identifier and name given to the reaction itself, a software tool could use this to inform users that the reaction is a first-order irreversible mass-action reaction. This kind of reverse engineering of the meaning of reactions in a model would be difficult to do otherwise, especially for more complex reaction types.</p>
-<p>The presence of SBO labels on <a class="el" href="class_compartment.html" title="\ @ @ . , .">Compartment</a>, <a class="el" href="class_species.html" title="\ @ @ . &lt;&gt;&lt;/&gt; &; .">Species</a>, and <a class="el" href="class_reaction.html" title="\ @ @ . .">Reaction</a> objects in SBML can help map those entities to equivalent concepts in other standards, such as (but not limited to) BioPAX (<a href="http://www.biopax.org/" target="_blank">http://www.biopax.org/</a>), PSI-MI (<a href="http://www.psidev.info/index.php?q=node/60" target="_blank">http://www.psidev.info</a>), or the Systems Biology Graphical Notation (SBGN, <a href="http://www.sbgn.org/" target="_blank">http://www.sbgn.org/</a>). Such mappings can be used in conversion procedures, or to build interfaces, with SBO becoming a kind of "glue" between standards of representation.</p>
+<p>The Systems Biology Ontology (<a class="el" href="class_s_b_o.html">SBO</a>) provides terms for identifying most elements of SBML. The relationship implied by an "sboTerm" on an SBML model component is <em>is-a</em> between the characteristic of the component meant to be described by SBO on this element and the SBO term identified by the value of the "sboTerm". By adding SBO term references on the components of a model, a software tool can provide additional details using independent, shared vocabularies that can enable <em>other</em> software tools to recognize precisely what the component is meant to be. Those tools can then act on that information. For example, if the SBO identifier <code>"SBO:0000049"</code> is assigned to the concept of "first-order irreversible mass-action kinetics,
+continuous framework", and a given <a class="el" href="class_kinetic_law.html">KineticLaw</a> object in a model has an "sboTerm" attribute with this value, then regardless of the identifier and name given to the reaction itself, a software tool could use this to inform users that the reaction is a first-order irreversible mass-action reaction. This kind of reverse engineering of the meaning of reactions in a model would be difficult to do otherwise, especially for more complex reaction types.</p>
+<p>The presence of SBO labels on <a class="el" href="class_compartment.html">Compartment</a>, <a class="el" href="class_species.html">Species</a>, and <a class="el" href="class_reaction.html">Reaction</a> objects in SBML can help map those entities to equivalent concepts in other standards, such as (but not limited to) BioPAX (<a href="http://www.biopax.org/" target="_blank">http://www.biopax.org/</a>), PSI-MI (<a href="http://www.psidev.info/index.php?q=node/60" target="_blank">http://www.psidev.info</a>), or the Systems Biology Graphical Notation (SBGN, <a href="http://www.sbgn.org/" target="_blank">http://www.sbgn.org/</a>). Such mappings can be used in conversion procedures, or to build interfaces, with SBO becoming a kind of "glue" between standards of representation.</p>
 <p>The presence of the label on a kinetic expression can also allow software tools to make more intelligent decisions about reaction rate expressions. For example, an application could recognize certain types of reaction formulas as being ones it knows how to solve with optimized procedures. The application could then use internal, optimized code implementing the rate formula indexed by identifiers such as <code>"SBO:0000049"</code> appearing in SBML models.</p>
 <p>Finally, SBO labels may be very valuable when it comes to model integration, by helping identify interfaces, convert mathematical expressions and parameters etc.</p>
 <p>Although the use of SBO can be beneficial, it is critical to keep in mind that the presence of an "sboTerm" value on an object <em>must not change the fundamental mathematical meaning</em> of the model. An SBML model must be defined such that it stands on its own and does not depend on additional information added by SBO terms for a correct mathematical interpretation. SBO term definitions will not imply any alternative mathematical semantics for any SBML object labeled with that term. Two important reasons motivate this principle. First, it would be too limiting to require all software tools to be able to understand the SBO vocabularies in addition to understanding SBML. Supporting SBO is not only additional work for the software developer; for some kinds of applications, it may not make sense. If SBO terms on a model are optional, it follows that the SBML model <em>must</em> remain unambiguous and fully interpretable without them, because an application reading the model may ignore the terms. Second, we believe allowing the use of "sboTerm" to alter the mathematical meaning of a model would allow too much leeway to shoehorn inconsistent concepts into SBML objects, ultimately reducing the interoperability of the models.</p>
 <h1><a class="anchor" id="relationship"></a>
 Relationships between SBO and SBML</h1>
 <p>The goal of SBO labeling for SBML is to clarify to the fullest extent possible the nature of each element in a model. The approach taken in SBO begins with a hierarchically-structured set of controlled vocabularies with six main divisions: (1) entity, (2) participant role, (3) quantitative parameter, (4) modeling framework, (5) mathematical expression, and (6) interaction. The web site for SBO (<a href="http://biomodels.net/sbo" target="_blank">http://biomodels.net</a>) should be consulted for the current version of the ontology.</p>
-<p>The Systems Biology Ontology (<a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a>) is not part of SBML; it is being developed separately, to allow the modeling community to evolve the ontology independently of SBML. However, the terms in the ontology are being designed keeping SBML components in mind, and are classified into subsets that can be directly related with SBML components such as reaction rate expressions, parameters, and others. The use of "sboTerm" attributes is optional, and the presence of "sboTerm" on an element does not change the way the model is <em>interpreted</em>. Annotating SBML elements with SBO terms adds additional semantic information that may be used to <em>convert</em> the model into another model, or another format. Although SBO support provides an important source of information to understand the meaning of a model, software does not need to support "sboTerm" to be considered SBML-compliant. </p>
+<p>The Systems Biology Ontology (<a class="el" href="class_s_b_o.html">SBO</a>) is not part of SBML; it is being developed separately, to allow the modeling community to evolve the ontology independently of SBML. However, the terms in the ontology are being designed keeping SBML components in mind, and are classified into subsets that can be directly related with SBML components such as reaction rate expressions, parameters, and others. The use of "sboTerm" attributes is optional, and the presence of "sboTerm" on an element does not change the way the model is <em>interpreted</em>. Annotating SBML elements with SBO terms adds additional semantic information that may be used to <em>convert</em> the model into another model, or another format. Although SBO support provides an important source of information to understand the meaning of a model, software does not need to support "sboTerm" to be considered SBML-compliant. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -422,7 +424,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the given term identifier comes from the stated branch of SBO. </p>
-<dl class="section note"><dt>Note</dt><dd>The <em>"entity"</em> <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> term is now known as "physical entity representation".</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The <em>"entity"</em> <a class="el" href="class_s_b_o.html">SBO</a> term is now known as "physical entity representation".</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>term</code> is-a SBO <em>"entity"</em>, <code>false</code> otherwise.</dd></dl>
 
 </div>
@@ -452,7 +454,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the given term identifier comes from the stated branch of SBO. </p>
-<p>functions for checking the <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> returns true if the term is-a <a class="el" href="class_event.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">Event</a>, false otherwise</p>
+<p>functions for checking the <a class="el" href="class_s_b_o.html">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html">SBO</a> returns true if the term is-a <a class="el" href="class_event.html">Event</a>, false otherwise</p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>term</code> is-a SBO <em>"event"</em>, <code>false</code> otherwise.</dd></dl>
 
 </div>
@@ -540,7 +542,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the given term identifier comes from the stated branch of SBO. </p>
-<dl class="section note"><dt>Note</dt><dd>The <em>"interaction"</em> <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> term is now known as "occurring entity representation".</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The <em>"interaction"</em> <a class="el" href="class_s_b_o.html">SBO</a> term is now known as "occurring entity representation".</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>term</code> is-a SBO <em>"interaction"</em>, <code>false</code> otherwise.</dd></dl>
 
 </div>
@@ -570,7 +572,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the given term identifier comes from the stated branch of SBO. </p>
-<p>functions for checking the <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> returns true if the term is-a KineticConstant, false otherwise</p>
+<p>functions for checking the <a class="el" href="class_s_b_o.html">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html">SBO</a> returns true if the term is-a KineticConstant, false otherwise</p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>term</code> is-a SBO <em>"kinetic constant"</em>, <code>false</code> otherwise.</dd></dl>
 
 </div>
@@ -658,7 +660,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the given term identifier comes from the stated branch of SBO. </p>
-<p>functions for checking the <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> returns true if the term is-a MathematicalExpression, false otherwise</p>
+<p>functions for checking the <a class="el" href="class_s_b_o.html">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html">SBO</a> returns true if the term is-a MathematicalExpression, false otherwise</p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>term</code> is-a SBO <em>"mathematical expression"</em>, <code>false</code> otherwise.</dd></dl>
 
 </div>
@@ -717,7 +719,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the given term identifier comes from the stated branch of SBO. </p>
-<p>functions for checking the <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> returns true if the term is-a ModellingFramework, false otherwise</p>
+<p>functions for checking the <a class="el" href="class_s_b_o.html">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html">SBO</a> returns true if the term is-a ModellingFramework, false otherwise</p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>term</code> is-a SBO <em>"modeling framework"</em>, <code>false</code> otherwise.</dd></dl>
 
 </div>
@@ -747,7 +749,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the given term identifier comes from the stated branch of SBO. </p>
-<p>functions for checking the <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> returns true if the term is-a isModifier, false otherwise</p>
+<p>functions for checking the <a class="el" href="class_s_b_o.html">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html">SBO</a> returns true if the term is-a isModifier, false otherwise</p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>term</code> is-a SBO <em>"modifier"</em>, <code>false</code> otherwise.</dd></dl>
 
 </div>
@@ -835,7 +837,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the given term identifier comes from the stated branch of SBO. </p>
-<p>functions for checking the <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> returns true if the term is-a Participant, false otherwise</p>
+<p>functions for checking the <a class="el" href="class_s_b_o.html">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html">SBO</a> returns true if the term is-a Participant, false otherwise</p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>term</code> is-a SBO <em>"participant"</em>, <code>false</code> otherwise.</dd></dl>
 
 </div>
@@ -865,7 +867,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the given term identifier comes from the stated branch of SBO. </p>
-<p>functions for checking the <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> returns true if the term is-a ParticipantRole, false otherwise</p>
+<p>functions for checking the <a class="el" href="class_s_b_o.html">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html">SBO</a> returns true if the term is-a ParticipantRole, false otherwise</p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>term</code> is-a SBO <em>"participant role"</em>, <code>false</code> otherwise.</dd></dl>
 
 </div>
@@ -924,7 +926,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the given term identifier comes from the stated branch of SBO. </p>
-<p>functions for checking the <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> returns true if the term is-a PhysicalParticipant, false otherwise</p>
+<p>functions for checking the <a class="el" href="class_s_b_o.html">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html">SBO</a> returns true if the term is-a PhysicalParticipant, false otherwise</p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>term</code> is-a SBO <em>"physical participant</em>, <code>false</code> otherwise.</dd></dl>
 
 </div>
@@ -954,7 +956,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the given term identifier comes from the stated branch of SBO. </p>
-<p>functions for checking the <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> returns true if the term is-a Product, false otherwise</p>
+<p>functions for checking the <a class="el" href="class_s_b_o.html">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html">SBO</a> returns true if the term is-a Product, false otherwise</p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>term</code> is-a SBO <em>"product"</em>, <code>false</code> otherwise.</dd></dl>
 
 </div>
@@ -984,8 +986,8 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the given term identifier comes from the stated branch of SBO. </p>
-<p>functions for checking the <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> returns true if the term is-a QuantitativeParameter, false otherwise</p>
-<dl class="section note"><dt>Note</dt><dd>The <em>"quantitative parameter"</em> <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> term is now known as "systems description parameter".</dd></dl>
+<p>functions for checking the <a class="el" href="class_s_b_o.html">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html">SBO</a> returns true if the term is-a QuantitativeParameter, false otherwise</p>
+<dl class="section note"><dt>Note</dt><dd>The <em>"quantitative parameter"</em> <a class="el" href="class_s_b_o.html">SBO</a> term is now known as "systems description parameter".</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>term</code> is-a SBO <em>"quantiative parameter"</em>, <code>false</code> otherwise.</dd></dl>
 
 </div>
@@ -1015,7 +1017,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the given term identifier comes from the stated branch of SBO. </p>
-<p>functions for checking the <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> returns true if the term is-a QuantitativeSystemsDescriptionParameter, false otherwise</p>
+<p>functions for checking the <a class="el" href="class_s_b_o.html">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html">SBO</a> returns true if the term is-a QuantitativeSystemsDescriptionParameter, false otherwise</p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>term</code> is-a SBO <em>"quantiative systems description parameter"</em>, <code>false</code> otherwise.</dd></dl>
 
 </div>
@@ -1045,7 +1047,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the given term identifier comes from the stated branch of SBO. </p>
-<p>functions for checking the <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> returns true if the term is-a RateLaw, false otherwise</p>
+<p>functions for checking the <a class="el" href="class_s_b_o.html">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html">SBO</a> returns true if the term is-a RateLaw, false otherwise</p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>term</code> is-a SBO <em>"rate law"</em>, <code>false</code> otherwise.</dd></dl>
 
 </div>
@@ -1075,7 +1077,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the given term identifier comes from the stated branch of SBO. </p>
-<p>functions for checking the <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html" title="\ @ @ . .">SBO</a> returns true if the term is-a Reactant, false otherwise</p>
+<p>functions for checking the <a class="el" href="class_s_b_o.html">SBO</a> term is from correct part of <a class="el" href="class_s_b_o.html">SBO</a> returns true if the term is-a Reactant, false otherwise</p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>term</code> is-a SBO <em>"reactant"</em>, <code>false</code> otherwise.</dd></dl>
 
 </div>

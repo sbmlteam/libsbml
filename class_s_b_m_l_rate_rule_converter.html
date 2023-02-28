@@ -101,11 +101,12 @@ $(document).ready(function(){initNavTree('class_s_b_m_l_rate_rule_converter.html
 <div class="dynheader">
 Inheritance diagram for SBMLRateRuleConverter:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_s_b_m_l_rate_rule_converter__inherit__graph.svg" width="192" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_s_b_m_l_rate_rule_converter__inherit__graph.svg" width="192" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>\ @ @ . . </p>
+<div class="textblock"><p><br  />
+</p>
+ Converter that sorts SBML rules and assignments.</p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  It is a class used in
@@ -114,7 +115,7 @@ the implementation of extra functionality provided by libSBML.
 <p>ADD DESCRIPTION</p>
 <h1><a class="anchor" id="SBMLRateRuleConverter-usage"></a>
 Configuration and use of SBMLRateRuleConverter</h1>
-<p><a class="el" href="class_s_b_m_l_rate_rule_converter.html" title="\ @ @ . .">SBMLRateRuleConverter</a> is enabled by creating a <a class="el" href="class_conversion_properties.html" title="\ @ @ . .">ConversionProperties</a> object with the option <code>"inferReactions"</code>, and passing this properties object to <a class="el" href="class_s_b_m_l_document.html#a7c244c84dbfd077ac8fa4074f1dc9c64" title="Converts this document using the converter that best matches the given conversion properties.">SBMLDocument::convert()</a>. This converter offers no other options.</p>
+<p><a class="el" href="class_s_b_m_l_rate_rule_converter.html">SBMLRateRuleConverter</a> is enabled by creating a <a class="el" href="class_conversion_properties.html">ConversionProperties</a> object with the option <code>"inferReactions"</code>, and passing this properties object to <a class="el" href="class_s_b_m_l_document.html#a7c244c84dbfd077ac8fa4074f1dc9c64" title="Converts this document using the converter that best matches the given conversion properties.">SBMLDocument::convert()</a>. This converter offers no other options.</p>
 <p>Implementation is based on the algorithm described in Fages et al, Theoretical Computer Science, 2015.</p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
@@ -133,7 +134,7 @@ Public Types</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af1300875c8cf6f1578e6eaf847e6f712"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_s_b_m_l_rate_rule_converter.html">SBMLRateRuleConverter</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#af1300875c8cf6f1578e6eaf847e6f712">clone</a> () const</td></tr>
-<tr class="memdesc:af1300875c8cf6f1578e6eaf847e6f712"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_level_version_converter.html" title="\ @ @ . / .">SBMLLevelVersionConverter</a> object.  <a href="class_s_b_m_l_rate_rule_converter.html#af1300875c8cf6f1578e6eaf847e6f712">More...</a><br /></td></tr>
+<tr class="memdesc:af1300875c8cf6f1578e6eaf847e6f712"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_level_version_converter.html">SBMLLevelVersionConverter</a> object.  <a href="class_s_b_m_l_rate_rule_converter.html#af1300875c8cf6f1578e6eaf847e6f712">More...</a><br /></td></tr>
 <tr class="separator:af1300875c8cf6f1578e6eaf847e6f712"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3903f4dcda13f46f9a0b54ec15866963"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a3903f4dcda13f46f9a0b54ec15866963">convert</a> ()</td></tr>
 <tr class="memdesc:a3903f4dcda13f46f9a0b54ec15866963"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform the conversion.  <a href="class_s_b_m_l_rate_rule_converter.html#a3903f4dcda13f46f9a0b54ec15866963">More...</a><br /></td></tr>
@@ -176,13 +177,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae4d68ccd9d62b1de9410f70c5a0cc460"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if this converter object's properties match the given properties.  <a href="class_s_b_m_l_rate_rule_converter.html#ae4d68ccd9d62b1de9410f70c5a0cc460">More...</a><br /></td></tr>
 <tr class="separator:ae4d68ccd9d62b1de9410f70c5a0cc460"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad05f57499eae4691b53fa44cf01088f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_rate_rule_converter.html">SBMLRateRuleConverter</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#aad05f57499eae4691b53fa44cf01088f">operator=</a> (const <a class="el" href="class_s_b_m_l_rate_rule_converter.html">SBMLRateRuleConverter</a> &amp;rhs)</td></tr>
-<tr class="memdesc:aad05f57499eae4691b53fa44cf01088f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_s_b_m_l_infer_units_converter.html" title="\ @ @ . .">SBMLInferUnitsConverter</a>.  <a href="class_s_b_m_l_rate_rule_converter.html#aad05f57499eae4691b53fa44cf01088f">More...</a><br /></td></tr>
+<tr class="memdesc:aad05f57499eae4691b53fa44cf01088f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_s_b_m_l_infer_units_converter.html">SBMLInferUnitsConverter</a>.  <a href="class_s_b_m_l_rate_rule_converter.html#aad05f57499eae4691b53fa44cf01088f">More...</a><br /></td></tr>
 <tr class="separator:aad05f57499eae4691b53fa44cf01088f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbc516219ca6941770b05363abc2cf2e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#adbc516219ca6941770b05363abc2cf2e">SBMLRateRuleConverter</a> ()</td></tr>
-<tr class="memdesc:adbc516219ca6941770b05363abc2cf2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_s_b_m_l_level_version_converter.html" title="\ @ @ . / .">SBMLLevelVersionConverter</a> object.  <a href="class_s_b_m_l_rate_rule_converter.html#adbc516219ca6941770b05363abc2cf2e">More...</a><br /></td></tr>
+<tr class="memdesc:adbc516219ca6941770b05363abc2cf2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_s_b_m_l_level_version_converter.html">SBMLLevelVersionConverter</a> object.  <a href="class_s_b_m_l_rate_rule_converter.html#adbc516219ca6941770b05363abc2cf2e">More...</a><br /></td></tr>
 <tr class="separator:adbc516219ca6941770b05363abc2cf2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b5eb420d9018b2cffb8b1678ee1e6c9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a8b5eb420d9018b2cffb8b1678ee1e6c9">SBMLRateRuleConverter</a> (const <a class="el" href="class_s_b_m_l_rate_rule_converter.html">SBMLRateRuleConverter</a> &amp;obj)</td></tr>
-<tr class="memdesc:a8b5eb420d9018b2cffb8b1678ee1e6c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor; creates a copy of an <a class="el" href="class_s_b_m_l_level_version_converter.html" title="\ @ @ . / .">SBMLLevelVersionConverter</a> object.  <a href="class_s_b_m_l_rate_rule_converter.html#a8b5eb420d9018b2cffb8b1678ee1e6c9">More...</a><br /></td></tr>
+<tr class="memdesc:a8b5eb420d9018b2cffb8b1678ee1e6c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor; creates a copy of an <a class="el" href="class_s_b_m_l_level_version_converter.html">SBMLLevelVersionConverter</a> object.  <a href="class_s_b_m_l_rate_rule_converter.html#a8b5eb420d9018b2cffb8b1678ee1e6c9">More...</a><br /></td></tr>
 <tr class="separator:a8b5eb420d9018b2cffb8b1678ee1e6c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b1034ee31f5dd3049d4a7784a80a959"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959">setDocument</a> (const <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *doc)</td></tr>
 <tr class="memdesc:a4b1034ee31f5dd3049d4a7784a80a959"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the SBML document to be converted.  <a href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959">More...</a><br /></td></tr>
@@ -194,7 +195,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2f6cb3b5409a2fa26a45c2f0ea01acdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the configuration properties to be used by this converter.  <a href="class_s_b_m_l_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc">More...</a><br /></td></tr>
 <tr class="separator:a2f6cb3b5409a2fa26a45c2f0ea01acdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c1baa26bfcffcc35bd122f4464c80a7"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a1c1baa26bfcffcc35bd122f4464c80a7">~SBMLRateRuleConverter</a> ()</td></tr>
-<tr class="memdesc:a1c1baa26bfcffcc35bd122f4464c80a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy this <a class="el" href="class_s_b_m_l_rate_rule_converter.html" title="\ @ @ . .">SBMLRateRuleConverter</a> object.  <a href="class_s_b_m_l_rate_rule_converter.html#a1c1baa26bfcffcc35bd122f4464c80a7">More...</a><br /></td></tr>
+<tr class="memdesc:a1c1baa26bfcffcc35bd122f4464c80a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy this <a class="el" href="class_s_b_m_l_rate_rule_converter.html">SBMLRateRuleConverter</a> object.  <a href="class_s_b_m_l_rate_rule_converter.html#a1c1baa26bfcffcc35bd122f4464c80a7">More...</a><br /></td></tr>
 <tr class="separator:a1c1baa26bfcffcc35bd122f4464c80a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
@@ -284,7 +285,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_s_b_m_l_level_version_converter.html" title="\ @ @ . / .">SBMLLevelVersionConverter</a> object. </p>
+<p>Creates a new <a class="el" href="class_s_b_m_l_level_version_converter.html">SBMLLevelVersionConverter</a> object. </p>
 
 </div>
 </div>
@@ -304,10 +305,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copy constructor; creates a copy of an <a class="el" href="class_s_b_m_l_level_version_converter.html" title="\ @ @ . / .">SBMLLevelVersionConverter</a> object. </p>
+<p>Copy constructor; creates a copy of an <a class="el" href="class_s_b_m_l_level_version_converter.html">SBMLLevelVersionConverter</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">obj</td><td>the <a class="el" href="class_s_b_m_l_level_version_converter.html" title="\ @ @ . / .">SBMLLevelVersionConverter</a> object to copy. </td></tr>
+    <tr><td class="paramname">obj</td><td>the <a class="el" href="class_s_b_m_l_level_version_converter.html">SBMLLevelVersionConverter</a> object to copy. </td></tr>
   </table>
   </dd>
 </dl>
@@ -337,7 +338,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroy this <a class="el" href="class_s_b_m_l_rate_rule_converter.html" title="\ @ @ . .">SBMLRateRuleConverter</a> object. </p>
+<p>Destroy this <a class="el" href="class_s_b_m_l_rate_rule_converter.html">SBMLRateRuleConverter</a> object. </p>
 
 </div>
 </div>
@@ -365,7 +366,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_level_version_converter.html" title="\ @ @ . / .">SBMLLevelVersionConverter</a> object. </p>
+<p>Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_level_version_converter.html">SBMLLevelVersionConverter</a> object. </p>
 <dl class="section return"><dt>Returns</dt><dd>a (deep) copy of this converter. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_b_m_l_converter.html#a85ba26362eddbc200caf4bab0c94c941">SBMLConverter</a>.</p>
@@ -396,7 +397,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Perform the conversion. </p>
-<p>This method causes the converter to do the actual conversion work, that is, to convert the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object set by <a class="el" href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959" title="Sets the SBML document to be converted.">SBMLConverter::setDocument()</a> and with the configuration options set by <a class="el" href="class_s_b_m_l_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc" title="Sets the configuration properties to be used by this converter.">SBMLConverter::setProperties()</a>.</p>
+<p>This method causes the converter to do the actual conversion work, that is, to convert the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object set by <a class="el" href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959" title="Sets the SBML document to be converted.">SBMLConverter::setDocument()</a> and with the configuration options set by <a class="el" href="class_s_b_m_l_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc" title="Sets the configuration properties to be used by this converter.">SBMLConverter::setProperties()</a>.</p>
 <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
 </ul>
@@ -455,7 +456,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Returns the default properties of this converter. </p>
 <p>A given converter exposes one or more properties that can be adjusted in order to influence the behavior of the converter. This method returns the <em>default</em> property settings for this converter. It is meant to be called in order to discover all the settings for the converter object.</p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_conversion_properties.html" title="\ @ @ . .">ConversionProperties</a> object describing the default properties for this converter. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_conversion_properties.html">ConversionProperties</a> object describing the default properties for this converter. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_b_m_l_converter.html#a848c06245c49c3e52c0fef08a628b14e">SBMLConverter</a>.</p>
 
@@ -485,7 +486,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the SBML document that is the subject of the conversions. </p>
-<dl class="section return"><dt>Returns</dt><dd>the current <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the current <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. </dd></dl>
 
 </div>
 </div>
@@ -513,7 +514,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the SBML document that is the subject of the conversions. </p>
-<dl class="section return"><dt>Returns</dt><dd>the current <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the current <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. </dd></dl>
 
 </div>
 </div>
@@ -768,8 +769,8 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the target SBML namespaces of the currently set properties. </p>
-<p>SBML namespaces are used by libSBML to express the Level+Version of the SBML document (and, possibly, any SBML Level&#160;3 packages in use). Some converters' behavior is affected by the SBML namespace configured in the converter. For example, in <a class="el" href="class_s_b_m_l_level_version_converter.html" title="\ @ @ . / .">SBMLLevelVersionConverter</a> (the converter for converting SBML documents from one Level+Version combination to another), the actions are fundamentally dependent on the SBML namespaces targeted.</p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object that describes the SBML namespaces in effect, or <code>NULL</code> if none are set. </dd></dl>
+<p>SBML namespaces are used by libSBML to express the Level+Version of the SBML document (and, possibly, any SBML Level&#160;3 packages in use). Some converters' behavior is affected by the SBML namespace configured in the converter. For example, in <a class="el" href="class_s_b_m_l_level_version_converter.html">SBMLLevelVersionConverter</a> (the converter for converting SBML documents from one Level+Version combination to another), the actions are fundamentally dependent on the SBML namespaces targeted.</p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object that describes the SBML namespaces in effect, or <code>NULL</code> if none are set. </dd></dl>
 
 </div>
 </div>
@@ -798,7 +799,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if this converter object's properties match the given properties. </p>
-<p>A typical use of this method involves creating a <a class="el" href="class_conversion_properties.html" title="\ @ @ . .">ConversionProperties</a> object, setting the options desired, and then calling this method on an <a class="el" href="class_s_b_m_l_level_version_converter.html" title="\ @ @ . / .">SBMLLevelVersionConverter</a> object to find out if the object's property values match the given ones. This method is also used by <a class="el" href="class_s_b_m_l_converter_registry.html#a3f70958492759f4fe30dfc8e37619b9b" title="Returns the converter that best matches the given configuration properties.">SBMLConverterRegistry::getConverterFor()</a> to search across all registered converters for one matching particular properties.</p>
+<p>A typical use of this method involves creating a <a class="el" href="class_conversion_properties.html">ConversionProperties</a> object, setting the options desired, and then calling this method on an <a class="el" href="class_s_b_m_l_level_version_converter.html">SBMLLevelVersionConverter</a> object to find out if the object's property values match the given ones. This method is also used by <a class="el" href="class_s_b_m_l_converter_registry.html#a3f70958492759f4fe30dfc8e37619b9b" title="Returns the converter that best matches the given configuration properties.">SBMLConverterRegistry::getConverterFor()</a> to search across all registered converters for one matching particular properties.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">props</td><td>the properties to match.</td></tr>
@@ -827,7 +828,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Assignment operator for <a class="el" href="class_s_b_m_l_infer_units_converter.html" title="\ @ @ . .">SBMLInferUnitsConverter</a>. </p>
+<p>Assignment operator for <a class="el" href="class_s_b_m_l_infer_units_converter.html">SBMLInferUnitsConverter</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">rhs</td><td>the object whose values are used as the basis of the assignment. </td></tr>
@@ -868,7 +869,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>integer value indicating the success/failure of the operation. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The set of possible values that may be returned ultimately depends on the specific subclass of <a class="el" href="class_s_b_m_l_converter.html" title="\ @ @ . .">SBMLConverter</a> being used, but the default method can return the following: <ul>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating the success/failure of the operation. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The set of possible values that may be returned ultimately depends on the specific subclass of <a class="el" href="class_s_b_m_l_converter.html">SBMLConverter</a> being used, but the default method can return the following: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
 </ul>
 </dd></dl>
@@ -910,7 +911,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>integer value indicating the success/failure of the operation. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The set of possible values that may be returned ultimately depends on the specific subclass of <a class="el" href="class_s_b_m_l_converter.html" title="\ @ @ . .">SBMLConverter</a> being used, but the default method can return the following: <ul>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating the success/failure of the operation. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The set of possible values that may be returned ultimately depends on the specific subclass of <a class="el" href="class_s_b_m_l_converter.html">SBMLConverter</a> being used, but the default method can return the following: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
 </ul>
 </dd></dl>
@@ -946,11 +947,11 @@ Public Member Functions</h2></td></tr>
 <p>Sets the configuration properties to be used by this converter. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">props</td><td>the <a class="el" href="class_conversion_properties.html" title="\ @ @ . .">ConversionProperties</a> object defining the properties to set.</td></tr>
+    <tr><td class="paramname">props</td><td>the <a class="el" href="class_conversion_properties.html">ConversionProperties</a> object defining the properties to set.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>integer value indicating the success/failure of the operation. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The set of possible values that may be returned ultimately depends on the specific subclass of <a class="el" href="class_s_b_m_l_converter.html" title="\ @ @ . .">SBMLConverter</a> being used, but the default method can return the following values: <ul>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating the success/failure of the operation. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The set of possible values that may be returned ultimately depends on the specific subclass of <a class="el" href="class_s_b_m_l_converter.html">SBMLConverter</a> being used, but the default method can return the following values: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
 </ul>
 </dd></dl>

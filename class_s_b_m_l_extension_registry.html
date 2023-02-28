@@ -99,7 +99,9 @@ $(document).ready(function(){initNavTree('class_s_b_m_l_extension_registry.html'
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>\ @ @ . . </p>
+<div class="textblock"><p><br  />
+</p>
+ Registry where package extensions are registered.</p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  This class is not prescribed by
@@ -111,7 +113,7 @@ defined in SBML.
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa8578b738d82b9bdc72cf8aa400ed3eb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_registry.html#aa8578b738d82b9bdc72cf8aa400ed3eb">addExtension</a> (const <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> *ext)</td></tr>
-<tr class="memdesc:aa8578b738d82b9bdc72cf8aa400ed3eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add the given <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> object to this <a class="el" href="class_s_b_m_l_extension_registry.html" title="\ @ @ . .">SBMLExtensionRegistry</a>.  <a href="class_s_b_m_l_extension_registry.html#aa8578b738d82b9bdc72cf8aa400ed3eb">More...</a><br /></td></tr>
+<tr class="memdesc:aa8578b738d82b9bdc72cf8aa400ed3eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add the given <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object to this <a class="el" href="class_s_b_m_l_extension_registry.html">SBMLExtensionRegistry</a>.  <a href="class_s_b_m_l_extension_registry.html#aa8578b738d82b9bdc72cf8aa400ed3eb">More...</a><br /></td></tr>
 <tr class="separator:aa8578b738d82b9bdc72cf8aa400ed3eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6f8a7c3da8f06d5bc02f921d1fe7880"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_registry.html#ad6f8a7c3da8f06d5bc02f921d1fe7880">addL2Namespaces</a> (<a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> *xmlns) const</td></tr>
 <tr class="memdesc:ad6f8a7c3da8f06d5bc02f921d1fe7880"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds SBML Level&#160;2 namespaces to the namespace list.  <a href="class_s_b_m_l_extension_registry.html#ad6f8a7c3da8f06d5bc02f921d1fe7880">More...</a><br /></td></tr>
@@ -127,7 +129,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6ede0dc9fa1f9cdfbd74cc7be95c97f0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; ASTBasePlugin * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_registry.html#a6ede0dc9fa1f9cdfbd74cc7be95c97f0">getASTPlugins</a> ()</td></tr>
 <tr class="separator:a6ede0dc9fa1f9cdfbd74cc7be95c97f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad40c340422bd92904035cc92da7b7945"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_registry.html#ad40c340422bd92904035cc92da7b7945">getExtension</a> (const std::string &amp;package)</td></tr>
-<tr class="memdesc:ad40c340422bd92904035cc92da7b7945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> object with the given package URI or package name.  <a href="class_s_b_m_l_extension_registry.html#ad40c340422bd92904035cc92da7b7945">More...</a><br /></td></tr>
+<tr class="memdesc:ad40c340422bd92904035cc92da7b7945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object with the given package URI or package name.  <a href="class_s_b_m_l_extension_registry.html#ad40c340422bd92904035cc92da7b7945">More...</a><br /></td></tr>
 <tr class="separator:ad40c340422bd92904035cc92da7b7945"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7dc610585e2aaf1ecddb2a78c11ff664"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_registry.html#a7dc610585e2aaf1ecddb2a78c11ff664">getNumASTPlugins</a> ()</td></tr>
 <tr class="separator:a7dc610585e2aaf1ecddb2a78c11ff664"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -191,10 +193,10 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Add the given <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> object to this <a class="el" href="class_s_b_m_l_extension_registry.html" title="\ @ @ . .">SBMLExtensionRegistry</a>. </p>
+<p>Add the given <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object to this <a class="el" href="class_s_b_m_l_extension_registry.html">SBMLExtensionRegistry</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ext</td><td>the <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> object to be added.</td></tr>
+    <tr><td class="paramname">ext</td><td>the <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object to be added.</td></tr>
   </table>
   </dd>
 </dl>
@@ -224,7 +226,7 @@ Static Public Member Functions</h2></td></tr>
 <p>This will call all overridden <code><a class="el" href="class_s_b_m_l_extension.html#ae19fdaba58552e049823b8522dd00a84" title="Adds the package&#39;s Level&#160;2 namespace(s).">SBMLExtension::addL2Namespaces()</a></code> methods.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">xmlns</td><td>an <a class="el" href="class_x_m_l_namespaces.html" title="\ @ @ . .">XMLNamespaces</a> object providing one or more namespaces to be added. </td></tr>
+    <tr><td class="paramname">xmlns</td><td>an <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> object providing one or more namespaces to be added. </td></tr>
   </table>
   </dd>
 </dl>
@@ -285,7 +287,7 @@ Static Public Member Functions</h2></td></tr>
 <p>This method walks through all extensions in the list of plugins of the given SBML document <code>doc</code>, and disables all that are not being used.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">doc</td><td>the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object whose unused package extensions should be disabled. </td></tr>
+    <tr><td class="paramname">doc</td><td>the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object whose unused package extensions should be disabled. </td></tr>
   </table>
   </dd>
 </dl>
@@ -312,7 +314,7 @@ Static Public Member Functions</h2></td></tr>
 <p>SBML Level&#160;2 does not have a package mechanism in the way that SBML Level&#160;3 does. However, SBML annotations can be used to store SBML constructs. In fact, a widely-used approach to developing SBML Level&#160;3 packages involves first using them as annotations.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">doc</td><td>the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object for which this should be enabled. </td></tr>
+    <tr><td class="paramname">doc</td><td>the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object for which this should be enabled. </td></tr>
   </table>
   </dd>
 </dl>
@@ -433,14 +435,14 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns an <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> object with the given package URI or package name. </p>
+<p>Returns an <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object with the given package URI or package name. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">package</td><td>a string representing the URI or name of the SBML package whose package extension is being sought.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a clone of the <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> object with the given package URI or name.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a clone of the <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object with the given package URI or name.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The caller is responsible for freeing the object returned. Since the object is a clone, freeing it will not result in the deletion of the original package extension object. </dd></dl>
 
 </div>
@@ -470,7 +472,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Returns a singleton instance of the registry. </p>
 <p>Callers need to obtain a copy of the package extension registry before they can invoke its methods. The registry is implemented as a singleton, and this is the method callers can use to get a copy of it.</p>
-<dl class="section return"><dt>Returns</dt><dd>the instance of the <a class="el" href="class_s_b_m_l_extension_registry.html" title="\ @ @ . .">SBMLExtensionRegistry</a> object. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the instance of the <a class="el" href="class_s_b_m_l_extension_registry.html">SBMLExtensionRegistry</a> object. </dd></dl>
 
 </div>
 </div>
@@ -510,7 +512,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Returns the number of extensions that have a given extension point. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">extPoint</td><td>the <a class="el" href="class_s_base_extension_point.html" title="\ @ @ .">SBaseExtensionPoint</a> object.</td></tr>
+    <tr><td class="paramname">extPoint</td><td>the <a class="el" href="class_s_base_extension_point.html">SBaseExtensionPoint</a> object.</td></tr>
   </table>
   </dd>
 </dl>
@@ -611,7 +613,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns a list of registered packages. </p>
-<p>This method returns a <a class="el" href="class_list.html" title="\ @ @ . , , .">List</a> object containing the nicknames of the SBML packages for which package extensions are registered with this copy of libSBML. The list will contain strings (e.g., <code>"layout"</code>, <code>"fbc"</code>, etc.) and has to be freed by the caller.</p>
+<p>This method returns a <a class="el" href="class_list.html">List</a> object containing the nicknames of the SBML packages for which package extensions are registered with this copy of libSBML. The list will contain strings (e.g., <code>"layout"</code>, <code>"fbc"</code>, etc.) and has to be freed by the caller.</p>
 <dl class="section return"><dt>Returns</dt><dd>a list of strings representing the names of the registered packages. </dd></dl>
 
 </div>
@@ -727,7 +729,7 @@ Static Public Member Functions</h2></td></tr>
 <p>This will call all overridden <code><a class="el" href="class_s_b_m_l_extension.html#a9b54ff284884d119564c20950517b862" title="Removes the package&#39;s Level&#160;2 namespace(s).">SBMLExtension::removeL2Namespaces()</a></code> methods.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">xmlns</td><td>an <a class="el" href="class_x_m_l_namespaces.html" title="\ @ @ . .">XMLNamespaces</a> object listing one or more namespaces to be removed. </td></tr>
+    <tr><td class="paramname">xmlns</td><td>an <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> object listing one or more namespaces to be removed. </td></tr>
   </table>
   </dd>
 </dl>

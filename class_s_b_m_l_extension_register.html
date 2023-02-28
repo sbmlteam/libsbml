@@ -101,14 +101,16 @@ $(document).ready(function(){initNavTree('class_s_b_m_l_extension_register.html'
 <div class="textblock"><h3>template&lt;class SBMLExtensionType&gt;<br />
 class SBMLExtensionRegister&lt; SBMLExtensionType &gt;</h3>
 
-<p>\ @ @ . </p>
+<p><br  />
+</p>
+ Template class for extension package registration</p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  This class is not prescribed by
 the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
-<p>This is the registration template class for SBML package extensions in libSBML. It is used by package extensions to register themselves with the <a class="el" href="class_s_b_m_l_extension_registry.html" title="\ @ @ . .">SBMLExtensionRegistry</a> when libSBML starts up. An instance of this class needs to be created by each package extension and used in a call to a method on <a class="el" href="class_s_b_m_l_extension_registry.html" title="\ @ @ . .">SBMLExtensionRegistry</a>.</p>
+<p>This is the registration template class for SBML package extensions in libSBML. It is used by package extensions to register themselves with the <a class="el" href="class_s_b_m_l_extension_registry.html">SBMLExtensionRegistry</a> when libSBML starts up. An instance of this class needs to be created by each package extension and used in a call to a method on <a class="el" href="class_s_b_m_l_extension_registry.html">SBMLExtensionRegistry</a>.</p>
 <h1><a class="anchor" id="sbmlextensionregister-howto"></a>
 How to use SBMLExtensionRegister in a package extension</h1>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="spec_example1_8cpp-example.html#_a0">spec_example1.cpp</a>, <a class="el" href="spec_example2_8cpp-example.html#_a0">spec_example2.cpp</a>, <a class="el" href="spec_example3_8cpp-example.html#_a0">spec_example3.cpp</a>, and <a class="el" href="spec_example4_8cpp-example.html#_a0">spec_example4.cpp</a>.</dd>
@@ -117,7 +119,7 @@ How to use SBMLExtensionRegister in a package extension</h1>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab418b3561356d59515e308796cfe9e50"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_register.html#ab418b3561356d59515e308796cfe9e50">SBMLExtensionRegister</a> ()</td></tr>
-<tr class="memdesc:ab418b3561356d59515e308796cfe9e50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="class_s_b_m_l_extension_register.html" title="\ @ @ .">SBMLExtensionRegister</a>.  <a href="class_s_b_m_l_extension_register.html#ab418b3561356d59515e308796cfe9e50">More...</a><br /></td></tr>
+<tr class="memdesc:ab418b3561356d59515e308796cfe9e50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="class_s_b_m_l_extension_register.html">SBMLExtensionRegister</a>.  <a href="class_s_b_m_l_extension_register.html#ab418b3561356d59515e308796cfe9e50">More...</a><br /></td></tr>
 <tr class="separator:ab418b3561356d59515e308796cfe9e50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -146,8 +148,8 @@ template&lt;class SBMLExtensionType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Constructor for <a class="el" href="class_s_b_m_l_extension_register.html" title="\ @ @ .">SBMLExtensionRegister</a>. </p>
-<p>This simple constructor arranges for the initialization code of the corresponding package extension to be executed when an object of this class is created. Specifically, it causes the <code>init()</code> method on the SBMLExtension-derived class to be called when the package is registered with <a class="el" href="class_s_b_m_l_extension_registry.html" title="\ @ @ . .">SBMLExtensionRegistry</a>. Extension packages should put any necessary initialization code in their <code>init()</code> method. </p>
+<p>Constructor for <a class="el" href="class_s_b_m_l_extension_register.html">SBMLExtensionRegister</a>. </p>
+<p>This simple constructor arranges for the initialization code of the corresponding package extension to be executed when an object of this class is created. Specifically, it causes the <code>init()</code> method on the SBMLExtension-derived class to be called when the package is registered with <a class="el" href="class_s_b_m_l_extension_registry.html">SBMLExtensionRegistry</a>. Extension packages should put any necessary initialization code in their <code>init()</code> method. </p>
 
 </div>
 </div>

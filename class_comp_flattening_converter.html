@@ -100,23 +100,25 @@ $(document).ready(function(){initNavTree('class_comp_flattening_converter.html',
 <div class="dynheader">
 Inheritance diagram for CompFlatteningConverter:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_comp_flattening_converter__inherit__graph.svg" width="202" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_comp_flattening_converter__inherit__graph.svg" width="202" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>\ @ @ . "" , . </p>
+<div class="textblock"><p><br  />
+</p>
+<span class="pkg-marker pkg-color-comp"><a href="group__comp.html">comp</a></span>
+ "Flattens" a model, removing composition.</p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  It is a class used in
 the implementation of extra functionality provided by libSBML.
 </p>
-<p>This converter translates a hierarchical model defined with the SBML Level&#160;3 Hierarchical Model Composition package to a so-called "flattened" version of the same model. A "flattened" model is one that results from interpreting the hierarchical structure and creating an equivalent model that does not use any Hierarchical Model Composition package constructs; all of the mathematics of the model remain as intended, but the hierarchical structure is removed. <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> achieves this by performing the following actions on a model: </p><ol>
+<p>This converter translates a hierarchical model defined with the SBML Level&#160;3 Hierarchical Model Composition package to a so-called "flattened" version of the same model. A "flattened" model is one that results from interpreting the hierarchical structure and creating an equivalent model that does not use any Hierarchical Model Composition package constructs; all of the mathematics of the model remain as intended, but the hierarchical structure is removed. <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> achieves this by performing the following actions on a model: </p><ol>
 <li>
-<p class="startli">Each submodel is instantiated; that is, a copy of every <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> object referenced by every <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> object is created. This is a recursive process: if the instantiated <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> itself has <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> children, they are also instantiated.</p>
+<p class="startli">Each submodel is instantiated; that is, a copy of every <a class="el" href="class_model.html">Model</a> object referenced by every <a class="el" href="class_submodel.html">Submodel</a> object is created. This is a recursive process: if the instantiated <a class="el" href="class_model.html">Model</a> itself has <a class="el" href="class_submodel.html">Submodel</a> children, they are also instantiated.</p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli">The identifier of every component object in every <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> that is instantiated is modified by prepending a prefix to it, to make the identifier unique in the overall flattened SBML model. The prefix consists of the <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> object identifier, plus a small integer if necessary to ensure uniqueness, plus two underscore characters (<code>"__"</code>). Typically, this results in a final identifier of the form <span class="code-placeholder">SubmodelIdentifier__</span><span class="code-placeholder2-nospace">ObjectIdentifier</span>, where <span class="code-placeholder2">ObjectIdentifier</span> is the object's original identifier and <span class="code-placeholder">SubmodelIdentifier__</span> is the prefix. The same process is applied to <em>metaid</em> (meta-identifier) values of every component object as well.</p>
+<p class="startli">The identifier of every component object in every <a class="el" href="class_model.html">Model</a> that is instantiated is modified by prepending a prefix to it, to make the identifier unique in the overall flattened SBML model. The prefix consists of the <a class="el" href="class_submodel.html">Submodel</a> object identifier, plus a small integer if necessary to ensure uniqueness, plus two underscore characters (<code>"__"</code>). Typically, this results in a final identifier of the form <span class="code-placeholder">SubmodelIdentifier__</span><span class="code-placeholder2-nospace">ObjectIdentifier</span>, where <span class="code-placeholder2">ObjectIdentifier</span> is the object's original identifier and <span class="code-placeholder">SubmodelIdentifier__</span> is the prefix. The same process is applied to <em>metaid</em> (meta-identifier) values of every component object as well.</p>
 <p class="endli"></p>
 </li>
 <li>
@@ -132,14 +134,14 @@ the implementation of extra functionality provided by libSBML.
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli">All remaining elements are placed in a single <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> object; this <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> object is made the new child of the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> container. The original <a class="el" href="class_model.html" title="\ @ @ . .">Model</a>, <a class="el" href="class_model_definition.html" title="\ @ @ . .">ModelDefinition</a>, and <a class="el" href="class_external_model_definition.html" title="\ @ @ . .">ExternalModelDefinition</a> objects are all deleted.</p>
+<p class="startli">All remaining elements are placed in a single <a class="el" href="class_model.html">Model</a> object; this <a class="el" href="class_model.html">Model</a> object is made the new child of the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> container. The original <a class="el" href="class_model.html">Model</a>, <a class="el" href="class_model_definition.html">ModelDefinition</a>, and <a class="el" href="class_external_model_definition.html">ExternalModelDefinition</a> objects are all deleted.</p>
 <p class="endli"></p>
 </li>
 </ol>
-<p>Note an implication of this process is that if conversion is successful, all old pointers to the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object's <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> object as well as all of its children, will be rendered obsolete, and will no longer work.</p>
+<p>Note an implication of this process is that if conversion is successful, all old pointers to the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object's <a class="el" href="class_model.html">Model</a> object as well as all of its children, will be rendered obsolete, and will no longer work.</p>
 <h1><a class="anchor" id="compflatteningconverter-options-summary"></a>
 Summary of options for CompFlatteningConverter</h1>
-<dl class="section user"><dt></dt><dd><a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> is enabled by creating a <a class="el" href="class_conversion_properties.html" title="\ @ @ . .">ConversionProperties</a> object with the option <em>"flatten comp"</em>, and passing this <a class="el" href="class_conversion_properties.html" title="\ @ @ . .">ConversionProperties</a> object to <a class="el" href="class_s_b_m_l_document.html#a7c244c84dbfd077ac8fa4074f1dc9c64" title="Converts this document using the converter that best matches the given conversion properties.">SBMLDocument::convert()</a>. The <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> converter accepts numerous options influencing its behavior. The following list briefly summarizes the options: <ul>
+<dl class="section user"><dt></dt><dd><a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> is enabled by creating a <a class="el" href="class_conversion_properties.html">ConversionProperties</a> object with the option <em>"flatten comp"</em>, and passing this <a class="el" href="class_conversion_properties.html">ConversionProperties</a> object to <a class="el" href="class_s_b_m_l_document.html#a7c244c84dbfd077ac8fa4074f1dc9c64" title="Converts this document using the converter that best matches the given conversion properties.">SBMLDocument::convert()</a>. The <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> converter accepts numerous options influencing its behavior. The following list briefly summarizes the options: <ul>
 <li>
 <p class="startli"><em>"flatten comp"</em>: Possible values are <code>"true"</code> or <code>"false"</code>. Setting the option to <code>true</code> (the default) means enable the flattening converter.</p>
 <p class="endli"></p>
@@ -157,15 +159,15 @@ Summary of options for CompFlatteningConverter</h1>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli"><em>"basePath"</em>: The value must be a string representing the path where the converter should search for any <a class="el" href="class_external_model_definition.html" title="\ @ @ . .">ExternalModelDefinition</a> objects. (Default value: ".", meaning, the current directory.)</p>
+<p class="startli"><em>"basePath"</em>: The value must be a string representing the path where the converter should search for any <a class="el" href="class_external_model_definition.html">ExternalModelDefinition</a> objects. (Default value: ".", meaning, the current directory.)</p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli"><em>"leavePorts"</em>: Possible values are <code>"true"</code> or <code>"false"</code> (the default). Controls what happens to <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> constructs in the output.</p>
+<p class="startli"><em>"leavePorts"</em>: Possible values are <code>"true"</code> or <code>"false"</code> (the default). Controls what happens to <a class="el" href="class_port.html">Port</a> constructs in the output.</p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli"><em>"listModelDefinitions"</em>: Possible values are <code>"true"</code> or <code>"false"</code> (the default). Controls what happens to <a class="el" href="class_model_definition.html" title="\ @ @ . .">ModelDefinition</a> and <a class="el" href="class_external_model_definition.html" title="\ @ @ . .">ExternalModelDefinition</a> objects in the final output.</p>
+<p class="startli"><em>"listModelDefinitions"</em>: Possible values are <code>"true"</code> or <code>"false"</code> (the default). Controls what happens to <a class="el" href="class_model_definition.html">ModelDefinition</a> and <a class="el" href="class_external_model_definition.html">ExternalModelDefinition</a> objects in the final output.</p>
 <p class="endli"></p>
 </li>
 <li>
@@ -174,18 +176,18 @@ Summary of options for CompFlatteningConverter</h1>
 </dd></dl>
 <h1><a class="anchor" id="compflatteningconverter-options-details"></a>
 Detailed explanation of available options</h1>
-<p>The following sections examine in detail the options understood by <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> and their effects on the flattening process.</p>
+<p>The following sections examine in detail the options understood by <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> and their effects on the flattening process.</p>
 <h2><a class="anchor" id="behavior-if-unflattenable"></a>
 Options for handling Level 3 packages</h2>
-<p>If other SBML Level&#160;3 packages are used in the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>, the same rules apply to each package's constructs if an implementation of the flattener exists for that Level&#160;3 package. If no implementation exists, the behavior of this <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> depends on the values of the options <em>"abortIfUnflattenable"</em> and <em>"stripUnflattenablePackages"</em>. Specifically: </p><ul>
+<p>If other SBML Level&#160;3 packages are used in the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>, the same rules apply to each package's constructs if an implementation of the flattener exists for that Level&#160;3 package. If no implementation exists, the behavior of this <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> depends on the values of the options <em>"abortIfUnflattenable"</em> and <em>"stripUnflattenablePackages"</em>. Specifically: </p><ul>
 <li>
 <p class="startli">The option <em>"abortIfUnflattenable"</em> controls whether the flattening process is abandoned. The following are the possible values for this option and their meanings: </p><ul style="list-style-type: circle">
 <li>
-<p class="startli">If the <em>"abortIfUnflattenable"</em> option is set to <code>"all"</code>, then if any construct is found for a package that has no flattening algorithm available, the converter will abort, return failure, and avoid changing the original <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object.</p>
+<p class="startli">If the <em>"abortIfUnflattenable"</em> option is set to <code>"all"</code>, then if any construct is found for a package that has no flattening algorithm available, the converter will abort, return failure, and avoid changing the original <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object.</p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli">If <em>"abortIfUnflattenable"</em> is set to <code>"requiredOnly"</code> (the default), then if any SBML Level&#160;3 package construct is found for a package that is labeled <code>"required=true"</code> and for which no flattening algorithm is available, the converter will abort, return failure, and avoid changing the original <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object. SBML Level&#160;3 package constructs from packages set <code>"required=false"</code> for which no flattening algorithm is implemented will be ignored and the constructs will be kept or removed depending on the value of the <em>"stripUnflattenablePackages"</em> option described below.</p>
+<p class="startli">If <em>"abortIfUnflattenable"</em> is set to <code>"requiredOnly"</code> (the default), then if any SBML Level&#160;3 package construct is found for a package that is labeled <code>"required=true"</code> and for which no flattening algorithm is available, the converter will abort, return failure, and avoid changing the original <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. SBML Level&#160;3 package constructs from packages set <code>"required=false"</code> for which no flattening algorithm is implemented will be ignored and the constructs will be kept or removed depending on the value of the <em>"stripUnflattenablePackages"</em> option described below.</p>
 <p class="endli"></p>
 </li>
 <li>
@@ -198,11 +200,11 @@ Options for handling Level 3 packages</h2>
 <li>
 <p class="startli">The option <em>"stripUnflattenablePackages"</em> controls whether SBML Level&#160;3 package constructs are removed from the final flattened model. The following are the possible values for this option and their meanings: </p><ul style="list-style-type: circle">
 <li>
-<p class="startli">If the option <em>"stripUnflattenablePackages"</em> is set to <code>"true"</code>, and the option <em>"abortIfUnflattenable"</em> has the value <code>"requiredOnly"</code> or <code>"none"</code>, then <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> will remove all constructs belonging to packages that lack a flattening converter. The XML namespace declaration for unflattenable SBML Level&#160;3 packages will also be removed.</p>
+<p class="startli">If the option <em>"stripUnflattenablePackages"</em> is set to <code>"true"</code>, and the option <em>"abortIfUnflattenable"</em> has the value <code>"requiredOnly"</code> or <code>"none"</code>, then <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> will remove all constructs belonging to packages that lack a flattening converter. The XML namespace declaration for unflattenable SBML Level&#160;3 packages will also be removed.</p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli">If the option <em>"stripUnflattenablePackages"</em> is set to <code>"false"</code> (the default), <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> will leave any package constructs that cannot be flattened due to the lack of a flattening implementation. These Level&#160;3 package constructs will remain in the final model. Note that any package constructs from an instantiated <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> object that was <em>not</em> a child of a retained component will be lost (because the SBML component where it was located was removed from the final, flattened model).</p>
+<p class="startli">If the option <em>"stripUnflattenablePackages"</em> is set to <code>"false"</code> (the default), <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> will leave any package constructs that cannot be flattened due to the lack of a flattening implementation. These Level&#160;3 package constructs will remain in the final model. Note that any package constructs from an instantiated <a class="el" href="class_submodel.html">Submodel</a> object that was <em>not</em> a child of a retained component will be lost (because the SBML component where it was located was removed from the final, flattened model).</p>
 <p class="endli"></p>
 </li>
 </ul>
@@ -215,20 +217,20 @@ Options for handling Level 3 packages</h2>
 </ul>
 <h2><a class="anchor" id="general-flattener-options"></a>
 Additional general conversion options for CompFlatteningConverter</h2>
-<p>The following are other, general options offered by <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a>:</p>
+<p>The following are other, general options offered by <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a>:</p>
 <ul>
-<li><em>"basePath"</em>: if there are <a class="el" href="class_external_model_definition.html" title="\ @ @ . .">ExternalModelDefinition</a> objects that are to be instantiated in a flattened <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a>, the <em>"basePath"</em> option may be set to a location where those external models may be found. The default is the working directory (<code>"."</code>).</li>
+<li><em>"basePath"</em>: if there are <a class="el" href="class_external_model_definition.html">ExternalModelDefinition</a> objects that are to be instantiated in a flattened <a class="el" href="class_submodel.html">Submodel</a>, the <em>"basePath"</em> option may be set to a location where those external models may be found. The default is the working directory (<code>"."</code>).</li>
 </ul>
 <ul>
-<li><em>"leavePorts"</em>: if this option is set to <code>"false"</code> (the default), the flattened model will have no <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> objects in it. Conversely, if <em>"leavePorts"</em> is set to <code>"true"</code>, any <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> objects not referenced by any Replacement or <a class="el" href="class_deletion.html" title="\ @ @ . % .">Deletion</a> will be left in the resulting flattened <a class="el" href="class_model.html" title="\ @ @ . .">Model</a>.</li>
+<li><em>"leavePorts"</em>: if this option is set to <code>"false"</code> (the default), the flattened model will have no <a class="el" href="class_port.html">Port</a> objects in it. Conversely, if <em>"leavePorts"</em> is set to <code>"true"</code>, any <a class="el" href="class_port.html">Port</a> objects not referenced by any Replacement or <a class="el" href="class_deletion.html">Deletion</a> will be left in the resulting flattened <a class="el" href="class_model.html">Model</a>.</li>
 </ul>
 <ul>
-<li><em>"listModelDefinitions"</em>: If this option is set to <code>"false"</code> (the default), no <a class="el" href="class_model_definition.html" title="\ @ @ . .">ModelDefinition</a> or <a class="el" href="class_external_model_definition.html" title="\ @ @ . .">ExternalModelDefinition</a> objects will be present in the flattened <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>. If <em>"listModelDefinitions"</em> is set to <code>"true"</code>, they will remain, although they will no longer be referenced by any <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> in the flattened <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> child of the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>.</li>
+<li><em>"listModelDefinitions"</em>: If this option is set to <code>"false"</code> (the default), no <a class="el" href="class_model_definition.html">ModelDefinition</a> or <a class="el" href="class_external_model_definition.html">ExternalModelDefinition</a> objects will be present in the flattened <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>. If <em>"listModelDefinitions"</em> is set to <code>"true"</code>, they will remain, although they will no longer be referenced by any <a class="el" href="class_submodel.html">Submodel</a> in the flattened <a class="el" href="class_model.html">Model</a> child of the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>.</li>
 </ul>
 <ul>
-<li><em>"performValidation"</em>: if this option is set to <code>"true"</code> (the default), the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> will first be validated before flattening is attempted. If there are any validation errors, those errors will be logged with the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>, which will remain otherwise unchanged, and the conversion process will return a failure code. Similarly, if the flattened <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> is not valid, those validation errors will be added to the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>, which will remain otherwise unchanged, and the conversion attempt will return failure. Conversely, if the option <em>"performValidation"</em> is set to <code>"false"</code>, the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> will be flattened regardless of any validation errors. The conversion may yet fail if insurmountable errors are encountered in the course of trying to flatten the model (for instance, if an element is replaced by something that does not exist), but no separate validation steps are performed.</li>
+<li><em>"performValidation"</em>: if this option is set to <code>"true"</code> (the default), the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> will first be validated before flattening is attempted. If there are any validation errors, those errors will be logged with the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>, which will remain otherwise unchanged, and the conversion process will return a failure code. Similarly, if the flattened <a class="el" href="class_model.html">Model</a> is not valid, those validation errors will be added to the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>, which will remain otherwise unchanged, and the conversion attempt will return failure. Conversely, if the option <em>"performValidation"</em> is set to <code>"false"</code>, the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> will be flattened regardless of any validation errors. The conversion may yet fail if insurmountable errors are encountered in the course of trying to flatten the model (for instance, if an element is replaced by something that does not exist), but no separate validation steps are performed.</li>
 </ul>
-<p>Note that if both the option <em>"leavePorts"</em> and <em>"listModelDefinitions"</em> are set to <code>"false"</code> (which they are by default), the Hierarchical Model Composition namespace will be removed from the resulting <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>.</p>
+<p>Note that if both the option <em>"leavePorts"</em> and <em>"listModelDefinitions"</em> are set to <code>"false"</code> (which they are by default), the Hierarchical Model Composition namespace will be removed from the resulting <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>.</p>
 <h1><a class="anchor" id="comp-flattening-example"></a>
 Complete example of invoking CompFlatteningConverter</h1>
 <p>In this section, we present a complete example of a program that can take an SBML model containing Level&#160;3 Hierarchical Model Composition constructs and flatten it to a plain SBML Level&#160;3 model. A version of this program is available in the libSBML distribution's <code>examples/c++/comp</code> directory as the program named <a class="el" href="flatten_model_8cpp-example.html">flattenModel.cpp</a>. The example XML models shown below are the same models as given in sections 4.1&ndash;4.2 in the specification document for SBML Level&#160;3 Hierarchical Model Composition.</p>
@@ -252,19 +254,19 @@ Example program</h2>
 <div class="line">    <span class="keywordflow">return</span> 1;</div>
 <div class="line">}</div>
 <div class="ttc" id="a_s_b_m_l_reader_8h_html_a638d6486ad221b01e62d2d15d130a04e"><div class="ttname"><a href="_s_b_m_l_reader_8h.html#a638d6486ad221b01e62d2d15d130a04e">readSBML</a></div><div class="ttdeci">SBMLDocument_t * readSBML(const char *filename)</div><div class="ttdoc">Reads an SBML document from the given file.</div></div>
-<div class="ttc" id="aclass_s_b_m_l_document_html"><div class="ttname"><a href="class_s_b_m_l_document.html">SBMLDocument</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> SBMLDocument.h:349</div></div>
+<div class="ttc" id="aclass_s_b_m_l_document_html"><div class="ttname"><a href="class_s_b_m_l_document.html">SBMLDocument</a></div><div class="ttdef"><b>Definition:</b> SBMLDocument.h:349</div></div>
 <div class="ttc" id="aclass_s_b_m_l_document_html_a0e23df07740aba0d0aa44a88f8a8f5b1"><div class="ttname"><a href="class_s_b_m_l_document.html#a0e23df07740aba0d0aa44a88f8a8f5b1">SBMLDocument::getNumErrors</a></div><div class="ttdeci">unsigned int getNumErrors() const</div><div class="ttdoc">Returns the number of errors or warnings encountered during parsing, consistency checking,...</div><div class="ttdef"><b>Definition:</b> SBMLDocument.cpp:1153</div></div>
 <div class="ttc" id="aclass_s_b_m_l_document_html_a4ba64417bb8900acc865a4bb3319a4d2"><div class="ttname"><a href="class_s_b_m_l_document.html#a4ba64417bb8900acc865a4bb3319a4d2">SBMLDocument::printErrors</a></div><div class="ttdeci">void printErrors(std::ostream &amp;stream=std::cerr) const</div><div class="ttdoc">Prints all the errors or warnings encountered trying to parse, check, or translate this SBML document...</div><div class="ttdef"><b>Definition:</b> SBMLDocument.cpp:1176</div></div>
-</div><!-- fragment --><p> Continuing, we set up options for the call to the converter. The use of <a class="el" href="class_conversion_properties.html" title="\ @ @ . .">ConversionProperties</a> and the general scheme behind conversion options is explained further below; for the purposes of this example, it is enough to know that the following are the basic lines of code needed to obtain a copy of a libSBML converter object that will invoke <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a>: </p><div class="fragment"><div class="line"><a class="code" href="class_conversion_properties.html">ConversionProperties</a> props;</div>
+</div><!-- fragment --><p> Continuing, we set up options for the call to the converter. The use of <a class="el" href="class_conversion_properties.html">ConversionProperties</a> and the general scheme behind conversion options is explained further below; for the purposes of this example, it is enough to know that the following are the basic lines of code needed to obtain a copy of a libSBML converter object that will invoke <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a>: </p><div class="fragment"><div class="line"><a class="code" href="class_conversion_properties.html">ConversionProperties</a> props;</div>
 <div class="line">props-&gt;<a class="code" href="class_conversion_properties.html#a18145d00ef9f6d602d66b6037ba97352">addOption</a>(<span class="stringliteral">&quot;flatten comp&quot;</span>);</div>
 <div class="line"><a class="code" href="class_s_b_m_l_converter.html">SBMLConverter</a>* converter =</div>
 <div class="line">    <a class="code" href="class_s_b_m_l_converter_registry.html#a580a58ac0b53dc8fbab9162b6107b9da">SBMLConverterRegistry::getInstance</a>().<a class="code" href="class_s_b_m_l_converter_registry.html#a3f70958492759f4fe30dfc8e37619b9b">getConverterFor</a>(props);</div>
-<div class="ttc" id="aclass_conversion_properties_html"><div class="ttname"><a href="class_conversion_properties.html">ConversionProperties</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> ConversionProperties.h:84</div></div>
+<div class="ttc" id="aclass_conversion_properties_html"><div class="ttname"><a href="class_conversion_properties.html">ConversionProperties</a></div><div class="ttdef"><b>Definition:</b> ConversionProperties.h:84</div></div>
 <div class="ttc" id="aclass_conversion_properties_html_a18145d00ef9f6d602d66b6037ba97352"><div class="ttname"><a href="class_conversion_properties.html#a18145d00ef9f6d602d66b6037ba97352">ConversionProperties::addOption</a></div><div class="ttdeci">virtual void addOption(const ConversionOption &amp;option)</div><div class="ttdoc">Adds a copy of the given option to this properties object.</div><div class="ttdef"><b>Definition:</b> ConversionProperties.cpp:232</div></div>
-<div class="ttc" id="aclass_s_b_m_l_converter_html"><div class="ttname"><a href="class_s_b_m_l_converter.html">SBMLConverter</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> SBMLConverter.h:77</div></div>
+<div class="ttc" id="aclass_s_b_m_l_converter_html"><div class="ttname"><a href="class_s_b_m_l_converter.html">SBMLConverter</a></div><div class="ttdef"><b>Definition:</b> SBMLConverter.h:77</div></div>
 <div class="ttc" id="aclass_s_b_m_l_converter_registry_html_a3f70958492759f4fe30dfc8e37619b9b"><div class="ttname"><a href="class_s_b_m_l_converter_registry.html#a3f70958492759f4fe30dfc8e37619b9b">SBMLConverterRegistry::getConverterFor</a></div><div class="ttdeci">SBMLConverter * getConverterFor(const ConversionProperties &amp;props) const</div><div class="ttdoc">Returns the converter that best matches the given configuration properties.</div><div class="ttdef"><b>Definition:</b> SBMLConverterRegistry.cpp:80</div></div>
 <div class="ttc" id="aclass_s_b_m_l_converter_registry_html_a580a58ac0b53dc8fbab9162b6107b9da"><div class="ttname"><a href="class_s_b_m_l_converter_registry.html#a580a58ac0b53dc8fbab9162b6107b9da">SBMLConverterRegistry::getInstance</a></div><div class="ttdeci">static SBMLConverterRegistry &amp; getInstance()</div><div class="ttdoc">Returns the singleton instance for the converter registry.</div><div class="ttdef"><b>Definition:</b> SBMLConverterRegistry.cpp:63</div></div>
-</div><!-- fragment --><p> Now comes the actual invocation of <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a>. As always, it is critical to check for possible errors by checking the status code returned by the call; we do this in the code below too. </p><div class="fragment"><div class="line">converter-&gt;<a class="code" href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959">setDocument</a>(document);</div>
+</div><!-- fragment --><p> Now comes the actual invocation of <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a>. As always, it is critical to check for possible errors by checking the status code returned by the call; we do this in the code below too. </p><div class="fragment"><div class="line">converter-&gt;<a class="code" href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959">setDocument</a>(document);</div>
 <div class="line"><span class="keywordtype">int</span> result = converter-&gt;<a class="code" href="class_s_b_m_l_converter.html#a957d3d54eb856c66d6a2d404a0aee59e">convert</a>();</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordflow">if</span> (result != <a class="code" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a>)</div>
@@ -430,15 +432,15 @@ Example use of the program</h2>
   <span class="nt">&lt;/model&gt;</span>
 <span class="nt">&lt;/sbml&gt;</span>
 </pre></div>
-<p>The final model is a concrete realization of the effective model defined by <code>"main.xml"</code>, with a single compartment and two reactions; the species <code>"S"</code> can either bind with enzyme <code>"E"</code> (from submodel <code>"A"</code>) to form <code>"D"</code> (from submodel <code>"A"</code>), or with enzyme <code>"E"</code> (from submodel <code>"B"</code>) to form <code>"D"</code> (from submodel <code>"B"</code>). In the flattened model above, note how the identifiers of components inside the <a class="el" href="class_model_definition.html" title="\ @ @ . .">ModelDefinition</a> objects <code>"A"</code> and <code>"B"</code> of our file <code>"enzyme_model.xml"</code> have been rewritten as (for example) <code>"A__E"</code> <code>"B__E"</code>, etc.</p>
+<p>The final model is a concrete realization of the effective model defined by <code>"main.xml"</code>, with a single compartment and two reactions; the species <code>"S"</code> can either bind with enzyme <code>"E"</code> (from submodel <code>"A"</code>) to form <code>"D"</code> (from submodel <code>"A"</code>), or with enzyme <code>"E"</code> (from submodel <code>"B"</code>) to form <code>"D"</code> (from submodel <code>"B"</code>). In the flattened model above, note how the identifiers of components inside the <a class="el" href="class_model_definition.html">ModelDefinition</a> objects <code>"A"</code> and <code>"B"</code> of our file <code>"enzyme_model.xml"</code> have been rewritten as (for example) <code>"A__E"</code> <code>"B__E"</code>, etc.</p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a18e8eeb4ac256644b446d72587003914"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_flattening_converter.html#a18e8eeb4ac256644b446d72587003914">clone</a> () const</td></tr>
-<tr class="memdesc:a18e8eeb4ac256644b446d72587003914"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a>.  <a href="class_comp_flattening_converter.html#a18e8eeb4ac256644b446d72587003914">More...</a><br /></td></tr>
+<tr class="memdesc:a18e8eeb4ac256644b446d72587003914"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a>.  <a href="class_comp_flattening_converter.html#a18e8eeb4ac256644b446d72587003914">More...</a><br /></td></tr>
 <tr class="separator:a18e8eeb4ac256644b446d72587003914"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85ae2c1dc839e098dd41fbcabd3ffb72"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_flattening_converter.html#a85ae2c1dc839e098dd41fbcabd3ffb72">CompFlatteningConverter</a> ()</td></tr>
-<tr class="memdesc:a85ae2c1dc839e098dd41fbcabd3ffb72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> object.  <a href="class_comp_flattening_converter.html#a85ae2c1dc839e098dd41fbcabd3ffb72">More...</a><br /></td></tr>
+<tr class="memdesc:a85ae2c1dc839e098dd41fbcabd3ffb72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> object.  <a href="class_comp_flattening_converter.html#a85ae2c1dc839e098dd41fbcabd3ffb72">More...</a><br /></td></tr>
 <tr class="separator:a85ae2c1dc839e098dd41fbcabd3ffb72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a885ff14effadd4429160223535770329"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_flattening_converter.html#a885ff14effadd4429160223535770329">CompFlatteningConverter</a> (const <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> &amp;orig)</td></tr>
 <tr class="memdesc:a885ff14effadd4429160223535770329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="class_comp_flattening_converter.html#a885ff14effadd4429160223535770329">More...</a><br /></td></tr>
@@ -477,7 +479,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2f6cb3b5409a2fa26a45c2f0ea01acdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the configuration properties to be used by this converter.  <a href="class_s_b_m_l_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc">More...</a><br /></td></tr>
 <tr class="separator:a2f6cb3b5409a2fa26a45c2f0ea01acdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9fa83c276669887ed48a07d8b1728af5"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_flattening_converter.html#a9fa83c276669887ed48a07d8b1728af5">~CompFlatteningConverter</a> ()</td></tr>
-<tr class="memdesc:a9fa83c276669887ed48a07d8b1728af5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy this <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> object.  <a href="class_comp_flattening_converter.html#a9fa83c276669887ed48a07d8b1728af5">More...</a><br /></td></tr>
+<tr class="memdesc:a9fa83c276669887ed48a07d8b1728af5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy this <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> object.  <a href="class_comp_flattening_converter.html#a9fa83c276669887ed48a07d8b1728af5">More...</a><br /></td></tr>
 <tr class="separator:a9fa83c276669887ed48a07d8b1728af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -496,7 +498,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> object. </p>
+<p>Creates a new <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> object. </p>
 
 </div>
 </div>
@@ -517,10 +519,10 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Copy constructor. </p>
-<p>This creates a copy of a <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> object.</p>
+<p>This creates a copy of a <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> object.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">orig</td><td>the <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> instance to copy. </td></tr>
+    <tr><td class="paramname">orig</td><td>the <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> instance to copy. </td></tr>
   </table>
   </dd>
 </dl>
@@ -550,7 +552,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroy this <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> object. </p>
+<p>Destroy this <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> object. </p>
 
 </div>
 </div>
@@ -578,8 +580,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates and returns a deep copy of this <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>a (deep) copy of this <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a>. </dd></dl>
+<p>Creates and returns a deep copy of this <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>a (deep) copy of this <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a>. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_b_m_l_converter.html#a85ba26362eddbc200caf4bab0c94c941">SBMLConverter</a>.</p>
 
@@ -609,7 +611,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Performs the conversion. </p>
-<p>This method causes <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> to do the actual conversion work, that is, to convert the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object set by <a class="el" href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959" title="Sets the SBML document to be converted.">SBMLConverter::setDocument()</a> and with the configuration options set by <a class="el" href="class_s_b_m_l_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc" title="Sets the configuration properties to be used by this converter.">SBMLConverter::setProperties()</a>.</p>
+<p>This method causes <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> to do the actual conversion work, that is, to convert the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object set by <a class="el" href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959" title="Sets the SBML document to be converted.">SBMLConverter::setDocument()</a> and with the configuration options set by <a class="el" href="class_s_b_m_l_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc" title="Sets the configuration properties to be used by this converter.">SBMLConverter::setProperties()</a>.</p>
 <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
 </ul>
@@ -642,8 +644,8 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the default properties of this converter. </p>
-<p>A given converter exposes one or more properties that can be adjusted in order to influence the behavior of the converter. This method returns the <em>default</em> property settings for <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a>. It is meant to be called in order to be able to programmatically discover all the settings for the converter object.</p>
-<dl class="section user"><dt></dt><dd><a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> is enabled by creating a <a class="el" href="class_conversion_properties.html" title="\ @ @ . .">ConversionProperties</a> object with the option <em>"flatten comp"</em>, and passing this <a class="el" href="class_conversion_properties.html" title="\ @ @ . .">ConversionProperties</a> object to <a class="el" href="class_s_b_m_l_document.html#a7c244c84dbfd077ac8fa4074f1dc9c64" title="Converts this document using the converter that best matches the given conversion properties.">SBMLDocument::convert()</a>. The <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> converter accepts numerous options influencing its behavior. The following list briefly summarizes the options: <ul>
+<p>A given converter exposes one or more properties that can be adjusted in order to influence the behavior of the converter. This method returns the <em>default</em> property settings for <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a>. It is meant to be called in order to be able to programmatically discover all the settings for the converter object.</p>
+<dl class="section user"><dt></dt><dd><a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> is enabled by creating a <a class="el" href="class_conversion_properties.html">ConversionProperties</a> object with the option <em>"flatten comp"</em>, and passing this <a class="el" href="class_conversion_properties.html">ConversionProperties</a> object to <a class="el" href="class_s_b_m_l_document.html#a7c244c84dbfd077ac8fa4074f1dc9c64" title="Converts this document using the converter that best matches the given conversion properties.">SBMLDocument::convert()</a>. The <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> converter accepts numerous options influencing its behavior. The following list briefly summarizes the options: <ul>
 <li>
 <p class="startli"><em>"flatten comp"</em>: Possible values are <code>"true"</code> or <code>"false"</code>. Setting the option to <code>true</code> (the default) means enable the flattening converter.</p>
 <p class="endli"></p>
@@ -661,23 +663,23 @@ Public Member Functions</h2></td></tr>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli"><em>"basePath"</em>: The value must be a string representing the path where the converter should search for any <a class="el" href="class_external_model_definition.html" title="\ @ @ . .">ExternalModelDefinition</a> objects. (Default value: ".", meaning, the current directory.)</p>
+<p class="startli"><em>"basePath"</em>: The value must be a string representing the path where the converter should search for any <a class="el" href="class_external_model_definition.html">ExternalModelDefinition</a> objects. (Default value: ".", meaning, the current directory.)</p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli"><em>"leavePorts"</em>: Possible values are <code>"true"</code> or <code>"false"</code> (the default). Controls what happens to <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> constructs in the output.</p>
+<p class="startli"><em>"leavePorts"</em>: Possible values are <code>"true"</code> or <code>"false"</code> (the default). Controls what happens to <a class="el" href="class_port.html">Port</a> constructs in the output.</p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli"><em>"listModelDefinitions"</em>: Possible values are <code>"true"</code> or <code>"false"</code> (the default). Controls what happens to <a class="el" href="class_model_definition.html" title="\ @ @ . .">ModelDefinition</a> and <a class="el" href="class_external_model_definition.html" title="\ @ @ . .">ExternalModelDefinition</a> objects in the final output.</p>
+<p class="startli"><em>"listModelDefinitions"</em>: Possible values are <code>"true"</code> or <code>"false"</code> (the default). Controls what happens to <a class="el" href="class_model_definition.html">ModelDefinition</a> and <a class="el" href="class_external_model_definition.html">ExternalModelDefinition</a> objects in the final output.</p>
 <p class="endli"></p>
 </li>
 <li>
 <em>"performValidation"</em>: Possible values are <code>"true"</code> (the default) or <code>"false"</code>. Controls whether whether libSBML validates the model before attempting to flatten it. </li>
 </ul>
 </dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_conversion_properties.html" title="\ @ @ . .">ConversionProperties</a> object describing the default properties for this converter.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Previously, <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> also offered an <em>"ignorePackages"</em> option, whose name proved to be confusing. This option has been deprecated and replaced by the <em>"stripUnflattenablePackages"</em> option. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_conversion_properties.html">ConversionProperties</a> object describing the default properties for this converter.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Previously, <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> also offered an <em>"ignorePackages"</em> option, whose name proved to be confusing. This option has been deprecated and replaced by the <em>"stripUnflattenablePackages"</em> option. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_b_m_l_converter.html#a848c06245c49c3e52c0fef08a628b14e">SBMLConverter</a>.</p>
 
@@ -707,7 +709,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the SBML document that is the subject of the conversions. </p>
-<dl class="section return"><dt>Returns</dt><dd>the current <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the current <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. </dd></dl>
 
 </div>
 </div>
@@ -735,7 +737,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the SBML document that is the subject of the conversions. </p>
-<dl class="section return"><dt>Returns</dt><dd>the current <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the current <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. </dd></dl>
 
 </div>
 </div>
@@ -823,8 +825,8 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the target SBML namespaces of the currently set properties. </p>
-<p>SBML namespaces are used by libSBML to express the Level+Version of the SBML document (and, possibly, any SBML Level&#160;3 packages in use). Some converters' behavior is affected by the SBML namespace configured in the converter. For example, in <a class="el" href="class_s_b_m_l_level_version_converter.html" title="\ @ @ . / .">SBMLLevelVersionConverter</a> (the converter for converting SBML documents from one Level+Version combination to another), the actions are fundamentally dependent on the SBML namespaces targeted.</p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object that describes the SBML namespaces in effect, or <code>NULL</code> if none are set. </dd></dl>
+<p>SBML namespaces are used by libSBML to express the Level+Version of the SBML document (and, possibly, any SBML Level&#160;3 packages in use). Some converters' behavior is affected by the SBML namespace configured in the converter. For example, in <a class="el" href="class_s_b_m_l_level_version_converter.html">SBMLLevelVersionConverter</a> (the converter for converting SBML documents from one Level+Version combination to another), the actions are fundamentally dependent on the SBML namespaces targeted.</p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object that describes the SBML namespaces in effect, or <code>NULL</code> if none are set. </dd></dl>
 
 </div>
 </div>
@@ -853,14 +855,14 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if this converter matches the given properties. </p>
-<p>Given a <a class="el" href="class_conversion_properties.html" title="\ @ @ . .">ConversionProperties</a> object <code>props</code>, this method checks that <code>props</code> possesses an option value to enable the <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a>. If it does, this method returns <code>true</code>.</p>
+<p>Given a <a class="el" href="class_conversion_properties.html">ConversionProperties</a> object <code>props</code>, this method checks that <code>props</code> possesses an option value to enable the <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a>. If it does, this method returns <code>true</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">props</td><td>the properties to match.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the properties <code>props</code> would match the necessary properties for <a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> type of converter, <code>false</code> otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the properties <code>props</code> would match the necessary properties for <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> type of converter, <code>false</code> otherwise. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_b_m_l_converter.html#a7a72b53c6d73ae3a024c10d3e5762a4a">SBMLConverter</a>.</p>
 
@@ -897,7 +899,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>integer value indicating the success/failure of the operation. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The set of possible values that may be returned ultimately depends on the specific subclass of <a class="el" href="class_s_b_m_l_converter.html" title="\ @ @ . .">SBMLConverter</a> being used, but the default method can return the following: <ul>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating the success/failure of the operation. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The set of possible values that may be returned ultimately depends on the specific subclass of <a class="el" href="class_s_b_m_l_converter.html">SBMLConverter</a> being used, but the default method can return the following: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
 </ul>
 </dd></dl>
@@ -939,7 +941,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>integer value indicating the success/failure of the operation. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The set of possible values that may be returned ultimately depends on the specific subclass of <a class="el" href="class_s_b_m_l_converter.html" title="\ @ @ . .">SBMLConverter</a> being used, but the default method can return the following: <ul>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating the success/failure of the operation. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The set of possible values that may be returned ultimately depends on the specific subclass of <a class="el" href="class_s_b_m_l_converter.html">SBMLConverter</a> being used, but the default method can return the following: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
 </ul>
 </dd></dl>
@@ -975,11 +977,11 @@ Public Member Functions</h2></td></tr>
 <p>Sets the configuration properties to be used by this converter. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">props</td><td>the <a class="el" href="class_conversion_properties.html" title="\ @ @ . .">ConversionProperties</a> object defining the properties to set.</td></tr>
+    <tr><td class="paramname">props</td><td>the <a class="el" href="class_conversion_properties.html">ConversionProperties</a> object defining the properties to set.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>integer value indicating the success/failure of the operation. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The set of possible values that may be returned ultimately depends on the specific subclass of <a class="el" href="class_s_b_m_l_converter.html" title="\ @ @ . .">SBMLConverter</a> being used, but the default method can return the following values: <ul>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating the success/failure of the operation. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The set of possible values that may be returned ultimately depends on the specific subclass of <a class="el" href="class_s_b_m_l_converter.html">SBMLConverter</a> being used, but the default method can return the following values: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
 </ul>
 </dd></dl>

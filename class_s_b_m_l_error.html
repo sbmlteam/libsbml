@@ -101,21 +101,22 @@ $(document).ready(function(){initNavTree('class_s_b_m_l_error.html',''); initRes
 <div class="dynheader">
 Inheritance diagram for SBMLError:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_s_b_m_l_error__inherit__graph.svg" width="100" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_s_b_m_l_error__inherit__graph.svg" width="100" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>\ @ @ . , . </p>
+<div class="textblock"><p><br  />
+</p>
+ An error, warning or other diagnostic.</p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  This class is not prescribed by
 the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
-<p>When a libSBML operation on SBML content results in an error, or when there is something wrong with the SBML content, the problems are reported as <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> objects. These are generally stored in an <a class="el" href="class_s_b_m_l_error_log.html" title="\ @ @ . .">SBMLErrorLog</a> object; this log object, in turn, is kept in the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object containing the SBML content. Applications can obtain the list of logged errors using <a class="el" href="class_s_b_m_l_document.html#a2bfc5923e5b0f3e6716d38860b18a563" title="Returns the list of errors or warnings logged during parsing, consistency checking,...">SBMLDocument::getErrorLog()</a> and then use the methods provided by <a class="el" href="class_s_b_m_l_error_log.html" title="\ @ @ . .">SBMLErrorLog</a> to access individual <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> objects. (Note that despite the word "error" in the name, <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> objects are used to represent not only "true" errors, but also warnings and some informational diagnostics. The name is a historical hold-over from early versions of libSBML, in which the object really was only used to report errors.)</p>
-<p>Each <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> object instance has an identification number that identifies the nature of the problem. This "error id" number will be up to five digits long, and it will be listed in one of two enumerations: <a href="#SBMLErrorCode_t" class="el">SBMLErrorCode_t</a> (described <a href="#SBMLErrorCode_t" class="el">below</a>) or <a class="el" href="_x_m_l_error_8h.html#a5ff7604587bd93fb60cdecb72acd160c">XMLErrorCode_t</a> (described in the documentation for the class <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a>). The former enumeration contains all the SBML validation rule numbers listed in the appendices of the SBML specification documents, as well as some additional libSBML-specific error codes.</p>
-<p>Error codes are useful mainly for software. For human readers, <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> also includes text messages that describe the nature of a given problem. The messages can be accessed using <a class="el" href="class_x_m_l_error.html#a9e872a0d36603880b8c8dcdbfb31c389" title="Returns a brief message for this error.">SBMLError::getShortMessage()</a> and <a class="el" href="class_x_m_l_error.html#a2ee2b8726793ed2f0d3c328ebbc18344" title="Returns the message text of this error.">SBMLError::getMessage()</a>. The former provides a brief one-line description of the issue, while <a class="el" href="class_x_m_l_error.html#a2ee2b8726793ed2f0d3c328ebbc18344" title="Returns the message text of this error.">SBMLError::getMessage()</a> provides a more detailed text, including (if appropriate) references to sections of the SBML specifications where relevant topics are discussed. These text strings are suitable for displaying to human users.</p>
-<p>An <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> object also contains a category code; its value may be retrieved using the method <a class="el" href="class_x_m_l_error.html#a8b360fd8ae9a55b7f977d3d3134f734e" title="Returns the category of this error.">SBMLError::getCategory()</a>. Category values are drawn from the enumeration <a href="#SBMLErrorCategory_t" class="el">SBMLErrorCategory_t</a> described below. Categories are used to partition errors into distinct conceptual groups. This is principally used by the libSBML validation system to group classes of validation checks. For example, <a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187ae9e0393582f3d8cc84a4fa1fc9bbcbcd">LIBSBML_CAT_IDENTIFIER_CONSISTENCYendif </a></p>
+<p>When a libSBML operation on SBML content results in an error, or when there is something wrong with the SBML content, the problems are reported as <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> objects. These are generally stored in an <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a> object; this log object, in turn, is kept in the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object containing the SBML content. Applications can obtain the list of logged errors using <a class="el" href="class_s_b_m_l_document.html#a2bfc5923e5b0f3e6716d38860b18a563" title="Returns the list of errors or warnings logged during parsing, consistency checking,...">SBMLDocument::getErrorLog()</a> and then use the methods provided by <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a> to access individual <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> objects. (Note that despite the word "error" in the name, <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> objects are used to represent not only "true" errors, but also warnings and some informational diagnostics. The name is a historical hold-over from early versions of libSBML, in which the object really was only used to report errors.)</p>
+<p>Each <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> object instance has an identification number that identifies the nature of the problem. This "error id" number will be up to five digits long, and it will be listed in one of two enumerations: <a href="#SBMLErrorCode_t" class="el">SBMLErrorCode_t</a> (described <a href="#SBMLErrorCode_t" class="el">below</a>) or <a class="el" href="_x_m_l_error_8h.html#a5ff7604587bd93fb60cdecb72acd160c">XMLErrorCode_t</a> (described in the documentation for the class <a class="el" href="class_x_m_l_error.html">XMLError</a>). The former enumeration contains all the SBML validation rule numbers listed in the appendices of the SBML specification documents, as well as some additional libSBML-specific error codes.</p>
+<p>Error codes are useful mainly for software. For human readers, <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> also includes text messages that describe the nature of a given problem. The messages can be accessed using <a class="el" href="class_x_m_l_error.html#a9e872a0d36603880b8c8dcdbfb31c389" title="Returns a brief message for this error.">SBMLError::getShortMessage()</a> and <a class="el" href="class_x_m_l_error.html#a2ee2b8726793ed2f0d3c328ebbc18344" title="Returns the message text of this error.">SBMLError::getMessage()</a>. The former provides a brief one-line description of the issue, while <a class="el" href="class_x_m_l_error.html#a2ee2b8726793ed2f0d3c328ebbc18344" title="Returns the message text of this error.">SBMLError::getMessage()</a> provides a more detailed text, including (if appropriate) references to sections of the SBML specifications where relevant topics are discussed. These text strings are suitable for displaying to human users.</p>
+<p>An <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> object also contains a category code; its value may be retrieved using the method <a class="el" href="class_x_m_l_error.html#a8b360fd8ae9a55b7f977d3d3134f734e" title="Returns the category of this error.">SBMLError::getCategory()</a>. Category values are drawn from the enumeration <a href="#SBMLErrorCategory_t" class="el">SBMLErrorCategory_t</a> described below. Categories are used to partition errors into distinct conceptual groups. This is principally used by the libSBML validation system to group classes of validation checks. For example, <a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187ae9e0393582f3d8cc84a4fa1fc9bbcbcd">LIBSBML_CAT_IDENTIFIER_CONSISTENCYendif </a></p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="add_custom_validator_8cpp-example.html#_a2">addCustomValidator.cpp</a>, <a class="el" href="create_example_s_b_m_l_8cpp-example.html#_a65">createExampleSBML.cpp</a>, and <a class="el" href="rngvalidator_8cpp-example.html#_a3">rngvalidator.cpp</a>.</dd>
 </dl>
 </div><table class="memberdecls">
@@ -179,7 +180,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a1228b4992a8c34b6b3339dd6d8c470a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> or <code>false</code> depending on whether this error resulted from a problem in the XML input (e.g., an XML syntax error).  <a href="class_x_m_l_error.html#a1228b4992a8c34b6b3339dd6d8c470a4">More...</a><br /></td></tr>
 <tr class="separator:a1228b4992a8c34b6b3339dd6d8c470a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb2b9a606746419a7fcbd928dfd34085"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_error.html#aeb2b9a606746419a7fcbd928dfd34085">SBMLError</a> (const unsigned int errorId=0, const unsigned int level=SBML_DEFAULT_LEVEL, const unsigned int version=SBML_DEFAULT_VERSION, const std::string details=&quot;&quot;, const unsigned int line=0, const unsigned int column=0, const unsigned int severity=LIBSBML_SEV_UNKNOWN, const unsigned int category=<a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187aca66ca7d0bb7a579a2339739fbd7b2d1">LIBSBML_CAT_SBML</a>, const std::string package=&quot;core&quot;, const unsigned int pkgVersion=1)</td></tr>
-<tr class="memdesc:aeb2b9a606746419a7fcbd928dfd34085"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> to report that something occurred during SBML processing.  <a href="class_s_b_m_l_error.html#aeb2b9a606746419a7fcbd928dfd34085">More...</a><br /></td></tr>
+<tr class="memdesc:aeb2b9a606746419a7fcbd928dfd34085"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> to report that something occurred during SBML processing.  <a href="class_s_b_m_l_error.html#aeb2b9a606746419a7fcbd928dfd34085">More...</a><br /></td></tr>
 <tr class="separator:aeb2b9a606746419a7fcbd928dfd34085"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70c95ca915f04b373b310c9d744ef8f1"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_error.html#a70c95ca915f04b373b310c9d744ef8f1">setCategory</a> (unsigned int category)</td></tr>
 <tr class="memdesc:a70c95ca915f04b373b310c9d744ef8f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the category of this error.  <a href="class_x_m_l_error.html#a70c95ca915f04b373b310c9d744ef8f1">More...</a><br /></td></tr>
@@ -212,7 +213,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a995bbe26e213e0c6ff3369adae026a40"><td class="memItemLeft" align="right" valign="top">static const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_error.html#a995bbe26e213e0c6ff3369adae026a40">getStandardMessage</a> (const int code)</td></tr>
-<tr class="memdesc:a995bbe26e213e0c6ff3369adae026a40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a copy of the message string associated with the given predefined <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> code.  <a href="class_x_m_l_error.html#a995bbe26e213e0c6ff3369adae026a40">More...</a><br /></td></tr>
+<tr class="memdesc:a995bbe26e213e0c6ff3369adae026a40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a copy of the message string associated with the given predefined <a class="el" href="class_x_m_l_error.html">XMLError</a> code.  <a href="class_x_m_l_error.html#a995bbe26e213e0c6ff3369adae026a40">More...</a><br /></td></tr>
 <tr class="separator:a995bbe26e213e0c6ff3369adae026a40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -290,17 +291,17 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> to report that something occurred during SBML processing. </p>
-<p>When a libSBML operation on SBML content results in a warning, error or other diagnostic, the issue is reported as an <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> object. <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> objects have identification numbers to indicate the nature of the exception. These numbers are drawn from the enumeration <a href="#SBMLErrorCode_t" class="el">SBMLErrorCode_t</a>. The argument <code>errorId</code> to this constructor <em>can</em> be (but does not have to be) a value from this enumeration. If it <em>is</em> a value from <a href="#SBMLErrorCode_t" class="el">SBMLErrorCode_t</a>, the <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> class assumes the error is a low-level system or SBML layer error and <em>prepends</em> a built-in, predefined error message to any string passed in the argument <code>details</code> to this constructor. In addition, all <a href="#SBMLErrorCode_t" class="el">SBMLErrorCode_t</a> errors have associated values for the <code>severity</code> and <code>category</code> codes, and these fields are filled-in as well from the enumerations <a href="#SBMLErrorSeverity_t" class="el">SBMLErrorSeverity_t</a> and <a href="#SBMLErrorCategory_t" class="el">SBMLErrorCategory_t</a>, respectively.</p>
-<p>If the error identifier <code>errorId</code> is a number greater than 99999, the <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> class assumes the error was generated from another part of the software and does not do additional filling in of values beyond the default in the constructor itself. This allows <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> to serve as a base class for other errors, such as for user-defined validation rules (see <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a>). Callers should fill in all the parameters with suitable values if generating errors with codes greater than 99999 to make maximum use of the <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> facilities.</p>
-<p>As mentioned above, there are two other enumerations, <a href="#SBMLErrorSeverity_t" class="el">SBMLErrorSeverity_t</a> and <a href="#SBMLErrorCategory_t" class="el">SBMLErrorCategory_t</a>, used for indicating the severity and category of error for the predefined <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> codes. The values passed in <code>severity</code> and <code>category</code> override the defaults assigned based on the error code. If the value of <code>errorId</code> is a value from <a href="#SBMLErrorCode_t" class="el">SBMLErrorCode_t</a>, callers do not need to fill in <code>severity</code> and <code>category</code>. Conversely, if <code>errorId</code> is not a value from <a href="#SBMLErrorCode_t" class="el">SBMLErrorCode_t</a>, callers can use other values (not just those from <a href="#SBMLErrorSeverity_t" class="el">SBMLErrorSeverity_t</a> and <a href="#SBMLErrorCategory_t" class="el">SBMLErrorCategory_t</a>, but their own special values) for <code>severity</code> and <code>category</code>.</p>
-<p>Please see the top of the documentation for <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> for a longer discussion of the possible error codes, their meanings, and their applicability to different combinations of Level+Version of SBML.</p>
+<p>Creates a new <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> to report that something occurred during SBML processing. </p>
+<p>When a libSBML operation on SBML content results in a warning, error or other diagnostic, the issue is reported as an <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> object. <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> objects have identification numbers to indicate the nature of the exception. These numbers are drawn from the enumeration <a href="#SBMLErrorCode_t" class="el">SBMLErrorCode_t</a>. The argument <code>errorId</code> to this constructor <em>can</em> be (but does not have to be) a value from this enumeration. If it <em>is</em> a value from <a href="#SBMLErrorCode_t" class="el">SBMLErrorCode_t</a>, the <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> class assumes the error is a low-level system or SBML layer error and <em>prepends</em> a built-in, predefined error message to any string passed in the argument <code>details</code> to this constructor. In addition, all <a href="#SBMLErrorCode_t" class="el">SBMLErrorCode_t</a> errors have associated values for the <code>severity</code> and <code>category</code> codes, and these fields are filled-in as well from the enumerations <a href="#SBMLErrorSeverity_t" class="el">SBMLErrorSeverity_t</a> and <a href="#SBMLErrorCategory_t" class="el">SBMLErrorCategory_t</a>, respectively.</p>
+<p>If the error identifier <code>errorId</code> is a number greater than 99999, the <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> class assumes the error was generated from another part of the software and does not do additional filling in of values beyond the default in the constructor itself. This allows <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> to serve as a base class for other errors, such as for user-defined validation rules (see <a class="el" href="class_validator.html">Validator</a>). Callers should fill in all the parameters with suitable values if generating errors with codes greater than 99999 to make maximum use of the <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> facilities.</p>
+<p>As mentioned above, there are two other enumerations, <a href="#SBMLErrorSeverity_t" class="el">SBMLErrorSeverity_t</a> and <a href="#SBMLErrorCategory_t" class="el">SBMLErrorCategory_t</a>, used for indicating the severity and category of error for the predefined <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> codes. The values passed in <code>severity</code> and <code>category</code> override the defaults assigned based on the error code. If the value of <code>errorId</code> is a value from <a href="#SBMLErrorCode_t" class="el">SBMLErrorCode_t</a>, callers do not need to fill in <code>severity</code> and <code>category</code>. Conversely, if <code>errorId</code> is not a value from <a href="#SBMLErrorCode_t" class="el">SBMLErrorCode_t</a>, callers can use other values (not just those from <a href="#SBMLErrorSeverity_t" class="el">SBMLErrorSeverity_t</a> and <a href="#SBMLErrorCategory_t" class="el">SBMLErrorCategory_t</a>, but their own special values) for <code>severity</code> and <code>category</code>.</p>
+<p>Please see the top of the documentation for <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> for a longer discussion of the possible error codes, their meanings, and their applicability to different combinations of Level+Version of SBML.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">errorId</td><td>an unsigned int, the identification number of the error.</td></tr>
     <tr><td class="paramname">level</td><td>the SBML Level of the SBML model.</td></tr>
     <tr><td class="paramname">version</td><td>the SBML Version within the Level of the SBML model.</td></tr>
-    <tr><td class="paramname">details</td><td>a string containing additional details about the error. If the error code in <code>errorId</code> is one that is recognized by <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a>, the given message is <em>appended</em> to a predefined message associated with the given code. If the error code is not recognized, the message is stored as-is as the text of the error.</td></tr>
+    <tr><td class="paramname">details</td><td>a string containing additional details about the error. If the error code in <code>errorId</code> is one that is recognized by <a class="el" href="class_s_b_m_l_error.html">SBMLError</a>, the given message is <em>appended</em> to a predefined message associated with the given code. If the error code is not recognized, the message is stored as-is as the text of the error.</td></tr>
     <tr><td class="paramname">line</td><td>an unsigned int, the line number at which the error occured.</td></tr>
     <tr><td class="paramname">column</td><td>an unsigned int, the column number at which the error occured.</td></tr>
     <tr><td class="paramname">severity</td><td>an integer indicating severity of the error.</td></tr>
@@ -338,9 +339,9 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the category of this error. </p>
-<p><a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> defines an enumeration of category codes for the XML layer. Applications that build on <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> by subclassing it may add their own categories with numbers higher than those in the predefined set of category codes.</p>
-<p>Categories can be used to partition errors into distinct groups. Among other things, this can be used to prevent id conflicts by uniquely identifying an <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> by both id and category.</p>
-<dl class="section return"><dt>Returns</dt><dd>the category of this <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a>.</dd></dl>
+<p><a class="el" href="class_x_m_l_error.html">XMLError</a> defines an enumeration of category codes for the XML layer. Applications that build on <a class="el" href="class_x_m_l_error.html">XMLError</a> by subclassing it may add their own categories with numbers higher than those in the predefined set of category codes.</p>
+<p>Categories can be used to partition errors into distinct groups. Among other things, this can be used to prevent id conflicts by uniquely identifying an <a class="el" href="class_x_m_l_error.html">XMLError</a> by both id and category.</p>
+<dl class="section return"><dt>Returns</dt><dd>the category of this <a class="el" href="class_x_m_l_error.html">XMLError</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_error.html#a04078b28a5111634dc05c27e9535ed74" title="Returns the severity of this error.">getSeverity()</a> </dd>
 <dd>
 <a class="el" href="class_x_m_l_error.html#a566c818fc9e581f1bcdd72cbe500ed0e" title="Returns a string describing the category of this error.">getCategoryAsString()</a> </dd></dl>
@@ -371,9 +372,9 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns a string describing the category of this error. </p>
-<p><a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> defines an enumeration of category codes for the XML layer. Applications that build on <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> by subclassing it may add their own categories with numbers higher than those in the predefined set of category codes.</p>
-<p>Categories can be used to partition errors into distinct groups. Among other things, this can be used to prevent id conflicts by uniquely identifying an <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> by both id and category.</p>
-<dl class="section return"><dt>Returns</dt><dd>string representing the category of this <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a>.</dd></dl>
+<p><a class="el" href="class_x_m_l_error.html">XMLError</a> defines an enumeration of category codes for the XML layer. Applications that build on <a class="el" href="class_x_m_l_error.html">XMLError</a> by subclassing it may add their own categories with numbers higher than those in the predefined set of category codes.</p>
+<p>Categories can be used to partition errors into distinct groups. Among other things, this can be used to prevent id conflicts by uniquely identifying an <a class="el" href="class_x_m_l_error.html">XMLError</a> by both id and category.</p>
+<dl class="section return"><dt>Returns</dt><dd>string representing the category of this <a class="el" href="class_x_m_l_error.html">XMLError</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_error.html#a8b360fd8ae9a55b7f977d3d3134f734e" title="Returns the category of this error.">getCategory()</a> </dd>
 <dd>
 <a class="el" href="class_x_m_l_error.html#a92a47daf2c8153f5a0cd3c9bc61d38fd" title="Returns a string describing the severity level of this error.">getSeverityAsString()</a> </dd></dl>
@@ -404,7 +405,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the column number in the XML input near where the error, warning or other diagnostic occurred. </p>
-<p>We say "near where the problem occurred", because many factors affect how accurate the line/column information ultimately is. For example, sometimes, the underlying XML parsers can only report such information for the parent XML element where an error occurs, and not for the specific point where the problem occurs. In other situations, some parsers report invalid line and/or column numbers altogether. If this occurs, libSBML sets the line and/or column number in the <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> object to either <code>0</code> or the value of the maximum unsigned long integer representable on the platform where libSBML is running. The probability that a true line or column number in an SBML model would equal this value is vanishingly small; thus, if an application encounters these values in an <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> object, it can assume no valid line/column number could be provided by libSBML in that situation.</p>
+<p>We say "near where the problem occurred", because many factors affect how accurate the line/column information ultimately is. For example, sometimes, the underlying XML parsers can only report such information for the parent XML element where an error occurs, and not for the specific point where the problem occurs. In other situations, some parsers report invalid line and/or column numbers altogether. If this occurs, libSBML sets the line and/or column number in the <a class="el" href="class_x_m_l_error.html">XMLError</a> object to either <code>0</code> or the value of the maximum unsigned long integer representable on the platform where libSBML is running. The probability that a true line or column number in an SBML model would equal this value is vanishingly small; thus, if an application encounters these values in an <a class="el" href="class_x_m_l_error.html">XMLError</a> object, it can assume no valid line/column number could be provided by libSBML in that situation.</p>
 <dl class="section return"><dt>Returns</dt><dd>the column number.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_error.html#a8429758491e55f721697fe403706d860" title="Returns the line number in the XML input near where the error, warning or other diagnostic occurred.">getLine()</a> </dd></dl>
 
@@ -502,7 +503,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the line number in the XML input near where the error, warning or other diagnostic occurred. </p>
-<p>We say "near where the problem occurred", because many factors affect how accurate the line/column information ultimately is. For example, sometimes, the underlying XML parsers can only report such information for the parent XML element where an error occurs, and not for the specific point where the problem occurs. In other situations, some parsers report invalid line and/or column numbers altogether. If this occurs, libSBML sets the line and/or column number in the <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> object to either <code>0</code> or the value of the maximum unsigned long integer representable on the platform where libSBML is running. The probability that a true line or column number in an SBML model would equal this value is vanishingly small; thus, if an application encounters these values in an <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> object, it can assume no valid line/column number could be provided by libSBML in that situation.</p>
+<p>We say "near where the problem occurred", because many factors affect how accurate the line/column information ultimately is. For example, sometimes, the underlying XML parsers can only report such information for the parent XML element where an error occurs, and not for the specific point where the problem occurs. In other situations, some parsers report invalid line and/or column numbers altogether. If this occurs, libSBML sets the line and/or column number in the <a class="el" href="class_x_m_l_error.html">XMLError</a> object to either <code>0</code> or the value of the maximum unsigned long integer representable on the platform where libSBML is running. The probability that a true line or column number in an SBML model would equal this value is vanishingly small; thus, if an application encounters these values in an <a class="el" href="class_x_m_l_error.html">XMLError</a> object, it can assume no valid line/column number could be provided by libSBML in that situation.</p>
 <dl class="section return"><dt>Returns</dt><dd>the line number.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_error.html#a9ed04571a3170df1973228dfeae098c9" title="Returns the column number in the XML input near where the error, warning or other diagnostic occurred...">getColumn()</a> </dd></dl>
 
@@ -569,7 +570,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the SBML Level&#160;3 package extension (if any) that logged this error. </p>
-<p>Each error logged by an libSBML extension for SBML Level&#160;3 packages includes a record of the package that logged it. The field is a simple text string. If the string is empty or has the value <code>"core"</code>, then the error came from libSBML core; otherwise, the string will be the short-form name of the package (e.g., <code>"comp"</code> for the Hierarchical <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> Composition package).</p>
+<p>Each error logged by an libSBML extension for SBML Level&#160;3 packages includes a record of the package that logged it. The field is a simple text string. If the string is empty or has the value <code>"core"</code>, then the error came from libSBML core; otherwise, the string will be the short-form name of the package (e.g., <code>"comp"</code> for the Hierarchical <a class="el" href="class_model.html">Model</a> Composition package).</p>
 <dl class="section return"><dt>Returns</dt><dd>a string representing the name of the package that logged this error. If the error did not come from a package extension, the value will be the empty string or <code>"core"</code>. </dd></dl>
 
 </div>
@@ -598,8 +599,8 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the severity of this error. </p>
-<p><a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> defines an enumeration of severity codes for the XML layer. Applications that build on <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> by subclassing it may add their own severity codes with numbers higher than those in the predefined set of severity codes.</p>
-<dl class="section return"><dt>Returns</dt><dd>the severity of this <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a>.</dd></dl>
+<p><a class="el" href="class_x_m_l_error.html">XMLError</a> defines an enumeration of severity codes for the XML layer. Applications that build on <a class="el" href="class_x_m_l_error.html">XMLError</a> by subclassing it may add their own severity codes with numbers higher than those in the predefined set of severity codes.</p>
+<dl class="section return"><dt>Returns</dt><dd>the severity of this <a class="el" href="class_x_m_l_error.html">XMLError</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_error.html#a92a47daf2c8153f5a0cd3c9bc61d38fd" title="Returns a string describing the severity level of this error.">getSeverityAsString()</a> </dd>
 <dd>
 <a class="el" href="class_x_m_l_error.html#a8b360fd8ae9a55b7f977d3d3134f734e" title="Returns the category of this error.">getCategory()</a> </dd></dl>
@@ -630,8 +631,8 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns a string describing the severity level of this error. </p>
-<p><a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> defines an enumeration of severity codes for the XML layer. Applications that build on <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> by subclassing it may add their own severity codes with numbers higher than those in the predefined set of severity codes.</p>
-<dl class="section return"><dt>Returns</dt><dd>string representing the severity of this <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a>.</dd></dl>
+<p><a class="el" href="class_x_m_l_error.html">XMLError</a> defines an enumeration of severity codes for the XML layer. Applications that build on <a class="el" href="class_x_m_l_error.html">XMLError</a> by subclassing it may add their own severity codes with numbers higher than those in the predefined set of severity codes.</p>
+<dl class="section return"><dt>Returns</dt><dd>string representing the severity of this <a class="el" href="class_x_m_l_error.html">XMLError</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_error.html#a04078b28a5111634dc05c27e9535ed74" title="Returns the severity of this error.">getSeverity()</a> </dd>
 <dd>
 <a class="el" href="class_x_m_l_error.html#a566c818fc9e581f1bcdd72cbe500ed0e" title="Returns a string describing the category of this error.">getCategoryAsString()</a> </dd></dl>
@@ -698,7 +699,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a copy of the message string associated with the given predefined <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> code. </p>
+<p>Returns a copy of the message string associated with the given predefined <a class="el" href="class_x_m_l_error.html">XMLError</a> code. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">code</td><td>the error code whose message is sought; it must be a predefined value from <a href="#error-codes" class="el">XMLErrorCode_t</a>. </td></tr>
@@ -732,7 +733,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Predicate returning <code>true</code> or <code>false</code> depending on whether this error is a significant error. </p>
-<p>This is equivalent to obtaining the severity code from an <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> object (via <a class="el" href="class_x_m_l_error.html#a04078b28a5111634dc05c27e9535ed74" title="Returns the severity of this error.">XMLError::getSeverity()</a>) and then comparing it to the value <a class="el" href="_x_m_l_error_8h.html#a54cf85ac4f9cf6e597bc2cfcb5a6d0f3ae7ad9db56eb594509b9d1fc20225f6d3">LIBSBML_SEV_ERRORendif </a></p>
+<p>This is equivalent to obtaining the severity code from an <a class="el" href="class_x_m_l_error.html">XMLError</a> object (via <a class="el" href="class_x_m_l_error.html#a04078b28a5111634dc05c27e9535ed74" title="Returns the severity of this error.">XMLError::getSeverity()</a>) and then comparing it to the value <a class="el" href="_x_m_l_error_8h.html#a54cf85ac4f9cf6e597bc2cfcb5a6d0f3ae7ad9db56eb594509b9d1fc20225f6d3">LIBSBML_SEV_ERRORendif </a></p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="create_example_s_b_m_l_8cpp-example.html#a68">createExampleSBML.cpp</a>, and <a class="el" href="validate_s_b_m_l_8cpp-example.html#a10">validateSBML.cpp</a>.</dd>
 </dl>
 
@@ -762,7 +763,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Predicate returning <code>true</code> or <code>false</code> depending on whether this error is a fatal run-time error. </p>
-<p>This is equivalent to obtaining the severity code from an <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> object (via <a class="el" href="class_x_m_l_error.html#a04078b28a5111634dc05c27e9535ed74" title="Returns the severity of this error.">XMLError::getSeverity()</a>) and then comparing it to the value <a class="el" href="_x_m_l_error_8h.html#a54cf85ac4f9cf6e597bc2cfcb5a6d0f3afd9196561566524759dcadceb42b336b">LIBSBML_SEV_FATALendif </a></p>
+<p>This is equivalent to obtaining the severity code from an <a class="el" href="class_x_m_l_error.html">XMLError</a> object (via <a class="el" href="class_x_m_l_error.html#a04078b28a5111634dc05c27e9535ed74" title="Returns the severity of this error.">XMLError::getSeverity()</a>) and then comparing it to the value <a class="el" href="_x_m_l_error_8h.html#a54cf85ac4f9cf6e597bc2cfcb5a6d0f3afd9196561566524759dcadceb42b336b">LIBSBML_SEV_FATALendif </a></p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="create_example_s_b_m_l_8cpp-example.html#a67">createExampleSBML.cpp</a>, and <a class="el" href="validate_s_b_m_l_8cpp-example.html#a9">validateSBML.cpp</a>.</dd>
 </dl>
 
@@ -792,7 +793,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Predicate returning <code>true</code> or <code>false</code> depending on whether this error object is for information purposes only. </p>
-<p>This is equivalent to obtaining the severity code from an <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> object (via <a class="el" href="class_x_m_l_error.html#a04078b28a5111634dc05c27e9535ed74" title="Returns the severity of this error.">XMLError::getSeverity()</a>) and then comparing it to the value <a class="el" href="_x_m_l_error_8h.html#a54cf85ac4f9cf6e597bc2cfcb5a6d0f3abcb4379af61e08b4685bfd848e96403c">LIBSBML_SEV_INFOendif </a></p>
+<p>This is equivalent to obtaining the severity code from an <a class="el" href="class_x_m_l_error.html">XMLError</a> object (via <a class="el" href="class_x_m_l_error.html#a04078b28a5111634dc05c27e9535ed74" title="Returns the severity of this error.">XMLError::getSeverity()</a>) and then comparing it to the value <a class="el" href="_x_m_l_error_8h.html#a54cf85ac4f9cf6e597bc2cfcb5a6d0f3abcb4379af61e08b4685bfd848e96403c">LIBSBML_SEV_INFOendif </a></p>
 
 </div>
 </div>
@@ -820,7 +821,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Predicate returning <code>true</code> or <code>false</code> depending on whether this error resulted from an internal program error. </p>
-<p>This is equivalent to obtaining the category identifier from an <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> object (via <a class="el" href="class_x_m_l_error.html#a8b360fd8ae9a55b7f977d3d3134f734e" title="Returns the category of this error.">XMLError::getCategory()</a>) and then comparing it to the value <a class="el" href="_x_m_l_error_8h.html#a8bd887250dc4e0fe8e4ff95d68b3fbf0acd305c87f2b8d6ec9dda10ba3f67c933">LIBSBML_CAT_INTERNALendif </a></p>
+<p>This is equivalent to obtaining the category identifier from an <a class="el" href="class_x_m_l_error.html">XMLError</a> object (via <a class="el" href="class_x_m_l_error.html#a8b360fd8ae9a55b7f977d3d3134f734e" title="Returns the category of this error.">XMLError::getCategory()</a>) and then comparing it to the value <a class="el" href="_x_m_l_error_8h.html#a8bd887250dc4e0fe8e4ff95d68b3fbf0acd305c87f2b8d6ec9dda10ba3f67c933">LIBSBML_CAT_INTERNALendif </a></p>
 
 </div>
 </div>
@@ -848,7 +849,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Predicate returning <code>true</code> or <code>false</code> depending on whether this error was generated by the operating system. </p>
-<p>This is equivalent to obtaining the category identifier from an <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> object (via <a class="el" href="class_x_m_l_error.html#a8b360fd8ae9a55b7f977d3d3134f734e" title="Returns the category of this error.">XMLError::getCategory()</a>) and then comparing it to the value <a class="el" href="_x_m_l_error_8h.html#a8bd887250dc4e0fe8e4ff95d68b3fbf0aa562af75a498e1655df6e843453d1744">LIBSBML_CAT_SYSTEMendif </a></p>
+<p>This is equivalent to obtaining the category identifier from an <a class="el" href="class_x_m_l_error.html">XMLError</a> object (via <a class="el" href="class_x_m_l_error.html#a8b360fd8ae9a55b7f977d3d3134f734e" title="Returns the category of this error.">XMLError::getCategory()</a>) and then comparing it to the value <a class="el" href="_x_m_l_error_8h.html#a8bd887250dc4e0fe8e4ff95d68b3fbf0aa562af75a498e1655df6e843453d1744">LIBSBML_CAT_SYSTEMendif </a></p>
 
 </div>
 </div>
@@ -876,7 +877,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Predicate returning <code>true</code> or <code>false</code> depending on whether this error resulted from a problem or whether it was logged as an unknown error. </p>
-<p>This is equivalent to obtaining the error identifier from an <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> object (via <a class="el" href="class_x_m_l_error.html#a5c954a2e0f1f2a3a4c098ab41c4cb570" title="Returns the identifier of this error.">XMLError::getErrorId()</a>) and then comparing it to the value XMLUnknownError or UnknownError from the enumeration <a class="el" href="_x_m_l_error_8h.html#a5ff7604587bd93fb60cdecb72acd160c" title="Canonical error codes returned for low-level XML parser errors.">XMLErrorCode_t</a>.</p>
+<p>This is equivalent to obtaining the error identifier from an <a class="el" href="class_x_m_l_error.html">XMLError</a> object (via <a class="el" href="class_x_m_l_error.html#a5c954a2e0f1f2a3a4c098ab41c4cb570" title="Returns the identifier of this error.">XMLError::getErrorId()</a>) and then comparing it to the value XMLUnknownError or UnknownError from the enumeration <a class="el" href="_x_m_l_error_8h.html#a5ff7604587bd93fb60cdecb72acd160c" title="Canonical error codes returned for low-level XML parser errors.">XMLErrorCode_t</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>a boolean indicating whether the error is a valid error (<code>true</code>) or whether it is unknown (<code>false</code>). </dd></dl>
 
 </div>
@@ -905,7 +906,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Predicate returning <code>true</code> or <code>false</code> depending on whether this error object is a warning. </p>
-<p>This is equivalent to obtaining the severity code from an <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> object (via <a class="el" href="class_x_m_l_error.html#a04078b28a5111634dc05c27e9535ed74" title="Returns the severity of this error.">XMLError::getSeverity()</a>) and then comparing it to the value <a class="el" href="_x_m_l_error_8h.html#a54cf85ac4f9cf6e597bc2cfcb5a6d0f3a1cbd6a4754d28a0686ddc908ebb25279">LIBSBML_SEV_WARNINGendif </a></p>
+<p>This is equivalent to obtaining the severity code from an <a class="el" href="class_x_m_l_error.html">XMLError</a> object (via <a class="el" href="class_x_m_l_error.html#a04078b28a5111634dc05c27e9535ed74" title="Returns the severity of this error.">XMLError::getSeverity()</a>) and then comparing it to the value <a class="el" href="_x_m_l_error_8h.html#a54cf85ac4f9cf6e597bc2cfcb5a6d0f3a1cbd6a4754d28a0686ddc908ebb25279">LIBSBML_SEV_WARNINGendif </a></p>
 
 </div>
 </div>
@@ -933,7 +934,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Predicate returning <code>true</code> or <code>false</code> depending on whether this error resulted from a problem in the XML input (e.g., an XML syntax error). </p>
-<p>This is equivalent to obtaining the category identifier from an <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> object (via <a class="el" href="class_x_m_l_error.html#a8b360fd8ae9a55b7f977d3d3134f734e" title="Returns the category of this error.">XMLError::getCategory()</a>) and then comparing it to the value <a class="el" href="_x_m_l_error_8h.html#a8bd887250dc4e0fe8e4ff95d68b3fbf0a1706132ac8b2a924da100a527ff3af9d">LIBSBML_CAT_XMLendif </a></p>
+<p>This is equivalent to obtaining the category identifier from an <a class="el" href="class_x_m_l_error.html">XMLError</a> object (via <a class="el" href="class_x_m_l_error.html#a8b360fd8ae9a55b7f977d3d3134f734e" title="Returns the category of this error.">XMLError::getCategory()</a>) and then comparing it to the value <a class="el" href="_x_m_l_error_8h.html#a8bd887250dc4e0fe8e4ff95d68b3fbf0a1706132ac8b2a924da100a527ff3af9d">LIBSBML_CAT_XMLendif </a></p>
 
 </div>
 </div>
@@ -962,8 +963,8 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the category of this error. </p>
-<p><a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> defines an enumeration of category codes for the XML layer. Applications that build on <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> by subclassing it may add their own categories with numbers higher than those in the predefined set of category codes.</p>
-<p>Categories can be used to partition errors into distinct groups. Among other things, this can be used to prevent id conflicts by uniquely identifying an <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> by both id and category.</p>
+<p><a class="el" href="class_x_m_l_error.html">XMLError</a> defines an enumeration of category codes for the XML layer. Applications that build on <a class="el" href="class_x_m_l_error.html">XMLError</a> by subclassing it may add their own categories with numbers higher than those in the predefined set of category codes.</p>
+<p>Categories can be used to partition errors into distinct groups. Among other things, this can be used to prevent id conflicts by uniquely identifying an <a class="el" href="class_x_m_l_error.html">XMLError</a> by both id and category.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_error.html#a8cd5b604db6c212084c33113332d1164" title="Sets the severity of this error.">setSeverity()</a> </dd></dl>
 
 </div>
@@ -993,9 +994,9 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the category string of this error. </p>
-<p><a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> defines an enumeration of category codes for the XML layer. Applications that build on <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> by subclassing it may add their own categories with numbers higher than those in the predefined set of category codes. If so, 'setCategoryString' must be used to set the name of this category for users.</p>
+<p><a class="el" href="class_x_m_l_error.html">XMLError</a> defines an enumeration of category codes for the XML layer. Applications that build on <a class="el" href="class_x_m_l_error.html">XMLError</a> by subclassing it may add their own categories with numbers higher than those in the predefined set of category codes. If so, 'setCategoryString' must be used to set the name of this category for users.</p>
 <p>Note that this function does not set the category code itself.</p>
-<p>Categories can be used to partition errors into distinct groups. Among other things, this can be used to prevent id conflicts by uniquely identifying an <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> by both id and category.</p>
+<p>Categories can be used to partition errors into distinct groups. Among other things, this can be used to prevent id conflicts by uniquely identifying an <a class="el" href="class_x_m_l_error.html">XMLError</a> by both id and category.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_error.html#a8cd5b604db6c212084c33113332d1164" title="Sets the severity of this error.">setSeverity()</a> </dd></dl>
 
 </div>
@@ -1171,7 +1172,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the severity of this error. </p>
-<p><a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> defines an enumeration of severity codes for the XML layer. Applications that build on <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> by subclassing it may add their own severity codes with numbers higher than those in the predefined set of severity codes.</p>
+<p><a class="el" href="class_x_m_l_error.html">XMLError</a> defines an enumeration of severity codes for the XML layer. Applications that build on <a class="el" href="class_x_m_l_error.html">XMLError</a> by subclassing it may add their own severity codes with numbers higher than those in the predefined set of severity codes.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_error.html#a70c95ca915f04b373b310c9d744ef8f1" title="Sets the category of this error.">setCategory()</a> </dd></dl>
 
 </div>
@@ -1201,7 +1202,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the severity of this error. </p>
-<p><a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> defines an enumeration of severity codes for the XML layer. Applications that build on <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> by subclassing it may add their own severity codes with numbers higher than those in the predefined set of severity codes. If so, 'setSeverityString' must be used to set the name of this category for users.</p>
+<p><a class="el" href="class_x_m_l_error.html">XMLError</a> defines an enumeration of severity codes for the XML layer. Applications that build on <a class="el" href="class_x_m_l_error.html">XMLError</a> by subclassing it may add their own severity codes with numbers higher than those in the predefined set of severity codes. If so, 'setSeverityString' must be used to set the name of this category for users.</p>
 <p>Note that this function does not set the severity code itself.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_error.html#a70c95ca915f04b373b310c9d744ef8f1" title="Sets the category of this error.">setCategory()</a> </dd></dl>
 
