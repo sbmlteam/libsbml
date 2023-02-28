@@ -36,9 +36,21 @@ execute_process(COMMAND ${PYTHON_EXECUTABLE}
 
 # create doxygen config files for index and group runs
 file(READ   ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.txt DOXYGEN_CONFIG)
-file(WRITE  ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.1.txt "ALIASES += sbmlpackage{1}=\"@addindex \"\\1\"^^\"\n")
+file(WRITE  ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.1.txt "
+ALIASES += sbmlpackage{1}=\"@addindex \"\\1\"^^\"
+
+ALIASES += sbmlconstant{2}=\"@if clike @link \\2#\\1 \\1@endlink@endif @if csharp @link libsbml#\\1 \\1@endlink@endif @if python @link libsbml#\\1 \\1@endlink@endif @if java @link libsbmlConstants#\\1 \\1@endlink@endif@~\"
+
+")
 file(APPEND ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.1.txt "${DOXYGEN_CONFIG}")
-file(WRITE  ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "ALIASES += sbmlpackage{1}=\"@ingroup \\1^^\"\n")
+file(WRITE  ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "
+
+ALIASES += sbmlpackage{1}=\"@ingroup \\1^^\"
+
+
+ALIASES += sbmlconstant{2}=\"@if clike @link \\2#\\1 \\1@endlink@endif @if csharp @link libsbml#\\1 \\1@endlink@endif @if python @link libsbml#\\1 \\1@endlink@endif @if java @link libsbmlConstants#\\1 \\1@endlink@endif@~\"
+
+")
 file(APPEND ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "${DOXYGEN_CONFIG}")
 
 if (NOT SERVER_SEARCH)
