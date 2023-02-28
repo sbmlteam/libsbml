@@ -36,9 +36,9 @@ execute_process(COMMAND ${PYTHON_EXECUTABLE}
 
 # create doxygen config files for index and group runs
 file(READ   ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.txt DOXYGEN_CONFIG)
-file(WRITE  ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.1.txt "ALIASES += sbmlpackage{1}=\"@addindex \\1\\n\"\n")
+file(WRITE  ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.1.txt "ALIASES += sbmlpackage{1}=\"@addindex \"\\1\"^^\"\n")
 file(APPEND ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.1.txt "${DOXYGEN_CONFIG}")
-file(WRITE  ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "ALIASES += sbmlpackage{1}=\"@ingroup \\1\\n\"\n")
+file(WRITE  ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "ALIASES += sbmlpackage{1}=\"@ingroup \\1^^\"\n")
 file(APPEND ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "${DOXYGEN_CONFIG}")
 
 if (NOT SERVER_SEARCH)
@@ -112,3 +112,10 @@ endforeach()
 #file(RENAME ${OUTPUT_DIR}/navtree.css ${OUTPUT_DIR}/doxy_navtree.css)
 #file(RENAME ${OUTPUT_DIR}/libsbml-doxygen-tabs.css ${OUTPUT_DIR}/tabs.css)
 #file(RENAME ${OUTPUT_DIR}/libsbml-doxygen-navtree.css ${OUTPUT_DIR}/navtree.css)
+
+# append contents of customized css files to doxygen css
+file(READ ${OUTPUT_DIR}/libsbml-doxygen-tabs.css TABS_CSS)
+file(APPEND ${OUTPUT_DIR}/tabs.css "\n${TABS_CSS}")
+
+file(READ ${OUTPUT_DIR}/libsbml-doxygen-navtree.css NAVTREE_CSS)
+file(APPEND ${OUTPUT_DIR}/navtree.css "\n${NAVTREE_CSS}")
