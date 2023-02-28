@@ -137,7 +137,7 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:af0e7a057be6fef05797b1bce87e54413"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529">Relation_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_sub_list_of_species_features_8h.html#af0e7a057be6fef05797b1bce87e54413">Relation_fromString</a> (const char *code)</td></tr>
-<tr class="memdesc:af0e7a057be6fef05797b1bce87e54413"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Relation_t enumeration corresponding to the given string or <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a4e711ae51d595fa6d6c9bf1869eecb48">MULTI_RELATION_UNKNOWNendif. </a> <a href="_sub_list_of_species_features_8h.html#af0e7a057be6fef05797b1bce87e54413">More...</a><br /></td></tr>
+<tr class="memdesc:af0e7a057be6fef05797b1bce87e54413"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Relation_t enumeration corresponding to the given string or <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a4e711ae51d595fa6d6c9bf1869eecb48">MULTI_RELATION_UNKNOWN</a> if there is no such match.  <a href="_sub_list_of_species_features_8h.html#af0e7a057be6fef05797b1bce87e54413">More...</a><br /></td></tr>
 <tr class="separator:af0e7a057be6fef05797b1bce87e54413"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f27490e7c48270614c7bb622b75a826"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_sub_list_of_species_features_8h.html#a0f27490e7c48270614c7bb622b75a826">Relation_toString</a> (<a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529">Relation_t</a> r)</td></tr>
 <tr class="memdesc:a0f27490e7c48270614c7bb622b75a826"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the string version of the provided Relation_t enumeration.  <a href="_sub_list_of_species_features_8h.html#a0f27490e7c48270614c7bb622b75a826">More...</a><br /></td></tr>
@@ -160,6 +160,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Enumeration of possible relations between the children of a <a class="el" href="class_sub_list_of_species_features.html">SubListOfSpeciesFeatures</a> in the libSBML "multi" package implementation. </p>
+<dl class="section user"><dt></dt><dd>LibSBML attaches an identifying code to every kind of SBML object. These are integer constants known as <em>SBML type codes</em>. The names of all the codes begin with the characters <code>SBML_</code>. The set of possible type codes for core elements is defined in the enumeration <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfe" title="The enumeration of possible SBML core object types.">SBMLTypeCode_t</a>, and in addition, libSBML plug-ins for SBML Level&#160;3 packages define their own extra enumerations of type codes (e.g., <a class="el" href="_layout_extension_8h.html#a6b80c825e1507341de5540b8e7de003d" title="SBMLFbcTypeCode_t Enumeration of possible types in the libSBML “layout” package implementation.">SBMLLayoutTypeCode_t</a> for the Level&#160;3 <a class="el" href="class_layout.html">Layout</a> package). Note that different Level&#160;3 package plug-ins may use overlapping type codes; to identify the package to which a given object belongs, call the <code><a class="el" href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02" title="Returns the name of the SBML Level&#160;3 package in which this element is defined.">SBase::getPackageName()</a> </code> method on the object.</dd></dl>
+<p>The exception to this is lists: all SBML-style list elements have the type <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfeaa111b52def73380487c84f062f47dadc">SBML_LIST_OF</a>, regardless of what package they are from.</p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="afbfc6a80802a81882467bd37877ad529a56b8e1fab96d074a8621a5bbdd2c5dfe"></a>MULTI_RELATION_AND&#160;</td><td class="fielddoc"><p>The <a class="el" href="class_species_feature.html">SpeciesFeature</a> children of the <a class="el" href="class_sub_list_of_species_features.html">SubListOfSpeciesFeatures</a> share an 'and' relationship. </p>
 </td></tr>
@@ -191,7 +193,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the Relation_t enumeration corresponding to the given string or <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a4e711ae51d595fa6d6c9bf1869eecb48">MULTI_RELATION_UNKNOWNendif. </a></p>
+<p>Returns the Relation_t enumeration corresponding to the given string or <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a4e711ae51d595fa6d6c9bf1869eecb48">MULTI_RELATION_UNKNOWN</a> if there is no such match. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">code</td><td>the string to convert to a Relation_t.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the corresponding Relation_t or <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a4e711ae51d595fa6d6c9bf1869eecb48">MULTI_RELATION_UNKNOWN</a> if no match is found.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The matching is case-sensitive: "and" will return <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a56b8e1fab96d074a8621a5bbdd2c5dfe">MULTI_RELATION_AND</a>, but "And" will return <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a4e711ae51d595fa6d6c9bf1869eecb48">MULTI_RELATION_UNKNOWN</a>. </dd></dl>
 
 </div>
 </div>
@@ -218,7 +228,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A string corresponding to the given type: "and", "or", "not", or <code>NULL</code> if the value is <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a4e711ae51d595fa6d6c9bf1869eecb48">MULTI_RELATION_UNKNOWNendif </a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A string corresponding to the given type: "and", "or", "not", or <code>NULL</code> if the value is <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a4e711ae51d595fa6d6c9bf1869eecb48">MULTI_RELATION_UNKNOWN</a> or another invalid enumeration value.</dd></dl>
 
 </div>
 </div>

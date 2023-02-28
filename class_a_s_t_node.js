@@ -7,6 +7,7 @@ var class_a_s_t_node =
     [ "addChild", "class_a_s_t_node.html#ad699b88d62f54bce4edf94d6ffd110f1", null ],
     [ "addSemanticsAnnotation", "class_a_s_t_node.html#a6e9ceb2801bb494e7581794e1ca17a71", null ],
     [ "canonicalize", "class_a_s_t_node.html#a88091f57f7717247d0c72da41063ab1f", null ],
+    [ "clearPlugins", "class_a_s_t_node.html#a1c8e0078ffd86633281a0fe7bfa26883", null ],
     [ "combineNumbers", "class_a_s_t_node.html#ab7d3a0bde9b440b5975c114e8b9bc65e", null ],
     [ "convertRootToPower", "class_a_s_t_node.html#abc1e7487b49e4dcd80df4adbc8c614c2", null ],
     [ "createNonBinaryTree", "class_a_s_t_node.html#ab01dd5932d3ac41680a6c4b5c75abf08", null ],

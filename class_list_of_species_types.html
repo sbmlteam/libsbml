@@ -357,7 +357,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae57cbc2da2e34a8c829e42743e68dd85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the string representation of the "sboTerm" attribute of this object.  <a href="class_s_base.html#ae57cbc2da2e34a8c829e42743e68dd85">More...</a><br /></td></tr>
 <tr class="separator:ae57cbc2da2e34a8c829e42743e68dd85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4494cc55fb6df1d356d3d273ba3f807b"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_list_of.html#a4494cc55fb6df1d356d3d273ba3f807b">getTypeCode</a> () const</td></tr>
-<tr class="memdesc:a4494cc55fb6df1d356d3d273ba3f807b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the libSBML type code for this object, namely, <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfeaa111b52def73380487c84f062f47dadc">SBML_LIST_OFendif. </a> <a href="class_list_of.html#a4494cc55fb6df1d356d3d273ba3f807b">More...</a><br /></td></tr>
+<tr class="memdesc:a4494cc55fb6df1d356d3d273ba3f807b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the libSBML type code for this object, namely, <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfeaa111b52def73380487c84f062f47dadc">SBML_LIST_OF</a>.  <a href="class_list_of.html#a4494cc55fb6df1d356d3d273ba3f807b">More...</a><br /></td></tr>
 <tr class="separator:a4494cc55fb6df1d356d3d273ba3f807b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e3e54c62bc34c720d96b421c9798dde"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base.html#a8e3e54c62bc34c720d96b421c9798dde">getURI</a> () const</td></tr>
 <tr class="memdesc:a8e3e54c62bc34c720d96b421c9798dde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the namespace URI to which this element belongs to.  <a href="class_s_base.html#a8e3e54c62bc34c720d96b421c9798dde">More...</a><br /></td></tr>
@@ -655,9 +655,14 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da354242392bc8b59872de6bd6d0a3b9fb">LIBSBML_UNEXPECTED_ATTRIBUTE</a>, if this object lacks a "metaid" attribute </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a></li>
 </ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Since the CV Term uses the "metaid" attribute of the object as a reference, if the object has no "metaid" attribute value set, then the <a class="el" href="class_c_v_term.html">CVTerm</a> will not be added.</dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="add_c_v_terms_8cpp-example.html#a15">addCVTerms.cpp</a>, <a class="el" href="adding_evidence_codes_1_8cpp-example.html#a15">addingEvidenceCodes_1.cpp</a>, and <a class="el" href="adding_evidence_codes_2_8cpp-example.html#a15">addingEvidenceCodes_2.cpp</a>.</dd>
 </dl>
 
@@ -695,9 +700,14 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_list_of.html#a3b3e8b92c7d41b212b7b41a380f349fe" title="Adds an item to the end of this ListOf&#39;s list of items.">appendAndOwn(SBase* disownedItem)</a> </dd>
+<dd>
+<a class="el" href="class_list_of.html#acedca54527b2f715f968a53c5051311f" title="Adds a clone of a list of items to this ListOf&#39;s list.">appendFrom(const ListOf* list)</a> </dd></dl>
 
 </div>
 </div>
@@ -733,9 +743,14 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_list_of.html#a17951c3531cc2ae98b783ea2d903fded" title="Adds an item to the end of this ListOf&#39;s list of items.">append(const SBase* item)</a> </dd>
+<dd>
+<a class="el" href="class_list_of.html#acedca54527b2f715f968a53c5051311f" title="Adds a clone of a list of items to this ListOf&#39;s list.">appendFrom(const ListOf* list)</a> </dd></dl>
 
 </div>
 </div>
@@ -773,9 +788,24 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da354242392bc8b59872de6bd6d0a3b9fb">LIBSBML_UNEXPECTED_ATTRIBUTE</a> (if the parent element does not have the 'metaid' attribute set) </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dad3ae4ef19483c3441aaaf0138a2d3b1a">LIBSBML_DUPLICATE_ANNOTATION_NS</a> (if the parent was already annotated with the annotation in question)</li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#adbff50c6c73c044a5c8e29e6b5dcefc6" title="Returns the content of the &quot;annotation&quot; subelement of this object as a character string.">getAnnotationString()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a5af865a159b3b1c5a16729bce7e4e3c2" title="Predicate returning true if this object&#39;s &quot;annotation&quot; subelement exists and has content.">isSetAnnotation()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a11d9c02a3690d9a13362835ef0133125" title="Sets the value of the &quot;annotation&quot; subelement of this SBML object.">setAnnotation(const XMLNode* annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a75b1541bd854ad7edfe0aff79ab3231f" title="Sets the value of the &quot;annotation&quot; subelement of this SBML object.">setAnnotation(const std::string&amp; annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#accc96fb06a79df769eb3669e090771e5" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">appendAnnotation(const XMLNode* annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a9121d6a4f7401fe957cc75647a1e95ed" title="Unsets the value of the &quot;annotation&quot; subelement of this SBML object.">unsetAnnotation()</a> </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_species_reference.html#a093267663f42220b92423da2fa64458c">SpeciesReference</a>, and <a class="el" href="class_model.html#a866fda8a7ba2ba45bf861885fdac4dc1">Model</a>.</p>
 
@@ -815,9 +845,24 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da354242392bc8b59872de6bd6d0a3b9fb">LIBSBML_UNEXPECTED_ATTRIBUTE</a> (if the parent element does not have the 'metaid' attribute set) </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dad3ae4ef19483c3441aaaf0138a2d3b1a">LIBSBML_DUPLICATE_ANNOTATION_NS</a> (if the parent was already annotated with the annotation in question)</li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#adbff50c6c73c044a5c8e29e6b5dcefc6" title="Returns the content of the &quot;annotation&quot; subelement of this object as a character string.">getAnnotationString()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a5af865a159b3b1c5a16729bce7e4e3c2" title="Predicate returning true if this object&#39;s &quot;annotation&quot; subelement exists and has content.">isSetAnnotation()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a11d9c02a3690d9a13362835ef0133125" title="Sets the value of the &quot;annotation&quot; subelement of this SBML object.">setAnnotation(const XMLNode* annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a75b1541bd854ad7edfe0aff79ab3231f" title="Sets the value of the &quot;annotation&quot; subelement of this SBML object.">setAnnotation(const std::string&amp; annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a118148398f5c626bf9697887296f97b8" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">appendAnnotation(const std::string&amp; annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a9121d6a4f7401fe957cc75647a1e95ed" title="Unsets the value of the &quot;annotation&quot; subelement of this SBML object.">unsetAnnotation()</a> </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_species_reference.html#abb4003189aea5d71767e2f281fd4afc4">SpeciesReference</a>, and <a class="el" href="class_model.html#ab2762b5bd0f32b5a4a1e9141ca9a5cbf">Model</a>.</p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="adding_evidence_codes_2_8cpp-example.html#a27">addingEvidenceCodes_2.cpp</a>, and <a class="el" href="append_annotation_8cpp-example.html#a8">appendAnnotation.cpp</a>.</dd>
@@ -857,9 +902,14 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_list_of.html#a17951c3531cc2ae98b783ea2d903fded" title="Adds an item to the end of this ListOf&#39;s list of items.">append(const SBase* item)</a> </dd>
+<dd>
+<a class="el" href="class_list_of.html#a3b3e8b92c7d41b212b7b41a380f349fe" title="Adds an item to the end of this ListOf&#39;s list of items.">appendAndOwn(SBase* disownedItem)</a> </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_list_of_objectives.html#a46d91c963ba9ae35c14c14bb17656377">ListOfObjectives</a>.</p>
 
@@ -899,9 +949,25 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a6eee96ee206a55837c0d7b936f20f14d" title="Returns the content of the &quot;notes&quot; subelement of this object as a string.">getNotesString()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a83909a09abfab77fea3429482c79e867" title="Predicate returning true if this object&#39;s &quot;notes&quot; subelement exists and has content.">isSetNotes()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a611a4bd98a4e32e3573980b2481ce77e" title="Sets the value of the &quot;notes&quot; subelement of this SBML object.">setNotes(const XMLNode* notes)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a478ad1e0e2bb2dc27a9de6ab9bac4bf2" title="Sets the value of the &quot;notes&quot; subelement of this SBML object to a copy of the string notes.">setNotes(const std::string&amp; notes, bool addXHTMLMarkup)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#adb8c800163c108a27880bd644d7767ad" title="Appends the given notes to the &quot;notes&quot; subelement of this object.">appendNotes(const XMLNode* notes)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a89f626f2593df8e83da4cdbfe79142f7" title="Unsets the value of the &quot;notes&quot; subelement of this SBML object.">unsetNotes()</a> </dd>
+<dd>
+<a class="el" href="class_syntax_checker.html#ade6c33a7180bbc7bc70b4421b917a7b0" title="Returns true or false depending on whether the given XMLNode object contains valid XHTML content.">SyntaxChecker::hasExpectedXHTMLSyntax()</a> </dd></dl>
 
 </div>
 </div>
@@ -939,9 +1005,25 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a6eee96ee206a55837c0d7b936f20f14d" title="Returns the content of the &quot;notes&quot; subelement of this object as a string.">getNotesString()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a83909a09abfab77fea3429482c79e867" title="Predicate returning true if this object&#39;s &quot;notes&quot; subelement exists and has content.">isSetNotes()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a611a4bd98a4e32e3573980b2481ce77e" title="Sets the value of the &quot;notes&quot; subelement of this SBML object.">setNotes(const XMLNode* notes)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a478ad1e0e2bb2dc27a9de6ab9bac4bf2" title="Sets the value of the &quot;notes&quot; subelement of this SBML object to a copy of the string notes.">setNotes(const std::string&amp; notes, bool addXHTMLMarkup)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a33da5a2b0b03cbe6af69730869e35212" title="Appends the given notes to the &quot;notes&quot; subelement of this object.">appendNotes(const std::string&amp; notes)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a89f626f2593df8e83da4cdbfe79142f7" title="Unsets the value of the &quot;notes&quot; subelement of this SBML object.">unsetNotes()</a> </dd>
+<dd>
+<a class="el" href="class_syntax_checker.html#ade6c33a7180bbc7bc70b4421b917a7b0" title="Returns true or false depending on whether the given XMLNode object contains valid XHTML content.">SyntaxChecker::hasExpectedXHTMLSyntax()</a> </dd></dl>
 
 </div>
 </div>
@@ -1036,6 +1118,8 @@ Protected Member Functions</h2></td></tr>
 
 <p>Deletes all information stored in disabled plugins. </p>
 <p>If the plugin is re-enabled later, it will then not have any previously-stored information.</p>
+<dl class="section user"><dt></dt><dd>SBML Level&#160;3 consists of a <em>Core</em> definition that can be extended via optional SBML Level&#160;3 <em>packages</em>. A given model may indicate that it uses one or more SBML packages, and likewise, a software tool may be able to support one or more packages. LibSBML does not come preconfigured with all possible packages included and enabled, in part because not all package specifications have been finalized. To support the ability for software systems to enable support for the Level&#160;3 packages they choose, libSBML features a <em>plug-in</em> mechanism. Each SBML Level&#160;3 package is implemented in a separate code plug-in that can be enabled by the application to support working with that SBML package. A given SBML model may thus contain not only objects defined by SBML Level&#160;3 Core, but also objects created by libSBML plug-ins supporting additional Level&#160;3 packages.</dd></dl>
+<dl class="section user"><dt></dt><dd>If a plugin is <em>disabled</em>, the package information it contains is no longer considered to be part of the SBML document for the purposes of searching the document or writing out the document. However, the information is still retained, so if the plugin is enabled again, the same information will once again be available, and will be written out to the final model.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">recursive</td><td>if <code>true</code>, the disabled information will be deleted also from all child elements, otherwise only from this <a class="el" href="class_s_base.html">SBase</a> element.</td></tr>
@@ -1120,9 +1204,14 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da381940e93af9dacbae414c4413beae31">LIBSBML_PKG_UNKNOWN</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da55dc550fc2f744dd411b452afa55a52b">LIBSBML_PKG_VERSION_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf4b39ff5e6c7e8073b19ab8b4f29fee1">LIBSBML_PKG_CONFLICTED_VERSION</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#ae89a4757c093b8f9c491338bcb278921" title="Enables or disables the given SBML Level&#160;3 package on this object.">enablePackage(const std::string&amp; pkgURI, const std::string&amp; pkgPrefix, bool flag)</a> </dd></dl>
 
 </div>
 </div>
@@ -1176,9 +1265,14 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da381940e93af9dacbae414c4413beae31">LIBSBML_PKG_UNKNOWN</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da55dc550fc2f744dd411b452afa55a52b">LIBSBML_PKG_VERSION_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf4b39ff5e6c7e8073b19ab8b4f29fee1">LIBSBML_PKG_CONFLICTED_VERSION</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a5fe0e86c2c28a3226ddc42972241bddd" title="Disables the given SBML Level&#160;3 package on this object.">disablePackage(const std::string&amp; pkgURI, const std::string&amp; pkgPrefix)</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="add_layout_8cpp-example.html#a5">addLayout.cpp</a>.</dd>
 </dl>
 
@@ -1401,6 +1495,7 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns a <a class="el" href="class_list.html">List</a> of all child <a class="el" href="class_s_base.html">SBase</a> objects contained in SBML package plug-ins. </p>
+<dl class="section user"><dt></dt><dd>SBML Level&#160;3 consists of a <em>Core</em> definition that can be extended via optional SBML Level&#160;3 <em>packages</em>. A given model may indicate that it uses one or more SBML packages, and likewise, a software tool may be able to support one or more packages. LibSBML does not come preconfigured with all possible packages included and enabled, in part because not all package specifications have been finalized. To support the ability for software systems to enable support for the Level&#160;3 packages they choose, libSBML features a <em>plug-in</em> mechanism. Each SBML Level&#160;3 package is implemented in a separate code plug-in that can be enabled by the application to support working with that SBML package. A given SBML model may thus contain not only objects defined by SBML Level&#160;3 Core, but also objects created by libSBML plug-ins supporting additional Level&#160;3 packages.</dd></dl>
 <p>This method walks down the list of all SBML Level&#160;3 packages used by this object and returns all child objects defined by those packages.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1534,6 +1629,8 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the content of the "annotation" subelement of this object as a tree of <a class="el" href="class_x_m_l_node.html">XMLNode</a> objects. </p>
+<dl class="section user"><dt></dt><dd>Whereas the SBML "notes" subelement is a container for content to be shown directly to humans, the "annotation" element is a container for optional software-generated content <em>not</em> meant to be shown to humans. Every object derived from <a class="el" href="class_s_base.html">SBase</a> can have its own value for "annotation". The element's content type is <a href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls" target="_blank">XML type "any"</a>, allowing essentially arbitrary well-formed XML data content.</dd></dl>
+<p>SBML places a few restrictions on the organization of the content of annotations; these are intended to help software tools read and write the data as well as help reduce conflicts between annotations added by different tools. Please see the SBML specifications for more details.</p>
 <p>The annotations returned by this method will be in XML form. LibSBML provides an object model and related interfaces for certain specific kinds of annotations, namely model history information and RDF content. See the <a class="el" href="class_model_history.html">ModelHistory</a>, <a class="el" href="class_c_v_term.html">CVTerm</a> and <a class="el" href="class_r_d_f_annotation_parser.html">RDFAnnotationParser</a> classes for more information about the facilities available.</p>
 <dl class="section return"><dt>Returns</dt><dd>the annotation of this SBML object as a tree of <a class="el" href="class_x_m_l_node.html">XMLNode</a> objects.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#adbff50c6c73c044a5c8e29e6b5dcefc6" title="Returns the content of the &quot;annotation&quot; subelement of this object as a character string.">getAnnotationString()</a> </dd>
@@ -1576,6 +1673,8 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the content of the "annotation" subelement of this object as a tree of <a class="el" href="class_x_m_l_node.html">XMLNode</a> objects. </p>
+<dl class="section user"><dt></dt><dd>Whereas the SBML "notes" subelement is a container for content to be shown directly to humans, the "annotation" element is a container for optional software-generated content <em>not</em> meant to be shown to humans. Every object derived from <a class="el" href="class_s_base.html">SBase</a> can have its own value for "annotation". The element's content type is <a href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls" target="_blank">XML type "any"</a>, allowing essentially arbitrary well-formed XML data content.</dd></dl>
+<p>SBML places a few restrictions on the organization of the content of annotations; these are intended to help software tools read and write the data as well as help reduce conflicts between annotations added by different tools. Please see the SBML specifications for more details.</p>
 <p>The annotations returned by this method will be in XML form. LibSBML provides an object model and related interfaces for certain specific kinds of annotations, namely model history information and RDF content. See the <a class="el" href="class_model_history.html">ModelHistory</a>, <a class="el" href="class_c_v_term.html">CVTerm</a> and <a class="el" href="class_r_d_f_annotation_parser.html">RDFAnnotationParser</a> classes for more information about the facilities available.</p>
 <dl class="section return"><dt>Returns</dt><dd>the annotation of this SBML object as a tree of <a class="el" href="class_x_m_l_node.html">XMLNode</a> objects.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#adbff50c6c73c044a5c8e29e6b5dcefc6" title="Returns the content of the &quot;annotation&quot; subelement of this object as a character string.">getAnnotationString()</a> </dd>
@@ -1618,6 +1717,8 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the content of the "annotation" subelement of this object as a character string. </p>
+<dl class="section user"><dt></dt><dd>Whereas the SBML "notes" subelement is a container for content to be shown directly to humans, the "annotation" element is a container for optional software-generated content <em>not</em> meant to be shown to humans. Every object derived from <a class="el" href="class_s_base.html">SBase</a> can have its own value for "annotation". The element's content type is <a href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls" target="_blank">XML type "any"</a>, allowing essentially arbitrary well-formed XML data content.</dd></dl>
+<p>SBML places a few restrictions on the organization of the content of annotations; these are intended to help software tools read and write the data as well as help reduce conflicts between annotations added by different tools. Please see the SBML specifications for more details.</p>
 <p>The annotations returned by this method will be in string form. See the method <a class="el" href="class_s_base.html#a4fbf6701023075573bd76fa0bd276291" title="Returns the content of the &quot;annotation&quot; subelement of this object as a tree of XMLNode objects.">getAnnotation()</a> for a version that returns annotations in XML form.</p>
 <dl class="section return"><dt>Returns</dt><dd>the annotation of this SBML object as a character string.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a4fbf6701023075573bd76fa0bd276291" title="Returns the content of the &quot;annotation&quot; subelement of this object as a tree of XMLNode objects.">getAnnotation()</a> </dd>
@@ -1662,6 +1763,8 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the content of the "annotation" subelement of this object as a character string. </p>
+<dl class="section user"><dt></dt><dd>Whereas the SBML "notes" subelement is a container for content to be shown directly to humans, the "annotation" element is a container for optional software-generated content <em>not</em> meant to be shown to humans. Every object derived from <a class="el" href="class_s_base.html">SBase</a> can have its own value for "annotation". The element's content type is <a href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls" target="_blank">XML type "any"</a>, allowing essentially arbitrary well-formed XML data content.</dd></dl>
+<p>SBML places a few restrictions on the organization of the content of annotations; these are intended to help software tools read and write the data as well as help reduce conflicts between annotations added by different tools. Please see the SBML specifications for more details.</p>
 <p>The annotations returned by this method will be in string form. See the method <a class="el" href="class_s_base.html#a4fbf6701023075573bd76fa0bd276291" title="Returns the content of the &quot;annotation&quot; subelement of this object as a tree of XMLNode objects.">getAnnotation()</a> for a version that returns annotations in XML form.</p>
 <dl class="section return"><dt>Returns</dt><dd>the annotation of this SBML object as a character string.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a4fbf6701023075573bd76fa0bd276291" title="Returns the content of the &quot;annotation&quot; subelement of this object as a tree of XMLNode objects.">getAnnotation()</a> </dd>
@@ -1827,6 +1930,8 @@ Protected Member Functions</h2></td></tr>
 
 <p>Returns the nth disabled plug-in object (extension interface) for an SBML Level&#160;3 package extension. </p>
 <p>If no such plugin exists, NULL is returned.</p>
+<dl class="section user"><dt></dt><dd>SBML Level&#160;3 consists of a <em>Core</em> definition that can be extended via optional SBML Level&#160;3 <em>packages</em>. A given model may indicate that it uses one or more SBML packages, and likewise, a software tool may be able to support one or more packages. LibSBML does not come preconfigured with all possible packages included and enabled, in part because not all package specifications have been finalized. To support the ability for software systems to enable support for the Level&#160;3 packages they choose, libSBML features a <em>plug-in</em> mechanism. Each SBML Level&#160;3 package is implemented in a separate code plug-in that can be enabled by the application to support working with that SBML package. A given SBML model may thus contain not only objects defined by SBML Level&#160;3 Core, but also objects created by libSBML plug-ins supporting additional Level&#160;3 packages.</dd></dl>
+<dl class="section user"><dt></dt><dd>If a plugin is <em>disabled</em>, the package information it contains is no longer considered to be part of the SBML document for the purposes of searching the document or writing out the document. However, the information is still retained, so if the plugin is enabled again, the same information will once again be available, and will be written out to the final model.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">n</td><td>the index of the disabled plug-in to return.</td></tr>
@@ -1866,6 +1971,8 @@ Protected Member Functions</h2></td></tr>
 
 <p>Returns the nth disabled plug-in object (extension interface) for an SBML Level&#160;3 package extension. </p>
 <p>If no such plugin exists, NULL is returned.</p>
+<dl class="section user"><dt></dt><dd>SBML Level&#160;3 consists of a <em>Core</em> definition that can be extended via optional SBML Level&#160;3 <em>packages</em>. A given model may indicate that it uses one or more SBML packages, and likewise, a software tool may be able to support one or more packages. LibSBML does not come preconfigured with all possible packages included and enabled, in part because not all package specifications have been finalized. To support the ability for software systems to enable support for the Level&#160;3 packages they choose, libSBML features a <em>plug-in</em> mechanism. Each SBML Level&#160;3 package is implemented in a separate code plug-in that can be enabled by the application to support working with that SBML package. A given SBML model may thus contain not only objects defined by SBML Level&#160;3 Core, but also objects created by libSBML plug-ins supporting additional Level&#160;3 packages.</dd></dl>
+<dl class="section user"><dt></dt><dd>If a plugin is <em>disabled</em>, the package information it contains is no longer considered to be part of the SBML document for the purposes of searching the document or writing out the document. However, the information is still retained, so if the plugin is enabled again, the same information will once again be available, and will be written out to the final model.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">n</td><td>the index of the disabled plug-in to return.</td></tr>
@@ -2174,7 +2281,12 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the libSBML type code for the objects contained in this <a class="el" href="class_list_of.html">ListOf</a> (i.e., <a class="el" href="class_species_type.html">SpeciesType</a> objects, if the list is non-empty). </p>
-<dl class="section return"><dt>Returns</dt><dd>the SBML type code for objects contained in this list: <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfea88faa72652cf80bdcd2ed0fdabc678b8">SBML_SPECIES_TYPEendif </a></dd></dl>
+<dl class="section user"><dt></dt><dd>LibSBML attaches an identifying code to every kind of SBML object. These are integer constants known as <em>SBML type codes</em>. The names of all the codes begin with the characters <code>SBML_</code>. The set of possible type codes for core elements is defined in the enumeration <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfe" title="The enumeration of possible SBML core object types.">SBMLTypeCode_t</a>, and in addition, libSBML plug-ins for SBML Level&#160;3 packages define their own extra enumerations of type codes (e.g., <a class="el" href="_layout_extension_8h.html#a6b80c825e1507341de5540b8e7de003d" title="SBMLFbcTypeCode_t Enumeration of possible types in the libSBML “layout” package implementation.">SBMLLayoutTypeCode_t</a> for the Level&#160;3 <a class="el" href="class_layout.html">Layout</a> package). Note that different Level&#160;3 package plug-ins may use overlapping type codes; to identify the package to which a given object belongs, call the <code><a class="el" href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02" title="Returns the name of the SBML Level&#160;3 package in which this element is defined.">SBase::getPackageName()</a> </code> method on the object.</dd></dl>
+<p>The exception to this is lists: all SBML-style list elements have the type <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfeaa111b52def73380487c84f062f47dadc">SBML_LIST_OF</a>, regardless of what package they are from.</p>
+<dl class="section return"><dt>Returns</dt><dd>the SBML type code for objects contained in this list: <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfea88faa72652cf80bdcd2ed0fdabc678b8">SBML_SPECIES_TYPE</a> (default).</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_list_of_species_types.html#abb3a9e9fb2bc2e6af616fcb5c1225380" title="Returns the XML element name of this object.">getElementName()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02" title="Returns the name of the SBML Level&#160;3 package in which this element is defined.">getPackageName()</a> </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_list_of.html#a58f2728f978ffba0d032c412901b824e">ListOf</a>.</p>
 
@@ -2504,6 +2616,8 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the content of the "notes" subelement of this object as a tree of <a class="el" href="class_x_m_l_node.html">XMLNode</a> objects. </p>
+<dl class="section user"><dt></dt><dd>The optional SBML element named "notes", present on every major SBML component type (and in SBML Level&#160;3, the "message" subelement of <a class="el" href="class_constraint.html">Constraint</a>), is intended as a place for storing optional information intended to be seen by humans. An example use of the "notes" element would be to contain formatted user comments about the model element in which the "notes" element is enclosed. Every object derived directly or indirectly from type <a class="el" href="class_s_base.html">SBase</a> can have a separate value for "notes", allowing users considerable freedom when adding comments to their models.</dd></dl>
+<p>The format of "notes" elements conform to the definition of <a href="http://www.w3.org/TR/xhtml1/" target="_blank">XHTML&#160;1.0</a>. However, the content cannot be <em>entirely</em> free-form; it must satisfy certain requirements defined in the <a href="http://sbml.org/Documents/Specifications" target="_blank">SBML specifications</a> for specific SBML Levels. To help verify the formatting of "notes" content, libSBML provides the static utility method <a class="el" href="class_syntax_checker.html#ade6c33a7180bbc7bc70b4421b917a7b0" title="Returns true or false depending on whether the given XMLNode object contains valid XHTML content.">SyntaxChecker::hasExpectedXHTMLSyntax()</a>; this method implements a verification process that lets callers check whether the content of a given <a class="el" href="class_x_m_l_node.html">XMLNode</a> object conforms to the SBML requirements for "notes" and "message" structure. Developers are urged to consult the appropriate <a href="http://sbml.org/Documents/Specifications" target="_blank">SBML specification document</a> for the Level and Version of their model for more in-depth explanations of using "notes" in SBML. The SBML Level&#160;2 and&#160;3 specifications have considerable detail about how "notes" element content must be structured.</p>
 <p>The "notes" element content returned by this method will be in XML form, but libSBML does not provide an object model specifically for the content of notes. Callers will need to traverse the XML tree structure using the facilities available on <a class="el" href="class_x_m_l_node.html">XMLNode</a> and related objects. For an alternative method of accessing the notes, see <a class="el" href="class_s_base.html#a6eee96ee206a55837c0d7b936f20f14d" title="Returns the content of the &quot;notes&quot; subelement of this object as a string.">getNotesString()</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>the content of the "notes" subelement of this SBML object as a tree structure composed of <a class="el" href="class_x_m_l_node.html">XMLNode</a> objects.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a6eee96ee206a55837c0d7b936f20f14d" title="Returns the content of the &quot;notes&quot; subelement of this object as a string.">getNotesString()</a> </dd>
@@ -2548,6 +2662,8 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the content of the "notes" subelement of this object as a tree of <a class="el" href="class_x_m_l_node.html">XMLNode</a> objects. </p>
+<dl class="section user"><dt></dt><dd>The optional SBML element named "notes", present on every major SBML component type (and in SBML Level&#160;3, the "message" subelement of <a class="el" href="class_constraint.html">Constraint</a>), is intended as a place for storing optional information intended to be seen by humans. An example use of the "notes" element would be to contain formatted user comments about the model element in which the "notes" element is enclosed. Every object derived directly or indirectly from type <a class="el" href="class_s_base.html">SBase</a> can have a separate value for "notes", allowing users considerable freedom when adding comments to their models.</dd></dl>
+<p>The format of "notes" elements conform to the definition of <a href="http://www.w3.org/TR/xhtml1/" target="_blank">XHTML&#160;1.0</a>. However, the content cannot be <em>entirely</em> free-form; it must satisfy certain requirements defined in the <a href="http://sbml.org/Documents/Specifications" target="_blank">SBML specifications</a> for specific SBML Levels. To help verify the formatting of "notes" content, libSBML provides the static utility method <a class="el" href="class_syntax_checker.html#ade6c33a7180bbc7bc70b4421b917a7b0" title="Returns true or false depending on whether the given XMLNode object contains valid XHTML content.">SyntaxChecker::hasExpectedXHTMLSyntax()</a>; this method implements a verification process that lets callers check whether the content of a given <a class="el" href="class_x_m_l_node.html">XMLNode</a> object conforms to the SBML requirements for "notes" and "message" structure. Developers are urged to consult the appropriate <a href="http://sbml.org/Documents/Specifications" target="_blank">SBML specification document</a> for the Level and Version of their model for more in-depth explanations of using "notes" in SBML. The SBML Level&#160;2 and&#160;3 specifications have considerable detail about how "notes" element content must be structured.</p>
 <p>The "notes" element content returned by this method will be in XML form, but libSBML does not provide an object model specifically for the content of notes. Callers will need to traverse the XML tree structure using the facilities available on <a class="el" href="class_x_m_l_node.html">XMLNode</a> and related objects. For an alternative method of accessing the notes, see <a class="el" href="class_s_base.html#a6eee96ee206a55837c0d7b936f20f14d" title="Returns the content of the &quot;notes&quot; subelement of this object as a string.">getNotesString()</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>the content of the "notes" subelement of this SBML object as a tree structure composed of <a class="el" href="class_x_m_l_node.html">XMLNode</a> objects.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a6eee96ee206a55837c0d7b936f20f14d" title="Returns the content of the &quot;notes&quot; subelement of this object as a string.">getNotesString()</a> </dd>
@@ -2592,6 +2708,8 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the content of the "notes" subelement of this object as a string. </p>
+<dl class="section user"><dt></dt><dd>The optional SBML element named "notes", present on every major SBML component type (and in SBML Level&#160;3, the "message" subelement of <a class="el" href="class_constraint.html">Constraint</a>), is intended as a place for storing optional information intended to be seen by humans. An example use of the "notes" element would be to contain formatted user comments about the model element in which the "notes" element is enclosed. Every object derived directly or indirectly from type <a class="el" href="class_s_base.html">SBase</a> can have a separate value for "notes", allowing users considerable freedom when adding comments to their models.</dd></dl>
+<p>The format of "notes" elements conform to the definition of <a href="http://www.w3.org/TR/xhtml1/" target="_blank">XHTML&#160;1.0</a>. However, the content cannot be <em>entirely</em> free-form; it must satisfy certain requirements defined in the <a href="http://sbml.org/Documents/Specifications" target="_blank">SBML specifications</a> for specific SBML Levels. To help verify the formatting of "notes" content, libSBML provides the static utility method <a class="el" href="class_syntax_checker.html#ade6c33a7180bbc7bc70b4421b917a7b0" title="Returns true or false depending on whether the given XMLNode object contains valid XHTML content.">SyntaxChecker::hasExpectedXHTMLSyntax()</a>; this method implements a verification process that lets callers check whether the content of a given <a class="el" href="class_x_m_l_node.html">XMLNode</a> object conforms to the SBML requirements for "notes" and "message" structure. Developers are urged to consult the appropriate <a href="http://sbml.org/Documents/Specifications" target="_blank">SBML specification document</a> for the Level and Version of their model for more in-depth explanations of using "notes" in SBML. The SBML Level&#160;2 and&#160;3 specifications have considerable detail about how "notes" element content must be structured.</p>
 <p>For an alternative method of accessing the notes, see <a class="el" href="class_s_base.html#ac34eff3877f512b8bf31facff83c4483" title="Returns the content of the &quot;notes&quot; subelement of this object as a tree of XMLNode objects.">getNotes()</a>, which returns the content as an <a class="el" href="class_x_m_l_node.html">XMLNode</a> tree structure. Depending on an application's needs, one or the other method may be more convenient.</p>
 <dl class="section return"><dt>Returns</dt><dd>the content of the "notes" subelement of this SBML object as a string.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#ac34eff3877f512b8bf31facff83c4483" title="Returns the content of the &quot;notes&quot; subelement of this object as a tree of XMLNode objects.">getNotes()</a> </dd>
@@ -2638,6 +2756,8 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the content of the "notes" subelement of this object as a string. </p>
+<dl class="section user"><dt></dt><dd>The optional SBML element named "notes", present on every major SBML component type (and in SBML Level&#160;3, the "message" subelement of <a class="el" href="class_constraint.html">Constraint</a>), is intended as a place for storing optional information intended to be seen by humans. An example use of the "notes" element would be to contain formatted user comments about the model element in which the "notes" element is enclosed. Every object derived directly or indirectly from type <a class="el" href="class_s_base.html">SBase</a> can have a separate value for "notes", allowing users considerable freedom when adding comments to their models.</dd></dl>
+<p>The format of "notes" elements conform to the definition of <a href="http://www.w3.org/TR/xhtml1/" target="_blank">XHTML&#160;1.0</a>. However, the content cannot be <em>entirely</em> free-form; it must satisfy certain requirements defined in the <a href="http://sbml.org/Documents/Specifications" target="_blank">SBML specifications</a> for specific SBML Levels. To help verify the formatting of "notes" content, libSBML provides the static utility method <a class="el" href="class_syntax_checker.html#ade6c33a7180bbc7bc70b4421b917a7b0" title="Returns true or false depending on whether the given XMLNode object contains valid XHTML content.">SyntaxChecker::hasExpectedXHTMLSyntax()</a>; this method implements a verification process that lets callers check whether the content of a given <a class="el" href="class_x_m_l_node.html">XMLNode</a> object conforms to the SBML requirements for "notes" and "message" structure. Developers are urged to consult the appropriate <a href="http://sbml.org/Documents/Specifications" target="_blank">SBML specification document</a> for the Level and Version of their model for more in-depth explanations of using "notes" in SBML. The SBML Level&#160;2 and&#160;3 specifications have considerable detail about how "notes" element content must be structured.</p>
 <p>For an alternative method of accessing the notes, see <a class="el" href="class_s_base.html#ac34eff3877f512b8bf31facff83c4483" title="Returns the content of the &quot;notes&quot; subelement of this object as a tree of XMLNode objects.">getNotes()</a>, which returns the content as an <a class="el" href="class_x_m_l_node.html">XMLNode</a> tree structure. Depending on an application's needs, one or the other method may be more convenient.</p>
 <dl class="section return"><dt>Returns</dt><dd>the content of the "notes" subelement of this SBML object as a string.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#ac34eff3877f512b8bf31facff83c4483" title="Returns the content of the &quot;notes&quot; subelement of this object as a tree of XMLNode objects.">getNotes()</a> </dd>
@@ -2710,6 +2830,8 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the number of disabled plug-in objects (extension interfaces) for SBML Level&#160;3 package extensions known. </p>
+<dl class="section user"><dt></dt><dd>SBML Level&#160;3 consists of a <em>Core</em> definition that can be extended via optional SBML Level&#160;3 <em>packages</em>. A given model may indicate that it uses one or more SBML packages, and likewise, a software tool may be able to support one or more packages. LibSBML does not come preconfigured with all possible packages included and enabled, in part because not all package specifications have been finalized. To support the ability for software systems to enable support for the Level&#160;3 packages they choose, libSBML features a <em>plug-in</em> mechanism. Each SBML Level&#160;3 package is implemented in a separate code plug-in that can be enabled by the application to support working with that SBML package. A given SBML model may thus contain not only objects defined by SBML Level&#160;3 Core, but also objects created by libSBML plug-ins supporting additional Level&#160;3 packages.</dd></dl>
+<dl class="section user"><dt></dt><dd>If a plugin is <em>disabled</em>, the package information it contains is no longer considered to be part of the SBML document for the purposes of searching the document or writing out the document. However, the information is still retained, so if the plugin is enabled again, the same information will once again be available, and will be written out to the final model.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>the number of disabled plug-in objects (extension interfaces) of package extensions known by this instance of libSBML. </dd></dl>
 
 </div>
@@ -2738,6 +2860,7 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the number of plug-in objects (extenstion interfaces) for SBML Level&#160;3 package extensions known. </p>
+<dl class="section user"><dt></dt><dd>SBML Level&#160;3 consists of a <em>Core</em> definition that can be extended via optional SBML Level&#160;3 <em>packages</em>. A given model may indicate that it uses one or more SBML packages, and likewise, a software tool may be able to support one or more packages. LibSBML does not come preconfigured with all possible packages included and enabled, in part because not all package specifications have been finalized. To support the ability for software systems to enable support for the Level&#160;3 packages they choose, libSBML features a <em>plug-in</em> mechanism. Each SBML Level&#160;3 package is implemented in a separate code plug-in that can be enabled by the application to support working with that SBML package. A given SBML model may thus contain not only objects defined by SBML Level&#160;3 Core, but also objects created by libSBML plug-ins supporting additional Level&#160;3 packages.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>the number of plug-in objects (extension interfaces) of package extensions known by this instance of libSBML.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a2bcd32c8ab7537433f7f7851818c60ed" title="Returns the nth plug-in object (extension interface) for an SBML Level&#160;3 package extension.">getPlugin(unsigned int n)</a> </dd></dl>
 
@@ -2922,6 +3045,7 @@ Protected Member Functions</h2></td></tr>
 <p>Returns a plug-in object (extension interface) for an SBML Level&#160;3 package extension with the given package name or URI. </p>
 <p>The returned plug-in will be the appropriate type of plugin requested: calling <a class="el" href="class_s_base.html#aee8d8b8cb1ae5980d228174073fc5abc" title="Returns a plug-in object (extension interface) for an SBML Level&#160;3 package extension with the given p...">Model::getPlugin</a>("fbc") will return an <a class="el" href="class_fbc_model_plugin.html">FbcModelPlugin</a>; calling <a class="el" href="class_s_base.html#aee8d8b8cb1ae5980d228174073fc5abc" title="Returns a plug-in object (extension interface) for an SBML Level&#160;3 package extension with the given p...">Parameter::getPlugin</a>("comp") will return <a class="el" href="class_comp_s_base_plugin.html">CompSBasePlugin</a>, etc.</p>
 <p>If no such plugin exists, NULL is returned.</p>
+<dl class="section user"><dt></dt><dd>SBML Level&#160;3 consists of a <em>Core</em> definition that can be extended via optional SBML Level&#160;3 <em>packages</em>. A given model may indicate that it uses one or more SBML packages, and likewise, a software tool may be able to support one or more packages. LibSBML does not come preconfigured with all possible packages included and enabled, in part because not all package specifications have been finalized. To support the ability for software systems to enable support for the Level&#160;3 packages they choose, libSBML features a <em>plug-in</em> mechanism. Each SBML Level&#160;3 package is implemented in a separate code plug-in that can be enabled by the application to support working with that SBML package. A given SBML model may thus contain not only objects defined by SBML Level&#160;3 Core, but also objects created by libSBML plug-ins supporting additional Level&#160;3 packages.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">package</td><td>the name or URI of the package.</td></tr>
@@ -2962,6 +3086,7 @@ Protected Member Functions</h2></td></tr>
 <p>Returns a plug-in object (extension interface) for an SBML Level&#160;3 package extension with the given package name or URI. </p>
 <p>The returned plug-in will be the appropriate type of plugin requested: calling <a class="el" href="class_s_base.html#aee8d8b8cb1ae5980d228174073fc5abc" title="Returns a plug-in object (extension interface) for an SBML Level&#160;3 package extension with the given p...">Model::getPlugin</a>("fbc") will return an <a class="el" href="class_fbc_model_plugin.html">FbcModelPlugin</a>; calling <a class="el" href="class_s_base.html#aee8d8b8cb1ae5980d228174073fc5abc" title="Returns a plug-in object (extension interface) for an SBML Level&#160;3 package extension with the given p...">Parameter::getPlugin</a>("comp") will return <a class="el" href="class_comp_s_base_plugin.html">CompSBasePlugin</a>, etc.</p>
 <p>If no such plugin exists, NULL is returned.</p>
+<dl class="section user"><dt></dt><dd>SBML Level&#160;3 consists of a <em>Core</em> definition that can be extended via optional SBML Level&#160;3 <em>packages</em>. A given model may indicate that it uses one or more SBML packages, and likewise, a software tool may be able to support one or more packages. LibSBML does not come preconfigured with all possible packages included and enabled, in part because not all package specifications have been finalized. To support the ability for software systems to enable support for the Level&#160;3 packages they choose, libSBML features a <em>plug-in</em> mechanism. Each SBML Level&#160;3 package is implemented in a separate code plug-in that can be enabled by the application to support working with that SBML package. A given SBML model may thus contain not only objects defined by SBML Level&#160;3 Core, but also objects created by libSBML plug-ins supporting additional Level&#160;3 packages.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">package</td><td>the name or URI of the package.</td></tr>
@@ -3000,6 +3125,7 @@ Protected Member Functions</h2></td></tr>
 <p>Returns the nth plug-in object (extension interface) for an SBML Level&#160;3 package extension. </p>
 <p>The returned plug-in will be the appropriate type of plugin requested: calling <a class="el" href="class_s_base.html#aee8d8b8cb1ae5980d228174073fc5abc" title="Returns a plug-in object (extension interface) for an SBML Level&#160;3 package extension with the given p...">Model::getPlugin</a>("fbc") will return an <a class="el" href="class_fbc_model_plugin.html">FbcModelPlugin</a>; calling <a class="el" href="class_s_base.html#aee8d8b8cb1ae5980d228174073fc5abc" title="Returns a plug-in object (extension interface) for an SBML Level&#160;3 package extension with the given p...">Parameter::getPlugin</a>("comp") will return <a class="el" href="class_comp_s_base_plugin.html">CompSBasePlugin</a>, etc.</p>
 <p>If no such plugin exists, NULL is returned.</p>
+<dl class="section user"><dt></dt><dd>SBML Level&#160;3 consists of a <em>Core</em> definition that can be extended via optional SBML Level&#160;3 <em>packages</em>. A given model may indicate that it uses one or more SBML packages, and likewise, a software tool may be able to support one or more packages. LibSBML does not come preconfigured with all possible packages included and enabled, in part because not all package specifications have been finalized. To support the ability for software systems to enable support for the Level&#160;3 packages they choose, libSBML features a <em>plug-in</em> mechanism. Each SBML Level&#160;3 package is implemented in a separate code plug-in that can be enabled by the application to support working with that SBML package. A given SBML model may thus contain not only objects defined by SBML Level&#160;3 Core, but also objects created by libSBML plug-ins supporting additional Level&#160;3 packages.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">n</td><td>the index of the plug-in to return.</td></tr>
@@ -3040,6 +3166,7 @@ Protected Member Functions</h2></td></tr>
 <p>Returns the nth plug-in object (extension interface) for an SBML Level&#160;3 package extension. </p>
 <p>The returned plug-in will be the appropriate type of plugin requested: calling <a class="el" href="class_s_base.html#aee8d8b8cb1ae5980d228174073fc5abc" title="Returns a plug-in object (extension interface) for an SBML Level&#160;3 package extension with the given p...">Model::getPlugin</a>("fbc") will return an <a class="el" href="class_fbc_model_plugin.html">FbcModelPlugin</a>; calling <a class="el" href="class_s_base.html#aee8d8b8cb1ae5980d228174073fc5abc" title="Returns a plug-in object (extension interface) for an SBML Level&#160;3 package extension with the given p...">Parameter::getPlugin</a>("comp") will return <a class="el" href="class_comp_s_base_plugin.html">CompSBasePlugin</a>, etc.</p>
 <p>If no such plugin exists, NULL is returned.</p>
+<dl class="section user"><dt></dt><dd>SBML Level&#160;3 consists of a <em>Core</em> definition that can be extended via optional SBML Level&#160;3 <em>packages</em>. A given model may indicate that it uses one or more SBML packages, and likewise, a software tool may be able to support one or more packages. LibSBML does not come preconfigured with all possible packages included and enabled, in part because not all package specifications have been finalized. To support the ability for software systems to enable support for the Level&#160;3 packages they choose, libSBML features a <em>plug-in</em> mechanism. Each SBML Level&#160;3 package is implemented in a separate code plug-in that can be enabled by the application to support working with that SBML package. A given SBML model may thus contain not only objects defined by SBML Level&#160;3 Core, but also objects created by libSBML plug-ins supporting additional Level&#160;3 packages.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">n</td><td>the index of the plug-in to return.</td></tr>
@@ -3115,7 +3242,8 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the qualifier associated with the resource, or <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18af1cf563d5624cd63df7777702421046b">BQB_UNKNOWNendif </a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the qualifier associated with the resource, or <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18af1cf563d5624cd63df7777702421046b">BQB_UNKNOWN</a> if the resource does not exist.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The set of MIRIAM biological qualifiers grows over time, although relatively slowly. The values in the enumeration <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18" title="Enumeration of possible biological qualifiers used for annotations.">BiolQualifierType_t</a> are up to date with MIRIAM at the time of a given libSBML release. The set of values may be expanded in later libSBML releases, to match the values defined by MIRIAM at that later time. </dd></dl>
 
 </div>
 </div>
@@ -3152,7 +3280,8 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> value associated with the resource, or <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9da8b1e2ab645e23a7f1c5dfde0b85e1b25">BQM_UNKNOWNendif </a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> value associated with the resource, or <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9da8b1e2ab645e23a7f1c5dfde0b85e1b25">BQM_UNKNOWN</a> if the resource does not exist.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The set of MIRIAM biological qualifiers grows over time, although relatively slowly. The values in the enumeration <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> are up to date with MIRIAM at the time of a given libSBML release. The set of values may be expanded in later libSBML releases, to match the values defined by MIRIAM at that later time. </dd></dl>
 
 </div>
 </div>
@@ -3332,7 +3461,17 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the libSBML type code for this object, namely, <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfeaa111b52def73380487c84f062f47dadc">SBML_LIST_OFendif. </a></p>
+<p>Returns the libSBML type code for this object, namely, <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfeaa111b52def73380487c84f062f47dadc">SBML_LIST_OF</a>. </p>
+<dl class="section user"><dt></dt><dd>LibSBML attaches an identifying code to every kind of SBML object. These are integer constants known as <em>SBML type codes</em>. The names of all the codes begin with the characters <code>SBML_</code>. The set of possible type codes for core elements is defined in the enumeration <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfe" title="The enumeration of possible SBML core object types.">SBMLTypeCode_t</a>, and in addition, libSBML plug-ins for SBML Level&#160;3 packages define their own extra enumerations of type codes (e.g., <a class="el" href="_layout_extension_8h.html#a6b80c825e1507341de5540b8e7de003d" title="SBMLFbcTypeCode_t Enumeration of possible types in the libSBML “layout” package implementation.">SBMLLayoutTypeCode_t</a> for the Level&#160;3 <a class="el" href="class_layout.html">Layout</a> package). Note that different Level&#160;3 package plug-ins may use overlapping type codes; to identify the package to which a given object belongs, call the <code><a class="el" href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02" title="Returns the name of the SBML Level&#160;3 package in which this element is defined.">SBase::getPackageName()</a> </code> method on the object.</dd></dl>
+<p>The exception to this is lists: all SBML-style list elements have the type <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfeaa111b52def73380487c84f062f47dadc">SBML_LIST_OF</a>, regardless of what package they are from.</p>
+<dl class="section return"><dt>Returns</dt><dd>the SBML type code for this object: <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfeaa111b52def73380487c84f062f47dadc">SBML_LIST_OF</a> (default).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The various <a class="el" href="class_list_of.html">ListOf</a> classes mostly differ from each other in what they contain. Hence, one must call <a class="el" href="class_list_of_species_types.html#a72f8825aaef58d869d32a39f12b30bd6" title="Returns the libSBML type code for the objects contained in this ListOf (i.e., SpeciesType objects,...">getItemTypeCode()</a> to fully determine the class of this SBML object.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd><span class="warning">The specific integer values of the possible type codes may be reused by different libSBML plug-ins for SBML Level&#160;3. packages, To fully identify the correct code, <b>it is necessary to invoke both <a class="el" href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02" title="Returns the name of the SBML Level&#160;3 package in which this element is defined.">getPackageName()</a> and <a class="el" href="class_list_of.html#a4494cc55fb6df1d356d3d273ba3f807b" title="Returns the libSBML type code for this object, namely, SBML_LIST_OF.">getTypeCode()</a></b> (or <a class="el" href="class_list_of.html#a58f2728f978ffba0d032c412901b824e" title="Get the type code of the objects contained in this ListOf.">ListOf::getItemTypeCode()</a>).</span></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_list_of_species_types.html#a72f8825aaef58d869d32a39f12b30bd6" title="Returns the libSBML type code for the objects contained in this ListOf (i.e., SpeciesType objects,...">getItemTypeCode()</a> </dd>
+<dd>
+<a class="el" href="class_list_of_species_types.html#abb3a9e9fb2bc2e6af616fcb5c1225380" title="Returns the XML element name of this object.">getElementName()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02" title="Returns the name of the SBML Level&#160;3 package in which this element is defined.">getPackageName()</a> </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_base.html#a4109c299320c6c59251fc84d6eeaec69">SBase</a>.</p>
 
@@ -3526,9 +3665,12 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_list_of.html#a189ee663e62f686ab59ccaa6300fbe1f" title="Inserts an item at a given position in this ListOf&#39;s list of items.">insertAndOwn(int location, SBase* item)</a> </dd></dl>
 
 </div>
 </div>
@@ -3575,9 +3717,12 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_list_of.html#ad2c0ef4eb8d357c990a32d3352803da7" title="Inserts an item at a given position in this ListOf&#39;s list of items.">insert(int location, const SBase* item)</a> </dd></dl>
 
 </div>
 </div>
@@ -3797,6 +3942,23 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 
 <p>Predicate returning <code>true</code> if a call to <a class="el" href="class_s_base.html#a129bf432fe076c854d9b6e7f44ed99b8" title="Returns the value of the &quot;id&quot; attribute of this SBML object, if it has one, or the &quot;variable&quot; attribu...">getId()</a> returns a non-empty string. </p>
 <p>For most objects, this function will return <code>true</code> if its "id" attribute is set, and <code>false</code> if it is not, or if the object has no "id" attribute at all. However, for an <a class="el" href="class_event_assignment.html">EventAssignment</a> or a <a class="el" href="class_rule.html">Rule</a>, <a class="el" href="class_s_base.html#a78e5ac577ff9cf83d6fc413f5053d705" title="Predicate returning true if a call to getId() returns a non-empty string.">isSetId()</a> checks whether the "variable" attribute is set, and for an <a class="el" href="class_initial_assignment.html">InitialAssignment</a>, it checks whether the "symbol" attribute is set. Because those elements will also have an "id" attribute in SBML Level&#160;3 Version&#160;2 which <a class="el" href="class_s_base.html#a78e5ac577ff9cf83d6fc413f5053d705" title="Predicate returning true if a call to getId() returns a non-empty string.">isSetId()</a> will not check, the function itself is deprecated, and it is recommended to use <a class="el" href="class_s_base.html#a9fb99b60d2f2f0427e818187cc6f6ad9" title="Predicate returning true if this object&#39;s &quot;id&quot; attribute is set.">isSetIdAttribute()</a> in all cases where one needs to know whether the "id" attribute is set, and to use <a class="el" href="class_event_assignment.html#a37c2c31fc1e09a921d47910d34f3cf55" title="Predicate for testing whether the attribute &quot;variable&quot; of this EventAssignment is set.">EventAssignment::isSetVariable()</a>, <a class="el" href="class_rule.html#a0ca35738405cb0f0d10c900cd528abb4" title="Predicate returning true if this Rule&#39;s &quot;variable&quot; attribute is set.">Rule::isSetVariable()</a> and <a class="el" href="class_initial_assignment.html#a29bda5914a0660489aa6903a00f6ba50" title="Predicate returning true if this InitialAssignment&#39;s &quot;symbol&quot; attribute is set.">InitialAssignment::isSetSymbol()</a> when the status of the "variable" or "symbol" attributes need to be checked.</p>
+<dl class="section user"><dt></dt><dd>The identifier given by an object's "id" attribute value is used to identify the object within the SBML model definition. Other objects can refer to the component using this identifier. The data type of "id" is always <code>SId</code> or a type derived from that, such as <code>UnitSId</code>, depending on the object in question. All data types are defined as follows: <pre style="margin-left: 2em; border: none; font-weight: bold; color: black">
+     letter ::= 'a'..'z','A'..'Z'
+     digit  ::= '0'..'9'
+     idChar ::= letter | digit | '_'
+     SId    ::= ( letter | '_' ) idChar*
+   </pre> The characters <code>(</code> and <code>)</code> are used for grouping, the character <code>*</code> "zero or more times", and the character <code>|</code> indicates logical "or". The equality of SBML identifiers is determined by an exact character sequence match; i.e., comparisons must be performed in a case-sensitive manner. This applies to all uses of <code>SId</code>, <code>SIdRef</code>, and derived types.</dd></dl>
+<p>Users need to be aware of some important API issues that are the result of the history of SBML and libSBML. Prior to SBML Level&#160;3 Version&#160;2, SBML defined "id" and "name" attributes on only a subset of SBML objects. To simplify the work of programmers, libSBML's API provided get, set, check, and unset on the <a class="el" href="class_s_base.html">SBase</a> object class itself instead of on individual subobject classes. This made the get/set/etc. methods uniformly available on all objects in the libSBML API. LibSBML simply returned empty strings or otherwise did not act when the methods were applied to SBML objects that were not defined by the SBML specification to have "id" or "name" attributes. Additional complications arose with the rule and assignment objects: <a class="el" href="class_initial_assignment.html">InitialAssignment</a>, <a class="el" href="class_event_assignment.html">EventAssignment</a>, <a class="el" href="class_assignment_rule.html">AssignmentRule</a>, and <a class="el" href="class_rate_rule.html">RateRule</a>. In early versions of SBML, the rule object hierarchy was different, and in addition, then as now, they possess different attributes: "variable" (for the rules and event assignments), "symbol" (for initial assignments), or neither (for algebraic rules). Prior to SBML Level&#160;3 Version&#160;2, <a class="el" href="class_s_base.html#a129bf432fe076c854d9b6e7f44ed99b8" title="Returns the value of the &quot;id&quot; attribute of this SBML object, if it has one, or the &quot;variable&quot; attribu...">getId()</a> would always return an empty string, and <a class="el" href="class_s_base.html#a78e5ac577ff9cf83d6fc413f5053d705" title="Predicate returning true if a call to getId() returns a non-empty string.">isSetId()</a> would always return <code>false</code> for objects of these classes.</p>
+<p>With the addition of "id" and "name" attributes on <a class="el" href="class_s_base.html">SBase</a> in Level&#160;3 Version&#160;2, it became necessary to introduce a new way to interact with the attributes more consistently in libSBML to avoid breaking backward compatibility in the behavior of the original "id" methods. For this reason, libSBML provides four functions (<a class="el" href="class_s_base.html#ad5ffefa4d9901ca0d55f2343c08bb057" title="Returns the value of the &quot;id&quot; attribute of this SBML object.">getIdAttribute()</a>, <a class="el" href="class_s_base.html#a8a342a0f8387842fb6700c50c4c43344" title="Sets the value of the &quot;id&quot; attribute of this SBML object.">setIdAttribute()</a>, <a class="el" href="class_s_base.html#a9fb99b60d2f2f0427e818187cc6f6ad9" title="Predicate returning true if this object&#39;s &quot;id&quot; attribute is set.">isSetIdAttribute()</a>, and <a class="el" href="class_s_base.html#a1bfd93ef72d0f624964fcfd7a8d5cdfb" title="Unsets the value of the &quot;id&quot; attribute of this SBML object.">unsetIdAttribute()</a>) that always act on the actual "id" attribute inherited from <a class="el" href="class_s_base.html">SBase</a>, regardless of the object's type. <b>These new methods should be used instead of the older <a class="el" href="class_s_base.html#a129bf432fe076c854d9b6e7f44ed99b8" title="Returns the value of the &quot;id&quot; attribute of this SBML object, if it has one, or the &quot;variable&quot; attribu...">getId()</a>/setId()/etc. methods</b> unless the old behavior is somehow necessary. Regardless of the Level and Version of the SBML, these functions allow client applications to use more generalized code in some situations (for instance, when manipulating objects that are all known to have identifiers). If the object in question does not posess an "id" attribute according to the SBML specification for the Level and Version in use, libSBML will not allow the identifier to be set, nor will it read or write "id" attributes for those objects.</p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the "id" attribute of this SBML object is set, <code>false</code> otherwise.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Because of the inconsistent behavior of this function with respect to assignments and rules, it is recommended that callers use <a class="el" href="class_s_base.html#a9fb99b60d2f2f0427e818187cc6f6ad9" title="Predicate returning true if this object&#39;s &quot;id&quot; attribute is set.">isSetIdAttribute()</a> instead.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#ad5ffefa4d9901ca0d55f2343c08bb057" title="Returns the value of the &quot;id&quot; attribute of this SBML object.">getIdAttribute()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a8a342a0f8387842fb6700c50c4c43344" title="Sets the value of the &quot;id&quot; attribute of this SBML object.">setIdAttribute(const std::string&amp; sid)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a1bfd93ef72d0f624964fcfd7a8d5cdfb" title="Unsets the value of the &quot;id&quot; attribute of this SBML object.">unsetIdAttribute()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a9fb99b60d2f2f0427e818187cc6f6ad9" title="Predicate returning true if this object&#39;s &quot;id&quot; attribute is set.">isSetIdAttribute()</a> </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_unit_definition.html#a53edc9e6525be7b7d87589aeffa9ec44">UnitDefinition</a>, <a class="el" href="class_species_type.html#aa8625a133cd9691cc2a158e1b7a033a4">SpeciesType</a>, <a class="el" href="class_species.html#a5fc1a17405879fdf9a346b6364d4064f">Species</a>, <a class="el" href="class_simple_species_reference.html#afb141453f9c7e823d51b909f8362c942">SimpleSpeciesReference</a>, <a class="el" href="class_reaction.html#a37844dbeda4f2691bb1e4d395f997ee2">Reaction</a>, <a class="el" href="class_parameter.html#ac1bbfa34d3577d4763326c4360f5fe2c">Parameter</a>, <a class="el" href="class_spatial_points.html#aa9f249aef371bf9cc0847195bc3414bb">SpatialPoints</a>, <a class="el" href="class_sampled_volume.html#aff2ff619410dfe09ba675bd2a7bd6177">SampledVolume</a>, <a class="el" href="class_sampled_field.html#a1e9a9a8e3033f662b4723678a510bf96">SampledField</a>, <a class="el" href="class_parametric_object.html#a79ba873282f3d7341a84723284dacf11">ParametricObject</a>, <a class="el" href="class_geometry_definition.html#a643738f5f7013148d77b865982339062">GeometryDefinition</a>, <a class="el" href="class_geometry.html#a252d5498012210ff09a69b5825b1f53d">Geometry</a>, <a class="el" href="class_domain_type.html#a51f3fa99b972fef759e8efaa2f496ef6">DomainType</a>, <a class="el" href="class_domain.html#ad3364d530e715680f069a3adc62da15e">Domain</a>, <a class="el" href="class_c_s_g_object.html#ac56ed475c56c6854d5b0ea67c7b2b700">CSGObject</a>, <a class="el" href="class_c_s_g_node.html#abd0d148c574ed702d4bc310c4540cd3a">CSGNode</a>, <a class="el" href="class_coordinate_component.html#a6fe9afb69b8f8dd8e6ccf0ab92e68830">CoordinateComponent</a>, <a class="el" href="class_compartment_mapping.html#afe9560ccc71647d7e71e98d459a83dd4">CompartmentMapping</a>, <a class="el" href="class_boundary.html#aadc11171d88d5164368c3b827e70dd6a">Boundary</a>, <a class="el" href="class_analytic_volume.html#a6e9caeedb6f5d007456b6d02978e63d4">AnalyticVolume</a>, <a class="el" href="class_adjacent_domains.html#ab78d81d2a2452f99a63f52a8ac0a6af6">AdjacentDomains</a>, <a class="el" href="class_style.html#aae9c93f6083e953a7f2a08ba0e24fa75">Style</a>, <a class="el" href="class_render_information_base.html#a379e9585e50de85da1171d7441e259ae">RenderInformationBase</a>, <a class="el" href="class_line_ending.html#a7a21101ce0cf720da2ba6dd9f3424b00">LineEnding</a>, <a class="el" href="class_image.html#a1a48564e1c1026e397637a7554902e15">Image</a>, <a class="el" href="class_graphical_primitive1_d.html#a7fd281e529aeeaadf814113dec4195c9">GraphicalPrimitive1D</a>, <a class="el" href="class_gradient_base.html#a3652884dcd190593710859354c411846">GradientBase</a>, <a class="el" href="class_color_definition.html#a643eda9af393416ca464402e6b496156">ColorDefinition</a>, <a class="el" href="class_transition.html#a1c11a8f5267598bd0bcf95f00cf1ef04">Transition</a>, <a class="el" href="class_qualitative_species.html#a045c1196f40eab640cb6bcf37383c672">QualitativeSpecies</a>, <a class="el" href="class_output.html#a6d29ba0e6dc2b56765c0f044b46084b0">Output</a>, <a class="el" href="class_input.html#afb895c7f44f1d1f222cb47d979762e76">Input</a>, <a class="el" href="class_sub_list_of_species_features.html#a61098fb2151dc74f0c6702282be769f9">SubListOfSpeciesFeatures</a>, <a class="el" href="class_species_type_instance.html#a4a9e807f572e8b5f06bceae1615dbc85">SpeciesTypeInstance</a>, <a class="el" href="class_species_type_component_map_in_product.html#ad8339fb2b7e315e1baef2070fd8756d9">SpeciesTypeComponentMapInProduct</a>, <a class="el" href="class_species_type_component_index.html#a8627c5297d68578c202cd6ffde0c2fc2">SpeciesTypeComponentIndex</a>, <a class="el" href="class_species_feature_type.html#aceb0b3fbc1fa650bdc11fb92aa0bc684">SpeciesFeatureType</a>, <a class="el" href="class_species_feature.html#a0341af1925473527d5cd06be3cdaaa82">SpeciesFeature</a>, <a class="el" href="class_possible_species_feature_value.html#a874611ccb339b0a4b97e27a086e428db">PossibleSpeciesFeatureValue</a>, <a class="el" href="class_outward_binding_site.html#aeaff703e71eadb764ec842ca1082ecb1">OutwardBindingSite</a>, <a class="el" href="class_multi_species_type.html#af0a59f452383bff81ba534d29b30ee5a">MultiSpeciesType</a>, <a class="el" href="class_in_species_type_bond.html#a8a8f37fe5f3e5d4976900308915fa93d">InSpeciesTypeBond</a>, <a class="el" href="class_compartment_reference.html#a158d08baf928107cc69e0725b39f5bd6">CompartmentReference</a>, <a class="el" href="class_point.html#a0b3dea196e4f997ee9bd4ee85c3c8aa4">Point</a>, <a class="el" href="class_layout.html#ac73055df0bf6ed1be566c825df5b5935">Layout</a>, <a class="el" href="class_graphical_object.html#aa96a65c00c46c2612d42e9db18dfb1bd">GraphicalObject</a>, <a class="el" href="class_dimensions.html#a0a0c95f8a05e0c89e4de4d82959a9aa4">Dimensions</a>, <a class="el" href="class_bounding_box.html#a3bbc709131d9a1cb00eda37967c1d459">BoundingBox</a>, <a class="el" href="class_member.html#afc8f61c085c6f7dd658379969b8bea73">Member</a>, <a class="el" href="class_list_of_members.html#a9a84e1063cc30a37aa10c29beb562771">ListOfMembers</a>, <a class="el" href="class_group.html#a009f58d0965d4d47248e489dbccac38a">Group</a>, <a class="el" href="class_user_defined_constraint_component.html#a62716aaa5e910eee635d328e5e93ff1c">UserDefinedConstraintComponent</a>, <a class="el" href="class_user_defined_constraint.html#a595dff7480ef6a21ca0a2baaedc77988">UserDefinedConstraint</a>, <a class="el" href="class_objective.html#a8f9e11ea0546f2c1b1bd33e6a6e464ca">Objective</a>, <a class="el" href="class_key_value_pair.html#a2ea3d274124dfb1d423e0ee24dda1936">KeyValuePair</a>, <a class="el" href="class_gene_product_ref.html#af381247c1e38cf3a8e3a7f2012f86061">GeneProductRef</a>, <a class="el" href="class_gene_product_association.html#ac90d5a07254e09c182bbef5071e7e9e1">GeneProductAssociation</a>, <a class="el" href="class_gene_product.html#a638b97e0651bc409edf7ed3963be77eb">GeneProduct</a>, <a class="el" href="class_gene_association.html#aaa550485a1d241a5c0869850d7d2a0ea">GeneAssociation</a>, <a class="el" href="class_flux_objective.html#ac06152b5581c2ea7eaa2ff69004031f5">FluxObjective</a>, <a class="el" href="class_flux_bound.html#ab6b4913ad3b0d25878395abb8b96a32c">FluxBound</a>, <a class="el" href="class_submodel.html#abb1866ce6eec45f4de9923c8c452b2a5">Submodel</a>, <a class="el" href="class_port.html#a08c78e752222a52f453bee0cc705df74">Port</a>, <a class="el" href="class_external_model_definition.html#ac0e8ce2fbcadcf16b6cbb43c2e19527d">ExternalModelDefinition</a>, <a class="el" href="class_deletion.html#afc9ff342ebee8452748d684486b2ec44">Deletion</a>, <a class="el" href="class_model.html#ae9a90c5f7f69760983ed2579b14e68ce">Model</a>, <a class="el" href="class_function_definition.html#ad46bbafb96f580198e15230cb59b3146">FunctionDefinition</a>, <a class="el" href="class_event.html#ad3c965dad2f26af92402a3dc249de7e2">Event</a>, <a class="el" href="class_compartment_type.html#a25f69fc3a49322f125850c1a91c869b1">CompartmentType</a>, and <a class="el" href="class_compartment.html#a8a1c2b5aa36c18639f95cdb357dd3c98">Compartment</a>.</p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="get_all_elements_with_notes_8cpp-example.html#a3">getAllElementsWithNotes.cpp</a>, <a class="el" href="print_annotation_8cpp-example.html#a2">printAnnotation.cpp</a>, <a class="el" href="print_notes_8cpp-example.html#a2">printNotes.cpp</a>, <a class="el" href="set_id_from_names_8cpp-example.html#a11">setIdFromNames.cpp</a>, and <a class="el" href="set_names_from_ids_8cpp-example.html#a4">setNamesFromIds.cpp</a>.</dd>
@@ -3932,6 +4094,18 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 </div><div class="memdoc">
 
 <p>Predicate returning <code>true</code> if this object's "name" attribute is set. </p>
+<dl class="section user"><dt></dt><dd>In SBML Level&#160;3 Version&#160;2, the "id" and "name" attributes were moved to <a class="el" href="class_s_base.html">SBase</a> directly, instead of being defined individually for many (but not all) objects. LibSBML has for a long time provided functions defined on <a class="el" href="class_s_base.html">SBase</a> itself to get, set, and unset those attributes, which would fail or otherwise return empty strings if executed on any object for which those attributes were not defined. Now that all <a class="el" href="class_s_base.html">SBase</a> objects define those attributes, those functions now succeed for any object with the appropriate level and version.</dd></dl>
+<p>The "name" attribute is optional and is not intended to be used for cross-referencing purposes within a model. Its purpose instead is to provide a human-readable label for the component. The data type of "name" is the type <code>string</code> defined in XML Schema. SBML imposes no restrictions as to the content of "name" attributes beyond those restrictions defined by the <code>string</code> type in XML Schema.</p>
+<p>The recommended practice for handling "name" is as follows. If a software tool has the capability for displaying the content of "name" attributes, it should display this content to the user as a component's label instead of the component's "id". If the user interface does not have this capability (e.g., because it cannot display or use special characters in symbol names), or if the "name" attribute is missing on a given component, then the user interface should display the value of the "id" attribute instead. (Script language interpreters are especially likely to display "id" instead of "name".)</p>
+<p>As a consequence of the above, authors of systems that automatically generate the values of "id" attributes should be aware some systems may display the "id"'s to the user. Authors therefore may wish to take some care to have their software create "id" values that are: (a) reasonably easy for humans to type and read; and (b) likely to be meaningful, for example by making the "id" attribute be an abbreviated form of the name attribute value.</p>
+<p>An additional point worth mentioning is although there are restrictions on the uniqueness of "id" values, there are no restrictions on the uniqueness of "name" values in a model. This allows software applications leeway in assigning component identifiers.</p>
+<p>Regardless of the level and version of the SBML, these functions allow client applications to use more generalized code in some situations (for instance, when manipulating objects that are all known to have names). If the object in question does not posess a "name" attribute according to the SBML specification for the Level and Version in use, libSBML will not allow the name to be set, nor will it read or write "name" attributes for those objects.</p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the "name" attribute of this SBML object is set, <code>false</code> otherwise.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a90e4753ab8d4611987557b4d64129529" title="Returns the value of the &quot;name&quot; attribute of this SBML object.">getName()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a1531f729b16689aba3fb7f3567202a7c" title="Sets the value of the &quot;name&quot; attribute of this SBML object.">setName(const std::string&amp; sid)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a4cf8825fb83925a508eaac3d7f8fbb8c" title="Unsets the value of the &quot;name&quot; attribute of this SBML object.">unsetName()</a> </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_unit_definition.html#a65a6a1e1210fc96bae53be4c5cd7acf3">UnitDefinition</a>, <a class="el" href="class_species_type.html#a4c001d37f8e48603cab2cb2c3a59a523">SpeciesType</a>, <a class="el" href="class_species.html#ab4cf8b422d5f5caf1bd17b7c8d2fc301">Species</a>, <a class="el" href="class_simple_species_reference.html#a40bc30932b590d09bc2e27a83a6e3bb8">SimpleSpeciesReference</a>, <a class="el" href="class_reaction.html#a011a5d3d63551b2eee0354e4fc22c131">Reaction</a>, <a class="el" href="class_parameter.html#ac8a9572be596f3a1345603b3189e2c0f">Parameter</a>, <a class="el" href="class_spatial_points.html#a69411e44da70ed35b9c664cc929c6230">SpatialPoints</a>, <a class="el" href="class_sampled_volume.html#a3d60dbd047cf97d172ea9d422a0084a1">SampledVolume</a>, <a class="el" href="class_sampled_field.html#a72faaefea460402468ba921290a33326">SampledField</a>, <a class="el" href="class_parametric_object.html#aecfff5e404cef8d6b92a8c471cfabdba">ParametricObject</a>, <a class="el" href="class_geometry_definition.html#abc0730fe35d113b940cd3f98e886d2ea">GeometryDefinition</a>, <a class="el" href="class_domain_type.html#aaa24045153834327f5244ad9300c9536">DomainType</a>, <a class="el" href="class_domain.html#a4c968d2f7b2bf9952e54e19e645ca038">Domain</a>, <a class="el" href="class_c_s_g_object.html#a061c5941099ffaf5476615ab3a226298">CSGObject</a>, <a class="el" href="class_c_s_g_node.html#a62ad02a29d018d036979c7014d3fdbfc">CSGNode</a>, <a class="el" href="class_coordinate_component.html#aa5581147c4c0585ba800a7c90d9e96a1">CoordinateComponent</a>, <a class="el" href="class_compartment_mapping.html#ad464933f46f812192793085ea6890509">CompartmentMapping</a>, <a class="el" href="class_boundary.html#add892d39ad39d7e64e537114ef7e3edf">Boundary</a>, <a class="el" href="class_analytic_volume.html#ab2e57ec9ade082d77f1dc0999d514f21">AnalyticVolume</a>, <a class="el" href="class_adjacent_domains.html#a08d8589dc1388748c106f772e5bac2ee">AdjacentDomains</a>, <a class="el" href="class_transformation.html#a742215bbe0cc2204b09e45ee649e28c8">Transformation</a>, <a class="el" href="class_style.html#ac0f27c631a5c207f5467787ddd4d83a5">Style</a>, <a class="el" href="class_render_information_base.html#a887a4d2c8bed05b496956d9967b3b2c6">RenderInformationBase</a>, <a class="el" href="class_gradient_base.html#a8e7651a95b8c5c8025f1a60a02dc8182">GradientBase</a>, <a class="el" href="class_color_definition.html#ab1f1a8bf932ac8455207a0606b213d46">ColorDefinition</a>, <a class="el" href="class_transition.html#a022b9fa68706ae221d14afe881064f6d">Transition</a>, <a class="el" href="class_qualitative_species.html#a04f1b7584928e8cb05a1aad9ee5b30a6">QualitativeSpecies</a>, <a class="el" href="class_output.html#a462f3a9c935c3785f05ac525b0f0c566">Output</a>, <a class="el" href="class_input.html#ac8bbccbbee79087d455c59971e596975">Input</a>, <a class="el" href="class_sub_list_of_species_features.html#a4802f5ceba63d814d5fc62ea6744ea92">SubListOfSpeciesFeatures</a>, <a class="el" href="class_species_type_instance.html#ae6c3b0f5671d856e6cc31b631d71f502">SpeciesTypeInstance</a>, <a class="el" href="class_species_type_component_map_in_product.html#a2989239a814d3c2dd117d7fb8c89569b">SpeciesTypeComponentMapInProduct</a>, <a class="el" href="class_species_type_component_index.html#aa00e2a559c1c36c3c4c453e2e07dcb01">SpeciesTypeComponentIndex</a>, <a class="el" href="class_species_feature_type.html#a36dae05f0a5d232d31ff00006aca92d9">SpeciesFeatureType</a>, <a class="el" href="class_species_feature.html#ae3121fb9bb3fd9aeb3b6ec92b94535f5">SpeciesFeature</a>, <a class="el" href="class_possible_species_feature_value.html#a4b194379d8659a5b77ebb675e7a5fbb4">PossibleSpeciesFeatureValue</a>, <a class="el" href="class_outward_binding_site.html#a2216799ce6fcd08e96544f9b0009dbcc">OutwardBindingSite</a>, <a class="el" href="class_multi_species_type.html#a9dcf9e5beb697d10e52897662a1f9197">MultiSpeciesType</a>, <a class="el" href="class_in_species_type_bond.html#a95ccf1494281ce94fa03ca2d0b444d47">InSpeciesTypeBond</a>, <a class="el" href="class_compartment_reference.html#a736ba565a88d972b5925aded1790b1d7">CompartmentReference</a>, <a class="el" href="class_layout.html#a8394b1ca2b0d727cc718d7b8b4138916">Layout</a>, <a class="el" href="class_member.html#ab866cd5cadb85d5e1cfa71bc85b86ce3">Member</a>, <a class="el" href="class_list_of_members.html#a949250141223a5a0ecece2fdb9779e01">ListOfMembers</a>, <a class="el" href="class_group.html#ac2646658903af83a62af6c8ee58c24b7">Group</a>, <a class="el" href="class_user_defined_constraint_component.html#a90381d1bb910fdcfbe137fb5a8675b29">UserDefinedConstraintComponent</a>, <a class="el" href="class_user_defined_constraint.html#a230135d285ca189b70b1096827b47773">UserDefinedConstraint</a>, <a class="el" href="class_objective.html#a14f4e4763f30efd3ab0ee83bf53d7feb">Objective</a>, <a class="el" href="class_key_value_pair.html#aa9f5330be999caf531c48ec79f760e26">KeyValuePair</a>, <a class="el" href="class_gene_product_ref.html#a032fc3fcd9f65c9dd4cdca8eba359551">GeneProductRef</a>, <a class="el" href="class_gene_product_association.html#ae0e9a07a667e9d9abb3012689f1ecad6">GeneProductAssociation</a>, <a class="el" href="class_gene_product.html#af19108e58c0b1ba0f477a72f3c708606">GeneProduct</a>, <a class="el" href="class_flux_objective.html#a25a510c2bdcb27f39e59d78407b8c5a7">FluxObjective</a>, <a class="el" href="class_flux_bound.html#aaf410effca27dad411f8bee74384e5f0">FluxBound</a>, <a class="el" href="class_submodel.html#a98bd8c8b04b89fef172bf17c95294c8f">Submodel</a>, <a class="el" href="class_port.html#a6af18899544b6367699f3524754d5707">Port</a>, <a class="el" href="class_external_model_definition.html#a9da95f364a159fa1496c604d1a3e0b35">ExternalModelDefinition</a>, <a class="el" href="class_deletion.html#a1dee595a6f1548ba00bff49c2feee516">Deletion</a>, <a class="el" href="class_model.html#aa0c315424f527945e40d9a48a530b786">Model</a>, <a class="el" href="class_function_definition.html#adb961ead9ec123abd6e9459b25eb95b9">FunctionDefinition</a>, <a class="el" href="class_event.html#adc32b2b1f7e3ed09ea1a72cc2f568837">Event</a>, <a class="el" href="class_compartment_type.html#adabeda77574c00de9df726c6e5591d0a">CompartmentType</a>, and <a class="el" href="class_compartment.html#a7a64652736c90e890056a6680c696e5c">Compartment</a>.</p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="set_id_from_names_8cpp-example.html#a4">setIdFromNames.cpp</a>.</dd>
@@ -4335,9 +4509,10 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 <p>Removes all items in this <a class="el" href="class_list_of.html">ListOf</a> object and deletes its properties too. </p>
 <p>This performs a call to <a class="el" href="class_list_of.html#a3baf92c1e6966fdda8b78ecc09ab020a" title="Removes all items in this ListOf object.">clear()</a> with an argument of <code>true</code> (thus removing all the child objects in the list), followed by calls to various libSBML <code>unset<em>Foo</em></code> methods to delete everything else: <a class="el" href="class_c_v_term.html">CVTerm</a> objects, model history objects, etc.</p>
 <p>Implementations of subclasses of <a class="el" href="class_list_of.html">ListOf</a> may need to override this method if different handling of child objects is needed.</p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 </ul>
+</dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_base.html#ae431ca4044e40e1fe8e0ff4136dce838">SBase</a>.</p>
 
@@ -4394,9 +4569,16 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dae07dbe0754cce77c772d3f19e257101e">LIBSBML_ANNOTATION_NAME_NOT_FOUND</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daa4232e6e18957883269dc412ad7a0479">LIBSBML_ANNOTATION_NS_NOT_FOUND</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a14876bd1b05a660593ed2cf46aece3ee" title="Replaces the given top-level element within the &quot;annotation&quot; subelement of this SBML object and with ...">replaceTopLevelAnnotationElement(const XMLNode *)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a21580da1d75f4782effcc57b45ed37c8" title="Replaces the given top-level element within the &quot;annotation&quot; subelement of this SBML object and with ...">replaceTopLevelAnnotationElement(const std::string&amp;)</a> </dd></dl>
 
 </div>
 </div>
@@ -4555,9 +4737,15 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>removeTopLevelAnnotationElement(const std::string elementName, const std::string elementURI) </dd>
+<dd>
+<a class="el" href="class_s_base.html#a14876bd1b05a660593ed2cf46aece3ee" title="Replaces the given top-level element within the &quot;annotation&quot; subelement of this SBML object and with ...">replaceTopLevelAnnotationElement(const XMLNode*)</a> </dd></dl>
 
 </div>
 </div>
@@ -4594,9 +4782,15 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>removeTopLevelAnnotationElement(const std::string elementName, const std::string elementURI, bool removeEmpty) </dd>
+<dd>
+<a class="el" href="class_s_base.html#a21580da1d75f4782effcc57b45ed37c8" title="Replaces the given top-level element within the &quot;annotation&quot; subelement of this SBML object and with ...">replaceTopLevelAnnotationElement(const std::string&amp;)</a> </dd></dl>
 
 </div>
 </div>
@@ -4635,9 +4829,22 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#adbff50c6c73c044a5c8e29e6b5dcefc6" title="Returns the content of the &quot;annotation&quot; subelement of this object as a character string.">getAnnotationString()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a5af865a159b3b1c5a16729bce7e4e3c2" title="Predicate returning true if this object&#39;s &quot;annotation&quot; subelement exists and has content.">isSetAnnotation()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a11d9c02a3690d9a13362835ef0133125" title="Sets the value of the &quot;annotation&quot; subelement of this SBML object.">setAnnotation(const XMLNode* annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#accc96fb06a79df769eb3669e090771e5" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">appendAnnotation(const XMLNode* annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a118148398f5c626bf9697887296f97b8" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">appendAnnotation(const std::string&amp; annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a9121d6a4f7401fe957cc75647a1e95ed" title="Unsets the value of the &quot;annotation&quot; subelement of this SBML object.">unsetAnnotation()</a> </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_species_reference.html#ad133502b17eca429ec748537b6bb875a">SpeciesReference</a>, and <a class="el" href="class_model.html#a99d849cf4973bd4eef2dc69a16c69a75">Model</a>.</p>
 
@@ -4678,9 +4885,21 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#adbff50c6c73c044a5c8e29e6b5dcefc6" title="Returns the content of the &quot;annotation&quot; subelement of this object as a character string.">getAnnotationString()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a5af865a159b3b1c5a16729bce7e4e3c2" title="Predicate returning true if this object&#39;s &quot;annotation&quot; subelement exists and has content.">isSetAnnotation()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a75b1541bd854ad7edfe0aff79ab3231f" title="Sets the value of the &quot;annotation&quot; subelement of this SBML object.">setAnnotation(const std::string&amp; annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#accc96fb06a79df769eb3669e090771e5" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">appendAnnotation(const XMLNode* annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a118148398f5c626bf9697887296f97b8" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">appendAnnotation(const std::string&amp; annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a9121d6a4f7401fe957cc75647a1e95ed" title="Unsets the value of the &quot;annotation&quot; subelement of this SBML object.">unsetAnnotation()</a> </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_species_reference.html#a53cdf5197ae654bad28316f3cea03f69">SpeciesReference</a>, and <a class="el" href="class_model.html#a440da667491f2a78fa305460a63471a5">Model</a>.</p>
 
@@ -4761,9 +4980,19 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da2018dcd1ec4e8d61debae043b1697d4e">LIBSBML_INVALID_ATTRIBUTE_VALUE</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da354242392bc8b59872de6bd6d0a3b9fb">LIBSBML_UNEXPECTED_ATTRIBUTE</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#ad5ffefa4d9901ca0d55f2343c08bb057" title="Returns the value of the &quot;id&quot; attribute of this SBML object.">getIdAttribute()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a8a342a0f8387842fb6700c50c4c43344" title="Sets the value of the &quot;id&quot; attribute of this SBML object.">setIdAttribute(const std::string&amp; sid)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a9fb99b60d2f2f0427e818187cc6f6ad9" title="Predicate returning true if this object&#39;s &quot;id&quot; attribute is set.">isSetIdAttribute()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a1bfd93ef72d0f624964fcfd7a8d5cdfb" title="Unsets the value of the &quot;id&quot; attribute of this SBML object.">unsetIdAttribute()</a> </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_unit_definition.html#a6dfedd750842ff04e2dde978aa33c1a5">UnitDefinition</a>, <a class="el" href="class_species_type.html#a9d728c1b32339676da064d04636e6001">SpeciesType</a>, <a class="el" href="class_species.html#ac1f8c4724b30a8a060056dfe61528480">Species</a>, <a class="el" href="class_simple_species_reference.html#a0dd1592deacb767a8a41fb8551714c0c">SimpleSpeciesReference</a>, <a class="el" href="class_reaction.html#a40d7d4448dcf3682e40636a49f45f69f">Reaction</a>, <a class="el" href="class_parameter.html#ae159bda5492c97ef1ee62cf184f49e1d">Parameter</a>, <a class="el" href="class_transition.html#a369f6db401f51aa02ba5e9d1830410c7">Transition</a>, <a class="el" href="class_qualitative_species.html#a150e945cc098baa098ed8c8b6d4d06f5">QualitativeSpecies</a>, <a class="el" href="class_output.html#a187d963c3d00617e49144a0f0f98b457">Output</a>, <a class="el" href="class_input.html#a58280a67168d7d467907eb03a86b69da">Input</a>, <a class="el" href="class_point.html#a4eb592d99601f924f7a4f4c27f78a631">Point</a>, <a class="el" href="class_layout.html#a3448f07e3102e4c88c056e87f2643e3e">Layout</a>, <a class="el" href="class_graphical_object.html#a9111014eaaac093f844f483513ca4159">GraphicalObject</a>, <a class="el" href="class_dimensions.html#aa061b33e451431b8cf44ad40f5f40177">Dimensions</a>, <a class="el" href="class_bounding_box.html#a4dd3eb497a63953e56dbdc50cfaf9dfd">BoundingBox</a>, <a class="el" href="class_objective.html#a0167b9a7a0b15cef34522d6c09a3e245">Objective</a>, <a class="el" href="class_gene_product_ref.html#a276783d55020dcd073501ddf57314132">GeneProductRef</a>, <a class="el" href="class_gene_product_association.html#a32321dc0989edaa6038d52a231adf78b">GeneProductAssociation</a>, <a class="el" href="class_gene_product.html#a35529f3d9ef83df01b8d304f3c8bfb58">GeneProduct</a>, <a class="el" href="class_gene_association.html#ae1a0f8b471ac61ccbd3f14d10998eac3">GeneAssociation</a>, <a class="el" href="class_flux_objective.html#add4419a8a622f93677b2914b6fa347a8">FluxObjective</a>, <a class="el" href="class_flux_bound.html#a34a5cc84a97a906f5f4c191dc7771a2c">FluxBound</a>, <a class="el" href="class_submodel.html#ac26090f1eff3814381804e3761687fa2">Submodel</a>, <a class="el" href="class_port.html#a39c95e6cfeab647e039befb310dfb6c6">Port</a>, <a class="el" href="class_external_model_definition.html#a02ef309367a118e03c371941971f5d9c">ExternalModelDefinition</a>, <a class="el" href="class_deletion.html#a99c7786fa5cdf7ab1c760feb8c089a71">Deletion</a>, <a class="el" href="class_model.html#a9f5805553e7d385ced27c4065fa190fe">Model</a>, <a class="el" href="class_function_definition.html#ad1ea568b801d10c6905166f9092a681c">FunctionDefinition</a>, <a class="el" href="class_event.html#a1ce30dd3deb24348c0d8d0b7251dd6b6">Event</a>, <a class="el" href="class_compartment_type.html#a57e0dae1d3161c217e7b682d0cca5d00">CompartmentType</a>, <a class="el" href="class_compartment.html#adcf670534ab78dc0f42140a399f91935">Compartment</a>, <a class="el" href="class_spatial_points.html#ad1551ff449a10a9db645ddd17f5d069a">SpatialPoints</a>, <a class="el" href="class_sampled_volume.html#a6c79378d58f6b35ce66992d7534df1cb">SampledVolume</a>, <a class="el" href="class_sampled_field.html#a6f82f374e19c3f9b39002fc3c578a76b">SampledField</a>, <a class="el" href="class_parametric_object.html#a62dfd14cd9a06c9c95bd3ec0da5038d9">ParametricObject</a>, <a class="el" href="class_geometry_definition.html#a3c63836a0461114785efec3c3fec0a4c">GeometryDefinition</a>, <a class="el" href="class_geometry.html#ad200dbf3eb94fa4fd08f0fccfecfe724">Geometry</a>, <a class="el" href="class_domain_type.html#a863f4ec032c6f066bd81570b80055db2">DomainType</a>, <a class="el" href="class_domain.html#a00ecf111554f11d8a2e49e47178cdb51">Domain</a>, <a class="el" href="class_c_s_g_object.html#a63c3300078519ceb6397bc2b2263ddee">CSGObject</a>, <a class="el" href="class_c_s_g_node.html#a4b50e6d80dde3c2195868e13668f1e47">CSGNode</a>, <a class="el" href="class_coordinate_component.html#a22048ad0ed9cfea6a3e656ee311df437">CoordinateComponent</a>, <a class="el" href="class_compartment_mapping.html#aa1684f2c5eeb78d40a3e8fe601f49981">CompartmentMapping</a>, <a class="el" href="class_boundary.html#aac0c54e534b29a82e71d1c01856c7d4f">Boundary</a>, <a class="el" href="class_analytic_volume.html#aaf0b34247ce821d276d1f3356616fc4c">AnalyticVolume</a>, <a class="el" href="class_adjacent_domains.html#a673dfde0e989ed805ab9b4c3063b306a">AdjacentDomains</a>, <a class="el" href="class_style.html#a7662cfc9a4db5ef2d4f917e6f9568b19">Style</a>, <a class="el" href="class_render_information_base.html#a2165e5b67627a125b3421bfaac982fb7">RenderInformationBase</a>, <a class="el" href="class_line_ending.html#a0eacae34c20da16074913acb0060668f">LineEnding</a>, <a class="el" href="class_image.html#ab42914f4b19629bbb1d5950de198738e">Image</a>, <a class="el" href="class_graphical_primitive1_d.html#a2c1618200dd567b4dc1c82252ee5ac04">GraphicalPrimitive1D</a>, <a class="el" href="class_gradient_base.html#af6a17c206608fd36f06e63bd8c2101a0">GradientBase</a>, <a class="el" href="class_color_definition.html#ad44c2676d6cc97fdc434a8a9fb2d09b4">ColorDefinition</a>, <a class="el" href="class_sub_list_of_species_features.html#a07f20d03896e0b077c3a10a0e8dbe94b">SubListOfSpeciesFeatures</a>, <a class="el" href="class_species_type_instance.html#a291f41fa4ba10498a13a384fccda40ec">SpeciesTypeInstance</a>, <a class="el" href="class_species_type_component_map_in_product.html#a409445c6b1cfcd53edeee74c2f8ce4de">SpeciesTypeComponentMapInProduct</a>, <a class="el" href="class_species_type_component_index.html#a60ac570cf4c26d1c811e9276800ed3de">SpeciesTypeComponentIndex</a>, <a class="el" href="class_species_feature_type.html#a0798a02962ee1991b1d995554878e3b6">SpeciesFeatureType</a>, <a class="el" href="class_species_feature.html#a4292527850a05daf668c5df0d40b37ce">SpeciesFeature</a>, <a class="el" href="class_possible_species_feature_value.html#a5a4fe8b22ed625abbd816238f0a662fe">PossibleSpeciesFeatureValue</a>, <a class="el" href="class_outward_binding_site.html#a91c3366517e9b4e847f9f3cab13aea73">OutwardBindingSite</a>, <a class="el" href="class_multi_species_type.html#a08160cd30b1ce65b96df2272d532d3a5">MultiSpeciesType</a>, <a class="el" href="class_in_species_type_bond.html#a4eec55e5e63166affcb26c7bd64da6cb">InSpeciesTypeBond</a>, <a class="el" href="class_compartment_reference.html#a07821fa85fa5cbc86c4f6e3388b26da0">CompartmentReference</a>, <a class="el" href="class_member.html#a1ad0d6960adcf73a041e7f4fc2efe9cb">Member</a>, <a class="el" href="class_list_of_members.html#a5a53742760fd6dc36d7fffe3604eb7ef">ListOfMembers</a>, <a class="el" href="class_group.html#ace4b70102e43ab0f8bc062642719e469">Group</a>, <a class="el" href="class_user_defined_constraint_component.html#ac17bbafe16a2680b82cd1e85c14e0e73">UserDefinedConstraintComponent</a>, <a class="el" href="class_user_defined_constraint.html#a4ce9e3a2f15bb6ee9da3f96715e5d14e">UserDefinedConstraint</a>, and <a class="el" href="class_key_value_pair.html#a27bb674f12745dfbd7317c3f859928f5">KeyValuePair</a>.</p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="rename_s_id_8cpp-example.html#a9">renameSId.cpp</a>, and <a class="el" href="set_id_from_names_8cpp-example.html#a7">setIdFromNames.cpp</a>.</dd>
@@ -4811,9 +5040,19 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da2018dcd1ec4e8d61debae043b1697d4e">LIBSBML_INVALID_ATTRIBUTE_VALUE</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da354242392bc8b59872de6bd6d0a3b9fb">LIBSBML_UNEXPECTED_ATTRIBUTE</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#ad5ffefa4d9901ca0d55f2343c08bb057" title="Returns the value of the &quot;id&quot; attribute of this SBML object.">getIdAttribute()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a8a342a0f8387842fb6700c50c4c43344" title="Sets the value of the &quot;id&quot; attribute of this SBML object.">setIdAttribute(const std::string&amp; sid)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a9fb99b60d2f2f0427e818187cc6f6ad9" title="Predicate returning true if this object&#39;s &quot;id&quot; attribute is set.">isSetIdAttribute()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a1bfd93ef72d0f624964fcfd7a8d5cdfb" title="Unsets the value of the &quot;id&quot; attribute of this SBML object.">unsetIdAttribute()</a> </dd></dl>
 
 </div>
 </div>
@@ -4850,9 +5089,15 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da2018dcd1ec4e8d61debae043b1697d4e">LIBSBML_INVALID_ATTRIBUTE_VALUE</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da354242392bc8b59872de6bd6d0a3b9fb">LIBSBML_UNEXPECTED_ATTRIBUTE</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a2880c1c6a2df519371637a9234ed68a4" title="Returns the value of the &quot;metaid&quot; attribute of this SBML object.">getMetaId()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a7b43de27cb29136954af762fa91d4842" title="Predicate returning true if this object&#39;s &quot;metaid&quot; attribute is set.">isSetMetaId()</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="adding_evidence_codes_1_8cpp-example.html#a9">addingEvidenceCodes_1.cpp</a>, and <a class="el" href="adding_evidence_codes_2_8cpp-example.html#a9">addingEvidenceCodes_2.cpp</a>.</dd>
 </dl>
 
@@ -4890,9 +5135,13 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da354242392bc8b59872de6bd6d0a3b9fb">LIBSBML_UNEXPECTED_ATTRIBUTE</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a></li>
 </ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>In SBML Level&#160;2, model history annotations were only permitted on the <a class="el" href="class_model.html">Model</a> element. In SBML Level&#160;3, they are permitted on all SBML components derived from <a class="el" href="class_s_base.html">SBase</a>. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="add_model_history_8cpp-example.html#a18">addModelHistory.cpp</a>.</dd>
 </dl>
 
@@ -4923,6 +5172,19 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 </div><div class="memdoc">
 
 <p>Sets the value of the "name" attribute of this SBML object. </p>
+<dl class="section user"><dt></dt><dd></dd></dl>
+<p>The string in <code>name</code> is copied.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>the new name for the SBML object.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da2018dcd1ec4e8d61debae043b1697d4e">LIBSBML_INVALID_ATTRIBUTE_VALUE</a> </li>
+</ul>
+</dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_unit_definition.html#a185893661f6b8c2eec820be41e7c47ff">UnitDefinition</a>, <a class="el" href="class_species_type.html#a94009657f921728b0b01a3a303875d06">SpeciesType</a>, <a class="el" href="class_species.html#a6c3d6dd31a1dba80c21b1dbcc1d8d30a">Species</a>, <a class="el" href="class_simple_species_reference.html#a9dbb10fa6c343f520d5214d7b13a6b3d">SimpleSpeciesReference</a>, <a class="el" href="class_reaction.html#a27417ed3d01cc64642d1f5dfbc1537ad">Reaction</a>, <a class="el" href="class_parameter.html#a2dd95fab703bf22868b5495712f6c9c3">Parameter</a>, <a class="el" href="class_spatial_points.html#a2e7a866af4910b59c34855108d86d73a">SpatialPoints</a>, <a class="el" href="class_sampled_volume.html#a5b60012fb9146a3ec9ba3c0040762324">SampledVolume</a>, <a class="el" href="class_sampled_field.html#addc7fd36037a3c1a77a9a427107c7dd6">SampledField</a>, <a class="el" href="class_parametric_object.html#a6e738354038bc35324fd6d68be34cafd">ParametricObject</a>, <a class="el" href="class_geometry_definition.html#a5e1a219bdf9adaef085aa2f7fc46f3b5">GeometryDefinition</a>, <a class="el" href="class_domain_type.html#aff89de53f89c2c1e4b8e9768cfe49aba">DomainType</a>, <a class="el" href="class_domain.html#a9b416007b6b2f97d76acd73e75c1ac9a">Domain</a>, <a class="el" href="class_c_s_g_object.html#a2aa1fe41a5b570d4a0bafd6f14fd9fc3">CSGObject</a>, <a class="el" href="class_c_s_g_node.html#af0a5af783665d7572593b2733f428a53">CSGNode</a>, <a class="el" href="class_coordinate_component.html#af759c8268930f55b96258265e1cfd076">CoordinateComponent</a>, <a class="el" href="class_compartment_mapping.html#aef08443ab181e22f71fca48864a155bf">CompartmentMapping</a>, <a class="el" href="class_boundary.html#af0e3f97f91021acf3c54b73181445a33">Boundary</a>, <a class="el" href="class_analytic_volume.html#a2df2e910b56ca82639a6aad2ad469b09">AnalyticVolume</a>, <a class="el" href="class_adjacent_domains.html#a4104f94709fa37b5538b538f637c8fb1">AdjacentDomains</a>, <a class="el" href="class_transformation.html#a8016b3652527de00a30edb16f054427c">Transformation</a>, <a class="el" href="class_style.html#ae4286717d30d86d608ed83dd46085e95">Style</a>, <a class="el" href="class_render_information_base.html#ab4c15cbd303315f4efbd2ccd8607b3ea">RenderInformationBase</a>, <a class="el" href="class_gradient_base.html#a47641d95dbec17e052aa1ec0e3155148">GradientBase</a>, <a class="el" href="class_color_definition.html#a650dc71eef4b451810e35e7ad57b4bd7">ColorDefinition</a>, <a class="el" href="class_transition.html#af9aa9d4d2c1c3513048fecfa82e0816c">Transition</a>, <a class="el" href="class_qualitative_species.html#adbfdfe06ac14097cabbcc085fcc10309">QualitativeSpecies</a>, <a class="el" href="class_output.html#aa418c7d5fc6cd750921c42eb6a19c832">Output</a>, <a class="el" href="class_input.html#a7a949e1389b647a20770bbd68f8825ed">Input</a>, <a class="el" href="class_sub_list_of_species_features.html#a70d9b12d4e8702a60d36d80914d81323">SubListOfSpeciesFeatures</a>, <a class="el" href="class_species_type_instance.html#a9d576b832889845888058c3902ddd6f1">SpeciesTypeInstance</a>, <a class="el" href="class_species_type_component_map_in_product.html#a3df343b2dbc4a855f8ac98693a8a8874">SpeciesTypeComponentMapInProduct</a>, <a class="el" href="class_species_type_component_index.html#a5e88ff908b0df9274633b6bf337e61d2">SpeciesTypeComponentIndex</a>, <a class="el" href="class_species_feature_type.html#a785f99fb6881449e6326d559d221fec5">SpeciesFeatureType</a>, <a class="el" href="class_species_feature.html#a4630dc428814d6992fb39bb6ba1cb3fd">SpeciesFeature</a>, <a class="el" href="class_possible_species_feature_value.html#aeaa0eb43bd2f673d53b8441295332901">PossibleSpeciesFeatureValue</a>, <a class="el" href="class_outward_binding_site.html#a2108455c838a73b93678f1032c8f68de">OutwardBindingSite</a>, <a class="el" href="class_multi_species_type.html#a57cc29870155baf355efcdd1c2ca2629">MultiSpeciesType</a>, <a class="el" href="class_in_species_type_bond.html#ab4eb64d87e0ab9e6e9ddd08dae79f3a7">InSpeciesTypeBond</a>, <a class="el" href="class_compartment_reference.html#a9554ce5720cb196f743fbb27a873d365">CompartmentReference</a>, <a class="el" href="class_layout.html#ad577378f40dab2c6aa5ff347a8c76b74">Layout</a>, <a class="el" href="class_member.html#a6d084cba4ac24ce53fbd4445b8433313">Member</a>, <a class="el" href="class_list_of_members.html#a772bdc795855213ca491e9e5d03e2d56">ListOfMembers</a>, <a class="el" href="class_group.html#ac24ce84e8ef8e1de7294bfda5793b5ba">Group</a>, <a class="el" href="class_user_defined_constraint_component.html#adc60dd44dffa4a6beb74e99623436df4">UserDefinedConstraintComponent</a>, <a class="el" href="class_user_defined_constraint.html#af7aa347309c5d53fe6fb540dc5f2565d">UserDefinedConstraint</a>, <a class="el" href="class_objective.html#a8ce0ae5e1b61b8f06d6fee623b140e5c">Objective</a>, <a class="el" href="class_key_value_pair.html#ad7cd69213fcc90a2cfdcf3d1930c6647">KeyValuePair</a>, <a class="el" href="class_gene_product_ref.html#ae7bc0695d1ebf73799c07669d9a1cdfd">GeneProductRef</a>, <a class="el" href="class_gene_product_association.html#a5b40def0f33bd60494ed53c00aff3077">GeneProductAssociation</a>, <a class="el" href="class_gene_product.html#affc141586a789f5cab545d8a8293c3d9">GeneProduct</a>, <a class="el" href="class_flux_objective.html#a75075b249c53f9942bb58282510d0d9b">FluxObjective</a>, <a class="el" href="class_flux_bound.html#a5eea411a945c6d0b829eafa0a30dfbdd">FluxBound</a>, <a class="el" href="class_submodel.html#afa12dad44828cae29525bbfa772305d1">Submodel</a>, <a class="el" href="class_port.html#af325b7b99cc219de482f72613a21a305">Port</a>, <a class="el" href="class_external_model_definition.html#a0fb0f0deb6bea053f830ae06c68a275d">ExternalModelDefinition</a>, <a class="el" href="class_deletion.html#ab05ca65610c8aea2ae6bb9849baae9ae">Deletion</a>, <a class="el" href="class_model.html#aa9f4b34956328dece618208f1f61f8e8">Model</a>, <a class="el" href="class_function_definition.html#a78ace3d92393d08650e2e5ff8907a5a0">FunctionDefinition</a>, <a class="el" href="class_event.html#af1aafdffb3d1969cd0f6be8c93e1d066">Event</a>, <a class="el" href="class_compartment_type.html#aa7b2342493e0393bc57b53be880880e4">CompartmentType</a>, and <a class="el" href="class_compartment.html#a1d065d2a063a313bf19b50a266940c21">Compartment</a>.</p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="set_names_from_ids_8cpp-example.html#a7">setNamesFromIds.cpp</a>.</dd>
@@ -4963,9 +5225,10 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -5018,9 +5281,25 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a6eee96ee206a55837c0d7b936f20f14d" title="Returns the content of the &quot;notes&quot; subelement of this object as a string.">getNotesString()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a83909a09abfab77fea3429482c79e867" title="Predicate returning true if this object&#39;s &quot;notes&quot; subelement exists and has content.">isSetNotes()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a611a4bd98a4e32e3573980b2481ce77e" title="Sets the value of the &quot;notes&quot; subelement of this SBML object.">setNotes(const XMLNode* notes)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#adb8c800163c108a27880bd644d7767ad" title="Appends the given notes to the &quot;notes&quot; subelement of this object.">appendNotes(const XMLNode* notes)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a33da5a2b0b03cbe6af69730869e35212" title="Appends the given notes to the &quot;notes&quot; subelement of this object.">appendNotes(const std::string&amp; notes)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a89f626f2593df8e83da4cdbfe79142f7" title="Unsets the value of the &quot;notes&quot; subelement of this SBML object.">unsetNotes()</a> </dd>
+<dd>
+<a class="el" href="class_syntax_checker.html#ade6c33a7180bbc7bc70b4421b917a7b0" title="Returns true or false depending on whether the given XMLNode object contains valid XHTML content.">SyntaxChecker::hasExpectedXHTMLSyntax()</a> </dd></dl>
 
 </div>
 </div>
@@ -5058,9 +5337,24 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a6eee96ee206a55837c0d7b936f20f14d" title="Returns the content of the &quot;notes&quot; subelement of this object as a string.">getNotesString()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a83909a09abfab77fea3429482c79e867" title="Predicate returning true if this object&#39;s &quot;notes&quot; subelement exists and has content.">isSetNotes()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a478ad1e0e2bb2dc27a9de6ab9bac4bf2" title="Sets the value of the &quot;notes&quot; subelement of this SBML object to a copy of the string notes.">setNotes(const std::string&amp; notes, bool addXHTMLMarkup)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#adb8c800163c108a27880bd644d7767ad" title="Appends the given notes to the &quot;notes&quot; subelement of this object.">appendNotes(const XMLNode* notes)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a33da5a2b0b03cbe6af69730869e35212" title="Appends the given notes to the &quot;notes&quot; subelement of this object.">appendNotes(const std::string&amp; notes)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a89f626f2593df8e83da4cdbfe79142f7" title="Unsets the value of the &quot;notes&quot; subelement of this SBML object.">unsetNotes()</a> </dd>
+<dd>
+<a class="el" href="class_syntax_checker.html#ade6c33a7180bbc7bc70b4421b917a7b0" title="Returns true or false depending on whether the given XMLNode object contains valid XHTML content.">SyntaxChecker::hasExpectedXHTMLSyntax()</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="create_example_s_b_m_l_8cpp-example.html#a52">createExampleSBML.cpp</a>.</dd>
 </dl>
 
@@ -5097,9 +5391,13 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da2018dcd1ec4e8d61debae043b1697d4e">LIBSBML_INVALID_ATTRIBUTE_VALUE</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da354242392bc8b59872de6bd6d0a3b9fb">LIBSBML_UNEXPECTED_ATTRIBUTE</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a37287e48bd51353012b74e4d200bb446" title="Sets the value of the &quot;sboTerm&quot; attribute.">setSBOTerm(int value)</a> </dd></dl>
 
 </div>
 </div>
@@ -5134,9 +5432,13 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da2018dcd1ec4e8d61debae043b1697d4e">LIBSBML_INVALID_ATTRIBUTE_VALUE</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da354242392bc8b59872de6bd6d0a3b9fb">LIBSBML_UNEXPECTED_ATTRIBUTE</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a7b7b199563437a7977cc13cabb21ef63" title="Sets the value of the &quot;sboTerm&quot; attribute by string.">setSBOTerm(const std::string &amp;sboid)</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="groups_example1_8cpp-example.html#a24">groups_example1.cpp</a>, and <a class="el" href="qual_example1_8cpp-example.html#a22">qual_example1.cpp</a>.</dd>
 </dl>
 
@@ -5174,9 +5476,11 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -5294,9 +5598,23 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 <p>Unsets the value of the "annotation" subelement of this SBML object. </p>
 <p>Whereas the <a class="el" href="class_s_base.html">SBase</a> "notes" subelement is a container for content to be shown directly to humans, the "annotation" element is a container for optional software-generated content <em>not</em> meant to be shown to humans. Every object derived from <a class="el" href="class_s_base.html">SBase</a> can have its own value for "annotation". The element's content type is <a href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls" target="_blank">XML type "any"</a>, allowing essentially arbitrary well-formed XML data content.</p>
 <p>SBML places a few restrictions on the organization of the content of annotations; these are intended to help software tools read and write the data as well as help reduce conflicts between annotations added by different tools. Please see the SBML specifications for more details.</p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a4fbf6701023075573bd76fa0bd276291" title="Returns the content of the &quot;annotation&quot; subelement of this object as a tree of XMLNode objects.">getAnnotation()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#adbff50c6c73c044a5c8e29e6b5dcefc6" title="Returns the content of the &quot;annotation&quot; subelement of this object as a character string.">getAnnotationString()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a5af865a159b3b1c5a16729bce7e4e3c2" title="Predicate returning true if this object&#39;s &quot;annotation&quot; subelement exists and has content.">isSetAnnotation()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a11d9c02a3690d9a13362835ef0133125" title="Sets the value of the &quot;annotation&quot; subelement of this SBML object.">setAnnotation(const XMLNode* annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a75b1541bd854ad7edfe0aff79ab3231f" title="Sets the value of the &quot;annotation&quot; subelement of this SBML object.">setAnnotation(const std::string&amp; annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#accc96fb06a79df769eb3669e090771e5" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">appendAnnotation(const XMLNode* annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a118148398f5c626bf9697887296f97b8" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">appendAnnotation(const std::string&amp; annotation)</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="unset_annotation_8cpp-example.html#a7">unsetAnnotation.cpp</a>.</dd>
 </dl>
 
@@ -5326,9 +5644,11 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 </div><div class="memdoc">
 
 <p>Clears the list of <a class="el" href="class_c_v_term.html">CVTerm</a> objects attached to this SBML object. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -5356,6 +5676,26 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 </div><div class="memdoc">
 
 <p>Unsets the value of the "id" attribute of this SBML object. </p>
+<dl class="section user"><dt></dt><dd>The identifier given by an object's "id" attribute value is used to identify the object within the SBML model definition. Other objects can refer to the component using this identifier. The data type of "id" is always <code>SId</code> or a type derived from that, such as <code>UnitSId</code>, depending on the object in question. All data types are defined as follows: <pre style="margin-left: 2em; border: none; font-weight: bold; color: black">
+     letter ::= 'a'..'z','A'..'Z'
+     digit  ::= '0'..'9'
+     idChar ::= letter | digit | '_'
+     SId    ::= ( letter | '_' ) idChar*
+   </pre> The characters <code>(</code> and <code>)</code> are used for grouping, the character <code>*</code> "zero or more times", and the character <code>|</code> indicates logical "or". The equality of SBML identifiers is determined by an exact character sequence match; i.e., comparisons must be performed in a case-sensitive manner. This applies to all uses of <code>SId</code>, <code>SIdRef</code>, and derived types.</dd></dl>
+<p>Users need to be aware of some important API issues that are the result of the history of SBML and libSBML. Prior to SBML Level&#160;3 Version&#160;2, SBML defined "id" and "name" attributes on only a subset of SBML objects. To simplify the work of programmers, libSBML's API provided get, set, check, and unset on the <a class="el" href="class_s_base.html">SBase</a> object class itself instead of on individual subobject classes. This made the get/set/etc. methods uniformly available on all objects in the libSBML API. LibSBML simply returned empty strings or otherwise did not act when the methods were applied to SBML objects that were not defined by the SBML specification to have "id" or "name" attributes. Additional complications arose with the rule and assignment objects: <a class="el" href="class_initial_assignment.html">InitialAssignment</a>, <a class="el" href="class_event_assignment.html">EventAssignment</a>, <a class="el" href="class_assignment_rule.html">AssignmentRule</a>, and <a class="el" href="class_rate_rule.html">RateRule</a>. In early versions of SBML, the rule object hierarchy was different, and in addition, then as now, they possess different attributes: "variable" (for the rules and event assignments), "symbol" (for initial assignments), or neither (for algebraic rules). Prior to SBML Level&#160;3 Version&#160;2, <a class="el" href="class_s_base.html#a129bf432fe076c854d9b6e7f44ed99b8" title="Returns the value of the &quot;id&quot; attribute of this SBML object, if it has one, or the &quot;variable&quot; attribu...">getId()</a> would always return an empty string, and <a class="el" href="class_s_base.html#a78e5ac577ff9cf83d6fc413f5053d705" title="Predicate returning true if a call to getId() returns a non-empty string.">isSetId()</a> would always return <code>false</code> for objects of these classes.</p>
+<p>With the addition of "id" and "name" attributes on <a class="el" href="class_s_base.html">SBase</a> in Level&#160;3 Version&#160;2, it became necessary to introduce a new way to interact with the attributes more consistently in libSBML to avoid breaking backward compatibility in the behavior of the original "id" methods. For this reason, libSBML provides four functions (<a class="el" href="class_s_base.html#ad5ffefa4d9901ca0d55f2343c08bb057" title="Returns the value of the &quot;id&quot; attribute of this SBML object.">getIdAttribute()</a>, <a class="el" href="class_s_base.html#a8a342a0f8387842fb6700c50c4c43344" title="Sets the value of the &quot;id&quot; attribute of this SBML object.">setIdAttribute()</a>, <a class="el" href="class_s_base.html#a9fb99b60d2f2f0427e818187cc6f6ad9" title="Predicate returning true if this object&#39;s &quot;id&quot; attribute is set.">isSetIdAttribute()</a>, and <a class="el" href="class_s_base.html#a1bfd93ef72d0f624964fcfd7a8d5cdfb" title="Unsets the value of the &quot;id&quot; attribute of this SBML object.">unsetIdAttribute()</a>) that always act on the actual "id" attribute inherited from <a class="el" href="class_s_base.html">SBase</a>, regardless of the object's type. <b>These new methods should be used instead of the older <a class="el" href="class_s_base.html#a129bf432fe076c854d9b6e7f44ed99b8" title="Returns the value of the &quot;id&quot; attribute of this SBML object, if it has one, or the &quot;variable&quot; attribu...">getId()</a>/setId()/etc. methods</b> unless the old behavior is somehow necessary. Regardless of the Level and Version of the SBML, these functions allow client applications to use more generalized code in some situations (for instance, when manipulating objects that are all known to have identifiers). If the object in question does not posess an "id" attribute according to the SBML specification for the Level and Version in use, libSBML will not allow the identifier to be set, nor will it read or write "id" attributes for those objects.</p>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
+</ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#ad5ffefa4d9901ca0d55f2343c08bb057" title="Returns the value of the &quot;id&quot; attribute of this SBML object.">getIdAttribute()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a8a342a0f8387842fb6700c50c4c43344" title="Sets the value of the &quot;id&quot; attribute of this SBML object.">setIdAttribute(const std::string&amp; sid)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a9fb99b60d2f2f0427e818187cc6f6ad9" title="Predicate returning true if this object&#39;s &quot;id&quot; attribute is set.">isSetIdAttribute()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a1bfd93ef72d0f624964fcfd7a8d5cdfb" title="Unsets the value of the &quot;id&quot; attribute of this SBML object.">unsetIdAttribute()</a> </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_simple_species_reference.html#a506860c78f48bc10a424c97c6789d0db">SimpleSpeciesReference</a>, <a class="el" href="class_spatial_points.html#acdab4a0d1c5ccff3ac3aee6e063e777d">SpatialPoints</a>, <a class="el" href="class_sampled_volume.html#afc9c3ee285ed09557c54b3b373277402">SampledVolume</a>, <a class="el" href="class_sampled_field.html#a11b175594bbce42b9dce57eccbdfad36">SampledField</a>, <a class="el" href="class_parametric_object.html#ae9b2d1b686806445290c672a2fec91e9">ParametricObject</a>, <a class="el" href="class_geometry_definition.html#a39f9d310445c3a7b02296f416c49787e">GeometryDefinition</a>, <a class="el" href="class_geometry.html#a9f3619ab16e460add1382e733dfa52a7">Geometry</a>, <a class="el" href="class_domain_type.html#a95c7f9cbf688dbc1a317a90826c4c43a">DomainType</a>, <a class="el" href="class_domain.html#a94dc9bc80ed9b4772a63a7424e4cb5f7">Domain</a>, <a class="el" href="class_c_s_g_object.html#aabc14e8bdd0952ab0a39c34b7935e7e1">CSGObject</a>, <a class="el" href="class_c_s_g_node.html#a4484660a48109c6b0f82f05d7b3dd63b">CSGNode</a>, <a class="el" href="class_coordinate_component.html#a8b2583ddb1b3ec1f4665bbc82920d501">CoordinateComponent</a>, <a class="el" href="class_compartment_mapping.html#a8e8c8b85b8c305bfa0ff28273fe01d5a">CompartmentMapping</a>, <a class="el" href="class_boundary.html#abd195207cf6fa1856070564108c509f6">Boundary</a>, <a class="el" href="class_analytic_volume.html#a96ebe9421c318bb8b9a4ca2279eb5b40">AnalyticVolume</a>, <a class="el" href="class_adjacent_domains.html#ac30f6dd83b56c213e42387af07b7407f">AdjacentDomains</a>, <a class="el" href="class_style.html#aa8b8f2901d8a4158a8e74d2478844e2f">Style</a>, <a class="el" href="class_render_information_base.html#a224d410195df017468be55d64a2cfd70">RenderInformationBase</a>, <a class="el" href="class_line_ending.html#acba364347d92605101db798a766efbfc">LineEnding</a>, <a class="el" href="class_image.html#a38fb5daf26be75e12a851fb548bfd992">Image</a>, <a class="el" href="class_graphical_primitive1_d.html#a415bf5e40dab8039039538e52775c881">GraphicalPrimitive1D</a>, <a class="el" href="class_gradient_base.html#a58c431cc462c4eac89dbf566bed89ed0">GradientBase</a>, <a class="el" href="class_color_definition.html#accb73d54a9ca9e235e97315bccce0dff">ColorDefinition</a>, <a class="el" href="class_transition.html#a92c11e7c7e7a11ae32d9730f45bbb1e8">Transition</a>, <a class="el" href="class_qualitative_species.html#a384e5340f7602b1cdf7ecb71d39a459f">QualitativeSpecies</a>, <a class="el" href="class_output.html#a9c990fca391b3b59b3c451577eece6d2">Output</a>, <a class="el" href="class_input.html#a632e37f0f8f91c37bc126f18a15eea75">Input</a>, <a class="el" href="class_sub_list_of_species_features.html#ab8bc098e2cad8e30f1ba80c7913adb99">SubListOfSpeciesFeatures</a>, <a class="el" href="class_species_type_instance.html#a5810296ec2d8826587f8d016810dd2aa">SpeciesTypeInstance</a>, <a class="el" href="class_species_type_component_map_in_product.html#a62dc76a26caf4d8a3827c717a2a21946">SpeciesTypeComponentMapInProduct</a>, <a class="el" href="class_species_type_component_index.html#a67fcd88ced85bb1551789a7cc5fb6ce9">SpeciesTypeComponentIndex</a>, <a class="el" href="class_species_feature_type.html#a2837c700856b366e3ca958d18181f914">SpeciesFeatureType</a>, <a class="el" href="class_species_feature.html#a785ac490618c9576370fc2627a1e80e3">SpeciesFeature</a>, <a class="el" href="class_possible_species_feature_value.html#abc416c7a8e3ee128b5469a3a1881627a">PossibleSpeciesFeatureValue</a>, <a class="el" href="class_outward_binding_site.html#a00e5bc5e7a56fb10eefce23616725179">OutwardBindingSite</a>, <a class="el" href="class_multi_species_type.html#af97b244a54b70f8250b01f670f709755">MultiSpeciesType</a>, <a class="el" href="class_in_species_type_bond.html#a3b9f535f8b24b6309039ec17275c17e3">InSpeciesTypeBond</a>, <a class="el" href="class_compartment_reference.html#abba6d8b7ad411bd2e44243426b3b3402">CompartmentReference</a>, <a class="el" href="class_point.html#aea6b6f9694da6f3f4cd21df715a35a25">Point</a>, <a class="el" href="class_layout.html#af4982549af923b69b15b953f6edda15e">Layout</a>, <a class="el" href="class_graphical_object.html#afb8d1336d8ee0df1c4ab30081005217b">GraphicalObject</a>, <a class="el" href="class_dimensions.html#aa5f94cdaad9cfb9c32f286501f938ac7">Dimensions</a>, <a class="el" href="class_bounding_box.html#aec1e2f3d070b2766f7bbb2b1e7eeece9">BoundingBox</a>, <a class="el" href="class_member.html#a7e0de737dcb784f44c24817d728f275e">Member</a>, <a class="el" href="class_list_of_members.html#a8125ffb91d2cd3dfc11e318ffe96aac8">ListOfMembers</a>, <a class="el" href="class_group.html#aebca8f9f8f210ddcc51c516e07edf60e">Group</a>, <a class="el" href="class_user_defined_constraint_component.html#a11fe7b5d035c7e30d6a6d7c3aab8fcb4">UserDefinedConstraintComponent</a>, <a class="el" href="class_user_defined_constraint.html#a591e179dba8a7960b954b92ecc83d806">UserDefinedConstraint</a>, <a class="el" href="class_objective.html#a81017dda4d4d023eaaa7cb8bec74e8bc">Objective</a>, <a class="el" href="class_key_value_pair.html#aa76dc6a20d021d9a3d887d7db2220446">KeyValuePair</a>, <a class="el" href="class_gene_product_ref.html#a6cf997d4619856924e00dce503ba50b8">GeneProductRef</a>, <a class="el" href="class_gene_product_association.html#a2ab9150d533a14201f58c0669077cd32">GeneProductAssociation</a>, <a class="el" href="class_gene_product.html#a0e71c628cb51b7245cdf22a44345ec86">GeneProduct</a>, <a class="el" href="class_gene_association.html#a85c0077563ea7cafa8cb24a6c5b4a9b7">GeneAssociation</a>, <a class="el" href="class_flux_objective.html#a400a7bd7ba2b3e637ce31e96ef71a39f">FluxObjective</a>, <a class="el" href="class_flux_bound.html#a803c042e9d9d8302ea30233ff260c0bf">FluxBound</a>, <a class="el" href="class_submodel.html#a1f46eb5e0ca3441cb9b00dccbcc73012">Submodel</a>, <a class="el" href="class_port.html#ad420b000f3411bf042d2ccd5d1331b88">Port</a>, <a class="el" href="class_external_model_definition.html#a354bf4486911a37f1938afe37a9a3a74">ExternalModelDefinition</a>, <a class="el" href="class_deletion.html#a8c1b6ed323fbd0e524ae9f2b5f3290bb">Deletion</a>, <a class="el" href="class_model.html#a03389e655c02bcd4059098281272ecf3">Model</a>, and <a class="el" href="class_event.html#a0701f940cf25390e58a63ce6872f8aef">Event</a>.</p>
 
@@ -5386,9 +5726,16 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 
 <p>Unsets the value of the "id" attribute of this SBML object. </p>
 <p>Most (but not all) objects in SBML include two common attributes: "id" and "name". The identifier given by an object's "id" attribute value is used to identify the object within the SBML model definition. Other objects can refer to the component using this identifier.</p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#ad5ffefa4d9901ca0d55f2343c08bb057" title="Returns the value of the &quot;id&quot; attribute of this SBML object.">getIdAttribute()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a8a342a0f8387842fb6700c50c4c43344" title="Sets the value of the &quot;id&quot; attribute of this SBML object.">setIdAttribute(const std::string&amp; sid)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a9fb99b60d2f2f0427e818187cc6f6ad9" title="Predicate returning true if this object&#39;s &quot;id&quot; attribute is set.">isSetIdAttribute()</a> </dd></dl>
 
 </div>
 </div>
@@ -5417,9 +5764,12 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 
 <p>Unsets the value of the "metaid" attribute of this SBML object. </p>
 <dl class="section user"><dt></dt><dd>The optional attribute named "metaid", present on every major SBML component type, is for supporting metadata annotations using RDF (<a href="http://www.w3.org/RDF/">Resource Description Format</a>). The attribute value has the data type <a href="http://www.w3.org/TR/REC-xml/#id">XML <code>ID</code></a>, the XML identifier type, which means each "metaid" value must be globally unique within an SBML file. The latter point is important, because the uniqueness criterion applies across <em>any</em> attribute with type <code>ID</code> anywhere in the file, not just the "metaid" attribute used by SBML&mdash;something to be aware of if your application-specific XML content inside the "annotation" subelement happens to use the XML <code>ID</code> type. Although SBML itself specifies the use of <a href="http://www.w3.org/TR/REC-xml/#id">XML <code>ID</code></a> only for the "metaid" attribute, SBML-compatible applications should be careful if they use XML <code>ID</code>'s in XML portions of a model that are not defined by SBML, such as in the application-specific content of the "annotation" subelement. Finally, note that LibSBML does not provide an explicit XML <code>ID</code> data type; it uses ordinary character strings, which is easier for applications to support.</dd></dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da354242392bc8b59872de6bd6d0a3b9fb">LIBSBML_UNEXPECTED_ATTRIBUTE</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -5447,9 +5797,13 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 </div><div class="memdoc">
 
 <p>Unsets the <a class="el" href="class_model_history.html">ModelHistory</a> object attached to this object. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da354242392bc8b59872de6bd6d0a3b9fb">LIBSBML_UNEXPECTED_ATTRIBUTE</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
 </ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>In SBML Level&#160;2, model history annotations were only permitted on the <a class="el" href="class_model.html">Model</a> element. In SBML Level&#160;3, they are permitted on all SBML components derived from <a class="el" href="class_s_base.html">SBase</a>. </dd></dl>
 
 </div>
 </div>
@@ -5477,6 +5831,22 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 </div><div class="memdoc">
 
 <p>Unsets the value of the "name" attribute of this SBML object. </p>
+<dl class="section user"><dt></dt><dd>In SBML Level&#160;3 Version&#160;2, the "id" and "name" attributes were moved to <a class="el" href="class_s_base.html">SBase</a> directly, instead of being defined individually for many (but not all) objects. LibSBML has for a long time provided functions defined on <a class="el" href="class_s_base.html">SBase</a> itself to get, set, and unset those attributes, which would fail or otherwise return empty strings if executed on any object for which those attributes were not defined. Now that all <a class="el" href="class_s_base.html">SBase</a> objects define those attributes, those functions now succeed for any object with the appropriate level and version.</dd></dl>
+<p>The "name" attribute is optional and is not intended to be used for cross-referencing purposes within a model. Its purpose instead is to provide a human-readable label for the component. The data type of "name" is the type <code>string</code> defined in XML Schema. SBML imposes no restrictions as to the content of "name" attributes beyond those restrictions defined by the <code>string</code> type in XML Schema.</p>
+<p>The recommended practice for handling "name" is as follows. If a software tool has the capability for displaying the content of "name" attributes, it should display this content to the user as a component's label instead of the component's "id". If the user interface does not have this capability (e.g., because it cannot display or use special characters in symbol names), or if the "name" attribute is missing on a given component, then the user interface should display the value of the "id" attribute instead. (Script language interpreters are especially likely to display "id" instead of "name".)</p>
+<p>As a consequence of the above, authors of systems that automatically generate the values of "id" attributes should be aware some systems may display the "id"'s to the user. Authors therefore may wish to take some care to have their software create "id" values that are: (a) reasonably easy for humans to type and read; and (b) likely to be meaningful, for example by making the "id" attribute be an abbreviated form of the name attribute value.</p>
+<p>An additional point worth mentioning is although there are restrictions on the uniqueness of "id" values, there are no restrictions on the uniqueness of "name" values in a model. This allows software applications leeway in assigning component identifiers.</p>
+<p>Regardless of the level and version of the SBML, these functions allow client applications to use more generalized code in some situations (for instance, when manipulating objects that are all known to have names). If the object in question does not posess a "name" attribute according to the SBML specification for the Level and Version in use, libSBML will not allow the name to be set, nor will it read or write "name" attributes for those objects.</p>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
+</ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a90e4753ab8d4611987557b4d64129529" title="Returns the value of the &quot;name&quot; attribute of this SBML object.">getName()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a1531f729b16689aba3fb7f3567202a7c" title="Sets the value of the &quot;name&quot; attribute of this SBML object.">setName(const std::string&amp; sid)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a70abee08c67db2cba0c5ed40af9aa1c0" title="Predicate returning true if this object&#39;s &quot;name&quot; attribute is set.">isSetName()</a> </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_unit_definition.html#a329b088e161a60f43188bc4099fe6d8c">UnitDefinition</a>, <a class="el" href="class_species_type.html#a3c98a6b9fb070b4387305882823df82d">SpeciesType</a>, <a class="el" href="class_species.html#a8a2e7a03df6c26dfe554474e9e90f957">Species</a>, <a class="el" href="class_simple_species_reference.html#acc2b026111435e64e027915246fe68b0">SimpleSpeciesReference</a>, <a class="el" href="class_reaction.html#aeb4ac9c47aa66c9ce1e8745a7b2c4013">Reaction</a>, <a class="el" href="class_parameter.html#a0d83c3c9fa5782df7dac35032e3e85d8">Parameter</a>, <a class="el" href="class_spatial_points.html#a76142b6eaf19dd46d9fbb322b25390e5">SpatialPoints</a>, <a class="el" href="class_sampled_volume.html#acd7569f1500208bfa09aacd05dd42a7a">SampledVolume</a>, <a class="el" href="class_sampled_field.html#a2db21084e738bd01e1e61db8d873e2be">SampledField</a>, <a class="el" href="class_parametric_object.html#a7e3364b4da85a754a5e53a46eb3c8353">ParametricObject</a>, <a class="el" href="class_geometry_definition.html#a31f7d447fa5320bfc512e9b46027028d">GeometryDefinition</a>, <a class="el" href="class_domain_type.html#a5bdff8311d081dea2a4c9381f3ae914c">DomainType</a>, <a class="el" href="class_domain.html#a980a74a0980089dbd546d59f711f5beb">Domain</a>, <a class="el" href="class_c_s_g_object.html#a1a056f7d7850be6784ffd7b4cc7a4c6a">CSGObject</a>, <a class="el" href="class_c_s_g_node.html#ad9452f473cdb43fb188fb27e0549c3b6">CSGNode</a>, <a class="el" href="class_coordinate_component.html#a8510832013f389e1c249139443ce64b8">CoordinateComponent</a>, <a class="el" href="class_compartment_mapping.html#a619a534eab816a16145b50c7fdce3342">CompartmentMapping</a>, <a class="el" href="class_boundary.html#afe8eccd0feb609b36b27a07c13ce7d82">Boundary</a>, <a class="el" href="class_analytic_volume.html#a520b47cc1759514fc869bc0d9dd4d49f">AnalyticVolume</a>, <a class="el" href="class_adjacent_domains.html#ad5428b5bae2de1bb03d2de6c5de8f629">AdjacentDomains</a>, <a class="el" href="class_transformation.html#a46bb753804d6964f3fa66a4047f7c937">Transformation</a>, <a class="el" href="class_style.html#a962488bf464b2eaafe78c2d950d2ad2d">Style</a>, <a class="el" href="class_render_information_base.html#a31a28026c8cccb5f6502fcbe8e80778a">RenderInformationBase</a>, <a class="el" href="class_gradient_base.html#a1a3c7ff2f3c4e97499cbdc24230f1076">GradientBase</a>, <a class="el" href="class_color_definition.html#aa4aa579f047158b109538e6a2111c0b0">ColorDefinition</a>, <a class="el" href="class_transition.html#a58d47c51f247457bba0a9c7c58e002ee">Transition</a>, <a class="el" href="class_qualitative_species.html#aef5c9234fd6c71936d974de775698338">QualitativeSpecies</a>, <a class="el" href="class_output.html#af7dcabc3a32b329d0067ab14ba6ae8a9">Output</a>, <a class="el" href="class_input.html#a1fb98b4415b9d004f15178822a1964b0">Input</a>, <a class="el" href="class_sub_list_of_species_features.html#a30f9615bd6998f474d9ceede9060ef6f">SubListOfSpeciesFeatures</a>, <a class="el" href="class_species_type_instance.html#a3e316ff73b3b26c16a986e6f6f92c121">SpeciesTypeInstance</a>, <a class="el" href="class_species_type_component_map_in_product.html#a6fc17dfd78bb311f1e0ad45367d1d028">SpeciesTypeComponentMapInProduct</a>, <a class="el" href="class_species_type_component_index.html#a1568ede81d434848a6ecf2ecbd0e2407">SpeciesTypeComponentIndex</a>, <a class="el" href="class_species_feature_type.html#ab8d08012137df4e665b5652b54300e95">SpeciesFeatureType</a>, <a class="el" href="class_species_feature.html#a8b662cf984dcd667ee817cf00b8b4af8">SpeciesFeature</a>, <a class="el" href="class_possible_species_feature_value.html#a5db14ba6a2deda95537e3834efe80835">PossibleSpeciesFeatureValue</a>, <a class="el" href="class_outward_binding_site.html#a6177657ab8c2c84e56a962d22cdd8130">OutwardBindingSite</a>, <a class="el" href="class_multi_species_type.html#a55c7cab1ebdefe126606af4bf0a1db5e">MultiSpeciesType</a>, <a class="el" href="class_in_species_type_bond.html#a6c4602bcc6acea1dcdcdbb2c9142309f">InSpeciesTypeBond</a>, <a class="el" href="class_compartment_reference.html#a01490bd825496d6cf7168f391e5bccbc">CompartmentReference</a>, <a class="el" href="class_layout.html#a5345af53212b7fe137997b1a90b1d7a1">Layout</a>, <a class="el" href="class_member.html#aeb354b8d8badaa51ec4f2d404c60e8d8">Member</a>, <a class="el" href="class_list_of_members.html#abb8ece42ed5552807a1ded0fc076a0ec">ListOfMembers</a>, <a class="el" href="class_group.html#a1e713c22616fe1548dbc0a8e9d7ee08e">Group</a>, <a class="el" href="class_user_defined_constraint_component.html#a0251ac41f2582c1cb2eaf3d340077c04">UserDefinedConstraintComponent</a>, <a class="el" href="class_user_defined_constraint.html#a6b1f1cf107c8921065ad1afb19e9e2b7">UserDefinedConstraint</a>, <a class="el" href="class_objective.html#a0636dd451d5ccf749cc5dd712f8b75f7">Objective</a>, <a class="el" href="class_key_value_pair.html#ad3c961124071815a99f956fec3274277">KeyValuePair</a>, <a class="el" href="class_gene_product_ref.html#a9a1b1283cc729ff68cdd76a29c458988">GeneProductRef</a>, <a class="el" href="class_gene_product_association.html#aacdd488698f7380af32a63510c4c60e9">GeneProductAssociation</a>, <a class="el" href="class_gene_product.html#a7e6ea05af34b020ad5cb575a2f4ed6b9">GeneProduct</a>, <a class="el" href="class_flux_objective.html#af503748e70c93761a67fccb65239ee01">FluxObjective</a>, <a class="el" href="class_flux_bound.html#ac42d942ecbae6657be036094f2a2a3c8">FluxBound</a>, <a class="el" href="class_submodel.html#a1886909941b7442f8dc04655db3c35a2">Submodel</a>, <a class="el" href="class_port.html#a1397e9032c461d38c8fb9c8a9e23b8d1">Port</a>, <a class="el" href="class_external_model_definition.html#a74410bfdb94578aadfa18134a91506f9">ExternalModelDefinition</a>, <a class="el" href="class_deletion.html#accb6fc5bbe73d7995642d1bd99dd449e">Deletion</a>, <a class="el" href="class_model.html#a1c272e1c5658984d36c2db89a66b0af8">Model</a>, <a class="el" href="class_function_definition.html#a38dbc84be1d88b8ecb1bfe4397a815d9">FunctionDefinition</a>, <a class="el" href="class_event.html#acaa462aa3f6001d93d046d5d1558af5d">Event</a>, <a class="el" href="class_compartment_type.html#ab780f9a54eccf11f4435bddfc9b669db">CompartmentType</a>, and <a class="el" href="class_compartment.html#aaeb009c1619b3a61b4a54be3eab4d4fd">Compartment</a>.</p>
 
@@ -5508,9 +5878,23 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 <p>Unsets the value of the "notes" subelement of this SBML object. </p>
 <p>The optional SBML element named "notes", present on every major SBML component type, is intended as a place for storing optional information intended to be seen by humans. An example use of the "notes" element would be to contain formatted user comments about the model element in which the "notes" element is enclosed. Every object derived directly or indirectly from type <a class="el" href="class_s_base.html">SBase</a> can have a separate value for "notes", allowing users considerable freedom when adding comments to their models.</p>
 <p>The format of "notes" elements must be <a href="http://www.w3.org/TR/xhtml1/" target="_blank">XHTML&#160;1.0</a>. To help verify the formatting of "notes" content, libSBML provides the static utility method <a class="el" href="class_syntax_checker.html#ade6c33a7180bbc7bc70b4421b917a7b0" title="Returns true or false depending on whether the given XMLNode object contains valid XHTML content.">SyntaxChecker::hasExpectedXHTMLSyntax()</a>; however, readers are urged to consult the appropriate <a href="http://sbml.org/Documents/Specifications" target="_blank">SBML specification document</a> for the Level and Version of their model for more in-depth explanations. The SBML Level&#160;2 and&#160;3 specifications have considerable detail about how "notes" element content must be structured.</p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#a6eee96ee206a55837c0d7b936f20f14d" title="Returns the content of the &quot;notes&quot; subelement of this object as a string.">getNotesString()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a83909a09abfab77fea3429482c79e867" title="Predicate returning true if this object&#39;s &quot;notes&quot; subelement exists and has content.">isSetNotes()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a611a4bd98a4e32e3573980b2481ce77e" title="Sets the value of the &quot;notes&quot; subelement of this SBML object.">setNotes(const XMLNode* notes)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a478ad1e0e2bb2dc27a9de6ab9bac4bf2" title="Sets the value of the &quot;notes&quot; subelement of this SBML object to a copy of the string notes.">setNotes(const std::string&amp; notes, bool addXHTMLMarkup)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#adb8c800163c108a27880bd644d7767ad" title="Appends the given notes to the &quot;notes&quot; subelement of this object.">appendNotes(const XMLNode* notes)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a33da5a2b0b03cbe6af69730869e35212" title="Appends the given notes to the &quot;notes&quot; subelement of this object.">appendNotes(const std::string&amp; notes)</a> </dd>
+<dd>
+<a class="el" href="class_syntax_checker.html#ade6c33a7180bbc7bc70b4421b917a7b0" title="Returns true or false depending on whether the given XMLNode object contains valid XHTML content.">SyntaxChecker::hasExpectedXHTMLSyntax()</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="unset_notes_8cpp-example.html#a7">unsetNotes.cpp</a>.</dd>
 </dl>
 
@@ -5540,9 +5924,11 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 </div><div class="memdoc">
 
 <p>Unsets the value of the "sboTerm" attribute of this SBML object. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da354242392bc8b59872de6bd6d0a3b9fb">LIBSBML_UNEXPECTED_ATTRIBUTE</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -5571,9 +5957,11 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 
 <p>Unsets the user data of this element. </p>
 <dl class="section user"><dt></dt><dd>The user data associated with an SBML object can be used by an application developer to attach custom information to that object in the model. In case of a deep copy, this data will passed as-is. The data attribute will never be interpreted by libSBML.</dd></dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>

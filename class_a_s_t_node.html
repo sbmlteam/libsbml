@@ -94,6 +94,7 @@ $(document).ready(function(){initNavTree('class_a_s_t_node.html',''); initResiza
 <a href="class_a_s_t_node-members.html">List of all members</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">ASTNode Class Reference<div class="ingroups"><a class="el" href="group__core.html">Core libSBML</a></div></div>  </div>
@@ -110,6 +111,43 @@ the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
 <p>Abstract Syntax Trees (ASTs) are a simple kind of data structure used in libSBML for storing mathematical expressions. The <a class="el" href="class_a_s_t_node.html">ASTNode</a> is the cornerstone of libSBML's AST representation. An AST "node" represents the most basic, indivisible part of a mathematical formula and come in many types. For instance, there are node types to represent numbers (with subtypes to distinguish integer, real, and rational numbers), names (e.g., constants or variables), simple mathematical operators, logical or relational operators and functions. LibSBML ASTs provide a canonical, in-memory representation for all mathematical formulas regardless of their original format (which might be MathML or might be text strings).</p>
+<dl class="section user"><dt></dt><dd>An AST <em>node</em> in libSBML is a recursive tree structure; each node has a type, a pointer to a value, and a list of children nodes. Each <a class="el" href="class_a_s_t_node.html">ASTNode</a> node may have none, one, two, or more children depending on its type. There are node types to represent numbers (with subtypes to distinguish integer, real, and rational numbers), names (e.g., constants or variables), simple mathematical operators, logical or relational operators and functions. The following diagram illustrates an example of how the mathematical expression <code>"1 + 2"</code> is represented as an AST with one <em>plus</em> node having two <em>integer</em> children nodes for the numbers <code>1</code> and <code>2</code>. The figure also shows the corresponding MathML representation:</dd></dl>
+<table border="0" class="centered text-table width80 normal-font" style="padding-bottom: 0.5em">
+<caption class="top-caption">Example AST representation of a mathematical expression.</caption>
+<tr>
+<th width="50px">Infix</th>
+<th>AST</th>
+<th>MathML</th>
+</tr>
+<tr>
+<td valign="middle" align="center">
+<code>1 + 2</code>
+</td>
+<td valign="middle">
+  <object type="image/svg+xml" data="simple-ast.svg" class="centered" width="140px"></object>
+</td>
+<td valign="middle">
+<code>&lt;math xmlns="http://www.w3.org/1998/Math/MathML"&gt;</code><br>
+<code>&nbsp;&nbsp;&lt;apply&gt;</code><br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;plus/&gt;</code><br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;cn type="integer"&gt; 1 &lt;/cn&gt;</code><br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;cn type="integer"&gt; 2 &lt;/cn&gt;</code><br>
+<code>&nbsp;&nbsp;&lt;/apply&gt;</code><br>
+<code>&lt;/math&gt;</code>
+</td>
+</tr>
+</table>
+<p>The following are other noteworthy points about the AST representation in libSBML:</p>
+<ul>
+<li>A numerical value represented in MathML as a real number with an exponent is preserved as such in the AST node representation, even if the number could be stored in a <code>double</code> data type. This is done so that when an SBML model is read in and then written out again, the amount of change introduced by libSBML to the SBML during the round-trip activity is minimized.</li>
+</ul>
+<ul>
+<li>Rational numbers are represented in an AST node using separate numerator and denominator values. These can be retrieved using the methods <a class="el" href="class_a_s_t_node.html#a17a4868804e7e10a6cf79430723a4aee" title="Returns the value of the numerator of this node if of type AST_RATIONAL, or the numerical value of th...">ASTNode::getNumerator()</a> and <a class="el" href="class_a_s_t_node.html#a620072b6b11a6c83943ecdfa4385f6d6" title="Returns the value of the denominator of this node.">ASTNode::getDenominator()</a>.</li>
+</ul>
+<ul>
+<li>The children of an <a class="el" href="class_a_s_t_node.html">ASTNode</a> are other <a class="el" href="class_a_s_t_node.html">ASTNode</a> objects. The list of children is empty for nodes that are leaf elements, such as numbers. For nodes that are actually roots of expression subtrees, the list of children points to the parsed objects that make up the rest of the expression.</li>
+</ul>
+<p>For many applications, the details of ASTs are irrelevant because libSBML provides text-string based translation functions such as <a class="el" href="_l3_formula_formatter_8h.html#a3ee99a0498b6249f6602b98be6733b19" title="Converts an AST to a string representation of a formula using a syntax derived from SBML Level&#160;1,...">SBML_formulaToL3String()</a></p>
 <h3><a class="anchor" id="ASTNodeType_t"></a> ASTNodeType_t</h3>
 <h3><a class="anchor" id="math-convert"></a>Converting between ASTs and text strings</h3>
 <p>The text-string form of mathematical formulas produced by <a class="el" href="_formula_formatter_8cpp.html#a7621fa39bd34423ea59ed128bb17b6f4" title="Converts an AST to a string representation of a formula using a syntax basically derived from SBML Le...">SBML_formulaToString()</a> </p>
@@ -212,7 +250,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a9c1e708a632ae00f528106d413ad1cb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of children of this node.  <a href="class_a_s_t_node.html#a9c1e708a632ae00f528106d413ad1cb2">More...</a><br /></td></tr>
 <tr class="separator:a9c1e708a632ae00f528106d413ad1cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17a4868804e7e10a6cf79430723a4aee"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a17a4868804e7e10a6cf79430723a4aee">getNumerator</a> () const</td></tr>
-<tr class="memdesc:a17a4868804e7e10a6cf79430723a4aee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the numerator of this node if of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONALendif. </a> <a href="class_a_s_t_node.html#a17a4868804e7e10a6cf79430723a4aee">More...</a><br /></td></tr>
+<tr class="memdesc:a17a4868804e7e10a6cf79430723a4aee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the numerator of this node if of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONAL</a>, or the numerical value of the node if of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGER</a>; <code>0</code> otherwise.  <a href="class_a_s_t_node.html#a17a4868804e7e10a6cf79430723a4aee">More...</a><br /></td></tr>
 <tr class="separator:a17a4868804e7e10a6cf79430723a4aee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab51b93fa0ab9a7b5565f1a47f993f9ed"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#ab51b93fa0ab9a7b5565f1a47f993f9ed">getNumSemanticsAnnotations</a> () const</td></tr>
 <tr class="memdesc:ab51b93fa0ab9a7b5565f1a47f993f9ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of MathML <code>&lt;semantics&gt;</code> element elements on this node.  <a href="class_a_s_t_node.html#ab51b93fa0ab9a7b5565f1a47f993f9ed">More...</a><br /></td></tr>
@@ -420,16 +458,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ad672b2de729eaf8aa813234d15e15efa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given real (<code>double</code>) in two parts: the mantissa and the exponent.  <a href="class_a_s_t_node.html#ad672b2de729eaf8aa813234d15e15efa">More...</a><br /></td></tr>
 <tr class="separator:ad672b2de729eaf8aa813234d15e15efa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49dad5ffb929e5f42955b57357902557"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a49dad5ffb929e5f42955b57357902557">setValue</a> (double value)</td></tr>
-<tr class="memdesc:a49dad5ffb929e5f42955b57357902557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given real (<code>double</code>) and sets the node type to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a634db469deca7c255a3694c5cb3a4863">AST_REALendif. </a> <a href="class_a_s_t_node.html#a49dad5ffb929e5f42955b57357902557">More...</a><br /></td></tr>
+<tr class="memdesc:a49dad5ffb929e5f42955b57357902557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given real (<code>double</code>) and sets the node type to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a634db469deca7c255a3694c5cb3a4863">AST_REAL</a>.  <a href="class_a_s_t_node.html#a49dad5ffb929e5f42955b57357902557">More...</a><br /></td></tr>
 <tr class="separator:a49dad5ffb929e5f42955b57357902557"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69097fbcbc9e0771573472049e249784"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a69097fbcbc9e0771573472049e249784">setValue</a> (int value)</td></tr>
-<tr class="memdesc:a69097fbcbc9e0771573472049e249784"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given integer and sets the node type to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGERendif. </a> <a href="class_a_s_t_node.html#a69097fbcbc9e0771573472049e249784">More...</a><br /></td></tr>
+<tr class="memdesc:a69097fbcbc9e0771573472049e249784"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given integer and sets the node type to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGER</a>.  <a href="class_a_s_t_node.html#a69097fbcbc9e0771573472049e249784">More...</a><br /></td></tr>
 <tr class="separator:a69097fbcbc9e0771573472049e249784"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af450115d10253bc42acaf39801c5a173"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#af450115d10253bc42acaf39801c5a173">setValue</a> (long numerator, long denominator)</td></tr>
 <tr class="memdesc:af450115d10253bc42acaf39801c5a173"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given rational in two parts: the numerator and denominator.  <a href="class_a_s_t_node.html#af450115d10253bc42acaf39801c5a173">More...</a><br /></td></tr>
 <tr class="separator:af450115d10253bc42acaf39801c5a173"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38d4ced59cd23b76e0c332afe20ab0f3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a38d4ced59cd23b76e0c332afe20ab0f3">setValue</a> (long value)</td></tr>
-<tr class="memdesc:a38d4ced59cd23b76e0c332afe20ab0f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given (<code>long</code>) integer and sets the node type to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGERendif. </a> <a href="class_a_s_t_node.html#a38d4ced59cd23b76e0c332afe20ab0f3">More...</a><br /></td></tr>
+<tr class="memdesc:a38d4ced59cd23b76e0c332afe20ab0f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given (<code>long</code>) integer and sets the node type to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGER</a>.  <a href="class_a_s_t_node.html#a38d4ced59cd23b76e0c332afe20ab0f3">More...</a><br /></td></tr>
 <tr class="separator:a38d4ced59cd23b76e0c332afe20ab0f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa15b06fa2fc77b84b05b26b5fdbebf23"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#aa15b06fa2fc77b84b05b26b5fdbebf23">swapChildren</a> (<a class="el" href="class_a_s_t_node.html">ASTNode</a> *that)</td></tr>
 <tr class="memdesc:aa15b06fa2fc77b84b05b26b5fdbebf23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps the children of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> object with the children of the given <a class="el" href="class_a_s_t_node.html">ASTNode</a> object.  <a href="class_a_s_t_node.html#aa15b06fa2fc77b84b05b26b5fdbebf23">More...</a><br /></td></tr>
@@ -491,6 +529,11 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:ad4df9cba1deec746bf142f98aa79e150"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#ad4df9cba1deec746bf142f98aa79e150">simplify</a> ()</td></tr>
 <tr class="separator:ad4df9cba1deec746bf142f98aa79e150"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a1c8e0078ffd86633281a0fe7bfa26883"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a1c8e0078ffd86633281a0fe7bfa26883">clearPlugins</a> ()</td></tr>
+<tr class="separator:a1c8e0078ffd86633281a0fe7bfa26883"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a709a4cfd50fb2e3e4a9799fe7e43eb33"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a709a4cfd50fb2e3e4a9799fe7e43eb33">SBMLRateRuleConverter</a></td></tr>
@@ -514,7 +557,13 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates and returns a new <a class="el" href="class_a_s_t_node.html">ASTNode</a>. </p>
-<p>Unless the argument <code>type</code> is given, the returned node will by default have a type of <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203ab845bbc0e0fdade1d53c4104e7888a8f">AST_UNKNOWNendif </a></p>
+<p>Unless the argument <code>type</code> is given, the returned node will by default have a type of <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203ab845bbc0e0fdade1d53c4104e7888a8f">AST_UNKNOWN</a>. If the type isn't supplied when caling this constructor, the caller should set the node type to something else as soon as possible usingsetType().</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>an optional <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203" title="ASTNodeType_t is the enumeration of possible ASTNode types.">ASTNodeType_t</a> code indicating the type of node to create. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -634,9 +683,21 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
 </ul>
+</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Explicitly adding, removing or replacing children of an <a class="el" href="class_a_s_t_node.html">ASTNode</a> object may change the structure of the mathematical formula it represents, and may even render the representation invalid. Callers need to be careful to use this method in the context of other operations to create complete and correct formulas. The methodASTNode::isWellFormedASTNode() may also be useful for checking the results of node modifications.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_a_s_t_node.html#a27fec7e37689b7119846815c7f9108a8" title="Adds the given node as a child of this ASTNode.">prependChild(ASTNode* disownedChild)</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a050c49267ec3f8d4d6f69126d89b7a9f" title="Replaces and optionally deletes the nth child of this ASTNode with the given ASTNode.">replaceChild(unsigned int n, ASTNode* disownedChild, bool delreplaced)</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a8ceb6b332df118a1dfd3576b84f1c6e4" title="Inserts the given ASTNode at point n in the list of children of this ASTNode.">insertChild(unsigned int n, ASTNode* disownedChild)</a> </dd>
+<dd>
+removeChild(unsigned int n) </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#ab6cc27f060b99173529b20e6ba770b2a" title="Returns true or false depending on whether this ASTNode is well-formed.">isWellFormedASTNode()</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="create_example_s_b_m_l_8cpp-example.html#a37">createExampleSBML.cpp</a>.</dd>
 </dl>
 
@@ -675,9 +736,15 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
 </ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Although SBML permits the use of the MathML <code>&lt;semantics&gt;</code> annotation construct, the truth is that this construct has so far (at this time of this writing, which is early 2014) seen very little use in SBML software. The full implications of using these annotations are still poorly understood. If you wish to use this construct, we urge you to discuss possible uses and applications on the SBML discussion lists, particularly <a href="http://sbml.org/Forums" target="_blank">sbml-discuss</a> and/or <a href="http://sbml.org/Forums" target="_blank">sbml-interoperability</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_a_s_t_node.html#ab51b93fa0ab9a7b5565f1a47f993f9ed" title="Returns the number of MathML &lt;semantics&gt; element elements on this node.">getNumSemanticsAnnotations()</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#ac98550575c764a4617651d5f311cea65" title="Returns the nth MathML &lt;semantics&gt; element on this ASTNode.">getSemanticsAnnotation()</a> </dd></dl>
 
 </div>
 </div>
@@ -699,8 +766,38 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
 <p>Converts this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to a canonical form and returns <code>true</code> if successful, <code>false</code> otherwise. </p>
 <p>The rules determining the canonical form conversion are as follows:</p>
 <ul>
-<li>If the node type is <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4fab2a5f966e56f6062f9f9505921d0d">AST_NAMEendif </a></li>
+<li>If the node type is <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4fab2a5f966e56f6062f9f9505921d0d">AST_NAME</a> and the node name matches <code>"ExponentialE"</code>, <code>"Pi"</code>, <code>"True"</code> or <code>"False"</code> the node type is converted to the corresponding <code>AST_CONSTANT_</code><em><span class="placeholder">X</span></em> type.</li>
 </ul>
+<ul>
+<li>If the node type is an <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aca72ec3f021680346ad5d4f7f396c342">AST_FUNCTION</a> and the node name matches an SBML (MathML) function name, logical operator name, or relational operator name, the node is converted to the corresponding <code>AST_FUNCTION_</code><em><span class="placeholder">X</span></em> or <code>AST_LOGICAL_</code><em><span class="placeholder">X</span></em> type.</li>
+</ul>
+<p>SBML Level&#160;1 function names are searched first; thus, for example, canonicalizing <code>log</code> will result in a node type of <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a86257b8c9f202d2afbb7397b7def0d8e">AST_FUNCTION_LN</a>. (See the SBML Level&#160;1 Version&#160;2 Specification, Appendix C.)</p>
+<p>Sometimes, canonicalization of a node results in a structural conversion of the node as a result of adding a child. For example, a node with the SBML Level&#160;1 function name <code>sqr</code> and a single child node (the argument) will be transformed to a node of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a3b73ae9941e588add41be17a664284ab">AST_FUNCTION_POWER</a> with two children. The first child will remain unchanged, but the second child will be an <a class="el" href="class_a_s_t_node.html">ASTNode</a> of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGER</a> and a value of 2. The function names that result in structural changes are: <code>log10</code>, <code>sqr</code>, and <code>sqrt</code>. </p>
+
+</div>
+</div>
+<a id="a1c8e0078ffd86633281a0fe7bfa26883"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c8e0078ffd86633281a0fe7bfa26883">&#9670;&nbsp;</a></span>clearPlugins()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ASTNode::clearPlugins </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1185,7 +1282,12 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
 </div><div class="memdoc">
 
 <p>Frees the name of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> and sets it to <code>NULL</code>. </p>
-<p>This operation is only applicable to <a class="el" href="class_a_s_t_node.html">ASTNode</a> objects corresponding to operators, numbers, or <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203ab845bbc0e0fdade1d53c4104e7888a8f">AST_UNKNOWNendif </a></p>
+<p>This operation is only applicable to <a class="el" href="class_a_s_t_node.html">ASTNode</a> objects corresponding to operators, numbers, or <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203ab845bbc0e0fdade1d53c4104e7888a8f">AST_UNKNOWN</a>. This method has no effect on other types of nodes.</p>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da354242392bc8b59872de6bd6d0a3b9fb">LIBSBML_UNEXPECTED_ATTRIBUTE</a> </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -1403,7 +1505,8 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
 </div><div class="memdoc">
 
 <p>Returns the value of this node as a single character. </p>
-<p>This function should be called only when <a class="el" href="class_a_s_t_node.html#aaa934fcde1d07f0f1c061b9dd06f6afb" title="Returns the type of this ASTNode.">getType()</a> returns <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203acd4fa16c348e2bf7ab24120eff0f0063">AST_PLUSendif </a></p>
+<p>This function should be called only when <a class="el" href="class_a_s_t_node.html#aaa934fcde1d07f0f1c061b9dd06f6afb" title="Returns the type of this ASTNode.">getType()</a> returns <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203acd4fa16c348e2bf7ab24120eff0f0063">AST_PLUS</a>, <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a04afe78f8ca0f64c4d49f3cd1a8b41ec">AST_MINUS</a>, <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a3b5febe16514530ccf97536c0a26244d">AST_TIMES</a>, <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a11408698b7be79184ba65779128ef654">AST_DIVIDE</a> or <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203abfa0a5d49f1a260bab7663cf688e76a9">AST_POWER</a>.</p>
+<dl class="section return"><dt>Returns</dt><dd>the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> as a single character </dd></dl>
 
 </div>
 </div>
@@ -1532,7 +1635,9 @@ setDefinitionURL(XMLAttributes url) </dd></dl>
 </div><div class="memdoc">
 
 <p>Returns the value of the denominator of this node. </p>
-<dl class="section return"><dt>Returns</dt><dd>the value of the denominator of this <a class="el" href="class_a_s_t_node.html">ASTNode</a>, or <code>1</code> (true) if this node is not of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONALendif </a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the value of the denominator of this <a class="el" href="class_a_s_t_node.html">ASTNode</a>, or <code>1</code> (true) if this node is not of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONAL</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function should be called only when <a class="el" href="class_a_s_t_node.html#aaa934fcde1d07f0f1c061b9dd06f6afb" title="Returns the type of this ASTNode.">getType()</a> returns <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONAL</a>. It will return <code>1</code> if the node type is another type, but since <code>1</code> may be a valid value for the denominator of a rational number, it is important to be sure that the node type is the correct type in order to correctly interpret the returned value.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_a_s_t_node.html#a17a4868804e7e10a6cf79430723a4aee" title="Returns the value of the numerator of this node if of type AST_RATIONAL, or the numerical value of th...">getNumerator()</a> </dd></dl>
 
 </div>
 </div>
@@ -1553,7 +1658,8 @@ setDefinitionURL(XMLAttributes url) </dd></dl>
 
 <p>Returns the exponent value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>the value of the exponent of this <a class="el" href="class_a_s_t_node.html">ASTNode</a>, or <code>0</code> if this is not a type of node that has an exponent.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function should be called only when <a class="el" href="class_a_s_t_node.html#aaa934fcde1d07f0f1c061b9dd06f6afb" title="Returns the type of this ASTNode.">getType()</a> returns <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a69ecd50bf295b71067bc9499f2d305d1">AST_REAL_Eendif </a></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function should be called only when <a class="el" href="class_a_s_t_node.html#aaa934fcde1d07f0f1c061b9dd06f6afb" title="Returns the type of this ASTNode.">getType()</a> returns <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a69ecd50bf295b71067bc9499f2d305d1">AST_REAL_E</a>. It will return <code>0</code> if the node type is another type, but since <code>0</code> may be a valid value, it is important to be sure that the node type is the correct type in order to correctly interpret the returned value.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_a_s_t_node.html#a8da51fb905d7460d7531893906a21a1f" title="Returns the mantissa value of this node.">getMantissa()</a> </dd></dl>
 
 </div>
 </div>
@@ -1598,7 +1704,12 @@ setDefinitionURL(XMLAttributes url) </dd></dl>
 </div><div class="memdoc">
 
 <p>Returns the value of this node as an integer. </p>
-<p>If this node type is <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONALendif </a></p>
+<p>If this node type is <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONAL</a>, this method returns the value of the numerator.</p>
+<dl class="section return"><dt>Returns</dt><dd>the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> as a (<code>long</code>) integer if type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGER</a>; the numerator if type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONAL</a>, and <code>0</code> otherwise.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function should be called only when <a class="el" href="class_a_s_t_node.html#aaa934fcde1d07f0f1c061b9dd06f6afb" title="Returns the type of this ASTNode.">getType()</a> returns <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGER</a> or <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONAL</a>. It will return <code>0</code> if the node type is <em>not</em> one of these, but since <code>0</code> may be a valid value for integer, it is important to be sure that the node type is one of the expected types in order to understand if <code>0</code> is the actual value.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_a_s_t_node.html#a17a4868804e7e10a6cf79430723a4aee" title="Returns the value of the numerator of this node if of type AST_RATIONAL, or the numerical value of th...">getNumerator()</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a620072b6b11a6c83943ecdfa4385f6d6" title="Returns the value of the denominator of this node.">getDenominator()</a> </dd></dl>
 
 </div>
 </div>
@@ -1674,7 +1785,10 @@ setDefinitionURL(XMLAttributes url) </dd></dl>
 </div><div class="memdoc">
 
 <p>Returns the mantissa value of this node. </p>
-<p>If <a class="el" href="class_a_s_t_node.html#aaa934fcde1d07f0f1c061b9dd06f6afb" title="Returns the type of this ASTNode.">getType()</a> returns <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a634db469deca7c255a3694c5cb3a4863">AST_REALendif </a></p>
+<p>If <a class="el" href="class_a_s_t_node.html#aaa934fcde1d07f0f1c061b9dd06f6afb" title="Returns the type of this ASTNode.">getType()</a> returns <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a634db469deca7c255a3694c5cb3a4863">AST_REAL</a>, this method is identical to <a class="el" href="class_a_s_t_node.html#a9d737e799a7c6b9757fd03abed50b580" title="Returns the real-numbered value of this node.">ASTNode::getReal()</a>.</p>
+<dl class="section return"><dt>Returns</dt><dd>the value of the mantissa of this <a class="el" href="class_a_s_t_node.html">ASTNode</a>, or <code>0</code> if this node is not a type that has a real-numbered value.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function should be called only when <a class="el" href="class_a_s_t_node.html#aaa934fcde1d07f0f1c061b9dd06f6afb" title="Returns the type of this ASTNode.">getType()</a> returns <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a69ecd50bf295b71067bc9499f2d305d1">AST_REAL_E</a>, <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a634db469deca7c255a3694c5cb3a4863">AST_REAL</a> or <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aa9754e70ec0089366d031fecedc8d04e">AST_NAME_AVOGADRO</a>. It will return <code>0</code> if the node type is another type, but since <code>0</code> may be a valid value, it is important to be sure that the node type is the correct type in order to correctly interpret the returned value.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_a_s_t_node.html#ac0466ef0434e4044c09bad81238c0f8b" title="Returns the exponent value of this ASTNode.">getExponent()</a> </dd></dl>
 
 </div>
 </div>
@@ -1736,7 +1850,12 @@ setDefinitionURL(XMLAttributes url) </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the value of the numerator of this node if of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONALendif. </a></p>
+<p>Returns the value of the numerator of this node if of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONAL</a>, or the numerical value of the node if of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGER</a>; <code>0</code> otherwise. </p>
+<p>This function should be called only when <a class="el" href="class_a_s_t_node.html#aaa934fcde1d07f0f1c061b9dd06f6afb" title="Returns the type of this ASTNode.">getType()</a> returns <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONAL</a> or <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGER</a>. It will return <code>0</code> if the node type is another type, but since <code>0</code> may be a valid value for the denominator of a rational number or of an integer, it is important to be sure that the node type is the correct type in order to correctly interpret the returned value.</p>
+<dl class="section return"><dt>Returns</dt><dd>the value of the numerator of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> if <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONAL</a>, the value if <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGER</a>, or <code>0</code> otherwise.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_a_s_t_node.html#a620072b6b11a6c83943ecdfa4385f6d6" title="Returns the value of the denominator of this node.">getDenominator()</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a85b0d75569f92141c9675b4791873785" title="Returns the value of this node as an integer.">getInteger()</a> </dd></dl>
 
 </div>
 </div>
@@ -1857,7 +1976,9 @@ setParentSBMLObject() </dd>
 </div><div class="memdoc">
 
 <p>Returns the real-numbered value of this node. </p>
-<p>This function performs the necessary arithmetic if the node type is <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a69ecd50bf295b71067bc9499f2d305d1">AST_REAL_Eendif </a></p>
+<p>This function performs the necessary arithmetic if the node type is <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a69ecd50bf295b71067bc9499f2d305d1">AST_REAL_E</a> (<em>mantissa * 10<sup>exponent</sup></em>) or <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONAL</a> (<em>numerator / denominator</em>).</p>
+<dl class="section return"><dt>Returns</dt><dd>the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> as a real (double), or <code>0</code> if this is not a node that holds a number.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function should be called only when this <a class="el" href="class_a_s_t_node.html">ASTNode</a> has a numerical value type. It will return <code>0</code> if the node type is another type, but since <code>0</code> may be a valid value, it is important to be sure that the node type is the correct type in order to correctly interpret the returned value. </dd></dl>
 
 </div>
 </div>
@@ -1971,7 +2092,8 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
 </div><div class="memdoc">
 
 <p>Returns the type of this <a class="el" href="class_a_s_t_node.html">ASTNode</a>. </p>
-<p>The value returned is one of the Core AST type codes such as <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4703ee0d883714d334ee0d7b534f0ac9">AST_LAMBDAendif </a></p>
+<p>The value returned is one of the Core AST type codes such as <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4703ee0d883714d334ee0d7b534f0ac9">AST_LAMBDA</a>, <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203acd4fa16c348e2bf7ab24120eff0f0063">AST_PLUS</a>, etc.</p>
+<dl class="section return"><dt>Returns</dt><dd>the type of this <a class="el" href="class_a_s_t_node.html">ASTNode</a>. </dd></dl>
 
 </div>
 </div>
@@ -2055,7 +2177,7 @@ used to define a number with value <code>10</code> and unit of measurement
 
 <p>Returns the numerical value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>the numerical value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a>, or <code>NaN</code> if this is not a type of node that has a numerical value.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function will return a numerical value (as a double) for any ASTNode_t that represents a number, a constant such as <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aa94de3fb689270170a756ed428b253f6">AST_CONSTANT_PIendif </a></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function will return a numerical value (as a double) for any ASTNode_t that represents a number, a constant such as <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aa94de3fb689270170a756ed428b253f6">AST_CONSTANT_PI</a>, <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203adb591fa008acf014bc037d95a6a89a69">AST_CONSTANT_E</a>, or <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aa9754e70ec0089366d031fecedc8d04e">AST_NAME_AVOGADRO</a>, or <code>1</code> for nodes of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203ad571d2b80f4dcc08fc489960efdb2ab3">AST_CONSTANT_TRUE</a> and <code>0</code> for nodes of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203adc46a568eb6b891f72738b67da24347a">AST_CONSTANT_FALSE</a>. It does not evaluate the node in any way so, for example, it will not return the value of a named ASTNode_t or attempt to evaluate a function. This includes a node representing <code>time</code> i.e. nodes of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a0358231b02f7964269ebb2e580defdf2">AST_NAME_TIME</a>. </dd></dl>
 
 </div>
 </div>
@@ -2075,7 +2197,10 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if this <a class="el" href="class_a_s_t_node.html">ASTNode</a> has the correct number of children for its type. </p>
-<p>For example, an <a class="el" href="class_a_s_t_node.html">ASTNode</a> with type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a04afe78f8ca0f64c4d49f3cd1a8b41ec">AST_MINUSendif </a></p>
+<p>For example, an <a class="el" href="class_a_s_t_node.html">ASTNode</a> with type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a04afe78f8ca0f64c4d49f3cd1a8b41ec">AST_MINUS</a> expects 1 or 2 child nodes.</p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_a_s_t_node.html">ASTNode</a> has the appropriate number of children for its type, <code>false</code> otherwise.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function performs a check on the top-level node only. Child nodes are not checked.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_a_s_t_node.html#ab6cc27f060b99173529b20e6ba770b2a" title="Returns true or false depending on whether this ASTNode is well-formed.">isWellFormedASTNode()</a> </dd></dl>
 
 </div>
 </div>
@@ -2185,9 +2310,20 @@ used to define a number with value <code>10</code> and unit of measurement
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a></li>
 </ul>
+</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Explicitly adding, removing or replacing children of an <a class="el" href="class_a_s_t_node.html">ASTNode</a> object may change the structure of the mathematical formula it represents, and may even render the representation invalid. Callers need to be careful to use this method in the context of other operations to create complete and correct formulas. The methodASTNode::isWellFormedASTNode() may also be useful for checking the results of node modifications.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>addChild(ASTNode* disownedChild) </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a27fec7e37689b7119846815c7f9108a8" title="Adds the given node as a child of this ASTNode.">prependChild(ASTNode* disownedChild)</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a050c49267ec3f8d4d6f69126d89b7a9f" title="Replaces and optionally deletes the nth child of this ASTNode with the given ASTNode.">replaceChild(unsigned int n, ASTNode* disownedChild, bool delreplaced)</a> </dd>
+<dd>
+removeChild(unsigned int n) </dd></dl>
 
 </div>
 </div>
@@ -2208,7 +2344,9 @@ used to define a number with value <code>10</code> and unit of measurement
 
 <p>Returns <code>true</code> (nonzero) if this node is the special symbol <code>avogadro</code>. </p>
 <p>The predicate returns <code>false</code> (zero) otherwise.</p>
-<p>SBML Level&#160;3 introduced a predefined MathML <code>&lt;csymbol&gt;</code> for the value of Avogadro's constant. LibSBML stores this internally as a node of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aa9754e70ec0089366d031fecedc8d04e">AST_NAME_AVOGADROendif </a></p>
+<p>SBML Level&#160;3 introduced a predefined MathML <code>&lt;csymbol&gt;</code> for the value of Avogadro's constant. LibSBML stores this internally as a node of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aa9754e70ec0089366d031fecedc8d04e">AST_NAME_AVOGADRO</a>. This method returns <code>true</code> if this node has that type.</p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_a_s_t_node.html">ASTNode</a> is the special symbol avogadro, <code>false</code> otherwise.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="_l3_parser_8cpp.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> </dd></dl>
 
 </div>
 </div>
@@ -2270,7 +2408,7 @@ used to define a number with value <code>10</code> and unit of measurement
 
 <p>Returns <code>true</code> (nonzero) if this node represents a MathML constant (e.g., <code>true</code>, <code>Pi</code>). </p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_a_s_t_node.html">ASTNode</a> is a MathML constant, <code>false</code> otherwise.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>this function will also return <code>true</code> for nodes of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aa9754e70ec0089366d031fecedc8d04e">AST_NAME_AVOGADROendif </a></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>this function will also return <code>true</code> for nodes of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aa9754e70ec0089366d031fecedc8d04e">AST_NAME_AVOGADRO</a> in SBML Level&#160;3. </dd></dl>
 
 </div>
 </div>
@@ -2291,7 +2429,7 @@ used to define a number with value <code>10</code> and unit of measurement
 
 <p>Returns <code>true</code> (nonzero) if this node represents a MathML constant with numeric value (e.g., <code>Pi</code>). </p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_a_s_t_node.html">ASTNode</a> is a MathML constant, <code>false</code> otherwise.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>this function will also return <code>true</code> for <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aa9754e70ec0089366d031fecedc8d04e">AST_NAME_AVOGADROendif </a></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>this function will also return <code>true</code> for <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aa9754e70ec0089366d031fecedc8d04e">AST_NAME_AVOGADRO</a> in SBML Level&#160;3. </dd></dl>
 
 </div>
 </div>
@@ -2372,7 +2510,7 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> (nonzero) if this node contains an integer value, <code>false</code> (zero) otherwise. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_a_s_t_node.html">ASTNode</a> is of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGERendif </a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_a_s_t_node.html">ASTNode</a> is of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGER</a>, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -2392,7 +2530,7 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> (nonzero) if this node is a MathML <code>&lt;lambda&gt;</code>, <code>false</code> (zero) otherwise. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_a_s_t_node.html">ASTNode</a> is of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4703ee0d883714d334ee0d7b534f0ac9">AST_LAMBDAendif </a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_a_s_t_node.html">ASTNode</a> is of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4703ee0d883714d334ee0d7b534f0ac9">AST_LAMBDA</a>, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -2412,7 +2550,9 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> (nonzero) if this node represents a <code>log10</code> function, <code>false</code> (zero) otherwise. </p>
-<p>More precisely, this predicate returns <code>true</code> if the node type is <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aee5ce31deca83c9d96a5888474bc0e4d">AST_FUNCTION_LOGendif </a></p>
+<p>More precisely, this predicate returns <code>true</code> if the node type is <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aee5ce31deca83c9d96a5888474bc0e4d">AST_FUNCTION_LOG</a> with two children, the first of which is an <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGER</a> equal to 10.</p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the given <a class="el" href="class_a_s_t_node.html">ASTNode</a> represents a log10() function, <code>false</code> otherwise.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="_l3_parser_8cpp.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> </dd></dl>
 
 </div>
 </div>
@@ -2576,7 +2716,7 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> (nonzero) if this node represents a rational number. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_a_s_t_node.html">ASTNode</a> is of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONALendif </a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_a_s_t_node.html">ASTNode</a> is of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONAL</a>, <code>false</code> (zero) otherwise. </dd></dl>
 
 </div>
 </div>
@@ -2596,7 +2736,8 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> (nonzero) if this node can represent a real number, <code>false</code> (zero) otherwise. </p>
-<p>More precisely, this node must be of one of the following types: <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a634db469deca7c255a3694c5cb3a4863">AST_REALendif </a></p>
+<p>More precisely, this node must be of one of the following types: <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a634db469deca7c255a3694c5cb3a4863">AST_REAL</a>, <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a69ecd50bf295b71067bc9499f2d305d1">AST_REAL_E</a> or <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONAL</a>.</p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> can represented as a real number, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -2808,7 +2949,8 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> (nonzero) if this node represents a square root function, <code>false</code> (zero) otherwise. </p>
-<p>More precisely, the node type must be <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a676272161183a845f1fb3cdcf02fea63">AST_FUNCTION_ROOTendif </a></p>
+<p>More precisely, the node type must be <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a676272161183a845f1fb3cdcf02fea63">AST_FUNCTION_ROOT</a> with two children, the first of which is an <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGER</a> node having value equal to 2.</p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the given <a class="el" href="class_a_s_t_node.html">ASTNode</a> represents a sqrt() function, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -2828,7 +2970,8 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> (nonzero) if this node is a unary minus operator, <code>false</code> (zero) otherwise. </p>
-<p>A node is defined as a unary minus node if it is of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a04afe78f8ca0f64c4d49f3cd1a8b41ec">AST_MINUSendif </a></p>
+<p>A node is defined as a unary minus node if it is of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a04afe78f8ca0f64c4d49f3cd1a8b41ec">AST_MINUS</a> and has exactly one child.</p>
+<p>For numbers, unary minus nodes can be "collapsed" by negating the number. In fact, <a class="el" href="_formula_parser_8cpp.html#ac0f6e91ce03b9dd1070011499050eedc" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseFormula()</a> </p>
 
 </div>
 </div>
@@ -2848,7 +2991,8 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> (nonzero) if this node has an unknown type. </p>
-<p>"Unknown" nodes have the type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203ab845bbc0e0fdade1d53c4104e7888a8f">AST_UNKNOWNendif </a></p>
+<p>"Unknown" nodes have the type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203ab845bbc0e0fdade1d53c4104e7888a8f">AST_UNKNOWN</a>. Nodes with unknown types will not appear in an <a class="el" href="class_a_s_t_node.html">ASTNode</a> tree returned by libSBML based upon valid SBML input; the only situation in which a node with type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203ab845bbc0e0fdade1d53c4104e7888a8f">AST_UNKNOWN</a> may appear is immediately after having create a new, untyped node using the <a class="el" href="class_a_s_t_node.html">ASTNode</a> constructor. Callers creating nodes should endeavor to set the type to a valid node type as soon as possible after creating new nodes.</p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_a_s_t_node.html">ASTNode</a> is of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203ab845bbc0e0fdade1d53c4104e7888a8f">AST_UNKNOWN</a>, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -2868,7 +3012,8 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> (nonzero) if this node is a unary plus operator, <code>false</code> (zero) otherwise. </p>
-<p>A node is defined as a unary minus node if it is of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a04afe78f8ca0f64c4d49f3cd1a8b41ec">AST_MINUSendif </a></p>
+<p>A node is defined as a unary minus node if it is of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a04afe78f8ca0f64c4d49f3cd1a8b41ec">AST_MINUS</a> and has exactly one child.</p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_a_s_t_node.html">ASTNode</a> is a unary plus, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -2964,9 +3109,19 @@ used to define a number with value <code>10</code> and unit of measurement
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
 </ul>
+</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Explicitly adding, removing or replacing children of an <a class="el" href="class_a_s_t_node.html">ASTNode</a> object may change the structure of the mathematical formula it represents, and may even render the representation invalid. Callers need to be careful to use this method in the context of other operations to create complete and correct formulas. The methodASTNode::isWellFormedASTNode() may also be useful for checking the results of node modifications.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>addChild(ASTNode* disownedChild) </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a050c49267ec3f8d4d6f69126d89b7a9f" title="Replaces and optionally deletes the nth child of this ASTNode with the given ASTNode.">replaceChild(unsigned int n, ASTNode* disownedChild, bool delreplaced)</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a8ceb6b332df118a1dfd3576b84f1c6e4" title="Inserts the given ASTNode at point n in the list of children of this ASTNode.">insertChild(unsigned int n, ASTNode* disownedChild)</a> </dd>
+<dd>
+removeChild(unsigned int n) </dd></dl>
 
 </div>
 </div>
@@ -3083,9 +3238,19 @@ used to define a number with value <code>10</code> and unit of measurement
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a></li>
 </ul>
+</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Explicitly adding, removing or replacing children of an <a class="el" href="class_a_s_t_node.html">ASTNode</a> object may change the structure of the mathematical formula it represents, and may even render the representation invalid. Callers need to be careful to use this method in the context of other operations to create complete and correct formulas. The methodASTNode::isWellFormedASTNode() may also be useful for checking the results of node modifications.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>addChild(ASTNode* disownedChild) </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a27fec7e37689b7119846815c7f9108a8" title="Adds the given node as a child of this ASTNode.">prependChild(ASTNode* disownedChild)</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a050c49267ec3f8d4d6f69126d89b7a9f" title="Replaces and optionally deletes the nth child of this ASTNode with the given ASTNode.">replaceChild(unsigned int n, ASTNode* disownedChild, bool delreplaced)</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a8ceb6b332df118a1dfd3576b84f1c6e4" title="Inserts the given ASTNode at point n in the list of children of this ASTNode.">insertChild(unsigned int n, ASTNode* disownedChild)</a> </dd></dl>
 
 </div>
 </div>
@@ -3278,9 +3443,20 @@ used to define a number with value <code>10</code> and unit of measurement
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a></li>
 </ul>
+</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Explicitly adding, removing or replacing children of an <a class="el" href="class_a_s_t_node.html">ASTNode</a> object may change the structure of the mathematical formula it represents, and may even render the representation invalid. Callers need to be careful to use this method in the context of other operations to create complete and correct formulas. The methodASTNode::isWellFormedASTNode() may also be useful for checking the results of node modifications.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>addChild(ASTNode* disownedChild) </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a27fec7e37689b7119846815c7f9108a8" title="Adds the given node as a child of this ASTNode.">prependChild(ASTNode* disownedChild)</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a8ceb6b332df118a1dfd3576b84f1c6e4" title="Inserts the given ASTNode at point n in the list of children of this ASTNode.">insertChild(unsigned int n, ASTNode* disownedChild)</a> </dd>
+<dd>
+removeChild(unsigned int n) </dd></dl>
 
 </div>
 </div>
@@ -3324,7 +3500,17 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given character. </p>
-<p>If character is one of <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> or <code>^</code>, the node type will be set accordingly. For all other characters, the node type will be set to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203ab845bbc0e0fdade1d53c4104e7888a8f">AST_UNKNOWNendif </a></p>
+<p>If character is one of <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> or <code>^</code>, the node type will be set accordingly. For all other characters, the node type will be set to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203ab845bbc0e0fdade1d53c4104e7888a8f">AST_UNKNOWN</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>the character value to which the node's value should be set.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -3351,9 +3537,15 @@ used to define a number with value <code>10</code> and unit of measurement
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_a_s_t_node.html#a5b025a12c1a5b30630a9c9ba3f555225" title="Returns true (nonzero) if this node has a value for the MathML attribute &quot;class&quot;.">isSetClass()</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a3c88d603fc91ae01b519ef36a813940f" title="Returns the MathML class attribute value of this ASTNode.">getClass()</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a1e62030f74c9867ae6ddf2eab40b5ad9" title="Unsets the MathML class attribute of this ASTNode.">unsetClass()</a> </dd></dl>
 
 </div>
 </div>
@@ -3380,9 +3572,15 @@ used to define a number with value <code>10</code> and unit of measurement
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_a_s_t_node.html#a98d7af6077c4c113057f82cd5c43c735" title="Returns true (nonzero) if this node has a value for the MathML attribute &quot;id&quot;.">isSetId()</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#aaa3ad6caed2fcd8438ccb45af6dc8119" title="Returns the MathML id attribute value of this ASTNode.">getId()</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a38962e67843d2841404e68f87d77b722" title="Unsets the MathML id attribute of this ASTNode.">unsetId()</a> </dd></dl>
 
 </div>
 </div>
@@ -3403,7 +3601,17 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given name. </p>
-<p>As a side effect, this <a class="el" href="class_a_s_t_node.html">ASTNode</a> object's type will be reset to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4fab2a5f966e56f6062f9f9505921d0d">AST_NAMEendif </a></p>
+<p>As a side effect, this <a class="el" href="class_a_s_t_node.html">ASTNode</a> object's type will be reset to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4fab2a5f966e56f6062f9f9505921d0d">AST_NAME</a> if (and <em>only if</em>) the <a class="el" href="class_a_s_t_node.html">ASTNode</a> was previously an operator ( <a class="el" href="class_a_s_t_node.html#a7d167168f1e9d062fd3f8f5f8cad951e" title="Returns true if this node is a mathematical operator.">isOperator()</a> <code>== true</code>), number ( <a class="el" href="class_a_s_t_node.html#aefb9fc75b2bd81663512ebce1886e4da" title="Returns true (nonzero) if this node contains a number, false (zero) otherwise.">isNumber()</a> <code>== true</code>), or unknown. This allows names to be set for <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aca72ec3f021680346ad5d4f7f396c342">AST_FUNCTION</a> nodes and the like.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>the string containing the name to which this node's value should be set.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+</ul>
+</dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="create_example_s_b_m_l_8cpp-example.html#a35">createExampleSBML.cpp</a>.</dd>
 </dl>
 
@@ -3432,9 +3640,15 @@ used to define a number with value <code>10</code> and unit of measurement
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_a_s_t_node.html#a1a21ef4d79d048d8cf13d5ac83cab562" title="Returns true (nonzero) if this node has a value for the MathML attribute &quot;style&quot;.">isSetStyle()</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a154b2a892c2a843dbc31b593cbf35863" title="Returns the MathML style attribute value of this ASTNode.">getStyle()</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#af2be455b1eacf4e6854d5d10e36ab99a" title="Unsets the MathML style attribute of this ASTNode.">unsetStyle()</a> </dd></dl>
 
 </div>
 </div>
@@ -3461,9 +3675,12 @@ used to define a number with value <code>10</code> and unit of measurement
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da2018dcd1ec4e8d61debae043b1697d4e">LIBSBML_INVALID_ATTRIBUTE_VALUE</a></li>
 </ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>A side-effect of doing this is that any numerical values previously stored in this node are reset to zero. </dd></dl>
 
 </div>
 </div>
@@ -3507,9 +3724,16 @@ used to define a number with value <code>10</code> and unit of measurement
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da354242392bc8b59872de6bd6d0a3b9fb">LIBSBML_UNEXPECTED_ATTRIBUTE</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da2018dcd1ec4e8d61debae043b1697d4e">LIBSBML_INVALID_ATTRIBUTE_VALUE</a></li>
 </ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The <code>sbml:units</code> attribute is only available in SBML Level&#160;3. It may not be used in Levels 1&ndash;2 of SBML.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_a_s_t_node.html#a9a00bda7e722f821e727176ef18ca4ae" title="Returns true (nonzero) if this node has the attribute sbml:units.">isSetUnits()</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#abb708bfee4e451fbbad004b49060969d" title="Returns true (nonzero) if this node or any of its children nodes have the attribute sbml:units.">hasUnits()</a> </dd></dl>
 
 </div>
 </div>
@@ -3537,9 +3761,16 @@ used to define a number with value <code>10</code> and unit of measurement
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_a_s_t_node.html#aa50a009ade5d3e0bcf0ccd9f7598708a" title="Returns true if this node has a user data object.">isSetUserData()</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#ad8763e789cfeb52b130c84567684b7af" title="Returns the user data that has been previously set via setUserData().">getUserData()</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a8d7f8301b10f3aed387a447473650ed5" title="Unsets the user data of this node.">unsetUserData()</a> </dd></dl>
 
 </div>
 </div>
@@ -3570,7 +3801,18 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given real (<code>double</code>) in two parts: the mantissa and the exponent. </p>
-<p>The node type is set to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a69ecd50bf295b71067bc9499f2d305d1">AST_REAL_Eendif </a></p>
+<p>The node type is set to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a69ecd50bf295b71067bc9499f2d305d1">AST_REAL_E</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mantissa</td><td>the mantissa of this node's real-numbered value. </td></tr>
+    <tr><td class="paramname">exponent</td><td>the exponent of this node's real-numbered value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -3590,7 +3832,18 @@ used to define a number with value <code>10</code> and unit of measurement
       </table>
 </div><div class="memdoc">
 
-<p>Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given real (<code>double</code>) and sets the node type to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a634db469deca7c255a3694c5cb3a4863">AST_REALendif. </a></p>
+<p>Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given real (<code>double</code>) and sets the node type to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a634db469deca7c255a3694c5cb3a4863">AST_REAL</a>. </p>
+<p>This is functionally equivalent to: </p><pre class="fragment">setValue(value, 0);
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>the <code>double</code> format number to which this node's value should be set.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -3610,7 +3863,17 @@ used to define a number with value <code>10</code> and unit of measurement
       </table>
 </div><div class="memdoc">
 
-<p>Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given integer and sets the node type to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGERendif. </a></p>
+<p>Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given integer and sets the node type to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGER</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>the integer to which this node's value should be set.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -3641,7 +3904,18 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given rational in two parts: the numerator and denominator. </p>
-<p>The node type is set to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONALendif </a></p>
+<p>The node type is set to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a117b5a5afc8b127b138622ad07dc8d54">AST_RATIONAL</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">numerator</td><td>the numerator value of the rational. </td></tr>
+    <tr><td class="paramname">denominator</td><td>the denominator value of the rational.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -3661,7 +3935,17 @@ used to define a number with value <code>10</code> and unit of measurement
       </table>
 </div><div class="memdoc">
 
-<p>Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given (<code>long</code>) integer and sets the node type to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGERendif. </a></p>
+<p>Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given (<code>long</code>) integer and sets the node type to <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGER</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>the integer to which this node's value should be set.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -3713,9 +3997,11 @@ used to define a number with value <code>10</code> and unit of measurement
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -3735,9 +4021,11 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Unsets the MathML <code>class</code> attribute of this <a class="el" href="class_a_s_t_node.html">ASTNode</a>. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -3757,9 +4045,11 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Unsets the MathML <code>id</code> attribute of this <a class="el" href="class_a_s_t_node.html">ASTNode</a>. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -3779,9 +4069,16 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Unsets the parent SBML object. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_a_s_t_node.html#a63be31576eef23de0a5f2e40b48b6aee" title="Returns true if this node has a value for the parent SBML object.">isSetParentSBMLObject()</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#a3e12c3633f7d19f03523925ff845aa91" title="Returns the parent SBML object.">getParentSBMLObject()</a> </dd>
+<dd>
+setParentSBMLObject() </dd></dl>
 
 </div>
 </div>
@@ -3801,9 +4098,11 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Unsets the MathML <code>style</code> attribute of this <a class="el" href="class_a_s_t_node.html">ASTNode</a>. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -3823,9 +4122,12 @@ used to define a number with value <code>10</code> and unit of measurement
 </div><div class="memdoc">
 
 <p>Unsets the units of this <a class="el" href="class_a_s_t_node.html">ASTNode</a>. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da354242392bc8b59872de6bd6d0a3b9fb">LIBSBML_UNEXPECTED_ATTRIBUTE</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -3846,9 +4148,16 @@ used to define a number with value <code>10</code> and unit of measurement
 
 <p>Unsets the user data of this node. </p>
 <p>The user data can be used by the application developer to attach custom information to the node. In case of a deep copy, this attribute will passed as it is. The attribute will be never interpreted by this class.</p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_a_s_t_node.html#adae163e5a31a74d62c665db0b9704220" title="Sets the user data of this node.">setUserData()</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#ad8763e789cfeb52b130c84567684b7af" title="Returns the user data that has been previously set via setUserData().">getUserData()</a> </dd>
+<dd>
+<a class="el" href="class_a_s_t_node.html#aa50a009ade5d3e0bcf0ccd9f7598708a" title="Returns true if this node has a user data object.">isSetUserData()</a> </dd></dl>
 
 </div>
 </div>

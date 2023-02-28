@@ -9,5 +9,9 @@ var class_s_base_extension_point =
     [ "getPackageName", "class_s_base_extension_point.html#a9b6517160546a41628a47f509a508184", null ],
     [ "getTypeCode", "class_s_base_extension_point.html#a419bc83141d78d3508134e5c717dfe76", null ],
     [ "isElementOnly", "class_s_base_extension_point.html#a73c6a42b11bfe318326b2c8564d874f3", null ],
-    [ "operator=", "class_s_base_extension_point.html#ad4f0bc75ba071f3cbe3d186c0d20e898", null ]
+    [ "operator=", "class_s_base_extension_point.html#ad4f0bc75ba071f3cbe3d186c0d20e898", null ],
+    [ "mElementName", "class_s_base_extension_point.html#ad53b9cc993f704be1da8235b4d4ab39b", null ],
+    [ "mElementOnly", "class_s_base_extension_point.html#a43ea4c122723b23492bdc45b4b88f072", null ],
+    [ "mPackageName", "class_s_base_extension_point.html#aac554b42ff69ce3a89cc23f2ee75dc89", null ],
+    [ "mTypeCode", "class_s_base_extension_point.html#a6df17dacd41d0bfa7c1c3afe9c11bab4", null ]
 ];

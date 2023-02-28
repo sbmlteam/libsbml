@@ -11,5 +11,11 @@ var class_s_b_m_l_uri =
     [ "getUri", "class_s_b_m_l_uri.html#a526089a3d3aff63cf041cf8535530506", null ],
     [ "operator=", "class_s_b_m_l_uri.html#afa51469f6a78c00d88a51062697613a6", null ],
     [ "operator=", "class_s_b_m_l_uri.html#a542a7afbca6cb6d90cc4abe34c166391", null ],
-    [ "relativeTo", "class_s_b_m_l_uri.html#a595d5f1f78c62d7856021b4b144639bd", null ]
+    [ "parse", "class_s_b_m_l_uri.html#a581814f15d040ec21bda35fdc45e1e42", null ],
+    [ "relativeTo", "class_s_b_m_l_uri.html#a595d5f1f78c62d7856021b4b144639bd", null ],
+    [ "mHost", "class_s_b_m_l_uri.html#ae4b35af90fd3c68b3218c9a47b791117", null ],
+    [ "mPath", "class_s_b_m_l_uri.html#a2c2921d43bc9afb779f78db5f94775d6", null ],
+    [ "mQuery", "class_s_b_m_l_uri.html#ade7cbd6fde24a98d2b5ced81925f716f", null ],
+    [ "mScheme", "class_s_b_m_l_uri.html#a2077671b7afc3af14d71cf918b362638", null ],
+    [ "mUri", "class_s_b_m_l_uri.html#a7d6858e78c832a9f2036b938ff355f72", null ]
 ];

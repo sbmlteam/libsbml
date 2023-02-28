@@ -158,7 +158,7 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a281663fc0003c0acc2378756e0d926e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384">GroupKind_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_groups_extension_8h.html#a281663fc0003c0acc2378756e0d926e3">GroupKind_fromString</a> (const char *code)</td></tr>
-<tr class="memdesc:a281663fc0003c0acc2378756e0d926e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the enumeration value corresponding to the given string or <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWNendif. </a> <a href="_groups_extension_8h.html#a281663fc0003c0acc2378756e0d926e3">More...</a><br /></td></tr>
+<tr class="memdesc:a281663fc0003c0acc2378756e0d926e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the enumeration value corresponding to the given string or <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWN</a> if there is no such match.  <a href="_groups_extension_8h.html#a281663fc0003c0acc2378756e0d926e3">More...</a><br /></td></tr>
 <tr class="separator:a281663fc0003c0acc2378756e0d926e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade326c581c20cfe661de8658413f6d7d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_groups_extension_8h.html#ade326c581c20cfe661de8658413f6d7d">GroupKind_isValid</a> (<a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384">GroupKind_t</a> gk)</td></tr>
 <tr class="memdesc:ade326c581c20cfe661de8658413f6d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>1</code> (true) or <code>0</code> (false) depending on whether the given enumeration value is valid.  <a href="_groups_extension_8h.html#ade326c581c20cfe661de8658413f6d7d">More...</a><br /></td></tr>
@@ -264,6 +264,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>SBMLGroupsTypeCode_t Enumeration of possible types in the libSBML &ldquo;groups&rdquo; package implementation. </p>
+<dl class="section user"><dt></dt><dd>LibSBML attaches an identifying code to every kind of SBML object. These are integer constants known as <em>SBML type codes</em>. The names of all the codes begin with the characters <code>SBML_</code>. The set of possible type codes for core elements is defined in the enumeration <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfe" title="The enumeration of possible SBML core object types.">SBMLTypeCode_t</a>, and in addition, libSBML plug-ins for SBML Level&#160;3 packages define their own extra enumerations of type codes (e.g., <a class="el" href="_layout_extension_8h.html#a6b80c825e1507341de5540b8e7de003d" title="SBMLFbcTypeCode_t Enumeration of possible types in the libSBML “layout” package implementation.">SBMLLayoutTypeCode_t</a> for the Level&#160;3 <a class="el" href="class_layout.html">Layout</a> package). Note that different Level&#160;3 package plug-ins may use overlapping type codes; to identify the package to which a given object belongs, call the <code><a class="el" href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02" title="Returns the name of the SBML Level&#160;3 package in which this element is defined.">SBase::getPackageName()</a> </code> method on the object.</dd></dl>
+<p>The exception to this is lists: all SBML-style list elements have the type <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfeaa111b52def73380487c84f062f47dadc">SBML_LIST_OF</a>, regardless of what package they are from.</p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac6f063dc09c903a23bda8915ec483e5fab6547504ac29cfad34abd06e6dede564"></a>SBML_GROUPS_MEMBER&#160;</td><td class="fielddoc"><p><a class="el" href="class_member.html">Member</a> </p>
 </td></tr>
@@ -290,7 +292,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the enumeration value corresponding to the given string or <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWNendif. </a></p>
+<p>Returns the enumeration value corresponding to the given string or <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWN</a> if there is no such match. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">code</td><td>the string to convert to an enumeration value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the corresponding value, or <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWN</a> if no match is found.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The matching is case-sensitive: "classification" will return <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384adb949b15c224076dfb5403c91557397c">GROUP_KIND_CLASSIFICATION</a>, but "Classification" will return <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWN</a>. </dd></dl>
 
 </div>
 </div>
@@ -317,7 +327,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>1</code> (true) if the value is <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384adb949b15c224076dfb5403c91557397c">GROUP_KIND_CLASSIFICATIONendif </a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>1</code> (true) if the value is <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384adb949b15c224076dfb5403c91557397c">GROUP_KIND_CLASSIFICATION</a>, <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a9e0c5b13f9338a0e5466f51b24fc9878">GROUP_KIND_PARTONOMY</a>, or <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384ae59a57704254cd23d97c8b7ba6ed8bd8">GROUP_KIND_COLLECTION</a>; <code>0</code> (false) otherwise (including <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWN</a>). </dd></dl>
 
 </div>
 </div>
@@ -372,7 +382,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A string corresponding to the given type: "classification", "partonomy", "collection", or <code>NULL</code> if the value is <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWNendif </a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A string corresponding to the given type: "classification", "partonomy", "collection", or <code>NULL</code> if the value is <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWN</a> or another invalid enumeration value.</dd></dl>
 
 </div>
 </div>

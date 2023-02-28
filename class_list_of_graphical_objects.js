@@ -135,5 +135,6 @@ var class_list_of_graphical_objects =
     [ "unsetName", "class_list_of_graphical_objects.html#a4cf8825fb83925a508eaac3d7f8fbb8c", null ],
     [ "unsetNotes", "class_list_of_graphical_objects.html#a89f626f2593df8e83da4cdbfe79142f7", null ],
     [ "unsetSBOTerm", "class_list_of_graphical_objects.html#a317ea060a5c3f97576188a22e670e683", null ],
-    [ "unsetUserData", "class_list_of_graphical_objects.html#abd78c4290e103245ce49b92b5e229375", null ]
+    [ "unsetUserData", "class_list_of_graphical_objects.html#abd78c4290e103245ce49b92b5e229375", null ],
+    [ "mElementName", "class_list_of_graphical_objects.html#a5a35739f54a90be2ef026f3264e3a1f6", null ]
 ];

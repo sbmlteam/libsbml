@@ -93,7 +93,9 @@ $(document).ready(function(){initNavTree('class_s_b_m_l_extension_registry.html'
   <div class="summary">
 <a href="class_s_b_m_l_extension_registry-members.html">List of all members</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a>  </div>
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">SBMLExtensionRegistry Class Reference<div class="ingroups"><a class="el" href="group__core.html">Core libSBML</a></div></div>  </div>
 </div><!--header-->
@@ -175,7 +177,103 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a6391a2a3dfc597d2498d6f36454f4d87"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_registry.html#a6391a2a3dfc597d2498d6f36454f4d87">isPackageEnabled</a> (const std::string &amp;package)</td></tr>
 <tr class="memdesc:a6391a2a3dfc597d2498d6f36454f4d87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if the named package is enabled.  <a href="class_s_b_m_l_extension_registry.html#a6391a2a3dfc597d2498d6f36454f4d87">More...</a><br /></td></tr>
 <tr class="separator:a6391a2a3dfc597d2498d6f36454f4d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:abc4c4f9bac708a28fa1f3bbbf63218f0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_registry.html#abc4c4f9bac708a28fa1f3bbbf63218f0">getExtensionInternal</a> (const std::string &amp;package)</td></tr>
+<tr class="memdesc:abc4c4f9bac708a28fa1f3bbbf63218f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object with the given package URI or package name (string).  <a href="class_s_b_m_l_extension_registry.html#abc4c4f9bac708a28fa1f3bbbf63218f0">More...</a><br /></td></tr>
+<tr class="separator:abc4c4f9bac708a28fa1f3bbbf63218f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1be7f567e748f46b51ff7425c3b3934d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_extension_registry.html">SBMLExtensionRegistry</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_registry.html#a1be7f567e748f46b51ff7425c3b3934d">operator=</a> (const <a class="el" href="class_s_b_m_l_extension_registry.html">SBMLExtensionRegistry</a> &amp;rhs)</td></tr>
+<tr class="separator:a1be7f567e748f46b51ff7425c3b3934d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63e057cdb847d3452a1a30aaf7bcf27b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_registry.html#a63e057cdb847d3452a1a30aaf7bcf27b">SBMLExtensionRegistry</a> ()</td></tr>
+<tr class="separator:a63e057cdb847d3452a1a30aaf7bcf27b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a254ff9759e6c4a2e732e628d5d9c358c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_registry.html#a254ff9759e6c4a2e732e628d5d9c358c">SBMLExtensionRegistry</a> (const <a class="el" href="class_s_b_m_l_extension_registry.html">SBMLExtensionRegistry</a> &amp;orig)</td></tr>
+<tr class="separator:a254ff9759e6c4a2e732e628d5d9c358c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d0f0cde1e03299f39e57b6726790822"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_registry.html#a6d0f0cde1e03299f39e57b6726790822">~SBMLExtensionRegistry</a> ()</td></tr>
+<tr class="separator:a6d0f0cde1e03299f39e57b6726790822"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:ace9220b8f6e99be766c1d7e3501ae42d"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_registry.html#ace9220b8f6e99be766c1d7e3501ae42d">registered</a></td></tr>
+<tr class="separator:ace9220b8f6e99be766c1d7e3501ae42d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a63e057cdb847d3452a1a30aaf7bcf27b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63e057cdb847d3452a1a30aaf7bcf27b">&#9670;&nbsp;</a></span>SBMLExtensionRegistry() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">SBMLExtensionRegistry::SBMLExtensionRegistry </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a254ff9759e6c4a2e732e628d5d9c358c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a254ff9759e6c4a2e732e628d5d9c358c">&#9670;&nbsp;</a></span>SBMLExtensionRegistry() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">SBMLExtensionRegistry::SBMLExtensionRegistry </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_s_b_m_l_extension_registry.html">SBMLExtensionRegistry</a> &amp;&#160;</td>
+          <td class="paramname"><em>orig</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6d0f0cde1e03299f39e57b6726790822"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d0f0cde1e03299f39e57b6726790822">&#9670;&nbsp;</a></span>~SBMLExtensionRegistry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">SBMLExtensionRegistry::~SBMLExtensionRegistry </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="aa8578b738d82b9bdc72cf8aa400ed3eb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa8578b738d82b9bdc72cf8aa400ed3eb">&#9670;&nbsp;</a></span>addExtension()</h2>
@@ -200,9 +298,12 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dabb7c70babcbca0f05d59f3cd8056c293">LIBSBML_PKG_CONFLICT</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da2018dcd1ec4e8d61debae043b1697d4e">LIBSBML_INVALID_ATTRIBUTE_VALUE</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -444,6 +545,41 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>a clone of the <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object with the given package URI or name.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The caller is responsible for freeing the object returned. Since the object is a clone, freeing it will not result in the deletion of the original package extension object. </dd></dl>
+
+</div>
+</div>
+<a id="abc4c4f9bac708a28fa1f3bbbf63218f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc4c4f9bac708a28fa1f3bbbf63218f0">&#9670;&nbsp;</a></span>getExtensionInternal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a>* SBMLExtensionRegistry::getExtensionInternal </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>package</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns an <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object with the given package URI or package name (string). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">package</td><td>the URI or name of the package extension.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> object with the given package URI or name. The returned extension is NOT ALLOWED to be freed (i.e.: deleted)! </dd></dl>
 
 </div>
 </div>
@@ -709,6 +845,32 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a1be7f567e748f46b51ff7425c3b3934d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1be7f567e748f46b51ff7425c3b3934d">&#9670;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_s_b_m_l_extension_registry.html">SBMLExtensionRegistry</a>&amp; SBMLExtensionRegistry::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_s_b_m_l_extension_registry.html">SBMLExtensionRegistry</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2b61ecdfa5d06382771d17086eef5195"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2b61ecdfa5d06382771d17086eef5195">&#9670;&nbsp;</a></span>removeL2Namespaces()</h2>
 
@@ -771,6 +933,29 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>false</code> if <code>isEnabled</code> is <code>false</code> or the given package is not registered, otherwise this method returns <code>true</code>. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ace9220b8f6e99be766c1d7e3501ae42d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace9220b8f6e99be766c1d7e3501ae42d">&#9670;&nbsp;</a></span>registered</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SBMLExtensionRegistry::registered</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

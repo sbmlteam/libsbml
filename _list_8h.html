@@ -128,10 +128,10 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:a1e30b1bf7c190b6b4af134d1eb85b19b"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_list_8h.html#a1e30b1bf7c190b6b4af134d1eb85b19b">ListItemComparator</a>) (const void *item1, const void *item2)</td></tr>
-<tr class="memdesc:a1e30b1bf7c190b6b4af134d1eb85b19b"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="_list_8h.html#a1e30b1bf7c190b6b4af134d1eb85b19b">ListItemComparatorendif. </a> <a href="_list_8h.html#a1e30b1bf7c190b6b4af134d1eb85b19b">More...</a><br /></td></tr>
+<tr class="memdesc:a1e30b1bf7c190b6b4af134d1eb85b19b"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="_list_8h.html#a1e30b1bf7c190b6b4af134d1eb85b19b">ListItemComparator</a> is a typedef for a pointer to a function that compares two list items.  <a href="_list_8h.html#a1e30b1bf7c190b6b4af134d1eb85b19b">More...</a><br /></td></tr>
 <tr class="separator:a1e30b1bf7c190b6b4af134d1eb85b19b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4c55078b97a01d644e27dd30f48e9c3"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_list_8h.html#ad4c55078b97a01d644e27dd30f48e9c3">ListItemPredicate</a>) (const void *item)</td></tr>
-<tr class="memdesc:ad4c55078b97a01d644e27dd30f48e9c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="_list_8h.html#ad4c55078b97a01d644e27dd30f48e9c3">ListItemPredicateendif. </a> <a href="_list_8h.html#ad4c55078b97a01d644e27dd30f48e9c3">More...</a><br /></td></tr>
+<tr class="memdesc:ad4c55078b97a01d644e27dd30f48e9c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="_list_8h.html#ad4c55078b97a01d644e27dd30f48e9c3">ListItemPredicate</a> is a typedef for a pointer to a function that takes a <a class="el" href="class_list.html">List</a> item and returns <code>1</code> (true) or <code>0</code> (false).  <a href="_list_8h.html#ad4c55078b97a01d644e27dd30f48e9c3">More...</a><br /></td></tr>
 <tr class="separator:ad4c55078b97a01d644e27dd30f48e9c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -201,7 +201,16 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>A <a class="el" href="_list_8h.html#a1e30b1bf7c190b6b4af134d1eb85b19b">ListItemComparatorendif. </a></p>
+<p>A <a class="el" href="_list_8h.html#a1e30b1bf7c190b6b4af134d1eb85b19b">ListItemComparator</a> is a typedef for a pointer to a function that compares two list items. </p>
+<p>The return value semantics are the same as for the C library function <code>strcmp:</code> </p><ul>
+<li>
+-1: <code>item1</code> &lt; <code>item2</code> </li>
+<li>
+0: <code>item1</code> == <code>item2</code> </li>
+<li>
+1: <code>item1</code> &gt; <code>item2</code> </li>
+</ul>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="_list_8cpp.html#a7ed1ffd7f859a65d6810aba22bcabe54">List_find()</a> </dd></dl>
 
 </div>
 </div>
@@ -217,7 +226,8 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>A <a class="el" href="_list_8h.html#ad4c55078b97a01d644e27dd30f48e9c3">ListItemPredicateendif. </a></p>
+<p>A <a class="el" href="_list_8h.html#ad4c55078b97a01d644e27dd30f48e9c3">ListItemPredicate</a> is a typedef for a pointer to a function that takes a <a class="el" href="class_list.html">List</a> item and returns <code>1</code> (true) or <code>0</code> (false). </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="_list_8cpp.html#a0dfb2e9e4932d7c61273c957e719fd21">List_countIf()</a> </dd></dl>
 
 </div>
 </div>

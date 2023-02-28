@@ -92,7 +92,9 @@ $(document).ready(function(){initNavTree('class_s_b_m_l_reaction_converter.html'
 <div class="header">
   <div class="summary">
 <a href="class_s_b_m_l_reaction_converter-members.html">List of all members</a> &#124;
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">SBMLReactionConverter Class Reference<div class="ingroups"><a class="el" href="group__core.html">Core libSBML</a></div></div>  </div>
 </div><!--header-->
@@ -166,6 +168,28 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a066cb823e6ebb51b115ad1936a804dcd"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#a066cb823e6ebb51b115ad1936a804dcd">~SBMLReactionConverter</a> ()</td></tr>
 <tr class="memdesc:a066cb823e6ebb51b115ad1936a804dcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy this <a class="el" href="class_s_b_m_l_reaction_converter.html">SBMLReactionConverter</a> object.  <a href="class_s_b_m_l_reaction_converter.html#a066cb823e6ebb51b115ad1936a804dcd">More...</a><br /></td></tr>
 <tr class="separator:a066cb823e6ebb51b115ad1936a804dcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a250742827c8b94381302d993207b61c9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#a250742827c8b94381302d993207b61c9">createRateRule</a> (const std::string &amp;spId, <a class="el" href="class_a_s_t_node.html">ASTNode</a> *math)</td></tr>
+<tr class="separator:a250742827c8b94381302d993207b61c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5faf0d08a6f0130de2e3a06def113a27"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#a5faf0d08a6f0130de2e3a06def113a27">createRateRuleMathForSpecies</a> (const std::string &amp;spId, <a class="el" href="class_reaction.html">Reaction</a> *rn, bool isReactant)</td></tr>
+<tr class="separator:a5faf0d08a6f0130de2e3a06def113a27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03e732d1140c6096e4e08b2feec4b87a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#a03e732d1140c6096e4e08b2feec4b87a">determineStoichiometryNode</a> (<a class="el" href="class_species_reference.html">SpeciesReference</a> *sr, bool isReactant)</td></tr>
+<tr class="separator:a03e732d1140c6096e4e08b2feec4b87a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a883e993b0520e3d7328dfc9e5e9a4f97"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#a883e993b0520e3d7328dfc9e5e9a4f97">isDocumentValid</a> ()</td></tr>
+<tr class="separator:a883e993b0520e3d7328dfc9e5e9a4f97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9a9069fdead0314386aa84605ccc2db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#aa9a9069fdead0314386aa84605ccc2db">replaceReactions</a> ()</td></tr>
+<tr class="separator:aa9a9069fdead0314386aa84605ccc2db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:af1ec45e92e01d4ff5359bf1f6a1d148f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_model.html">Model</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#af1ec45e92e01d4ff5359bf1f6a1d148f">mOriginalModel</a></td></tr>
+<tr class="separator:af1ec45e92e01d4ff5359bf1f6a1d148f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e002d19c286db6fec243afafeb9fd55"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_s_b_m_l_reaction_converter_8h.html#a1fac7345e6740da1a5b378301fd7b53a">RuleMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#a5e002d19c286db6fec243afafeb9fd55">mRateRulesMap</a></td></tr>
+<tr class="separator:a5e002d19c286db6fec243afafeb9fd55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f08c8731798b6846cd5758909110577"><td class="memItemLeft" align="right" valign="top">IdList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#a2f08c8731798b6846cd5758909110577">mReactionsToRemove</a></td></tr>
+<tr class="separator:a2f08c8731798b6846cd5758909110577"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a68a7a26e8a9d6a5ee1ab497c3c64df24"></a>
@@ -296,11 +320,129 @@ Public Member Functions</h2></td></tr>
 
 <p>Perform the conversion. </p>
 <p>This method causes the converter to do the actual conversion work, that is, to convert the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object set by <a class="el" href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959" title="Sets the SBML document to be converted.">SBMLConverter::setDocument()</a> and with the configuration options set by <a class="el" href="class_s_b_m_l_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc" title="Sets the configuration properties to be used by this converter.">SBMLConverter::setProperties()</a>.</p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac8d245746c3ccaababf26890690a2fbb">LIBSBML_CONV_INVALID_SRC_DOCUMENT</a> </li>
 </ul>
+</dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_b_m_l_converter.html#a957d3d54eb856c66d6a2d404a0aee59e">SBMLConverter</a>.</p>
+
+</div>
+</div>
+<a id="a250742827c8b94381302d993207b61c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a250742827c8b94381302d993207b61c9">&#9670;&nbsp;</a></span>createRateRule()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SBMLReactionConverter::createRateRule </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>spId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td>
+          <td class="paramname"><em>math</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5faf0d08a6f0130de2e3a06def113a27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5faf0d08a6f0130de2e3a06def113a27">&#9670;&nbsp;</a></span>createRateRuleMathForSpecies()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_s_t_node.html">ASTNode</a> * SBMLReactionConverter::createRateRuleMathForSpecies </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>spId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_reaction.html">Reaction</a> *&#160;</td>
+          <td class="paramname"><em>rn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isReactant</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a03e732d1140c6096e4e08b2feec4b87a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03e732d1140c6096e4e08b2feec4b87a">&#9670;&nbsp;</a></span>determineStoichiometryNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_s_t_node.html">ASTNode</a> * SBMLReactionConverter::determineStoichiometryNode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_species_reference.html">SpeciesReference</a> *&#160;</td>
+          <td class="paramname"><em>sr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isReactant</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -480,6 +622,31 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a883e993b0520e3d7328dfc9e5e9a4f97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a883e993b0520e3d7328dfc9e5e9a4f97">&#9670;&nbsp;</a></span>isDocumentValid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SBMLReactionConverter::isDocumentValid </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac4aa2fec494cc60537dd74fa7f465a95"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac4aa2fec494cc60537dd74fa7f465a95">&#9670;&nbsp;</a></span>matchesProperties()</h2>
 
@@ -544,6 +711,31 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aa9a9069fdead0314386aa84605ccc2db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9a9069fdead0314386aa84605ccc2db">&#9670;&nbsp;</a></span>replaceReactions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SBMLReactionConverter::replaceReactions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2267410b46e5631dbd0eefae9411527d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2267410b46e5631dbd0eefae9411527d">&#9670;&nbsp;</a></span>setDocument() <span class="overload">[1/2]</span></h2>
 
@@ -576,9 +768,10 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>Even though the <code>doc</code> is 'const', it is immediately cast to a non-const version, which is then usually changed by the converter upon a successful conversion. This function is here solely to preserve backwards compatibility.</dd></dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 </ul>
+</dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959">SBMLConverter</a>.</p>
 
@@ -615,9 +808,10 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 </ul>
+</dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_b_m_l_converter.html#a2486e5fc0df13b1d4c39533570257b40">SBMLConverter</a>.</p>
 
@@ -655,9 +849,80 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>integer value indicating the success/failure of the operation. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The set of possible values that may be returned ultimately depends on the specific subclass of <a class="el" href="class_s_b_m_l_converter.html">SBMLConverter</a> being used, but the default method can return the following values: <ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
 </ul>
 </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_b_m_l_converter.html#ad48a1188a9890433e0420de5dc5d6ac3" title="Returns the current properties in effect for this converter.">getProperties()</a> </dd>
+<dd>
+<a class="el" href="class_s_b_m_l_reaction_converter.html#ac4aa2fec494cc60537dd74fa7f465a95" title="Returns true if this converter object&#39;s properties match the given properties.">matchesProperties()</a> </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="af1ec45e92e01d4ff5359bf1f6a1d148f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1ec45e92e01d4ff5359bf1f6a1d148f">&#9670;&nbsp;</a></span>mOriginalModel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_model.html">Model</a>* SBMLReactionConverter::mOriginalModel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5e002d19c286db6fec243afafeb9fd55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e002d19c286db6fec243afafeb9fd55">&#9670;&nbsp;</a></span>mRateRulesMap</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_s_b_m_l_reaction_converter_8h.html#a1fac7345e6740da1a5b378301fd7b53a">RuleMap</a> SBMLReactionConverter::mRateRulesMap</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2f08c8731798b6846cd5758909110577"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f08c8731798b6846cd5758909110577">&#9670;&nbsp;</a></span>mReactionsToRemove</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">IdList SBMLReactionConverter::mReactionsToRemove</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

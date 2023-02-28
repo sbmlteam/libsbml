@@ -121,9 +121,18 @@ Conversion option data types</h1>
 <tr style="background: lightgray" class="normal-font">
 <td><b>Enumerator</b> </td><td><b>Meaning</b>  </td></tr>
 <tr>
-<td><code><a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645a88af97dc1b326349d5586063ce409805">CNV_TYPE_BOOLendif </a></code></td></tr>
+<td><code><a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645a88af97dc1b326349d5586063ce409805">CNV_TYPE_BOOL</a></code> </td><td>Indicates the value type is a Boolean.  </td></tr>
+<tr>
+<td><code><a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645a0923d2ff9ab44b93128393252ee3959a">CNV_TYPE_DOUBLE</a></code> </td><td>Indicates the value type is a double-sized float.  </td></tr>
+<tr>
+<td><code><a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645a516fbe01a443f6a201fc1cac12b8ae5e">CNV_TYPE_INT</a></code> </td><td>Indicates the value type is an integer.  </td></tr>
+<tr>
+<td><code><a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645a7e39825281b8ffb5a2b1c37ca221bfaa">CNV_TYPE_SINGLE</a></code> </td><td>Indicates the value type is a float.  </td></tr>
+<tr>
+<td><code><a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645a3751267705b67165ff4b7a793c2bd3ea">CNV_TYPE_STRING</a></code> </td><td>Indicates the value type is a string.  </td></tr>
 </table>
-</center></div><table class="memberdecls">
+</center><dl class="section see"><dt>See also</dt><dd><a class="el" href="class_conversion_properties.html">ConversionProperties</a> </dd></dl>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a19ff26f3ace35d0e1a979b4ff7aa0eb8"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_conversion_option.html">ConversionOption</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_conversion_option.html#a19ff26f3ace35d0e1a979b4ff7aa0eb8">clone</a> () const</td></tr>
@@ -804,7 +813,13 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the value of this option to a given Boolean value. </p>
-<p>Invoking this method will also set the type of the option to <a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645a88af97dc1b326349d5586063ce409805">CNV_TYPE_BOOLendif </a></p>
+<p>Invoking this method will also set the type of the option to <a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645a88af97dc1b326349d5586063ce409805">CNV_TYPE_BOOL</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>the Boolean value to set. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -859,7 +874,13 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the value of this option to a given <code>double</code> value. </p>
-<p>Invoking this method will also set the type of the option to <a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645a0923d2ff9ab44b93128393252ee3959a">CNV_TYPE_DOUBLEendif </a></p>
+<p>Invoking this method will also set the type of the option to <a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645a0923d2ff9ab44b93128393252ee3959a">CNV_TYPE_DOUBLE</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>the value to set. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -888,7 +909,13 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the value of this option to a given <code>float</code> value. </p>
-<p>Invoking this method will also set the type of the option to <a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645a7e39825281b8ffb5a2b1c37ca221bfaa">CNV_TYPE_SINGLEendif </a></p>
+<p>Invoking this method will also set the type of the option to <a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645a7e39825281b8ffb5a2b1c37ca221bfaa">CNV_TYPE_SINGLE</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>the value to set. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -917,7 +944,13 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the value of this option to a given <code>int</code> value. </p>
-<p>Invoking this method will also set the type of the option to <a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645a516fbe01a443f6a201fc1cac12b8ae5e">CNV_TYPE_INTendif </a></p>
+<p>Invoking this method will also set the type of the option to <a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645a516fbe01a443f6a201fc1cac12b8ae5e">CNV_TYPE_INT</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>the value to set. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

@@ -93,7 +93,8 @@ $(document).ready(function(){initNavTree('class_comp_model_plugin.html',''); ini
   <div class="summary">
 <a href="class_comp_model_plugin-members.html">List of all members</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a>  </div>
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a>  </div>
   <div class="headertitle">
 <div class="title">CompModelPlugin Class Reference<div class="ingroups"><a class="el" href="group__comp.html">Hierarchical Model Composition</a></div></div>  </div>
 </div><!--header-->
@@ -317,6 +318,23 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a9b43385b372cf4964098cb50a2231e18"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a9b43385b372cf4964098cb50a2231e18">instantiateSubmodels</a> ()</td></tr>
 <tr class="memdesc:a9b43385b372cf4964098cb50a2231e18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loop through all Submodels in this <a class="el" href="class_model.html">Model</a>, instantiate all of them, perform all deletions, and synchronize all replacements, including using any conversion factors that may exist.  <a href="class_comp_model_plugin.html#a9b43385b372cf4964098cb50a2231e18">More...</a><br /></td></tr>
 <tr class="separator:a9b43385b372cf4964098cb50a2231e18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a2b5d3dd11d1b0152edef6ffabbd54266"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a2b5d3dd11d1b0152edef6ffabbd54266">appendFrom</a> (const <a class="el" href="class_model.html">Model</a> *model)</td></tr>
+<tr class="separator:a2b5d3dd11d1b0152edef6ffabbd54266"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7acabb27146e2b18336e969011894e9c"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a7acabb27146e2b18336e969011894e9c">collectDeletionsAndDeleteSome</a> (std::set&lt; <a class="el" href="class_s_base.html">SBase</a> * &gt; *removed, std::set&lt; <a class="el" href="class_s_base.html">SBase</a> * &gt; *toremove)</td></tr>
+<tr class="memdesc:a7acabb27146e2b18336e969011894e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collects all elements from instantiated submodels slated to be deleted, and stores them in 'toremove', and also actually deletes the comp constructs Deletions, ReplacedElements, and <a class="el" href="class_replaced_by.html">ReplacedBy</a>'s.  <a href="class_comp_model_plugin.html#a7acabb27146e2b18336e969011894e9c">More...</a><br /></td></tr>
+<tr class="separator:a7acabb27146e2b18336e969011894e9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb14fa768ce9b67c241ce8d1e786558a"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#afb14fa768ce9b67c241ce8d1e786558a">collectRenameAndConvertReplacements</a> (std::set&lt; <a class="el" href="class_s_base.html">SBase</a> * &gt; *removed, std::set&lt; <a class="el" href="class_s_base.html">SBase</a> * &gt; *toremove)</td></tr>
+<tr class="memdesc:afb14fa768ce9b67c241ce8d1e786558a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all elements from instantiated submodels slated to be replaced, and points all old references to that element to the replacement element.  <a href="class_comp_model_plugin.html#afb14fa768ce9b67c241ce8d1e786558a">More...</a><br /></td></tr>
+<tr class="separator:afb14fa768ce9b67c241ce8d1e786558a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace86c2b8133c083debdcdffbaeb5e949"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#ace86c2b8133c083debdcdffbaeb5e949">createListOfReplacedElements</a> ()</td></tr>
+<tr class="separator:ace86c2b8133c083debdcdffbaeb5e949"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af93e366c1bbe6193f52c5a064361034f"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#af93e366c1bbe6193f52c5a064361034f">renameAllIDsAndPrepend</a> (const std::string &amp;prefix)</td></tr>
+<tr class="separator:af93e366c1bbe6193f52c5a064361034f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b45003ff87318ff64e5f86f0d1d45d0"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a8b45003ff87318ff64e5f86f0d1d45d0">saveAllReferencedElements</a> ()</td></tr>
+<tr class="separator:a8b45003ff87318ff64e5f86f0d1d45d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a14c169122528f6518e19bdb22f175645"></a>
@@ -443,9 +461,14 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dab6101023a227d9dc2e709a7f5ea8752c">LIBSBML_LEVEL_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6bbd9254393f163c3f05db7e7e05f5dc">LIBSBML_VERSION_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da55dc550fc2f744dd411b452afa55a52b">LIBSBML_PKG_VERSION_MISMATCH</a> </li>
 </ul>
+</dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="spec_example3_8cpp-example.html#a44">spec_example3.cpp</a>, and <a class="el" href="spec_example4_8cpp-example.html#a39">spec_example4.cpp</a>.</dd>
 </dl>
 
@@ -482,9 +505,14 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dab6101023a227d9dc2e709a7f5ea8752c">LIBSBML_LEVEL_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6bbd9254393f163c3f05db7e7e05f5dc">LIBSBML_VERSION_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da55dc550fc2f744dd411b452afa55a52b">LIBSBML_PKG_VERSION_MISMATCH</a> </li>
 </ul>
+</dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="spec_example2_8cpp-example.html#a29">spec_example2.cpp</a>, <a class="el" href="spec_example3_8cpp-example.html#a58">spec_example3.cpp</a>, and <a class="el" href="spec_example4_8cpp-example.html#a55">spec_example4.cpp</a>.</dd>
 </dl>
 
@@ -514,11 +542,42 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dab6101023a227d9dc2e709a7f5ea8752c">LIBSBML_LEVEL_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6bbd9254393f163c3f05db7e7e05f5dc">LIBSBML_VERSION_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da55dc550fc2f744dd411b452afa55a52b">LIBSBML_PKG_VERSION_MISMATCH</a> </li>
 </ul>
+</dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="spec_example1_8cpp-example.html#a42">spec_example1.cpp</a>.</dd>
 </dl>
+
+</div>
+</div>
+<a id="a2b5d3dd11d1b0152edef6ffabbd54266"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b5d3dd11d1b0152edef6ffabbd54266">&#9670;&nbsp;</a></span>appendFrom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CompModelPlugin::appendFrom </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_model.html">Model</a> *&#160;</td>
+          <td class="paramname"><em>model</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -576,6 +635,110 @@ Protected Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>a (deep) copy of this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a> object. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_comp_s_base_plugin.html#aebc807a54f69b78cfe951f28f2895f82">CompSBasePlugin</a>.</p>
+
+</div>
+</div>
+<a id="a7acabb27146e2b18336e969011894e9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7acabb27146e2b18336e969011894e9c">&#9670;&nbsp;</a></span>collectDeletionsAndDeleteSome()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CompModelPlugin::collectDeletionsAndDeleteSome </td>
+          <td>(</td>
+          <td class="paramtype">std::set&lt; <a class="el" href="class_s_base.html">SBase</a> * &gt; *&#160;</td>
+          <td class="paramname"><em>removed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::set&lt; <a class="el" href="class_s_base.html">SBase</a> * &gt; *&#160;</td>
+          <td class="paramname"><em>toremove</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Collects all elements from instantiated submodels slated to be deleted, and stores them in 'toremove', and also actually deletes the comp constructs Deletions, ReplacedElements, and <a class="el" href="class_replaced_by.html">ReplacedBy</a>'s. </p>
+<p>This is so that it is possible to delete a deletion or replacement, and end up with a model that still has the element that would have otherwise been deleted. Also, actually deletes local parameters, because this potentially affects the naming conventions when replacing.</p>
+<p>Any comp elements or local parameters that have been removed will be added to 'removed', and any elements that are to be removed will be added to 'toremove'. </p>
+
+</div>
+</div>
+<a id="afb14fa768ce9b67c241ce8d1e786558a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb14fa768ce9b67c241ce8d1e786558a">&#9670;&nbsp;</a></span>collectRenameAndConvertReplacements()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CompModelPlugin::collectRenameAndConvertReplacements </td>
+          <td>(</td>
+          <td class="paramtype">std::set&lt; <a class="el" href="class_s_base.html">SBase</a> * &gt; *&#160;</td>
+          <td class="paramname"><em>removed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::set&lt; <a class="el" href="class_s_base.html">SBase</a> * &gt; *&#160;</td>
+          <td class="paramname"><em>toremove</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes all elements from instantiated submodels slated to be replaced, and points all old references to that element to the replacement element. </p>
+<p>Also takes any 'replacedBy' construct, deleting the original object, renaming the replacement object with the replaced object's identifiers, and points all old references to the replacement object's old identifiers to the new identifiers. </p>
+
+</div>
+</div>
+<a id="ace86c2b8133c083debdcdffbaeb5e949"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace86c2b8133c083debdcdffbaeb5e949">&#9670;&nbsp;</a></span>createListOfReplacedElements()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CompSBasePlugin::createListOfReplacedElements </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1805,9 +1968,12 @@ Protected Member Functions</h2></td></tr>
 
 <p>Loop through all Submodels in this <a class="el" href="class_model.html">Model</a>, instantiate all of them, perform all deletions, and synchronize all replacements, including using any conversion factors that may exist. </p>
 <p>The resulting models are stored in the <a class="el" href="class_submodel.html">Submodel</a> objects, and available from '<a class="el" href="class_submodel.html#af798c7a15459bbe340bce5a930c9e7f3" title="Get the instantiated Model this Submodel contains rules to create.">Submodel::getInstantiation()</a>'. This may be useful if separate simulation or analysis of submodels is desired, as opposed to using <a class="el" href="class_comp_model_plugin.html#a6c0a5442c20c970d368391e2b5e26e43" title="Flatten and return a copy of this hierarchical model.">flattenModel()</a> to get a single SBML model.</p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> (to indicate that this <a class="el" href="class_submodel.html">Submodel</a> itself is invalid, and no <a class="el" href="class_model.html">Model</a> can be instantiated from it) </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -2039,6 +2205,32 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="af93e366c1bbe6193f52c5a064361034f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af93e366c1bbe6193f52c5a064361034f">&#9670;&nbsp;</a></span>renameAllIDsAndPrepend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CompModelPlugin::renameAllIDsAndPrepend </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>prefix</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a8a95d2c1e8f73cd2f44954f9bf77ddb1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8a95d2c1e8f73cd2f44954f9bf77ddb1">&#9670;&nbsp;</a></span>renameMetaIdRefs()</h2>
 
@@ -2155,6 +2347,31 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a8b45003ff87318ff64e5f86f0d1d45d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b45003ff87318ff64e5f86f0d1d45d0">&#9670;&nbsp;</a></span>saveAllReferencedElements()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CompModelPlugin::saveAllReferencedElements </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a4d95bc5aa1fa7c502f6d7208fdc7915e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4d95bc5aa1fa7c502f6d7208fdc7915e">&#9670;&nbsp;</a></span>setDivider()</h2>
 
@@ -2173,9 +2390,11 @@ Protected Member Functions</h2></td></tr>
 
 <p>Set the string used as the divider between names when renaming and flattening models. </p>
 <p>The divider string consists of two underscore characters (&quot;<code>__</code>&quot;) by default. This method will fail if called with an empty <code>divider</code>, or a <code>divider</code> that cannot be used internally as part of a valid SBML SId.</p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -2211,9 +2430,11 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base_plugin.html#a22e94cfa62ef5948cd631c8d22918293" title="Returns the namespace URI of the package to which this plugin object belongs.">getElementNamespace()</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="convert_layout_8cpp-example.html#a9">convertLayout.cpp</a>.</dd>
 </dl>
 
@@ -2251,9 +2472,14 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dab6101023a227d9dc2e709a7f5ea8752c">LIBSBML_LEVEL_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6bbd9254393f163c3f05db7e7e05f5dc">LIBSBML_VERSION_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da55dc550fc2f744dd411b452afa55a52b">LIBSBML_PKG_VERSION_MISMATCH</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -2310,9 +2536,11 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Unsets the child <a class="el" href="class_replaced_by.html">ReplacedBy</a> of this <a class="el" href="class_s_base.html">SBase</a>. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>

@@ -754,7 +754,24 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Adds an attribute to the XML element represented by this token. </p>
-<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATIONendif  name a string, the so-called "local part" of the attribute name; that is, the attribute name without any namespace qualifier or prefix.  value a string, the value assigned to the attribute.  namespaceURI a string, the XML namespace URI of the attribute.  prefix a string, the prefix for the XML namespace. Recall that in XML, the complete form of an attribute on an XML element is the following: <center> <code>prefix:name="value"</code> </center> The <code>name</code> part is the name of the attribute, the <code>"value"</code> part is the value assigned to the attribute (and it is always a quoted string), and the <code>prefix</code> part is an optional XML namespace prefix. Internally in libSBML, this data is stored in an XMLAttributes object associated with this XMLToken.   OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESSendif </a></dd></dl>
+<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object is not an XML start element.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>a string, the so-called "local part" of the attribute name; that is, the attribute name without any namespace qualifier or prefix.</td></tr>
+    <tr><td class="paramname">value</td><td>a string, the value assigned to the attribute.</td></tr>
+    <tr><td class="paramname">namespaceURI</td><td>a string, the XML namespace URI of the attribute.</td></tr>
+    <tr><td class="paramname">prefix</td><td>a string, the prefix for the XML namespace.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Recall that in XML, the complete form of an attribute on an XML element is the following: </p><center> <code>prefix:name="value"</code> </center><p> The <code>name</code> part is the name of the attribute, the <code>"value"</code> part is the value assigned to the attribute (and it is always a quoted string), and the <code>prefix</code> part is an optional XML namespace prefix. Internally in libSBML, this data is stored in an <a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a> object associated with this <a class="el" href="class_x_m_l_token.html">XMLToken</a>.</p>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a></li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If an attribute with the same name and XML namespace URI already exists on this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object, then the previous value will be replaced with the new value provided to this method. </dd></dl>
 
 </div>
 </div>
@@ -793,7 +810,21 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Adds an attribute to the XML element represented by this token. </p>
-<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATIONendif  triple an XMLTriple object defining the attribute, its value, and optionally its XML namespace (if any is provided).  value a string, the value assigned to the attribute.   OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESSendif </a></dd></dl>
+<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object is not an XML start element.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">triple</td><td>an <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> object defining the attribute, its value, and optionally its XML namespace (if any is provided).</td></tr>
+    <tr><td class="paramname">value</td><td>a string, the value assigned to the attribute.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a></li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If an attribute with the same name and XML namespace URI already exists on this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object, then the previous value will be replaced with the new value provided to this method. </dd></dl>
 
 </div>
 </div>
@@ -821,9 +852,13 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a></li>
 </ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The given node is added at the end of the children list. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="adding_evidence_codes_2_8cpp-example.html#a24">addingEvidenceCodes_2.cpp</a>.</dd>
 </dl>
 
@@ -865,7 +900,19 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Appends an XML namespace declaration to this token. </p>
 <p>The namespace added will be defined by the given XML namespace URI and an optional prefix. If this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object already possesses an XML namespace declaration with the given <code>prefix</code>, then the existing XML namespace URI will be overwritten by the new one given by <code>uri</code>.</p>
-<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATIONendif  uri a string, the XML namespace URI for the namespace.  prefix a string, the namespace prefix to use.   OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESSendif </a></dd></dl>
+<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object is not an XML start element.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uri</td><td>a string, the XML namespace URI for the namespace.</td></tr>
+    <tr><td class="paramname">prefix</td><td>a string, the namespace prefix to use.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -894,7 +941,21 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Appends characters to the text content of token. </p>
-<p>This method only makes sense for <a class="el" href="class_x_m_l_token.html">XMLToken</a> objects that contains text. If this method is called on a token that represents an XML start or end tag, it will return the code <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILEDendif </a></p>
+<p>This method only makes sense for <a class="el" href="class_x_m_l_token.html">XMLToken</a> objects that contains text. If this method is called on a token that represents an XML start or end tag, it will return the code <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">chars</td><td>string, characters to append to the text of this token.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
+</ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#a9e5f9506affaefd91d24150d15a21281" title="Returns true if this token represents an XML text element.">isText()</a> </dd>
+<dd>
+<a class="el" href="class_x_m_l_token.html#aa8833beadc3f06ae3e4b6cdfcac322ef" title="Returns true if this token represents an XML element.">isElement()</a> </dd></dl>
 
 </div>
 </div>
@@ -922,7 +983,12 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Removes all attributes of this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object. </p>
-<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATIONendif   OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESSendif </a></dd></dl>
+<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object is not an XML start element.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -950,7 +1016,13 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Removes all XML namespace declarations from this token. </p>
-<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATIONendif   OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESSendif </a></dd></dl>
+<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object is not an XML start element.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -1279,6 +1351,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the name of the attribute located at position <code>n</code> in the list of attributes possessed by this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If <code>index</code> is out of range, this method will return an empty string. <a class="el" href="class_x_m_l_token.html#a5903003d559f9d0290fd60e41366c2e5" title="Returns true if an attribute with the given index exists.">XMLToken::hasAttr()</a> can be used to test for an attribute's existence explicitly, and <a class="el" href="class_x_m_l_token.html#a604907127dd25094f73f4723060cd6fe" title="Returns the number of attributes on this XMLToken object.">XMLToken::getAttributesLength()</a> can be used to find out the number of attributes possessed by this token.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#a5903003d559f9d0290fd60e41366c2e5" title="Returns true if an attribute with the given index exists.">hasAttr()</a> </dd>
 <dd>
 <a class="el" href="class_x_m_l_token.html#a604907127dd25094f73f4723060cd6fe" title="Returns the number of attributes on this XMLToken object.">getAttributesLength()</a> </dd></dl>
@@ -1317,6 +1390,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the XML namespace prefix of the attribute located at position <code>n</code> in the list of attributes possessed by this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If <code>index</code> is out of range, this method will return an empty string. <a class="el" href="class_x_m_l_token.html#a5903003d559f9d0290fd60e41366c2e5" title="Returns true if an attribute with the given index exists.">XMLToken::hasAttr()</a> can be used to test for an attribute's existence explicitly, and <a class="el" href="class_x_m_l_token.html#a604907127dd25094f73f4723060cd6fe" title="Returns the number of attributes on this XMLToken object.">XMLToken::getAttributesLength()</a> can be used to find out the number of attributes possessed by this token.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#a5903003d559f9d0290fd60e41366c2e5" title="Returns true if an attribute with the given index exists.">hasAttr()</a> </dd>
 <dd>
 <a class="el" href="class_x_m_l_token.html#a604907127dd25094f73f4723060cd6fe" title="Returns the number of attributes on this XMLToken object.">getAttributesLength()</a> </dd></dl>
@@ -1356,6 +1430,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the prefixed name of the attribute located at position <code>n</code> in the list of attributes possessed by this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If <code>index</code> is out of range, this method will return an empty string. <a class="el" href="class_x_m_l_token.html#a5903003d559f9d0290fd60e41366c2e5" title="Returns true if an attribute with the given index exists.">XMLToken::hasAttr()</a> can be used to test for an attribute's existence explicitly, and <a class="el" href="class_x_m_l_token.html#a604907127dd25094f73f4723060cd6fe" title="Returns the number of attributes on this XMLToken object.">XMLToken::getAttributesLength()</a> can be used to find out the number of attributes possessed by this token. </dd></dl>
 
 </div>
 </div>
@@ -1391,6 +1466,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the XML namespace URI of the attribute located at position <code>n</code> in the list of attributes possessed by this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If <code>index</code> is out of range, this method will return an empty string. <a class="el" href="class_x_m_l_token.html#a5903003d559f9d0290fd60e41366c2e5" title="Returns true if an attribute with the given index exists.">XMLToken::hasAttr()</a> can be used to test for an attribute's existence explicitly, and <a class="el" href="class_x_m_l_token.html#a604907127dd25094f73f4723060cd6fe" title="Returns the number of attributes on this XMLToken object.">XMLToken::getAttributesLength()</a> can be used to find out the number of attributes possessed by this token. </dd></dl>
 
 </div>
 </div>
@@ -1509,6 +1585,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the value of the attribute located at position <code>n</code> in the list of attributes possessed by this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If <code>index</code> is out of range, this method will return an empty string. <a class="el" href="class_x_m_l_token.html#a5903003d559f9d0290fd60e41366c2e5" title="Returns true if an attribute with the given index exists.">XMLToken::hasAttr()</a> can be used to test for an attribute's existence explicitly, and <a class="el" href="class_x_m_l_token.html#a604907127dd25094f73f4723060cd6fe" title="Returns the number of attributes on this XMLToken object.">XMLToken::getAttributesLength()</a> can be used to find out the number of attributes possessed by this token. </dd></dl>
 
 </div>
 </div>
@@ -2750,7 +2827,21 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Removes an attribute from the XML element represented by this token. </p>
-<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATIONendif  name a string, the name of the attribute to be removed.  uri a string, the XML namespace URI of the attribute to be removed.   OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESSendif </a></dd></dl>
+<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object is not an XML start element.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>a string, the name of the attribute to be removed. </td></tr>
+    <tr><td class="paramname">uri</td><td>a string, the XML namespace URI of the attribute to be removed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a></li>
+</ul>
+The value <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a> is returned if there is no attribute on this element with the given <code>name</code> (and <code>uri</code> if specified).</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>hasAttr(const std::string name, const std::string uri) const </dd></dl>
 
 </div>
 </div>
@@ -2779,7 +2870,20 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Removes an attribute from the XML element represented by this token. </p>
-<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATIONendif  triple an XMLTriple describing the attribute to be removed.   OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESSendif </a></dd></dl>
+<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object is not an XML start element.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">triple</td><td>an <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> describing the attribute to be removed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a></li>
+</ul>
+The value <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a> is returned if there is no attribute on this element matching the properties of the given <code>triple</code>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#a0b2d75e7a15853c83d61aaec4900e116" title="Returns true if an attribute defined by a given XMLTriple object exists.">hasAttr(const XMLTriple&amp; triple) const</a> </dd></dl>
 
 </div>
 </div>
@@ -2808,7 +2912,24 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Removes the <em>n</em>th attribute from the XML element represented by this token. </p>
-<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATIONendif  n an integer the index of the resource to be deleted.   OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESSendif </a></dd></dl>
+<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object is not an XML start element.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>an integer the index of the resource to be deleted.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a></li>
+</ul>
+The value <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a> is returned if there is no attribute on this element at the given index <code>n</code>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#ac10343edba950a6f22e5db2eb423996b" title="Returns the index of the attribute defined by the given XMLTriple object.">getAttrIndex(const XMLTriple&amp; triple) const</a> </dd>
+<dd>
+getAttrIndex(const std::string&amp; name, const std::string&amp; uri) const </dd>
+<dd>
+<a class="el" href="class_x_m_l_token.html#a604907127dd25094f73f4723060cd6fe" title="Returns the number of attributes on this XMLToken object.">getAttributesLength()</a> </dd></dl>
 
 </div>
 </div>
@@ -2857,9 +2978,10 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Removes all children from this node. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -2888,7 +3010,20 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Removes an XML namespace declaration having a given prefix. </p>
-<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATIONendif  prefix a string, the prefix of the namespace to be removed.   OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESSendif </a></dd></dl>
+<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object is not an XML start element.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">prefix</td><td>a string, the prefix of the namespace to be removed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a></li>
+</ul>
+The value <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a> is returned if there is no namespace with the given <code>prefix</code> on this element.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#a1d5d62bdfabe74e06a989dff5c48d587" title="Returns the index of an XML namespace declaration based on its prefix.">getNamespaceIndexByPrefix()</a> </dd></dl>
 
 </div>
 </div>
@@ -2917,7 +3052,24 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Removes the <em>n</em>th XML namespace declaration. </p>
-<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATIONendif  index an integer, the position of the namespace to be removed. The position in this context refers to the position of the namespace in the XMLNamespaces object stored in this XMLToken object. Callers can use one of the <code>getNamespace___()</code> methods to find the index number of a given namespace.   OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESSendif </a></dd></dl>
+<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object is not an XML start element.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>an integer, the position of the namespace to be removed. The position in this context refers to the position of the namespace in the <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> object stored in this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object. Callers can use one of the <code>getNamespace___()</code> methods to find the index number of a given namespace.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a></li>
+</ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#a30e2dcbc76a8b620deb29f3b3b31a193" title="Returns the index of an XML namespace declaration based on its URI.">getNamespaceIndex()</a> </dd>
+<dd>
+<a class="el" href="class_x_m_l_token.html#a1d5d62bdfabe74e06a989dff5c48d587" title="Returns the index of an XML namespace declaration based on its prefix.">getNamespaceIndexByPrefix()</a> </dd>
+<dd>
+<a class="el" href="class_x_m_l_token.html#a6af59569ca097bc9695f7deb0131e2dd" title="Returns the number of XML namespaces declared on this token.">getNamespacesLength()</a> </dd></dl>
 
 </div>
 </div>
@@ -2946,7 +3098,21 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the attributes on the XML element represented by this token. </p>
-<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATIONendif  attributes an XMLAttributes object to be assigned to this XMLToken object, thereby setting the XML attributes associated with this token.   OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESSendif </a></dd></dl>
+<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object is not an XML start element.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">attributes</td><td>an <a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a> object to be assigned to this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object, thereby setting the XML attributes associated with this token.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a></li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function replaces any existing <a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a> object on this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object with the one given by <code>attributes</code>. </dd></dl>
 
 </div>
 </div>
@@ -2975,7 +3141,21 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the characters for this <a class="el" href="class_x_m_l_token.html">XMLToken</a>. </p>
-<p>This method only makes sense for <a class="el" href="class_x_m_l_token.html">XMLToken</a> objects that contains text. If this method is called on a token that represents an XML start or end tag, it will return the code <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILEDendif </a></p>
+<p>This method only makes sense for <a class="el" href="class_x_m_l_token.html">XMLToken</a> objects that contains text. If this method is called on a token that represents an XML start or end tag, it will return the code <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">chars</td><td>string, characters to append to the text of this token.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
+</ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#a9e5f9506affaefd91d24150d15a21281" title="Returns true if this token represents an XML text element.">isText()</a> </dd>
+<dd>
+<a class="el" href="class_x_m_l_token.html#aa8833beadc3f06ae3e4b6cdfcac322ef" title="Returns true if this token represents an XML element.">isElement()</a> </dd></dl>
 
 </div>
 </div>
@@ -3003,9 +3183,14 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Declares that this token represents an XML element end tag. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#ade7cb99aac8335048f2654af9582f6c9" title="Returns true if this token represents an XML start element.">isStart()</a> </dd>
+<dd>
+<a class="el" href="class_x_m_l_token.html#ad0a44a5db108d63aadf29b326bda3d21" title="Returns true if this token represents an XML end element.">isEnd()</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="adding_evidence_codes_2_8cpp-example.html#a23">addingEvidenceCodes_2.cpp</a>.</dd>
 </dl>
 
@@ -3035,9 +3220,12 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Declares that this token is an end-of-file/input marker. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_token.html#ae963b35615525f8af949373c5765a230" title="Returns true if this token is an end of file marker.">isEOF()</a> </dd></dl>
 
 </div>
 </div>
@@ -3066,7 +3254,21 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the XML namespaces on this XML element. </p>
-<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATIONendif  namespaces the XMLNamespaces object to be assigned to this XMLToken object.   OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESSendif </a></dd></dl>
+<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object is not an XML start element.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">namespaces</td><td>the <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> object to be assigned to this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a></li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function replaces any existing <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> object on this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object with the new one given by <code>namespaces</code>. </dd></dl>
 
 </div>
 </div>
@@ -3095,7 +3297,20 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the name, namespace prefix and namespace URI of this token. </p>
-<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATIONendif  triple the new XMLTriple to use for this XMLToken object. If this XMLToken already had an XMLTriple object stored within it, that object will be replaced.   OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESSendif </a></dd></dl>
+<dl class="section user"><dt></dt><dd>This operation only makes sense for XML start elements. This method will return <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> if this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object is not an XML start element.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">triple</td><td>the new <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> to use for this <a class="el" href="class_x_m_l_token.html">XMLToken</a> object. If this <a class="el" href="class_x_m_l_token.html">XMLToken</a> already had an <a class="el" href="class_x_m_l_triple.html">XMLTriple</a> object stored within it, that object will be replaced.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6f4d0e33e449c4a876971e3a382ff3e7">LIBSBML_INVALID_XML_OPERATION</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -3172,9 +3387,11 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Declares that this token no longer represents an XML start/end element. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>

@@ -113,7 +113,7 @@ equivalent in terms of SBML components.  This class is not prescribed by
 the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
-<p>The <a class="el" href="class_multi_a_s_t_plugin.html">MultiASTPlugin</a> object is used to extend the standard SBML AST (abstract syntax tree) base object (ASTBase) to allow a "ci" element (<a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4fab2a5f966e56f6062f9f9505921d0d">AST_NAMEendif </a></p>
+<p>The <a class="el" href="class_multi_a_s_t_plugin.html">MultiASTPlugin</a> object is used to extend the standard SBML AST (abstract syntax tree) base object (ASTBase) to allow a "ci" element (<a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4fab2a5f966e56f6062f9f9505921d0d">AST_NAME</a>) to have an optional "speciesReference" attribute. This attribute is used to distinguish which version of a <a class="el" href="class_species.html">Species</a> should be used in the mathematics. If a "template" type <a class="el" href="class_species.html">Species</a> appears as both a reactant and a product in the same <a class="el" href="class_reaction.html">Reaction</a>, for example, it may have one amount as a reactant and a different amount as a product, since the same template is being used to match slightly different pools of elements in each case. By defining the "speciesReference" attribute on an <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4fab2a5f966e56f6062f9f9505921d0d">AST_NAME</a> that references that <a class="el" href="class_species.html">Species</a>, the modeler may determine which amount is being referenced. Similarly, an <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4fab2a5f966e56f6062f9f9505921d0d">AST_NAME</a> node may reference a <a class="el" href="class_species_feature.html">SpeciesFeature</a> that appears in multiple <a class="el" href="class_species.html">Species</a> in the <a class="el" href="class_reaction.html">Reaction</a>, and this attribute can be used to specify which one should be used. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -444,9 +444,10 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
 </ul>
+Calling this function with <code>representationType</code> = <code>NULL</code> or an empty string is equivalent to calling <a class="el" href="class_multi_a_s_t_plugin.html#a8198a1c7052d3906093c5c5faba53dae" title="Unsets the value of the &quot;representationType&quot; attribute of this MultiASTPlugin.">unsetRepresentationType()</a>. </dd></dl>
 
 </div>
 </div>
@@ -473,9 +474,10 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
 </ul>
+Calling this function with <code>speciesReference</code> = <code>NULL</code> or an empty string is equivalent to calling <a class="el" href="class_multi_a_s_t_plugin.html#a0068a5c01b1ebfb81acbf24014379fc7" title="Unsets the value of the &quot;speciesReference&quot; attribute of this MultiASTPlugin.">unsetSpeciesReference()</a>. </dd></dl>
 
 </div>
 </div>
@@ -495,9 +497,10 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Unsets the value of the "representationType" attribute of this <a class="el" href="class_multi_a_s_t_plugin.html">MultiASTPlugin</a>. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -517,9 +520,10 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Unsets the value of the "speciesReference" attribute of this <a class="el" href="class_multi_a_s_t_plugin.html">MultiASTPlugin</a>. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>

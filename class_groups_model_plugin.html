@@ -341,9 +341,27 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dab6101023a227d9dc2e709a7f5ea8752c">LIBSBML_LEVEL_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6bbd9254393f163c3f05db7e7e05f5dc">LIBSBML_VERSION_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da55dc550fc2f744dd411b452afa55a52b">LIBSBML_PKG_VERSION_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da43c8862964e599ab96d63db53c454c98">LIBSBML_DUPLICATE_OBJECT_ID</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_groups_model_plugin.html#ae9e78b8a845907ffca2caa9492589e6c" title="Creates a new Group object, adds it to this GroupsModelPlugin object and returns the Group object cre...">createGroup()</a> </dd>
+<dd>
+<a class="el" href="class_groups_model_plugin.html#a070543c663c2c975213a903342e780aa" title="Get a Group from the GroupsModelPlugin based on its identifier.">getGroup(const std::string&amp; sid)</a> </dd>
+<dd>
+<a class="el" href="class_groups_model_plugin.html#a2a227bc6640a89ed962d06041532bdf4" title="Get a Group from the GroupsModelPlugin.">getGroup(unsigned int n)</a> </dd>
+<dd>
+<a class="el" href="class_groups_model_plugin.html#af87e7715a91e65097047fca4da7dbce3" title="Get the number of Group objects in this GroupsModelPlugin.">getNumGroups()</a> </dd>
+<dd>
+<a class="el" href="class_groups_model_plugin.html#ad70c428a6be549dcbb47b8921bf6ccfc" title="Removes the Group from this GroupsModelPlugin based on its identifier and returns a pointer to it.">removeGroup(const std::string&amp; sid)</a> </dd>
+<dd>
+<a class="el" href="class_groups_model_plugin.html#a5fe8446d2a1260499a5f636faf36030d" title="Removes the nth Group from this GroupsModelPlugin and returns a pointer to it.">removeGroup(unsigned int n)</a> </dd></dl>
 
 </div>
 </div>
@@ -1400,9 +1418,11 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base_plugin.html#a22e94cfa62ef5948cd631c8d22918293" title="Returns the namespace URI of the package to which this plugin object belongs.">getElementNamespace()</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="convert_layout_8cpp-example.html#a9">convertLayout.cpp</a>.</dd>
 </dl>
 

@@ -103,6 +103,43 @@ $(document).ready(function(){initNavTree('libsbml-math.html',''); initResizable(
 <p>Internally, libSBML uses <a href="http://en.wikipedia.org/wiki/Abstract_syntax_tree" target="_blank">Abstract Syntax Trees</a> (ASTs) to provide a canonical, in-memory representation for all mathematical formulas regardless of their original format (i.e., C-like infix text strings or the XML-based <a href="http://www.w3.org/TR/MathML2/" target="_blank">MathML&#160;2.0</a> format). LibSBML provides an extensive API for working with ASTs; it also provides facilities for translating between ASTs and mathematical formulas writing in a text-string notation, as well as translating between ASTs and MathML.</p>
 <h1><a class="anchor" id="math-overview"></a>
 Basic concepts</h1>
+<dl class="section user"><dt></dt><dd>An AST <em>node</em> in libSBML is a recursive tree structure; each node has a type, a pointer to a value, and a list of children nodes. Each <a class="el" href="class_a_s_t_node.html">ASTNode</a> node may have none, one, two, or more children depending on its type. There are node types to represent numbers (with subtypes to distinguish integer, real, and rational numbers), names (e.g., constants or variables), simple mathematical operators, logical or relational operators and functions. The following diagram illustrates an example of how the mathematical expression <code>"1 + 2"</code> is represented as an AST with one <em>plus</em> node having two <em>integer</em> children nodes for the numbers <code>1</code> and <code>2</code>. The figure also shows the corresponding MathML representation:</dd></dl>
+<table border="0" class="centered text-table width80 normal-font" style="padding-bottom: 0.5em">
+<caption class="top-caption">Example AST representation of a mathematical expression.</caption>
+<tr>
+<th width="50px">Infix</th>
+<th>AST</th>
+<th>MathML</th>
+</tr>
+<tr>
+<td valign="middle" align="center">
+<code>1 + 2</code>
+</td>
+<td valign="middle">
+  <object type="image/svg+xml" data="simple-ast.svg" class="centered" width="140px"></object>
+</td>
+<td valign="middle">
+<code>&lt;math xmlns="http://www.w3.org/1998/Math/MathML"&gt;</code><br>
+<code>&nbsp;&nbsp;&lt;apply&gt;</code><br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;plus/&gt;</code><br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;cn type="integer"&gt; 1 &lt;/cn&gt;</code><br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;cn type="integer"&gt; 2 &lt;/cn&gt;</code><br>
+<code>&nbsp;&nbsp;&lt;/apply&gt;</code><br>
+<code>&lt;/math&gt;</code>
+</td>
+</tr>
+</table>
+<p>The following are other noteworthy points about the AST representation in libSBML:</p>
+<ul>
+<li>A numerical value represented in MathML as a real number with an exponent is preserved as such in the AST node representation, even if the number could be stored in a <code>double</code> data type. This is done so that when an SBML model is read in and then written out again, the amount of change introduced by libSBML to the SBML during the round-trip activity is minimized.</li>
+</ul>
+<ul>
+<li>Rational numbers are represented in an AST node using separate numerator and denominator values. These can be retrieved using the methods <a class="el" href="class_a_s_t_node.html#a17a4868804e7e10a6cf79430723a4aee" title="Returns the value of the numerator of this node if of type AST_RATIONAL, or the numerical value of th...">ASTNode::getNumerator()</a> and <a class="el" href="class_a_s_t_node.html#a620072b6b11a6c83943ecdfa4385f6d6" title="Returns the value of the denominator of this node.">ASTNode::getDenominator()</a>.</li>
+</ul>
+<ul>
+<li>The children of an <a class="el" href="class_a_s_t_node.html">ASTNode</a> are other <a class="el" href="class_a_s_t_node.html">ASTNode</a> objects. The list of children is empty for nodes that are leaf elements, such as numbers. For nodes that are actually roots of expression subtrees, the list of children points to the parsed objects that make up the rest of the expression.</li>
+</ul>
+<p>For many applications, the details of ASTs are irrelevant because libSBML provides text-string based translation functions such as <a class="el" href="_l3_formula_formatter_8h.html#a3ee99a0498b6249f6602b98be6733b19" title="Converts an AST to a string representation of a formula using a syntax derived from SBML Level&#160;1,...">SBML_formulaToL3String()</a></p>
 <h1><a class="anchor" id="math-convert"></a>
 Converting between ASTs and text strings</h1>
 <p>SBML Levels 2 and 3 represent mathematical expressions using using <a href="http://www.w3.org/Math/">MathML&#160;2.0</a> (more specifically, a subset of the <em>content</em> portion of MathML&#160;2.0), but most applications using libSBML do not use MathML directly. Instead, applications generally interact with mathematics using either the API for Abstract Syntax Trees (described below), or using libSBML's facilities for encoding and decoding mathematical formulas to/from text strings. The latter is simpler to use directly, so we describe it first.</p>

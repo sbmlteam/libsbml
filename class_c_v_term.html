@@ -311,7 +311,16 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates an empty <a class="el" href="class_c_v_term.html">CVTerm</a>, optionally with the given <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5" title="Enumeration used to indicate the type of BioModels.net qualifier in a given CVTerm object.">QualifierType_t</a> value <code>type</code> . </p>
-<p>This method creates an empty <a class="el" href="class_c_v_term.html">CVTerm</a> object. The possible qualifier types usable as values of <code>type</code> are <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a212caf1da8ffd70753c854a0458d9c79">MODEL_QUALIFIERendif </a></p>
+<dl class="section user"><dt></dt><dd>The SBML Level&#160;2 and Level&#160;3 specifications define a simple format for annotating models when (a) referring to controlled vocabulary terms and database identifiers that define and describe biological and other entities, and (b) describing the creator of a model and the model's modification history. The annotation content is stored in <code>&lt;annotation&gt;</code> elements attached to individual SBML elements. The format for storing the content inside SBML <code>&lt;annotation&gt;</code> elements is a subset of W3C RDF (<a href="http://www.w3.org/RDF/" target="_blank">Resource Description Format</a>) expressed in XML. The <a class="el" href="class_c_v_term.html">CVTerm</a> class provides a programming interface for working directly with controlled vocabulary term ("CV
+   term") objects without having to deal directly with the XML form. When libSBML reads in an SBML model containing RDF annotations, it parses those annotations into a list of <a class="el" href="class_c_v_term.html">CVTerm</a> objects, and when writing a model, it parses the <a class="el" href="class_c_v_term.html">CVTerm</a> objects back into the appropriate SBML <code>&lt;annotation&gt;</code> structure.</dd></dl>
+<p>This method creates an empty <a class="el" href="class_c_v_term.html">CVTerm</a> object. The possible qualifier types usable as values of <code>type</code> are <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a212caf1da8ffd70753c854a0458d9c79">MODEL_QUALIFIER</a> and <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a4d9f621f4a6b81ecab0499b8e995f9ff">BIOLOGICAL_QUALIFIER</a>. If an explicit value for <code>type</code> is not given, this method defaults to using <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a5a56e414a1f5ecad18d93f6975a58fd4">UNKNOWN_QUALIFIER</a>. The <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5" title="Enumeration used to indicate the type of BioModels.net qualifier in a given CVTerm object.">QualifierType_t</a> value can be set later using the <a class="el" href="class_c_v_term.html#a15b7c72643e984ed85ddc19259a0abc9" title="Sets the QualifierType_t of this CVTerm object.">CVTerm::setQualifierType()</a> method.</p>
+<p>Different BioModels.net qualifier elements encode different types of relationships. Please refer to the SBML specification or the <a href="http://co.mbine.org/standards/qualifiers/" target="_blank">BioModels.net qualifiers web page</a> for an explanation of the meaning of these different qualifiers.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>a <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5" title="Enumeration used to indicate the type of BioModels.net qualifier in a given CVTerm object.">QualifierType_t</a> value. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -332,6 +341,8 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates a new <a class="el" href="class_c_v_term.html">CVTerm</a> from the given <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </p>
+<dl class="section user"><dt></dt><dd>The SBML Level&#160;2 and Level&#160;3 specifications define a simple format for annotating models when (a) referring to controlled vocabulary terms and database identifiers that define and describe biological and other entities, and (b) describing the creator of a model and the model's modification history. The annotation content is stored in <code>&lt;annotation&gt;</code> elements attached to individual SBML elements. The format for storing the content inside SBML <code>&lt;annotation&gt;</code> elements is a subset of W3C RDF (<a href="http://www.w3.org/RDF/" target="_blank">Resource Description Format</a>) expressed in XML. The <a class="el" href="class_c_v_term.html">CVTerm</a> class provides a programming interface for working directly with controlled vocabulary term ("CV
+   term") objects without having to deal directly with the XML form. When libSBML reads in an SBML model containing RDF annotations, it parses those annotations into a list of <a class="el" href="class_c_v_term.html">CVTerm</a> objects, and when writing a model, it parses the <a class="el" href="class_c_v_term.html">CVTerm</a> objects back into the appropriate SBML <code>&lt;annotation&gt;</code> structure.</dd></dl>
 <p>This method creates a <a class="el" href="class_c_v_term.html">CVTerm</a> object from the given <a class="el" href="class_x_m_l_node.html">XMLNode</a> object <code>node</code>. <a class="el" href="class_x_m_l_node.html">XMLNode</a> is libSBML's representation of a node in an XML tree of elements, and each such element can be placed in a namespace. This constructor looks for the element to be in the XML namespaces <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) and <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier), and if they are, creates <a class="el" href="class_c_v_term.html">CVTerm</a> objects for the result.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -412,9 +423,12 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -435,6 +449,8 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Adds a resource reference to this <a class="el" href="class_c_v_term.html">CVTerm</a> object. </p>
+<dl class="section user"><dt></dt><dd>The SBML Level&#160;2 and Level&#160;3 specifications define a simple format for annotating models when (a) referring to controlled vocabulary terms and database identifiers that define and describe biological and other entities, and (b) describing the creator of a model and the model's modification history. The annotation content is stored in <code>&lt;annotation&gt;</code> elements attached to individual SBML elements. The format for storing the content inside SBML <code>&lt;annotation&gt;</code> elements is a subset of W3C RDF (<a href="http://www.w3.org/RDF/" target="_blank">Resource Description Format</a>) expressed in XML. The <a class="el" href="class_c_v_term.html">CVTerm</a> class provides a programming interface for working directly with controlled vocabulary term ("CV
+   term") objects without having to deal directly with the XML form. When libSBML reads in an SBML model containing RDF annotations, it parses those annotations into a list of <a class="el" href="class_c_v_term.html">CVTerm</a> objects, and when writing a model, it parses the <a class="el" href="class_c_v_term.html">CVTerm</a> objects back into the appropriate SBML <code>&lt;annotation&gt;</code> structure.</dd></dl>
 <p>The specific RDF element used in this SBML format for referring to external entities is <code>&lt;rdf:Description&gt;</code>, with a <code>&lt;rdf:Bag&gt;</code> element containing one or more <code>&lt;rdf:li&gt;</code> elements. Each such element refers to a data item in an external resource; the resource and data item are together identified uniquely using a URI. The following template illustrates the structure:</p>
 <pre class="fragment">
 &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
@@ -456,9 +472,20 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_c_v_term.html#abc00e18c6ee9526fde2962d8fda17936" title="Returns the resource references for this CVTerm object.">getResources()</a> </dd>
+<dd>
+<a class="el" href="class_c_v_term.html#ada1c8d3271d5feeb467e5d51938f70cf" title="Removes a resource URI from the set of resources stored in this CVTerm object.">removeResource(std::string resource)</a> </dd>
+<dd>
+<a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">getQualifierType()</a> </dd>
+<dd>
+<a class="el" href="class_c_v_term.html#a87d543fa4b27f9550663b5e49a745ae5" title="Returns the model qualifier type of this CVTerm object.">getModelQualifierType()</a> </dd>
+<dd>
+<a class="el" href="class_c_v_term.html#a9a62cf4b78acff2fa5fe467878a97471" title="Returns the biological qualifier type of this CVTerm object.">getBiologicalQualifierType()</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="add_c_v_terms_8cpp-example.html#a13">addCVTerms.cpp</a>, <a class="el" href="adding_evidence_codes_1_8cpp-example.html#a14">addingEvidenceCodes_1.cpp</a>, and <a class="el" href="adding_evidence_codes_2_8cpp-example.html#a14">addingEvidenceCodes_2.cpp</a>.</dd>
 </dl>
 
@@ -522,8 +549,22 @@ Relationship expressed by biological qualifiers</div></div>
  <p><br  />
  The set of known biological qualifiers is, at the time of this libSBML release, the following:</p>
 <ul>
-<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a7b4a827435b6f39f8122620589252d89">BQB_ISendif </a></li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a7b4a827435b6f39f8122620589252d89">BQB_IS</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18abcb372d7076d076d536093dda97c3dd5">BQB_HAS_PART</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18af951c999d7af76bb16e3d3aae140ce9e">BQB_IS_PART_OF</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a91d60f1c51d4748fe73e77d438ec0626">BQB_IS_VERSION_OF</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a023325fc4ce0ce13769e7de14233bd7f">BQB_HAS_VERSION</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a5179e76f1c36a8825efdf2e4bede1797">BQB_IS_HOMOLOG_TO</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a9ad003fee5db81b93c8424dd64c25993">BQB_IS_DESCRIBED_BY</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a4f067e9261f205dd59b494439256ad6a">BQB_IS_ENCODED_BY</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a0489418f87021ebef959247814c470ec">BQB_ENCODES</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a46444cce34ddd420f2de2b3f5e7fbc29">BQB_OCCURS_IN</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a5ad39b91f5dc72d1239050ed2b376349">BQB_HAS_PROPERTY</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a2d22926cce3d10f8d9e8eda609225c02">BQB_IS_PROPERTY_OF</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a5e706485e6530223de8ad248ceead23d">BQB_HAS_TAXON</a></li>
 </ul>
+<p>Any other BioModels.net qualifier found in the model is considered unknown by libSBML and reported as <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18af1cf563d5624cd63df7777702421046b">BQB_UNKNOWN</a>.</p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18" title="Enumeration of possible biological qualifiers used for annotations.">BiolQualifierType_t</a> value of this object or <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18af1cf563d5624cd63df7777702421046b">BQB_UNKNOWN</a> (the default). </dd></dl>
 
 </div>
 </div>
@@ -565,8 +606,22 @@ Relationship expressed by biological qualifiers</div></div>
  <p><br  />
  The set of known biological qualifiers is, at the time of this libSBML release, the following:</p>
 <ul>
-<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a7b4a827435b6f39f8122620589252d89">BQB_ISendif </a></li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a7b4a827435b6f39f8122620589252d89">BQB_IS</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18abcb372d7076d076d536093dda97c3dd5">BQB_HAS_PART</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18af951c999d7af76bb16e3d3aae140ce9e">BQB_IS_PART_OF</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a91d60f1c51d4748fe73e77d438ec0626">BQB_IS_VERSION_OF</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a023325fc4ce0ce13769e7de14233bd7f">BQB_HAS_VERSION</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a5179e76f1c36a8825efdf2e4bede1797">BQB_IS_HOMOLOG_TO</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a9ad003fee5db81b93c8424dd64c25993">BQB_IS_DESCRIBED_BY</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a4f067e9261f205dd59b494439256ad6a">BQB_IS_ENCODED_BY</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a0489418f87021ebef959247814c470ec">BQB_ENCODES</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a46444cce34ddd420f2de2b3f5e7fbc29">BQB_OCCURS_IN</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a5ad39b91f5dc72d1239050ed2b376349">BQB_HAS_PROPERTY</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a2d22926cce3d10f8d9e8eda609225c02">BQB_IS_PROPERTY_OF</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a5e706485e6530223de8ad248ceead23d">BQB_HAS_TAXON</a></li>
 </ul>
+<p>Any other BioModels.net qualifier found in the model is considered unknown by libSBML and reported as <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18af1cf563d5624cd63df7777702421046b">BQB_UNKNOWN</a>.</p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18" title="Enumeration of possible biological qualifiers used for annotations.">BiolQualifierType_t</a> value of this object or <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18af1cf563d5624cd63df7777702421046b">BQB_UNKNOWN</a> (the default). </dd></dl>
 
 </div>
 </div>
@@ -648,8 +703,14 @@ Relationship expressed by model qualifiers</div></div>
  <p><br  />
  The set of known model qualifiers is, at the time of this libSBML release, the following:</p>
 <ul>
-<li><a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9da1e8e69b3f23d42bc90a98cbbba161742">BQM_ISendif </a></li>
+<li><a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9da1e8e69b3f23d42bc90a98cbbba161742">BQM_IS</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9dae671899d0b3e9844e5855c694cfb9f8b">BQM_IS_DESCRIBED_BY</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9dae4caa25fc006b084395ee1403b6e8a53">BQM_IS_DERIVED_FROM</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9da435347531d0e79a0dbcedb3dcbe18612">BQM_IS_INSTANCE_OF</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9da5d8997aec45063bf407d118d7800f856">BQM_HAS_INSTANCE</a></li>
 </ul>
+<p>Any other BioModels.net qualifier found in the model is considered unknown by libSBML and reported as <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9da8b1e2ab645e23a7f1c5dfde0b85e1b25">BQM_UNKNOWN</a>.</p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> value of this object or <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9da8b1e2ab645e23a7f1c5dfde0b85e1b25">BQM_UNKNOWN</a> (the default). </dd></dl>
 
 </div>
 </div>
@@ -691,8 +752,14 @@ Relationship expressed by model qualifiers</div></div>
  <p><br  />
  The set of known model qualifiers is, at the time of this libSBML release, the following:</p>
 <ul>
-<li><a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9da1e8e69b3f23d42bc90a98cbbba161742">BQM_ISendif </a></li>
+<li><a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9da1e8e69b3f23d42bc90a98cbbba161742">BQM_IS</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9dae671899d0b3e9844e5855c694cfb9f8b">BQM_IS_DESCRIBED_BY</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9dae4caa25fc006b084395ee1403b6e8a53">BQM_IS_DERIVED_FROM</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9da435347531d0e79a0dbcedb3dcbe18612">BQM_IS_INSTANCE_OF</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9da5d8997aec45063bf407d118d7800f856">BQM_HAS_INSTANCE</a></li>
 </ul>
+<p>Any other BioModels.net qualifier found in the model is considered unknown by libSBML and reported as <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9da8b1e2ab645e23a7f1c5dfde0b85e1b25">BQM_UNKNOWN</a>.</p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> value of this object or <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9da8b1e2ab645e23a7f1c5dfde0b85e1b25">BQM_UNKNOWN</a> (the default). </dd></dl>
 
 </div>
 </div>
@@ -876,8 +943,17 @@ Relationship expressed by model qualifiers</div></div>
 #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element.</dd></dl>
 <p>The placeholder <span class="code" style="background-color: #bbb"> RELATION_ELEMENT</span> refers to a BioModels.net qualifier element name. This is an element in either the XML namespace <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier). The present method returns a code identifying which one of these two relationship namespaces is being used; any other qualifier in libSBML is considered unknown (as far as the <a class="el" href="class_c_v_term.html">CVTerm</a> class is concerned). Consequently, this method will return one of the following values:</p>
 <ul>
-<li><a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a212caf1da8ffd70753c854a0458d9c79">MODEL_QUALIFIERendif </a></li>
+<li><a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a212caf1da8ffd70753c854a0458d9c79">MODEL_QUALIFIER</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a4d9f621f4a6b81ecab0499b8e995f9ff">BIOLOGICAL_QUALIFIER</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a5a56e414a1f5ecad18d93f6975a58fd4">UNKNOWN_QUALIFIER</a></li>
 </ul>
+<p>The specific relationship of this <a class="el" href="class_c_v_term.html">CVTerm</a> to the enclosing SBML object can be determined using the <a class="el" href="class_c_v_term.html">CVTerm</a> methods such as <a class="el" href="class_c_v_term.html#a87d543fa4b27f9550663b5e49a745ae5" title="Returns the model qualifier type of this CVTerm object.">CVTerm::getModelQualifierType()</a> and <a class="el" href="class_c_v_term.html#a9a62cf4b78acff2fa5fe467878a97471" title="Returns the biological qualifier type of this CVTerm object.">CVTerm::getBiologicalQualifierType()</a>. Callers will typically want to use the present method to find out which one of the <em>other</em> two methods to call to find out the specific relationship.</p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5" title="Enumeration used to indicate the type of BioModels.net qualifier in a given CVTerm object.">QualifierType_t</a> value of this object or <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a5a56e414a1f5ecad18d93f6975a58fd4">UNKNOWN_QUALIFIER</a> (the default).</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_c_v_term.html#abc00e18c6ee9526fde2962d8fda17936" title="Returns the resource references for this CVTerm object.">getResources()</a> </dd>
+<dd>
+<a class="el" href="class_c_v_term.html#a87d543fa4b27f9550663b5e49a745ae5" title="Returns the model qualifier type of this CVTerm object.">getModelQualifierType()</a> </dd>
+<dd>
+<a class="el" href="class_c_v_term.html#a9a62cf4b78acff2fa5fe467878a97471" title="Returns the biological qualifier type of this CVTerm object.">getBiologicalQualifierType()</a> </dd></dl>
 
 </div>
 </div>
@@ -912,8 +988,17 @@ Relationship expressed by model qualifiers</div></div>
 #edd">...</span> are placeholders for zero or more elements of the same form as the immediately preceding element.</dd></dl>
 <p>The placeholder <span class="code" style="background-color: #bbb"> RELATION_ELEMENT</span> refers to a BioModels.net qualifier element name. This is an element in either the XML namespace <code>"http://biomodels.net/model-qualifiers"</code> (for model qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code> (for biological qualifier). The present method returns a code identifying which one of these two relationship namespaces is being used; any other qualifier in libSBML is considered unknown (as far as the <a class="el" href="class_c_v_term.html">CVTerm</a> class is concerned). Consequently, this method will return one of the following values:</p>
 <ul>
-<li><a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a212caf1da8ffd70753c854a0458d9c79">MODEL_QUALIFIERendif </a></li>
+<li><a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a212caf1da8ffd70753c854a0458d9c79">MODEL_QUALIFIER</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a4d9f621f4a6b81ecab0499b8e995f9ff">BIOLOGICAL_QUALIFIER</a> </li>
+<li><a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a5a56e414a1f5ecad18d93f6975a58fd4">UNKNOWN_QUALIFIER</a></li>
 </ul>
+<p>The specific relationship of this <a class="el" href="class_c_v_term.html">CVTerm</a> to the enclosing SBML object can be determined using the <a class="el" href="class_c_v_term.html">CVTerm</a> methods such as <a class="el" href="class_c_v_term.html#a87d543fa4b27f9550663b5e49a745ae5" title="Returns the model qualifier type of this CVTerm object.">CVTerm::getModelQualifierType()</a> and <a class="el" href="class_c_v_term.html#a9a62cf4b78acff2fa5fe467878a97471" title="Returns the biological qualifier type of this CVTerm object.">CVTerm::getBiologicalQualifierType()</a>. Callers will typically want to use the present method to find out which one of the <em>other</em> two methods to call to find out the specific relationship.</p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5" title="Enumeration used to indicate the type of BioModels.net qualifier in a given CVTerm object.">QualifierType_t</a> value of this object or <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a5a56e414a1f5ecad18d93f6975a58fd4">UNKNOWN_QUALIFIER</a> (the default).</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_c_v_term.html#abc00e18c6ee9526fde2962d8fda17936" title="Returns the resource references for this CVTerm object.">getResources()</a> </dd>
+<dd>
+<a class="el" href="class_c_v_term.html#a87d543fa4b27f9550663b5e49a745ae5" title="Returns the model qualifier type of this CVTerm object.">getModelQualifierType()</a> </dd>
+<dd>
+<a class="el" href="class_c_v_term.html#a9a62cf4b78acff2fa5fe467878a97471" title="Returns the biological qualifier type of this CVTerm object.">getBiologicalQualifierType()</a> </dd></dl>
 
 </div>
 </div>
@@ -1185,9 +1270,13 @@ Relationship expressed by model qualifiers</div></div>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da2018dcd1ec4e8d61debae043b1697d4e">LIBSBML_INVALID_ATTRIBUTE_VALUE</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_c_v_term.html#a9e89cb717ad01eb49bc560162c11f89c" title="Adds a resource reference to this CVTerm object.">addResource(const std::string&amp; resource)</a> </dd></dl>
 
 </div>
 </div>
@@ -1214,9 +1303,15 @@ Relationship expressed by model qualifiers</div></div>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da2018dcd1ec4e8d61debae043b1697d4e">LIBSBML_INVALID_ATTRIBUTE_VALUE</a></li>
 </ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the Qualifier Type of this object is not <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a4d9f621f4a6b81ecab0499b8e995f9ff">BIOLOGICAL_QUALIFIER</a>, then the <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18" title="Enumeration of possible biological qualifiers used for annotations.">BiolQualifierType_t</a> value will default to <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18af1cf563d5624cd63df7777702421046b">BQB_UNKNOWN</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">getQualifierType()</a> </dd>
+<dd>
+<a class="el" href="class_c_v_term.html#a15b7c72643e984ed85ddc19259a0abc9" title="Sets the QualifierType_t of this CVTerm object.">setQualifierType()</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="add_c_v_terms_8cpp-example.html#a11">addCVTerms.cpp</a>, <a class="el" href="adding_evidence_codes_1_8cpp-example.html#a12">addingEvidenceCodes_1.cpp</a>, and <a class="el" href="adding_evidence_codes_2_8cpp-example.html#a12">addingEvidenceCodes_2.cpp</a>.</dd>
 </dl>
 
@@ -1245,9 +1340,15 @@ Relationship expressed by model qualifiers</div></div>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da2018dcd1ec4e8d61debae043b1697d4e">LIBSBML_INVALID_ATTRIBUTE_VALUE</a></li>
 </ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the Qualifier Type of this object is not <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a4d9f621f4a6b81ecab0499b8e995f9ff">BIOLOGICAL_QUALIFIER</a>, then the <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18" title="Enumeration of possible biological qualifiers used for annotations.">BiolQualifierType_t</a> will default to <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18af1cf563d5624cd63df7777702421046b">BQB_UNKNOWN</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">getQualifierType()</a> </dd>
+<dd>
+<a class="el" href="class_c_v_term.html#a15b7c72643e984ed85ddc19259a0abc9" title="Sets the QualifierType_t of this CVTerm object.">setQualifierType()</a> </dd></dl>
 
 </div>
 </div>
@@ -1274,9 +1375,15 @@ Relationship expressed by model qualifiers</div></div>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da2018dcd1ec4e8d61debae043b1697d4e">LIBSBML_INVALID_ATTRIBUTE_VALUE</a></li>
 </ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the Qualifier Type of this object is not <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a212caf1da8ffd70753c854a0458d9c79">MODEL_QUALIFIER</a>, then the <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> value will default to <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9da8b1e2ab645e23a7f1c5dfde0b85e1b25">BQM_UNKNOWN</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">getQualifierType()</a> </dd>
+<dd>
+<a class="el" href="class_c_v_term.html#a15b7c72643e984ed85ddc19259a0abc9" title="Sets the QualifierType_t of this CVTerm object.">setQualifierType()</a> </dd></dl>
 
 </div>
 </div>
@@ -1303,9 +1410,15 @@ Relationship expressed by model qualifiers</div></div>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da2018dcd1ec4e8d61debae043b1697d4e">LIBSBML_INVALID_ATTRIBUTE_VALUE</a></li>
 </ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5" title="Enumeration used to indicate the type of BioModels.net qualifier in a given CVTerm object.">QualifierType_t</a> value of this object is not <a class="el" href="_c_v_term_8h.html#ac2fb398f257edf4edd04e795f878abc5a212caf1da8ffd70753c854a0458d9c79">MODEL_QUALIFIER</a>, then the then the <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> value will default to <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9da8b1e2ab645e23a7f1c5dfde0b85e1b25">BQM_UNKNOWN</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">getQualifierType()</a> </dd>
+<dd>
+<a class="el" href="class_c_v_term.html#a15b7c72643e984ed85ddc19259a0abc9" title="Sets the QualifierType_t of this CVTerm object.">setQualifierType()</a> </dd></dl>
 
 </div>
 </div>
@@ -1332,9 +1445,11 @@ Relationship expressed by model qualifiers</div></div>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_c_v_term.html#a3b907de797ea8bf157365c2ba761ab8f" title="Returns the qualifier type of this CVTerm object.">getQualifierType()</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="add_c_v_terms_8cpp-example.html#a9">addCVTerms.cpp</a>.</dd>
 </dl>
 

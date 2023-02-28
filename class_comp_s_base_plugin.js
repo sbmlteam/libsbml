@@ -6,6 +6,7 @@ var class_comp_s_base_plugin =
     [ "addReplacedElement", "class_comp_s_base_plugin.html#a2081bf2e3d0fdd98c946f747459156e1", null ],
     [ "clearReplacedElements", "class_comp_s_base_plugin.html#a0b13fc4a457143c7d01da3f597893954", null ],
     [ "clone", "class_comp_s_base_plugin.html#aebc807a54f69b78cfe951f28f2895f82", null ],
+    [ "createListOfReplacedElements", "class_comp_s_base_plugin.html#ace86c2b8133c083debdcdffbaeb5e949", null ],
     [ "createReplacedBy", "class_comp_s_base_plugin.html#af2bd79b396e9a62918e7bf08b875e856", null ],
     [ "createReplacedElement", "class_comp_s_base_plugin.html#a272d5b495f462f258fc3f6e7e55c68d9", null ],
     [ "getAllElements", "class_comp_s_base_plugin.html#a68b6b52aba5aa3830440022e71a432e2", null ],

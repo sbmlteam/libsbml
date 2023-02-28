@@ -109,7 +109,7 @@ Include dependency graph for SubListOfSpeciesFeatures.cpp:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a9a235c28e580a91e10ef6d4f87e2604e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529">Relation_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_sub_list_of_species_features_8cpp.html#a9a235c28e580a91e10ef6d4f87e2604e">Relation_fromString</a> (const char *s)</td></tr>
-<tr class="memdesc:a9a235c28e580a91e10ef6d4f87e2604e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Relation_t enumeration corresponding to the given string or <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a4e711ae51d595fa6d6c9bf1869eecb48">MULTI_RELATION_UNKNOWNendif. </a> <a href="_sub_list_of_species_features_8cpp.html#a9a235c28e580a91e10ef6d4f87e2604e">More...</a><br /></td></tr>
+<tr class="memdesc:a9a235c28e580a91e10ef6d4f87e2604e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Relation_t enumeration corresponding to the given string or <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a4e711ae51d595fa6d6c9bf1869eecb48">MULTI_RELATION_UNKNOWN</a> if there is no such match.  <a href="_sub_list_of_species_features_8cpp.html#a9a235c28e580a91e10ef6d4f87e2604e">More...</a><br /></td></tr>
 <tr class="separator:a9a235c28e580a91e10ef6d4f87e2604e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06b31260c4f100b4f8c53c7c3f857764"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_sub_list_of_species_features_8cpp.html#a06b31260c4f100b4f8c53c7c3f857764">Relation_isValid</a> (<a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529">Relation_t</a> r)</td></tr>
 <tr class="separator:a06b31260c4f100b4f8c53c7c3f857764"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -190,13 +190,21 @@ Variables</h2></td></tr>
           <td class="memname"><a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529">Relation_t</a> Relation_fromString </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>s</em></td><td>)</td>
+          <td class="paramname"><em>code</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the Relation_t enumeration corresponding to the given string or <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a4e711ae51d595fa6d6c9bf1869eecb48">MULTI_RELATION_UNKNOWNendif. </a></p>
+<p>Returns the Relation_t enumeration corresponding to the given string or <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a4e711ae51d595fa6d6c9bf1869eecb48">MULTI_RELATION_UNKNOWN</a> if there is no such match. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">code</td><td>the string to convert to a Relation_t.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the corresponding Relation_t or <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a4e711ae51d595fa6d6c9bf1869eecb48">MULTI_RELATION_UNKNOWN</a> if no match is found.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The matching is case-sensitive: "and" will return <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a56b8e1fab96d074a8621a5bbdd2c5dfe">MULTI_RELATION_AND</a>, but "And" will return <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a4e711ae51d595fa6d6c9bf1869eecb48">MULTI_RELATION_UNKNOWN</a>. </dd></dl>
 
 </div>
 </div>
@@ -259,7 +267,7 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A string corresponding to the given type: "and", "or", "not", or <code>NULL</code> if the value is <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a4e711ae51d595fa6d6c9bf1869eecb48">MULTI_RELATION_UNKNOWNendif </a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A string corresponding to the given type: "and", "or", "not", or <code>NULL</code> if the value is <a class="el" href="_sub_list_of_species_features_8h.html#afbfc6a80802a81882467bd37877ad529a4e711ae51d595fa6d6c9bf1869eecb48">MULTI_RELATION_UNKNOWN</a> or another invalid enumeration value.</dd></dl>
 
 </div>
 </div>

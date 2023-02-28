@@ -612,9 +612,12 @@ Public Member Functions</h2></td></tr>
 
 <p>Performs the conversion. </p>
 <p>This method causes <a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> to do the actual conversion work, that is, to convert the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object set by <a class="el" href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959" title="Sets the SBML document to be converted.">SBMLConverter::setDocument()</a> and with the configuration options set by <a class="el" href="class_s_b_m_l_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc" title="Sets the configuration properties to be used by this converter.">SBMLConverter::setProperties()</a>.</p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> </li>
 </ul>
+</dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_b_m_l_converter.html#a957d3d54eb856c66d6a2d404a0aee59e">SBMLConverter</a>.</p>
 
@@ -900,9 +903,10 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>integer value indicating the success/failure of the operation. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The set of possible values that may be returned ultimately depends on the specific subclass of <a class="el" href="class_s_b_m_l_converter.html">SBMLConverter</a> being used, but the default method can return the following: <ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
 </ul>
 </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Even though the argument <code>doc</code> is 'const', it is immediately cast to a non-const version, which is then usually changed by the converter upon a successful conversion. This variant of the <a class="el" href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959" title="Sets the SBML document to be converted.">setDocument()</a> method is here solely to preserve backwards compatibility. </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_s_b_m_l_reaction_converter.html#a2267410b46e5631dbd0eefae9411527d">SBMLReactionConverter</a>, and <a class="el" href="class_s_b_m_l_rate_of_converter.html#a37bdbc74f1187d52f78233f9af1cc2db">SBMLRateOfConverter</a>.</p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="flatten_model_8cpp-example.html#a10">flattenModel.cpp</a>.</dd>
@@ -942,7 +946,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>integer value indicating the success/failure of the operation. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The set of possible values that may be returned ultimately depends on the specific subclass of <a class="el" href="class_s_b_m_l_converter.html">SBMLConverter</a> being used, but the default method can return the following: <ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 </ul>
 </dd></dl>
 
@@ -982,9 +986,13 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>integer value indicating the success/failure of the operation. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The set of possible values that may be returned ultimately depends on the specific subclass of <a class="el" href="class_s_b_m_l_converter.html">SBMLConverter</a> being used, but the default method can return the following values: <ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
 </ul>
 </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_b_m_l_converter.html#ad48a1188a9890433e0420de5dc5d6ac3" title="Returns the current properties in effect for this converter.">getProperties()</a> </dd>
+<dd>
+<a class="el" href="class_comp_flattening_converter.html#a73a9becb1659bedabc3a6ce70cfb8de7" title="Returns true if this converter matches the given properties.">matchesProperties()</a> </dd></dl>
 
 </div>
 </div>

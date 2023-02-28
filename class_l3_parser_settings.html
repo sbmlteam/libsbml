@@ -205,7 +205,25 @@ Public Member Functions</h2></td></tr>
 <p>Creates a new <a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> object with default values. </p>
 <p>This is the default constructor for the <a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> object. It sets the stored <a class="el" href="class_model.html">Model</a> object to <code>NULL</code> and sets the following field values in the <a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> object:</p>
 <ul>
-<li><em>parseunits</em> ("parse units") is set to <a class="el" href="_l3_parser_settings_8h.html#a0679ae871d944e4deb8cdeb800a62dc9">L3P_PARSE_UNITSendif </a></li>
+<li><em>parseunits</em> ("parse units") is set to <a class="el" href="_l3_parser_settings_8h.html#a0679ae871d944e4deb8cdeb800a62dc9">L3P_PARSE_UNITS</a>.</li>
+</ul>
+<ul>
+<li><em>collapseminus</em> ("collapse minus") is set to <a class="el" href="_l3_parser_settings_8h.html#a1918a037a3af5cb6d1184bf2f7d972d6">L3P_EXPAND_UNARY_MINUS</a>.</li>
+</ul>
+<ul>
+<li><em>parselog</em> ("parse log") is set to <a class="el" href="_l3_parser_settings_8h.html#acf728ef62e401f9fde68a8fd94950d30ac579668f1dc11f6de2fa3f50dffeffdc">L3P_PARSE_LOG_AS_LOG10</a>.</li>
+</ul>
+<ul>
+<li><em>avocsymbol</em> ("Avogadro csymbol") is set to <a class="el" href="_l3_parser_settings_8h.html#a111179be89a34ee5ff4c45303bc1dc12">L3P_AVOGADRO_IS_CSYMBOL</a>.</li>
+</ul>
+<ul>
+<li><em>caseSensitive</em> ("case sensitive") is set to <a class="el" href="_l3_parser_settings_8h.html#ac300567bad1c9123507d5bd3733c6e93">L3P_COMPARE_BUILTINS_CASE_INSENSITIVE</a>.</li>
+</ul>
+<ul>
+<li><em>moduloL3v2</em> ("modulo l3v2") is set to <a class="el" href="_l3_parser_settings_8h.html#a5b7f7e6ca2c7197a7f6d53d95b63555f">L3P_MODULO_IS_PIECEWISE</a>.</li>
+</ul>
+<ul>
+<li><em>sbmlns</em> ("SBML namespaces") is set to <code>NULL</code> (which indicates that no syntax extensions due to SBML Level&#160;3 packages will be assumed&mdash;the formula parser will only understand the core syntax described in the documentation for <a class="el" href="_l3_parser_8cpp.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> </li>
 </ul>
 
 </div>
@@ -358,6 +376,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if the parser is configured to match built-in symbols in a case-insensitive way. </p>
+<dl class="section user"><dt></dt><dd>By default (which is the value <a class="el" href="_l3_parser_settings_8h.html#ac300567bad1c9123507d5bd3733c6e93">L3P_COMPARE_BUILTINS_CASE_INSENSITIVE</a>), the parser compares symbols in a case <em>insensitive</em> manner for built-in functions such as <code>"sin"</code> and <code>"piecewise"</code>, and for constants such as <code>"true"</code> and <code>"avogadro"</code>. Setting this option to <a class="el" href="_l3_parser_settings_8h.html#a2dc67194852e6e97ca8db6276c5679ba">L3P_COMPARE_BUILTINS_CASE_SENSITIVE</a> causes the parser to become case sensitive. In that mode, for example, the symbols <code>"sin"</code> and <code>"true"</code> will match the built-in values, but the symbols <code>"SIN"</code>, <code>"Sin"</code>, <code>"True"</code>, <code>"TRUE"</code>, and so on, will not.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if matches are done in a case-sensitive manner, and <code>false</code> if the parser will recognize built-in functions and constants regardless of case,.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_l3_parser_settings.html#a203dd15801c01a999823713a63bd35ff" title="Sets the parser&#39;s behavior with respect to case sensitivity for recognizing predefined symbols.">setComparisonCaseSensitivity()</a> </dd></dl>
 
@@ -402,8 +421,16 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Indicates the current behavior set for handling <code>avogadro</code> for SBML Level&#160;3. </p>
+<dl class="section user"><dt></dt><dd>SBML Level&#160;3 defines a symbol for representing the value of Avogadro's constant, but it is not defined in SBML Level&#160;2. As a result, the text-string formula parser must behave differently depending on which SBML Level is being targeted. For Level&#160;3 documents, it can interpret instances of <code>avogadro</code> in the input as a reference to the MathML <em>csymbol</em> for Avogadro's constant defined in the SBML Level&#160;3 specification. For Level&#160;2, it must treat <code>avogadro</code> as just another plain symbol.</dd></dl>
 <p>This method returns the current setting of the <code>avogadro</code>-handling behavior in this <a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> object. The possible values are as follows:</p>
-<dl class="section return"><dt>Returns</dt><dd>A boolean indicating which mode is currently set; one of <a class="el" href="_l3_parser_settings_8h.html#a111179be89a34ee5ff4c45303bc1dc12">L3P_AVOGADRO_IS_CSYMBOLendif </a></dd></dl>
+<ul>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a111179be89a34ee5ff4c45303bc1dc12">L3P_AVOGADRO_IS_CSYMBOL</a> (value = <code>true</code>): tells the parser to translate the string <code>avogadro</code> (in any capitalization) into an AST node of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aa9754e70ec0089366d031fecedc8d04e">AST_NAME_AVOGADRO</a>. </li>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a454fdbfde0ab74506f40a6555e9abdff">L3P_AVOGADRO_IS_NAME</a> (value = <code>false</code>): tells the parser to translate the string <code>avogadro</code> into an AST of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4fab2a5f966e56f6062f9f9505921d0d">AST_NAME</a>. </li>
+</ul>
+<dl class="section return"><dt>Returns</dt><dd>A boolean indicating which mode is currently set; one of <a class="el" href="_l3_parser_settings_8h.html#a111179be89a34ee5ff4c45303bc1dc12">L3P_AVOGADRO_IS_CSYMBOL</a> or <a class="el" href="_l3_parser_settings_8h.html#a454fdbfde0ab74506f40a6555e9abdff">L3P_AVOGADRO_IS_NAME</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_l3_parser_settings.html#aadf70eeec986b68488e53100d77a2cdf" title="Sets the parser&#39;s behavior in handling the symbol avogadro in mathematical formulas.">setParseAvogadroCsymbol()</a> </dd></dl>
 
 </div>
 </div>
@@ -423,7 +450,15 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Indicates the current behavior set for handling multiple unary minuses in formulas. </p>
-<dl class="section user"><dt></dt><dd>This setting affects two behaviors. First, pairs of multiple unary minuses in a row (e.g., &quot;<code>- -3</code>&quot;) can be collapsed and ignored in the input, or the multiple minuses can be preserved in the AST node tree that is generated by the parser. Second, minus signs in front of numbers can be collapsed into the number node itself; for example, a &quot;<code>- 4.1</code>&quot; can be turned into a single <a class="el" href="class_a_s_t_node.html">ASTNode</a> of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a634db469deca7c255a3694c5cb3a4863">AST_REALendif  A boolean indicating the behavior currently set. The possible values are as follows:  setParseCollapseMinus() </a></dd></dl>
+<dl class="section user"><dt></dt><dd>This setting affects two behaviors. First, pairs of multiple unary minuses in a row (e.g., &quot;<code>- -3</code>&quot;) can be collapsed and ignored in the input, or the multiple minuses can be preserved in the AST node tree that is generated by the parser. Second, minus signs in front of numbers can be collapsed into the number node itself; for example, a &quot;<code>- 4.1</code>&quot; can be turned into a single <a class="el" href="class_a_s_t_node.html">ASTNode</a> of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a634db469deca7c255a3694c5cb3a4863">AST_REAL</a> with a value of <code>-4.1</code>, or it can be turned into a node of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a04afe78f8ca0f64c4d49f3cd1a8b41ec">AST_MINUS</a> having a child node of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a634db469deca7c255a3694c5cb3a4863">AST_REAL</a>.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A boolean indicating the behavior currently set. The possible values are as follows: <ul>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a86e969c8b902c44e7ae5901bfceeaf9e">L3P_COLLAPSE_UNARY_MINUS</a> (value = <code>true</code>): collapse unary minuses where possible. </li>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a1918a037a3af5cb6d1184bf2f7d972d6">L3P_EXPAND_UNARY_MINUS</a> (value = <code>false</code>): do not collapse unary minuses, and instead translate each one into an AST node of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a04afe78f8ca0f64c4d49f3cd1a8b41ec">AST_MINUS</a>. </li>
+</ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_l3_parser_settings.html#aeb7c80445ff94cee49df91e28d7bd76e" title="Sets the behavior for handling unary minuses appearing in mathematical formulas.">setParseCollapseMinus()</a> </dd></dl>
 
 </div>
 </div>
@@ -443,7 +478,14 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Indicates the current behavior set for handling whether to parse the functions added in L3v2 as that MathML or not. </p>
-<dl class="section return"><dt>Returns</dt><dd>A boolean indicating the behavior currently set. The possible values are as follows:</dd></dl>
+<dl class="section user"><dt></dt><dd>This setting affects whether the names of functions added in SBML Level&#160;3 Version&#160;2 are parsed as those added MathML functions, or whether they are added as generic functions with those names (to be used in SBML as function definitions).</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A boolean indicating the behavior currently set. The possible values are as follows: <ul>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a5489e12d3c50d0ddc388fce78b8f220b">L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY</a> (value = <code>true</code>): parse the strings <code>rateOf</code>, <code>implies</code>, <code>max</code>, <code>min</code>, <code>quotient</code>, and <code>rem</code> as <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aedbf4bf10b748da0f71f05c1ea99080f">AST_FUNCTION_RATE_OF</a>, <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aff7ef9ad06d905e8d420d041b4b38f8e">AST_LOGICAL_IMPLIES</a>, <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a592ba096b58246bfd7181e732e3f9973">AST_FUNCTION_MAX</a>, <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a0bddcd970ea47ecb3a9c5bc4e494feb7">AST_FUNCTION_MIN</a>, <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a197b164671243fdf7cc91b8a2ed7b93e">AST_FUNCTION_QUOTIENT</a>, and <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a09d4027174469bc34d1abda4e3ee25c8">AST_FUNCTION_REM</a>, respectively. </li>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a982359f5fb9148b4d2e5dc4fcec2cfc2">L3P_PARSE_L3V2_FUNCTIONS_AS_GENERIC</a> (value = <code>false</code>): parse the strings <code>rateOf</code>, <code>implies</code>, <code>max</code>, <code>min</code>, <code>quotient</code>, and <code>rem</code> all as <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aca72ec3f021680346ad5d4f7f396c342">AST_FUNCTION</a> with the appropriate name set. </li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_l3_parser_settings.html#a2274b331ee071e035b182128e4da42ff" title="Sets the behavior for handling functions added in SBML L3v2.">setParseL3v2Functions()</a> </dd></dl>
 
 </div>
@@ -464,7 +506,14 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Indicates the current behavior set for handling the function <code>log</code> with one argument. </p>
-<p>The function <code>log</code> with a single argument (&quot;<code>log(x)</code>&quot;) can be parsed as <code>log10(x)</code>, <code>ln(x)</code>, or treated as an error, as desired. These three possible behaviors are indicated, respectively, by the values <a class="el" href="_l3_parser_settings_8h.html#acf728ef62e401f9fde68a8fd94950d30ac579668f1dc11f6de2fa3f50dffeffdc">L3P_PARSE_LOG_AS_LOG10endif </a></p>
+<p>The function <code>log</code> with a single argument (&quot;<code>log(x)</code>&quot;) can be parsed as <code>log10(x)</code>, <code>ln(x)</code>, or treated as an error, as desired. These three possible behaviors are indicated, respectively, by the values <a class="el" href="_l3_parser_settings_8h.html#acf728ef62e401f9fde68a8fd94950d30ac579668f1dc11f6de2fa3f50dffeffdc">L3P_PARSE_LOG_AS_LOG10</a>, <a class="el" href="_l3_parser_settings_8h.html#acf728ef62e401f9fde68a8fd94950d30ab360c693e031838fb0c53685ef624b57">L3P_PARSE_LOG_AS_LN</a>, and <a class="el" href="_l3_parser_settings_8h.html#acf728ef62e401f9fde68a8fd94950d30a0fa3a4d955283e53a01e542be1d337f9">L3P_PARSE_LOG_AS_ERROR</a>.</p>
+<dl class="section return"><dt>Returns</dt><dd>One of following three constants: <ul>
+<li><a class="el" href="_l3_parser_settings_8h.html#acf728ef62e401f9fde68a8fd94950d30ac579668f1dc11f6de2fa3f50dffeffdc">L3P_PARSE_LOG_AS_LOG10</a> </li>
+<li><a class="el" href="_l3_parser_settings_8h.html#acf728ef62e401f9fde68a8fd94950d30ab360c693e031838fb0c53685ef624b57">L3P_PARSE_LOG_AS_LN</a> </li>
+<li><a class="el" href="_l3_parser_settings_8h.html#acf728ef62e401f9fde68a8fd94950d30a0fa3a4d955283e53a01e542be1d337f9">L3P_PARSE_LOG_AS_ERROR</a></li>
+</ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_l3_parser_settings.html#a5ac6e5cb027be916ced8f766c0f4b7ef" title="Sets the behavior for handling log in mathematical formulas.">setParseLog()</a> </dd></dl>
 
 </div>
 </div>
@@ -484,7 +533,14 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Indicates the current behavior set for handling the % symbol in mathematical formulas. </p>
-<dl class="section return"><dt>Returns</dt><dd>A boolean indicating the behavior currently set. The possible values are as follows:</dd></dl>
+<dl class="section user"><dt></dt><dd>This setting affects whether the % symbol (modulo) is parsed as a piecewise equation that returns the modulo value of the entries on either side of the symbol, or whether it is parsed as the MathML 'rem' function, which was allowed in SBML Level&#160;3 Version&#160;2, but not in previous level/versions. The latter is more succinct, but might not be legal SBML for the desired target SBML document.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A boolean indicating the behavior currently set. The possible values are as follows: <ul>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a216dac82a2112cf8e14da6773fd944c2">L3P_MODULO_IS_REM</a> (value = <code>true</code>): use the 'rem' MathML function (<a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a09d4027174469bc34d1abda4e3ee25c8">AST_FUNCTION_REM</a>). </li>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a5b7f7e6ca2c7197a7f6d53d95b63555f">L3P_MODULO_IS_PIECEWISE</a> (value = <code>false</code>): use a piecewise function (<a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203abcf84916c7012e65316ce0dfe5a41d38">AST_FUNCTION_PIECEWISE</a>) to encode the modulo rule explicitly. </li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_l3_parser_settings.html#a5fad1127b9757bdf3eaea98945194ca9" title="Sets the behavior for handling the % symbol in mathematical formulas.">setParseModuloL3v2()</a> </dd></dl>
 
 </div>
@@ -506,13 +562,20 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Indicates the current behavior set for handling whether to parse the functions added in the given package as that MathML or not. </p>
+<dl class="section user"><dt></dt><dd>This setting affects whether the math added in a given SBML Level&#160;3 package are parsed as those added MathML elements, or whether they are added as generic functions or variables with those names.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">package</td><td>an ExtendedMathType_t indicating the extended math package to be set.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A boolean indicating the behavior currently set. The possible values are as follows:</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A boolean indicating the behavior currently set. The possible values are as follows: <ul>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#af9457ee646d840d77b2f0f0b701e3b8e">L3P_PARSE_PACKAGE_MATH_DIRECTLY</a> (value = <code>true</code>): parse any string defined in a given SBML L3 package as its corresponding ASTType_t. </li>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a1dce362206d4446229b3dfdab8f5bca0">L3P_PARSE_PACKAGE_MATH_AS_GENERIC</a> (value = <code>false</code>): parse any string that would have been defined in the given SBML L3 package as <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aca72ec3f021680346ad5d4f7f396c342">AST_FUNCTION</a> or <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4fab2a5f966e56f6062f9f9505921d0d">AST_NAME</a> with the appropriate name set. </li>
+</ul>
+</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_l3_parser_settings.html#aade7df471fbe853c76602edb00d91bb4" title="Sets the behavior for handling functions added in SBML packages.">setParsePackageMath()</a> </dd></dl>
 
 </div>
@@ -533,7 +596,16 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Indicates the current behavior set for handling units in text-string mathematical formulas. </p>
-<p>Since SBML Level&#160;2 does not have the ability to associate units with pure numbers, the value should be expected to be <code>false</code> (<a class="el" href="_l3_parser_settings_8h.html#a9ea287b2bc878cbde05955b637974220">L3P_NO_UNITSendif </a></p>
+<dl class="section user"><dt></dt><dd>In SBML Level&#160;2, there is no means of associating a unit of measurement with a pure number in a formula, while SBML Level&#160;3 does define a syntax for this. In Level&#160;3, MathML <code>&lt;cn&gt;</code> elements can have an attribute named <code>units</code> placed in the SBML namespace, which can be used to indicate the units to be associated with the number. The text-string infix formula parser allows units to be placed after raw numbers; they are interpreted as unit identifiers for units defined by the SBML specification or in the containing <a class="el" href="class_model.html">Model</a> object. Some examples include: &quot;<code>4 mL</code>&quot;, &quot;<code>2.01 Hz</code>&quot;, &quot;<code>3.1e-6 M</code>&quot;, and &quot;<code>(5/8) inches</code>&quot;. To produce a valid SBML model, there must either exist a <a class="el" href="class_unit_definition.html">UnitDefinition</a> corresponding to the identifier of the unit, or the unit must be defined in Table&#160;2 of the SBML Level&#160;3 specification.</dd></dl>
+<p>Since SBML Level&#160;2 does not have the ability to associate units with pure numbers, the value should be expected to be <code>false</code> (<a class="el" href="_l3_parser_settings_8h.html#a9ea287b2bc878cbde05955b637974220">L3P_NO_UNITS</a>) when parsing text-string formulas intended for use in SBML Level&#160;2 documents.</p>
+<dl class="section return"><dt>Returns</dt><dd>A boolean indicating whether to parse units. The possible values are as follows: <ul>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a0679ae871d944e4deb8cdeb800a62dc9">L3P_PARSE_UNITS</a> (value = <code>true</code>): parse units in the text-string formula. </li>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a9ea287b2bc878cbde05955b637974220">L3P_NO_UNITS</a> (value = <code>false</code>): treat units in the text-string formula as errors. </li>
+</ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_l3_parser_settings.html#aebfce1af4dccc5468fc583422b4ebc7c" title="Sets the parser&#39;s behavior in handling units associated with numbers in a mathematical formula.">setParseUnits()</a> </dd></dl>
 
 </div>
 </div>
@@ -574,6 +646,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the parser's behavior with respect to case sensitivity for recognizing predefined symbols. </p>
+<dl class="section user"><dt></dt><dd>By default (which is the value <a class="el" href="_l3_parser_settings_8h.html#ac300567bad1c9123507d5bd3733c6e93">L3P_COMPARE_BUILTINS_CASE_INSENSITIVE</a>), the parser compares symbols in a case <em>insensitive</em> manner for built-in functions such as <code>"sin"</code> and <code>"piecewise"</code>, and for constants such as <code>"true"</code> and <code>"avogadro"</code>. Setting this option to <a class="el" href="_l3_parser_settings_8h.html#a2dc67194852e6e97ca8db6276c5679ba">L3P_COMPARE_BUILTINS_CASE_SENSITIVE</a> causes the parser to become case sensitive. In that mode, for example, the symbols <code>"sin"</code> and <code>"true"</code> will match the built-in values, but the symbols <code>"SIN"</code>, <code>"Sin"</code>, <code>"True"</code>, <code>"TRUE"</code>, and so on, will not.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">strcmp</td><td>a boolean indicating whether to be case sensitive (if <code>true</code>) or be case insensitive (if <code>false</code>).</td></tr>
@@ -634,8 +707,22 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the parser's behavior in handling the symbol <code>avogadro</code> in mathematical formulas. </p>
+<dl class="section user"><dt></dt><dd>SBML Level&#160;3 defines a symbol for representing the value of Avogadro's constant, but it is not defined in SBML Level&#160;2. As a result, the text-string formula parser must behave differently depending on which SBML Level is being targeted. For Level&#160;3 documents, it can interpret instances of <code>avogadro</code> in the input as a reference to the MathML <em>csymbol</em> for Avogadro's constant defined in the SBML Level&#160;3 specification. For Level&#160;2, it must treat <code>avogadro</code> as just another plain symbol.</dd></dl>
 <p>This method allows callers to set the <code>avogadro</code>-handling behavior in this <a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> object. The possible values of <code>l2only</code> are as follows:</p>
-<p>Since SBML Level&#160;2 does not define a symbol for Avogadro's constant, the value should be set to <a class="el" href="_l3_parser_settings_8h.html#a454fdbfde0ab74506f40a6555e9abdff">L3P_AVOGADRO_IS_NAMEendif </a></p>
+<ul>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a111179be89a34ee5ff4c45303bc1dc12">L3P_AVOGADRO_IS_CSYMBOL</a> (value = <code>true</code>): tells the parser to translate the string <code>avogadro</code> (in any capitalization) into an AST node of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aa9754e70ec0089366d031fecedc8d04e">AST_NAME_AVOGADRO</a>. </li>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a454fdbfde0ab74506f40a6555e9abdff">L3P_AVOGADRO_IS_NAME</a> (value = <code>false</code>): tells the parser to translate the string <code>avogadro</code> into an AST of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4fab2a5f966e56f6062f9f9505921d0d">AST_NAME</a>. </li>
+</ul>
+<p>Since SBML Level&#160;2 does not define a symbol for Avogadro's constant, the value should be set to <a class="el" href="_l3_parser_settings_8h.html#a454fdbfde0ab74506f40a6555e9abdff">L3P_AVOGADRO_IS_NAME</a> when parsing text-string formulas intended for use in SBML Level&#160;2 documents.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l2only</td><td>a boolean value indicating how the string <code>avogadro</code> should be treated when encountered in a formula. This will be one of the values <a class="el" href="_l3_parser_settings_8h.html#a111179be89a34ee5ff4c45303bc1dc12">L3P_AVOGADRO_IS_CSYMBOL</a> or <a class="el" href="_l3_parser_settings_8h.html#a454fdbfde0ab74506f40a6555e9abdff">L3P_AVOGADRO_IS_NAME</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_l3_parser_settings.html#a5a080ba3a7385d2cf5bb9d25bdaab25d" title="Indicates the current behavior set for handling avogadro for SBML Level&#160;3.">getParseAvogadroCsymbol()</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="translate_l3_math_8cpp-example.html#a10">translateL3Math.cpp</a>.</dd>
 </dl>
 
@@ -658,7 +745,21 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the behavior for handling unary minuses appearing in mathematical formulas. </p>
-<dl class="section user"><dt></dt><dd>This setting affects two behaviors. First, pairs of multiple unary minuses in a row (e.g., &quot;<code>- -3</code>&quot;) can be collapsed and ignored in the input, or the multiple minuses can be preserved in the AST node tree that is generated by the parser. Second, minus signs in front of numbers can be collapsed into the number node itself; for example, a &quot;<code>- 4.1</code>&quot; can be turned into a single <a class="el" href="class_a_s_t_node.html">ASTNode</a> of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a634db469deca7c255a3694c5cb3a4863">AST_REALendif This method lets you tell the parser which behavior to use&mdash;either collapse minuses or always preserve them. The two possibilities are represented using the following constants:  collapseminus a boolean value (one of the constants  #L3P_COLLAPSE_UNARY_MINUS L3P_COLLAPSE_UNARY_MINUSendif </a></dd></dl>
+<dl class="section user"><dt></dt><dd>This setting affects two behaviors. First, pairs of multiple unary minuses in a row (e.g., &quot;<code>- -3</code>&quot;) can be collapsed and ignored in the input, or the multiple minuses can be preserved in the AST node tree that is generated by the parser. Second, minus signs in front of numbers can be collapsed into the number node itself; for example, a &quot;<code>- 4.1</code>&quot; can be turned into a single <a class="el" href="class_a_s_t_node.html">ASTNode</a> of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a634db469deca7c255a3694c5cb3a4863">AST_REAL</a> with a value of <code>-4.1</code>, or it can be turned into a node of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a04afe78f8ca0f64c4d49f3cd1a8b41ec">AST_MINUS</a> having a child node of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a634db469deca7c255a3694c5cb3a4863">AST_REAL</a>.</dd></dl>
+<p>This method lets you tell the parser which behavior to use&mdash;either collapse minuses or always preserve them. The two possibilities are represented using the following constants:</p>
+<ul>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a86e969c8b902c44e7ae5901bfceeaf9e">L3P_COLLAPSE_UNARY_MINUS</a> (value = <code>true</code>): collapse unary minuses where possible. </li>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a1918a037a3af5cb6d1184bf2f7d972d6">L3P_EXPAND_UNARY_MINUS</a> (value = <code>false</code>): do not collapse unary minuses, and instead translate each one into an AST node of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a04afe78f8ca0f64c4d49f3cd1a8b41ec">AST_MINUS</a>. </li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">collapseminus</td><td>a boolean value (one of the constants <a class="el" href="_l3_parser_settings_8h.html#a86e969c8b902c44e7ae5901bfceeaf9e">L3P_COLLAPSE_UNARY_MINUS</a> or <a class="el" href="_l3_parser_settings_8h.html#a1918a037a3af5cb6d1184bf2f7d972d6">L3P_EXPAND_UNARY_MINUS</a>) indicating how unary minus signs in the input should be handled.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_l3_parser_settings.html#adb6febd77b6d897818236743c51e37aa" title="Indicates the current behavior set for handling multiple unary minuses in formulas.">getParseCollapseMinus()</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="translate_l3_math_8cpp-example.html#a6">translateL3Math.cpp</a>.</dd>
 </dl>
 
@@ -681,13 +782,21 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the behavior for handling functions added in SBML L3v2. </p>
+<dl class="section user"><dt></dt><dd>This setting affects whether the names of functions added in SBML Level&#160;3 Version&#160;2 are parsed as those added MathML functions, or whether they are added as generic functions with those names (to be used in SBML as function definitions).</dd></dl>
 <p>This method lets you tell the parser which behavior to use&mdash;either to parse the functions added in L3v2 as their built-in counterparts, or as generic functions with that name (to be defined by SBML as function definitions). The two possibilities are represented using the following constants:</p>
+<ul>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a5489e12d3c50d0ddc388fce78b8f220b">L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY</a> (value = <code>true</code>): parse the strings <code>rateOf</code>, <code>implies</code>, <code>max</code>, <code>min</code>, <code>quotient</code>, and <code>rem</code> as <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aedbf4bf10b748da0f71f05c1ea99080f">AST_FUNCTION_RATE_OF</a>, <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aff7ef9ad06d905e8d420d041b4b38f8e">AST_LOGICAL_IMPLIES</a>, <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a592ba096b58246bfd7181e732e3f9973">AST_FUNCTION_MAX</a>, <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a0bddcd970ea47ecb3a9c5bc4e494feb7">AST_FUNCTION_MIN</a>, <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a197b164671243fdf7cc91b8a2ed7b93e">AST_FUNCTION_QUOTIENT</a>, and <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a09d4027174469bc34d1abda4e3ee25c8">AST_FUNCTION_REM</a>, respectively. </li>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a982359f5fb9148b4d2e5dc4fcec2cfc2">L3P_PARSE_L3V2_FUNCTIONS_AS_GENERIC</a> (value = <code>false</code>): parse the strings <code>rateOf</code>, <code>implies</code>, <code>max</code>, <code>min</code>, <code>quotient</code>, and <code>rem</code> all as <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aca72ec3f021680346ad5d4f7f396c342">AST_FUNCTION</a> with the appropriate name set. </li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">l3v2functions</td><td>a boolean value (one of the constants <a class="el" href="_l3_parser_settings_8h.html#a5489e12d3c50d0ddc388fce78b8f220b">L3P_PARSE_L3V2_FUNCTIONS_DIRECTLYendif </a></td></tr>
+    <tr><td class="paramname">l3v2functions</td><td>a boolean value (one of the constants <a class="el" href="_l3_parser_settings_8h.html#a5489e12d3c50d0ddc388fce78b8f220b">L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY</a> or <a class="el" href="_l3_parser_settings_8h.html#a982359f5fb9148b4d2e5dc4fcec2cfc2">L3P_PARSE_L3V2_FUNCTIONS_AS_GENERIC</a>) indicating how to interpret those function names.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_l3_parser_settings.html#afcbadace633d47628a54c6a7e40ae980" title="Indicates the current behavior set for handling whether to parse the functions added in L3v2 as that ...">getParseL3v2Functions()</a> </dd></dl>
 
 </div>
 </div>
@@ -708,7 +817,19 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the behavior for handling <code>log</code> in mathematical formulas. </p>
-<p>The function <code>log</code> with a single argument (&quot;<code>log(x)</code>&quot;) can be parsed as <code>log10(x)</code>, <code>ln(x)</code>, or treated as an error. These three behaviors are set, respectively, by using the value <a class="el" href="_l3_parser_settings_8h.html#acf728ef62e401f9fde68a8fd94950d30ac579668f1dc11f6de2fa3f50dffeffdc">L3P_PARSE_LOG_AS_LOG10endif </a></p>
+<p>The function <code>log</code> with a single argument (&quot;<code>log(x)</code>&quot;) can be parsed as <code>log10(x)</code>, <code>ln(x)</code>, or treated as an error. These three behaviors are set, respectively, by using the value <a class="el" href="_l3_parser_settings_8h.html#acf728ef62e401f9fde68a8fd94950d30ac579668f1dc11f6de2fa3f50dffeffdc">L3P_PARSE_LOG_AS_LOG10</a>, <a class="el" href="_l3_parser_settings_8h.html#acf728ef62e401f9fde68a8fd94950d30ab360c693e031838fb0c53685ef624b57">L3P_PARSE_LOG_AS_LN</a>, or <a class="el" href="_l3_parser_settings_8h.html#acf728ef62e401f9fde68a8fd94950d30a0fa3a4d955283e53a01e542be1d337f9">L3P_PARSE_LOG_AS_ERROR</a> for the <code>type</code> parameter.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>a constant, one of following three possibilities: <ul>
+<li><a class="el" href="_l3_parser_settings_8h.html#acf728ef62e401f9fde68a8fd94950d30ac579668f1dc11f6de2fa3f50dffeffdc">L3P_PARSE_LOG_AS_LOG10</a> </li>
+<li><a class="el" href="_l3_parser_settings_8h.html#acf728ef62e401f9fde68a8fd94950d30ab360c693e031838fb0c53685ef624b57">L3P_PARSE_LOG_AS_LN</a> </li>
+<li><a class="el" href="_l3_parser_settings_8h.html#acf728ef62e401f9fde68a8fd94950d30a0fa3a4d955283e53a01e542be1d337f9">L3P_PARSE_LOG_AS_ERROR</a></li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_l3_parser_settings.html#ac3634e9ed0951ddfd588a4ff96b79167" title="Indicates the current behavior set for handling the function log with one argument.">getParseLog()</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="translate_l3_math_8cpp-example.html#a2">translateL3Math.cpp</a>.</dd>
 </dl>
 
@@ -731,13 +852,21 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the behavior for handling the % symbol in mathematical formulas. </p>
+<dl class="section user"><dt></dt><dd>This setting affects whether the % symbol (modulo) is parsed as a piecewise equation that returns the modulo value of the entries on either side of the symbol, or whether it is parsed as the MathML 'rem' function, which was allowed in SBML Level&#160;3 Version&#160;2, but not in previous level/versions. The latter is more succinct, but might not be legal SBML for the desired target SBML document.</dd></dl>
 <p>This method lets you tell the parser which behavior to use&mdash;either parse % as the 'rem' function or as a piecewise function with the same interpretation. The two possibilities are represented using the following constants:</p>
+<ul>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a216dac82a2112cf8e14da6773fd944c2">L3P_MODULO_IS_REM</a> (value = <code>true</code>): use the 'rem' MathML function (<a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a09d4027174469bc34d1abda4e3ee25c8">AST_FUNCTION_REM</a>). </li>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a5b7f7e6ca2c7197a7f6d53d95b63555f">L3P_MODULO_IS_PIECEWISE</a> (value = <code>false</code>): use a piecewise function (<a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203abcf84916c7012e65316ce0dfe5a41d38">AST_FUNCTION_PIECEWISE</a>) to encode the modulo rule explicitly. </li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">modulol3v2</td><td>a boolean value (one of the constants <a class="el" href="_l3_parser_settings_8h.html#a5b7f7e6ca2c7197a7f6d53d95b63555f">L3P_MODULO_IS_PIECEWISEendif </a></td></tr>
+    <tr><td class="paramname">modulol3v2</td><td>a boolean value (one of the constants <a class="el" href="_l3_parser_settings_8h.html#a5b7f7e6ca2c7197a7f6d53d95b63555f">L3P_MODULO_IS_PIECEWISE</a> or <a class="el" href="_l3_parser_settings_8h.html#a216dac82a2112cf8e14da6773fd944c2">L3P_MODULO_IS_REM</a>) indicating how the % symbol in the input should be handled.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_l3_parser_settings.html#a10734cc283d722156c27ec33161376f0" title="Indicates the current behavior set for handling the % symbol in mathematical formulas.">getParseModuloL3v2()</a> </dd></dl>
 
 </div>
 </div>
@@ -768,14 +897,22 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the behavior for handling functions added in SBML packages. </p>
+<dl class="section user"><dt></dt><dd>This setting affects whether the math added in a given SBML Level&#160;3 package are parsed as those added MathML elements, or whether they are added as generic functions or variables with those names.</dd></dl>
 <p>This method lets you tell the parser which behavior to use&mdash;either to parse the functions added in a given package as their built-in counterparts, or as generic functions with that name (to be defined by SBML as function definitions). The two possibilities are represented using the following constants:</p>
+<ul>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#af9457ee646d840d77b2f0f0b701e3b8e">L3P_PARSE_PACKAGE_MATH_DIRECTLY</a> (value = <code>true</code>): parse any string defined in a given SBML L3 package as its corresponding ASTType_t. </li>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a1dce362206d4446229b3dfdab8f5bca0">L3P_PARSE_PACKAGE_MATH_AS_GENERIC</a> (value = <code>false</code>): parse any string that would have been defined in the given SBML L3 package as <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aca72ec3f021680346ad5d4f7f396c342">AST_FUNCTION</a> or <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4fab2a5f966e56f6062f9f9505921d0d">AST_NAME</a> with the appropriate name set. </li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">package</td><td>an ExtendedMathType_t indicating the extended math package to be queried. </td></tr>
-    <tr><td class="paramname">parsepackage</td><td>a boolean value (one of the constants <a class="el" href="_l3_parser_settings_8h.html#a5489e12d3c50d0ddc388fce78b8f220b">L3P_PARSE_L3V2_FUNCTIONS_DIRECTLYendif </a></td></tr>
+    <tr><td class="paramname">parsepackage</td><td>a boolean value (one of the constants <a class="el" href="_l3_parser_settings_8h.html#a5489e12d3c50d0ddc388fce78b8f220b">L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY</a> or <a class="el" href="_l3_parser_settings_8h.html#a982359f5fb9148b4d2e5dc4fcec2cfc2">L3P_PARSE_L3V2_FUNCTIONS_AS_GENERIC</a>) indicating how to interpret those function names.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_l3_parser_settings.html#a22f8043a7a13a76dab96fb83dbe1fbb5" title="Indicates the current behavior set for handling whether to parse the functions added in the given pac...">getParsePackageMath()</a> </dd></dl>
 
 </div>
 </div>
@@ -796,10 +933,17 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the parser's behavior in handling units associated with numbers in a mathematical formula. </p>
+<dl class="section user"><dt></dt><dd>In SBML Level&#160;2, there is no means of associating a unit of measurement with a pure number in a formula, while SBML Level&#160;3 does define a syntax for this. In Level&#160;3, MathML <code>&lt;cn&gt;</code> elements can have an attribute named <code>units</code> placed in the SBML namespace, which can be used to indicate the units to be associated with the number. The text-string infix formula parser allows units to be placed after raw numbers; they are interpreted as unit identifiers for units defined by the SBML specification or in the containing <a class="el" href="class_model.html">Model</a> object. Some examples include: &quot;<code>4 mL</code>&quot;, &quot;<code>2.01 Hz</code>&quot;, &quot;<code>3.1e-6 M</code>&quot;, and &quot;<code>(5/8) inches</code>&quot;. To produce a valid SBML model, there must either exist a <a class="el" href="class_unit_definition.html">UnitDefinition</a> corresponding to the identifier of the unit, or the unit must be defined in Table&#160;2 of the SBML Level&#160;3 specification.</dd></dl>
 <p>This method sets the formula parser's behavior with respect to units.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">units</td><td>a boolean indicating whether to parse units. The possible values are as follows:</td></tr>
+    <tr><td class="paramname">units</td><td>a boolean indicating whether to parse units. The possible values are as follows: <ul>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a0679ae871d944e4deb8cdeb800a62dc9">L3P_PARSE_UNITS</a> (value = <code>true</code>): parse units in the text-string formula. </li>
+<li>
+<a class="el" href="_l3_parser_settings_8h.html#a9ea287b2bc878cbde05955b637974220">L3P_NO_UNITS</a> (value = <code>false</code>): treat units in the text-string formula as errors. </li>
+</ul>
+</td></tr>
   </table>
   </dd>
 </dl>

@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('class_comp_s_b_m_l_document_plugin.htm
   <div class="summary">
 <a href="class_comp_s_b_m_l_document_plugin-members.html">List of all members</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">CompSBMLDocumentPlugin Class Reference<div class="ingroups"><a class="el" href="group__comp.html">Hierarchical Model Composition</a></div></div>  </div>
@@ -269,6 +270,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae1db0d0db52f80d79399d2026f53c793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy this object.  <a href="class_comp_s_b_m_l_document_plugin.html#ae1db0d0db52f80d79399d2026f53c793">More...</a><br /></td></tr>
 <tr class="separator:ae1db0d0db52f80d79399d2026f53c793"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ae43846e658df0c46794582b0ecd35c12"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_b_m_l_document_plugin.html#ae43846e658df0c46794582b0ecd35c12">clearStoredURIDocuments</a> ()</td></tr>
+<tr class="memdesc:ae43846e658df0c46794582b0ecd35c12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the internal list of SBMLDocuments kept when resolving URIs.  <a href="class_comp_s_b_m_l_document_plugin.html#ae43846e658df0c46794582b0ecd35c12">More...</a><br /></td></tr>
+<tr class="separator:ae43846e658df0c46794582b0ecd35c12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a090e366346e7e860c7e7cf49d4f196"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_b_m_l_document_plugin.html#a5a090e366346e7e860c7e7cf49d4f196">getResolvedURI</a> (const std::string &amp;uri)</td></tr>
+<tr class="memdesc:a5a090e366346e7e860c7e7cf49d4f196"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by getSBMDocumentFromURI to first resolve the URI into its canonical form, for example, from 'model.xml" to
+"<a href="file:/path/to/model.xml">file:/path/to/model.xml</a>".  <a href="class_comp_s_b_m_l_document_plugin.html#a5a090e366346e7e860c7e7cf49d4f196">More...</a><br /></td></tr>
+<tr class="separator:a5a090e366346e7e860c7e7cf49d4f196"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:ac99cd0427597f52a78301d2035bc7333"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_b_m_l_document_plugin.html#ac99cd0427597f52a78301d2035bc7333">ExternalModelDefinition</a></td></tr>
@@ -399,9 +410,14 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dab6101023a227d9dc2e709a7f5ea8752c">LIBSBML_LEVEL_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6bbd9254393f163c3f05db7e7e05f5dc">LIBSBML_VERSION_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da55dc550fc2f744dd411b452afa55a52b">LIBSBML_PKG_VERSION_MISMATCH</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -428,9 +444,42 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dab6101023a227d9dc2e709a7f5ea8752c">LIBSBML_LEVEL_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6bbd9254393f163c3f05db7e7e05f5dc">LIBSBML_VERSION_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da55dc550fc2f744dd411b452afa55a52b">LIBSBML_PKG_VERSION_MISMATCH</a> </li>
 </ul>
+</dd></dl>
+
+</div>
+</div>
+<a id="ae43846e658df0c46794582b0ecd35c12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae43846e658df0c46794582b0ecd35c12">&#9670;&nbsp;</a></span>clearStoredURIDocuments()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CompSBMLDocumentPlugin::clearStoredURIDocuments </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clears the internal list of SBMLDocuments kept when resolving URIs. </p>
+<p>May invalidate distributed pointers, and therefore should only be used if a call to getSBMLDocumentFromURI has returned an incorrect document, and the URI resolvers have since been tweaked so as to no longer return the same result. </p>
 
 </div>
 </div>
@@ -1257,6 +1306,35 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a id="a5a090e366346e7e860c7e7cf49d4f196"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a090e366346e7e860c7e7cf49d4f196">&#9670;&nbsp;</a></span>getResolvedURI()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string CompSBMLDocumentPlugin::getResolvedURI </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>uri</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Used by getSBMDocumentFromURI to first resolve the URI into its canonical form, for example, from 'model.xml" to
+"<a href="file:/path/to/model.xml">file:/path/to/model.xml</a>". </p>
+
+</div>
+</div>
 <a id="a59581825576a6216ab07beceb709da81"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a59581825576a6216ab07beceb709da81">&#9670;&nbsp;</a></span>getSBMLDocument() <span class="overload">[1/2]</span></h2>
 
@@ -1725,9 +1803,11 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base_plugin.html#a22e94cfa62ef5948cd631c8d22918293" title="Returns the namespace URI of the package to which this plugin object belongs.">getElementNamespace()</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="convert_layout_8cpp-example.html#a9">convertLayout.cpp</a>.</dd>
 </dl>
 
@@ -1765,9 +1845,12 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da354242392bc8b59872de6bd6d0a3b9fb">LIBSBML_UNEXPECTED_ATTRIBUTE</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da2018dcd1ec4e8d61debae043b1697d4e">LIBSBML_INVALID_ATTRIBUTE_VALUE</a> </li>
 </ul>
+</dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_b_m_l_document_plugin.html#a72f7168febe06fa1ffc03949c3681050">SBMLDocumentPlugin</a>.</p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="spec_example1_8cpp-example.html#a6">spec_example1.cpp</a>, <a class="el" href="spec_example2_8cpp-example.html#a6">spec_example2.cpp</a>, <a class="el" href="spec_example3_8cpp-example.html#a6">spec_example3.cpp</a>, and <a class="el" href="spec_example4_8cpp-example.html#a6">spec_example4.cpp</a>.</dd>
@@ -1799,9 +1882,10 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Unsets the value of the "required" attribute of this <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a>. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>

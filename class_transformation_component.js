@@ -96,6 +96,7 @@ var class_transformation_component =
     [ "matchesSBMLNamespaces", "class_transformation_component.html#a936f753a9032913c569dafa3642d8252", null ],
     [ "matchesSBMLNamespaces", "class_transformation_component.html#a39e0febad1c149b4a8455662afd845b4", null ],
     [ "operator=", "class_transformation_component.html#af23698b0a1a95c5414cabf1542f38b11", null ],
+    [ "parseTransformation", "class_transformation_component.html#a9d2bb862704cf44b1f11e201c62ae317", null ],
     [ "read", "class_transformation_component.html#a8e455a93329e407b4b1d8ad307c95a22", null ],
     [ "removeFromParentAndDelete", "class_transformation_component.html#ae431ca4044e40e1fe8e0ff4136dce838", null ],
     [ "removeTopLevelAnnotationElement", "class_transformation_component.html#a40dba8a849dbda05d3f9f42000119dc5", null ],

@@ -109,7 +109,7 @@ Include dependency graph for FbcExtension.cpp:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a444f49151e1b3f152b3c943dd57372c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7ae">FbcVariableType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fbc_extension_8cpp.html#a444f49151e1b3f152b3c943dd57372c0">FbcVariableType_fromString</a> (const char *code)</td></tr>
-<tr class="memdesc:a444f49151e1b3f152b3c943dd57372c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7ae" title="Enumeration of values permitted as the value of the &quot;fbcvariabletype&quot; attribute on Fbc objects.">FbcVariableType_t</a> enumeration corresponding to the given string or <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7aea691cd87f2d5417b42c989a61343396bb">FBC_VARIABLE_TYPE_INVALIDendif. </a> <a href="_fbc_extension_8cpp.html#a444f49151e1b3f152b3c943dd57372c0">More...</a><br /></td></tr>
+<tr class="memdesc:a444f49151e1b3f152b3c943dd57372c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7ae" title="Enumeration of values permitted as the value of the &quot;fbcvariabletype&quot; attribute on Fbc objects.">FbcVariableType_t</a> enumeration corresponding to the given string or <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7aea691cd87f2d5417b42c989a61343396bb">FBC_VARIABLE_TYPE_INVALID</a> if there is no such match.  <a href="_fbc_extension_8cpp.html#a444f49151e1b3f152b3c943dd57372c0">More...</a><br /></td></tr>
 <tr class="separator:a444f49151e1b3f152b3c943dd57372c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a401ad08169e24ccd81417aba749e078f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fbc_extension_8cpp.html#a401ad08169e24ccd81417aba749e078f">FbcVariableType_isValid</a> (<a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7ae">FbcVariableType_t</a> fvt)</td></tr>
 <tr class="memdesc:a401ad08169e24ccd81417aba749e078f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>1</code> (true) or <code>0</code> (false) depending on whether the given <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7ae" title="Enumeration of values permitted as the value of the &quot;fbcvariabletype&quot; attribute on Fbc objects.">FbcVariableType_t</a> is valid.  <a href="_fbc_extension_8cpp.html#a401ad08169e24ccd81417aba749e078f">More...</a><br /></td></tr>
@@ -154,7 +154,15 @@ Frank Bergmann </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7ae" title="Enumeration of values permitted as the value of the &quot;fbcvariabletype&quot; attribute on Fbc objects.">FbcVariableType_t</a> enumeration corresponding to the given string or <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7aea691cd87f2d5417b42c989a61343396bb">FBC_VARIABLE_TYPE_INVALIDendif. </a></p>
+<p>Returns the <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7ae" title="Enumeration of values permitted as the value of the &quot;fbcvariabletype&quot; attribute on Fbc objects.">FbcVariableType_t</a> enumeration corresponding to the given string or <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7aea691cd87f2d5417b42c989a61343396bb">FBC_VARIABLE_TYPE_INVALID</a> if there is no such match. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">code</td><td>the string to convert to a <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7ae" title="Enumeration of values permitted as the value of the &quot;fbcvariabletype&quot; attribute on Fbc objects.">FbcVariableType_t</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the corresponding <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7ae" title="Enumeration of values permitted as the value of the &quot;fbcvariabletype&quot; attribute on Fbc objects.">FbcVariableType_t</a> or <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7aea691cd87f2d5417b42c989a61343396bb">FBC_VARIABLE_TYPE_INVALID</a> if no match is found.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The matching is case-sensitive: "linear" will return <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7aea05bcf121878223adf5c316585b7bd4d4">FBC_VARIABLE_TYPE_LINEAR</a>, but "Linear" will return <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7aea691cd87f2d5417b42c989a61343396bb">FBC_VARIABLE_TYPE_INVALID</a>. </dd></dl>
 
 </div>
 </div>
@@ -181,7 +189,7 @@ Frank Bergmann </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>1</code> (true) if the <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7ae" title="Enumeration of values permitted as the value of the &quot;fbcvariabletype&quot; attribute on Fbc objects.">FbcVariableType_t</a> is <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7aea05bcf121878223adf5c316585b7bd4d4">FBC_VARIABLE_TYPE_LINEARendif </a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>1</code> (true) if the <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7ae" title="Enumeration of values permitted as the value of the &quot;fbcvariabletype&quot; attribute on Fbc objects.">FbcVariableType_t</a> is <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7aea05bcf121878223adf5c316585b7bd4d4">FBC_VARIABLE_TYPE_LINEAR</a>, or <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7aea4ffabca3fa4516da305b2ac3d2747b6a">FBC_VARIABLE_TYPE_QUADRATIC</a>; <code>0</code> (false) otherwise (including <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7aea691cd87f2d5417b42c989a61343396bb">FBC_VARIABLE_TYPE_INVALID</a>). </dd></dl>
 
 </div>
 </div>
@@ -236,7 +244,7 @@ Frank Bergmann </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A string corresponding to the given type: "linear", "quadratic", "invalid FbcVariableType value", or <code>NULL</code> if the value is <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7aea691cd87f2d5417b42c989a61343396bb">FBC_VARIABLE_TYPE_INVALIDendif </a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A string corresponding to the given type: "linear", "quadratic", "invalid FbcVariableType value", or <code>NULL</code> if the value is <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7aea691cd87f2d5417b42c989a61343396bb">FBC_VARIABLE_TYPE_INVALID</a> or another invalid enumeration value.</dd></dl>
 
 </div>
 </div>

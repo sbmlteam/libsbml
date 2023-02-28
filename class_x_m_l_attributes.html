@@ -391,9 +391,21 @@ foo:myattribute="7"
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> &ndash; this value is returned if any of the arguments are <code>NULL</code>. To set an empty <code>prefix</code> and/or <code>name</code> value, use an empty string rather than <code>NULL</code>.</li>
 </ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If an attribute with the same name and XML namespace URI already exists in the list of attributes held by this <a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a> object, then the previous value of that attribute will be replaced with the new value provided to this method.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_attributes.html#ac244dd478625b8c31423c29d6e64e601" title="Adds an attribute to this list of attributes.">add(const XMLTriple&amp; triple, const std::string&amp; value)</a> </dd>
+<dd>
+<a class="el" href="class_x_m_l_attributes.html#a20fd14dc1178b760b9b9b9ab2b9b1f5e" title="Returns the index of the attribute having a given name and XML namespace URI.">getIndex(const std::string&amp; name, const std::string&amp; uri) const</a> </dd>
+<dd>
+<a class="el" href="class_x_m_l_attributes.html#a1425640a8385f32949ea213bc3a9a80c" title="Returns the index of the attribute defined by the given XMLTriple object.">getIndex(const XMLTriple&amp; triple) const</a> </dd>
+<dd>
+hasAttribute(const std::string name, const std::string uri) const </dd>
+<dd>
+<a class="el" href="class_x_m_l_attributes.html#aba3b2b1a64f845e644c3ad5e7c6947f3" title="Returns true if an attribute with the given properties exists.">hasAttribute(const XMLTriple&amp; triple) const</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="adding_evidence_codes_2_8cpp-example.html#a21">addingEvidenceCodes_2.cpp</a>.</dd>
 </dl>
 
@@ -458,9 +470,21 @@ foo:myattribute="7"
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> &ndash; this value is returned if any of the arguments are <code>NULL</code>. To set an empty value for the attribute, use an empty string rather than <code>NULL</code>.</li>
 </ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If an attribute with the same name and XML namespace URI already exists in the list of attributes held by this <a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a> object, then the previous value of that attribute will be replaced with the new value provided to this method.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>add(const std::string&amp; name, const std::string&amp; value, const std::string&amp; namespaceURI, const std::string&amp; prefix) </dd>
+<dd>
+<a class="el" href="class_x_m_l_attributes.html#a20fd14dc1178b760b9b9b9ab2b9b1f5e" title="Returns the index of the attribute having a given name and XML namespace URI.">getIndex(const std::string&amp; name, const std::string&amp; uri) const</a> </dd>
+<dd>
+<a class="el" href="class_x_m_l_attributes.html#a1425640a8385f32949ea213bc3a9a80c" title="Returns the index of the attribute defined by the given XMLTriple object.">getIndex(const XMLTriple&amp; triple) const</a> </dd>
+<dd>
+hasAttribute(const std::string name, const std::string uri) const </dd>
+<dd>
+<a class="el" href="class_x_m_l_attributes.html#aba3b2b1a64f845e644c3ad5e7c6947f3" title="Returns true if an attribute with the given properties exists.">hasAttribute(const XMLTriple&amp; triple) const</a> </dd></dl>
 
 </div>
 </div>
@@ -480,9 +504,15 @@ foo:myattribute="7"
 </div><div class="memdoc">
 
 <p>Removes all attributes in this <a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a> object. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_attributes.html#a92ba7c7900c10a809b4d14aec7344fd1" title="Removes the nth attribute from this list of attributes.">remove(int n)</a> </dd>
+<dd>
+<a class="el" href="class_x_m_l_attributes.html#a807cc84ce5e1d372af5dbf3404815f9b" title="Removes a specific attribute from this list of attributes.">remove(const XMLTriple&amp; triple)</a> </dd>
+<dd>
+remove(const std::string&amp; name, const std::string&amp; uri) </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="adding_evidence_codes_2_8cpp-example.html#a20">addingEvidenceCodes_2.cpp</a>.</dd>
 </dl>
 
@@ -1943,9 +1973,14 @@ Note that although <a class="el" href="class_x_m_l_attributes.html">XMLAttribute
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a></li>
 </ul>
+The value <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a> is returned if there is no attribute with the given <code>name</code> (and <code>uri</code> if specified).</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_attributes.html#a92ba7c7900c10a809b4d14aec7344fd1" title="Removes the nth attribute from this list of attributes.">remove(int n)</a> </dd>
+<dd>
+<a class="el" href="class_x_m_l_attributes.html#a807cc84ce5e1d372af5dbf3404815f9b" title="Removes a specific attribute from this list of attributes.">remove(const XMLTriple&amp; triple)</a> </dd></dl>
 
 </div>
 </div>
@@ -1972,9 +2007,14 @@ Note that although <a class="el" href="class_x_m_l_attributes.html">XMLAttribute
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a></li>
 </ul>
+The value <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a> is returned if there is no attribute matching the properties of the given <code>triple</code>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_attributes.html#a92ba7c7900c10a809b4d14aec7344fd1" title="Removes the nth attribute from this list of attributes.">remove(int n)</a> </dd>
+<dd>
+remove(const std::string&amp; name, const std::string&amp; uri) </dd></dl>
 
 </div>
 </div>
@@ -2001,9 +2041,17 @@ Note that although <a class="el" href="class_x_m_l_attributes.html">XMLAttribute
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a></li>
 </ul>
+The value <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da25d0e2b25f574cfad8e6b5178c0d8a0c">LIBSBML_INDEX_EXCEEDS_SIZE</a> is returned if there is no attribute at the given index <code>n</code>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Note that although <a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a> provides operations that can manipulate attributes based on a numerical index, XML attributes are in fact unordered when they appear in files and data streams. The <a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a> class provides some list-like facilities, but it is only for the convenience of callers. (For example, it permits callers to loop across all attributes more easily.) Users should keep in mind that the order in which attributes are stored in <a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a> objects has no real impact on the order in which the attributes are read or written from an XML file or data stream.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_attributes.html#a936fec6daf5e0510d0dfd9df44fad25a" title="Returns the number of attributes in this list of attributes.">getLength()</a> </dd>
+<dd>
+<a class="el" href="class_x_m_l_attributes.html#a807cc84ce5e1d372af5dbf3404815f9b" title="Removes a specific attribute from this list of attributes.">remove(const XMLTriple&amp; triple)</a> </dd>
+<dd>
+remove(const std::string&amp; name, const std::string&amp; uri) </dd></dl>
 
 </div>
 </div>

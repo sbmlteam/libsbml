@@ -109,7 +109,7 @@ Include dependency graph for GroupsExtension.cpp:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a281663fc0003c0acc2378756e0d926e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384">GroupKind_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_groups_extension_8cpp.html#a281663fc0003c0acc2378756e0d926e3">GroupKind_fromString</a> (const char *code)</td></tr>
-<tr class="memdesc:a281663fc0003c0acc2378756e0d926e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the enumeration value corresponding to the given string or <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWNendif. </a> <a href="_groups_extension_8cpp.html#a281663fc0003c0acc2378756e0d926e3">More...</a><br /></td></tr>
+<tr class="memdesc:a281663fc0003c0acc2378756e0d926e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the enumeration value corresponding to the given string or <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWN</a> if there is no such match.  <a href="_groups_extension_8cpp.html#a281663fc0003c0acc2378756e0d926e3">More...</a><br /></td></tr>
 <tr class="separator:a281663fc0003c0acc2378756e0d926e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade326c581c20cfe661de8658413f6d7d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_groups_extension_8cpp.html#ade326c581c20cfe661de8658413f6d7d">GroupKind_isValid</a> (<a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384">GroupKind_t</a> gk)</td></tr>
 <tr class="memdesc:ade326c581c20cfe661de8658413f6d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>1</code> (true) or <code>0</code> (false) depending on whether the given enumeration value is valid.  <a href="_groups_extension_8cpp.html#ade326c581c20cfe661de8658413f6d7d">More...</a><br /></td></tr>
@@ -151,7 +151,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the enumeration value corresponding to the given string or <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWNendif. </a></p>
+<p>Returns the enumeration value corresponding to the given string or <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWN</a> if there is no such match. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">code</td><td>the string to convert to an enumeration value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the corresponding value, or <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWN</a> if no match is found.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The matching is case-sensitive: "classification" will return <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384adb949b15c224076dfb5403c91557397c">GROUP_KIND_CLASSIFICATION</a>, but "Classification" will return <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWN</a>. </dd></dl>
 
 </div>
 </div>
@@ -178,7 +186,7 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>1</code> (true) if the value is <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384adb949b15c224076dfb5403c91557397c">GROUP_KIND_CLASSIFICATIONendif </a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>1</code> (true) if the value is <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384adb949b15c224076dfb5403c91557397c">GROUP_KIND_CLASSIFICATION</a>, <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a9e0c5b13f9338a0e5466f51b24fc9878">GROUP_KIND_PARTONOMY</a>, or <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384ae59a57704254cd23d97c8b7ba6ed8bd8">GROUP_KIND_COLLECTION</a>; <code>0</code> (false) otherwise (including <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWN</a>). </dd></dl>
 
 </div>
 </div>
@@ -233,7 +241,7 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A string corresponding to the given type: "classification", "partonomy", "collection", or <code>NULL</code> if the value is <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWNendif </a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A string corresponding to the given type: "classification", "partonomy", "collection", or <code>NULL</code> if the value is <a class="el" href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWN</a> or another invalid enumeration value.</dd></dl>
 
 </div>
 </div>

@@ -92,7 +92,8 @@ $(document).ready(function(){initNavTree('class_comp_s_base_plugin.html',''); in
 <div class="header">
   <div class="summary">
 <a href="class_comp_s_base_plugin-members.html">List of all members</a> &#124;
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a>  </div>
   <div class="headertitle">
 <div class="title">CompSBasePlugin Class Reference<div class="ingroups"><a class="el" href="group__comp.html">Hierarchical Model Composition</a></div></div>  </div>
 </div><!--header-->
@@ -234,6 +235,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af4aff6b4a140054f457223462b0070eb"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#af4aff6b4a140054f457223462b0070eb">~CompSBasePlugin</a> ()</td></tr>
 <tr class="memdesc:af4aff6b4a140054f457223462b0070eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy this object.  <a href="class_comp_s_base_plugin.html#af4aff6b4a140054f457223462b0070eb">More...</a><br /></td></tr>
 <tr class="separator:af4aff6b4a140054f457223462b0070eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ace86c2b8133c083debdcdffbaeb5e949"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#ace86c2b8133c083debdcdffbaeb5e949">createListOfReplacedElements</a> ()</td></tr>
+<tr class="separator:ace86c2b8133c083debdcdffbaeb5e949"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af50dead3d8b75653bb1c04b825beea06"></a>
@@ -360,9 +366,14 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dab6101023a227d9dc2e709a7f5ea8752c">LIBSBML_LEVEL_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6bbd9254393f163c3f05db7e7e05f5dc">LIBSBML_VERSION_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da55dc550fc2f744dd411b452afa55a52b">LIBSBML_PKG_VERSION_MISMATCH</a> </li>
 </ul>
+</dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="spec_example2_8cpp-example.html#a29">spec_example2.cpp</a>, <a class="el" href="spec_example3_8cpp-example.html#a58">spec_example3.cpp</a>, and <a class="el" href="spec_example4_8cpp-example.html#a55">spec_example4.cpp</a>.</dd>
 </dl>
 
@@ -424,6 +435,31 @@ Public Member Functions</h2></td></tr>
 <p>Reimplemented from <a class="el" href="class_s_base_plugin.html#a323cc1f9b65d0804e09ed84f0ca31637">SBasePlugin</a>.</p>
 
 <p>Reimplemented in <a class="el" href="class_comp_model_plugin.html#a1099119574176c7fe659b5a5eb2b5a50">CompModelPlugin</a>.</p>
+
+</div>
+</div>
+<a id="ace86c2b8133c083debdcdffbaeb5e949"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace86c2b8133c083debdcdffbaeb5e949">&#9670;&nbsp;</a></span>createListOfReplacedElements()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CompSBasePlugin::createListOfReplacedElements </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1354,9 +1390,11 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base_plugin.html#a22e94cfa62ef5948cd631c8d22918293" title="Returns the namespace URI of the package to which this plugin object belongs.">getElementNamespace()</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="convert_layout_8cpp-example.html#a9">convertLayout.cpp</a>.</dd>
 </dl>
 
@@ -1386,9 +1424,14 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dab6101023a227d9dc2e709a7f5ea8752c">LIBSBML_LEVEL_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da6bbd9254393f163c3f05db7e7e05f5dc">LIBSBML_VERSION_MISMATCH</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da55dc550fc2f744dd411b452afa55a52b">LIBSBML_PKG_VERSION_MISMATCH</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -1416,9 +1459,11 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Unsets the child <a class="el" href="class_replaced_by.html">ReplacedBy</a> of this <a class="el" href="class_s_base.html">SBase</a>. </p>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>

@@ -92,7 +92,9 @@ $(document).ready(function(){initNavTree('class_s_b_m_l_uri.html',''); initResiz
 <div class="header">
   <div class="summary">
 <a href="class_s_b_m_l_uri-members.html">List of all members</a> &#124;
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">SBMLUri Class Reference<div class="ingroups"><a class="el" href="group__comp.html">Hierarchical Model Composition</a></div></div>  </div>
 </div><!--header-->
@@ -152,6 +154,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa21b7c91312e67de894f674666694702"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_uri.html#aa21b7c91312e67de894f674666694702">~SBMLUri</a> ()</td></tr>
 <tr class="memdesc:aa21b7c91312e67de894f674666694702"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy this <a class="el" href="class_s_b_m_l_uri.html">SBMLUri</a> object.  <a href="class_s_b_m_l_uri.html#aa21b7c91312e67de894f674666694702">More...</a><br /></td></tr>
 <tr class="separator:aa21b7c91312e67de894f674666694702"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a581814f15d040ec21bda35fdc45e1e42"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_uri.html#a581814f15d040ec21bda35fdc45e1e42">parse</a> (const std::string &amp;uri)</td></tr>
+<tr class="separator:a581814f15d040ec21bda35fdc45e1e42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ae4b35af90fd3c68b3218c9a47b791117"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_uri.html#ae4b35af90fd3c68b3218c9a47b791117">mHost</a></td></tr>
+<tr class="separator:ae4b35af90fd3c68b3218c9a47b791117"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c2921d43bc9afb779f78db5f94775d6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_uri.html#a2c2921d43bc9afb779f78db5f94775d6">mPath</a></td></tr>
+<tr class="separator:a2c2921d43bc9afb779f78db5f94775d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade7cbd6fde24a98d2b5ced81925f716f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_uri.html#ade7cbd6fde24a98d2b5ced81925f716f">mQuery</a></td></tr>
+<tr class="separator:ade7cbd6fde24a98d2b5ced81925f716f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2077671b7afc3af14d71cf918b362638"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_uri.html#a2077671b7afc3af14d71cf918b362638">mScheme</a></td></tr>
+<tr class="separator:a2077671b7afc3af14d71cf918b362638"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d6858e78c832a9f2036b938ff355f72"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_uri.html#a7d6858e78c832a9f2036b938ff355f72">mUri</a></td></tr>
+<tr class="separator:a7d6858e78c832a9f2036b938ff355f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae8838511c486f8778d6138cab6e3ad32"></a>
@@ -408,6 +428,32 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a581814f15d040ec21bda35fdc45e1e42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a581814f15d040ec21bda35fdc45e1e42">&#9670;&nbsp;</a></span>parse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SBMLUri::parse </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>uri</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a595d5f1f78c62d7856021b4b144639bd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a595d5f1f78c62d7856021b4b144639bd">&#9670;&nbsp;</a></span>relativeTo()</h2>
 
@@ -435,6 +481,117 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the resulting new URI. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae4b35af90fd3c68b3218c9a47b791117"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4b35af90fd3c68b3218c9a47b791117">&#9670;&nbsp;</a></span>mHost</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string SBMLUri::mHost</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2c2921d43bc9afb779f78db5f94775d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c2921d43bc9afb779f78db5f94775d6">&#9670;&nbsp;</a></span>mPath</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string SBMLUri::mPath</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ade7cbd6fde24a98d2b5ced81925f716f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade7cbd6fde24a98d2b5ced81925f716f">&#9670;&nbsp;</a></span>mQuery</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string SBMLUri::mQuery</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2077671b7afc3af14d71cf918b362638"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2077671b7afc3af14d71cf918b362638">&#9670;&nbsp;</a></span>mScheme</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string SBMLUri::mScheme</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7d6858e78c832a9f2036b938ff355f72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d6858e78c832a9f2036b938ff355f72">&#9670;&nbsp;</a></span>mUri</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string SBMLUri::mUri</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

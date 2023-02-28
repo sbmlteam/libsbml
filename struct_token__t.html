@@ -119,7 +119,7 @@ $(document).ready(function(){initNavTree('struct_token__t.html',''); initResizab
 </center><p>If this token encodes a real number in e-notation, <code>type</code> will be <code>TT_REAL_E</code> instead of <code>TT_REAL</code>. The field <code>value.real</code> will then contain the mantissa, and the separate field named <code>exponent</code> will contain (can you guess?) the exponent. For example, if we have a pointer to a structure named <code>t</code>, then the representation for &quot;<code>1.2e3</code>&quot; will be: </p><pre class="fragment">t-&gt;type       = TT_REAL_E;
 t-&gt;value.real = 1.2;
 t-&gt;exponent   = 3;
-</pre><p>When the <code>type</code> has a value of <a class="el" href="_formula_tokenizer_8h.html#abf84b8f73da30c0f59581856a399081cae1337cb8929e2e7e6a602ab0dee5b59e">TT_UNKNOWNendif </a></p>
+</pre><p>When the <code>type</code> has a value of <a class="el" href="_formula_tokenizer_8h.html#abf84b8f73da30c0f59581856a399081cae1337cb8929e2e7e6a602ab0dee5b59e">TT_UNKNOWN</a>, the field <code>ch</code> will contain the unrecognized character. When the type is <code>TT_END</code>, the field <code>ch</code> will contain <code>'\0'</code>. For all others, the <code>value.ch</code> will contain the corresponding character. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>

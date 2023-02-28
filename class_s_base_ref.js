@@ -11,6 +11,7 @@ var class_s_base_ref =
     [ "appendNotes", "class_s_base_ref.html#adb8c800163c108a27880bd644d7767ad", null ],
     [ "clearReferencedElement", "class_s_base_ref.html#a3b841057d74f93617a9d94e01d79e7f5", null ],
     [ "clone", "class_s_base_ref.html#af1f619238d033a6552816016d0e1e6dc", null ],
+    [ "collectDeletions", "class_s_base_ref.html#afa32d2f99a627f56328df80b27470c89", null ],
     [ "createSBaseRef", "class_s_base_ref.html#ab98efc16248dd52b47a79fb824e33005", null ],
     [ "deleteDisabledPlugins", "class_s_base_ref.html#ac39cfac9d726a12e0f05c6e393953888", null ],
     [ "disablePackage", "class_s_base_ref.html#a5fe0e86c2c28a3226ddc42972241bddd", null ],

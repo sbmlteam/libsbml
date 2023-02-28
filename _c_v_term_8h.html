@@ -335,7 +335,14 @@ somehow").</p>
 </div><div class="memdoc">
 
 <p>This method takes a string and returns a biol qualifier representing the string. </p>
-<p>This method takes a string as argument and returns a biol qualifier type corresponding to that string. For example, passing it the string <code>"hasVersion"</code> will return the qualifier <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a023325fc4ce0ce13769e7de14233bd7f">BQB_HAS_VERSIONendif </a></p>
+<p>This method takes a string as argument and returns a biol qualifier type corresponding to that string. For example, passing it the string <code>"hasVersion"</code> will return the qualifier <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a023325fc4ce0ce13769e7de14233bd7f">BQB_HAS_VERSION</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>the string to translate to a <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18" title="Enumeration of possible biological qualifiers used for annotations.">BiolQualifierType_t</a> value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a libSBML qualifier enumeration value for the given human readable qualifier name. </dd></dl>
 
 </div>
 </div>
@@ -356,7 +363,15 @@ somehow").</p>
 </div><div class="memdoc">
 
 <p>This method takes a biol qualifier type code and returns a string representing the code. </p>
-<p>This method takes a biol qualifier type as argument and returns a string name corresponding to that code. For example, passing it the qualifier <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a023325fc4ce0ce13769e7de14233bd7f">BQB_HAS_VERSIONendif </a></p>
+<p>This method takes a biol qualifier type as argument and returns a string name corresponding to that code. For example, passing it the qualifier <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18a023325fc4ce0ce13769e7de14233bd7f">BQB_HAS_VERSION</a> will return the string <code>"hasVersion"</code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>the <a class="el" href="_c_v_term_8h.html#a7dbfb6956b3be9e61e65509cb2052f18" title="Enumeration of possible biological qualifiers used for annotations.">BiolQualifierType_t</a> value to translate.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a human readable qualifier name for the given type.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The caller does not own the returned string and is therefore not allowed to modify it. </dd></dl>
 
 </div>
 </div>
@@ -377,7 +392,14 @@ somehow").</p>
 </div><div class="memdoc">
 
 <p>This method takes a string and returns a model qualifier representing the string. </p>
-<p>This method takes a string as argument and returns a model qualifier type corresponding to that string. For example, passing it the string <code>"isDescribedBy"</code> will return the qualifier <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9dae671899d0b3e9844e5855c694cfb9f8b">BQM_IS_DESCRIBED_BYendif </a></p>
+<p>This method takes a string as argument and returns a model qualifier type corresponding to that string. For example, passing it the string <code>"isDescribedBy"</code> will return the qualifier <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9dae671899d0b3e9844e5855c694cfb9f8b">BQM_IS_DESCRIBED_BY</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>the string to translate to a <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9d" title="Enumeration of possible model qualifiers used for annotations.">ModelQualifierType_t</a> value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a libSBML qualifier enumeration value for the given human readable qualifier name. </dd></dl>
 
 </div>
 </div>
@@ -398,7 +420,15 @@ somehow").</p>
 </div><div class="memdoc">
 
 <p>This method takes a model qualifier type code and returns a string representing the code. </p>
-<p>This method takes a model qualifier type as argument and returns a string name corresponding to that code. For example, passing it the qualifier <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9dae671899d0b3e9844e5855c694cfb9f8b">BQM_IS_DESCRIBED_BYendif </a></p>
+<p>This method takes a model qualifier type as argument and returns a string name corresponding to that code. For example, passing it the qualifier <a class="el" href="_c_v_term_8h.html#a969edcb49472d95685722a541f391d9dae671899d0b3e9844e5855c694cfb9f8b">BQM_IS_DESCRIBED_BY</a> will return the string <code>"isDescribedBy"</code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>the ModelQualifierType_t value to translate.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a human readable qualifier name for the given qualifier type.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The caller does not own the returned string and is therefore not allowed to modify it. </dd></dl>
 
 </div>
 </div>

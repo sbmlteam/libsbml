@@ -241,7 +241,16 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Return the count of items in this list satisfying a given predicate function. </p>
-<p>The typedef for <a class="el" href="_list_8h.html#ad4c55078b97a01d644e27dd30f48e9c3">ListItemPredicateendif </a></p>
+<p>The typedef for <a class="el" href="_list_8h.html#ad4c55078b97a01d644e27dd30f48e9c3">ListItemPredicate</a> is: </p><div class="fragment"><div class="line">int (*<a class="code" href="_list_8h.html#ad4c55078b97a01d644e27dd30f48e9c3">ListItemPredicate</a>) (<span class="keyword">const</span> <span class="keywordtype">void</span> *item);</div>
+<div class="ttc" id="a_list_8h_html_ad4c55078b97a01d644e27dd30f48e9c3"><div class="ttname"><a href="_list_8h.html#ad4c55078b97a01d644e27dd30f48e9c3">ListItemPredicate</a></div><div class="ttdeci">int(* ListItemPredicate)(const void *item)</div><div class="ttdoc">A ListItemPredicate is a typedef for a pointer to a function that takes a List item and returns 1 (tr...</div><div class="ttdef"><b>Definition:</b> List.h:94</div></div>
+</div><!-- fragment --><p> where a return value of <code>1</code> represents true and <code>0</code> represents false.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">predicate</td><td>the function applied to each item in this list.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the number of items in this <a class="el" href="class_list.html">List</a> for which <code>predicate(item)</code> returns <code>1</code> (true). </dd></dl>
 
 </div>
 </div>
@@ -272,7 +281,24 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Find the first occurrence of an item in a list according to a given comparator function. </p>
-<p>The typedef for <a class="el" href="_list_8h.html#a1e30b1bf7c190b6b4af134d1eb85b19b">ListItemComparatorendif </a></p>
+<p>The typedef for <a class="el" href="_list_8h.html#a1e30b1bf7c190b6b4af134d1eb85b19b">ListItemComparator</a> is: </p><div class="fragment"><div class="line">int (*<a class="code" href="_list_8h.html#a1e30b1bf7c190b6b4af134d1eb85b19b">ListItemComparator</a>) (<span class="keywordtype">void</span> *item1, <span class="keywordtype">void</span> *item2);</div>
+<div class="ttc" id="a_list_8h_html_a1e30b1bf7c190b6b4af134d1eb85b19b"><div class="ttname"><a href="_list_8h.html#a1e30b1bf7c190b6b4af134d1eb85b19b">ListItemComparator</a></div><div class="ttdeci">int(* ListItemComparator)(const void *item1, const void *item2)</div><div class="ttdoc">A ListItemComparator is a typedef for a pointer to a function that compares two list items.</div><div class="ttdef"><b>Definition:</b> List.h:82</div></div>
+</div><!-- fragment --><p> The return value semantics are the same as for the C library function <code>strcmp:</code> </p><ul>
+<li>
+-1: <code>item1</code> &lt; <code>item2</code> </li>
+<li>
+0: <code>item1</code> == <code>item2</code> </li>
+<li>
+1: <code>item1</code> &gt; <code>item2</code> </li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">item1</td><td>a pointer to the item being sought.</td></tr>
+    <tr><td class="paramname">comparator</td><td>a pointer to a <a class="el" href="_list_8h.html#a1e30b1bf7c190b6b4af134d1eb85b19b">ListItemComparator</a> function used to find the item of interest in this list.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the first occurrence of <code>item1</code> in this <a class="el" href="class_list.html">List</a> or <code>NULL</code> if <code>item1</code> was not found. </dd></dl>
 
 </div>
 </div>
@@ -293,7 +319,16 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Find all items in this list satisfying a given predicate function. </p>
-<p>The typedef for <a class="el" href="_list_8h.html#ad4c55078b97a01d644e27dd30f48e9c3">ListItemPredicateendif </a></p>
+<p>The typedef for <a class="el" href="_list_8h.html#ad4c55078b97a01d644e27dd30f48e9c3">ListItemPredicate</a> is: </p><div class="fragment"><div class="line">int (*<a class="code" href="_list_8h.html#ad4c55078b97a01d644e27dd30f48e9c3">ListItemPredicate</a>) (<span class="keyword">const</span> <span class="keywordtype">void</span> *item);</div>
+</div><!-- fragment --><p> where a return value of <code>1</code> represents true and <code>0</code> represents false.</p>
+<p>The caller owns the returned list (but not its constituent items) and is responsible for deleting it.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">predicate</td><td>the function applied to each item in this list.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a new <a class="el" href="class_list.html">List</a> containing (pointers to) all items in this <a class="el" href="class_list.html">List</a> for which <code>predicate(item)</code> returned nonzero (true). The returned list may be empty if none of the items satisfy the <code>predicate</code>. </dd></dl>
 
 </div>
 </div>

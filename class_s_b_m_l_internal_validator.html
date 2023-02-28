@@ -947,8 +947,41 @@ Public Member Functions</h2></td></tr>
 <p>The possible categories (values to the argument <code>category</code>) are the set of values from the enumeration <a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187" title="Category codes for SBMLError diagnostics.">SBMLErrorCategory_t</a>. The following are the possible choices:</p>
 <ul>
 <li>
-<a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187ae3b027cda0c3dca2aa53077aa8152322">LIBSBML_CAT_GENERAL_CONSISTENCYendif </a></li>
+<p class="startli"><a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187ae3b027cda0c3dca2aa53077aa8152322">LIBSBML_CAT_GENERAL_CONSISTENCY</a>: Correctness and consistency of specific SBML language constructs. Performing this set of checks is highly recommended. With respect to the SBML specification, these concern failures in applying the validation rules numbered 2xxxx in the Level&#160;2 Versions&#160;2&ndash;4 and Level&#160;3 Versions&#160;1&ndash;2 specifications.</p>
+<p class="endli"></p>
+</li>
+<li>
+<p class="startli"><a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187ae9e0393582f3d8cc84a4fa1fc9bbcbcd">LIBSBML_CAT_IDENTIFIER_CONSISTENCY</a>: Correctness and consistency of identifiers used for model entities. An example of inconsistency would be using a species identifier in a reaction rate formula without first having declared the species. With respect to the SBML specification, these concern failures in applying the validation rules numbered 103xx in the Level&#160;2 Versions&#160;2&ndash;4 and Level&#160;3 Versions&#160;1&ndash;2 specifications.</p>
+<p class="endli"></p>
+</li>
+<li>
+<p class="startli"><a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187ab4dd0b6c395c23ddd8772c170f0f924c">LIBSBML_CAT_UNITS_CONSISTENCY</a>: Consistency of measurement units associated with quantities in a model. With respect to the SBML specification, these concern failures in applying the validation rules numbered 105xx in the Level&#160;2 Versions&#160;2&ndash;4 and Level&#160;3 Versions&#160;1&ndash;2 specifications.</p>
+<p class="endli"></p>
+</li>
+<li>
+<p class="startli"><a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187aafaa6ba954785b42b23a931798a78e65">LIBSBML_CAT_MATHML_CONSISTENCY</a>: Syntax of MathML constructs. With respect to the SBML specification, these concern failures in applying the validation rules numbered 102xx in the Level&#160;2 Versions&#160;2&ndash;4 and Level&#160;3 Versions&#160;1&ndash;2 specifications.</p>
+<p class="endli"></p>
+</li>
+<li>
+<p class="startli"><a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187acaea2a481e1fe4b617fe22c9528b157f">LIBSBML_CAT_SBO_CONSISTENCY</a>: Consistency and validity of SBO identifiers (if any) used in the model. With respect to the SBML specification, these concern failures in applying the validation rules numbered 107xx in the Level&#160;2 Versions&#160;2&ndash;4 and Level&#160;3 Versions&#160;1&ndash;2 specifications.</p>
+<p class="endli"></p>
+</li>
+<li>
+<p class="startli"><a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187a8e10040a000cb4f0f6bb30936150aca0">LIBSBML_CAT_OVERDETERMINED_MODEL</a>: Static analysis of whether the system of equations implied by a model is mathematically overdetermined. With respect to the SBML specification, this is validation rule #10601 in the Level&#160;2 Versions&#160;2&ndash;4 and Level&#160;3 Versions&#160;1&ndash;2 specifications.</p>
+<p class="endli"></p>
+</li>
+<li>
+<a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187af349b87ca89293c407c8d079b63e14d1">LIBSBML_CAT_MODELING_PRACTICE</a>: Additional checks for recommended good modeling practice. (These are tests performed by libSBML and do not have equivalent SBML validation rules.) </li>
 </ul>
+<p><em>By default, all validation checks are applied</em> to the model in an <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object <em>unless</em> <a class="el" href="class_s_b_m_l_document.html#acb6e109d079445adf0b54780214636c2" title="Controls the consistency checks that are performed when SBMLDocument::checkConsistency() is called.">SBMLDocument::setConsistencyChecks()</a> is called to indicate that only a subset should be applied. Further, this default (i.e., performing all checks) applies separately to <em>each new <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object</em> created. In other words, each time a model is read using <a class="el" href="class_s_b_m_l_reader.html#a2bf94ac23e7504996f64641563aa1ed4" title="Reads an SBML document from the given file.">SBMLReader::readSBML()</a>, <a class="el" href="class_s_b_m_l_reader.html#a58485b5e433e56300b83f84a03c91307" title="Reads an SBML document from a text string.">SBMLReader::readSBMLFromString()</a>, or the global functions <a class="el" href="_s_b_m_l_reader_8h.html#a638d6486ad221b01e62d2d15d130a04e" title="Reads an SBML document from the given file.">readSBML()</a> and <a class="el" href="_s_b_m_l_reader_8h.html#a97a991c5338252bf5d210d5709a6945c" title="Reads an SBML document from a text string.">readSBMLFromString()</a>, a new <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> is created and for that document, a call to <a class="el" href="class_s_b_m_l_document.html#a25684f139b8f5e44ec2089eba3fdfda0" title="Performs consistency checking and validation on this SBML document.">SBMLDocument::checkConsistency()</a> will default to applying all possible checks. Calling programs must invoke <a class="el" href="class_s_b_m_l_document.html#acb6e109d079445adf0b54780214636c2" title="Controls the consistency checks that are performed when SBMLDocument::checkConsistency() is called.">SBMLDocument::setConsistencyChecks()</a> for each such new model if they wish to change the consistency checks applied.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">category</td><td>a value drawn from <a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187" title="Category codes for SBMLError diagnostics.">SBMLErrorCategory_t</a> indicating the consistency checking/validation to be turned on or off.</td></tr>
+    <tr><td class="paramname">apply</td><td>a boolean indicating whether the checks indicated by <code>category</code> should be applied or not.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_b_m_l_document.html#a25684f139b8f5e44ec2089eba3fdfda0" title="Performs consistency checking and validation on this SBML document.">SBMLDocument::checkConsistency()</a> </dd></dl>
 
 </div>
 </div>
@@ -983,8 +1016,41 @@ Public Member Functions</h2></td></tr>
 <p>The possible categories (values to the argument <code>category</code>) are the set of values from the enumeration <a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187" title="Category codes for SBMLError diagnostics.">SBMLErrorCategory_t</a>. The following are the possible choices:</p>
 <ul>
 <li>
-<a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187ae3b027cda0c3dca2aa53077aa8152322">LIBSBML_CAT_GENERAL_CONSISTENCYendif </a></li>
+<p class="startli"><a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187ae3b027cda0c3dca2aa53077aa8152322">LIBSBML_CAT_GENERAL_CONSISTENCY</a>: Correctness and consistency of specific SBML language constructs. Performing this set of checks is highly recommended. With respect to the SBML specification, these concern failures in applying the validation rules numbered 2xxxx in the Level&#160;2 Versions&#160;2&ndash;4 and Level&#160;3 Versions&#160;1&ndash;2 specifications.</p>
+<p class="endli"></p>
+</li>
+<li>
+<p class="startli"><a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187ae9e0393582f3d8cc84a4fa1fc9bbcbcd">LIBSBML_CAT_IDENTIFIER_CONSISTENCY</a>: Correctness and consistency of identifiers used for model entities. An example of inconsistency would be using a species identifier in a reaction rate formula without first having declared the species. With respect to the SBML specification, these concern failures in applying the validation rules numbered 103xx in the Level&#160;2 Versions&#160;2&ndash;4 and Level&#160;3 Versions&#160;1&ndash;2 specifications.</p>
+<p class="endli"></p>
+</li>
+<li>
+<p class="startli"><a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187ab4dd0b6c395c23ddd8772c170f0f924c">LIBSBML_CAT_UNITS_CONSISTENCY</a>: Consistency of measurement units associated with quantities in a model. With respect to the SBML specification, these concern failures in applying the validation rules numbered 105xx in the Level&#160;2 Versions&#160;2&ndash;4 and Level&#160;3 Versions&#160;1&ndash;2 specifications.</p>
+<p class="endli"></p>
+</li>
+<li>
+<p class="startli"><a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187aafaa6ba954785b42b23a931798a78e65">LIBSBML_CAT_MATHML_CONSISTENCY</a>: Syntax of MathML constructs. With respect to the SBML specification, these concern failures in applying the validation rules numbered 102xx in the Level&#160;2 Versions&#160;2&ndash;4 and Level&#160;3 Versions&#160;1&ndash;2 specifications.</p>
+<p class="endli"></p>
+</li>
+<li>
+<p class="startli"><a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187acaea2a481e1fe4b617fe22c9528b157f">LIBSBML_CAT_SBO_CONSISTENCY</a>: Consistency and validity of SBO identifiers (if any) used in the model. With respect to the SBML specification, these concern failures in applying the validation rules numbered 107xx in the Level&#160;2 Versions&#160;2&ndash;4 and Level&#160;3 Versions&#160;1&ndash;2 specifications.</p>
+<p class="endli"></p>
+</li>
+<li>
+<p class="startli"><a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187a8e10040a000cb4f0f6bb30936150aca0">LIBSBML_CAT_OVERDETERMINED_MODEL</a>: Static analysis of whether the system of equations implied by a model is mathematically overdetermined. With respect to the SBML specification, this is validation rule #10601 in the Level&#160;2 Versions&#160;2&ndash;4 and Level&#160;3 Versions&#160;1&ndash;2 specifications.</p>
+<p class="endli"></p>
+</li>
+<li>
+<a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187af349b87ca89293c407c8d079b63e14d1">LIBSBML_CAT_MODELING_PRACTICE</a>: Additional checks for recommended good modeling practice. (These are tests performed by libSBML and do not have equivalent SBML validation rules.) </li>
 </ul>
+<p><em>By default, all validation checks are applied</em> to the model in an <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object <em>unless</em> <a class="el" href="class_s_b_m_l_document.html#acb6e109d079445adf0b54780214636c2" title="Controls the consistency checks that are performed when SBMLDocument::checkConsistency() is called.">SBMLDocument::setConsistencyChecks()</a> is called to indicate that only a subset should be applied. Further, this default (i.e., performing all checks) applies separately to <em>each new <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object</em> created. In other words, each time a model is read using <a class="el" href="class_s_b_m_l_reader.html#a2bf94ac23e7504996f64641563aa1ed4" title="Reads an SBML document from the given file.">SBMLReader::readSBML()</a>, <a class="el" href="class_s_b_m_l_reader.html#a58485b5e433e56300b83f84a03c91307" title="Reads an SBML document from a text string.">SBMLReader::readSBMLFromString()</a>, or the global functions <a class="el" href="_s_b_m_l_reader_8h.html#a638d6486ad221b01e62d2d15d130a04e" title="Reads an SBML document from the given file.">readSBML()</a> and <a class="el" href="_s_b_m_l_reader_8h.html#a97a991c5338252bf5d210d5709a6945c" title="Reads an SBML document from a text string.">readSBMLFromString()</a>, a new <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> is created and for that document, a call to <a class="el" href="class_s_b_m_l_document.html#a25684f139b8f5e44ec2089eba3fdfda0" title="Performs consistency checking and validation on this SBML document.">SBMLDocument::checkConsistency()</a> will default to applying all possible checks. Calling programs must invoke <a class="el" href="class_s_b_m_l_document.html#acb6e109d079445adf0b54780214636c2" title="Controls the consistency checks that are performed when SBMLDocument::checkConsistency() is called.">SBMLDocument::setConsistencyChecks()</a> for each such new model if they wish to change the consistency checks applied.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">category</td><td>a value drawn from <a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187" title="Category codes for SBMLError diagnostics.">SBMLErrorCategory_t</a> indicating the consistency checking/validation to be turned on or off.</td></tr>
+    <tr><td class="paramname">apply</td><td>a boolean indicating whether the checks indicated by <code>category</code> should be applied or not.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_b_m_l_document.html#af6e26845fd597ae188f77c299b5d3d03" title="Sets the SBML Level and Version of this SBMLDocument instance, attempting to convert the model as nee...">SBMLDocument::setLevelAndVersion()</a> </dd></dl>
 
 </div>
 </div>
@@ -1045,9 +1111,11 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESSendif </a></li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
 </ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_b_m_l_validator.html#acf1134b6be32b469bf3fa39136b901fc" title="Returns the current SBML document in use by this validator.">getDocument()</a> </dd></dl>
 
 </div>
 </div>
