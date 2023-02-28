@@ -19,22 +19,26 @@ make_directory(${OUTPUT_DIR}/search)
 
 # run python scripts to generate needed files
 execute_process(COMMAND ${PYTHON_EXECUTABLE} 
-                ${SRC_DIR}/utilities/generate-class-name-list.py ${ROOT_DIR}/src > ${SRC_DIR}/src/class-list.txt
+                ${SRC_DIR}/src/utilities/generate-class-name-list.py 
+                "${ROOT_DIR}/src" 
+                OUTPUT_FILE "${SRC_DIR}/src/class-list.txt"
                 WORKING_DIRECTORY ${SRC_DIR}/src)
 
 execute_process(COMMAND ${PYTHON_EXECUTABLE}
-                ${SRC_DIR}/utilities/generate-converters-list.py  ${SRC_DIR}/src/class-list.txt > ${SRC_DIR}/src/libsbml-converters.txt
+                ${SRC_DIR}/src/utilities/generate-converters-list.py "${SRC_DIR}/src/class-list.txt" 
+                OUTPUT_FILE "${SRC_DIR}/src/libsbml-converters.txt"
                 WORKING_DIRECTORY ${SRC_DIR}/src)
 
 execute_process(COMMAND ${PYTHON_EXECUTABLE}
-                ${SRC_DIR}/utilities/generate-pkg-stylesheet.py  ${ROOT_DIR}/src/sbml/packages  > ${SRC_DIR}/src/css/libsbml-package-stylesheet.css
+                ${SRC_DIR}/src/utilities/generate-pkg-stylesheet.py "${ROOT_DIR}/src/sbml/packages" 
+                OUTPUT_FILE "${SRC_DIR}/src/css/libsbml-package-stylesheet.css"
                 WORKING_DIRECTORY ${SRC_DIR}/src)
 
 # create doxygen config files for index and group runs
 file(READ   ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.txt DOXYGEN_CONFIG)
-file(WRITE  ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.1.txt "ALIASES += sbmlpackage{1}=\"@addindex \\1\"\n")
+file(WRITE  ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.1.txt "ALIASES += sbmlpackage{1}=\"@addindex \\1\\n\"\n")
 file(APPEND ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.1.txt "${DOXYGEN_CONFIG}")
-file(WRITE  ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "ALIASES += sbmlpackage{1}=\"@ingroup \\1\"\n")
+file(WRITE  ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "ALIASES += sbmlpackage{1}=\"@ingroup \\1\\n\"\n")
 file(APPEND ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "${DOXYGEN_CONFIG}")
 
 if (NOT SERVER_SEARCH)

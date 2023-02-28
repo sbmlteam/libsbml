@@ -5,9 +5,9 @@
 # Organization      : California Institute of Technology
 #
 
-message("OPERATION: ${OPERATION}")
-message("GENERATOR_DIR: ${GENERATOR_DIR}")
-message("OUTPUT_DIR: ${OUTPUT_DIR}")
+message(VERBOSE "OPERATION: ${OPERATION}")
+message(VERBOSE "GENERATOR_DIR: ${GENERATOR_DIR}")
+message(VERBOSE "OUTPUT_DIR: ${OUTPUT_DIR}")
 
 if (NOT EXISTS "${GENERATOR_DIR}")
     message(FATAL_ERROR "GENERATOR_DIR must be set")
@@ -25,7 +25,7 @@ elseif(OPERATION STREQUAL "restore")
     foreach(INDEX_FILE ${INDEX_FILES})
         file(COPY "${INDEX_FILE}" DESTINATION "${GENERATOR_DIR}")
     endforeach()
-    message(" file(REMOVE_RECURSE \"${OUTPUT_DIR}\") " )
+    file(REMOVE_RECURSE "${OUTPUT_DIR}")
 else()
     message(FATAL_ERROR "Unknown operation ${OPERATION}")
 endif()

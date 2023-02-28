@@ -33,11 +33,15 @@
 
 if (WITH_DOXYGEN)
 find_package(Doxygen)
+find_package(PythonInterp)
 
 if (NOT EXISTS "${DOXYGEN_EXECUTABLE}")
 		message(FATAL_ERROR "Cannot generate documentation, please install doxygen / specify the DOXYGEN_EXECUTABLE.")
 endif()
 
+if (NOT EXISTS "${PYTHON_EXECUTABLE}")
+		message(FATAL_ERROR "Cannot generate documentation, please install python / specify the PYTHON_EXECUTABLE.")
+endif()
 
 # -----------------------------------------------------------------------------
 # 'comp' package
