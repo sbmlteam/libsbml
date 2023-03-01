@@ -614,7 +614,7 @@ RECURSIVE              = NO
 # wildcard * is used, a substring. Examples: ANamespace, AClass,
 # AClass::ANamespace, ANamespace::*Test
 
-EXCLUDE_SYMBOLS        = 
+EXCLUDE_SYMBOLS        = doc_*
 
 # If the value of the INPUT tag contains directories, you can use the 
 # EXCLUDE_PATTERNS tag to specify one or more wildcard patterns to exclude 

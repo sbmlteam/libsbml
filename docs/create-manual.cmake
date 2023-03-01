@@ -131,11 +131,11 @@ ALIASES += sbmlconstant{2}=\"@if clike @link \\2#\\1 \\1@endlink@endif @if cshar
 
 ")
 file(APPEND ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.1.txt "${DOXYGEN_CONFIG}")
-file(APPEND ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.1.txt "
+# file(APPEND ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.1.txt "
 
-# additional input files
-${ADDITIONAL_INPUT}
-")
+# # additional input files
+# ${ADDITIONAL_INPUT}
+# ")
 file(WRITE  ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "
 
 ALIASES += sbmlpackage{1}=\"@ingroup \\1\"
@@ -147,11 +147,11 @@ ALIASES += sbmlconstant{2}=\"@if clike @link \\2#\\1 \\1@endlink@endif @if cshar
 
 ")
 file(APPEND ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "${DOXYGEN_CONFIG}")
-file(APPEND ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "
+# file(APPEND ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "
 
-# additional input files
-${ADDITIONAL_INPUT}
-")
+# # additional input files
+# ${ADDITIONAL_INPUT}
+# ")
 
 if (NOT SERVER_SEARCH)
 file(WRITE ${SRC_DIR}/src/doxygen-search-config.txt "
