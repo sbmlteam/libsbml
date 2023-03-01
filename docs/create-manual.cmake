@@ -124,6 +124,9 @@ file(READ   ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.txt DOXYGEN_CONFIG)
 file(WRITE  ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.1.txt "
 ALIASES += sbmlpackage{1}=\"@addindex \\1\"
 
+ALIASES += sbmlmarker{1}=\"@htmlinclude pkg-marker-\\1.html\"
+ALIASES += sbmlbrief{1}=\"@sbmlpackage{\\1}^^@brief @sbmlmarker{\\1} \"
+ALIASES += sbmlfunction{2}=\"@if clike SBML_\\1()@endif @if csharp SBML_\\1()@endif @if python @link libsbml.\\1() \\1()@endlink@endif@~\"
 ALIASES += sbmlconstant{2}=\"@if clike @link \\2#\\1 \\1@endlink@endif @if csharp @link libsbml#\\1 \\1@endlink@endif @if python @link libsbml#\\1 \\1@endlink@endif @if java @link libsbmlConstants#\\1 \\1@endlink@endif@~\"
 
 ")
@@ -137,9 +140,10 @@ file(WRITE  ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "
 
 ALIASES += sbmlpackage{1}=\"@ingroup \\1\"
 
-
+ALIASES += sbmlmarker{1}=\"@htmlinclude pkg-marker-\\1.html\"
+ALIASES += sbmlbrief{1}=\"@sbmlpackage{\\1}^^@brief @sbmlmarker{\\1} \"
+ALIASES += sbmlfunction{2}=\"@if clike SBML_\\1()@endif @if csharp SBML_\\1()@endif @if python @link libsbml.\\1() \\1()@endlink@endif@~\"
 ALIASES += sbmlconstant{2}=\"@if clike @link \\2#\\1 \\1@endlink@endif @if csharp @link libsbml#\\1 \\1@endlink@endif @if python @link libsbml#\\1 \\1@endlink@endif @if java @link libsbmlConstants#\\1 \\1@endlink@endif@~\"
-
 
 ")
 file(APPEND ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "${DOXYGEN_CONFIG}")

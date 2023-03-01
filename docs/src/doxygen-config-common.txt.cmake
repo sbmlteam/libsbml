@@ -189,12 +189,12 @@ TAB_SIZE               = 4
 
 # Note: @sbmlpackage is defined in Makefile.in dynamically.
 
-ALIASES += sbmlmarker{1}="@htmlinclude pkg-marker-\1.html"
+# ALIASES += sbmlmarker{1}="@htmlinclude pkg-marker-\1.html"
 
-ALIASES += sbmlbrief{1}="@sbmlpackage{\1}\n\
-@brief @sbmlmarker{\1} "
+# ALIASES += sbmlbrief{1}="@sbmlpackage{\1}\n\
+# @brief @sbmlmarker{\1} "
 
-ALIASES += sbmlfunction{2}="@if clike SBML_\1()@endif @if csharp SBML_\1()@endif @if python @link libsbml.\1() \1()@endlink@endif@~"
+# ALIASES += sbmlfunction{2}="@if clike SBML_\1()@endif @if csharp SBML_\1()@endif @if python @link libsbml.\1() \1()@endlink@endif@~"
 
 # ALIASES += sbmlconstant{2}="@if clike @link \2#\1 \1@endlink@endif @if csharp @link libsbml#\1 \1@endlink@endif @if python @link libsbml#\1 \1@endlink@endif @if java @link libsbmlConstants#\1 \1@endlink@endif@~"
 
@@ -584,7 +584,7 @@ INPUT =                                    \
   ../../src/sbml/packages/qual/extension   \
   ../../src/sbml/packages/qual/sbml        \
   ../../src/sbml/packages/qual/validator   \
-  src/common-text
+  common-text
 
 
   # ../../src/sbml/common/operationReturnValues.h \
