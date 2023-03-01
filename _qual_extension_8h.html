@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('_qual_extension_8h.html',''); initResi
 </div><!--header-->
 <div class="contents">
 
-<p>Definition of <a class="el" href="class_qual_extension.html" title="\ @ @ . .">QualExtension</a>, the core module of qual package.  
+<p>Definition of <a class="el" href="class_qual_extension.html">QualExtension</a>, the core module of qual package.  
 <a href="#details">More...</a></p>
 <div class="textblock"><div class="dynheader">
 Include dependency graph for QualExtension.h:</div>
@@ -116,7 +116,6 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_qual_extension.html">QualExtension</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_qual_extension.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -149,7 +148,7 @@ Enumerations</h2></td></tr>
 <tr class="separator:a117e637b035f3c2c4f291518b1a059ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Definition of <a class="el" href="class_qual_extension.html" title="\ @ @ . .">QualExtension</a>, the core module of qual package. </p>
+<div class="textblock"><p>Definition of <a class="el" href="class_qual_extension.html">QualExtension</a>, the core module of qual package. </p>
 <dl class="section author"><dt>Author</dt><dd>Akiya Jouraku </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a277cdb66c93abe0dfbecb773793d85a9"></a>
@@ -209,7 +208,7 @@ Enumerations</h2></td></tr>
 </div><div class="memdoc">
 
 <p>SBMLFbcTypeCode_t Enumeration of possible types in the libSBML &ldquo;qual&rdquo; package implementation. </p>
-<dl class="section user"><dt></dt><dd>LibSBML attaches an identifying code to every kind of SBML object. These are integer constants known as <em>SBML type codes</em>. The names of all the codes begin with the characters <code>SBML_</code>. The set of possible type codes for core elements is defined in the enumeration <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfe" title="The enumeration of possible SBML core object types.">SBMLTypeCode_t</a>, and in addition, libSBML plug-ins for SBML Level&#160;3 packages define their own extra enumerations of type codes (e.g., <a class="el" href="_layout_extension_8h.html#a6b80c825e1507341de5540b8e7de003d" title="SBMLFbcTypeCode_t Enumeration of possible types in the libSBML “layout” package implementation.">SBMLLayoutTypeCode_t</a> for the Level&#160;3 <a class="el" href="class_layout.html" title="\ @ @ . .">Layout</a> package). Note that different Level&#160;3 package plug-ins may use overlapping type codes; to identify the package to which a given object belongs, call the <code><a class="el" href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02" title="Returns the name of the SBML Level&#160;3 package in which this element is defined.">SBase::getPackageName()</a> </code> method on the object.</dd></dl>
+<dl class="section user"><dt></dt><dd>LibSBML attaches an identifying code to every kind of SBML object. These are integer constants known as <em>SBML type codes</em>. The names of all the codes begin with the characters <code>SBML_</code>. The set of possible type codes for core elements is defined in the enumeration <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfe" title="The enumeration of possible SBML core object types.">SBMLTypeCode_t</a>, and in addition, libSBML plug-ins for SBML Level&#160;3 packages define their own extra enumerations of type codes (e.g., <a class="el" href="_layout_extension_8h.html#a6b80c825e1507341de5540b8e7de003d" title="SBMLFbcTypeCode_t Enumeration of possible types in the libSBML “layout” package implementation.">SBMLLayoutTypeCode_t</a> for the Level&#160;3 <a class="el" href="class_layout.html">Layout</a> package). Note that different Level&#160;3 package plug-ins may use overlapping type codes; to identify the package to which a given object belongs, call the <code><a class="el" href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02" title="Returns the name of the SBML Level&#160;3 package in which this element is defined.">SBase::getPackageName()</a> </code> method on the object.</dd></dl>
 <p>The exception to this is lists: all SBML-style list elements have the type <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfeaa111b52def73380487c84f062f47dadc">SBML_LIST_OF</a>, regardless of what package they are from.</p>
 <dl class="section user"><dt></dt><dd>Here follow some additional general information about libSBML type codes:</dd></dl>
 <ul>
@@ -222,7 +221,7 @@ Enumerations</h2></td></tr>
 (Compatibility note: in libSBML 5, the type of return values of these functions changed from an enumeration to an integer for extensibility in the face of different programming languages.)</li>
 </ul>
 <ul>
-<li>Each package extension must define similar sets of values for each <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> subclass (e.g. <code>SBMLLayoutTypeCode_t</code> for the SBML Level&#160;3 Layout extension, <code>SBMLFbcTypeCode_t</code> for the SBML Level&#160;3 Flux Balance Constraints extension, etc.).</li>
+<li>Each package extension must define similar sets of values for each <a class="el" href="class_s_base.html">SBase</a> subclass (e.g. <code>SBMLLayoutTypeCode_t</code> for the SBML Level&#160;3 Layout extension, <code>SBMLFbcTypeCode_t</code> for the SBML Level&#160;3 Flux Balance Constraints extension, etc.).</li>
 </ul>
 <ul>
 <li>The value of each package-specific type code can be duplicated between those of different packages. (This is necessary because the development of libSBML extensions for different SBML packages may be undertaken by different developers at different times; requiring the developers to coordinate their use of type codes would be nettlesome and probably doomed to failure.)</li>
@@ -261,21 +260,21 @@ Enumerations</h2></td></tr>
 <div class="ttc" id="a_layout_extension_8h_html_a6b80c825e1507341de5540b8e7de003da7309d406d0253eeab3ef4d606d853ff3"><div class="ttname"><a href="_layout_extension_8h.html#a6b80c825e1507341de5540b8e7de003da7309d406d0253eeab3ef4d606d853ff3">SBML_LAYOUT_LAYOUT</a></div><div class="ttdeci">@ SBML_LAYOUT_LAYOUT</div><div class="ttdef"><b>Definition:</b> LayoutExtension.h:443</div></div>
 <div class="ttc" id="a_s_b_m_l_type_codes_8h_html_aa283dddfd7671179362b2f38e2938cfea3c866be107d7858b6dd1e978ed103028"><div class="ttname"><a href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfea3c866be107d7858b6dd1e978ed103028">SBML_MODEL</a></div><div class="ttdeci">@ SBML_MODEL</div><div class="ttdef"><b>Definition:</b> SBMLTypeCodes.h:75</div></div>
 <div class="ttc" id="a_s_b_m_l_type_codes_8h_html_aa283dddfd7671179362b2f38e2938cfea54de874fd61e13450bdf024d41a336c9"><div class="ttname"><a href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfea54de874fd61e13450bdf024d41a336c9">SBML_REACTION</a></div><div class="ttdeci">@ SBML_REACTION</div><div class="ttdef"><b>Definition:</b> SBMLTypeCodes.h:77</div></div>
-<div class="ttc" id="aclass_s_base_html"><div class="ttname"><a href="class_s_base.html">SBase</a></div><div class="ttdoc">\ @ @ . ' &lt;&gt;%&lt;/&gt; , .</div><div class="ttdef"><b>Definition:</b> SBase.h:191</div></div>
+<div class="ttc" id="aclass_s_base_html"><div class="ttname"><a href="class_s_base.html">SBase</a></div><div class="ttdef"><b>Definition:</b> SBase.h:191</div></div>
 <div class="ttc" id="aclass_s_base_html_a031d1da6a39bae8afd5201677fb32c02"><div class="ttname"><a href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02">SBase::getPackageName</a></div><div class="ttdeci">const std::string &amp; getPackageName() const</div><div class="ttdoc">Returns the name of the SBML Level&amp;#160;3 package in which this element is defined.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:3291</div></div>
 <div class="ttc" id="aclass_s_base_html_a4109c299320c6c59251fc84d6eeaec69"><div class="ttname"><a href="class_s_base.html#a4109c299320c6c59251fc84d6eeaec69">SBase::getTypeCode</a></div><div class="ttdeci">virtual int getTypeCode() const</div><div class="ttdoc">Returns the libSBML type code for this object.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:3315</div></div>
 </div><!-- fragment --> <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a117e637b035f3c2c4f291518b1a059aeaa5ec4959377488d0494ce6d549a632b4"></a>SBML_QUAL_QUALITATIVE_SPECIES&#160;</td><td class="fielddoc"><p><a class="el" href="class_qualitative_species.html" title="\ @ @ . .">QualitativeSpecies</a> </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a117e637b035f3c2c4f291518b1a059aeaa5ec4959377488d0494ce6d549a632b4"></a>SBML_QUAL_QUALITATIVE_SPECIES&#160;</td><td class="fielddoc"><p><a class="el" href="class_qualitative_species.html">QualitativeSpecies</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a117e637b035f3c2c4f291518b1a059aea81cc60bf7af0d9a503abc044372e4c4d"></a>SBML_QUAL_TRANSITION&#160;</td><td class="fielddoc"><p><a class="el" href="class_transition.html" title="\ @ @ . .">Transition</a> </p>
+<tr><td class="fieldname"><a id="a117e637b035f3c2c4f291518b1a059aea81cc60bf7af0d9a503abc044372e4c4d"></a>SBML_QUAL_TRANSITION&#160;</td><td class="fielddoc"><p><a class="el" href="class_transition.html">Transition</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a117e637b035f3c2c4f291518b1a059aea28b68bc98996ce3e245b8d2fab7d8b73"></a>SBML_QUAL_INPUT&#160;</td><td class="fielddoc"><p><a class="el" href="class_input.html" title="\ @ @ . .">Input</a> </p>
+<tr><td class="fieldname"><a id="a117e637b035f3c2c4f291518b1a059aea28b68bc98996ce3e245b8d2fab7d8b73"></a>SBML_QUAL_INPUT&#160;</td><td class="fielddoc"><p><a class="el" href="class_input.html">Input</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a117e637b035f3c2c4f291518b1a059aea757974168e4fdaaeac2a7d2fd7eb864f"></a>SBML_QUAL_OUTPUT&#160;</td><td class="fielddoc"><p><a class="el" href="class_output.html" title="\ @ @ . .">Output</a> </p>
+<tr><td class="fieldname"><a id="a117e637b035f3c2c4f291518b1a059aea757974168e4fdaaeac2a7d2fd7eb864f"></a>SBML_QUAL_OUTPUT&#160;</td><td class="fielddoc"><p><a class="el" href="class_output.html">Output</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a117e637b035f3c2c4f291518b1a059aeadd4f60c89bbacfa6ac2d6d7ded2625b8"></a>SBML_QUAL_FUNCTION_TERM&#160;</td><td class="fielddoc"><p><a class="el" href="class_function_term.html" title="\ @ @ . .">FunctionTerm</a> </p>
+<tr><td class="fieldname"><a id="a117e637b035f3c2c4f291518b1a059aeadd4f60c89bbacfa6ac2d6d7ded2625b8"></a>SBML_QUAL_FUNCTION_TERM&#160;</td><td class="fielddoc"><p><a class="el" href="class_function_term.html">FunctionTerm</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a117e637b035f3c2c4f291518b1a059aead796956d3dfb65f8ce3a6223099b4753"></a>SBML_QUAL_DEFAULT_TERM&#160;</td><td class="fielddoc"><p><a class="el" href="class_default_term.html" title="\ @ @ . .">DefaultTerm</a> </p>
+<tr><td class="fieldname"><a id="a117e637b035f3c2c4f291518b1a059aead796956d3dfb65f8ce3a6223099b4753"></a>SBML_QUAL_DEFAULT_TERM&#160;</td><td class="fielddoc"><p><a class="el" href="class_default_term.html">DefaultTerm</a> </p>
 </td></tr>
 </table>
 

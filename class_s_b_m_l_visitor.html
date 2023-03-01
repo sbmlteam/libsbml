@@ -100,124 +100,123 @@ $(document).ready(function(){initNavTree('class_s_b_m_l_visitor.html',''); initR
 <div class="dynheader">
 Inheritance diagram for SBMLVisitor:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_s_b_m_l_visitor__inherit__graph.svg" width="332" height="443"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_s_b_m_l_visitor__inherit__graph.svg" width="332" height="443"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>\ @ @ . . </p>
+<div class="textblock"> Support class for operations on SBML objects.</p>
 <p><em style="color: #555">This class of objects is defined by libSBML only and has no direct equivalent in terms of SBML components.</em></p>
 <p>This is a class that supports the use of the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on SBML objects. The LibSBML implementation of the Visitor Pattern couples the notion of visitation with the traversal of an SBML model oject hierarchy.</p>
-<p>This class (<a class="el" href="class_s_b_m_l_visitor.html" title="\ @ @ . .">SBMLVisitor</a>) does not provide stand-alone functionality; rather, it defines the interface that user visitor classes must implement. All of the individual SBML object classes have methods named <code>accept</code> that are used for invoking an object of class <a class="el" href="class_s_b_m_l_visitor.html" title="\ @ @ . .">SBMLVisitor</a>. An example of its use is in the SBML validation system, which is internally implemented using this Visitor Pattern facility. </p>
+<p>This class (<a class="el" href="class_s_b_m_l_visitor.html">SBMLVisitor</a>) does not provide stand-alone functionality; rather, it defines the interface that user visitor classes must implement. All of the individual SBML object classes have methods named <code>accept</code> that are used for invoking an object of class <a class="el" href="class_s_b_m_l_visitor.html">SBMLVisitor</a>. An example of its use is in the SBML validation system, which is internally implemented using this Visitor Pattern facility. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4a6cc31ccc21452b3ca0b52c5ea308ed"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a4a6cc31ccc21452b3ca0b52c5ea308ed">leave</a> (const <a class="el" href="class_kinetic_law.html">KineticLaw</a> &amp;x)</td></tr>
-<tr class="memdesc:a4a6cc31ccc21452b3ca0b52c5ea308ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_kinetic_law.html" title="\ @ @ . .">KineticLaw</a> objects.  <a href="class_s_b_m_l_visitor.html#a4a6cc31ccc21452b3ca0b52c5ea308ed">More...</a><br /></td></tr>
+<tr class="memdesc:a4a6cc31ccc21452b3ca0b52c5ea308ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_kinetic_law.html">KineticLaw</a> objects.  <a href="class_s_b_m_l_visitor.html#a4a6cc31ccc21452b3ca0b52c5ea308ed">More...</a><br /></td></tr>
 <tr class="separator:a4a6cc31ccc21452b3ca0b52c5ea308ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf3792fdeb86f342d31d0af1eac1f159"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#adf3792fdeb86f342d31d0af1eac1f159">leave</a> (const <a class="el" href="class_list_of.html">ListOf</a> &amp;x, int type)</td></tr>
-<tr class="memdesc:adf3792fdeb86f342d31d0af1eac1f159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a> objects.  <a href="class_s_b_m_l_visitor.html#adf3792fdeb86f342d31d0af1eac1f159">More...</a><br /></td></tr>
+<tr class="memdesc:adf3792fdeb86f342d31d0af1eac1f159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_list_of.html">ListOf</a> objects.  <a href="class_s_b_m_l_visitor.html#adf3792fdeb86f342d31d0af1eac1f159">More...</a><br /></td></tr>
 <tr class="separator:adf3792fdeb86f342d31d0af1eac1f159"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f88ae35b9ee07b8db0812d9840d51f5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a9f88ae35b9ee07b8db0812d9840d51f5">leave</a> (const <a class="el" href="class_model.html">Model</a> &amp;x)</td></tr>
-<tr class="memdesc:a9f88ae35b9ee07b8db0812d9840d51f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> objects.  <a href="class_s_b_m_l_visitor.html#a9f88ae35b9ee07b8db0812d9840d51f5">More...</a><br /></td></tr>
+<tr class="memdesc:a9f88ae35b9ee07b8db0812d9840d51f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_model.html">Model</a> objects.  <a href="class_s_b_m_l_visitor.html#a9f88ae35b9ee07b8db0812d9840d51f5">More...</a><br /></td></tr>
 <tr class="separator:a9f88ae35b9ee07b8db0812d9840d51f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5c9471613dcb92b08ed82619eeac658"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#ac5c9471613dcb92b08ed82619eeac658">leave</a> (const <a class="el" href="class_priority.html">Priority</a> &amp;x)</td></tr>
-<tr class="memdesc:ac5c9471613dcb92b08ed82619eeac658"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_priority.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">Priority</a> objects.  <a href="class_s_b_m_l_visitor.html#ac5c9471613dcb92b08ed82619eeac658">More...</a><br /></td></tr>
+<tr class="memdesc:ac5c9471613dcb92b08ed82619eeac658"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_priority.html">Priority</a> objects.  <a href="class_s_b_m_l_visitor.html#ac5c9471613dcb92b08ed82619eeac658">More...</a><br /></td></tr>
 <tr class="separator:ac5c9471613dcb92b08ed82619eeac658"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade2c7f29faeb2bd427a9d6092af4ffd0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#ade2c7f29faeb2bd427a9d6092af4ffd0">leave</a> (const <a class="el" href="class_reaction.html">Reaction</a> &amp;x)</td></tr>
-<tr class="memdesc:ade2c7f29faeb2bd427a9d6092af4ffd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_reaction.html" title="\ @ @ . .">Reaction</a> objects.  <a href="class_s_b_m_l_visitor.html#ade2c7f29faeb2bd427a9d6092af4ffd0">More...</a><br /></td></tr>
+<tr class="memdesc:ade2c7f29faeb2bd427a9d6092af4ffd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_reaction.html">Reaction</a> objects.  <a href="class_s_b_m_l_visitor.html#ade2c7f29faeb2bd427a9d6092af4ffd0">More...</a><br /></td></tr>
 <tr class="separator:ade2c7f29faeb2bd427a9d6092af4ffd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a357389a75776ffe6f905fb98636d7342"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a357389a75776ffe6f905fb98636d7342">leave</a> (const <a class="el" href="class_s_base.html">SBase</a> &amp;x)</td></tr>
-<tr class="memdesc:a357389a75776ffe6f905fb98636d7342"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_reaction.html" title="\ @ @ . .">Reaction</a> objects.  <a href="class_s_b_m_l_visitor.html#a357389a75776ffe6f905fb98636d7342">More...</a><br /></td></tr>
+<tr class="memdesc:a357389a75776ffe6f905fb98636d7342"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_reaction.html">Reaction</a> objects.  <a href="class_s_b_m_l_visitor.html#a357389a75776ffe6f905fb98636d7342">More...</a><br /></td></tr>
 <tr class="separator:a357389a75776ffe6f905fb98636d7342"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa22c59b77ff847ac66aded031e54cc45"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#aa22c59b77ff847ac66aded031e54cc45">leave</a> (const <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> &amp;x)</td></tr>
-<tr class="memdesc:aa22c59b77ff847ac66aded031e54cc45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> objects.  <a href="class_s_b_m_l_visitor.html#aa22c59b77ff847ac66aded031e54cc45">More...</a><br /></td></tr>
+<tr class="memdesc:aa22c59b77ff847ac66aded031e54cc45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> objects.  <a href="class_s_b_m_l_visitor.html#aa22c59b77ff847ac66aded031e54cc45">More...</a><br /></td></tr>
 <tr class="separator:aa22c59b77ff847ac66aded031e54cc45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf9e87e1818a56454d84bb01e0a848b3"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#adf9e87e1818a56454d84bb01e0a848b3">visit</a> (const <a class="el" href="class_algebraic_rule.html">AlgebraicRule</a> &amp;x)</td></tr>
-<tr class="memdesc:adf9e87e1818a56454d84bb01e0a848b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_algebraic_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt;0 = (&lt;&gt;&lt;/&gt;)&lt;/&gt;.">AlgebraicRule</a> objects.  <a href="class_s_b_m_l_visitor.html#adf9e87e1818a56454d84bb01e0a848b3">More...</a><br /></td></tr>
+<tr class="memdesc:adf9e87e1818a56454d84bb01e0a848b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_algebraic_rule.html">AlgebraicRule</a> objects.  <a href="class_s_b_m_l_visitor.html#adf9e87e1818a56454d84bb01e0a848b3">More...</a><br /></td></tr>
 <tr class="separator:adf9e87e1818a56454d84bb01e0a848b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdc0293495299f473b84770f402f13c9"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#abdc0293495299f473b84770f402f13c9">visit</a> (const <a class="el" href="class_assignment_rule.html">AssignmentRule</a> &amp;x)</td></tr>
-<tr class="memdesc:abdc0293495299f473b84770f402f13c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_assignment_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt; = (&lt;&gt;&lt;/&gt;)&lt;/&gt;.">AssignmentRule</a> objects.  <a href="class_s_b_m_l_visitor.html#abdc0293495299f473b84770f402f13c9">More...</a><br /></td></tr>
+<tr class="memdesc:abdc0293495299f473b84770f402f13c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_assignment_rule.html">AssignmentRule</a> objects.  <a href="class_s_b_m_l_visitor.html#abdc0293495299f473b84770f402f13c9">More...</a><br /></td></tr>
 <tr class="separator:abdc0293495299f473b84770f402f13c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a970ec0237c94ea0633ef07d8a07dafe5"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a970ec0237c94ea0633ef07d8a07dafe5">visit</a> (const <a class="el" href="class_compartment.html">Compartment</a> &amp;x)</td></tr>
-<tr class="memdesc:a970ec0237c94ea0633ef07d8a07dafe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_compartment.html" title="\ @ @ . , .">Compartment</a> objects.  <a href="class_s_b_m_l_visitor.html#a970ec0237c94ea0633ef07d8a07dafe5">More...</a><br /></td></tr>
+<tr class="memdesc:a970ec0237c94ea0633ef07d8a07dafe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_compartment.html">Compartment</a> objects.  <a href="class_s_b_m_l_visitor.html#a970ec0237c94ea0633ef07d8a07dafe5">More...</a><br /></td></tr>
 <tr class="separator:a970ec0237c94ea0633ef07d8a07dafe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1f5af507a43bab460fd7c87be73aa98"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#ad1f5af507a43bab460fd7c87be73aa98">visit</a> (const <a class="el" href="class_compartment_type.html">CompartmentType</a> &amp;x)</td></tr>
-<tr class="memdesc:ad1f5af507a43bab460fd7c87be73aa98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_compartment_type.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &;2.">CompartmentType</a> objects.  <a href="class_s_b_m_l_visitor.html#ad1f5af507a43bab460fd7c87be73aa98">More...</a><br /></td></tr>
+<tr class="memdesc:ad1f5af507a43bab460fd7c87be73aa98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_compartment_type.html">CompartmentType</a> objects.  <a href="class_s_b_m_l_visitor.html#ad1f5af507a43bab460fd7c87be73aa98">More...</a><br /></td></tr>
 <tr class="separator:ad1f5af507a43bab460fd7c87be73aa98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8688d69c965eeffdf5d57f5d1da04ad9"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a8688d69c965eeffdf5d57f5d1da04ad9">visit</a> (const <a class="el" href="class_constraint.html">Constraint</a> &amp;x)</td></tr>
-<tr class="memdesc:a8688d69c965eeffdf5d57f5d1da04ad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_constraint.html" title="\ @ @ . &lt;&gt;&lt;/&gt;, .">Constraint</a> objects.  <a href="class_s_b_m_l_visitor.html#a8688d69c965eeffdf5d57f5d1da04ad9">More...</a><br /></td></tr>
+<tr class="memdesc:a8688d69c965eeffdf5d57f5d1da04ad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_constraint.html">Constraint</a> objects.  <a href="class_s_b_m_l_visitor.html#a8688d69c965eeffdf5d57f5d1da04ad9">More...</a><br /></td></tr>
 <tr class="separator:a8688d69c965eeffdf5d57f5d1da04ad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a026f3c368656e0aa0ef2810e13a18a54"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a026f3c368656e0aa0ef2810e13a18a54">visit</a> (const <a class="el" href="class_delay.html">Delay</a> &amp;x)</td></tr>
-<tr class="memdesc:a026f3c368656e0aa0ef2810e13a18a54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_delay.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">Delay</a> objects.  <a href="class_s_b_m_l_visitor.html#a026f3c368656e0aa0ef2810e13a18a54">More...</a><br /></td></tr>
+<tr class="memdesc:a026f3c368656e0aa0ef2810e13a18a54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_delay.html">Delay</a> objects.  <a href="class_s_b_m_l_visitor.html#a026f3c368656e0aa0ef2810e13a18a54">More...</a><br /></td></tr>
 <tr class="separator:a026f3c368656e0aa0ef2810e13a18a54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af54923058cd8f354c5f6dcc20e1c90f9"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#af54923058cd8f354c5f6dcc20e1c90f9">visit</a> (const <a class="el" href="class_event.html">Event</a> &amp;x)</td></tr>
-<tr class="memdesc:af54923058cd8f354c5f6dcc20e1c90f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_event.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">Event</a> objects.  <a href="class_s_b_m_l_visitor.html#af54923058cd8f354c5f6dcc20e1c90f9">More...</a><br /></td></tr>
+<tr class="memdesc:af54923058cd8f354c5f6dcc20e1c90f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_event.html">Event</a> objects.  <a href="class_s_b_m_l_visitor.html#af54923058cd8f354c5f6dcc20e1c90f9">More...</a><br /></td></tr>
 <tr class="separator:af54923058cd8f354c5f6dcc20e1c90f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a994f0dae6895fc4d8b31822c30422e35"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a994f0dae6895fc4d8b31822c30422e35">visit</a> (const <a class="el" href="class_event_assignment.html">EventAssignment</a> &amp;x)</td></tr>
-<tr class="memdesc:a994f0dae6895fc4d8b31822c30422e35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_event_assignment.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">EventAssignment</a> objects.  <a href="class_s_b_m_l_visitor.html#a994f0dae6895fc4d8b31822c30422e35">More...</a><br /></td></tr>
+<tr class="memdesc:a994f0dae6895fc4d8b31822c30422e35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_event_assignment.html">EventAssignment</a> objects.  <a href="class_s_b_m_l_visitor.html#a994f0dae6895fc4d8b31822c30422e35">More...</a><br /></td></tr>
 <tr class="separator:a994f0dae6895fc4d8b31822c30422e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0452ffaffa8ee27a8bc54f384e36842f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a0452ffaffa8ee27a8bc54f384e36842f">visit</a> (const <a class="el" href="class_function_definition.html">FunctionDefinition</a> &amp;x)</td></tr>
-<tr class="memdesc:a0452ffaffa8ee27a8bc54f384e36842f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_function_definition.html" title="\ @ @ . .">FunctionDefinition</a> objects.  <a href="class_s_b_m_l_visitor.html#a0452ffaffa8ee27a8bc54f384e36842f">More...</a><br /></td></tr>
+<tr class="memdesc:a0452ffaffa8ee27a8bc54f384e36842f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_function_definition.html">FunctionDefinition</a> objects.  <a href="class_s_b_m_l_visitor.html#a0452ffaffa8ee27a8bc54f384e36842f">More...</a><br /></td></tr>
 <tr class="separator:a0452ffaffa8ee27a8bc54f384e36842f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93b55fd055ed62febefa464dbb98980f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a93b55fd055ed62febefa464dbb98980f">visit</a> (const <a class="el" href="class_initial_assignment.html">InitialAssignment</a> &amp;x)</td></tr>
-<tr class="memdesc:a93b55fd055ed62febefa464dbb98980f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_initial_assignment.html" title="\ @ @ . &lt;&gt; &lt;/&gt;, .">InitialAssignment</a> objects.  <a href="class_s_b_m_l_visitor.html#a93b55fd055ed62febefa464dbb98980f">More...</a><br /></td></tr>
+<tr class="memdesc:a93b55fd055ed62febefa464dbb98980f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_initial_assignment.html">InitialAssignment</a> objects.  <a href="class_s_b_m_l_visitor.html#a93b55fd055ed62febefa464dbb98980f">More...</a><br /></td></tr>
 <tr class="separator:a93b55fd055ed62febefa464dbb98980f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1b45e037cfa79fbd614f7f42349675e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#af1b45e037cfa79fbd614f7f42349675e">visit</a> (const <a class="el" href="class_kinetic_law.html">KineticLaw</a> &amp;x)</td></tr>
-<tr class="memdesc:af1b45e037cfa79fbd614f7f42349675e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_kinetic_law.html" title="\ @ @ . .">KineticLaw</a> objects.  <a href="class_s_b_m_l_visitor.html#af1b45e037cfa79fbd614f7f42349675e">More...</a><br /></td></tr>
+<tr class="memdesc:af1b45e037cfa79fbd614f7f42349675e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_kinetic_law.html">KineticLaw</a> objects.  <a href="class_s_b_m_l_visitor.html#af1b45e037cfa79fbd614f7f42349675e">More...</a><br /></td></tr>
 <tr class="separator:af1b45e037cfa79fbd614f7f42349675e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aacdd128fb534342d316cc3e5a87521a0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#aacdd128fb534342d316cc3e5a87521a0">visit</a> (const <a class="el" href="class_list_of.html">ListOf</a> &amp;x, int type)</td></tr>
-<tr class="memdesc:aacdd128fb534342d316cc3e5a87521a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a> objects.  <a href="class_s_b_m_l_visitor.html#aacdd128fb534342d316cc3e5a87521a0">More...</a><br /></td></tr>
+<tr class="memdesc:aacdd128fb534342d316cc3e5a87521a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_list_of.html">ListOf</a> objects.  <a href="class_s_b_m_l_visitor.html#aacdd128fb534342d316cc3e5a87521a0">More...</a><br /></td></tr>
 <tr class="separator:aacdd128fb534342d316cc3e5a87521a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a771d3f898e68fc079c2a49be3cf1c007"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a771d3f898e68fc079c2a49be3cf1c007">visit</a> (const <a class="el" href="class_model.html">Model</a> &amp;x)</td></tr>
-<tr class="memdesc:a771d3f898e68fc079c2a49be3cf1c007"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> objects.  <a href="class_s_b_m_l_visitor.html#a771d3f898e68fc079c2a49be3cf1c007">More...</a><br /></td></tr>
+<tr class="memdesc:a771d3f898e68fc079c2a49be3cf1c007"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_model.html">Model</a> objects.  <a href="class_s_b_m_l_visitor.html#a771d3f898e68fc079c2a49be3cf1c007">More...</a><br /></td></tr>
 <tr class="separator:a771d3f898e68fc079c2a49be3cf1c007"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0f60174ce0435d4bce256a4aa822e07"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#ac0f60174ce0435d4bce256a4aa822e07">visit</a> (const <a class="el" href="class_modifier_species_reference.html">ModifierSpeciesReference</a> &amp;x)</td></tr>
-<tr class="memdesc:ac0f60174ce0435d4bce256a4aa822e07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_modifier_species_reference.html" title="\ @ @ . &lt;&gt; &lt;/&gt;.">ModifierSpeciesReference</a> objects.  <a href="class_s_b_m_l_visitor.html#ac0f60174ce0435d4bce256a4aa822e07">More...</a><br /></td></tr>
+<tr class="memdesc:ac0f60174ce0435d4bce256a4aa822e07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_modifier_species_reference.html">ModifierSpeciesReference</a> objects.  <a href="class_s_b_m_l_visitor.html#ac0f60174ce0435d4bce256a4aa822e07">More...</a><br /></td></tr>
 <tr class="separator:ac0f60174ce0435d4bce256a4aa822e07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec23dd4f55351f78d87bdd0ec527bd3b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#aec23dd4f55351f78d87bdd0ec527bd3b">visit</a> (const <a class="el" href="class_parameter.html">Parameter</a> &amp;x)</td></tr>
-<tr class="memdesc:aec23dd4f55351f78d87bdd0ec527bd3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_parameter.html" title="\ @ @ . : .">Parameter</a> objects.  <a href="class_s_b_m_l_visitor.html#aec23dd4f55351f78d87bdd0ec527bd3b">More...</a><br /></td></tr>
+<tr class="memdesc:aec23dd4f55351f78d87bdd0ec527bd3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_parameter.html">Parameter</a> objects.  <a href="class_s_b_m_l_visitor.html#aec23dd4f55351f78d87bdd0ec527bd3b">More...</a><br /></td></tr>
 <tr class="separator:aec23dd4f55351f78d87bdd0ec527bd3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6481b7df4e308222d8ceafd0219993ce"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a6481b7df4e308222d8ceafd0219993ce">visit</a> (const <a class="el" href="class_priority.html">Priority</a> &amp;x)</td></tr>
-<tr class="memdesc:a6481b7df4e308222d8ceafd0219993ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_priority.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">Priority</a> objects.  <a href="class_s_b_m_l_visitor.html#a6481b7df4e308222d8ceafd0219993ce">More...</a><br /></td></tr>
+<tr class="memdesc:a6481b7df4e308222d8ceafd0219993ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_priority.html">Priority</a> objects.  <a href="class_s_b_m_l_visitor.html#a6481b7df4e308222d8ceafd0219993ce">More...</a><br /></td></tr>
 <tr class="separator:a6481b7df4e308222d8ceafd0219993ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b66187f361d60703db553f36d4dc4f7"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a6b66187f361d60703db553f36d4dc4f7">visit</a> (const <a class="el" href="class_rate_rule.html">RateRule</a> &amp;x)</td></tr>
-<tr class="memdesc:a6b66187f361d60703db553f36d4dc4f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_rate_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt;/ = (&lt;&gt;&lt;/&gt;)&lt;/&gt;.">RateRule</a> objects.  <a href="class_s_b_m_l_visitor.html#a6b66187f361d60703db553f36d4dc4f7">More...</a><br /></td></tr>
+<tr class="memdesc:a6b66187f361d60703db553f36d4dc4f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_rate_rule.html">RateRule</a> objects.  <a href="class_s_b_m_l_visitor.html#a6b66187f361d60703db553f36d4dc4f7">More...</a><br /></td></tr>
 <tr class="separator:a6b66187f361d60703db553f36d4dc4f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59c8035b8dbad32cf6ea24004a2d48f0"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a59c8035b8dbad32cf6ea24004a2d48f0">visit</a> (const <a class="el" href="class_reaction.html">Reaction</a> &amp;x)</td></tr>
-<tr class="memdesc:a59c8035b8dbad32cf6ea24004a2d48f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_reaction.html" title="\ @ @ . .">Reaction</a> objects.  <a href="class_s_b_m_l_visitor.html#a59c8035b8dbad32cf6ea24004a2d48f0">More...</a><br /></td></tr>
+<tr class="memdesc:a59c8035b8dbad32cf6ea24004a2d48f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_reaction.html">Reaction</a> objects.  <a href="class_s_b_m_l_visitor.html#a59c8035b8dbad32cf6ea24004a2d48f0">More...</a><br /></td></tr>
 <tr class="separator:a59c8035b8dbad32cf6ea24004a2d48f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9b123030145b08fb53563c53e07753b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#aa9b123030145b08fb53563c53e07753b">visit</a> (const <a class="el" href="class_rule.html">Rule</a> &amp;x)</td></tr>
-<tr class="memdesc:aa9b123030145b08fb53563c53e07753b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_rule.html" title="\ @ @ . &lt;&gt;&lt;/&gt; .">Rule</a> objects.  <a href="class_s_b_m_l_visitor.html#aa9b123030145b08fb53563c53e07753b">More...</a><br /></td></tr>
+<tr class="memdesc:aa9b123030145b08fb53563c53e07753b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_rule.html">Rule</a> objects.  <a href="class_s_b_m_l_visitor.html#aa9b123030145b08fb53563c53e07753b">More...</a><br /></td></tr>
 <tr class="separator:aa9b123030145b08fb53563c53e07753b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ac3fc05bce2101ce981a99f65ac91e2"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a0ac3fc05bce2101ce981a99f65ac91e2">visit</a> (const <a class="el" href="class_s_base.html">SBase</a> &amp;x)</td></tr>
-<tr class="memdesc:a0ac3fc05bce2101ce981a99f65ac91e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> objects.  <a href="class_s_b_m_l_visitor.html#a0ac3fc05bce2101ce981a99f65ac91e2">More...</a><br /></td></tr>
+<tr class="memdesc:a0ac3fc05bce2101ce981a99f65ac91e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_s_base.html">SBase</a> objects.  <a href="class_s_b_m_l_visitor.html#a0ac3fc05bce2101ce981a99f65ac91e2">More...</a><br /></td></tr>
 <tr class="separator:a0ac3fc05bce2101ce981a99f65ac91e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32252c03ee3ffbeb352ade3338cdf44e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a32252c03ee3ffbeb352ade3338cdf44e">visit</a> (const <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> &amp;x)</td></tr>
-<tr class="memdesc:a32252c03ee3ffbeb352ade3338cdf44e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> objects.  <a href="class_s_b_m_l_visitor.html#a32252c03ee3ffbeb352ade3338cdf44e">More...</a><br /></td></tr>
+<tr class="memdesc:a32252c03ee3ffbeb352ade3338cdf44e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> objects.  <a href="class_s_b_m_l_visitor.html#a32252c03ee3ffbeb352ade3338cdf44e">More...</a><br /></td></tr>
 <tr class="separator:a32252c03ee3ffbeb352ade3338cdf44e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c897c84208b266c39518eaf5b218312"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a9c897c84208b266c39518eaf5b218312">visit</a> (const <a class="el" href="class_simple_species_reference.html">SimpleSpeciesReference</a> &amp;x)</td></tr>
-<tr class="memdesc:a9c897c84208b266c39518eaf5b218312"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_simple_species_reference.html" title="\ @ @ . .">SimpleSpeciesReference</a> objects.  <a href="class_s_b_m_l_visitor.html#a9c897c84208b266c39518eaf5b218312">More...</a><br /></td></tr>
+<tr class="memdesc:a9c897c84208b266c39518eaf5b218312"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_simple_species_reference.html">SimpleSpeciesReference</a> objects.  <a href="class_s_b_m_l_visitor.html#a9c897c84208b266c39518eaf5b218312">More...</a><br /></td></tr>
 <tr class="separator:a9c897c84208b266c39518eaf5b218312"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66c8ee88119d351d87d75a6d72da79a0"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a66c8ee88119d351d87d75a6d72da79a0">visit</a> (const <a class="el" href="class_species.html">Species</a> &amp;x)</td></tr>
-<tr class="memdesc:a66c8ee88119d351d87d75a6d72da79a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_species.html" title="\ @ @ . &lt;&gt;&lt;/&gt; &; .">Species</a> objects.  <a href="class_s_b_m_l_visitor.html#a66c8ee88119d351d87d75a6d72da79a0">More...</a><br /></td></tr>
+<tr class="memdesc:a66c8ee88119d351d87d75a6d72da79a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_species.html">Species</a> objects.  <a href="class_s_b_m_l_visitor.html#a66c8ee88119d351d87d75a6d72da79a0">More...</a><br /></td></tr>
 <tr class="separator:a66c8ee88119d351d87d75a6d72da79a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75a9fdc04ae2c8b0066406729fd117b2"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a75a9fdc04ae2c8b0066406729fd117b2">visit</a> (const <a class="el" href="class_species_reference.html">SpeciesReference</a> &amp;x)</td></tr>
-<tr class="memdesc:a75a9fdc04ae2c8b0066406729fd117b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_species_reference.html" title="\ @ @ . .">SpeciesReference</a> objects.  <a href="class_s_b_m_l_visitor.html#a75a9fdc04ae2c8b0066406729fd117b2">More...</a><br /></td></tr>
+<tr class="memdesc:a75a9fdc04ae2c8b0066406729fd117b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_species_reference.html">SpeciesReference</a> objects.  <a href="class_s_b_m_l_visitor.html#a75a9fdc04ae2c8b0066406729fd117b2">More...</a><br /></td></tr>
 <tr class="separator:a75a9fdc04ae2c8b0066406729fd117b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb5b3ab64797a7039af398655e264388"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#abb5b3ab64797a7039af398655e264388">visit</a> (const <a class="el" href="class_species_type.html">SpeciesType</a> &amp;x)</td></tr>
-<tr class="memdesc:abb5b3ab64797a7039af398655e264388"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_species_type.html" title="\ @ @ . &lt;&gt; &lt;/&gt; 2.">SpeciesType</a> objects.  <a href="class_s_b_m_l_visitor.html#abb5b3ab64797a7039af398655e264388">More...</a><br /></td></tr>
+<tr class="memdesc:abb5b3ab64797a7039af398655e264388"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_species_type.html">SpeciesType</a> objects.  <a href="class_s_b_m_l_visitor.html#abb5b3ab64797a7039af398655e264388">More...</a><br /></td></tr>
 <tr class="separator:abb5b3ab64797a7039af398655e264388"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa93b6e4d5052a0d2c447657c0b6708ce"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#aa93b6e4d5052a0d2c447657c0b6708ce">visit</a> (const <a class="el" href="class_stoichiometry_math.html">StoichiometryMath</a> &amp;x)</td></tr>
-<tr class="memdesc:aa93b6e4d5052a0d2c447657c0b6708ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_stoichiometry_math.html" title="\ @ @ . 2 .">StoichiometryMath</a> objects.  <a href="class_s_b_m_l_visitor.html#aa93b6e4d5052a0d2c447657c0b6708ce">More...</a><br /></td></tr>
+<tr class="memdesc:aa93b6e4d5052a0d2c447657c0b6708ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_stoichiometry_math.html">StoichiometryMath</a> objects.  <a href="class_s_b_m_l_visitor.html#aa93b6e4d5052a0d2c447657c0b6708ce">More...</a><br /></td></tr>
 <tr class="separator:aa93b6e4d5052a0d2c447657c0b6708ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42a0860c60a10e008f88ea18fbe19a22"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a42a0860c60a10e008f88ea18fbe19a22">visit</a> (const <a class="el" href="class_trigger.html">Trigger</a> &amp;x)</td></tr>
-<tr class="memdesc:a42a0860c60a10e008f88ea18fbe19a22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_trigger.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">Trigger</a> objects.  <a href="class_s_b_m_l_visitor.html#a42a0860c60a10e008f88ea18fbe19a22">More...</a><br /></td></tr>
+<tr class="memdesc:a42a0860c60a10e008f88ea18fbe19a22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_trigger.html">Trigger</a> objects.  <a href="class_s_b_m_l_visitor.html#a42a0860c60a10e008f88ea18fbe19a22">More...</a><br /></td></tr>
 <tr class="separator:a42a0860c60a10e008f88ea18fbe19a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71e142eb03ea1344f1dd9f6506e397a6"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#a71e142eb03ea1344f1dd9f6506e397a6">visit</a> (const <a class="el" href="class_unit.html">Unit</a> &amp;x)</td></tr>
-<tr class="memdesc:a71e142eb03ea1344f1dd9f6506e397a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_unit.html" title="\ @ @ . &lt;&gt; &lt;/&gt;.">Unit</a> objects.  <a href="class_s_b_m_l_visitor.html#a71e142eb03ea1344f1dd9f6506e397a6">More...</a><br /></td></tr>
+<tr class="memdesc:a71e142eb03ea1344f1dd9f6506e397a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_unit.html">Unit</a> objects.  <a href="class_s_b_m_l_visitor.html#a71e142eb03ea1344f1dd9f6506e397a6">More...</a><br /></td></tr>
 <tr class="separator:a71e142eb03ea1344f1dd9f6506e397a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af871223de145b619671f0c5916182dd7"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#af871223de145b619671f0c5916182dd7">visit</a> (const <a class="el" href="class_unit_definition.html">UnitDefinition</a> &amp;x)</td></tr>
-<tr class="memdesc:af871223de145b619671f0c5916182dd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_unit_definition.html" title="\ @ @ . .">UnitDefinition</a> objects.  <a href="class_s_b_m_l_visitor.html#af871223de145b619671f0c5916182dd7">More...</a><br /></td></tr>
+<tr class="memdesc:af871223de145b619671f0c5916182dd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_unit_definition.html">UnitDefinition</a> objects.  <a href="class_s_b_m_l_visitor.html#af871223de145b619671f0c5916182dd7">More...</a><br /></td></tr>
 <tr class="separator:af871223de145b619671f0c5916182dd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf0e91d455adbc6c0a20cf94b5b5a28a"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_visitor.html#aaf0e91d455adbc6c0a20cf94b5b5a28a">~SBMLVisitor</a> ()</td></tr>
 <tr class="memdesc:aaf0e91d455adbc6c0a20cf94b5b5a28a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor method.  <a href="class_s_b_m_l_visitor.html#aaf0e91d455adbc6c0a20cf94b5b5a28a">More...</a><br /></td></tr>
@@ -276,10 +275,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_kinetic_law.html" title="\ @ @ . .">KineticLaw</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_kinetic_law.html">KineticLaw</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_kinetic_law.html" title="\ @ @ . .">KineticLaw</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_kinetic_law.html">KineticLaw</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -320,10 +319,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_list_of.html">ListOf</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a> object to visit.</td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_list_of.html">ListOf</a> object to visit.</td></tr>
     <tr><td class="paramname">type</td><td>the object type code. </td></tr>
   </table>
   </dd>
@@ -355,10 +354,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_model.html">Model</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_model.html">Model</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -389,10 +388,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_priority.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">Priority</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_priority.html">Priority</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_priority.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">Priority</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_priority.html">Priority</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -423,10 +422,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_reaction.html" title="\ @ @ . .">Reaction</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_reaction.html">Reaction</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_reaction.html" title="\ @ @ . .">Reaction</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_reaction.html">Reaction</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -457,10 +456,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_reaction.html" title="\ @ @ . .">Reaction</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_reaction.html">Reaction</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_reaction.html" title="\ @ @ . .">Reaction</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_reaction.html">Reaction</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -491,10 +490,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -525,10 +524,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_algebraic_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt;0 = (&lt;&gt;&lt;/&gt;)&lt;/&gt;.">AlgebraicRule</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_algebraic_rule.html">AlgebraicRule</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_algebraic_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt;0 = (&lt;&gt;&lt;/&gt;)&lt;/&gt;.">AlgebraicRule</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_algebraic_rule.html">AlgebraicRule</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -559,10 +558,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_assignment_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt; = (&lt;&gt;&lt;/&gt;)&lt;/&gt;.">AssignmentRule</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_assignment_rule.html">AssignmentRule</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_assignment_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt; = (&lt;&gt;&lt;/&gt;)&lt;/&gt;.">AssignmentRule</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_assignment_rule.html">AssignmentRule</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -593,10 +592,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_compartment.html" title="\ @ @ . , .">Compartment</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_compartment.html">Compartment</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_compartment.html" title="\ @ @ . , .">Compartment</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_compartment.html">Compartment</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -627,10 +626,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_compartment_type.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &;2.">CompartmentType</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_compartment_type.html">CompartmentType</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_compartment_type.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &;2.">CompartmentType</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_compartment_type.html">CompartmentType</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -661,10 +660,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_constraint.html" title="\ @ @ . &lt;&gt;&lt;/&gt;, .">Constraint</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_constraint.html">Constraint</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_constraint.html" title="\ @ @ . &lt;&gt;&lt;/&gt;, .">Constraint</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_constraint.html">Constraint</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -695,10 +694,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_delay.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">Delay</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_delay.html">Delay</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_delay.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">Delay</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_delay.html">Delay</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -729,10 +728,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_event.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">Event</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_event.html">Event</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_event.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">Event</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_event.html">Event</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -763,10 +762,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_event_assignment.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">EventAssignment</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_event_assignment.html">EventAssignment</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_event_assignment.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">EventAssignment</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_event_assignment.html">EventAssignment</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -797,10 +796,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_function_definition.html" title="\ @ @ . .">FunctionDefinition</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_function_definition.html">FunctionDefinition</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_function_definition.html" title="\ @ @ . .">FunctionDefinition</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_function_definition.html">FunctionDefinition</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -831,10 +830,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_initial_assignment.html" title="\ @ @ . &lt;&gt; &lt;/&gt;, .">InitialAssignment</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_initial_assignment.html">InitialAssignment</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_initial_assignment.html" title="\ @ @ . &lt;&gt; &lt;/&gt;, .">InitialAssignment</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_initial_assignment.html">InitialAssignment</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -865,10 +864,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_kinetic_law.html" title="\ @ @ . .">KineticLaw</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_kinetic_law.html">KineticLaw</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_kinetic_law.html" title="\ @ @ . .">KineticLaw</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_kinetic_law.html">KineticLaw</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -909,10 +908,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_list_of.html">ListOf</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a> object to visit.</td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_list_of.html">ListOf</a> object to visit.</td></tr>
     <tr><td class="paramname">type</td><td>the object type code. </td></tr>
   </table>
   </dd>
@@ -944,10 +943,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_model.html">Model</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_model.html">Model</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -978,10 +977,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_modifier_species_reference.html" title="\ @ @ . &lt;&gt; &lt;/&gt;.">ModifierSpeciesReference</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_modifier_species_reference.html">ModifierSpeciesReference</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_modifier_species_reference.html" title="\ @ @ . &lt;&gt; &lt;/&gt;.">ModifierSpeciesReference</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_modifier_species_reference.html">ModifierSpeciesReference</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1012,10 +1011,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_parameter.html" title="\ @ @ . : .">Parameter</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_parameter.html">Parameter</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_parameter.html" title="\ @ @ . : .">Parameter</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_parameter.html">Parameter</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1046,10 +1045,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_priority.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">Priority</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_priority.html">Priority</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_priority.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">Priority</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_priority.html">Priority</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1080,10 +1079,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_rate_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt;/ = (&lt;&gt;&lt;/&gt;)&lt;/&gt;.">RateRule</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_rate_rule.html">RateRule</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_rate_rule.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &lt;&gt;/ = (&lt;&gt;&lt;/&gt;)&lt;/&gt;.">RateRule</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_rate_rule.html">RateRule</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1114,10 +1113,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_reaction.html" title="\ @ @ . .">Reaction</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_reaction.html">Reaction</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_reaction.html" title="\ @ @ . .">Reaction</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_reaction.html">Reaction</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1148,10 +1147,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_rule.html" title="\ @ @ . &lt;&gt;&lt;/&gt; .">Rule</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_rule.html">Rule</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_rule.html" title="\ @ @ . &lt;&gt;&lt;/&gt; .">Rule</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_rule.html">Rule</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1182,10 +1181,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_s_base.html">SBase</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_s_base.html">SBase</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1216,10 +1215,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1250,10 +1249,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_simple_species_reference.html" title="\ @ @ . .">SimpleSpeciesReference</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_simple_species_reference.html">SimpleSpeciesReference</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_simple_species_reference.html" title="\ @ @ . .">SimpleSpeciesReference</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_simple_species_reference.html">SimpleSpeciesReference</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1284,10 +1283,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_species.html" title="\ @ @ . &lt;&gt;&lt;/&gt; &; .">Species</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_species.html">Species</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_species.html" title="\ @ @ . &lt;&gt;&lt;/&gt; &; .">Species</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_species.html">Species</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1318,10 +1317,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_species_reference.html" title="\ @ @ . .">SpeciesReference</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_species_reference.html">SpeciesReference</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_species_reference.html" title="\ @ @ . .">SpeciesReference</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_species_reference.html">SpeciesReference</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1352,10 +1351,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_species_type.html" title="\ @ @ . &lt;&gt; &lt;/&gt; 2.">SpeciesType</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_species_type.html">SpeciesType</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_species_type.html" title="\ @ @ . &lt;&gt; &lt;/&gt; 2.">SpeciesType</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_species_type.html">SpeciesType</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1386,10 +1385,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_stoichiometry_math.html" title="\ @ @ . 2 .">StoichiometryMath</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_stoichiometry_math.html">StoichiometryMath</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_stoichiometry_math.html" title="\ @ @ . 2 .">StoichiometryMath</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_stoichiometry_math.html">StoichiometryMath</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1420,10 +1419,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_trigger.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">Trigger</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_trigger.html">Trigger</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_trigger.html" title="\ @ @ . &lt;&gt;&lt;/&gt;.">Trigger</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_trigger.html">Trigger</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1454,10 +1453,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_unit.html" title="\ @ @ . &lt;&gt; &lt;/&gt;.">Unit</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_unit.html">Unit</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_unit.html" title="\ @ @ . &lt;&gt; &lt;/&gt;.">Unit</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_unit.html">Unit</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1488,10 +1487,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_unit_definition.html" title="\ @ @ . .">UnitDefinition</a> objects. </p>
+<p>Interface method for using the <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)" target="_blank"><em>Visitor Pattern</em></a> to perform operations on <a class="el" href="class_unit_definition.html">UnitDefinition</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the <a class="el" href="class_unit_definition.html" title="\ @ @ . .">UnitDefinition</a> object to visit. </td></tr>
+    <tr><td class="paramname">x</td><td>the <a class="el" href="class_unit_definition.html">UnitDefinition</a> object to visit. </td></tr>
   </table>
   </dd>
 </dl>

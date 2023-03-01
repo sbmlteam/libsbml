@@ -120,8 +120,8 @@ Macros</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Defines the validator constraint "language". </p>
 <dl class="section author"><dt>Author</dt><dd>Ben Bornstein</dd></dl>
-<p>This file provides C/C++ macros that make it possible to easily define validation rules for SBML. These are called "validation constraints" in SBML (not to be confused with the <a class="el" href="class_constraint.html" title="\ @ @ . &lt;&gt;&lt;/&gt;, .">Constraint</a> object in SBML). The validator works by applying such constraints to a <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> object in memory. A constraint can have preconditions, invariants, and log failures. Failures are retrievable as <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> objects in the <a class="el" href="class_s_b_m_l_error_log.html" title="\ @ @ . .">SBMLErrorLog</a> attached to the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> containing the model.</p>
-<p>Users can define their own additional validation constraints using the facilities in this file and the <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a> class. Please consult the code from existing validation constraints for examples about how to use this. </p>
+<p>This file provides C/C++ macros that make it possible to easily define validation rules for SBML. These are called "validation constraints" in SBML (not to be confused with the <a class="el" href="class_constraint.html">Constraint</a> object in SBML). The validator works by applying such constraints to a <a class="el" href="class_model.html">Model</a> object in memory. A constraint can have preconditions, invariants, and log failures. Failures are retrievable as <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> objects in the <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a> attached to the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> containing the model.</p>
+<p>Users can define their own additional validation constraints using the facilities in this file and the <a class="el" href="class_validator.html">Validator</a> class. Please consult the code from existing validation constraints for examples about how to use this. </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a52d9072529a1b19becd210fd064796a8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a52d9072529a1b19becd210fd064796a8">&#9670;&nbsp;</a></span>END_CONSTRAINT</h2>
@@ -276,9 +276,9 @@ Macros</h2></td></tr>
 <div class="line">    TConstraint&lt;Typename&gt;(Id, V) { }                              \</div>
 <div class="line">protected:                                                        \</div>
 <div class="line">  void check_ (<span class="keyword">const</span> <a class="code" href="class_model.html">Model</a>&amp; m, <span class="keyword">const</span> Typename&amp; Varname)</div>
-<div class="ttc" id="aclass_model_html"><div class="ttname"><a href="class_model.html">Model</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> Model.h:485</div></div>
-<div class="ttc" id="aclass_v_constraint_html"><div class="ttname"><a href="class_v_constraint.html">VConstraint</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> VConstraint.h:68</div></div>
-<div class="ttc" id="aclass_validator_html"><div class="ttname"><a href="class_validator.html">Validator</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> Validator.h:91</div></div>
+<div class="ttc" id="aclass_model_html"><div class="ttname"><a href="class_model.html">Model</a></div><div class="ttdef"><b>Definition:</b> Model.h:485</div></div>
+<div class="ttc" id="aclass_v_constraint_html"><div class="ttname"><a href="class_v_constraint.html">VConstraint</a></div><div class="ttdef"><b>Definition:</b> VConstraint.h:68</div></div>
+<div class="ttc" id="aclass_validator_html"><div class="ttname"><a href="class_validator.html">Validator</a></div><div class="ttdef"><b>Definition:</b> Validator.h:91</div></div>
 </div><!-- fragment -->
 </div>
 </div>

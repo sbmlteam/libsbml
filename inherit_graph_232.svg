@@ -51,7 +51,7 @@
 <!-- Node0 -->
 <g id="node4" class="node">
 <title>Node0</title>
-<g id="a_node4"><a xlink:href="class_s_b_m_l_constructor_exception.html" target="_top" xlink:title="\ @ @ . .">
+<g id="a_node4"><a xlink:href="class_s_b_m_l_constructor_exception.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="406,-76.5 406,-95.5 554,-95.5 554,-76.5 406,-76.5"/>
 <text text-anchor="middle" x="480" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLConstructorException</text>
 </a>
@@ -66,7 +66,7 @@
 <!-- Node220 -->
 <g id="node5" class="node">
 <title>Node220</title>
-<g id="a_node5"><a xlink:href="class_s_b_m_l_extension_exception.html" target="_top" xlink:title="\ @ @ .">
+<g id="a_node5"><a xlink:href="class_s_b_m_l_extension_exception.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="410,-38.5 410,-57.5 550,-57.5 550,-38.5 410,-38.5"/>
 <text text-anchor="middle" x="480" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLExtensionException</text>
 </a>
@@ -81,7 +81,7 @@
 <!-- Node221 -->
 <g id="node6" class="node">
 <title>Node221</title>
-<g id="a_node6"><a xlink:href="class_x_m_l_constructor_exception.html" target="_top" xlink:title="\ @ @ . .">
+<g id="a_node6"><a xlink:href="class_x_m_l_constructor_exception.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="409,-0.5 409,-19.5 551,-19.5 551,-0.5 409,-0.5"/>
 <text text-anchor="middle" x="480" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">XMLConstructorException</text>
 </a>

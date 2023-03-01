@@ -115,7 +115,6 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . 3 .  <a href="class_l3_parser_settings.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -492,10 +491,12 @@ L3ParserSettings::setParseDistribFunctions() </dd></dl>
 </div><div class="memdoc">
 
 <p>Configuration values for handling the <code>log</code> function in mathematical formulas. </p>
-<p>The <a class="el" href="class_l3_parser_settings.html" title="\ @ @ . 3 .">L3ParserSettings</a> object can be used to modify the behavior of the SBML Level&#160;3-oriented formula parser. One of the behaviors that can be modified is how it should translate the function <code>log(x)</code>. It has three different behavior modes, each settable using values from this enumeration.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_l3_parser_settings.html" title="\ @ @ . 3 .">L3ParserSettings</a> </dd>
+<p>The <a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> object can be used to modify the behavior of the SBML Level&#160;3-oriented formula parser. One of the behaviors that can be modified is how it should translate the function <code>log(x)</code>. It has three different behavior modes, each settable using values from this enumeration.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> </dd>
 <dd>
-<a class="el" href="_l3_parser_8cpp.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a> </dd></dl>
+<a class="el" href="_l3_parser_8cpp.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a> </dd>
+<dd>
+<a class="el" href="_l3_formula_formatter_8h.html#af840d48b31961fd33c8f00a7740e49f0" title="Converts an AST to a text string representation of a formula, using specific formatter settings.">SBML_formulaToL3StringWithSettings()</a> </dd></dl>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="acf728ef62e401f9fde68a8fd94950d30ac579668f1dc11f6de2fa3f50dffeffdc"></a>L3P_PARSE_LOG_AS_LOG10&#160;</td><td class="fielddoc"><p>Parse <code>log(x)</code> as the base-10 logarithm of <code>x</code>. </p>
 </td></tr>

@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('_fbc_extension_8h.html',''); initResiz
 </div><!--header-->
 <div class="contents">
 
-<p>Definition of <a class="el" href="class_fbc_extension.html" title="\ @ @ . &;&; .">FbcExtension</a>, the core module of fbc package.  
+<p>Definition of <a class="el" href="class_fbc_extension.html">FbcExtension</a>, the core module of fbc package.  
 <a href="#details">More...</a></p>
 <div class="textblock"><div class="dynheader">
 Include dependency graph for FbcExtension.h:</div>
@@ -117,7 +117,6 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_extension.html">FbcExtension</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . &amp;;&amp;; .  <a href="class_fbc_extension.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -193,7 +192,7 @@ Functions</h2></td></tr>
 <tr class="separator:a4af7482283816f3010f3bfe0ca3c9c0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Definition of <a class="el" href="class_fbc_extension.html" title="\ @ @ . &;&; .">FbcExtension</a>, the core module of fbc package. </p>
+<div class="textblock"><p>Definition of <a class="el" href="class_fbc_extension.html">FbcExtension</a>, the core module of fbc package. </p>
 <dl class="section author"><dt>Author</dt><dd>Frank T. Bergmann </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="aabcaa95d64bf8928c1377acd3904048c"></a>
@@ -314,7 +313,7 @@ Fbc::setFbcvariabletype() </dd></dl>
 </div><div class="memdoc">
 
 <p>SBMLFbcTypeCode_t Enumeration of possible types in the libSBML &ldquo;fbc&rdquo; package implementation. </p>
-<dl class="section user"><dt></dt><dd>LibSBML attaches an identifying code to every kind of SBML object. These are integer constants known as <em>SBML type codes</em>. The names of all the codes begin with the characters <code>SBML_</code>. The set of possible type codes for core elements is defined in the enumeration <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfe" title="The enumeration of possible SBML core object types.">SBMLTypeCode_t</a>, and in addition, libSBML plug-ins for SBML Level&#160;3 packages define their own extra enumerations of type codes (e.g., <a class="el" href="_layout_extension_8h.html#a6b80c825e1507341de5540b8e7de003d" title="SBMLFbcTypeCode_t Enumeration of possible types in the libSBML “layout” package implementation.">SBMLLayoutTypeCode_t</a> for the Level&#160;3 <a class="el" href="class_layout.html" title="\ @ @ . .">Layout</a> package). Note that different Level&#160;3 package plug-ins may use overlapping type codes; to identify the package to which a given object belongs, call the <code><a class="el" href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02" title="Returns the name of the SBML Level&#160;3 package in which this element is defined.">SBase::getPackageName()</a> </code> method on the object.</dd></dl>
+<dl class="section user"><dt></dt><dd>LibSBML attaches an identifying code to every kind of SBML object. These are integer constants known as <em>SBML type codes</em>. The names of all the codes begin with the characters <code>SBML_</code>. The set of possible type codes for core elements is defined in the enumeration <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfe" title="The enumeration of possible SBML core object types.">SBMLTypeCode_t</a>, and in addition, libSBML plug-ins for SBML Level&#160;3 packages define their own extra enumerations of type codes (e.g., <a class="el" href="_layout_extension_8h.html#a6b80c825e1507341de5540b8e7de003d" title="SBMLFbcTypeCode_t Enumeration of possible types in the libSBML “layout” package implementation.">SBMLLayoutTypeCode_t</a> for the Level&#160;3 <a class="el" href="class_layout.html">Layout</a> package). Note that different Level&#160;3 package plug-ins may use overlapping type codes; to identify the package to which a given object belongs, call the <code><a class="el" href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02" title="Returns the name of the SBML Level&#160;3 package in which this element is defined.">SBase::getPackageName()</a> </code> method on the object.</dd></dl>
 <p>The exception to this is lists: all SBML-style list elements have the type <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfeaa111b52def73380487c84f062f47dadc">SBML_LIST_OF</a>, regardless of what package they are from.</p>
 <dl class="section user"><dt></dt><dd>Here follow some additional general information about libSBML type codes:</dd></dl>
 <ul>
@@ -327,7 +326,7 @@ Fbc::setFbcvariabletype() </dd></dl>
 (Compatibility note: in libSBML 5, the type of return values of these functions changed from an enumeration to an integer for extensibility in the face of different programming languages.)</li>
 </ul>
 <ul>
-<li>Each package extension must define similar sets of values for each <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> subclass (e.g. <code>SBMLLayoutTypeCode_t</code> for the SBML Level&#160;3 Layout extension, <code>SBMLFbcTypeCode_t</code> for the SBML Level&#160;3 Flux Balance Constraints extension, etc.).</li>
+<li>Each package extension must define similar sets of values for each <a class="el" href="class_s_base.html">SBase</a> subclass (e.g. <code>SBMLLayoutTypeCode_t</code> for the SBML Level&#160;3 Layout extension, <code>SBMLFbcTypeCode_t</code> for the SBML Level&#160;3 Flux Balance Constraints extension, etc.).</li>
 </ul>
 <ul>
 <li>The value of each package-specific type code can be duplicated between those of different packages. (This is necessary because the development of libSBML extensions for different SBML packages may be undertaken by different developers at different times; requiring the developers to coordinate their use of type codes would be nettlesome and probably doomed to failure.)</li>
@@ -366,37 +365,37 @@ Fbc::setFbcvariabletype() </dd></dl>
 <div class="ttc" id="a_layout_extension_8h_html_a6b80c825e1507341de5540b8e7de003da7309d406d0253eeab3ef4d606d853ff3"><div class="ttname"><a href="_layout_extension_8h.html#a6b80c825e1507341de5540b8e7de003da7309d406d0253eeab3ef4d606d853ff3">SBML_LAYOUT_LAYOUT</a></div><div class="ttdeci">@ SBML_LAYOUT_LAYOUT</div><div class="ttdef"><b>Definition:</b> LayoutExtension.h:443</div></div>
 <div class="ttc" id="a_s_b_m_l_type_codes_8h_html_aa283dddfd7671179362b2f38e2938cfea3c866be107d7858b6dd1e978ed103028"><div class="ttname"><a href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfea3c866be107d7858b6dd1e978ed103028">SBML_MODEL</a></div><div class="ttdeci">@ SBML_MODEL</div><div class="ttdef"><b>Definition:</b> SBMLTypeCodes.h:75</div></div>
 <div class="ttc" id="a_s_b_m_l_type_codes_8h_html_aa283dddfd7671179362b2f38e2938cfea54de874fd61e13450bdf024d41a336c9"><div class="ttname"><a href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfea54de874fd61e13450bdf024d41a336c9">SBML_REACTION</a></div><div class="ttdeci">@ SBML_REACTION</div><div class="ttdef"><b>Definition:</b> SBMLTypeCodes.h:77</div></div>
-<div class="ttc" id="aclass_s_base_html"><div class="ttname"><a href="class_s_base.html">SBase</a></div><div class="ttdoc">\ @ @ . ' &lt;&gt;%&lt;/&gt; , .</div><div class="ttdef"><b>Definition:</b> SBase.h:191</div></div>
+<div class="ttc" id="aclass_s_base_html"><div class="ttname"><a href="class_s_base.html">SBase</a></div><div class="ttdef"><b>Definition:</b> SBase.h:191</div></div>
 <div class="ttc" id="aclass_s_base_html_a031d1da6a39bae8afd5201677fb32c02"><div class="ttname"><a href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02">SBase::getPackageName</a></div><div class="ttdeci">const std::string &amp; getPackageName() const</div><div class="ttdoc">Returns the name of the SBML Level&amp;#160;3 package in which this element is defined.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:3291</div></div>
 <div class="ttc" id="aclass_s_base_html_a4109c299320c6c59251fc84d6eeaec69"><div class="ttname"><a href="class_s_base.html#a4109c299320c6c59251fc84d6eeaec69">SBase::getTypeCode</a></div><div class="ttdeci">virtual int getTypeCode() const</div><div class="ttdoc">Returns the libSBML type code for this object.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:3315</div></div>
 </div><!-- fragment --> <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefabd9dad24f87cccdaa41844ca7de8ff8b"></a>SBML_FBC_V1ASSOCIATION&#160;</td><td class="fielddoc"><p><a class="el" href="class_association.html" title="\ @ @ . &;&; &;1.">Association</a> (only used in Version&#160;1; replaced in Version&#160;2 with <a class="el" href="class_fbc_association.html" title="\ @ @ . , ,">FbcAssociation</a>) </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefabd9dad24f87cccdaa41844ca7de8ff8b"></a>SBML_FBC_V1ASSOCIATION&#160;</td><td class="fielddoc"><p><a class="el" href="class_association.html">Association</a> (only used in Version&#160;1; replaced in Version&#160;2 with <a class="el" href="class_fbc_association.html">FbcAssociation</a>) </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefae36a2ca6dfe950dca0ce5d05a5800045"></a>SBML_FBC_FLUXBOUND&#160;</td><td class="fielddoc"><p><a class="el" href="class_flux_bound.html" title="\ @ @ . .">FluxBound</a> </p>
+<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefae36a2ca6dfe950dca0ce5d05a5800045"></a>SBML_FBC_FLUXBOUND&#160;</td><td class="fielddoc"><p><a class="el" href="class_flux_bound.html">FluxBound</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefaebca34bb2cf5a436a7eb021c08e2f79a"></a>SBML_FBC_FLUXOBJECTIVE&#160;</td><td class="fielddoc"><p><a class="el" href="class_flux_objective.html" title="\ @ @ . .">FluxObjective</a> </p>
+<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefaebca34bb2cf5a436a7eb021c08e2f79a"></a>SBML_FBC_FLUXOBJECTIVE&#160;</td><td class="fielddoc"><p><a class="el" href="class_flux_objective.html">FluxObjective</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefaf71a6d5d87e9b9027f507ef261480525"></a>SBML_FBC_GENEASSOCIATION&#160;</td><td class="fielddoc"><p><a class="el" href="class_gene_association.html" title="\ @ @ . &;&; &;1.">GeneAssociation</a> (only used in Version&#160;1; replaced in Version&#160;2 with <a class="el" href="class_gene_product_association.html" title="\ @ @ .">GeneProductAssociation</a>) </p>
+<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefaf71a6d5d87e9b9027f507ef261480525"></a>SBML_FBC_GENEASSOCIATION&#160;</td><td class="fielddoc"><p><a class="el" href="class_gene_association.html">GeneAssociation</a> (only used in Version&#160;1; replaced in Version&#160;2 with <a class="el" href="class_gene_product_association.html">GeneProductAssociation</a>) </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefa301c38b2820341e37c8363ad43741430"></a>SBML_FBC_OBJECTIVE&#160;</td><td class="fielddoc"><p><a class="el" href="class_objective.html" title="\ @ @ . .">Objective</a> </p>
+<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefa301c38b2820341e37c8363ad43741430"></a>SBML_FBC_OBJECTIVE&#160;</td><td class="fielddoc"><p><a class="el" href="class_objective.html">Objective</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefa8c2e28be5cb810fce6850efd9d25baf6"></a>SBML_FBC_ASSOCIATION&#160;</td><td class="fielddoc"><p><a class="el" href="class_fbc_association.html" title="\ @ @ . , ,">FbcAssociation</a> </p>
+<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefa8c2e28be5cb810fce6850efd9d25baf6"></a>SBML_FBC_ASSOCIATION&#160;</td><td class="fielddoc"><p><a class="el" href="class_fbc_association.html">FbcAssociation</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefacd9af81b6c69dcbdf981fc5eba02bf69"></a>SBML_FBC_GENEPRODUCTASSOCIATION&#160;</td><td class="fielddoc"><p><a class="el" href="class_gene_product_association.html" title="\ @ @ .">GeneProductAssociation</a> </p>
+<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefacd9af81b6c69dcbdf981fc5eba02bf69"></a>SBML_FBC_GENEPRODUCTASSOCIATION&#160;</td><td class="fielddoc"><p><a class="el" href="class_gene_product_association.html">GeneProductAssociation</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefa8d1f177a30a62644858668ec75d0d7c6"></a>SBML_FBC_GENEPRODUCT&#160;</td><td class="fielddoc"><p><a class="el" href="class_gene_product.html" title="\ @ @ .">GeneProduct</a> </p>
+<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefa8d1f177a30a62644858668ec75d0d7c6"></a>SBML_FBC_GENEPRODUCT&#160;</td><td class="fielddoc"><p><a class="el" href="class_gene_product.html">GeneProduct</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefa19ffa38c16d8d212e93eecf6e6707e5b"></a>SBML_FBC_GENEPRODUCTREF&#160;</td><td class="fielddoc"><p><a class="el" href="class_gene_product_ref.html" title="\ @ @ .">GeneProductRef</a> </p>
+<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefa19ffa38c16d8d212e93eecf6e6707e5b"></a>SBML_FBC_GENEPRODUCTREF&#160;</td><td class="fielddoc"><p><a class="el" href="class_gene_product_ref.html">GeneProductRef</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefacdae2e9c14b471b50220c08326bcd2ba"></a>SBML_FBC_AND&#160;</td><td class="fielddoc"><p><a class="el" href="class_fbc_and.html" title="\ @ @ . &;&;">FbcAnd</a> </p>
+<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefacdae2e9c14b471b50220c08326bcd2ba"></a>SBML_FBC_AND&#160;</td><td class="fielddoc"><p><a class="el" href="class_fbc_and.html">FbcAnd</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefa792c278ffa816df782d5b5028413182a"></a>SBML_FBC_OR&#160;</td><td class="fielddoc"><p><a class="el" href="class_fbc_or.html" title="\ @ @ . &;&;">FbcOr</a> </p>
+<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefa792c278ffa816df782d5b5028413182a"></a>SBML_FBC_OR&#160;</td><td class="fielddoc"><p><a class="el" href="class_fbc_or.html">FbcOr</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefae40f7b3ff05b3feeead0a14a55266b61"></a>SBML_FBC_USERDEFINEDCONSTRAINTCOMPONENT&#160;</td><td class="fielddoc"><p><a class="el" href="class_user_defined_constraint_component.html" title="\ @ @ . : .">UserDefinedConstraintComponent</a> </p>
+<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefae40f7b3ff05b3feeead0a14a55266b61"></a>SBML_FBC_USERDEFINEDCONSTRAINTCOMPONENT&#160;</td><td class="fielddoc"><p><a class="el" href="class_user_defined_constraint_component.html">UserDefinedConstraintComponent</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefa2225178ee4c9633d6d7fbae556070bc8"></a>SBML_FBC_USERDEFINEDCONSTRAINT&#160;</td><td class="fielddoc"><p><a class="el" href="class_user_defined_constraint.html" title="\ @ @ . : .">UserDefinedConstraint</a> </p>
+<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefa2225178ee4c9633d6d7fbae556070bc8"></a>SBML_FBC_USERDEFINEDCONSTRAINT&#160;</td><td class="fielddoc"><p><a class="el" href="class_user_defined_constraint.html">UserDefinedConstraint</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefa4e8387471c34161beffb3c8fc3da5560"></a>SBML_FBC_KEYVALUEPAIR&#160;</td><td class="fielddoc"><p><a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> </p>
+<tr><td class="fieldname"><a id="a8b3ec1f04f5d63005fcd0e2daade9fefa4e8387471c34161beffb3c8fc3da5560"></a>SBML_FBC_KEYVALUEPAIR&#160;</td><td class="fielddoc"><p><a class="el" href="class_key_value_pair.html">KeyValuePair</a> </p>
 </td></tr>
 </table>
 

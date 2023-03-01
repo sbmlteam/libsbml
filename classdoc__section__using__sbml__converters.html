@@ -97,17 +97,17 @@ $(document).ready(function(){initNavTree('classdoc__section__using__sbml__conver
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h1><a class="anchor" id="using-converters"></a>
 General information about the use of SBML converters</h1>
-<p>The use of all the converters follows a similar approach. First, one creates a <a class="el" href="class_conversion_properties.html" title="\ @ @ . .">ConversionProperties</a> object and calls <a class="el" href="class_conversion_properties.html#a18145d00ef9f6d602d66b6037ba97352" title="Adds a copy of the given option to this properties object.">ConversionProperties::addOption()</a> on this object with one argument: a text string that identifies the desired converter. (The text string is specific to each converter; consult the documentation for a given converter to find out how it should be enabled.)</p>
+<p>The use of all the converters follows a similar approach. First, one creates a <a class="el" href="class_conversion_properties.html">ConversionProperties</a> object and calls <a class="el" href="class_conversion_properties.html#a18145d00ef9f6d602d66b6037ba97352" title="Adds a copy of the given option to this properties object.">ConversionProperties::addOption()</a> on this object with one argument: a text string that identifies the desired converter. (The text string is specific to each converter; consult the documentation for a given converter to find out how it should be enabled.)</p>
 <p>Next, for some converters, the caller can optionally set some converter-specific properties using additional calls to <a class="el" href="class_conversion_properties.html#a18145d00ef9f6d602d66b6037ba97352" title="Adds a copy of the given option to this properties object.">ConversionProperties::addOption()</a>. Many converters provide the ability to configure their behavior to some extent; this is realized through the use of properties that offer different options. The default property values for each converter can be interrogated using the method <a class="el" href="class_s_b_m_l_converter.html#a848c06245c49c3e52c0fef08a628b14e" title="Returns the default properties of this converter.">SBMLConverter::getDefaultProperties()</a> on the converter class in question .</p>
-<p>Finally, the caller should invoke the method <a class="el" href="class_s_b_m_l_document.html#a7c244c84dbfd077ac8fa4074f1dc9c64" title="Converts this document using the converter that best matches the given conversion properties.">SBMLDocument::convert()</a> with the <a class="el" href="class_conversion_properties.html" title="\ @ @ . .">ConversionProperties</a> object as an argument.</p>
+<p>Finally, the caller should invoke the method <a class="el" href="class_s_b_m_l_document.html#a7c244c84dbfd077ac8fa4074f1dc9c64" title="Converts this document using the converter that best matches the given conversion properties.">SBMLDocument::convert()</a> with the <a class="el" href="class_conversion_properties.html">ConversionProperties</a> object as an argument.</p>
 <h2><a class="anchor" id="converter-example"></a>
 Example of invoking an SBML converter</h2>
-<p>The following code fragment illustrates an example using <a class="el" href="class_s_b_m_l_reaction_converter.html" title="\ @ @ . &lt;&gt; &lt;/&gt;.">SBMLReactionConverter</a>, which is invoked using the option string <code>"replaceReactions"</code>:</p>
+<p>The following code fragment illustrates an example using <a class="el" href="class_s_b_m_l_reaction_converter.html">SBMLReactionConverter</a>, which is invoked using the option string <code>"replaceReactions"</code>:</p>
 <div class="fragment"><div class="line"><a class="code" href="class_conversion_properties.html">ConversionProperties</a> props;</div>
 <div class="line">props.<a class="code" href="class_conversion_properties.html#a18145d00ef9f6d602d66b6037ba97352">addOption</a>(<span class="stringliteral">&quot;replaceReactions&quot;</span>);</div>
-<div class="ttc" id="aclass_conversion_properties_html"><div class="ttname"><a href="class_conversion_properties.html">ConversionProperties</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> ConversionProperties.h:84</div></div>
+<div class="ttc" id="aclass_conversion_properties_html"><div class="ttname"><a href="class_conversion_properties.html">ConversionProperties</a></div><div class="ttdef"><b>Definition:</b> ConversionProperties.h:84</div></div>
 <div class="ttc" id="aclass_conversion_properties_html_a18145d00ef9f6d602d66b6037ba97352"><div class="ttname"><a href="class_conversion_properties.html#a18145d00ef9f6d602d66b6037ba97352">ConversionProperties::addOption</a></div><div class="ttdeci">virtual void addOption(const ConversionOption &amp;option)</div><div class="ttdoc">Adds a copy of the given option to this properties object.</div><div class="ttdef"><b>Definition:</b> ConversionProperties.cpp:232</div></div>
-</div><!-- fragment --><p>In the case of <a class="el" href="class_s_b_m_l_reaction_converter.html" title="\ @ @ . &lt;&gt; &lt;/&gt;.">SBMLReactionConverter</a>, there are no options to affect its behavior, so the next step is simply to invoke the converter on an <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object. Continuing the example code:</p>
+</div><!-- fragment --><p>In the case of <a class="el" href="class_s_b_m_l_reaction_converter.html">SBMLReactionConverter</a>, there are no options to affect its behavior, so the next step is simply to invoke the converter on an <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. Continuing the example code:</p>
 <div class="fragment"><div class="line"><span class="comment">// Assume that the variable &quot;document&quot; has been set to an SBMLDocument object.</span></div>
 <div class="line"><span class="keywordtype">int</span> status = document-&gt;convert(props);</div>
 <div class="line"><span class="keywordflow">if</span> (status != <a class="code" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a>)</div>
@@ -116,7 +116,7 @@ Example of invoking an SBML converter</h2>
 <div class="line">  document-&gt;printErrors(cerr);</div>
 <div class="line">}</div>
 <div class="ttc" id="aoperation_return_values_8h_html_a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3"><div class="ttname"><a href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></div><div class="ttdeci">@ LIBSBML_OPERATION_SUCCESS</div><div class="ttdef"><b>Definition:</b> operationReturnValues.h:61</div></div>
-</div><!-- fragment --><p>Here is an example of using a converter that offers an option. The following code invokes <a class="el" href="class_s_b_m_l_strip_package_converter.html" title="\ @ @ . 3 .">SBMLStripPackageConverter</a> to remove the SBML Level&#160;3 <em>Layout</em> package from a model. It sets the name of the package to be removed by adding a value for the option named <code>"package"</code> defined by that converter:</p>
+</div><!-- fragment --><p>Here is an example of using a converter that offers an option. The following code invokes <a class="el" href="class_s_b_m_l_strip_package_converter.html">SBMLStripPackageConverter</a> to remove the SBML Level&#160;3 <em>Layout</em> package from a model. It sets the name of the package to be removed by adding a value for the option named <code>"package"</code> defined by that converter:</p>
 <div class="fragment"><div class="line"><a class="code" href="class_conversion_properties.html">ConversionProperties</a> props;</div>
 <div class="line">props.<a class="code" href="class_conversion_properties.html#a18145d00ef9f6d602d66b6037ba97352">addOption</a>(<span class="stringliteral">&quot;stripPackage&quot;</span>);</div>
 <div class="line">props.<a class="code" href="class_conversion_properties.html#a18145d00ef9f6d602d66b6037ba97352">addOption</a>(<span class="stringliteral">&quot;package&quot;</span>, <span class="stringliteral">&quot;layout&quot;</span>);</div>
@@ -134,26 +134,26 @@ Available SBML converters in libSBML</h2>
 <dl class="section user"><dt></dt><dd><ul>
 <li>AnnotationToDistribConverter </li>
 <li>ArraysFlatteningConverter </li>
-<li><a class="el" href="class_cobra_to_fbc_converter.html" title="\ @ @ . 3 &;&; .">CobraToFbcConverter</a> </li>
-<li><a class="el" href="class_comp_flattening_converter.html" title="\ @ @ . &quot;&quot; , .">CompFlatteningConverter</a> </li>
+<li><a class="el" href="class_cobra_to_fbc_converter.html">CobraToFbcConverter</a> </li>
+<li><a class="el" href="class_comp_flattening_converter.html">CompFlatteningConverter</a> </li>
 <li>DistribToAnnotationConverter </li>
-<li><a class="el" href="class_fbc_to_cobra_converter.html" title="\ @ @ . 3 &;&; .">FbcToCobraConverter</a> </li>
-<li><a class="el" href="class_fbc_v1_to_v2_converter.html" title="\ @ @ . &;&; 1 2">FbcV1ToV2Converter</a> </li>
-<li><a class="el" href="class_fbc_v2_to_v1_converter.html" title="\ @ @ . &;&; 2 1">FbcV2ToV1Converter</a> </li>
-<li><a class="el" href="class_render_layout_converter.html" title="\ @ @ . between the Level 3 package version and the Level 2 annotation version.">RenderLayoutConverter</a> </li>
-<li><a class="el" href="class_s_b_m_l_function_definition_converter.html" title="\ @ @ . .">SBMLFunctionDefinitionConverter</a> </li>
-<li><a class="el" href="class_s_b_m_l_id_converter.html" title="\ @ @ . .">SBMLIdConverter</a> </li>
-<li><a class="el" href="class_s_b_m_l_infer_units_converter.html" title="\ @ @ . .">SBMLInferUnitsConverter</a> </li>
-<li><a class="el" href="class_s_b_m_l_initial_assignment_converter.html" title="\ @ @ . &lt;&gt; &lt;/&gt;.">SBMLInitialAssignmentConverter</a> </li>
-<li><a class="el" href="class_s_b_m_l_level1_version1_converter.html" title="\ @ @ . / .">SBMLLevel1Version1Converter</a> </li>
-<li><a class="el" href="class_s_b_m_l_level_version_converter.html" title="\ @ @ . / .">SBMLLevelVersionConverter</a> </li>
-<li><a class="el" href="class_s_b_m_l_local_parameter_converter.html" title="\ @ @ . .">SBMLLocalParameterConverter</a> </li>
-<li><a class="el" href="class_s_b_m_l_rate_of_converter.html" title="\ @ @ . &#39;&#39; .">SBMLRateOfConverter</a> </li>
-<li><a class="el" href="class_s_b_m_l_rate_rule_converter.html" title="\ @ @ . .">SBMLRateRuleConverter</a> </li>
-<li><a class="el" href="class_s_b_m_l_reaction_converter.html" title="\ @ @ . &lt;&gt; &lt;/&gt;.">SBMLReactionConverter</a> </li>
-<li><a class="el" href="class_s_b_m_l_rule_converter.html" title="\ @ @ . .">SBMLRuleConverter</a> </li>
-<li><a class="el" href="class_s_b_m_l_strip_package_converter.html" title="\ @ @ . 3 .">SBMLStripPackageConverter</a> </li>
-<li><a class="el" href="class_s_b_m_l_units_converter.html" title="\ @ @ . &#39; .">SBMLUnitsConverter</a> </li>
+<li><a class="el" href="class_fbc_to_cobra_converter.html">FbcToCobraConverter</a> </li>
+<li><a class="el" href="class_fbc_v1_to_v2_converter.html">FbcV1ToV2Converter</a> </li>
+<li><a class="el" href="class_fbc_v2_to_v1_converter.html">FbcV2ToV1Converter</a> </li>
+<li><a class="el" href="class_render_layout_converter.html">RenderLayoutConverter</a> </li>
+<li><a class="el" href="class_s_b_m_l_function_definition_converter.html">SBMLFunctionDefinitionConverter</a> </li>
+<li><a class="el" href="class_s_b_m_l_id_converter.html">SBMLIdConverter</a> </li>
+<li><a class="el" href="class_s_b_m_l_infer_units_converter.html">SBMLInferUnitsConverter</a> </li>
+<li><a class="el" href="class_s_b_m_l_initial_assignment_converter.html">SBMLInitialAssignmentConverter</a> </li>
+<li><a class="el" href="class_s_b_m_l_level1_version1_converter.html">SBMLLevel1Version1Converter</a> </li>
+<li><a class="el" href="class_s_b_m_l_level_version_converter.html">SBMLLevelVersionConverter</a> </li>
+<li><a class="el" href="class_s_b_m_l_local_parameter_converter.html">SBMLLocalParameterConverter</a> </li>
+<li><a class="el" href="class_s_b_m_l_rate_of_converter.html">SBMLRateOfConverter</a> </li>
+<li><a class="el" href="class_s_b_m_l_rate_rule_converter.html">SBMLRateRuleConverter</a> </li>
+<li><a class="el" href="class_s_b_m_l_reaction_converter.html">SBMLReactionConverter</a> </li>
+<li><a class="el" href="class_s_b_m_l_rule_converter.html">SBMLRuleConverter</a> </li>
+<li><a class="el" href="class_s_b_m_l_strip_package_converter.html">SBMLStripPackageConverter</a> </li>
+<li><a class="el" href="class_s_b_m_l_units_converter.html">SBMLUnitsConverter</a> </li>
 </ul>
 </dd></dl>
 </div></div><!-- contents -->

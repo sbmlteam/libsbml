@@ -1,5 +1,10 @@
 var NAVTREEINDEX180 =
 {
+"libsbml-math.html#math-reading":[0,1,3,4],
+"libsbml-news.html":[0,3],
+"libsbml-other.html":[0,4],
+"libsbml-reading-files.html":[0,1,2],
+"libsbml-reading-files.html#rf-reading":[0,1,2,1],
 "libsbml-reading-files.html#rf-sbmldocument":[0,1,2,2],
 "libsbml-reading-files.html#rf-started":[0,1,2,0],
 "libsbml-reading-files.html#rf-writing":[0,1,2,3],
@@ -244,10 +249,5 @@ var NAVTREEINDEX180 =
 "struct_token__t.html#ad49347edf094f6ea46bb0bf53ba05845":[3,0,549,5],
 "struct_token__t.html#af809303f4d62262f2f5470022be688d8":[3,0,549,3],
 "usergroup0.html":[2],
-"util_8cpp.html":[4,0,804],
-"util_8cpp.html#a2601cc3ba1139a2c024b91ee855d0ef2":[4,0,804,1],
-"util_8cpp.html#a3cf8f56b8e61118fee84c48652ab92df":[4,0,804,8],
-"util_8cpp.html#a4d0079bd8534eef5b1cf57d032490f56":[4,0,804,2],
-"util_8cpp.html#a54983bc256dc296a42fe88b9be24f268":[4,0,804,0],
-"util_8cpp.html#a905ae2aebc0923ecba8688bda13d2985":[4,0,804,3]
+"util_8cpp.html":[4,0,804]
 };

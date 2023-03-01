@@ -98,14 +98,14 @@ $(document).ready(function(){initNavTree('class_date.html',''); initResizable();
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>\ @ @ . . </p>
+<div class="textblock"> A MIRIAM-compliant date representation.</p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  This class is not prescribed by
 the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
-<p>A <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object stores a reasonably complete representation of date and time. Its purpose is to serve as a way to store dates to be read and written in the <a href="http://www.w3.org/TR/NOTE-datetime" target="_blank">W3C date format</a> used in RDF Dublin Core annotations within SBML. The W3C date format is a restricted form of <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a>, the international standard for the representation of dates and times. A time and date value in this W3C format takes the form YYYY-MM-DDThh:mm:ssXHH:ZZ (e.g., <code>1997-07-16T19:20:30+01:00</code>) where XHH:ZZ is the time zone offset. The libSBML <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object contains the following fields to represent these values:</p>
+<p>A <a class="el" href="class_date.html">Date</a> object stores a reasonably complete representation of date and time. Its purpose is to serve as a way to store dates to be read and written in the <a href="http://www.w3.org/TR/NOTE-datetime" target="_blank">W3C date format</a> used in RDF Dublin Core annotations within SBML. The W3C date format is a restricted form of <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a>, the international standard for the representation of dates and times. A time and date value in this W3C format takes the form YYYY-MM-DDThh:mm:ssXHH:ZZ (e.g., <code>1997-07-16T19:20:30+01:00</code>) where XHH:ZZ is the time zone offset. The libSBML <a class="el" href="class_date.html">Date</a> object contains the following fields to represent these values:</p>
 <ul>
 <li><em>year:</em> an unsigned int representing the year. This should be a four-digit number such as <code>2011</code>.</li>
 </ul>
@@ -133,7 +133,7 @@ defined in SBML.
 <ul>
 <li><em>minute</em> <em>offset:</em> an unsigned int representing the time zone's minute offset from GMT, with a range of 0&ndash;59.</li>
 </ul>
-<p>To illustrate the time zone offset, a value of <code>-05:00</code> would correspond to USA Eastern Standard Time. In the <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object, this would require a value of <code>1</code> for the sign field, <code>5</code> for the hour offset and <code>0</code> for the minutes offset.</p>
+<p>To illustrate the time zone offset, a value of <code>-05:00</code> would correspond to USA Eastern Standard Time. In the <a class="el" href="class_date.html">Date</a> object, this would require a value of <code>1</code> for the sign field, <code>5</code> for the hour offset and <code>0</code> for the minutes offset.</p>
 <p>In the restricted RDF annotations used in SBML, described in Section&#160;6 of the SBML Level&#160;2 and Level&#160;3 specification documents, date/time stamps can be used to indicate the time of creation and modification of a model. The following SBML model fragment illustrates this: </p><pre class="fragment">&lt;model metaid="_180340" id="GMO" name="Goldbeter1991_MinMitOscil"&gt;
     &lt;annotation&gt;
         &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -171,46 +171,46 @@ defined in SBML.
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af8be8057021067a4d3c6e1bb076405b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_date.html">Date</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#af8be8057021067a4d3c6e1bb076405b3">clone</a> () const</td></tr>
-<tr class="memdesc:af8be8057021067a4d3c6e1bb076405b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object.  <a href="class_date.html#af8be8057021067a4d3c6e1bb076405b3">More...</a><br /></td></tr>
+<tr class="memdesc:af8be8057021067a4d3c6e1bb076405b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_date.html">Date</a> object.  <a href="class_date.html#af8be8057021067a4d3c6e1bb076405b3">More...</a><br /></td></tr>
 <tr class="separator:af8be8057021067a4d3c6e1bb076405b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73adc3e2e234a2d9ec68643cd7e3640b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#a73adc3e2e234a2d9ec68643cd7e3640b">Date</a> (const <a class="el" href="class_date.html">Date</a> &amp;orig)</td></tr>
-<tr class="memdesc:a73adc3e2e234a2d9ec68643cd7e3640b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor; creates a copy of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>.  <a href="class_date.html#a73adc3e2e234a2d9ec68643cd7e3640b">More...</a><br /></td></tr>
+<tr class="memdesc:a73adc3e2e234a2d9ec68643cd7e3640b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor; creates a copy of this <a class="el" href="class_date.html">Date</a>.  <a href="class_date.html#a73adc3e2e234a2d9ec68643cd7e3640b">More...</a><br /></td></tr>
 <tr class="separator:a73adc3e2e234a2d9ec68643cd7e3640b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1b070aee91d2b29b0972992414f65a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#ad1b070aee91d2b29b0972992414f65a5">Date</a> (const std::string &amp;date)</td></tr>
-<tr class="memdesc:ad1b070aee91d2b29b0972992414f65a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object from a string expressing a date and time value.  <a href="class_date.html#ad1b070aee91d2b29b0972992414f65a5">More...</a><br /></td></tr>
+<tr class="memdesc:ad1b070aee91d2b29b0972992414f65a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="class_date.html">Date</a> object from a string expressing a date and time value.  <a href="class_date.html#ad1b070aee91d2b29b0972992414f65a5">More...</a><br /></td></tr>
 <tr class="separator:ad1b070aee91d2b29b0972992414f65a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0bdbfb959f915688bed871dbb3ed756a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#a0bdbfb959f915688bed871dbb3ed756a">Date</a> (unsigned int year=2000, unsigned int month=1, unsigned int day=1, unsigned int hour=0, unsigned int minute=0, unsigned int second=0, unsigned int sign=0, unsigned int hoursOffset=0, unsigned int minutesOffset=0)</td></tr>
 <tr class="memdesc:a0bdbfb959f915688bed871dbb3ed756a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a time and date representation for use in model annotations and elsewhere.  <a href="class_date.html#a0bdbfb959f915688bed871dbb3ed756a">More...</a><br /></td></tr>
 <tr class="separator:a0bdbfb959f915688bed871dbb3ed756a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1c82bb263099d8ae39fc09e7aede62e"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#ad1c82bb263099d8ae39fc09e7aede62e">getDateAsString</a> ()</td></tr>
-<tr class="memdesc:ad1c82bb263099d8ae39fc09e7aede62e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> value in text-string form.  <a href="class_date.html#ad1c82bb263099d8ae39fc09e7aede62e">More...</a><br /></td></tr>
+<tr class="memdesc:ad1c82bb263099d8ae39fc09e7aede62e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current <a class="el" href="class_date.html">Date</a> value in text-string form.  <a href="class_date.html#ad1c82bb263099d8ae39fc09e7aede62e">More...</a><br /></td></tr>
 <tr class="separator:ad1c82bb263099d8ae39fc09e7aede62e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab39b571a45cbcdfd37b23c28801fa7b0"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#ab39b571a45cbcdfd37b23c28801fa7b0">getDay</a> ()</td></tr>
-<tr class="memdesc:ab39b571a45cbcdfd37b23c28801fa7b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the day from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>.  <a href="class_date.html#ab39b571a45cbcdfd37b23c28801fa7b0">More...</a><br /></td></tr>
+<tr class="memdesc:ab39b571a45cbcdfd37b23c28801fa7b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the day from this <a class="el" href="class_date.html">Date</a>.  <a href="class_date.html#ab39b571a45cbcdfd37b23c28801fa7b0">More...</a><br /></td></tr>
 <tr class="separator:ab39b571a45cbcdfd37b23c28801fa7b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5caef0db7c7299a3fdcc659b027e4348"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#a5caef0db7c7299a3fdcc659b027e4348">getHour</a> ()</td></tr>
-<tr class="memdesc:a5caef0db7c7299a3fdcc659b027e4348"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the hour from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>.  <a href="class_date.html#a5caef0db7c7299a3fdcc659b027e4348">More...</a><br /></td></tr>
+<tr class="memdesc:a5caef0db7c7299a3fdcc659b027e4348"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the hour from this <a class="el" href="class_date.html">Date</a>.  <a href="class_date.html#a5caef0db7c7299a3fdcc659b027e4348">More...</a><br /></td></tr>
 <tr class="separator:a5caef0db7c7299a3fdcc659b027e4348"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8279e380c30ffdfd357078940bd318c"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#af8279e380c30ffdfd357078940bd318c">getHoursOffset</a> ()</td></tr>
-<tr class="memdesc:af8279e380c30ffdfd357078940bd318c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the hours of the time zone offset from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>.  <a href="class_date.html#af8279e380c30ffdfd357078940bd318c">More...</a><br /></td></tr>
+<tr class="memdesc:af8279e380c30ffdfd357078940bd318c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the hours of the time zone offset from this <a class="el" href="class_date.html">Date</a>.  <a href="class_date.html#af8279e380c30ffdfd357078940bd318c">More...</a><br /></td></tr>
 <tr class="separator:af8279e380c30ffdfd357078940bd318c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4f145812d2fd8a8d84ccac6021d5360"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#ab4f145812d2fd8a8d84ccac6021d5360">getMinute</a> ()</td></tr>
-<tr class="memdesc:ab4f145812d2fd8a8d84ccac6021d5360"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the minute from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>.  <a href="class_date.html#ab4f145812d2fd8a8d84ccac6021d5360">More...</a><br /></td></tr>
+<tr class="memdesc:ab4f145812d2fd8a8d84ccac6021d5360"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the minute from this <a class="el" href="class_date.html">Date</a>.  <a href="class_date.html#ab4f145812d2fd8a8d84ccac6021d5360">More...</a><br /></td></tr>
 <tr class="separator:ab4f145812d2fd8a8d84ccac6021d5360"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af05e27fd3bc18c18c5d93c263164d8aa"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#af05e27fd3bc18c18c5d93c263164d8aa">getMinutesOffset</a> ()</td></tr>
-<tr class="memdesc:af05e27fd3bc18c18c5d93c263164d8aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the minutes of the time zone offset from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>.  <a href="class_date.html#af05e27fd3bc18c18c5d93c263164d8aa">More...</a><br /></td></tr>
+<tr class="memdesc:af05e27fd3bc18c18c5d93c263164d8aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the minutes of the time zone offset from this <a class="el" href="class_date.html">Date</a>.  <a href="class_date.html#af05e27fd3bc18c18c5d93c263164d8aa">More...</a><br /></td></tr>
 <tr class="separator:af05e27fd3bc18c18c5d93c263164d8aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9efc6db1870de82dbd717f1c3c782f82"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#a9efc6db1870de82dbd717f1c3c782f82">getMonth</a> ()</td></tr>
-<tr class="memdesc:a9efc6db1870de82dbd717f1c3c782f82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the month from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>.  <a href="class_date.html#a9efc6db1870de82dbd717f1c3c782f82">More...</a><br /></td></tr>
+<tr class="memdesc:a9efc6db1870de82dbd717f1c3c782f82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the month from this <a class="el" href="class_date.html">Date</a>.  <a href="class_date.html#a9efc6db1870de82dbd717f1c3c782f82">More...</a><br /></td></tr>
 <tr class="separator:a9efc6db1870de82dbd717f1c3c782f82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a5bbbf0542c3a90c5c100e7411d3c94"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#a4a5bbbf0542c3a90c5c100e7411d3c94">getSecond</a> ()</td></tr>
-<tr class="memdesc:a4a5bbbf0542c3a90c5c100e7411d3c94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the seconds from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>.  <a href="class_date.html#a4a5bbbf0542c3a90c5c100e7411d3c94">More...</a><br /></td></tr>
+<tr class="memdesc:a4a5bbbf0542c3a90c5c100e7411d3c94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the seconds from this <a class="el" href="class_date.html">Date</a>.  <a href="class_date.html#a4a5bbbf0542c3a90c5c100e7411d3c94">More...</a><br /></td></tr>
 <tr class="separator:a4a5bbbf0542c3a90c5c100e7411d3c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba73d18da7d7dd62efa7e2b2584256dc"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#aba73d18da7d7dd62efa7e2b2584256dc">getSignOffset</a> ()</td></tr>
-<tr class="memdesc:aba73d18da7d7dd62efa7e2b2584256dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the sign of the time zone offset from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>.  <a href="class_date.html#aba73d18da7d7dd62efa7e2b2584256dc">More...</a><br /></td></tr>
+<tr class="memdesc:aba73d18da7d7dd62efa7e2b2584256dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the sign of the time zone offset from this <a class="el" href="class_date.html">Date</a>.  <a href="class_date.html#aba73d18da7d7dd62efa7e2b2584256dc">More...</a><br /></td></tr>
 <tr class="separator:aba73d18da7d7dd62efa7e2b2584256dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90be6a509b91ee9addfeec0e68b965e2"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#a90be6a509b91ee9addfeec0e68b965e2">getYear</a> ()</td></tr>
-<tr class="memdesc:a90be6a509b91ee9addfeec0e68b965e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the year from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>.  <a href="class_date.html#a90be6a509b91ee9addfeec0e68b965e2">More...</a><br /></td></tr>
+<tr class="memdesc:a90be6a509b91ee9addfeec0e68b965e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the year from this <a class="el" href="class_date.html">Date</a>.  <a href="class_date.html#a90be6a509b91ee9addfeec0e68b965e2">More...</a><br /></td></tr>
 <tr class="separator:a90be6a509b91ee9addfeec0e68b965e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9603fe5fba10ebcca262af37f456fc8b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_date.html">Date</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#a9603fe5fba10ebcca262af37f456fc8b">operator=</a> (const <a class="el" href="class_date.html">Date</a> &amp;rhs)</td></tr>
 <tr class="memdesc:a9603fe5fba10ebcca262af37f456fc8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator.  <a href="class_date.html#a9603fe5fba10ebcca262af37f456fc8b">More...</a><br /></td></tr>
@@ -219,37 +219,37 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa2d680629574c18628e3745284882786"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> or <code>false</code> depending on whether this date object represents a valid date and time value.  <a href="class_date.html#aa2d680629574c18628e3745284882786">More...</a><br /></td></tr>
 <tr class="separator:aa2d680629574c18628e3745284882786"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18c60f23d243f517d16a53749284fe65"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#a18c60f23d243f517d16a53749284fe65">setDateAsString</a> (const std::string &amp;date)</td></tr>
-<tr class="memdesc:a18c60f23d243f517d16a53749284fe65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object using a date and time value expressed as a text string.  <a href="class_date.html#a18c60f23d243f517d16a53749284fe65">More...</a><br /></td></tr>
+<tr class="memdesc:a18c60f23d243f517d16a53749284fe65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of this <a class="el" href="class_date.html">Date</a> object using a date and time value expressed as a text string.  <a href="class_date.html#a18c60f23d243f517d16a53749284fe65">More...</a><br /></td></tr>
 <tr class="separator:a18c60f23d243f517d16a53749284fe65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7f2ea3dd08ccd3af2a3dac9ccf1d9db"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#ac7f2ea3dd08ccd3af2a3dac9ccf1d9db">setDay</a> (unsigned int day)</td></tr>
-<tr class="memdesc:ac7f2ea3dd08ccd3af2a3dac9ccf1d9db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the day of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object.  <a href="class_date.html#ac7f2ea3dd08ccd3af2a3dac9ccf1d9db">More...</a><br /></td></tr>
+<tr class="memdesc:ac7f2ea3dd08ccd3af2a3dac9ccf1d9db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the day of this <a class="el" href="class_date.html">Date</a> object.  <a href="class_date.html#ac7f2ea3dd08ccd3af2a3dac9ccf1d9db">More...</a><br /></td></tr>
 <tr class="separator:ac7f2ea3dd08ccd3af2a3dac9ccf1d9db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61fedee43efb1360ae0d5db49c7a05ad"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#a61fedee43efb1360ae0d5db49c7a05ad">setHour</a> (unsigned int hour)</td></tr>
-<tr class="memdesc:a61fedee43efb1360ae0d5db49c7a05ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the hour of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object.  <a href="class_date.html#a61fedee43efb1360ae0d5db49c7a05ad">More...</a><br /></td></tr>
+<tr class="memdesc:a61fedee43efb1360ae0d5db49c7a05ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the hour of this <a class="el" href="class_date.html">Date</a> object.  <a href="class_date.html#a61fedee43efb1360ae0d5db49c7a05ad">More...</a><br /></td></tr>
 <tr class="separator:a61fedee43efb1360ae0d5db49c7a05ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa89e60c4af23f320d58aa3f613e9f3a1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#aa89e60c4af23f320d58aa3f613e9f3a1">setHoursOffset</a> (unsigned int hoursOffset)</td></tr>
-<tr class="memdesc:aa89e60c4af23f320d58aa3f613e9f3a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object's time zone hour offset.  <a href="class_date.html#aa89e60c4af23f320d58aa3f613e9f3a1">More...</a><br /></td></tr>
+<tr class="memdesc:aa89e60c4af23f320d58aa3f613e9f3a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of this <a class="el" href="class_date.html">Date</a> object's time zone hour offset.  <a href="class_date.html#aa89e60c4af23f320d58aa3f613e9f3a1">More...</a><br /></td></tr>
 <tr class="separator:aa89e60c4af23f320d58aa3f613e9f3a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acaa9b4af31d5c9c22826c9fad846ff87"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#acaa9b4af31d5c9c22826c9fad846ff87">setMinute</a> (unsigned int minute)</td></tr>
-<tr class="memdesc:acaa9b4af31d5c9c22826c9fad846ff87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the minute of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object.  <a href="class_date.html#acaa9b4af31d5c9c22826c9fad846ff87">More...</a><br /></td></tr>
+<tr class="memdesc:acaa9b4af31d5c9c22826c9fad846ff87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the minute of this <a class="el" href="class_date.html">Date</a> object.  <a href="class_date.html#acaa9b4af31d5c9c22826c9fad846ff87">More...</a><br /></td></tr>
 <tr class="separator:acaa9b4af31d5c9c22826c9fad846ff87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a329ef2fa36d48bdf95b65908e7daaab0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#a329ef2fa36d48bdf95b65908e7daaab0">setMinutesOffset</a> (unsigned int minutesOffset)</td></tr>
-<tr class="memdesc:a329ef2fa36d48bdf95b65908e7daaab0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object's time zone minutes offset.  <a href="class_date.html#a329ef2fa36d48bdf95b65908e7daaab0">More...</a><br /></td></tr>
+<tr class="memdesc:a329ef2fa36d48bdf95b65908e7daaab0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of this <a class="el" href="class_date.html">Date</a> object's time zone minutes offset.  <a href="class_date.html#a329ef2fa36d48bdf95b65908e7daaab0">More...</a><br /></td></tr>
 <tr class="separator:a329ef2fa36d48bdf95b65908e7daaab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b74c6e5fe9a5d58e5c7448d9743b0ae"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#a2b74c6e5fe9a5d58e5c7448d9743b0ae">setMonth</a> (unsigned int month)</td></tr>
-<tr class="memdesc:a2b74c6e5fe9a5d58e5c7448d9743b0ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the month of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object.  <a href="class_date.html#a2b74c6e5fe9a5d58e5c7448d9743b0ae">More...</a><br /></td></tr>
+<tr class="memdesc:a2b74c6e5fe9a5d58e5c7448d9743b0ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the month of this <a class="el" href="class_date.html">Date</a> object.  <a href="class_date.html#a2b74c6e5fe9a5d58e5c7448d9743b0ae">More...</a><br /></td></tr>
 <tr class="separator:a2b74c6e5fe9a5d58e5c7448d9743b0ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aecbd9f5ea6ddaeafc1a49573826450eb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#aecbd9f5ea6ddaeafc1a49573826450eb">setSecond</a> (unsigned int second)</td></tr>
-<tr class="memdesc:aecbd9f5ea6ddaeafc1a49573826450eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the second of the <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object.  <a href="class_date.html#aecbd9f5ea6ddaeafc1a49573826450eb">More...</a><br /></td></tr>
+<tr class="memdesc:aecbd9f5ea6ddaeafc1a49573826450eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the second of the <a class="el" href="class_date.html">Date</a> object.  <a href="class_date.html#aecbd9f5ea6ddaeafc1a49573826450eb">More...</a><br /></td></tr>
 <tr class="separator:aecbd9f5ea6ddaeafc1a49573826450eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4da031af6cfc89cafdeedc50beb4796"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#ab4da031af6cfc89cafdeedc50beb4796">setSignOffset</a> (unsigned int sign)</td></tr>
-<tr class="memdesc:ab4da031af6cfc89cafdeedc50beb4796"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the sign of the time zone offset of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object.  <a href="class_date.html#ab4da031af6cfc89cafdeedc50beb4796">More...</a><br /></td></tr>
+<tr class="memdesc:ab4da031af6cfc89cafdeedc50beb4796"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the sign of the time zone offset of this <a class="el" href="class_date.html">Date</a> object.  <a href="class_date.html#ab4da031af6cfc89cafdeedc50beb4796">More...</a><br /></td></tr>
 <tr class="separator:ab4da031af6cfc89cafdeedc50beb4796"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62b4e88d7c6876db4804a8de21357342"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#a62b4e88d7c6876db4804a8de21357342">setYear</a> (unsigned int year)</td></tr>
-<tr class="memdesc:a62b4e88d7c6876db4804a8de21357342"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the year of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object.  <a href="class_date.html#a62b4e88d7c6876db4804a8de21357342">More...</a><br /></td></tr>
+<tr class="memdesc:a62b4e88d7c6876db4804a8de21357342"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the year of this <a class="el" href="class_date.html">Date</a> object.  <a href="class_date.html#a62b4e88d7c6876db4804a8de21357342">More...</a><br /></td></tr>
 <tr class="separator:a62b4e88d7c6876db4804a8de21357342"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade4b469433b7966cc034cbcc6799233b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_date.html#ade4b469433b7966cc034cbcc6799233b">~Date</a> ()</td></tr>
-<tr class="memdesc:ade4b469433b7966cc034cbcc6799233b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>.  <a href="class_date.html#ade4b469433b7966cc034cbcc6799233b">More...</a><br /></td></tr>
+<tr class="memdesc:ade4b469433b7966cc034cbcc6799233b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_date.html">Date</a>.  <a href="class_date.html#ade4b469433b7966cc034cbcc6799233b">More...</a><br /></td></tr>
 <tr class="separator:ade4b469433b7966cc034cbcc6799233b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -337,7 +337,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>To illustrate the time zone offset, a value of <code>-05:00</code> would correspond to USA Eastern Standard Time. In the <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object, this would require a value of <code>1</code> for the sign field, <code>5</code> for the hour offset and <code>0</code> for the minutes offset. </p>
+<p>To illustrate the time zone offset, a value of <code>-05:00</code> would correspond to USA Eastern Standard Time. In the <a class="el" href="class_date.html">Date</a> object, this would require a value of <code>1</code> for the sign field, <code>5</code> for the hour offset and <code>0</code> for the minutes offset. </p>
 
 </div>
 </div>
@@ -357,7 +357,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object from a string expressing a date and time value. </p>
+<p>Creates a <a class="el" href="class_date.html">Date</a> object from a string expressing a date and time value. </p>
 <p>This constructor expects its argument to be in the <a href="http://www.w3.org/TR/NOTE-datetime" target="_blank">W3C date format with time zone offset</a>, used in RDF Dublin Core annotations within SBML.</p>
 <dl class="section user"><dt></dt><dd>The date format expresses a date and time value as a string of the form YYYY-MM-DDThh:mm:ssXHH:ZZ, where</dd></dl>
 <ul>
@@ -391,7 +391,7 @@ Public Member Functions</h2></td></tr>
 <li><em>ZZ</em> is a two-digit integer representing the minutes of the time zone offset, with a range of 00&ndash;59.</li>
 </ul>
 <p>In the string format above, it is important not to forget the literal character <code>T</code> in the string. Here is an example date/time string: <code>1997-07-16T19:20:30+01:00</code>, which would represent July 16, 1997, at 19:20:30 in Central European Time (which is UTC +1:00).</p>
-<p>If this constructor is given a <code>NULL</code> argument or a string of length zero, it constructs a <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object with the value of January 1, 2000, at time 00:00 UTC. Otherwise, the argument <em>must</em> be in the complete format described above, or unpredictable results will happen.</p>
+<p>If this constructor is given a <code>NULL</code> argument or a string of length zero, it constructs a <a class="el" href="class_date.html">Date</a> object with the value of January 1, 2000, at time 00:00 UTC. Otherwise, the argument <em>must</em> be in the complete format described above, or unpredictable results will happen.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">date</td><td>a string representing the date. </td></tr>
@@ -416,7 +416,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Destroys this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </p>
+<p>Destroys this <a class="el" href="class_date.html">Date</a>. </p>
 
 </div>
 </div>
@@ -436,7 +436,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copy constructor; creates a copy of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </p>
+<p>Copy constructor; creates a copy of this <a class="el" href="class_date.html">Date</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">orig</td><td>the object to copy. </td></tr>
@@ -462,8 +462,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates and returns a deep copy of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the (deep) copy of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object. </dd></dl>
+<p>Creates and returns a deep copy of this <a class="el" href="class_date.html">Date</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the (deep) copy of this <a class="el" href="class_date.html">Date</a> object. </dd></dl>
 
 </div>
 </div>
@@ -490,7 +490,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the current <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> value in text-string form. </p>
+<p>Returns the current <a class="el" href="class_date.html">Date</a> value in text-string form. </p>
 <p>The string returned will be in the <a href="http://www.w3.org/TR/NOTE-datetime" target="_blank">W3C date format with time zone offset</a>, used in RDF Dublin Core annotations within SBML.</p>
 <dl class="section user"><dt></dt><dd>The date format expresses a date and time value as a string of the form YYYY-MM-DDThh:mm:ssXHH:ZZ, where</dd></dl>
 <ul>
@@ -551,8 +551,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the day from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the day from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </dd></dl>
+<p>Returns the day from this <a class="el" href="class_date.html">Date</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the day from this <a class="el" href="class_date.html">Date</a>. </dd></dl>
 
 </div>
 </div>
@@ -579,8 +579,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the hour from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the hour from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </dd></dl>
+<p>Returns the hour from this <a class="el" href="class_date.html">Date</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the hour from this <a class="el" href="class_date.html">Date</a>. </dd></dl>
 
 </div>
 </div>
@@ -607,8 +607,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the hours of the time zone offset from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the hours of the offset from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </dd></dl>
+<p>Returns the hours of the time zone offset from this <a class="el" href="class_date.html">Date</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the hours of the offset from this <a class="el" href="class_date.html">Date</a>. </dd></dl>
 
 </div>
 </div>
@@ -635,8 +635,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the minute from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the minute from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </dd></dl>
+<p>Returns the minute from this <a class="el" href="class_date.html">Date</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the minute from this <a class="el" href="class_date.html">Date</a>. </dd></dl>
 
 </div>
 </div>
@@ -663,8 +663,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the minutes of the time zone offset from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the minutes of the offset from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </dd></dl>
+<p>Returns the minutes of the time zone offset from this <a class="el" href="class_date.html">Date</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the minutes of the offset from this <a class="el" href="class_date.html">Date</a>. </dd></dl>
 
 </div>
 </div>
@@ -691,8 +691,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the month from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the month from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </dd></dl>
+<p>Returns the month from this <a class="el" href="class_date.html">Date</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the month from this <a class="el" href="class_date.html">Date</a>. </dd></dl>
 
 </div>
 </div>
@@ -719,8 +719,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the seconds from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the seconds from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </dd></dl>
+<p>Returns the seconds from this <a class="el" href="class_date.html">Date</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the seconds from this <a class="el" href="class_date.html">Date</a>. </dd></dl>
 
 </div>
 </div>
@@ -747,8 +747,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the sign of the time zone offset from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the sign of the offset from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </dd></dl>
+<p>Returns the sign of the time zone offset from this <a class="el" href="class_date.html">Date</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the sign of the offset from this <a class="el" href="class_date.html">Date</a>. </dd></dl>
 
 </div>
 </div>
@@ -775,8 +775,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the year from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the year from this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a>. </dd></dl>
+<p>Returns the year from this <a class="el" href="class_date.html">Date</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the year from this <a class="el" href="class_date.html">Date</a>. </dd></dl>
 
 </div>
 </div>
@@ -843,7 +843,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the value of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object using a date and time value expressed as a text string. </p>
+<p>Sets the value of this <a class="el" href="class_date.html">Date</a> object using a date and time value expressed as a text string. </p>
 <p>This method expects its argument to be in the <a href="http://www.w3.org/TR/NOTE-datetime" target="_blank">W3C date format with time zone offset</a>, used in RDF Dublin Core annotations within SBML.</p>
 <dl class="section user"><dt></dt><dd>The date format expresses a date and time value as a string of the form YYYY-MM-DDThh:mm:ssXHH:ZZ, where</dd></dl>
 <ul>
@@ -877,7 +877,7 @@ Public Member Functions</h2></td></tr>
 <li><em>ZZ</em> is a two-digit integer representing the minutes of the time zone offset, with a range of 00&ndash;59.</li>
 </ul>
 <p>In the string format above, it is important not to forget the literal character <code>T</code> in the string. Here is an example date/time string: <code>1997-07-16T19:20:30+01:00</code>, which would represent July 16, 1997, at 19:20:30 in Central European Time (which is UTC +1:00).</p>
-<p>If this method is given a <code>NULL</code> argument or a string of length zero, it constructs a <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object with the value of January 1, 2000, at time 00:00 UTC. Otherwise, the argument <em>must</em> be in the complete format described above, or unpredictable results will happen.</p>
+<p>If this method is given a <code>NULL</code> argument or a string of length zero, it constructs a <a class="el" href="class_date.html">Date</a> object with the value of January 1, 2000, at time 00:00 UTC. Otherwise, the argument <em>must</em> be in the complete format described above, or unpredictable results will happen.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">date</td><td>a string representing the date.</td></tr>
@@ -908,7 +908,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the value of the day of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object. </p>
+<p>Sets the value of the day of this <a class="el" href="class_date.html">Date</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">day</td><td>an unsigned int representing the day; it must be in the range 0&ndash;31 or an error will be signaled.</td></tr>
@@ -939,7 +939,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the value of the hour of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object. </p>
+<p>Sets the value of the hour of this <a class="el" href="class_date.html">Date</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hour</td><td>an unsigned int representing the hour to set; it must be in the range 0&ndash;23 or an error will be signaled.</td></tr>
@@ -970,7 +970,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the value of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object's time zone hour offset. </p>
+<p>Sets the value of this <a class="el" href="class_date.html">Date</a> object's time zone hour offset. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hoursOffset</td><td>an unsigned int representing the hours of the offset; it must be in the range 0&ndash;12 or an error will be signaled.</td></tr>
@@ -1001,7 +1001,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the value of the minute of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object. </p>
+<p>Sets the value of the minute of this <a class="el" href="class_date.html">Date</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">minute</td><td>an unsigned int representing the minute to set; it must be in the range 0&ndash;59 or an error will be signaled.</td></tr>
@@ -1032,7 +1032,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the value of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object's time zone minutes offset. </p>
+<p>Sets the value of this <a class="el" href="class_date.html">Date</a> object's time zone minutes offset. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">minutesOffset</td><td>an unsigned int representing the minutes of the offset; it must be in the range 0&ndash;59 or an error will be signaled.</td></tr>
@@ -1063,7 +1063,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the value of the month of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object. </p>
+<p>Sets the value of the month of this <a class="el" href="class_date.html">Date</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">month</td><td>an unsigned int representing the month; it must be in the range 1&ndash;12 or an error will be signaled.</td></tr>
@@ -1094,7 +1094,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the value of the second of the <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object. </p>
+<p>Sets the value of the second of the <a class="el" href="class_date.html">Date</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">second</td><td>an unsigned int representing the seconds; it must be in the range 0&ndash;59 or an error will be signaled.</td></tr>
@@ -1125,7 +1125,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the value of the sign of the time zone offset of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object. </p>
+<p>Sets the value of the sign of the time zone offset of this <a class="el" href="class_date.html">Date</a> object. </p>
 <p>The only permissible values are <code>0</code> and <code>1</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1157,7 +1157,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the value of the year of this <a class="el" href="class_date.html" title="\ @ @ . .">Date</a> object. </p>
+<p>Sets the value of the year of this <a class="el" href="class_date.html">Date</a> object. </p>
 <p>The value given as argument must be between 1000 and 9999 inclusive. (In the millennium during which this libSBML documentation is being written, a typical value is <code>2011</code>, but we hope that SBML will continue to be used for a long time.)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

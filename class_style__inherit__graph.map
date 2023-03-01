@@ -1,6 +1,6 @@
 <map id="Style" name="Style">
-<area shape="rect" id="node1" title="\ @ @ . ." alt="" coords="85,80,140,107"/>
-<area shape="rect" id="node3" href="$class_global_style.html" title="\ @ @ . ." alt="" coords="5,155,103,181"/>
-<area shape="rect" id="node4" href="$class_local_style.html" title="\ @ @ . % ." alt="" coords="127,155,216,181"/>
-<area shape="rect" id="node2" href="$class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , ." alt="" coords="81,5,144,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="85,80,140,107"/>
+<area shape="rect" id="node3" href="$class_global_style.html" title=" " alt="" coords="5,155,103,181"/>
+<area shape="rect" id="node4" href="$class_local_style.html" title=" " alt="" coords="127,155,216,181"/>
+<area shape="rect" id="node2" href="$class_s_base.html" title=" " alt="" coords="81,5,144,32"/>
 </map>

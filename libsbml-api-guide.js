@@ -10,7 +10,13 @@ var libsbml_api_guide =
     ] ],
     [ "Working with math", "libsbml-math.html", [
       [ "Basic concepts", "libsbml-math.html#math-overview", null ],
-      [ "Converting between ASTs and text strings", "libsbml-math.html#math-convert", null ]
+      [ "Converting between ASTs and text strings", "libsbml-math.html#math-convert", null ],
+      [ "The text-string formula syntax, and differences with MathML", "libsbml-math.html#math-diffs", [
+        [ "Simpler scheme based on SBML Level 1's syntax", "libsbml-math.html#math-original", null ],
+        [ "Advanced, SBML Level 3-oriented formula scheme", "libsbml-math.html#math-l3", null ]
+      ] ],
+      [ "Methods for working directly with libSBML's Abstract Syntax Trees", "libsbml-math.html#math-ast", null ],
+      [ "Reading and Writing MathML directly", "libsbml-math.html#math-reading", null ]
     ] ],
     [ "Tutorial: creating a complete model", "libsbml-example.html", [
       [ "General characteristics of the model to be created", "libsbml-example.html#characteristics", null ],

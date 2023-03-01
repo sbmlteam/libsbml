@@ -100,39 +100,39 @@ $(document).ready(function(){initNavTree('class_multi_compartment_plugin.html','
 <div class="dynheader">
 Inheritance diagram for MultiCompartmentPlugin:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_multi_compartment_plugin__inherit__graph.svg" width="196" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_multi_compartment_plugin__inherit__graph.svg" width="196" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>\ @ @ . "" . </p>
-<p>The <a class="el" href="class_multi_compartment_plugin.html" title="\ @ @ . &quot;&quot; .">MultiCompartmentPlugin</a> object is used to extend the standard SBML <a class="el" href="class_compartment.html" title="\ @ @ . , .">Compartment</a> base object with an optional "compartmentType" attribute, a required "isType" Boolean attribute, and a child <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>. The "isType" attribute flags whether this <a class="el" href="class_compartment.html" title="\ @ @ . , .">Compartment</a> should be treated as a standard SBML <a class="el" href="class_compartment.html" title="\ @ @ . , .">Compartment</a> (if <code>false</code>), or as a more generic rule-based "type" of <a class="el" href="class_compartment.html" title="\ @ @ . , .">Compartment</a> (if <code>true</code>). A compartment "type" is a template (in the sense of prototype) for all <a class="el" href="class_compartment.html" title="\ @ @ . , .">Compartment</a> objects referencing it (via "compartmentType" attributes). A <a class="el" href="class_species.html" title="\ @ @ . &lt;&gt;&lt;/&gt; &; .">Species</a> object directly referencing a compartment type is not a "fully
-defined" species, but rather a "template" species. If the value of the "isType" attribute is <code>false</code>, the <a class="el" href="class_compartment.html" title="\ @ @ . , .">Compartment</a> object is a "not-a-type" compartment, and it is similar to a SBML core <a class="el" href="class_compartment.html" title="\ @ @ . , .">Compartment</a> except it can reference a compartment type and can have a <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a> child. Each child <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> in the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a> defines a subcompartment of the parent <a class="el" href="class_compartment.html" title="\ @ @ . , .">Compartment</a>. The "compartmentType" attribute identifies this <a class="el" href="class_compartment.html" title="\ @ @ . , .">Compartment</a> as the <a class="el" href="class_compartment_type.html" title="\ @ @ . &lt;&gt; &lt;/&gt; &;2.">CompartmentType</a> defined elsewhere in the <a class="el" href="class_model.html" title="\ @ @ . .">Model</a>. If the "compartmentType" attribute is set, the "isType" attribute must be <code>true</code>. </p>
+<div class="textblock"><span class="pkg-marker pkg-color-multi"><a href="group__multi.html">multi</a></span>
+ Extension of <a class="el" href="class_compartment.html">Compartment</a> for the "multi" package.</p>
+<p>The <a class="el" href="class_multi_compartment_plugin.html">MultiCompartmentPlugin</a> object is used to extend the standard SBML <a class="el" href="class_compartment.html">Compartment</a> base object with an optional "compartmentType" attribute, a required "isType" Boolean attribute, and a child <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>. The "isType" attribute flags whether this <a class="el" href="class_compartment.html">Compartment</a> should be treated as a standard SBML <a class="el" href="class_compartment.html">Compartment</a> (if <code>false</code>), or as a more generic rule-based "type" of <a class="el" href="class_compartment.html">Compartment</a> (if <code>true</code>). A compartment "type" is a template (in the sense of prototype) for all <a class="el" href="class_compartment.html">Compartment</a> objects referencing it (via "compartmentType" attributes). A <a class="el" href="class_species.html">Species</a> object directly referencing a compartment type is not a "fully
+defined" species, but rather a "template" species. If the value of the "isType" attribute is <code>false</code>, the <a class="el" href="class_compartment.html">Compartment</a> object is a "not-a-type" compartment, and it is similar to a SBML core <a class="el" href="class_compartment.html">Compartment</a> except it can reference a compartment type and can have a <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a> child. Each child <a class="el" href="class_compartment_reference.html">CompartmentReference</a> in the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a> defines a subcompartment of the parent <a class="el" href="class_compartment.html">Compartment</a>. The "compartmentType" attribute identifies this <a class="el" href="class_compartment.html">Compartment</a> as the <a class="el" href="class_compartment_type.html">CompartmentType</a> defined elsewhere in the <a class="el" href="class_model.html">Model</a>. If the "compartmentType" attribute is set, the "isType" attribute must be <code>true</code>. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a1577f275c0d54abae82054788a1844ad"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#a1577f275c0d54abae82054788a1844ad">addCompartmentReference</a> (const <a class="el" href="class_compartment_reference.html">CompartmentReference</a> *compartmentReference)</td></tr>
-<tr class="memdesc:a1577f275c0d54abae82054788a1844ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a copy of the given <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object to the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>.  <a href="class_multi_compartment_plugin.html#a1577f275c0d54abae82054788a1844ad">More...</a><br /></td></tr>
+<tr class="memdesc:a1577f275c0d54abae82054788a1844ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a copy of the given <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object to the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>.  <a href="class_multi_compartment_plugin.html#a1577f275c0d54abae82054788a1844ad">More...</a><br /></td></tr>
 <tr class="separator:a1577f275c0d54abae82054788a1844ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0139e7b72d4eeebcb9fc1fea962572ba"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_multi_compartment_plugin.html">MultiCompartmentPlugin</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#a0139e7b72d4eeebcb9fc1fea962572ba">clone</a> () const</td></tr>
-<tr class="memdesc:a0139e7b72d4eeebcb9fc1fea962572ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_multi_compartment_plugin.html" title="\ @ @ . &quot;&quot; .">MultiCompartmentPlugin</a> object.  <a href="class_multi_compartment_plugin.html#a0139e7b72d4eeebcb9fc1fea962572ba">More...</a><br /></td></tr>
+<tr class="memdesc:a0139e7b72d4eeebcb9fc1fea962572ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_multi_compartment_plugin.html">MultiCompartmentPlugin</a> object.  <a href="class_multi_compartment_plugin.html#a0139e7b72d4eeebcb9fc1fea962572ba">More...</a><br /></td></tr>
 <tr class="separator:a0139e7b72d4eeebcb9fc1fea962572ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15776f101a7e219c97c6966d03adaf23"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_compartment_reference.html">CompartmentReference</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#a15776f101a7e219c97c6966d03adaf23">createCompartmentReference</a> ()</td></tr>
-<tr class="memdesc:a15776f101a7e219c97c6966d03adaf23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object and adds it to the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>.  <a href="class_multi_compartment_plugin.html#a15776f101a7e219c97c6966d03adaf23">More...</a><br /></td></tr>
+<tr class="memdesc:a15776f101a7e219c97c6966d03adaf23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object and adds it to the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>.  <a href="class_multi_compartment_plugin.html#a15776f101a7e219c97c6966d03adaf23">More...</a><br /></td></tr>
 <tr class="separator:a15776f101a7e219c97c6966d03adaf23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9893618fab48be9a16aa105265d9c4ad"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_list.html">List</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#a9893618fab48be9a16aa105265d9c4ad">getAllElements</a> (<a class="el" href="class_element_filter.html">ElementFilter</a> *filter=NULL)</td></tr>
-<tr class="memdesc:a9893618fab48be9a16aa105265d9c4ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a <a class="el" href="class_list.html" title="\ @ @ . , , .">List</a> of all child <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> objects, including those nested to an arbitary depth.  <a href="class_multi_compartment_plugin.html#a9893618fab48be9a16aa105265d9c4ad">More...</a><br /></td></tr>
+<tr class="memdesc:a9893618fab48be9a16aa105265d9c4ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a <a class="el" href="class_list.html">List</a> of all child <a class="el" href="class_s_base.html">SBase</a> objects, including those nested to an arbitary depth.  <a href="class_multi_compartment_plugin.html#a9893618fab48be9a16aa105265d9c4ad">More...</a><br /></td></tr>
 <tr class="separator:a9893618fab48be9a16aa105265d9c4ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa06c0e320f08e4f5deecb665a06fea35"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_compartment_reference.html">CompartmentReference</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#aa06c0e320f08e4f5deecb665a06fea35">getCompartmentReference</a> (const std::string &amp;sid)</td></tr>
-<tr class="memdesc:aa06c0e320f08e4f5deecb665a06fea35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> with the given identifier <code>sid</code>.  <a href="class_multi_compartment_plugin.html#aa06c0e320f08e4f5deecb665a06fea35">More...</a><br /></td></tr>
+<tr class="memdesc:aa06c0e320f08e4f5deecb665a06fea35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_compartment_reference.html">CompartmentReference</a> with the given identifier <code>sid</code>.  <a href="class_multi_compartment_plugin.html#aa06c0e320f08e4f5deecb665a06fea35">More...</a><br /></td></tr>
 <tr class="separator:aa06c0e320f08e4f5deecb665a06fea35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50b03bad01d5bdad0cd633baf41e90f2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_compartment_reference.html">CompartmentReference</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#a50b03bad01d5bdad0cd633baf41e90f2">getCompartmentReference</a> (const std::string &amp;sid) const</td></tr>
-<tr class="memdesc:a50b03bad01d5bdad0cd633baf41e90f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> with the given identifier <code>sid</code>.  <a href="class_multi_compartment_plugin.html#a50b03bad01d5bdad0cd633baf41e90f2">More...</a><br /></td></tr>
+<tr class="memdesc:a50b03bad01d5bdad0cd633baf41e90f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_compartment_reference.html">CompartmentReference</a> with the given identifier <code>sid</code>.  <a href="class_multi_compartment_plugin.html#a50b03bad01d5bdad0cd633baf41e90f2">More...</a><br /></td></tr>
 <tr class="separator:a50b03bad01d5bdad0cd633baf41e90f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a452af52904efd71b6679fecc0c46efad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_compartment_reference.html">CompartmentReference</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#a452af52904efd71b6679fecc0c46efad">getCompartmentReference</a> (unsigned int n)</td></tr>
-<tr class="memdesc:a452af52904efd71b6679fecc0c46efad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the nth <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object from the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>.  <a href="class_multi_compartment_plugin.html#a452af52904efd71b6679fecc0c46efad">More...</a><br /></td></tr>
+<tr class="memdesc:a452af52904efd71b6679fecc0c46efad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the nth <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object from the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>.  <a href="class_multi_compartment_plugin.html#a452af52904efd71b6679fecc0c46efad">More...</a><br /></td></tr>
 <tr class="separator:a452af52904efd71b6679fecc0c46efad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f5b71055d4c48b4c0d747bee02031e8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_compartment_reference.html">CompartmentReference</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#a2f5b71055d4c48b4c0d747bee02031e8">getCompartmentReference</a> (unsigned int n) const</td></tr>
-<tr class="memdesc:a2f5b71055d4c48b4c0d747bee02031e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the nth <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object from the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>.  <a href="class_multi_compartment_plugin.html#a2f5b71055d4c48b4c0d747bee02031e8">More...</a><br /></td></tr>
+<tr class="memdesc:a2f5b71055d4c48b4c0d747bee02031e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the nth <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object from the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>.  <a href="class_multi_compartment_plugin.html#a2f5b71055d4c48b4c0d747bee02031e8">More...</a><br /></td></tr>
 <tr class="separator:a2f5b71055d4c48b4c0d747bee02031e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba56567f3c7f4719f7799b65dc2f7da7"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#aba56567f3c7f4719f7799b65dc2f7da7">getCompartmentType</a> () const</td></tr>
 <tr class="memdesc:aba56567f3c7f4719f7799b65dc2f7da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the "compartmentType" attribute of this compartment.  <a href="class_multi_compartment_plugin.html#aba56567f3c7f4719f7799b65dc2f7da7">More...</a><br /></td></tr>
@@ -153,13 +153,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a4f960060c607ab977a1953edd864c3ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the SBML Level of the package extension of this plugin object.  <a href="class_s_base_plugin.html#a4f960060c607ab977a1953edd864c3ce">More...</a><br /></td></tr>
 <tr class="separator:a4f960060c607ab977a1953edd864c3ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6720a7c949136004e3153fab1530ffaa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#a6720a7c949136004e3153fab1530ffaa">getListOfCompartmentReferences</a> ()</td></tr>
-<tr class="memdesc:a6720a7c949136004e3153fab1530ffaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a> object.  <a href="class_multi_compartment_plugin.html#a6720a7c949136004e3153fab1530ffaa">More...</a><br /></td></tr>
+<tr class="memdesc:a6720a7c949136004e3153fab1530ffaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a> object.  <a href="class_multi_compartment_plugin.html#a6720a7c949136004e3153fab1530ffaa">More...</a><br /></td></tr>
 <tr class="separator:a6720a7c949136004e3153fab1530ffaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4656b2f095c0e826972cc05184d53cc9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#a4656b2f095c0e826972cc05184d53cc9">getListOfCompartmentReferences</a> () const</td></tr>
-<tr class="memdesc:a4656b2f095c0e826972cc05184d53cc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a> object.  <a href="class_multi_compartment_plugin.html#a4656b2f095c0e826972cc05184d53cc9">More...</a><br /></td></tr>
+<tr class="memdesc:a4656b2f095c0e826972cc05184d53cc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a> object.  <a href="class_multi_compartment_plugin.html#a4656b2f095c0e826972cc05184d53cc9">More...</a><br /></td></tr>
 <tr class="separator:a4656b2f095c0e826972cc05184d53cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13c6f6dedd13180dae170c02a3c63207"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#a13c6f6dedd13180dae170c02a3c63207">getNumCompartmentReferences</a> () const</td></tr>
-<tr class="memdesc:a13c6f6dedd13180dae170c02a3c63207"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> objects in the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>.  <a href="class_multi_compartment_plugin.html#a13c6f6dedd13180dae170c02a3c63207">More...</a><br /></td></tr>
+<tr class="memdesc:a13c6f6dedd13180dae170c02a3c63207"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of <a class="el" href="class_compartment_reference.html">CompartmentReference</a> objects in the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>.  <a href="class_multi_compartment_plugin.html#a13c6f6dedd13180dae170c02a3c63207">More...</a><br /></td></tr>
 <tr class="separator:a13c6f6dedd13180dae170c02a3c63207"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39809eb9fac95dba54f36c133927f6d9"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a39809eb9fac95dba54f36c133927f6d9">getPackageName</a> () const</td></tr>
 <tr class="memdesc:a39809eb9fac95dba54f36c133927f6d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the short-form name of the package to which this plugin object belongs.  <a href="class_s_base_plugin.html#a39809eb9fac95dba54f36c133927f6d9">More...</a><br /></td></tr>
@@ -177,10 +177,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa2ba27dc0f8acc30b6a99496a26e1c0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the XML namespace prefix of the package to which this plugin object belongs.  <a href="class_s_base_plugin.html#aa2ba27dc0f8acc30b6a99496a26e1c0a">More...</a><br /></td></tr>
 <tr class="separator:aa2ba27dc0f8acc30b6a99496a26e1c0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59581825576a6216ab07beceb709da81"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a59581825576a6216ab07beceb709da81">getSBMLDocument</a> ()</td></tr>
-<tr class="memdesc:a59581825576a6216ab07beceb709da81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object containing this object instance.  <a href="class_s_base_plugin.html#a59581825576a6216ab07beceb709da81">More...</a><br /></td></tr>
+<tr class="memdesc:a59581825576a6216ab07beceb709da81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object containing this object instance.  <a href="class_s_base_plugin.html#a59581825576a6216ab07beceb709da81">More...</a><br /></td></tr>
 <tr class="separator:a59581825576a6216ab07beceb709da81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d5a422cf6973d70984cec3ec4597d1c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a9d5a422cf6973d70984cec3ec4597d1c">getSBMLDocument</a> () const</td></tr>
-<tr class="memdesc:a9d5a422cf6973d70984cec3ec4597d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object containing this object instance.  <a href="class_s_base_plugin.html#a9d5a422cf6973d70984cec3ec4597d1c">More...</a><br /></td></tr>
+<tr class="memdesc:a9d5a422cf6973d70984cec3ec4597d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object containing this object instance.  <a href="class_s_base_plugin.html#a9d5a422cf6973d70984cec3ec4597d1c">More...</a><br /></td></tr>
 <tr class="separator:a9d5a422cf6973d70984cec3ec4597d1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae278c9a451f870b4b0472dece4cfd075"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#ae278c9a451f870b4b0472dece4cfd075">getURI</a> () const</td></tr>
 <tr class="memdesc:ae278c9a451f870b4b0472dece4cfd075"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the XML namespace URI for the package to which this object belongs.  <a href="class_s_base_plugin.html#ae278c9a451f870b4b0472dece4cfd075">More...</a><br /></td></tr>
@@ -200,19 +200,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a22b634dc54d29892de8024a405af77be"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a22b634dc54d29892de8024a405af77be">isValidTypeForList</a> (<a class="el" href="class_s_base.html">SBase</a> *item) const</td></tr>
 <tr class="separator:a22b634dc54d29892de8024a405af77be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a909f4f09cc92f82e55e98cfd99f0d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#a1a909f4f09cc92f82e55e98cfd99f0d5">MultiCompartmentPlugin</a> (const <a class="el" href="class_multi_compartment_plugin.html">MultiCompartmentPlugin</a> &amp;orig)</td></tr>
-<tr class="memdesc:a1a909f4f09cc92f82e55e98cfd99f0d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor for <a class="el" href="class_multi_compartment_plugin.html" title="\ @ @ . &quot;&quot; .">MultiCompartmentPlugin</a>.  <a href="class_multi_compartment_plugin.html#a1a909f4f09cc92f82e55e98cfd99f0d5">More...</a><br /></td></tr>
+<tr class="memdesc:a1a909f4f09cc92f82e55e98cfd99f0d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor for <a class="el" href="class_multi_compartment_plugin.html">MultiCompartmentPlugin</a>.  <a href="class_multi_compartment_plugin.html#a1a909f4f09cc92f82e55e98cfd99f0d5">More...</a><br /></td></tr>
 <tr class="separator:a1a909f4f09cc92f82e55e98cfd99f0d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9c41764cc5ebfb1cb6228f7b3edb634"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#ad9c41764cc5ebfb1cb6228f7b3edb634">MultiCompartmentPlugin</a> (const std::string &amp;uri, const std::string &amp;prefix, <a class="el" href="class_multi_pkg_namespaces.html">MultiPkgNamespaces</a> *multins)</td></tr>
-<tr class="memdesc:ad9c41764cc5ebfb1cb6228f7b3edb634"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_multi_compartment_plugin.html" title="\ @ @ . &quot;&quot; .">MultiCompartmentPlugin</a> object.  <a href="class_multi_compartment_plugin.html#ad9c41764cc5ebfb1cb6228f7b3edb634">More...</a><br /></td></tr>
+<tr class="memdesc:ad9c41764cc5ebfb1cb6228f7b3edb634"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_multi_compartment_plugin.html">MultiCompartmentPlugin</a> object.  <a href="class_multi_compartment_plugin.html#ad9c41764cc5ebfb1cb6228f7b3edb634">More...</a><br /></td></tr>
 <tr class="separator:ad9c41764cc5ebfb1cb6228f7b3edb634"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c56321ee5d53acd692e2c8b75f9a940"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_multi_compartment_plugin.html">MultiCompartmentPlugin</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#a5c56321ee5d53acd692e2c8b75f9a940">operator=</a> (const <a class="el" href="class_multi_compartment_plugin.html">MultiCompartmentPlugin</a> &amp;rhs)</td></tr>
-<tr class="memdesc:a5c56321ee5d53acd692e2c8b75f9a940"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_multi_compartment_plugin.html" title="\ @ @ . &quot;&quot; .">MultiCompartmentPlugin</a>.  <a href="class_multi_compartment_plugin.html#a5c56321ee5d53acd692e2c8b75f9a940">More...</a><br /></td></tr>
+<tr class="memdesc:a5c56321ee5d53acd692e2c8b75f9a940"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_multi_compartment_plugin.html">MultiCompartmentPlugin</a>.  <a href="class_multi_compartment_plugin.html#a5c56321ee5d53acd692e2c8b75f9a940">More...</a><br /></td></tr>
 <tr class="separator:a5c56321ee5d53acd692e2c8b75f9a940"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad9ea939da28cd8830d2e3aeb9b790ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_compartment_reference.html">CompartmentReference</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#aad9ea939da28cd8830d2e3aeb9b790ec">removeCompartmentReference</a> (const std::string &amp;sid)</td></tr>
-<tr class="memdesc:aad9ea939da28cd8830d2e3aeb9b790ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object with the given identifier from the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>.  <a href="class_multi_compartment_plugin.html#aad9ea939da28cd8830d2e3aeb9b790ec">More...</a><br /></td></tr>
+<tr class="memdesc:aad9ea939da28cd8830d2e3aeb9b790ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object with the given identifier from the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>.  <a href="class_multi_compartment_plugin.html#aad9ea939da28cd8830d2e3aeb9b790ec">More...</a><br /></td></tr>
 <tr class="separator:aad9ea939da28cd8830d2e3aeb9b790ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2aa121d62a4a44c09eb0fc7285225fe4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_compartment_reference.html">CompartmentReference</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#a2aa121d62a4a44c09eb0fc7285225fe4">removeCompartmentReference</a> (unsigned int n)</td></tr>
-<tr class="memdesc:a2aa121d62a4a44c09eb0fc7285225fe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the nth <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object from the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>.  <a href="class_multi_compartment_plugin.html#a2aa121d62a4a44c09eb0fc7285225fe4">More...</a><br /></td></tr>
+<tr class="memdesc:a2aa121d62a4a44c09eb0fc7285225fe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the nth <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object from the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>.  <a href="class_multi_compartment_plugin.html#a2aa121d62a4a44c09eb0fc7285225fe4">More...</a><br /></td></tr>
 <tr class="separator:a2aa121d62a4a44c09eb0fc7285225fe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a95d2c1e8f73cd2f44954f9bf77ddb1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a8a95d2c1e8f73cd2f44954f9bf77ddb1">renameMetaIdRefs</a> (const std::string &amp;oldid, const std::string &amp;newid)</td></tr>
 <tr class="separator:a8a95d2c1e8f73cd2f44954f9bf77ddb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -236,7 +236,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ad1aa628f66eab16df79f0efbc322bdc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the value of the "isType" attribute.  <a href="class_multi_compartment_plugin.html#ad1aa628f66eab16df79f0efbc322bdc9">More...</a><br /></td></tr>
 <tr class="separator:ad1aa628f66eab16df79f0efbc322bdc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a8cbc5b4ac462311a8a0f7b5a1dc426"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multi_compartment_plugin.html#a5a8cbc5b4ac462311a8a0f7b5a1dc426">~MultiCompartmentPlugin</a> ()</td></tr>
-<tr class="memdesc:a5a8cbc5b4ac462311a8a0f7b5a1dc426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for <a class="el" href="class_multi_compartment_plugin.html" title="\ @ @ . &quot;&quot; .">MultiCompartmentPlugin</a>.  <a href="class_multi_compartment_plugin.html#a5a8cbc5b4ac462311a8a0f7b5a1dc426">More...</a><br /></td></tr>
+<tr class="memdesc:a5a8cbc5b4ac462311a8a0f7b5a1dc426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for <a class="el" href="class_multi_compartment_plugin.html">MultiCompartmentPlugin</a>.  <a href="class_multi_compartment_plugin.html#a5a8cbc5b4ac462311a8a0f7b5a1dc426">More...</a><br /></td></tr>
 <tr class="separator:a5a8cbc5b4ac462311a8a0f7b5a1dc426"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -272,9 +272,9 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_multi_compartment_plugin.html" title="\ @ @ . &quot;&quot; .">MultiCompartmentPlugin</a> object. </p>
+<p>Creates a new <a class="el" href="class_multi_compartment_plugin.html">MultiCompartmentPlugin</a> object. </p>
 <dl class="section user"><dt></dt><dd>In the XML representation of an SBML document, XML namespaces are used to identify the origin of each XML construct used. XML namespaces are identified by their unique resource identifiers (URIs). The core SBML specifications stipulate the namespaces that must be used for core SBML constructs; for example, all XML elements that belong to SBML Level&#160;3 Version&#160;1 Core must be placed in the XML namespace identified by the URI <code>"http://www.sbml.org/sbml/level3/version1/core"</code>. Individual SBML Level&#160;3 packages define their own XML namespaces; for example, all elements belonging to the SBML Level&#160;3 Layout Version&#160;1 package must be placed in the XML namespace <code>"http://www.sbml.org/sbml/level3/version1/layout/version1/"</code>.</dd></dl>
-<dl class="section user"><dt></dt><dd>The <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object encapsulates SBML Level/Version/namespaces information. It is used to communicate the SBML Level, Version, and (in Level&#160;3) packages used in addition to SBML Level&#160;3 Core. A common approach to using libSBML's <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> facilities is to create an <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object somewhere in a program once, then hand that object as needed to object constructors that accept <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> as arguments.</dd></dl>
+<dl class="section user"><dt></dt><dd>The <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object encapsulates SBML Level/Version/namespaces information. It is used to communicate the SBML Level, Version, and (in Level&#160;3) packages used in addition to SBML Level&#160;3 Core. A common approach to using libSBML's <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> facilities is to create an <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object somewhere in a program once, then hand that object as needed to object constructors that accept <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> as arguments.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uri</td><td>the URI of the SBML Level&#160;3 package implemented by this libSBML package extension.</td></tr>
@@ -302,10 +302,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copy constructor for <a class="el" href="class_multi_compartment_plugin.html" title="\ @ @ . &quot;&quot; .">MultiCompartmentPlugin</a>. </p>
+<p>Copy constructor for <a class="el" href="class_multi_compartment_plugin.html">MultiCompartmentPlugin</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">orig</td><td>the <a class="el" href="class_multi_compartment_plugin.html" title="\ @ @ . &quot;&quot; .">MultiCompartmentPlugin</a> instance to copy. </td></tr>
+    <tr><td class="paramname">orig</td><td>the <a class="el" href="class_multi_compartment_plugin.html">MultiCompartmentPlugin</a> instance to copy. </td></tr>
   </table>
   </dd>
 </dl>
@@ -335,7 +335,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destructor for <a class="el" href="class_multi_compartment_plugin.html" title="\ @ @ . &quot;&quot; .">MultiCompartmentPlugin</a>. </p>
+<p>Destructor for <a class="el" href="class_multi_compartment_plugin.html">MultiCompartmentPlugin</a>. </p>
 
 </div>
 </div>
@@ -356,10 +356,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Adds a copy of the given <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object to the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>. </p>
+<p>Adds a copy of the given <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object to the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">compartmentReference</td><td>the <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object to add.</td></tr>
+    <tr><td class="paramname">compartmentReference</td><td>the <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object to add.</td></tr>
   </table>
   </dd>
 </dl>
@@ -393,8 +393,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates and returns a deep copy of this <a class="el" href="class_multi_compartment_plugin.html" title="\ @ @ . &quot;&quot; .">MultiCompartmentPlugin</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>a (deep) copy of this <a class="el" href="class_multi_compartment_plugin.html" title="\ @ @ . &quot;&quot; .">MultiCompartmentPlugin</a> object. </dd></dl>
+<p>Creates and returns a deep copy of this <a class="el" href="class_multi_compartment_plugin.html">MultiCompartmentPlugin</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>a (deep) copy of this <a class="el" href="class_multi_compartment_plugin.html">MultiCompartmentPlugin</a> object. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_base_plugin.html#a323cc1f9b65d0804e09ed84f0ca31637">SBasePlugin</a>.</p>
 
@@ -415,8 +415,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object and adds it to the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the newly created <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object. </dd></dl>
+<p>Creates a new <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object and adds it to the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the newly created <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object. </dd></dl>
 
 </div>
 </div>
@@ -444,14 +444,14 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a <a class="el" href="class_list.html" title="\ @ @ . , , .">List</a> of all child <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> objects, including those nested to an arbitary depth. </p>
+<p>Returns a <a class="el" href="class_list.html">List</a> of all child <a class="el" href="class_s_base.html">SBase</a> objects, including those nested to an arbitary depth. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">filter</td><td>a pointer to an <a class="el" href="class_element_filter.html" title="\ @ @ . .">ElementFilter</a>, which causes the function to return only elements that match a particular set of constraints. If NULL (the default), the function will return all child objects.</td></tr>
+    <tr><td class="paramname">filter</td><td>a pointer to an <a class="el" href="class_element_filter.html">ElementFilter</a>, which causes the function to return only elements that match a particular set of constraints. If NULL (the default), the function will return all child objects.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="class_list.html" title="\ @ @ . , , .">List</a> of pointers to all child objects. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="class_list.html">List</a> of pointers to all child objects. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_base_plugin.html#ac06fe5377358500d4341f62b8b962835">SBasePlugin</a>.</p>
 
@@ -473,14 +473,14 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> with the given identifier <code>sid</code>. </p>
+<p>Returns the <a class="el" href="class_compartment_reference.html">CompartmentReference</a> with the given identifier <code>sid</code>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">sid</td><td>the identifier of the <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object to get from the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>.</td></tr>
+    <tr><td class="paramname">sid</td><td>the identifier of the <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object to get from the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object with the given identifier in the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>, or <code>NULL</code> if no such <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> exists. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object with the given identifier in the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>, or <code>NULL</code> if no such <a class="el" href="class_compartment_reference.html">CompartmentReference</a> exists. </dd></dl>
 
 </div>
 </div>
@@ -500,14 +500,14 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> with the given identifier <code>sid</code>. </p>
+<p>Returns the <a class="el" href="class_compartment_reference.html">CompartmentReference</a> with the given identifier <code>sid</code>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">sid</td><td>the identifier of the <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object to get from the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>.</td></tr>
+    <tr><td class="paramname">sid</td><td>the identifier of the <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object to get from the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object with the given identifier in the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>, or <code>NULL</code> if no such <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> exists. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object with the given identifier in the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>, or <code>NULL</code> if no such <a class="el" href="class_compartment_reference.html">CompartmentReference</a> exists. </dd></dl>
 
 </div>
 </div>
@@ -527,14 +527,14 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the nth <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object from the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>. </p>
+<p>Returns the nth <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object from the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td>the index number of the <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> to get.</td></tr>
+    <tr><td class="paramname">n</td><td>the index number of the <a class="el" href="class_compartment_reference.html">CompartmentReference</a> to get.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a>, or <code>NULL</code> if the index <code>n</code> is out of range. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_compartment_reference.html">CompartmentReference</a>, or <code>NULL</code> if the index <code>n</code> is out of range. </dd></dl>
 
 </div>
 </div>
@@ -554,14 +554,14 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the nth <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object from the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>. </p>
+<p>Returns the nth <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object from the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td>the index number of the <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> to get.</td></tr>
+    <tr><td class="paramname">n</td><td>the index number of the <a class="el" href="class_compartment_reference.html">CompartmentReference</a> to get.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a>, or <code>NULL</code> if the index <code>n</code> is out of range. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_compartment_reference.html">CompartmentReference</a>, or <code>NULL</code> if the index <code>n</code> is out of range. </dd></dl>
 
 </div>
 </div>
@@ -770,8 +770,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a> object within this "multi" <a class="el" href="class_compartment.html" title="\ @ @ . , .">Compartment</a>. </dd></dl>
+<p>Returns the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a> object within this "multi" <a class="el" href="class_compartment.html">Compartment</a>. </dd></dl>
 
 </div>
 </div>
@@ -790,8 +790,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a> object within this "multi" <a class="el" href="class_compartment.html" title="\ @ @ . , .">Compartment</a> object. </dd></dl>
+<p>Returns the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a> object within this "multi" <a class="el" href="class_compartment.html">Compartment</a> object. </dd></dl>
 
 </div>
 </div>
@@ -810,8 +810,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the number of <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> objects in the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the number of <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> objects. </dd></dl>
+<p>Returns the number of <a class="el" href="class_compartment_reference.html">CompartmentReference</a> objects in the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the number of <a class="el" href="class_compartment_reference.html">CompartmentReference</a> objects. </dd></dl>
 
 </div>
 </div>
@@ -981,10 +981,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object containing this object instance. </p>
-<dl class="section user"><dt></dt><dd>LibSBML uses the class <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> as a top-level container for storing SBML content and data associated with it (such as warnings and error messages). An SBML model in libSBML is contained inside an <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object. <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> corresponds roughly to the class <em>SBML</em> defined in the SBML Level&#160;3 and Level&#160;2 specifications, but it does not have a direct correspondence in SBML Level&#160;1. (But, it is created by libSBML no matter whether the model is Level&#160;1, Level&#160;2 or Level&#160;3.)</dd></dl>
-<p>This method allows the caller to obtain the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> for the current object.</p>
-<dl class="section return"><dt>Returns</dt><dd>the parent <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object of this plugin object.</dd></dl>
+<p>Returns the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object containing this object instance. </p>
+<dl class="section user"><dt></dt><dd>LibSBML uses the class <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> as a top-level container for storing SBML content and data associated with it (such as warnings and error messages). An SBML model in libSBML is contained inside an <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> corresponds roughly to the class <em>SBML</em> defined in the SBML Level&#160;3 and Level&#160;2 specifications, but it does not have a direct correspondence in SBML Level&#160;1. (But, it is created by libSBML no matter whether the model is Level&#160;1, Level&#160;2 or Level&#160;3.)</dd></dl>
+<p>This method allows the caller to obtain the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> for the current object.</p>
+<dl class="section return"><dt>Returns</dt><dd>the parent <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object of this plugin object.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base_plugin.html#afcf597ffa54ffed41a57a1feee7a9241" title="Returns the parent object to which this plugin object is connected.">getParentSBMLObject()</a> </dd></dl>
 
 </div>
@@ -1012,10 +1012,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object containing this object instance. </p>
-<dl class="section user"><dt></dt><dd>LibSBML uses the class <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> as a top-level container for storing SBML content and data associated with it (such as warnings and error messages). An SBML model in libSBML is contained inside an <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object. <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> corresponds roughly to the class <em>SBML</em> defined in the SBML Level&#160;3 and Level&#160;2 specifications, but it does not have a direct correspondence in SBML Level&#160;1. (But, it is created by libSBML no matter whether the model is Level&#160;1, Level&#160;2 or Level&#160;3.)</dd></dl>
-<p>This method allows the caller to obtain the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> for the current object.</p>
-<dl class="section return"><dt>Returns</dt><dd>the parent <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object of this plugin object.</dd></dl>
+<p>Returns the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object containing this object instance. </p>
+<dl class="section user"><dt></dt><dd>LibSBML uses the class <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> as a top-level container for storing SBML content and data associated with it (such as warnings and error messages). An SBML model in libSBML is contained inside an <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> corresponds roughly to the class <em>SBML</em> defined in the SBML Level&#160;3 and Level&#160;2 specifications, but it does not have a direct correspondence in SBML Level&#160;1. (But, it is created by libSBML no matter whether the model is Level&#160;1, Level&#160;2 or Level&#160;3.)</dd></dl>
+<p>This method allows the caller to obtain the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> for the current object.</p>
+<dl class="section return"><dt>Returns</dt><dd>the parent <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object of this plugin object.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base_plugin.html#afcf597ffa54ffed41a57a1feee7a9241" title="Returns the parent object to which this plugin object is connected.">getParentSBMLObject()</a> </dd></dl>
 
 </div>
@@ -1045,7 +1045,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Returns the XML namespace URI for the package to which this object belongs. </p>
 <dl class="section user"><dt></dt><dd>In the XML representation of an SBML document, XML namespaces are used to identify the origin of each XML construct used. XML namespaces are identified by their unique resource identifiers (URIs). The core SBML specifications stipulate the namespaces that must be used for core SBML constructs; for example, all XML elements that belong to SBML Level&#160;3 Version&#160;1 Core must be placed in the XML namespace identified by the URI <code>"http://www.sbml.org/sbml/level3/version1/core"</code>. Individual SBML Level&#160;3 packages define their own XML namespaces; for example, all elements belonging to the SBML Level&#160;3 Layout Version&#160;1 package must be placed in the XML namespace <code>"http://www.sbml.org/sbml/level3/version1/layout/version1/"</code>.</dd></dl>
-<p>This method first looks into the <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object possessed by the parent <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object of the current object. If this cannot be found, this method returns the result of <a class="el" href="class_s_base_plugin.html#a22e94cfa62ef5948cd631c8d22918293" title="Returns the namespace URI of the package to which this plugin object belongs.">getElementNamespace()</a>.</p>
+<p>This method first looks into the <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object possessed by the parent <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object of the current object. If this cannot be found, this method returns the result of <a class="el" href="class_s_base_plugin.html#a22e94cfa62ef5948cd631c8d22918293" title="Returns the namespace URI of the package to which this plugin object belongs.">getElementNamespace()</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>a string, the URI of the XML namespace to which this object belongs.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base_plugin.html#a39809eb9fac95dba54f36c133927f6d9" title="Returns the short-form name of the package to which this plugin object belongs.">getPackageName()</a> </dd>
 <dd>
@@ -1210,7 +1210,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Assignment operator for <a class="el" href="class_multi_compartment_plugin.html" title="\ @ @ . &quot;&quot; .">MultiCompartmentPlugin</a>. </p>
+<p>Assignment operator for <a class="el" href="class_multi_compartment_plugin.html">MultiCompartmentPlugin</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">rhs</td><td>the object whose values are used as the basis of the assignment </td></tr>
@@ -1236,14 +1236,14 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Removes the <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object with the given identifier from the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>. </p>
+<p>Removes the <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object with the given identifier from the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">sid</td><td>the id of the <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> to remove.</td></tr>
+    <tr><td class="paramname">sid</td><td>the id of the <a class="el" href="class_compartment_reference.html">CompartmentReference</a> to remove.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object removed, or <code>NULL</code> if no such <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> exists. Note that the caller owns the returned object and is responsible for deleting it. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object removed, or <code>NULL</code> if no such <a class="el" href="class_compartment_reference.html">CompartmentReference</a> exists. Note that the caller owns the returned object and is responsible for deleting it. </dd></dl>
 
 </div>
 </div>
@@ -1263,14 +1263,14 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Removes the nth <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object from the <a class="el" href="class_list_of_compartment_references.html" title="\ @ @ . .">ListOfCompartmentReferences</a>. </p>
+<p>Removes the nth <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object from the <a class="el" href="class_list_of_compartment_references.html">ListOfCompartmentReferences</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td>the index of the <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> to remove.</td></tr>
+    <tr><td class="paramname">n</td><td>the index of the <a class="el" href="class_compartment_reference.html">CompartmentReference</a> to remove.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_compartment_reference.html" title="\ @ @ . .">CompartmentReference</a> object removed, or <code>NULL</code> if the given index <code>n</code> is out of range. Note that the caller owns the returned object and is responsible for deleting it. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_compartment_reference.html">CompartmentReference</a> object removed, or <code>NULL</code> if the given index <code>n</code> is out of range. Note that the caller owns the returned object and is responsible for deleting it. </dd></dl>
 
 </div>
 </div>

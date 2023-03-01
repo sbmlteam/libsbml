@@ -98,14 +98,14 @@ $(document).ready(function(){initNavTree('class_conversion_option.html',''); ini
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>\ @ @ . . </p>
+<div class="textblock"> A single configuration setting for an SBML converter.</p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  It is a class used in
 the implementation of extra functionality provided by libSBML.
 </p>
-<p>LibSBML provides a number of converters that can perform transformations on SBML documents. These converters allow their behaviors to be controlled by setting property values. Converter properties are communicated using objects of class <a class="el" href="class_conversion_properties.html" title="\ @ @ . .">ConversionProperties</a>, and within such objects, individual options are encapsulated using <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> objects.</p>
-<p>A <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> object consists of four parts: </p><ul>
+<p>LibSBML provides a number of converters that can perform transformations on SBML documents. These converters allow their behaviors to be controlled by setting property values. Converter properties are communicated using objects of class <a class="el" href="class_conversion_properties.html">ConversionProperties</a>, and within such objects, individual options are encapsulated using <a class="el" href="class_conversion_option.html">ConversionOption</a> objects.</p>
+<p>A <a class="el" href="class_conversion_option.html">ConversionOption</a> object consists of four parts: </p><ul>
 <li>A <em>key</em>, acting as the name of the option. </li>
 <li>A <em>value</em> of this option. </li>
 <li>A <em>type</em> for the value; the type code is chosen froman enumeration whose names all begin with the prefix <code>CNV_TYPE_</code>. (See the separate <a href="#ConversionOptionType_t" class="el">subsection</a> below for more information.) </li>
@@ -114,7 +114,7 @@ the implementation of extra functionality provided by libSBML.
 <p>There are no constraints on the values of keys or descriptions; authors of SBML converters are free to choose them as they see fit.</p>
 <h1><a class="anchor" id="ConversionOptionType_t"></a>
 Conversion option data types</h1>
-<p>An option in <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> must have a data type declared, to indicate whether it is a string value, an integer, and so forth. The possible types of values are taken from the enumeration <a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645" title="ConversionOptionType_t is the enumeration of possible option types.">ConversionOptionType_t</a>. The following are the possible values:</p>
+<p>An option in <a class="el" href="class_conversion_option.html">ConversionOption</a> must have a data type declared, to indicate whether it is a string value, an integer, and so forth. The possible types of values are taken from the enumeration <a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645" title="ConversionOptionType_t is the enumeration of possible option types.">ConversionOptionType_t</a>. The following are the possible values:</p>
 <center> <table width="90%" cellspacing="1" cellpadding="1" border="0" class="normal-font">
 <tr style="background: lightgray" class="normal-font">
 <td><b>Enumerator</b> </td><td><b>Meaning</b>  </td></tr>
@@ -129,33 +129,33 @@ Conversion option data types</h1>
 <tr>
 <td><code><a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645a3751267705b67165ff4b7a793c2bd3ea">CNV_TYPE_STRING</a></code> </td><td>Indicates the value type is a string.  </td></tr>
 </table>
-</center><dl class="section see"><dt>See also</dt><dd><a class="el" href="class_conversion_properties.html" title="\ @ @ . .">ConversionProperties</a> </dd></dl>
+</center><dl class="section see"><dt>See also</dt><dd><a class="el" href="class_conversion_properties.html">ConversionProperties</a> </dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a19ff26f3ace35d0e1a979b4ff7aa0eb8"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_conversion_option.html">ConversionOption</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_conversion_option.html#a19ff26f3ace35d0e1a979b4ff7aa0eb8">clone</a> () const</td></tr>
-<tr class="memdesc:a19ff26f3ace35d0e1a979b4ff7aa0eb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> object.  <a href="class_conversion_option.html#a19ff26f3ace35d0e1a979b4ff7aa0eb8">More...</a><br /></td></tr>
+<tr class="memdesc:a19ff26f3ace35d0e1a979b4ff7aa0eb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_conversion_option.html">ConversionOption</a> object.  <a href="class_conversion_option.html#a19ff26f3ace35d0e1a979b4ff7aa0eb8">More...</a><br /></td></tr>
 <tr class="separator:a19ff26f3ace35d0e1a979b4ff7aa0eb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9665ee7d88703be81b93ac0c5f049c80"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_conversion_option.html#a9665ee7d88703be81b93ac0c5f049c80">ConversionOption</a> (const <a class="el" href="class_conversion_option.html">ConversionOption</a> &amp;orig)</td></tr>
-<tr class="memdesc:a9665ee7d88703be81b93ac0c5f049c80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor; creates a copy of an <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> object.  <a href="class_conversion_option.html#a9665ee7d88703be81b93ac0c5f049c80">More...</a><br /></td></tr>
+<tr class="memdesc:a9665ee7d88703be81b93ac0c5f049c80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor; creates a copy of an <a class="el" href="class_conversion_option.html">ConversionOption</a> object.  <a href="class_conversion_option.html#a9665ee7d88703be81b93ac0c5f049c80">More...</a><br /></td></tr>
 <tr class="separator:a9665ee7d88703be81b93ac0c5f049c80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b3fa16876a1f44eec52e662a1308168"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_conversion_option.html#a1b3fa16876a1f44eec52e662a1308168">ConversionOption</a> (const std::string &amp;key, bool value, const std::string description=&quot;&quot;)</td></tr>
-<tr class="memdesc:a1b3fa16876a1f44eec52e662a1308168"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> specialized for Boolean-type options.  <a href="class_conversion_option.html#a1b3fa16876a1f44eec52e662a1308168">More...</a><br /></td></tr>
+<tr class="memdesc:a1b3fa16876a1f44eec52e662a1308168"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_conversion_option.html">ConversionOption</a> specialized for Boolean-type options.  <a href="class_conversion_option.html#a1b3fa16876a1f44eec52e662a1308168">More...</a><br /></td></tr>
 <tr class="separator:a1b3fa16876a1f44eec52e662a1308168"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acba5bd51af0335c4e6217718ec9b7788"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_conversion_option.html#acba5bd51af0335c4e6217718ec9b7788">ConversionOption</a> (const std::string &amp;key, const char *value, const std::string description=&quot;&quot;)</td></tr>
-<tr class="memdesc:acba5bd51af0335c4e6217718ec9b7788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> specialized for string-type options.  <a href="class_conversion_option.html#acba5bd51af0335c4e6217718ec9b7788">More...</a><br /></td></tr>
+<tr class="memdesc:acba5bd51af0335c4e6217718ec9b7788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_conversion_option.html">ConversionOption</a> specialized for string-type options.  <a href="class_conversion_option.html#acba5bd51af0335c4e6217718ec9b7788">More...</a><br /></td></tr>
 <tr class="separator:acba5bd51af0335c4e6217718ec9b7788"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa82b230e9e1914691bac2b0f7c76caff"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_conversion_option.html#aa82b230e9e1914691bac2b0f7c76caff">ConversionOption</a> (const std::string &amp;key, const std::string value=&quot;&quot;, <a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645">ConversionOptionType_t</a> type=<a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645a3751267705b67165ff4b7a793c2bd3ea">CNV_TYPE_STRING</a>, const std::string description=&quot;&quot;)</td></tr>
-<tr class="memdesc:aa82b230e9e1914691bac2b0f7c76caff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a>.  <a href="class_conversion_option.html#aa82b230e9e1914691bac2b0f7c76caff">More...</a><br /></td></tr>
+<tr class="memdesc:aa82b230e9e1914691bac2b0f7c76caff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_conversion_option.html">ConversionOption</a>.  <a href="class_conversion_option.html#aa82b230e9e1914691bac2b0f7c76caff">More...</a><br /></td></tr>
 <tr class="separator:aa82b230e9e1914691bac2b0f7c76caff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adeeb9e961555ff1e46ddd232a7dc6f64"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_conversion_option.html#adeeb9e961555ff1e46ddd232a7dc6f64">ConversionOption</a> (const std::string &amp;key, double value, const std::string description=&quot;&quot;)</td></tr>
-<tr class="memdesc:adeeb9e961555ff1e46ddd232a7dc6f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> specialized for double-type options.  <a href="class_conversion_option.html#adeeb9e961555ff1e46ddd232a7dc6f64">More...</a><br /></td></tr>
+<tr class="memdesc:adeeb9e961555ff1e46ddd232a7dc6f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_conversion_option.html">ConversionOption</a> specialized for double-type options.  <a href="class_conversion_option.html#adeeb9e961555ff1e46ddd232a7dc6f64">More...</a><br /></td></tr>
 <tr class="separator:adeeb9e961555ff1e46ddd232a7dc6f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95caff82cb7df9d3998cab0a62cd76c9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_conversion_option.html#a95caff82cb7df9d3998cab0a62cd76c9">ConversionOption</a> (const std::string &amp;key, float value, const std::string description=&quot;&quot;)</td></tr>
-<tr class="memdesc:a95caff82cb7df9d3998cab0a62cd76c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> specialized for float-type options.  <a href="class_conversion_option.html#a95caff82cb7df9d3998cab0a62cd76c9">More...</a><br /></td></tr>
+<tr class="memdesc:a95caff82cb7df9d3998cab0a62cd76c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_conversion_option.html">ConversionOption</a> specialized for float-type options.  <a href="class_conversion_option.html#a95caff82cb7df9d3998cab0a62cd76c9">More...</a><br /></td></tr>
 <tr class="separator:a95caff82cb7df9d3998cab0a62cd76c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a932b611633fb99283ccc5830cb63d2c0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_conversion_option.html#a932b611633fb99283ccc5830cb63d2c0">ConversionOption</a> (const std::string &amp;key, int value, const std::string description=&quot;&quot;)</td></tr>
-<tr class="memdesc:a932b611633fb99283ccc5830cb63d2c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> specialized for integer-type options.  <a href="class_conversion_option.html#a932b611633fb99283ccc5830cb63d2c0">More...</a><br /></td></tr>
+<tr class="memdesc:a932b611633fb99283ccc5830cb63d2c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_conversion_option.html">ConversionOption</a> specialized for integer-type options.  <a href="class_conversion_option.html#a932b611633fb99283ccc5830cb63d2c0">More...</a><br /></td></tr>
 <tr class="separator:a932b611633fb99283ccc5830cb63d2c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50693d3c2c23a2cc0570e7ab5d92c1e7"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_conversion_option.html#a50693d3c2c23a2cc0570e7ab5d92c1e7">getBoolValue</a> () const</td></tr>
 <tr class="memdesc:a50693d3c2c23a2cc0570e7ab5d92c1e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of this option as a Boolean.  <a href="class_conversion_option.html#a50693d3c2c23a2cc0570e7ab5d92c1e7">More...</a><br /></td></tr>
@@ -182,7 +182,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a61b68109bc03ed2a7a032a2854226c05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of this option.  <a href="class_conversion_option.html#a61b68109bc03ed2a7a032a2854226c05">More...</a><br /></td></tr>
 <tr class="separator:a61b68109bc03ed2a7a032a2854226c05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79fdeacd73141c19c69559330ca4ec3f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_conversion_option.html">ConversionOption</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_conversion_option.html#a79fdeacd73141c19c69559330ca4ec3f">operator=</a> (const <a class="el" href="class_conversion_option.html">ConversionOption</a> &amp;rhs)</td></tr>
-<tr class="memdesc:a79fdeacd73141c19c69559330ca4ec3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a>.  <a href="class_conversion_option.html#a79fdeacd73141c19c69559330ca4ec3f">More...</a><br /></td></tr>
+<tr class="memdesc:a79fdeacd73141c19c69559330ca4ec3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_conversion_option.html">ConversionOption</a>.  <a href="class_conversion_option.html#a79fdeacd73141c19c69559330ca4ec3f">More...</a><br /></td></tr>
 <tr class="separator:a79fdeacd73141c19c69559330ca4ec3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72f65c7ebf9c5cd2ebd0a8a50cd2dba8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_conversion_option.html#a72f65c7ebf9c5cd2ebd0a8a50cd2dba8">setBoolValue</a> (bool value)</td></tr>
 <tr class="memdesc:a72f65c7ebf9c5cd2ebd0a8a50cd2dba8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value of this option to a given Boolean value.  <a href="class_conversion_option.html#a72f65c7ebf9c5cd2ebd0a8a50cd2dba8">More...</a><br /></td></tr>
@@ -251,7 +251,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a>. </p>
+<p>Creates a new <a class="el" href="class_conversion_option.html">ConversionOption</a>. </p>
 <p>This is the general constructor, taking arguments for all aspects of an option. Other constructors exist with different arguments.</p>
 <dl class="section user"><dt></dt><dd>The conversion <code>type</code> argument value must be one of the values defined in the enumeration <a class="el" href="_conversion_option_8h.html#a01d867a399706f7b104a3998b7815645" title="ConversionOptionType_t is the enumeration of possible option types.">ConversionOptionType_t</a>.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -298,7 +298,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> specialized for string-type options. </p>
+<p>Creates a new <a class="el" href="class_conversion_option.html">ConversionOption</a> specialized for string-type options. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">key</td><td>the key for this option. </td></tr>
@@ -342,7 +342,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> specialized for Boolean-type options. </p>
+<p>Creates a new <a class="el" href="class_conversion_option.html">ConversionOption</a> specialized for Boolean-type options. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">key</td><td>the key for this option. </td></tr>
@@ -386,7 +386,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> specialized for double-type options. </p>
+<p>Creates a new <a class="el" href="class_conversion_option.html">ConversionOption</a> specialized for double-type options. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">key</td><td>the key for this option. </td></tr>
@@ -430,7 +430,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> specialized for float-type options. </p>
+<p>Creates a new <a class="el" href="class_conversion_option.html">ConversionOption</a> specialized for float-type options. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">key</td><td>the key for this option. </td></tr>
@@ -474,7 +474,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> specialized for integer-type options. </p>
+<p>Creates a new <a class="el" href="class_conversion_option.html">ConversionOption</a> specialized for integer-type options. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">key</td><td>the key for this option. </td></tr>
@@ -502,10 +502,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copy constructor; creates a copy of an <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> object. </p>
+<p>Copy constructor; creates a copy of an <a class="el" href="class_conversion_option.html">ConversionOption</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">orig</td><td>the <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> object to copy. </td></tr>
+    <tr><td class="paramname">orig</td><td>the <a class="el" href="class_conversion_option.html">ConversionOption</a> object to copy. </td></tr>
   </table>
   </dd>
 </dl>
@@ -563,8 +563,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates and returns a deep copy of this <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the (deep) copy of this <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a> object. </dd></dl>
+<p>Creates and returns a deep copy of this <a class="el" href="class_conversion_option.html">ConversionOption</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the (deep) copy of this <a class="el" href="class_conversion_option.html">ConversionOption</a> object. </dd></dl>
 
 </div>
 </div>
@@ -776,7 +776,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Assignment operator for <a class="el" href="class_conversion_option.html" title="\ @ @ . .">ConversionOption</a>. </p>
+<p>Assignment operator for <a class="el" href="class_conversion_option.html">ConversionOption</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">rhs</td><td>the object whose values are used as the basis of the assignment. </td></tr>

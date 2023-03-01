@@ -125,7 +125,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a58e584e7c21801b34d79fed7a7c05ac8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a text string as a mathematical formula and returns an AST representation of it.  <a href="_l3_parser_8cpp.html#a58e584e7c21801b34d79fed7a7c05ac8">More...</a><br /></td></tr>
 <tr class="separator:a58e584e7c21801b34d79fed7a7c05ac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb4e76b36ef84300c2901302ca5542f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="sbmlfwd_8h.html#addddfd009cab31c5e3e1fd5fdbcb9efa">ASTNode_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l3_parser_8cpp.html#abb4e76b36ef84300c2901302ca5542f4">SBML_parseL3FormulaWithModel</a> (const char *formula, const <a class="el" href="sbmlfwd_8h.html#a88520a7f9fd63e8c8e97b2fb181b91c2">Model_t</a> *model)</td></tr>
-<tr class="memdesc:abb4e76b36ef84300c2901302ca5542f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a text string as a mathematical formula using a <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> to resolve symbols, and returns an AST representation of the result.  <a href="_l3_parser_8cpp.html#abb4e76b36ef84300c2901302ca5542f4">More...</a><br /></td></tr>
+<tr class="memdesc:abb4e76b36ef84300c2901302ca5542f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a text string as a mathematical formula using a <a class="el" href="class_model.html">Model</a> to resolve symbols, and returns an AST representation of the result.  <a href="_l3_parser_8cpp.html#abb4e76b36ef84300c2901302ca5542f4">More...</a><br /></td></tr>
 <tr class="separator:abb4e76b36ef84300c2901302ca5542f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77c72a78afff728a6c569790338f2085"><td class="memItemLeft" align="right" valign="top"><a class="el" href="sbmlfwd_8h.html#addddfd009cab31c5e3e1fd5fdbcb9efa">ASTNode_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l3_parser_8cpp.html#a77c72a78afff728a6c569790338f2085">SBML_parseL3FormulaWithSettings</a> (const char *formula, const <a class="el" href="sbmlfwd_8h.html#a230968dbbf0e6dd9ae871b376484dbb7">L3ParserSettings_t</a> *settings)</td></tr>
 <tr class="memdesc:a77c72a78afff728a6c569790338f2085"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a text string as a mathematical formula using specific parser settings and returns an AST representation of the result.  <a href="_l3_parser_8cpp.html#a77c72a78afff728a6c569790338f2085">More...</a><br /></td></tr>
@@ -234,8 +234,474 @@ Functions</h2></td></tr>
 
 <p>Returns a copy of the default Level&#160;3 ("L3") formula parser settings. </p>
 <p>The data structure storing the settings allows callers to change the following parsing behaviors:</p>
-<dl class="section user"><dt></dt><dd>The text-string form of mathematical formulas read by the function <a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a></dd></dl>
-<p>For more details about the parser, please see the definition of <a class="el" href="class_l3_parser_settings.html" title="\ @ @ . 3 .">L3ParserSettings</a> and <a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> </p>
+<dl class="section user"><dt></dt><dd>The text-string form of mathematical formulas read by the function <a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> and written by the function <a class="el" href="_l3_formula_formatter_8h.html#a3ee99a0498b6249f6602b98be6733b19" title="Converts an AST to a string representation of a formula using a syntax derived from SBML Level&#160;1,...">SBML_formulaToL3String()</a> uses an expanded version of the syntax read and written by <a class="el" href="_formula_parser_8cpp.html#ac0f6e91ce03b9dd1070011499050eedc" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseFormula()</a> and <a class="el" href="_formula_formatter_8cpp.html#a7621fa39bd34423ea59ed128bb17b6f4" title="Converts an AST to a string representation of a formula using a syntax basically derived from SBML Le...">SBML_formulaToString()</a>, respectively. The latter two libSBML functions were originally developed to support conversion between SBML Levels&#160;1 and&#160;2, and were focused on the syntax of mathematical formulas used in SBML Level&#160;1. With time, and the use of MathML in SBML Levels&#160;2 and&#160;3, it became clear that supporting Level&#160;2 and&#160;3's expanded mathematical syntax would be useful for software developers. To maintain backwards compatibility for libSBML users, the original <a class="el" href="_formula_formatter_8cpp.html#a7621fa39bd34423ea59ed128bb17b6f4" title="Converts an AST to a string representation of a formula using a syntax basically derived from SBML Le...">SBML_formulaToString()</a> and <a class="el" href="_formula_parser_8cpp.html#ac0f6e91ce03b9dd1070011499050eedc" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseFormula()</a> have been left untouched, and instead, the new functionality is provided in the form of <a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> and <a class="el" href="_l3_formula_formatter_8h.html#a3ee99a0498b6249f6602b98be6733b19" title="Converts an AST to a string representation of a formula using a syntax derived from SBML Level&#160;1,...">SBML_formulaToL3String()</a>.</dd></dl>
+<p>The following lists the main differences in the formula syntax supported by the Level 3 ("L3") versions of the formula parsers and formatters, compared to what is supported by the Level&#160;1-oriented <a class="el" href="_formula_parser_8cpp.html#ac0f6e91ce03b9dd1070011499050eedc" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseFormula()</a> and <a class="el" href="_formula_formatter_8cpp.html#a7621fa39bd34423ea59ed128bb17b6f4" title="Converts an AST to a string representation of a formula using a syntax basically derived from SBML Le...">SBML_formulaToString()</a>:</p>
+<ul>
+<li>Units may be asociated with bare numbers, using the following syntax: <div style="margin: 10px auto 10px 25px; display: block"> <span class="code" style="background-color: #d0d0ee">number</span> <span class="code" style="background-color: #edd">unit</span> </div> The <span class="code" style="background-color: #d0d0ee">number</span> may be in any form (an integer, real, or rational number), and the <span class="code" style="background-color: #edd">unit</span> must conform to the syntax of an SBML identifier (technically, the type defined as <code>SId</code> in the SBML specifications). The whitespace between <span class="code" style="background-color: #d0d0ee">number</span> and <span class="code" style="background-color: #edd">unit</span> is optional.</li>
+</ul>
+<ul>
+<li>The Boolean function symbols <code>&amp;&amp;</code> (<em>and</em>), <code>||</code> (<em>or</em>), <code>!</code> (<em>not</em>), and <code>!=</code> (<em>not</em> <em>equals</em>) may be used.</li>
+</ul>
+<ul>
+<li>The <em>modulo</em> operation is allowed as the symbol <code>%</code> and will produce a <code>&lt;piecewise&gt;</code> function in the corresponding MathML output by default, or can produce the MathML function <code>rem</code>, depending on the <a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> object (see L3ParserSettings_setParseModuloL3v2() ).</li>
+</ul>
+<ul>
+<li>All inverse trigonometric functions may be defined in the infix either using <code>arc</code> as a prefix or simply <code>a</code>; in other words, both <code>arccsc</code> and <code>acsc</code> are interpreted as the operator <em>arccosecant</em> as defined in MathML&#160;2.0. (Many functions in the simpler SBML Level&#160;1 oriented parser implemented by <a class="el" href="_formula_parser_8cpp.html#ac0f6e91ce03b9dd1070011499050eedc" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseFormula()</a> are defined this way as well, but not all.)</li>
+</ul>
+<ul>
+<li>The following expression is parsed as a rational number instead of as a numerical division: <pre style="display: block; margin-left: 25px">
+   (<span class="code" style="background-color: #d0d0ee">integer</span>/<span class="code" style="background-color: #d0d0ee">integer</span>)</pre> <b>Spaces are not allowed</b> in this construct; in other words, &quot;<code>(3 / 4)</code>&quot; (with whitespace between the numbers and the operator) will be parsed into the MathML <code>&lt;divide&gt;</code> construct rather than a rational number. You can, however, assign units to a rational number as a whole; here is an example: &quot;<code>(3/4) ml</code>&quot;. (In the case of division rather than a rational number, units are not interpreted in this way.)</li>
+</ul>
+<ul>
+<li>Various parser and formatter behaviors may be altered through the use of a <a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> object in conjunction with the functions <a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a> and <a class="el" href="_l3_formula_formatter_8h.html#af840d48b31961fd33c8f00a7740e49f0" title="Converts an AST to a text string representation of a formula, using specific formatter settings.">SBML_formulaToL3StringWithSettings()</a> The settings available include the following: <ul style="list-style-type: circle">
+<li style="margin-bottom: 0.5em">
+<p class="startli">The function <code>log</code> with a single argument (&quot;<code>log(x)</code>&quot;) can be parsed as <code>log10(x)</code>, <code>ln(x)</code>, or treated as an error, as desired.</p>
+<p class="endli"></p>
+</li>
+<li style="margin-bottom: 0.5em">
+<p class="startli">Unary minus signs can be collapsed or preserved; that is, sequential pairs of unary minuses (e.g., &quot;<code>- -3</code>&quot;) can be removed from the input entirely and single unary minuses can be incorporated into the number node, or all minuses can be preserved in the AST node structure.</p>
+<p class="endli"></p>
+</li>
+<li style="margin-bottom: 0.5em">
+<p class="startli">Parsing of units embedded in the input string can be turned on and off.</p>
+<p class="endli"></p>
+</li>
+<li style="margin-bottom: 0.5em">
+<p class="startli">The string <code>avogadro</code> can be parsed as a MathML <em>csymbol</em> or as an identifier.</p>
+<p class="endli"></p>
+</li>
+<li style="margin-bottom: 0.5em">
+<p class="startli">The string % can be parsed either as a piecewise function or as the 'rem' function: <code>a % b</code> will either become</p>
+<p class="interli"><code>piecewise(a - b*ceil(a/b), xor((a &lt; 0), (b &lt; 0)), a - b*floor(a/b))</code></p>
+<p class="interli">or</p>
+<p class="interli"><code>rem(a, b)</code>.</p>
+<p class="interli">The latter is simpler, but the <code>rem</code> MathML is only allowed as of SBML Level&#160;3 Version&#160;2.</p>
+<p class="endli"></p>
+</li>
+<li style="margin-bottom: 0.5em">
+<p class="startli">A <a class="el" href="class_model.html">Model</a> object may optionally be provided to the parser using the variant function call <a class="el" href="_l3_parser_8h.html#abb4e76b36ef84300c2901302ca5542f4" title="Parses a text string as a mathematical formula using a Model to resolve symbols, and returns an AST r...">SBML_parseL3FormulaWithModel()</a> or stored in a <a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> object passed to the variant function <a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a>. When a <a class="el" href="class_model.html">Model</a> object is provided, identifiers (values of type <code>SId</code> ) from that model are used in preference to pre-defined MathML definitions for both symbols and functions. More precisely: </p><ul style="list-style-type: square">
+<li style="margin-bottom: 0.5em">
+<p class="startli"><em>In the case of symbols</em>: the <a class="el" href="class_model.html">Model</a> entities whose identifiers will shadow identical symbols in the mathematical formula are: <a class="el" href="class_species.html">Species</a>, <a class="el" href="class_compartment.html">Compartment</a>, <a class="el" href="class_parameter.html">Parameter</a>, <a class="el" href="class_reaction.html">Reaction</a>, and <a class="el" href="class_species_reference.html">SpeciesReference</a>. For instance, if the parser is given a <a class="el" href="class_model.html">Model</a> containing a <a class="el" href="class_species.html">Species</a> with the identifier &quot;<code>pi</code>&quot;, and the formula to be parsed is &quot;<code>3*pi</code>&quot;, the MathML produced will contain the construct <code>&lt;ci&gt; pi &lt;/ci&gt;</code> instead of the construct <code>&lt;pi/&gt;</code>.</p>
+<p class="endli"></p>
+</li>
+<li style="margin-bottom: 0.5em">
+<em>In the case of user-defined functions</em>: when a <a class="el" href="class_model.html">Model</a> object is provided, <code>SId</code> values of user-defined functions present in the model will be used preferentially over pre-defined MathML functions. For example, if the passed-in <a class="el" href="class_model.html">Model</a> contains a <a class="el" href="class_function_definition.html">FunctionDefinition</a> object with the identifier &quot;<code>sin</code>&quot;, that function will be used instead of the predefined MathML function <code>&lt;sin/&gt;</code>. </li>
+</ul>
+<p class="endli"></p>
+</li>
+<li style="margin-bottom: 0.5em">
+An <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object may optionally be provided to identify SBML Level&#160;3 packages that extend the syntax understood by the formula parser. When the namespaces are provided, the parser will interpret possible additional syntax defined by the libSBML plug-ins implementing the SBML Level&#160;3 packages; for example, it may understand vector/array extensions introduced by the SBML Level&#160;3 <em>Arrays</em> package. </li>
+</ul>
+</li>
+</ul>
+<p>These configuration settings cannot be changed directly using the basic parser and formatter functions, but <em>can</em> be changed on a per-call basis by using the alternative functions <a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a> and <a class="el" href="_l3_formula_formatter_8h.html#af840d48b31961fd33c8f00a7740e49f0" title="Converts an AST to a text string representation of a formula, using specific formatter settings.">SBML_formulaToL3StringWithSettings()</a>.</p>
+<p>Neither SBML nor the MathML standard define a "string-form" equivalent to MathML expressions. The approach taken by libSBML is to start with the formula syntax defined by SBML Level&#160;1 (which in fact used a custom text-string representation of formulas, and not MathML), and expand it to include the functionality described above. This formula syntax is based mostly on C programming syntax, and may contain operators, function calls, symbols, and white space characters. The following table provides the precedence rules for the different entities that may appear in formula strings.</p>
+<table border="0" width="95%"
+       class="centered text-table normal-font alt-row-colors"
+       style="padding-bottom: 0.5em">
+ <tr style="background: lightgray; font-size: 14px;">
+     <th align="left">Token</th>
+     <th align="left">Operation</th>
+     <th align="left">Class</th>
+     <th>Preced.</th>
+     <th align="left">Assoc.</th>
+ </tr>
+<tr><td><em>name</em></td><td>symbol reference</td><td>operand</td><td align="center">8</td><td>n/a</td></tr>
+<tr><td><code>(</code><em>expression</em><code>)</code></td><td>expression grouping</td><td>operand</td><td align="center">8</td><td>n/a</td></tr>
+<tr><td><code>f(</code><em>...</em><code>)</code></td><td>function call</td><td>prefix</td><td align="center">8</td><td>left</td></tr>
+<tr><td><code>^</code></td><td>power</td><td>binary</td><td align="center">7</td><td>left</td></tr>
+<tr><td><code>-, !</code></td><td>negation, Boolean 'not'</td><td>unary</td><td align="center">6</td><td>right</td></tr>
+<tr><td><code>*, /, %</code></td><td>multip., div., modulo</td><td>binary</td><td align="center">5</td><td>left</td></tr>
+<tr><td><code>+, -</code></td><td>addition and subtraction</td><td>binary</td><td align="center">4</td><td>left</td></tr>
+<tr><td><code>==, &lt;, &gt;, &lt;=, &gt;=, !=</code></td><td>Boolean comparisons</td><td>binary</td><td align="center">3</td><td>left</td></tr>
+<tr><td><code>&&, ||</code></td><td>Boolean 'and' and 'or'</td><td>binary</td><td align="center">2</td><td>left</td></tr>
+<tr><td><code>,</code></td><td>argument delimiter</td><td>binary</td><td align="center">1</td><td>left</td></tr>
+
+<caption class="top-caption">Expression operators and their precedence in the
+"Level&nbsp;3" text-string format for mathematical expressions.
+</caption>
+</table>
+
+<p>In the table above, <em>operand</em> implies the construct is an operand, <em>prefix</em> implies the operation is applied to the following arguments, <em>unary</em> implies there is one argument, and <em>binary</em> implies there are two arguments. The values in the <b>Precedence</b> column show how the order of different types of operation are determined. For example, the expression <code>a + b * c</code> is evaluated as <code>a + (b * c)</code> because the <code>*</code> operator has higher precedence. The <b>Associates</b> column shows how the order of similar precedence operations is determined; for example, <code>a &amp;&amp; b || c</code> is evaluated as <code>(a &amp;&amp; b) || c</code> because the <code>&amp;&amp;</code> and <code>||</code> operators are left-associative and have the same precedence.</p>
+<p>The function call syntax consists of a function name, followed by optional white space, followed by an opening parenthesis token, followed by a sequence of zero or more arguments separated by commas (with each comma optionally preceded and/or followed by zero or more white space characters), followed by a closing parenthesis token. The function name must be chosen from one of the pre-defined functions in SBML or a user-defined function in the model. The following table lists the names of certain common mathematical functions; this table corresponds to Table&#160;6 in the <a href="http://sbml.org/Documents/Specifications#SBML_Level_1_Version_2" target="_blank">SBML Level&#160;1 Version&#160;2 specification</a> with additions based on the functions added in SBML Level 2 and Level 3:</p>
+<table border="0" width="95%" 
+       class="centered text-table normal-font alt-row-colors">
+ <tr>
+     <th align="left" width="60">Name</th>
+     <th align="left" width="75">Argument(s)</th>
+     <th align="left">Formula or meaning</th>
+     <th align="left" width="90">Argument Constraints</th>
+     <th align="left" width="90">Result constraints</th>
+ </tr>
+<tr><td><code>abs</code></td>   
+    <td><em>x</em></td> 
+    <td>Absolute value of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>acos</code>, <code>arccos</code></td>
+    <td><em>x</em></td>
+    <td>Arccosine of <em>x</em> in radians.</td>
+    <td>&ndash;1.0 &le; <em>x</em> &le; 1.0</td>
+    <td>0 &le; <em>acos(x)</em> &le; &pi;</td>
+</tr>
+<tr><td><code>acosh</code>, <code>arccosh</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic arccosine of <em>x</em> in radians.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>acot</code>, <code>arccot</code></td>
+    <td><em>x</em></td>
+    <td>Arccotangent of <em>x</em> in radians.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>acoth</code>, <code>arccoth</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic arccotangent of <em>x</em> in radians.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>acsc</code>, <code>arccsc</code></td>
+    <td><em>x</em></td>
+    <td>Arccosecant of <em>x</em> in radians.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>acsch</code>, <code>arccsch</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic arccosecant of <em>x</em> in radians.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>asec</code>, <code>arcsec</code></td>
+    <td><em>x</em></td>
+    <td>Arcsecant of <em>x</em> in radians.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>asech</code>, <code>arcsech</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic arcsecant of <em>x</em> in radians.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>asin</code>, <code>arcsin</code></td>
+    <td><em>x</em></td><td>Arcsine of <em>x</em> in radians.</td>
+    <td>&ndash;1.0 &le; <em>x</em> &le; 1.0</td>
+    <td>0 &le; <em>asin(x)</em> &le; &pi;</td>
+</tr>
+<tr><td><code>atan</code>, <code>arctan</code></td>
+    <td><em>x</em></td>
+    <td>Arctangent of <em>x</em> in radians.</td>
+    <td></td>
+    <td>0 &le; <em>atan(x)</em> &le; &pi;</td>
+</tr>
+<tr><td><code>atanh</code>, <code>arctanh</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic arctangent of <em>x</em> in radians.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>ceil</code>, <code>ceiling</code></td>
+    <td><em>x</em></td>
+    <td>Smallest number not less than <em>x</em> whose value is an exact integer.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>cos</code></td>
+    <td><em>x</em></td>
+    <td>Cosine of <em>x</em></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>cosh</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic cosine of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>cot</code></td>
+    <td><em>x</em></td>
+    <td>Cotangent of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>coth</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic cotangent of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>csc</code></td>
+    <td><em>x</em></td>
+    <td>Cosecant of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>csch</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic cosecant of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>delay</code></td>
+    <td><em>x, y</em></td>
+    <td>The value of <em>x</em> at <em>y</em> time units in the past.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>factorial</code></td>
+    <td><em>n</em></td>
+    <td>The factorial of <em>n</em>. Factorials are defined by <em>n! = n*(n&ndash;1)* ... * 1</em>.</td>
+    <td><em>n</em> must be an integer.</td>
+    <td></td>
+</tr>
+<tr><td><code>exp</code></td>
+    <td><em>x</em></td>
+    <td><em>e</em><sup><em> x</em></sup>, where <em>e</em> is the base of the natural logarithm.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>floor</code></td>
+    <td><em>x</em></td>
+    <td>The largest number not greater than <em>x</em> whose value is an exact integer.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>ln</code></td>
+    <td><em>x</em></td>
+    <td>Natural logarithm of <em>x</em>.</td>
+    <td><em>x</em> &gt; 0</td>
+    <td></td>
+</tr>
+<tr><td><code>log</code></td>
+    <td><em>x</em></td>
+    <td>By default, the base 10 logarithm of <em>x</em>, but can be set to be the natural logarithm of <em>x</em>, or to be an illegal construct.</td>
+    <td><em>x</em> &gt; 0</td>
+    <td></td>
+</tr>
+<tr><td><code>log</code></td>
+    <td><em>x, y</em></td>
+    <td>The base <em>x</em> logarithm of <em>y</em>.</td>
+    <td><em>y</em> &gt; 0</td>
+    <td></td>
+</tr>
+<tr><td><code>log10</code></td>
+    <td><em>x</em></td>
+    <td>Base 10 logarithm of <em>x</em>.</td>
+    <td><em>x</em> &gt; 0</td>
+    <td></td>
+</tr>
+<tr><td><code>piecewise</code></td>
+    <td><em>x1, y1, [x2, y2,] [...] [z]</em></td>
+    <td>A piecewise function: if (<em>y1</em>), <em>x1</em>.  Otherwise, if (<em>y2</em>), <em>x2</em>, etc.  Otherwise, z. </td>
+    <td><em>y1, y2, y3 [etc]</em> must be Boolean</td>
+    <td></td>
+</tr>
+<tr><td><code>pow</code>, <code>power</code> </td>
+    <td><em>x, y</em></td>
+    <td><em>x</em><sup><em> y</em></sup>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>root</code></td>
+    <td><em>b, x</em></td>
+    <td>The root base <em>b</em> of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>sec</code></td>
+    <td><em>x</em></td>
+    <td>Secant of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>sech</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic secant of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>sqr</code></td>
+    <td><em>x</em></td>
+    <td><em>x</em><sup><em>2</em></sup>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>sqrt</code></td>
+    <td><em>x</em></td>
+    <td>&radic;<em>x</em>.</td>
+    <td><em>x</em> &gt; 0</td>
+    <td><em>sqrt(x)</em> &ge; 0</td>
+</tr>
+<tr><td><code>sin</code></td>
+    <td><em>x</em></td>
+    <td>Sine of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>sinh</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic sine of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>tan</code></td>
+    <td><em>x</em></td>
+    <td>Tangent of <em>x</em>.</td>
+    <td>x &ne; n*&pi;/2, for odd integer <em>n</em></td>
+    <td></td>
+</tr>
+<tr><td><code>tanh</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic tangent of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>and</code></td>
+    <td><em>x, y, z...</em></td>
+    <td>Boolean <em>and(x, y, z...)</em>: returns <code>true</code> if all of its arguments are true.  Note that <code>and</code> is an n-ary function, taking 0 or more arguments, and that <code>and()</code> returns <code>true</code>.</td>
+    <td>All arguments must be Boolean</td>
+    <td></td>
+</tr>
+<tr><td><code>not</code></td>
+    <td><em>x</em></td>
+    <td>Boolean <em>not(x)</em></td>
+    <td><em>x</em> must be Boolean</td>
+    <td></td>
+</tr>
+<tr><td><code>or</code></td>
+    <td><em>x, y, z...</em></td>
+    <td>Boolean <em>or(x, y, z...)</em>: returns <code>true</code> if at least one of its arguments is true.  Note that <code>or</code> is an n-ary function, taking 0 or more arguments, and that <code>or()</code> returns <code>false</code>.</td>
+    <td>All arguments must be Boolean</td>
+    <td></td>
+</tr>
+<tr><td><code>xor</code></td>
+    <td><em>x, y, z...</em></td>
+    <td>Boolean <em>xor(x, y, z...)</em>: returns <code>true</code> if an odd number of its arguments is true.  Note that <code>xor</code> is an n-ary function, taking 0 or more arguments, and that <code>xor()</code> returns <code>false</code>.</td>
+    <td>All arguments must be Boolean</td>
+    <td></td>
+</tr>
+<tr><td><code>eq</code></td>
+    <td><em>x, y, z...</em></td>
+    <td>Boolean <em>eq(x, y, z...)</em>: returns <code>true</code> if all arguments are equal.  Note that <code>eq</code> is an n-ary function, but must take 2 or more arguments.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>geq</code></td>
+    <td><em>x, y, z...</em></td>
+    <td>Boolean <em>geq(x, y, z...)</em>: returns <code>true</code> if each argument is greater than or equal to the argument following it.  Note that <code>geq</code> is an n-ary function, but must take 2 or more arguments.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>gt</code></td>
+    <td><em>x, y, z...</em></td>
+    <td>Boolean <em>gt(x, y, z...)</em>: returns <code>true</code> if each argument is greater than the argument following it.  Note that <code>gt</code> is an n-ary function, but must take 2 or more arguments.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>leq</code></td>
+    <td><em>x, y, z...</em></td>
+    <td>Boolean <em>leq(x, y, z...)</em>: returns <code>true</code> if each argument is less than or equal to the argument following it.  Note that <code>leq</code> is an n-ary function, but must take 2 or more arguments.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>lt</code></td>
+    <td><em>x, y, z...</em></td>
+    <td>Boolean <em>lt(x, y, z...)</em>: returns <code>true</code> if each argument is less than the argument following it.  Note that <code>lt</code> is an n-ary function, but must take 2 or more arguments.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>neq</code></td>
+    <td><em>x, y</em></td>
+    <td>Boolean <em>x</em> != <em>y</em>: returns <code>true</code> unless x and y are equal.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>plus</code></td>
+    <td><em>x, y, z...</em></td>
+    <td><em>x</em> + <em>y</em> + <em>z</em> + <em>...</em>: The sum of the arguments of the function.  Note that <code>plus</code> is an n-ary function taking 0 or more arguments, and that <code>plus()</code> returns <code>0</code>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>times</code></td>
+    <td><em>x, y, z...</em></td>
+    <td><em>x</em> * <em>y</em> * <em>z</em> * <em>...</em>: The product of the arguments of the function.  Note that <code>times</code> is an n-ary function taking 0 or more arguments, and that <code>times()</code> returns <code>1</code>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>minus</code></td>
+    <td><em>x, y</em></td>
+    <td><em>x</em> &ndash; <em>y</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>divide</code></td>
+    <td><em>x, y</em></td>
+    <td><em>x</em> / <em>y</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+
+<caption class="top-caption">Mathematical functions defined
+in the "Level&nbsp;3" text-string formula syntax.</caption>
+
+</table>
+
+<p>Parsing of the various MathML functions and constants are all case-insensitive by default: function names such as <code>cos</code>, <code>Cos</code> and <code>COS</code> are all parsed as the MathML cosine operator, <code>&lt;cos&gt;</code>. However, <em>when a <a class="el" href="class_model.html">Model</a> object is used</em> in conjunction with either <a class="el" href="_l3_parser_8h.html#abb4e76b36ef84300c2901302ca5542f4" title="Parses a text string as a mathematical formula using a Model to resolve symbols, and returns an AST r...">SBML_parseL3FormulaWithModel()</a> or <a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a>, any identifiers found in that model will be parsed in a case-<em>sensitive</em> way. For example, if a model contains a <a class="el" href="class_species.html">Species</a> having the identifier <code>Pi</code>, the parser will parse &quot;<code>Pi</code>&quot; in the input as &quot;<code>&lt;ci&gt; Pi &lt;/ci&gt;</code>&quot; but will continue to parse the symbols &quot;<code>pi</code>&quot; and &quot;<code>PI</code>&quot; as &quot;<code>&lt;pi&gt;</code>&quot;.</p>
+<p>As mentioned above, the manner in which the "L3" versions of the formula parser and formatter interpret the function &quot;<code>log</code>&quot; can be changed. To do so, callers should use the function <a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a> and pass it an appropriate <a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> object. By default, unlike the SBML Level&#160;1 parser implemented by <a class="el" href="_formula_parser_8cpp.html#ac0f6e91ce03b9dd1070011499050eedc" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseFormula()</a>, the string &quot;<code>log</code>&quot; is interpreted as the base&#160;10 logarithm, and <em>not</em> as the natural logarithm. However, you can change the interpretation to be base-10 log, natural log, or as an error; since the name "log" by itself is ambiguous, you require that the parser uses <code>log10</code> or <code>ln</code> instead, which are more clear. Please refer to <a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a>.</p>
+<p>In addition, the following symbols will be translated to their MathML equivalents, if no symbol with the same <code>SId</code> identifier string exists in the <a class="el" href="class_model.html">Model</a> object provided:</p>
+<table border="0" width="95%"
+       class="centered text-table normal-font alt-row-colors">
+ <tr>
+     <th align="left" width="60">Name</th>
+     <th align="left" width="250">Meaning</th>
+     <th align="left">MathML</th>
+ </tr>
+<tr><td><code>true</code></td>   
+    <td>Boolean value <code>true</code></td>
+    <td><code>&lt;true/&gt;</code></td>
+</tr>
+<tr><td><code>false</code></td>   
+    <td>Boolean value <code>false</code></td>
+    <td><code>&lt;false/&gt;</code></td>
+</tr>
+<tr><td><code>pi</code></td>   
+    <td>Mathematical constant pi</td>
+    <td><code>&lt;pi/&gt;</code></td>
+</tr>
+<tr><td><code>avogadro</code></td>   
+    <td>Value of Avogadro's constant stipulated by SBML</td>
+    <td><code style="letter-spacing: -1px">&lt;csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/avogadro"&gt; avogadro &lt;/csymbol/&gt;</code></td>
+</tr>
+<tr><td><code>time</code></td>   
+    <td>Simulation time as defined in SBML</td>
+    <td><code style="letter-spacing: -1px">&lt;csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"&gt; time &lt;/csymbol/&gt;</code></td>
+</tr>
+<tr><td><code>inf</code>, <code>infinity</code></td>   
+    <td>Mathematical constant "infinity"</td>
+    <td><code>&lt;infinity/&gt;</code></td>
+</tr>
+<tr><td><code>nan</code>, <code>notanumber</code></td>   
+    <td>Mathematical concept "not a number"</td>
+    <td><code>&lt;notanumber/&gt;</code></td>
+</tr>
+
+<caption class="top-caption">Mathematical symbols defined
+in the "Level&nbsp;3" text-string formula syntax.
+</caption>
+</table>
+<p>Again, as mentioned above, whether the string &quot;<code>avogadro</code>&quot; is parsed as an AST node of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aa9754e70ec0089366d031fecedc8d04e">AST_NAME_AVOGADRO</a> or <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4fab2a5f966e56f6062f9f9505921d0d">AST_NAME</a> is configurable; use the version of the parser function called <a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a>. This Avogadro-related functionality is provided because SBML Level&#160;2 models may not use <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aa9754e70ec0089366d031fecedc8d04e">AST_NAME_AVOGADRO</a> AST nodes.</p>
+<p>For more details about the parser, please see the definition of <a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> and <a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a>.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> </dd>
+<dd>
+<a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a> </dd>
+<dd>
+<a class="el" href="_l3_formula_formatter_8h.html#af840d48b31961fd33c8f00a7740e49f0" title="Converts an AST to a text string representation of a formula, using specific formatter settings.">SBML_formulaToL3StringWithSettings()</a> </dd>
+<dd>
+<a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> </dd></dl>
 
 </div>
 </div>
@@ -255,7 +721,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the last error reported by the "L3" mathematical formula parser. </p>
-<p>If the functions <a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> </p>
+<p>If the functions <a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a>, <a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a>, or <a class="el" href="_l3_parser_8h.html#abb4e76b36ef84300c2901302ca5542f4" title="Parses a text string as a mathematical formula using a Model to resolve symbols, and returns an AST r...">SBML_parseL3FormulaWithModel()</a> return <code>NULL</code>, an error is set internally. This function allows callers to retrieve information about the error.</p>
+<dl class="section return"><dt>Returns</dt><dd>a string describing the error that occurred. This will contain the input string the parser was trying to parse, the character it had parsed when it encountered the error, and a description of the error.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> </dd>
+<dd>
+<a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a> </dd>
+<dd>
+<a class="el" href="_l3_parser_8h.html#abb4e76b36ef84300c2901302ca5542f4" title="Parses a text string as a mathematical formula using a Model to resolve symbols, and returns an AST r...">SBML_parseL3FormulaWithModel()</a> </dd>
+<dd>
+<a class="el" href="_l3_parser_8h.html#a1ec58150482a785c5b567d54d1c800b7" title="Returns a copy of the default Level&#160;3 (&quot;L3&quot;) formula parser settings.">SBML_getDefaultL3ParserSettings()</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="translate_l3_math_8cpp-example.html#a16">translateL3Math.cpp</a>.</dd>
 </dl>
 
@@ -278,14 +752,491 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Parses a text string as a mathematical formula and returns an AST representation of it. </p>
-<dl class="section user"><dt></dt><dd>The text-string form of mathematical formulas read by the function <a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a></dd></dl>
+<dl class="section user"><dt></dt><dd>The text-string form of mathematical formulas read by the function <a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> and written by the function <a class="el" href="_l3_formula_formatter_8h.html#a3ee99a0498b6249f6602b98be6733b19" title="Converts an AST to a string representation of a formula using a syntax derived from SBML Level&#160;1,...">SBML_formulaToL3String()</a> uses an expanded version of the syntax read and written by <a class="el" href="_formula_parser_8cpp.html#ac0f6e91ce03b9dd1070011499050eedc" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseFormula()</a> and <a class="el" href="_formula_formatter_8cpp.html#a7621fa39bd34423ea59ed128bb17b6f4" title="Converts an AST to a string representation of a formula using a syntax basically derived from SBML Le...">SBML_formulaToString()</a>, respectively. The latter two libSBML functions were originally developed to support conversion between SBML Levels&#160;1 and&#160;2, and were focused on the syntax of mathematical formulas used in SBML Level&#160;1. With time, and the use of MathML in SBML Levels&#160;2 and&#160;3, it became clear that supporting Level&#160;2 and&#160;3's expanded mathematical syntax would be useful for software developers. To maintain backwards compatibility for libSBML users, the original <a class="el" href="_formula_formatter_8cpp.html#a7621fa39bd34423ea59ed128bb17b6f4" title="Converts an AST to a string representation of a formula using a syntax basically derived from SBML Le...">SBML_formulaToString()</a> and <a class="el" href="_formula_parser_8cpp.html#ac0f6e91ce03b9dd1070011499050eedc" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseFormula()</a> have been left untouched, and instead, the new functionality is provided in the form of <a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> and <a class="el" href="_l3_formula_formatter_8h.html#a3ee99a0498b6249f6602b98be6733b19" title="Converts an AST to a string representation of a formula using a syntax derived from SBML Level&#160;1,...">SBML_formulaToL3String()</a>.</dd></dl>
+<p>The following lists the main differences in the formula syntax supported by the Level 3 ("L3") versions of the formula parsers and formatters, compared to what is supported by the Level&#160;1-oriented <a class="el" href="_formula_parser_8cpp.html#ac0f6e91ce03b9dd1070011499050eedc" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseFormula()</a> and <a class="el" href="_formula_formatter_8cpp.html#a7621fa39bd34423ea59ed128bb17b6f4" title="Converts an AST to a string representation of a formula using a syntax basically derived from SBML Le...">SBML_formulaToString()</a>:</p>
+<ul>
+<li>Units may be asociated with bare numbers, using the following syntax: <div style="margin: 10px auto 10px 25px; display: block"> <span class="code" style="background-color: #d0d0ee">number</span> <span class="code" style="background-color: #edd">unit</span> </div> The <span class="code" style="background-color: #d0d0ee">number</span> may be in any form (an integer, real, or rational number), and the <span class="code" style="background-color: #edd">unit</span> must conform to the syntax of an SBML identifier (technically, the type defined as <code>SId</code> in the SBML specifications). The whitespace between <span class="code" style="background-color: #d0d0ee">number</span> and <span class="code" style="background-color: #edd">unit</span> is optional.</li>
+</ul>
+<ul>
+<li>The Boolean function symbols <code>&amp;&amp;</code> (<em>and</em>), <code>||</code> (<em>or</em>), <code>!</code> (<em>not</em>), and <code>!=</code> (<em>not</em> <em>equals</em>) may be used.</li>
+</ul>
+<ul>
+<li>The <em>modulo</em> operation is allowed as the symbol <code>%</code> and will produce a <code>&lt;piecewise&gt;</code> function in the corresponding MathML output by default, or can produce the MathML function <code>rem</code>, depending on the <a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> object (see L3ParserSettings_setParseModuloL3v2() ).</li>
+</ul>
+<ul>
+<li>All inverse trigonometric functions may be defined in the infix either using <code>arc</code> as a prefix or simply <code>a</code>; in other words, both <code>arccsc</code> and <code>acsc</code> are interpreted as the operator <em>arccosecant</em> as defined in MathML&#160;2.0. (Many functions in the simpler SBML Level&#160;1 oriented parser implemented by <a class="el" href="_formula_parser_8cpp.html#ac0f6e91ce03b9dd1070011499050eedc" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseFormula()</a> are defined this way as well, but not all.)</li>
+</ul>
+<ul>
+<li>The following expression is parsed as a rational number instead of as a numerical division: <pre style="display: block; margin-left: 25px">
+   (<span class="code" style="background-color: #d0d0ee">integer</span>/<span class="code" style="background-color: #d0d0ee">integer</span>)</pre> <b>Spaces are not allowed</b> in this construct; in other words, &quot;<code>(3 / 4)</code>&quot; (with whitespace between the numbers and the operator) will be parsed into the MathML <code>&lt;divide&gt;</code> construct rather than a rational number. You can, however, assign units to a rational number as a whole; here is an example: &quot;<code>(3/4) ml</code>&quot;. (In the case of division rather than a rational number, units are not interpreted in this way.)</li>
+</ul>
+<ul>
+<li>Various parser and formatter behaviors may be altered through the use of a <a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> object in conjunction with the functions <a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a> and <a class="el" href="_l3_formula_formatter_8h.html#af840d48b31961fd33c8f00a7740e49f0" title="Converts an AST to a text string representation of a formula, using specific formatter settings.">SBML_formulaToL3StringWithSettings()</a> The settings available include the following: <ul style="list-style-type: circle">
+<li style="margin-bottom: 0.5em">
+<p class="startli">The function <code>log</code> with a single argument (&quot;<code>log(x)</code>&quot;) can be parsed as <code>log10(x)</code>, <code>ln(x)</code>, or treated as an error, as desired.</p>
+<p class="endli"></p>
+</li>
+<li style="margin-bottom: 0.5em">
+<p class="startli">Unary minus signs can be collapsed or preserved; that is, sequential pairs of unary minuses (e.g., &quot;<code>- -3</code>&quot;) can be removed from the input entirely and single unary minuses can be incorporated into the number node, or all minuses can be preserved in the AST node structure.</p>
+<p class="endli"></p>
+</li>
+<li style="margin-bottom: 0.5em">
+<p class="startli">Parsing of units embedded in the input string can be turned on and off.</p>
+<p class="endli"></p>
+</li>
+<li style="margin-bottom: 0.5em">
+<p class="startli">The string <code>avogadro</code> can be parsed as a MathML <em>csymbol</em> or as an identifier.</p>
+<p class="endli"></p>
+</li>
+<li style="margin-bottom: 0.5em">
+<p class="startli">The string % can be parsed either as a piecewise function or as the 'rem' function: <code>a % b</code> will either become</p>
+<p class="interli"><code>piecewise(a - b*ceil(a/b), xor((a &lt; 0), (b &lt; 0)), a - b*floor(a/b))</code></p>
+<p class="interli">or</p>
+<p class="interli"><code>rem(a, b)</code>.</p>
+<p class="interli">The latter is simpler, but the <code>rem</code> MathML is only allowed as of SBML Level&#160;3 Version&#160;2.</p>
+<p class="endli"></p>
+</li>
+<li style="margin-bottom: 0.5em">
+<p class="startli">A <a class="el" href="class_model.html">Model</a> object may optionally be provided to the parser using the variant function call <a class="el" href="_l3_parser_8h.html#abb4e76b36ef84300c2901302ca5542f4" title="Parses a text string as a mathematical formula using a Model to resolve symbols, and returns an AST r...">SBML_parseL3FormulaWithModel()</a> or stored in a <a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> object passed to the variant function <a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a>. When a <a class="el" href="class_model.html">Model</a> object is provided, identifiers (values of type <code>SId</code> ) from that model are used in preference to pre-defined MathML definitions for both symbols and functions. More precisely: </p><ul style="list-style-type: square">
+<li style="margin-bottom: 0.5em">
+<p class="startli"><em>In the case of symbols</em>: the <a class="el" href="class_model.html">Model</a> entities whose identifiers will shadow identical symbols in the mathematical formula are: <a class="el" href="class_species.html">Species</a>, <a class="el" href="class_compartment.html">Compartment</a>, <a class="el" href="class_parameter.html">Parameter</a>, <a class="el" href="class_reaction.html">Reaction</a>, and <a class="el" href="class_species_reference.html">SpeciesReference</a>. For instance, if the parser is given a <a class="el" href="class_model.html">Model</a> containing a <a class="el" href="class_species.html">Species</a> with the identifier &quot;<code>pi</code>&quot;, and the formula to be parsed is &quot;<code>3*pi</code>&quot;, the MathML produced will contain the construct <code>&lt;ci&gt; pi &lt;/ci&gt;</code> instead of the construct <code>&lt;pi/&gt;</code>.</p>
+<p class="endli"></p>
+</li>
+<li style="margin-bottom: 0.5em">
+<em>In the case of user-defined functions</em>: when a <a class="el" href="class_model.html">Model</a> object is provided, <code>SId</code> values of user-defined functions present in the model will be used preferentially over pre-defined MathML functions. For example, if the passed-in <a class="el" href="class_model.html">Model</a> contains a <a class="el" href="class_function_definition.html">FunctionDefinition</a> object with the identifier &quot;<code>sin</code>&quot;, that function will be used instead of the predefined MathML function <code>&lt;sin/&gt;</code>. </li>
+</ul>
+<p class="endli"></p>
+</li>
+<li style="margin-bottom: 0.5em">
+An <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object may optionally be provided to identify SBML Level&#160;3 packages that extend the syntax understood by the formula parser. When the namespaces are provided, the parser will interpret possible additional syntax defined by the libSBML plug-ins implementing the SBML Level&#160;3 packages; for example, it may understand vector/array extensions introduced by the SBML Level&#160;3 <em>Arrays</em> package. </li>
+</ul>
+</li>
+</ul>
+<p>These configuration settings cannot be changed directly using the basic parser and formatter functions, but <em>can</em> be changed on a per-call basis by using the alternative functions <a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a> and <a class="el" href="_l3_formula_formatter_8h.html#af840d48b31961fd33c8f00a7740e49f0" title="Converts an AST to a text string representation of a formula, using specific formatter settings.">SBML_formulaToL3StringWithSettings()</a>.</p>
+<p>Neither SBML nor the MathML standard define a "string-form" equivalent to MathML expressions. The approach taken by libSBML is to start with the formula syntax defined by SBML Level&#160;1 (which in fact used a custom text-string representation of formulas, and not MathML), and expand it to include the functionality described above. This formula syntax is based mostly on C programming syntax, and may contain operators, function calls, symbols, and white space characters. The following table provides the precedence rules for the different entities that may appear in formula strings.</p>
+<table border="0" width="95%"
+       class="centered text-table normal-font alt-row-colors"
+       style="padding-bottom: 0.5em">
+ <tr style="background: lightgray; font-size: 14px;">
+     <th align="left">Token</th>
+     <th align="left">Operation</th>
+     <th align="left">Class</th>
+     <th>Preced.</th>
+     <th align="left">Assoc.</th>
+ </tr>
+<tr><td><em>name</em></td><td>symbol reference</td><td>operand</td><td align="center">8</td><td>n/a</td></tr>
+<tr><td><code>(</code><em>expression</em><code>)</code></td><td>expression grouping</td><td>operand</td><td align="center">8</td><td>n/a</td></tr>
+<tr><td><code>f(</code><em>...</em><code>)</code></td><td>function call</td><td>prefix</td><td align="center">8</td><td>left</td></tr>
+<tr><td><code>^</code></td><td>power</td><td>binary</td><td align="center">7</td><td>left</td></tr>
+<tr><td><code>-, !</code></td><td>negation, Boolean 'not'</td><td>unary</td><td align="center">6</td><td>right</td></tr>
+<tr><td><code>*, /, %</code></td><td>multip., div., modulo</td><td>binary</td><td align="center">5</td><td>left</td></tr>
+<tr><td><code>+, -</code></td><td>addition and subtraction</td><td>binary</td><td align="center">4</td><td>left</td></tr>
+<tr><td><code>==, &lt;, &gt;, &lt;=, &gt;=, !=</code></td><td>Boolean comparisons</td><td>binary</td><td align="center">3</td><td>left</td></tr>
+<tr><td><code>&&, ||</code></td><td>Boolean 'and' and 'or'</td><td>binary</td><td align="center">2</td><td>left</td></tr>
+<tr><td><code>,</code></td><td>argument delimiter</td><td>binary</td><td align="center">1</td><td>left</td></tr>
+
+<caption class="top-caption">Expression operators and their precedence in the
+"Level&nbsp;3" text-string format for mathematical expressions.
+</caption>
+</table>
+
+<p>In the table above, <em>operand</em> implies the construct is an operand, <em>prefix</em> implies the operation is applied to the following arguments, <em>unary</em> implies there is one argument, and <em>binary</em> implies there are two arguments. The values in the <b>Precedence</b> column show how the order of different types of operation are determined. For example, the expression <code>a + b * c</code> is evaluated as <code>a + (b * c)</code> because the <code>*</code> operator has higher precedence. The <b>Associates</b> column shows how the order of similar precedence operations is determined; for example, <code>a &amp;&amp; b || c</code> is evaluated as <code>(a &amp;&amp; b) || c</code> because the <code>&amp;&amp;</code> and <code>||</code> operators are left-associative and have the same precedence.</p>
+<p>The function call syntax consists of a function name, followed by optional white space, followed by an opening parenthesis token, followed by a sequence of zero or more arguments separated by commas (with each comma optionally preceded and/or followed by zero or more white space characters), followed by a closing parenthesis token. The function name must be chosen from one of the pre-defined functions in SBML or a user-defined function in the model. The following table lists the names of certain common mathematical functions; this table corresponds to Table&#160;6 in the <a href="http://sbml.org/Documents/Specifications#SBML_Level_1_Version_2" target="_blank">SBML Level&#160;1 Version&#160;2 specification</a> with additions based on the functions added in SBML Level 2 and Level 3:</p>
+<table border="0" width="95%" 
+       class="centered text-table normal-font alt-row-colors">
+ <tr>
+     <th align="left" width="60">Name</th>
+     <th align="left" width="75">Argument(s)</th>
+     <th align="left">Formula or meaning</th>
+     <th align="left" width="90">Argument Constraints</th>
+     <th align="left" width="90">Result constraints</th>
+ </tr>
+<tr><td><code>abs</code></td>   
+    <td><em>x</em></td> 
+    <td>Absolute value of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>acos</code>, <code>arccos</code></td>
+    <td><em>x</em></td>
+    <td>Arccosine of <em>x</em> in radians.</td>
+    <td>&ndash;1.0 &le; <em>x</em> &le; 1.0</td>
+    <td>0 &le; <em>acos(x)</em> &le; &pi;</td>
+</tr>
+<tr><td><code>acosh</code>, <code>arccosh</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic arccosine of <em>x</em> in radians.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>acot</code>, <code>arccot</code></td>
+    <td><em>x</em></td>
+    <td>Arccotangent of <em>x</em> in radians.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>acoth</code>, <code>arccoth</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic arccotangent of <em>x</em> in radians.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>acsc</code>, <code>arccsc</code></td>
+    <td><em>x</em></td>
+    <td>Arccosecant of <em>x</em> in radians.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>acsch</code>, <code>arccsch</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic arccosecant of <em>x</em> in radians.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>asec</code>, <code>arcsec</code></td>
+    <td><em>x</em></td>
+    <td>Arcsecant of <em>x</em> in radians.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>asech</code>, <code>arcsech</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic arcsecant of <em>x</em> in radians.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>asin</code>, <code>arcsin</code></td>
+    <td><em>x</em></td><td>Arcsine of <em>x</em> in radians.</td>
+    <td>&ndash;1.0 &le; <em>x</em> &le; 1.0</td>
+    <td>0 &le; <em>asin(x)</em> &le; &pi;</td>
+</tr>
+<tr><td><code>atan</code>, <code>arctan</code></td>
+    <td><em>x</em></td>
+    <td>Arctangent of <em>x</em> in radians.</td>
+    <td></td>
+    <td>0 &le; <em>atan(x)</em> &le; &pi;</td>
+</tr>
+<tr><td><code>atanh</code>, <code>arctanh</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic arctangent of <em>x</em> in radians.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>ceil</code>, <code>ceiling</code></td>
+    <td><em>x</em></td>
+    <td>Smallest number not less than <em>x</em> whose value is an exact integer.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>cos</code></td>
+    <td><em>x</em></td>
+    <td>Cosine of <em>x</em></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>cosh</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic cosine of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>cot</code></td>
+    <td><em>x</em></td>
+    <td>Cotangent of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>coth</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic cotangent of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>csc</code></td>
+    <td><em>x</em></td>
+    <td>Cosecant of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>csch</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic cosecant of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>delay</code></td>
+    <td><em>x, y</em></td>
+    <td>The value of <em>x</em> at <em>y</em> time units in the past.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>factorial</code></td>
+    <td><em>n</em></td>
+    <td>The factorial of <em>n</em>. Factorials are defined by <em>n! = n*(n&ndash;1)* ... * 1</em>.</td>
+    <td><em>n</em> must be an integer.</td>
+    <td></td>
+</tr>
+<tr><td><code>exp</code></td>
+    <td><em>x</em></td>
+    <td><em>e</em><sup><em> x</em></sup>, where <em>e</em> is the base of the natural logarithm.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>floor</code></td>
+    <td><em>x</em></td>
+    <td>The largest number not greater than <em>x</em> whose value is an exact integer.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>ln</code></td>
+    <td><em>x</em></td>
+    <td>Natural logarithm of <em>x</em>.</td>
+    <td><em>x</em> &gt; 0</td>
+    <td></td>
+</tr>
+<tr><td><code>log</code></td>
+    <td><em>x</em></td>
+    <td>By default, the base 10 logarithm of <em>x</em>, but can be set to be the natural logarithm of <em>x</em>, or to be an illegal construct.</td>
+    <td><em>x</em> &gt; 0</td>
+    <td></td>
+</tr>
+<tr><td><code>log</code></td>
+    <td><em>x, y</em></td>
+    <td>The base <em>x</em> logarithm of <em>y</em>.</td>
+    <td><em>y</em> &gt; 0</td>
+    <td></td>
+</tr>
+<tr><td><code>log10</code></td>
+    <td><em>x</em></td>
+    <td>Base 10 logarithm of <em>x</em>.</td>
+    <td><em>x</em> &gt; 0</td>
+    <td></td>
+</tr>
+<tr><td><code>piecewise</code></td>
+    <td><em>x1, y1, [x2, y2,] [...] [z]</em></td>
+    <td>A piecewise function: if (<em>y1</em>), <em>x1</em>.  Otherwise, if (<em>y2</em>), <em>x2</em>, etc.  Otherwise, z. </td>
+    <td><em>y1, y2, y3 [etc]</em> must be Boolean</td>
+    <td></td>
+</tr>
+<tr><td><code>pow</code>, <code>power</code> </td>
+    <td><em>x, y</em></td>
+    <td><em>x</em><sup><em> y</em></sup>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>root</code></td>
+    <td><em>b, x</em></td>
+    <td>The root base <em>b</em> of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>sec</code></td>
+    <td><em>x</em></td>
+    <td>Secant of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>sech</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic secant of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>sqr</code></td>
+    <td><em>x</em></td>
+    <td><em>x</em><sup><em>2</em></sup>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>sqrt</code></td>
+    <td><em>x</em></td>
+    <td>&radic;<em>x</em>.</td>
+    <td><em>x</em> &gt; 0</td>
+    <td><em>sqrt(x)</em> &ge; 0</td>
+</tr>
+<tr><td><code>sin</code></td>
+    <td><em>x</em></td>
+    <td>Sine of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>sinh</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic sine of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>tan</code></td>
+    <td><em>x</em></td>
+    <td>Tangent of <em>x</em>.</td>
+    <td>x &ne; n*&pi;/2, for odd integer <em>n</em></td>
+    <td></td>
+</tr>
+<tr><td><code>tanh</code></td>
+    <td><em>x</em></td>
+    <td>Hyperbolic tangent of <em>x</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>and</code></td>
+    <td><em>x, y, z...</em></td>
+    <td>Boolean <em>and(x, y, z...)</em>: returns <code>true</code> if all of its arguments are true.  Note that <code>and</code> is an n-ary function, taking 0 or more arguments, and that <code>and()</code> returns <code>true</code>.</td>
+    <td>All arguments must be Boolean</td>
+    <td></td>
+</tr>
+<tr><td><code>not</code></td>
+    <td><em>x</em></td>
+    <td>Boolean <em>not(x)</em></td>
+    <td><em>x</em> must be Boolean</td>
+    <td></td>
+</tr>
+<tr><td><code>or</code></td>
+    <td><em>x, y, z...</em></td>
+    <td>Boolean <em>or(x, y, z...)</em>: returns <code>true</code> if at least one of its arguments is true.  Note that <code>or</code> is an n-ary function, taking 0 or more arguments, and that <code>or()</code> returns <code>false</code>.</td>
+    <td>All arguments must be Boolean</td>
+    <td></td>
+</tr>
+<tr><td><code>xor</code></td>
+    <td><em>x, y, z...</em></td>
+    <td>Boolean <em>xor(x, y, z...)</em>: returns <code>true</code> if an odd number of its arguments is true.  Note that <code>xor</code> is an n-ary function, taking 0 or more arguments, and that <code>xor()</code> returns <code>false</code>.</td>
+    <td>All arguments must be Boolean</td>
+    <td></td>
+</tr>
+<tr><td><code>eq</code></td>
+    <td><em>x, y, z...</em></td>
+    <td>Boolean <em>eq(x, y, z...)</em>: returns <code>true</code> if all arguments are equal.  Note that <code>eq</code> is an n-ary function, but must take 2 or more arguments.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>geq</code></td>
+    <td><em>x, y, z...</em></td>
+    <td>Boolean <em>geq(x, y, z...)</em>: returns <code>true</code> if each argument is greater than or equal to the argument following it.  Note that <code>geq</code> is an n-ary function, but must take 2 or more arguments.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>gt</code></td>
+    <td><em>x, y, z...</em></td>
+    <td>Boolean <em>gt(x, y, z...)</em>: returns <code>true</code> if each argument is greater than the argument following it.  Note that <code>gt</code> is an n-ary function, but must take 2 or more arguments.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>leq</code></td>
+    <td><em>x, y, z...</em></td>
+    <td>Boolean <em>leq(x, y, z...)</em>: returns <code>true</code> if each argument is less than or equal to the argument following it.  Note that <code>leq</code> is an n-ary function, but must take 2 or more arguments.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>lt</code></td>
+    <td><em>x, y, z...</em></td>
+    <td>Boolean <em>lt(x, y, z...)</em>: returns <code>true</code> if each argument is less than the argument following it.  Note that <code>lt</code> is an n-ary function, but must take 2 or more arguments.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>neq</code></td>
+    <td><em>x, y</em></td>
+    <td>Boolean <em>x</em> != <em>y</em>: returns <code>true</code> unless x and y are equal.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>plus</code></td>
+    <td><em>x, y, z...</em></td>
+    <td><em>x</em> + <em>y</em> + <em>z</em> + <em>...</em>: The sum of the arguments of the function.  Note that <code>plus</code> is an n-ary function taking 0 or more arguments, and that <code>plus()</code> returns <code>0</code>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>times</code></td>
+    <td><em>x, y, z...</em></td>
+    <td><em>x</em> * <em>y</em> * <em>z</em> * <em>...</em>: The product of the arguments of the function.  Note that <code>times</code> is an n-ary function taking 0 or more arguments, and that <code>times()</code> returns <code>1</code>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>minus</code></td>
+    <td><em>x, y</em></td>
+    <td><em>x</em> &ndash; <em>y</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>divide</code></td>
+    <td><em>x, y</em></td>
+    <td><em>x</em> / <em>y</em>.</td>
+    <td></td>
+    <td></td>
+</tr>
+
+<caption class="top-caption">Mathematical functions defined
+in the "Level&nbsp;3" text-string formula syntax.</caption>
+
+</table>
+
+<p>Parsing of the various MathML functions and constants are all case-insensitive by default: function names such as <code>cos</code>, <code>Cos</code> and <code>COS</code> are all parsed as the MathML cosine operator, <code>&lt;cos&gt;</code>. However, <em>when a <a class="el" href="class_model.html">Model</a> object is used</em> in conjunction with either <a class="el" href="_l3_parser_8h.html#abb4e76b36ef84300c2901302ca5542f4" title="Parses a text string as a mathematical formula using a Model to resolve symbols, and returns an AST r...">SBML_parseL3FormulaWithModel()</a> or <a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a>, any identifiers found in that model will be parsed in a case-<em>sensitive</em> way. For example, if a model contains a <a class="el" href="class_species.html">Species</a> having the identifier <code>Pi</code>, the parser will parse &quot;<code>Pi</code>&quot; in the input as &quot;<code>&lt;ci&gt; Pi &lt;/ci&gt;</code>&quot; but will continue to parse the symbols &quot;<code>pi</code>&quot; and &quot;<code>PI</code>&quot; as &quot;<code>&lt;pi&gt;</code>&quot;.</p>
+<p>As mentioned above, the manner in which the "L3" versions of the formula parser and formatter interpret the function &quot;<code>log</code>&quot; can be changed. To do so, callers should use the function <a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a> and pass it an appropriate <a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> object. By default, unlike the SBML Level&#160;1 parser implemented by <a class="el" href="_formula_parser_8cpp.html#ac0f6e91ce03b9dd1070011499050eedc" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseFormula()</a>, the string &quot;<code>log</code>&quot; is interpreted as the base&#160;10 logarithm, and <em>not</em> as the natural logarithm. However, you can change the interpretation to be base-10 log, natural log, or as an error; since the name "log" by itself is ambiguous, you require that the parser uses <code>log10</code> or <code>ln</code> instead, which are more clear. Please refer to <a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a>.</p>
+<p>In addition, the following symbols will be translated to their MathML equivalents, if no symbol with the same <code>SId</code> identifier string exists in the <a class="el" href="class_model.html">Model</a> object provided:</p>
+<table border="0" width="95%"
+       class="centered text-table normal-font alt-row-colors">
+ <tr>
+     <th align="left" width="60">Name</th>
+     <th align="left" width="250">Meaning</th>
+     <th align="left">MathML</th>
+ </tr>
+<tr><td><code>true</code></td>   
+    <td>Boolean value <code>true</code></td>
+    <td><code>&lt;true/&gt;</code></td>
+</tr>
+<tr><td><code>false</code></td>   
+    <td>Boolean value <code>false</code></td>
+    <td><code>&lt;false/&gt;</code></td>
+</tr>
+<tr><td><code>pi</code></td>   
+    <td>Mathematical constant pi</td>
+    <td><code>&lt;pi/&gt;</code></td>
+</tr>
+<tr><td><code>avogadro</code></td>   
+    <td>Value of Avogadro's constant stipulated by SBML</td>
+    <td><code style="letter-spacing: -1px">&lt;csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/avogadro"&gt; avogadro &lt;/csymbol/&gt;</code></td>
+</tr>
+<tr><td><code>time</code></td>   
+    <td>Simulation time as defined in SBML</td>
+    <td><code style="letter-spacing: -1px">&lt;csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"&gt; time &lt;/csymbol/&gt;</code></td>
+</tr>
+<tr><td><code>inf</code>, <code>infinity</code></td>   
+    <td>Mathematical constant "infinity"</td>
+    <td><code>&lt;infinity/&gt;</code></td>
+</tr>
+<tr><td><code>nan</code>, <code>notanumber</code></td>   
+    <td>Mathematical concept "not a number"</td>
+    <td><code>&lt;notanumber/&gt;</code></td>
+</tr>
+
+<caption class="top-caption">Mathematical symbols defined
+in the "Level&nbsp;3" text-string formula syntax.
+</caption>
+</table>
+<p>Again, as mentioned above, whether the string &quot;<code>avogadro</code>&quot; is parsed as an AST node of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aa9754e70ec0089366d031fecedc8d04e">AST_NAME_AVOGADRO</a> or <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4fab2a5f966e56f6062f9f9505921d0d">AST_NAME</a> is configurable; use the version of the parser function called <a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a>. This Avogadro-related functionality is provided because SBML Level&#160;2 models may not use <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aa9754e70ec0089366d031fecedc8d04e">AST_NAME_AVOGADRO</a> AST nodes.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">formula</td><td>the text-string formula expression to be parsed.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the root node of an AST representing the mathematical formula, or <code>NULL</code> if an error occurred while parsing the formula. When <code>NULL</code> is returned, an error is recorded internally; information about the error can be retrieved using <a class="el" href="_l3_parser_8h.html#ae3957fcbae1190935fc3285245b50eab" title="Returns the last error reported by the &quot;L3&quot; mathematical formula parser.">SBML_getLastParseL3Error()</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the root node of an AST representing the mathematical formula, or <code>NULL</code> if an error occurred while parsing the formula. When <code>NULL</code> is returned, an error is recorded internally; information about the error can be retrieved using <a class="el" href="_l3_parser_8h.html#ae3957fcbae1190935fc3285245b50eab" title="Returns the last error reported by the &quot;L3&quot; mathematical formula parser.">SBML_getLastParseL3Error()</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a> </dd>
+<dd>
+<a class="el" href="_l3_parser_8h.html#abb4e76b36ef84300c2901302ca5542f4" title="Parses a text string as a mathematical formula using a Model to resolve symbols, and returns an AST r...">SBML_parseL3FormulaWithModel()</a> </dd>
+<dd>
+<a class="el" href="_formula_parser_8cpp.html#ac0f6e91ce03b9dd1070011499050eedc" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseFormula()</a> </dd>
+<dd>
+<a class="el" href="_l3_formula_formatter_8h.html#af840d48b31961fd33c8f00a7740e49f0" title="Converts an AST to a text string representation of a formula, using specific formatter settings.">SBML_formulaToL3StringWithSettings()</a> </dd>
+<dd>
+<a class="el" href="_l3_formula_formatter_8h.html#a3ee99a0498b6249f6602b98be6733b19" title="Converts an AST to a string representation of a formula using a syntax derived from SBML Level&#160;1,...">SBML_formulaToL3String()</a> </dd>
+<dd>
+<a class="el" href="_formula_formatter_8cpp.html#a7621fa39bd34423ea59ed128bb17b6f4" title="Converts an AST to a string representation of a formula using a syntax basically derived from SBML Le...">SBML_formulaToString()</a> </dd>
+<dd>
+<a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> </dd>
+<dd>
+<a class="el" href="_l3_parser_8h.html#a1ec58150482a785c5b567d54d1c800b7" title="Returns a copy of the default Level&#160;3 (&quot;L3&quot;) formula parser settings.">SBML_getDefaultL3ParserSettings()</a> </dd>
+<dd>
+<a class="el" href="_l3_parser_8h.html#ae3957fcbae1190935fc3285245b50eab" title="Returns the last error reported by the &quot;L3&quot; mathematical formula parser.">SBML_getLastParseL3Error()</a></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>We urge developers to keep in mind that the text-string formula syntax is specific to libSBML. <em>Neither MathML nor SBML define a text-string format for mathematical formulas.</em> LibSBML's particular syntax should not be considered to be a canonical or standard general-purpose mathematical expression syntax. LibSBML provides methods for parsing and transforming text-string math formulas back and forth from AST structures for the convenience of calling applications, but it is important to keep the system's limitations in mind. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="qual_example1_8cpp-example.html#a47">qual_example1.cpp</a>.</dd>
 </dl>
 
@@ -317,8 +1268,27 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Parses a text string as a mathematical formula using a <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> to resolve symbols, and returns an AST representation of the result. </p>
-<p>This is identical to <a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> </p>
+<p>Parses a text string as a mathematical formula using a <a class="el" href="class_model.html">Model</a> to resolve symbols, and returns an AST representation of the result. </p>
+<p>This is identical to <a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a>, except that this function uses the given model in the argument <code>model</code> to check against identifiers that appear in the <code>formula</code>. For more information about the parser, please see the definition of <a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> and the function <a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">formula</td><td>the mathematical formula expression to be parsed.</td></tr>
+    <tr><td class="paramname">model</td><td>the <a class="el" href="class_model.html">Model</a> object to use for checking identifiers.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the root node of an AST representing the mathematical formula, or <code>NULL</code> if an error occurred while parsing the formula. When <code>NULL</code> is returned, an error is recorded internally; information about the error can be retrieved using <a class="el" href="_l3_parser_8h.html#ae3957fcbae1190935fc3285245b50eab" title="Returns the last error reported by the &quot;L3&quot; mathematical formula parser.">SBML_getLastParseL3Error()</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> </dd>
+<dd>
+<a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a> </dd>
+<dd>
+<a class="el" href="_l3_parser_8h.html#abb4e76b36ef84300c2901302ca5542f4" title="Parses a text string as a mathematical formula using a Model to resolve symbols, and returns an AST r...">SBML_parseL3FormulaWithModel()</a> </dd>
+<dd>
+<a class="el" href="_formula_parser_8cpp.html#ac0f6e91ce03b9dd1070011499050eedc" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseFormula()</a> </dd>
+<dd>
+<a class="el" href="_l3_parser_8h.html#ae3957fcbae1190935fc3285245b50eab" title="Returns the last error reported by the &quot;L3&quot; mathematical formula parser.">SBML_getLastParseL3Error()</a> </dd>
+<dd>
+<a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> </dd></dl>
 
 </div>
 </div>
@@ -349,7 +1319,36 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Parses a text string as a mathematical formula using specific parser settings and returns an AST representation of the result. </p>
-<p>This is identical to <a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> </p>
+<p>This is identical to <a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a>, except that this function uses the parser settings given in the argument <code>settings</code>. The settings override the default parsing behavior. The following parsing behaviors can be configured:</p>
+<ul>
+<li>A <a class="el" href="class_model.html">Model</a> object may optionally be provided to use identifiers (values of type <code>SId</code>) from the model in preference to pre-defined MathML symbols More precisely, the <a class="el" href="class_model.html">Model</a> entities whose identifiers will shadow identical symbols in the mathematical formula are: <a class="el" href="class_species.html">Species</a>, <a class="el" href="class_compartment.html">Compartment</a>, <a class="el" href="class_parameter.html">Parameter</a>, <a class="el" href="class_reaction.html">Reaction</a>, and <a class="el" href="class_species_reference.html">SpeciesReference</a>. For instance, if the parser is given a <a class="el" href="class_model.html">Model</a> containing a <a class="el" href="class_species.html">Species</a> with the identifier &quot;<code>pi</code>&quot;, and the formula to be parsed is &quot;<code>3*pi</code>&quot;, the MathML produced by the parser will contain the construct <code>&lt;ci&gt; pi &lt;/ci&gt;</code> instead of the construct <code>&lt;pi/&gt;</code>. Another example, if the passed-in <a class="el" href="class_model.html">Model</a> contains a <a class="el" href="class_function_definition.html">FunctionDefinition</a> with the identifier &quot;<code>sin</code>&quot;, that function will be used instead of the predefined MathML function <code>&lt;sin/&gt;</code>. </li>
+<li>The function <code>log</code> with a single argument (&quot;<code>log(x)</code>&quot;) can be parsed as <code>log10(x)</code>, <code>ln(x)</code>, or treated as an error, as desired. </li>
+<li>Unary minus signs can be either collapsed or preserved; that is, the parser can either (1) remove sequential pairs of unary minuses (e.g., &quot;<code>- -3</code>&quot;) from the input and incorporate single unary minuses into the number node, or (2) preserve all minuses in the AST node structure, turning them into <a class="el" href="class_a_s_t_node.html">ASTNode</a> objects of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a04afe78f8ca0f64c4d49f3cd1a8b41ec">AST_MINUS</a>. </li>
+<li>The character sequence &quot;<code>number id</code>&quot; can be interpreted as a numerical value <code>number</code> followed by units of measurement indicated by <code>id</code>, or it can be treated as a syntax error. (In Level&#160;3, MathML <code>&lt;cn&gt;</code> elements can have an attribute named <code>units</code> placed in the SBML namespace, which can be used to indicate the units to be associated with the number. The text-string infix formula parser allows units to be placed after raw numbers; they are interpreted as unit identifiers for units defined by the SBML specification or in the containing <a class="el" href="class_model.html">Model</a> object.) </li>
+<li>The symbol <code>avogadro</code> can be parsed either as a MathML <em>csymbol</em> or as a identifier. More specifically, &quot;<code>avogadro</code>&quot; can be treated as an <a class="el" href="class_a_s_t_node.html">ASTNode</a> of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203aa9754e70ec0089366d031fecedc8d04e">AST_NAME_AVOGADRO</a> or of type <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a4fab2a5f966e56f6062f9f9505921d0d">AST_NAME</a>. </li>
+<li>Strings that match built-in functions and constants can either be parsed as a match regardless of capitalization, or may be required to be all-lower-case to be considered a match. </li>
+<li>LibSBML plug-ins implementing support for SBML Level&#160;3 packages may introduce extensions to the syntax understood by the parser. The precise nature of the extensions will be documented by the individual package plug-ins. An example of a possible extension is a notation for vectors and arrays, introduced by the SBML Level&#160;3 <em>Arrays</em> package.</li>
+</ul>
+<p>For more details about the parser, please see the definition of <a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> and <a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">formula</td><td>the mathematical formula expression to be parsed.</td></tr>
+    <tr><td class="paramname">settings</td><td>the settings to be used for this parser invocation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the root node of an AST representing the mathematical formula, or <code>NULL</code> if an error occurred while parsing the formula. When <code>NULL</code> is returned, an error is recorded internally; information about the error can be retrieved using <a class="el" href="_l3_parser_8h.html#ae3957fcbae1190935fc3285245b50eab" title="Returns the last error reported by the &quot;L3&quot; mathematical formula parser.">SBML_getLastParseL3Error()</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="_l3_parser_8h.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> </dd>
+<dd>
+<a class="el" href="_l3_parser_8h.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a> </dd>
+<dd>
+<a class="el" href="_l3_parser_8h.html#abb4e76b36ef84300c2901302ca5542f4" title="Parses a text string as a mathematical formula using a Model to resolve symbols, and returns an AST r...">SBML_parseL3FormulaWithModel()</a> </dd>
+<dd>
+<a class="el" href="_formula_parser_8cpp.html#ac0f6e91ce03b9dd1070011499050eedc" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseFormula()</a> </dd>
+<dd>
+<a class="el" href="_l3_parser_8h.html#ae3957fcbae1190935fc3285245b50eab" title="Returns the last error reported by the &quot;L3&quot; mathematical formula parser.">SBML_getLastParseL3Error()</a> </dd>
+<dd>
+<a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="translate_l3_math_8cpp-example.html#a15">translateL3Math.cpp</a>.</dd>
 </dl>
 

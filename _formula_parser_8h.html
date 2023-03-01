@@ -137,7 +137,63 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Parses a text string as a mathematical formula and returns an AST representation of it. </p>
-<dl class="section user"><dt></dt><dd>The text-string form of mathematical formulas produced by <a class="el" href="_formula_formatter_8cpp.html#a7621fa39bd34423ea59ed128bb17b6f4" title="Converts an AST to a string representation of a formula using a syntax basically derived from SBML Le...">SBML_formulaToString()</a></dd></dl>
+<dl class="section user"><dt></dt><dd>The text-string form of mathematical formulas produced by <a class="el" href="_formula_formatter_8cpp.html#a7621fa39bd34423ea59ed128bb17b6f4" title="Converts an AST to a string representation of a formula using a syntax basically derived from SBML Le...">SBML_formulaToString()</a> and read by <a class="el" href="_formula_parser_8h.html#ac0f6e91ce03b9dd1070011499050eedc" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseFormula()</a> use a simple C-inspired infix notation taken from SBML Level&#160;1. A formula in this text-string form therefore can be handed to a program that understands SBML Level&#160;1 mathematical expressions, or used as part of a formula translation system. The syntax is described in detail in the documentation for <a class="el" href="class_a_s_t_node.html">ASTNode</a>. The following are illustrative examples of formulas expressed using this syntax: <pre class="fragment">0.10 * k4^2
+</pre> <pre class="fragment">(vm * s1)/(km + s1)
+</pre></dd></dl>
+<p>Note that this facility is provided as a convenience by libSBML&mdash;the MathML standard does not actually define a "string-form" equivalent to MathML expression trees, so the choice of formula syntax is somewhat arbitrary. The approach taken by libSBML is to use the syntax defined by SBML Level&#160;1 (which in fact used a text-string representation of formulas and not MathML). This formula syntax is based mostly on C programming syntax, and may contain operators, function calls, symbols, and white space characters. The following table provides the precedence rules for the different entities that may appear in formula strings.</p>
+<table border="0" class="centered text-table width80 normal-font alt-row-colors" style="padding-bottom: 0.5em">
+ <tr style="background: lightgray; font-size: 14px;">
+     <th align="left">Token</th>
+     <th align="left">Operation</th>
+     <th align="left">Class</th>
+     <th>Precedence</th>
+     <th align="left">Associates</th>
+ </tr>
+<tr><td><em>name</em></td><td>symbol reference</td><td>operand</td><td align="center">6</td><td>n/a</td></tr>
+<tr><td><code>(</code><em>expression</em><code>)</code></td><td>expression grouping</td><td>operand</td><td align="center">6</td><td>n/a</td></tr>
+<tr><td><code>f(</code><em>...</em><code>)</code></td><td>function call</td><td>prefix</td><td align="center">6</td><td>left</td></tr>
+<tr><td><code>-</code></td><td>negation</td><td>unary</td><td align="center">5</td><td>right</td></tr>
+<tr><td><code>^</code></td><td>power</td><td>binary</td><td align="center">4</td><td>left</td></tr>
+<tr><td><code>*</code></td><td>multiplication</td><td>binary</td><td align="center">3</td><td>left</td></tr>
+<tr><td><code>/</code></td><td>divison</td><td>binary</td><td align="center">3</td><td>left</td></tr>
+<tr><td><code>+</code></td><td>addition</td><td>binary</td><td align="center">2</td><td>left</td></tr>
+<tr><td><code>-</code></td><td>subtraction</td><td>binary</td><td align="center">2</td><td>left</td></tr>
+<tr><td><code>,</code></td><td>argument delimiter</td><td>binary</td><td align="center">1</td><td>left</td></tr>
+<caption class="top-caption">A table of the expression operators and their precedence in the
+text-string format for mathematical expressions used by SBML_parseFormula().
+</caption>
+</table>
+
+<p>In the table above, <em>operand</em> implies the construct is an operand, <em>prefix</em> implies the operation is applied to the following arguments, <em>unary</em> implies there is one argument, and <em>binary</em> implies there are two arguments. The values in the <b>Precedence</b> column show how the order of different types of operation are determined. For example, the expression <code>a * b + c</code> is evaluated as <code>(a * b) + c</code> because the <code>*</code> operator has higher precedence. The <b>Associates</b> column shows how the order of similar precedence operations is determined; for example, <code>a - b + c</code> is evaluated as <code>(a - b) + c</code> because the <code>+</code> and <code>-</code> operators are left-associative.</p>
+<p>The function call syntax consists of a function name, followed by optional white space, followed by an opening parenthesis token, followed by a sequence of zero or more arguments separated by commas (with each comma optionally preceded and/or followed by zero or more white space characters, followed by a closing parenthesis token. The function name must be chosen from one of the pre-defined functions in SBML or a user-defined function in the model. The following table lists the names of certain common mathematical functions; this table corresponds to Table&#160;6 in the <a href="http://sbml.org/Documents/Specifications#SBML_Level_1_Version_2" target="_blank">SBML Level&#160;1 Version&#160;2 specification</a>:</p>
+<table border="0" class="centered text-table width80 normal-font alt-row-colors">
+ <tr>
+     <th align="left" width="60">Name</th>
+     <th align="left" width="35">Args</th>
+     <th align="left">Formula or meaning</th>
+     <th align="left" width="90">Argument Constraints</th>
+     <th align="left" width="90">Result constraints</th>
+ </tr>
+<tr><td><code>abs</code></td><td><em>x</em></td><td>absolute value of <em>x</em></td><td></td><td></td></tr>
+<tr><td><code>acos</code></td><td><em>x</em></td><td>arc cosine of <em>x</em> in radians</td><td>-1.0 &le; <em>x</em> &le; 1.0</td><td>0 &le; <em>acos(x)</em> &le; &pi;</td></tr>
+<tr><td><code>asin</code></td><td><em>x</em></td><td>arc sine of <em>x</em> in radians</td><td>-1.0 &le; <em>x</em> &le; 1.0</td><td>0 &le; <em>asin(x)</em> &le; &pi;</td></tr>
+<tr><td><code>atan</code></td><td><em>x</em></td><td>arc tangent of <em>x</em> in radians</td><td></td><td>0 &le; <em>atan(x)</em> &le; &pi;</td></tr>
+<tr><td><code>ceil</code></td><td><em>x</em></td><td>smallest number not less than <em>x</em> whose value is an exact integer</td><td></td><td></td></tr>
+<tr><td><code>cos</code></td><td><em>x</em></td><td>cosine of <em>x</em></td><td></td><td></td></tr>
+<tr><td><code>exp</code></td><td><em>x</em></td><td><em>e</em><sup><em> x</em></sup>, where <em>e</em> is the base of the natural logarithm</td><td></td><td></td></tr>
+<tr><td><code>floor</code></td><td><em>x</em></td><td>largest number not greater than <em>x</em> whose value is an exact integer</td><td></td><td></td></tr>
+<tr><td><code>log</code></td><td><em>x</em></td><td>natural logarithm of <em>x</em></td><td><em>x</em> &gt; 0</td><td></td></tr>
+<tr><td><code>log10</code></td><td><em>x</em></td><td>base 10 logarithm of <em>x</em></td><td><em>x</em> &gt; 0</td><td></td></tr>
+<tr><td><code>pow</code></td><td><em>x, y</em></td><td><em>x</em><sup><em> y</em></sup></td><td></td><td></td></tr>
+<tr><td><code>sqr</code></td><td><em>x</em></td><td><em>x</em><sup><em>2</em></sup></td><td></td><td></td></tr>
+<tr><td><code>sqrt</code></td><td><em>x</em></td><td>&radic;<em>x</em></td><td><em>x</em> &gt; 0</td><td><em>sqrt(x)</em> &ge; 0</td></tr>
+<tr><td><code>sin</code></td><td><em>x</em></td><td>sine of <em>x</em></td><td></td><td></td></tr>
+<tr><td><code>tan</code></td><td><em>x</em></td><td>tangent of <em>x</em></td><td>x &ne; n*&pi;/2, for odd integer <em>n</em></td><td></td></tr>
+<caption class="bottom-caption">The names of mathematical functions defined in the SBML
+Level&nbsp;1 Version&nbsp;2 text-string formula syntax.</caption>
+</table>
+
+<dl class="section warning"><dt>Warning</dt><dd><span class="warning">There are differences between the symbols used to represent the common mathematical functions and the corresponding MathML token names. This is a potential source of incompatibilities. Note in particular that in this text-string syntax, <code>log(x)</code> represents the natural logarithm, whereas in MathML, the natural logarithm is <code>&lt;ln/&gt;</code>. Application writers are urged to be careful when translating between text forms and MathML forms, especially if they provide a direct text-string input facility to users of their software systems.</span></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">formula</td><td>the text-string formula expression to be parsed.</td></tr>
@@ -145,7 +201,22 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the root node of the AST corresponding to the <code>formula</code>, or <code>NULL</code> if an error occurred in parsing the formula</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="_l3_parser_8cpp.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="_l3_parser_8cpp.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> </dd>
+<dd>
+<a class="el" href="_formula_formatter_8cpp.html#a7621fa39bd34423ea59ed128bb17b6f4" title="Converts an AST to a string representation of a formula using a syntax basically derived from SBML Le...">SBML_formulaToString()</a> </dd>
+<dd>
+<a class="el" href="_l3_formula_formatter_8h.html#a3ee99a0498b6249f6602b98be6733b19" title="Converts an AST to a string representation of a formula using a syntax derived from SBML Level&#160;1,...">SBML_formulaToL3String()</a> </dd>
+<dd>
+<a class="el" href="_l3_formula_formatter_8h.html#af840d48b31961fd33c8f00a7740e49f0" title="Converts an AST to a text string representation of a formula, using specific formatter settings.">SBML_formulaToL3StringWithSettings()</a> </dd>
+<dd>
+<a class="el" href="_l3_parser_8cpp.html#a77c72a78afff728a6c569790338f2085" title="Parses a text string as a mathematical formula using specific parser settings and returns an AST repr...">SBML_parseL3FormulaWithSettings()</a> </dd>
+<dd>
+<a class="el" href="_l3_parser_8cpp.html#abb4e76b36ef84300c2901302ca5542f4" title="Parses a text string as a mathematical formula using a Model to resolve symbols, and returns an AST r...">SBML_parseL3FormulaWithModel()</a> </dd>
+<dd>
+<a class="el" href="class_l3_parser_settings.html">L3ParserSettings</a></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Callers using SBML Level&#160;3 are encouraged to use the facilities provided by libSBML's newer and more powerful Level&#160;3-oriented formula parser and formatter. The entry points to this second system are <a class="el" href="_l3_parser_8cpp.html#a58e584e7c21801b34d79fed7a7c05ac8" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseL3Formula()</a> and <a class="el" href="_l3_formula_formatter_8h.html#a3ee99a0498b6249f6602b98be6733b19" title="Converts an AST to a string representation of a formula using a syntax derived from SBML Level&#160;1,...">SBML_formulaToL3String()</a>. The Level&#160;1-oriented system (i.e., what is provided by <a class="el" href="_formula_formatter_8cpp.html#a7621fa39bd34423ea59ed128bb17b6f4" title="Converts an AST to a string representation of a formula using a syntax basically derived from SBML Le...">SBML_formulaToString()</a> and <a class="el" href="_formula_parser_8h.html#ac0f6e91ce03b9dd1070011499050eedc" title="Parses a text string as a mathematical formula and returns an AST representation of it.">SBML_parseFormula()</a>) is provided untouched for backwards compatibility.</dd>
+<dd>
+We urge developers to keep in mind that the text-string formula syntax is specific to libSBML. <em>Neither MathML nor SBML define a text-string format for mathematical formulas.</em> LibSBML's particular syntax should not be considered to be a canonical or standard general-purpose mathematical expression syntax. LibSBML provides methods for parsing and transforming text-string math formulas back and forth from AST structures for the convenience of calling applications, but it is important to keep the system's limitations in mind. </dd></dl>
 
 </div>
 </div>

@@ -247,8 +247,8 @@ var NAVTREEINDEX =
 "class_x_m_l_namespaces.html#aed92f6aa26a41020a32ca0796cf7e7c9",
 "classdoc__extension__sbmldocumentplugin.html",
 "functions_func_x.html",
-"libsbml-reading-files.html#rf-sbmldocument",
-"util_8cpp.html#ab25c1c95ba93e9637db9d058c894a4ec"
+"libsbml-math.html#math-reading",
+"util_8cpp.html#a2601cc3ba1139a2c024b91ee855d0ef2"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

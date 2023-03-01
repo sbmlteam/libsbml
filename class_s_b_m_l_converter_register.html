@@ -101,14 +101,14 @@ $(document).ready(function(){initNavTree('class_s_b_m_l_converter_register.html'
 <div class="textblock"><h3>template&lt;class SBMLConversionType&gt;<br />
 class SBMLConverterRegister&lt; SBMLConversionType &gt;</h3>
 
-<p>\ @ @ . . </p>
+ Template for SBML converter registry registrations.</p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  It is a class used in
 the implementation of extra functionality provided by libSBML.
 </p>
-<p>The converter registry, implemented as a singleton object of class <a class="el" href="class_s_b_m_l_converter_registry.html" title="\ @ @ . .">SBMLConverterRegistry</a>, maintains a list of known converters and provides methods for discovering them. LibSBML comes with a number of converters built-in, but applications can create their own converters and add them to the set known to libSBML. Such converters would be subclasses of <a class="el" href="class_s_b_m_l_converter.html" title="\ @ @ . .">SBMLConverter</a>.</p>
-<p>To register themselves, the subclasses should provide an <code>init()</code> method that calls the <a class="el" href="class_s_b_m_l_converter_registry.html#acc066d5eb12b1ca6c964c7eb6a110409" title="Adds the given converter to the registry of SBML converters.">SBMLConverterRegistry::addConverter()</a> method on the <a class="el" href="class_s_b_m_l_converter.html" title="\ @ @ . .">SBMLConverter</a> instance. For example, if a new converter class named <code>SweetConverter</code> were to be created, it should provide an <code>init()</code> method along the following lines: </p><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="_s_b_m_l_converter_registry_8h.html">sbml/conversion/SBMLConverterRegistry.h</a>&gt;</span></div>
+<p>The converter registry, implemented as a singleton object of class <a class="el" href="class_s_b_m_l_converter_registry.html">SBMLConverterRegistry</a>, maintains a list of known converters and provides methods for discovering them. LibSBML comes with a number of converters built-in, but applications can create their own converters and add them to the set known to libSBML. Such converters would be subclasses of <a class="el" href="class_s_b_m_l_converter.html">SBMLConverter</a>.</p>
+<p>To register themselves, the subclasses should provide an <code>init()</code> method that calls the <a class="el" href="class_s_b_m_l_converter_registry.html#acc066d5eb12b1ca6c964c7eb6a110409" title="Adds the given converter to the registry of SBML converters.">SBMLConverterRegistry::addConverter()</a> method on the <a class="el" href="class_s_b_m_l_converter.html">SBMLConverter</a> instance. For example, if a new converter class named <code>SweetConverter</code> were to be created, it should provide an <code>init()</code> method along the following lines: </p><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="_s_b_m_l_converter_registry_8h.html">sbml/conversion/SBMLConverterRegistry.h</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="_s_b_m_l_converter_register_8h.html">sbml/conversion/SBMLConverterRegister.h</a>&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#ifdef __cplusplus</span></div>
@@ -130,7 +130,7 @@ the implementation of extra functionality provided by libSBML.
 <div class="line"> </div>
 <div class="line"><span class="keyword">static</span> <a class="code" href="class_s_b_m_l_converter_register.html">SBMLConverterRegister&lt;SweetConverter&gt;</a> registerSweetConverter;</div>
 <div class="line">... other converter <span class="keyword">template</span> instantiations here ... </div>
-<div class="ttc" id="aclass_s_b_m_l_converter_register_html"><div class="ttname"><a href="class_s_b_m_l_converter_register.html">SBMLConverterRegister</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> SBMLConverterRegister.h:102</div></div>
+<div class="ttc" id="aclass_s_b_m_l_converter_register_html"><div class="ttname"><a href="class_s_b_m_l_converter_register.html">SBMLConverterRegister</a></div><div class="ttdef"><b>Definition:</b> SBMLConverterRegister.h:102</div></div>
 </div><!-- fragment --><p>For more information about the registry, please consult the introduction to the class SBMLRegistry. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>

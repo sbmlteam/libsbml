@@ -98,18 +98,18 @@ $(document).ready(function(){initNavTree('class_x_m_l_input_stream.html',''); in
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>\ @ @ . . </p>
+<div class="textblock"> An interface to an XML input stream.</p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  This class is not prescribed by
 the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
-<p>SBML content is serialized using XML; the resulting data can be stored and read to/from a file or data stream. Low-level XML parsers such as Xerces provide facilities to read XML data. To permit the use of different XML parsers (Xerces, Expat or libxml2), libSBML implements an abstraction layer. <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a> and <a class="el" href="class_x_m_l_output_stream.html" title="\ @ @ . .">XMLOutputStream</a> are two parts of that abstraction layer.</p>
-<p><a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a> is an interface to a file or text string containing XML. It wraps the content to be read, as well as the low-level XML parser to be used and an <a class="el" href="class_x_m_l_error_log.html" title="\ @ @ . .">XMLErrorLog</a> to record errors and other issues (if any arise). Internally, the content will be in the form of either a pointer to a file name or a character string; <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a> knows the form of the content and acts appropriately. Other libSBML object classes use <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a> as their interface for all read operations on the XML data. <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a> provides the functionality to extract data in the form of <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> objects. It logs any errors encountered while reading. It also keeps track of whether a read operation has failed irrecoverably or determines whether it is safe to continue reading.</p>
-<p><a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> objects can be associated with an <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a>; this facilitates logging errors related to reading XML attributes and elements that may only be relevant to particular Level and Version combinations of SBML.</p>
-<dl class="section note"><dt>Note</dt><dd>The convenience of the <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a> and <a class="el" href="class_x_m_l_output_stream.html" title="\ @ @ . .">XMLOutputStream</a> abstraction may be useful for developers interested in creating parsers for other XML formats besides SBML. It can provide developers with a layer above more basic XML parsers, as well as some useful programmatic elements such as <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a>, <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a>, etc.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_output_stream.html" title="\ @ @ . .">XMLOutputStream</a> </dd></dl>
+<p>SBML content is serialized using XML; the resulting data can be stored and read to/from a file or data stream. Low-level XML parsers such as Xerces provide facilities to read XML data. To permit the use of different XML parsers (Xerces, Expat or libxml2), libSBML implements an abstraction layer. <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a> and <a class="el" href="class_x_m_l_output_stream.html">XMLOutputStream</a> are two parts of that abstraction layer.</p>
+<p><a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a> is an interface to a file or text string containing XML. It wraps the content to be read, as well as the low-level XML parser to be used and an <a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> to record errors and other issues (if any arise). Internally, the content will be in the form of either a pointer to a file name or a character string; <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a> knows the form of the content and acts appropriately. Other libSBML object classes use <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a> as their interface for all read operations on the XML data. <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a> provides the functionality to extract data in the form of <a class="el" href="class_x_m_l_token.html">XMLToken</a> objects. It logs any errors encountered while reading. It also keeps track of whether a read operation has failed irrecoverably or determines whether it is safe to continue reading.</p>
+<p><a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> objects can be associated with an <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a>; this facilitates logging errors related to reading XML attributes and elements that may only be relevant to particular Level and Version combinations of SBML.</p>
+<dl class="section note"><dt>Note</dt><dd>The convenience of the <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a> and <a class="el" href="class_x_m_l_output_stream.html">XMLOutputStream</a> abstraction may be useful for developers interested in creating parsers for other XML formats besides SBML. It can provide developers with a layer above more basic XML parsers, as well as some useful programmatic elements such as <a class="el" href="class_x_m_l_token.html">XMLToken</a>, <a class="el" href="class_x_m_l_error.html">XMLError</a>, etc.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_output_stream.html">XMLOutputStream</a> </dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -126,10 +126,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a037591c42cfb96f10672d806348e67b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the encoding of the XML stream.  <a href="class_x_m_l_input_stream.html#a037591c42cfb96f10672d806348e67b5">More...</a><br /></td></tr>
 <tr class="separator:a037591c42cfb96f10672d806348e67b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ab464c22d57f2faa9f21a430a11192c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_input_stream.html#a2ab464c22d57f2faa9f21a430a11192c">getErrorLog</a> ()</td></tr>
-<tr class="memdesc:a2ab464c22d57f2faa9f21a430a11192c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_x_m_l_error_log.html" title="\ @ @ . .">XMLErrorLog</a> used to log parsing problems.  <a href="class_x_m_l_input_stream.html#a2ab464c22d57f2faa9f21a430a11192c">More...</a><br /></td></tr>
+<tr class="memdesc:a2ab464c22d57f2faa9f21a430a11192c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> used to log parsing problems.  <a href="class_x_m_l_input_stream.html#a2ab464c22d57f2faa9f21a430a11192c">More...</a><br /></td></tr>
 <tr class="separator:a2ab464c22d57f2faa9f21a430a11192c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cb85d80ba4e8b3071b66ca8636b3c10"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_input_stream.html#a7cb85d80ba4e8b3071b66ca8636b3c10">getSBMLNamespaces</a> ()</td></tr>
-<tr class="memdesc:a7cb85d80ba4e8b3071b66ca8636b3c10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object attached to this <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a>.  <a href="class_x_m_l_input_stream.html#a7cb85d80ba4e8b3071b66ca8636b3c10">More...</a><br /></td></tr>
+<tr class="memdesc:a7cb85d80ba4e8b3071b66ca8636b3c10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object attached to this <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a>.  <a href="class_x_m_l_input_stream.html#a7cb85d80ba4e8b3071b66ca8636b3c10">More...</a><br /></td></tr>
 <tr class="separator:a7cb85d80ba4e8b3071b66ca8636b3c10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a460456212b04b50701a2bf3aac147ae7"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_input_stream.html#a460456212b04b50701a2bf3aac147ae7">getVersion</a> ()</td></tr>
 <tr class="memdesc:a460456212b04b50701a2bf3aac147ae7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the version of the XML stream.  <a href="class_x_m_l_input_stream.html#a460456212b04b50701a2bf3aac147ae7">More...</a><br /></td></tr>
@@ -150,7 +150,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa332df276ac8c47a740dbb0c21749e0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next token <em>without</em> consuming it.  <a href="class_x_m_l_input_stream.html#aa332df276ac8c47a740dbb0c21749e0a">More...</a><br /></td></tr>
 <tr class="separator:aa332df276ac8c47a740dbb0c21749e0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c24b9f851b3af5b33bacadd3263c38c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_input_stream.html#a4c24b9f851b3af5b33bacadd3263c38c">setErrorLog</a> (<a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> *log)</td></tr>
-<tr class="memdesc:a4c24b9f851b3af5b33bacadd3263c38c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="class_x_m_l_error_log.html" title="\ @ @ . .">XMLErrorLog</a> this stream will use to log errors.  <a href="class_x_m_l_input_stream.html#a4c24b9f851b3af5b33bacadd3263c38c">More...</a><br /></td></tr>
+<tr class="memdesc:a4c24b9f851b3af5b33bacadd3263c38c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> this stream will use to log errors.  <a href="class_x_m_l_input_stream.html#a4c24b9f851b3af5b33bacadd3263c38c">More...</a><br /></td></tr>
 <tr class="separator:a4c24b9f851b3af5b33bacadd3263c38c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac75cf6a2f1137f646c57d15e6e32d668"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_input_stream.html#ac75cf6a2f1137f646c57d15e6e32d668">setSBMLNamespaces</a> (<a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> *sbmlns)</td></tr>
 <tr class="memdesc:ac75cf6a2f1137f646c57d15e6e32d668"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the SBML namespaces associated with this XML input stream.  <a href="class_x_m_l_input_stream.html#ac75cf6a2f1137f646c57d15e6e32d668">More...</a><br /></td></tr>
@@ -165,10 +165,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa9a3306cd13c8071c5173150aeeffaa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints a string representation of the underlying token stream.  <a href="class_x_m_l_input_stream.html#aa9a3306cd13c8071c5173150aeeffaa9">More...</a><br /></td></tr>
 <tr class="separator:aa9a3306cd13c8071c5173150aeeffaa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a8eec316ff4eb4555e5cbb8b005a117"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_input_stream.html#a9a8eec316ff4eb4555e5cbb8b005a117">XMLInputStream</a> (const char *content, bool isFile=true, const std::string library=&quot;&quot;, <a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> *errorLog=NULL)</td></tr>
-<tr class="memdesc:a9a8eec316ff4eb4555e5cbb8b005a117"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a>.  <a href="class_x_m_l_input_stream.html#a9a8eec316ff4eb4555e5cbb8b005a117">More...</a><br /></td></tr>
+<tr class="memdesc:a9a8eec316ff4eb4555e5cbb8b005a117"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a>.  <a href="class_x_m_l_input_stream.html#a9a8eec316ff4eb4555e5cbb8b005a117">More...</a><br /></td></tr>
 <tr class="separator:a9a8eec316ff4eb4555e5cbb8b005a117"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3418bdb4be800160eeb2c6217c1e31e3"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_input_stream.html#a3418bdb4be800160eeb2c6217c1e31e3">~XMLInputStream</a> ()</td></tr>
-<tr class="memdesc:a3418bdb4be800160eeb2c6217c1e31e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a>.  <a href="class_x_m_l_input_stream.html#a3418bdb4be800160eeb2c6217c1e31e3">More...</a><br /></td></tr>
+<tr class="memdesc:a3418bdb4be800160eeb2c6217c1e31e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a>.  <a href="class_x_m_l_input_stream.html#a3418bdb4be800160eeb2c6217c1e31e3">More...</a><br /></td></tr>
 <tr class="separator:a3418bdb4be800160eeb2c6217c1e31e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -210,13 +210,13 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a>. </p>
+<p>Creates a new <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">content</td><td>the source of the stream.</td></tr>
     <tr><td class="paramname">isFile</td><td>a boolean flag to indicate whether <code>content</code> is a file name. If <code>true</code>, <code>content</code> is assumed to be the file from which the XML content is to be read. If <code>false</code>, <code>content</code> is taken to be a string that <em>is</em> the content to be read.</td></tr>
     <tr><td class="paramname">library</td><td>the name of the parser library to use.</td></tr>
-    <tr><td class="paramname">errorLog</td><td>the <a class="el" href="class_x_m_l_error_log.html" title="\ @ @ . .">XMLErrorLog</a> object to use. </td></tr>
+    <tr><td class="paramname">errorLog</td><td>the <a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> object to use. </td></tr>
   </table>
   </dd>
 </dl>
@@ -246,7 +246,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroys this <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a>. </p>
+<p>Destroys this <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a>. </p>
 
 </div>
 </div>
@@ -399,8 +399,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_x_m_l_error_log.html" title="\ @ @ . .">XMLErrorLog</a> used to log parsing problems. </p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_error_log.html" title="\ @ @ . .">XMLErrorLog</a> used to log XML parse errors and other validation errors (and messages). </dd></dl>
+<p>Returns the <a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> used to log parsing problems. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> used to log XML parse errors and other validation errors (and messages). </dd></dl>
 
 </div>
 </div>
@@ -419,8 +419,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object attached to this <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object or <code>NULL</code> if none has been set. </dd></dl>
+<p>Returns the <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object attached to this <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object or <code>NULL</code> if none has been set. </dd></dl>
 
 </div>
 </div>
@@ -525,7 +525,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Returns the next token on this XML input stream. </p>
 <p>The token is consumed in the process.</p>
-<dl class="section return"><dt>Returns</dt><dd>the next <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a>, or an EOF token (i.e., <code><a class="el" href="class_x_m_l_token.html#ae963b35615525f8af949373c5765a230" title="Returns true if this token is an end of file marker.">XMLToken.isEOF()</a> == true</code>).</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the next <a class="el" href="class_x_m_l_token.html">XMLToken</a>, or an EOF token (i.e., <code><a class="el" href="class_x_m_l_token.html#ae963b35615525f8af949373c5765a230" title="Returns true if this token is an end of file marker.">XMLToken.isEOF()</a> == true</code>).</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_input_stream.html#aa332df276ac8c47a740dbb0c21749e0a" title="Returns the next token without consuming it.">peek()</a> </dd></dl>
 
 </div>
@@ -547,7 +547,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Returns the next token <em>without</em> consuming it. </p>
 <p>A subsequent call to either <a class="el" href="class_x_m_l_input_stream.html#aa332df276ac8c47a740dbb0c21749e0a" title="Returns the next token without consuming it.">peek()</a> or <a class="el" href="class_x_m_l_input_stream.html#a404a03edbc912e086a319f30e4544d85" title="Returns the next token on this XML input stream.">next()</a> will return the same token.</p>
-<dl class="section return"><dt>Returns</dt><dd>the next <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> or EOF (<a class="el" href="class_x_m_l_token.html#ae963b35615525f8af949373c5765a230" title="Returns true if this token is an end of file marker.">XMLToken.isEOF()</a> == true).</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the next <a class="el" href="class_x_m_l_token.html">XMLToken</a> or EOF (<a class="el" href="class_x_m_l_token.html#ae963b35615525f8af949373c5765a230" title="Returns true if this token is an end of file marker.">XMLToken.isEOF()</a> == true).</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_input_stream.html#a404a03edbc912e086a319f30e4544d85" title="Returns the next token on this XML input stream.">next()</a> </dd></dl>
 
 </div>
@@ -568,7 +568,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the <a class="el" href="class_x_m_l_error_log.html" title="\ @ @ . .">XMLErrorLog</a> this stream will use to log errors. </p>
+<p>Sets the <a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> this stream will use to log errors. </p>
 <dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>

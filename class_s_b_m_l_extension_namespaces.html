@@ -101,44 +101,43 @@ $(document).ready(function(){initNavTree('class_s_b_m_l_extension_namespaces.htm
 <div class="dynheader">
 Inheritance diagram for SBMLExtensionNamespaces&lt; SBMLExtensionType &gt;:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_s_b_m_l_extension_namespaces__inherit__graph.svg" width="218" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_s_b_m_l_extension_namespaces__inherit__graph.svg" width="218" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;class SBMLExtensionType&gt;<br />
 class SBMLExtensionNamespaces&lt; SBMLExtensionType &gt;</h3>
 
-<p>\ @ @ . + + . </p>
+ Set of SBML Level + Version + namespace triples.</p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  This class is not prescribed by
 the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
-<p><a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a> is a template class. It is extended from <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> and is meant to be used by package extensions to store the SBML Level, Version within a Level, and package version of the SBML Level&#160;3 package implemented by a libSBML package extension.</p>
+<p><a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> is a template class. It is extended from <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> and is meant to be used by package extensions to store the SBML Level, Version within a Level, and package version of the SBML Level&#160;3 package implemented by a libSBML package extension.</p>
 <h1><a class="anchor" id="sbmlextensionnamespaces-howto"></a>
 How to use SBMLExtensionNamespaces for a package implementation</h1>
-<dl class="section user"><dt></dt><dd>Each package extension in libSBML needs to extend and instantiate the template class <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a>, as well as declare a specific <code>typedef</code>. The following sections explain these steps in detail.</dd></dl>
+<dl class="section user"><dt></dt><dd>Each package extension in libSBML needs to extend and instantiate the template class <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a>, as well as declare a specific <code>typedef</code>. The following sections explain these steps in detail.</dd></dl>
 <h2><a class="anchor" id="sen-identify"></a>
 1. Define the typedef</h2>
-<p>Each package needs to declare a package-specific version of the <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a> class using a <code>typedef</code>. The following example code demonstrates how this is done in the case of the <a class="el" href="class_layout.html" title="\ @ @ . .">Layout</a> package:</p>
+<p>Each package needs to declare a package-specific version of the <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> class using a <code>typedef</code>. The following example code demonstrates how this is done in the case of the <a class="el" href="class_layout.html">Layout</a> package:</p>
 <div class="fragment"><div class="line"><span class="keyword">typedef</span> <a class="code" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces&lt;LayoutExtension&gt;</a> <a class="code" href="_layout_extension_8h.html#a063e6a6d033452af55abd11770e62e09">LayoutPkgNamespaces</a>;</div>
 <div class="ttc" id="a_layout_extension_8h_html_a063e6a6d033452af55abd11770e62e09"><div class="ttname"><a href="_layout_extension_8h.html#a063e6a6d033452af55abd11770e62e09">LayoutPkgNamespaces</a></div><div class="ttdeci">SBMLExtensionNamespaces&lt; LayoutExtension &gt; LayoutPkgNamespaces</div><div class="ttdef"><b>Definition:</b> LayoutExtension.h:422</div></div>
-<div class="ttc" id="aclass_s_b_m_l_extension_namespaces_html"><div class="ttname"><a href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a></div><div class="ttdoc">\ @ @ . + + .</div><div class="ttdef"><b>Definition:</b> SBMLExtensionNamespaces.h:83</div></div>
-</div><!-- fragment --><p>This creates a new type called <a class="el" href="class_layout_pkg_namespaces.html" title="\ @ @ . .">LayoutPkgNamespaces</a>. The code above is usually placed in the same file that contains the SBMLExtension-derived definition of the package extension base class. In the case of the <a class="el" href="class_layout.html" title="\ @ @ . .">Layout</a> package, this is in the file <code>src/packages/layout/extension/LayoutExtension.h</code> in the libSBML source distribution.</p>
+<div class="ttc" id="aclass_s_b_m_l_extension_namespaces_html"><div class="ttname"><a href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a></div><div class="ttdef"><b>Definition:</b> SBMLExtensionNamespaces.h:83</div></div>
+</div><!-- fragment --><p>This creates a new type called <a class="el" href="class_layout_pkg_namespaces.html">LayoutPkgNamespaces</a>. The code above is usually placed in the same file that contains the SBMLExtension-derived definition of the package extension base class. In the case of the <a class="el" href="class_layout.html">Layout</a> package, this is in the file <code>src/packages/layout/extension/LayoutExtension.h</code> in the libSBML source distribution.</p>
 <h2><a class="anchor" id="sen-instantiate"></a>
 2. Instantiate a template instance</h2>
-<p>Each package needs to instantiate a template instance of the <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a> class. The following example code demonstrates how this is done in the case of the <a class="el" href="class_layout.html" title="\ @ @ . .">Layout</a> package:</p>
+<p>Each package needs to instantiate a template instance of the <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> class. The following example code demonstrates how this is done in the case of the <a class="el" href="class_layout.html">Layout</a> package:</p>
 <div class="fragment"><div class="line"><span class="keyword">template</span> <span class="keyword">class </span><a class="code" href="extern_8h.html#a8e9e5118f0c55d410f8bc217f2954dbf">LIBSBML_EXTERN</a> <a class="code" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces&lt;LayoutExtension&gt;</a>;</div>
 <div class="ttc" id="aextern_8h_html_a8e9e5118f0c55d410f8bc217f2954dbf"><div class="ttname"><a href="extern_8h.html#a8e9e5118f0c55d410f8bc217f2954dbf">LIBSBML_EXTERN</a></div><div class="ttdeci">#define LIBSBML_EXTERN</div><div class="ttdoc">LIBSBML_EXTERN is used under Windows to simplify exporting functions from a DLL.</div><div class="ttdef"><b>Definition:</b> extern.h:102</div></div>
-</div><!-- fragment --><p>In the case of the <a class="el" href="class_layout.html" title="\ @ @ . .">Layout</a> package, the code above is located in the file <code>src/packages/layout/extension/LayoutExtension.cpp</code> in the libSBML source distribution.</p>
+</div><!-- fragment --><p>In the case of the <a class="el" href="class_layout.html">Layout</a> package, the code above is located in the file <code>src/packages/layout/extension/LayoutExtension.cpp</code> in the libSBML source distribution.</p>
 <h2><a class="anchor" id="sen-derive"></a>
 3. Create constructors that accept the class</h2>
-<p>Each SBase-derived class in the package extension should implement a constructor that accepts the SBMLExtensionNamespaces-derived class as an argument. For example, in the <a class="el" href="class_layout.html" title="\ @ @ . .">Layout</a> package, the class BoundBox has a constructor declared as follows</p>
+<p>Each SBase-derived class in the package extension should implement a constructor that accepts the SBMLExtensionNamespaces-derived class as an argument. For example, in the <a class="el" href="class_layout.html">Layout</a> package, the class BoundBox has a constructor declared as follows</p>
 <div class="fragment"><div class="line"><a class="code" href="class_bounding_box.html">BoundingBox</a>(<a class="code" href="class_layout_pkg_namespaces.html">LayoutPkgNamespaces</a>* layoutns);</div>
-<div class="ttc" id="aclass_bounding_box_html"><div class="ttname"><a href="class_bounding_box.html">BoundingBox</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> BoundingBox.h:64</div></div>
-<div class="ttc" id="aclass_layout_pkg_namespaces_html"><div class="ttname"><a href="class_layout_pkg_namespaces.html">LayoutPkgNamespaces</a></div><div class="ttdoc">\ @ @ . .</div></div>
-</div><!-- fragment --><p>The implementation of this constructor must, among other things, take the argument namespace object and use it to set the XML namespace URI for the object. Again, for the <a class="el" href="class_bounding_box.html" title="\ @ @ . .">BoundingBox</a> example:</p>
+<div class="ttc" id="aclass_bounding_box_html"><div class="ttname"><a href="class_bounding_box.html">BoundingBox</a></div><div class="ttdef"><b>Definition:</b> BoundingBox.h:64</div></div>
+<div class="ttc" id="aclass_layout_pkg_namespaces_html"><div class="ttname"><a href="class_layout_pkg_namespaces.html">LayoutPkgNamespaces</a></div></div>
+</div><!-- fragment --><p>The implementation of this constructor must, among other things, take the argument namespace object and use it to set the XML namespace URI for the object. Again, for the <a class="el" href="class_bounding_box.html">BoundingBox</a> example:</p>
 <div class="fragment"><div class="line"><a class="code" href="class_bounding_box.html#a70041e51abe02b7d3050132d907cabf4">BoundingBox::BoundingBox</a>(<a class="code" href="class_layout_pkg_namespaces.html">LayoutPkgNamespaces</a>* layoutns)</div>
 <div class="line"> : <a class="code" href="class_s_base.html">SBase</a>(layoutns)</div>
 <div class="line">  ,mPosition(layoutns)</div>
@@ -157,36 +156,36 @@ How to use SBMLExtensionNamespaces for a package implementation</h1>
 <div class="line">  loadPlugins(layoutns);</div>
 <div class="line">}</div>
 <div class="ttc" id="aclass_bounding_box_html_a70041e51abe02b7d3050132d907cabf4"><div class="ttname"><a href="class_bounding_box.html#a70041e51abe02b7d3050132d907cabf4">BoundingBox::BoundingBox</a></div><div class="ttdeci">BoundingBox(unsigned int level=LayoutExtension::getDefaultLevel(), unsigned int version=LayoutExtension::getDefaultVersion(), unsigned int pkgVersion=LayoutExtension::getDefaultPackageVersion())</div><div class="ttdoc">Default Constructor.</div><div class="ttdef"><b>Definition:</b> BoundingBox.cpp:76</div></div>
-<div class="ttc" id="aclass_s_base_html"><div class="ttname"><a href="class_s_base.html">SBase</a></div><div class="ttdoc">\ @ @ . ' &lt;&gt;%&lt;/&gt; , .</div><div class="ttdef"><b>Definition:</b> SBase.h:191</div></div>
+<div class="ttc" id="aclass_s_base_html"><div class="ttname"><a href="class_s_base.html">SBase</a></div><div class="ttdef"><b>Definition:</b> SBase.h:191</div></div>
 </div><!-- fragment --> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa7e3f28eac7f190899ffb96e09f58de3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_namespaces.html#aa7e3f28eac7f190899ffb96e09f58de3">addNamespace</a> (const std::string &amp;uri, const std::string &amp;prefix)</td></tr>
-<tr class="memdesc:aa7e3f28eac7f190899ffb96e09f58de3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an XML namespace (a pair of URI and prefix) to the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#aa7e3f28eac7f190899ffb96e09f58de3">More...</a><br /></td></tr>
+<tr class="memdesc:aa7e3f28eac7f190899ffb96e09f58de3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an XML namespace (a pair of URI and prefix) to the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#aa7e3f28eac7f190899ffb96e09f58de3">More...</a><br /></td></tr>
 <tr class="separator:aa7e3f28eac7f190899ffb96e09f58de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53e2bb38daba0aa7896f5b908d7e449c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_namespaces.html#a53e2bb38daba0aa7896f5b908d7e449c">addNamespaces</a> (const <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> *xmlns)</td></tr>
-<tr class="memdesc:a53e2bb38daba0aa7896f5b908d7e449c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add the given XML namespaces list to the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#a53e2bb38daba0aa7896f5b908d7e449c">More...</a><br /></td></tr>
+<tr class="memdesc:a53e2bb38daba0aa7896f5b908d7e449c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add the given XML namespaces list to the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#a53e2bb38daba0aa7896f5b908d7e449c">More...</a><br /></td></tr>
 <tr class="separator:a53e2bb38daba0aa7896f5b908d7e449c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62e14049cbdd4fd55807b7e89f0503d5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_namespaces.html#a62e14049cbdd4fd55807b7e89f0503d5">addPackageNamespace</a> (const std::string &amp;pkgName, unsigned int pkgVersion, const std::string &amp;prefix=&quot;&quot;)</td></tr>
-<tr class="memdesc:a62e14049cbdd4fd55807b7e89f0503d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an XML namespace (a pair of URI and prefix) of a package extension to the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#a62e14049cbdd4fd55807b7e89f0503d5">More...</a><br /></td></tr>
+<tr class="memdesc:a62e14049cbdd4fd55807b7e89f0503d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an XML namespace (a pair of URI and prefix) of a package extension to the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#a62e14049cbdd4fd55807b7e89f0503d5">More...</a><br /></td></tr>
 <tr class="separator:a62e14049cbdd4fd55807b7e89f0503d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c7a8383df72538e8c4f48a64517e876"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_namespaces.html#a5c7a8383df72538e8c4f48a64517e876">addPackageNamespaces</a> (const <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> *xmlns)</td></tr>
-<tr class="memdesc:a5c7a8383df72538e8c4f48a64517e876"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add the XML namespaces of package extensions in the given XMLNamespace object to the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object (Non-package XML namespaces are not added by this function).  <a href="class_s_b_m_l_namespaces.html#a5c7a8383df72538e8c4f48a64517e876">More...</a><br /></td></tr>
+<tr class="memdesc:a5c7a8383df72538e8c4f48a64517e876"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add the XML namespaces of package extensions in the given XMLNamespace object to the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object (Non-package XML namespaces are not added by this function).  <a href="class_s_b_m_l_namespaces.html#a5c7a8383df72538e8c4f48a64517e876">More...</a><br /></td></tr>
 <tr class="separator:a5c7a8383df72538e8c4f48a64517e876"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a439c10a006c7b427afdc04a60c85edf0"><td class="memItemLeft" align="right" valign="top">virtual ISBMLExtensionNamespaces *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_namespaces.html#a439c10a006c7b427afdc04a60c85edf0">clone</a> () const</td></tr>
-<tr class="memdesc:a439c10a006c7b427afdc04a60c85edf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a> object.  <a href="class_s_b_m_l_extension_namespaces.html#a439c10a006c7b427afdc04a60c85edf0">More...</a><br /></td></tr>
+<tr class="memdesc:a439c10a006c7b427afdc04a60c85edf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> object.  <a href="class_s_b_m_l_extension_namespaces.html#a439c10a006c7b427afdc04a60c85edf0">More...</a><br /></td></tr>
 <tr class="separator:a439c10a006c7b427afdc04a60c85edf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac84f016b64d6c5839eb295826fcfca9d"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_namespaces.html#ac84f016b64d6c5839eb295826fcfca9d">getLevel</a> ()</td></tr>
-<tr class="memdesc:ac84f016b64d6c5839eb295826fcfca9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the SBML Level of this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#ac84f016b64d6c5839eb295826fcfca9d">More...</a><br /></td></tr>
+<tr class="memdesc:ac84f016b64d6c5839eb295826fcfca9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the SBML Level of this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#ac84f016b64d6c5839eb295826fcfca9d">More...</a><br /></td></tr>
 <tr class="separator:ac84f016b64d6c5839eb295826fcfca9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af15af1a3a61a20c5daae7251f90ae2cf"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_namespaces.html#af15af1a3a61a20c5daae7251f90ae2cf">getLevel</a> () const</td></tr>
-<tr class="memdesc:af15af1a3a61a20c5daae7251f90ae2cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the SBML Level of this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#af15af1a3a61a20c5daae7251f90ae2cf">More...</a><br /></td></tr>
+<tr class="memdesc:af15af1a3a61a20c5daae7251f90ae2cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the SBML Level of this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#af15af1a3a61a20c5daae7251f90ae2cf">More...</a><br /></td></tr>
 <tr class="separator:af15af1a3a61a20c5daae7251f90ae2cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c396de9a5ab7b9c8d5f62e74ed510e9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_namespaces.html#a4c396de9a5ab7b9c8d5f62e74ed510e9">getNamespaces</a> ()</td></tr>
-<tr class="memdesc:a4c396de9a5ab7b9c8d5f62e74ed510e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the XML namespaces list for this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#a4c396de9a5ab7b9c8d5f62e74ed510e9">More...</a><br /></td></tr>
+<tr class="memdesc:a4c396de9a5ab7b9c8d5f62e74ed510e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the XML namespaces list for this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#a4c396de9a5ab7b9c8d5f62e74ed510e9">More...</a><br /></td></tr>
 <tr class="separator:a4c396de9a5ab7b9c8d5f62e74ed510e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cf5a89bab8994942cec432c55c05ce5"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_namespaces.html#a2cf5a89bab8994942cec432c55c05ce5">getNamespaces</a> () const</td></tr>
-<tr class="memdesc:a2cf5a89bab8994942cec432c55c05ce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the XML namespaces list for this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#a2cf5a89bab8994942cec432c55c05ce5">More...</a><br /></td></tr>
+<tr class="memdesc:a2cf5a89bab8994942cec432c55c05ce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the XML namespaces list for this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#a2cf5a89bab8994942cec432c55c05ce5">More...</a><br /></td></tr>
 <tr class="separator:a2cf5a89bab8994942cec432c55c05ce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3b27546a4f0a8cd86c2f77c164b82c7"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_namespaces.html#ab3b27546a4f0a8cd86c2f77c164b82c7">getPackageName</a> () const</td></tr>
 <tr class="memdesc:ab3b27546a4f0a8cd86c2f77c164b82c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of the SBML package represented by this namespace object.  <a href="class_s_b_m_l_extension_namespaces.html#ab3b27546a4f0a8cd86c2f77c164b82c7">More...</a><br /></td></tr>
@@ -198,31 +197,31 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2dccc96a5c824dde60fb484db82be22e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string representing the SBML XML namespace of this package.  <a href="class_s_b_m_l_extension_namespaces.html#a2dccc96a5c824dde60fb484db82be22e">More...</a><br /></td></tr>
 <tr class="separator:a2dccc96a5c824dde60fb484db82be22e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add98b46f7ac546bc26f0f272e14a9a8c"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_namespaces.html#add98b46f7ac546bc26f0f272e14a9a8c">getVersion</a> ()</td></tr>
-<tr class="memdesc:add98b46f7ac546bc26f0f272e14a9a8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the SBML Version of this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#add98b46f7ac546bc26f0f272e14a9a8c">More...</a><br /></td></tr>
+<tr class="memdesc:add98b46f7ac546bc26f0f272e14a9a8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the SBML Version of this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#add98b46f7ac546bc26f0f272e14a9a8c">More...</a><br /></td></tr>
 <tr class="separator:add98b46f7ac546bc26f0f272e14a9a8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e60a610af304f717f1466b2da0e5696"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_namespaces.html#a3e60a610af304f717f1466b2da0e5696">getVersion</a> () const</td></tr>
-<tr class="memdesc:a3e60a610af304f717f1466b2da0e5696"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the SBML Version of this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#a3e60a610af304f717f1466b2da0e5696">More...</a><br /></td></tr>
+<tr class="memdesc:a3e60a610af304f717f1466b2da0e5696"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the SBML Version of this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#a3e60a610af304f717f1466b2da0e5696">More...</a><br /></td></tr>
 <tr class="separator:a3e60a610af304f717f1466b2da0e5696"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65ff67326a3d65cf009c1c83f52a1b5d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_namespaces.html#a65ff67326a3d65cf009c1c83f52a1b5d">isValidCombination</a> ()</td></tr>
 <tr class="memdesc:a65ff67326a3d65cf009c1c83f52a1b5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> if the given set of namespaces represent a valid set.  <a href="class_s_b_m_l_namespaces.html#a65ff67326a3d65cf009c1c83f52a1b5d">More...</a><br /></td></tr>
 <tr class="separator:a65ff67326a3d65cf009c1c83f52a1b5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e81f267634b36ca8512665d09187af3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_namespaces.html#a6e81f267634b36ca8512665d09187af3">operator=</a> (const <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> &amp;rhs)</td></tr>
-<tr class="memdesc:a6e81f267634b36ca8512665d09187af3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a>.  <a href="class_s_b_m_l_extension_namespaces.html#a6e81f267634b36ca8512665d09187af3">More...</a><br /></td></tr>
+<tr class="memdesc:a6e81f267634b36ca8512665d09187af3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a>.  <a href="class_s_b_m_l_extension_namespaces.html#a6e81f267634b36ca8512665d09187af3">More...</a><br /></td></tr>
 <tr class="separator:a6e81f267634b36ca8512665d09187af3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94426d995dc9a4bc552687020d498f09"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_namespaces.html#a94426d995dc9a4bc552687020d498f09">removeNamespace</a> (const std::string &amp;uri)</td></tr>
-<tr class="memdesc:a94426d995dc9a4bc552687020d498f09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an XML namespace from the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#a94426d995dc9a4bc552687020d498f09">More...</a><br /></td></tr>
+<tr class="memdesc:a94426d995dc9a4bc552687020d498f09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an XML namespace from the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#a94426d995dc9a4bc552687020d498f09">More...</a><br /></td></tr>
 <tr class="separator:a94426d995dc9a4bc552687020d498f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8166f0c4a7f5a2b6b8eab06be94bcff8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_namespaces.html#a8166f0c4a7f5a2b6b8eab06be94bcff8">removePackageNamespace</a> (unsigned int level, unsigned version, const std::string &amp;pkgName, unsigned int pkgVersion)</td></tr>
-<tr class="memdesc:a8166f0c4a7f5a2b6b8eab06be94bcff8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an XML namespace of a package extension from the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#a8166f0c4a7f5a2b6b8eab06be94bcff8">More...</a><br /></td></tr>
+<tr class="memdesc:a8166f0c4a7f5a2b6b8eab06be94bcff8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an XML namespace of a package extension from the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object.  <a href="class_s_b_m_l_namespaces.html#a8166f0c4a7f5a2b6b8eab06be94bcff8">More...</a><br /></td></tr>
 <tr class="separator:a8166f0c4a7f5a2b6b8eab06be94bcff8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeaf35369115bcb947c7987266f99580e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_namespaces.html#aeaf35369115bcb947c7987266f99580e">SBMLExtensionNamespaces</a> (const <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> &amp;orig)</td></tr>
-<tr class="memdesc:aeaf35369115bcb947c7987266f99580e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor; creates a copy of a <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a>.  <a href="class_s_b_m_l_extension_namespaces.html#aeaf35369115bcb947c7987266f99580e">More...</a><br /></td></tr>
+<tr class="memdesc:aeaf35369115bcb947c7987266f99580e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor; creates a copy of a <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a>.  <a href="class_s_b_m_l_extension_namespaces.html#aeaf35369115bcb947c7987266f99580e">More...</a><br /></td></tr>
 <tr class="separator:aeaf35369115bcb947c7987266f99580e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9cd9a9a7f2270c61b579300ca887c56a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_namespaces.html#a9cd9a9a7f2270c61b579300ca887c56a">SBMLExtensionNamespaces</a> (unsigned int level=SBMLExtensionType::getDefaultLevel(), unsigned int version=SBMLExtensionType::getDefaultVersion(), unsigned int pkgVersion=SBMLExtensionType::getDefaultPackageVersion(), const std::string &amp;prefix=SBMLExtensionType::getPackageName())</td></tr>
-<tr class="memdesc:a9cd9a9a7f2270c61b579300ca887c56a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a> object corresponding to the given SBML <code>level</code>, <code>version</code> and <code>package</code> version.  <a href="class_s_b_m_l_extension_namespaces.html#a9cd9a9a7f2270c61b579300ca887c56a">More...</a><br /></td></tr>
+<tr class="memdesc:a9cd9a9a7f2270c61b579300ca887c56a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> object corresponding to the given SBML <code>level</code>, <code>version</code> and <code>package</code> version.  <a href="class_s_b_m_l_extension_namespaces.html#a9cd9a9a7f2270c61b579300ca887c56a">More...</a><br /></td></tr>
 <tr class="separator:a9cd9a9a7f2270c61b579300ca887c56a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73a683cc3bcc340c8cbfc156285d9fab"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_extension_namespaces.html#a73a683cc3bcc340c8cbfc156285d9fab">~SBMLExtensionNamespaces</a> ()</td></tr>
-<tr class="memdesc:a73a683cc3bcc340c8cbfc156285d9fab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a> object.  <a href="class_s_b_m_l_extension_namespaces.html#a73a683cc3bcc340c8cbfc156285d9fab">More...</a><br /></td></tr>
+<tr class="memdesc:a73a683cc3bcc340c8cbfc156285d9fab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> object.  <a href="class_s_b_m_l_extension_namespaces.html#a73a683cc3bcc340c8cbfc156285d9fab">More...</a><br /></td></tr>
 <tr class="separator:a73a683cc3bcc340c8cbfc156285d9fab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -234,7 +233,7 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:aee2cebbe9a1f5f6453b64918e649eda4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string representing the SBML XML namespace for the given <code>level</code> and <code>version</code> of SBML.  <a href="class_s_b_m_l_namespaces.html#aee2cebbe9a1f5f6453b64918e649eda4">More...</a><br /></td></tr>
 <tr class="separator:aee2cebbe9a1f5f6453b64918e649eda4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace0d7eba913a23b34e01f9d9c3430858"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="class_list.html">List</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_namespaces.html#ace0d7eba913a23b34e01f9d9c3430858">getSupportedNamespaces</a> ()</td></tr>
-<tr class="memdesc:ace0d7eba913a23b34e01f9d9c3430858"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of all supported <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> in this version of libsbml.  <a href="class_s_b_m_l_namespaces.html#ace0d7eba913a23b34e01f9d9c3430858">More...</a><br /></td></tr>
+<tr class="memdesc:ace0d7eba913a23b34e01f9d9c3430858"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of all supported <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> in this version of libsbml.  <a href="class_s_b_m_l_namespaces.html#ace0d7eba913a23b34e01f9d9c3430858">More...</a><br /></td></tr>
 <tr class="separator:ace0d7eba913a23b34e01f9d9c3430858"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67554eecafe6bd18a71c86253b4c31f1"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_namespaces.html#a67554eecafe6bd18a71c86253b4c31f1">isSBMLNamespace</a> (const std::string &amp;uri)</td></tr>
 <tr class="memdesc:a67554eecafe6bd18a71c86253b4c31f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> if the given URL is one of SBML XML namespaces.  <a href="class_s_b_m_l_namespaces.html#a67554eecafe6bd18a71c86253b4c31f1">More...</a><br /></td></tr>
@@ -281,7 +280,7 @@ template&lt;class SBMLExtensionType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a> object corresponding to the given SBML <code>level</code>, <code>version</code> and <code>package</code> version. </p>
+<p>Creates a new <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> object corresponding to the given SBML <code>level</code>, <code>version</code> and <code>package</code> version. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">level</td><td>the SBML Level. </td></tr>
@@ -293,7 +292,7 @@ template&lt;class SBMLExtensionType &gt; </div>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="class_s_b_m_l_extension_exception.html" title="\ @ @ .">SBMLExtensionException</a></td><td>if the extension module that supports the combination of the given SBML Level, SBML Version, package name, and package version has not been registered. </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_s_b_m_l_extension_exception.html">SBMLExtensionException</a></td><td>if the extension module that supports the combination of the given SBML Level, SBML Version, package name, and package version has not been registered. </td></tr>
   </table>
   </dd>
 </dl>
@@ -325,7 +324,7 @@ template&lt;class SBMLExtensionType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Destroys this <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a> object. </p>
+<p>Destroys this <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> object. </p>
 
 </div>
 </div>
@@ -347,10 +346,10 @@ template&lt;class SBMLExtensionType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Copy constructor; creates a copy of a <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a>. </p>
+<p>Copy constructor; creates a copy of a <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">orig</td><td>the <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a> instance to copy. </td></tr>
+    <tr><td class="paramname">orig</td><td>the <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> instance to copy. </td></tr>
   </table>
   </dd>
 </dl>
@@ -392,7 +391,7 @@ template&lt;class SBMLExtensionType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Add an XML namespace (a pair of URI and prefix) to the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. </p>
+<p>Add an XML namespace (a pair of URI and prefix) to the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uri</td><td>the XML namespace to be added. </td></tr>
@@ -435,7 +434,7 @@ template&lt;class SBMLExtensionType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Add the given XML namespaces list to the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. </p>
+<p>Add the given XML namespaces list to the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. </p>
 <p>The following code gives an example of how one could add the XHTML namespace to the list of namespaces recorded by the top-level <code>&lt;sbml&gt;</code> element of a model. It gives the new namespace a prefix of <code>html</code>. </p><div class="fragment"><div class="line"><a class="code" href="class_s_b_m_l_document.html">SBMLDocument</a> *sd;</div>
 <div class="line"><span class="keywordflow">try</span></div>
 <div class="line">{</div>
@@ -458,10 +457,10 @@ template&lt;class SBMLExtensionType &gt; </div>
 <div class="line">{</div>
 <div class="line">    <span class="comment">// Handle another truly exceptional situation.</span></div>
 <div class="line">}</div>
-<div class="ttc" id="aclass_s_b_m_l_constructor_exception_html"><div class="ttname"><a href="class_s_b_m_l_constructor_exception.html">SBMLConstructorException</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> SBMLConstructorException.h:72</div></div>
-<div class="ttc" id="aclass_s_b_m_l_document_html"><div class="ttname"><a href="class_s_b_m_l_document.html">SBMLDocument</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> SBMLDocument.h:349</div></div>
+<div class="ttc" id="aclass_s_b_m_l_constructor_exception_html"><div class="ttname"><a href="class_s_b_m_l_constructor_exception.html">SBMLConstructorException</a></div><div class="ttdef"><b>Definition:</b> SBMLConstructorException.h:72</div></div>
+<div class="ttc" id="aclass_s_b_m_l_document_html"><div class="ttname"><a href="class_s_b_m_l_document.html">SBMLDocument</a></div><div class="ttdef"><b>Definition:</b> SBMLDocument.h:349</div></div>
 <div class="ttc" id="aclass_s_b_m_l_document_html_a360398ae79ec79ba3c3623e1294cf601"><div class="ttname"><a href="class_s_b_m_l_document.html#a360398ae79ec79ba3c3623e1294cf601">SBMLDocument::getNamespaces</a></div><div class="ttdeci">virtual XMLNamespaces * getNamespaces() const</div><div class="ttdoc">Returns a list of XML Namespaces associated with the XML content of this SBML document.</div><div class="ttdef"><b>Definition:</b> SBMLDocument.cpp:1318</div></div>
-<div class="ttc" id="aclass_s_b_m_l_namespaces_html"><div class="ttname"><a href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a></div><div class="ttdoc">\ @ @ . + + .</div><div class="ttdef"><b>Definition:</b> SBMLNamespaces.h:145</div></div>
+<div class="ttc" id="aclass_s_b_m_l_namespaces_html"><div class="ttname"><a href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a></div><div class="ttdef"><b>Definition:</b> SBMLNamespaces.h:145</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">xmlns</td><td>the XML namespaces to be added.</td></tr>
@@ -517,7 +516,7 @@ template&lt;class SBMLExtensionType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Add an XML namespace (a pair of URI and prefix) of a package extension to the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. </p>
+<p>Add an XML namespace (a pair of URI and prefix) of a package extension to the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. </p>
 <p>The SBML Level and SBML Version of this object is used.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -561,7 +560,7 @@ template&lt;class SBMLExtensionType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Add the XML namespaces of package extensions in the given XMLNamespace object to the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object (Non-package XML namespaces are not added by this function). </p>
+<p>Add the XML namespaces of package extensions in the given XMLNamespace object to the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object (Non-package XML namespaces are not added by this function). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">xmlns</td><td>the XML namespaces to be added.</td></tr>
@@ -602,8 +601,8 @@ template&lt;class SBMLExtensionType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>a (deep) copy of this <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a> object. </dd></dl>
+<p>Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>a (deep) copy of this <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> object. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_b_m_l_namespaces.html#a86ba7d3308f71e43d84ec365157176e2">SBMLNamespaces</a>.</p>
 
@@ -668,8 +667,8 @@ template&lt;class SBMLExtensionType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get the SBML Level of this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the SBML Level of this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. </dd></dl>
+<p>Get the SBML Level of this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the SBML Level of this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="print_supported_8cpp-example.html#a6">printSupported.cpp</a>.</dd>
 </dl>
 
@@ -698,8 +697,8 @@ template&lt;class SBMLExtensionType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get the SBML Level of this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the SBML Level of this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. </dd></dl>
+<p>Get the SBML Level of this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the SBML Level of this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. </dd></dl>
 
 </div>
 </div>
@@ -726,10 +725,10 @@ template&lt;class SBMLExtensionType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get the XML namespaces list for this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. </p>
-<dl class="section user"><dt></dt><dd><a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> objects are used in libSBML to communicate SBML Level and Version data between constructors and other methods. The <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object class holds triples consisting of SBML Level, Version, and the corresponding SBML XML namespace. Most constructors for SBML objects in libSBML take a <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object as an argument, thereby allowing the constructor to produce the proper combination of attributes and other internal data structures for the given SBML Level and Version.</dd></dl>
-<p>The plural name (<a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a>) is not a mistake, because in SBML Level&#160;3, objects may have extensions added by Level&#160;3 packages used by a given model and therefore may have multiple namespaces associated with them. In SBML Levels below Level&#160;3, the <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object only records one SBML Level/Version/namespace combination at a time. Most constructors for SBML objects in libSBML take a <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object as an argument, thereby allowing the constructor to produce the proper combination of attributes and other internal data structures for the given SBML Level and Version.</p>
-<dl class="section return"><dt>Returns</dt><dd>the XML namespaces of this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. </dd></dl>
+<p>Get the XML namespaces list for this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. </p>
+<dl class="section user"><dt></dt><dd><a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> objects are used in libSBML to communicate SBML Level and Version data between constructors and other methods. The <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object class holds triples consisting of SBML Level, Version, and the corresponding SBML XML namespace. Most constructors for SBML objects in libSBML take a <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object as an argument, thereby allowing the constructor to produce the proper combination of attributes and other internal data structures for the given SBML Level and Version.</dd></dl>
+<p>The plural name (<a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a>) is not a mistake, because in SBML Level&#160;3, objects may have extensions added by Level&#160;3 packages used by a given model and therefore may have multiple namespaces associated with them. In SBML Levels below Level&#160;3, the <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object only records one SBML Level/Version/namespace combination at a time. Most constructors for SBML objects in libSBML take a <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object as an argument, thereby allowing the constructor to produce the proper combination of attributes and other internal data structures for the given SBML Level and Version.</p>
+<dl class="section return"><dt>Returns</dt><dd>the XML namespaces of this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. </dd></dl>
 
 </div>
 </div>
@@ -756,10 +755,10 @@ template&lt;class SBMLExtensionType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get the XML namespaces list for this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. </p>
-<dl class="section user"><dt></dt><dd><a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> objects are used in libSBML to communicate SBML Level and Version data between constructors and other methods. The <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object class holds triples consisting of SBML Level, Version, and the corresponding SBML XML namespace. Most constructors for SBML objects in libSBML take a <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object as an argument, thereby allowing the constructor to produce the proper combination of attributes and other internal data structures for the given SBML Level and Version.</dd></dl>
-<p>The plural name (<a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a>) is not a mistake, because in SBML Level&#160;3, objects may have extensions added by Level&#160;3 packages used by a given model and therefore may have multiple namespaces associated with them. In SBML Levels below Level&#160;3, the <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object only records one SBML Level/Version/namespace combination at a time. Most constructors for SBML objects in libSBML take a <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object as an argument, thereby allowing the constructor to produce the proper combination of attributes and other internal data structures for the given SBML Level and Version.</p>
-<dl class="section return"><dt>Returns</dt><dd>the XML namespaces of this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. </dd></dl>
+<p>Get the XML namespaces list for this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. </p>
+<dl class="section user"><dt></dt><dd><a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> objects are used in libSBML to communicate SBML Level and Version data between constructors and other methods. The <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object class holds triples consisting of SBML Level, Version, and the corresponding SBML XML namespace. Most constructors for SBML objects in libSBML take a <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object as an argument, thereby allowing the constructor to produce the proper combination of attributes and other internal data structures for the given SBML Level and Version.</dd></dl>
+<p>The plural name (<a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a>) is not a mistake, because in SBML Level&#160;3, objects may have extensions added by Level&#160;3 packages used by a given model and therefore may have multiple namespaces associated with them. In SBML Levels below Level&#160;3, the <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object only records one SBML Level/Version/namespace combination at a time. Most constructors for SBML objects in libSBML take a <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object as an argument, thereby allowing the constructor to produce the proper combination of attributes and other internal data structures for the given SBML Level and Version.</p>
+<dl class="section return"><dt>Returns</dt><dd>the XML namespaces of this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. </dd></dl>
 
 </div>
 </div>
@@ -813,7 +812,7 @@ template&lt;class SBMLExtensionType &gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the version of the SBML package represented by this namespace object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the SBML Package Version of this <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a> object. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the SBML Package Version of this <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> object. </dd></dl>
 
 </div>
 </div>
@@ -886,7 +885,7 @@ template&lt;class SBMLExtensionType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a list of all supported <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> in this version of libsbml. </p>
+<p>Returns a list of all supported <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> in this version of libsbml. </p>
 <dl class="section return"><dt>Returns</dt><dd>a list with supported SBML namespaces.</dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="print_supported_8cpp-example.html#a1">printSupported.cpp</a>.</dd>
 </dl>
@@ -948,8 +947,8 @@ template&lt;class SBMLExtensionType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get the SBML Version of this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the SBML Version of this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. </dd></dl>
+<p>Get the SBML Version of this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the SBML Version of this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="print_supported_8cpp-example.html#a7">printSupported.cpp</a>.</dd>
 </dl>
 
@@ -978,8 +977,8 @@ template&lt;class SBMLExtensionType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get the SBML Version of this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the SBML Version of this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. </dd></dl>
+<p>Get the SBML Version of this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the SBML Version of this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. </dd></dl>
 
 </div>
 </div>
@@ -1064,10 +1063,10 @@ template&lt;class SBMLExtensionType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Assignment operator for <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a>. </p>
+<p>Assignment operator for <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td>the <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a> instance to assign from. </td></tr>
+    <tr><td class="paramname">rhs</td><td>the <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> instance to assign from. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1098,7 +1097,7 @@ template&lt;class SBMLExtensionType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Removes an XML namespace from the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. </p>
+<p>Removes an XML namespace from the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uri</td><td>the XML namespace to be added.</td></tr>
@@ -1159,7 +1158,7 @@ template&lt;class SBMLExtensionType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Removes an XML namespace of a package extension from the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. </p>
+<p>Removes an XML namespace of a package extension from the set of namespaces within this <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">level</td><td>the SBML level. </td></tr>

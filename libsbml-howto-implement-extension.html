@@ -157,7 +157,7 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <li><code>common</code>: This contains header files that provide forward declarations for all the object classes defined by the package, plus any other common headers and/or code.</li>
 </ul>
 <ul>
-<li><code>extension</code>: This contains the code for the all of the extensions of libSBML classes defined by the package. For example, if a package extends the <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> object, this is where the extension class code is placed.</li>
+<li><code>extension</code>: This contains the code for the all of the extensions of libSBML classes defined by the package. For example, if a package extends the <a class="el" href="class_model.html">Model</a> object, this is where the extension class code is placed.</li>
 </ul>
 <ul>
 <li><code>sbml</code>: This contains all the new SBML object classes defined by the package.</li>
@@ -171,34 +171,34 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <p>Examples of real package extensions employing the directory structure described above can be found in the libSBML source distribution, in the <code>src/sbml/packages</code> subdirectory.</p>
 <h1><a class="anchor" id="implem-sbaseplugin"></a>
 2. Derive classes from SBasePlugin</h1>
-<p>Certain classes in an SBML Level&#160;3 package will be subclasses of existing core SBML constructs, and other classes will be entirely ones introduced by the package. Existing SBML classes can be extended through the use of the special-purpose classes <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a> and <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a>, while new classes are implemented as objects derived from the basic <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> class. We discuss <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a> in this section, <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> in the next section, and the implementation of entirely new classes in the section after that.</p>
-<p>The <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a> class is libSBML's base class for extensions of core SBML component objects. It defines basic virtual methods for reading/writing/checking additional attributes and/or subobjects; and these methods should be overridden by subclasses to implement the necessary features of an extended SBML object. The documentation for the <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a> class describes the steps necessary to use it to extend existing object classes. Here we summarize the steps:</p>
+<p>Certain classes in an SBML Level&#160;3 package will be subclasses of existing core SBML constructs, and other classes will be entirely ones introduced by the package. Existing SBML classes can be extended through the use of the special-purpose classes <a class="el" href="class_s_base_plugin.html">SBasePlugin</a> and <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a>, while new classes are implemented as objects derived from the basic <a class="el" href="class_s_base.html">SBase</a> class. We discuss <a class="el" href="class_s_base_plugin.html">SBasePlugin</a> in this section, <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> in the next section, and the implementation of entirely new classes in the section after that.</p>
+<p>The <a class="el" href="class_s_base_plugin.html">SBasePlugin</a> class is libSBML's base class for extensions of core SBML component objects. It defines basic virtual methods for reading/writing/checking additional attributes and/or subobjects; and these methods should be overridden by subclasses to implement the necessary features of an extended SBML object. The documentation for the <a class="el" href="class_s_base_plugin.html">SBasePlugin</a> class describes the steps necessary to use it to extend existing object classes. Here we summarize the steps:</p>
 <ol>
 <li>
-<p class="startli"><em>Identify the SBML objects that need to be extended</em>. Any existing SBML object that gets new attributes or subobjects falls into this category. For instance, a package may need to extend <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> to add new list of entities (as the SBML Level&#160;3 Layout package does with <a class="el" href="class_list_of_layouts.html" title="\ @ @ . .">ListOfLayouts</a>).</p>
+<p class="startli"><em>Identify the SBML objects that need to be extended</em>. Any existing SBML object that gets new attributes or subobjects falls into this category. For instance, a package may need to extend <a class="el" href="class_model.html">Model</a> to add new list of entities (as the SBML Level&#160;3 Layout package does with <a class="el" href="class_list_of_layouts.html">ListOfLayouts</a>).</p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli"><em>Create a <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a> subclass for each extended SBML object class</em>. This involves several substeps, summarized briefly here:</p>
+<p class="startli"><em>Create a <a class="el" href="class_s_base_plugin.html">SBasePlugin</a> subclass for each extended SBML object class</em>. This involves several substeps, summarized briefly here:</p>
 <ol style="list-style-type: lower-latin">
 <li>
 <p class="startli">Define protected data members and implement their initialization as well as their handling by assignment operators, copy operators, and other necessary operators or fields.</p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli">Override <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a> class-related methods such as the class constructor, copy constructor, and others.</p>
+<p class="startli">Override <a class="el" href="class_s_base_plugin.html">SBasePlugin</a> class-related methods such as the class constructor, copy constructor, and others.</p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli">Override <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a> virtual methods for attributes on the SBML object.</p>
+<p class="startli">Override <a class="el" href="class_s_base_plugin.html">SBasePlugin</a> virtual methods for attributes on the SBML object.</p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli">Override <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a> virtual methods for subobjects, if the object class contains other classes of objects.</p>
+<p class="startli">Override <a class="el" href="class_s_base_plugin.html">SBasePlugin</a> virtual methods for subobjects, if the object class contains other classes of objects.</p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli">Override <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a> virtual methods for XML namespaces, if the SBML package uses extra XML namespaces beyond the default SBML namespace.</p>
+<p class="startli">Override <a class="el" href="class_s_base_plugin.html">SBasePlugin</a> virtual methods for XML namespaces, if the SBML package uses extra XML namespaces beyond the default SBML namespace.</p>
 <p class="endli"></p>
 </li>
 <li>
@@ -209,24 +209,24 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <p class="endli"></p>
 </li>
 </ol>
-<p>A subclass of <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a>, <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a>, is designed specifically for extending the top-level SBML container object. It should be used instead of <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a> to add attributes or subobjects to the <code>&lt;sbml&gt;</code> XML element, if an SBML package calls for it. The next section discusses this further.</p>
+<p>A subclass of <a class="el" href="class_s_base_plugin.html">SBasePlugin</a>, <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a>, is designed specifically for extending the top-level SBML container object. It should be used instead of <a class="el" href="class_s_base_plugin.html">SBasePlugin</a> to add attributes or subobjects to the <code>&lt;sbml&gt;</code> XML element, if an SBML package calls for it. The next section discusses this further.</p>
 <p>In the directory structure for packages (<a class="el" href="libsbml-howto-implement-extension.html#implem-dir"><ol type="1">
 <li>Create the directory structure</li>
 </ol>
 </a>), the code for extensions of existing libSBML classes is placed in the subdirectory named <code>extension</code>.</p>
 <h1><a class="anchor" id="implem-sbmldocument"></a>
 3. Derive a class from SBMLDocumentPlugin if necessary</h1>
-<p>SBML Level&#160;3 packages typically do not make any changes to the top-level <code>&lt;sbml&gt;</code> XML element beyond adding an attribute named "required", so in most cases, the extension of <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> is very simple. Here follows a summary of the basic steps; the documentation for the <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> class explains the steps in more detail.</p>
+<p>SBML Level&#160;3 packages typically do not make any changes to the top-level <code>&lt;sbml&gt;</code> XML element beyond adding an attribute named "required", so in most cases, the extension of <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> is very simple. Here follows a summary of the basic steps; the documentation for the <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> class explains the steps in more detail.</p>
 <ol>
 <li>
-<p class="startli"><em>Identify the changes necessary to <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a></em>.</p>
+<p class="startli"><em>Identify the changes necessary to <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a></em>.</p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli"><em>Create the <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> subclass</em>. This involves several substeps:</p>
+<p class="startli"><em>Create the <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> subclass</em>. This involves several substeps:</p>
 <ol style="list-style-type: lower-latin">
 <li>
-<p class="startli">Override class-related methods derived from <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a>, the parent class of <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a>.</p>
+<p class="startli">Override class-related methods derived from <a class="el" href="class_s_base_plugin.html">SBasePlugin</a>, the parent class of <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a>.</p>
 <p class="endli"></p>
 </li>
 <li>
@@ -259,29 +259,29 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <p>In the directory structure for packages (Section <a class="el" href="libsbml-howto-implement-extension.html#implem-dir"><ol type="1">
 <li>Create the directory structure</li>
 </ol>
-</a>), the code using <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> is placed in the subdirectory named <code>extension</code>, grouped together with the classes derived from <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a>.</p>
+</a>), the code using <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> is placed in the subdirectory named <code>extension</code>, grouped together with the classes derived from <a class="el" href="class_s_base_plugin.html">SBasePlugin</a>.</p>
 <h1><a class="anchor" id="implem-sbase"></a>
 4. Derive classes from SBase</h1>
-<p>As mentioned above, some classes in SBML Level&#160;3 package specifications typically are defined as subclasses of existing core SBML objects such as <a class="el" href="class_model.html" title="\ @ @ . .">Model</a>, <a class="el" href="class_reaction.html" title="\ @ @ . .">Reaction</a>, <a class="el" href="class_parameter.html" title="\ @ @ . : .">Parameter</a>, and so forth, while others are defined as entirely new classes. If the package specification calls for <em>new</em> SBML objects derived from SBML's abstract <em><b>SBase</b></em> class, the libSBML package extension should implemented them by deriving them from the libSBML <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> class.</p>
-<p>The following are the basic steps to subclassing <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> for the implementation of each new SBML object class:</p>
+<p>As mentioned above, some classes in SBML Level&#160;3 package specifications typically are defined as subclasses of existing core SBML objects such as <a class="el" href="class_model.html">Model</a>, <a class="el" href="class_reaction.html">Reaction</a>, <a class="el" href="class_parameter.html">Parameter</a>, and so forth, while others are defined as entirely new classes. If the package specification calls for <em>new</em> SBML objects derived from SBML's abstract <em><b>SBase</b></em> class, the libSBML package extension should implemented them by deriving them from the libSBML <a class="el" href="class_s_base.html">SBase</a> class.</p>
+<p>The following are the basic steps to subclassing <a class="el" href="class_s_base.html">SBase</a> for the implementation of each new SBML object class:</p>
 <ol>
 <li>
-<p class="startli"><em>Identify the attributes of the class</em>. Objects will have attributes, subobjects (usually either for a mathematical formula or a list of subobjects inside a <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a>), or a mixture of both. When an object has attributes, each attribute will have a data type; this data type will be either one of the core SBML primitive types or a new type defined in the specification for the package. The first step is to gather the requirements for these attributes.</p>
+<p class="startli"><em>Identify the attributes of the class</em>. Objects will have attributes, subobjects (usually either for a mathematical formula or a list of subobjects inside a <a class="el" href="class_list_of.html">ListOf</a>), or a mixture of both. When an object has attributes, each attribute will have a data type; this data type will be either one of the core SBML primitive types or a new type defined in the specification for the package. The first step is to gather the requirements for these attributes.</p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli"><em>Identify the subobjects of each object class</em>. Another necessary requirements analysis step is determining if any subobjects need to be defined and contained withing other objects. Any that are subclassed from <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> will be their own separate class, and will be contained inside another class derived from <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a>. (For example, <a class="el" href="class_list_of_layouts.html" title="\ @ @ . .">ListOfLayouts</a> in the SBML Level&#160;3 Layout package.)</p>
+<p class="startli"><em>Identify the subobjects of each object class</em>. Another necessary requirements analysis step is determining if any subobjects need to be defined and contained withing other objects. Any that are subclassed from <a class="el" href="class_s_base.html">SBase</a> will be their own separate class, and will be contained inside another class derived from <a class="el" href="class_list_of.html">ListOf</a>. (For example, <a class="el" href="class_list_of_layouts.html">ListOfLayouts</a> in the SBML Level&#160;3 Layout package.)</p>
 <p class="endli"></p>
 </li>
 <li>
 <p class="startli"><em>Write the implementation of each class</em>.</p>
 <ol style="list-style-type: lower-latin">
 <li>
-<p class="startli">Define protected data members that store identified subobjects and/or attributes. For example, the the <code>Groups</code> class in the Groups package needs protected data members for the object identifier ("id") attribute, object name ("name") attribute, a list of <code><a class="el" href="class_member.html" title="\ @ @ . a Group.">Member</a></code> objects (stored in a <code><a class="el" href="class_list_of_members.html" title="\ @ @ . .">ListOfMembers</a></code> class object derived from <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a>), and more. </p>
+<p class="startli">Define protected data members that store identified subobjects and/or attributes. For example, the the <code>Groups</code> class in the Groups package needs protected data members for the object identifier ("id") attribute, object name ("name") attribute, a list of <code><a class="el" href="class_member.html">Member</a></code> objects (stored in a <code><a class="el" href="class_list_of_members.html">ListOfMembers</a></code> class object derived from <a class="el" href="class_list_of.html">ListOf</a>), and more. </p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli">Define the following two class constructors: (i) a constructor that accepts three arguments for the SBML Level, SBML Version, and package version; and (ii) a constructor that accepts an object derived from <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a>. Make sure that the implementation of the constructor calls the parent's constructor, and that the default SBML Level, Version and package version are given as default arguments. The implementation also has to call the method <code>setSBMLNamespacesAndOwn()</code> with the package-specific <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a> object, as well as the method <code>connectToChild()</code>. Here is an example from the Groups package: </p><div class="fragment"><div class="line"><a class="code" href="class_group.html#a67a3515c557559610717fd77283c84b9">Group::Group</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> level, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> version, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pkgVersion) </div>
+<p class="startli">Define the following two class constructors: (i) a constructor that accepts three arguments for the SBML Level, SBML Version, and package version; and (ii) a constructor that accepts an object derived from <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a>. Make sure that the implementation of the constructor calls the parent's constructor, and that the default SBML Level, Version and package version are given as default arguments. The implementation also has to call the method <code>setSBMLNamespacesAndOwn()</code> with the package-specific <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> object, as well as the method <code>connectToChild()</code>. Here is an example from the Groups package: </p><div class="fragment"><div class="line"><a class="code" href="class_group.html#a67a3515c557559610717fd77283c84b9">Group::Group</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> level, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> version, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pkgVersion) </div>
 <div class="line">  : <a class="code" href="class_s_base.html">SBase</a> (level, version)</div>
 <div class="line">   ,mId(<span class="stringliteral">&quot;&quot;</span>)</div>
 <div class="line">   ,mName(<span class="stringliteral">&quot;&quot;</span>)</div>
@@ -298,11 +298,11 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <div class="ttc" id="a_groups_extension_8h_html_a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048"><div class="ttname"><a href="_groups_extension_8h.html#a694e53b03766f3518893708f3167a384a6f8d278c0c78f4eea77ef7e9ece7d048">GROUP_KIND_UNKNOWN</a></div><div class="ttdeci">@ GROUP_KIND_UNKNOWN</div><div class="ttdef"><b>Definition:</b> GroupsExtension.h:408</div></div>
 <div class="ttc" id="a_groups_extension_8h_html_adee9b080ccff4167ff881364bd7aa902"><div class="ttname"><a href="_groups_extension_8h.html#adee9b080ccff4167ff881364bd7aa902">GroupsPkgNamespaces</a></div><div class="ttdeci">SBMLExtensionNamespaces&lt; GroupsExtension &gt; GroupsPkgNamespaces</div><div class="ttdoc">Required typedef definitions.</div><div class="ttdef"><b>Definition:</b> GroupsExtension.h:355</div></div>
 <div class="ttc" id="aclass_group_html_a67a3515c557559610717fd77283c84b9"><div class="ttname"><a href="class_group.html#a67a3515c557559610717fd77283c84b9">Group::Group</a></div><div class="ttdeci">Group(unsigned int level=GroupsExtension::getDefaultLevel(), unsigned int version=GroupsExtension::getDefaultVersion(), unsigned int pkgVersion=GroupsExtension::getDefaultPackageVersion())</div><div class="ttdoc">Creates a new Group using the given SBML Level, Version and “groups” package version.</div><div class="ttdef"><b>Definition:</b> Group.cpp:64</div></div>
-<div class="ttc" id="aclass_s_base_html"><div class="ttname"><a href="class_s_base.html">SBase</a></div><div class="ttdoc">\ @ @ . ' &lt;&gt;%&lt;/&gt; , .</div><div class="ttdef"><b>Definition:</b> SBase.h:191</div></div>
+<div class="ttc" id="aclass_s_base_html"><div class="ttname"><a href="class_s_base.html">SBase</a></div><div class="ttdef"><b>Definition:</b> SBase.h:191</div></div>
 </div><!-- fragment --> <p class="endli"></p>
 </li>
 <li>
-<p class="startli">Define a constructor that accepts an <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object. This constructor needs to call three methods, as illustrated in the body of this example from the Groups package: </p><div class="fragment"><div class="line"><a class="code" href="class_group.html#a67a3515c557559610717fd77283c84b9">Group::Group</a>(<a class="code" href="class_groups_pkg_namespaces.html">GroupsPkgNamespaces</a>* groupsns)</div>
+<p class="startli">Define a constructor that accepts an <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object. This constructor needs to call three methods, as illustrated in the body of this example from the Groups package: </p><div class="fragment"><div class="line"><a class="code" href="class_group.html#a67a3515c557559610717fd77283c84b9">Group::Group</a>(<a class="code" href="class_groups_pkg_namespaces.html">GroupsPkgNamespaces</a>* groupsns)</div>
 <div class="line"> : <a class="code" href="class_s_base.html">SBase</a>(groupsns)</div>
 <div class="line">  ,mId(<span class="stringliteral">&quot;&quot;</span>)</div>
 <div class="line">  ,mName(<span class="stringliteral">&quot;&quot;</span>)</div>
@@ -319,8 +319,8 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <div class="line">  <span class="comment">// load package extensions bound with this object (if any) </span></div>
 <div class="line">  loadPlugins(groupsns);</div>
 <div class="line">}</div>
-<div class="ttc" id="aclass_groups_pkg_namespaces_html"><div class="ttname"><a href="class_groups_pkg_namespaces.html">GroupsPkgNamespaces</a></div><div class="ttdoc">\ @ @ . .</div></div>
-</div><!-- fragment --> <p class="interli">The call to <code>loadPlugins(...)</code> is necessary to allow the package to be extended by <em>other</em> package extensions. It is also worth noting that the constructor for <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> and its derived class <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a> throw an <a class="el" href="class_s_b_m_l_extension_exception.html" title="\ @ @ .">SBMLExtensionException</a> if the argument it is given is invalid. Callers will have to create the object using code such as the following example from the Layout package: </p><div class="fragment"><div class="line"><span class="keywordflow">try</span></div>
+<div class="ttc" id="aclass_groups_pkg_namespaces_html"><div class="ttname"><a href="class_groups_pkg_namespaces.html">GroupsPkgNamespaces</a></div></div>
+</div><!-- fragment --> <p class="interli">The call to <code>loadPlugins(...)</code> is necessary to allow the package to be extended by <em>other</em> package extensions. It is also worth noting that the constructor for <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> and its derived class <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a> throw an <a class="el" href="class_s_b_m_l_extension_exception.html">SBMLExtensionException</a> if the argument it is given is invalid. Callers will have to create the object using code such as the following example from the Layout package: </p><div class="fragment"><div class="line"><span class="keywordflow">try</span></div>
 <div class="line">{</div>
 <div class="line">  LayputPkgNamespaces layoutns(3, 1, 1);</div>
 <div class="line">  <a class="code" href="class_layout.html">Layout</a>              layout(&amp;layoutns); </div>
@@ -329,12 +329,12 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <div class="line">{</div>
 <div class="line">  cerr &lt;&lt; <span class="stringliteral">&quot;Caught &quot;</span> &lt;&lt; e.what() &lt;&lt; endl;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclass_layout_html"><div class="ttname"><a href="class_layout.html">Layout</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> Layout.h:789</div></div>
-<div class="ttc" id="aclass_s_b_m_l_extension_exception_html"><div class="ttname"><a href="class_s_b_m_l_extension_exception.html">SBMLExtensionException</a></div><div class="ttdoc">\ @ @ .</div><div class="ttdef"><b>Definition:</b> SBMLExtensionException.h:65</div></div>
+<div class="ttc" id="aclass_layout_html"><div class="ttname"><a href="class_layout.html">Layout</a></div><div class="ttdef"><b>Definition:</b> Layout.h:789</div></div>
+<div class="ttc" id="aclass_s_b_m_l_extension_exception_html"><div class="ttname"><a href="class_s_b_m_l_extension_exception.html">SBMLExtensionException</a></div><div class="ttdef"><b>Definition:</b> SBMLExtensionException.h:65</div></div>
 </div><!-- fragment --> <p class="endli"></p>
 </li>
 <li>
-<p class="startli">Override the copy constructor, assignment operator, and <code>clone()</code> methods from <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> and implement appropriate versions for the package.</p>
+<p class="startli">Override the copy constructor, assignment operator, and <code>clone()</code> methods from <a class="el" href="class_s_base.html">SBase</a> and implement appropriate versions for the package.</p>
 <p class="endli"></p>
 </li>
 <li>
@@ -353,7 +353,7 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli"><code>readAttributes(<a class="el" href="class_x_m_l_attributes.html" title="\ @ @ . .">XMLAttributes</a>&amp; attributes, ExpectedAttributes&amp; expectedAttributes)</code>: This method should read the attributes expected to be found on this kind of extended object in an SBML file or data stream.</p>
+<p class="startli"><code>readAttributes(<a class="el" href="class_x_m_l_attributes.html">XMLAttributes</a>&amp; attributes, ExpectedAttributes&amp; expectedAttributes)</code>: This method should read the attributes expected to be found on this kind of extended object in an SBML file or data stream.</p>
 <p class="endli"></p>
 </li>
 <li>
@@ -361,7 +361,7 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli"><code>writeAttributes(XMLOutputStream&amp; stream)</code>: This method should write out the attributes of an extended object. The implementation should use the different kinds of <code>writeAttribute</code> methods defined by <a class="el" href="class_x_m_l_output_stream.html" title="\ @ @ . .">XMLOutputStream</a> to achieve this.</p>
+<p class="startli"><code>writeAttributes(XMLOutputStream&amp; stream)</code>: This method should write out the attributes of an extended object. The implementation should use the different kinds of <code>writeAttribute</code> methods defined by <a class="el" href="class_x_m_l_output_stream.html">XMLOutputStream</a> to achieve this.</p>
 <p class="endli"></p>
 </li>
 </ul>
@@ -371,7 +371,7 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <p class="startli">Override the following virtual methods if the object defines one or more subobjects:</p>
 <ul>
 <li>
-<p class="startli"><code>createObject(XMLInputStream&amp; stream)</code>: Subclasses must override this method to create, store, and then return an SBML object corresponding to the next <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> in the <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a>.</p>
+<p class="startli"><code>createObject(XMLInputStream&amp; stream)</code>: Subclasses must override this method to create, store, and then return an SBML object corresponding to the next <a class="el" href="class_x_m_l_token.html">XMLToken</a> in the <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a>.</p>
 <p class="endli"></p>
 </li>
 <li>
@@ -379,7 +379,7 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli"><code>setSBMLDocument(SBMLDocument* d)</code>: This method should set the parent <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object on the subcomponent object instances, so that the subcomponent instances know which <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> contains them.</p>
+<p class="startli"><code>setSBMLDocument(SBMLDocument* d)</code>: This method should set the parent <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object on the subcomponent object instances, so that the subcomponent instances know which <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> contains them.</p>
 <p class="endli"></p>
 </li>
 <li>
@@ -391,7 +391,7 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli"><code>readOtherXML(SBase* parentObject, XMLInputStream&amp; stream)</code>: This function should be overridden if XML elements containing annotations, notes, MathML content, etc., need to be directly parsed from the given <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a> object.</p>
+<p class="startli"><code>readOtherXML(SBase* parentObject, XMLInputStream&amp; stream)</code>: This function should be overridden if XML elements containing annotations, notes, MathML content, etc., need to be directly parsed from the given <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a> object.</p>
 <p class="endli"></p>
 </li>
 <li>
@@ -400,7 +400,7 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli">Override the virtual method <code>writeXMLNS(<a class="el" href="class_x_m_l_output_stream.html" title="\ @ @ . .">XMLOutputStream</a>&amp; stream)</code> if the package needs to add additional <code>xmlns</code> attributes to declare additional XML namespace URIs. </p>
+<p class="startli">Override the virtual method <code>writeXMLNS(<a class="el" href="class_x_m_l_output_stream.html">XMLOutputStream</a>&amp; stream)</code> if the package needs to add additional <code>xmlns</code> attributes to declare additional XML namespace URIs. </p>
 <p class="endli"></p>
 </li>
 <li>
@@ -414,11 +414,11 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <li>Create the directory structure</li>
 </ol>
 </a>), the code for new object classes is placed in the subdirectory named <code>sbml</code>.</p>
-<p>Developers can take advantage of the many package implementations available for libSBML to see real-life examples of objects derived from <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a>.</p>
+<p>Developers can take advantage of the many package implementations available for libSBML to see real-life examples of objects derived from <a class="el" href="class_s_base.html">SBase</a>.</p>
 <h1><a class="anchor" id="implem-sbmlext"></a>
 5. Derive a class from SBMLExtension</h1>
-<p>The <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> class is an abstract class that must be extended by each package extension implementation. The class provides methods for managing common attributes of package extensions (e.g., the SBML package name, the package version, and more), registration of instantiated <a class="el" href="class_s_base_plugin_creator.html" title="\ @ @ . .">SBasePluginCreator</a> objects, and initialization/registration of package extensions when the library code for the package is loaded by libSBML.</p>
-<p>The documentation for <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> explains in detail the process of extending the class as part of the implementation of a package extension. The following is a summary of the steps:</p>
+<p>The <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> class is an abstract class that must be extended by each package extension implementation. The class provides methods for managing common attributes of package extensions (e.g., the SBML package name, the package version, and more), registration of instantiated <a class="el" href="class_s_base_plugin_creator.html">SBasePluginCreator</a> objects, and initialization/registration of package extensions when the library code for the package is loaded by libSBML.</p>
+<p>The documentation for <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> explains in detail the process of extending the class as part of the implementation of a package extension. The following is a summary of the steps:</p>
 <ol>
 <li>
 <p class="startli">Define a <code>getPackageName()</code> method that returns the name of the package as a string.</p>
@@ -433,15 +433,15 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli">Override basic pure virtual methods on <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a>.</p>
+<p class="startli">Override basic pure virtual methods on <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a>.</p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli">Create definitions derived from <a class="el" href="class_s_b_m_l_extension_namespaces.html" title="\ @ @ . + + .">SBMLExtensionNamespaces</a>.</p>
+<p class="startli">Create definitions derived from <a class="el" href="class_s_b_m_l_extension_namespaces.html">SBMLExtensionNamespaces</a>.</p>
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli">Override the <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> method <code>getSBMLExtensionNamespaces()</code>.</p>
+<p class="startli">Override the <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> method <code>getSBMLExtensionNamespaces()</code>.</p>
 <p class="endli"></p>
 </li>
 <li>
@@ -449,7 +449,7 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli">Override the <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a> method <code>getStringFromTypeCode()</code>.</p>
+<p class="startli">Override the <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a> method <code>getStringFromTypeCode()</code>.</p>
 <p class="endli"></p>
 </li>
 <li>
@@ -457,7 +457,7 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <p class="endli"></p>
 </li>
 <li>
-<p class="startli">Instantiate a global <a class="el" href="class_s_b_m_l_extension_register.html" title="\ @ @ .">SBMLExtensionRegister</a> object.</p>
+<p class="startli">Instantiate a global <a class="el" href="class_s_b_m_l_extension_register.html">SBMLExtensionRegister</a> object.</p>
 <p class="endli"></p>
 </li>
 </ol>
@@ -499,20 +499,20 @@ $(document).ready(function(){initNavTree('libsbml-howto-implement-extension.html
 <div class="line"><span class="preprocessor">#undef CLASS_OR_STRUCT</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#endif  </span><span class="comment">/* layoutfwd_h__ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aclass_bounding_box_html"><div class="ttname"><a href="class_bounding_box.html">BoundingBox</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> BoundingBox.h:64</div></div>
-<div class="ttc" id="aclass_compartment_glyph_html"><div class="ttname"><a href="class_compartment_glyph.html">CompartmentGlyph</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> CompartmentGlyph.h:60</div></div>
-<div class="ttc" id="aclass_cubic_bezier_html"><div class="ttname"><a href="class_cubic_bezier.html">CubicBezier</a></div><div class="ttdoc">\ @ @ . &amp;; .</div><div class="ttdef"><b>Definition:</b> CubicBezier.h:71</div></div>
-<div class="ttc" id="aclass_curve_html"><div class="ttname"><a href="class_curve.html">Curve</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> Curve.h:217</div></div>
-<div class="ttc" id="aclass_dimensions_html"><div class="ttname"><a href="class_dimensions.html">Dimensions</a></div><div class="ttdoc">\ @ @ . 2 3 .</div><div class="ttdef"><b>Definition:</b> Dimensions.h:71</div></div>
-<div class="ttc" id="aclass_general_glyph_html"><div class="ttname"><a href="class_general_glyph.html">GeneralGlyph</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> GeneralGlyph.h:249</div></div>
-<div class="ttc" id="aclass_graphical_object_html"><div class="ttname"><a href="class_graphical_object.html">GraphicalObject</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> GraphicalObject.h:75</div></div>
-<div class="ttc" id="aclass_line_segment_html"><div class="ttname"><a href="class_line_segment.html">LineSegment</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> LineSegment.h:69</div></div>
-<div class="ttc" id="aclass_point_html"><div class="ttname"><a href="class_point.html">Point</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> Point.h:65</div></div>
-<div class="ttc" id="aclass_reaction_glyph_html"><div class="ttname"><a href="class_reaction_glyph.html">ReactionGlyph</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> ReactionGlyph.h:255</div></div>
-<div class="ttc" id="aclass_reference_glyph_html"><div class="ttname"><a href="class_reference_glyph.html">ReferenceGlyph</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> ReferenceGlyph.h:70</div></div>
-<div class="ttc" id="aclass_species_glyph_html"><div class="ttname"><a href="class_species_glyph.html">SpeciesGlyph</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> SpeciesGlyph.h:65</div></div>
-<div class="ttc" id="aclass_species_reference_glyph_html"><div class="ttname"><a href="class_species_reference_glyph.html">SpeciesReferenceGlyph</a></div><div class="ttdoc">\ @ @ . &lt;&gt; &lt;/&gt;.</div><div class="ttdef"><b>Definition:</b> SpeciesReferenceGlyph.h:71</div></div>
-<div class="ttc" id="aclass_text_glyph_html"><div class="ttname"><a href="class_text_glyph.html">TextGlyph</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> TextGlyph.h:65</div></div>
+<div class="ttc" id="aclass_bounding_box_html"><div class="ttname"><a href="class_bounding_box.html">BoundingBox</a></div><div class="ttdef"><b>Definition:</b> BoundingBox.h:64</div></div>
+<div class="ttc" id="aclass_compartment_glyph_html"><div class="ttname"><a href="class_compartment_glyph.html">CompartmentGlyph</a></div><div class="ttdef"><b>Definition:</b> CompartmentGlyph.h:60</div></div>
+<div class="ttc" id="aclass_cubic_bezier_html"><div class="ttname"><a href="class_cubic_bezier.html">CubicBezier</a></div><div class="ttdef"><b>Definition:</b> CubicBezier.h:71</div></div>
+<div class="ttc" id="aclass_curve_html"><div class="ttname"><a href="class_curve.html">Curve</a></div><div class="ttdef"><b>Definition:</b> Curve.h:217</div></div>
+<div class="ttc" id="aclass_dimensions_html"><div class="ttname"><a href="class_dimensions.html">Dimensions</a></div><div class="ttdef"><b>Definition:</b> Dimensions.h:71</div></div>
+<div class="ttc" id="aclass_general_glyph_html"><div class="ttname"><a href="class_general_glyph.html">GeneralGlyph</a></div><div class="ttdef"><b>Definition:</b> GeneralGlyph.h:249</div></div>
+<div class="ttc" id="aclass_graphical_object_html"><div class="ttname"><a href="class_graphical_object.html">GraphicalObject</a></div><div class="ttdef"><b>Definition:</b> GraphicalObject.h:75</div></div>
+<div class="ttc" id="aclass_line_segment_html"><div class="ttname"><a href="class_line_segment.html">LineSegment</a></div><div class="ttdef"><b>Definition:</b> LineSegment.h:69</div></div>
+<div class="ttc" id="aclass_point_html"><div class="ttname"><a href="class_point.html">Point</a></div><div class="ttdef"><b>Definition:</b> Point.h:65</div></div>
+<div class="ttc" id="aclass_reaction_glyph_html"><div class="ttname"><a href="class_reaction_glyph.html">ReactionGlyph</a></div><div class="ttdef"><b>Definition:</b> ReactionGlyph.h:255</div></div>
+<div class="ttc" id="aclass_reference_glyph_html"><div class="ttname"><a href="class_reference_glyph.html">ReferenceGlyph</a></div><div class="ttdef"><b>Definition:</b> ReferenceGlyph.h:70</div></div>
+<div class="ttc" id="aclass_species_glyph_html"><div class="ttname"><a href="class_species_glyph.html">SpeciesGlyph</a></div><div class="ttdef"><b>Definition:</b> SpeciesGlyph.h:65</div></div>
+<div class="ttc" id="aclass_species_reference_glyph_html"><div class="ttname"><a href="class_species_reference_glyph.html">SpeciesReferenceGlyph</a></div><div class="ttdef"><b>Definition:</b> SpeciesReferenceGlyph.h:71</div></div>
+<div class="ttc" id="aclass_text_glyph_html"><div class="ttname"><a href="class_text_glyph.html">TextGlyph</a></div><div class="ttdef"><b>Definition:</b> TextGlyph.h:65</div></div>
 <div class="ttc" id="alayoutfwd_8h_html_a0b333b9c2204d52127b1ac7d0b4bb8f4"><div class="ttname"><a href="layoutfwd_8h.html#a0b333b9c2204d52127b1ac7d0b4bb8f4">BoundingBox_t</a></div><div class="ttdeci">class BoundingBox BoundingBox_t</div><div class="ttdef"><b>Definition:</b> layoutfwd.h:79</div></div>
 <div class="ttc" id="alayoutfwd_8h_html_a0e6ac46029a5226544f291eba447fa1a"><div class="ttname"><a href="layoutfwd_8h.html#a0e6ac46029a5226544f291eba447fa1a">Dimensions_t</a></div><div class="ttdeci">class Dimensions Dimensions_t</div><div class="ttdef"><b>Definition:</b> layoutfwd.h:83</div></div>
 <div class="ttc" id="alayoutfwd_8h_html_a1a95d91d450f3deda5bcf2af09aa830f"><div class="ttname"><a href="layoutfwd_8h.html#a1a95d91d450f3deda5bcf2af09aa830f">CompartmentGlyph_t</a></div><div class="ttdeci">class CompartmentGlyph CompartmentGlyph_t</div><div class="ttdef"><b>Definition:</b> layoutfwd.h:80</div></div>

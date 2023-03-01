@@ -12,7 +12,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="\ @ @ . between the Level 3 package version and the Level 2 annotation version.">
+<g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-19.5 132,-19.5 132,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="66" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">RenderLayoutConverter</text>
 </a>
@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_s_b_m_l_converter.html" target="_top" xlink:title="\ @ @ . .">
+<g id="a_node2"><a xlink:href="class_s_b_m_l_converter.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="20,-56.5 20,-75.5 112,-75.5 112,-56.5 20,-56.5"/>
 <text text-anchor="middle" x="66" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLConverter</text>
 </a>

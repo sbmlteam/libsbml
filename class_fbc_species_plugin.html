@@ -100,46 +100,46 @@ $(document).ready(function(){initNavTree('class_fbc_species_plugin.html',''); in
 <div class="dynheader">
 Inheritance diagram for FbcSpeciesPlugin:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_fbc_species_plugin__inherit__graph.svg" width="146" height="187"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_fbc_species_plugin__inherit__graph.svg" width="146" height="187"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>\ @ @ . . </p>
-<p>The <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a> class codifies an extension of the core SBML <a class="el" href="class_species.html" title="\ @ @ . &lt;&gt;&lt;/&gt; &; .">Species</a> class defined in the SBML Level&#160;3 <a class="el" href="group__fbc.html">Flux Balance Constraints</a> (&ldquo;fbc&rdquo;) package. The &ldquo;fbc&rdquo; package adds two attributes named "charge" and "chemicalFormula" to <a class="el" href="class_species.html" title="\ @ @ . &lt;&gt;&lt;/&gt; &; .">Species</a>.</p>
-<p>The optional attribute "charge" can contain a signed integer that refers to the <a class="el" href="class_species.html" title="\ @ @ . &lt;&gt;&lt;/&gt; &; .">Species</a> object's electrical charge (in terms of electrons, not the SI unit of coulombs). Note that this attribute is therefore defined as it is in the SBML Level&#160;2 Version&#160;1 specification. (The charge attribute was removed in higher Versions and Levels of SBML, and is not an attribute of SBML <a class="el" href="class_species.html" title="\ @ @ . &lt;&gt;&lt;/&gt; &; .">Species</a> in core SBML Level&#160;3. However, it is useful for flux balance constraints models, and thus, the Level&#160;3 &ldquo;fbc&rdquo; package adds it.)</p>
-<p>The optional attribute "chemicalFormula" can contain a text string that represents the elemental composition of the substance represented by the <a class="el" href="class_species.html" title="\ @ @ . &lt;&gt;&lt;/&gt; &; .">Species</a> object. The purpose of the "chemicalFormula" attribute is to allow balancing and validating reactions. This is particularly important in constraint-based models. The format of "chemicalFormula" must consist only of atomic names (as given in the Periodic Table of elements) or user-defined compounds, either of which take the form of a single capital letter followed by zero or more lowercase letters. Where there is more than a single atom present, this is indicated with an integer. With regards to order (and to enhance interoperability of models), users are advised to employ the <a href="https://en.wikipedia.org/wiki/Hill_system">Hill system order</a>. Using this notation, the number of carbon atoms in a molecule is indicated first, followed by the number of hydrogen atoms, and then the number of all other chemical elements in alphabetical order. When the formula contains no carbon, all elements including hydrogen are listed alphabetically.</p>
-<p>Here is an example of the XML form of an extended <a class="el" href="class_species.html" title="\ @ @ . &lt;&gt;&lt;/&gt; &; .">Species</a> definition with these attributes: </p><pre class="fragment">&lt;species metaid="meta_M_atp_c" id="M_atp_c" name="ATP" compartment="Cytosol"
+<div class="textblock"><span class="pkg-marker pkg-color-fbc"><a href="group__fbc.html">fbc</a></span>
+ Extension of <a class="el" href="class_species.html">Species</a>.</p>
+<p>The <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a> class codifies an extension of the core SBML <a class="el" href="class_species.html">Species</a> class defined in the SBML Level&#160;3 <a class="el" href="group__fbc.html">Flux Balance Constraints</a> (&ldquo;fbc&rdquo;) package. The &ldquo;fbc&rdquo; package adds two attributes named "charge" and "chemicalFormula" to <a class="el" href="class_species.html">Species</a>.</p>
+<p>The optional attribute "charge" can contain a signed integer that refers to the <a class="el" href="class_species.html">Species</a> object's electrical charge (in terms of electrons, not the SI unit of coulombs). Note that this attribute is therefore defined as it is in the SBML Level&#160;2 Version&#160;1 specification. (The charge attribute was removed in higher Versions and Levels of SBML, and is not an attribute of SBML <a class="el" href="class_species.html">Species</a> in core SBML Level&#160;3. However, it is useful for flux balance constraints models, and thus, the Level&#160;3 &ldquo;fbc&rdquo; package adds it.)</p>
+<p>The optional attribute "chemicalFormula" can contain a text string that represents the elemental composition of the substance represented by the <a class="el" href="class_species.html">Species</a> object. The purpose of the "chemicalFormula" attribute is to allow balancing and validating reactions. This is particularly important in constraint-based models. The format of "chemicalFormula" must consist only of atomic names (as given in the Periodic Table of elements) or user-defined compounds, either of which take the form of a single capital letter followed by zero or more lowercase letters. Where there is more than a single atom present, this is indicated with an integer. With regards to order (and to enhance interoperability of models), users are advised to employ the <a href="https://en.wikipedia.org/wiki/Hill_system">Hill system order</a>. Using this notation, the number of carbon atoms in a molecule is indicated first, followed by the number of hydrogen atoms, and then the number of all other chemical elements in alphabetical order. When the formula contains no carbon, all elements including hydrogen are listed alphabetically.</p>
+<p>Here is an example of the XML form of an extended <a class="el" href="class_species.html">Species</a> definition with these attributes: </p><pre class="fragment">&lt;species metaid="meta_M_atp_c" id="M_atp_c" name="ATP" compartment="Cytosol"
 boundaryCondition="false" initialConcentration="0" hasOnlySubstanceUnits="false"
 fbc:charge="-4" fbc:chemicalFormula="C10H12N5O13P3"/&gt;
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a3e674eabe9dcb05218e87d32b7cdb7a0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_s_base_plugin.html#a3e674eabe9dcb05218e87d32b7cdb7a0">addKeyValuePair</a> (const <a class="el" href="class_key_value_pair.html">KeyValuePair</a> *kvp)</td></tr>
-<tr class="memdesc:a3e674eabe9dcb05218e87d32b7cdb7a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a copy of the given <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> to this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a>.  <a href="class_fbc_s_base_plugin.html#a3e674eabe9dcb05218e87d32b7cdb7a0">More...</a><br /></td></tr>
+<tr class="memdesc:a3e674eabe9dcb05218e87d32b7cdb7a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a copy of the given <a class="el" href="class_key_value_pair.html">KeyValuePair</a> to this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a>.  <a href="class_fbc_s_base_plugin.html#a3e674eabe9dcb05218e87d32b7cdb7a0">More...</a><br /></td></tr>
 <tr class="separator:a3e674eabe9dcb05218e87d32b7cdb7a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ddf141168a99da3fc2be2b507b630cb"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_species_plugin.html#a1ddf141168a99da3fc2be2b507b630cb">clone</a> () const</td></tr>
-<tr class="memdesc:a1ddf141168a99da3fc2be2b507b630cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a> object.  <a href="class_fbc_species_plugin.html#a1ddf141168a99da3fc2be2b507b630cb">More...</a><br /></td></tr>
+<tr class="memdesc:a1ddf141168a99da3fc2be2b507b630cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a> object.  <a href="class_fbc_species_plugin.html#a1ddf141168a99da3fc2be2b507b630cb">More...</a><br /></td></tr>
 <tr class="separator:a1ddf141168a99da3fc2be2b507b630cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9cbf55399f3936b5ce5dd267789041d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_key_value_pair.html">KeyValuePair</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_s_base_plugin.html#a9cbf55399f3936b5ce5dd267789041d5">createKeyValuePair</a> ()</td></tr>
-<tr class="memdesc:a9cbf55399f3936b5ce5dd267789041d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> object, adds it to this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a> object and returns the <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> object created.  <a href="class_fbc_s_base_plugin.html#a9cbf55399f3936b5ce5dd267789041d5">More...</a><br /></td></tr>
+<tr class="memdesc:a9cbf55399f3936b5ce5dd267789041d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_key_value_pair.html">KeyValuePair</a> object, adds it to this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a> object and returns the <a class="el" href="class_key_value_pair.html">KeyValuePair</a> object created.  <a href="class_fbc_s_base_plugin.html#a9cbf55399f3936b5ce5dd267789041d5">More...</a><br /></td></tr>
 <tr class="separator:a9cbf55399f3936b5ce5dd267789041d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab60b1fc9a9e4630b69e2c2751df59c56"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_species_plugin.html#ab60b1fc9a9e4630b69e2c2751df59c56">FbcSpeciesPlugin</a> (const <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a> &amp;orig)</td></tr>
-<tr class="memdesc:ab60b1fc9a9e4630b69e2c2751df59c56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor for <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#ab60b1fc9a9e4630b69e2c2751df59c56">More...</a><br /></td></tr>
+<tr class="memdesc:ab60b1fc9a9e4630b69e2c2751df59c56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor for <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#ab60b1fc9a9e4630b69e2c2751df59c56">More...</a><br /></td></tr>
 <tr class="separator:ab60b1fc9a9e4630b69e2c2751df59c56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe5d25964def339d193fcc84c4d150b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_species_plugin.html#afe5d25964def339d193fcc84c4d150b0">FbcSpeciesPlugin</a> (const std::string &amp;uri, const std::string &amp;prefix, <a class="el" href="class_fbc_pkg_namespaces.html">FbcPkgNamespaces</a> *fbcns)</td></tr>
-<tr class="memdesc:afe5d25964def339d193fcc84c4d150b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#afe5d25964def339d193fcc84c4d150b0">More...</a><br /></td></tr>
+<tr class="memdesc:afe5d25964def339d193fcc84c4d150b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#afe5d25964def339d193fcc84c4d150b0">More...</a><br /></td></tr>
 <tr class="separator:afe5d25964def339d193fcc84c4d150b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0ad7ed07b3b2b7b4a135126d9757d2b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_list.html">List</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_s_base_plugin.html#ac0ad7ed07b3b2b7b4a135126d9757d2b">getAllElements</a> (<a class="el" href="class_element_filter.html">ElementFilter</a> *filter=NULL)</td></tr>
-<tr class="memdesc:ac0ad7ed07b3b2b7b4a135126d9757d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a <a class="el" href="class_list.html" title="\ @ @ . , , .">List</a> of all child <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> objects, including those nested to an arbitrary depth.  <a href="class_fbc_s_base_plugin.html#ac0ad7ed07b3b2b7b4a135126d9757d2b">More...</a><br /></td></tr>
+<tr class="memdesc:ac0ad7ed07b3b2b7b4a135126d9757d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a <a class="el" href="class_list.html">List</a> of all child <a class="el" href="class_s_base.html">SBase</a> objects, including those nested to an arbitrary depth.  <a href="class_fbc_s_base_plugin.html#ac0ad7ed07b3b2b7b4a135126d9757d2b">More...</a><br /></td></tr>
 <tr class="separator:ac0ad7ed07b3b2b7b4a135126d9757d2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a416d700c3207d33456353c0c3cabcb9f"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_species_plugin.html#a416d700c3207d33456353c0c3cabcb9f">getCharge</a> () const</td></tr>
 <tr class="memdesc:a416d700c3207d33456353c0c3cabcb9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">doxygenLibsbmlInternal  <a href="class_fbc_species_plugin.html#a416d700c3207d33456353c0c3cabcb9f">More...</a><br /></td></tr>
 <tr class="separator:a416d700c3207d33456353c0c3cabcb9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96e5b833974b4dbc68405eb69b5d14e7"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_species_plugin.html#a96e5b833974b4dbc68405eb69b5d14e7">getChargeAsDouble</a> () const</td></tr>
-<tr class="memdesc:a96e5b833974b4dbc68405eb69b5d14e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#a96e5b833974b4dbc68405eb69b5d14e7">More...</a><br /></td></tr>
+<tr class="memdesc:a96e5b833974b4dbc68405eb69b5d14e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#a96e5b833974b4dbc68405eb69b5d14e7">More...</a><br /></td></tr>
 <tr class="separator:a96e5b833974b4dbc68405eb69b5d14e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbbd82ebdd33af7be0f7969320edf464"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_species_plugin.html#adbbd82ebdd33af7be0f7969320edf464">getChemicalFormula</a> () const</td></tr>
-<tr class="memdesc:adbbd82ebdd33af7be0f7969320edf464"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the "chemicalFormula" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#adbbd82ebdd33af7be0f7969320edf464">More...</a><br /></td></tr>
+<tr class="memdesc:adbbd82ebdd33af7be0f7969320edf464"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the "chemicalFormula" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#adbbd82ebdd33af7be0f7969320edf464">More...</a><br /></td></tr>
 <tr class="separator:adbbd82ebdd33af7be0f7969320edf464"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30a3e577b25f84c49ecc338a974c3fc2"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_s_base.html">SBase</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_s_base_plugin.html#a30a3e577b25f84c49ecc338a974c3fc2">getElementByMetaId</a> (const std::string &amp;metaid)</td></tr>
 <tr class="memdesc:a30a3e577b25f84c49ecc338a974c3fc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the first child element that has the given <code>metaid</code>, or <code>NULL</code> if no such object is found.  <a href="class_fbc_s_base_plugin.html#a30a3e577b25f84c49ecc338a974c3fc2">More...</a><br /></td></tr>
@@ -151,28 +151,28 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a22e94cfa62ef5948cd631c8d22918293"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the namespace URI of the package to which this plugin object belongs.  <a href="class_s_base_plugin.html#a22e94cfa62ef5948cd631c8d22918293">More...</a><br /></td></tr>
 <tr class="separator:a22e94cfa62ef5948cd631c8d22918293"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0f111001e03cbd6a8418828b10e9d3c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_key_value_pair.html">KeyValuePair</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_s_base_plugin.html#ad0f111001e03cbd6a8418828b10e9d3c">getKeyValuePair</a> (const std::string &amp;sid)</td></tr>
-<tr class="memdesc:ad0f111001e03cbd6a8418828b10e9d3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> from the <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a> based on its identifier.  <a href="class_fbc_s_base_plugin.html#ad0f111001e03cbd6a8418828b10e9d3c">More...</a><br /></td></tr>
+<tr class="memdesc:ad0f111001e03cbd6a8418828b10e9d3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a <a class="el" href="class_key_value_pair.html">KeyValuePair</a> from the <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a> based on its identifier.  <a href="class_fbc_s_base_plugin.html#ad0f111001e03cbd6a8418828b10e9d3c">More...</a><br /></td></tr>
 <tr class="separator:ad0f111001e03cbd6a8418828b10e9d3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7c79bde5acfb4bac9947c5819d9e339"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_key_value_pair.html">KeyValuePair</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_s_base_plugin.html#ad7c79bde5acfb4bac9947c5819d9e339">getKeyValuePair</a> (const std::string &amp;sid) const</td></tr>
-<tr class="memdesc:ad7c79bde5acfb4bac9947c5819d9e339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> from the <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a> based on its identifier.  <a href="class_fbc_s_base_plugin.html#ad7c79bde5acfb4bac9947c5819d9e339">More...</a><br /></td></tr>
+<tr class="memdesc:ad7c79bde5acfb4bac9947c5819d9e339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a <a class="el" href="class_key_value_pair.html">KeyValuePair</a> from the <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a> based on its identifier.  <a href="class_fbc_s_base_plugin.html#ad7c79bde5acfb4bac9947c5819d9e339">More...</a><br /></td></tr>
 <tr class="separator:ad7c79bde5acfb4bac9947c5819d9e339"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53ee99e3f3236997bc22c6caf4a98b9e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_key_value_pair.html">KeyValuePair</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_s_base_plugin.html#a53ee99e3f3236997bc22c6caf4a98b9e">getKeyValuePair</a> (unsigned int n)</td></tr>
-<tr class="memdesc:a53ee99e3f3236997bc22c6caf4a98b9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> from the <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a>.  <a href="class_fbc_s_base_plugin.html#a53ee99e3f3236997bc22c6caf4a98b9e">More...</a><br /></td></tr>
+<tr class="memdesc:a53ee99e3f3236997bc22c6caf4a98b9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a <a class="el" href="class_key_value_pair.html">KeyValuePair</a> from the <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a>.  <a href="class_fbc_s_base_plugin.html#a53ee99e3f3236997bc22c6caf4a98b9e">More...</a><br /></td></tr>
 <tr class="separator:a53ee99e3f3236997bc22c6caf4a98b9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88ed693fa426960a0b888fb21262ba22"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_key_value_pair.html">KeyValuePair</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_s_base_plugin.html#a88ed693fa426960a0b888fb21262ba22">getKeyValuePair</a> (unsigned int n) const</td></tr>
-<tr class="memdesc:a88ed693fa426960a0b888fb21262ba22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> from the <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a>.  <a href="class_fbc_s_base_plugin.html#a88ed693fa426960a0b888fb21262ba22">More...</a><br /></td></tr>
+<tr class="memdesc:a88ed693fa426960a0b888fb21262ba22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a <a class="el" href="class_key_value_pair.html">KeyValuePair</a> from the <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a>.  <a href="class_fbc_s_base_plugin.html#a88ed693fa426960a0b888fb21262ba22">More...</a><br /></td></tr>
 <tr class="separator:a88ed693fa426960a0b888fb21262ba22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f960060c607ab977a1953edd864c3ce"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a4f960060c607ab977a1953edd864c3ce">getLevel</a> () const</td></tr>
 <tr class="memdesc:a4f960060c607ab977a1953edd864c3ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the SBML Level of the package extension of this plugin object.  <a href="class_s_base_plugin.html#a4f960060c607ab977a1953edd864c3ce">More...</a><br /></td></tr>
 <tr class="separator:a4f960060c607ab977a1953edd864c3ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a607d8927dceb01ed6f1e4186f2ed7699"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_list_of_key_value_pairs.html">ListOfKeyValuePairs</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_s_base_plugin.html#a607d8927dceb01ed6f1e4186f2ed7699">getListOfKeyValuePairs</a> ()</td></tr>
-<tr class="memdesc:a607d8927dceb01ed6f1e4186f2ed7699"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of_key_value_pairs.html" title="\ @ @ . : .">ListOfKeyValuePairs</a> from this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a>.  <a href="class_fbc_s_base_plugin.html#a607d8927dceb01ed6f1e4186f2ed7699">More...</a><br /></td></tr>
+<tr class="memdesc:a607d8927dceb01ed6f1e4186f2ed7699"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of_key_value_pairs.html">ListOfKeyValuePairs</a> from this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a>.  <a href="class_fbc_s_base_plugin.html#a607d8927dceb01ed6f1e4186f2ed7699">More...</a><br /></td></tr>
 <tr class="separator:a607d8927dceb01ed6f1e4186f2ed7699"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a762302266513e979abd79680258a4c4e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_list_of_key_value_pairs.html">ListOfKeyValuePairs</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_s_base_plugin.html#a762302266513e979abd79680258a4c4e">getListOfKeyValuePairs</a> () const</td></tr>
-<tr class="memdesc:a762302266513e979abd79680258a4c4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of_key_value_pairs.html" title="\ @ @ . : .">ListOfKeyValuePairs</a> from this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a>.  <a href="class_fbc_s_base_plugin.html#a762302266513e979abd79680258a4c4e">More...</a><br /></td></tr>
+<tr class="memdesc:a762302266513e979abd79680258a4c4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of_key_value_pairs.html">ListOfKeyValuePairs</a> from this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a>.  <a href="class_fbc_s_base_plugin.html#a762302266513e979abd79680258a4c4e">More...</a><br /></td></tr>
 <tr class="separator:a762302266513e979abd79680258a4c4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28efbb70e0cdca44f88df16a113fde35"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_s_base_plugin.html#a28efbb70e0cdca44f88df16a113fde35">getNumKeyValuePairs</a> () const</td></tr>
-<tr class="memdesc:a28efbb70e0cdca44f88df16a113fde35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> objects in this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a>.  <a href="class_fbc_s_base_plugin.html#a28efbb70e0cdca44f88df16a113fde35">More...</a><br /></td></tr>
+<tr class="memdesc:a28efbb70e0cdca44f88df16a113fde35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of <a class="el" href="class_key_value_pair.html">KeyValuePair</a> objects in this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a>.  <a href="class_fbc_s_base_plugin.html#a28efbb70e0cdca44f88df16a113fde35">More...</a><br /></td></tr>
 <tr class="separator:a28efbb70e0cdca44f88df16a113fde35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39809eb9fac95dba54f36c133927f6d9"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a39809eb9fac95dba54f36c133927f6d9">getPackageName</a> () const</td></tr>
 <tr class="memdesc:a39809eb9fac95dba54f36c133927f6d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the short-form name of the package to which this plugin object belongs.  <a href="class_s_base_plugin.html#a39809eb9fac95dba54f36c133927f6d9">More...</a><br /></td></tr>
@@ -190,10 +190,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa2ba27dc0f8acc30b6a99496a26e1c0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the XML namespace prefix of the package to which this plugin object belongs.  <a href="class_s_base_plugin.html#aa2ba27dc0f8acc30b6a99496a26e1c0a">More...</a><br /></td></tr>
 <tr class="separator:aa2ba27dc0f8acc30b6a99496a26e1c0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59581825576a6216ab07beceb709da81"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a59581825576a6216ab07beceb709da81">getSBMLDocument</a> ()</td></tr>
-<tr class="memdesc:a59581825576a6216ab07beceb709da81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object containing this object instance.  <a href="class_s_base_plugin.html#a59581825576a6216ab07beceb709da81">More...</a><br /></td></tr>
+<tr class="memdesc:a59581825576a6216ab07beceb709da81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object containing this object instance.  <a href="class_s_base_plugin.html#a59581825576a6216ab07beceb709da81">More...</a><br /></td></tr>
 <tr class="separator:a59581825576a6216ab07beceb709da81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d5a422cf6973d70984cec3ec4597d1c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a9d5a422cf6973d70984cec3ec4597d1c">getSBMLDocument</a> () const</td></tr>
-<tr class="memdesc:a9d5a422cf6973d70984cec3ec4597d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object containing this object instance.  <a href="class_s_base_plugin.html#a9d5a422cf6973d70984cec3ec4597d1c">More...</a><br /></td></tr>
+<tr class="memdesc:a9d5a422cf6973d70984cec3ec4597d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object containing this object instance.  <a href="class_s_base_plugin.html#a9d5a422cf6973d70984cec3ec4597d1c">More...</a><br /></td></tr>
 <tr class="separator:a9d5a422cf6973d70984cec3ec4597d1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae278c9a451f870b4b0472dece4cfd075"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#ae278c9a451f870b4b0472dece4cfd075">getURI</a> () const</td></tr>
 <tr class="memdesc:ae278c9a451f870b4b0472dece4cfd075"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the XML namespace URI for the package to which this object belongs.  <a href="class_s_base_plugin.html#ae278c9a451f870b4b0472dece4cfd075">More...</a><br /></td></tr>
@@ -202,21 +202,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa13caba66cf24826f0b9a40d83db06c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Version within the SBML Level of the package extension of this plugin object.  <a href="class_s_base_plugin.html#aa13caba66cf24826f0b9a40d83db06c9">More...</a><br /></td></tr>
 <tr class="separator:aa13caba66cf24826f0b9a40d83db06c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee87fbce43aa72e72ec455b496470146"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_species_plugin.html#aee87fbce43aa72e72ec455b496470146">isSetCharge</a> () const</td></tr>
-<tr class="memdesc:aee87fbce43aa72e72ec455b496470146"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>'s "charge" attribute has been set.  <a href="class_fbc_species_plugin.html#aee87fbce43aa72e72ec455b496470146">More...</a><br /></td></tr>
+<tr class="memdesc:aee87fbce43aa72e72ec455b496470146"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>'s "charge" attribute has been set.  <a href="class_fbc_species_plugin.html#aee87fbce43aa72e72ec455b496470146">More...</a><br /></td></tr>
 <tr class="separator:aee87fbce43aa72e72ec455b496470146"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad058280007aea96563f5583ffac9dac8"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_species_plugin.html#ad058280007aea96563f5583ffac9dac8">isSetChemicalFormula</a> () const</td></tr>
-<tr class="memdesc:ad058280007aea96563f5583ffac9dac8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>'s "chemicalFormula" attribute has been set.  <a href="class_fbc_species_plugin.html#ad058280007aea96563f5583ffac9dac8">More...</a><br /></td></tr>
+<tr class="memdesc:ad058280007aea96563f5583ffac9dac8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>'s "chemicalFormula" attribute has been set.  <a href="class_fbc_species_plugin.html#ad058280007aea96563f5583ffac9dac8">More...</a><br /></td></tr>
 <tr class="separator:ad058280007aea96563f5583ffac9dac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22b634dc54d29892de8024a405af77be"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a22b634dc54d29892de8024a405af77be">isValidTypeForList</a> (<a class="el" href="class_s_base.html">SBase</a> *item) const</td></tr>
 <tr class="separator:a22b634dc54d29892de8024a405af77be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40cb1bd519fab5cf0ba404b67b3d034f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_species_plugin.html#a40cb1bd519fab5cf0ba404b67b3d034f">operator=</a> (const <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a> &amp;rhs)</td></tr>
-<tr class="memdesc:a40cb1bd519fab5cf0ba404b67b3d034f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#a40cb1bd519fab5cf0ba404b67b3d034f">More...</a><br /></td></tr>
+<tr class="memdesc:a40cb1bd519fab5cf0ba404b67b3d034f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#a40cb1bd519fab5cf0ba404b67b3d034f">More...</a><br /></td></tr>
 <tr class="separator:a40cb1bd519fab5cf0ba404b67b3d034f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fe34fdd4f844b0fdf9f398ccfd5eae6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_key_value_pair.html">KeyValuePair</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_s_base_plugin.html#a3fe34fdd4f844b0fdf9f398ccfd5eae6">removeKeyValuePair</a> (const std::string &amp;sid)</td></tr>
-<tr class="memdesc:a3fe34fdd4f844b0fdf9f398ccfd5eae6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> from this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a> based on its identifier and returns a pointer to it.  <a href="class_fbc_s_base_plugin.html#a3fe34fdd4f844b0fdf9f398ccfd5eae6">More...</a><br /></td></tr>
+<tr class="memdesc:a3fe34fdd4f844b0fdf9f398ccfd5eae6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the <a class="el" href="class_key_value_pair.html">KeyValuePair</a> from this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a> based on its identifier and returns a pointer to it.  <a href="class_fbc_s_base_plugin.html#a3fe34fdd4f844b0fdf9f398ccfd5eae6">More...</a><br /></td></tr>
 <tr class="separator:a3fe34fdd4f844b0fdf9f398ccfd5eae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aedc92dc14cc25641e4f1ffed142f62b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_key_value_pair.html">KeyValuePair</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_s_base_plugin.html#aedc92dc14cc25641e4f1ffed142f62b6">removeKeyValuePair</a> (unsigned int n)</td></tr>
-<tr class="memdesc:aedc92dc14cc25641e4f1ffed142f62b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the nth <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> from this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a> and returns a pointer to it.  <a href="class_fbc_s_base_plugin.html#aedc92dc14cc25641e4f1ffed142f62b6">More...</a><br /></td></tr>
+<tr class="memdesc:aedc92dc14cc25641e4f1ffed142f62b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the nth <a class="el" href="class_key_value_pair.html">KeyValuePair</a> from this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a> and returns a pointer to it.  <a href="class_fbc_s_base_plugin.html#aedc92dc14cc25641e4f1ffed142f62b6">More...</a><br /></td></tr>
 <tr class="separator:aedc92dc14cc25641e4f1ffed142f62b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a95d2c1e8f73cd2f44954f9bf77ddb1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a8a95d2c1e8f73cd2f44954f9bf77ddb1">renameMetaIdRefs</a> (const std::string &amp;oldid, const std::string &amp;newid)</td></tr>
 <tr class="separator:a8a95d2c1e8f73cd2f44954f9bf77ddb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -225,25 +225,25 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a20f21bc972f3ee724924adf058e0e9a3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a20f21bc972f3ee724924adf058e0e9a3">renameUnitSIdRefs</a> (const std::string &amp;oldid, const std::string &amp;newid)</td></tr>
 <tr class="separator:a20f21bc972f3ee724924adf058e0e9a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab95cb9de549836cbd1a907f375fe0bab"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_species_plugin.html#ab95cb9de549836cbd1a907f375fe0bab">setCharge</a> (double charge)</td></tr>
-<tr class="memdesc:ab95cb9de549836cbd1a907f375fe0bab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#ab95cb9de549836cbd1a907f375fe0bab">More...</a><br /></td></tr>
+<tr class="memdesc:ab95cb9de549836cbd1a907f375fe0bab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#ab95cb9de549836cbd1a907f375fe0bab">More...</a><br /></td></tr>
 <tr class="separator:ab95cb9de549836cbd1a907f375fe0bab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84f4e0d7ce5f82832bc1945d93c9bec8"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_species_plugin.html#a84f4e0d7ce5f82832bc1945d93c9bec8">setCharge</a> (int charge)</td></tr>
-<tr class="memdesc:a84f4e0d7ce5f82832bc1945d93c9bec8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#a84f4e0d7ce5f82832bc1945d93c9bec8">More...</a><br /></td></tr>
+<tr class="memdesc:a84f4e0d7ce5f82832bc1945d93c9bec8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#a84f4e0d7ce5f82832bc1945d93c9bec8">More...</a><br /></td></tr>
 <tr class="separator:a84f4e0d7ce5f82832bc1945d93c9bec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80eeb561242360a365b768a3f44598c9"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_species_plugin.html#a80eeb561242360a365b768a3f44598c9">setChemicalFormula</a> (const std::string &amp;chemicalFormula)</td></tr>
-<tr class="memdesc:a80eeb561242360a365b768a3f44598c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "chemicalFormula" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#a80eeb561242360a365b768a3f44598c9">More...</a><br /></td></tr>
+<tr class="memdesc:a80eeb561242360a365b768a3f44598c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "chemicalFormula" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#a80eeb561242360a365b768a3f44598c9">More...</a><br /></td></tr>
 <tr class="separator:a80eeb561242360a365b768a3f44598c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70257de82da9ea894348f1d601395e83"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a70257de82da9ea894348f1d601395e83">setElementNamespace</a> (const std::string &amp;uri)</td></tr>
 <tr class="memdesc:a70257de82da9ea894348f1d601395e83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the XML namespace to which this object belongs.  <a href="class_s_base_plugin.html#a70257de82da9ea894348f1d601395e83">More...</a><br /></td></tr>
 <tr class="separator:a70257de82da9ea894348f1d601395e83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0529cc09d5ff95a00189d00add8815c"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_species_plugin.html#aa0529cc09d5ff95a00189d00add8815c">unsetCharge</a> ()</td></tr>
-<tr class="memdesc:aa0529cc09d5ff95a00189d00add8815c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#aa0529cc09d5ff95a00189d00add8815c">More...</a><br /></td></tr>
+<tr class="memdesc:aa0529cc09d5ff95a00189d00add8815c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#aa0529cc09d5ff95a00189d00add8815c">More...</a><br /></td></tr>
 <tr class="separator:aa0529cc09d5ff95a00189d00add8815c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e52a6a53852ed5bd58049b8cfe90440"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_species_plugin.html#a3e52a6a53852ed5bd58049b8cfe90440">unsetChemicalFormula</a> ()</td></tr>
-<tr class="memdesc:a3e52a6a53852ed5bd58049b8cfe90440"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the value of the "chemicalFormula" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#a3e52a6a53852ed5bd58049b8cfe90440">More...</a><br /></td></tr>
+<tr class="memdesc:a3e52a6a53852ed5bd58049b8cfe90440"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the value of the "chemicalFormula" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#a3e52a6a53852ed5bd58049b8cfe90440">More...</a><br /></td></tr>
 <tr class="separator:a3e52a6a53852ed5bd58049b8cfe90440"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5402937e5701b359f8d3aa5b7a2797f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fbc_species_plugin.html#ad5402937e5701b359f8d3aa5b7a2797f">~FbcSpeciesPlugin</a> ()</td></tr>
-<tr class="memdesc:ad5402937e5701b359f8d3aa5b7a2797f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#ad5402937e5701b359f8d3aa5b7a2797f">More...</a><br /></td></tr>
+<tr class="memdesc:ad5402937e5701b359f8d3aa5b7a2797f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>.  <a href="class_fbc_species_plugin.html#ad5402937e5701b359f8d3aa5b7a2797f">More...</a><br /></td></tr>
 <tr class="separator:ad5402937e5701b359f8d3aa5b7a2797f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -279,7 +279,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>. </p>
+<p>Creates a new <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>. </p>
 
 </div>
 </div>
@@ -299,10 +299,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copy constructor for <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>. </p>
+<p>Copy constructor for <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">orig;</td><td>the <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a> instance to copy. </td></tr>
+    <tr><td class="paramname">orig;</td><td>the <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a> instance to copy. </td></tr>
   </table>
   </dd>
 </dl>
@@ -332,7 +332,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destructor for <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>. </p>
+<p>Destructor for <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>. </p>
 
 </div>
 </div>
@@ -361,10 +361,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Adds a copy of the given <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> to this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a>. </p>
+<p>Adds a copy of the given <a class="el" href="class_key_value_pair.html">KeyValuePair</a> to this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">kvp</td><td>the <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> object to add.</td></tr>
+    <tr><td class="paramname">kvp</td><td>the <a class="el" href="class_key_value_pair.html">KeyValuePair</a> object to add.</td></tr>
   </table>
   </dd>
 </dl>
@@ -416,8 +416,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates and returns a deep copy of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>a (deep) copy of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a> object. </dd></dl>
+<p>Creates and returns a deep copy of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>a (deep) copy of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a> object. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_fbc_s_base_plugin.html#a40c3a7cb3c0e2fe85f7abe78ee8ad5f2">FbcSBasePlugin</a>.</p>
 
@@ -446,8 +446,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> object, adds it to this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a> object and returns the <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> object created. </p>
-<dl class="section return"><dt>Returns</dt><dd>a new <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> object instance.</dd></dl>
+<p>Creates a new <a class="el" href="class_key_value_pair.html">KeyValuePair</a> object, adds it to this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a> object and returns the <a class="el" href="class_key_value_pair.html">KeyValuePair</a> object created. </p>
+<dl class="section return"><dt>Returns</dt><dd>a new <a class="el" href="class_key_value_pair.html">KeyValuePair</a> object instance.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The pointer that is returned by this function is not owned by the caller, but may be queried and modified. Any changes made will be reflected in any resulting SBML document containing the pointer's parent.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_fbc_s_base_plugin.html#a3e674eabe9dcb05218e87d32b7cdb7a0" title="Adds a copy of the given KeyValuePair to this FbcSBasePlugin.">addKeyValuePair(const KeyValuePair* object)</a> </dd>
 <dd>
@@ -487,14 +487,14 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a <a class="el" href="class_list.html" title="\ @ @ . , , .">List</a> of all child <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> objects, including those nested to an arbitrary depth. </p>
+<p>Returns a <a class="el" href="class_list.html">List</a> of all child <a class="el" href="class_s_base.html">SBase</a> objects, including those nested to an arbitrary depth. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">filter</td><td>an <a class="el" href="class_element_filter.html" title="\ @ @ . .">ElementFilter</a> that may impose restrictions on the objects to be retrieved.</td></tr>
+    <tr><td class="paramname">filter</td><td>an <a class="el" href="class_element_filter.html">ElementFilter</a> that may impose restrictions on the objects to be retrieved.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="class_list.html" title="\ @ @ . , , .">List</a> pointer of pointers to all <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> child objects with any restriction imposed. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="class_list.html">List</a> pointer of pointers to all <a class="el" href="class_s_base.html">SBase</a> child objects with any restriction imposed. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_base_plugin.html#ac06fe5377358500d4341f62b8b962835">SBasePlugin</a>.</p>
 
@@ -527,8 +527,8 @@ Public Member Functions</h2></td></tr>
 
 <p>doxygenLibsbmlInternal </p>
 <p>doxygenLibsbmlInternal doxygenLibsbmlInternal doxygenLibsbmlInternal doxygenLibsbmlInternal</p>
-<p>Returns the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>.</p>
-<dl class="section return"><dt>Returns</dt><dd>the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a> as a integer. </dd></dl>
+<p>Returns the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>.</p>
+<dl class="section return"><dt>Returns</dt><dd>the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a> as a integer. </dd></dl>
 
 </div>
 </div>
@@ -555,8 +555,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a> as a double. </dd></dl>
+<p>Returns the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a> as a double. </dd></dl>
 
 </div>
 </div>
@@ -583,8 +583,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the value of the "chemicalFormula" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the value of the "chemicalFormula" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a> as a string. </dd></dl>
+<p>Returns the value of the "chemicalFormula" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the value of the "chemicalFormula" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a> as a string. </dd></dl>
 
 </div>
 </div>
@@ -619,7 +619,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a pointer to the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> element with the given <code>metaid</code>. If no such object is found this method returns <code>NULL</code>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a pointer to the <a class="el" href="class_s_base.html">SBase</a> element with the given <code>metaid</code>. If no such object is found this method returns <code>NULL</code>. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_base_plugin.html#a5f80963d1f7110a07092e33b44a470ed">SBasePlugin</a>.</p>
 
@@ -658,7 +658,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a pointer to the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> element with the given <code>id</code>. If no such object is found, this method returns <code>NULL</code>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a pointer to the <a class="el" href="class_s_base.html">SBase</a> element with the given <code>id</code>. If no such object is found, this method returns <code>NULL</code>. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_base_plugin.html#a6712bfb4148805bac5d5914137be77d4">SBasePlugin</a>.</p>
 
@@ -718,14 +718,14 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get a <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> from the <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a> based on its identifier. </p>
+<p>Get a <a class="el" href="class_key_value_pair.html">KeyValuePair</a> from the <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a> based on its identifier. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">sid</td><td>a string representing the identifier of the <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> to retrieve.</td></tr>
+    <tr><td class="paramname">sid</td><td>a string representing the identifier of the <a class="el" href="class_key_value_pair.html">KeyValuePair</a> to retrieve.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> in the <a class="el" href="class_list_of_key_value_pairs.html" title="\ @ @ . : .">ListOfKeyValuePairs</a> within this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a> with the given <code>sid</code> or <code>NULL</code> if no such <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> exists.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_key_value_pair.html">KeyValuePair</a> in the <a class="el" href="class_list_of_key_value_pairs.html">ListOfKeyValuePairs</a> within this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a> with the given <code>sid</code> or <code>NULL</code> if no such <a class="el" href="class_key_value_pair.html">KeyValuePair</a> exists.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The pointer that is returned by this function is not owned by the caller, but may be queried and modified. Any changes made will be reflected in any resulting SBML document containing the pointer's parent.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_fbc_s_base_plugin.html#a3e674eabe9dcb05218e87d32b7cdb7a0" title="Adds a copy of the given KeyValuePair to this FbcSBasePlugin.">addKeyValuePair(const KeyValuePair* object)</a> </dd>
 <dd>
@@ -765,14 +765,14 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get a <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> from the <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a> based on its identifier. </p>
+<p>Get a <a class="el" href="class_key_value_pair.html">KeyValuePair</a> from the <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a> based on its identifier. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">sid</td><td>a string representing the identifier of the <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> to retrieve.</td></tr>
+    <tr><td class="paramname">sid</td><td>a string representing the identifier of the <a class="el" href="class_key_value_pair.html">KeyValuePair</a> to retrieve.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> in the <a class="el" href="class_list_of_key_value_pairs.html" title="\ @ @ . : .">ListOfKeyValuePairs</a> within this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a> with the given <code>sid</code> or <code>NULL</code> if no such <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> exists.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_key_value_pair.html">KeyValuePair</a> in the <a class="el" href="class_list_of_key_value_pairs.html">ListOfKeyValuePairs</a> within this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a> with the given <code>sid</code> or <code>NULL</code> if no such <a class="el" href="class_key_value_pair.html">KeyValuePair</a> exists.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The pointer that is returned by this function is not owned by the caller, but may be queried and modified. Any changes made will be reflected in any resulting SBML document containing the pointer's parent.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_fbc_s_base_plugin.html#a3e674eabe9dcb05218e87d32b7cdb7a0" title="Adds a copy of the given KeyValuePair to this FbcSBasePlugin.">addKeyValuePair(const KeyValuePair* object)</a> </dd>
 <dd>
@@ -812,14 +812,14 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get a <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> from the <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a>. </p>
+<p>Get a <a class="el" href="class_key_value_pair.html">KeyValuePair</a> from the <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td>an unsigned int representing the index of the <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> to retrieve.</td></tr>
+    <tr><td class="paramname">n</td><td>an unsigned int representing the index of the <a class="el" href="class_key_value_pair.html">KeyValuePair</a> to retrieve.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> in the <a class="el" href="class_list_of_key_value_pairs.html" title="\ @ @ . : .">ListOfKeyValuePairs</a> within this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a> or <code>NULL</code> if no such object exists.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_key_value_pair.html">KeyValuePair</a> in the <a class="el" href="class_list_of_key_value_pairs.html">ListOfKeyValuePairs</a> within this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a> or <code>NULL</code> if no such object exists.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The pointer that is returned by this function is not owned by the caller, but may be queried and modified. Any changes made will be reflected in any resulting SBML document containing the pointer's parent.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_fbc_s_base_plugin.html#a3e674eabe9dcb05218e87d32b7cdb7a0" title="Adds a copy of the given KeyValuePair to this FbcSBasePlugin.">addKeyValuePair(const KeyValuePair* object)</a> </dd>
 <dd>
@@ -859,14 +859,14 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get a <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> from the <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a>. </p>
+<p>Get a <a class="el" href="class_key_value_pair.html">KeyValuePair</a> from the <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td>an unsigned int representing the index of the <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> to retrieve.</td></tr>
+    <tr><td class="paramname">n</td><td>an unsigned int representing the index of the <a class="el" href="class_key_value_pair.html">KeyValuePair</a> to retrieve.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> in the <a class="el" href="class_list_of_key_value_pairs.html" title="\ @ @ . : .">ListOfKeyValuePairs</a> within this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a> or <code>NULL</code> if no such object exists.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_key_value_pair.html">KeyValuePair</a> in the <a class="el" href="class_list_of_key_value_pairs.html">ListOfKeyValuePairs</a> within this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a> or <code>NULL</code> if no such object exists.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The pointer that is returned by this function is not owned by the caller, but may be queried and modified. Any changes made will be reflected in any resulting SBML document containing the pointer's parent.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_fbc_s_base_plugin.html#a3e674eabe9dcb05218e87d32b7cdb7a0" title="Adds a copy of the given KeyValuePair to this FbcSBasePlugin.">addKeyValuePair(const KeyValuePair* object)</a> </dd>
 <dd>
@@ -934,8 +934,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_list_of_key_value_pairs.html" title="\ @ @ . : .">ListOfKeyValuePairs</a> from this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of_key_value_pairs.html" title="\ @ @ . : .">ListOfKeyValuePairs</a> from this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a>.</dd></dl>
+<p>Returns the <a class="el" href="class_list_of_key_value_pairs.html">ListOfKeyValuePairs</a> from this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of_key_value_pairs.html">ListOfKeyValuePairs</a> from this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a>.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The pointer that is returned by this function is not owned by the caller, but may be queried and modified. Any changes made will be reflected in any resulting SBML document containing the pointer's parent.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_fbc_s_base_plugin.html#a3e674eabe9dcb05218e87d32b7cdb7a0" title="Adds a copy of the given KeyValuePair to this FbcSBasePlugin.">addKeyValuePair(const KeyValuePair* object)</a> </dd>
 <dd>
@@ -976,8 +976,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_list_of_key_value_pairs.html" title="\ @ @ . : .">ListOfKeyValuePairs</a> from this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of_key_value_pairs.html" title="\ @ @ . : .">ListOfKeyValuePairs</a> from this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a>.</dd></dl>
+<p>Returns the <a class="el" href="class_list_of_key_value_pairs.html">ListOfKeyValuePairs</a> from this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of_key_value_pairs.html">ListOfKeyValuePairs</a> from this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a>.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The pointer that is returned by this function is not owned by the caller, but may be queried and modified. Any changes made will be reflected in any resulting SBML document containing the pointer's parent.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_fbc_s_base_plugin.html#a3e674eabe9dcb05218e87d32b7cdb7a0" title="Adds a copy of the given KeyValuePair to this FbcSBasePlugin.">addKeyValuePair(const KeyValuePair* object)</a> </dd>
 <dd>
@@ -1018,8 +1018,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get the number of <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> objects in this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the number of <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> objects in this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a>.</dd></dl>
+<p>Get the number of <a class="el" href="class_key_value_pair.html">KeyValuePair</a> objects in this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the number of <a class="el" href="class_key_value_pair.html">KeyValuePair</a> objects in this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_fbc_s_base_plugin.html#a3e674eabe9dcb05218e87d32b7cdb7a0" title="Adds a copy of the given KeyValuePair to this FbcSBasePlugin.">addKeyValuePair(const KeyValuePair* object)</a> </dd>
 <dd>
 <a class="el" href="class_fbc_s_base_plugin.html#a9cbf55399f3936b5ce5dd267789041d5" title="Creates a new KeyValuePair object, adds it to this FbcSBasePlugin object and returns the KeyValuePair...">createKeyValuePair()</a> </dd>
@@ -1200,10 +1200,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object containing this object instance. </p>
-<dl class="section user"><dt></dt><dd>LibSBML uses the class <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> as a top-level container for storing SBML content and data associated with it (such as warnings and error messages). An SBML model in libSBML is contained inside an <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object. <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> corresponds roughly to the class <em>SBML</em> defined in the SBML Level&#160;3 and Level&#160;2 specifications, but it does not have a direct correspondence in SBML Level&#160;1. (But, it is created by libSBML no matter whether the model is Level&#160;1, Level&#160;2 or Level&#160;3.)</dd></dl>
-<p>This method allows the caller to obtain the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> for the current object.</p>
-<dl class="section return"><dt>Returns</dt><dd>the parent <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object of this plugin object.</dd></dl>
+<p>Returns the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object containing this object instance. </p>
+<dl class="section user"><dt></dt><dd>LibSBML uses the class <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> as a top-level container for storing SBML content and data associated with it (such as warnings and error messages). An SBML model in libSBML is contained inside an <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> corresponds roughly to the class <em>SBML</em> defined in the SBML Level&#160;3 and Level&#160;2 specifications, but it does not have a direct correspondence in SBML Level&#160;1. (But, it is created by libSBML no matter whether the model is Level&#160;1, Level&#160;2 or Level&#160;3.)</dd></dl>
+<p>This method allows the caller to obtain the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> for the current object.</p>
+<dl class="section return"><dt>Returns</dt><dd>the parent <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object of this plugin object.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base_plugin.html#afcf597ffa54ffed41a57a1feee7a9241" title="Returns the parent object to which this plugin object is connected.">getParentSBMLObject()</a> </dd></dl>
 
 </div>
@@ -1231,10 +1231,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object containing this object instance. </p>
-<dl class="section user"><dt></dt><dd>LibSBML uses the class <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> as a top-level container for storing SBML content and data associated with it (such as warnings and error messages). An SBML model in libSBML is contained inside an <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object. <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> corresponds roughly to the class <em>SBML</em> defined in the SBML Level&#160;3 and Level&#160;2 specifications, but it does not have a direct correspondence in SBML Level&#160;1. (But, it is created by libSBML no matter whether the model is Level&#160;1, Level&#160;2 or Level&#160;3.)</dd></dl>
-<p>This method allows the caller to obtain the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> for the current object.</p>
-<dl class="section return"><dt>Returns</dt><dd>the parent <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object of this plugin object.</dd></dl>
+<p>Returns the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object containing this object instance. </p>
+<dl class="section user"><dt></dt><dd>LibSBML uses the class <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> as a top-level container for storing SBML content and data associated with it (such as warnings and error messages). An SBML model in libSBML is contained inside an <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> corresponds roughly to the class <em>SBML</em> defined in the SBML Level&#160;3 and Level&#160;2 specifications, but it does not have a direct correspondence in SBML Level&#160;1. (But, it is created by libSBML no matter whether the model is Level&#160;1, Level&#160;2 or Level&#160;3.)</dd></dl>
+<p>This method allows the caller to obtain the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> for the current object.</p>
+<dl class="section return"><dt>Returns</dt><dd>the parent <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object of this plugin object.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base_plugin.html#afcf597ffa54ffed41a57a1feee7a9241" title="Returns the parent object to which this plugin object is connected.">getParentSBMLObject()</a> </dd></dl>
 
 </div>
@@ -1264,7 +1264,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Returns the XML namespace URI for the package to which this object belongs. </p>
 <dl class="section user"><dt></dt><dd>In the XML representation of an SBML document, XML namespaces are used to identify the origin of each XML construct used. XML namespaces are identified by their unique resource identifiers (URIs). The core SBML specifications stipulate the namespaces that must be used for core SBML constructs; for example, all XML elements that belong to SBML Level&#160;3 Version&#160;1 Core must be placed in the XML namespace identified by the URI <code>"http://www.sbml.org/sbml/level3/version1/core"</code>. Individual SBML Level&#160;3 packages define their own XML namespaces; for example, all elements belonging to the SBML Level&#160;3 Layout Version&#160;1 package must be placed in the XML namespace <code>"http://www.sbml.org/sbml/level3/version1/layout/version1/"</code>.</dd></dl>
-<p>This method first looks into the <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object possessed by the parent <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object of the current object. If this cannot be found, this method returns the result of <a class="el" href="class_s_base_plugin.html#a22e94cfa62ef5948cd631c8d22918293" title="Returns the namespace URI of the package to which this plugin object belongs.">getElementNamespace()</a>.</p>
+<p>This method first looks into the <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object possessed by the parent <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object of the current object. If this cannot be found, this method returns the result of <a class="el" href="class_s_base_plugin.html#a22e94cfa62ef5948cd631c8d22918293" title="Returns the namespace URI of the package to which this plugin object belongs.">getElementNamespace()</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>a string, the URI of the XML namespace to which this object belongs.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base_plugin.html#a39809eb9fac95dba54f36c133927f6d9" title="Returns the short-form name of the package to which this plugin object belongs.">getPackageName()</a> </dd>
 <dd>
@@ -1326,8 +1326,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>'s "charge" attribute has been set. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>'s "charge" attribute has been set, otherwise <code>false</code> is returned. </dd></dl>
+<p>Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>'s "charge" attribute has been set. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>'s "charge" attribute has been set, otherwise <code>false</code> is returned. </dd></dl>
 
 </div>
 </div>
@@ -1354,8 +1354,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>'s "chemicalFormula" attribute has been set. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>'s "chemicalFormula" attribute has been set, otherwise <code>false</code> is returned. </dd></dl>
+<p>Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>'s "chemicalFormula" attribute has been set. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>'s "chemicalFormula" attribute has been set, otherwise <code>false</code> is returned. </dd></dl>
 
 </div>
 </div>
@@ -1401,7 +1401,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Assignment operator for <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>. </p>
+<p>Assignment operator for <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">rhs;</td><td>the object whose values are used as the basis of the assignment </td></tr>
@@ -1435,15 +1435,17 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Removes the <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> from this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a> based on its identifier and returns a pointer to it. </p>
+<p>Removes the <a class="el" href="class_key_value_pair.html">KeyValuePair</a> from this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a> based on its identifier and returns a pointer to it. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">sid</td><td>a string representing the identifier of the <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> to remove.</td></tr>
+    <tr><td class="paramname">sid</td><td>a string representing the identifier of the <a class="el" href="class_key_value_pair.html">KeyValuePair</a> to remove.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> in this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a> based on the identifier or NULL if no such <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> exists.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd><span class="warning">The pointer that is returned by this function is owned by the caller, who is responsible for deleting it. Any changes made to the element will not be reflected in any resulting SBML document unless the element is added to an SBML Document. Even in this case, the element's deletion is still the responsibility of the caller with two exceptions: if it is used as the "disownedItem" in theListOf::appendAndOwn() or <a class="el" href="class_list_of.html#a189ee663e62f686ab59ccaa6300fbe1f" title="Inserts an item at a given position in this ListOf&#39;s list of items.">ListOf::insertAndOwn()</a> functions. All other functions in libsbml add a copy of the element, and do not transfer ownership of the pointer.</span></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_key_value_pair.html">KeyValuePair</a> in this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a> based on the identifier or NULL if no such <a class="el" href="class_key_value_pair.html">KeyValuePair</a> exists.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd><span class="warning">The pointer that is returned by this function is owned by the caller, who is responsible for deleting it. Any changes made to the element will not be reflected in any resulting SBML document unless the element is added to an SBML Document. Even in this case, the element's deletion is still the responsibility of the caller with two exceptions: if it is used as the "disownedItem" in the <a class="el" href="class_list_of.html#a3b3e8b92c7d41b212b7b41a380f349fe" title="Adds an item to the end of this ListOf&#39;s list of items.">ListOf::appendAndOwn()</a> or <a class="el" href="class_list_of.html#a189ee663e62f686ab59ccaa6300fbe1f" title="Inserts an item at a given position in this ListOf&#39;s list of items.">ListOf::insertAndOwn()</a> functions. All other functions in libsbml add a copy of the element, and do not transfer ownership of the pointer.</span></dd>
+<dd>
+<span class="warning">The pointer that is returned by this function is owned by the caller, who is responsible for deleting it. Any changes made to the element will not be reflected in any resulting SBML document unless the element is added to an SBML Document. Even in this case, the element's deletion is still the responsibility of the caller with two exceptions: if it is used as the "disownedItem" in theListOf::appendAndOwn() or <a class="el" href="class_list_of.html#a189ee663e62f686ab59ccaa6300fbe1f" title="Inserts an item at a given position in this ListOf&#39;s list of items.">ListOf::insertAndOwn()</a> functions. All other functions in libsbml add a copy of the element, and do not transfer ownership of the pointer.</span></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_fbc_s_base_plugin.html#a3e674eabe9dcb05218e87d32b7cdb7a0" title="Adds a copy of the given KeyValuePair to this FbcSBasePlugin.">addKeyValuePair(const KeyValuePair* object)</a> </dd>
 <dd>
 <a class="el" href="class_fbc_s_base_plugin.html#a9cbf55399f3936b5ce5dd267789041d5" title="Creates a new KeyValuePair object, adds it to this FbcSBasePlugin object and returns the KeyValuePair...">createKeyValuePair()</a> </dd>
@@ -1482,15 +1484,17 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Removes the nth <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> from this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a> and returns a pointer to it. </p>
+<p>Removes the nth <a class="el" href="class_key_value_pair.html">KeyValuePair</a> from this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a> and returns a pointer to it. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td>an unsigned int representing the index of the <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> to remove.</td></tr>
+    <tr><td class="paramname">n</td><td>an unsigned int representing the index of the <a class="el" href="class_key_value_pair.html">KeyValuePair</a> to remove.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a pointer to the nth <a class="el" href="class_key_value_pair.html" title="\ @ @ . : .">KeyValuePair</a> in this <a class="el" href="class_fbc_s_base_plugin.html" title="\ @ @ . .">FbcSBasePlugin</a>.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd><span class="warning">The pointer that is returned by this function is owned by the caller, who is responsible for deleting it. Any changes made to the element will not be reflected in any resulting SBML document unless the element is added to an SBML Document. Even in this case, the element's deletion is still the responsibility of the caller with two exceptions: if it is used as the "disownedItem" in theListOf::appendAndOwn() or <a class="el" href="class_list_of.html#a189ee663e62f686ab59ccaa6300fbe1f" title="Inserts an item at a given position in this ListOf&#39;s list of items.">ListOf::insertAndOwn()</a> functions. All other functions in libsbml add a copy of the element, and do not transfer ownership of the pointer.</span></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a pointer to the nth <a class="el" href="class_key_value_pair.html">KeyValuePair</a> in this <a class="el" href="class_fbc_s_base_plugin.html">FbcSBasePlugin</a>.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd><span class="warning">The pointer that is returned by this function is owned by the caller, who is responsible for deleting it. Any changes made to the element will not be reflected in any resulting SBML document unless the element is added to an SBML Document. Even in this case, the element's deletion is still the responsibility of the caller with two exceptions: if it is used as the "disownedItem" in the <a class="el" href="class_list_of.html#a3b3e8b92c7d41b212b7b41a380f349fe" title="Adds an item to the end of this ListOf&#39;s list of items.">ListOf::appendAndOwn()</a> or <a class="el" href="class_list_of.html#a189ee663e62f686ab59ccaa6300fbe1f" title="Inserts an item at a given position in this ListOf&#39;s list of items.">ListOf::insertAndOwn()</a> functions. All other functions in libsbml add a copy of the element, and do not transfer ownership of the pointer.</span></dd>
+<dd>
+<span class="warning">The pointer that is returned by this function is owned by the caller, who is responsible for deleting it. Any changes made to the element will not be reflected in any resulting SBML document unless the element is added to an SBML Document. Even in this case, the element's deletion is still the responsibility of the caller with two exceptions: if it is used as the "disownedItem" in theListOf::appendAndOwn() or <a class="el" href="class_list_of.html#a189ee663e62f686ab59ccaa6300fbe1f" title="Inserts an item at a given position in this ListOf&#39;s list of items.">ListOf::insertAndOwn()</a> functions. All other functions in libsbml add a copy of the element, and do not transfer ownership of the pointer.</span></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_fbc_s_base_plugin.html#a3e674eabe9dcb05218e87d32b7cdb7a0" title="Adds a copy of the given KeyValuePair to this FbcSBasePlugin.">addKeyValuePair(const KeyValuePair* object)</a> </dd>
 <dd>
 <a class="el" href="class_fbc_s_base_plugin.html#a9cbf55399f3936b5ce5dd267789041d5" title="Creates a new KeyValuePair object, adds it to this FbcSBasePlugin object and returns the KeyValuePair...">createKeyValuePair()</a> </dd>
@@ -1676,7 +1680,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Sets the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>. </p>
+<p>Sets the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">charge;</td><td>double value of the "charge" attribute to be set</td></tr>
@@ -1715,7 +1719,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Sets the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>. </p>
+<p>Sets the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">charge;</td><td>int value of the "charge" attribute to be set</td></tr>
@@ -1754,7 +1758,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Sets the value of the "chemicalFormula" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>. </p>
+<p>Sets the value of the "chemicalFormula" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">chemicalFormula;</td><td>const std::string&amp; value of the "chemicalFormula" attribute to be set</td></tr>
@@ -1834,7 +1838,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Unsets the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>. </p>
+<p>Unsets the value of the "charge" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
@@ -1866,7 +1870,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Unsets the value of the "chemicalFormula" attribute of this <a class="el" href="class_fbc_species_plugin.html" title="\ @ @ . .">FbcSpeciesPlugin</a>. </p>
+<p>Unsets the value of the "chemicalFormula" attribute of this <a class="el" href="class_fbc_species_plugin.html">FbcSpeciesPlugin</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>

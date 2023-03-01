@@ -98,7 +98,7 @@ $(document).ready(function(){initNavTree('class_model_creator.html',''); initRes
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>\ @ @ . ' . </p>
+<div class="textblock"> MIRIAM-compliant data about a model's creator.</p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  This class is not prescribed by
@@ -106,10 +106,10 @@ the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
 <p>The SBML specification beginning with Level&#160;2 Version&#160;2 defines a standard approach to recording model history and model creator information in a form that complies with MIRIAM ("Minimum Information
-  Requested in the Annotation of biochemical Models", <em>Nature Biotechnology</em>, vol. 23, no. 12, Dec. 2005). For the model creator, this form involves the use of parts of the <a href="http://en.wikipedia.org/wiki/VCard" target="_blank">vCard</a> representation. LibSBML provides the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> class as a convenience high-level interface for working with model creator data. Objects of class <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> can be used to store and carry around creator data within a program, and the various methods in this object class let callers manipulate the different parts of the model creator representation.</p>
+  Requested in the Annotation of biochemical Models", <em>Nature Biotechnology</em>, vol. 23, no. 12, Dec. 2005). For the model creator, this form involves the use of parts of the <a href="http://en.wikipedia.org/wiki/VCard" target="_blank">vCard</a> representation. LibSBML provides the <a class="el" href="class_model_creator.html">ModelCreator</a> class as a convenience high-level interface for working with model creator data. Objects of class <a class="el" href="class_model_creator.html">ModelCreator</a> can be used to store and carry around creator data within a program, and the various methods in this object class let callers manipulate the different parts of the model creator representation.</p>
 <h1><a class="anchor" id="parts"></a>
 The different parts of a model creator definition</h1>
-<p>The <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> class mirrors the structure of the MIRIAM model creator annotations in SBML. The following template illustrates these different fields when they are written in XML form:</p>
+<p>The <a class="el" href="class_model_creator.html">ModelCreator</a> class mirrors the structure of the MIRIAM model creator annotations in SBML. The following template illustrates these different fields when they are written in XML form:</p>
 <pre class="fragment">
 &lt;vCard:N rdf:parseType="Resource"&gt;
   &lt;vCard:Family&gt;<span style="background-color: #bbb">family name</span>&lt;/vCard:Family&gt;
@@ -121,104 +121,104 @@ The different parts of a model creator definition</h1>
 &lt;vCard:ORG rdf:parseType="Resource"&gt;
   &lt;vCard:Orgname&gt;<span style="background-color: #bbb">organization</span>&lt;/vCard:Orgname&gt;
 &lt;/vCard:ORG&gt;
-</pre><p>Each of the separate data values <span class="code" style="background-color: #bbb">family name</span>, <span class="code" style="background-color: #bbb">given name</span>, <span class="code" style="background-color: #bbb">email address</span>, and <span class="code" style="background-color: #bbb">organization</span> can be set and retrieved via corresponding methods in the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> class. These methods are documented in more detail below. </p>
+</pre><p>Each of the separate data values <span class="code" style="background-color: #bbb">family name</span>, <span class="code" style="background-color: #bbb">given name</span>, <span class="code" style="background-color: #bbb">email address</span>, and <span class="code" style="background-color: #bbb">organization</span> can be set and retrieved via corresponding methods in the <a class="el" href="class_model_creator.html">ModelCreator</a> class. These methods are documented in more detail below. </p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="add_model_history_8cpp-example.html#_a8">addModelHistory.cpp</a>.</dd>
 </dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a19a5fe4d47e8813f8a35d48d33910847"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_model_creator.html">ModelCreator</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a19a5fe4d47e8813f8a35d48d33910847">clone</a> () const</td></tr>
-<tr class="memdesc:a19a5fe4d47e8813f8a35d48d33910847"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object.  <a href="class_model_creator.html#a19a5fe4d47e8813f8a35d48d33910847">More...</a><br /></td></tr>
+<tr class="memdesc:a19a5fe4d47e8813f8a35d48d33910847"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_model_creator.html">ModelCreator</a> object.  <a href="class_model_creator.html#a19a5fe4d47e8813f8a35d48d33910847">More...</a><br /></td></tr>
 <tr class="separator:a19a5fe4d47e8813f8a35d48d33910847"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ec71603c2c8710819c6a217d4149355"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a3ec71603c2c8710819c6a217d4149355">getEmail</a> () const</td></tr>
-<tr class="memdesc:a3ec71603c2c8710819c6a217d4149355"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the "email" stored in this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object.  <a href="class_model_creator.html#a3ec71603c2c8710819c6a217d4149355">More...</a><br /></td></tr>
+<tr class="memdesc:a3ec71603c2c8710819c6a217d4149355"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the "email" stored in this <a class="el" href="class_model_creator.html">ModelCreator</a> object.  <a href="class_model_creator.html#a3ec71603c2c8710819c6a217d4149355">More...</a><br /></td></tr>
 <tr class="separator:a3ec71603c2c8710819c6a217d4149355"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad38dda2aef1938b4688ca4b078912dce"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#ad38dda2aef1938b4688ca4b078912dce">getFamilyName</a> () const</td></tr>
-<tr class="memdesc:ad38dda2aef1938b4688ca4b078912dce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the "family name" stored in this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object.  <a href="class_model_creator.html#ad38dda2aef1938b4688ca4b078912dce">More...</a><br /></td></tr>
+<tr class="memdesc:ad38dda2aef1938b4688ca4b078912dce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the "family name" stored in this <a class="el" href="class_model_creator.html">ModelCreator</a> object.  <a href="class_model_creator.html#ad38dda2aef1938b4688ca4b078912dce">More...</a><br /></td></tr>
 <tr class="separator:ad38dda2aef1938b4688ca4b078912dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a002cf70d657c8d5bb8d6ba2174d6e9"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a0a002cf70d657c8d5bb8d6ba2174d6e9">getGivenName</a> () const</td></tr>
-<tr class="memdesc:a0a002cf70d657c8d5bb8d6ba2174d6e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the "given name" stored in this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object.  <a href="class_model_creator.html#a0a002cf70d657c8d5bb8d6ba2174d6e9">More...</a><br /></td></tr>
+<tr class="memdesc:a0a002cf70d657c8d5bb8d6ba2174d6e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the "given name" stored in this <a class="el" href="class_model_creator.html">ModelCreator</a> object.  <a href="class_model_creator.html#a0a002cf70d657c8d5bb8d6ba2174d6e9">More...</a><br /></td></tr>
 <tr class="separator:a0a002cf70d657c8d5bb8d6ba2174d6e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69d26a58f51f961cea98f4e7e8d77dc2"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a69d26a58f51f961cea98f4e7e8d77dc2">getName</a> () const</td></tr>
-<tr class="memdesc:a69d26a58f51f961cea98f4e7e8d77dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the "fn" stored in this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object when using vCard4.  <a href="class_model_creator.html#a69d26a58f51f961cea98f4e7e8d77dc2">More...</a><br /></td></tr>
+<tr class="memdesc:a69d26a58f51f961cea98f4e7e8d77dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the "fn" stored in this <a class="el" href="class_model_creator.html">ModelCreator</a> object when using vCard4.  <a href="class_model_creator.html#a69d26a58f51f961cea98f4e7e8d77dc2">More...</a><br /></td></tr>
 <tr class="separator:a69d26a58f51f961cea98f4e7e8d77dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92c68f8998c9b922f621e52b058735ef"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a92c68f8998c9b922f621e52b058735ef">getOrganisation</a> () const</td></tr>
-<tr class="memdesc:a92c68f8998c9b922f621e52b058735ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Alternate spelling) Returns the "organization" stored in this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object.  <a href="class_model_creator.html#a92c68f8998c9b922f621e52b058735ef">More...</a><br /></td></tr>
+<tr class="memdesc:a92c68f8998c9b922f621e52b058735ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Alternate spelling) Returns the "organization" stored in this <a class="el" href="class_model_creator.html">ModelCreator</a> object.  <a href="class_model_creator.html#a92c68f8998c9b922f621e52b058735ef">More...</a><br /></td></tr>
 <tr class="separator:a92c68f8998c9b922f621e52b058735ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a662d3e1727b68f881c4f3d89cdd44c90"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a662d3e1727b68f881c4f3d89cdd44c90">getOrganization</a> () const</td></tr>
-<tr class="memdesc:a662d3e1727b68f881c4f3d89cdd44c90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the "organization" stored in this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object.  <a href="class_model_creator.html#a662d3e1727b68f881c4f3d89cdd44c90">More...</a><br /></td></tr>
+<tr class="memdesc:a662d3e1727b68f881c4f3d89cdd44c90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the "organization" stored in this <a class="el" href="class_model_creator.html">ModelCreator</a> object.  <a href="class_model_creator.html#a662d3e1727b68f881c4f3d89cdd44c90">More...</a><br /></td></tr>
 <tr class="separator:a662d3e1727b68f881c4f3d89cdd44c90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c8463780950a3669bd905e62243d653"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a6c8463780950a3669bd905e62243d653">hasRequiredAttributes</a> ()</td></tr>
-<tr class="memdesc:a6c8463780950a3669bd905e62243d653"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> if all the required elements for this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object have been set.  <a href="class_model_creator.html#a6c8463780950a3669bd905e62243d653">More...</a><br /></td></tr>
+<tr class="memdesc:a6c8463780950a3669bd905e62243d653"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> if all the required elements for this <a class="el" href="class_model_creator.html">ModelCreator</a> object have been set.  <a href="class_model_creator.html#a6c8463780950a3669bd905e62243d653">More...</a><br /></td></tr>
 <tr class="separator:a6c8463780950a3669bd905e62243d653"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b5c84dbf347a0c05aee229ebae2a5be"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a7b5c84dbf347a0c05aee229ebae2a5be">isSetEmail</a> ()</td></tr>
-<tr class="memdesc:a7b5c84dbf347a0c05aee229ebae2a5be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>'s "email" part is set.  <a href="class_model_creator.html#a7b5c84dbf347a0c05aee229ebae2a5be">More...</a><br /></td></tr>
+<tr class="memdesc:a7b5c84dbf347a0c05aee229ebae2a5be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html">ModelCreator</a>'s "email" part is set.  <a href="class_model_creator.html#a7b5c84dbf347a0c05aee229ebae2a5be">More...</a><br /></td></tr>
 <tr class="separator:a7b5c84dbf347a0c05aee229ebae2a5be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebc772c4bf724cb167a525188064594d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#aebc772c4bf724cb167a525188064594d">isSetFamilyName</a> ()</td></tr>
-<tr class="memdesc:aebc772c4bf724cb167a525188064594d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>'s "family name" part is set.  <a href="class_model_creator.html#aebc772c4bf724cb167a525188064594d">More...</a><br /></td></tr>
+<tr class="memdesc:aebc772c4bf724cb167a525188064594d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html">ModelCreator</a>'s "family name" part is set.  <a href="class_model_creator.html#aebc772c4bf724cb167a525188064594d">More...</a><br /></td></tr>
 <tr class="separator:aebc772c4bf724cb167a525188064594d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a525db14dde26172e7b30125c514eddfc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a525db14dde26172e7b30125c514eddfc">isSetGivenName</a> ()</td></tr>
-<tr class="memdesc:a525db14dde26172e7b30125c514eddfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>'s "given name" part is set.  <a href="class_model_creator.html#a525db14dde26172e7b30125c514eddfc">More...</a><br /></td></tr>
+<tr class="memdesc:a525db14dde26172e7b30125c514eddfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html">ModelCreator</a>'s "given name" part is set.  <a href="class_model_creator.html#a525db14dde26172e7b30125c514eddfc">More...</a><br /></td></tr>
 <tr class="separator:a525db14dde26172e7b30125c514eddfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17e97a58ef7394ec7c13f7565b6cf164"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a17e97a58ef7394ec7c13f7565b6cf164">isSetName</a> ()</td></tr>
-<tr class="memdesc:a17e97a58ef7394ec7c13f7565b6cf164"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>'s "fn" part is set (when using vCard4).  <a href="class_model_creator.html#a17e97a58ef7394ec7c13f7565b6cf164">More...</a><br /></td></tr>
+<tr class="memdesc:a17e97a58ef7394ec7c13f7565b6cf164"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html">ModelCreator</a>'s "fn" part is set (when using vCard4).  <a href="class_model_creator.html#a17e97a58ef7394ec7c13f7565b6cf164">More...</a><br /></td></tr>
 <tr class="separator:a17e97a58ef7394ec7c13f7565b6cf164"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53f48d6d057579709dc433bf937a5296"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a53f48d6d057579709dc433bf937a5296">isSetOrganisation</a> ()</td></tr>
-<tr class="memdesc:a53f48d6d057579709dc433bf937a5296"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Alternate spelling) Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>'s "organization" part is set.  <a href="class_model_creator.html#a53f48d6d057579709dc433bf937a5296">More...</a><br /></td></tr>
+<tr class="memdesc:a53f48d6d057579709dc433bf937a5296"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Alternate spelling) Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html">ModelCreator</a>'s "organization" part is set.  <a href="class_model_creator.html#a53f48d6d057579709dc433bf937a5296">More...</a><br /></td></tr>
 <tr class="separator:a53f48d6d057579709dc433bf937a5296"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e4a9c70136a4ead1995afdf5313dab5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a1e4a9c70136a4ead1995afdf5313dab5">isSetOrganization</a> ()</td></tr>
-<tr class="memdesc:a1e4a9c70136a4ead1995afdf5313dab5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>'s "organization" part is set.  <a href="class_model_creator.html#a1e4a9c70136a4ead1995afdf5313dab5">More...</a><br /></td></tr>
+<tr class="memdesc:a1e4a9c70136a4ead1995afdf5313dab5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html">ModelCreator</a>'s "organization" part is set.  <a href="class_model_creator.html#a1e4a9c70136a4ead1995afdf5313dab5">More...</a><br /></td></tr>
 <tr class="separator:a1e4a9c70136a4ead1995afdf5313dab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3af8e90bc1e7e38796572e2da0d0f928"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a3af8e90bc1e7e38796572e2da0d0f928">ModelCreator</a> ()</td></tr>
-<tr class="memdesc:a3af8e90bc1e7e38796572e2da0d0f928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object.  <a href="class_model_creator.html#a3af8e90bc1e7e38796572e2da0d0f928">More...</a><br /></td></tr>
+<tr class="memdesc:a3af8e90bc1e7e38796572e2da0d0f928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_model_creator.html">ModelCreator</a> object.  <a href="class_model_creator.html#a3af8e90bc1e7e38796572e2da0d0f928">More...</a><br /></td></tr>
 <tr class="separator:a3af8e90bc1e7e38796572e2da0d0f928"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4898bbd160350c3fae248a80f538cbc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#aa4898bbd160350c3fae248a80f538cbc">ModelCreator</a> (const <a class="el" href="class_model_creator.html">ModelCreator</a> &amp;orig)</td></tr>
-<tr class="memdesc:aa4898bbd160350c3fae248a80f538cbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor; creates a copy of the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>.  <a href="class_model_creator.html#aa4898bbd160350c3fae248a80f538cbc">More...</a><br /></td></tr>
+<tr class="memdesc:aa4898bbd160350c3fae248a80f538cbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor; creates a copy of the <a class="el" href="class_model_creator.html">ModelCreator</a>.  <a href="class_model_creator.html#aa4898bbd160350c3fae248a80f538cbc">More...</a><br /></td></tr>
 <tr class="separator:aa4898bbd160350c3fae248a80f538cbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2ade03ddf57a8533eede535cbdf5b6c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#ab2ade03ddf57a8533eede535cbdf5b6c">ModelCreator</a> (const <a class="el" href="class_x_m_l_node.html">XMLNode</a> creator)</td></tr>
-<tr class="memdesc:ab2ade03ddf57a8533eede535cbdf5b6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> from an <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>.  <a href="class_model_creator.html#ab2ade03ddf57a8533eede535cbdf5b6c">More...</a><br /></td></tr>
+<tr class="memdesc:ab2ade03ddf57a8533eede535cbdf5b6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_model_creator.html">ModelCreator</a> from an <a class="el" href="class_x_m_l_node.html">XMLNode</a>.  <a href="class_model_creator.html#ab2ade03ddf57a8533eede535cbdf5b6c">More...</a><br /></td></tr>
 <tr class="separator:ab2ade03ddf57a8533eede535cbdf5b6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84f2af2154e7a8370793bf0a40cedb95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_model_creator.html">ModelCreator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a84f2af2154e7a8370793bf0a40cedb95">operator=</a> (const <a class="el" href="class_model_creator.html">ModelCreator</a> &amp;rhs)</td></tr>
 <tr class="memdesc:a84f2af2154e7a8370793bf0a40cedb95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator.  <a href="class_model_creator.html#a84f2af2154e7a8370793bf0a40cedb95">More...</a><br /></td></tr>
 <tr class="separator:a84f2af2154e7a8370793bf0a40cedb95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9362366ab84ac1f17968ffa47df4f1b5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a9362366ab84ac1f17968ffa47df4f1b5">setEmail</a> (const std::string &amp;email)</td></tr>
-<tr class="memdesc:a9362366ab84ac1f17968ffa47df4f1b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the "email" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object.  <a href="class_model_creator.html#a9362366ab84ac1f17968ffa47df4f1b5">More...</a><br /></td></tr>
+<tr class="memdesc:a9362366ab84ac1f17968ffa47df4f1b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the "email" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object.  <a href="class_model_creator.html#a9362366ab84ac1f17968ffa47df4f1b5">More...</a><br /></td></tr>
 <tr class="separator:a9362366ab84ac1f17968ffa47df4f1b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d1d37ce5e4982a41eb6f46adb29d2de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a6d1d37ce5e4982a41eb6f46adb29d2de">setFamilyName</a> (const std::string &amp;familyName)</td></tr>
-<tr class="memdesc:a6d1d37ce5e4982a41eb6f46adb29d2de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the "family name" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object.  <a href="class_model_creator.html#a6d1d37ce5e4982a41eb6f46adb29d2de">More...</a><br /></td></tr>
+<tr class="memdesc:a6d1d37ce5e4982a41eb6f46adb29d2de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the "family name" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object.  <a href="class_model_creator.html#a6d1d37ce5e4982a41eb6f46adb29d2de">More...</a><br /></td></tr>
 <tr class="separator:a6d1d37ce5e4982a41eb6f46adb29d2de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e0ace1c1d82afb21d6045b362a96846"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a3e0ace1c1d82afb21d6045b362a96846">setGivenName</a> (const std::string &amp;givenName)</td></tr>
-<tr class="memdesc:a3e0ace1c1d82afb21d6045b362a96846"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the "given name" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object.  <a href="class_model_creator.html#a3e0ace1c1d82afb21d6045b362a96846">More...</a><br /></td></tr>
+<tr class="memdesc:a3e0ace1c1d82afb21d6045b362a96846"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the "given name" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object.  <a href="class_model_creator.html#a3e0ace1c1d82afb21d6045b362a96846">More...</a><br /></td></tr>
 <tr class="separator:a3e0ace1c1d82afb21d6045b362a96846"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b44f989faa8aeba2987e4caa824f4b7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a5b44f989faa8aeba2987e4caa824f4b7">setName</a> (const std::string &amp;name)</td></tr>
-<tr class="memdesc:a5b44f989faa8aeba2987e4caa824f4b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the "fn" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object (when using vCard4).  <a href="class_model_creator.html#a5b44f989faa8aeba2987e4caa824f4b7">More...</a><br /></td></tr>
+<tr class="memdesc:a5b44f989faa8aeba2987e4caa824f4b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the "fn" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object (when using vCard4).  <a href="class_model_creator.html#a5b44f989faa8aeba2987e4caa824f4b7">More...</a><br /></td></tr>
 <tr class="separator:a5b44f989faa8aeba2987e4caa824f4b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af249dd58ce983f078f3c1b915f47be17"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#af249dd58ce983f078f3c1b915f47be17">setOrganisation</a> (const std::string &amp;organization)</td></tr>
-<tr class="memdesc:af249dd58ce983f078f3c1b915f47be17"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Alternate spelling) Sets the "organization" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object.  <a href="class_model_creator.html#af249dd58ce983f078f3c1b915f47be17">More...</a><br /></td></tr>
+<tr class="memdesc:af249dd58ce983f078f3c1b915f47be17"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Alternate spelling) Sets the "organization" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object.  <a href="class_model_creator.html#af249dd58ce983f078f3c1b915f47be17">More...</a><br /></td></tr>
 <tr class="separator:af249dd58ce983f078f3c1b915f47be17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a920dd4997599617ba9e7a37f476602"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a4a920dd4997599617ba9e7a37f476602">setOrganization</a> (const std::string &amp;organization)</td></tr>
-<tr class="memdesc:a4a920dd4997599617ba9e7a37f476602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the "organization" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object.  <a href="class_model_creator.html#a4a920dd4997599617ba9e7a37f476602">More...</a><br /></td></tr>
+<tr class="memdesc:a4a920dd4997599617ba9e7a37f476602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the "organization" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object.  <a href="class_model_creator.html#a4a920dd4997599617ba9e7a37f476602">More...</a><br /></td></tr>
 <tr class="separator:a4a920dd4997599617ba9e7a37f476602"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf5d57ca4db479295b2c7465629fd02b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#acf5d57ca4db479295b2c7465629fd02b">unsetEmail</a> ()</td></tr>
-<tr class="memdesc:acf5d57ca4db479295b2c7465629fd02b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the "email" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object.  <a href="class_model_creator.html#acf5d57ca4db479295b2c7465629fd02b">More...</a><br /></td></tr>
+<tr class="memdesc:acf5d57ca4db479295b2c7465629fd02b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the "email" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object.  <a href="class_model_creator.html#acf5d57ca4db479295b2c7465629fd02b">More...</a><br /></td></tr>
 <tr class="separator:acf5d57ca4db479295b2c7465629fd02b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd5eec69e80d13e1bd7b8f8269a0b8b9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#afd5eec69e80d13e1bd7b8f8269a0b8b9">unsetFamilyName</a> ()</td></tr>
-<tr class="memdesc:afd5eec69e80d13e1bd7b8f8269a0b8b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the "family name" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object.  <a href="class_model_creator.html#afd5eec69e80d13e1bd7b8f8269a0b8b9">More...</a><br /></td></tr>
+<tr class="memdesc:afd5eec69e80d13e1bd7b8f8269a0b8b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the "family name" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object.  <a href="class_model_creator.html#afd5eec69e80d13e1bd7b8f8269a0b8b9">More...</a><br /></td></tr>
 <tr class="separator:afd5eec69e80d13e1bd7b8f8269a0b8b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9852e8815a0584fec0672da517b5becf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a9852e8815a0584fec0672da517b5becf">unsetGivenName</a> ()</td></tr>
-<tr class="memdesc:a9852e8815a0584fec0672da517b5becf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the "given name" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object.  <a href="class_model_creator.html#a9852e8815a0584fec0672da517b5becf">More...</a><br /></td></tr>
+<tr class="memdesc:a9852e8815a0584fec0672da517b5becf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the "given name" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object.  <a href="class_model_creator.html#a9852e8815a0584fec0672da517b5becf">More...</a><br /></td></tr>
 <tr class="separator:a9852e8815a0584fec0672da517b5becf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ed0100f631dc6edbe9ccef5b5ba6567"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a4ed0100f631dc6edbe9ccef5b5ba6567">unsetName</a> ()</td></tr>
-<tr class="memdesc:a4ed0100f631dc6edbe9ccef5b5ba6567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the "fn" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object (when using vCard4).  <a href="class_model_creator.html#a4ed0100f631dc6edbe9ccef5b5ba6567">More...</a><br /></td></tr>
+<tr class="memdesc:a4ed0100f631dc6edbe9ccef5b5ba6567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the "fn" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object (when using vCard4).  <a href="class_model_creator.html#a4ed0100f631dc6edbe9ccef5b5ba6567">More...</a><br /></td></tr>
 <tr class="separator:a4ed0100f631dc6edbe9ccef5b5ba6567"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b419080560ee8c39e15e2bdc04ffd13"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a9b419080560ee8c39e15e2bdc04ffd13">unsetOrganisation</a> ()</td></tr>
-<tr class="memdesc:a9b419080560ee8c39e15e2bdc04ffd13"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Alternate spelling) Unsets the "organization" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object.  <a href="class_model_creator.html#a9b419080560ee8c39e15e2bdc04ffd13">More...</a><br /></td></tr>
+<tr class="memdesc:a9b419080560ee8c39e15e2bdc04ffd13"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Alternate spelling) Unsets the "organization" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object.  <a href="class_model_creator.html#a9b419080560ee8c39e15e2bdc04ffd13">More...</a><br /></td></tr>
 <tr class="separator:a9b419080560ee8c39e15e2bdc04ffd13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6df3e9db517c8edb85d0d63422ae3902"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a6df3e9db517c8edb85d0d63422ae3902">unsetOrganization</a> ()</td></tr>
-<tr class="memdesc:a6df3e9db517c8edb85d0d63422ae3902"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the "organization" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object.  <a href="class_model_creator.html#a6df3e9db517c8edb85d0d63422ae3902">More...</a><br /></td></tr>
+<tr class="memdesc:a6df3e9db517c8edb85d0d63422ae3902"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the "organization" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object.  <a href="class_model_creator.html#a6df3e9db517c8edb85d0d63422ae3902">More...</a><br /></td></tr>
 <tr class="separator:a6df3e9db517c8edb85d0d63422ae3902"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d84c8d7f4ea10f84ddea58b7d6ffdf0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_creator.html#a6d84c8d7f4ea10f84ddea58b7d6ffdf0">~ModelCreator</a> ()</td></tr>
-<tr class="memdesc:a6d84c8d7f4ea10f84ddea58b7d6ffdf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>.  <a href="class_model_creator.html#a6d84c8d7f4ea10f84ddea58b7d6ffdf0">More...</a><br /></td></tr>
+<tr class="memdesc:a6d84c8d7f4ea10f84ddea58b7d6ffdf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the <a class="el" href="class_model_creator.html">ModelCreator</a>.  <a href="class_model_creator.html#a6d84c8d7f4ea10f84ddea58b7d6ffdf0">More...</a><br /></td></tr>
 <tr class="separator:a6d84c8d7f4ea10f84ddea58b7d6ffdf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -237,7 +237,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </p>
+<p>Creates a new <a class="el" href="class_model_creator.html">ModelCreator</a> object. </p>
 
 </div>
 </div>
@@ -257,10 +257,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> from an <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>. </p>
+<p>Creates a new <a class="el" href="class_model_creator.html">ModelCreator</a> from an <a class="el" href="class_x_m_l_node.html">XMLNode</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">creator</td><td>the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> from which to create the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>. </td></tr>
+    <tr><td class="paramname">creator</td><td>the <a class="el" href="class_x_m_l_node.html">XMLNode</a> from which to create the <a class="el" href="class_model_creator.html">ModelCreator</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -282,7 +282,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Destroys the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>. </p>
+<p>Destroys the <a class="el" href="class_model_creator.html">ModelCreator</a>. </p>
 
 </div>
 </div>
@@ -302,7 +302,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copy constructor; creates a copy of the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>. </p>
+<p>Copy constructor; creates a copy of the <a class="el" href="class_model_creator.html">ModelCreator</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">orig</td><td>the object to copy. </td></tr>
@@ -328,8 +328,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates and returns a deep copy of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the (deep) copy of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </dd></dl>
+<p>Creates and returns a deep copy of this <a class="el" href="class_model_creator.html">ModelCreator</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the (deep) copy of this <a class="el" href="class_model_creator.html">ModelCreator</a> object. </dd></dl>
 
 </div>
 </div>
@@ -356,8 +356,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the "email" stored in this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>email from the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>. </dd></dl>
+<p>Returns the "email" stored in this <a class="el" href="class_model_creator.html">ModelCreator</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>email from the <a class="el" href="class_model_creator.html">ModelCreator</a>. </dd></dl>
 
 </div>
 </div>
@@ -384,8 +384,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the "family name" stored in this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the "family name" portion of the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </dd></dl>
+<p>Returns the "family name" stored in this <a class="el" href="class_model_creator.html">ModelCreator</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the "family name" portion of the <a class="el" href="class_model_creator.html">ModelCreator</a> object. </dd></dl>
 
 </div>
 </div>
@@ -412,8 +412,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the "given name" stored in this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the "given name" portion of the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </dd></dl>
+<p>Returns the "given name" stored in this <a class="el" href="class_model_creator.html">ModelCreator</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the "given name" portion of the <a class="el" href="class_model_creator.html">ModelCreator</a> object. </dd></dl>
 
 </div>
 </div>
@@ -440,8 +440,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the "fn" stored in this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object when using vCard4. </p>
-<dl class="section return"><dt>Returns</dt><dd>the "fn" portion of the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </dd></dl>
+<p>Returns the "fn" stored in this <a class="el" href="class_model_creator.html">ModelCreator</a> object when using vCard4. </p>
+<dl class="section return"><dt>Returns</dt><dd>the "fn" portion of the <a class="el" href="class_model_creator.html">ModelCreator</a> object. </dd></dl>
 
 </div>
 </div>
@@ -468,9 +468,9 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>(Alternate spelling) Returns the "organization" stored in this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </p>
+<p>(Alternate spelling) Returns the "organization" stored in this <a class="el" href="class_model_creator.html">ModelCreator</a> object. </p>
 <dl class="section note"><dt>Note</dt><dd>This function is an alias of <a class="el" href="class_model_creator.html#a662d3e1727b68f881c4f3d89cdd44c90" title="Returns the &quot;organization&quot; stored in this ModelCreator object.">getOrganization()</a>.</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>organization from the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>organization from the <a class="el" href="class_model_creator.html">ModelCreator</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_model_creator.html#a662d3e1727b68f881c4f3d89cdd44c90" title="Returns the &quot;organization&quot; stored in this ModelCreator object.">getOrganization()</a> </dd></dl>
 
 </div>
@@ -498,8 +498,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the "organization" stored in this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>organization from the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>. </dd></dl>
+<p>Returns the "organization" stored in this <a class="el" href="class_model_creator.html">ModelCreator</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>organization from the <a class="el" href="class_model_creator.html">ModelCreator</a>. </dd></dl>
 
 </div>
 </div>
@@ -518,8 +518,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Predicate returning <code>true</code> if all the required elements for this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object have been set. </p>
-<p>The only required elements for a <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object are the "family
+<p>Predicate returning <code>true</code> if all the required elements for this <a class="el" href="class_model_creator.html">ModelCreator</a> object have been set. </p>
+<p>The only required elements for a <a class="el" href="class_model_creator.html">ModelCreator</a> object are the "family
 name" and "given name".</p>
 <dl class="section return"><dt>Returns</dt><dd>a boolean value indicating whether all the required elements for this object have been defined. </dd></dl>
 
@@ -540,8 +540,8 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>'s "email" part is set. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the email of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> is set, <code>false</code> otherwise. </dd></dl>
+<p>Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html">ModelCreator</a>'s "email" part is set. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the email of this <a class="el" href="class_model_creator.html">ModelCreator</a> is set, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -560,8 +560,8 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>'s "family name" part is set. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the familyName of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> is set, <code>false</code> otherwise. </dd></dl>
+<p>Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html">ModelCreator</a>'s "family name" part is set. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the familyName of this <a class="el" href="class_model_creator.html">ModelCreator</a> is set, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -580,8 +580,8 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>'s "given name" part is set. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the givenName of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> is set, <code>false</code> otherwise. </dd></dl>
+<p>Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html">ModelCreator</a>'s "given name" part is set. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the givenName of this <a class="el" href="class_model_creator.html">ModelCreator</a> is set, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -600,8 +600,8 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>'s "fn" part is set (when using vCard4). </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the fn of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> is set, <code>false</code> otherwise. </dd></dl>
+<p>Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html">ModelCreator</a>'s "fn" part is set (when using vCard4). </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the fn of this <a class="el" href="class_model_creator.html">ModelCreator</a> is set, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -620,9 +620,9 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>(Alternate spelling) Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>'s "organization" part is set. </p>
+<p>(Alternate spelling) Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html">ModelCreator</a>'s "organization" part is set. </p>
 <dl class="section note"><dt>Note</dt><dd>This function is an alias of <a class="el" href="class_model_creator.html#a1e4a9c70136a4ead1995afdf5313dab5" title="Predicate returning true or false depending on whether this ModelCreator&#39;s &quot;organization&quot; part is set...">isSetOrganization()</a>.</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the organization of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> is set, <code>false</code> otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the organization of this <a class="el" href="class_model_creator.html">ModelCreator</a> is set, <code>false</code> otherwise.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_model_creator.html#a1e4a9c70136a4ead1995afdf5313dab5" title="Predicate returning true or false depending on whether this ModelCreator&#39;s &quot;organization&quot; part is set...">isSetOrganization()</a> </dd></dl>
 
 </div>
@@ -642,8 +642,8 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>'s "organization" part is set. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the organization of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> is set, <code>false</code> otherwise. </dd></dl>
+<p>Predicate returning <code>true</code> or <code>false</code> depending on whether this <a class="el" href="class_model_creator.html">ModelCreator</a>'s "organization" part is set. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the organization of this <a class="el" href="class_model_creator.html">ModelCreator</a> is set, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -689,10 +689,10 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the "email" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </p>
+<p>Sets the "email" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">email</td><td>a string representing the email of the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>.</td></tr>
+    <tr><td class="paramname">email</td><td>a string representing the email of the <a class="el" href="class_model_creator.html">ModelCreator</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -722,10 +722,10 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the "family name" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </p>
+<p>Sets the "family name" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">familyName</td><td>a string representing the familyName of the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>.</td></tr>
+    <tr><td class="paramname">familyName</td><td>a string representing the familyName of the <a class="el" href="class_model_creator.html">ModelCreator</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -755,10 +755,10 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the "given name" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </p>
+<p>Sets the "given name" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">givenName</td><td>a string representing the givenName of the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>.</td></tr>
+    <tr><td class="paramname">givenName</td><td>a string representing the givenName of the <a class="el" href="class_model_creator.html">ModelCreator</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -788,10 +788,10 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the "fn" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object (when using vCard4). </p>
+<p>Sets the "fn" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object (when using vCard4). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td>a string representing the fn of the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>.</td></tr>
+    <tr><td class="paramname">name</td><td>a string representing the fn of the <a class="el" href="class_model_creator.html">ModelCreator</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -819,10 +819,10 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>(Alternate spelling) Sets the "organization" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </p>
+<p>(Alternate spelling) Sets the "organization" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">organization</td><td>a string representing the organization of the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>.</td></tr>
+    <tr><td class="paramname">organization</td><td>a string representing the organization of the <a class="el" href="class_model_creator.html">ModelCreator</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -852,10 +852,10 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the "organization" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </p>
+<p>Sets the "organization" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">organization</td><td>a string representing the organization of the <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a>.</td></tr>
+    <tr><td class="paramname">organization</td><td>a string representing the organization of the <a class="el" href="class_model_creator.html">ModelCreator</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -884,7 +884,7 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>Unsets the "email" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </p>
+<p>Unsets the "email" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object. </p>
 <dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
@@ -908,7 +908,7 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>Unsets the "family name" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </p>
+<p>Unsets the "family name" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object. </p>
 <dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
@@ -932,7 +932,7 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>Unsets the "given name" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </p>
+<p>Unsets the "given name" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object. </p>
 <dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
@@ -956,7 +956,7 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>Unsets the "fn" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object (when using vCard4). </p>
+<p>Unsets the "fn" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object (when using vCard4). </p>
 <dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
@@ -980,7 +980,7 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>(Alternate spelling) Unsets the "organization" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </p>
+<p>(Alternate spelling) Unsets the "organization" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object. </p>
 <dl class="section note"><dt>Note</dt><dd>This function is an alias of <a class="el" href="class_model_creator.html#a6df3e9db517c8edb85d0d63422ae3902" title="Unsets the &quot;organization&quot; portion of this ModelCreator object.">unsetOrganization()</a>.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
@@ -1006,7 +1006,7 @@ name" and "given name".</p>
       </table>
 </div><div class="memdoc">
 
-<p>Unsets the "organization" portion of this <a class="el" href="class_model_creator.html" title="\ @ @ . &#39; .">ModelCreator</a> object. </p>
+<p>Unsets the "organization" portion of this <a class="el" href="class_model_creator.html">ModelCreator</a> object. </p>
 <dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
