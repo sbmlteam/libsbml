@@ -99,20 +99,38 @@ $(document).ready(function(){initNavTree('class_s_base_extension_point.html','')
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><br  />
-</p>
- Base class for extending SBML components</p>
+<div class="textblock"><p>\ @ @ . </p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  This class is not prescribed by
 the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
+<dl class="section user"><dt></dt><dd>This class is used as part of the mechanism that connects plugin objects (implemented using <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a> or <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a>) to a given package extension. For instance, an implementation of an extended version of <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> (e.g., <a class="el" href="class_layout_model_plugin.html" title="\ @ @ . .">LayoutModelPlugin</a> in the Layout package) would involve the creation of an extension point using <a class="el" href="class_s_base_extension_point.html" title="\ @ @ .">SBaseExtensionPoint</a> and a mediator object created using <a class="el" href="class_s_base_plugin_creator.html" title="\ @ @ . .">SBasePluginCreator</a>, to "plug" the extended <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> object (<a class="el" href="class_layout_model_plugin.html" title="\ @ @ . .">LayoutModelPlugin</a>) into the overall <a class="el" href="class_layout_extension.html" title="\ @ @ . .">LayoutExtension</a> object.</dd></dl>
+<p>The use of <a class="el" href="class_s_base_extension_point.html" title="\ @ @ .">SBaseExtensionPoint</a> is relatively straightforward. The class needs to be used for each extended SBML object implemented using <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> or <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a>. Doing so requires knowing just two things:</p>
+<ul>
+<li>The short-form name of the <em>parent</em> package being extended. The parent package is often simply core SBML, identified in libSBML by the nickname <code>"core"</code>, but a SBML Level&#160;3 package could conceivably extend another Level&#160;3 package.</li>
+</ul>
+<ul>
+<li>The libSBML type code assigned to the object being extended. For example, if an extension of <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> is implemented, the relevant type code is SBMLTypeCode_t::SBML_MODEL, found in <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfe" title="The enumeration of possible SBML core object types.">SBMLTypeCode_t</a>.</li>
+</ul>
+<p>The typical use of <a class="el" href="class_s_base_extension_point.html" title="\ @ @ .">SBaseExtensionPoint</a> is illustrated by the following code fragment:</p>
+<div class="fragment"><div class="line"><a class="code" href="class_s_base_extension_point.html">SBaseExtensionPoint</a> docExtPoint(<span class="stringliteral">&quot;core&quot;</span>, <a class="code" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfeabfe976c674a5a708c1373dfdfa3bfa63">SBML_DOCUMENT</a>);</div>
+<div class="line"><a class="code" href="class_s_base_extension_point.html">SBaseExtensionPoint</a> modelExtPoint(<span class="stringliteral">&quot;core&quot;</span>, <a class="code" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfea3c866be107d7858b6dd1e978ed103028">SBML_MODEL</a>);</div>
+<div class="line"> </div>
+<div class="line"><a class="code" href="class_s_base_plugin_creator.html">SBasePluginCreator&lt;GroupsSBMLDocumentPlugin, GroupsExtension&gt;</a> docPluginCreator(docExtPoint, pkgURIs);</div>
+<div class="line"><a class="code" href="class_s_base_plugin_creator.html">SBasePluginCreator&lt;GroupsModelPlugin, GroupsExtension&gt;</a> modelPluginCreator(modelExtPoint, pkgURIs);</div>
+<div class="ttc" id="a_s_b_m_l_type_codes_8h_html_aa283dddfd7671179362b2f38e2938cfea3c866be107d7858b6dd1e978ed103028"><div class="ttname"><a href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfea3c866be107d7858b6dd1e978ed103028">SBML_MODEL</a></div><div class="ttdeci">@ SBML_MODEL</div><div class="ttdef"><b>Definition:</b> SBMLTypeCodes.h:75</div></div>
+<div class="ttc" id="a_s_b_m_l_type_codes_8h_html_aa283dddfd7671179362b2f38e2938cfeabfe976c674a5a708c1373dfdfa3bfa63"><div class="ttname"><a href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfeabfe976c674a5a708c1373dfdfa3bfa63">SBML_DOCUMENT</a></div><div class="ttdeci">@ SBML_DOCUMENT</div><div class="ttdef"><b>Definition:</b> SBMLTypeCodes.h:68</div></div>
+<div class="ttc" id="aclass_s_base_extension_point_html"><div class="ttname"><a href="class_s_base_extension_point.html">SBaseExtensionPoint</a></div><div class="ttdoc">\ @ @ .</div><div class="ttdef"><b>Definition:</b> SBaseExtensionPoint.h:65</div></div>
+<div class="ttc" id="aclass_s_base_plugin_creator_html"><div class="ttname"><a href="class_s_base_plugin_creator.html">SBasePluginCreator</a></div><div class="ttdoc">\ @ @ . .</div><div class="ttdef"><b>Definition:</b> SBasePluginCreator.h:64</div></div>
+</div><!-- fragment --><p>The code above shows two core SBML components being extended: the document object, and the <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> object. These extended objects are created elsewhere (not shown) as the <code><a class="el" href="class_groups_s_b_m_l_document_plugin.html" title="\ @ @ . .">GroupsSBMLDocumentPlugin</a></code> and <code><a class="el" href="class_groups_model_plugin.html" title="\ @ @ . .">GroupsModelPlugin</a></code> objects. The corresponding <a class="el" href="class_s_base_extension_point.html" title="\ @ @ .">SBaseExtensionPoint</a> objects are handed as arguments to the constructor for <a class="el" href="class_s_base_plugin_creator.html" title="\ @ @ . .">SBasePluginCreator</a> to create the connection between the extended core components and the overall package extension (here, for the Groups package, with the <code><a class="el" href="class_groups_extension.html" title="\ @ @ . .">GroupsExtension</a></code> object).</p>
+<p>The code above is typically placed in the implementation of the <code>init()</code> method of the package class derived from <a class="el" href="class_s_b_m_l_extension.html" title="\ @ @ . 3 .">SBMLExtension</a>. (For the example above, it would be in the <code><a class="el" href="_groups_extension_8cpp.html" title="Implementation of GroupsExtension.">GroupsExtension.cpp</a></code> file.) </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:abf6d6adc7bc61a24ed1f586035f4defa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_base_extension_point.html">SBaseExtensionPoint</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_extension_point.html#abf6d6adc7bc61a24ed1f586035f4defa">clone</a> () const</td></tr>
-<tr class="memdesc:abf6d6adc7bc61a24ed1f586035f4defa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_s_base_extension_point.html">SBaseExtensionPoint</a> object.  <a href="class_s_base_extension_point.html#abf6d6adc7bc61a24ed1f586035f4defa">More...</a><br /></td></tr>
+<tr class="memdesc:abf6d6adc7bc61a24ed1f586035f4defa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_s_base_extension_point.html" title="\ @ @ .">SBaseExtensionPoint</a> object.  <a href="class_s_base_extension_point.html#abf6d6adc7bc61a24ed1f586035f4defa">More...</a><br /></td></tr>
 <tr class="separator:abf6d6adc7bc61a24ed1f586035f4defa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a158d7b199d7735fe77a02c76bd8c5bec"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_extension_point.html#a158d7b199d7735fe77a02c76bd8c5bec">getElementName</a> () const</td></tr>
 <tr class="memdesc:a158d7b199d7735fe77a02c76bd8c5bec"><td class="mdescLeft">&#160;</td><td class="mdescRight">the target element name  <a href="class_s_base_extension_point.html#a158d7b199d7735fe77a02c76bd8c5bec">More...</a><br /></td></tr>
@@ -131,13 +149,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a22b3159a082f46e6b5660906ad5f17dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="class_s_base_extension_point.html#a22b3159a082f46e6b5660906ad5f17dd">More...</a><br /></td></tr>
 <tr class="separator:a22b3159a082f46e6b5660906ad5f17dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a463e0ecdfc3b248835c7624c291621be"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_extension_point.html#a463e0ecdfc3b248835c7624c291621be">SBaseExtensionPoint</a> (const std::string &amp;pkgName, int typeCode)</td></tr>
-<tr class="memdesc:a463e0ecdfc3b248835c7624c291621be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="class_s_base_extension_point.html">SBaseExtensionPoint</a>.  <a href="class_s_base_extension_point.html#a463e0ecdfc3b248835c7624c291621be">More...</a><br /></td></tr>
+<tr class="memdesc:a463e0ecdfc3b248835c7624c291621be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="class_s_base_extension_point.html" title="\ @ @ .">SBaseExtensionPoint</a>.  <a href="class_s_base_extension_point.html#a463e0ecdfc3b248835c7624c291621be">More...</a><br /></td></tr>
 <tr class="separator:a463e0ecdfc3b248835c7624c291621be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8452274ae5fca55a4d9230da07c74536"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_extension_point.html#a8452274ae5fca55a4d9230da07c74536">SBaseExtensionPoint</a> (const std::string &amp;pkgName, int typeCode, const std::string &amp;elementName, bool elementOnly=false)</td></tr>
-<tr class="memdesc:a8452274ae5fca55a4d9230da07c74536"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="class_s_base_extension_point.html">SBaseExtensionPoint</a>.  <a href="class_s_base_extension_point.html#a8452274ae5fca55a4d9230da07c74536">More...</a><br /></td></tr>
+<tr class="memdesc:a8452274ae5fca55a4d9230da07c74536"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="class_s_base_extension_point.html" title="\ @ @ .">SBaseExtensionPoint</a>.  <a href="class_s_base_extension_point.html#a8452274ae5fca55a4d9230da07c74536">More...</a><br /></td></tr>
 <tr class="separator:a8452274ae5fca55a4d9230da07c74536"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad85717cc6d97d2c292b59cdd6af4e723"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_extension_point.html#ad85717cc6d97d2c292b59cdd6af4e723">~SBaseExtensionPoint</a> ()</td></tr>
-<tr class="memdesc:ad85717cc6d97d2c292b59cdd6af4e723"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_s_base_extension_point.html">SBaseExtensionPoint</a> object.  <a href="class_s_base_extension_point.html#ad85717cc6d97d2c292b59cdd6af4e723">More...</a><br /></td></tr>
+<tr class="memdesc:ad85717cc6d97d2c292b59cdd6af4e723"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_s_base_extension_point.html" title="\ @ @ .">SBaseExtensionPoint</a> object.  <a href="class_s_base_extension_point.html#ad85717cc6d97d2c292b59cdd6af4e723">More...</a><br /></td></tr>
 <tr class="separator:ad85717cc6d97d2c292b59cdd6af4e723"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
@@ -178,13 +196,13 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Constructor for <a class="el" href="class_s_base_extension_point.html">SBaseExtensionPoint</a>. </p>
-<p>The use of <a class="el" href="class_s_base_extension_point.html">SBaseExtensionPoint</a> is relatively straightforward. The class needs to be used for each extended SBML object implemented using <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> or <a class="el" href="class_s_base_plugin.html">SBasePlugin</a>. Doing so requires knowing just two things:</p>
+<p>Constructor for <a class="el" href="class_s_base_extension_point.html" title="\ @ @ .">SBaseExtensionPoint</a>. </p>
+<p>The use of <a class="el" href="class_s_base_extension_point.html" title="\ @ @ .">SBaseExtensionPoint</a> is relatively straightforward. The class needs to be used for each extended SBML object implemented using <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> or <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a>. Doing so requires knowing just two things:</p>
 <ul>
 <li>The short-form name of the <em>parent</em> package being extended. The parent package is often simply core SBML, identified in libSBML by the nickname <code>"core"</code>, but a SBML Level&#160;3 package could conceivably extend another Level&#160;3 package and the mechanism supports this.</li>
 </ul>
 <ul>
-<li>The libSBML type code assigned to the object being extended. For example, if an extension of <a class="el" href="class_model.html">Model</a> is implemented, the relevant type code is SBML_MODEL, found in <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfe" title="The enumeration of possible SBML core object types.">SBMLTypeCode_t</a>.</li>
+<li>The libSBML type code assigned to the object being extended. For example, if an extension of <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> is implemented, the relevant type code is SBML_MODEL, found in <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfe" title="The enumeration of possible SBML core object types.">SBMLTypeCode_t</a>.</li>
 </ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -234,19 +252,19 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Constructor for <a class="el" href="class_s_base_extension_point.html">SBaseExtensionPoint</a>. </p>
-<p>The use of <a class="el" href="class_s_base_extension_point.html">SBaseExtensionPoint</a> is relatively straightforward. The class needs to be used for each extended SBML object implemented using <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> or <a class="el" href="class_s_base_plugin.html">SBasePlugin</a>. Doing so requires knowing just two things:</p>
+<p>Constructor for <a class="el" href="class_s_base_extension_point.html" title="\ @ @ .">SBaseExtensionPoint</a>. </p>
+<p>The use of <a class="el" href="class_s_base_extension_point.html" title="\ @ @ .">SBaseExtensionPoint</a> is relatively straightforward. The class needs to be used for each extended SBML object implemented using <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> or <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a>. Doing so requires knowing just two things:</p>
 <ul>
 <li>The short-form name of the <em>parent</em> package being extended. The parent package is often simply core SBML, identified in libSBML by the nickname <code>"core"</code>, but a SBML Level&#160;3 package could conceivably extend another Level&#160;3 package and the mechanism supports this.</li>
 </ul>
 <ul>
-<li>The libSBML type code assigned to the object being extended. For example, if an extension of <a class="el" href="class_model.html">Model</a> is implemented, the relevant type code is SBML_MODEL, found in <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfe" title="The enumeration of possible SBML core object types.">SBMLTypeCode_t</a>.</li>
+<li>The libSBML type code assigned to the object being extended. For example, if an extension of <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> is implemented, the relevant type code is SBML_MODEL, found in <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfe" title="The enumeration of possible SBML core object types.">SBMLTypeCode_t</a>.</li>
 </ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pkgName</td><td>the short-form name of the parent package where that this package extension is extending.</td></tr>
     <tr><td class="paramname">typeCode</td><td>the type code of the object being extended.</td></tr>
-    <tr><td class="paramname">elementName</td><td>element name for the target element, in case multiple elements match the same type code (as will be the case for <a class="el" href="class_list_of.html">ListOf</a> classes).</td></tr>
+    <tr><td class="paramname">elementName</td><td>element name for the target element, in case multiple elements match the same type code (as will be the case for <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a> classes).</td></tr>
     <tr><td class="paramname">elementOnly</td><td>flag to be used during the registration of the package, when set then the plugin is only applied to elements whose elementName match. </td></tr>
   </table>
   </dd>
@@ -277,7 +295,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroys this <a class="el" href="class_s_base_extension_point.html">SBaseExtensionPoint</a> object. </p>
+<p>Destroys this <a class="el" href="class_s_base_extension_point.html" title="\ @ @ .">SBaseExtensionPoint</a> object. </p>
 
 </div>
 </div>
@@ -298,7 +316,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Copy constructor. </p>
-<p>This creates a copy of an <a class="el" href="class_s_base_extension_point.html">SBaseExtensionPoint</a> instance.</p>
+<p>This creates a copy of an <a class="el" href="class_s_base_extension_point.html" title="\ @ @ .">SBaseExtensionPoint</a> instance.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">rhs</td><td>the object to copy. </td></tr>
@@ -324,8 +342,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates and returns a deep copy of this <a class="el" href="class_s_base_extension_point.html">SBaseExtensionPoint</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the (deep) copy of this <a class="el" href="class_s_base_extension_point.html">SBaseExtensionPoint</a> object. </dd></dl>
+<p>Creates and returns a deep copy of this <a class="el" href="class_s_base_extension_point.html" title="\ @ @ .">SBaseExtensionPoint</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the (deep) copy of this <a class="el" href="class_s_base_extension_point.html" title="\ @ @ .">SBaseExtensionPoint</a> object. </dd></dl>
 
 </div>
 </div>

@@ -1,0 +1,37 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_s_base_plugin.html" title="\ @ @ . ." alt="" coords="5,528,108,555"/>
+<area shape="rect" id="node2" href="$class_comp_s_base_plugin.html" title="\ @ @ . ." alt="" coords="197,5,337,32"/>
+<area shape="rect" id="node4" href="$class_fbc_s_base_plugin.html" title="\ @ @ . ." alt="" coords="205,81,330,108"/>
+<area shape="rect" id="node8" href="$class_groups_model_plugin.html" title="\ @ @ . ." alt="" coords="193,132,341,159"/>
+<area shape="rect" id="node9" href="$class_layout_model_plugin.html" title="\ @ @ . ." alt="" coords="194,183,341,209"/>
+<area shape="rect" id="node10" href="$class_layout_species_reference_plugin.html" title="\ @ @ . ." alt="" coords="156,233,379,260"/>
+<area shape="rect" id="node11" href="$class_multi_compartment_plugin.html" title="\ @ @ . &quot;&quot; ." alt="" coords="175,284,360,311"/>
+<area shape="rect" id="node12" href="$class_multi_list_of_reactions_plugin.html" title="\ @ @ . &quot;&quot; ." alt="" coords="169,335,366,361"/>
+<area shape="rect" id="node13" href="$class_multi_model_plugin.html" title="\ @ @ . ." alt="" coords="200,385,335,412"/>
+<area shape="rect" id="node14" href="$class_multi_simple_species_reference_plugin.html" title="\ @ @ . &quot;&quot; ." alt="" coords="159,437,375,478"/>
+<area shape="rect" id="node16" href="$class_multi_species_plugin.html" title="\ @ @ . &quot;&quot; ." alt="" coords="195,503,340,529"/>
+<area shape="rect" id="node17" href="$class_qual_model_plugin.html" title="\ @ @ . ." alt="" coords="201,553,333,580"/>
+<area shape="rect" id="node18" href="$class_render_graphical_object_plugin.html" title="\ @ @ . ." alt="" coords="161,604,373,631"/>
+<area shape="rect" id="node19" href="$class_render_layout_plugin.html" title="\ @ @ . Layout class by the Render extension." alt="" coords="191,655,343,681"/>
+<area shape="rect" id="node20" href="$class_render_list_of_layouts_plugin.html" title="\ @ @ . &quot;&quot; ." alt="" coords="169,705,366,732"/>
+<area shape="rect" id="node21" href="$class_s_b_m_l_document_plugin.html" title="\ @ @ . ." alt="" coords="185,756,350,783"/>
+<area shape="rect" id="node31" href="$class_spatial_compartment_plugin.html" title="\ @ @ . ." alt="" coords="169,807,366,833"/>
+<area shape="rect" id="node32" href="$class_spatial_model_plugin.html" title="\ @ @ . ." alt="" coords="194,857,341,884"/>
+<area shape="rect" id="node33" href="$class_spatial_parameter_plugin.html" title="\ @ @ . ." alt="" coords="180,908,355,935"/>
+<area shape="rect" id="node34" href="$class_spatial_reaction_plugin.html" title="\ @ @ . ." alt="" coords="185,959,349,985"/>
+<area shape="rect" id="node35" href="$class_spatial_species_plugin.html" title="\ @ @ . ." alt="" coords="189,1009,346,1036"/>
+<area shape="rect" id="node3" href="$class_comp_model_plugin.html" title="\ @ @ . ." alt="" coords="480,5,620,32"/>
+<area shape="rect" id="node5" href="$class_fbc_model_plugin.html" title="\ @ @ . ." alt="" coords="487,56,613,83"/>
+<area shape="rect" id="node6" href="$class_fbc_reaction_plugin.html" title="\ @ @ . &;&; ." alt="" coords="479,107,621,133"/>
+<area shape="rect" id="node7" href="$class_fbc_species_plugin.html" title="\ @ @ . ." alt="" coords="483,157,617,184"/>
+<area shape="rect" id="node15" href="$class_multi_species_reference_plugin.html" title="\ @ @ . &quot;&quot; ." alt="" coords="445,444,655,471"/>
+<area shape="rect" id="node22" href="$class_comp_s_b_m_l_document_plugin.html" title="\ @ @ . ." alt="" coords="449,553,651,580"/>
+<area shape="rect" id="node23" href="$class_fbc_s_b_m_l_document_plugin.html" title="\ @ @ . &;&; ." alt="" coords="456,604,644,631"/>
+<area shape="rect" id="node24" href="$class_groups_s_b_m_l_document_plugin.html" title="\ @ @ . ." alt="" coords="445,655,655,681"/>
+<area shape="rect" id="node25" href="$class_layout_s_b_m_l_document_plugin.html" title="\ @ @ . ." alt="" coords="445,705,655,732"/>
+<area shape="rect" id="node26" href="$class_multi_s_b_m_l_document_plugin.html" title="\ @ @ . &quot;&quot; ." alt="" coords="451,756,649,783"/>
+<area shape="rect" id="node27" href="$class_qual_s_b_m_l_document_plugin.html" title="\ @ @ . ." alt="" coords="453,807,647,833"/>
+<area shape="rect" id="node28" href="$class_render_s_b_m_l_document_plugin.html" title="\ @ @ . ." alt="" coords="445,857,655,884"/>
+<area shape="rect" id="node29" href="$class_s_b_m_l_document_plugin_not_required.html" title="\ @ @ . 3 ." alt="" coords="427,908,673,935"/>
+<area shape="rect" id="node30" href="$class_spatial_s_b_m_l_document_plugin.html" title="\ @ @ . ." alt="" coords="445,959,655,985"/>
+</map>

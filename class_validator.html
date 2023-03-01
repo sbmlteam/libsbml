@@ -104,17 +104,15 @@ Inheritance diagram for Validator:</div>
 </div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><br  />
-</p>
- Entry point for SBML validation rules in libSBML.</p>
+<div class="textblock"><p>\ @ @ . . </p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  This class is not prescribed by
 the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
-<p>LibSBML implements facilities for verifying that a given SBML document is valid according to the SBML specifications; it also exposes the validation interface so that user programs and SBML Level&#160;3 package authors may use the facilities to implement new validators. There are two main interfaces to libSBML's validation facilities, based on the classes <a class="el" href="class_validator.html">Validator</a> and <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a>.</p>
-<p>The <a class="el" href="class_validator.html">Validator</a> class is the basis of the system for validating an SBML document against the validation rules defined in the SBML specifications. The scheme used by <a class="el" href="class_validator.html">Validator</a> relies is compact and uses the <em>visitor</em> programming pattern, but it relies on C/C++ features and is not directly accessible from language bindings. <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a> offers a framework for straightforward class-based extensibility, so that user code can subclass <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a> to implement new validation systems, different validators can be introduced or turned off at run-time, and interfaces can be provided in the libSBML language bindings. <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a> can call <a class="el" href="class_validator.html">Validator</a> functionality internally (as is the case in the current implementation of <a class="el" href="class_s_b_m_l_internal_validator.html">SBMLInternalValidator</a>) or use entirely different implementation approaches, as necessary. </p>
+<p>LibSBML implements facilities for verifying that a given SBML document is valid according to the SBML specifications; it also exposes the validation interface so that user programs and SBML Level&#160;3 package authors may use the facilities to implement new validators. There are two main interfaces to libSBML's validation facilities, based on the classes <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a> and <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a>.</p>
+<p>The <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a> class is the basis of the system for validating an SBML document against the validation rules defined in the SBML specifications. The scheme used by <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a> relies is compact and uses the <em>visitor</em> programming pattern, but it relies on C/C++ features and is not directly accessible from language bindings. <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a> offers a framework for straightforward class-based extensibility, so that user code can subclass <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a> to implement new validation systems, different validators can be introduced or turned off at run-time, and interfaces can be provided in the libSBML language bindings. <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a> can call <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a> functionality internally (as is the case in the current implementation of <a class="el" href="class_s_b_m_l_internal_validator.html" title="\ @ @ . .">SBMLInternalValidator</a>) or use entirely different implementation approaches, as necessary. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -122,16 +120,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a233088dda48543bbaa887b107b68536f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the given VContraint object to this validator.  <a href="class_validator.html#a233088dda48543bbaa887b107b68536f">More...</a><br /></td></tr>
 <tr class="separator:a233088dda48543bbaa887b107b68536f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14f10d448f4f47fcb53d757675215088"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_validator.html#a14f10d448f4f47fcb53d757675215088">clearFailures</a> ()</td></tr>
-<tr class="memdesc:a14f10d448f4f47fcb53d757675215088"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears this <a class="el" href="class_validator.html">Validator</a>'s list of validation failures.  <a href="class_validator.html#a14f10d448f4f47fcb53d757675215088">More...</a><br /></td></tr>
+<tr class="memdesc:a14f10d448f4f47fcb53d757675215088"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears this <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a>'s list of validation failures.  <a href="class_validator.html#a14f10d448f4f47fcb53d757675215088">More...</a><br /></td></tr>
 <tr class="separator:a14f10d448f4f47fcb53d757675215088"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff43b984e67ba4bd25d8c32b0d0c9b3f"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_validator.html#aff43b984e67ba4bd25d8c32b0d0c9b3f">getCategory</a> () const</td></tr>
 <tr class="memdesc:aff43b984e67ba4bd25d8c32b0d0c9b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the category of validation rules covered by this validator.  <a href="class_validator.html#aff43b984e67ba4bd25d8c32b0d0c9b3f">More...</a><br /></td></tr>
 <tr class="separator:aff43b984e67ba4bd25d8c32b0d0c9b3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5611f92a7d3f34ea885cb40473db7d6a"><td class="memItemLeft" align="right" valign="top">const std::list&lt; <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_validator.html#a5611f92a7d3f34ea885cb40473db7d6a">getFailures</a> () const</td></tr>
-<tr class="memdesc:a5611f92a7d3f34ea885cb40473db7d6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the list of <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> objects logged during validator execution.  <a href="class_validator.html#a5611f92a7d3f34ea885cb40473db7d6a">More...</a><br /></td></tr>
+<tr class="memdesc:a5611f92a7d3f34ea885cb40473db7d6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the list of <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> objects logged during validator execution.  <a href="class_validator.html#a5611f92a7d3f34ea885cb40473db7d6a">More...</a><br /></td></tr>
 <tr class="separator:a5611f92a7d3f34ea885cb40473db7d6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25ab6440260e7789bd4fe97646a32178"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_validator.html#a25ab6440260e7789bd4fe97646a32178">init</a> ()=0</td></tr>
-<tr class="memdesc:a25ab6440260e7789bd4fe97646a32178"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes this <a class="el" href="class_validator.html">Validator</a> object.  <a href="class_validator.html#a25ab6440260e7789bd4fe97646a32178">More...</a><br /></td></tr>
+<tr class="memdesc:a25ab6440260e7789bd4fe97646a32178"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes this <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a> object.  <a href="class_validator.html#a25ab6440260e7789bd4fe97646a32178">More...</a><br /></td></tr>
 <tr class="separator:a25ab6440260e7789bd4fe97646a32178"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5505a69a3a572113dc7be070449f0906"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_validator.html#a5505a69a3a572113dc7be070449f0906">logFailure</a> (const <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> &amp;err)</td></tr>
 <tr class="memdesc:a5505a69a3a572113dc7be070449f0906"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the given failure to this list of validation failures.  <a href="class_validator.html#a5505a69a3a572113dc7be070449f0906">More...</a><br /></td></tr>
@@ -143,10 +141,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a5986e31fe24248ad8b45983e90397247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the SBML document located at the given file name.  <a href="class_validator.html#a5986e31fe24248ad8b45983e90397247">More...</a><br /></td></tr>
 <tr class="separator:a5986e31fe24248ad8b45983e90397247"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc2557fcef536a77deba9d05ab0beda0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_validator.html#abc2557fcef536a77deba9d05ab0beda0">Validator</a> (<a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187">SBMLErrorCategory_t</a> category=<a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187aca66ca7d0bb7a579a2339739fbd7b2d1">LIBSBML_CAT_SBML</a>)</td></tr>
-<tr class="memdesc:abc2557fcef536a77deba9d05ab0beda0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor; creates a new <a class="el" href="class_validator.html">Validator</a> object for the given category of validation.  <a href="class_validator.html#abc2557fcef536a77deba9d05ab0beda0">More...</a><br /></td></tr>
+<tr class="memdesc:abc2557fcef536a77deba9d05ab0beda0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor; creates a new <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a> object for the given category of validation.  <a href="class_validator.html#abc2557fcef536a77deba9d05ab0beda0">More...</a><br /></td></tr>
 <tr class="separator:abc2557fcef536a77deba9d05ab0beda0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e90b7373734dda95137713ece810783"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_validator.html#a3e90b7373734dda95137713ece810783">~Validator</a> ()</td></tr>
-<tr class="memdesc:a3e90b7373734dda95137713ece810783"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_validator.html">Validator</a> object.  <a href="class_validator.html#a3e90b7373734dda95137713ece810783">More...</a><br /></td></tr>
+<tr class="memdesc:a3e90b7373734dda95137713ece810783"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a> object.  <a href="class_validator.html#a3e90b7373734dda95137713ece810783">More...</a><br /></td></tr>
 <tr class="separator:a3e90b7373734dda95137713ece810783"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -166,7 +164,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Constructor; creates a new <a class="el" href="class_validator.html">Validator</a> object for the given category of validation. </p>
+<p>Constructor; creates a new <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a> object for the given category of validation. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">category</td><td>code indicating the kind of validations that this validator will perform. The category code value must be taken from the enumeration <a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187" title="Category codes for SBMLError diagnostics.">SBMLErrorCategory_t</a> </td></tr>
@@ -199,7 +197,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroys this <a class="el" href="class_validator.html">Validator</a> object. </p>
+<p>Destroys this <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a> object. </p>
 
 </div>
 </div>
@@ -231,7 +229,7 @@ Public Member Functions</h2></td></tr>
 <p>Adds the given VContraint object to this validator. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">c</td><td>the <a class="el" href="class_v_constraint.html">VConstraint</a> ("validator constraint") object to add. </td></tr>
+    <tr><td class="paramname">c</td><td>the <a class="el" href="class_v_constraint.html" title="\ @ @ . .">VConstraint</a> ("validator constraint") object to add. </td></tr>
   </table>
   </dd>
 </dl>
@@ -255,8 +253,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Clears this <a class="el" href="class_validator.html">Validator</a>'s list of validation failures. </p>
-<p>If you are validating multiple SBML documents with the same <a class="el" href="class_validator.html">Validator</a>, call this method after you have processed the list of failures from the last Validation run and before validating the next document. </p>
+<p>Clears this <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a>'s list of validation failures. </p>
+<p>If you are validating multiple SBML documents with the same <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a>, call this method after you have processed the list of failures from the last Validation run and before validating the next document. </p>
 
 </div>
 </div>
@@ -276,7 +274,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the category of validation rules covered by this validator. </p>
-<dl class="section return"><dt>Returns</dt><dd>an integer code representing the category of validator rules covered by this validator class. The category values are drawn from the enumeration <a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187" title="Category codes for SBMLError diagnostics.">SBMLErrorCategory_t</a>. See the documentation for the class <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> for more information. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>an integer code representing the category of validator rules covered by this validator class. The category values are drawn from the enumeration <a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187" title="Category codes for SBMLError diagnostics.">SBMLErrorCategory_t</a>. See the documentation for the class <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> for more information. </dd></dl>
 
 </div>
 </div>
@@ -295,7 +293,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get the list of <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> objects logged during validator execution. </p>
+<p>Get the list of <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> objects logged during validator execution. </p>
 <dl class="section return"><dt>Returns</dt><dd>a list of failures logged during validation. The list may be empty if no errors or other diagnostics were logged by the validator. </dd></dl>
 
 </div>
@@ -323,8 +321,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Initializes this <a class="el" href="class_validator.html">Validator</a> object. </p>
-<p>When creating a subclass of <a class="el" href="class_validator.html">Validator</a>, override this method to add your own validation code. </p>
+<p>Initializes this <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a> object. </p>
+<p>When creating a subclass of <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a>, override this method to add your own validation code. </p>
 
 <p>Implemented in <a class="el" href="class_spatial_validator.html#a197801ca24ab049eaddc46f17dd45624">SpatialValidator</a>, <a class="el" href="class_render_validator.html#abb4dba8738e227654aa06d41e4a89728">RenderValidator</a>, <a class="el" href="class_qual_validator.html#aa2e3efd6f02e01a90f6290a59547c149">QualValidator</a>, <a class="el" href="class_multi_validator.html#ac64731dd86cc9dd5b7344d5ac85b21e4">MultiValidator</a>, <a class="el" href="class_layout_validator.html#a465987b6ff119ec1b0e5ea77d4e103e3">LayoutValidator</a>, <a class="el" href="class_groups_validator.html#afad751c96c6be1dec0585d6a4676451c">GroupsValidator</a>, <a class="el" href="class_fbc_validator.html#a9c33c044dc66410d48c4892180a48a1a">FbcValidator</a>, and <a class="el" href="class_comp_validator.html#a19808ae88c94c24a8ceeb12335f68c69">CompValidator</a>.</p>
 
@@ -350,7 +348,7 @@ Public Member Functions</h2></td></tr>
 <p>This method can be used in the implementation of custom validators.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">err</td><td>the <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> object to append. </td></tr>
+    <tr><td class="paramname">err</td><td>the <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> object to append. </td></tr>
   </table>
   </dd>
 </dl>
@@ -384,7 +382,7 @@ Public Member Functions</h2></td></tr>
 <p>Validates the given SBML document. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">d</td><td>the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object to be validated.</td></tr>
+    <tr><td class="paramname">d</td><td>the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object to be validated.</td></tr>
   </table>
   </dd>
 </dl>

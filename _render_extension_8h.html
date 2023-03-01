@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('_render_extension_8h.html',''); initRe
 </div><!--header-->
 <div class="contents">
 
-<p>Definition of <a class="el" href="class_render_extension.html">RenderExtension</a>, the core module of the render package.  
+<p>Definition of <a class="el" href="class_render_extension.html" title="\ @ @ . .">RenderExtension</a>, the core module of the render package.  
 <a href="#details">More...</a></p>
 <div class="textblock"><div class="dynheader">
 Include dependency graph for RenderExtension.h:</div>
@@ -116,8 +116,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_render_extension.html">RenderExtension</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br  />
- <a href="class_render_extension.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">\ @ @ . .  <a href="class_render_extension.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -290,7 +289,7 @@ Enumerations</h2></td></tr>
 <tr class="separator:a8414fb2a9e5c60e1c8397c14c09888a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Definition of <a class="el" href="class_render_extension.html">RenderExtension</a>, the core module of the render package. </p>
+<div class="textblock"><p>Definition of <a class="el" href="class_render_extension.html" title="\ @ @ . .">RenderExtension</a>, the core module of the render package. </p>
 <dl class="section author"><dt>Author</dt><dd>Frank T. Bergmann </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a0c8816388376654e573b7860dfdc0043"></a>
@@ -538,68 +537,121 @@ Font::setWeight() </dd></dl>
 </div><div class="memdoc">
 
 <p>SBMLRenderTypeCode_t Enumeration of possible types in the libSBML &ldquo;render&rdquo; package implementation. </p>
-<dl class="section user"><dt></dt><dd>LibSBML attaches an identifying code to every kind of SBML object. These are integer constants known as <em>SBML type codes</em>. The names of all the codes begin with the characters <code>SBML_</code>. The set of possible type codes for core elements is defined in the enumeration <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfe" title="The enumeration of possible SBML core object types.">SBMLTypeCode_t</a>, and in addition, libSBML plug-ins for SBML Level&#160;3 packages define their own extra enumerations of type codes (e.g., <a class="el" href="_layout_extension_8h.html#a6b80c825e1507341de5540b8e7de003d" title="SBMLFbcTypeCode_t Enumeration of possible types in the libSBML “layout” package implementation.">SBMLLayoutTypeCode_t</a> for the Level&#160;3 <a class="el" href="class_layout.html">Layout</a> package). Note that different Level&#160;3 package plug-ins may use overlapping type codes; to identify the package to which a given object belongs, call the <code><a class="el" href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02" title="Returns the name of the SBML Level&#160;3 package in which this element is defined.">SBase::getPackageName()</a> </code> method on the object.</dd></dl>
+<dl class="section user"><dt></dt><dd>LibSBML attaches an identifying code to every kind of SBML object. These are integer constants known as <em>SBML type codes</em>. The names of all the codes begin with the characters <code>SBML_</code>. The set of possible type codes for core elements is defined in the enumeration <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfe" title="The enumeration of possible SBML core object types.">SBMLTypeCode_t</a>, and in addition, libSBML plug-ins for SBML Level&#160;3 packages define their own extra enumerations of type codes (e.g., <a class="el" href="_layout_extension_8h.html#a6b80c825e1507341de5540b8e7de003d" title="SBMLFbcTypeCode_t Enumeration of possible types in the libSBML “layout” package implementation.">SBMLLayoutTypeCode_t</a> for the Level&#160;3 <a class="el" href="class_layout.html" title="\ @ @ . .">Layout</a> package). Note that different Level&#160;3 package plug-ins may use overlapping type codes; to identify the package to which a given object belongs, call the <code><a class="el" href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02" title="Returns the name of the SBML Level&#160;3 package in which this element is defined.">SBase::getPackageName()</a> </code> method on the object.</dd></dl>
 <p>The exception to this is lists: all SBML-style list elements have the type <a class="el" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfeaa111b52def73380487c84f062f47dadc">SBML_LIST_OF</a>, regardless of what package they are from.</p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa13926119bb5556cb895e4861e38d1a7b"></a>SBML_RENDER_COLORDEFINITION&#160;</td><td class="fielddoc"><p><a class="el" href="class_color_definition.html">ColorDefinition</a> </p>
+<dl class="section user"><dt></dt><dd>Here follow some additional general information about libSBML type codes:</dd></dl>
+<ul>
+<li>The codes are the possible return values (integers) for the following functions: <ul>
+<li>
+<a class="el" href="class_s_base.html#a4109c299320c6c59251fc84d6eeaec69" title="Returns the libSBML type code for this object.">SBase::getTypeCode()</a> </li>
+<li>
+<a class="el" href="class_list_of.html#a58f2728f978ffba0d032c412901b824e" title="Get the type code of the objects contained in this ListOf.">ListOf::getItemTypeCode()</a> </li>
+</ul>
+(Compatibility note: in libSBML 5, the type of return values of these functions changed from an enumeration to an integer for extensibility in the face of different programming languages.)</li>
+</ul>
+<ul>
+<li>Each package extension must define similar sets of values for each <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> subclass (e.g. <code>SBMLLayoutTypeCode_t</code> for the SBML Level&#160;3 Layout extension, <code>SBMLFbcTypeCode_t</code> for the SBML Level&#160;3 Flux Balance Constraints extension, etc.).</li>
+</ul>
+<ul>
+<li>The value of each package-specific type code can be duplicated between those of different packages. (This is necessary because the development of libSBML extensions for different SBML packages may be undertaken by different developers at different times; requiring the developers to coordinate their use of type codes would be nettlesome and probably doomed to failure.)</li>
+</ul>
+<ul>
+<li>To distinguish between the type codes of different packages, both the return value of <a class="el" href="class_s_base.html#a4109c299320c6c59251fc84d6eeaec69" title="Returns the libSBML type code for this object.">SBase::getTypeCode()</a> and <a class="el" href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02" title="Returns the name of the SBML Level&#160;3 package in which this element is defined.">SBase::getPackageName()</a> must be checked. This is particularly important for functions that take an SBML type code as an argument, such as <a class="el" href="class_s_base.html#ac1db4c7f15e643a3cb27fe3b85e22f05" title="Returns the first ancestor object that has the given SBML type code from the given package.">SBase::getAncestorOfType()</a>, which by default assumes you are handing it a core type, and will return <code>NULL</code> if the value you give it is actually from a package.</li>
+</ul>
+<p>The following example code illustrates the combined use of <a class="el" href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02" title="Returns the name of the SBML Level&#160;3 package in which this element is defined.">SBase::getPackageName()</a> and <a class="el" href="class_s_base.html#a4109c299320c6c59251fc84d6eeaec69" title="Returns the libSBML type code for this object.">SBase::getTypeCode()</a>: </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> example (<span class="keyword">const</span> <a class="code" href="class_s_base.html">SBase</a> *sb)</div>
+<div class="line">{</div>
+<div class="line">  cons std::string pkgName = sb-&gt;<a class="code" href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02">getPackageName</a>();</div>
+<div class="line">  <span class="keywordflow">if</span> (pkgName == <span class="stringliteral">&quot;core&quot;</span>)</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">switch</span> (sb-&gt;<a class="code" href="class_s_base.html#a4109c299320c6c59251fc84d6eeaec69">getTypeCode</a>())</div>
+<div class="line">    {</div>
+<div class="line">      <span class="keywordflow">case</span> <a class="code" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfea3c866be107d7858b6dd1e978ed103028">SBML_MODEL</a>:</div>
+<div class="line">         ....</div>
+<div class="line">         <span class="keywordflow">break</span>;</div>
+<div class="line">      <span class="keywordflow">case</span> <a class="code" href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfea54de874fd61e13450bdf024d41a336c9">SBML_REACTION</a>:</div>
+<div class="line">         ....</div>
+<div class="line">    }</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pkgName == <span class="stringliteral">&quot;layout&quot;</span>)</div>
+<div class="line">  {</div>
+<div class="line">    <span class="keywordflow">switch</span> (sb-&gt;<a class="code" href="class_s_base.html#a4109c299320c6c59251fc84d6eeaec69">getTypeCode</a>())</div>
+<div class="line">    {</div>
+<div class="line">      <span class="keywordflow">case</span> <a class="code" href="_layout_extension_8h.html#a6b80c825e1507341de5540b8e7de003da7309d406d0253eeab3ef4d606d853ff3">SBML_LAYOUT_LAYOUT</a>:</div>
+<div class="line">         ....</div>
+<div class="line">         <span class="keywordflow">break</span>;</div>
+<div class="line">      <span class="keywordflow">case</span> <a class="code" href="_layout_extension_8h.html#a6b80c825e1507341de5540b8e7de003da5b0c71c5883c5377e90d8c25c2d52882">SBML_LAYOUT_REACTIONGLYPH</a>:</div>
+<div class="line">         ....</div>
+<div class="line">    }</div>
+<div class="line">  }</div>
+<div class="line">  ...</div>
+<div class="line">}</div>
+<div class="ttc" id="a_layout_extension_8h_html_a6b80c825e1507341de5540b8e7de003da5b0c71c5883c5377e90d8c25c2d52882"><div class="ttname"><a href="_layout_extension_8h.html#a6b80c825e1507341de5540b8e7de003da5b0c71c5883c5377e90d8c25c2d52882">SBML_LAYOUT_REACTIONGLYPH</a></div><div class="ttdeci">@ SBML_LAYOUT_REACTIONGLYPH</div><div class="ttdef"><b>Definition:</b> LayoutExtension.h:446</div></div>
+<div class="ttc" id="a_layout_extension_8h_html_a6b80c825e1507341de5540b8e7de003da7309d406d0253eeab3ef4d606d853ff3"><div class="ttname"><a href="_layout_extension_8h.html#a6b80c825e1507341de5540b8e7de003da7309d406d0253eeab3ef4d606d853ff3">SBML_LAYOUT_LAYOUT</a></div><div class="ttdeci">@ SBML_LAYOUT_LAYOUT</div><div class="ttdef"><b>Definition:</b> LayoutExtension.h:443</div></div>
+<div class="ttc" id="a_s_b_m_l_type_codes_8h_html_aa283dddfd7671179362b2f38e2938cfea3c866be107d7858b6dd1e978ed103028"><div class="ttname"><a href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfea3c866be107d7858b6dd1e978ed103028">SBML_MODEL</a></div><div class="ttdeci">@ SBML_MODEL</div><div class="ttdef"><b>Definition:</b> SBMLTypeCodes.h:75</div></div>
+<div class="ttc" id="a_s_b_m_l_type_codes_8h_html_aa283dddfd7671179362b2f38e2938cfea54de874fd61e13450bdf024d41a336c9"><div class="ttname"><a href="_s_b_m_l_type_codes_8h.html#aa283dddfd7671179362b2f38e2938cfea54de874fd61e13450bdf024d41a336c9">SBML_REACTION</a></div><div class="ttdeci">@ SBML_REACTION</div><div class="ttdef"><b>Definition:</b> SBMLTypeCodes.h:77</div></div>
+<div class="ttc" id="aclass_s_base_html"><div class="ttname"><a href="class_s_base.html">SBase</a></div><div class="ttdoc">\ @ @ . ' &lt;&gt;%&lt;/&gt; , .</div><div class="ttdef"><b>Definition:</b> SBase.h:191</div></div>
+<div class="ttc" id="aclass_s_base_html_a031d1da6a39bae8afd5201677fb32c02"><div class="ttname"><a href="class_s_base.html#a031d1da6a39bae8afd5201677fb32c02">SBase::getPackageName</a></div><div class="ttdeci">const std::string &amp; getPackageName() const</div><div class="ttdoc">Returns the name of the SBML Level&amp;#160;3 package in which this element is defined.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:3291</div></div>
+<div class="ttc" id="aclass_s_base_html_a4109c299320c6c59251fc84d6eeaec69"><div class="ttname"><a href="class_s_base.html#a4109c299320c6c59251fc84d6eeaec69">SBase::getTypeCode</a></div><div class="ttdeci">virtual int getTypeCode() const</div><div class="ttdoc">Returns the libSBML type code for this object.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:3315</div></div>
+</div><!-- fragment --> <table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa13926119bb5556cb895e4861e38d1a7b"></a>SBML_RENDER_COLORDEFINITION&#160;</td><td class="fielddoc"><p><a class="el" href="class_color_definition.html" title="\ @ @ . .">ColorDefinition</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efaa4a5372d04b331a15046b2f51529d34f"></a>SBML_RENDER_ELLIPSE&#160;</td><td class="fielddoc"><p><a class="el" href="class_ellipse.html">Ellipse</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efaa4a5372d04b331a15046b2f51529d34f"></a>SBML_RENDER_ELLIPSE&#160;</td><td class="fielddoc"><p><a class="el" href="class_ellipse.html" title="\ @ @ . .">Ellipse</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efad9a7d9d005eefbf4faf7cc1870cd4da3"></a>SBML_RENDER_GLOBALRENDERINFORMATION&#160;</td><td class="fielddoc"><p><a class="el" href="class_global_render_information.html">GlobalRenderInformation</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efad9a7d9d005eefbf4faf7cc1870cd4da3"></a>SBML_RENDER_GLOBALRENDERINFORMATION&#160;</td><td class="fielddoc"><p><a class="el" href="class_global_render_information.html" title="\ @ @ . .">GlobalRenderInformation</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa9624ca6b96264a3d7c61d8f76037e12b"></a>SBML_RENDER_GLOBALSTYLE&#160;</td><td class="fielddoc"><p><a class="el" href="class_global_style.html">GlobalStyle</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa9624ca6b96264a3d7c61d8f76037e12b"></a>SBML_RENDER_GLOBALSTYLE&#160;</td><td class="fielddoc"><p><a class="el" href="class_global_style.html" title="\ @ @ . .">GlobalStyle</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa8816816e2cc5aba674b5ef241376ea7f"></a>SBML_RENDER_GRADIENTDEFINITION&#160;</td><td class="fielddoc"><p><a class="el" href="class_gradient_base.html">GradientBase</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa8816816e2cc5aba674b5ef241376ea7f"></a>SBML_RENDER_GRADIENTDEFINITION&#160;</td><td class="fielddoc"><p><a class="el" href="class_gradient_base.html" title="\ @ @ . .">GradientBase</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efac1496921427c1e46b8b9a685ce6ca59b"></a>SBML_RENDER_GRADIENT_STOP&#160;</td><td class="fielddoc"><p><a class="el" href="class_gradient_stop.html">GradientStop</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efac1496921427c1e46b8b9a685ce6ca59b"></a>SBML_RENDER_GRADIENT_STOP&#160;</td><td class="fielddoc"><p><a class="el" href="class_gradient_stop.html" title="\ @ @ . .">GradientStop</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa97e5bc6658518993da221cbae9554711"></a>SBML_RENDER_GROUP&#160;</td><td class="fielddoc"><p><a class="el" href="class_render_group.html">RenderGroup</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa97e5bc6658518993da221cbae9554711"></a>SBML_RENDER_GROUP&#160;</td><td class="fielddoc"><p><a class="el" href="class_render_group.html" title="\ @ @ . .">RenderGroup</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efac9079ffd7609bda7743696fa2b7f98a9"></a>SBML_RENDER_IMAGE&#160;</td><td class="fielddoc"><p><a class="el" href="class_image.html">Image</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efac9079ffd7609bda7743696fa2b7f98a9"></a>SBML_RENDER_IMAGE&#160;</td><td class="fielddoc"><p><a class="el" href="class_image.html" title="\ @ @ . .">Image</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa5a5e1ec7928dde9fefaa0f305bc812e4"></a>SBML_RENDER_LINEENDING&#160;</td><td class="fielddoc"><p><a class="el" href="class_line_ending.html">LineEnding</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa5a5e1ec7928dde9fefaa0f305bc812e4"></a>SBML_RENDER_LINEENDING&#160;</td><td class="fielddoc"><p><a class="el" href="class_line_ending.html" title="\ @ @ . / .">LineEnding</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efaeecd5a6889293051a5b8ddcfcb067b63"></a>SBML_RENDER_LINEARGRADIENT&#160;</td><td class="fielddoc"><p><a class="el" href="class_linear_gradient.html">LinearGradient</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efaeecd5a6889293051a5b8ddcfcb067b63"></a>SBML_RENDER_LINEARGRADIENT&#160;</td><td class="fielddoc"><p><a class="el" href="class_linear_gradient.html" title="\ @ @ . .">LinearGradient</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa6c3cb6e1dc280f7a6bb8af596162d8d3"></a>SBML_RENDER_LINESEGMENT&#160;</td><td class="fielddoc"><p><a class="el" href="class_line_segment.html">LineSegment</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa6c3cb6e1dc280f7a6bb8af596162d8d3"></a>SBML_RENDER_LINESEGMENT&#160;</td><td class="fielddoc"><p><a class="el" href="class_line_segment.html" title="\ @ @ . .">LineSegment</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efacd5b2a5a8ecaae9f9a9d01ade840d8b0"></a>SBML_RENDER_LISTOFGLOBALSTYLES&#160;</td><td class="fielddoc"><p><a class="el" href="class_list_of_global_styles.html">ListOfGlobalStyles</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efacd5b2a5a8ecaae9f9a9d01ade840d8b0"></a>SBML_RENDER_LISTOFGLOBALSTYLES&#160;</td><td class="fielddoc"><p><a class="el" href="class_list_of_global_styles.html" title="\ @ @ . .">ListOfGlobalStyles</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efaab65dcf24df53e2c6c9333667c200d9a"></a>SBML_RENDER_LISTOFLOCALSTYLES&#160;</td><td class="fielddoc"><p><a class="el" href="class_list_of_local_styles.html">ListOfLocalStyles</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efaab65dcf24df53e2c6c9333667c200d9a"></a>SBML_RENDER_LISTOFLOCALSTYLES&#160;</td><td class="fielddoc"><p><a class="el" href="class_list_of_local_styles.html" title="\ @ @ . .">ListOfLocalStyles</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa26833fbf436920039d7f893902c76cb2"></a>SBML_RENDER_LOCALRENDERINFORMATION&#160;</td><td class="fielddoc"><p><a class="el" href="class_local_render_information.html">LocalRenderInformation</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa26833fbf436920039d7f893902c76cb2"></a>SBML_RENDER_LOCALRENDERINFORMATION&#160;</td><td class="fielddoc"><p><a class="el" href="class_local_render_information.html" title="\ @ @ . .">LocalRenderInformation</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa025a0ee35eec05c1f5b3e7e5080b5196"></a>SBML_RENDER_LOCALSTYLE&#160;</td><td class="fielddoc"><p><a class="el" href="class_local_style.html">LocalStyle</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa025a0ee35eec05c1f5b3e7e5080b5196"></a>SBML_RENDER_LOCALSTYLE&#160;</td><td class="fielddoc"><p><a class="el" href="class_local_style.html" title="\ @ @ . % .">LocalStyle</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa4af9d3c2095aa5472ce677e457bb6851"></a>SBML_RENDER_POLYGON&#160;</td><td class="fielddoc"><p><a class="el" href="class_polygon.html">Polygon</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa4af9d3c2095aa5472ce677e457bb6851"></a>SBML_RENDER_POLYGON&#160;</td><td class="fielddoc"><p><a class="el" href="class_polygon.html" title="\ @ @ .">Polygon</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efaabde348c96bd3cba593bf07bc829a1cb"></a>SBML_RENDER_RADIALGRADIENT&#160;</td><td class="fielddoc"><p><a class="el" href="class_radial_gradient.html">RadialGradient</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efaabde348c96bd3cba593bf07bc829a1cb"></a>SBML_RENDER_RADIALGRADIENT&#160;</td><td class="fielddoc"><p><a class="el" href="class_radial_gradient.html" title="\ @ @ . .">RadialGradient</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa94bca8f86c4aad176ac507c0d0c03a0b"></a>SBML_RENDER_RECTANGLE&#160;</td><td class="fielddoc"><p><a class="el" href="class_rectangle.html">Rectangle</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa94bca8f86c4aad176ac507c0d0c03a0b"></a>SBML_RENDER_RECTANGLE&#160;</td><td class="fielddoc"><p><a class="el" href="class_rectangle.html" title="\ @ @ . .">Rectangle</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efaa67ffe2de8d267e4266b284dc60da47f"></a>SBML_RENDER_RELABSVECTOR&#160;</td><td class="fielddoc"><p><a class="el" href="class_rel_abs_vector.html">RelAbsVector</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efaa67ffe2de8d267e4266b284dc60da47f"></a>SBML_RENDER_RELABSVECTOR&#160;</td><td class="fielddoc"><p><a class="el" href="class_rel_abs_vector.html" title="\ @ @ . .">RelAbsVector</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efad9781f2338f49751fb410993148ff6f7"></a>SBML_RENDER_CUBICBEZIER&#160;</td><td class="fielddoc"><p><a class="el" href="class_cubic_bezier.html">CubicBezier</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efad9781f2338f49751fb410993148ff6f7"></a>SBML_RENDER_CUBICBEZIER&#160;</td><td class="fielddoc"><p><a class="el" href="class_cubic_bezier.html" title="\ @ @ . &; .">CubicBezier</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efac98e3419618a5c235a2473e48ecb0b81"></a>SBML_RENDER_CURVE&#160;</td><td class="fielddoc"><p><a class="el" href="class_render_curve.html">RenderCurve</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efac98e3419618a5c235a2473e48ecb0b81"></a>SBML_RENDER_CURVE&#160;</td><td class="fielddoc"><p><a class="el" href="class_render_curve.html" title="\ @ @ . .">RenderCurve</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa105512858f5bc5985c1e51980528799e"></a>SBML_RENDER_POINT&#160;</td><td class="fielddoc"><p><a class="el" href="class_render_point.html">RenderPoint</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa105512858f5bc5985c1e51980528799e"></a>SBML_RENDER_POINT&#160;</td><td class="fielddoc"><p><a class="el" href="class_render_point.html" title="\ @ @ .">RenderPoint</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9eface924496fb3a3cd3428e24e4cab3e338"></a>SBML_RENDER_TEXT&#160;</td><td class="fielddoc"><p><a class="el" href="class_text.html">Text</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9eface924496fb3a3cd3428e24e4cab3e338"></a>SBML_RENDER_TEXT&#160;</td><td class="fielddoc"><p><a class="el" href="class_text.html" title="\ @ @ . .">Text</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efab2c50e0cd84218cefed058a6b08666ec"></a>SBML_RENDER_TRANSFORMATION2D&#160;</td><td class="fielddoc"><p><a class="el" href="class_transformation2_d.html">Transformation2D</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efab2c50e0cd84218cefed058a6b08666ec"></a>SBML_RENDER_TRANSFORMATION2D&#160;</td><td class="fielddoc"><p><a class="el" href="class_transformation2_d.html" title="\ @ @ . 2 .">Transformation2D</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa73c3594c3a9fb8d93d11c50a9c0fc527"></a>SBML_RENDER_DEFAULTS&#160;</td><td class="fielddoc"><p><a class="el" href="class_default_values.html">DefaultValues</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa73c3594c3a9fb8d93d11c50a9c0fc527"></a>SBML_RENDER_DEFAULTS&#160;</td><td class="fielddoc"><p><a class="el" href="class_default_values.html" title="\ @ @ . .">DefaultValues</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa218c0e8758c927b6e22ad91470c53a6e"></a>SBML_RENDER_TRANSFORMATION&#160;</td><td class="fielddoc"><p><a class="el" href="class_transformation.html">Transformation</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa218c0e8758c927b6e22ad91470c53a6e"></a>SBML_RENDER_TRANSFORMATION&#160;</td><td class="fielddoc"><p><a class="el" href="class_transformation.html" title="\ @ @ . 3 .">Transformation</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa09c3bd6379b9428c6c27dba29512be67"></a>SBML_RENDER_GRAPHICALPRIMITIVE1D&#160;</td><td class="fielddoc"><p><a class="el" href="class_graphical_primitive1_d.html">GraphicalPrimitive1D</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa09c3bd6379b9428c6c27dba29512be67"></a>SBML_RENDER_GRAPHICALPRIMITIVE1D&#160;</td><td class="fielddoc"><p><a class="el" href="class_graphical_primitive1_d.html" title="\ @ @ . 1 .">GraphicalPrimitive1D</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa223b8e18ee71c0bedaa0447bb779e967"></a>SBML_RENDER_GRAPHICALPRIMITIVE2D&#160;</td><td class="fielddoc"><p><a class="el" href="class_graphical_primitive2_d.html">GraphicalPrimitive2D</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa223b8e18ee71c0bedaa0447bb779e967"></a>SBML_RENDER_GRAPHICALPRIMITIVE2D&#160;</td><td class="fielddoc"><p><a class="el" href="class_graphical_primitive2_d.html" title="\ @ @ . 2 .">GraphicalPrimitive2D</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa7a55621f60ce12e6277d193695b47dc6"></a>SBML_RENDER_STYLE_BASE&#160;</td><td class="fielddoc"><p><a class="el" href="class_style.html">Style</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa7a55621f60ce12e6277d193695b47dc6"></a>SBML_RENDER_STYLE_BASE&#160;</td><td class="fielddoc"><p><a class="el" href="class_style.html" title="\ @ @ . .">Style</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa3690e1d8fbc7b992333601fcadb64206"></a>SBML_RENDER_RENDERINFORMATION_BASE&#160;</td><td class="fielddoc"><p><a class="el" href="class_render_information_base.html">RenderInformationBase</a> </p>
+<tr><td class="fieldname"><a id="a1ee9fbdc9bd026cb1b0cc86e6349b9efa3690e1d8fbc7b992333601fcadb64206"></a>SBML_RENDER_RENDERINFORMATION_BASE&#160;</td><td class="fielddoc"><p><a class="el" href="class_render_information_base.html" title="\ @ @ . .">RenderInformationBase</a> </p>
 </td></tr>
 </table>
 

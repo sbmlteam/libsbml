@@ -102,56 +102,54 @@ $(document).ready(function(){initNavTree('class_comp_model_plugin.html',''); ini
 <div class="dynheader">
 Inheritance diagram for CompModelPlugin:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_comp_model_plugin__inherit__graph.svg" width="151" height="187"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_comp_model_plugin__inherit__graph.svg" width="151" height="187"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><br  />
-</p>
-<span class="pkg-marker pkg-color-comp"><a href="group__comp.html">comp</a></span>
- Extension of <a class="el" href="class_model.html">Model</a>.</p>
-<p>The <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a> class inherits from the SBMLSBasePlugin class, and codifies the extensions to the <a class="el" href="class_model.html">Model</a> class defined in the SBML Level&#160;3 <a class="el" href="group__comp.html">Hierarchical Model Composition</a> (&ldquo;comp&rdquo;) package. This extension allows a <a class="el" href="class_model.html">Model</a> to define Submodels (other Models that are instantiated as new parts of the parent <a class="el" href="class_model.html">Model</a>), and Ports, a defined interface for including the given <a class="el" href="class_model.html">Model</a> as a <a class="el" href="class_submodel.html">Submodel</a> of a different <a class="el" href="class_model.html">Model</a>.</p>
-<p>Submodels are stored in an optional child <a class="el" href="class_list_of_submodels.html">ListOfSubmodels</a> object, which, if present, must contain one or more <a class="el" href="class_submodel.html">Submodel</a> objects. All of the Submodels present in the <a class="el" href="class_list_of_submodels.html">ListOfSubmodels</a> are defined to be instantiated in the 'complete' <a class="el" href="class_model.html">Model</a>.</p>
-<p>Ports are stored in an optional child <a class="el" href="class_list_of_ports.html">ListOfPorts</a> object, which, if present, must contain one or more <a class="el" href="class_port.html">Port</a> objects. All of the Ports present in the <a class="el" href="class_list_of_ports.html">ListOfPorts</a> collectively define the 'port interface' of the <a class="el" href="class_model.html">Model</a>. </p>
+<div class="textblock"><p>\ @ @ . . </p>
+<p>The <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a> class inherits from the SBMLSBasePlugin class, and codifies the extensions to the <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> class defined in the SBML Level&#160;3 <a class="el" href="group__comp.html">Hierarchical Model Composition</a> (&ldquo;comp&rdquo;) package. This extension allows a <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> to define Submodels (other Models that are instantiated as new parts of the parent <a class="el" href="class_model.html" title="\ @ @ . .">Model</a>), and Ports, a defined interface for including the given <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> as a <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> of a different <a class="el" href="class_model.html" title="\ @ @ . .">Model</a>.</p>
+<p>Submodels are stored in an optional child <a class="el" href="class_list_of_submodels.html" title="\ @ @ . .">ListOfSubmodels</a> object, which, if present, must contain one or more <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> objects. All of the Submodels present in the <a class="el" href="class_list_of_submodels.html" title="\ @ @ . .">ListOfSubmodels</a> are defined to be instantiated in the 'complete' <a class="el" href="class_model.html" title="\ @ @ . .">Model</a>.</p>
+<p>Ports are stored in an optional child <a class="el" href="class_list_of_ports.html" title="\ @ @ . .">ListOfPorts</a> object, which, if present, must contain one or more <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> objects. All of the Ports present in the <a class="el" href="class_list_of_ports.html" title="\ @ @ . .">ListOfPorts</a> collectively define the 'port interface' of the <a class="el" href="class_model.html" title="\ @ @ . .">Model</a>. </p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="spec_example1_8cpp-example.html#_a37">spec_example1.cpp</a>, <a class="el" href="spec_example2_8cpp-example.html#_a14">spec_example2.cpp</a>, <a class="el" href="spec_example3_8cpp-example.html#_a40">spec_example3.cpp</a>, and <a class="el" href="spec_example4_8cpp-example.html#_a35">spec_example4.cpp</a>.</dd>
 </dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aeda24156046d1ddc696aa88d76f88be0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#aeda24156046d1ddc696aa88d76f88be0">addPort</a> (const <a class="el" href="class_port.html">Port</a> *port)</td></tr>
-<tr class="memdesc:aeda24156046d1ddc696aa88d76f88be0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a copy of the given <a class="el" href="class_port.html">Port</a> object to the list of ports.  <a href="class_comp_model_plugin.html#aeda24156046d1ddc696aa88d76f88be0">More...</a><br /></td></tr>
+<tr class="memdesc:aeda24156046d1ddc696aa88d76f88be0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a copy of the given <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> object to the list of ports.  <a href="class_comp_model_plugin.html#aeda24156046d1ddc696aa88d76f88be0">More...</a><br /></td></tr>
 <tr class="separator:aeda24156046d1ddc696aa88d76f88be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2081bf2e3d0fdd98c946f747459156e1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#a2081bf2e3d0fdd98c946f747459156e1">addReplacedElement</a> (const <a class="el" href="class_replaced_element.html">ReplacedElement</a> *replacedElement)</td></tr>
-<tr class="memdesc:a2081bf2e3d0fdd98c946f747459156e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a copy of the given <a class="el" href="class_replaced_element.html">ReplacedElement</a> object to the list of ReplacedElements.  <a href="class_comp_s_base_plugin.html#a2081bf2e3d0fdd98c946f747459156e1">More...</a><br /></td></tr>
+<tr class="memdesc:a2081bf2e3d0fdd98c946f747459156e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a copy of the given <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> object to the list of ReplacedElements.  <a href="class_comp_s_base_plugin.html#a2081bf2e3d0fdd98c946f747459156e1">More...</a><br /></td></tr>
 <tr class="separator:a2081bf2e3d0fdd98c946f747459156e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2367bd8452e715156623375f700b3382"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a2367bd8452e715156623375f700b3382">addSubmodel</a> (const <a class="el" href="class_submodel.html">Submodel</a> *submodel)</td></tr>
-<tr class="memdesc:a2367bd8452e715156623375f700b3382"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a copy of the given <a class="el" href="class_submodel.html">Submodel</a> object to the list of submodels.  <a href="class_comp_model_plugin.html#a2367bd8452e715156623375f700b3382">More...</a><br /></td></tr>
+<tr class="memdesc:a2367bd8452e715156623375f700b3382"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a copy of the given <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> object to the list of submodels.  <a href="class_comp_model_plugin.html#a2367bd8452e715156623375f700b3382">More...</a><br /></td></tr>
 <tr class="separator:a2367bd8452e715156623375f700b3382"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b13fc4a457143c7d01da3f597893954"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#a0b13fc4a457143c7d01da3f597893954">clearReplacedElements</a> ()</td></tr>
 <tr class="memdesc:a0b13fc4a457143c7d01da3f597893954"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove all ReplacedElements, if any exist.  <a href="class_comp_s_base_plugin.html#a0b13fc4a457143c7d01da3f597893954">More...</a><br /></td></tr>
 <tr class="separator:a0b13fc4a457143c7d01da3f597893954"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1099119574176c7fe659b5a5eb2b5a50"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a1099119574176c7fe659b5a5eb2b5a50">clone</a> () const</td></tr>
-<tr class="memdesc:a1099119574176c7fe659b5a5eb2b5a50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a> object.  <a href="class_comp_model_plugin.html#a1099119574176c7fe659b5a5eb2b5a50">More...</a><br /></td></tr>
+<tr class="memdesc:a1099119574176c7fe659b5a5eb2b5a50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a> object.  <a href="class_comp_model_plugin.html#a1099119574176c7fe659b5a5eb2b5a50">More...</a><br /></td></tr>
 <tr class="separator:a1099119574176c7fe659b5a5eb2b5a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3c1996e90d5c702c731ef35bf15be1d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#af3c1996e90d5c702c731ef35bf15be1d">CompModelPlugin</a> (const <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a> &amp;orig)</td></tr>
 <tr class="memdesc:af3c1996e90d5c702c731ef35bf15be1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="class_comp_model_plugin.html#af3c1996e90d5c702c731ef35bf15be1d">More...</a><br /></td></tr>
 <tr class="separator:af3c1996e90d5c702c731ef35bf15be1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14c169122528f6518e19bdb22f175645"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a14c169122528f6518e19bdb22f175645">CompModelPlugin</a> (const std::string &amp;uri, const std::string &amp;prefix, <a class="el" href="class_comp_pkg_namespaces.html">CompPkgNamespaces</a> *compns)</td></tr>
-<tr class="memdesc:a14c169122528f6518e19bdb22f175645"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a> object using the given parameters.  <a href="class_comp_model_plugin.html#a14c169122528f6518e19bdb22f175645">More...</a><br /></td></tr>
+<tr class="memdesc:a14c169122528f6518e19bdb22f175645"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a> object using the given parameters.  <a href="class_comp_model_plugin.html#a14c169122528f6518e19bdb22f175645">More...</a><br /></td></tr>
 <tr class="separator:a14c169122528f6518e19bdb22f175645"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d1562c2bd8be315b0aaaf17e8c58077"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_port.html">Port</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a1d1562c2bd8be315b0aaaf17e8c58077">createPort</a> ()</td></tr>
-<tr class="memdesc:a1d1562c2bd8be315b0aaaf17e8c58077"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="class_port.html">Port</a> object, adds it to the end of the port objects list and returns a pointer to the newly created object.  <a href="class_comp_model_plugin.html#a1d1562c2bd8be315b0aaaf17e8c58077">More...</a><br /></td></tr>
+<tr class="memdesc:a1d1562c2bd8be315b0aaaf17e8c58077"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> object, adds it to the end of the port objects list and returns a pointer to the newly created object.  <a href="class_comp_model_plugin.html#a1d1562c2bd8be315b0aaaf17e8c58077">More...</a><br /></td></tr>
 <tr class="separator:a1d1562c2bd8be315b0aaaf17e8c58077"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2bd79b396e9a62918e7bf08b875e856"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_replaced_by.html">ReplacedBy</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#af2bd79b396e9a62918e7bf08b875e856">createReplacedBy</a> ()</td></tr>
-<tr class="memdesc:af2bd79b396e9a62918e7bf08b875e856"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new, empty <a class="el" href="class_replaced_by.html">ReplacedBy</a>, adds it to this <a class="el" href="class_comp_s_base_plugin.html">CompSBasePlugin</a> and returns the created <a class="el" href="class_replaced_by.html">ReplacedBy</a>.  <a href="class_comp_s_base_plugin.html#af2bd79b396e9a62918e7bf08b875e856">More...</a><br /></td></tr>
+<tr class="memdesc:af2bd79b396e9a62918e7bf08b875e856"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new, empty <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a>, adds it to this <a class="el" href="class_comp_s_base_plugin.html" title="\ @ @ . .">CompSBasePlugin</a> and returns the created <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a>.  <a href="class_comp_s_base_plugin.html#af2bd79b396e9a62918e7bf08b875e856">More...</a><br /></td></tr>
 <tr class="separator:af2bd79b396e9a62918e7bf08b875e856"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a272d5b495f462f258fc3f6e7e55c68d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_replaced_element.html">ReplacedElement</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#a272d5b495f462f258fc3f6e7e55c68d9">createReplacedElement</a> ()</td></tr>
-<tr class="memdesc:a272d5b495f462f258fc3f6e7e55c68d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="class_replaced_element.html">ReplacedElement</a> object, adds it to the end of the <a class="el" href="class_replaced_element.html">ReplacedElement</a> objects list and returns a pointer to the newly created object.  <a href="class_comp_s_base_plugin.html#a272d5b495f462f258fc3f6e7e55c68d9">More...</a><br /></td></tr>
+<tr class="memdesc:a272d5b495f462f258fc3f6e7e55c68d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> object, adds it to the end of the <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> objects list and returns a pointer to the newly created object.  <a href="class_comp_s_base_plugin.html#a272d5b495f462f258fc3f6e7e55c68d9">More...</a><br /></td></tr>
 <tr class="separator:a272d5b495f462f258fc3f6e7e55c68d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22d8e99d328836d0c09b0d717169dac7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_submodel.html">Submodel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a22d8e99d328836d0c09b0d717169dac7">createSubmodel</a> ()</td></tr>
-<tr class="memdesc:a22d8e99d328836d0c09b0d717169dac7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="class_submodel.html">Submodel</a> object, adds it to the end of the submodel objects list and returns a pointer to the newly created object.  <a href="class_comp_model_plugin.html#a22d8e99d328836d0c09b0d717169dac7">More...</a><br /></td></tr>
+<tr class="memdesc:a22d8e99d328836d0c09b0d717169dac7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> object, adds it to the end of the submodel objects list and returns a pointer to the newly created object.  <a href="class_comp_model_plugin.html#a22d8e99d328836d0c09b0d717169dac7">More...</a><br /></td></tr>
 <tr class="separator:a22d8e99d328836d0c09b0d717169dac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66c626309f074a4eece29bef1ee0cdc6"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_list.html">List</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a66c626309f074a4eece29bef1ee0cdc6">getAllElements</a> (<a class="el" href="class_element_filter.html">ElementFilter</a> *filter=NULL)</td></tr>
-<tr class="memdesc:a66c626309f074a4eece29bef1ee0cdc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a <a class="el" href="class_list.html">List</a> of all child <a class="el" href="class_s_base.html">SBase</a> objects, including those nested to an arbitrary depth.  <a href="class_comp_model_plugin.html#a66c626309f074a4eece29bef1ee0cdc6">More...</a><br /></td></tr>
+<tr class="memdesc:a66c626309f074a4eece29bef1ee0cdc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a <a class="el" href="class_list.html" title="\ @ @ . , , .">List</a> of all child <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> objects, including those nested to an arbitrary depth.  <a href="class_comp_model_plugin.html#a66c626309f074a4eece29bef1ee0cdc6">More...</a><br /></td></tr>
 <tr class="separator:a66c626309f074a4eece29bef1ee0cdc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adfb149b94a7b304430950edceac93f26"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#adfb149b94a7b304430950edceac93f26">getDivider</a> ()</td></tr>
 <tr class="memdesc:adfb149b94a7b304430950edceac93f26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the string used as the divider between names when renaming and flattening models.  <a href="class_comp_model_plugin.html#adfb149b94a7b304430950edceac93f26">More...</a><br /></td></tr>
@@ -169,31 +167,31 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a4f960060c607ab977a1953edd864c3ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the SBML Level of the package extension of this plugin object.  <a href="class_s_base_plugin.html#a4f960060c607ab977a1953edd864c3ce">More...</a><br /></td></tr>
 <tr class="separator:a4f960060c607ab977a1953edd864c3ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5559468c3721d66d10753717f5cbf288"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_list_of_ports.html">ListOfPorts</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a5559468c3721d66d10753717f5cbf288">getListOfPorts</a> ()</td></tr>
-<tr class="memdesc:a5559468c3721d66d10753717f5cbf288"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of_ports.html">ListOfPorts</a> from this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>.  <a href="class_comp_model_plugin.html#a5559468c3721d66d10753717f5cbf288">More...</a><br /></td></tr>
+<tr class="memdesc:a5559468c3721d66d10753717f5cbf288"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of_ports.html" title="\ @ @ . .">ListOfPorts</a> from this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>.  <a href="class_comp_model_plugin.html#a5559468c3721d66d10753717f5cbf288">More...</a><br /></td></tr>
 <tr class="separator:a5559468c3721d66d10753717f5cbf288"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9982740ca16ac92dd67d4517ae0e44b0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_list_of_ports.html">ListOfPorts</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a9982740ca16ac92dd67d4517ae0e44b0">getListOfPorts</a> () const</td></tr>
-<tr class="memdesc:a9982740ca16ac92dd67d4517ae0e44b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of_ports.html">ListOfPorts</a> from this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>.  <a href="class_comp_model_plugin.html#a9982740ca16ac92dd67d4517ae0e44b0">More...</a><br /></td></tr>
+<tr class="memdesc:a9982740ca16ac92dd67d4517ae0e44b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of_ports.html" title="\ @ @ . .">ListOfPorts</a> from this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>.  <a href="class_comp_model_plugin.html#a9982740ca16ac92dd67d4517ae0e44b0">More...</a><br /></td></tr>
 <tr class="separator:a9982740ca16ac92dd67d4517ae0e44b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a059faab933898ec1e1ec7019bb80cc07"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_list_of_replaced_elements.html">ListOfReplacedElements</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#a059faab933898ec1e1ec7019bb80cc07">getListOfReplacedElements</a> ()</td></tr>
-<tr class="memdesc:a059faab933898ec1e1ec7019bb80cc07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of.html">ListOf</a> object that holds all replacedElements.  <a href="class_comp_s_base_plugin.html#a059faab933898ec1e1ec7019bb80cc07">More...</a><br /></td></tr>
+<tr class="memdesc:a059faab933898ec1e1ec7019bb80cc07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a> object that holds all replacedElements.  <a href="class_comp_s_base_plugin.html#a059faab933898ec1e1ec7019bb80cc07">More...</a><br /></td></tr>
 <tr class="separator:a059faab933898ec1e1ec7019bb80cc07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07b56b14f765b560fd8883e6738642e4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_list_of_replaced_elements.html">ListOfReplacedElements</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#a07b56b14f765b560fd8883e6738642e4">getListOfReplacedElements</a> () const</td></tr>
-<tr class="memdesc:a07b56b14f765b560fd8883e6738642e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of.html">ListOf</a> object that holds all replacedElements.  <a href="class_comp_s_base_plugin.html#a07b56b14f765b560fd8883e6738642e4">More...</a><br /></td></tr>
+<tr class="memdesc:a07b56b14f765b560fd8883e6738642e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a> object that holds all replacedElements.  <a href="class_comp_s_base_plugin.html#a07b56b14f765b560fd8883e6738642e4">More...</a><br /></td></tr>
 <tr class="separator:a07b56b14f765b560fd8883e6738642e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2b5b00fa86da7ac8705b035dc4f3493"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_list_of_submodels.html">ListOfSubmodels</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#ac2b5b00fa86da7ac8705b035dc4f3493">getListOfSubmodels</a> ()</td></tr>
-<tr class="memdesc:ac2b5b00fa86da7ac8705b035dc4f3493"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of_submodels.html">ListOfSubmodels</a> from this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>.  <a href="class_comp_model_plugin.html#ac2b5b00fa86da7ac8705b035dc4f3493">More...</a><br /></td></tr>
+<tr class="memdesc:ac2b5b00fa86da7ac8705b035dc4f3493"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of_submodels.html" title="\ @ @ . .">ListOfSubmodels</a> from this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>.  <a href="class_comp_model_plugin.html#ac2b5b00fa86da7ac8705b035dc4f3493">More...</a><br /></td></tr>
 <tr class="separator:ac2b5b00fa86da7ac8705b035dc4f3493"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8e05cacf483d12d8eae5efc06fb49a7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_list_of_submodels.html">ListOfSubmodels</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#aa8e05cacf483d12d8eae5efc06fb49a7">getListOfSubmodels</a> () const</td></tr>
-<tr class="memdesc:aa8e05cacf483d12d8eae5efc06fb49a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of_submodels.html">ListOfSubmodels</a> from this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>.  <a href="class_comp_model_plugin.html#aa8e05cacf483d12d8eae5efc06fb49a7">More...</a><br /></td></tr>
+<tr class="memdesc:aa8e05cacf483d12d8eae5efc06fb49a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_list_of_submodels.html" title="\ @ @ . .">ListOfSubmodels</a> from this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>.  <a href="class_comp_model_plugin.html#aa8e05cacf483d12d8eae5efc06fb49a7">More...</a><br /></td></tr>
 <tr class="separator:aa8e05cacf483d12d8eae5efc06fb49a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa34695aeacf854e3a5eb4f680e306e95"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#aa34695aeacf854e3a5eb4f680e306e95">getNumPorts</a> () const</td></tr>
-<tr class="memdesc:aa34695aeacf854e3a5eb4f680e306e95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of ports for this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>.  <a href="class_comp_model_plugin.html#aa34695aeacf854e3a5eb4f680e306e95">More...</a><br /></td></tr>
+<tr class="memdesc:aa34695aeacf854e3a5eb4f680e306e95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of ports for this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>.  <a href="class_comp_model_plugin.html#aa34695aeacf854e3a5eb4f680e306e95">More...</a><br /></td></tr>
 <tr class="separator:aa34695aeacf854e3a5eb4f680e306e95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d12f2b624650d68f8ac7a5022077be6"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#a5d12f2b624650d68f8ac7a5022077be6">getNumReplacedElements</a> () const</td></tr>
-<tr class="memdesc:a5d12f2b624650d68f8ac7a5022077be6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of ReplacedElements for this <a class="el" href="class_comp_s_base_plugin.html">CompSBasePlugin</a>.  <a href="class_comp_s_base_plugin.html#a5d12f2b624650d68f8ac7a5022077be6">More...</a><br /></td></tr>
+<tr class="memdesc:a5d12f2b624650d68f8ac7a5022077be6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of ReplacedElements for this <a class="el" href="class_comp_s_base_plugin.html" title="\ @ @ . .">CompSBasePlugin</a>.  <a href="class_comp_s_base_plugin.html#a5d12f2b624650d68f8ac7a5022077be6">More...</a><br /></td></tr>
 <tr class="separator:a5d12f2b624650d68f8ac7a5022077be6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3494abab033d4680f79a6c3071f64979"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a3494abab033d4680f79a6c3071f64979">getNumSubmodels</a> () const</td></tr>
-<tr class="memdesc:a3494abab033d4680f79a6c3071f64979"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of submodels for this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>.  <a href="class_comp_model_plugin.html#a3494abab033d4680f79a6c3071f64979">More...</a><br /></td></tr>
+<tr class="memdesc:a3494abab033d4680f79a6c3071f64979"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of submodels for this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>.  <a href="class_comp_model_plugin.html#a3494abab033d4680f79a6c3071f64979">More...</a><br /></td></tr>
 <tr class="separator:a3494abab033d4680f79a6c3071f64979"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39809eb9fac95dba54f36c133927f6d9"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a39809eb9fac95dba54f36c133927f6d9">getPackageName</a> () const</td></tr>
 <tr class="memdesc:a39809eb9fac95dba54f36c133927f6d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the short-form name of the package to which this plugin object belongs.  <a href="class_s_base_plugin.html#a39809eb9fac95dba54f36c133927f6d9">More...</a><br /></td></tr>
@@ -223,22 +221,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa2ba27dc0f8acc30b6a99496a26e1c0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the XML namespace prefix of the package to which this plugin object belongs.  <a href="class_s_base_plugin.html#aa2ba27dc0f8acc30b6a99496a26e1c0a">More...</a><br /></td></tr>
 <tr class="separator:aa2ba27dc0f8acc30b6a99496a26e1c0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d2cee8013b2f94ee4bdfd2789dce4e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_replaced_by.html">ReplacedBy</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#a7d2cee8013b2f94ee4bdfd2789dce4e3">getReplacedBy</a> ()</td></tr>
-<tr class="memdesc:a7d2cee8013b2f94ee4bdfd2789dce4e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the child <a class="el" href="class_replaced_by.html">ReplacedBy</a> of this <a class="el" href="class_s_base.html">SBase</a>.  <a href="class_comp_s_base_plugin.html#a7d2cee8013b2f94ee4bdfd2789dce4e3">More...</a><br /></td></tr>
+<tr class="memdesc:a7d2cee8013b2f94ee4bdfd2789dce4e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the child <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> of this <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a>.  <a href="class_comp_s_base_plugin.html#a7d2cee8013b2f94ee4bdfd2789dce4e3">More...</a><br /></td></tr>
 <tr class="separator:a7d2cee8013b2f94ee4bdfd2789dce4e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fda04ad729248d53154dc8e1c535f94"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_replaced_by.html">ReplacedBy</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#a4fda04ad729248d53154dc8e1c535f94">getReplacedBy</a> () const</td></tr>
-<tr class="memdesc:a4fda04ad729248d53154dc8e1c535f94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the child <a class="el" href="class_replaced_by.html">ReplacedBy</a> of this <a class="el" href="class_s_base.html">SBase</a>.  <a href="class_comp_s_base_plugin.html#a4fda04ad729248d53154dc8e1c535f94">More...</a><br /></td></tr>
+<tr class="memdesc:a4fda04ad729248d53154dc8e1c535f94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the child <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> of this <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a>.  <a href="class_comp_s_base_plugin.html#a4fda04ad729248d53154dc8e1c535f94">More...</a><br /></td></tr>
 <tr class="separator:a4fda04ad729248d53154dc8e1c535f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4aef39b461d352181a5f550a183bb44"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_replaced_element.html">ReplacedElement</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#aa4aef39b461d352181a5f550a183bb44">getReplacedElement</a> (unsigned int n)</td></tr>
-<tr class="memdesc:aa4aef39b461d352181a5f550a183bb44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_replaced_element.html">ReplacedElement</a> with the given index.  <a href="class_comp_s_base_plugin.html#aa4aef39b461d352181a5f550a183bb44">More...</a><br /></td></tr>
+<tr class="memdesc:aa4aef39b461d352181a5f550a183bb44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> with the given index.  <a href="class_comp_s_base_plugin.html#aa4aef39b461d352181a5f550a183bb44">More...</a><br /></td></tr>
 <tr class="separator:aa4aef39b461d352181a5f550a183bb44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae45b5e1b5dec708e17d971f01c2fe5f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_replaced_element.html">ReplacedElement</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#aae45b5e1b5dec708e17d971f01c2fe5f">getReplacedElement</a> (unsigned int n) const</td></tr>
-<tr class="memdesc:aae45b5e1b5dec708e17d971f01c2fe5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_replaced_element.html">ReplacedElement</a> with the given index.  <a href="class_comp_s_base_plugin.html#aae45b5e1b5dec708e17d971f01c2fe5f">More...</a><br /></td></tr>
+<tr class="memdesc:aae45b5e1b5dec708e17d971f01c2fe5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> with the given index.  <a href="class_comp_s_base_plugin.html#aae45b5e1b5dec708e17d971f01c2fe5f">More...</a><br /></td></tr>
 <tr class="separator:aae45b5e1b5dec708e17d971f01c2fe5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59581825576a6216ab07beceb709da81"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a59581825576a6216ab07beceb709da81">getSBMLDocument</a> ()</td></tr>
-<tr class="memdesc:a59581825576a6216ab07beceb709da81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object containing this object instance.  <a href="class_s_base_plugin.html#a59581825576a6216ab07beceb709da81">More...</a><br /></td></tr>
+<tr class="memdesc:a59581825576a6216ab07beceb709da81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object containing this object instance.  <a href="class_s_base_plugin.html#a59581825576a6216ab07beceb709da81">More...</a><br /></td></tr>
 <tr class="separator:a59581825576a6216ab07beceb709da81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d5a422cf6973d70984cec3ec4597d1c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a9d5a422cf6973d70984cec3ec4597d1c">getSBMLDocument</a> () const</td></tr>
-<tr class="memdesc:a9d5a422cf6973d70984cec3ec4597d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object containing this object instance.  <a href="class_s_base_plugin.html#a9d5a422cf6973d70984cec3ec4597d1c">More...</a><br /></td></tr>
+<tr class="memdesc:a9d5a422cf6973d70984cec3ec4597d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object containing this object instance.  <a href="class_s_base_plugin.html#a9d5a422cf6973d70984cec3ec4597d1c">More...</a><br /></td></tr>
 <tr class="separator:a9d5a422cf6973d70984cec3ec4597d1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e7655dbfc09bf691bf774c04ea6e18f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_submodel.html">Submodel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a9e7655dbfc09bf691bf774c04ea6e18f">getSubmodel</a> (const std::string &amp;id)</td></tr>
 <tr class="memdesc:a9e7655dbfc09bf691bf774c04ea6e18f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the submodel with the given identifier.  <a href="class_comp_model_plugin.html#a9e7655dbfc09bf691bf774c04ea6e18f">More...</a><br /></td></tr>
@@ -261,7 +259,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa13caba66cf24826f0b9a40d83db06c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Version within the SBML Level of the package extension of this plugin object.  <a href="class_s_base_plugin.html#aa13caba66cf24826f0b9a40d83db06c9">More...</a><br /></td></tr>
 <tr class="separator:aa13caba66cf24826f0b9a40d83db06c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1f8437fe433227c2499fab7eb995513"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#ae1f8437fe433227c2499fab7eb995513">isSetReplacedBy</a> () const</td></tr>
-<tr class="memdesc:ae1f8437fe433227c2499fab7eb995513"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate for testing whether the <a class="el" href="class_replaced_by.html">ReplacedBy</a> for this <a class="el" href="class_s_base.html">SBase</a> is set.  <a href="class_comp_s_base_plugin.html#ae1f8437fe433227c2499fab7eb995513">More...</a><br /></td></tr>
+<tr class="memdesc:ae1f8437fe433227c2499fab7eb995513"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate for testing whether the <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> for this <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> is set.  <a href="class_comp_s_base_plugin.html#ae1f8437fe433227c2499fab7eb995513">More...</a><br /></td></tr>
 <tr class="separator:ae1f8437fe433227c2499fab7eb995513"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a008bab6ef4c72c71801c2d312036d0e0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a008bab6ef4c72c71801c2d312036d0e0">isSetTransformer</a> () const</td></tr>
 <tr class="separator:a008bab6ef4c72c71801c2d312036d0e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -271,13 +269,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aacd97152699501735840c258a33c4090"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to log a common type of error.  <a href="class_comp_s_base_plugin.html#aacd97152699501735840c258a33c4090">More...</a><br /></td></tr>
 <tr class="separator:aacd97152699501735840c258a33c4090"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c9b830f6074cbefcf81fdd957b779d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a0c9b830f6074cbefcf81fdd957b779d2">operator=</a> (const <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a> &amp;orig)</td></tr>
-<tr class="memdesc:a0c9b830f6074cbefcf81fdd957b779d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>.  <a href="class_comp_model_plugin.html#a0c9b830f6074cbefcf81fdd957b779d2">More...</a><br /></td></tr>
+<tr class="memdesc:a0c9b830f6074cbefcf81fdd957b779d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>.  <a href="class_comp_model_plugin.html#a0c9b830f6074cbefcf81fdd957b779d2">More...</a><br /></td></tr>
 <tr class="separator:a0c9b830f6074cbefcf81fdd957b779d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd292973c00cade965f708511446df65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_port.html">Port</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#abd292973c00cade965f708511446df65">removePort</a> (unsigned int index)</td></tr>
 <tr class="memdesc:abd292973c00cade965f708511446df65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the port with the given index.  <a href="class_comp_model_plugin.html#abd292973c00cade965f708511446df65">More...</a><br /></td></tr>
 <tr class="separator:abd292973c00cade965f708511446df65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92c4b618888890a830a1551d44579c61"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_replaced_element.html">ReplacedElement</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#a92c4b618888890a830a1551d44579c61">removeReplacedElement</a> (unsigned int index)</td></tr>
-<tr class="memdesc:a92c4b618888890a830a1551d44579c61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the <a class="el" href="class_replaced_element.html">ReplacedElement</a> with the given index.  <a href="class_comp_s_base_plugin.html#a92c4b618888890a830a1551d44579c61">More...</a><br /></td></tr>
+<tr class="memdesc:a92c4b618888890a830a1551d44579c61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> with the given index.  <a href="class_comp_s_base_plugin.html#a92c4b618888890a830a1551d44579c61">More...</a><br /></td></tr>
 <tr class="separator:a92c4b618888890a830a1551d44579c61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a993b85ab585c3b9a76ebe2b9fa7629c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_submodel.html">Submodel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a993b85ab585c3b9a76ebe2b9fa7629c8">removeSubmodel</a> (unsigned int index)</td></tr>
 <tr class="memdesc:a993b85ab585c3b9a76ebe2b9fa7629c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the submodel with the given index.  <a href="class_comp_model_plugin.html#a993b85ab585c3b9a76ebe2b9fa7629c8">More...</a><br /></td></tr>
@@ -295,13 +293,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a70257de82da9ea894348f1d601395e83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the XML namespace to which this object belongs.  <a href="class_s_base_plugin.html#a70257de82da9ea894348f1d601395e83">More...</a><br /></td></tr>
 <tr class="separator:a70257de82da9ea894348f1d601395e83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1cf80bcef510a84b8509dd307cca85e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#af1cf80bcef510a84b8509dd307cca85e">setReplacedBy</a> (const <a class="el" href="class_replaced_by.html">ReplacedBy</a> *replacedBy)</td></tr>
-<tr class="memdesc:af1cf80bcef510a84b8509dd307cca85e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="class_replaced_by.html">ReplacedBy</a> definition of this <a class="el" href="class_s_base.html">SBase</a> to a copy of the given <a class="el" href="class_replaced_by.html">ReplacedBy</a> object instance.  <a href="class_comp_s_base_plugin.html#af1cf80bcef510a84b8509dd307cca85e">More...</a><br /></td></tr>
+<tr class="memdesc:af1cf80bcef510a84b8509dd307cca85e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> definition of this <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> to a copy of the given <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> object instance.  <a href="class_comp_s_base_plugin.html#af1cf80bcef510a84b8509dd307cca85e">More...</a><br /></td></tr>
 <tr class="separator:af1cf80bcef510a84b8509dd307cca85e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ca6627aab54bb2d1f38d681a42f8df7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a4ca6627aab54bb2d1f38d681a42f8df7">setTransformer</a> (PrefixTransformer *transformer)</td></tr>
 <tr class="memdesc:a4ca6627aab54bb2d1f38d681a42f8df7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the custom transformer that is to be used, instead of the standard prefixing with the given divider.  <a href="class_comp_model_plugin.html#a4ca6627aab54bb2d1f38d681a42f8df7">More...</a><br /></td></tr>
 <tr class="separator:a4ca6627aab54bb2d1f38d681a42f8df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3e742634198acdbed8511162a04da98"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_s_base_plugin.html#ae3e742634198acdbed8511162a04da98">unsetReplacedBy</a> ()</td></tr>
-<tr class="memdesc:ae3e742634198acdbed8511162a04da98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the child <a class="el" href="class_replaced_by.html">ReplacedBy</a> of this <a class="el" href="class_s_base.html">SBase</a>.  <a href="class_comp_s_base_plugin.html#ae3e742634198acdbed8511162a04da98">More...</a><br /></td></tr>
+<tr class="memdesc:ae3e742634198acdbed8511162a04da98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the child <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> of this <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a>.  <a href="class_comp_s_base_plugin.html#ae3e742634198acdbed8511162a04da98">More...</a><br /></td></tr>
 <tr class="separator:ae3e742634198acdbed8511162a04da98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1c88672d2438c1395b5324f0ef28f21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#aa1c88672d2438c1395b5324f0ef28f21">unsetTransformer</a> ()</td></tr>
 <tr class="memdesc:aa1c88672d2438c1395b5324f0ef28f21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets any custom prefix transformers.  <a href="class_comp_model_plugin.html#aa1c88672d2438c1395b5324f0ef28f21">More...</a><br /></td></tr>
@@ -316,7 +314,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:a6c0a5442c20c970d368391e2b5e26e43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flatten and return a copy of this hierarchical model.  <a href="class_comp_model_plugin.html#a6c0a5442c20c970d368391e2b5e26e43">More...</a><br /></td></tr>
 <tr class="separator:a6c0a5442c20c970d368391e2b5e26e43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b43385b372cf4964098cb50a2231e18"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a9b43385b372cf4964098cb50a2231e18">instantiateSubmodels</a> ()</td></tr>
-<tr class="memdesc:a9b43385b372cf4964098cb50a2231e18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loop through all Submodels in this <a class="el" href="class_model.html">Model</a>, instantiate all of them, perform all deletions, and synchronize all replacements, including using any conversion factors that may exist.  <a href="class_comp_model_plugin.html#a9b43385b372cf4964098cb50a2231e18">More...</a><br /></td></tr>
+<tr class="memdesc:a9b43385b372cf4964098cb50a2231e18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loop through all Submodels in this <a class="el" href="class_model.html" title="\ @ @ . .">Model</a>, instantiate all of them, perform all deletions, and synchronize all replacements, including using any conversion factors that may exist.  <a href="class_comp_model_plugin.html#a9b43385b372cf4964098cb50a2231e18">More...</a><br /></td></tr>
 <tr class="separator:a9b43385b372cf4964098cb50a2231e18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
@@ -324,7 +322,7 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a2b5d3dd11d1b0152edef6ffabbd54266"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a2b5d3dd11d1b0152edef6ffabbd54266">appendFrom</a> (const <a class="el" href="class_model.html">Model</a> *model)</td></tr>
 <tr class="separator:a2b5d3dd11d1b0152edef6ffabbd54266"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7acabb27146e2b18336e969011894e9c"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#a7acabb27146e2b18336e969011894e9c">collectDeletionsAndDeleteSome</a> (std::set&lt; <a class="el" href="class_s_base.html">SBase</a> * &gt; *removed, std::set&lt; <a class="el" href="class_s_base.html">SBase</a> * &gt; *toremove)</td></tr>
-<tr class="memdesc:a7acabb27146e2b18336e969011894e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collects all elements from instantiated submodels slated to be deleted, and stores them in 'toremove', and also actually deletes the comp constructs Deletions, ReplacedElements, and <a class="el" href="class_replaced_by.html">ReplacedBy</a>'s.  <a href="class_comp_model_plugin.html#a7acabb27146e2b18336e969011894e9c">More...</a><br /></td></tr>
+<tr class="memdesc:a7acabb27146e2b18336e969011894e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collects all elements from instantiated submodels slated to be deleted, and stores them in 'toremove', and also actually deletes the comp constructs Deletions, ReplacedElements, and <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a>'s.  <a href="class_comp_model_plugin.html#a7acabb27146e2b18336e969011894e9c">More...</a><br /></td></tr>
 <tr class="separator:a7acabb27146e2b18336e969011894e9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb14fa768ce9b67c241ce8d1e786558a"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_model_plugin.html#afb14fa768ce9b67c241ce8d1e786558a">collectRenameAndConvertReplacements</a> (std::set&lt; <a class="el" href="class_s_base.html">SBase</a> * &gt; *removed, std::set&lt; <a class="el" href="class_s_base.html">SBase</a> * &gt; *toremove)</td></tr>
 <tr class="memdesc:afb14fa768ce9b67c241ce8d1e786558a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all elements from instantiated submodels slated to be replaced, and points all old references to that element to the replacement element.  <a href="class_comp_model_plugin.html#afb14fa768ce9b67c241ce8d1e786558a">More...</a><br /></td></tr>
@@ -369,9 +367,9 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a> object using the given parameters. </p>
+<p>Creates a new <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a> object using the given parameters. </p>
 <dl class="section user"><dt></dt><dd>In the XML representation of an SBML document, XML namespaces are used to identify the origin of each XML construct used. XML namespaces are identified by their unique resource identifiers (URIs). The core SBML specifications stipulate the namespaces that must be used for core SBML constructs; for example, all XML elements that belong to SBML Level&#160;3 Version&#160;1 Core must be placed in the XML namespace identified by the URI <code>"http://www.sbml.org/sbml/level3/version1/core"</code>. Individual SBML Level&#160;3 packages define their own XML namespaces; for example, all elements belonging to the SBML Level&#160;3 Layout Version&#160;1 package must be placed in the XML namespace <code>"http://www.sbml.org/sbml/level3/version1/layout/version1/"</code>.</dd></dl>
-<dl class="section user"><dt></dt><dd>The <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object encapsulates SBML Level/Version/namespaces information. It is used to communicate the SBML Level, Version, and (in Level&#160;3) packages used in addition to SBML Level&#160;3 Core. A common approach to using libSBML's <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> facilities is to create an <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object somewhere in a program once, then hand that object as needed to object constructors that accept <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> as arguments.</dd></dl>
+<dl class="section user"><dt></dt><dd>The <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object encapsulates SBML Level/Version/namespaces information. It is used to communicate the SBML Level, Version, and (in Level&#160;3) packages used in addition to SBML Level&#160;3 Core. A common approach to using libSBML's <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> facilities is to create an <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object somewhere in a program once, then hand that object as needed to object constructors that accept <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> as arguments.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uri</td><td>the URI of the SBML Level&#160;3 package implemented by this libSBML package extension.</td></tr>
@@ -400,7 +398,7 @@ Private Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Copy constructor. </p>
-<p>Creates a copy of this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a> object.</p>
+<p>Creates a copy of this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a> object.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">orig</td><td>the instance to copy. </td></tr>
@@ -454,10 +452,10 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Adds a copy of the given <a class="el" href="class_port.html">Port</a> object to the list of ports. </p>
+<p>Adds a copy of the given <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> object to the list of ports. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">port</td><td>the <a class="el" href="class_port.html">Port</a> object to be added to the list of ports. Fails if the added port is <code>NULL</code>, does not match the level/version/package of the parent object, or cannot be added to the list of ports.</td></tr>
+    <tr><td class="paramname">port</td><td>the <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> object to be added to the list of ports. Fails if the added port is <code>NULL</code>, does not match the level/version/package of the parent object, or cannot be added to the list of ports.</td></tr>
   </table>
   </dd>
 </dl>
@@ -498,10 +496,10 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Adds a copy of the given <a class="el" href="class_replaced_element.html">ReplacedElement</a> object to the list of ReplacedElements. </p>
+<p>Adds a copy of the given <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> object to the list of ReplacedElements. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">replacedElement</td><td>the <a class="el" href="class_replaced_element.html">ReplacedElement</a> object to be added to the list of ReplacedElements. Fails if the added <a class="el" href="class_replaced_element.html">ReplacedElement</a> is <code>NULL</code>, does not match the level/version/package of the parent object, or cannot be added to the list of replaced elements.</td></tr>
+    <tr><td class="paramname">replacedElement</td><td>the <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> object to be added to the list of ReplacedElements. Fails if the added <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> is <code>NULL</code>, does not match the level/version/package of the parent object, or cannot be added to the list of replaced elements.</td></tr>
   </table>
   </dd>
 </dl>
@@ -534,11 +532,11 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Adds a copy of the given <a class="el" href="class_submodel.html">Submodel</a> object to the list of submodels. </p>
+<p>Adds a copy of the given <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> object to the list of submodels. </p>
 <p>Fails if the added submodel is <code>NULL</code>, does not match the level/version/package of the parent object, or cannot be added to the list of submodels.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">submodel</td><td>the <a class="el" href="class_submodel.html">Submodel</a> object to be added to the list of submodels.</td></tr>
+    <tr><td class="paramname">submodel</td><td>the <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> object to be added to the list of submodels.</td></tr>
   </table>
   </dd>
 </dl>
@@ -631,8 +629,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates and returns a deep copy of this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>a (deep) copy of this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a> object. </dd></dl>
+<p>Creates and returns a deep copy of this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>a (deep) copy of this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a> object. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_comp_s_base_plugin.html#aebc807a54f69b78cfe951f28f2895f82">CompSBasePlugin</a>.</p>
 
@@ -672,7 +670,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Collects all elements from instantiated submodels slated to be deleted, and stores them in 'toremove', and also actually deletes the comp constructs Deletions, ReplacedElements, and <a class="el" href="class_replaced_by.html">ReplacedBy</a>'s. </p>
+<p>Collects all elements from instantiated submodels slated to be deleted, and stores them in 'toremove', and also actually deletes the comp constructs Deletions, ReplacedElements, and <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a>'s. </p>
 <p>This is so that it is possible to delete a deletion or replacement, and end up with a model that still has the element that would have otherwise been deleted. Also, actually deletes local parameters, because this potentially affects the naming conventions when replacing.</p>
 <p>Any comp elements or local parameters that have been removed will be added to 'removed', and any elements that are to be removed will be added to 'toremove'. </p>
 
@@ -757,8 +755,8 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a <a class="el" href="class_port.html">Port</a> object, adds it to the end of the port objects list and returns a pointer to the newly created object. </p>
-<dl class="section return"><dt>Returns</dt><dd>a newly created <a class="el" href="class_port.html">Port</a> object. </dd></dl>
+<p>Creates a <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> object, adds it to the end of the port objects list and returns a pointer to the newly created object. </p>
+<dl class="section return"><dt>Returns</dt><dd>a newly created <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> object. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="spec_example3_8cpp-example.html#a45">spec_example3.cpp</a>, and <a class="el" href="spec_example4_8cpp-example.html#a41">spec_example4.cpp</a>.</dd>
 </dl>
 
@@ -787,8 +785,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates a new, empty <a class="el" href="class_replaced_by.html">ReplacedBy</a>, adds it to this <a class="el" href="class_comp_s_base_plugin.html">CompSBasePlugin</a> and returns the created <a class="el" href="class_replaced_by.html">ReplacedBy</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the newly created <a class="el" href="class_replaced_by.html">ReplacedBy</a> object instance. </dd></dl>
+<p>Creates a new, empty <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a>, adds it to this <a class="el" href="class_comp_s_base_plugin.html" title="\ @ @ . .">CompSBasePlugin</a> and returns the created <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the newly created <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> object instance. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="spec_example3_8cpp-example.html#a63">spec_example3.cpp</a>, and <a class="el" href="spec_example4_8cpp-example.html#a60">spec_example4.cpp</a>.</dd>
 </dl>
 
@@ -817,8 +815,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates a <a class="el" href="class_replaced_element.html">ReplacedElement</a> object, adds it to the end of the <a class="el" href="class_replaced_element.html">ReplacedElement</a> objects list and returns a pointer to the newly created object. </p>
-<dl class="section return"><dt>Returns</dt><dd>a newly created <a class="el" href="class_replaced_element.html">ReplacedElement</a> object. </dd></dl>
+<p>Creates a <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> object, adds it to the end of the <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> objects list and returns a pointer to the newly created object. </p>
+<dl class="section return"><dt>Returns</dt><dd>a newly created <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> object. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="spec_example3_8cpp-example.html#a61">spec_example3.cpp</a>, and <a class="el" href="spec_example4_8cpp-example.html#a58">spec_example4.cpp</a>.</dd>
 </dl>
 
@@ -839,8 +837,8 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a <a class="el" href="class_submodel.html">Submodel</a> object, adds it to the end of the submodel objects list and returns a pointer to the newly created object. </p>
-<dl class="section return"><dt>Returns</dt><dd>a newly created <a class="el" href="class_submodel.html">Submodel</a> object. </dd></dl>
+<p>Creates a <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> object, adds it to the end of the submodel objects list and returns a pointer to the newly created object. </p>
+<dl class="section return"><dt>Returns</dt><dd>a newly created <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> object. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="spec_example1_8cpp-example.html#a39">spec_example1.cpp</a>, <a class="el" href="spec_example2_8cpp-example.html#a16">spec_example2.cpp</a>, <a class="el" href="spec_example3_8cpp-example.html#a49">spec_example3.cpp</a>, and <a class="el" href="spec_example4_8cpp-example.html#a45">spec_example4.cpp</a>.</dd>
 </dl>
 
@@ -871,7 +869,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Flatten and return a copy of this hierarchical model. </p>
 <p>Follows all the rules of the hierarchical model composition package and returns a version with all submodels copied into the main model, with all deletions removed and all replaced elements replaced, following any and all rules of conversion factors. Only the ports created for this model will remain.</p>
-<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="class_model.html">Model</a> object with no submodels. On failure, return <code>NULL</code>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> object with no submodels. On failure, return <code>NULL</code>. </dd></dl>
 
 </div>
 </div>
@@ -899,14 +897,14 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a <a class="el" href="class_list.html">List</a> of all child <a class="el" href="class_s_base.html">SBase</a> objects, including those nested to an arbitrary depth. </p>
+<p>Returns a <a class="el" href="class_list.html" title="\ @ @ . , , .">List</a> of all child <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> objects, including those nested to an arbitrary depth. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">filter</td><td>a pointer to an <a class="el" href="class_element_filter.html">ElementFilter</a>, which causes the function to return only elements that match a particular set of constraints. If NULL (the default), the function will return all child objects.</td></tr>
+    <tr><td class="paramname">filter</td><td>a pointer to an <a class="el" href="class_element_filter.html" title="\ @ @ . .">ElementFilter</a>, which causes the function to return only elements that match a particular set of constraints. If NULL (the default), the function will return all child objects.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="class_list.html">List</a> of pointers to all children objects. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="class_list.html" title="\ @ @ . , , .">List</a> of pointers to all children objects. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_comp_s_base_plugin.html#a68b6b52aba5aa3830440022e71a432e2">CompSBasePlugin</a>.</p>
 
@@ -965,7 +963,7 @@ Private Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a pointer to the <a class="el" href="class_s_base.html">SBase</a> element with the given <code>metaid</code>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a pointer to the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> element with the given <code>metaid</code>. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_comp_s_base_plugin.html#aba67759bd8663b384cbcebfbfd84aba6">CompSBasePlugin</a>.</p>
 
@@ -1002,7 +1000,7 @@ Private Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a pointer to the <a class="el" href="class_s_base.html">SBase</a> element with the given <code>id</code>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a pointer to the <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> element with the given <code>id</code>. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_comp_s_base_plugin.html#a3aebff56e7696a4e279ccfdbc39bc51c">CompSBasePlugin</a>.</p>
 
@@ -1080,8 +1078,9 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_list_of_ports.html">ListOfPorts</a> from this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of_ports.html">ListOfPorts</a> from this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>.</dd></dl>
+<p>Returns the <a class="el" href="class_list_of_ports.html" title="\ @ @ . .">ListOfPorts</a> from this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of_ports.html" title="\ @ @ . .">ListOfPorts</a> from this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The pointer that is returned by this function is not owned by the caller, but may be queried and modified. Any changes made will be reflected in any resulting SBML document containing the pointer's parent.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_comp_model_plugin.html#aeda24156046d1ddc696aa88d76f88be0" title="Adds a copy of the given Port object to the list of ports.">addPort(const Port* object)</a> </dd>
 <dd>
 <a class="el" href="class_comp_model_plugin.html#a1d1562c2bd8be315b0aaaf17e8c58077" title="Creates a Port object, adds it to the end of the port objects list and returns a pointer to the newly...">createPort()</a> </dd>
@@ -1111,8 +1110,9 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_list_of_ports.html">ListOfPorts</a> from this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of_ports.html">ListOfPorts</a> from this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>.</dd></dl>
+<p>Returns the <a class="el" href="class_list_of_ports.html" title="\ @ @ . .">ListOfPorts</a> from this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of_ports.html" title="\ @ @ . .">ListOfPorts</a> from this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The pointer that is returned by this function is not owned by the caller, but may be queried and modified. Any changes made will be reflected in any resulting SBML document containing the pointer's parent.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_comp_model_plugin.html#aeda24156046d1ddc696aa88d76f88be0" title="Adds a copy of the given Port object to the list of ports.">addPort(const Port* object)</a> </dd>
 <dd>
 <a class="el" href="class_comp_model_plugin.html#a1d1562c2bd8be315b0aaaf17e8c58077" title="Creates a Port object, adds it to the end of the port objects list and returns a pointer to the newly...">createPort()</a> </dd>
@@ -1150,8 +1150,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_list_of.html">ListOf</a> object that holds all replacedElements. </p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of.html">ListOf</a> object that holds all replacedElements. </dd></dl>
+<p>Returns the <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a> object that holds all replacedElements. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a> object that holds all replacedElements. </dd></dl>
 
 </div>
 </div>
@@ -1178,8 +1178,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_list_of.html">ListOf</a> object that holds all replacedElements. </p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of.html">ListOf</a> object that holds all replacedElements. </dd></dl>
+<p>Returns the <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a> object that holds all replacedElements. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a> object that holds all replacedElements. </dd></dl>
 
 </div>
 </div>
@@ -1198,8 +1198,9 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_list_of_submodels.html">ListOfSubmodels</a> from this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of_submodels.html">ListOfSubmodels</a> from this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>.</dd></dl>
+<p>Returns the <a class="el" href="class_list_of_submodels.html" title="\ @ @ . .">ListOfSubmodels</a> from this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of_submodels.html" title="\ @ @ . .">ListOfSubmodels</a> from this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The pointer that is returned by this function is not owned by the caller, but may be queried and modified. Any changes made will be reflected in any resulting SBML document containing the pointer's parent.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_comp_model_plugin.html#a2367bd8452e715156623375f700b3382" title="Adds a copy of the given Submodel object to the list of submodels.">addSubmodel(const Submodel* object)</a> </dd>
 <dd>
 <a class="el" href="class_comp_model_plugin.html#a22d8e99d328836d0c09b0d717169dac7" title="Creates a Submodel object, adds it to the end of the submodel objects list and returns a pointer to t...">createSubmodel()</a> </dd>
@@ -1229,8 +1230,9 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_list_of_submodels.html">ListOfSubmodels</a> from this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of_submodels.html">ListOfSubmodels</a> from this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>.</dd></dl>
+<p>Returns the <a class="el" href="class_list_of_submodels.html" title="\ @ @ . .">ListOfSubmodels</a> from this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_list_of_submodels.html" title="\ @ @ . .">ListOfSubmodels</a> from this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The pointer that is returned by this function is not owned by the caller, but may be queried and modified. Any changes made will be reflected in any resulting SBML document containing the pointer's parent.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_comp_model_plugin.html#a2367bd8452e715156623375f700b3382" title="Adds a copy of the given Submodel object to the list of submodels.">addSubmodel(const Submodel* object)</a> </dd>
 <dd>
 <a class="el" href="class_comp_model_plugin.html#a22d8e99d328836d0c09b0d717169dac7" title="Creates a Submodel object, adds it to the end of the submodel objects list and returns a pointer to t...">createSubmodel()</a> </dd>
@@ -1260,8 +1262,8 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the number of ports for this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the number of ports for this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>. </dd></dl>
+<p>Returns the number of ports for this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the number of ports for this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>. </dd></dl>
 
 </div>
 </div>
@@ -1288,8 +1290,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the number of ReplacedElements for this <a class="el" href="class_comp_s_base_plugin.html">CompSBasePlugin</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the number of ReplacedElements for this <a class="el" href="class_comp_s_base_plugin.html">CompSBasePlugin</a>. </dd></dl>
+<p>Returns the number of ReplacedElements for this <a class="el" href="class_comp_s_base_plugin.html" title="\ @ @ . .">CompSBasePlugin</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the number of ReplacedElements for this <a class="el" href="class_comp_s_base_plugin.html" title="\ @ @ . .">CompSBasePlugin</a>. </dd></dl>
 
 </div>
 </div>
@@ -1308,8 +1310,8 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the number of submodels for this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the number of submodels for this <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>. </dd></dl>
+<p>Returns the number of submodels for this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the number of submodels for this <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>. </dd></dl>
 
 </div>
 </div>
@@ -1447,11 +1449,11 @@ Private Member Functions</h2></td></tr>
 <p>Returns the port with the given identifier. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>the id of the <a class="el" href="class_port.html">Port</a> to get.</td></tr>
+    <tr><td class="paramname">id</td><td>the id of the <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> to get.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_port.html">Port</a> in the <a class="el" href="class_list_of_ports.html">ListOfPorts</a> with the given identifier. If the identifier is invalid, <code>NULL</code> is returned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> in the <a class="el" href="class_list_of_ports.html" title="\ @ @ . .">ListOfPorts</a> with the given identifier. If the identifier is invalid, <code>NULL</code> is returned. </dd></dl>
 
 </div>
 </div>
@@ -1474,11 +1476,11 @@ Private Member Functions</h2></td></tr>
 <p>Returns the port with the given identifier. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>the id of the <a class="el" href="class_port.html">Port</a> to get.</td></tr>
+    <tr><td class="paramname">id</td><td>the id of the <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> to get.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_port.html">Port</a> in the <a class="el" href="class_list_of_ports.html">ListOfPorts</a> with the given identifier. If the identifier is invalid, <code>NULL</code> is returned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> in the <a class="el" href="class_list_of_ports.html" title="\ @ @ . .">ListOfPorts</a> with the given identifier. If the identifier is invalid, <code>NULL</code> is returned. </dd></dl>
 
 </div>
 </div>
@@ -1501,11 +1503,11 @@ Private Member Functions</h2></td></tr>
 <p>Returns the port with the given index. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td>the index number of the <a class="el" href="class_port.html">Port</a> to get.</td></tr>
+    <tr><td class="paramname">n</td><td>the index number of the <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> to get.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_port.html">Port</a> in the <a class="el" href="class_list_of_ports.html">ListOfPorts</a>. If the index <code>n</code> is invalid, <code>NULL</code> is returned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> in the <a class="el" href="class_list_of_ports.html" title="\ @ @ . .">ListOfPorts</a>. If the index <code>n</code> is invalid, <code>NULL</code> is returned. </dd></dl>
 
 </div>
 </div>
@@ -1528,11 +1530,11 @@ Private Member Functions</h2></td></tr>
 <p>Returns the port with the given index. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td>the index number of the <a class="el" href="class_port.html">Port</a> to get.</td></tr>
+    <tr><td class="paramname">n</td><td>the index number of the <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> to get.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_port.html">Port</a> in the <a class="el" href="class_list_of_ports.html">ListOfPorts</a>. If the index <code>n</code> is invalid, <code>NULL</code> is returned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> in the <a class="el" href="class_list_of_ports.html" title="\ @ @ . .">ListOfPorts</a>. If the index <code>n</code> is invalid, <code>NULL</code> is returned. </dd></dl>
 
 </div>
 </div>
@@ -1587,8 +1589,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get the child <a class="el" href="class_replaced_by.html">ReplacedBy</a> of this <a class="el" href="class_s_base.html">SBase</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_replaced_by.html">ReplacedBy</a> child of this <a class="el" href="class_s_base.html">SBase</a>. </dd></dl>
+<p>Get the child <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> of this <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> child of this <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a>. </dd></dl>
 
 </div>
 </div>
@@ -1615,8 +1617,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get the child <a class="el" href="class_replaced_by.html">ReplacedBy</a> of this <a class="el" href="class_s_base.html">SBase</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the const <a class="el" href="class_replaced_by.html">ReplacedBy</a> child of this <a class="el" href="class_s_base.html">SBase</a>. </dd></dl>
+<p>Get the child <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> of this <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the const <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> child of this <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a>. </dd></dl>
 
 </div>
 </div>
@@ -1644,14 +1646,14 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_replaced_element.html">ReplacedElement</a> with the given index. </p>
+<p>Returns the <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> with the given index. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td>the index number of the <a class="el" href="class_replaced_element.html">ReplacedElement</a> to get.</td></tr>
+    <tr><td class="paramname">n</td><td>the index number of the <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> to get.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_replaced_element.html">ReplacedElement</a> in the <a class="el" href="class_list_of_replaced_elements.html">ListOfReplacedElements</a>. If the index is invalid, <code>NULL</code> is returned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> in the <a class="el" href="class_list_of_replaced_elements.html" title="\ @ @ . .">ListOfReplacedElements</a>. If the index is invalid, <code>NULL</code> is returned. </dd></dl>
 
 </div>
 </div>
@@ -1679,14 +1681,14 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_replaced_element.html">ReplacedElement</a> with the given index. </p>
+<p>Returns the <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> with the given index. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td>the index number of the <a class="el" href="class_replaced_element.html">ReplacedElement</a> to get.</td></tr>
+    <tr><td class="paramname">n</td><td>the index number of the <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> to get.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_replaced_element.html">ReplacedElement</a> in the <a class="el" href="class_list_of_replaced_elements.html">ListOfReplacedElements</a>. If the index is invalid, <code>NULL</code> is returned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> in the <a class="el" href="class_list_of_replaced_elements.html" title="\ @ @ . .">ListOfReplacedElements</a>. If the index is invalid, <code>NULL</code> is returned. </dd></dl>
 
 </div>
 </div>
@@ -1713,10 +1715,10 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object containing this object instance. </p>
-<dl class="section user"><dt></dt><dd>LibSBML uses the class <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> as a top-level container for storing SBML content and data associated with it (such as warnings and error messages). An SBML model in libSBML is contained inside an <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> corresponds roughly to the class <em>SBML</em> defined in the SBML Level&#160;3 and Level&#160;2 specifications, but it does not have a direct correspondence in SBML Level&#160;1. (But, it is created by libSBML no matter whether the model is Level&#160;1, Level&#160;2 or Level&#160;3.)</dd></dl>
-<p>This method allows the caller to obtain the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> for the current object.</p>
-<dl class="section return"><dt>Returns</dt><dd>the parent <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object of this plugin object.</dd></dl>
+<p>Returns the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object containing this object instance. </p>
+<dl class="section user"><dt></dt><dd>LibSBML uses the class <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> as a top-level container for storing SBML content and data associated with it (such as warnings and error messages). An SBML model in libSBML is contained inside an <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object. <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> corresponds roughly to the class <em>SBML</em> defined in the SBML Level&#160;3 and Level&#160;2 specifications, but it does not have a direct correspondence in SBML Level&#160;1. (But, it is created by libSBML no matter whether the model is Level&#160;1, Level&#160;2 or Level&#160;3.)</dd></dl>
+<p>This method allows the caller to obtain the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> for the current object.</p>
+<dl class="section return"><dt>Returns</dt><dd>the parent <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object of this plugin object.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base_plugin.html#afcf597ffa54ffed41a57a1feee7a9241" title="Returns the parent object to which this plugin object is connected.">getParentSBMLObject()</a> </dd></dl>
 
 </div>
@@ -1744,10 +1746,10 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object containing this object instance. </p>
-<dl class="section user"><dt></dt><dd>LibSBML uses the class <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> as a top-level container for storing SBML content and data associated with it (such as warnings and error messages). An SBML model in libSBML is contained inside an <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> corresponds roughly to the class <em>SBML</em> defined in the SBML Level&#160;3 and Level&#160;2 specifications, but it does not have a direct correspondence in SBML Level&#160;1. (But, it is created by libSBML no matter whether the model is Level&#160;1, Level&#160;2 or Level&#160;3.)</dd></dl>
-<p>This method allows the caller to obtain the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> for the current object.</p>
-<dl class="section return"><dt>Returns</dt><dd>the parent <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object of this plugin object.</dd></dl>
+<p>Returns the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object containing this object instance. </p>
+<dl class="section user"><dt></dt><dd>LibSBML uses the class <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> as a top-level container for storing SBML content and data associated with it (such as warnings and error messages). An SBML model in libSBML is contained inside an <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object. <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> corresponds roughly to the class <em>SBML</em> defined in the SBML Level&#160;3 and Level&#160;2 specifications, but it does not have a direct correspondence in SBML Level&#160;1. (But, it is created by libSBML no matter whether the model is Level&#160;1, Level&#160;2 or Level&#160;3.)</dd></dl>
+<p>This method allows the caller to obtain the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> for the current object.</p>
+<dl class="section return"><dt>Returns</dt><dd>the parent <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object of this plugin object.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base_plugin.html#afcf597ffa54ffed41a57a1feee7a9241" title="Returns the parent object to which this plugin object is connected.">getParentSBMLObject()</a> </dd></dl>
 
 </div>
@@ -1771,11 +1773,11 @@ Private Member Functions</h2></td></tr>
 <p>Returns the submodel with the given identifier. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>the identifier of the <a class="el" href="class_submodel.html">Submodel</a> to get.</td></tr>
+    <tr><td class="paramname">id</td><td>the identifier of the <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> to get.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_submodel.html">Submodel</a> in the <a class="el" href="class_list_of_submodels.html">ListOfSubmodels</a> with the given identifier. If no such submodel with identifier <code>id</code> exists, <code>NULL</code> is returned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> in the <a class="el" href="class_list_of_submodels.html" title="\ @ @ . .">ListOfSubmodels</a> with the given identifier. If no such submodel with identifier <code>id</code> exists, <code>NULL</code> is returned. </dd></dl>
 
 </div>
 </div>
@@ -1798,11 +1800,11 @@ Private Member Functions</h2></td></tr>
 <p>Returns the submodel with the given identifier. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>the identifier of the <a class="el" href="class_submodel.html">Submodel</a> to get.</td></tr>
+    <tr><td class="paramname">id</td><td>the identifier of the <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> to get.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_submodel.html">Submodel</a> in the <a class="el" href="class_list_of_submodels.html">ListOfSubmodels</a> with the given identifier. If no submodel with identifier <code>id</code> exists, <code>NULL</code> is returned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> in the <a class="el" href="class_list_of_submodels.html" title="\ @ @ . .">ListOfSubmodels</a> with the given identifier. If no submodel with identifier <code>id</code> exists, <code>NULL</code> is returned. </dd></dl>
 
 </div>
 </div>
@@ -1826,11 +1828,11 @@ Private Member Functions</h2></td></tr>
 <p>If the index is invalid, <code>NULL</code> is returned.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td>the index number of the <a class="el" href="class_submodel.html">Submodel</a> to get.</td></tr>
+    <tr><td class="paramname">n</td><td>the index number of the <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> to get.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_submodel.html">Submodel</a> in the <a class="el" href="class_list_of_submodels.html">ListOfSubmodels</a> or <code>NULL</code> if no such object exists. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> in the <a class="el" href="class_list_of_submodels.html" title="\ @ @ . .">ListOfSubmodels</a> or <code>NULL</code> if no such object exists. </dd></dl>
 
 </div>
 </div>
@@ -1853,11 +1855,11 @@ Private Member Functions</h2></td></tr>
 <p>Returns the submodel with the given index. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td>the index number of the <a class="el" href="class_submodel.html">Submodel</a> to get.</td></tr>
+    <tr><td class="paramname">n</td><td>the index number of the <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> to get.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_submodel.html">Submodel</a> in the <a class="el" href="class_list_of_submodels.html">ListOfSubmodels</a>. If the index <code>n</code> is invalid, <code>NULL</code> is returned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the nth <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> in the <a class="el" href="class_list_of_submodels.html" title="\ @ @ . .">ListOfSubmodels</a>. If the index <code>n</code> is invalid, <code>NULL</code> is returned. </dd></dl>
 
 </div>
 </div>
@@ -1904,7 +1906,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Returns the XML namespace URI for the package to which this object belongs. </p>
 <dl class="section user"><dt></dt><dd>In the XML representation of an SBML document, XML namespaces are used to identify the origin of each XML construct used. XML namespaces are identified by their unique resource identifiers (URIs). The core SBML specifications stipulate the namespaces that must be used for core SBML constructs; for example, all XML elements that belong to SBML Level&#160;3 Version&#160;1 Core must be placed in the XML namespace identified by the URI <code>"http://www.sbml.org/sbml/level3/version1/core"</code>. Individual SBML Level&#160;3 packages define their own XML namespaces; for example, all elements belonging to the SBML Level&#160;3 Layout Version&#160;1 package must be placed in the XML namespace <code>"http://www.sbml.org/sbml/level3/version1/layout/version1/"</code>.</dd></dl>
-<p>This method first looks into the <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object possessed by the parent <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object of the current object. If this cannot be found, this method returns the result of <a class="el" href="class_s_base_plugin.html#a22e94cfa62ef5948cd631c8d22918293" title="Returns the namespace URI of the package to which this plugin object belongs.">getElementNamespace()</a>.</p>
+<p>This method first looks into the <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object possessed by the parent <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object of the current object. If this cannot be found, this method returns the result of <a class="el" href="class_s_base_plugin.html#a22e94cfa62ef5948cd631c8d22918293" title="Returns the namespace URI of the package to which this plugin object belongs.">getElementNamespace()</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>a string, the URI of the XML namespace to which this object belongs.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base_plugin.html#a39809eb9fac95dba54f36c133927f6d9" title="Returns the short-form name of the package to which this plugin object belongs.">getPackageName()</a> </dd>
 <dd>
@@ -1966,11 +1968,11 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Loop through all Submodels in this <a class="el" href="class_model.html">Model</a>, instantiate all of them, perform all deletions, and synchronize all replacements, including using any conversion factors that may exist. </p>
-<p>The resulting models are stored in the <a class="el" href="class_submodel.html">Submodel</a> objects, and available from '<a class="el" href="class_submodel.html#af798c7a15459bbe340bce5a930c9e7f3" title="Get the instantiated Model this Submodel contains rules to create.">Submodel::getInstantiation()</a>'. This may be useful if separate simulation or analysis of submodels is desired, as opposed to using <a class="el" href="class_comp_model_plugin.html#a6c0a5442c20c970d368391e2b5e26e43" title="Flatten and return a copy of this hierarchical model.">flattenModel()</a> to get a single SBML model.</p>
+<p>Loop through all Submodels in this <a class="el" href="class_model.html" title="\ @ @ . .">Model</a>, instantiate all of them, perform all deletions, and synchronize all replacements, including using any conversion factors that may exist. </p>
+<p>The resulting models are stored in the <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> objects, and available from '<a class="el" href="class_submodel.html#af798c7a15459bbe340bce5a930c9e7f3" title="Get the instantiated Model this Submodel contains rules to create.">Submodel::getInstantiation()</a>'. This may be useful if separate simulation or analysis of submodels is desired, as opposed to using <a class="el" href="class_comp_model_plugin.html#a6c0a5442c20c970d368391e2b5e26e43" title="Flatten and return a copy of this hierarchical model.">flattenModel()</a> to get a single SBML model.</p>
 <dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> (to indicate that this <a class="el" href="class_submodel.html">Submodel</a> itself is invalid, and no <a class="el" href="class_model.html">Model</a> can be instantiated from it) </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a> (to indicate that this <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> itself is invalid, and no <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> can be instantiated from it) </li>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>
 </ul>
 </dd></dl>
@@ -2000,8 +2002,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Predicate for testing whether the <a class="el" href="class_replaced_by.html">ReplacedBy</a> for this <a class="el" href="class_s_base.html">SBase</a> is set. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the <a class="el" href="class_replaced_by.html">ReplacedBy</a> of this <a class="el" href="class_s_base.html">SBase</a> is set, <code>false</code> otherwise. </dd></dl>
+<p>Predicate for testing whether the <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> for this <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> is set. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> of this <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> is set, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -2103,7 +2105,7 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Assignment operator for <a class="el" href="class_comp_model_plugin.html">CompModelPlugin</a>. </p>
+<p>Assignment operator for <a class="el" href="class_comp_model_plugin.html" title="\ @ @ . .">CompModelPlugin</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">orig</td><td>the object whose values are used as the basis of the assignment. </td></tr>
@@ -2133,11 +2135,11 @@ Private Member Functions</h2></td></tr>
 <p>The caller owns the returned item and is responsible for deleting it.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">index</td><td>the index of the <a class="el" href="class_port.html">Port</a> object to remove.</td></tr>
+    <tr><td class="paramname">index</td><td>the index of the <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> object to remove.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_port.html">Port</a> object removed. As mentioned above, the caller owns the returned object. <code>NULL</code> is returned if the given index is out of range. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_port.html" title="\ @ @ . .">Port</a> object removed. As mentioned above, the caller owns the returned object. <code>NULL</code> is returned if the given index is out of range. </dd></dl>
 
 </div>
 </div>
@@ -2165,15 +2167,15 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Removes the <a class="el" href="class_replaced_element.html">ReplacedElement</a> with the given index. </p>
-<p>A pointer to the <a class="el" href="class_replaced_element.html">ReplacedElement</a> that was removed is returned. If no <a class="el" href="class_replaced_element.html">ReplacedElement</a> has been removed, <code>NULL</code> is returned.</p>
+<p>Removes the <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> with the given index. </p>
+<p>A pointer to the <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> that was removed is returned. If no <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> has been removed, <code>NULL</code> is returned.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">index</td><td>the index of the <a class="el" href="class_replaced_element.html">ReplacedElement</a> object to remove.</td></tr>
+    <tr><td class="paramname">index</td><td>the index of the <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> object to remove.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_replaced_element.html">ReplacedElement</a> object removed. As mentioned above, the caller owns the returned object. <code>NULL</code> is returned if the given index is out of range. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_replaced_element.html" title="\ @ @ . .">ReplacedElement</a> object removed. As mentioned above, the caller owns the returned object. <code>NULL</code> is returned if the given index is out of range. </dd></dl>
 
 </div>
 </div>
@@ -2197,11 +2199,11 @@ Private Member Functions</h2></td></tr>
 <p>A pointer to the submodel that was removed is returned. The caller owns the returned item and is responsible for deleting it.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">index</td><td>the index of the <a class="el" href="class_submodel.html">Submodel</a> object to remove.</td></tr>
+    <tr><td class="paramname">index</td><td>the index of the <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> object to remove.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_submodel.html">Submodel</a> object removed. As mentioned above, the caller owns the returned object. <code>NULL</code> is returned if the given <code>index</code> is out of range and no submodel has been removed, <code>NULL</code> is returned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_submodel.html" title="\ @ @ . .">Submodel</a> object removed. As mentioned above, the caller owns the returned object. <code>NULL</code> is returned if the given <code>index</code> is out of range and no submodel has been removed, <code>NULL</code> is returned. </dd></dl>
 
 </div>
 </div>
@@ -2266,6 +2268,16 @@ Private Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p></p>
+<dl class="section user"><dt></dt><dd>Replaces all uses of a given meta identifier attribute value with another value.</dd></dl>
+<dl class="section user"><dt></dt><dd>In SBML, object "meta" identifiers are of the XML data type <code>ID</code>; the SBML object attribute itself is typically named <code>metaid</code>. All attributes that hold values <em>referring</em> to values of type <code>ID</code> are of the XML data type <code>IDREF</code>. They are also sometimes informally referred to as "metaid refs", in analogy to the SBML-defined type <code>SIdRef</code>.</dd></dl>
+<p>This method works by looking at all meta-identifier attribute values, comparing the identifiers to the value of <code>oldid</code>. If any matches are found, the matching identifiers are replaced with <code>newid</code>. The method does <em>not</em> descend into child elements.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">oldid</td><td>the old identifier. </td></tr>
+    <tr><td class="paramname">newid</td><td>the new identifier. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -2304,6 +2316,17 @@ Private Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p></p>
+<dl class="section user"><dt></dt><dd>Replaces all uses of a given <code>SIdRef</code> type attribute value with another value.</dd></dl>
+<dl class="section user"><dt></dt><dd></dd></dl>
+<p>In SBML, object identifiers are of a data type called <code>SId</code>. In SBML Level&#160;3, an explicit data type called <code>SIdRef</code> was introduced for attribute values that refer to <code>SId</code> values; in previous Levels of SBML, this data type did not exist and attributes were simply described to as "referring to an identifier", but the effective data type was the same as <code>SIdRef</code> in Level&#160;3. These and other methods of libSBML refer to the type <code>SIdRef</code> for all Levels of SBML, even if the corresponding SBML specification did not explicitly name the data type.</p>
+<p>This method works by looking at all attributes and (if appropriate) mathematical formulas in MathML content, comparing the referenced identifiers to the value of <code>oldid</code>. If any matches are found, the matching values are replaced with <code>newid</code>. The method does <em>not</em> descend into child elements.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">oldid</td><td>the old identifier. </td></tr>
+    <tr><td class="paramname">newid</td><td>the new identifier. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Reimplemented in <a class="el" href="class_fbc_reaction_plugin.html#a98366114113038e39493158deb2bbbe9">FbcReactionPlugin</a>.</p>
 
@@ -2344,6 +2367,16 @@ Private Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p></p>
+<dl class="section user"><dt></dt><dd>Replaces all uses of a given <code>UnitSIdRef</code> type attribute value with another value.</dd></dl>
+<dl class="section user"><dt></dt><dd>In SBML, unit definitions have identifiers of type <code>UnitSId</code>. In SBML Level&#160;3, an explicit data type called <code>UnitSIdRef</code> was introduced for attribute values that refer to <code>UnitSId</code> values; in previous Levels of SBML, this data type did not exist and attributes were simply described to as "referring to a unit identifier", but the effective data type was the same as <code>UnitSIdRef</code> in Level&#160;3. These and other methods of libSBML refer to the type <code>UnitSIdRef</code> for all Levels of SBML, even if the corresponding SBML specification did not explicitly name the data type.</dd></dl>
+<p>This method works by looking at all unit identifier attribute values (including, if appropriate, inside mathematical formulas), comparing the referenced unit identifiers to the value of <code>oldid</code>. If any matches are found, the matching values are replaced with <code>newid</code>. The method does <em>not</em> descend into child elements.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">oldid</td><td>the old identifier. </td></tr>
+    <tr><td class="paramname">newid</td><td>the new identifier. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -2464,11 +2497,11 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Sets the <a class="el" href="class_replaced_by.html">ReplacedBy</a> definition of this <a class="el" href="class_s_base.html">SBase</a> to a copy of the given <a class="el" href="class_replaced_by.html">ReplacedBy</a> object instance. </p>
-<p>This method fails if the added <a class="el" href="class_replaced_by.html">ReplacedBy</a> does not match the level/version/package of the parent object or if the added <a class="el" href="class_replaced_by.html">ReplacedBy</a> cannot be copied.</p>
+<p>Sets the <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> definition of this <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> to a copy of the given <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> object instance. </p>
+<p>This method fails if the added <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> does not match the level/version/package of the parent object or if the added <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> cannot be copied.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">replacedBy</td><td>the <a class="el" href="class_replaced_by.html">ReplacedBy</a> object instance to use.</td></tr>
+    <tr><td class="paramname">replacedBy</td><td>the <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> object instance to use.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2535,7 +2568,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Unsets the child <a class="el" href="class_replaced_by.html">ReplacedBy</a> of this <a class="el" href="class_s_base.html">SBase</a>. </p>
+<p>Unsets the child <a class="el" href="class_replaced_by.html" title="\ @ @ . .">ReplacedBy</a> of this <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a> </li>

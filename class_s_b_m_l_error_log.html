@@ -100,27 +100,26 @@ $(document).ready(function(){initNavTree('class_s_b_m_l_error_log.html',''); ini
 <div class="dynheader">
 Inheritance diagram for SBMLErrorLog:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_s_b_m_l_error_log__inherit__graph.svg" width="123" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_s_b_m_l_error_log__inherit__graph.svg" width="123" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><br  />
-</p>
- Log of diagnostics reported during processing.</p>
+<div class="textblock"><p>\ @ @ . . </p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  This class is not prescribed by
 the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
-<p>The error log is a list. Each <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> maintains its own <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a>. When a libSBML operation on SBML content results in an error, or when there is something worth noting about the SBML content, the issue is reported as an <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> object stored in the <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a> list.</p>
-<p><a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a> is derived from <a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a>, an object class that serves exactly the same purpose but for the XML parsing layer. <a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> provides crucial methods such as <a class="el" href="class_x_m_l_error_log.html#a75a0e49a64a66fcacd3eb3d4b3ce9c83" title="Returns the number of errors that have been logged.">getNumErrors()</a> for determining how many <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> or <a class="el" href="class_x_m_l_error.html">XMLError</a> objects are in the log. <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a> inherits these methods.</p>
-<p>The general approach to working with <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a> in user programs involves first obtaining a pointer to a log from a libSBML object such as <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>. Callers should then use <a class="el" href="class_x_m_l_error_log.html#a75a0e49a64a66fcacd3eb3d4b3ce9c83" title="Returns the number of errors that have been logged.">getNumErrors()</a> to inquire how many objects there are in the list. (The answer may be 0.) If there is at least one <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> object in the <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a> instance, callers can then iterate over the list using SBMLErrorLog::getError()const, using methods provided by the <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> class to find out the error code and associated information such as the error severity, the message, and the line number in the input.</p>
+<p>The error log is a list. Each <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> maintains its own <a class="el" href="class_s_b_m_l_error_log.html" title="\ @ @ . .">SBMLErrorLog</a>. When a libSBML operation on SBML content results in an error, or when there is something worth noting about the SBML content, the issue is reported as an <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> object stored in the <a class="el" href="class_s_b_m_l_error_log.html" title="\ @ @ . .">SBMLErrorLog</a> list.</p>
+<p><a class="el" href="class_s_b_m_l_error_log.html" title="\ @ @ . .">SBMLErrorLog</a> is derived from <a class="el" href="class_x_m_l_error_log.html" title="\ @ @ . .">XMLErrorLog</a>, an object class that serves exactly the same purpose but for the XML parsing layer. <a class="el" href="class_x_m_l_error_log.html" title="\ @ @ . .">XMLErrorLog</a> provides crucial methods such as <a class="el" href="class_x_m_l_error_log.html#a75a0e49a64a66fcacd3eb3d4b3ce9c83" title="Returns the number of errors that have been logged.">getNumErrors()</a> for determining how many <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> or <a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> objects are in the log. <a class="el" href="class_s_b_m_l_error_log.html" title="\ @ @ . .">SBMLErrorLog</a> inherits these methods.</p>
+<p>The general approach to working with <a class="el" href="class_s_b_m_l_error_log.html" title="\ @ @ . .">SBMLErrorLog</a> in user programs involves first obtaining a pointer to a log from a libSBML object such as <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>. Callers should then use <a class="el" href="class_x_m_l_error_log.html#a75a0e49a64a66fcacd3eb3d4b3ce9c83" title="Returns the number of errors that have been logged.">getNumErrors()</a> to inquire how many objects there are in the list. (The answer may be 0.) If there is at least one <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> object in the <a class="el" href="class_s_b_m_l_error_log.html" title="\ @ @ . .">SBMLErrorLog</a> instance, callers can then iterate over the list using SBMLErrorLog::getError()const, using methods provided by the <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> class to find out the error code and associated information such as the error severity, the message, and the line number in the input.</p>
 <p>If you wish to simply print the error strings for a human to read, an easier and more direct way might be to use <a class="el" href="class_s_b_m_l_document.html#a4ba64417bb8900acc865a4bb3319a4d2" title="Prints all the errors or warnings encountered trying to parse, check, or translate this SBML document...">SBMLDocument::printErrors()</a>.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_b_m_l_error.html">SBMLError</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> </dd>
 <dd>
-<a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> </dd>
+<a class="el" href="class_x_m_l_error_log.html" title="\ @ @ . .">XMLErrorLog</a> </dd>
 <dd>
-<a class="el" href="class_x_m_l_error.html">XMLError</a> </dd></dl>
+<a class="el" href="class_x_m_l_error.html" title="\ @ @ . , .">XMLError</a> </dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -131,13 +130,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a5317fa30642829454f79815bc4bed8a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes all errors from this log.  <a href="class_x_m_l_error_log.html#a5317fa30642829454f79815bc4bed8a6">More...</a><br /></td></tr>
 <tr class="separator:a5317fa30642829454f79815bc4bed8a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a826fd47e97417397169d3bb83b3b11e6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_error_log.html#a826fd47e97417397169d3bb83b3b11e6">contains</a> (const unsigned int errorId) const</td></tr>
-<tr class="memdesc:a826fd47e97417397169d3bb83b3b11e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a> contains an errorId.  <a href="class_s_b_m_l_error_log.html#a826fd47e97417397169d3bb83b3b11e6">More...</a><br /></td></tr>
+<tr class="memdesc:a826fd47e97417397169d3bb83b3b11e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if <a class="el" href="class_s_b_m_l_error_log.html" title="\ @ @ . .">SBMLErrorLog</a> contains an errorId.  <a href="class_s_b_m_l_error_log.html#a826fd47e97417397169d3bb83b3b11e6">More...</a><br /></td></tr>
 <tr class="separator:a826fd47e97417397169d3bb83b3b11e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada1f0b883a164d651645db35efc08805"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_error_log.html#ada1f0b883a164d651645db35efc08805">getError</a> (unsigned int n) const</td></tr>
-<tr class="memdesc:ada1f0b883a164d651645db35efc08805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <em>n</em>th <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> object in this log.  <a href="class_s_b_m_l_error_log.html#ada1f0b883a164d651645db35efc08805">More...</a><br /></td></tr>
+<tr class="memdesc:ada1f0b883a164d651645db35efc08805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <em>n</em>th <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> object in this log.  <a href="class_s_b_m_l_error_log.html#ada1f0b883a164d651645db35efc08805">More...</a><br /></td></tr>
 <tr class="separator:ada1f0b883a164d651645db35efc08805"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1782cc388c71147564e3fb304587d3f4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_error_log.html#a1782cc388c71147564e3fb304587d3f4">getErrorWithSeverity</a> (unsigned int n, unsigned int severity) const</td></tr>
-<tr class="memdesc:a1782cc388c71147564e3fb304587d3f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <em>n</em>th <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> object with given severity in this log.  <a href="class_s_b_m_l_error_log.html#a1782cc388c71147564e3fb304587d3f4">More...</a><br /></td></tr>
+<tr class="memdesc:a1782cc388c71147564e3fb304587d3f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <em>n</em>th <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> object with given severity in this log.  <a href="class_s_b_m_l_error_log.html#a1782cc388c71147564e3fb304587d3f4">More...</a><br /></td></tr>
 <tr class="separator:a1782cc388c71147564e3fb304587d3f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75a0e49a64a66fcacd3eb3d4b3ce9c83"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_error_log.html#a75a0e49a64a66fcacd3eb3d4b3ce9c83">getNumErrors</a> () const</td></tr>
 <tr class="memdesc:a75a0e49a64a66fcacd3eb3d4b3ce9c83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of errors that have been logged.  <a href="class_x_m_l_error_log.html#a75a0e49a64a66fcacd3eb3d4b3ce9c83">More...</a><br /></td></tr>
@@ -161,10 +160,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a4a76a478ebd5195ff6618be5cfbc8d9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints all the errors or warnings stored in this error log.  <a href="class_x_m_l_error_log.html#a4a76a478ebd5195ff6618be5cfbc8d9d">More...</a><br /></td></tr>
 <tr class="separator:a4a76a478ebd5195ff6618be5cfbc8d9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58c2df81df87b8b240539aaf852161e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_error_log.html#a58c2df81df87b8b240539aaf852161e5">remove</a> (const unsigned int errorId)</td></tr>
-<tr class="memdesc:a58c2df81df87b8b240539aaf852161e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an error having errorId from the <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> list.  <a href="class_s_b_m_l_error_log.html#a58c2df81df87b8b240539aaf852161e5">More...</a><br /></td></tr>
+<tr class="memdesc:a58c2df81df87b8b240539aaf852161e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an error having errorId from the <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> list.  <a href="class_s_b_m_l_error_log.html#a58c2df81df87b8b240539aaf852161e5">More...</a><br /></td></tr>
 <tr class="separator:a58c2df81df87b8b240539aaf852161e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af26ce10d75b40d50343f70f3988f2502"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_error_log.html#af26ce10d75b40d50343f70f3988f2502">removeAll</a> (const unsigned int errorId)</td></tr>
-<tr class="memdesc:af26ce10d75b40d50343f70f3988f2502"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all errors having errorId from the <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> list.  <a href="class_s_b_m_l_error_log.html#af26ce10d75b40d50343f70f3988f2502">More...</a><br /></td></tr>
+<tr class="memdesc:af26ce10d75b40d50343f70f3988f2502"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all errors having errorId from the <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> list.  <a href="class_s_b_m_l_error_log.html#af26ce10d75b40d50343f70f3988f2502">More...</a><br /></td></tr>
 <tr class="separator:af26ce10d75b40d50343f70f3988f2502"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a320086b987808fec1579539598ec3c3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_error_log.html#a320086b987808fec1579539598ec3c3a">setSeverityOverride</a> (<a class="el" href="_x_m_l_error_8h.html#a8a35e0419c4745cae351cfcec58dc710">XMLErrorSeverityOverride_t</a> severity)</td></tr>
 <tr class="memdesc:a320086b987808fec1579539598ec3c3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the severity override.  <a href="class_x_m_l_error_log.html#a320086b987808fec1579539598ec3c3a">More...</a><br /></td></tr>
@@ -219,7 +218,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Changes the severity override for errors in the log that have a given severity. </p>
 <p>This method searches through the list of errors in the log, comparing each one's severity to the value of <code>originalSeverity</code>. For each error encountered with that severity logged by the named <code>package</code>, the severity of the error is reset to <code>targetSeverity</code>.</p>
-<dl class="section user"><dt></dt><dd>The <em>severity override</em> mechanism in <a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> is intended to help applications handle error conditions in ways that may be more convenient for those applications. It is possible to use the mechanism to override the severity code of errors logged by libSBML, and even to disable error logging completely. An override stays in effect until the override is changed again by the calling application.</dd></dl>
+<dl class="section user"><dt></dt><dd>The <em>severity override</em> mechanism in <a class="el" href="class_x_m_l_error_log.html" title="\ @ @ . .">XMLErrorLog</a> is intended to help applications handle error conditions in ways that may be more convenient for those applications. It is possible to use the mechanism to override the severity code of errors logged by libSBML, and even to disable error logging completely. An override stays in effect until the override is changed again by the calling application.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">originalSeverity</td><td>the severity code to match.</td></tr>
@@ -281,7 +280,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns <code>true</code> if <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a> contains an errorId. </p>
+<p>Returns <code>true</code> if <a class="el" href="class_s_b_m_l_error_log.html" title="\ @ @ . .">SBMLErrorLog</a> contains an errorId. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">errorId</td><td>the error identifier of the error to be found. </td></tr>
@@ -307,7 +306,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the <em>n</em>th <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> object in this log. </p>
+<p>Returns the <em>n</em>th <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> object in this log. </p>
 <p>Index <code>n</code> is counted from 0. Callers should first inquire about the number of items in the log by using the <a class="el" href="class_x_m_l_error_log.html#a75a0e49a64a66fcacd3eb3d4b3ce9c83" title="Returns the number of errors that have been logged.">getNumErrors()</a> method. Attempts to use an error index number that exceeds the actual number of errors in the log will result in a <code>NULL</code> being returned.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -315,7 +314,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <em>n</em>th <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> in this log, or <code>NULL</code> if <code>n</code> is greater than or equal to <a class="el" href="class_x_m_l_error_log.html#a75a0e49a64a66fcacd3eb3d4b3ce9c83" title="Returns the number of errors that have been logged.">getNumErrors()</a>.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <em>n</em>th <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> in this log, or <code>NULL</code> if <code>n</code> is greater than or equal to <a class="el" href="class_x_m_l_error_log.html#a75a0e49a64a66fcacd3eb3d4b3ce9c83" title="Returns the number of errors that have been logged.">getNumErrors()</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_error_log.html#a75a0e49a64a66fcacd3eb3d4b3ce9c83" title="Returns the number of errors that have been logged.">getNumErrors()</a> </dd></dl>
 
 </div>
@@ -346,7 +345,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the <em>n</em>th <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> object with given severity in this log. </p>
+<p>Returns the <em>n</em>th <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> object with given severity in this log. </p>
 <p>Index <code>n</code> is counted from 0. Callers should first inquire about the number of items in the log by using the <a class="el" href="class_s_b_m_l_error_log.html#acaf1637dc7a44436c53802024a2ae5e0" title="Returns the number of errors that have been logged with the given severity code.">getNumFailsWithSeverity()</a> method. Attempts to use an error index number that exceeds the actual number of errors in the log will result in a <code>NULL</code> being returned.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -355,7 +354,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <em>n</em>th <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> in this log, or <code>NULL</code> if <code>n</code> is greater than or equal to <a class="el" href="class_s_b_m_l_error_log.html#acaf1637dc7a44436c53802024a2ae5e0" title="Returns the number of errors that have been logged with the given severity code.">getNumFailsWithSeverity()</a>.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <em>n</em>th <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> in this log, or <code>NULL</code> if <code>n</code> is greater than or equal to <a class="el" href="class_s_b_m_l_error_log.html#acaf1637dc7a44436c53802024a2ae5e0" title="Returns the number of errors that have been logged with the given severity code.">getNumFailsWithSeverity()</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_b_m_l_error_log.html#acaf1637dc7a44436c53802024a2ae5e0" title="Returns the number of errors that have been logged with the given severity code.">getNumFailsWithSeverity(unsigned int severity)</a> </dd></dl>
 
 </div>
@@ -406,7 +405,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the number of errors that have been logged with the given severity code. </p>
-<dl class="section user"><dt></dt><dd>LibSBML associates severity levels with every <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> object to provide an indication of how serious the problem is. Severities range from informational diagnostics to fatal (irrecoverable) errors. Given an <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> object instance, a caller can interrogate it for its severity level using methods such as <a class="el" href="class_x_m_l_error.html#a04078b28a5111634dc05c27e9535ed74" title="Returns the severity of this error.">SBMLError::getSeverity()</a>, <a class="el" href="class_x_m_l_error.html#ad561717e19dfddf14a24936740e19f26" title="Predicate returning true or false depending on whether this error is a fatal run-time error.">SBMLError::isFatal()</a>, and so on. The present method encapsulates iteration and interrogation of all objects in an <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a>, making it easy to check for the presence of error objects with specific severity levels.</dd></dl>
+<dl class="section user"><dt></dt><dd>LibSBML associates severity levels with every <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> object to provide an indication of how serious the problem is. Severities range from informational diagnostics to fatal (irrecoverable) errors. Given an <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> object instance, a caller can interrogate it for its severity level using methods such as <a class="el" href="class_x_m_l_error.html#a04078b28a5111634dc05c27e9535ed74" title="Returns the severity of this error.">SBMLError::getSeverity()</a>, <a class="el" href="class_x_m_l_error.html#ad561717e19dfddf14a24936740e19f26" title="Predicate returning true or false depending on whether this error is a fatal run-time error.">SBMLError::isFatal()</a>, and so on. The present method encapsulates iteration and interrogation of all objects in an <a class="el" href="class_s_b_m_l_error_log.html" title="\ @ @ . .">SBMLErrorLog</a>, making it easy to check for the presence of error objects with specific severity levels.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">severity</td><td>a value from <a class="el" href="_s_b_m_l_error_8h.html#aa4224962df10d5a97c2d79e883b68a72" title="Severity codes for SBMLError diagnostics.">SBMLErrorSeverity_t</a></td></tr>
@@ -437,7 +436,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the number of errors that have been logged with the given severity code. </p>
-<dl class="section user"><dt></dt><dd>LibSBML associates severity levels with every <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> object to provide an indication of how serious the problem is. Severities range from informational diagnostics to fatal (irrecoverable) errors. Given an <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> object instance, a caller can interrogate it for its severity level using methods such as <a class="el" href="class_x_m_l_error.html#a04078b28a5111634dc05c27e9535ed74" title="Returns the severity of this error.">SBMLError::getSeverity()</a>, <a class="el" href="class_x_m_l_error.html#ad561717e19dfddf14a24936740e19f26" title="Predicate returning true or false depending on whether this error is a fatal run-time error.">SBMLError::isFatal()</a>, and so on. The present method encapsulates iteration and interrogation of all objects in an <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a>, making it easy to check for the presence of error objects with specific severity levels.</dd></dl>
+<dl class="section user"><dt></dt><dd>LibSBML associates severity levels with every <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> object to provide an indication of how serious the problem is. Severities range from informational diagnostics to fatal (irrecoverable) errors. Given an <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> object instance, a caller can interrogate it for its severity level using methods such as <a class="el" href="class_x_m_l_error.html#a04078b28a5111634dc05c27e9535ed74" title="Returns the severity of this error.">SBMLError::getSeverity()</a>, <a class="el" href="class_x_m_l_error.html#ad561717e19dfddf14a24936740e19f26" title="Predicate returning true or false depending on whether this error is a fatal run-time error.">SBMLError::isFatal()</a>, and so on. The present method encapsulates iteration and interrogation of all objects in an <a class="el" href="class_s_b_m_l_error_log.html" title="\ @ @ . .">SBMLErrorLog</a>, making it easy to check for the presence of error objects with specific severity levels.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">severity</td><td>a value from <a class="el" href="_s_b_m_l_error_8h.html#aa4224962df10d5a97c2d79e883b68a72" title="Severity codes for SBMLError diagnostics.">SBMLErrorSeverity_t</a></td></tr>
@@ -473,7 +472,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the current override. </p>
-<dl class="section user"><dt></dt><dd>The <em>severity override</em> mechanism in <a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> is intended to help applications handle error conditions in ways that may be more convenient for those applications. It is possible to use the mechanism to override the severity code of errors logged by libSBML, and even to disable error logging completely. An override stays in effect until the override is changed again by the calling application.</dd></dl>
+<dl class="section user"><dt></dt><dd>The <em>severity override</em> mechanism in <a class="el" href="class_x_m_l_error_log.html" title="\ @ @ . .">XMLErrorLog</a> is intended to help applications handle error conditions in ways that may be more convenient for those applications. It is possible to use the mechanism to override the severity code of errors logged by libSBML, and even to disable error logging completely. An override stays in effect until the override is changed again by the calling application.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>a severity override code. The possible values are drawn from the enumeration <a class="el" href="_x_m_l_error_8h.html#a8a35e0419c4745cae351cfcec58dc710" title="Severity override codes for errors logged in the XML layer.">XMLErrorSeverityOverride_t</a>: <ul>
 <li><a class="el" href="_x_m_l_error_8h.html#a8a35e0419c4745cae351cfcec58dc710add6235c114a38f4b2b00c4e79761d4c7">LIBSBML_OVERRIDE_DISABLED</a> </li>
 <li><a class="el" href="_x_m_l_error_8h.html#a8a35e0419c4745cae351cfcec58dc710af350cf4c923948bf795c272d278c5231">LIBSBML_OVERRIDE_DONT_LOG</a> </li>
@@ -514,7 +513,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns a boolean indicating whether or not the severity has been overridden. </p>
-<dl class="section user"><dt></dt><dd>The <em>severity override</em> mechanism in <a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> is intended to help applications handle error conditions in ways that may be more convenient for those applications. It is possible to use the mechanism to override the severity code of errors logged by libSBML, and even to disable error logging completely. An override stays in effect until the override is changed again by the calling application.</dd></dl>
+<dl class="section user"><dt></dt><dd>The <em>severity override</em> mechanism in <a class="el" href="class_x_m_l_error_log.html" title="\ @ @ . .">XMLErrorLog</a> is intended to help applications handle error conditions in ways that may be more convenient for those applications. It is possible to use the mechanism to override the severity code of errors logged by libSBML, and even to disable error logging completely. An override stays in effect until the override is changed again by the calling application.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if an error severity override has been set, <code>false</code> otherwise.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_error_log.html#a7e88eb78c63d3c4965d77a7bae97080c" title="Returns the current override.">getSeverityOverride()</a> </dd>
 <dd>
@@ -629,7 +628,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Removes an error having errorId from the <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> list. </p>
+<p>Removes an error having errorId from the <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> list. </p>
 <p>Only the first item will be removed if there are multiple errors with the given errorId.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -656,7 +655,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Removes all errors having errorId from the <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> list. </p>
+<p>Removes all errors having errorId from the <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> list. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">errorId</td><td>the error identifier of the error to be removed. </td></tr>
@@ -691,7 +690,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the severity override. </p>
-<dl class="section user"><dt></dt><dd>The <em>severity override</em> mechanism in <a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> is intended to help applications handle error conditions in ways that may be more convenient for those applications. It is possible to use the mechanism to override the severity code of errors logged by libSBML, and even to disable error logging completely. An override stays in effect until the override is changed again by the calling application.</dd></dl>
+<dl class="section user"><dt></dt><dd>The <em>severity override</em> mechanism in <a class="el" href="class_x_m_l_error_log.html" title="\ @ @ . .">XMLErrorLog</a> is intended to help applications handle error conditions in ways that may be more convenient for those applications. It is possible to use the mechanism to override the severity code of errors logged by libSBML, and even to disable error logging completely. An override stays in effect until the override is changed again by the calling application.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">severity</td><td>an override code indicating what to do. If the value is <a class="el" href="_x_m_l_error_8h.html#a8a35e0419c4745cae351cfcec58dc710add6235c114a38f4b2b00c4e79761d4c7">LIBSBML_OVERRIDE_DISABLED</a> (the default setting) all errors logged will be given the severity specified in their usual definition. If the value is <a class="el" href="_x_m_l_error_8h.html#a8a35e0419c4745cae351cfcec58dc710ae09319b288c001ae244201c3857c1e0f">LIBSBML_OVERRIDE_WARNING</a>, then all errors will be logged as warnings. If the value is <a class="el" href="_x_m_l_error_8h.html#a8a35e0419c4745cae351cfcec58dc710af350cf4c923948bf795c272d278c5231">LIBSBML_OVERRIDE_DONT_LOG</a>, no error will be logged, regardless of their severity.</td></tr>
@@ -762,7 +761,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Usets an existing override. </p>
-<dl class="section user"><dt></dt><dd>The <em>severity override</em> mechanism in <a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> is intended to help applications handle error conditions in ways that may be more convenient for those applications. It is possible to use the mechanism to override the severity code of errors logged by libSBML, and even to disable error logging completely. An override stays in effect until the override is changed again by the calling application.</dd></dl>
+<dl class="section user"><dt></dt><dd>The <em>severity override</em> mechanism in <a class="el" href="class_x_m_l_error_log.html" title="\ @ @ . .">XMLErrorLog</a> is intended to help applications handle error conditions in ways that may be more convenient for those applications. It is possible to use the mechanism to override the severity code of errors logged by libSBML, and even to disable error logging completely. An override stays in effect until the override is changed again by the calling application.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_x_m_l_error_log.html#a7e88eb78c63d3c4965d77a7bae97080c" title="Returns the current override.">getSeverityOverride()</a> </dd>
 <dd>
 <a class="el" href="class_x_m_l_error_log.html#a320086b987808fec1579539598ec3c3a" title="Set the severity override.">setSeverityOverride()</a> </dd>

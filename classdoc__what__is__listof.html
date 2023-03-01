@@ -95,36 +95,36 @@ $(document).ready(function(){initNavTree('classdoc__what__is__listof.html',''); 
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section user"><dt></dt><dd>The various ListOf___ classes in SBML are merely containers used for organizing the main components of an SBML model. In libSBML's implementation, ListOf___ classes are derived from the intermediate utility class <a class="el" href="class_list_of.html">ListOf</a>, which is not defined by the SBML specifications but serves as a useful programmatic construct. <a class="el" href="class_list_of.html">ListOf</a> is itself is in turn derived from <a class="el" href="class_s_base.html">SBase</a>, which provides all of the various ListOf___ classes with common features defined by the SBML specification, such as "metaid" attributes and annotations.</dd></dl>
+<div class="textblock"><dl class="section user"><dt></dt><dd>The various ListOf___ classes in SBML are merely containers used for organizing the main components of an SBML model. In libSBML's implementation, ListOf___ classes are derived from the intermediate utility class <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a>, which is not defined by the SBML specifications but serves as a useful programmatic construct. <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a> is itself is in turn derived from <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a>, which provides all of the various ListOf___ classes with common features defined by the SBML specification, such as "metaid" attributes and annotations.</dd></dl>
 <p>The relationship between the lists and the rest of an SBML model is illustrated by the following (for SBML Level&#160;2 Version&#160;4):</p>
 <figure>
   <object type="image/svg+xml" data="listof-illustration.svg" class="centered"></object>
 </figure>
 <p>SBML Level&#160;3 Version&#160;1 has essentially the same structure as Level&#160;2 Version&#160;4, depicted above, but SBML Level&#160;3 Version&#160;2 allows containers to contain zero or more of the relevant object, instead of requiring at least one. As such, libsbml will write out an otherwise-empty ListOf___ element that has any optional attribute set (such as 'id' or 'metaid'), that has an optional child (such as a 'notes' or 'annotation'), or that has attributes or children set from any SBML Level&#160;3 package, whether or not the ListOf___ has any other children.</p>
-<p>Readers may wonder about the motivations for using the ListOf___ containers in SBML. A simpler approach in XML might be to place the components all directly at the top level of the model definition. The choice made in SBML is to group them within XML elements named after ListOf<em>Classname</em>, in part because it helps organize the components. More importantly, the fact that the container classes are derived from <a class="el" href="class_s_base.html">SBase</a> means that software tools can add information <em>about</em> the lists themselves into each list container's "annotation".</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_list_of_function_definitions.html">ListOfFunctionDefinitions</a> </dd>
+<p>Readers may wonder about the motivations for using the ListOf___ containers in SBML. A simpler approach in XML might be to place the components all directly at the top level of the model definition. The choice made in SBML is to group them within XML elements named after ListOf<em>Classname</em>, in part because it helps organize the components. More importantly, the fact that the container classes are derived from <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> means that software tools can add information <em>about</em> the lists themselves into each list container's "annotation".</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_list_of_function_definitions.html" title="\ @ @ . .">ListOfFunctionDefinitions</a> </dd>
 <dd>
-<a class="el" href="class_list_of_unit_definitions.html">ListOfUnitDefinitions</a> </dd>
+<a class="el" href="class_list_of_unit_definitions.html" title="\ @ @ . .">ListOfUnitDefinitions</a> </dd>
 <dd>
-<a class="el" href="class_list_of_compartment_types.html">ListOfCompartmentTypes</a> </dd>
+<a class="el" href="class_list_of_compartment_types.html" title="\ @ @ . .">ListOfCompartmentTypes</a> </dd>
 <dd>
-<a class="el" href="class_list_of_species_types.html">ListOfSpeciesTypes</a> </dd>
+<a class="el" href="class_list_of_species_types.html" title="\ @ @ . .">ListOfSpeciesTypes</a> </dd>
 <dd>
-<a class="el" href="class_list_of_compartments.html">ListOfCompartments</a> </dd>
+<a class="el" href="class_list_of_compartments.html" title="\ @ @ . .">ListOfCompartments</a> </dd>
 <dd>
-<a class="el" href="class_list_of_species.html">ListOfSpecies</a> </dd>
+<a class="el" href="class_list_of_species.html" title="\ @ @ . .">ListOfSpecies</a> </dd>
 <dd>
-<a class="el" href="class_list_of_parameters.html">ListOfParameters</a> </dd>
+<a class="el" href="class_list_of_parameters.html" title="\ @ @ . .">ListOfParameters</a> </dd>
 <dd>
-<a class="el" href="class_list_of_initial_assignments.html">ListOfInitialAssignments</a> </dd>
+<a class="el" href="class_list_of_initial_assignments.html" title="\ @ @ . .">ListOfInitialAssignments</a> </dd>
 <dd>
-<a class="el" href="class_list_of_rules.html">ListOfRules</a> </dd>
+<a class="el" href="class_list_of_rules.html" title="\ @ @ . .">ListOfRules</a> </dd>
 <dd>
-<a class="el" href="class_list_of_constraints.html">ListOfConstraints</a> </dd>
+<a class="el" href="class_list_of_constraints.html" title="\ @ @ . .">ListOfConstraints</a> </dd>
 <dd>
-<a class="el" href="class_list_of_reactions.html">ListOfReactions</a> </dd>
+<a class="el" href="class_list_of_reactions.html" title="\ @ @ . .">ListOfReactions</a> </dd>
 <dd>
-<a class="el" href="class_list_of_events.html">ListOfEvents</a> </dd></dl>
+<a class="el" href="class_list_of_events.html" title="\ @ @ . .">ListOfEvents</a> </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for Doxygen -->

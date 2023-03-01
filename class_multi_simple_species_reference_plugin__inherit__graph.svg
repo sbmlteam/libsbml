@@ -12,7 +12,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
+<g id="a_node1"><a xlink:title="\ @ @ . &quot;&quot; .">
 <polygon fill="#bfbfbf" stroke="black" points="0,-56.5 0,-86.5 162,-86.5 162,-56.5 0,-56.5"/>
 <text text-anchor="start" x="8" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">MultiSimpleSpeciesReference</text>
 <text text-anchor="middle" x="81" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">Plugin</text>
@@ -22,7 +22,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="class_multi_species_reference_plugin.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="class_multi_species_reference_plugin.html" target="_top" xlink:title="\ @ @ . &quot;&quot; .">
 <polygon fill="white" stroke="black" points="2,-0.5 2,-19.5 160,-19.5 160,-0.5 2,-0.5"/>
 <text text-anchor="middle" x="81" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">MultiSpeciesReferencePlugin</text>
 </a>
@@ -37,7 +37,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_s_base_plugin.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="class_s_base_plugin.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="42.5,-123.5 42.5,-142.5 119.5,-142.5 119.5,-123.5 42.5,-123.5"/>
 <text text-anchor="middle" x="81" y="-130.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBasePlugin</text>
 </a>

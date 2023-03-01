@@ -98,44 +98,42 @@ $(document).ready(function(){initNavTree('class_r_d_f_annotation_parser.html',''
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><br  />
-</p>
- MIRIAM-compliant RDF annotation reader/writer.</p>
+<div class="textblock"><p>\ @ @ . /. </p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  This class is not prescribed by
 the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
-<p><a class="el" href="class_r_d_f_annotation_parser.html">RDFAnnotationParser</a> is a libSBML construct used as part of the libSBML support for annotations conforming to the guidelines specified by MIRIAM (<a href="http://www.nature.com/nbt/journal/v23/n12/abs/nbt1156.html" target="_blank">"Minimum
-Information Requested in the Annotation of biochemical Models"</a>, <em>Nature Biotechnology</em>, vol. 23, no. 12, Dec. 2005). Section 6 of the SBML Level&#160;2 and Level&#160;3 specification documents defines a recommended way of encoding MIRIAM information using a subset of RDF (<a href="http://www.w3.org/RDF/" target="_blank">Resource Description Format</a>). The general scheme is as follows. A set of RDF-based annotations attached to a given SBML <code>&lt;annotation&gt;</code> element are read by <a class="el" href="class_r_d_f_annotation_parser.html">RDFAnnotationParser</a> and converted into a list of <a class="el" href="class_c_v_term.html">CVTerm</a> objects. There are different versions of the main method, <a class="el" href="class_r_d_f_annotation_parser.html#ac1c099982057cf882a6589081b27aaf2" title="Parses an annotation (given as an XMLNode tree) into a list of CVTerm objects.">RDFAnnotationParser::parseRDFAnnotation</a>(const <a class="el" href="class_x_m_l_node.html">XMLNode</a> *annotation, List *CVTerms) and RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation), used depending on whether the annotation in question concerns the MIRIAM model history or other MIRIAM resource annotations. A special object class, <a class="el" href="class_model_history.html">ModelHistory</a>, is used to make it easier to manipulate model history annotations.</p>
-<p>All of the methods on <a class="el" href="class_r_d_f_annotation_parser.html">RDFAnnotationParser</a> are static; the class exists only to encapsulate the annotation and <a class="el" href="class_c_v_term.html">CVTerm</a> parsing and manipulation functionality. </p>
+<p><a class="el" href="class_r_d_f_annotation_parser.html" title="\ @ @ . /.">RDFAnnotationParser</a> is a libSBML construct used as part of the libSBML support for annotations conforming to the guidelines specified by MIRIAM (<a href="http://www.nature.com/nbt/journal/v23/n12/abs/nbt1156.html" target="_blank">"Minimum
+Information Requested in the Annotation of biochemical Models"</a>, <em>Nature Biotechnology</em>, vol. 23, no. 12, Dec. 2005). Section 6 of the SBML Level&#160;2 and Level&#160;3 specification documents defines a recommended way of encoding MIRIAM information using a subset of RDF (<a href="http://www.w3.org/RDF/" target="_blank">Resource Description Format</a>). The general scheme is as follows. A set of RDF-based annotations attached to a given SBML <code>&lt;annotation&gt;</code> element are read by <a class="el" href="class_r_d_f_annotation_parser.html" title="\ @ @ . /.">RDFAnnotationParser</a> and converted into a list of <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects. There are different versions of the main method, <a class="el" href="class_r_d_f_annotation_parser.html#ac1c099982057cf882a6589081b27aaf2" title="Parses an annotation (given as an XMLNode tree) into a list of CVTerm objects.">RDFAnnotationParser::parseRDFAnnotation</a>(const <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> *annotation, List *CVTerms) and RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation), used depending on whether the annotation in question concerns the MIRIAM model history or other MIRIAM resource annotations. A special object class, <a class="el" href="class_model_history.html" title="\ @ @ . &#39; .">ModelHistory</a>, is used to make it easier to manipulate model history annotations.</p>
+<p>All of the methods on <a class="el" href="class_r_d_f_annotation_parser.html" title="\ @ @ . /.">RDFAnnotationParser</a> are static; the class exists only to encapsulate the annotation and <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> parsing and manipulation functionality. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a1617438c92800e280bba7062caf3fea5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_x_m_l_node.html">XMLNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_d_f_annotation_parser.html#a1617438c92800e280bba7062caf3fea5">createAnnotation</a> ()</td></tr>
-<tr class="memdesc:a1617438c92800e280bba7062caf3fea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a blank annotation and returns its root <a class="el" href="class_x_m_l_node.html">XMLNode</a> object.  <a href="class_r_d_f_annotation_parser.html#a1617438c92800e280bba7062caf3fea5">More...</a><br /></td></tr>
+<tr class="memdesc:a1617438c92800e280bba7062caf3fea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a blank annotation and returns its root <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> object.  <a href="class_r_d_f_annotation_parser.html#a1617438c92800e280bba7062caf3fea5">More...</a><br /></td></tr>
 <tr class="separator:a1617438c92800e280bba7062caf3fea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7b2d6f42f5af0b5a3fef4228aa2477b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_x_m_l_node.html">XMLNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_d_f_annotation_parser.html#ad7b2d6f42f5af0b5a3fef4228aa2477b">createCVTerms</a> (const <a class="el" href="class_s_base.html">SBase</a> *obj)</td></tr>
-<tr class="memdesc:ad7b2d6f42f5af0b5a3fef4228aa2477b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes a list of <a class="el" href="class_c_v_term.html">CVTerm</a> objects and creates a the RDF "Description" element.  <a href="class_r_d_f_annotation_parser.html#ad7b2d6f42f5af0b5a3fef4228aa2477b">More...</a><br /></td></tr>
+<tr class="memdesc:ad7b2d6f42f5af0b5a3fef4228aa2477b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes a list of <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects and creates a the RDF "Description" element.  <a href="class_r_d_f_annotation_parser.html#ad7b2d6f42f5af0b5a3fef4228aa2477b">More...</a><br /></td></tr>
 <tr class="separator:ad7b2d6f42f5af0b5a3fef4228aa2477b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9fb6dd43d7123146a70a2fd2649f162"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_x_m_l_node.html">XMLNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_d_f_annotation_parser.html#ae9fb6dd43d7123146a70a2fd2649f162">createRDFAnnotation</a> (unsigned int level=3, unsigned int version=1)</td></tr>
 <tr class="memdesc:ae9fb6dd43d7123146a70a2fd2649f162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a blank RDF element suitable for use in SBML annotations.  <a href="class_r_d_f_annotation_parser.html#ae9fb6dd43d7123146a70a2fd2649f162">More...</a><br /></td></tr>
 <tr class="separator:ae9fb6dd43d7123146a70a2fd2649f162"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada5e058500a2eb0e1bb148ff9c3a4e8b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_x_m_l_node.html">XMLNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_d_f_annotation_parser.html#ada5e058500a2eb0e1bb148ff9c3a4e8b">createRDFDescription</a> (const <a class="el" href="class_s_base.html">SBase</a> *obj)</td></tr>
-<tr class="memdesc:ada5e058500a2eb0e1bb148ff9c3a4e8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes an SBML object and creates an empty <a class="el" href="class_x_m_l_node.html">XMLNode</a> corresponding to an RDF "Description" element.  <a href="class_r_d_f_annotation_parser.html#ada5e058500a2eb0e1bb148ff9c3a4e8b">More...</a><br /></td></tr>
+<tr class="memdesc:ada5e058500a2eb0e1bb148ff9c3a4e8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes an SBML object and creates an empty <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> corresponding to an RDF "Description" element.  <a href="class_r_d_f_annotation_parser.html#ada5e058500a2eb0e1bb148ff9c3a4e8b">More...</a><br /></td></tr>
 <tr class="separator:ada5e058500a2eb0e1bb148ff9c3a4e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed7e972cc310b913e4a746a0b067a9d2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_x_m_l_node.html">XMLNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_d_f_annotation_parser.html#aed7e972cc310b913e4a746a0b067a9d2">deleteRDFAnnotation</a> (const <a class="el" href="class_x_m_l_node.html">XMLNode</a> *annotation)</td></tr>
-<tr class="memdesc:aed7e972cc310b913e4a746a0b067a9d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes any SBML MIRIAM RDF annotation found in the given <a class="el" href="class_x_m_l_node.html">XMLNode</a> tree and returns any remaining annotation content.  <a href="class_r_d_f_annotation_parser.html#aed7e972cc310b913e4a746a0b067a9d2">More...</a><br /></td></tr>
+<tr class="memdesc:aed7e972cc310b913e4a746a0b067a9d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes any SBML MIRIAM RDF annotation found in the given <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> tree and returns any remaining annotation content.  <a href="class_r_d_f_annotation_parser.html#aed7e972cc310b913e4a746a0b067a9d2">More...</a><br /></td></tr>
 <tr class="separator:aed7e972cc310b913e4a746a0b067a9d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2da4e312feb790db8e51231751713a88"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_x_m_l_node.html">XMLNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_d_f_annotation_parser.html#a2da4e312feb790db8e51231751713a88">deleteRDFCVTermAnnotation</a> (const <a class="el" href="class_x_m_l_node.html">XMLNode</a> *annotation)</td></tr>
-<tr class="memdesc:a2da4e312feb790db8e51231751713a88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes any SBML MIRIAM RDF '<a class="el" href="class_c_v_term.html">CVTerm</a>' annotation found in the given <a class="el" href="class_x_m_l_node.html">XMLNode</a> tree and returns any remaining annotation content.  <a href="class_r_d_f_annotation_parser.html#a2da4e312feb790db8e51231751713a88">More...</a><br /></td></tr>
+<tr class="memdesc:a2da4e312feb790db8e51231751713a88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes any SBML MIRIAM RDF '<a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>' annotation found in the given <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> tree and returns any remaining annotation content.  <a href="class_r_d_f_annotation_parser.html#a2da4e312feb790db8e51231751713a88">More...</a><br /></td></tr>
 <tr class="separator:a2da4e312feb790db8e51231751713a88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad478249cabf82794d4b449ca72e1c969"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_x_m_l_node.html">XMLNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_d_f_annotation_parser.html#ad478249cabf82794d4b449ca72e1c969">deleteRDFHistoryAnnotation</a> (const <a class="el" href="class_x_m_l_node.html">XMLNode</a> *annotation)</td></tr>
-<tr class="memdesc:ad478249cabf82794d4b449ca72e1c969"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes any SBML MIRIAM RDF 'History' annotation found in the given <a class="el" href="class_x_m_l_node.html">XMLNode</a> tree and returns any remaining annotation content.  <a href="class_r_d_f_annotation_parser.html#ad478249cabf82794d4b449ca72e1c969">More...</a><br /></td></tr>
+<tr class="memdesc:ad478249cabf82794d4b449ca72e1c969"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes any SBML MIRIAM RDF 'History' annotation found in the given <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> tree and returns any remaining annotation content.  <a href="class_r_d_f_annotation_parser.html#ad478249cabf82794d4b449ca72e1c969">More...</a><br /></td></tr>
 <tr class="separator:ad478249cabf82794d4b449ca72e1c969"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4d0b927f9da4b08b5450398ea8c8f54"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_x_m_l_node.html">XMLNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_d_f_annotation_parser.html#ac4d0b927f9da4b08b5450398ea8c8f54">parseCVTerms</a> (const <a class="el" href="class_s_base.html">SBase</a> *obj)</td></tr>
-<tr class="memdesc:ac4d0b927f9da4b08b5450398ea8c8f54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes a list of <a class="el" href="class_c_v_term.html">CVTerm</a> objects and creates a complete SBML annotation around it.  <a href="class_r_d_f_annotation_parser.html#ac4d0b927f9da4b08b5450398ea8c8f54">More...</a><br /></td></tr>
+<tr class="memdesc:ac4d0b927f9da4b08b5450398ea8c8f54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes a list of <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects and creates a complete SBML annotation around it.  <a href="class_r_d_f_annotation_parser.html#ac4d0b927f9da4b08b5450398ea8c8f54">More...</a><br /></td></tr>
 <tr class="separator:ac4d0b927f9da4b08b5450398ea8c8f54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48e17eb18b44eb13c26668d1745306fe"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_x_m_l_node.html">XMLNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_d_f_annotation_parser.html#a48e17eb18b44eb13c26668d1745306fe">parseModelHistory</a> (const <a class="el" href="class_s_base.html">SBase</a> *obj)</td></tr>
 <tr class="memdesc:a48e17eb18b44eb13c26668d1745306fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the model history and cvTerms stored in <code>obj</code> and creates the XML structure for an SBML annotation representing that metadata if there is a model history stored in <code>obj</code>.  <a href="class_r_d_f_annotation_parser.html#a48e17eb18b44eb13c26668d1745306fe">More...</a><br /></td></tr>
@@ -144,10 +142,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:a3ed280ff04e3fc17386bb16dd23684f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the model history stored in <code>obj</code> and creates the XML structure for an SBML annotation representing that history.  <a href="class_r_d_f_annotation_parser.html#a3ed280ff04e3fc17386bb16dd23684f4">More...</a><br /></td></tr>
 <tr class="separator:a3ed280ff04e3fc17386bb16dd23684f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11768cebd0c3a2778811da503d9bdb97"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_model_history.html">ModelHistory</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_d_f_annotation_parser.html#a11768cebd0c3a2778811da503d9bdb97">parseRDFAnnotation</a> (const <a class="el" href="class_x_m_l_node.html">XMLNode</a> *annotation, const char *metaId=NULL, <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a> *stream=NULL, const <a class="el" href="class_s_base.html">SBase</a> *parent=NULL)</td></tr>
-<tr class="memdesc:a11768cebd0c3a2778811da503d9bdb97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses an annotation into a <a class="el" href="class_model_history.html">ModelHistory</a> class instance.  <a href="class_r_d_f_annotation_parser.html#a11768cebd0c3a2778811da503d9bdb97">More...</a><br /></td></tr>
+<tr class="memdesc:a11768cebd0c3a2778811da503d9bdb97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses an annotation into a <a class="el" href="class_model_history.html" title="\ @ @ . &#39; .">ModelHistory</a> class instance.  <a href="class_r_d_f_annotation_parser.html#a11768cebd0c3a2778811da503d9bdb97">More...</a><br /></td></tr>
 <tr class="separator:a11768cebd0c3a2778811da503d9bdb97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1c099982057cf882a6589081b27aaf2"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_d_f_annotation_parser.html#ac1c099982057cf882a6589081b27aaf2">parseRDFAnnotation</a> (const <a class="el" href="class_x_m_l_node.html">XMLNode</a> *annotation, <a class="el" href="class_list.html">List</a> *CVTerms, const char *metaId=NULL, <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a> *stream=NULL)</td></tr>
-<tr class="memdesc:ac1c099982057cf882a6589081b27aaf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses an annotation (given as an <a class="el" href="class_x_m_l_node.html">XMLNode</a> tree) into a list of <a class="el" href="class_c_v_term.html">CVTerm</a> objects.  <a href="class_r_d_f_annotation_parser.html#ac1c099982057cf882a6589081b27aaf2">More...</a><br /></td></tr>
+<tr class="memdesc:ac1c099982057cf882a6589081b27aaf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses an annotation (given as an <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> tree) into a list of <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects.  <a href="class_r_d_f_annotation_parser.html#ac1c099982057cf882a6589081b27aaf2">More...</a><br /></td></tr>
 <tr class="separator:ac1c099982057cf882a6589081b27aaf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -174,8 +172,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates a blank annotation and returns its root <a class="el" href="class_x_m_l_node.html">XMLNode</a> object. </p>
-<p>This creates a completely empty SBML <code>&lt;annotation&gt;</code> element. It is not attached to any SBML element. An example of how this might be used is illustrated in the following code fragment. In this example, suppose that <code>content</code> is an <a class="el" href="class_x_m_l_node.html">XMLNode</a> object previously created, containing MIRIAM-style annotations, and that <code>sbmlObject</code> is an SBML object derived from <a class="el" href="class_s_base.html">SBase</a> (e.g., a <a class="el" href="class_model.html">Model</a>, or a <a class="el" href="class_species.html">Species</a>, or a <a class="el" href="class_compartment.html">Compartment</a>, etc.). Then:</p><div class="fragment"><div class="line"><span class="keywordtype">int</span> success;                              <span class="comment">// Status code variable.</span></div>
+<p>Creates a blank annotation and returns its root <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> object. </p>
+<p>This creates a completely empty SBML <code>&lt;annotation&gt;</code> element. It is not attached to any SBML element. An example of how this might be used is illustrated in the following code fragment. In this example, suppose that <code>content</code> is an <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> object previously created, containing MIRIAM-style annotations, and that <code>sbmlObject</code> is an SBML object derived from <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> (e.g., a <a class="el" href="class_model.html" title="\ @ @ . .">Model</a>, or a <a class="el" href="class_species.html" title="\ @ @ . &lt;&gt;&lt;/&gt; &; .">Species</a>, or a <a class="el" href="class_compartment.html" title="\ @ @ . , .">Compartment</a>, etc.). Then:</p><div class="fragment"><div class="line"><span class="keywordtype">int</span> success;                              <span class="comment">// Status code variable.</span></div>
 <div class="line"> </div>
 <div class="line"><a class="code" href="class_x_m_l_node.html">XMLNode</a> *RDF = <a class="code" href="class_r_d_f_annotation_parser.html#ae9fb6dd43d7123146a70a2fd2649f162">createRDFAnnotation</a>();     <span class="comment">// Create XML structure.</span></div>
 <div class="line">success = RDF-&gt;<a class="code" href="class_x_m_l_node.html#a1c25373a33be80bd0f28e54a80be2044">addChild</a>(...content...);   <span class="comment">// Put some content into it.</span></div>
@@ -189,10 +187,10 @@ Static Public Member Functions</h2></td></tr>
 <div class="line">...                                       <span class="comment">// Check return code value.</span></div>
 <div class="ttc" id="aclass_r_d_f_annotation_parser_html_a1617438c92800e280bba7062caf3fea5"><div class="ttname"><a href="class_r_d_f_annotation_parser.html#a1617438c92800e280bba7062caf3fea5">RDFAnnotationParser::createAnnotation</a></div><div class="ttdeci">static XMLNode * createAnnotation()</div><div class="ttdoc">Creates a blank annotation and returns its root XMLNode object.</div><div class="ttdef"><b>Definition:</b> RDFAnnotationParser.cpp:420</div></div>
 <div class="ttc" id="aclass_r_d_f_annotation_parser_html_ae9fb6dd43d7123146a70a2fd2649f162"><div class="ttname"><a href="class_r_d_f_annotation_parser.html#ae9fb6dd43d7123146a70a2fd2649f162">RDFAnnotationParser::createRDFAnnotation</a></div><div class="ttdeci">static XMLNode * createRDFAnnotation(unsigned int level=3, unsigned int version=1)</div><div class="ttdoc">Creates a blank RDF element suitable for use in SBML annotations.</div><div class="ttdef"><b>Definition:</b> RDFAnnotationParser.cpp:428</div></div>
-<div class="ttc" id="aclass_x_m_l_node_html"><div class="ttname"><a href="class_x_m_l_node.html">XMLNode</a></div><div class="ttdef"><b>Definition:</b> XMLNode.h:178</div></div>
+<div class="ttc" id="aclass_x_m_l_node_html"><div class="ttname"><a href="class_x_m_l_node.html">XMLNode</a></div><div class="ttdoc">\ @ @ . ' .</div><div class="ttdef"><b>Definition:</b> XMLNode.h:178</div></div>
 <div class="ttc" id="aclass_x_m_l_node_html_a1c25373a33be80bd0f28e54a80be2044"><div class="ttname"><a href="class_x_m_l_node.html#a1c25373a33be80bd0f28e54a80be2044">XMLNode::addChild</a></div><div class="ttdeci">int addChild(const XMLNode &amp;node)</div><div class="ttdoc">Adds a copy of node as a child of this XMLNode.</div><div class="ttdef"><b>Definition:</b> XMLNode.cpp:242</div></div>
 </div><!-- fragment --><p>The SBML specification contains more information about the format of annotations. We urge readers to consult Section&#160;6 of the SBML Level&#160;2 (Versions 2&ndash;4) and SBML Level&#160;3 specification documents.</p>
-<dl class="section return"><dt>Returns</dt><dd>a pointer to an <a class="el" href="class_x_m_l_node.html">XMLNode</a> for the annotation.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a pointer to an <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> for the annotation.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_r_d_f_annotation_parser.html#ae9fb6dd43d7123146a70a2fd2649f162" title="Creates a blank RDF element suitable for use in SBML annotations.">createRDFAnnotation()</a> </dd></dl>
 
 </div>
@@ -221,15 +219,15 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Takes a list of <a class="el" href="class_c_v_term.html">CVTerm</a> objects and creates a the RDF "Description" element. </p>
-<p>This essentially takes the given SBML object, reads out the <a class="el" href="class_c_v_term.html">CVTerm</a> objects attached to it, creates an RDF "Description" element to hold the terms, and adds each term with appropriate qualifiers.</p>
+<p>Takes a list of <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects and creates a the RDF "Description" element. </p>
+<p>This essentially takes the given SBML object, reads out the <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects attached to it, creates an RDF "Description" element to hold the terms, and adds each term with appropriate qualifiers.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">obj</td><td>the SBML object to start from.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_node.html">XMLNode</a> tree corresponding to the Description element of an RDF annotation.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> tree corresponding to the Description element of an RDF annotation.</dd></dl>
 
 </div>
 </div>
@@ -277,7 +275,7 @@ Static Public Member Functions</h2></td></tr>
 
 &lt;/rdf:RDF&gt;
 </pre><p>Note that this does not create the containing SBML <code>&lt;annotation&gt;</code> element; the method <a class="el" href="class_r_d_f_annotation_parser.html#a1617438c92800e280bba7062caf3fea5" title="Creates a blank annotation and returns its root XMLNode object.">createAnnotation()</a> is available for creating the container.</p>
-<dl class="section return"><dt>Returns</dt><dd>a pointer to an <a class="el" href="class_x_m_l_node.html">XMLNode</a>.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a pointer to an <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_r_d_f_annotation_parser.html#a1617438c92800e280bba7062caf3fea5" title="Creates a blank annotation and returns its root XMLNode object.">createAnnotation()</a> </dd></dl>
 
 </div>
@@ -306,7 +304,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Takes an SBML object and creates an empty <a class="el" href="class_x_m_l_node.html">XMLNode</a> corresponding to an RDF "Description" element. </p>
+<p>Takes an SBML object and creates an empty <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> corresponding to an RDF "Description" element. </p>
 <p>This method is a handy way of creating RDF description objects linked by the appropriate "metaid" field to the given <code>object</code>, for insertion into RDF annotations in a model. The method retrieves the "metaid" attribute from the <code>object</code> passed in as argument, then creates an empty element having the following form (where <span class="code" style="background-color: #eed0d0">metaid</span> the value of the "metaid" attribute of the argument):</p>
 <pre class="fragment">
 &lt;rdf:Description rdf:about=&quot;#<span style="background-color: #eed0d0">metaid</span>&quot; xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
@@ -319,7 +317,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a new <a class="el" href="class_x_m_l_node.html">XMLNode</a> containing the "rdf:Description" element with its "about" attribute value set to the <code>object</code> meta identifier.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a new <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> containing the "rdf:Description" element with its "about" attribute value set to the <code>object</code> meta identifier.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_r_d_f_annotation_parser.html#ae9fb6dd43d7123146a70a2fd2649f162" title="Creates a blank RDF element suitable for use in SBML annotations.">createRDFAnnotation()</a> </dd></dl>
 
 </div>
@@ -348,15 +346,15 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Deletes any SBML MIRIAM RDF annotation found in the given <a class="el" href="class_x_m_l_node.html">XMLNode</a> tree and returns any remaining annotation content. </p>
-<p>The name of the <a class="el" href="class_x_m_l_node.html">XMLNode</a> given as parameter <code>annotation</code> must be "annotation", or else this method returns <code>NULL</code>. The method will walk down the XML structure looking for elements that are in the RDF XML namespace, and remove them if they conform to the syntax of a History or <a class="el" href="class_c_v_term.html">CVTerm</a> element.</p>
+<p>Deletes any SBML MIRIAM RDF annotation found in the given <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> tree and returns any remaining annotation content. </p>
+<p>The name of the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> given as parameter <code>annotation</code> must be "annotation", or else this method returns <code>NULL</code>. The method will walk down the XML structure looking for elements that are in the RDF XML namespace, and remove them if they conform to the syntax of a History or <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> element.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">annotation</td><td>the <a class="el" href="class_x_m_l_node.html">XMLNode</a> tree within which the RDF annotation is to be found and deleted.</td></tr>
+    <tr><td class="paramname">annotation</td><td>the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> tree within which the RDF annotation is to be found and deleted.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_node.html">XMLNode</a> structure that is left after RDF annotations are deleted.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> structure that is left after RDF annotations are deleted.</dd></dl>
 
 </div>
 </div>
@@ -384,15 +382,15 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Deletes any SBML MIRIAM RDF '<a class="el" href="class_c_v_term.html">CVTerm</a>' annotation found in the given <a class="el" href="class_x_m_l_node.html">XMLNode</a> tree and returns any remaining annotation content. </p>
-<p>The name of the <a class="el" href="class_x_m_l_node.html">XMLNode</a> given as parameter <code>annotation</code> must be "annotation", or else this method returns <code>NULL</code>. The method will walk down the XML structure looking for elements that are in the RDF XML namespace, and remove any that conform to the syntax of a <a class="el" href="class_c_v_term.html">CVTerm</a> element.</p>
+<p>Deletes any SBML MIRIAM RDF '<a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a>' annotation found in the given <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> tree and returns any remaining annotation content. </p>
+<p>The name of the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> given as parameter <code>annotation</code> must be "annotation", or else this method returns <code>NULL</code>. The method will walk down the XML structure looking for elements that are in the RDF XML namespace, and remove any that conform to the syntax of a <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> element.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">annotation</td><td>the <a class="el" href="class_x_m_l_node.html">XMLNode</a> tree within which the RDF annotation is to be found and deleted.</td></tr>
+    <tr><td class="paramname">annotation</td><td>the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> tree within which the RDF annotation is to be found and deleted.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_node.html">XMLNode</a> structure that is left after RDF annotations are deleted.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> structure that is left after RDF annotations are deleted.</dd></dl>
 
 </div>
 </div>
@@ -420,15 +418,15 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Deletes any SBML MIRIAM RDF 'History' annotation found in the given <a class="el" href="class_x_m_l_node.html">XMLNode</a> tree and returns any remaining annotation content. </p>
-<p>The name of the <a class="el" href="class_x_m_l_node.html">XMLNode</a> given as parameter <code>annotation</code> must be "annotation", or else this method returns <code>NULL</code>. The method will walk down the XML structure looking for elements that are in the RDF XML namespace, and remove any that conform to the syntax of a History element.</p>
+<p>Deletes any SBML MIRIAM RDF 'History' annotation found in the given <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> tree and returns any remaining annotation content. </p>
+<p>The name of the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> given as parameter <code>annotation</code> must be "annotation", or else this method returns <code>NULL</code>. The method will walk down the XML structure looking for elements that are in the RDF XML namespace, and remove any that conform to the syntax of a History element.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">annotation</td><td>the <a class="el" href="class_x_m_l_node.html">XMLNode</a> tree within which the RDF annotation is to be found and deleted.</td></tr>
+    <tr><td class="paramname">annotation</td><td>the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> tree within which the RDF annotation is to be found and deleted.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_node.html">XMLNode</a> structure that is left after RDF annotations are deleted.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> structure that is left after RDF annotations are deleted.</dd></dl>
 
 </div>
 </div>
@@ -456,15 +454,15 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Takes a list of <a class="el" href="class_c_v_term.html">CVTerm</a> objects and creates a complete SBML annotation around it. </p>
-<p>This essentially takes the given SBML object, reads out the <a class="el" href="class_c_v_term.html">CVTerm</a> objects attached to it, calls <a class="el" href="class_r_d_f_annotation_parser.html#ae9fb6dd43d7123146a70a2fd2649f162" title="Creates a blank RDF element suitable for use in SBML annotations.">createRDFAnnotation()</a> to create an RDF annotation to hold the terms, and finally callscreateAnnotation() to wrap the result as an SBML <code>&lt;annotation&gt;</code> element.</p>
+<p>Takes a list of <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects and creates a complete SBML annotation around it. </p>
+<p>This essentially takes the given SBML object, reads out the <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects attached to it, calls <a class="el" href="class_r_d_f_annotation_parser.html#ae9fb6dd43d7123146a70a2fd2649f162" title="Creates a blank RDF element suitable for use in SBML annotations.">createRDFAnnotation()</a> to create an RDF annotation to hold the terms, and finally callscreateAnnotation() to wrap the result as an SBML <code>&lt;annotation&gt;</code> element.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">obj</td><td>the SBML object to start from.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_node.html">XMLNode</a> tree corresponding to the annotation.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> tree corresponding to the annotation.</dd></dl>
 
 </div>
 </div>
@@ -495,11 +493,11 @@ Static Public Member Functions</h2></td></tr>
 <p>Reads the model history and cvTerms stored in <code>obj</code> and creates the XML structure for an SBML annotation representing that metadata if there is a model history stored in <code>obj</code>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">obj</td><td>any <a class="el" href="class_s_base.html">SBase</a> object.</td></tr>
+    <tr><td class="paramname">obj</td><td>any <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> object.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_node.html">XMLNode</a> corresponding to an annotation containing MIRIAM-compliant model history and CV term information in RDF format.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> corresponding to an annotation containing MIRIAM-compliant model history and CV term information in RDF format.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If the object does not have a history element stored then <code>NULL</code> is returned even if CVTerms are present.</dd></dl>
 
 </div>
@@ -531,11 +529,11 @@ Static Public Member Functions</h2></td></tr>
 <p>Reads the model history stored in <code>obj</code> and creates the XML structure for an SBML annotation representing that history. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">obj</td><td>any <a class="el" href="class_s_base.html">SBase</a> object.</td></tr>
+    <tr><td class="paramname">obj</td><td>any <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> object.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_node.html">XMLNode</a> corresponding to an annotation containing MIRIAM-compliant model history information in RDF format.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> corresponding to an annotation containing MIRIAM-compliant model history information in RDF format.</dd></dl>
 
 </div>
 </div>
@@ -585,17 +583,17 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Parses an annotation into a <a class="el" href="class_model_history.html">ModelHistory</a> class instance. </p>
-<p>This is used to take an annotation that has been read into an SBML model, identify the RDF elements representing model history information, and create a list of corresponding <a class="el" href="class_c_v_term.html">CVTerm</a> objects.</p>
+<p>Parses an annotation into a <a class="el" href="class_model_history.html" title="\ @ @ . &#39; .">ModelHistory</a> class instance. </p>
+<p>This is used to take an annotation that has been read into an SBML model, identify the RDF elements representing model history information, and create a list of corresponding <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">annotation</td><td><a class="el" href="class_x_m_l_node.html">XMLNode</a> containing the annotation. </td></tr>
-    <tr><td class="paramname">stream</td><td>optional <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a> that facilitates error logging. </td></tr>
+    <tr><td class="paramname">annotation</td><td><a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> containing the annotation. </td></tr>
+    <tr><td class="paramname">stream</td><td>optional <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a> that facilitates error logging. </td></tr>
     <tr><td class="paramname">metaId</td><td>optional metaId, if set only the RDF annotation for this metaId will be returned.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a pointer to the <a class="el" href="class_model_history.html">ModelHistory</a> created. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a pointer to the <a class="el" href="class_model_history.html" title="\ @ @ . &#39; .">ModelHistory</a> created. </dd></dl>
 
 </div>
 </div>
@@ -645,14 +643,14 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Parses an annotation (given as an <a class="el" href="class_x_m_l_node.html">XMLNode</a> tree) into a list of <a class="el" href="class_c_v_term.html">CVTerm</a> objects. </p>
-<p>This is used to take an annotation that has been read into an SBML model, identify the RDF elements within it, and create a list of corresponding <a class="el" href="class_c_v_term.html">CVTerm</a> (controlled vocabulary term) objects.</p>
+<p>Parses an annotation (given as an <a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> tree) into a list of <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects. </p>
+<p>This is used to take an annotation that has been read into an SBML model, identify the RDF elements within it, and create a list of corresponding <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> (controlled vocabulary term) objects.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">annotation</td><td><a class="el" href="class_x_m_l_node.html">XMLNode</a> containing the annotation. </td></tr>
-    <tr><td class="paramname">CVTerms</td><td>list of <a class="el" href="class_c_v_term.html">CVTerm</a> objects to be created. </td></tr>
+    <tr><td class="paramname">annotation</td><td><a class="el" href="class_x_m_l_node.html" title="\ @ @ . &#39; .">XMLNode</a> containing the annotation. </td></tr>
+    <tr><td class="paramname">CVTerms</td><td>list of <a class="el" href="class_c_v_term.html" title="\ @ @ . .">CVTerm</a> objects to be created. </td></tr>
     <tr><td class="paramname">metaId</td><td>optional metaId, if set only the RDF annotation for this metaId will be returned. </td></tr>
-    <tr><td class="paramname">stream</td><td>optional <a class="el" href="class_x_m_l_input_stream.html">XMLInputStream</a> that facilitates error logging.</td></tr>
+    <tr><td class="paramname">stream</td><td>optional <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a> that facilitates error logging.</td></tr>
   </table>
   </dd>
 </dl>

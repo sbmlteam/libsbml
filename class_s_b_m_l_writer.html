@@ -99,16 +99,14 @@ $(document).ready(function(){initNavTree('class_s_b_m_l_writer.html',''); initRe
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><br  />
-</p>
- File and text-string SBML writer.</p>
+<div class="textblock"><p>\ @ @ . . </p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  This class is not prescribed by
 the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
-<p>The <a class="el" href="class_s_b_m_l_writer.html">SBMLWriter</a> class is the converse of <a class="el" href="class_s_b_m_l_reader.html">SBMLReader</a>, and provides the main interface for serializing SBML models into XML and writing the result to an output stream or to files and text strings. The methods for writing SBML all take an <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object and a destination. They return a boolean or integer value to indicate success or failure.</p>
+<p>The <a class="el" href="class_s_b_m_l_writer.html" title="\ @ @ . .">SBMLWriter</a> class is the converse of <a class="el" href="class_s_b_m_l_reader.html" title="\ @ @ . .">SBMLReader</a>, and provides the main interface for serializing SBML models into XML and writing the result to an output stream or to files and text strings. The methods for writing SBML all take an <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object and a destination. They return a boolean or integer value to indicate success or failure.</p>
 <h1><a class="anchor" id="sbmlwriter-compression"></a>
 Support for writing compressed files</h1>
 <p>LibSBML provides support for writing (as well as reading) compressed SBML files. The process is transparent to the calling application&mdash;the application does not need to do anything deliberate to invoke the functionality. If a given SBML filename ends with an extension for the <em>gzip</em>, <em>zip</em> or <em>bzip2</em> compression formats (respectively, <code>&quot;.gz&quot;</code>, <code>&quot;.zip&quot;</code>, or <code>&quot;.bz2&quot;</code>), then the methods <a class="el" href="class_s_b_m_l_writer.html#a02d1998aee7656d7b9c3ac69d62bb66f" title="Writes the given SBML document to filename.">SBMLWriter::writeSBML()</a> and <a class="el" href="class_s_b_m_l_reader.html#a2bf94ac23e7504996f64641563aa1ed4" title="Reads an SBML document from the given file.">SBMLReader::readSBML()</a> will automatically compress and decompress the file while writing and reading it. If the filename has no such extension, it will be written and read uncompressed as normal.</p>
@@ -120,13 +118,13 @@ Support for writing compressed files</h1>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad2deb151013f702a168cf839c9aba96c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_writer.html#ad2deb151013f702a168cf839c9aba96c">SBMLWriter</a> ()</td></tr>
-<tr class="memdesc:ad2deb151013f702a168cf839c9aba96c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_s_b_m_l_writer.html">SBMLWriter</a>.  <a href="class_s_b_m_l_writer.html#ad2deb151013f702a168cf839c9aba96c">More...</a><br /></td></tr>
+<tr class="memdesc:ad2deb151013f702a168cf839c9aba96c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_s_b_m_l_writer.html" title="\ @ @ . .">SBMLWriter</a>.  <a href="class_s_b_m_l_writer.html#ad2deb151013f702a168cf839c9aba96c">More...</a><br /></td></tr>
 <tr class="separator:ad2deb151013f702a168cf839c9aba96c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4b6b14d9288d655031944c1bb5de812"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_writer.html#af4b6b14d9288d655031944c1bb5de812">setProgramName</a> (const std::string &amp;name)</td></tr>
-<tr class="memdesc:af4b6b14d9288d655031944c1bb5de812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the name of this program, i.e., the program that is about to write out the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>.  <a href="class_s_b_m_l_writer.html#af4b6b14d9288d655031944c1bb5de812">More...</a><br /></td></tr>
+<tr class="memdesc:af4b6b14d9288d655031944c1bb5de812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the name of this program, i.e., the program that is about to write out the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>.  <a href="class_s_b_m_l_writer.html#af4b6b14d9288d655031944c1bb5de812">More...</a><br /></td></tr>
 <tr class="separator:af4b6b14d9288d655031944c1bb5de812"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2632aa91ecaea868766dff392d960c5d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_writer.html#a2632aa91ecaea868766dff392d960c5d">setProgramVersion</a> (const std::string &amp;version)</td></tr>
-<tr class="memdesc:a2632aa91ecaea868766dff392d960c5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the version of this program, i.e., the program that is about to write out the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>.  <a href="class_s_b_m_l_writer.html#a2632aa91ecaea868766dff392d960c5d">More...</a><br /></td></tr>
+<tr class="memdesc:a2632aa91ecaea868766dff392d960c5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the version of this program, i.e., the program that is about to write out the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>.  <a href="class_s_b_m_l_writer.html#a2632aa91ecaea868766dff392d960c5d">More...</a><br /></td></tr>
 <tr class="separator:a2632aa91ecaea868766dff392d960c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02d1998aee7656d7b9c3ac69d62bb66f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_writer.html#a02d1998aee7656d7b9c3ac69d62bb66f">writeSBML</a> (const <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *d, const std::string &amp;filename)</td></tr>
 <tr class="memdesc:a02d1998aee7656d7b9c3ac69d62bb66f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the given SBML document to filename.  <a href="class_s_b_m_l_writer.html#a02d1998aee7656d7b9c3ac69d62bb66f">More...</a><br /></td></tr>
@@ -141,7 +139,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a9d79b93e0f69117ba909b772aee6a9bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the given SBML document to an in-memory string and returns a pointer to it.  <a href="class_s_b_m_l_writer.html#a9d79b93e0f69117ba909b772aee6a9bc">More...</a><br /></td></tr>
 <tr class="separator:a9d79b93e0f69117ba909b772aee6a9bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d7b181cdc346cdd60e88ffb55a5112d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_writer.html#a1d7b181cdc346cdd60e88ffb55a5112d">~SBMLWriter</a> ()</td></tr>
-<tr class="memdesc:a1d7b181cdc346cdd60e88ffb55a5112d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_s_b_m_l_writer.html">SBMLWriter</a>.  <a href="class_s_b_m_l_writer.html#a1d7b181cdc346cdd60e88ffb55a5112d">More...</a><br /></td></tr>
+<tr class="memdesc:a1d7b181cdc346cdd60e88ffb55a5112d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_s_b_m_l_writer.html" title="\ @ @ . .">SBMLWriter</a>.  <a href="class_s_b_m_l_writer.html#a1d7b181cdc346cdd60e88ffb55a5112d">More...</a><br /></td></tr>
 <tr class="separator:a1d7b181cdc346cdd60e88ffb55a5112d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -169,8 +167,8 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_s_b_m_l_writer.html">SBMLWriter</a>. </p>
-<p>The libSBML <a class="el" href="class_s_b_m_l_writer.html">SBMLWriter</a> objects offer methods for writing SBML in XML form to files and text strings. </p>
+<p>Creates a new <a class="el" href="class_s_b_m_l_writer.html" title="\ @ @ . .">SBMLWriter</a>. </p>
+<p>The libSBML <a class="el" href="class_s_b_m_l_writer.html" title="\ @ @ . .">SBMLWriter</a> objects offer methods for writing SBML in XML form to files and text strings. </p>
 
 </div>
 </div>
@@ -189,7 +187,7 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Destroys this <a class="el" href="class_s_b_m_l_writer.html">SBMLWriter</a>. </p>
+<p>Destroys this <a class="el" href="class_s_b_m_l_writer.html" title="\ @ @ . .">SBMLWriter</a>. </p>
 
 </div>
 </div>
@@ -270,7 +268,7 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the name of this program, i.e., the program that is about to write out the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>. </p>
+<p>Sets the name of this program, i.e., the program that is about to write out the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>. </p>
 <p>If the program name and version are set (see <a class="el" href="class_s_b_m_l_writer.html#a2632aa91ecaea868766dff392d960c5d" title="Sets the version of this program, i.e., the program that is about to write out the SBMLDocument.">SBMLWriter::setProgramVersion()</a>), the following XML comment, intended for human consumption, will be written at the beginning of the XML document: </p><pre class="fragment">&lt;!-- Created by &lt;program name&gt; version &lt;program version&gt;
 on yyyy-MM-dd HH:mm with libSBML version &lt;libsbml version&gt;. --&gt;
 </pre><p>If the program name and version are not set at some point before calling the <a class="el" href="class_s_b_m_l_writer.html#a02d1998aee7656d7b9c3ac69d62bb66f" title="Writes the given SBML document to filename.">writeSBML()</a> methods, no such comment is written out.</p>
@@ -304,7 +302,7 @@ on yyyy-MM-dd HH:mm with libSBML version &lt;libsbml version&gt;. --&gt;
       </table>
 </div><div class="memdoc">
 
-<p>Sets the version of this program, i.e., the program that is about to write out the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>. </p>
+<p>Sets the version of this program, i.e., the program that is about to write out the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>. </p>
 <p>If the program version and name are set (see <a class="el" href="class_s_b_m_l_writer.html#af4b6b14d9288d655031944c1bb5de812" title="Sets the name of this program, i.e., the program that is about to write out the SBMLDocument.">SBMLWriter::setProgramName()</a>), the following XML comment, intended for human consumption, will be written at the beginning of the document: </p><pre class="fragment">&lt;!-- Created by &lt;program name&gt; version &lt;program version&gt;
 on yyyy-MM-dd HH:mm with libSBML version &lt;libsbml version&gt;. --&gt;
 </pre><p>If the program version and name are not set at some point before calling the <a class="el" href="class_s_b_m_l_writer.html#a02d1998aee7656d7b9c3ac69d62bb66f" title="Writes the given SBML document to filename.">writeSBML()</a> methods, no such comment is written out.</p>

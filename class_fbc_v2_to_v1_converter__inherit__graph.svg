@@ -12,7 +12,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
+<g id="a_node1"><a xlink:title="\ @ @ . &amp;;&amp;; 2 1">
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-19.5 118,-19.5 118,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="59" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcV2ToV1Converter</text>
 </a>
@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_s_b_m_l_converter.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="class_s_b_m_l_converter.html" target="_top" xlink:title="\ @ @ . .">
 <polygon fill="white" stroke="black" points="13,-56.5 13,-75.5 105,-75.5 105,-56.5 13,-56.5"/>
 <text text-anchor="middle" x="59" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLConverter</text>
 </a>

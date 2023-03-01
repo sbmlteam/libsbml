@@ -100,29 +100,106 @@ $(document).ready(function(){initNavTree('class_s_b_m_l_document_plugin.html',''
 <div class="dynheader">
 Inheritance diagram for SBMLDocumentPlugin:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_s_b_m_l_document_plugin__inherit__graph.svg" width="622" height="443"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_s_b_m_l_document_plugin__inherit__graph.svg" width="622" height="443"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><br  />
-</p>
- Base class for extending <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> in packages.</p>
+<div class="textblock"><p>\ @ @ . . </p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  This class is not prescribed by
 the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
-<p>The <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> class is a specialization of <a class="el" href="class_s_base_plugin.html">SBasePlugin</a> designed specifically for extending <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>. All package extensions must extend <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> to implement support for SBML Level&#160;3 packages; these extensions can be subclasses of this class or from a derived class of this class.</p>
+<p>The <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> class is a specialization of <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a> designed specifically for extending <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>. All package extensions must extend <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> to implement support for SBML Level&#160;3 packages; these extensions can be subclasses of this class or from a derived class of this class.</p>
 <p>All packages must additionally define a required flag named <code>required</code>, which indicates whether that package's constructs can be used to change the core mathematics of the <code>&lt;model&gt;</code> child of the <code>&lt;sbml&gt;</code> element. If they can, this attribute must be set <code>true</code>, and if they cannot, this attribute must be set <code>false</code>.</p>
 <h1><a class="anchor" id="sbmldocumentplugin-howto"></a>
 How to extend SBMLDocumentPlugin for a package implementation</h1>
+<dl class="section user"><dt></dt><dd>The following subsections detail the basic steps necessary to use <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> to extend <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> for a given package extension.</dd></dl>
+<h2><a class="anchor" id="sdp-identify"></a>
+1. Identify the changes necessary to SBMLDocument</h2>
+<p>The specification for a SBML Level&#160;3 package will define the changes to the SBML <code>&lt;sbml&gt;</code> element. Packages typically do not make any changes beyond adding an attribute named "required" (discussed below), so in most cases, the extension of <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> is very simple. However, some packages do more. For instance, the Hierarchical Model Composition package adds subobjects for lists of model definitions. <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> supports all these cases.</p>
+<h2><a class="anchor" id="sdp-implement"></a>
+2. Create the SBMLDocumentPlugin subclass</h2>
+<p>A package extension will only define one subclass of <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a>. Below, we describe in detail the different parts of a subclass definition.</p>
+<h3><a class="anchor" id="sdp-class"></a>
+2.1 Override SBasePlugin class-related methods</h3>
+<p>The derived class must override the constructor, copy constructor, assignment operator (<code>operator=</code>) and <code><a class="el" href="class_s_b_m_l_document_plugin.html#a2d947d84f0a2a86ca62e9d47539ab299" title="Creates and returns a deep copy of this SBMLDocumentPlugin object.">clone()</a></code> methods from <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a>.</p>
+<h3><a class="anchor" id="sdp-required"></a>
+2.2 Determine the necessary value of the "required" attribute</h3>
+<p>At minimum, it is necessary for a package implementation to add the "required" attribute to the SBML <code>&lt;sbml&gt;</code> element mandated by SBML for all Level&#160;3 packages, and this is done using this class as a base. If the 'required' attribute is the <em>only</em> addition necessary for a particular SBML Level&#160;3 package, then the subclass of <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> for the package can have a very simple implementation. Some Level&#160;3 packages add additional attributes or elements to <code>&lt;sbml&gt;</code>, and their implementations would go into the subclassed <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a>.</p>
+<p><a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> provides methods with default implementations that support managing the "required" attribute, so package extension code does not need to provide implementations&mdash;they only need to set the correct value for the SBML Level&#160;3 package based on its specification. The following are the virtual methods for working with the "required" attribute. Package extensions would only need to override them in special circumstances:</p>
+<ul>
+<li><code><a class="el" href="class_s_b_m_l_document_plugin.html#a72f7168febe06fa1ffc03949c3681050" title="Sets the SBML &quot;required&quot; attribute value.">setRequired(bool value)</a></code>: This method sets the value of the flag.</li>
+</ul>
+<ul>
+<li><code><a class="el" href="class_s_b_m_l_document_plugin.html#a0e44a382e88144b3ed18e5de7e98722b" title="Returns the value of the &quot;required&quot; attribute.">getRequired()</a></code>: This method gets the value of the "required" flag.</li>
+</ul>
+<ul>
+<li><code><a class="el" href="class_s_b_m_l_document_plugin.html#a3ab5ecd57ffe0211af14433e91271efa" title="Returns the value of the &quot;required&quot; attribute.">isSetRequired()</a></code>: This method tests if the value has been set.</li>
+</ul>
+<ul>
+<li><code><a class="el" href="class_s_b_m_l_document_plugin.html#a1f046ca04e055de9844c9acbce4c6543" title="Unsets the value of the &quot;required&quot; attribute of this SBMLDocumentPlugin.">unsetRequired()</a></code>: This method unsets the value of the "required" flag.</li>
+</ul>
+<h3><a class="anchor" id="sdp-protected"></a>
+2.3 Define protected data members</h3>
+<p>An extended <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object may need more than just the "required" attribute, depending on what is defined in the specification for the package being implemented. Data attributes on the extended <code>&lt;sbml&gt;</code> object in an SBML package will have one of the data types <code>std::string</code>, <code>double</code>, <code>int</code>, or <code>bool</code>. Subelements/subobjects will normally be derived from the <a class="el" href="class_list_of.html" title="\ @ @ . &#39; &quot;&quot; .">ListOf</a> class or from <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a>.</p>
+<p>The additional data members must be properly initialized in the class constructor, and must be properly copied in the copy constructor and assignment operator.</p>
+<h3><a class="anchor" id="sdp-methods-attribs"></a>
+2.4 Override virtual methods for attributes</h3>
+<p>If the extended component is defined by the SBML Level&#160;3 package to have attributes, then the extended <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> class definition needs to override the following internal methods that come from <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a> (the base class of <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a>) and provide appropriate implementations:</p>
+<ul>
+<li><code>addExpectedAttributes(ExpectedAttributes&amp; attributes)</code>: This method should add the attributes that are expected to be found on this kind of extended component in an SBML file or data stream.</li>
+</ul>
+<ul>
+<li><code>readAttributes(<a class="el" href="class_x_m_l_attributes.html" title="\ @ @ . .">XMLAttributes</a>&amp; attributes, ExpectedAttributes&amp; expectedAttributes)</code>: This method should read the attributes expected to be found on this kind of extended component in an SBML file or data stream.</li>
+</ul>
+<ul>
+<li><code>hasRequiredAttributes()</code>: This method should return <code>true</code> if all of the required attribute for this extended component are present on instance of the object.</li>
+</ul>
+<ul>
+<li><code>writeAttributes(XMLOutputStream&amp; stream)</code>: This method should write out the attributes of an extended component. The implementation should use the different kinds of <code>writeAttribute</code> methods defined by <a class="el" href="class_x_m_l_output_stream.html" title="\ @ @ . .">XMLOutputStream</a> to achieve this.</li>
+</ul>
+<h3><a class="anchor" id="sdp-methods-elem"></a>
+2.5 Override virtual methods for subcomponents</h3>
+<p>If the extended component is defined by the Level&#160;3 package to have subcomponents (i.e., full XML elements rather than mere attributes), then the extended class definition needs to override the following internal methods on <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a> (the base class of <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a>) and provide appropriate implementations:</p>
+<ul>
+<li><code>createObject(XMLInputStream&amp; stream)</code>: Subclasses must override this method to create, store, and then return an SBML object corresponding to the next <a class="el" href="class_x_m_l_token.html" title="\ @ @ . .">XMLToken</a> in the <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a>. To do this, implementations can use methods like <code>peek()</code> on <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a> to test if the next object in the stream is something expected for the package. For example, <a class="el" href="class_layout_model_plugin.html" title="\ @ @ . .">LayoutModelPlugin</a> uses <code>peek()</code> to examine the next element in the input stream, then tests that element against the <a class="el" href="class_layout.html" title="\ @ @ . .">Layout</a> namespace and the element name <code>"listOfLayouts"</code> to see if it's the single subcomponent (<a class="el" href="class_list_of_layouts.html" title="\ @ @ . .">ListOfLayouts</a>) permitted on a <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> object using the <a class="el" href="class_layout.html" title="\ @ @ . .">Layout</a> package. If it is, it returns the appropriate object.</li>
+</ul>
+<ul>
+<li><code>connectToParent(SBase *sbase)</code>: This creates a parent-child relationship between a given extended component and its subcomponent(s).</li>
+</ul>
+<ul>
+<li><code>setSBMLDocument(SBMLDocument* d)</code>: This method should set the parent <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object on the subcomponent object instances, so that the subcomponent instances know which <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> contains them.</li>
+</ul>
+<ul>
+<li><code>enablePackageInternal(std::string&amp; pkgURI, std::string&amp; pkgPrefix, bool flag)</code>: This method should enable or disable the subcomponent based on whether a given XML namespace is active.</li>
+</ul>
+<ul>
+<li><code>writeElements(XMLOutputStream&amp; stream)</code>: This method must be overridden to provide an implementation that will write out the expected subcomponents/subelements to the XML output stream.</li>
+</ul>
+<ul>
+<li><code>readOtherXML(SBase* parentObject, XMLInputStream&amp; stream)</code>: This function should be overridden if elements of annotation, notes, MathML content, etc., need to be directly parsed from the given <a class="el" href="class_x_m_l_input_stream.html" title="\ @ @ . .">XMLInputStream</a> object.</li>
+</ul>
+<ul>
+<li><code>hasRequiredElements()</code>: This method should return <code>true</code> if a given object contains all the required subcomponents defined by the specification for that SBML Level&#160;3 package.</li>
+</ul>
+<h3><a class="anchor" id="sdp-methods-xmlns"></a>
+2.6 Override virtual methods for XML namespaces</h3>
+<p>If the package needs to add additional <code>xmlns</code> attributes to declare additional XML namespace URIs, the extended class should override the following method coming from <a class="el" href="class_s_base_plugin.html" title="\ @ @ . .">SBasePlugin</a> (the parent class of <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a>):</p>
+<ul>
+<li><code>writeXMLNS(XMLOutputStream&amp; stream)</code>: This method should write out any additional XML namespaces that might be needed by a package implementation.</li>
+</ul>
+<h3><a class="anchor" id="sdp-methods-hooks"></a>
+2.7 Implement additional methods as needed</h3>
+<p>Extended <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> implementations can add whatever additional utility methods are useful for their implementation. </p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="convert_layout_8cpp-example.html#_a10">convertLayout.cpp</a>.</dd>
 </dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a2d947d84f0a2a86ca62e9d47539ab299"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_document_plugin.html#a2d947d84f0a2a86ca62e9d47539ab299">clone</a> () const</td></tr>
-<tr class="memdesc:a2d947d84f0a2a86ca62e9d47539ab299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> object.  <a href="class_s_b_m_l_document_plugin.html#a2d947d84f0a2a86ca62e9d47539ab299">More...</a><br /></td></tr>
+<tr class="memdesc:a2d947d84f0a2a86ca62e9d47539ab299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> object.  <a href="class_s_b_m_l_document_plugin.html#a2d947d84f0a2a86ca62e9d47539ab299">More...</a><br /></td></tr>
 <tr class="separator:a2d947d84f0a2a86ca62e9d47539ab299"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac06fe5377358500d4341f62b8b962835"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_list.html">List</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#ac06fe5377358500d4341f62b8b962835">getAllElements</a> (<a class="el" href="class_element_filter.html">ElementFilter</a> *filter=NULL)</td></tr>
 <tr class="memdesc:ac06fe5377358500d4341f62b8b962835"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns all child objects of this object.  <a href="class_s_base_plugin.html#ac06fe5377358500d4341f62b8b962835">More...</a><br /></td></tr>
@@ -158,10 +235,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a0e44a382e88144b3ed18e5de7e98722b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the "required" attribute.  <a href="class_s_b_m_l_document_plugin.html#a0e44a382e88144b3ed18e5de7e98722b">More...</a><br /></td></tr>
 <tr class="separator:a0e44a382e88144b3ed18e5de7e98722b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59581825576a6216ab07beceb709da81"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a59581825576a6216ab07beceb709da81">getSBMLDocument</a> ()</td></tr>
-<tr class="memdesc:a59581825576a6216ab07beceb709da81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object containing this object instance.  <a href="class_s_base_plugin.html#a59581825576a6216ab07beceb709da81">More...</a><br /></td></tr>
+<tr class="memdesc:a59581825576a6216ab07beceb709da81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object containing this object instance.  <a href="class_s_base_plugin.html#a59581825576a6216ab07beceb709da81">More...</a><br /></td></tr>
 <tr class="separator:a59581825576a6216ab07beceb709da81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d5a422cf6973d70984cec3ec4597d1c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a9d5a422cf6973d70984cec3ec4597d1c">getSBMLDocument</a> () const</td></tr>
-<tr class="memdesc:a9d5a422cf6973d70984cec3ec4597d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object containing this object instance.  <a href="class_s_base_plugin.html#a9d5a422cf6973d70984cec3ec4597d1c">More...</a><br /></td></tr>
+<tr class="memdesc:a9d5a422cf6973d70984cec3ec4597d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object containing this object instance.  <a href="class_s_base_plugin.html#a9d5a422cf6973d70984cec3ec4597d1c">More...</a><br /></td></tr>
 <tr class="separator:a9d5a422cf6973d70984cec3ec4597d1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae278c9a451f870b4b0472dece4cfd075"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#ae278c9a451f870b4b0472dece4cfd075">getURI</a> () const</td></tr>
 <tr class="memdesc:ae278c9a451f870b4b0472dece4cfd075"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the XML namespace URI for the package to which this object belongs.  <a href="class_s_base_plugin.html#ae278c9a451f870b4b0472dece4cfd075">More...</a><br /></td></tr>
@@ -175,7 +252,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a22b634dc54d29892de8024a405af77be"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a22b634dc54d29892de8024a405af77be">isValidTypeForList</a> (<a class="el" href="class_s_base.html">SBase</a> *item) const</td></tr>
 <tr class="separator:a22b634dc54d29892de8024a405af77be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d2cf29a037e1e90683a827b15a9363b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_document_plugin.html#a1d2cf29a037e1e90683a827b15a9363b">operator=</a> (const <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> &amp;rhs)</td></tr>
-<tr class="memdesc:a1d2cf29a037e1e90683a827b15a9363b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a>.  <a href="class_s_b_m_l_document_plugin.html#a1d2cf29a037e1e90683a827b15a9363b">More...</a><br /></td></tr>
+<tr class="memdesc:a1d2cf29a037e1e90683a827b15a9363b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a>.  <a href="class_s_b_m_l_document_plugin.html#a1d2cf29a037e1e90683a827b15a9363b">More...</a><br /></td></tr>
 <tr class="separator:a1d2cf29a037e1e90683a827b15a9363b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a95d2c1e8f73cd2f44954f9bf77ddb1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a8a95d2c1e8f73cd2f44954f9bf77ddb1">renameMetaIdRefs</a> (const std::string &amp;oldid, const std::string &amp;newid)</td></tr>
 <tr class="separator:a8a95d2c1e8f73cd2f44954f9bf77ddb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -187,7 +264,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a1c762e87a27ee0c6b4c8bf142c409ab7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="class_s_b_m_l_document_plugin.html#a1c762e87a27ee0c6b4c8bf142c409ab7">More...</a><br /></td></tr>
 <tr class="separator:a1c762e87a27ee0c6b4c8bf142c409ab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ca943382d785b97766f21ce39d6a328"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_document_plugin.html#a9ca943382d785b97766f21ce39d6a328">SBMLDocumentPlugin</a> (const std::string &amp;uri, const std::string &amp;prefix, <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> *sbmlns)</td></tr>
-<tr class="memdesc:a9ca943382d785b97766f21ce39d6a328"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> object using the given parameters.  <a href="class_s_b_m_l_document_plugin.html#a9ca943382d785b97766f21ce39d6a328">More...</a><br /></td></tr>
+<tr class="memdesc:a9ca943382d785b97766f21ce39d6a328"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> object using the given parameters.  <a href="class_s_b_m_l_document_plugin.html#a9ca943382d785b97766f21ce39d6a328">More...</a><br /></td></tr>
 <tr class="separator:a9ca943382d785b97766f21ce39d6a328"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70257de82da9ea894348f1d601395e83"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base_plugin.html#a70257de82da9ea894348f1d601395e83">setElementNamespace</a> (const std::string &amp;uri)</td></tr>
 <tr class="memdesc:a70257de82da9ea894348f1d601395e83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the XML namespace to which this object belongs.  <a href="class_s_base_plugin.html#a70257de82da9ea894348f1d601395e83">More...</a><br /></td></tr>
@@ -196,10 +273,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a72f7168febe06fa1ffc03949c3681050"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the SBML "required" attribute value.  <a href="class_s_b_m_l_document_plugin.html#a72f7168febe06fa1ffc03949c3681050">More...</a><br /></td></tr>
 <tr class="separator:a72f7168febe06fa1ffc03949c3681050"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f046ca04e055de9844c9acbce4c6543"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_document_plugin.html#a1f046ca04e055de9844c9acbce4c6543">unsetRequired</a> ()</td></tr>
-<tr class="memdesc:a1f046ca04e055de9844c9acbce4c6543"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the value of the "required" attribute of this <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a>.  <a href="class_s_b_m_l_document_plugin.html#a1f046ca04e055de9844c9acbce4c6543">More...</a><br /></td></tr>
+<tr class="memdesc:a1f046ca04e055de9844c9acbce4c6543"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsets the value of the "required" attribute of this <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a>.  <a href="class_s_b_m_l_document_plugin.html#a1f046ca04e055de9844c9acbce4c6543">More...</a><br /></td></tr>
 <tr class="separator:a1f046ca04e055de9844c9acbce4c6543"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a978f50e64994489d75c335a44f246340"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_document_plugin.html#a978f50e64994489d75c335a44f246340">~SBMLDocumentPlugin</a> ()</td></tr>
-<tr class="memdesc:a978f50e64994489d75c335a44f246340"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy this <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> object.  <a href="class_s_b_m_l_document_plugin.html#a978f50e64994489d75c335a44f246340">More...</a><br /></td></tr>
+<tr class="memdesc:a978f50e64994489d75c335a44f246340"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy this <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> object.  <a href="class_s_b_m_l_document_plugin.html#a978f50e64994489d75c335a44f246340">More...</a><br /></td></tr>
 <tr class="separator:a978f50e64994489d75c335a44f246340"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -235,14 +312,14 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> object using the given parameters. </p>
+<p>Creates a new <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> object using the given parameters. </p>
 <dl class="section user"><dt></dt><dd>In the XML representation of an SBML document, XML namespaces are used to identify the origin of each XML construct used. XML namespaces are identified by their unique resource identifiers (URIs). The core SBML specifications stipulate the namespaces that must be used for core SBML constructs; for example, all XML elements that belong to SBML Level&#160;3 Version&#160;1 Core must be placed in the XML namespace identified by the URI <code>"http://www.sbml.org/sbml/level3/version1/core"</code>. Individual SBML Level&#160;3 packages define their own XML namespaces; for example, all elements belonging to the SBML Level&#160;3 Layout Version&#160;1 package must be placed in the XML namespace <code>"http://www.sbml.org/sbml/level3/version1/layout/version1/"</code>.</dd></dl>
-<dl class="section user"><dt></dt><dd>The <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object encapsulates SBML Level/Version/namespaces information. It is used to communicate the SBML Level, Version, and (in Level&#160;3) packages used in addition to SBML Level&#160;3 Core. A common approach to using libSBML's <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> facilities is to create an <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object somewhere in a program once, then hand that object as needed to object constructors that accept <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> as arguments.</dd></dl>
+<dl class="section user"><dt></dt><dd>The <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object encapsulates SBML Level/Version/namespaces information. It is used to communicate the SBML Level, Version, and (in Level&#160;3) packages used in addition to SBML Level&#160;3 Core. A common approach to using libSBML's <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> facilities is to create an <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object somewhere in a program once, then hand that object as needed to object constructors that accept <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> as arguments.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uri</td><td>the URI of the SBML Level&#160;3 package implemented by this libSBML package extension.</td></tr>
     <tr><td class="paramname">prefix</td><td>the XML namespace prefix being used for the package.</td></tr>
-    <tr><td class="paramname">sbmlns</td><td>the <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object for the package. </td></tr>
+    <tr><td class="paramname">sbmlns</td><td>the <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object for the package. </td></tr>
   </table>
   </dd>
 </dl>
@@ -269,7 +346,7 @@ Public Member Functions</h2></td></tr>
 <p>This creates a copy of this object.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">orig</td><td>the <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> instance to copy. </td></tr>
+    <tr><td class="paramname">orig</td><td>the <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> instance to copy. </td></tr>
   </table>
   </dd>
 </dl>
@@ -299,7 +376,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroy this <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> object. </p>
+<p>Destroy this <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> object. </p>
 
 </div>
 </div>
@@ -327,8 +404,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the (deep) copy of this <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a> object. </dd></dl>
+<p>Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the (deep) copy of this <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a> object. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_base_plugin.html#a323cc1f9b65d0804e09ed84f0ca31637">SBasePlugin</a>.</p>
 
@@ -361,14 +438,14 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns all child objects of this object. </p>
-<p>This returns a <a class="el" href="class_list.html">List</a> object containing all child <a class="el" href="class_s_base.html">SBase</a> objects of this one, at any nesting depth. Optionally, callers can supply a filter that will establish the search criteria for matching objects.</p>
+<p>This returns a <a class="el" href="class_list.html" title="\ @ @ . , , .">List</a> object containing all child <a class="el" href="class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , .">SBase</a> objects of this one, at any nesting depth. Optionally, callers can supply a filter that will establish the search criteria for matching objects.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">filter</td><td>a pointer to an <a class="el" href="class_element_filter.html">ElementFilter</a>, which causes the function to return only elements that match a particular set of constraints. If NULL (the default), the function will return all child objects.</td></tr>
+    <tr><td class="paramname">filter</td><td>a pointer to an <a class="el" href="class_element_filter.html" title="\ @ @ . .">ElementFilter</a>, which causes the function to return only elements that match a particular set of constraints. If NULL (the default), the function will return all child objects.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="class_list.html">List</a> of pointers to all children objects. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="class_list.html" title="\ @ @ . , , .">List</a> of pointers to all children objects. </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_spatial_parameter_plugin.html#a60a1d70a0ec6b8bb761e6a997eaa526f">SpatialParameterPlugin</a>, <a class="el" href="class_spatial_model_plugin.html#a9562b1b799adece0548619f018d5b2ec">SpatialModelPlugin</a>, <a class="el" href="class_spatial_compartment_plugin.html#a737ab5a086a835d0f1050fa8989674be">SpatialCompartmentPlugin</a>, <a class="el" href="class_render_list_of_layouts_plugin.html#aa8a1e662732ac9f0e7bddb0334171f7d">RenderListOfLayoutsPlugin</a>, <a class="el" href="class_render_layout_plugin.html#a955c4e573e5cbca30403612b549ae32a">RenderLayoutPlugin</a>, <a class="el" href="class_qual_model_plugin.html#a534bbd7bd3b5d4052970de366d4b133e">QualModelPlugin</a>, <a class="el" href="class_multi_species_reference_plugin.html#ad6c667ee3c7ead9af8101ffed987adb9">MultiSpeciesReferencePlugin</a>, <a class="el" href="class_multi_species_plugin.html#ab7c1c92dad05f626173dbb3538298419">MultiSpeciesPlugin</a>, <a class="el" href="class_multi_simple_species_reference_plugin.html#a2b188297c0568b2ee9f8b2a34e66c01b">MultiSimpleSpeciesReferencePlugin</a>, <a class="el" href="class_multi_model_plugin.html#a83f8671991145f69e2f88eb94d674aba">MultiModelPlugin</a>, <a class="el" href="class_multi_compartment_plugin.html#a9893618fab48be9a16aa105265d9c4ad">MultiCompartmentPlugin</a>, <a class="el" href="class_layout_model_plugin.html#a879f82661222da20921971b779911527">LayoutModelPlugin</a>, <a class="el" href="class_groups_model_plugin.html#afeb3c46989b21f2f8c7e7b31c14db763">GroupsModelPlugin</a>, <a class="el" href="class_fbc_s_base_plugin.html#ac0ad7ed07b3b2b7b4a135126d9757d2b">FbcSBasePlugin</a>, <a class="el" href="class_fbc_reaction_plugin.html#a696878a1158fe1fb39e7ce0171c3ff76">FbcReactionPlugin</a>, <a class="el" href="class_fbc_model_plugin.html#ac702cbec4ead2762f418056893e23361">FbcModelPlugin</a>, <a class="el" href="class_comp_s_b_m_l_document_plugin.html#ab86a0e61ba4335ca7b655718b4dcd466">CompSBMLDocumentPlugin</a>, <a class="el" href="class_comp_s_base_plugin.html#a68b6b52aba5aa3830440022e71a432e2">CompSBasePlugin</a>, and <a class="el" href="class_comp_model_plugin.html#a66c626309f074a4eece29bef1ee0cdc6">CompModelPlugin</a>.</p>
 
@@ -709,10 +786,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object containing this object instance. </p>
-<dl class="section user"><dt></dt><dd>LibSBML uses the class <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> as a top-level container for storing SBML content and data associated with it (such as warnings and error messages). An SBML model in libSBML is contained inside an <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> corresponds roughly to the class <em>SBML</em> defined in the SBML Level&#160;3 and Level&#160;2 specifications, but it does not have a direct correspondence in SBML Level&#160;1. (But, it is created by libSBML no matter whether the model is Level&#160;1, Level&#160;2 or Level&#160;3.)</dd></dl>
-<p>This method allows the caller to obtain the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> for the current object.</p>
-<dl class="section return"><dt>Returns</dt><dd>the parent <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object of this plugin object.</dd></dl>
+<p>Returns the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object containing this object instance. </p>
+<dl class="section user"><dt></dt><dd>LibSBML uses the class <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> as a top-level container for storing SBML content and data associated with it (such as warnings and error messages). An SBML model in libSBML is contained inside an <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object. <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> corresponds roughly to the class <em>SBML</em> defined in the SBML Level&#160;3 and Level&#160;2 specifications, but it does not have a direct correspondence in SBML Level&#160;1. (But, it is created by libSBML no matter whether the model is Level&#160;1, Level&#160;2 or Level&#160;3.)</dd></dl>
+<p>This method allows the caller to obtain the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> for the current object.</p>
+<dl class="section return"><dt>Returns</dt><dd>the parent <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object of this plugin object.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base_plugin.html#afcf597ffa54ffed41a57a1feee7a9241" title="Returns the parent object to which this plugin object is connected.">getParentSBMLObject()</a> </dd></dl>
 
 </div>
@@ -740,10 +817,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object containing this object instance. </p>
-<dl class="section user"><dt></dt><dd>LibSBML uses the class <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> as a top-level container for storing SBML content and data associated with it (such as warnings and error messages). An SBML model in libSBML is contained inside an <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> corresponds roughly to the class <em>SBML</em> defined in the SBML Level&#160;3 and Level&#160;2 specifications, but it does not have a direct correspondence in SBML Level&#160;1. (But, it is created by libSBML no matter whether the model is Level&#160;1, Level&#160;2 or Level&#160;3.)</dd></dl>
-<p>This method allows the caller to obtain the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> for the current object.</p>
-<dl class="section return"><dt>Returns</dt><dd>the parent <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object of this plugin object.</dd></dl>
+<p>Returns the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object containing this object instance. </p>
+<dl class="section user"><dt></dt><dd>LibSBML uses the class <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> as a top-level container for storing SBML content and data associated with it (such as warnings and error messages). An SBML model in libSBML is contained inside an <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object. <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> corresponds roughly to the class <em>SBML</em> defined in the SBML Level&#160;3 and Level&#160;2 specifications, but it does not have a direct correspondence in SBML Level&#160;1. (But, it is created by libSBML no matter whether the model is Level&#160;1, Level&#160;2 or Level&#160;3.)</dd></dl>
+<p>This method allows the caller to obtain the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> for the current object.</p>
+<dl class="section return"><dt>Returns</dt><dd>the parent <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object of this plugin object.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base_plugin.html#afcf597ffa54ffed41a57a1feee7a9241" title="Returns the parent object to which this plugin object is connected.">getParentSBMLObject()</a> </dd></dl>
 
 </div>
@@ -773,7 +850,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Returns the XML namespace URI for the package to which this object belongs. </p>
 <dl class="section user"><dt></dt><dd>In the XML representation of an SBML document, XML namespaces are used to identify the origin of each XML construct used. XML namespaces are identified by their unique resource identifiers (URIs). The core SBML specifications stipulate the namespaces that must be used for core SBML constructs; for example, all XML elements that belong to SBML Level&#160;3 Version&#160;1 Core must be placed in the XML namespace identified by the URI <code>"http://www.sbml.org/sbml/level3/version1/core"</code>. Individual SBML Level&#160;3 packages define their own XML namespaces; for example, all elements belonging to the SBML Level&#160;3 Layout Version&#160;1 package must be placed in the XML namespace <code>"http://www.sbml.org/sbml/level3/version1/layout/version1/"</code>.</dd></dl>
-<p>This method first looks into the <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> object possessed by the parent <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object of the current object. If this cannot be found, this method returns the result of <a class="el" href="class_s_base_plugin.html#a22e94cfa62ef5948cd631c8d22918293" title="Returns the namespace URI of the package to which this plugin object belongs.">getElementNamespace()</a>.</p>
+<p>This method first looks into the <a class="el" href="class_s_b_m_l_namespaces.html" title="\ @ @ . + + .">SBMLNamespaces</a> object possessed by the parent <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object of the current object. If this cannot be found, this method returns the result of <a class="el" href="class_s_base_plugin.html#a22e94cfa62ef5948cd631c8d22918293" title="Returns the namespace URI of the package to which this plugin object belongs.">getElementNamespace()</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>a string, the URI of the XML namespace to which this object belongs.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base_plugin.html#a39809eb9fac95dba54f36c133927f6d9" title="Returns the short-form name of the package to which this plugin object belongs.">getPackageName()</a> </dd>
 <dd>
@@ -838,7 +915,7 @@ Public Member Functions</h2></td></tr>
 <p>Returns the value of the "required" attribute. </p>
 <dl class="section user"><dt></dt><dd>SBML Level&#160;3 requires that every package defines an attribute named "required" on the root <code>&lt;sbml&gt;</code> element in an SBML file or data stream. The attribute, being in the namespace of the Level&#160;3 package in question, must be prefixed by the XML namespace prefix associated with the package. The value of the "required" attribute indicates whether constructs in that package may change the mathematical interpretation of constructs defined in SBML Level&#160;3 Core. A "required" value of <code>true</code> indicates that the package may do so. The value of the attribute is set by the Level&#160;3 package specification, and does <em>not</em> depend on the actual presence or absence of particular package constructs in a given SBML document: in other words, if the package specification defines any construct that can change the model's meaning, the value of the "required" attribute must always be set to <code>true</code> in any SBML document that uses the package.</dd></dl>
 <p>The XML namespace declaration for an SBML Level&#160;3 package is an indication that a model makes use of features defined by that package, while the "required" attribute indicates whether the features may be ignored without compromising the mathematical meaning of the model. Both are necessary for a complete reference to an SBML Level&#160;3 package.</p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the "required" attribute of this <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> has been set to <code>true</code>, <code>false</code> otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the "required" attribute of this <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> has been set to <code>true</code>, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -884,7 +961,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Assignment operator for <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a>. </p>
+<p>Assignment operator for <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">rhs</td><td>the object whose values are used as the basis of the assignment. </td></tr>
@@ -929,6 +1006,16 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p></p>
+<dl class="section user"><dt></dt><dd>Replaces all uses of a given meta identifier attribute value with another value.</dd></dl>
+<dl class="section user"><dt></dt><dd>In SBML, object "meta" identifiers are of the XML data type <code>ID</code>; the SBML object attribute itself is typically named <code>metaid</code>. All attributes that hold values <em>referring</em> to values of type <code>ID</code> are of the XML data type <code>IDREF</code>. They are also sometimes informally referred to as "metaid refs", in analogy to the SBML-defined type <code>SIdRef</code>.</dd></dl>
+<p>This method works by looking at all meta-identifier attribute values, comparing the identifiers to the value of <code>oldid</code>. If any matches are found, the matching identifiers are replaced with <code>newid</code>. The method does <em>not</em> descend into child elements.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">oldid</td><td>the old identifier. </td></tr>
+    <tr><td class="paramname">newid</td><td>the new identifier. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -967,6 +1054,17 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p></p>
+<dl class="section user"><dt></dt><dd>Replaces all uses of a given <code>SIdRef</code> type attribute value with another value.</dd></dl>
+<dl class="section user"><dt></dt><dd></dd></dl>
+<p>In SBML, object identifiers are of a data type called <code>SId</code>. In SBML Level&#160;3, an explicit data type called <code>SIdRef</code> was introduced for attribute values that refer to <code>SId</code> values; in previous Levels of SBML, this data type did not exist and attributes were simply described to as "referring to an identifier", but the effective data type was the same as <code>SIdRef</code> in Level&#160;3. These and other methods of libSBML refer to the type <code>SIdRef</code> for all Levels of SBML, even if the corresponding SBML specification did not explicitly name the data type.</p>
+<p>This method works by looking at all attributes and (if appropriate) mathematical formulas in MathML content, comparing the referenced identifiers to the value of <code>oldid</code>. If any matches are found, the matching values are replaced with <code>newid</code>. The method does <em>not</em> descend into child elements.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">oldid</td><td>the old identifier. </td></tr>
+    <tr><td class="paramname">newid</td><td>the new identifier. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Reimplemented in <a class="el" href="class_fbc_reaction_plugin.html#a98366114113038e39493158deb2bbbe9">FbcReactionPlugin</a>.</p>
 
@@ -1007,6 +1105,16 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p></p>
+<dl class="section user"><dt></dt><dd>Replaces all uses of a given <code>UnitSIdRef</code> type attribute value with another value.</dd></dl>
+<dl class="section user"><dt></dt><dd>In SBML, unit definitions have identifiers of type <code>UnitSId</code>. In SBML Level&#160;3, an explicit data type called <code>UnitSIdRef</code> was introduced for attribute values that refer to <code>UnitSId</code> values; in previous Levels of SBML, this data type did not exist and attributes were simply described to as "referring to a unit identifier", but the effective data type was the same as <code>UnitSIdRef</code> in Level&#160;3. These and other methods of libSBML refer to the type <code>UnitSIdRef</code> for all Levels of SBML, even if the corresponding SBML specification did not explicitly name the data type.</dd></dl>
+<p>This method works by looking at all unit identifier attribute values (including, if appropriate, inside mathematical formulas), comparing the referenced unit identifiers to the value of <code>oldid</code>. If any matches are found, the matching values are replaced with <code>newid</code>. The method does <em>not</em> descend into child elements.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">oldid</td><td>the old identifier. </td></tr>
+    <tr><td class="paramname">newid</td><td>the new identifier. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1123,7 +1231,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Unsets the value of the "required" attribute of this <a class="el" href="class_s_b_m_l_document_plugin.html">SBMLDocumentPlugin</a>. </p>
+<p>Unsets the value of the "required" attribute of this <a class="el" href="class_s_b_m_l_document_plugin.html" title="\ @ @ . .">SBMLDocumentPlugin</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
 </ul>

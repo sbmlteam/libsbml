@@ -196,6 +196,23 @@ Enumerations</h2></td></tr>
 
 <p>Codes for all SBML-level errors and warnings from the 'groups' package. </p>
 <p>These are distinguished from other SBML error codes by having a number between 4000000 and 4099999.</p>
+<dl class="section user"><dt></dt><dd>Calling programs may wish to check which enumeration a given <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> object's error identifier is actually from: <ul>
+<li>0000000 to 0009999: <a class="el" href="_x_m_l_error_8h.html#a5ff7604587bd93fb60cdecb72acd160c" title="Canonical error codes returned for low-level XML parser errors.">XMLErrorCode_t</a> (a low-level XML problem)</li>
+</ul>
+<ul>
+<li>0010000 to 0099999: <a class="el" href="_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627" title="Codes for all SBML-level errors and warnings from the core specification.">SBMLErrorCode_t</a> (a problem with the SBML core specification) </li>
+<li>1000000 to 1099999: <a class="el" href="_comp_s_b_m_l_error_8h.html#ac44f9ef8a150cee1759825082751b5f7" title="Codes for all SBML-level errors and warnings from the &#39;comp&#39; package.">CompSBMLErrorCode_t</a> (a problem with the SBML Level&#160;3 Hierarchical Model Composition package specification).</li>
+</ul>
+<ul>
+<li>2000000 to 2099999: <a class="el" href="_fbc_s_b_m_l_error_8h.html#a310b38bf1efd71c27a67032d2bca5374" title="Codes for all SBML-level errors and warnings from the &#39;fbc&#39; package.">FbcSBMLErrorCode_t</a> (a problem with the SBML Level&#160;3 Flux Balance Constraints package specification).</li>
+</ul>
+<ul>
+<li>3000000 to 3099999: <a class="el" href="_qual_s_b_m_l_error_8h.html#a8da5054c45bf43f7ef57723cf8f636b5" title="Codes for all SBML-level errors and warnings from the &#39;qual&#39; package.">QualSBMLErrorCode_t</a> (a problem with the SBML Level&#160;3 Qualitative Models package specification).</li>
+</ul>
+<ul>
+<li>6000000 to 6099999: <a class="el" href="_layout_s_b_m_l_error_8h.html#ae320fa3395c59b29175212cb4fcc544c" title="Codes for all SBML-level errors and warnings from the &#39;layout&#39; package.">LayoutSBMLErrorCode_t</a> (a problem with the SBML Level&#160;3 Layout package specification).</li>
+</ul>
+Other error code ranges are reserved for other packages. </dd></dl>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="adb65a9bcd30645a49fde96d7d2cfb2e4ab99339b0aeea35c3437c38437f31eb01"></a>GroupsUnknown&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="adb65a9bcd30645a49fde96d7d2cfb2e4a7066e7df25bb25038175af4d55b07239"></a>GroupsNSUndeclared&#160;</td><td class="fielddoc"></td></tr>

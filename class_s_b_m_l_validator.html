@@ -100,22 +100,21 @@ $(document).ready(function(){initNavTree('class_s_b_m_l_validator.html',''); ini
 <div class="dynheader">
 Inheritance diagram for SBMLValidator:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_s_b_m_l_validator__inherit__graph.svg" width="178" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_s_b_m_l_validator__inherit__graph.svg" width="178" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><br  />
-</p>
- Base class for SBML validators.</p>
+<div class="textblock"><p>\ @ @ . . </p>
 <p style='color: #777; font-style: italic'>
 This class of objects is defined by libSBML only and has no direct
 equivalent in terms of SBML components.  This class is not prescribed by
 the SBML specifications, although it is used to implement features
 defined in SBML.
 </p>
-<p>LibSBML implements facilities for verifying that a given SBML document is valid according to the SBML specifications; it also exposes the validation interface so that user programs and SBML Level&#160;3 package authors may use the facilities to implement new validators. There are two main interfaces to libSBML's validation facilities, based on the classes <a class="el" href="class_validator.html">Validator</a> and <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a>.</p>
-<p>The <a class="el" href="class_validator.html">Validator</a> class is the basis of the system for validating an SBML document against the validation rules defined in the SBML specifications. The scheme used by <a class="el" href="class_validator.html">Validator</a> relies is compact and uses the <em>visitor</em> programming pattern, but it relies on C/C++ features and is not directly accessible from language bindings. <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a> offers a framework for straightforward class-based extensibility, so that user code can subclass <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a> to implement new validation systems, different validators can be introduced or turned off at run-time, and interfaces can be provided in the libSBML language bindings. <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a> can call <a class="el" href="class_validator.html">Validator</a> functionality internally (as is the case in the current implementation of <a class="el" href="class_s_b_m_l_internal_validator.html">SBMLInternalValidator</a>) or use entirely different implementation approaches, as necessary.</p>
-<p>Users of libSBML may already be familiar with the facilities encompassed by the validation system, in the form of the consistency-checking methods defined on <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>. The methods <a class="el" href="class_s_b_m_l_document.html#acb6e109d079445adf0b54780214636c2" title="Controls the consistency checks that are performed when SBMLDocument::checkConsistency() is called.">SBMLDocument::setConsistencyChecks()</a>, <a class="el" href="class_s_b_m_l_document.html#a25684f139b8f5e44ec2089eba3fdfda0" title="Performs consistency checking and validation on this SBML document.">SBMLDocument::checkConsistency()</a>, <a class="el" href="class_s_b_m_l_document.html#a5d0aceba94d7005122b9149470998349" title="Performs consistency checking on libSBML&#39;s internal representation of an SBML Model.">SBMLDocument::checkInternalConsistency()</a> and other method of that sort are in fact implemented via <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a>, specifically as methods on the class <a class="el" href="class_s_b_m_l_internal_validator.html">SBMLInternalValidator</a>.</p>
-<p>Authors may use <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a> as the base class for their own validator extensions to libSBML. The class <a class="el" href="class_s_b_m_l_internal_validator.html">SBMLInternalValidator</a> may serve as a code example for how to implement such things. </p>
+<p>LibSBML implements facilities for verifying that a given SBML document is valid according to the SBML specifications; it also exposes the validation interface so that user programs and SBML Level&#160;3 package authors may use the facilities to implement new validators. There are two main interfaces to libSBML's validation facilities, based on the classes <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a> and <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a>.</p>
+<p>The <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a> class is the basis of the system for validating an SBML document against the validation rules defined in the SBML specifications. The scheme used by <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a> relies is compact and uses the <em>visitor</em> programming pattern, but it relies on C/C++ features and is not directly accessible from language bindings. <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a> offers a framework for straightforward class-based extensibility, so that user code can subclass <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a> to implement new validation systems, different validators can be introduced or turned off at run-time, and interfaces can be provided in the libSBML language bindings. <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a> can call <a class="el" href="class_validator.html" title="\ @ @ . .">Validator</a> functionality internally (as is the case in the current implementation of <a class="el" href="class_s_b_m_l_internal_validator.html" title="\ @ @ . .">SBMLInternalValidator</a>) or use entirely different implementation approaches, as necessary.</p>
+<p>Users of libSBML may already be familiar with the facilities encompassed by the validation system, in the form of the consistency-checking methods defined on <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>. The methods <a class="el" href="class_s_b_m_l_document.html#acb6e109d079445adf0b54780214636c2" title="Controls the consistency checks that are performed when SBMLDocument::checkConsistency() is called.">SBMLDocument::setConsistencyChecks()</a>, <a class="el" href="class_s_b_m_l_document.html#a25684f139b8f5e44ec2089eba3fdfda0" title="Performs consistency checking and validation on this SBML document.">SBMLDocument::checkConsistency()</a>, <a class="el" href="class_s_b_m_l_document.html#a5d0aceba94d7005122b9149470998349" title="Performs consistency checking on libSBML&#39;s internal representation of an SBML Model.">SBMLDocument::checkInternalConsistency()</a> and other method of that sort are in fact implemented via <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a>, specifically as methods on the class <a class="el" href="class_s_b_m_l_internal_validator.html" title="\ @ @ . .">SBMLInternalValidator</a>.</p>
+<p>Authors may use <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a> as the base class for their own validator extensions to libSBML. The class <a class="el" href="class_s_b_m_l_internal_validator.html" title="\ @ @ . .">SBMLInternalValidator</a> may serve as a code example for how to implement such things. </p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="add_custom_validator_8cpp-example.html#_a0">addCustomValidator.cpp</a>, and <a class="el" href="rngvalidator_8cpp-example.html#_a1">rngvalidator.cpp</a>.</dd>
 </dl>
 </div><table class="memberdecls">
@@ -125,7 +124,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a3156b722c7bb3548ec874f6e43b2dc6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears this validator's list of failures.  <a href="class_s_b_m_l_validator.html#a3156b722c7bb3548ec874f6e43b2dc6c">More...</a><br /></td></tr>
 <tr class="separator:a3156b722c7bb3548ec874f6e43b2dc6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08493481da7bd632dbace4f8830b8d73"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_validator.html#a08493481da7bd632dbace4f8830b8d73">clone</a> () const</td></tr>
-<tr class="memdesc:a08493481da7bd632dbace4f8830b8d73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a> object.  <a href="class_s_b_m_l_validator.html#a08493481da7bd632dbace4f8830b8d73">More...</a><br /></td></tr>
+<tr class="memdesc:a08493481da7bd632dbace4f8830b8d73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a> object.  <a href="class_s_b_m_l_validator.html#a08493481da7bd632dbace4f8830b8d73">More...</a><br /></td></tr>
 <tr class="separator:a08493481da7bd632dbace4f8830b8d73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf1134b6be32b469bf3fa39136b901fc"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_validator.html#acf1134b6be32b469bf3fa39136b901fc">getDocument</a> ()</td></tr>
 <tr class="memdesc:acf1134b6be32b469bf3fa39136b901fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current SBML document in use by this validator.  <a href="class_s_b_m_l_validator.html#acf1134b6be32b469bf3fa39136b901fc">More...</a><br /></td></tr>
@@ -140,13 +139,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:acf1704cfd49a737cd54713ea12d920f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the failure object at index n in this validator's list of failures logged during the last run.  <a href="class_s_b_m_l_validator.html#acf1704cfd49a737cd54713ea12d920f4">More...</a><br /></td></tr>
 <tr class="separator:acf1704cfd49a737cd54713ea12d920f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1637ec5f5e3d5f9375a60d0e6dda78b1"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_validator.html#a1637ec5f5e3d5f9375a60d0e6dda78b1">getFailures</a> () const</td></tr>
-<tr class="memdesc:a1637ec5f5e3d5f9375a60d0e6dda78b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> objects (if any) that were logged by the last run of this validator.  <a href="class_s_b_m_l_validator.html#a1637ec5f5e3d5f9375a60d0e6dda78b1">More...</a><br /></td></tr>
+<tr class="memdesc:a1637ec5f5e3d5f9375a60d0e6dda78b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> objects (if any) that were logged by the last run of this validator.  <a href="class_s_b_m_l_validator.html#a1637ec5f5e3d5f9375a60d0e6dda78b1">More...</a><br /></td></tr>
 <tr class="separator:a1637ec5f5e3d5f9375a60d0e6dda78b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe889bb2e50f33f79563b05207d2a01f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_model.html">Model</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_validator.html#afe889bb2e50f33f79563b05207d2a01f">getModel</a> ()</td></tr>
-<tr class="memdesc:afe889bb2e50f33f79563b05207d2a01f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_model.html">Model</a> object stored in the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>.  <a href="class_s_b_m_l_validator.html#afe889bb2e50f33f79563b05207d2a01f">More...</a><br /></td></tr>
+<tr class="memdesc:afe889bb2e50f33f79563b05207d2a01f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> object stored in the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>.  <a href="class_s_b_m_l_validator.html#afe889bb2e50f33f79563b05207d2a01f">More...</a><br /></td></tr>
 <tr class="separator:afe889bb2e50f33f79563b05207d2a01f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb482ded1c965c28720a9cc3bf58dca6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_model.html">Model</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_validator.html#afb482ded1c965c28720a9cc3bf58dca6">getModel</a> () const</td></tr>
-<tr class="memdesc:afb482ded1c965c28720a9cc3bf58dca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_model.html">Model</a> object stored in the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>.  <a href="class_s_b_m_l_validator.html#afb482ded1c965c28720a9cc3bf58dca6">More...</a><br /></td></tr>
+<tr class="memdesc:afb482ded1c965c28720a9cc3bf58dca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> object stored in the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>.  <a href="class_s_b_m_l_validator.html#afb482ded1c965c28720a9cc3bf58dca6">More...</a><br /></td></tr>
 <tr class="separator:afb482ded1c965c28720a9cc3bf58dca6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f769f31ab1f07308a7e16e92eda4141"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_validator.html#a5f769f31ab1f07308a7e16e92eda4141">getNumFailures</a> () const</td></tr>
 <tr class="memdesc:a5f769f31ab1f07308a7e16e92eda4141"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of failures encountered in the last validation run.  <a href="class_s_b_m_l_validator.html#a5f769f31ab1f07308a7e16e92eda4141">More...</a><br /></td></tr>
@@ -155,22 +154,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a52413a56a05e8ec6ce9c1d10d5c7314b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the given failure to this list of Validators failures.  <a href="class_s_b_m_l_validator.html#a52413a56a05e8ec6ce9c1d10d5c7314b">More...</a><br /></td></tr>
 <tr class="separator:a52413a56a05e8ec6ce9c1d10d5c7314b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fac6473c18b81bdd18f1a501627d22e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_validator.html#a8fac6473c18b81bdd18f1a501627d22e">operator=</a> (const <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a> &amp;rhs)</td></tr>
-<tr class="memdesc:a8fac6473c18b81bdd18f1a501627d22e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a>.  <a href="class_s_b_m_l_validator.html#a8fac6473c18b81bdd18f1a501627d22e">More...</a><br /></td></tr>
+<tr class="memdesc:a8fac6473c18b81bdd18f1a501627d22e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a>.  <a href="class_s_b_m_l_validator.html#a8fac6473c18b81bdd18f1a501627d22e">More...</a><br /></td></tr>
 <tr class="separator:a8fac6473c18b81bdd18f1a501627d22e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbea2e8a0fe8e0f94e353ba1c3617015"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_validator.html#abbea2e8a0fe8e0f94e353ba1c3617015">SBMLValidator</a> ()</td></tr>
-<tr class="memdesc:abbea2e8a0fe8e0f94e353ba1c3617015"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a>.  <a href="class_s_b_m_l_validator.html#abbea2e8a0fe8e0f94e353ba1c3617015">More...</a><br /></td></tr>
+<tr class="memdesc:abbea2e8a0fe8e0f94e353ba1c3617015"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a>.  <a href="class_s_b_m_l_validator.html#abbea2e8a0fe8e0f94e353ba1c3617015">More...</a><br /></td></tr>
 <tr class="separator:abbea2e8a0fe8e0f94e353ba1c3617015"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a587b90859bd7ec7778775cffda7e7efc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_validator.html#a587b90859bd7ec7778775cffda7e7efc">SBMLValidator</a> (const <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a> &amp;orig)</td></tr>
-<tr class="memdesc:a587b90859bd7ec7778775cffda7e7efc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor; creates a copy of an <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a> object.  <a href="class_s_b_m_l_validator.html#a587b90859bd7ec7778775cffda7e7efc">More...</a><br /></td></tr>
+<tr class="memdesc:a587b90859bd7ec7778775cffda7e7efc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor; creates a copy of an <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a> object.  <a href="class_s_b_m_l_validator.html#a587b90859bd7ec7778775cffda7e7efc">More...</a><br /></td></tr>
 <tr class="separator:a587b90859bd7ec7778775cffda7e7efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f4ca85288103d3e73f842ab19a826bd"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_validator.html#a0f4ca85288103d3e73f842ab19a826bd">setDocument</a> (const <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *doc)</td></tr>
-<tr class="memdesc:a0f4ca85288103d3e73f842ab19a826bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the current SBML document to the given <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object.  <a href="class_s_b_m_l_validator.html#a0f4ca85288103d3e73f842ab19a826bd">More...</a><br /></td></tr>
+<tr class="memdesc:a0f4ca85288103d3e73f842ab19a826bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the current SBML document to the given <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object.  <a href="class_s_b_m_l_validator.html#a0f4ca85288103d3e73f842ab19a826bd">More...</a><br /></td></tr>
 <tr class="separator:a0f4ca85288103d3e73f842ab19a826bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9df8edbe59b5377a60ddf6a84836c457"><td class="memItemLeft" align="right" valign="top">virtual unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_validator.html#a9df8edbe59b5377a60ddf6a84836c457">validate</a> ()</td></tr>
 <tr class="memdesc:a9df8edbe59b5377a60ddf6a84836c457"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs this validator on the current SBML document.  <a href="class_s_b_m_l_validator.html#a9df8edbe59b5377a60ddf6a84836c457">More...</a><br /></td></tr>
 <tr class="separator:a9df8edbe59b5377a60ddf6a84836c457"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cb2e6af628b2e75de501020f5414566"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_validator.html#a2cb2e6af628b2e75de501020f5414566">validate</a> (const <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> &amp;d)</td></tr>
-<tr class="memdesc:a2cb2e6af628b2e75de501020f5414566"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the given <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object.  <a href="class_s_b_m_l_validator.html#a2cb2e6af628b2e75de501020f5414566">More...</a><br /></td></tr>
+<tr class="memdesc:a2cb2e6af628b2e75de501020f5414566"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the given <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object.  <a href="class_s_b_m_l_validator.html#a2cb2e6af628b2e75de501020f5414566">More...</a><br /></td></tr>
 <tr class="separator:a2cb2e6af628b2e75de501020f5414566"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1086759314cb613de438b5f48ccc6e35"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_validator.html#a1086759314cb613de438b5f48ccc6e35">validate</a> (const std::string &amp;filename)</td></tr>
 <tr class="memdesc:a1086759314cb613de438b5f48ccc6e35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the SBML document located at the given <code>filename</code>.  <a href="class_s_b_m_l_validator.html#a1086759314cb613de438b5f48ccc6e35">More...</a><br /></td></tr>
@@ -195,7 +194,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a>. </p>
+<p>Creates a new <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a>. </p>
 
 </div>
 </div>
@@ -215,7 +214,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copy constructor; creates a copy of an <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a> object. </p>
+<p>Copy constructor; creates a copy of an <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">orig</td><td>the object to copy. </td></tr>
@@ -305,8 +304,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a> object. </p>
-<dl class="section return"><dt>Returns</dt><dd>the (deep) copy of this <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a> object. </dd></dl>
+<p>Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a> object. </p>
+<dl class="section return"><dt>Returns</dt><dd>the (deep) copy of this <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a> object. </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_s_b_m_l_internal_validator.html#afb03043a810b46c3396c96d080c05ba5">SBMLInternalValidator</a>.</p>
 
@@ -386,8 +385,8 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the list of errors or warnings logged during parsing, consistency checking, or attempted translation of this model. </p>
-<p>Note that this refers to the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object's error log (i.e., the list returned by <a class="el" href="class_s_b_m_l_document.html#a2bfc5923e5b0f3e6716d38860b18a563" title="Returns the list of errors or warnings logged during parsing, consistency checking,...">SBMLDocument::getErrorLog()</a>). <em>That</em> list of errors and warnings is <em>separate</em> from the validation failures tracked by this validator (i.e., the list returned by <a class="el" href="class_s_b_m_l_validator.html#a1637ec5f5e3d5f9375a60d0e6dda78b1" title="Returns a list of SBMLError objects (if any) that were logged by the last run of this validator.">getFailures()</a>).</p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a> used for the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>.</dd></dl>
+<p>Note that this refers to the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object's error log (i.e., the list returned by <a class="el" href="class_s_b_m_l_document.html#a2bfc5923e5b0f3e6716d38860b18a563" title="Returns the list of errors or warnings logged during parsing, consistency checking,...">SBMLDocument::getErrorLog()</a>). <em>That</em> list of errors and warnings is <em>separate</em> from the validation failures tracked by this validator (i.e., the list returned by <a class="el" href="class_s_b_m_l_validator.html#a1637ec5f5e3d5f9375a60d0e6dda78b1" title="Returns a list of SBMLError objects (if any) that were logged by the last run of this validator.">getFailures()</a>).</p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_s_b_m_l_error_log.html" title="\ @ @ . .">SBMLErrorLog</a> used for the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_b_m_l_validator.html#a1637ec5f5e3d5f9375a60d0e6dda78b1" title="Returns a list of SBMLError objects (if any) that were logged by the last run of this validator.">getFailures()</a> </dd></dl>
 
 </div>
@@ -436,7 +435,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns a list of <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> objects (if any) that were logged by the last run of this validator. </p>
+<p>Returns a list of <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> objects (if any) that were logged by the last run of this validator. </p>
 <dl class="section return"><dt>Returns</dt><dd>a list of errors, warnings and other diagnostics logged during validation.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_b_m_l_validator.html#a3156b722c7bb3548ec874f6e43b2dc6c" title="Clears this validator&#39;s list of failures.">clearFailures()</a> </dd></dl>
 
@@ -457,9 +456,9 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_model.html">Model</a> object stored in the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>. </p>
-<p>It is important to note that this method <em>does not create</em> a <a class="el" href="class_model.html">Model</a> instance. The model in the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> must have been created at some prior time, for example using <a class="el" href="class_s_b_m_l_document.html#a2240e2070ddf9225e3bd8b1a94106a1a" title="Creates a new Model inside this SBMLDocument, and returns a pointer to it.">SBMLDocument::createModel()</a> or <a class="el" href="class_s_b_m_l_document.html#af3033174e868ae3893912768664cfa9a" title="Sets the Model for this SBMLDocument to a copy of the given Model.">SBMLDocument::setModel()</a>. This method returns <code>NULL</code> if a model does not yet exist.</p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_model.html">Model</a> contained in this validator's <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object.</dd></dl>
+<p>Returns the <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> object stored in the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>. </p>
+<p>It is important to note that this method <em>does not create</em> a <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> instance. The model in the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> must have been created at some prior time, for example using <a class="el" href="class_s_b_m_l_document.html#a2240e2070ddf9225e3bd8b1a94106a1a" title="Creates a new Model inside this SBMLDocument, and returns a pointer to it.">SBMLDocument::createModel()</a> or <a class="el" href="class_s_b_m_l_document.html#af3033174e868ae3893912768664cfa9a" title="Sets the Model for this SBMLDocument to a copy of the given Model.">SBMLDocument::setModel()</a>. This method returns <code>NULL</code> if a model does not yet exist.</p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> contained in this validator's <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_b_m_l_document.html#af3033174e868ae3893912768664cfa9a" title="Sets the Model for this SBMLDocument to a copy of the given Model.">SBMLDocument::setModel()</a> </dd>
 <dd>
 <a class="el" href="class_s_b_m_l_document.html#a2240e2070ddf9225e3bd8b1a94106a1a" title="Creates a new Model inside this SBMLDocument, and returns a pointer to it.">SBMLDocument::createModel()</a> </dd></dl>
@@ -481,9 +480,9 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the <a class="el" href="class_model.html">Model</a> object stored in the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>. </p>
-<p>It is important to note that this method <em>does not create</em> a <a class="el" href="class_model.html">Model</a> instance. The model in the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> must have been created at some prior time, for example using <a class="el" href="class_s_b_m_l_document.html#a2240e2070ddf9225e3bd8b1a94106a1a" title="Creates a new Model inside this SBMLDocument, and returns a pointer to it.">SBMLDocument::createModel()</a> or <a class="el" href="class_s_b_m_l_document.html#af3033174e868ae3893912768664cfa9a" title="Sets the Model for this SBMLDocument to a copy of the given Model.">SBMLDocument::setModel()</a>. This method returns <code>NULL</code> if a model does not yet exist.</p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_model.html">Model</a> contained in this validator's <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object.</dd></dl>
+<p>Returns the <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> object stored in the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a>. </p>
+<p>It is important to note that this method <em>does not create</em> a <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> instance. The model in the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> must have been created at some prior time, for example using <a class="el" href="class_s_b_m_l_document.html#a2240e2070ddf9225e3bd8b1a94106a1a" title="Creates a new Model inside this SBMLDocument, and returns a pointer to it.">SBMLDocument::createModel()</a> or <a class="el" href="class_s_b_m_l_document.html#af3033174e868ae3893912768664cfa9a" title="Sets the Model for this SBMLDocument to a copy of the given Model.">SBMLDocument::setModel()</a>. This method returns <code>NULL</code> if a model does not yet exist.</p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_model.html" title="\ @ @ . .">Model</a> contained in this validator's <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_b_m_l_document.html#af3033174e868ae3893912768664cfa9a" title="Sets the Model for this SBMLDocument to a copy of the given Model.">SBMLDocument::setModel()</a> </dd>
 <dd>
 <a class="el" href="class_s_b_m_l_document.html#a2240e2070ddf9225e3bd8b1a94106a1a" title="Creates a new Model inside this SBMLDocument, and returns a pointer to it.">SBMLDocument::createModel()</a> </dd></dl>
@@ -506,7 +505,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the number of failures encountered in the last validation run. </p>
-<p>This method returns the number of failures logged by this validator. This number only reflects <em>this</em> validator's actions; the number may not be the same as the number of errors and warnings logged on the <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object's error log (i.e., the object returned by <a class="el" href="class_s_b_m_l_document.html#a2bfc5923e5b0f3e6716d38860b18a563" title="Returns the list of errors or warnings logged during parsing, consistency checking,...">SBMLDocument::getErrorLog()</a>), because other parts of libSBML may log errors and warnings beyond those found by this validator.</p>
+<p>This method returns the number of failures logged by this validator. This number only reflects <em>this</em> validator's actions; the number may not be the same as the number of errors and warnings logged on the <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object's error log (i.e., the object returned by <a class="el" href="class_s_b_m_l_document.html#a2bfc5923e5b0f3e6716d38860b18a563" title="Returns the list of errors or warnings logged during parsing, consistency checking,...">SBMLDocument::getErrorLog()</a>), because other parts of libSBML may log errors and warnings beyond those found by this validator.</p>
 <dl class="section return"><dt>Returns</dt><dd>the number of errors logged by this validator. </dd></dl>
 
 </div>
@@ -530,7 +529,7 @@ Public Member Functions</h2></td></tr>
 <p>Adds the given failure to this list of Validators failures. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">err</td><td>an <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> object representing an error or warning.</td></tr>
+    <tr><td class="paramname">err</td><td>an <a class="el" href="class_s_b_m_l_error.html" title="\ @ @ . , .">SBMLError</a> object representing an error or warning.</td></tr>
   </table>
   </dd>
 </dl>
@@ -554,7 +553,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Assignment operator for <a class="el" href="class_s_b_m_l_validator.html">SBMLValidator</a>. </p>
+<p>Assignment operator for <a class="el" href="class_s_b_m_l_validator.html" title="\ @ @ . .">SBMLValidator</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">rhs</td><td>the object whose values are used as the basis of the assignment. </td></tr>
@@ -588,7 +587,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Sets the current SBML document to the given <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. </p>
+<p>Sets the current SBML document to the given <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">doc</td><td>the document to use for this validation.</td></tr>
@@ -649,7 +648,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Validates the given <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. </p>
+<p>Validates the given <a class="el" href="class_s_b_m_l_document.html" title="\ @ @ . .">SBMLDocument</a> object. </p>
 <p>This is identical to calling <a class="el" href="class_s_b_m_l_validator.html#a0f4ca85288103d3e73f842ab19a826bd" title="Sets the current SBML document to the given SBMLDocument object.">setDocument()</a> followed by <a class="el" href="class_s_b_m_l_validator.html#a9df8edbe59b5377a60ddf6a84836c457" title="Runs this validator on the current SBML document.">validate()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -678,7 +677,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Validates the SBML document located at the given <code>filename</code>. </p>
-<p>This is a convenience method that saves callers the trouble of using <a class="el" href="class_s_b_m_l_reader.html">SBMLReader</a> to read the document first.</p>
+<p>This is a convenience method that saves callers the trouble of using <a class="el" href="class_s_b_m_l_reader.html" title="\ @ @ . .">SBMLReader</a> to read the document first.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filename</td><td>the path to the file to be read and validated.</td></tr>

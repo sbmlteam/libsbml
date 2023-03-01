@@ -1,12 +1,12 @@
 <map id="GraphicalPrimitive2D" name="GraphicalPrimitive2D">
-<area shape="rect" id="node1" title=" " alt="" coords="169,304,331,331"/>
-<area shape="rect" id="node6" href="$class_ellipse.html" title=" " alt="" coords="5,379,71,405"/>
-<area shape="rect" id="node7" href="$class_line_ending.html" title=" " alt="" coords="95,379,189,405"/>
-<area shape="rect" id="node8" href="$class_polygon.html" title=" " alt="" coords="213,379,287,405"/>
-<area shape="rect" id="node9" href="$class_rectangle.html" title=" " alt="" coords="312,379,399,405"/>
-<area shape="rect" id="node10" href="$class_render_group.html" title=" " alt="" coords="423,379,530,405"/>
-<area shape="rect" id="node2" href="$class_graphical_primitive1_d.html" title=" " alt="" coords="169,229,331,256"/>
-<area shape="rect" id="node3" href="$class_transformation2_d.html" title=" " alt="" coords="181,155,319,181"/>
-<area shape="rect" id="node4" href="$class_transformation.html" title=" " alt="" coords="190,80,310,107"/>
-<area shape="rect" id="node5" href="$class_s_base.html" title=" " alt="" coords="219,5,281,32"/>
+<area shape="rect" id="node1" title="\ @ @ . 2 ." alt="" coords="169,304,331,331"/>
+<area shape="rect" id="node6" href="$class_ellipse.html" title="\ @ @ . ." alt="" coords="5,379,71,405"/>
+<area shape="rect" id="node7" href="$class_line_ending.html" title="\ @ @ . / ." alt="" coords="95,379,189,405"/>
+<area shape="rect" id="node8" href="$class_polygon.html" title="\ @ @ ." alt="" coords="213,379,287,405"/>
+<area shape="rect" id="node9" href="$class_rectangle.html" title="\ @ @ . ." alt="" coords="312,379,399,405"/>
+<area shape="rect" id="node10" href="$class_render_group.html" title="\ @ @ . ." alt="" coords="423,379,530,405"/>
+<area shape="rect" id="node2" href="$class_graphical_primitive1_d.html" title="\ @ @ . 1 ." alt="" coords="169,229,331,256"/>
+<area shape="rect" id="node3" href="$class_transformation2_d.html" title="\ @ @ . 2 ." alt="" coords="181,155,319,181"/>
+<area shape="rect" id="node4" href="$class_transformation.html" title="\ @ @ . 3 ." alt="" coords="190,80,310,107"/>
+<area shape="rect" id="node5" href="$class_s_base.html" title="\ @ @ . &#39; &lt;&gt;%&lt;/&gt; , ." alt="" coords="219,5,281,32"/>
 </map>
