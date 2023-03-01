@@ -583,10 +583,24 @@ INPUT =                                    \
   ../../src/sbml/packages/qual/common      \
   ../../src/sbml/packages/qual/extension   \
   ../../src/sbml/packages/qual/sbml        \
-  ../../src/sbml/packages/qual/validator \
-  ../../src/sbml/common/common-documentation.h \
-  ../../src/sbml/common/common-sbmlerror-codes.h
-  
+  ../../src/sbml/packages/qual/validator   \
+  src/common-text
+
+
+  # ../../src/sbml/common/operationReturnValues.h \
+  # ../../src/sbml/packages/layout/extension/LayoutExtension.h \
+  # ../../src/sbml/SBMLTypeCodes.h                           \
+  # ../../src/sbml/common/common-documentation.h \
+  # ../../src/sbml/xml/XMLError.h \
+  # ../../src/sbml/SBMLError.h \
+  # ../../src/sbml/packages/comp/extension/CompExtension.h \
+  # ../../src/sbml/packages/comp/validator/CompSBMLError.h \
+  # ../../src/sbml/packages/fbc/validator/FbcSBMLError.h \
+  # ../../src/sbml/packages/qual/validator/QualSBMLError.h \
+  # ../../src/sbml/packages/groups/validator/GroupsSBMLError.h \
+  # ../../src/sbml/packages/layout/validator/LayoutSBMLError.h \
+  # ../../src/sbml/packages/render/validator/RenderSBMLError.h \
+  # ../../src/sbml/common/common-sbmlerror-codes.h  
 
 # The RECURSIVE tag can be used to turn specify whether or not subdirectories 
 # should be searched for input files as well. Possible values are YES and NO. 
@@ -615,7 +629,7 @@ EXCLUDE_PATTERNS       = */test/*
 # *.c *.cc *.cxx *.cpp *.c++ *.java *.ii *.ixx *.ipp *.i++ *.inl *.h *.hh
 # *.hxx *.hpp *.h++ *.idl *.odl *.cs *.php *.php3 *.inc
 
-FILE_PATTERNS          = *.c *.cpp *.hpp *.h *.java *.py
+FILE_PATTERNS          = *.c *.cpp *.hpp *.h *.java *.py temp_*.txt
 
 # The EXCLUDE_SYMLINKS tag can be used select whether or not files or directories 
 # that are symbolic links (a Unix filesystem feature) are excluded from the input.

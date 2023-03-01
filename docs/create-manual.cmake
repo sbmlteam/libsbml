@@ -34,24 +34,120 @@ execute_process(COMMAND ${PYTHON_EXECUTABLE}
                 OUTPUT_FILE "${SRC_DIR}/src/css/libsbml-package-stylesheet.css"
                 WORKING_DIRECTORY ${SRC_DIR}/src)
 
+# split up common documentation classes into separate files
+execute_process(COMMAND ${PYTHON_EXECUTABLE}
+                ${SRC_DIR}/src/utilities/split-documentation-classes.py "${ROOT_DIR}/src/sbml/common/common-documentation.h" "${SRC_DIR}/src/common-text"
+                WORKING_DIRECTORY ${SRC_DIR}/src)
+
+# collect all generated 'temp_*.txt' files from the common-text directory:
+file(GLOB temp_files ${SRC_DIR}/src/common-text/temp_*.txt) 
+# generate INPUT string for all files: 
+set(ADDITIONAL_INPUT "
+INPUT +=                                     \\
+  libsbml-accessing.txt                     \\
+  libsbml-api-guide.txt                     \\
+  libsbml-basics-of-extensions.txt          \\
+  libsbml-coding.txt                        \\
+  libsbml-communications.txt                \\
+  libsbml-converters.txt                    \\
+  libsbml-downloading.txt                   \\
+  libsbml-example-files.txt                 \\
+  libsbml-example.txt                       \\
+  libsbml-extending.txt                     \\
+  libsbml-extension-support-classes.txt     \\
+  libsbml-features.txt                      \\
+  libsbml-groups.txt                        \\
+  libsbml-help.txt                          \\
+  libsbml-howto-implement-extension.txt     \\
+  libsbml-installation-guide.txt            \\
+  libsbml-installation.txt                  \\
+  libsbml-issues.txt                        \\
+  libsbml-license.txt                       \\
+  libsbml-mainpage.txt                      \\
+  libsbml-math.txt                          \\
+  libsbml-news.txt                          \\
+  libsbml-other.txt                         \\
+  libsbml-reading-files.txt                 \\
+  libsbml-sbml-specifications.txt           \\
+  ../../src/sbml/annotation                 \\
+  ../../src/sbml/common                     \\
+  ../../src/sbml/conversion                 \\
+  ../../src/sbml/extension                  \\
+  ../../src/sbml/math                       \\
+  ../../src/sbml/util                       \\
+  ../../src/sbml/validator                  \\
+  ../../src/sbml                            \\
+  ../../src/sbml/xml                        \\
+  ../../src/sbml/packages/comp/common       \\
+  ../../src/sbml/packages/comp/extension    \\
+  ../../src/sbml/packages/comp/sbml         \\
+  ../../src/sbml/packages/comp/util         \\ 
+  ../../src/sbml/packages/comp/validator    \\
+  ../../src/sbml/packages/fbc/common        \\
+  ../../src/sbml/packages/fbc/extension     \\
+  ../../src/sbml/packages/fbc/sbml          \\
+  ../../src/sbml/packages/fbc/util          \\ 
+  ../../src/sbml/packages/fbc/validator     \\
+  ../../src/sbml/packages/groups/common     \\
+  ../../src/sbml/packages/groups/extension  \\
+  ../../src/sbml/packages/groups/sbml       \\
+  ../../src/sbml/packages/groups/validator  \\
+  ../../src/sbml/packages/layout/common     \\
+  ../../src/sbml/packages/layout/extension  \\
+  ../../src/sbml/packages/layout/sbml       \\
+  ../../src/sbml/packages/layout/util       \\ 
+  ../../src/sbml/packages/layout/validator  \\
+  ../../src/sbml/packages/render/common     \\
+  ../../src/sbml/packages/render/extension  \\
+  ../../src/sbml/packages/render/sbml       \\
+  ../../src/sbml/packages/render/util       \\ 
+  ../../src/sbml/packages/render/validator  \\
+  ../../src/sbml/packages/spatial/common    \\
+  ../../src/sbml/packages/spatial/extension \\
+  ../../src/sbml/packages/spatial/sbml      \\
+  ../../src/sbml/packages/spatial/validator \\
+  ../../src/sbml/packages/multi/common      \\
+  ../../src/sbml/packages/multi/extension   \\
+  ../../src/sbml/packages/multi/sbml        \\
+  ../../src/sbml/packages/multi/validator   \\
+  ../../src/sbml/packages/qual/common       \\
+  ../../src/sbml/packages/qual/extension    \\
+  ../../src/sbml/packages/qual/sbml         \\
+  ../../src/sbml/packages/qual/validator")
+
+foreach(file ${temp_files})
+  set(ADDITIONAL_INPUT "${ADDITIONAL_INPUT} ${file}")
+endforeach()
+
 # create doxygen config files for index and group runs
 file(READ   ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.txt DOXYGEN_CONFIG)
 file(WRITE  ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.1.txt "
-ALIASES += sbmlpackage{1}=\"@addindex \"\\1\"^^\"
+ALIASES += sbmlpackage{1}=\"@addindex \\1\"
 
 ALIASES += sbmlconstant{2}=\"@if clike @link \\2#\\1 \\1@endlink@endif @if csharp @link libsbml#\\1 \\1@endlink@endif @if python @link libsbml#\\1 \\1@endlink@endif @if java @link libsbmlConstants#\\1 \\1@endlink@endif@~\"
 
 ")
 file(APPEND ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.1.txt "${DOXYGEN_CONFIG}")
+file(APPEND ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.1.txt "
+
+# additional input files
+${ADDITIONAL_INPUT}
+")
 file(WRITE  ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "
 
-ALIASES += sbmlpackage{1}=\"@ingroup \\1^^\"
+ALIASES += sbmlpackage{1}=\"@ingroup \\1\"
 
 
 ALIASES += sbmlconstant{2}=\"@if clike @link \\2#\\1 \\1@endlink@endif @if csharp @link libsbml#\\1 \\1@endlink@endif @if python @link libsbml#\\1 \\1@endlink@endif @if java @link libsbmlConstants#\\1 \\1@endlink@endif@~\"
 
+
 ")
 file(APPEND ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "${DOXYGEN_CONFIG}")
+file(APPEND ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt "
+
+# additional input files
+${ADDITIONAL_INPUT}
+")
 
 if (NOT SERVER_SEARCH)
 file(WRITE ${SRC_DIR}/src/doxygen-search-config.txt "
@@ -131,3 +227,22 @@ file(APPEND ${OUTPUT_DIR}/tabs.css "\n${TABS_CSS}")
 
 file(READ ${OUTPUT_DIR}/libsbml-doxygen-navtree.css NAVTREE_CSS)
 file(APPEND ${OUTPUT_DIR}/navtree.css "\n${NAVTREE_CSS}")
+
+# remove temporary files created 
+foreach(file ${temp_files})
+  file(REMOVE ${file})
+  # # get filename component
+  # get_filename_component(filename ${file} NAME_WE)
+  # # remove 'temp_' from filename
+  # string(REGEX REPLACE "^temp_" "" filename ${filename})
+  # # replace all underscores with asterisks
+  # string(REGEX REPLACE "_" "*" filename ${filename})
+  # # ensure that a file contining the filename exists in the output directory
+  # file(GLOB files ${OUTPUT_DIR}/*${filename}*)
+  # # warn if there is no such file
+  # if (NOT files)
+  #   message(WARNING "No file found for doc: ${filename}, ${files}")
+  # endif()
+endforeach()
+# file(REMOVE ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.1.txt)
+# file(REMOVE ${SRC_DIR}/src/doxygen-config-${LANGUAGE}.2.txt)
