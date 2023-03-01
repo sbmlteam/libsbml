@@ -245,10 +245,9 @@ var NAVTREEINDEX =
 "class_unit_definition.html#a8c576e7dfaa4651bca4a782c9e09ac20",
 "class_user_defined_constraint_component.html#a4fbf6701023075573bd76fa0bd276291",
 "class_x_m_l_namespaces.html#aed92f6aa26a41020a32ca0796cf7e7c9",
-"classdoc__extension__sbmldocumentplugin.html",
-"functions_func_x.html",
-"libsbml-math.html#math-reading",
-"util_8cpp.html#a2601cc3ba1139a2c024b91ee855d0ef2"
+"fbcfwd_8h.html#a2a213d4e2c4cc41e1c1feb918519a86b",
+"libsbml-example-files.html#package-layout-examples",
+"spatialfwd_8h.html#a57f3a19efe824248475fcf6cf0f329c8"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
