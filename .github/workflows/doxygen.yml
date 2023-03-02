@@ -2,9 +2,10 @@ name: Documentation generation
 
 on: 
   workflow_dispatch:
-  push:
+  pull_request:
+    types: [opened, synchronize, ready_for_review, reopened] # defaults + ready_to_review
     branches:
-      - "cmake-documentation"
+      - development
 
 jobs:
   build:
