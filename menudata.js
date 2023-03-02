@@ -24,7 +24,6 @@
 */
 var menudata={children:[
 {text:"Overview",url:"index.html"},
-{text:"Related Pages",url:"pages.html"},
 {text:"Core libSBML",url:"group__core.html"},
 {text:"Level 3 Extensions",url:"usergroup0.html",children:[
 {text:"Hierarchical Model Composition",url:"group__comp.html"},

@@ -25,7 +25,7 @@
 var NAVTREE =
 [
   [ "libSBML C++ API", "index.html", [
-    [ "Overview", "index.html", "index" ],
+    [ "Overview", "index.html", null ],
     [ "Core libSBML", "group__core.html", null ],
     [ "Level 3 Extensions", "usergroup0.html", [
       [ "Hierarchical Model Composition", "group__comp.html", null ],
@@ -246,8 +246,7 @@ var NAVTREEINDEX =
 "class_user_defined_constraint_component.html#a4fbf6701023075573bd76fa0bd276291",
 "class_x_m_l_namespaces.html#aed92f6aa26a41020a32ca0796cf7e7c9",
 "fbcfwd_8h.html#a2a213d4e2c4cc41e1c1feb918519a86b",
-"libsbml-example-files.html#package-layout-examples",
-"spatialfwd_8h.html#a57f3a19efe824248475fcf6cf0f329c8"
+"operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
