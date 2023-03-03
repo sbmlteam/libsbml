@@ -81,7 +81,7 @@ START_TEST (test_SBMLTransforms_replaceFD)
 
   m = d->getModel();
 
-  fail_unless( m->getNumFunctionDefinitions() == 2 );
+  fail_unless( m->getNumFunctionDefinitions() == 3 );
 
   /* one function definition */
   ast = *m->getReaction(2)->getKineticLaw()->getMath();
@@ -94,6 +94,24 @@ START_TEST (test_SBMLTransforms_replaceFD)
   SBMLTransforms::replaceFD(&ast, fd);
   
   math = SBML_formulaToString(&ast);
+  fail_unless (!strcmp(math, "S1 * p * compartmentOne / t"), NULL);
+  safe_free(math);
+
+  /* https://github.com/sbmlteam/libsbml/issues/299 */
+  /* fd: f_relabelled(p, S1) = p * S1 */
+  /* ast: f_relabelled(S1, p) * compartmentOne / t */
+  /* ast after replaceFD: p * p * compartmentOne / t */
+  ast = *m->getReaction(3)->getKineticLaw()->getMath();
+
+  math = SBML_formulaToString(&ast);
+  fail_unless (!strcmp(math, "f_relabelled(S1, p) * compartmentOne / t"), NULL);
+  safe_free(math);
+
+  fd = m->getFunctionDefinition(2);
+  SBMLTransforms::replaceFD(&ast, fd);
+
+  math = SBML_formulaToString(&ast);
+  std::cout << "TestSBMLTransforms.cpp:111  " << math << "  =?=  " << "S1 * p * compartmentOne / t" << std::endl;
   fail_unless (!strcmp(math, "S1 * p * compartmentOne / t"), NULL);
   safe_free(math);
 
