@@ -36,6 +36,23 @@
           </lambda>
         </math>
       </functionDefinition>
+      <functionDefinition id="f_relabelled">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> p </ci>
+            </bvar>
+            <bvar>
+              <ci> S1 </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> p </ci>
+              <ci> S1 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
     </listOfFunctionDefinitions>
     <listOfCompartments>
       <compartment id="compartmentOne" size="1"/>
@@ -114,6 +131,31 @@
                 <times/>
                 <apply>
                   <ci> f </ci>
+                  <ci> S1 </ci>
+                  <ci> p </ci>
+                </apply>
+                <ci> compartmentOne </ci>
+              </apply>
+              <ci> t </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="reaction_3_using_f_relabelled" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="S1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S2"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <apply>
+                  <ci> f_relabelled </ci>
                   <ci> S1 </ci>
                   <ci> p </ci>
                 </apply>
