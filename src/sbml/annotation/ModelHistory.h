@@ -394,6 +394,7 @@ protected:
   int unsetParentSBMLObject();
 
   friend class RDFAnnotationParser;
+  friend class SBase;
 
   /* Can have more than one creator. */
 
