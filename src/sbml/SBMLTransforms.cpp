@@ -188,8 +188,10 @@ SBMLTransforms::replaceBvars(ASTNode * node, const FunctionDefinition *fd)
     unsigned int nodeCount = 0;
 
 		// now replace in the order established above
-		for (unsigned int i : replaceOrder)
+    std::vector<unsigned int>::iterator it = replaceOrder.begin();
+    for (; it != replaceOrder.end(); ++it)
     {
+      unsigned int i = *it;
       if (nodeCount < node->getNumChildren())
       {
         fdMath.replaceArgument(fd->getArgument(i)->getName(), 
