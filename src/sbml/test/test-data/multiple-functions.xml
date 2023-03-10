@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
   <model>
     <listOfFunctionDefinitions>
       <functionDefinition id="f">
@@ -64,7 +64,27 @@
     <listOfParameters>
       <parameter id="t" value="1" units="second"/>
       <parameter id="p" value="1" units="dimensionless"/>
+      <parameter id="p_target" value="1" />
     </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="p_target">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <apply>
+                <ci> f_relabelled </ci>
+                <ci> S1 </ci>
+                <ci> p </ci>
+              </apply>
+              <ci> compartmentOne </ci>
+            </apply>
+            <ci> t </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
     <listOfReactions>
       <reaction id="reaction_1" reversible="false" fast="false">
         <listOfReactants>
@@ -141,7 +161,7 @@
           </math>
         </kineticLaw>
       </reaction>
-      <reaction id="reaction_3_using_f_relabelled" reversible="false" fast="false">
+      <!-- <reaction id="reaction_3_using_f_relabelled" reversible="false" fast="false">
         <listOfReactants>
           <speciesReference species="S1"/>
         </listOfReactants>
@@ -165,7 +185,7 @@
             </apply>
           </math>
         </kineticLaw>
-      </reaction>
+      </reaction> -->
     </listOfReactions>
   </model>
 </sbml>
