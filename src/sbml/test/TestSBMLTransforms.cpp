@@ -73,7 +73,7 @@ START_TEST (test_SBMLTransforms_replaceFD)
 
 
   d = reader.readSBML(filename);
-
+  
   if (d == NULL)
   {
     fail("readSBML(\"multiple-functions.xml\") returned a NULL pointer.");
@@ -100,8 +100,11 @@ START_TEST (test_SBMLTransforms_replaceFD)
   /* https://github.com/sbmlteam/libsbml/issues/299 */
   /* fd: f_relabelled(p, S1) = p * S1 */
   /* ast: f_relabelled(S1, p) * compartmentOne / t */
-  /* ast after replaceFD: p * p * compartmentOne / t */
-  ast = *m->getReaction(3)->getKineticLaw()->getMath();
+  /* ast after replaceFD: p * S1 * compartmentOne / t */
+  
+  // use initial assignment instead of reaction, because the reaction
+  // got flagged as having invalid units
+  ast = *m->getInitialAssignment(0)->getMath();
 
   math = SBML_formulaToString(&ast);
   fail_unless (!strcmp(math, "f_relabelled(S1, p) * compartmentOne / t"), NULL);
@@ -111,8 +114,7 @@ START_TEST (test_SBMLTransforms_replaceFD)
   SBMLTransforms::replaceFD(&ast, fd);
 
   math = SBML_formulaToString(&ast);
-  std::cout << "TestSBMLTransforms.cpp:111  " << math << "  =?=  " << "S1 * p * compartmentOne / t" << std::endl;
-  fail_unless (!strcmp(math, "S1 * p * compartmentOne / t"), NULL);
+  fail_unless (!strcmp(math, "p * S1 * compartmentOne / t"), NULL);
   safe_free(math);
 
   /* one function definition - nested */
@@ -122,6 +124,8 @@ START_TEST (test_SBMLTransforms_replaceFD)
   fail_unless (!strcmp(math, "f(f(S1, p), compartmentOne) / t"), NULL);
   safe_free(math);
 
+  // need to get function definition for 'f' back
+  fd = m->getFunctionDefinition(0);
   SBMLTransforms::replaceFD(&ast, fd);
   
   math = SBML_formulaToString(&ast);
