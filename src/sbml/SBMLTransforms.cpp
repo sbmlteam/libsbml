@@ -146,8 +146,49 @@ SBMLTransforms::replaceBvars(ASTNode * node, const FunctionDefinition *fd)
     noBvars = fd->getMath()->getNumBvars();
     fdMath = *fd->getBody();
 
-    unsigned int nodeCount = 0;
+    // get names of all bvars
+    std::vector<std::string> allBVars; 
     for (unsigned int i = 0; i < noBvars; ++i)
+      allBVars.push_back(fd->getArgument(i)->getName());
+
+		// get all names in the node
+		List* names = node->getListOfNodes((ASTNodePredicate)ASTNode_isName);
+		
+		// convert to std::vector
+    std::vector<std::string> currentChildNames;
+		for (unsigned int j = 0 ; j < names->getSize(); ++j)
+		{
+			ASTNode* name = (ASTNode*)names->get(j);
+			currentChildNames.push_back(name->getName());
+		}
+		delete names;
+
+    // establish order in which to replace bvars, we want to ensure that 
+		// no bvars are replaced before they are used
+		std::vector<unsigned int> replaceOrder;
+    for (unsigned int i = 0; i < noBvars; ++i)
+    {
+			std::string currentArg = fd->getArgument(i)->getName();
+      bool added = false;
+			for (unsigned int j = 0; j < currentChildNames.size(); ++j)
+			{
+				if (currentArg == currentChildNames[j])
+				{
+					replaceOrder.insert(replaceOrder.begin(), i);					
+          added = true;
+					break;
+				}
+			}
+	    if (!added)
+	    {
+		    replaceOrder.push_back(i);
+	    }
+    }
+
+    unsigned int nodeCount = 0;
+
+		// now replace in the order established above
+		for (unsigned int i : replaceOrder)
     {
       if (nodeCount < node->getNumChildren())
       {
