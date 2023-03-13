@@ -40,7 +40,12 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class AnalyticGeometry
- * @sbmlbrief{spatial} TODO:Definition of the AnalyticGeometry class.
+ * @sbmlbrief{spatial} The AnalyticGeometry is a class of GeometryDefinition
+ * where the geometry of each domain is defined by an analytic expression.
+ * An AnalyticGeometry is defined as a collection of AnalyticVolumes, one 
+ * AnalyticVolume for each volumetric domain in the geometry. In this 
+ * representation, the surfaces are treated as the boundaries between dissimilar 
+ * AnalyticVolumes. The AnalyticGeometry object contains a ListOfAnalyticVolumes. 
  */
 
 

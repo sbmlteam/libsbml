@@ -40,7 +40,22 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class AdvectionCoefficient
- * @sbmlbrief{spatial} TODO:Definition of the AdvectionCoefficient class.
+ * @sbmlbrief{spatial} The AdvectionCoefficient is the extension to Parameter
+ * in SBML core that is used to represent transport velocity of a species, 
+ * if it exists. The transport velocity for the species is defined in a manner
+ * similar to the diffusion constant with a unit of length/time (regardless of
+ * the units of the corresponding Species'compartment attribute).  A Parameter
+ * is created in SBML code for the velocity with an AdvectionCoefficient child
+ * to identify the Species whose velocity is represented by the Parameter; its
+ * initial value is set either through the value attribute or an InitialAssignment.  
+ * If the advection coefficient changes in time or space, this can be modeled
+ * with a Rule or Event.
+ *
+ * If defined, the units of the parent Parameter should be in length/time;
+ * if not defined, it inherits from the model-wide units of length divided
+ * by the model-wide units of time.
+ *
+ * It is possible to define both diffusion and advection for the same Species.
  */
 
 /**

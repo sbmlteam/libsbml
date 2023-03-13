@@ -40,7 +40,11 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class AdjacentDomains
- * @sbmlbrief{spatial} TODO:Definition of the AdjacentDomains class.
+ * @sbmlbrief{spatial} AdjacentDomains (or domain adjacencies) captures the
+ * topological relationships within the Geometry.  Consider that the Domains
+ * are nodes in a graph. The AdjacentDomains objects are the edges that specify
+ * the spatial connectivity of these nodes.  Armed with the topology and the
+ * domain sizes, one can readily perform a compartmental approximation. 
  */
 
 
