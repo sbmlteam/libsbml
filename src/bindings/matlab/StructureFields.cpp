@@ -539,10 +539,10 @@ StructureFields::getNamespacesStructure()
     * a string that is NULL
     */
     if (pacPrefix == NULL) {
-      pacPrefix = "";
+      pacPrefix = safe_strdup("");
     }
     if (pacURI == NULL) {
-      pacURI = "";
+      pacURI = safe_strdup("");
     }
 
     mxSetField(mxNSReturn, i, "prefix", mxCreateString(pacPrefix)); 
