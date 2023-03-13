@@ -54,6 +54,12 @@ find_package(Matlab)
 option(WITH_MATLAB_UTF8STRING
   "Generate Matlab bindings using mxArrayToUTF8String." ON )
 
+# allow using undefined lookup for matlab libraries
+if (NOT WIN32)  
+  option(WITH_MATLAB_UNDEFINED_LOOKUP
+    "Allow undefined lookup for matlab libraries." OFF )
+endif()
+
 #
 # Determine the matlab installation directory
 #
@@ -115,7 +121,14 @@ foreach(matlab_source_file "TranslateSBML" "OutputSBML")
     set_target_properties(matlab_binding_${matlab_source_file} PROPERTIES LINK_FLAGS "/export:mexFunction")
   endif()
 
-  target_link_libraries(matlab_binding_${matlab_source_file} ${MATLAB_LIBRARIES} ${LIBSBML_LIBRARY}-static)
+  if (WITH_MATLAB_UNDEFINED_LOOKUP)
+    if (APPLE)
+      set_target_properties(matlab_binding_${matlab_source_file} PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
+    endif()
+    target_link_libraries(matlab_binding_${matlab_source_file} ${LIBSBML_LIBRARY}-static)
+  else()
+    target_link_libraries(matlab_binding_${matlab_source_file} ${MATLAB_LIBRARIES} ${LIBSBML_LIBRARY}-static)
+  endif()
   install(TARGETS matlab_binding_${matlab_source_file} DESTINATION ${MATLAB_PACKAGE_INSTALL_DIR} )
 endforeach()
 
