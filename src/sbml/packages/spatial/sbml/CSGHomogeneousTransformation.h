@@ -40,8 +40,10 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CSGHomogeneousTransformation
- * @sbmlbrief{spatial} TODO:Definition of the CSGHomogeneousTransformation
- * class.
+ * @sbmlbrief{spatial} The CSGHomogeneousTransformation element represents a 
+ * homogeneous transformation on a CSGNode: a transformation or set operation 
+ * on one or more CSGPrimitives. This element contains one required 
+ * TransformationComponent element child named forwardTransformation
  */
 
 

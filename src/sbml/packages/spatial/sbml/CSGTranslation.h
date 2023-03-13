@@ -40,7 +40,10 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CSGTranslation
- * @sbmlbrief{spatial} TODO:Definition of the CSGTranslation class.
+ * @sbmlbrief{spatial} The CSGTranslation element represents a translation 
+ * transformation on a CSGNode (a transformation or set operation on one or 
+ * a set of CSGPrimitives) or a CSGPrimitive along the axes defined in the 
+ * Geometry. 
  */
 
 

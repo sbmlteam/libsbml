@@ -40,7 +40,10 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CoordinateComponent
- * @sbmlbrief{spatial} TODO:Definition of the CoordinateComponent class.
+ * @sbmlbrief{spatial} A CoordinateComponent object explicitly defines a coordinate 
+ * component of the coordinate axes and gives them names, units, and formally associates
+ * them with a coordinate system. The CoordinateComponent also defines the minimum 
+ * and maximum values of the coordinate axis it represents. 
  */
 
 /**
