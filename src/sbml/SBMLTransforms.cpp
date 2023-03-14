@@ -246,7 +246,8 @@ SBMLTransforms::mapComponentValues(const Model * m)
 {
 	IdValueMap values;
   IdList result = getComponentValuesForModel(m, values);
-  mModelValues[m] = values;
+  mModelValues.erase(m);
+  mModelValues.insert(std::make_pair(m, values));
   return result;
 }
 
