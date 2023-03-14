@@ -146,59 +146,14 @@ SBMLTransforms::replaceBvars(ASTNode * node, const FunctionDefinition *fd)
     noBvars = fd->getMath()->getNumBvars();
     fdMath = *fd->getBody();
 
-    // get names of all bvars
-    std::vector<std::string> allBVars; 
-    for (unsigned int i = 0; i < noBvars; ++i)
-      allBVars.push_back(fd->getArgument(i)->getName());
-
-		// get all names in the node
-		List* names = node->getListOfNodes((ASTNodePredicate)ASTNode_isName);
-		
-		// convert to std::vector
-    std::vector<std::string> currentChildNames;
-		for (unsigned int j = 0 ; j < names->getSize(); ++j)
-		{
-			ASTNode* name = (ASTNode*)names->get(j);
-			currentChildNames.push_back(name->getName());
-		}
-		delete names;
-
-    // establish order in which to replace bvars, we want to ensure that 
-		// no bvars are replaced before they are used
-		std::vector<unsigned int> replaceOrder;
-    for (unsigned int i = 0; i < noBvars; ++i)
-    {
-			std::string currentArg = fd->getArgument(i)->getName();
-      bool added = false;
-			for (unsigned int j = 0; j < currentChildNames.size(); ++j)
-			{
-				if (currentArg == currentChildNames[j])
-				{
-					replaceOrder.insert(replaceOrder.begin(), i);					
-          added = true;
-					break;
-				}
-			}
-	    if (!added)
-	    {
-		    replaceOrder.push_back(i);
-	    }
+    // get names of bvars and AST node to substitute for each
+    std::vector<std::string> bVars;
+    std::vector<ASTNode*> astNodes;
+    for (unsigned int i = 0; i < noBvars; ++i){
+        bVars.push_back(fd->getArgument(i)->getName());
+        astNodes.push_back(node->getChild(i));
     }
-
-    unsigned int nodeCount = 0;
-
-		// now replace in the order established above
-    std::vector<unsigned int>::iterator it = replaceOrder.begin();
-    for (; it != replaceOrder.end(); ++it)
-    {
-      unsigned int i = *it;
-      if (nodeCount < node->getNumChildren())
-      {
-        fdMath.replaceArgument(fd->getArgument(i)->getName(), 
-          node->getChild(nodeCount));
-      }
-      ++nodeCount;
-    }
+    fdMath.replaceArguments(bVars, astNodes);
     (*node) = fdMath;
   }
 

@@ -1796,7 +1796,7 @@ setValue(value, 0);
    * For example, if the formula in this ASTNode is <code>x + y</code>,
    * and the function is called with @c bvar = @c "x" and @c arg = an ASTNode
    * representing the real value @c 3.  This method would substitute @c 3 for
-   * @c x within this ASTNode object, resulting in the forula <code>3 + y</code>.
+   * @c x within this ASTNode object, resulting in the formula <code>3 + y</code>.
    *
    * @param bvar a string representing the variable name to be substituted.
    * @param arg an ASTNode representing the name/value/formula to use as
@@ -1805,8 +1805,22 @@ setValue(value, 0);
   LIBSBML_EXTERN
   void replaceArgument(const std::string& bvar, ASTNode * arg);
 
+  /**
+   * Replaces occurrences of each given name with the corresponding ASTNode.
+   *
+   * For example, if the formula in this ASTNode is <code>x - y</code>,
+   * and the function is called with bvars = {"x", "y"} and args = ASTNodes
+   * representing objects with names {"y", "x"}, the result would be <code>y - x</code>.
+   *
+   * @param bvars a vector of strings representing the variable names to be substituted.
+   * @param args a vector of ASTNodes representing the name/value/formula to use as
+   * a replacement for each variable name
+   */
+  LIBSBML_EXTERN
+  void replaceArguments(const std::vector<std::string>& bvars, std::vector<ASTNode *>& args);
 
-  /** @cond doxygenLibsbmlInternal */
+
+    /** @cond doxygenLibsbmlInternal */
 
   /**
    * Sets the parent SBML object of this node.  Is not recursive, and will not set the parent SBML object of any children of this node.
