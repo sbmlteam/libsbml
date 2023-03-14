@@ -46,7 +46,7 @@
               <ci> S1 </ci>
             </bvar>
             <apply>
-              <times/>
+              <minus/>
               <ci> p </ci>
               <ci> S1 </ci>
             </apply>
