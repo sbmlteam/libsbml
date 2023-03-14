@@ -56,7 +56,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
 /** @cond doxygenLibsbmlInternal */
-SBMLTransforms::IdValueMap SBMLTransforms::mValues;
+SBMLTransforms::ModelValuesMap SBMLTransforms::mModelValues;
 
 void
 SBMLTransforms::replaceFD(ASTNode * node, const ListOfFunctionDefinitions *lofd, const IdList* idsToExclude /*= NULL*/)
@@ -289,7 +289,10 @@ SBMLTransforms::nodeContainsNameNotInList(const ASTNode * node, IdList& ids)
 IdList 
 SBMLTransforms::mapComponentValues(const Model * m)
 {
-  return getComponentValuesForModel(m, mValues);
+	IdValueMap values;
+  IdList result = getComponentValuesForModel(m, values);
+  mModelValues[m] = values;
+  return result;
 }
 
 /**
@@ -564,11 +567,37 @@ SBMLTransforms::getComponentValuesForModel(const Model * m, IdValueMap& values)
   return ids;
 }
 
+SBMLTransforms::IdValueMap
+SBMLTransforms::getComponentValues(const Model* m)
+{
+  return mModelValues[m];
+}
+
+IdList 
+SBMLTransforms::getComponentIds(const Model* m)
+{
+  IdList result;
+  IdValueMap values = mModelValues[m];
+  for (IdValueMap::iterator i = values.begin(); i != values.end(); ++i)
+  {
+		result.append(i->first);
+	}
+  return result;
+}
+
 
 void 
-SBMLTransforms::clearComponentValues()
+SBMLTransforms::clearComponentValues(const Model* m)
 {
-  mValues.clear();
+  if (!m)
+  {
+    // clear all maps if no model specified
+    mModelValues.clear();
+    return;
+  }
+
+  // otherwise remove only specific set
+	mModelValues.erase(m);
 }
 
 
@@ -576,11 +605,15 @@ SBMLTransforms::clearComponentValues()
 double
 SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
 {
-  if (mValues.size() == 0)
+  if (m)
   {
-    mapComponentValues(m);
+    IdValueMap values = mModelValues[m];
+    if (values.size() == 0)
+    {
+      mapComponentValues(m);
+    }
   }
-  return evaluateASTNode(node, mValues, m);
+  return evaluateASTNode(node, mModelValues[m], m);
 }
 
 double 
@@ -1217,6 +1250,7 @@ SBMLTransforms::expandInitialAssignments(Model * m)
 {
   IdList idsNoValues = mapComponentValues(m);
   IdList idsWithValues;
+  IdValueMap values = mModelValues[m];
 
   IdValueIter iter;
   bool needToBail = false;
@@ -1230,7 +1264,7 @@ SBMLTransforms::expandInitialAssignments(Model * m)
     
     /* list ids that have a calculated/assigned value */
     idsWithValues.clear();
-    for (iter = mValues.begin(); iter != mValues.end(); ++iter)
+    for (iter = values.begin(); iter != values.end(); ++iter)
     {
       if (((*iter).second).second)
       {
@@ -1270,7 +1304,7 @@ SBMLTransforms::expandInitialAssignments(Model * m)
   while(count > 0 && needToBail == false);
 
   // clear the internal map of values
-  mValues.clear();
+  clearComponentValues(m);
 
   return true;
 }
@@ -1280,6 +1314,7 @@ bool
 SBMLTransforms::expandL3V2InitialAssignments(Model * m)
 {
   IdList idsNoValues = mapComponentValues(m);
+  IdValueMap values = mModelValues[m];
   IdList idsWithValues;
 
   IdValueIter iter;
@@ -1294,7 +1329,7 @@ SBMLTransforms::expandL3V2InitialAssignments(Model * m)
     
     /* list ids that have a calculated/assigned value */
     idsWithValues.clear();
-    for (iter = mValues.begin(); iter != mValues.end(); ++iter)
+    for (iter = values.begin(); iter != values.end(); ++iter)
     {
       if (((*iter).second).second)
       {
@@ -1335,7 +1370,7 @@ SBMLTransforms::expandL3V2InitialAssignments(Model * m)
   while(count > 0 && needToBail == false);
 
   // clear the internal map of values
-  mValues.clear();
+  clearComponentValues(m);
 
   return true;
 }
@@ -1350,7 +1385,7 @@ SBMLTransforms::expandInitialAssignment(Compartment * c,
   if (!util_isNaN(value))
   {
     c->setSize(value);
-    IdValueIter it = mValues.find(c->getId());
+    IdValueIter it = mModelValues[c->getModel()].find(c->getId());
     ((*it).second).first = value;
     ((*it).second).second = true;
     success = true;
@@ -1368,7 +1403,7 @@ SBMLTransforms::expandInitialAssignment(Parameter * p,
   if (!util_isNaN(value))
   {
     p->setValue(value);
-    IdValueIter it = mValues.find(p->getId());
+    IdValueIter it = mModelValues[p->getModel()].find(p->getId());
     ((*it).second).first = value;
     ((*it).second).second = true;
     success = true;
@@ -1386,7 +1421,7 @@ SBMLTransforms::expandInitialAssignment(SpeciesReference * sr,
   if (!util_isNaN(value))
   {
     sr->setStoichiometry(value);
-    IdValueIter it = mValues.find(sr->getId());
+    IdValueIter it = mModelValues[sr->getModel()].find(sr->getId());
     ((*it).second).first = value;
     ((*it).second).second = true;
     success = true;
@@ -1412,7 +1447,7 @@ SBMLTransforms::expandInitialAssignment(Species * s,
       s->setInitialConcentration(value);
     }
 
-    IdValueIter it = mValues.find(s->getId());
+    IdValueIter it = mModelValues[s->getModel()].find(s->getId());
     ((*it).second).first = value;
     ((*it).second).second = true;
     success = true;
