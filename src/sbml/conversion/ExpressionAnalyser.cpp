@@ -106,7 +106,7 @@ ExpressionAnalyser::~ExpressionAnalyser ()
     }
   }
   mODEs.clear();
-  SBMLTransforms::clearComponentValues();
+  SBMLTransforms::clearComponentValues(mModel);
 }
 
 /*
@@ -126,6 +126,7 @@ ExpressionAnalyser::setODEPairs(std::vector< std::pair< std::string, ASTNode*> >
 int
 ExpressionAnalyser::setModel(Model* model)
 {
+  SBMLTransforms::clearComponentValues(mModel);
   mModel = model;
   SBMLTransforms::mapComponentValues(model);
   return LIBSBML_OPERATION_SUCCESS;
