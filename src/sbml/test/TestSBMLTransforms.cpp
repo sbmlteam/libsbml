@@ -976,6 +976,61 @@ START_TEST(test_SBMLTransforms_evaluateAST_L2SpeciesReference)
 }
 END_TEST
 
+
+START_TEST(test_SBMLTransforms_multipleMaps)
+{
+  SBMLDocument d1(3, 1);
+  Model* m1 = d1.createModel();
+  Compartment* c1 = m1->createCompartment();
+  c1->setId("c");
+  c1->setConstant(true);
+  c1->setSize(1.0);
+
+  Species* s1 = m1->createSpecies();
+  s1->setId("s");
+  s1->setCompartment("c");
+  s1->setInitialConcentration(1.0);
+  s1->setHasOnlySubstanceUnits(false);
+
+  // at this point there shouldn't be a map for this model
+  fail_unless(SBMLTransforms::getComponentValues(m1).size() == 0);
+
+  // create a map for this model
+  IdList list1 = SBMLTransforms::mapComponentValues(m1);
+	fail_unless(list1.size() == 0);
+
+  SBMLDocument d2(3, 2);
+	Model* m2 = d2.createModel();
+	c1 = m2->createCompartment();
+	c1->setId("c");
+	c1->setConstant(true);
+	c1->setSize(2.0);
+
+	s1 = m2->createSpecies();
+	s1->setId("s");
+	s1->setCompartment("c");
+	s1->setInitialConcentration(2.0);
+	s1->setHasOnlySubstanceUnits(false);
+
+  fail_unless(SBMLTransforms::getComponentValues(m2).size() == 0);
+
+  IdList list2 = SBMLTransforms::mapComponentValues(m2);
+  fail_unless(list2.size() == 0);
+
+  SBMLTransforms::IdValueMap values1 = SBMLTransforms::getComponentValues(m1);
+  SBMLTransforms::IdValueMap values2 = SBMLTransforms::getComponentValues(m2);
+
+  fail_unless(values1["c"].first == 1);
+  fail_unless(values1["s"].first == 1);
+	fail_unless(values2["c"].first == 2);
+  fail_unless(values2["s"].first == 2);
+
+  SBMLTransforms::clearComponentValues(m1);
+  SBMLTransforms::clearComponentValues(m2);
+  
+}
+END_TEST
+
 Suite *
 create_suite_SBMLTransforms (void)
 {
@@ -994,6 +1049,7 @@ create_suite_SBMLTransforms (void)
   tcase_add_test(tcase, test_SBMLTransforms_evaluateL3V2ASTWithModel);
   tcase_add_test(tcase, test_SBMLTransforms_L3V2AssignmentNoMath);
   tcase_add_test(tcase, test_SBMLTransforms_StoichiometryMath);
+	tcase_add_test(tcase, test_SBMLTransforms_multipleMaps);
 
 
   suite_add_tcase(suite, tcase);
