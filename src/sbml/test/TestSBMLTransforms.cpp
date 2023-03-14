@@ -98,9 +98,9 @@ START_TEST (test_SBMLTransforms_replaceFD)
   safe_free(math);
 
   /* https://github.com/sbmlteam/libsbml/issues/299 */
-  /* fd: f_relabelled(p, S1) = p * S1 */
+  /* fd: f_relabelled(p, S1) = p - S1 */
   /* ast: f_relabelled(S1, p) * compartmentOne / t */
-  /* ast after replaceFD: p * S1 * compartmentOne / t */
+  /* ast after replaceFD: (S1 - p) * compartmentOne / t */
   
   // use initial assignment instead of reaction, because the reaction
   // got flagged as having invalid units
@@ -114,7 +114,7 @@ START_TEST (test_SBMLTransforms_replaceFD)
   SBMLTransforms::replaceFD(&ast, fd);
 
   math = SBML_formulaToString(&ast);
-  fail_unless (!strcmp(math, "p * S1 * compartmentOne / t"), NULL);
+  fail_unless (!strcmp(math, "(S1 - p) * compartmentOne / t"), NULL);
   safe_free(math);
 
   /* one function definition - nested */
