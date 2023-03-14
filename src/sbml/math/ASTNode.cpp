@@ -2759,100 +2759,103 @@ ASTNode::isWellFormedASTNode() const
 
 /** @endcond */
 
+static void copyNode(const ASTNode * source, ASTNode * dest)
+{
+    if (source == NULL)
+    {
+        return;
+    }
+    if (source->isName())
+    {
+        dest->setType(source->getType());
+        dest->setName(source->getName());
+    }
+    else if (source->isReal())
+    {
+        dest->setValue(source->getReal());
+        if (source->isSetUnits())
+        {
+            dest->setUnits(source->getUnits());
+        }
+    }
+    else if (source->isInteger())
+    {
+        dest->setValue(source->getInteger());
+        if (source->isSetUnits())
+        {
+            dest->setUnits(source->getUnits());
+        }
+    }
+    else if (source->isConstant())
+    {
+        dest->setType(source->getType());
+    }
+    else
+    {
+        dest->setType(source->getType());
+        dest->setName(source->getName());
+        for (unsigned int c = 0; c < source->getNumChildren(); c++)
+        {
+            dest->addChild(source->getChild(c)->deepCopy());
+        }
+    }
+}
 
 LIBSBML_EXTERN
 void
 ASTNode::replaceArgument(const std::string& bvar, ASTNode * arg)
 {
-  if (arg == NULL)
-    return;
-  else if (getNumChildren() == 0)
+  if (getNumChildren() == 0 && this->isName() && this->getName() == bvar)
   {
-    if (this->isName() && this->getName() == bvar)
-    {
-      if (arg->isName())
-      {
-        this->setType(arg->getType());
-        this->setName(arg->getName());
-      }
-      else if (arg->isReal())
-      {
-        this->setValue(arg->getReal());
-        if (arg->isSetUnits())
-        {
-          this->setUnits(arg->getUnits());
-        }
-      }
-      else if (arg->isInteger())
-      {
-        this->setValue(arg->getInteger());
-        if (arg->isSetUnits())
-        {
-          this->setUnits(arg->getUnits());
-        }
-      }
-      else if (arg->isConstant())
-      {
-        this->setType(arg->getType());
-      }
-      else
-      {
-        this->setType(arg->getType());
-        this->setName(arg->getName());
-        for (unsigned int c = 0; c < arg->getNumChildren(); c++)
-        {
-          this->addChild(arg->getChild(c)->deepCopy());
-        }
-      }
-    }
+      copyNode(arg, this);
+      return;
   }
   for (unsigned int i = 0; i < getNumChildren(); i++)
   {
-    if (getChild(i)->isName())
+    if (getChild(i)->isName() && getChild(i)->getName() == bvar)
     {
-      if (getChild(i)->getName() == bvar)
-      {
-        if (arg->isName())
-        {
-          getChild(i)->setType(arg->getType());
-          getChild(i)->setName(arg->getName());
-        }
-        else if (arg->isReal())
-        {
-          getChild(i)->setValue(arg->getReal());
-          if (arg->isSetUnits())
-          {
-            getChild(i)->setUnits(arg->getUnits());
-          }
-        }
-        else if (arg->isInteger())
-        {
-          getChild(i)->setValue(arg->getInteger());
-          if (arg->isSetUnits())
-          {
-            getChild(i)->setUnits(arg->getUnits());
-          }
-        }
-        else if (arg->isConstant())
-        {
-          getChild(i)->setType(arg->getType());
-        }
-        else
-        {
-          getChild(i)->setType(arg->getType());
-          getChild(i)->setName(arg->getName());
-          for (unsigned int c = 0; c < arg->getNumChildren(); c++)
-          {
-            getChild(i)->addChild(arg->getChild(c)->deepCopy());
-          }
-        }
-      }
+      copyNode(arg, getChild(i));
     }
     else
     {
       getChild(i)->replaceArgument(bvar, arg);
     }
   }
+}
+
+LIBSBML_EXTERN
+void
+ASTNode::replaceArguments(const std::vector<std::string>& bvars, std::vector<ASTNode *>& args)
+{
+    std::size_t n = bvars.size();
+    if (getNumChildren() == 0)
+    {
+        for(std::size_t j=0; j<n; ++j)
+        {
+            if (this->isName() && this->getName() == bvars[j])
+            {
+                copyNode(args[j], this);
+                return;
+            }
+        }
+    }
+    for (unsigned int i = 0; i < getNumChildren(); i++)
+    {
+        bool child_replaced = false;
+        for(std::size_t j=0; j<n; ++j)
+        {
+            if (getChild(i)->isName() && getChild(i)->getName() == bvars[j])
+            {
+                copyNode(args[j], getChild(i));
+                child_replaced = true;
+                break;
+            }
+        }
+        if (!child_replaced)
+        {
+            getChild(i)->replaceArguments(bvars, args);
+        }
+    }
 }
 
 LIBSBML_EXTERN
