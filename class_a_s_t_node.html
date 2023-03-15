@@ -549,6 +549,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad93483fdf785bde427dfe0aadddd114d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#ad93483fdf785bde427dfe0aadddd114d">replaceArgument</a> (const std::string &amp;bvar, <a class="el" href="class_a_s_t_node.html">ASTNode</a> *arg)</td></tr>
 <tr class="memdesc:ad93483fdf785bde427dfe0aadddd114d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces occurrences of a given name with a given <a class="el" href="class_a_s_t_node.html">ASTNode</a>.  <a href="class_a_s_t_node.html#ad93483fdf785bde427dfe0aadddd114d">More...</a><br /></td></tr>
 <tr class="separator:ad93483fdf785bde427dfe0aadddd114d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ca4ad8fe4bf312d64872a9ebdc6334a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a3ca4ad8fe4bf312d64872a9ebdc6334a">replaceArguments</a> (const std::vector&lt; std::string &gt; &amp;bvars, std::vector&lt; <a class="el" href="class_a_s_t_node.html">ASTNode</a> * &gt; &amp;args)</td></tr>
+<tr class="memdesc:a3ca4ad8fe4bf312d64872a9ebdc6334a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces occurrences of each given name with the corresponding <a class="el" href="class_a_s_t_node.html">ASTNode</a>.  <a href="class_a_s_t_node.html#a3ca4ad8fe4bf312d64872a9ebdc6334a">More...</a><br /></td></tr>
+<tr class="separator:a3ca4ad8fe4bf312d64872a9ebdc6334a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a050c49267ec3f8d4d6f69126d89b7a9f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a050c49267ec3f8d4d6f69126d89b7a9f">replaceChild</a> (unsigned int n, <a class="el" href="class_a_s_t_node.html">ASTNode</a> *disownedChild, bool delreplaced=false)</td></tr>
 <tr class="memdesc:a050c49267ec3f8d4d6f69126d89b7a9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces and optionally deletes the nth child of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> with the given <a class="el" href="class_a_s_t_node.html">ASTNode</a>.  <a href="class_a_s_t_node.html#a050c49267ec3f8d4d6f69126d89b7a9f">More...</a><br /></td></tr>
 <tr class="separator:a050c49267ec3f8d4d6f69126d89b7a9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -3518,11 +3521,49 @@ removeChild(unsigned int n) </dd></dl>
 </div><div class="memdoc">
 
 <p>Replaces occurrences of a given name with a given <a class="el" href="class_a_s_t_node.html">ASTNode</a>. </p>
-<p>For example, if the formula in this <a class="el" href="class_a_s_t_node.html">ASTNode</a> is <code>x + y</code>, and the function is called with <code>bvar</code> = <code>"x"</code> and <code>arg</code> = an <a class="el" href="class_a_s_t_node.html">ASTNode</a> representing the real value <code>3</code>. This method would substitute <code>3</code> for <code>x</code> within this <a class="el" href="class_a_s_t_node.html">ASTNode</a> object, resulting in the forula <code>3 + y</code>.</p>
+<p>For example, if the formula in this <a class="el" href="class_a_s_t_node.html">ASTNode</a> is <code>x + y</code>, and the function is called with <code>bvar</code> = <code>"x"</code> and <code>arg</code> = an <a class="el" href="class_a_s_t_node.html">ASTNode</a> representing the real value <code>3</code>. This method would substitute <code>3</code> for <code>x</code> within this <a class="el" href="class_a_s_t_node.html">ASTNode</a> object, resulting in the formula <code>3 + y</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bvar</td><td>a string representing the variable name to be substituted. </td></tr>
     <tr><td class="paramname">arg</td><td>an <a class="el" href="class_a_s_t_node.html">ASTNode</a> representing the name/value/formula to use as a replacement. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3ca4ad8fe4bf312d64872a9ebdc6334a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ca4ad8fe4bf312d64872a9ebdc6334a">&#9670;&nbsp;</a></span>replaceArguments()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ASTNode::replaceArguments </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>bvars</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="class_a_s_t_node.html">ASTNode</a> * &gt; &amp;&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Replaces occurrences of each given name with the corresponding <a class="el" href="class_a_s_t_node.html">ASTNode</a>. </p>
+<p>For example, if the formula in this <a class="el" href="class_a_s_t_node.html">ASTNode</a> is <code>x - y</code>, and the function is called with bvars = {"x", "y"} and args = ASTNodes representing objects with names {"y", "x"}, the result would be <code>y - x</code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bvars</td><td>a vector of strings representing the variable names to be substituted. </td></tr>
+    <tr><td class="paramname">args</td><td>a vector of ASTNodes representing the name/value/formula to use as a replacement for each variable name </td></tr>
   </table>
   </dd>
 </dl>

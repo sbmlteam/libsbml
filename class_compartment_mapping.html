@@ -106,7 +106,8 @@ Inheritance diagram for CompartmentMapping:</div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><span class="pkg-marker pkg-color-spatial"><a href="group__spatial.html">spatial</a></span>
 
- TODO:Definition of the <a class="el" href="class_compartment_mapping.html">CompartmentMapping</a> class. </p>
+ Each <a class="el" href="class_compartment.html">Compartment</a> in a model that defines a spatial geometry may contain an optional <a class="el" href="class_compartment_mapping.html">CompartmentMapping</a>. A <a class="el" href="class_compartment_mapping.html">CompartmentMapping</a> is defined as part of the model rather than part of the geometry so that the geometry is modular and may be readily shared between models and reused. A <a class="el" href="class_compartment_mapping.html">CompartmentMapping</a> maps a <a class="el" href="class_compartment.html">Compartment</a> defined in the model to a <a class="el" href="class_domain_type.html">DomainType</a> defined in the geometry such that each corresponding <a class="el" href="class_domain_type.html">DomainType</a> is assigned the same biological and mathematical function described by the set of Compartments that are mapped to that <a class="el" href="class_domain_type.html">DomainType</a>.</p>
+<p>This mapping need not be one-to-one. In fact, it is common to map er-lumen, er-membrane, and cytosol to the same cell interior volume or 3D <a class="el" href="class_domain_type.html">DomainType</a>. The unitSize attribute specifies the relative quantity of each <a class="el" href="class_compartment.html">Compartment</a> that is mapped to the <a class="el" href="class_domain_type.html">DomainType</a>. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>

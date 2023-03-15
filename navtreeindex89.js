@@ -1,5 +1,7 @@
 var NAVTREEINDEX89 =
 {
+"class_list_of_flux_bounds.html#ac1db4c7f15e643a3cb27fe3b85e22f05":[3,0,142,21],
+"class_list_of_flux_bounds.html#ac34eff3877f512b8bf31facff83c4483":[3,0,142,50],
 "class_list_of_flux_bounds.html#ac39cfac9d726a12e0f05c6e393953888":[3,0,142,12],
 "class_list_of_flux_bounds.html#ac3b1bbfe22bad0dbc577b61c529f37bb":[3,0,142,121],
 "class_list_of_flux_bounds.html#ac6b51fb971854f8104c1d6cd89be1b3d":[3,0,142,15],
@@ -247,7 +249,5 @@ var NAVTREEINDEX89 =
 "class_list_of_function_definitions.html#a8a342a0f8387842fb6700c50c4c43344":[3,0,144,112],
 "class_list_of_function_definitions.html#a8c576e7dfaa4651bca4a782c9e09ac20":[3,0,144,70],
 "class_list_of_function_definitions.html#a8e3e54c62bc34c720d96b421c9798dde":[3,0,144,75],
-"class_list_of_function_definitions.html#a8e455a93329e407b4b1d8ad307c95a22":[3,0,144,98],
-"class_list_of_function_definitions.html#a8ed6545c2fab20f6dc44ae0c282c4fbf":[3,0,144,72],
-"class_list_of_function_definitions.html#a90e4753ab8d4611987557b4d64129529":[3,0,144,48]
+"class_list_of_function_definitions.html#a8e455a93329e407b4b1d8ad307c95a22":[3,0,144,98]
 };

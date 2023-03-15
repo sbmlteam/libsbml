@@ -1,5 +1,7 @@
 var NAVTREEINDEX105 =
 {
+"class_list_of_ordinal_mappings.html#ae07ccf83cfe580d386088d88b61e60ff":[3,0,170,34],
+"class_list_of_ordinal_mappings.html#ae57cbc2da2e34a8c829e42743e68dd85":[3,0,170,80],
 "class_list_of_ordinal_mappings.html#ae8317d5157b70e4f1bc68e33e5c84001":[3,0,170,131],
 "class_list_of_ordinal_mappings.html#ae89a4757c093b8f9c491338bcb278921":[3,0,170,18],
 "class_list_of_ordinal_mappings.html#aed8f42e0f220bd85af8d01b51d87aeff":[3,0,170,84],
@@ -247,7 +249,5 @@ var NAVTREEINDEX105 =
 "class_list_of_outward_binding_sites.html#aa9a0611fba68fb2d56db3565425f65a0":[3,0,172,22],
 "class_list_of_outward_binding_sites.html#aac93855c11d3e29c120fad461d6cab80":[3,0,172,105],
 "class_list_of_outward_binding_sites.html#aad43f3efb39b3c56ec0db212b6e97cf4":[3,0,172,42],
-"class_list_of_outward_binding_sites.html#ab3428c9a9705777183a0ded66981b504":[3,0,172,59],
-"class_list_of_outward_binding_sites.html#ab4de53b00ecec3e135fcb9d36fb1bf3b":[3,0,172,57],
-"class_list_of_outward_binding_sites.html#ab65f2358ae580d6ed278789698f80209":[3,0,172,51]
+"class_list_of_outward_binding_sites.html#ab3428c9a9705777183a0ded66981b504":[3,0,172,59]
 };

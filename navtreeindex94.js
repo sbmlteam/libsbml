@@ -1,5 +1,7 @@
 var NAVTREEINDEX94 =
 {
+"class_list_of_gradient_definitions.html#a7b43de27cb29136954af762fa91d4842":[3,0,151,95],
+"class_list_of_gradient_definitions.html#a7b7b199563437a7977cc13cabb21ef63":[3,0,151,127],
 "class_list_of_gradient_definitions.html#a7d34cc625c18425a35a5513b88851a73":[3,0,151,78],
 "class_list_of_gradient_definitions.html#a7e1725f1b98e08e54485ec52404d579a":[3,0,151,76],
 "class_list_of_gradient_definitions.html#a8012eba52b904a1fcfb2a483eef94810":[3,0,151,37],
@@ -247,7 +249,5 @@ var NAVTREEINDEX94 =
 "class_list_of_graphical_objects.html#a317ea060a5c3f97576188a22e670e683":[3,0,153,134],
 "class_list_of_graphical_objects.html#a31fea5f04d8d0a59aef58fa6fc8236b7":[3,0,153,67],
 "class_list_of_graphical_objects.html#a33897f0c6bf974b8a2418589360ae916":[3,0,153,34],
-"class_list_of_graphical_objects.html#a33da5a2b0b03cbe6af69730869e35212":[3,0,153,8],
-"class_list_of_graphical_objects.html#a37287e48bd51353012b74e4d200bb446":[3,0,153,120],
-"class_list_of_graphical_objects.html#a39e0febad1c149b4a8455662afd845b4":[3,0,153,97]
+"class_list_of_graphical_objects.html#a33da5a2b0b03cbe6af69730869e35212":[3,0,153,8]
 };

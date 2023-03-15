@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"_analytic_geometry_8h.html":[4,0,7],
 "_analytic_volume_8cpp.html":[4,0,8],
 "_analytic_volume_8cpp.html#a0349bfd36638a3dd4e401f39fcb49596":[4,0,8,18],
 "_analytic_volume_8cpp.html#a05ce9b3b1d196846cd88d8423e3e0bed":[4,0,8,22],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "_c_s_g_set_operator_8cpp.html#a146b15dcd04a9c372f8d3cd3e5237fb5":[4,0,97,16],
 "_c_s_g_set_operator_8cpp.html#a1e28641eb0e71851a501998f38442479":[4,0,97,29],
 "_c_s_g_set_operator_8cpp.html#a1f3f182184ef63e09e07b5128f1e7291":[4,0,97,24],
-"_c_s_g_set_operator_8cpp.html#a2970b17f2ffe71b228ead9d600afb34e":[4,0,97,17],
-"_c_s_g_set_operator_8cpp.html#a2d7df94b6ab44059d32ca25d1fdd6853":[4,0,97,5]
+"_c_s_g_set_operator_8cpp.html#a2970b17f2ffe71b228ead9d600afb34e":[4,0,97,17]
 };

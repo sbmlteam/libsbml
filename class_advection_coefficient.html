@@ -106,7 +106,9 @@ Inheritance diagram for AdvectionCoefficient:</div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><span class="pkg-marker pkg-color-spatial"><a href="group__spatial.html">spatial</a></span>
 
- TODO:Definition of the <a class="el" href="class_advection_coefficient.html">AdvectionCoefficient</a> class. </p>
+ The <a class="el" href="class_advection_coefficient.html">AdvectionCoefficient</a> is the extension to <a class="el" href="class_parameter.html">Parameter</a> in SBML core that is used to represent transport velocity of a species, if it exists. The transport velocity for the species is defined in a manner similar to the diffusion constant with a unit of length/time (regardless of the units of the corresponding <a class="el" href="class_species.html">Species</a>'compartment attribute). A <a class="el" href="class_parameter.html">Parameter</a> is created in SBML code for the velocity with an <a class="el" href="class_advection_coefficient.html">AdvectionCoefficient</a> child to identify the <a class="el" href="class_species.html">Species</a> whose velocity is represented by the <a class="el" href="class_parameter.html">Parameter</a>; its initial value is set either through the value attribute or an <a class="el" href="class_initial_assignment.html">InitialAssignment</a>. If the advection coefficient changes in time or space, this can be modeled with a <a class="el" href="class_rule.html">Rule</a> or <a class="el" href="class_event.html">Event</a>.</p>
+<p>If defined, the units of the parent <a class="el" href="class_parameter.html">Parameter</a> should be in length/time; if not defined, it inherits from the model-wide units of length divided by the model-wide units of time.</p>
+<p>It is possible to define both diffusion and advection for the same <a class="el" href="class_species.html">Species</a>. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>

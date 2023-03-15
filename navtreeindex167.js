@@ -1,5 +1,7 @@
 var NAVTREEINDEX167 =
 {
+"class_species_type_instance.html#aee8d8b8cb1ae5980d228174073fc5abc":[3,0,337,56],
+"class_species_type_instance.html#aef0ea49f9a3ad67d72edb2c1cf92ad82":[3,0,337,110],
 "class_species_type_instance.html#af0a70ab6f715e912c6431072c4339f2c":[3,0,337,35],
 "class_species_type_instance.html#af4226c5e59aea5827e223e10bcc6af5f":[3,0,337,9],
 "class_stoichiometry_math.html":[3,0,338],
@@ -247,7 +249,5 @@ var NAVTREEINDEX167 =
 "class_style.html#abd78c4290e103245ce49b92b5e229375":[3,0,339,147],
 "class_style.html#ac05ebf00c6022df89c3bfae4f4afb6eb":[3,0,339,84],
 "class_style.html#ac0f27c631a5c207f5467787ddd4d83a5":[3,0,339,98],
-"class_style.html#ac1c1ced6d09611bb00f7548d4747e225":[3,0,339,78],
-"class_style.html#ac1db4c7f15e643a3cb27fe3b85e22f05":[3,0,339,18],
-"class_style.html#ac2835e176cc11596bb865712a5a9e201":[3,0,339,120]
+"class_style.html#ac1c1ced6d09611bb00f7548d4747e225":[3,0,339,78]
 };

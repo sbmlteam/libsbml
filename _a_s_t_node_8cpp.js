@@ -14,6 +14,7 @@ var _a_s_t_node_8cpp =
     [ "ASTNodeType_isReal", "_a_s_t_node_8cpp.html#a6ecee6652a24c48128940b4218f2a5b1", null ],
     [ "ASTNodeType_isRelational", "_a_s_t_node_8cpp.html#ad5135eb0b9fcf05295c30e89bae6c566", null ],
     [ "ASTNodeType_isUnknown", "_a_s_t_node_8cpp.html#a2ad9d72b8699ef88e8e50f962396e0c2", null ],
+    [ "copyNode", "_a_s_t_node_8cpp.html#a373579627d915ea48e258ce85692c4a9", null ],
     [ "AST_CONSTANT_STRINGS", "_a_s_t_node_8cpp.html#a55231eba731ea03a7bb5aaa52e31af46", null ],
     [ "AST_FUNCTION_STRINGS", "_a_s_t_node_8cpp.html#a1467c11a69a9e8d4b249b86f09ee91f8", null ],
     [ "AST_LAMBDA_STRING", "_a_s_t_node_8cpp.html#a3b1f90ab6949dbbf15ff2e39e970a839", null ],

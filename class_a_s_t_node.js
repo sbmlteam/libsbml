@@ -108,6 +108,7 @@ var class_a_s_t_node =
     [ "renameUnitSIdRefs", "class_a_s_t_node.html#aef7055132d2fc71c9dd01dbe2ca1d968", null ],
     [ "reorderArguments", "class_a_s_t_node.html#aefb3541962ad08944674c5731b802c99", null ],
     [ "replaceArgument", "class_a_s_t_node.html#ad93483fdf785bde427dfe0aadddd114d", null ],
+    [ "replaceArguments", "class_a_s_t_node.html#a3ca4ad8fe4bf312d64872a9ebdc6334a", null ],
     [ "replaceChild", "class_a_s_t_node.html#a050c49267ec3f8d4d6f69126d89b7a9f", null ],
     [ "returnsBoolean", "class_a_s_t_node.html#a4c15eabddaca79ab5b24d40014ae8710", null ],
     [ "setCharacter", "class_a_s_t_node.html#a5494556fb0158d211598dd94d12ec05d", null ],

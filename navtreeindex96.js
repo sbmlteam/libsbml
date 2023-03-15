@@ -1,5 +1,7 @@
 var NAVTREEINDEX96 =
 {
+"class_list_of_in_species_type_bonds.html#a031d1da6a39bae8afd5201677fb32c02":[3,0,157,58],
+"class_list_of_in_species_type_bonds.html#a050779a94ecdb2d73d7edfef73bc1e55":[3,0,157,113],
 "class_list_of_in_species_type_bonds.html#a07ec2702ebbdf35aef0a0626b0ffd52f":[3,0,157,53],
 "class_list_of_in_species_type_bonds.html#a0a8fa8e4911040c0fdf6cdd03a22f564":[3,0,157,89],
 "class_list_of_in_species_type_bonds.html#a0df1a731505cbddfcb2c504bd86ba9c0":[3,0,157,83],
@@ -247,7 +249,5 @@ var NAVTREEINDEX96 =
 "class_list_of_initial_assignments.html#ad17b3447a4eb8ddd9bac16b0fd5bfa6d":[3,0,155,95],
 "class_list_of_initial_assignments.html#ad2c0ef4eb8d357c990a32d3352803da7":[3,0,155,79],
 "class_list_of_initial_assignments.html#ad5ffefa4d9901ca0d55f2343c08bb057":[3,0,155,39],
-"class_list_of_initial_assignments.html#ad66c6e186d50df79ce90492eeeb060e2":[3,0,155,81],
-"class_list_of_initial_assignments.html#ad7463b70032c344b42454f0291e2e204":[3,0,155,56],
-"class_list_of_initial_assignments.html#ada0b37251e4b259cb09a6fca2f9d03bb":[3,0,155,44]
+"class_list_of_initial_assignments.html#ad66c6e186d50df79ce90492eeeb060e2":[3,0,155,81]
 };

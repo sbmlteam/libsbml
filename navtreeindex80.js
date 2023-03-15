@@ -1,5 +1,7 @@
 var NAVTREEINDEX80 =
 {
+"class_list_of_color_definitions.html#a8ed6545c2fab20f6dc44ae0c282c4fbf":[3,0,124,78],
+"class_list_of_color_definitions.html#a90e4753ab8d4611987557b4d64129529":[3,0,124,53],
 "class_list_of_color_definitions.html#a9121d6a4f7401fe957cc75647a1e95ed":[3,0,124,133],
 "class_list_of_color_definitions.html#a936f753a9032913c569dafa3642d8252":[3,0,124,102],
 "class_list_of_color_definitions.html#a944bad557986b43d8328d5727d1aa890":[3,0,124,69],
@@ -247,7 +249,5 @@ var NAVTREEINDEX80 =
 "class_list_of_compartment_references.html#a63bf923bf768a4b2a8a7aee09854f797":[3,0,126,55],
 "class_list_of_compartment_references.html#a65f77b6aa5f6f5d80b2d01558f7496f5":[3,0,126,127],
 "class_list_of_compartment_references.html#a67d87d36d7999249f6dd36a1469b0b49":[3,0,126,101],
-"class_list_of_compartment_references.html#a6c875bf493ea564ecf3a6a88099d854d":[3,0,126,99],
-"class_list_of_compartment_references.html#a6eee96ee206a55837c0d7b936f20f14d":[3,0,126,52],
-"class_list_of_compartment_references.html#a70abee08c67db2cba0c5ed40af9aa1c0":[3,0,126,90]
+"class_list_of_compartment_references.html#a6c875bf493ea564ecf3a6a88099d854d":[3,0,126,99]
 };

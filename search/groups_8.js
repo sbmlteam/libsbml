@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['spatial_19670',['Spatial',['../group__spatial.html',1,'']]]
+  ['spatial_19674',['Spatial',['../group__spatial.html',1,'']]]
 ];

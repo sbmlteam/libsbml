@@ -1,5 +1,7 @@
 var NAVTREEINDEX110 =
 {
+"class_list_of_reference_glyphs.html#a050779a94ecdb2d73d7edfef73bc1e55":[3,0,180,113],
+"class_list_of_reference_glyphs.html#a07ec2702ebbdf35aef0a0626b0ffd52f":[3,0,180,53],
 "class_list_of_reference_glyphs.html#a0a8fa8e4911040c0fdf6cdd03a22f564":[3,0,180,89],
 "class_list_of_reference_glyphs.html#a0df1a731505cbddfcb2c504bd86ba9c0":[3,0,180,83],
 "class_list_of_reference_glyphs.html#a0ed27519f6c1b6a037b29d75cb086a9d":[3,0,180,18],
@@ -247,7 +249,5 @@ var NAVTREEINDEX110 =
 "class_list_of_replaced_elements.html#ad66c6e186d50df79ce90492eeeb060e2":[3,0,181,79],
 "class_list_of_replaced_elements.html#ad7463b70032c344b42454f0291e2e204":[3,0,181,54],
 "class_list_of_replaced_elements.html#ad7fd5f6e26db01f5e16077e4a7260d23":[3,0,181,11],
-"class_list_of_replaced_elements.html#ada0b37251e4b259cb09a6fca2f9d03bb":[3,0,181,42],
-"class_list_of_replaced_elements.html#adb8c800163c108a27880bd644d7767ad":[3,0,181,9],
-"class_list_of_replaced_elements.html#adb90be26c77f519375553365af009a58":[3,0,181,47]
+"class_list_of_replaced_elements.html#ada0b37251e4b259cb09a6fca2f9d03bb":[3,0,181,42]
 };

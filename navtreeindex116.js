@@ -1,5 +1,7 @@
 var NAVTREEINDEX116 =
 {
+"class_list_of_species_reference_glyphs.html#adb8c800163c108a27880bd644d7767ad":[3,0,190,9],
+"class_list_of_species_reference_glyphs.html#adb90be26c77f519375553365af009a58":[3,0,190,49],
 "class_list_of_species_reference_glyphs.html#adbff50c6c73c044a5c8e29e6b5dcefc6":[3,0,190,25],
 "class_list_of_species_reference_glyphs.html#add2cab22470680d5a15c97233e530f56":[3,0,190,99],
 "class_list_of_species_reference_glyphs.html#add6814b97c68bf41a1e266a40aa47377":[3,0,190,100],
@@ -247,7 +249,5 @@ var NAVTREEINDEX116 =
 "class_list_of_species_type_component_indexes.html#aa78ef1ca7e89aa9be18302622aad221f":[3,0,192,110],
 "class_list_of_species_type_component_indexes.html#aa9a0611fba68fb2d56db3565425f65a0":[3,0,192,22],
 "class_list_of_species_type_component_indexes.html#aac93855c11d3e29c120fad461d6cab80":[3,0,192,105],
-"class_list_of_species_type_component_indexes.html#aad43f3efb39b3c56ec0db212b6e97cf4":[3,0,192,42],
-"class_list_of_species_type_component_indexes.html#aae767cb36ffe5e1de64e859eaedbf693":[3,0,192,40],
-"class_list_of_species_type_component_indexes.html#ab3428c9a9705777183a0ded66981b504":[3,0,192,59]
+"class_list_of_species_type_component_indexes.html#aad43f3efb39b3c56ec0db212b6e97cf4":[3,0,192,42]
 };

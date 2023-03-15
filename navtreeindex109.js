@@ -1,5 +1,7 @@
 var NAVTREEINDEX109 =
 {
+"class_list_of_reaction_glyphs.html#a2f0edc025514ba75d15e6c6b5a831b66":[3,0,178,24],
+"class_list_of_reaction_glyphs.html#a30ac3f72984fb7e41ae5dc88f2a0504d":[3,0,178,82],
 "class_list_of_reaction_glyphs.html#a317ea060a5c3f97576188a22e670e683":[3,0,178,134],
 "class_list_of_reaction_glyphs.html#a31fea5f04d8d0a59aef58fa6fc8236b7":[3,0,178,67],
 "class_list_of_reaction_glyphs.html#a33897f0c6bf974b8a2418589360ae916":[3,0,178,34],
@@ -247,7 +249,5 @@ var NAVTREEINDEX109 =
 "class_list_of_reference_glyphs.html#a0143961ca5188d00203c99eef1de854e":[3,0,180,20],
 "class_list_of_reference_glyphs.html#a027dbf22b8bf74bbb0ce5cd4453851c7":[3,0,180,46],
 "class_list_of_reference_glyphs.html#a02a6692a180f9281c071b77f908dce0e":[3,0,180,32],
-"class_list_of_reference_glyphs.html#a031d1da6a39bae8afd5201677fb32c02":[3,0,180,58],
-"class_list_of_reference_glyphs.html#a050779a94ecdb2d73d7edfef73bc1e55":[3,0,180,113],
-"class_list_of_reference_glyphs.html#a07ec2702ebbdf35aef0a0626b0ffd52f":[3,0,180,53]
+"class_list_of_reference_glyphs.html#a031d1da6a39bae8afd5201677fb32c02":[3,0,180,58]
 };

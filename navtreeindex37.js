@@ -1,5 +1,7 @@
 var NAVTREEINDEX37 =
 {
+"class_c_s_g_translation.html#af0a70ab6f715e912c6431072c4339f2c":[3,0,42,42],
+"class_c_s_g_translation.html#af42a3d6a48d9fbb80b25d4a1a61cf53c":[3,0,42,153],
 "class_c_s_g_translation.html#aff2c95c1639b91a2b0835ab8540094f5":[3,0,42,49],
 "class_c_s_geometry.html":[3,0,33],
 "class_c_s_geometry.html#a0143961ca5188d00203c99eef1de854e":[3,0,33,16],
@@ -247,7 +249,5 @@ var NAVTREEINDEX37 =
 "class_color_definition.html#a345863eb0b1c77c5b77111e5bd85d72d":[3,0,15,125],
 "class_color_definition.html#a37287e48bd51353012b74e4d200bb446":[3,0,15,128],
 "class_color_definition.html#a39e0febad1c149b4a8455662afd845b4":[3,0,15,100],
-"class_color_definition.html#a3d0e68e3a9e283d65193adc98cbc7821":[3,0,15,113],
-"class_color_definition.html#a3d9b15cbbcec4392f66d18a8363900cc":[3,0,15,126],
-"class_color_definition.html#a40dba8a849dbda05d3f9f42000119dc5":[3,0,15,104]
+"class_color_definition.html#a3d0e68e3a9e283d65193adc98cbc7821":[3,0,15,113]
 };
