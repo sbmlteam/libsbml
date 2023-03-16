@@ -40,7 +40,17 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GeometryDefinition
- * @sbmlbrief{spatial} TODO:Definition of the GeometryDefinition class.
+ * @sbmlbrief{spatial} A Geometry can specify a list of GeometryDefinitions. The
+ * GeometryDefinition is an abstract class that is the general term for the
+ * container which defines the concrete geometric constructs represented by the
+ * Geometry. Four types of GeometryDefinitions have been identified -
+ * AnalyticGeometry, SampledFieldGeometry, ParametricGeometry, CSGeometry
+ * (Constructed Solid Geometry). In addition, a MixedGeometry may combine
+ * elements of any of the other four basic types. These geometries are elaborated
+ * in the following sections. The definition of the GeometryDefinition element is
+ * displayed in figGeometryDefinition-uml. The spatial dimension of the
+ * GeometryDefinition must match the tokenspatialDimensions of the DomainType
+ * defined for the associated Domain.
  */
 
 

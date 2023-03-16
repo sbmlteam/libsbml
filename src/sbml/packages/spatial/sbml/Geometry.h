@@ -40,7 +40,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Geometry
- * @sbmlbrief{spatial} TODO:Definition of the Geometry class.
+ * @sbmlbrief{spatial} A single geometry must be defined within the model if 
+ * the spatial extension is to be used.
  */
 
 /**

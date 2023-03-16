@@ -50,6 +50,8 @@
  * the units of this Parameter should be length^2/time. If left unset, the
  * DiffusionCoefficient will inherit the model units of length^2/time (typically
  * cm^2s^-1 or um^2s^-1).
+ *
+ * It is possible to define both diffusion and advection for the same Species.
  */
 
 /**
