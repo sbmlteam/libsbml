@@ -40,7 +40,16 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SpatialSymbolReference
- * @sbmlbrief{spatial} TODO:Definition of the SpatialSymbolReference class.
+ * @sbmlbrief{spatial} A Parameter is extended with a SpatialSymbolReference
+ * element, when a symbol from the defined spatial geometry (id of any element
+ * contained in Geometry) is required to be used in the SBML core model.
+ * Typically, the SpatialSymbolReference is used to represent the coordinate
+ * components defined in the Geometry's listOfCoordinateComponents. For example,
+ * if the Geometry is defined in a 2-dimensional Cartesian coordinate system with
+ * X and Y defined as coordinate components, two Parameters (one each for
+ * CoordinateComponents X and Y) are created in the model. The ue of the
+ * parameter is not required to be set. For each of these parameters, a
+ * SpatialSymbolReference object is created.
  */
 
 

@@ -40,7 +40,9 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class TransformationComponent
- * @sbmlbrief{spatial} TODO:Definition of the TransformationComponent class.
+ * @sbmlbrief{spatial} The TransformationComponent element represents an affine
+ * transformation that can be applied to a CSGNode. This element has the
+ * following two attributes:
  */
 
 
