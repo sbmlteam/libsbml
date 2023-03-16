@@ -1249,23 +1249,11 @@ SBase::setIdAttribute (const std::string& sid)
   }
 }
 
-int
-SBase::setAnnotation(const XMLNode* annotation)
-{
-  return SBase::setAnnotation(annotation, true);
-}
-
-int
-SBase::setAnnotation(const std::string& annotation)
-{
-  return SBase::setAnnotation(annotation, true);
-}
-
 /*
  * Sets the annotation of this SBML object to a copy of annotation.
  */
 int
-SBase::setAnnotation (const XMLNode* annotation, bool parseRdf)
+SBase::setAnnotation (const XMLNode* annotation)
 {
   //
   // (*NOTICE*)
@@ -1286,7 +1274,7 @@ SBase::setAnnotation (const XMLNode* annotation, bool parseRdf)
     delete mAnnotation;
 
     // the annotation is an rdf annotation but the object has no metaid
-    if (parseRdf && RDFAnnotationParser::hasRDFAnnotation(annotation) == true
+    if (RDFAnnotationParser::hasRDFAnnotation(annotation) == true
       && (RDFAnnotationParser::hasCVTermRDFAnnotation(annotation) == true
       || RDFAnnotationParser::hasHistoryRDFAnnotation(annotation) == true)
       && isSetMetaId() == false)
@@ -1354,7 +1342,7 @@ SBase::setAnnotation (const XMLNode* annotation, bool parseRdf)
   }
 
 
-  if(parseRdf && mAnnotation != NULL
+  if(mAnnotation != NULL
         && RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
   {
     // parse mAnnotation (if any) and set mCVTerms
@@ -1363,7 +1351,7 @@ SBase::setAnnotation (const XMLNode* annotation, bool parseRdf)
     mCVTermsChanged = true;
   }
 
-  if(parseRdf && getLevel() > 2 && mAnnotation != NULL
+  if(getLevel() > 2 && mAnnotation != NULL
      && RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
   {
     // parse mAnnotation (if any) and set mHistory
@@ -1383,7 +1371,7 @@ SBase::setAnnotation (const XMLNode* annotation, bool parseRdf)
  * Sets the annotation (by string) of this SBML object to a copy of annotation.
  */
 int
-SBase::setAnnotation (const std::string& annotation, bool parseRdf)
+SBase::setAnnotation (const std::string& annotation)
 {
   
   int success = LIBSBML_OPERATION_FAILED;
@@ -1416,7 +1404,7 @@ SBase::setAnnotation (const std::string& annotation, bool parseRdf)
   
   if(annt_xmln != NULL)
   {
-    success = setAnnotation(annt_xmln, parseRdf);
+    success = setAnnotation(annt_xmln);
     delete annt_xmln;
   }
   return success;
@@ -4284,21 +4272,13 @@ SBase::getSBMLNamespaces() const
  */
 char*
 SBase::toSBML ()
-{  
-  return safe_strdup( toSBMLString().c_str() );
-}
-
-/*
- * @return the partial SBML that describes this SBML object.
- */
-std::string SBase::toSBMLString()
 {
-	ostringstream    os;
-	XMLOutputStream  stream(os, "UTF-8", false);
+  ostringstream    os;
+  XMLOutputStream  stream(os, "UTF-8", false);
 
-	write(stream);
+  write(stream);
 
-  return os.str();
+  return safe_strdup( os.str().c_str() );
 }
 
 
