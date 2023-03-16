@@ -106,7 +106,8 @@ Inheritance diagram for InteriorPoint:</div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><span class="pkg-marker pkg-color-spatial"><a href="group__spatial.html">spatial</a></span>
 
- TODO:Definition of the <a class="el" href="class_interior_point.html">InteriorPoint</a> class. </p>
+ Each <a class="el" href="class_domain.html">Domain</a> can contain a <a class="el" href="class_list_of_interior_points.html">ListOfInteriorPoints</a>. The list of spatial points for a domain is interior to that domain. This list is optional for a <a class="el" href="class_domain.html">Domain</a> if it is the only <a class="el" href="class_domain.html">Domain</a> defined for its <a class="el" href="class_domain_type.html">DomainType</a>, but is required otherwise.</p>
+<p>For those geometric descriptions that can describe multiple disjoint domains belonging to the same tokendomainType, these interior points allow unambiguous identification of each domain. Formally, a single point would suffice, but in practice some tools (e.g. Smoldyn) require multiple points to handle non-convex volumes bounded by explicit surfaces. For discontinuous surfaces with the same domainType, the interior point identifies which domain is associated with which surface patch defined in the geometry definition. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>

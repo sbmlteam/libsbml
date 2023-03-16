@@ -106,7 +106,7 @@ Inheritance diagram for SampledVolume:</div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><span class="pkg-marker pkg-color-spatial"><a href="group__spatial.html">spatial</a></span>
 
- TODO:Definition of the <a class="el" href="class_sampled_volume.html">SampledVolume</a> class. </p>
+ A <a class="el" href="class_sampled_volume.html">SampledVolume</a> represents an inter of the sampled field that constitutes one or more contiguous regions. A <a class="el" href="class_sampled_volume.html">SampledVolume</a> is defined for each volumetric (3-dimensional) <a class="el" href="class_domain.html">Domain</a> in the <a class="el" href="class_geometry.html">Geometry</a>. Volumes are defined as regions within the referenced image that match a particular pixel ue (sampledValue) or that match a range of pixel ues (minValue and maxValue). A given <a class="el" href="class_sampled_volume.html">SampledVolume</a> must define for itself either a single ue or a range of ues to which it applies, but not both. Within a <a class="el" href="class_list_of_sampled_volumes.html">ListOfSampledVolumes</a>, there must be at most one <a class="el" href="class_sampled_volume.html">SampledVolume</a> that corresponds to any given pixel ue. That is, any given pixel ue may only appear as the sampledVolume of a single <a class="el" href="class_sampled_volume.html">SampledVolume</a>, or be between the minValue and maxValue (inclusive) of a single <a class="el" href="class_sampled_volume.html">SampledVolume</a>. It has the following attributes: </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
