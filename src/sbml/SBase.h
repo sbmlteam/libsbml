@@ -1229,6 +1229,54 @@ public:
    * @see unsetAnnotation()
    */
   virtual int setAnnotation (const XMLNode* annotation);
+  
+  /**
+   * Sets the value of the "annotation" subelement of this SBML object.
+   *
+   * The content of @p annotation is copied, and any previous content of
+   * this object's "annotation" subelement is deleted.
+   *
+   * Whereas the SBase "notes" subelement is a container for content to be
+   * shown directly to humans, the "annotation" element is a container for
+   * optional software-generated content @em not meant to be shown to
+   * humans.  Every object derived from SBase can have its own value for
+   * "annotation".  The element's content type is <a target="_blank"
+   * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type
+   * "any"</a>, allowing essentially arbitrary well-formed XML data
+   * content.
+   *
+   * SBML places a few restrictions on the organization of the content of
+   * annotations; these are intended to help software tools read and write
+   * the data as well as help reduce conflicts between annotations added by
+   * different tools.  Please see the SBML specifications for more details.
+   *
+   * Call this method will result in any existing content of the
+   * "annotation" subelement to be discarded.  Unless you have taken steps
+   * to first copy and reconstitute any existing annotations into the @p
+   * annotation that is about to be assigned, it is likely that performing
+   * such wholesale replacement is unfriendly towards other software
+   * applications whose annotations are discarded.  An alternative may be
+   * to use SBase::appendAnnotation(const XMLNode* annotation) or
+   * SBase::appendAnnotation(const std::string& annotation).
+   *
+   * @param annotation an XML structure that is to be used as the new content
+   * of the "annotation" subelement of this object.
+   *
+	 * @param parseRdf if true, the annotation will be parsed for RDF content.
+	 * This should only be set, if the RDF follows the subset described in the
+	 * SBML specification.
+	 *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * @see getAnnotationString()
+   * @see isSetAnnotation()
+   * @see setAnnotation(const std::string& annotation)
+   * @see appendAnnotation(const XMLNode* annotation)
+   * @see appendAnnotation(const std::string& annotation)
+   * @see unsetAnnotation()
+   */
+  virtual int setAnnotation(const XMLNode* annotation, bool parseRdf);
 
 
   /**
@@ -1262,6 +1310,55 @@ public:
    *
    * @param annotation an XML string that is to be used as the content
    * of the "annotation" subelement of this object.
+	 *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @see getAnnotationString()
+   * @see isSetAnnotation()
+   * @see setAnnotation(const XMLNode* annotation)
+   * @see appendAnnotation(const XMLNode* annotation)
+   * @see appendAnnotation(const std::string& annotation)
+   * @see unsetAnnotation()
+   */
+  virtual int setAnnotation(const std::string& annotation);
+
+  /**
+   * Sets the value of the "annotation" subelement of this SBML object.
+   *
+   * The content of @p annotation is copied, and any previous content of
+   * this object's "annotation" subelement is deleted.
+   *
+   * Whereas the SBase "notes" subelement is a container for content to be
+   * shown directly to humans, the "annotation" element is a container for
+   * optional software-generated content @em not meant to be shown to
+   * humans.  Every object derived from SBase can have its own value for
+   * "annotation".  The element's content type is <a target="_blank"
+   * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type
+   * "any"</a>, allowing essentially arbitrary well-formed XML data
+   * content.
+   *
+   * SBML places a few restrictions on the organization of the content of
+   * annotations; these are intended to help software tools read and write
+   * the data as well as help reduce conflicts between annotations added by
+   * different tools.  Please see the SBML specifications for more details.
+   *
+   * Call this method will result in any existing content of the
+   * "annotation" subelement to be discarded.  Unless you have taken steps
+   * to first copy and reconstitute any existing annotations into the @p
+   * annotation that is about to be assigned, it is likely that performing
+   * such wholesale replacement is unfriendly towards other software
+   * applications whose annotations are discarded.  An alternative may be
+   * to use SBase::appendAnnotation(const XMLNode* annotation) or
+   * SBase::appendAnnotation(const std::string& annotation).
+   *
+   * @param annotation an XML string that is to be used as the content
+   * of the "annotation" subelement of this object.
+   * 
+   * @param parseRdf if true, the annotation will be parsed for RDF content.
+   * This should only be set, if the RDF follows the subset described in the 
+   * SBML specification.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1274,7 +1371,7 @@ public:
    * @see appendAnnotation(const std::string& annotation)
    * @see unsetAnnotation()
    */
-  virtual int setAnnotation (const std::string& annotation);
+  virtual int setAnnotation (const std::string& annotation, bool parseRdf);
 
 
   /**
@@ -2313,7 +2410,9 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /**
    * Returns a string consisting of a partial SBML corresponding to just
-   * this object.
+   * this object. 
+   * 
+   * The string is owned by the caller and has to be freed manualy. 
    * 
    * @return the partial SBML that describes this SBML object.
    *
@@ -2322,6 +2421,18 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * libSBML.</span>
    */
   char* toSBML();
+
+  /**
+   * Returns a string consisting of a partial SBML corresponding to just
+   * this object.
+   *
+   * @return the partial SBML that describes this SBML object.
+   *
+   * @warning <span class="warning">This is primarily provided for testing
+   * and debugging purposes.  It may be removed in a future version of
+   * libSBML.</span>
+   */
+  std::string toSBMLString();
 
 
   /**
