@@ -7,13 +7,14 @@
     <tab type="user" visible="yes" url="@ref core" title="Core libSBML"/>
     <tab type="usergroup" visible="yes" title="Level 3 Extensions">
       <tab type="user" url="@ref comp"   title="Hierarchical Model Composition"/>
+      <tab type="user" url="@ref distrib"    title="Distributions"/>
       <tab type="user" url="@ref fbc"    title="Flux Balance Constraints"/>
       <tab type="user" url="@ref groups" title="Groups"/>
       <tab type="user" url="@ref multi"  title="Multistate/Multicomp. Species"/>
       <tab type="user" url="@ref layout" title="Layout"/>
       <tab type="user" url="@ref render" title="Render"/>
       <tab type="user" url="@ref qual"   title="Qualitative Models"/>
-      <tab type="user" url="@ref spatial"   title="Spatial"/>
+      <tab type="user" url="@ref spatial"   title="Spatial Processes"/>
     </tab>
     <tab type="namespaces" visible="no" title="">
       <tab type="namespacelist" visible="no" title="" intro=""/>
