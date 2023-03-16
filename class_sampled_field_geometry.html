@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('class_sampled_field_geometry.html','')
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a>  </div>
   <div class="headertitle">
-<div class="title">SampledFieldGeometry Class Reference<div class="ingroups"><a class="el" href="group__spatial.html">Spatial Processes</a></div></div>  </div>
+<div class="title">SampledFieldGeometry Class Reference<div class="ingroups"><a class="el" href="group__spatial.html">Spatial</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
@@ -106,7 +106,7 @@ Inheritance diagram for SampledFieldGeometry:</div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><span class="pkg-marker pkg-color-spatial"><a href="group__spatial.html">spatial</a></span>
 
- <a class="el" href="class_sampled_field_geometry.html">SampledFieldGeometry</a> is a type of <a class="el" href="class_geometry_definition.html">GeometryDefinition</a> that defines a sampled image-based geometry or a geometry based on samples from a level set. <a class="el" href="class_sampled_field_geometry.html">SampledFieldGeometry</a> is defined by referencing a <a class="el" href="class_sampled_field.html">SampledField</a> from the <a class="el" href="class_list_of_sampled_fields.html">ListOfSampledFields</a> on the <a class="el" href="class_geometry.html">Geometry</a> element that specifies the sampled image, together with a a list of SampledVolumes that represent the volumetric domains as sampled image regions. figSampledFieldGeometry-uml shows the definition of the <a class="el" href="class_sampled_field_geometry.html">SampledFieldGeometry</a> object. It may be used for geometries of any dimension. </p>
+ TODO:Definition of the <a class="el" href="class_sampled_field_geometry.html">SampledFieldGeometry</a> class. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -473,9 +473,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a75b1541bd854ad7edfe0aff79ab3231f"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base.html#a75b1541bd854ad7edfe0aff79ab3231f">setAnnotation</a> (const std::string &amp;annotation)</td></tr>
 <tr class="memdesc:a75b1541bd854ad7edfe0aff79ab3231f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "annotation" subelement of this SBML object.  <a href="class_s_base.html#a75b1541bd854ad7edfe0aff79ab3231f">More...</a><br /></td></tr>
 <tr class="separator:a75b1541bd854ad7edfe0aff79ab3231f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad7455e53c288257cb43c2dff7bb2195"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base.html#aad7455e53c288257cb43c2dff7bb2195">setAnnotation</a> (const std::string &amp;annotation, bool parseRdf)</td></tr>
+<tr class="memdesc:aad7455e53c288257cb43c2dff7bb2195"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "annotation" subelement of this SBML object.  <a href="class_s_base.html#aad7455e53c288257cb43c2dff7bb2195">More...</a><br /></td></tr>
+<tr class="separator:aad7455e53c288257cb43c2dff7bb2195"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11d9c02a3690d9a13362835ef0133125"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base.html#a11d9c02a3690d9a13362835ef0133125">setAnnotation</a> (const <a class="el" href="class_x_m_l_node.html">XMLNode</a> *annotation)</td></tr>
 <tr class="memdesc:a11d9c02a3690d9a13362835ef0133125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "annotation" subelement of this SBML object.  <a href="class_s_base.html#a11d9c02a3690d9a13362835ef0133125">More...</a><br /></td></tr>
 <tr class="separator:a11d9c02a3690d9a13362835ef0133125"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9df7f23a9951650f120944171f1e9ddc"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base.html#a9df7f23a9951650f120944171f1e9ddc">setAnnotation</a> (const <a class="el" href="class_x_m_l_node.html">XMLNode</a> *annotation, bool parseRdf)</td></tr>
+<tr class="memdesc:a9df7f23a9951650f120944171f1e9ddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "annotation" subelement of this SBML object.  <a href="class_s_base.html#a9df7f23a9951650f120944171f1e9ddc">More...</a><br /></td></tr>
+<tr class="separator:a9df7f23a9951650f120944171f1e9ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c63836a0461114785efec3c3fec0a4c"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_geometry_definition.html#a3c63836a0461114785efec3c3fec0a4c">setId</a> (const std::string &amp;id)</td></tr>
 <tr class="memdesc:a3c63836a0461114785efec3c3fec0a4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "id" attribute of this <a class="el" href="class_geometry_definition.html">GeometryDefinition</a>.  <a href="class_geometry_definition.html#a3c63836a0461114785efec3c3fec0a4c">More...</a><br /></td></tr>
 <tr class="separator:a3c63836a0461114785efec3c3fec0a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -518,6 +524,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae8317d5157b70e4f1bc68e33e5c84001"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base.html#ae8317d5157b70e4f1bc68e33e5c84001">toSBML</a> ()</td></tr>
 <tr class="memdesc:ae8317d5157b70e4f1bc68e33e5c84001"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string consisting of a partial SBML corresponding to just this object.  <a href="class_s_base.html#ae8317d5157b70e4f1bc68e33e5c84001">More...</a><br /></td></tr>
 <tr class="separator:ae8317d5157b70e4f1bc68e33e5c84001"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03f5c2c39c203361f518f2d3c148d552"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base.html#a03f5c2c39c203361f518f2d3c148d552">toSBMLString</a> ()</td></tr>
+<tr class="memdesc:a03f5c2c39c203361f518f2d3c148d552"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string consisting of a partial SBML corresponding to just this object.  <a href="class_s_base.html#a03f5c2c39c203361f518f2d3c148d552">More...</a><br /></td></tr>
+<tr class="separator:a03f5c2c39c203361f518f2d3c148d552"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c949d524aca47b84b18b57b76e6ee0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_x_m_l_node.html">XMLNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base.html#a5c949d524aca47b84b18b57b76e6ee0a">toXMLNode</a> ()</td></tr>
 <tr class="memdesc:a5c949d524aca47b84b18b57b76e6ee0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns this element as an <a class="el" href="class_x_m_l_node.html">XMLNode</a>.  <a href="class_s_base.html#a5c949d524aca47b84b18b57b76e6ee0a">More...</a><br /></td></tr>
 <tr class="separator:a5c949d524aca47b84b18b57b76e6ee0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1192,8 +1201,8 @@ This method should be used with some caution. The fact that this method <em>copi
 <div class="ttc" id="aclass_model_html"><div class="ttname"><a href="class_model.html">Model</a></div><div class="ttdef"><b>Definition:</b> Model.h:485</div></div>
 <div class="ttc" id="aclass_model_html_a19f5a10054812b4c7eab4ff9266d4c2d"><div class="ttname"><a href="class_model.html#a19f5a10054812b4c7eab4ff9266d4c2d">Model::getSpecies</a></div><div class="ttdeci">const Species * getSpecies(unsigned int n) const</div><div class="ttdoc">Get the nth Species object in this Model.</div><div class="ttdef"><b>Definition:</b> Model.cpp:2564</div></div>
 <div class="ttc" id="aclass_model_html_a2760726af3b7d89f9590e634154d8017"><div class="ttname"><a href="class_model.html#a2760726af3b7d89f9590e634154d8017">Model::addSpecies</a></div><div class="ttdeci">int addSpecies(const Species *s)</div><div class="ttdoc">Adds a copy of the given Species object to this Model.</div><div class="ttdef"><b>Definition:</b> Model.cpp:1265</div></div>
-<div class="ttc" id="aclass_s_base_html_a5fe0e86c2c28a3226ddc42972241bddd"><div class="ttname"><a href="class_s_base.html#a5fe0e86c2c28a3226ddc42972241bddd">SBase::disablePackage</a></div><div class="ttdeci">int disablePackage(const std::string &amp;pkgURI, const std::string &amp;pkgPrefix)</div><div class="ttdoc">Disables the given SBML Level&amp;#160;3 package on this object.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:3476</div></div>
-<div class="ttc" id="aclass_s_base_html_a776e0b06ec3f0dd2bfdafeec6c9d7cc2"><div class="ttname"><a href="class_s_base.html#a776e0b06ec3f0dd2bfdafeec6c9d7cc2">SBase::getModel</a></div><div class="ttdeci">const Model * getModel() const</div><div class="ttdoc">Returns the Model object for the SBML Document in which the current object is located.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:2951</div></div>
+<div class="ttc" id="aclass_s_base_html_a5fe0e86c2c28a3226ddc42972241bddd"><div class="ttname"><a href="class_s_base.html#a5fe0e86c2c28a3226ddc42972241bddd">SBase::disablePackage</a></div><div class="ttdeci">int disablePackage(const std::string &amp;pkgURI, const std::string &amp;pkgPrefix)</div><div class="ttdoc">Disables the given SBML Level&amp;#160;3 package on this object.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:3488</div></div>
+<div class="ttc" id="aclass_s_base_html_a776e0b06ec3f0dd2bfdafeec6c9d7cc2"><div class="ttname"><a href="class_s_base.html#a776e0b06ec3f0dd2bfdafeec6c9d7cc2">SBase::getModel</a></div><div class="ttdeci">const Model * getModel() const</div><div class="ttdoc">Returns the Model object for the SBML Document in which the current object is located.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:2963</div></div>
 <div class="ttc" id="aclass_species_html"><div class="ttname"><a href="class_species.html">Species</a></div><div class="ttdef"><b>Definition:</b> Species.h:429</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -5003,7 +5012,7 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="class_trigger.html#aa1e117aa75427d39e6fed88cf6176844">Trigger</a>, <a class="el" href="class_stoichiometry_math.html#a55b0bb01e9bc0decdac4caab707d34ba">StoichiometryMath</a>, <a class="el" href="class_species.html#a2f7903cb5e4e7bd1faf8b369afd3e2a9">Species</a>, <a class="el" href="class_rule.html#a340d4cea8317cca28bb14dcf52574e47">Rule</a>, <a class="el" href="class_priority.html#a145ff7d4dbef9fef7a8083a43c5b0de4">Priority</a>, <a class="el" href="class_parameter.html#a3c1e2472e41de8b5f3ede494b3593092">Parameter</a>, <a class="el" href="class_uncert_parameter.html#a645e24d0e16a8714f5cd64558da380e2">UncertParameter</a>, <a class="el" href="class_port.html#ab47bbcc0df1d7101d8c51fd754492116">Port</a>, <a class="el" href="class_model.html#aaa729273b3b16be1eb75bff041b149c5">Model</a>, <a class="el" href="class_kinetic_law.html#a12148ef3d6f576a7651243c0fdc58518">KineticLaw</a>, <a class="el" href="class_initial_assignment.html#a387c4040b78b2b763b1b9b61333c5d86">InitialAssignment</a>, <a class="el" href="class_function_definition.html#abfd80ad272a2e8d8a87749ffb6656526">FunctionDefinition</a>, <a class="el" href="class_event_assignment.html#a1e041da2431b1a192c3e1c24d598b40f">EventAssignment</a>, <a class="el" href="class_delay.html#a1f26edf962de63fb508b8b49480532d1">Delay</a>, <a class="el" href="class_constraint.html#a53e3fb09b03936bde9ea48d7f4c6de64">Constraint</a>, and <a class="el" href="class_compartment.html#a98ea8f580beb87f0acd7a0d625a95b38">Compartment</a>.</p>
+<p>Reimplemented in <a class="el" href="class_trigger.html#aa1e117aa75427d39e6fed88cf6176844">Trigger</a>, <a class="el" href="class_stoichiometry_math.html#a55b0bb01e9bc0decdac4caab707d34ba">StoichiometryMath</a>, <a class="el" href="class_species.html#a2f7903cb5e4e7bd1faf8b369afd3e2a9">Species</a>, <a class="el" href="class_rule.html#a340d4cea8317cca28bb14dcf52574e47">Rule</a>, <a class="el" href="class_priority.html#a145ff7d4dbef9fef7a8083a43c5b0de4">Priority</a>, <a class="el" href="class_parameter.html#a3c1e2472e41de8b5f3ede494b3593092">Parameter</a>, <a class="el" href="class_port.html#ab47bbcc0df1d7101d8c51fd754492116">Port</a>, <a class="el" href="class_model.html#aaa729273b3b16be1eb75bff041b149c5">Model</a>, <a class="el" href="class_kinetic_law.html#a12148ef3d6f576a7651243c0fdc58518">KineticLaw</a>, <a class="el" href="class_initial_assignment.html#a387c4040b78b2b763b1b9b61333c5d86">InitialAssignment</a>, <a class="el" href="class_function_definition.html#abfd80ad272a2e8d8a87749ffb6656526">FunctionDefinition</a>, <a class="el" href="class_event_assignment.html#a1e041da2431b1a192c3e1c24d598b40f">EventAssignment</a>, <a class="el" href="class_delay.html#a1f26edf962de63fb508b8b49480532d1">Delay</a>, <a class="el" href="class_constraint.html#a53e3fb09b03936bde9ea48d7f4c6de64">Constraint</a>, and <a class="el" href="class_compartment.html#a98ea8f580beb87f0acd7a0d625a95b38">Compartment</a>.</p>
 
 </div>
 </div>
@@ -5098,7 +5107,7 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 </div>
 </div>
 <a id="a75b1541bd854ad7edfe0aff79ab3231f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75b1541bd854ad7edfe0aff79ab3231f">&#9670;&nbsp;</a></span>setAnnotation() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a75b1541bd854ad7edfe0aff79ab3231f">&#9670;&nbsp;</a></span>setAnnotation() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5153,8 +5162,73 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 
 </div>
 </div>
+<a id="aad7455e53c288257cb43c2dff7bb2195"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad7455e53c288257cb43c2dff7bb2195">&#9670;&nbsp;</a></span>setAnnotation() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SBase::setAnnotation </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>annotation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>parseRdf</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the value of the "annotation" subelement of this SBML object. </p>
+<p>The content of <code>annotation</code> is copied, and any previous content of this object's "annotation" subelement is deleted.</p>
+<p>Whereas the <a class="el" href="class_s_base.html">SBase</a> "notes" subelement is a container for content to be shown directly to humans, the "annotation" element is a container for optional software-generated content <em>not</em> meant to be shown to humans. Every object derived from <a class="el" href="class_s_base.html">SBase</a> can have its own value for "annotation". The element's content type is <a href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls" target="_blank">XML type "any"</a>, allowing essentially arbitrary well-formed XML data content.</p>
+<p>SBML places a few restrictions on the organization of the content of annotations; these are intended to help software tools read and write the data as well as help reduce conflicts between annotations added by different tools. Please see the SBML specifications for more details.</p>
+<p>Call this method will result in any existing content of the "annotation" subelement to be discarded. Unless you have taken steps to first copy and reconstitute any existing annotations into the <code>annotation</code> that is about to be assigned, it is likely that performing such wholesale replacement is unfriendly towards other software applications whose annotations are discarded. An alternative may be to use <a class="el" href="class_s_base.html#accc96fb06a79df769eb3669e090771e5" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">SBase::appendAnnotation(const XMLNode* annotation)</a> or <a class="el" href="class_s_base.html#a118148398f5c626bf9697887296f97b8" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">SBase::appendAnnotation(const std::string&amp; annotation)</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">annotation</td><td>an XML string that is to be used as the content of the "annotation" subelement of this object.</td></tr>
+    <tr><td class="paramname">parseRdf</td><td>if true, the annotation will be parsed for RDF content. This should only be set, if the RDF follows the subset described in the SBML specification.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
+</ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#adbff50c6c73c044a5c8e29e6b5dcefc6" title="Returns the content of the &quot;annotation&quot; subelement of this object as a character string.">getAnnotationString()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a5af865a159b3b1c5a16729bce7e4e3c2" title="Predicate returning true if this object&#39;s &quot;annotation&quot; subelement exists and has content.">isSetAnnotation()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a11d9c02a3690d9a13362835ef0133125" title="Sets the value of the &quot;annotation&quot; subelement of this SBML object.">setAnnotation(const XMLNode* annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#accc96fb06a79df769eb3669e090771e5" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">appendAnnotation(const XMLNode* annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a118148398f5c626bf9697887296f97b8" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">appendAnnotation(const std::string&amp; annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a9121d6a4f7401fe957cc75647a1e95ed" title="Unsets the value of the &quot;annotation&quot; subelement of this SBML object.">unsetAnnotation()</a> </dd></dl>
+
+</div>
+</div>
 <a id="a11d9c02a3690d9a13362835ef0133125"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11d9c02a3690d9a13362835ef0133125">&#9670;&nbsp;</a></span>setAnnotation() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a11d9c02a3690d9a13362835ef0133125">&#9670;&nbsp;</a></span>setAnnotation() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5205,6 +5279,70 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 <a class="el" href="class_s_base.html#a9121d6a4f7401fe957cc75647a1e95ed" title="Unsets the value of the &quot;annotation&quot; subelement of this SBML object.">unsetAnnotation()</a> </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_species_reference.html#a53cdf5197ae654bad28316f3cea03f69">SpeciesReference</a>, and <a class="el" href="class_model.html#a440da667491f2a78fa305460a63471a5">Model</a>.</p>
+
+</div>
+</div>
+<a id="a9df7f23a9951650f120944171f1e9ddc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9df7f23a9951650f120944171f1e9ddc">&#9670;&nbsp;</a></span>setAnnotation() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SBase::setAnnotation </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_x_m_l_node.html">XMLNode</a> *&#160;</td>
+          <td class="paramname"><em>annotation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>parseRdf</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the value of the "annotation" subelement of this SBML object. </p>
+<p>The content of <code>annotation</code> is copied, and any previous content of this object's "annotation" subelement is deleted.</p>
+<p>Whereas the <a class="el" href="class_s_base.html">SBase</a> "notes" subelement is a container for content to be shown directly to humans, the "annotation" element is a container for optional software-generated content <em>not</em> meant to be shown to humans. Every object derived from <a class="el" href="class_s_base.html">SBase</a> can have its own value for "annotation". The element's content type is <a href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls" target="_blank">XML type "any"</a>, allowing essentially arbitrary well-formed XML data content.</p>
+<p>SBML places a few restrictions on the organization of the content of annotations; these are intended to help software tools read and write the data as well as help reduce conflicts between annotations added by different tools. Please see the SBML specifications for more details.</p>
+<p>Call this method will result in any existing content of the "annotation" subelement to be discarded. Unless you have taken steps to first copy and reconstitute any existing annotations into the <code>annotation</code> that is about to be assigned, it is likely that performing such wholesale replacement is unfriendly towards other software applications whose annotations are discarded. An alternative may be to use <a class="el" href="class_s_base.html#accc96fb06a79df769eb3669e090771e5" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">SBase::appendAnnotation(const XMLNode* annotation)</a> or <a class="el" href="class_s_base.html#a118148398f5c626bf9697887296f97b8" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">SBase::appendAnnotation(const std::string&amp; annotation)</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">annotation</td><td>an XML structure that is to be used as the new content of the "annotation" subelement of this object.</td></tr>
+    <tr><td class="paramname">parseRdf</td><td>if true, the annotation will be parsed for RDF content. This should only be set, if the RDF follows the subset described in the SBML specification.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
+</ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#adbff50c6c73c044a5c8e29e6b5dcefc6" title="Returns the content of the &quot;annotation&quot; subelement of this object as a character string.">getAnnotationString()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a5af865a159b3b1c5a16729bce7e4e3c2" title="Predicate returning true if this object&#39;s &quot;annotation&quot; subelement exists and has content.">isSetAnnotation()</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a75b1541bd854ad7edfe0aff79ab3231f" title="Sets the value of the &quot;annotation&quot; subelement of this SBML object.">setAnnotation(const std::string&amp; annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#accc96fb06a79df769eb3669e090771e5" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">appendAnnotation(const XMLNode* annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a118148398f5c626bf9697887296f97b8" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">appendAnnotation(const std::string&amp; annotation)</a> </dd>
+<dd>
+<a class="el" href="class_s_base.html#a9121d6a4f7401fe957cc75647a1e95ed" title="Unsets the value of the &quot;annotation&quot; subelement of this SBML object.">unsetAnnotation()</a> </dd></dl>
 
 </div>
 </div>
@@ -5591,7 +5729,7 @@ Calling this function with <code>name</code> = <code>NULL</code> or an empty str
 <p>The following code illustrates a very simple way of setting the notes using this method. Here, the object being annotated is the whole SBML document, but that is for illustration purposes only; you could of course use this same approach to annotate any other SBML component. </p><div class="fragment"><div class="line"><a class="code" href="class_s_b_m_l_document.html">SBMLDocument</a>* s = <span class="keyword">new</span> <a class="code" href="class_s_b_m_l_document.html">SBMLDocument</a>(3, 1);</div>
 <div class="line">s-&gt;<a class="code" href="class_s_base.html#a611a4bd98a4e32e3573980b2481ce77e">setNotes</a>(<span class="stringliteral">&quot;&lt;body xmlns=&#39;http://www.w3.org/1999/xhtml&#39;&gt;&lt;p&gt;here is my note&lt;/p&gt;&lt;/body&gt;&quot;</span>);</div>
 <div class="ttc" id="aclass_s_b_m_l_document_html"><div class="ttname"><a href="class_s_b_m_l_document.html">SBMLDocument</a></div><div class="ttdef"><b>Definition:</b> SBMLDocument.h:349</div></div>
-<div class="ttc" id="aclass_s_base_html_a611a4bd98a4e32e3573980b2481ce77e"><div class="ttname"><a href="class_s_base.html#a611a4bd98a4e32e3573980b2481ce77e">SBase::setNotes</a></div><div class="ttdeci">int setNotes(const XMLNode *notes)</div><div class="ttdoc">Sets the value of the &quot;notes&quot; subelement of this SBML object.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:1710</div></div>
+<div class="ttc" id="aclass_s_base_html_a611a4bd98a4e32e3573980b2481ce77e"><div class="ttname"><a href="class_s_base.html#a611a4bd98a4e32e3573980b2481ce77e">SBase::setNotes</a></div><div class="ttdeci">int setNotes(const XMLNode *notes)</div><div class="ttdoc">Sets the value of the &quot;notes&quot; subelement of this SBML object.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:1722</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">notes</td><td>an XML string that is to be used as the content of the "notes" subelement of this object.</td></tr>
@@ -5849,6 +5987,36 @@ Calling this function with <code>name</code> = <code>NULL</code> or an empty str
       <table class="memname">
         <tr>
           <td class="memname">char * SBase::toSBML </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a string consisting of a partial SBML corresponding to just this object. </p>
+<p>The string is owned by the caller and has to be freed manualy.</p>
+<dl class="section return"><dt>Returns</dt><dd>the partial SBML that describes this SBML object.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd><span class="warning">This is primarily provided for testing and debugging purposes. It may be removed in a future version of libSBML.</span> </dd></dl>
+
+</div>
+</div>
+<a id="a03f5c2c39c203361f518f2d3c148d552"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03f5c2c39c203361f518f2d3c148d552">&#9670;&nbsp;</a></span>toSBMLString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string SBase::toSBMLString </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
