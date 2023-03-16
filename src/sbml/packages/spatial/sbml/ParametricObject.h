@@ -40,7 +40,10 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ParametricObject
- * @sbmlbrief{spatial} TODO:Definition of the ParametricObject class.
+ * @sbmlbrief{spatial} The ParametricObject element represents a single
+ * parametric geometry object. It contains a list of point indices from the
+ * parent ParametricGeometry's SpatialPoints, which collectively define the faces
+ * of the object.
  */
 
 /**

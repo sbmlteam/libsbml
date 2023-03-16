@@ -40,7 +40,14 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ParametricGeometry
- * @sbmlbrief{spatial} TODO:Definition of the ParametricGeometry class.
+ * @sbmlbrief{spatial} ParametricGeometry is a type of GeometryDefinition that
+ * parametrically defines geometric strucutures/domains. The ParametricGeometry
+ * element is defined with a SpatialPoints object and a listOfParametricObjects
+ * that is a collection of ParametricObjects. Each point in the SpatialPoints
+ * list is given an index, and those indices are used in the creation of each
+ * ParametricObject. There may be points whose indices are never used; this does
+ * not affect the ParametricGeometry. figParametricGeometry-uml shows the
+ * definition of the ParametricGeometry object.
  */
 
 
