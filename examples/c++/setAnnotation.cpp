@@ -9,6 +9,7 @@
 #include <sbml/SBMLTypes.h>
 
 using namespace std;
+LIBSBML_CPP_NAMESPACE_USE
 
 XMLNode* parseAnnotation(const std::string& annotationFile)
 {
