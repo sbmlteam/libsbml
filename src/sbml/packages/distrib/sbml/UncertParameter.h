@@ -40,7 +40,12 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class UncertParameter
- * @sbmlbrief{distrib} TODO:Definition of the UncertParameter class.
+ * @sbmlbrief{spatial} Each UncertParameter defines one uncertainty statistic
+ * about the parent element. It has one required attribute type of type
+ * UncertKind which defines what statistic it describes (i.e. mean,
+ * standardDeviation, distribution, etc.). Its other attributes (ue, var, units,
+ * and definitionURL), and children (math and listOfUncertParameters) are
+ * all optional, each useable according to which type it is.
  */
 
 /**
