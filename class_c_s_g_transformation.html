@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('class_c_s_g_transformation.html',''); 
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a>  </div>
   <div class="headertitle">
-<div class="title">CSGTransformation Class Reference<div class="ingroups"><a class="el" href="group__spatial.html">Spatial</a></div></div>  </div>
+<div class="title">CSGTransformation Class Reference<div class="ingroups"><a class="el" href="group__spatial.html">Spatial Processes</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
@@ -106,7 +106,8 @@ Inheritance diagram for CSGTransformation:</div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><span class="pkg-marker pkg-color-spatial"><a href="group__spatial.html">spatial</a></span>
 
- TODO:Definition of the <a class="el" href="class_c_s_g_transformation.html">CSGTransformation</a> class. </p>
+ The <a class="el" href="class_c_s_g_transformation.html">CSGTransformation</a> represents a generalization for the type of transformation that can be performed on a primitive geometric shape (<a class="el" href="class_c_s_g_primitive.html">CSGPrimitive</a>) or on a <a class="el" href="class_c_s_g_node.html">CSGNode</a> (a transformation or set operation on one or a set of CSGPrimitives). The types of possible transformations are 'rotation', 'translation', 'scaling', and 'homogeneous transformation', defined below. The <a class="el" href="class_c_s_g_transformation.html">CSGTransformation</a> element contains a <a class="el" href="class_c_s_g_node.html">CSGNode</a> element upon which the transformation is performed.</p>
+<p>Each transformation is performed directly on its child <a class="el" href="class_c_s_g_node.html">CSGNode</a>, with any transformation or set operation from that node already performed. This essentially defines a 'bottom-up' approach, where the tips of the XML tree children of a <a class="el" href="class_c_s_g_object.html">CSGObject</a> are all <a class="el" href="class_c_s_g_primitive.html">CSGPrimitive</a> objects, that are progressively transformed or combined with other <a class="el" href="class_c_s_g_primitive.html">CSGPrimitive</a> objects by each successive node moving rootward through the XML. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -452,15 +453,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a75b1541bd854ad7edfe0aff79ab3231f"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base.html#a75b1541bd854ad7edfe0aff79ab3231f">setAnnotation</a> (const std::string &amp;annotation)</td></tr>
 <tr class="memdesc:a75b1541bd854ad7edfe0aff79ab3231f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "annotation" subelement of this SBML object.  <a href="class_s_base.html#a75b1541bd854ad7edfe0aff79ab3231f">More...</a><br /></td></tr>
 <tr class="separator:a75b1541bd854ad7edfe0aff79ab3231f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad7455e53c288257cb43c2dff7bb2195"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base.html#aad7455e53c288257cb43c2dff7bb2195">setAnnotation</a> (const std::string &amp;annotation, bool parseRdf)</td></tr>
-<tr class="memdesc:aad7455e53c288257cb43c2dff7bb2195"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "annotation" subelement of this SBML object.  <a href="class_s_base.html#aad7455e53c288257cb43c2dff7bb2195">More...</a><br /></td></tr>
-<tr class="separator:aad7455e53c288257cb43c2dff7bb2195"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11d9c02a3690d9a13362835ef0133125"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base.html#a11d9c02a3690d9a13362835ef0133125">setAnnotation</a> (const <a class="el" href="class_x_m_l_node.html">XMLNode</a> *annotation)</td></tr>
 <tr class="memdesc:a11d9c02a3690d9a13362835ef0133125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "annotation" subelement of this SBML object.  <a href="class_s_base.html#a11d9c02a3690d9a13362835ef0133125">More...</a><br /></td></tr>
 <tr class="separator:a11d9c02a3690d9a13362835ef0133125"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9df7f23a9951650f120944171f1e9ddc"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base.html#a9df7f23a9951650f120944171f1e9ddc">setAnnotation</a> (const <a class="el" href="class_x_m_l_node.html">XMLNode</a> *annotation, bool parseRdf)</td></tr>
-<tr class="memdesc:a9df7f23a9951650f120944171f1e9ddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "annotation" subelement of this SBML object.  <a href="class_s_base.html#a9df7f23a9951650f120944171f1e9ddc">More...</a><br /></td></tr>
-<tr class="separator:a9df7f23a9951650f120944171f1e9ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ae2b67cd819e2d03e5dc065c268629f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_g_transformation.html#a4ae2b67cd819e2d03e5dc065c268629f">setCSGNode</a> (const <a class="el" href="class_c_s_g_node.html">CSGNode</a> *csgNode)</td></tr>
 <tr class="memdesc:a4ae2b67cd819e2d03e5dc065c268629f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "csgNode" element of this <a class="el" href="class_c_s_g_transformation.html">CSGTransformation</a>.  <a href="class_c_s_g_transformation.html#a4ae2b67cd819e2d03e5dc065c268629f">More...</a><br /></td></tr>
 <tr class="separator:a4ae2b67cd819e2d03e5dc065c268629f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -500,9 +495,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae8317d5157b70e4f1bc68e33e5c84001"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base.html#ae8317d5157b70e4f1bc68e33e5c84001">toSBML</a> ()</td></tr>
 <tr class="memdesc:ae8317d5157b70e4f1bc68e33e5c84001"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string consisting of a partial SBML corresponding to just this object.  <a href="class_s_base.html#ae8317d5157b70e4f1bc68e33e5c84001">More...</a><br /></td></tr>
 <tr class="separator:ae8317d5157b70e4f1bc68e33e5c84001"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03f5c2c39c203361f518f2d3c148d552"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base.html#a03f5c2c39c203361f518f2d3c148d552">toSBMLString</a> ()</td></tr>
-<tr class="memdesc:a03f5c2c39c203361f518f2d3c148d552"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string consisting of a partial SBML corresponding to just this object.  <a href="class_s_base.html#a03f5c2c39c203361f518f2d3c148d552">More...</a><br /></td></tr>
-<tr class="separator:a03f5c2c39c203361f518f2d3c148d552"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c949d524aca47b84b18b57b76e6ee0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_x_m_l_node.html">XMLNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base.html#a5c949d524aca47b84b18b57b76e6ee0a">toXMLNode</a> ()</td></tr>
 <tr class="memdesc:a5c949d524aca47b84b18b57b76e6ee0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns this element as an <a class="el" href="class_x_m_l_node.html">XMLNode</a>.  <a href="class_s_base.html#a5c949d524aca47b84b18b57b76e6ee0a">More...</a><br /></td></tr>
 <tr class="separator:a5c949d524aca47b84b18b57b76e6ee0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1216,8 +1208,8 @@ This method should be used with some caution. The fact that this method <em>copi
 <div class="ttc" id="aclass_model_html"><div class="ttname"><a href="class_model.html">Model</a></div><div class="ttdef"><b>Definition:</b> Model.h:485</div></div>
 <div class="ttc" id="aclass_model_html_a19f5a10054812b4c7eab4ff9266d4c2d"><div class="ttname"><a href="class_model.html#a19f5a10054812b4c7eab4ff9266d4c2d">Model::getSpecies</a></div><div class="ttdeci">const Species * getSpecies(unsigned int n) const</div><div class="ttdoc">Get the nth Species object in this Model.</div><div class="ttdef"><b>Definition:</b> Model.cpp:2564</div></div>
 <div class="ttc" id="aclass_model_html_a2760726af3b7d89f9590e634154d8017"><div class="ttname"><a href="class_model.html#a2760726af3b7d89f9590e634154d8017">Model::addSpecies</a></div><div class="ttdeci">int addSpecies(const Species *s)</div><div class="ttdoc">Adds a copy of the given Species object to this Model.</div><div class="ttdef"><b>Definition:</b> Model.cpp:1265</div></div>
-<div class="ttc" id="aclass_s_base_html_a5fe0e86c2c28a3226ddc42972241bddd"><div class="ttname"><a href="class_s_base.html#a5fe0e86c2c28a3226ddc42972241bddd">SBase::disablePackage</a></div><div class="ttdeci">int disablePackage(const std::string &amp;pkgURI, const std::string &amp;pkgPrefix)</div><div class="ttdoc">Disables the given SBML Level&amp;#160;3 package on this object.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:3488</div></div>
-<div class="ttc" id="aclass_s_base_html_a776e0b06ec3f0dd2bfdafeec6c9d7cc2"><div class="ttname"><a href="class_s_base.html#a776e0b06ec3f0dd2bfdafeec6c9d7cc2">SBase::getModel</a></div><div class="ttdeci">const Model * getModel() const</div><div class="ttdoc">Returns the Model object for the SBML Document in which the current object is located.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:2963</div></div>
+<div class="ttc" id="aclass_s_base_html_a5fe0e86c2c28a3226ddc42972241bddd"><div class="ttname"><a href="class_s_base.html#a5fe0e86c2c28a3226ddc42972241bddd">SBase::disablePackage</a></div><div class="ttdeci">int disablePackage(const std::string &amp;pkgURI, const std::string &amp;pkgPrefix)</div><div class="ttdoc">Disables the given SBML Level&amp;#160;3 package on this object.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:3476</div></div>
+<div class="ttc" id="aclass_s_base_html_a776e0b06ec3f0dd2bfdafeec6c9d7cc2"><div class="ttname"><a href="class_s_base.html#a776e0b06ec3f0dd2bfdafeec6c9d7cc2">SBase::getModel</a></div><div class="ttdeci">const Model * getModel() const</div><div class="ttdoc">Returns the Model object for the SBML Document in which the current object is located.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:2951</div></div>
 <div class="ttc" id="aclass_species_html"><div class="ttname"><a href="class_species.html">Species</a></div><div class="ttdef"><b>Definition:</b> Species.h:429</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -4600,7 +4592,7 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="class_trigger.html#a67a2ef2c6baad099dbe099d829e00f7b">Trigger</a>, <a class="el" href="class_stoichiometry_math.html#ad7617740ffde5e67a16db9cd6e18344d">StoichiometryMath</a>, <a class="el" href="class_species.html#a87c30216cb93d0bbebbfdf59ab15e9a8">Species</a>, <a class="el" href="class_simple_species_reference.html#a0ace96e49b6b1ea5d020324c4762eaeb">SimpleSpeciesReference</a>, <a class="el" href="class_rule.html#a87a288f29d38b00f759e7ac4bf1628fc">Rule</a>, <a class="el" href="class_reaction.html#ac2915fde0783d438a61184c31993c6ca">Reaction</a>, <a class="el" href="class_rate_rule.html#a80385825484be2980ece92154cf78197">RateRule</a>, <a class="el" href="class_priority.html#ad0476a35706cd284506bef09bfa9c2cc">Priority</a>, <a class="el" href="class_spatial_symbol_reference.html#aa2156e06cf389a42bc44c1f2edec82f8">SpatialSymbolReference</a>, <a class="el" href="class_sampled_volume.html#a88cd70c6b7c2ed35bfbb9fb08dfe880c">SampledVolume</a>, <a class="el" href="class_sampled_field_geometry.html#af641a5585aab34ec62a732c276ff4bb1">SampledFieldGeometry</a>, <a class="el" href="class_parametric_object.html#a5073fd8131753d69d26e0803d5926d59">ParametricObject</a>, <a class="el" href="class_ordinal_mapping.html#a1a0db4eaa1fde2b4be1e42bb7fe5ae1a">OrdinalMapping</a>, <a class="el" href="class_domain.html#a85864c1c670289949fd1116ae00cc60b">Domain</a>, <a class="el" href="class_diffusion_coefficient.html#a5c0c65c99c70ad9e6f34c873103422d9">DiffusionCoefficient</a>, <a class="el" href="class_c_s_g_set_operator.html#ae4909c1c853233a7abff568a982a84cc">CSGSetOperator</a>, <a class="el" href="class_c_s_g_object.html#ab53601e2ed6c4d3e5ea374de876078ef">CSGObject</a>, <a class="el" href="class_coordinate_component.html#aca075bceaa43f1c8e2812346faec9fd2">CoordinateComponent</a>, <a class="el" href="class_compartment_mapping.html#a89eff4106b77ecc1173f65c11a118c48">CompartmentMapping</a>, <a class="el" href="class_boundary_condition.html#ab99b1acf7e1dc7102a78a68e46b17772">BoundaryCondition</a>, <a class="el" href="class_analytic_volume.html#ad092995436725f61d9d461fcc71d65e1">AnalyticVolume</a>, <a class="el" href="class_advection_coefficient.html#a412b67880ea1ba3b54adee3d5fa9747f">AdvectionCoefficient</a>, <a class="el" href="class_adjacent_domains.html#a558c93aba9913f7ba1746f1be545dff1">AdjacentDomains</a>, <a class="el" href="class_render_information_base.html#a24987bfe6048459c5b21974c8464005e">RenderInformationBase</a>, <a class="el" href="class_render_group.html#aa196175f8e9b482539c4276fbfd5fea5">RenderGroup</a>, <a class="el" href="class_render_curve.html#afc1ad0a9935999246fc4a3c74ef14e83">RenderCurve</a>, <a class="el" href="class_default_values.html#a2d86b7851fcf9e933ad27e214f7cee8f">DefaultValues</a>, <a class="el" href="class_qualitative_species.html#a4c32a08ab7077bd3ceb96b12fdfaa00b">QualitativeSpecies</a>, <a class="el" href="class_output.html#a461a404813afe9241d1effe62e5dd365">Output</a>, <a class="el" href="class_input.html#a6e63f46c131441eb989fde69072670f0">Input</a>, <a class="el" href="class_function_term.html#adb3f77b369108e8f65c7ef6f78f1780e">FunctionTerm</a>, <a class="el" href="class_species_type_instance.html#ae238ffcce5986d6d12473925ec2d714d">SpeciesTypeInstance</a>, <a class="el" href="class_species_type_component_map_in_product.html#a751c0aebcf0f54ad612c78c039e40f62">SpeciesTypeComponentMapInProduct</a>, <a class="el" href="class_species_type_component_index.html#a891d0a9b6014c14245ce29afa7b0c70f">SpeciesTypeComponentIndex</a>, <a class="el" href="class_species_feature_value.html#aafec9bda12e42b26fd8a401be6c12621">SpeciesFeatureValue</a>, <a class="el" href="class_species_feature.html#ae5f0f1753d9bea06c762536903a66c2d">SpeciesFeature</a>, <a class="el" href="class_possible_species_feature_value.html#a3f7df3f8902bdf8c07144e4829c41f64">PossibleSpeciesFeatureValue</a>, <a class="el" href="class_outward_binding_site.html#a6974e4d85dda13ce86b5773a516ea72e">OutwardBindingSite</a>, <a class="el" href="class_multi_species_type.html#aacb3fa970972a317923c4cf3dd1b7b34">MultiSpeciesType</a>, <a class="el" href="class_in_species_type_bond.html#adb757b43b6fa70d865453a0bb8566c55">InSpeciesTypeBond</a>, <a class="el" href="class_compartment_reference.html#a61464a2bbf9558242a6f2e25551748e8">CompartmentReference</a>, <a class="el" href="class_text_glyph.html#af9c185dc8ece4ecc13875437dd5e1999">TextGlyph</a>, <a class="el" href="class_species_reference_glyph.html#a45809e0fc119e5dc7f255f54fc076119">SpeciesReferenceGlyph</a>, <a class="el" href="class_species_glyph.html#aebfdcf41b41aed56045e104b835dd1c5">SpeciesGlyph</a>, <a class="el" href="class_reference_glyph.html#a5672bc64b49ed1a4874267c819b5e422">ReferenceGlyph</a>, <a class="el" href="class_reaction_glyph.html#aff033ed351ec777369fd9defa544899f">ReactionGlyph</a>, <a class="el" href="class_general_glyph.html#a915d6656cc6f8e73baf71f93f051fd11">GeneralGlyph</a>, <a class="el" href="class_compartment_glyph.html#a3ecfb55371d065b93794941ee5dbceef">CompartmentGlyph</a>, <a class="el" href="class_member.html#a093b8de3211ca8bf90f928475551e183">Member</a>, <a class="el" href="class_user_defined_constraint_component.html#aeb40938497e49128399700f896774f17">UserDefinedConstraintComponent</a>, <a class="el" href="class_user_defined_constraint.html#a1ecd473f116ad4bbf479ec1139c6bb91">UserDefinedConstraint</a>, <a class="el" href="class_list_of_objectives.html#ac21e9f86f278e8e5087885b78e4e0f04">ListOfObjectives</a>, <a class="el" href="class_gene_product_ref.html#a63f71d53efedc54caff01edbc376889c">GeneProductRef</a>, <a class="el" href="class_gene_product.html#af48da9ca9d7f5b61dd181d28a06f471d">GeneProduct</a>, <a class="el" href="class_flux_objective.html#a18f4e33939552603159d3feda7165107">FluxObjective</a>, <a class="el" href="class_flux_bound.html#a89104cafe4495053b0288e98bc5f127c">FluxBound</a>, <a class="el" href="class_submodel.html#a858bb9d5c6b985f4eafd0e0ec4e5e27f">Submodel</a>, <a class="el" href="class_s_base_ref.html#a1f408b23c31352f11b03d044e62c6ad3">SBaseRef</a>, <a class="el" href="class_replacing.html#a10a8657c378a5a2958428b04069491a0">Replacing</a>, <a class="el" href="class_replaced_element.html#a9af7e51466a251de106ca29e9600054a">ReplacedElement</a>, <a class="el" href="class_port.html#a5d24f71a7d7895e6f8ac7a1de196aa97">Port</a>, <a class="el" href="class_model.html#a6a7a74b199478041720566163c8af8b5">Model</a>, <a class="el" href="class_kinetic_law.html#a73313b7a90f1eeb6914316572de3c218">KineticLaw</a>, <a class="el" href="class_initial_assignment.html#a0959d58b9f62a9939725e2beea53bc31">InitialAssignment</a>, <a class="el" href="class_event_assignment.html#af4403a6517acf55afa0e73c028e5ded6">EventAssignment</a>, <a class="el" href="class_delay.html#a7c0d79e0a2ea7edcd3563101df30c621">Delay</a>, <a class="el" href="class_constraint.html#af72c23e5fdf70b0570ccbbcb1824a3cd">Constraint</a>, <a class="el" href="class_compartment.html#acf104caa1f3bfc264a1e9bb1db3bc4a4">Compartment</a>, and <a class="el" href="class_assignment_rule.html#a4e872ab23c418bed16a41e1fa1431180">AssignmentRule</a>.</p>
+<p>Reimplemented in <a class="el" href="class_trigger.html#a67a2ef2c6baad099dbe099d829e00f7b">Trigger</a>, <a class="el" href="class_stoichiometry_math.html#ad7617740ffde5e67a16db9cd6e18344d">StoichiometryMath</a>, <a class="el" href="class_species.html#a87c30216cb93d0bbebbfdf59ab15e9a8">Species</a>, <a class="el" href="class_simple_species_reference.html#a0ace96e49b6b1ea5d020324c4762eaeb">SimpleSpeciesReference</a>, <a class="el" href="class_rule.html#a87a288f29d38b00f759e7ac4bf1628fc">Rule</a>, <a class="el" href="class_reaction.html#ac2915fde0783d438a61184c31993c6ca">Reaction</a>, <a class="el" href="class_rate_rule.html#a80385825484be2980ece92154cf78197">RateRule</a>, <a class="el" href="class_priority.html#ad0476a35706cd284506bef09bfa9c2cc">Priority</a>, <a class="el" href="class_spatial_symbol_reference.html#aa2156e06cf389a42bc44c1f2edec82f8">SpatialSymbolReference</a>, <a class="el" href="class_sampled_volume.html#a88cd70c6b7c2ed35bfbb9fb08dfe880c">SampledVolume</a>, <a class="el" href="class_sampled_field_geometry.html#af641a5585aab34ec62a732c276ff4bb1">SampledFieldGeometry</a>, <a class="el" href="class_parametric_object.html#a5073fd8131753d69d26e0803d5926d59">ParametricObject</a>, <a class="el" href="class_ordinal_mapping.html#a1a0db4eaa1fde2b4be1e42bb7fe5ae1a">OrdinalMapping</a>, <a class="el" href="class_domain.html#a85864c1c670289949fd1116ae00cc60b">Domain</a>, <a class="el" href="class_diffusion_coefficient.html#a5c0c65c99c70ad9e6f34c873103422d9">DiffusionCoefficient</a>, <a class="el" href="class_c_s_g_set_operator.html#ae4909c1c853233a7abff568a982a84cc">CSGSetOperator</a>, <a class="el" href="class_c_s_g_object.html#ab53601e2ed6c4d3e5ea374de876078ef">CSGObject</a>, <a class="el" href="class_coordinate_component.html#aca075bceaa43f1c8e2812346faec9fd2">CoordinateComponent</a>, <a class="el" href="class_compartment_mapping.html#a89eff4106b77ecc1173f65c11a118c48">CompartmentMapping</a>, <a class="el" href="class_boundary_condition.html#ab99b1acf7e1dc7102a78a68e46b17772">BoundaryCondition</a>, <a class="el" href="class_analytic_volume.html#ad092995436725f61d9d461fcc71d65e1">AnalyticVolume</a>, <a class="el" href="class_advection_coefficient.html#a412b67880ea1ba3b54adee3d5fa9747f">AdvectionCoefficient</a>, <a class="el" href="class_adjacent_domains.html#a558c93aba9913f7ba1746f1be545dff1">AdjacentDomains</a>, <a class="el" href="class_render_information_base.html#a24987bfe6048459c5b21974c8464005e">RenderInformationBase</a>, <a class="el" href="class_render_group.html#aa196175f8e9b482539c4276fbfd5fea5">RenderGroup</a>, <a class="el" href="class_render_curve.html#afc1ad0a9935999246fc4a3c74ef14e83">RenderCurve</a>, <a class="el" href="class_default_values.html#a2d86b7851fcf9e933ad27e214f7cee8f">DefaultValues</a>, <a class="el" href="class_qualitative_species.html#a4c32a08ab7077bd3ceb96b12fdfaa00b">QualitativeSpecies</a>, <a class="el" href="class_output.html#a461a404813afe9241d1effe62e5dd365">Output</a>, <a class="el" href="class_input.html#a6e63f46c131441eb989fde69072670f0">Input</a>, <a class="el" href="class_function_term.html#adb3f77b369108e8f65c7ef6f78f1780e">FunctionTerm</a>, <a class="el" href="class_species_type_instance.html#ae238ffcce5986d6d12473925ec2d714d">SpeciesTypeInstance</a>, <a class="el" href="class_species_type_component_map_in_product.html#a751c0aebcf0f54ad612c78c039e40f62">SpeciesTypeComponentMapInProduct</a>, <a class="el" href="class_species_type_component_index.html#a891d0a9b6014c14245ce29afa7b0c70f">SpeciesTypeComponentIndex</a>, <a class="el" href="class_species_feature_value.html#aafec9bda12e42b26fd8a401be6c12621">SpeciesFeatureValue</a>, <a class="el" href="class_species_feature.html#ae5f0f1753d9bea06c762536903a66c2d">SpeciesFeature</a>, <a class="el" href="class_possible_species_feature_value.html#a3f7df3f8902bdf8c07144e4829c41f64">PossibleSpeciesFeatureValue</a>, <a class="el" href="class_outward_binding_site.html#a6974e4d85dda13ce86b5773a516ea72e">OutwardBindingSite</a>, <a class="el" href="class_multi_species_type.html#aacb3fa970972a317923c4cf3dd1b7b34">MultiSpeciesType</a>, <a class="el" href="class_in_species_type_bond.html#adb757b43b6fa70d865453a0bb8566c55">InSpeciesTypeBond</a>, <a class="el" href="class_compartment_reference.html#a61464a2bbf9558242a6f2e25551748e8">CompartmentReference</a>, <a class="el" href="class_text_glyph.html#af9c185dc8ece4ecc13875437dd5e1999">TextGlyph</a>, <a class="el" href="class_species_reference_glyph.html#a45809e0fc119e5dc7f255f54fc076119">SpeciesReferenceGlyph</a>, <a class="el" href="class_species_glyph.html#aebfdcf41b41aed56045e104b835dd1c5">SpeciesGlyph</a>, <a class="el" href="class_reference_glyph.html#a5672bc64b49ed1a4874267c819b5e422">ReferenceGlyph</a>, <a class="el" href="class_reaction_glyph.html#aff033ed351ec777369fd9defa544899f">ReactionGlyph</a>, <a class="el" href="class_general_glyph.html#a915d6656cc6f8e73baf71f93f051fd11">GeneralGlyph</a>, <a class="el" href="class_compartment_glyph.html#a3ecfb55371d065b93794941ee5dbceef">CompartmentGlyph</a>, <a class="el" href="class_member.html#a093b8de3211ca8bf90f928475551e183">Member</a>, <a class="el" href="class_user_defined_constraint_component.html#aeb40938497e49128399700f896774f17">UserDefinedConstraintComponent</a>, <a class="el" href="class_user_defined_constraint.html#a1ecd473f116ad4bbf479ec1139c6bb91">UserDefinedConstraint</a>, <a class="el" href="class_list_of_objectives.html#ac21e9f86f278e8e5087885b78e4e0f04">ListOfObjectives</a>, <a class="el" href="class_gene_product_ref.html#a63f71d53efedc54caff01edbc376889c">GeneProductRef</a>, <a class="el" href="class_gene_product.html#af48da9ca9d7f5b61dd181d28a06f471d">GeneProduct</a>, <a class="el" href="class_flux_objective.html#a18f4e33939552603159d3feda7165107">FluxObjective</a>, <a class="el" href="class_flux_bound.html#a89104cafe4495053b0288e98bc5f127c">FluxBound</a>, <a class="el" href="class_uncert_span.html#a4d0a4b27e36f28dfa5cb2894f0a83523">UncertSpan</a>, <a class="el" href="class_uncert_parameter.html#a133edee07fc590ba5848744ca3b566eb">UncertParameter</a>, <a class="el" href="class_submodel.html#a858bb9d5c6b985f4eafd0e0ec4e5e27f">Submodel</a>, <a class="el" href="class_s_base_ref.html#a1f408b23c31352f11b03d044e62c6ad3">SBaseRef</a>, <a class="el" href="class_replacing.html#a10a8657c378a5a2958428b04069491a0">Replacing</a>, <a class="el" href="class_replaced_element.html#a9af7e51466a251de106ca29e9600054a">ReplacedElement</a>, <a class="el" href="class_port.html#a5d24f71a7d7895e6f8ac7a1de196aa97">Port</a>, <a class="el" href="class_model.html#a6a7a74b199478041720566163c8af8b5">Model</a>, <a class="el" href="class_kinetic_law.html#a73313b7a90f1eeb6914316572de3c218">KineticLaw</a>, <a class="el" href="class_initial_assignment.html#a0959d58b9f62a9939725e2beea53bc31">InitialAssignment</a>, <a class="el" href="class_event_assignment.html#af4403a6517acf55afa0e73c028e5ded6">EventAssignment</a>, <a class="el" href="class_delay.html#a7c0d79e0a2ea7edcd3563101df30c621">Delay</a>, <a class="el" href="class_constraint.html#af72c23e5fdf70b0570ccbbcb1824a3cd">Constraint</a>, <a class="el" href="class_compartment.html#acf104caa1f3bfc264a1e9bb1db3bc4a4">Compartment</a>, and <a class="el" href="class_assignment_rule.html#a4e872ab23c418bed16a41e1fa1431180">AssignmentRule</a>.</p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="rename_s_id_8cpp-example.html#a14">renameSId.cpp</a>.</dd>
 </dl>
 
@@ -4652,7 +4644,7 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="class_trigger.html#aa1e117aa75427d39e6fed88cf6176844">Trigger</a>, <a class="el" href="class_stoichiometry_math.html#a55b0bb01e9bc0decdac4caab707d34ba">StoichiometryMath</a>, <a class="el" href="class_species.html#a2f7903cb5e4e7bd1faf8b369afd3e2a9">Species</a>, <a class="el" href="class_rule.html#a340d4cea8317cca28bb14dcf52574e47">Rule</a>, <a class="el" href="class_priority.html#a145ff7d4dbef9fef7a8083a43c5b0de4">Priority</a>, <a class="el" href="class_parameter.html#a3c1e2472e41de8b5f3ede494b3593092">Parameter</a>, <a class="el" href="class_port.html#ab47bbcc0df1d7101d8c51fd754492116">Port</a>, <a class="el" href="class_model.html#aaa729273b3b16be1eb75bff041b149c5">Model</a>, <a class="el" href="class_kinetic_law.html#a12148ef3d6f576a7651243c0fdc58518">KineticLaw</a>, <a class="el" href="class_initial_assignment.html#a387c4040b78b2b763b1b9b61333c5d86">InitialAssignment</a>, <a class="el" href="class_function_definition.html#abfd80ad272a2e8d8a87749ffb6656526">FunctionDefinition</a>, <a class="el" href="class_event_assignment.html#a1e041da2431b1a192c3e1c24d598b40f">EventAssignment</a>, <a class="el" href="class_delay.html#a1f26edf962de63fb508b8b49480532d1">Delay</a>, <a class="el" href="class_constraint.html#a53e3fb09b03936bde9ea48d7f4c6de64">Constraint</a>, and <a class="el" href="class_compartment.html#a98ea8f580beb87f0acd7a0d625a95b38">Compartment</a>.</p>
+<p>Reimplemented in <a class="el" href="class_trigger.html#aa1e117aa75427d39e6fed88cf6176844">Trigger</a>, <a class="el" href="class_stoichiometry_math.html#a55b0bb01e9bc0decdac4caab707d34ba">StoichiometryMath</a>, <a class="el" href="class_species.html#a2f7903cb5e4e7bd1faf8b369afd3e2a9">Species</a>, <a class="el" href="class_rule.html#a340d4cea8317cca28bb14dcf52574e47">Rule</a>, <a class="el" href="class_priority.html#a145ff7d4dbef9fef7a8083a43c5b0de4">Priority</a>, <a class="el" href="class_parameter.html#a3c1e2472e41de8b5f3ede494b3593092">Parameter</a>, <a class="el" href="class_uncert_parameter.html#a645e24d0e16a8714f5cd64558da380e2">UncertParameter</a>, <a class="el" href="class_port.html#ab47bbcc0df1d7101d8c51fd754492116">Port</a>, <a class="el" href="class_model.html#aaa729273b3b16be1eb75bff041b149c5">Model</a>, <a class="el" href="class_kinetic_law.html#a12148ef3d6f576a7651243c0fdc58518">KineticLaw</a>, <a class="el" href="class_initial_assignment.html#a387c4040b78b2b763b1b9b61333c5d86">InitialAssignment</a>, <a class="el" href="class_function_definition.html#abfd80ad272a2e8d8a87749ffb6656526">FunctionDefinition</a>, <a class="el" href="class_event_assignment.html#a1e041da2431b1a192c3e1c24d598b40f">EventAssignment</a>, <a class="el" href="class_delay.html#a1f26edf962de63fb508b8b49480532d1">Delay</a>, <a class="el" href="class_constraint.html#a53e3fb09b03936bde9ea48d7f4c6de64">Constraint</a>, and <a class="el" href="class_compartment.html#a98ea8f580beb87f0acd7a0d625a95b38">Compartment</a>.</p>
 
 </div>
 </div>
@@ -4747,7 +4739,7 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 </div>
 </div>
 <a id="a75b1541bd854ad7edfe0aff79ab3231f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75b1541bd854ad7edfe0aff79ab3231f">&#9670;&nbsp;</a></span>setAnnotation() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a75b1541bd854ad7edfe0aff79ab3231f">&#9670;&nbsp;</a></span>setAnnotation() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4802,73 +4794,8 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 
 </div>
 </div>
-<a id="aad7455e53c288257cb43c2dff7bb2195"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad7455e53c288257cb43c2dff7bb2195">&#9670;&nbsp;</a></span>setAnnotation() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SBase::setAnnotation </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>annotation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>parseRdf</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets the value of the "annotation" subelement of this SBML object. </p>
-<p>The content of <code>annotation</code> is copied, and any previous content of this object's "annotation" subelement is deleted.</p>
-<p>Whereas the <a class="el" href="class_s_base.html">SBase</a> "notes" subelement is a container for content to be shown directly to humans, the "annotation" element is a container for optional software-generated content <em>not</em> meant to be shown to humans. Every object derived from <a class="el" href="class_s_base.html">SBase</a> can have its own value for "annotation". The element's content type is <a href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls" target="_blank">XML type "any"</a>, allowing essentially arbitrary well-formed XML data content.</p>
-<p>SBML places a few restrictions on the organization of the content of annotations; these are intended to help software tools read and write the data as well as help reduce conflicts between annotations added by different tools. Please see the SBML specifications for more details.</p>
-<p>Call this method will result in any existing content of the "annotation" subelement to be discarded. Unless you have taken steps to first copy and reconstitute any existing annotations into the <code>annotation</code> that is about to be assigned, it is likely that performing such wholesale replacement is unfriendly towards other software applications whose annotations are discarded. An alternative may be to use <a class="el" href="class_s_base.html#accc96fb06a79df769eb3669e090771e5" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">SBase::appendAnnotation(const XMLNode* annotation)</a> or <a class="el" href="class_s_base.html#a118148398f5c626bf9697887296f97b8" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">SBase::appendAnnotation(const std::string&amp; annotation)</a>.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">annotation</td><td>an XML string that is to be used as the content of the "annotation" subelement of this object.</td></tr>
-    <tr><td class="paramname">parseRdf</td><td>if true, the annotation will be parsed for RDF content. This should only be set, if the RDF follows the subset described in the SBML specification.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a></li>
-</ul>
-</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#adbff50c6c73c044a5c8e29e6b5dcefc6" title="Returns the content of the &quot;annotation&quot; subelement of this object as a character string.">getAnnotationString()</a> </dd>
-<dd>
-<a class="el" href="class_s_base.html#a5af865a159b3b1c5a16729bce7e4e3c2" title="Predicate returning true if this object&#39;s &quot;annotation&quot; subelement exists and has content.">isSetAnnotation()</a> </dd>
-<dd>
-<a class="el" href="class_s_base.html#a11d9c02a3690d9a13362835ef0133125" title="Sets the value of the &quot;annotation&quot; subelement of this SBML object.">setAnnotation(const XMLNode* annotation)</a> </dd>
-<dd>
-<a class="el" href="class_s_base.html#accc96fb06a79df769eb3669e090771e5" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">appendAnnotation(const XMLNode* annotation)</a> </dd>
-<dd>
-<a class="el" href="class_s_base.html#a118148398f5c626bf9697887296f97b8" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">appendAnnotation(const std::string&amp; annotation)</a> </dd>
-<dd>
-<a class="el" href="class_s_base.html#a9121d6a4f7401fe957cc75647a1e95ed" title="Unsets the value of the &quot;annotation&quot; subelement of this SBML object.">unsetAnnotation()</a> </dd></dl>
-
-</div>
-</div>
 <a id="a11d9c02a3690d9a13362835ef0133125"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11d9c02a3690d9a13362835ef0133125">&#9670;&nbsp;</a></span>setAnnotation() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a11d9c02a3690d9a13362835ef0133125">&#9670;&nbsp;</a></span>setAnnotation() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4919,70 +4846,6 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 <a class="el" href="class_s_base.html#a9121d6a4f7401fe957cc75647a1e95ed" title="Unsets the value of the &quot;annotation&quot; subelement of this SBML object.">unsetAnnotation()</a> </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_species_reference.html#a53cdf5197ae654bad28316f3cea03f69">SpeciesReference</a>, and <a class="el" href="class_model.html#a440da667491f2a78fa305460a63471a5">Model</a>.</p>
-
-</div>
-</div>
-<a id="a9df7f23a9951650f120944171f1e9ddc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9df7f23a9951650f120944171f1e9ddc">&#9670;&nbsp;</a></span>setAnnotation() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SBase::setAnnotation </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_x_m_l_node.html">XMLNode</a> *&#160;</td>
-          <td class="paramname"><em>annotation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>parseRdf</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets the value of the "annotation" subelement of this SBML object. </p>
-<p>The content of <code>annotation</code> is copied, and any previous content of this object's "annotation" subelement is deleted.</p>
-<p>Whereas the <a class="el" href="class_s_base.html">SBase</a> "notes" subelement is a container for content to be shown directly to humans, the "annotation" element is a container for optional software-generated content <em>not</em> meant to be shown to humans. Every object derived from <a class="el" href="class_s_base.html">SBase</a> can have its own value for "annotation". The element's content type is <a href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls" target="_blank">XML type "any"</a>, allowing essentially arbitrary well-formed XML data content.</p>
-<p>SBML places a few restrictions on the organization of the content of annotations; these are intended to help software tools read and write the data as well as help reduce conflicts between annotations added by different tools. Please see the SBML specifications for more details.</p>
-<p>Call this method will result in any existing content of the "annotation" subelement to be discarded. Unless you have taken steps to first copy and reconstitute any existing annotations into the <code>annotation</code> that is about to be assigned, it is likely that performing such wholesale replacement is unfriendly towards other software applications whose annotations are discarded. An alternative may be to use <a class="el" href="class_s_base.html#accc96fb06a79df769eb3669e090771e5" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">SBase::appendAnnotation(const XMLNode* annotation)</a> or <a class="el" href="class_s_base.html#a118148398f5c626bf9697887296f97b8" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">SBase::appendAnnotation(const std::string&amp; annotation)</a>.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">annotation</td><td>an XML structure that is to be used as the new content of the "annotation" subelement of this object.</td></tr>
-    <tr><td class="paramname">parseRdf</td><td>if true, the annotation will be parsed for RDF content. This should only be set, if the RDF follows the subset described in the SBML specification.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
-</ul>
-</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_base.html#adbff50c6c73c044a5c8e29e6b5dcefc6" title="Returns the content of the &quot;annotation&quot; subelement of this object as a character string.">getAnnotationString()</a> </dd>
-<dd>
-<a class="el" href="class_s_base.html#a5af865a159b3b1c5a16729bce7e4e3c2" title="Predicate returning true if this object&#39;s &quot;annotation&quot; subelement exists and has content.">isSetAnnotation()</a> </dd>
-<dd>
-<a class="el" href="class_s_base.html#a75b1541bd854ad7edfe0aff79ab3231f" title="Sets the value of the &quot;annotation&quot; subelement of this SBML object.">setAnnotation(const std::string&amp; annotation)</a> </dd>
-<dd>
-<a class="el" href="class_s_base.html#accc96fb06a79df769eb3669e090771e5" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">appendAnnotation(const XMLNode* annotation)</a> </dd>
-<dd>
-<a class="el" href="class_s_base.html#a118148398f5c626bf9697887296f97b8" title="Appends the given annotation to the &quot;annotation&quot; subelement of this object.">appendAnnotation(const std::string&amp; annotation)</a> </dd>
-<dd>
-<a class="el" href="class_s_base.html#a9121d6a4f7401fe957cc75647a1e95ed" title="Unsets the value of the &quot;annotation&quot; subelement of this SBML object.">unsetAnnotation()</a> </dd></dl>
 
 </div>
 </div>
@@ -5361,7 +5224,7 @@ Calling this function with <code>name</code> = <code>NULL</code> or an empty str
 <p>The following code illustrates a very simple way of setting the notes using this method. Here, the object being annotated is the whole SBML document, but that is for illustration purposes only; you could of course use this same approach to annotate any other SBML component. </p><div class="fragment"><div class="line"><a class="code" href="class_s_b_m_l_document.html">SBMLDocument</a>* s = <span class="keyword">new</span> <a class="code" href="class_s_b_m_l_document.html">SBMLDocument</a>(3, 1);</div>
 <div class="line">s-&gt;<a class="code" href="class_s_base.html#a611a4bd98a4e32e3573980b2481ce77e">setNotes</a>(<span class="stringliteral">&quot;&lt;body xmlns=&#39;http://www.w3.org/1999/xhtml&#39;&gt;&lt;p&gt;here is my note&lt;/p&gt;&lt;/body&gt;&quot;</span>);</div>
 <div class="ttc" id="aclass_s_b_m_l_document_html"><div class="ttname"><a href="class_s_b_m_l_document.html">SBMLDocument</a></div><div class="ttdef"><b>Definition:</b> SBMLDocument.h:349</div></div>
-<div class="ttc" id="aclass_s_base_html_a611a4bd98a4e32e3573980b2481ce77e"><div class="ttname"><a href="class_s_base.html#a611a4bd98a4e32e3573980b2481ce77e">SBase::setNotes</a></div><div class="ttdeci">int setNotes(const XMLNode *notes)</div><div class="ttdoc">Sets the value of the &quot;notes&quot; subelement of this SBML object.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:1722</div></div>
+<div class="ttc" id="aclass_s_base_html_a611a4bd98a4e32e3573980b2481ce77e"><div class="ttname"><a href="class_s_base.html#a611a4bd98a4e32e3573980b2481ce77e">SBase::setNotes</a></div><div class="ttdeci">int setNotes(const XMLNode *notes)</div><div class="ttdoc">Sets the value of the &quot;notes&quot; subelement of this SBML object.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:1710</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">notes</td><td>an XML string that is to be used as the content of the "notes" subelement of this object.</td></tr>
@@ -5588,36 +5451,6 @@ Calling this function with <code>name</code> = <code>NULL</code> or an empty str
       <table class="memname">
         <tr>
           <td class="memname">char * SBase::toSBML </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns a string consisting of a partial SBML corresponding to just this object. </p>
-<p>The string is owned by the caller and has to be freed manualy.</p>
-<dl class="section return"><dt>Returns</dt><dd>the partial SBML that describes this SBML object.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd><span class="warning">This is primarily provided for testing and debugging purposes. It may be removed in a future version of libSBML.</span> </dd></dl>
-
-</div>
-</div>
-<a id="a03f5c2c39c203361f518f2d3c148d552"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03f5c2c39c203361f518f2d3c148d552">&#9670;&nbsp;</a></span>toSBMLString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string SBase::toSBMLString </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>

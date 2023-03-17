@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['flux_20balance_20constraints_19669',['Flux Balance Constraints',['../group__fbc.html',1,'']]]
+  ['distributions_20219',['Distributions',['../group__distrib.html',1,'']]]
 ];
