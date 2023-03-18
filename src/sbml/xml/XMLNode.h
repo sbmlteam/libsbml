@@ -527,6 +527,8 @@ public:
   static XMLNode* convertStringToXMLNode(const std::string& xmlstr,
                                          const XMLNamespaces* xmlns = NULL);
 
+  static XMLNode* readXMLNodeFromFile(const std::string& filename);
+
 
 #ifndef SWIG
 

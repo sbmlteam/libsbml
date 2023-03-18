@@ -668,6 +668,37 @@ XMLNode* XMLNode::convertStringToXMLNode(const std::string& xmlstr, const XMLNam
 }
 
 
+/*
+* read xmlnode from file
+*/
+XMLNode*
+XMLNode::readXMLNodeFromFile(const std::string& filename)
+{
+  XMLNode * xmlnode = NULL;
+  if (util_file_exists(filename.c_str()))
+  {
+    // read file into memory
+    FILE* file = fopen(filename.c_str(), "r");
+    fseek(file, 0, SEEK_END);
+    long length = ftell(file);
+
+    fseek(file, 0, SEEK_SET);
+    char* data = new char[length + 1];
+
+    // fill data with zeros
+    memset(data, 0, length + 1);
+
+    fread(data, 1, length, file);
+    fclose(file);
+    data[length] = '\0';
+
+    // parse the string
+    xmlnode = XMLNode::convertStringToXMLNode(data);
+    delete[] data;
+  }
+  return xmlnode;
+}
+
 /** @cond doxygenLibsbmlInternal */
 /*
  * Inserts this XMLNode and its children into stream.
