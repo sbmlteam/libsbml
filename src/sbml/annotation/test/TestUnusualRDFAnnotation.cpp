@@ -102,15 +102,105 @@ equals (const char* expected, const char* actual)
 }
 
 
-START_TEST(test_roundtrip)
+START_TEST(test_read)
 {
-  const char * expected = "<annotation>\n"
-    "</annotation>";
-
   Species *s = m->getSpecies(0);
   XMLNode* node = s->getAnnotation();
+  fail_unless(node->getNumChildren() == 1);
 
-  fail_unless(equals(expected, node->toXMLString().c_str()));
+  // FAILS AS NODE IS NOT SAME AS IF JUST READ AS A NODE
+  const XMLNode_t* rdf = XMLNode_getChild(node, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(rdf), "RDF"));
+  fail_unless(!strcmp(XMLNode_getPrefix(rdf), "rdf"));
+  fail_unless(!strcmp(XMLNode_getURI(rdf), "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
+  fail_unless(XMLNode_getNumChildren(rdf) == 1);
+
+  const XMLNode_t* desc = XMLNode_getChild(rdf, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(desc), "Description"));
+  fail_unless(!strcmp(XMLNode_getPrefix(desc), "rdf"));
+  fail_unless(!strcmp(XMLNode_getURI(desc), "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
+  fail_unless(XMLNode_getNumChildren(desc) == 1);
+
+  const XMLNode_t * is1 = XMLNode_getChild(desc, 0);
+  fail_unless(!strcmp(XMLNode_getName(is1), "is"));
+  fail_unless(!strcmp(XMLNode_getPrefix(is1), "bqbiol"));
+  fail_unless(XMLNode_getNumChildren(is1) == 1);
+
+  const XMLNode_t * Bag = XMLNode_getChild(is1, 0);
+  fail_unless(!strcmp(XMLNode_getName(Bag), "Bag"));
+  fail_unless(!strcmp(XMLNode_getPrefix(Bag), "rdf"));
+  fail_unless(!strcmp(XMLNode_getURI(Bag), "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
+  fail_unless(XMLNode_getNumChildren(Bag) == 4);
+
+  const XMLNode_t * li = XMLNode_getChild(Bag, 0);
+  fail_unless(!strcmp(XMLNode_getName(li), "li"));
+  fail_unless(!strcmp(XMLNode_getPrefix(li), "rdf"));
+  fail_unless(!strcmp(XMLNode_getURI(li), "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
+  fail_unless(li->getAttrValue(0) == "http://identifiers.org/chebi/CHEBI:59789");
+  fail_unless(XMLNode_getNumChildren(li) == 0);
+
+  const XMLNode_t * hasProp1 = XMLNode_getChild(Bag, 1);
+  fail_unless(!strcmp(XMLNode_getName(hasProp1), "hasProperty"));
+  fail_unless(!strcmp(XMLNode_getPrefix(hasProp1), "bqbiol"));
+  fail_unless(XMLNode_getNumChildren(hasProp1) == 1);
+
+  const XMLNode_t * Bag1 = XMLNode_getChild(hasProp1, 0);
+  fail_unless(!strcmp(XMLNode_getName(Bag1), "Bag"));
+  fail_unless(!strcmp(XMLNode_getPrefix(Bag1), "rdf"));
+  fail_unless(!strcmp(XMLNode_getURI(Bag1), "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
+  fail_unless(XMLNode_getNumChildren(Bag1) == 1);
+
+  const XMLNode_t * li_Bag1 = XMLNode_getChild(Bag1, 0);
+  fail_unless(!strcmp(XMLNode_getName(li_Bag1), "li"));
+  fail_unless(!strcmp(XMLNode_getPrefix(li_Bag1), "rdf"));
+  fail_unless(!strcmp(XMLNode_getURI(li_Bag1), "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
+  fail_unless(XMLNode_getNumChildren(li_Bag1) == 0);
+
+
+  const XMLNode_t * li2 = XMLNode_getChild(Bag, 2);
+  fail_unless(!strcmp(XMLNode_getName(li2), "li"));
+  fail_unless(!strcmp(XMLNode_getPrefix(li2), "rdf"));
+  fail_unless(!strcmp(XMLNode_getURI(li2), "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
+  fail_unless(XMLNode_getNumChildren(li2) == 0);
+}
+END_TEST
+
+
+START_TEST(test_roundtrip)
+{
+  //  fails as our parsing puts resources for is in one bag ang list hasProperty a
+
+  const char * expected = "<species metaid=\"metaid_0000036\" id=\"SAM\" compartment=\"cytosol\" initialConcentration=\"0.01\">\n"
+    "  <annotation>\n"
+    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vcard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+    "      <rdf:Description rdf:about=\"metaid_0000036\">\n"
+    "        <bqbiol:is>\n"
+    "          <rdf:Bag>\n"
+    "            <rdf:li rdf:resource=\"http://identifiers.org/chebi/CHEBI:59789\"/>\n"
+    "            <bqbiol:hasProperty>\n"
+    "              <rdf:Bag>\n"
+    "                <rdf:li rdf:resource=\"http://amas/match_score/by_name/1.0\"/>\n"
+    "              </rdf:Bag>\n"
+    "            </bqbiol:hasProperty>\n"
+    "            <rdf:li rdf:resource=\"http://identifiers.org/chebi/CHEBI:15414\"/>\n"
+    "            <bqbiol:hasProperty>\n"
+    "              <rdf:Bag>\n"
+    "                <rdf:li rdf:resource=\"http://amas/match_score/by_name/1.0\"/>\n"
+    "              </rdf:Bag>\n"
+    "            </bqbiol:hasProperty>\n"
+    "         </rdf:Bag>\n"
+    "        </bqbiol:is>\n"
+    "      </rdf:Description>\n"
+    "    </rdf:RDF>\n"
+    "  </annotation>\n"
+    "</species>";
+
+  Species *s = m->getSpecies(0);
+
+  fail_unless(equals(expected, s->toSBML()));
+
 }
 END_TEST
 
@@ -118,7 +208,27 @@ END_TEST
 START_TEST(test_hasCVTerms)
 {
   Species *s = m->getSpecies(0);
-  fail_unless(s->getNumCVTerms() == 2);
+
+  // parsing means we have the following structure
+  fail_unless(s->getNumCVTerms() == 1);
+  CVTerm *cv = s->getCVTerm(0);
+  fail_unless(cv->getBiologicalQualifierType() == BQB_IS);
+  fail_unless(cv->getNumResources() == 2);
+  fail_unless(cv->getResourceURI(0) == "http://identifiers.org/chebi/CHEBI:59789");
+  fail_unless(cv->getResourceURI(1) == "http://identifiers.org/chebi/CHEBI:15414");
+
+  fail_unless(cv->getNumNestedCVTerms() == 2);
+
+  CVTerm *cv1 = cv->getNestedCVTerm(0);
+  fail_unless(cv1->getBiologicalQualifierType() == BQB_HAS_PROPERTY);
+  fail_unless(cv1->getNumResources() == 1);
+  fail_unless(cv1->getResourceURI(0) == "http://amas/match_score/by_name/1.0");
+
+  CVTerm *cv2 = cv->getNestedCVTerm(1);
+  fail_unless(cv2->getBiologicalQualifierType() == BQB_HAS_PROPERTY);
+  fail_unless(cv2->getNumResources() == 1);
+  fail_unless(cv2->getResourceURI(0) == "http://amas/match_score/by_name/1.0");
+
 
 }
 END_TEST
@@ -188,15 +298,33 @@ START_TEST(test_read_XMLNode_from_file)
   fail_unless(!strcmp(XMLNode_getURI(li2), "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
   fail_unless(XMLNode_getNumChildren(li2) == 0);
 
-  //const XMLNode_t * li3 = XMLNode_getChild(Bag, 3);
-  //fail_unless(!strcmp(XMLNode_getName(li3), "li"));
-  //fail_unless(!strcmp(XMLNode_getPrefix(li3), "rdf"));
-  //fail_unless(!strcmp(XMLNode_getURI(li3), "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
-  //fail_unless(XMLNode_getNumChildren(li3) == 0);
-
-  delete node;
+  free(filename);
+  delete(node);
 }
 END_TEST
+
+
+START_TEST(test_set_annotation)
+{
+  char* original = writeSBMLToString(d);
+
+  char *filename = safe_strcat(TestDataDirectory, "just_annotation.xml");
+  XMLNode *node = XMLNode::readXMLNodeFromFile(filename);
+  Species *s = m->getSpecies(0);
+  s->unsetAnnotation();
+
+  fail_unless(s->isSetAnnotation() == false);
+  fail_unless(s->getNumCVTerms() == 0);
+
+  s->setAnnotation(node);
+  fail_unless(s->isSetAnnotation() == true);
+
+  fail_unless(equals(original, writeSBMLToString(d)));
+
+}
+END_TEST
+
+
 
 
 Suite *
@@ -209,9 +337,12 @@ create_suite_UnusualRDFAnnotation (void)
     UnusualRDFAnnotation_setup,
     UnusualRDFAnnotation_teardown);
 
-//  tcase_add_test(tcase, test_roundtrip );
-//  tcase_add_test(tcase, test_hasCVTerms);
-  tcase_add_test(tcase, test_read_XMLNode_from_file);
+  tcase_add_test(tcase, test_roundtrip);
+
+   //tcase_add_test(tcase, test_read );
+   tcase_add_test(tcase, test_hasCVTerms);
+   tcase_add_test(tcase, test_read_XMLNode_from_file);
+   tcase_add_test(tcase, test_set_annotation);
 
 
   suite_add_tcase(suite, tcase);
