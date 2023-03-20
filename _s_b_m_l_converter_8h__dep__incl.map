@@ -1,63 +1,64 @@
 <map id="SBMLConverter.h" name="SBMLConverter.h">
-<area shape="rect" id="node1" title="Definition of SBMLConverter, the base class for SBML conversion." alt="" coords="2406,5,2539,32"/>
+<area shape="rect" id="node1" title="Definition of SBMLConverter, the base class for SBML conversion." alt="" coords="2478,5,2611,32"/>
 <area shape="rect" id="node2" href="$_s_b_m_l_converter_8cpp.html" title="Implementation of SBMLConverter, the base class of package extensions." alt="" coords="5,80,153,107"/>
-<area shape="rect" id="node3" href="$_s_b_m_l_converter_registry_8cpp.html" title="Implementation of SBMLConverterRegistry, a registry of available converters." alt="" coords="411,229,612,256"/>
-<area shape="rect" id="node4" href="$_s_b_m_l_converter_registry_8h.html" title="Definition of SBMLConverterRegistry, a registry of available converters." alt="" coords="3373,80,3559,107"/>
+<area shape="rect" id="node3" href="$_s_b_m_l_converter_registry_8cpp.html" title="Implementation of SBMLConverterRegistry, a registry of available converters." alt="" coords="701,229,903,256"/>
+<area shape="rect" id="node4" href="$_s_b_m_l_converter_registry_8h.html" title="Definition of SBMLConverterRegistry, a registry of available converters." alt="" coords="3386,80,3573,107"/>
 <area shape="rect" id="node5" href="$_s_b_m_l_converter_types_8h.html" title="Definition of SBMLConverterTypes." alt="" coords="229,155,399,181"/>
-<area shape="rect" id="node28" href="$_render_extension_8cpp.html" title="Implementation of RenderExtension, the core module of the render package." alt="" coords="5524,155,5683,181"/>
-<area shape="rect" id="node29" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="5707,155,5910,181"/>
-<area shape="rect" id="node30" href="$_s_b_m_l_function_definition_converter_8h.html" title="Definition of SBMLFunctionDefinitionConverter, a converter replacing function definitions." alt="" coords="279,80,530,107"/>
-<area shape="rect" id="node32" href="$_s_b_m_l_id_converter_8h.html" title="Definition of SBMLIdConverter, a converter renaming SIds." alt="" coords="555,80,700,107"/>
-<area shape="rect" id="node33" href="$_s_b_m_l_infer_units_converter_8h.html" title="Definition of SBMLInferUnitsConverter, infers units for parameters." alt="" coords="725,80,922,107"/>
-<area shape="rect" id="node34" href="$_s_b_m_l_initial_assignment_converter_8h.html" title="Definition of SBMLInitialAssignmentConverter, a converter inlining function definitions." alt="" coords="947,80,1193,107"/>
-<area shape="rect" id="node35" href="$_s_b_m_l_level1_version1_converter_8h.html" title="Definition of SBMLLevel1Version1Converter." alt="" coords="1218,80,1450,107"/>
-<area shape="rect" id="node36" href="$_s_b_m_l_level_version_converter_8h.html" title="Definition of SBMLLevelVersionConverter, the base class for SBML conversion." alt="" coords="1474,80,1690,107"/>
-<area shape="rect" id="node37" href="$_s_b_m_l_local_parameter_converter_8h.html" title="Definition of SBMLLocalParameterConverter, a converter replacing local parameters with global ones." alt="" coords="1714,80,1949,107"/>
-<area shape="rect" id="node38" href="$_s_b_m_l_rate_of_converter_8h.html" title="Definition of SBMLRateOfConverter, a converter changing reactions into rate rules." alt="" coords="1973,80,2151,107"/>
-<area shape="rect" id="node39" href="$_s_b_m_l_rate_rule_converter_8h.html" title="Definition of SBMLRateRuleConverter, a converter from raterule to reaction." alt="" coords="3010,80,3202,107"/>
-<area shape="rect" id="node42" href="$_s_b_m_l_reaction_converter_8h.html" title="Definition of SBMLReactionConverter, a converter changing reactions into rate rules." alt="" coords="2176,80,2367,107"/>
-<area shape="rect" id="node43" href="$_s_b_m_l_rule_converter_8h.html" title="Definition of SBMLRuleConverter, a converter sorting rules." alt="" coords="2391,80,2554,107"/>
-<area shape="rect" id="node44" href="$_s_b_m_l_strip_package_converter_8h.html" title="Definition of SBMLStripPackageConverter, the base class for SBML conversion." alt="" coords="2578,80,2794,107"/>
-<area shape="rect" id="node45" href="$_s_b_m_l_units_converter_8h.html" title="Definition of SBMLUnitsConverter, for converting units to SI." alt="" coords="2819,80,2985,107"/>
-<area shape="rect" id="node46" href="$_comp_flattening_converter_8h.html" title="Definition of a first flattening converter." alt="" coords="5252,80,5453,107"/>
-<area shape="rect" id="node57" href="$_cobra_to_fbc_converter_8h.html" title="Definition of a cobra 2 fbc converter." alt="" coords="4256,80,4428,107"/>
-<area shape="rect" id="node58" href="$_fbc_to_cobra_converter_8h.html" title="Definition of a fbc 2 cobra converter." alt="" coords="4467,80,4639,107"/>
-<area shape="rect" id="node59" href="$_fbc_v1_to_v2_converter_8h.html" title="Definition of a fbc v1 to fbc v2 converter." alt="" coords="4674,80,4842,107"/>
-<area shape="rect" id="node60" href="$_fbc_v2_to_v1_converter_8h.html" title="Definition of a fbc v2 to fbc v1 converter." alt="" coords="4866,80,5034,107"/>
-<area shape="rect" id="node61" href="$_render_layout_converter_8h.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="5529,80,5715,107"/>
-<area shape="rect" id="node6" href="$_s_b_m_l_function_definition_converter_8cpp.html" title="Implementation of SBMLFunctionDefinitionConverter, a converter replacing function definitions." alt="" coords="623,155,890,181"/>
+<area shape="rect" id="node28" href="$_render_extension_8cpp.html" title="Implementation of RenderExtension, the core module of the render package." alt="" coords="5428,155,5587,181"/>
+<area shape="rect" id="node29" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="5611,155,5814,181"/>
+<area shape="rect" id="node31" href="$_s_b_m_l_function_definition_converter_8h.html" title="Definition of SBMLFunctionDefinitionConverter, a converter replacing function definitions." alt="" coords="351,80,602,107"/>
+<area shape="rect" id="node33" href="$_s_b_m_l_id_converter_8h.html" title="Definition of SBMLIdConverter, a converter renaming SIds." alt="" coords="627,80,772,107"/>
+<area shape="rect" id="node34" href="$_s_b_m_l_infer_units_converter_8h.html" title="Definition of SBMLInferUnitsConverter, infers units for parameters." alt="" coords="797,80,994,107"/>
+<area shape="rect" id="node35" href="$_s_b_m_l_initial_assignment_converter_8h.html" title="Definition of SBMLInitialAssignmentConverter, a converter inlining function definitions." alt="" coords="1019,80,1265,107"/>
+<area shape="rect" id="node36" href="$_s_b_m_l_level1_version1_converter_8h.html" title="Definition of SBMLLevel1Version1Converter." alt="" coords="1290,80,1522,107"/>
+<area shape="rect" id="node37" href="$_s_b_m_l_level_version_converter_8h.html" title="Definition of SBMLLevelVersionConverter, the base class for SBML conversion." alt="" coords="1546,80,1762,107"/>
+<area shape="rect" id="node38" href="$_s_b_m_l_local_parameter_converter_8h.html" title="Definition of SBMLLocalParameterConverter, a converter replacing local parameters with global ones." alt="" coords="1786,80,2021,107"/>
+<area shape="rect" id="node39" href="$_s_b_m_l_rate_of_converter_8h.html" title="Definition of SBMLRateOfConverter, a converter changing reactions into rate rules." alt="" coords="2045,80,2223,107"/>
+<area shape="rect" id="node40" href="$_s_b_m_l_rate_rule_converter_8h.html" title="Definition of SBMLRateRuleConverter, a converter from raterule to reaction." alt="" coords="5057,80,5249,107"/>
+<area shape="rect" id="node43" href="$_s_b_m_l_reaction_converter_8h.html" title="Definition of SBMLReactionConverter, a converter changing reactions into rate rules." alt="" coords="2248,80,2439,107"/>
+<area shape="rect" id="node44" href="$_s_b_m_l_rule_converter_8h.html" title="Definition of SBMLRuleConverter, a converter sorting rules." alt="" coords="2463,80,2626,107"/>
+<area shape="rect" id="node45" href="$_s_b_m_l_strip_package_converter_8h.html" title="Definition of SBMLStripPackageConverter, the base class for SBML conversion." alt="" coords="2650,80,2866,107"/>
+<area shape="rect" id="node46" href="$_s_b_m_l_units_converter_8h.html" title="Definition of SBMLUnitsConverter, for converting units to SI." alt="" coords="2891,80,3057,107"/>
+<area shape="rect" id="node47" href="$_comp_flattening_converter_8h.html" title="Definition of a first flattening converter." alt="" coords="5864,80,6065,107"/>
+<area shape="rect" id="node58" href="$_cobra_to_fbc_converter_8h.html" title="Definition of a cobra 2 fbc converter." alt="" coords="4149,80,4321,107"/>
+<area shape="rect" id="node59" href="$_fbc_to_cobra_converter_8h.html" title="Definition of a fbc 2 cobra converter." alt="" coords="4360,80,4532,107"/>
+<area shape="rect" id="node60" href="$_fbc_v1_to_v2_converter_8h.html" title="Definition of a fbc v1 to fbc v2 converter." alt="" coords="4567,80,4735,107"/>
+<area shape="rect" id="node61" href="$_fbc_v2_to_v1_converter_8h.html" title="Definition of a fbc v2 to fbc v1 converter." alt="" coords="4759,80,4927,107"/>
+<area shape="rect" id="node62" href="$_render_layout_converter_8h.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="5414,80,5601,107"/>
+<area shape="rect" id="node6" href="$_s_b_m_l_function_definition_converter_8cpp.html" title="Implementation of SBMLFunctionDefinitionConverter, a converter replacing function definitions." alt="" coords="423,155,690,181"/>
 <area shape="rect" id="node7" href="$_s_b_m_l_id_converter_8cpp.html" title="Implementation of SBMLIdConverter, a converter renaming SIds." alt="" coords="914,155,1074,181"/>
 <area shape="rect" id="node8" href="$_s_b_m_l_infer_units_converter_8cpp.html" title="Implementation of SBMLInferUnitsConverter." alt="" coords="1099,155,1311,181"/>
 <area shape="rect" id="node9" href="$_s_b_m_l_initial_assignment_converter_8cpp.html" title="Implementation of SBMLInitialAssignmentConverter, a converter inlining initial assignments." alt="" coords="1335,155,1597,181"/>
 <area shape="rect" id="node10" href="$_s_b_m_l_level1_version1_converter_8cpp.html" title="Implementation of SBMLLevel1Version1Converter." alt="" coords="1621,155,1868,181"/>
-<area shape="rect" id="node11" href="$_s_b_m_l_level_version_converter_8cpp.html" title="Implementation of SBMLLevelVersionConverter, the base class of package extensions." alt="" coords="1943,155,2173,181"/>
-<area shape="rect" id="node12" href="$_s_b_m_l_local_parameter_converter_8cpp.html" title="Implementation of SBMLLocalParameterConverter, a converter replacing local parameters with global one..." alt="" coords="2197,155,2447,181"/>
-<area shape="rect" id="node13" href="$_s_b_m_l_rate_of_converter_8cpp.html" title="Implementation of SBMLRateOfConverter, a converter changing &#39;rateOf&#39; into functionDefinition." alt="" coords="2471,155,2664,181"/>
-<area shape="rect" id="node14" href="$_s_b_m_l_rate_rule_converter_8cpp.html" title="Implementation of SBMLRateRuleConverter, a converter from raterule to reaction." alt="" coords="3689,229,3896,256"/>
-<area shape="rect" id="node15" href="$_s_b_m_l_reaction_converter_8cpp.html" title="Implementation of SBMLReactionConverter, a converter changing reactions into rate rules." alt="" coords="2689,155,2894,181"/>
-<area shape="rect" id="node16" href="$_s_b_m_l_rule_converter_8cpp.html" title="Implementation of SBMLRuleConverter, a converter sorting rules." alt="" coords="2919,155,3096,181"/>
-<area shape="rect" id="node17" href="$_s_b_m_l_strip_package_converter_8cpp.html" title="Implementation of SBMLStripPackageConverter, the base class of package extensions." alt="" coords="3120,155,3351,181"/>
-<area shape="rect" id="node18" href="$_s_b_m_l_units_converter_8cpp.html" title="Implementation of SBMLUnitsConverter, for converting units to SI." alt="" coords="3375,155,3557,181"/>
-<area shape="rect" id="node19" href="$_s_b_m_l_document_8cpp.html" title="Implementation of the top&#45;level container for an SBML Model and associated data." alt="" coords="4022,155,4174,181"/>
-<area shape="rect" id="node20" href="$_comp_extension_8cpp.html" title="Implementation of CompExtension, the core module of comp package." alt="" coords="4317,229,4468,256"/>
-<area shape="rect" id="node21" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="4032,229,4263,256"/>
-<area shape="rect" id="node22" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="5614,304,5830,331"/>
-<area shape="rect" id="node23" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="4878,155,5014,181"/>
-<area shape="rect" id="node24" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="4249,155,4435,181"/>
-<area shape="rect" id="node25" href="$_fbc_to_cobra_converter_8cpp.html" title="Implementation of a fbc 2 cobra converter." alt="" coords="4459,155,4646,181"/>
-<area shape="rect" id="node26" href="$_fbc_v1_to_v2_converter_8cpp.html" title="Implementation of a fbc v1 to fbc v2 converter." alt="" coords="4671,155,4853,181"/>
-<area shape="rect" id="node27" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="5039,155,5221,181"/>
-<area shape="rect" id="node31" href="$_register_converters_8cpp.html" title="Registers all available converters." alt="" coords="424,155,599,181"/>
-<area shape="rect" id="node40" href="$_expression_analyser_8cpp.html" title="Implementation of ExpressionAnalyser." alt="" coords="2653,229,2829,256"/>
-<area shape="rect" id="node41" href="$_expression_analyser_8h.html" title="Definition of ExpressionAnalyser, a class for analysing expressions." alt="" coords="3633,155,3795,181"/>
-<area shape="rect" id="node47" href="$_comp_model_plugin_8h.html" title="Definition of CompModelPlugin, the plugin class of comp package for the Model element." alt="" coords="5297,155,5449,181"/>
-<area shape="rect" id="node48" href="$_comp_extension_types_8h.html" title="Include all SBML types of Comp extension in a single header file." alt="" coords="5574,229,5747,256"/>
-<area shape="rect" id="node50" href="$_comp_model_plugin_8cpp.html" title="Implementation of CompModelPlugin, the plugin class of comp package for the SBase element." alt="" coords="5092,229,5259,256"/>
-<area shape="rect" id="node51" href="$_comp_base_8cpp.html" title="Implementation of CompBase, the base class of extension entities plugged in SBase derived classes in ..." alt="" coords="5283,229,5401,256"/>
-<area shape="rect" id="node52" href="$_replaced_by_8cpp.html" title="Implementation of ReplacedBy, the SBaseRef derived class of the comp package." alt="" coords="5425,229,5549,256"/>
-<area shape="rect" id="node53" href="$_replaced_element_8cpp.html" title="Implementation of ReplacedElement, the SBaseRef derived class of replacedElements package." alt="" coords="4493,229,4655,256"/>
-<area shape="rect" id="node54" href="$_replacing_8cpp.html" title="Implementation of Replacing, the SBaseRef derived class of Replacings package." alt="" coords="4680,229,4793,256"/>
-<area shape="rect" id="node55" href="$_s_base_ref_8cpp.html" title="Implementation of SBaseRef, the SBase&#45;derived class of the comp package." alt="" coords="4817,229,4928,256"/>
-<area shape="rect" id="node56" href="$_submodel_8cpp.html" title="Implementation of Submodel, the SBase&#45;derived class of the comp package." alt="" coords="4953,229,5067,256"/>
-<area shape="rect" id="node49" href="$_comp_validator_8cpp.html" title=" " alt="" coords="5446,304,5590,331"/>
+<area shape="rect" id="node11" href="$_s_b_m_l_level_version_converter_8cpp.html" title="Implementation of SBMLLevelVersionConverter, the base class of package extensions." alt="" coords="1892,155,2123,181"/>
+<area shape="rect" id="node12" href="$_s_b_m_l_local_parameter_converter_8cpp.html" title="Implementation of SBMLLocalParameterConverter, a converter replacing local parameters with global one..." alt="" coords="2147,155,2396,181"/>
+<area shape="rect" id="node13" href="$_s_b_m_l_rate_of_converter_8cpp.html" title="Implementation of SBMLRateOfConverter, a converter changing &#39;rateOf&#39; into functionDefinition." alt="" coords="2420,155,2613,181"/>
+<area shape="rect" id="node14" href="$_s_b_m_l_rate_rule_converter_8cpp.html" title="Implementation of SBMLRateRuleConverter, a converter from raterule to reaction." alt="" coords="4653,229,4860,256"/>
+<area shape="rect" id="node15" href="$_s_b_m_l_reaction_converter_8cpp.html" title="Implementation of SBMLReactionConverter, a converter changing reactions into rate rules." alt="" coords="2638,155,2843,181"/>
+<area shape="rect" id="node16" href="$_s_b_m_l_rule_converter_8cpp.html" title="Implementation of SBMLRuleConverter, a converter sorting rules." alt="" coords="2868,155,3045,181"/>
+<area shape="rect" id="node17" href="$_s_b_m_l_strip_package_converter_8cpp.html" title="Implementation of SBMLStripPackageConverter, the base class of package extensions." alt="" coords="3069,155,3300,181"/>
+<area shape="rect" id="node18" href="$_s_b_m_l_units_converter_8cpp.html" title="Implementation of SBMLUnitsConverter, for converting units to SI." alt="" coords="3324,155,3507,181"/>
+<area shape="rect" id="node19" href="$_s_b_m_l_document_8cpp.html" title="Implementation of the top&#45;level container for an SBML Model and associated data." alt="" coords="3633,155,3785,181"/>
+<area shape="rect" id="node20" href="$_comp_extension_8cpp.html" title="Implementation of CompExtension, the core module of comp package." alt="" coords="5340,229,5491,256"/>
+<area shape="rect" id="node21" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="5085,229,5316,256"/>
+<area shape="rect" id="node22" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="6637,304,6853,331"/>
+<area shape="rect" id="node23" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="4771,155,4907,181"/>
+<area shape="rect" id="node24" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="4142,155,4329,181"/>
+<area shape="rect" id="node25" href="$_fbc_to_cobra_converter_8cpp.html" title="Implementation of a fbc 2 cobra converter." alt="" coords="4353,155,4539,181"/>
+<area shape="rect" id="node26" href="$_fbc_v1_to_v2_converter_8cpp.html" title="Implementation of a fbc v1 to fbc v2 converter." alt="" coords="4564,155,4747,181"/>
+<area shape="rect" id="node27" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="4932,155,5115,181"/>
+<area shape="rect" id="node30" href="$_distrib_extension_8cpp.html" title="Implementation of DistribExtension." alt="" coords="3911,155,4067,181"/>
+<area shape="rect" id="node32" href="$_register_converters_8cpp.html" title="Registers all available converters." alt="" coords="715,155,889,181"/>
+<area shape="rect" id="node41" href="$_expression_analyser_8cpp.html" title="Implementation of ExpressionAnalyser." alt="" coords="4885,229,5061,256"/>
+<area shape="rect" id="node42" href="$_expression_analyser_8h.html" title="Definition of ExpressionAnalyser, a class for analysing expressions." alt="" coords="5191,155,5352,181"/>
+<area shape="rect" id="node48" href="$_comp_model_plugin_8h.html" title="Definition of CompModelPlugin, the plugin class of comp package for the Model element." alt="" coords="5889,155,6041,181"/>
+<area shape="rect" id="node49" href="$_comp_extension_types_8h.html" title="Include all SBML types of Comp extension in a single header file." alt="" coords="6597,229,6770,256"/>
+<area shape="rect" id="node51" href="$_comp_model_plugin_8cpp.html" title="Implementation of CompModelPlugin, the plugin class of comp package for the SBase element." alt="" coords="6115,229,6281,256"/>
+<area shape="rect" id="node52" href="$_comp_base_8cpp.html" title="Implementation of CompBase, the base class of extension entities plugged in SBase derived classes in ..." alt="" coords="6305,229,6424,256"/>
+<area shape="rect" id="node53" href="$_replaced_by_8cpp.html" title="Implementation of ReplacedBy, the SBaseRef derived class of the comp package." alt="" coords="6448,229,6572,256"/>
+<area shape="rect" id="node54" href="$_replaced_element_8cpp.html" title="Implementation of ReplacedElement, the SBaseRef derived class of replacedElements package." alt="" coords="5515,229,5678,256"/>
+<area shape="rect" id="node55" href="$_replacing_8cpp.html" title="Implementation of Replacing, the SBaseRef derived class of Replacings package." alt="" coords="5703,229,5816,256"/>
+<area shape="rect" id="node56" href="$_s_base_ref_8cpp.html" title="Implementation of SBaseRef, the SBase&#45;derived class of the comp package." alt="" coords="5840,229,5951,256"/>
+<area shape="rect" id="node57" href="$_submodel_8cpp.html" title="Implementation of Submodel, the SBase&#45;derived class of the comp package." alt="" coords="5975,229,6090,256"/>
+<area shape="rect" id="node50" href="$_comp_validator_8cpp.html" title=" " alt="" coords="6469,304,6613,331"/>
 </map>

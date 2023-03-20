@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['yybison_19662',['YYBISON',['../_l3_parser_8cpp.html#a9f092f5b1dca6a6249fb2c7c8065b031',1,'L3Parser.cpp']]],
-  ['yybison_5fversion_19663',['YYBISON_VERSION',['../_l3_parser_8cpp.html#a72ebd0ca5807efcc6a5ae4fb72dd1553',1,'L3Parser.cpp']]],
-  ['yypull_19664',['YYPULL',['../_l3_parser_8cpp.html#a90f059b8a9d6c30a1e44e1b80d3fd6c8',1,'L3Parser.cpp']]],
-  ['yypure_19665',['YYPURE',['../_l3_parser_8cpp.html#a9fa797a1f3c4fc9b12d1e4d569612767',1,'L3Parser.cpp']]],
-  ['yypush_19666',['YYPUSH',['../_l3_parser_8cpp.html#a3aa6e4af11755f8cf8e5ddb26833e918',1,'L3Parser.cpp']]],
-  ['yyskeleton_5fname_19667',['YYSKELETON_NAME',['../_l3_parser_8cpp.html#a50db5aef8c2b6f13961b2480b37f84c0',1,'L3Parser.cpp']]]
+  ['spatial_5fcreate_5fns_20210',['SPATIAL_CREATE_NS',['../_spatial_extension_8h.html#ae11b1960aab341a1993f17fd13407f3e',1,'SpatialExtension.h']]],
+  ['start_5fconstraint_20211',['START_CONSTRAINT',['../_constraint_macros_8h.html#af2f91f2bb41dabb4ae4818b068613042',1,'ConstraintMacros.h']]]
 ];
