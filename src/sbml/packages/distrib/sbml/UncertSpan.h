@@ -40,8 +40,28 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class UncertSpan
- * @sbmlbrief{distrib} TODO:Definition of the UncertSpan class.
- */
+ * @sbmlbrief{spatial} The UncertSpan class defines a span of ues that define an
+ * uncertainty statistic such as confidence inter or range. It inherits from
+ * UncertParameter, and adds four optional attributes, varLower and varUpper, of
+ * type SIdRef, and ueLower and ueUpper, of type double. Exactly one of the
+ * attributes varLower and ueLower may be defined, and exactly one of the
+ * attributes varUpper and ueUpper may be defined. If no attributes are defined,
+ * the parameters of the span are undefined. If only one attribute is defined
+ * (one of the upper or lower attributes), that aspect of the span is defined,
+ * and the other end is undefined. The span is fully defined if two attributes
+ * (one lower and one upper) are defined.
+ *
+ * The ue of the lower attribute (whichever is defined) must be lesser or equal
+ * to the ue of the upper attribute (whichever is defined), at the initial
+ * conditions of the model. The Uncertainty element cannot affect the core
+ * mathematics of an SBML model, but if it is used in a mathematical context
+ * during simulation of the model, this restriction on the attribute ues must be
+ * maintained, or the UncertSpan object as a whole will be undefined.
+ *
+ * Like the units attribute on an UncertParameter, the units attribute is
+ * provided if ueUpper and/or ueLower is defined. The units on both the upper and
+ * lower ends of the span must match each other, if defined. The units for span
+ * ends defined by reference may be obtained from the referenced SBML element. */
 
 
 #ifndef UncertSpan_H__

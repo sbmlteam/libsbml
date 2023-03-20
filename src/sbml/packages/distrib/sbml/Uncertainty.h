@@ -40,7 +40,28 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Uncertainty
- * @sbmlbrief{distrib} TODO:Definition of the Uncertainty class.
+ * @sbmlbrief{spatial} The Uncertainty class is a collection of zero or more
+ * statistical measures related to the uncertainty of the parent SBML element. It
+ * may only contain one of each type of measurement, which means that each of its
+ * UncertParameter children must have a unique type attribute for every ue but
+ * externalParameter. Each UncertParameter child with a type of externalParameter
+ * must, in turn, have a unique definitionURL ue. If a given SBML element has
+ * multiple measures of the same type (for example, as measured from different
+ * sources or different experiments), it should be given multiple Uncertainty
+ * children. Each Uncertainty child must be a unique set of statistical measures.
+ *
+ * These statistical measures do not numerically affect simulation of the model.
+ * They are, in essence, a controlled annotation format specifically designed for
+ * this sort of information. Tools may use this information as they wish, just as
+ * they can with other annotation information.
+ *
+ * Note that for elements that change in ue over time, the described uncertainty
+ * applies only to the element's initial state, and not to how it changes in
+ * time. For typical simulations, this means the element's initial assignment.
+ *
+ * The child UncertParameter children are named according to their class, so any
+ * UncertSpan child will have the element name uncertSpan, and any
+ * UncertParameter base class child will have the element name uncertParameter.
  */
 
 

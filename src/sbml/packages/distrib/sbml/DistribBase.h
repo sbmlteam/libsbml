@@ -40,7 +40,20 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class DistribBase
- * @sbmlbrief{distrib} TODO:Definition of the DistribBase class.
+ * @sbmlbrief{spatial} The DistribBase class is an abstract base class which is
+ * the parent class for every class in this distrib package. Its purpose is to
+ * replicate within the distrib package an important change between threeone and
+ * threetwo: the addition of an optional id and name attribute to SBase. By
+ * adding these attributes here, distribshort may be used completely exchangeably
+ * between Level~3 Version~1 and Level~3 Version~2 documents without any other
+ * modifications. The meaning of these attributes is identical, regardless of the
+ * Level/Version of the document in which they appear.
+ *
+ * The id attribute is of type SId, and must be unique among other ids in the SId
+ * namespace in the parent Model, and has no mathematical meaning, unless stated
+ * otherwise in the definition of that object. The name attribute is of type
+ * string, and is provided to allow the user to define a human-readable label for
+ * the object. It has no uniqueness restrictions.
  */
 
 
