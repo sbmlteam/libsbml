@@ -37,7 +37,7 @@ XMLNode* parseAnnotation(const std::string& annotationFile)
 bool setAnnotation(const std::string& sbmlFile, const std::string& metaId,
 	const std::string& annotationFile, const std::string& outputFile)
 {
-	auto *document = readSBML(sbmlFile.c_str());
+	SBMLDocument *document = readSBML(sbmlFile.c_str());
 	if (document->getNumErrors(LIBSBML_SEV_ERROR) > 0)
 	{
 		cerr << "Encountered the following SBML errors:" << std::endl;
@@ -45,27 +45,27 @@ bool setAnnotation(const std::string& sbmlFile, const std::string& metaId,
 		return false;
 	}
 	
-	auto* element = document->getElementByMetaId(metaId);
+	SBase* element = document->getElementByMetaId(metaId);
 	if (!element)
 	{
 		cerr << "No element with meta id " << metaId << " found." << std::endl;
 		return false;
 	}
 
-	auto annotation = parseAnnotation(annotationFile);
+	XMLNode* annotation = parseAnnotation(annotationFile);
 	if (!annotation)
 	{
 		cerr << "the annotation could not be parsed from file: " << annotationFile << "." << std::endl;
 		return false;
 	}
-	auto annotationString = annotation->toXMLString();
-	element->setAnnotation(annotation, false);
+	std::string annotationString = annotation->toXMLString();
+	element->setAnnotation(annotation);
 
 	// at this point we'd expect the annotation to be set precisely to what it was 
 	// in the file.
 
 	
-	auto resultingAnnotation = element->getAnnotationString();
+	std::string resultingAnnotation = element->getAnnotationString();
 
 	if (annotationString != resultingAnnotation)
 	{
@@ -97,10 +97,10 @@ int main(int argc, char* argv[])
 		return 1;
 
 
-		//sbmlFile = "bm190.xml";
-		//annotationFile = "annotation.xml";
-		//metaId = "metaid_0000036";
-		//outputFile = "bm190_out.xml";
+		sbmlFile = "bm190.xml";
+		annotationFile = "annotation.xml";
+		metaId = "metaid_0000036";
+		outputFile = "bm190_out.xml";
 
 	}
 	else
