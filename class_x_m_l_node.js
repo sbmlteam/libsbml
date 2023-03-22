@@ -67,6 +67,7 @@ var class_x_m_l_node =
     [ "isStart", "class_x_m_l_node.html#ade7cb99aac8335048f2654af9582f6c9", null ],
     [ "isText", "class_x_m_l_node.html#a9e5f9506affaefd91d24150d15a21281", null ],
     [ "operator=", "class_x_m_l_node.html#a13a099f21de99b8a4cbb7f78a211efb6", null ],
+    [ "readXMLNodeFromFile", "class_x_m_l_node.html#a65c5ed08d70c430e20a5d53e9478ac90", null ],
     [ "removeAttr", "class_x_m_l_node.html#a069eb01ce499152e7da6d890db4232de", null ],
     [ "removeAttr", "class_x_m_l_node.html#acd9684376f7f4e2df66dd2b00496464b", null ],
     [ "removeAttr", "class_x_m_l_node.html#a4ed4e8119bc50559a88b95c2e7932090", null ],
