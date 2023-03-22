@@ -1,7 +1,6 @@
 var hierarchy =
 [
     [ "ASTBasePlugin", null, [
-      [ "DistribASTPlugin", "class_distrib_a_s_t_plugin.html", null ],
       [ "MultiASTPlugin", "class_multi_a_s_t_plugin.html", null ]
     ] ],
     [ "ASTNode", "class_a_s_t_node.html", null ],
@@ -13,7 +12,6 @@ var hierarchy =
     [ "CVTerm", "class_c_v_term.html", null ],
     [ "Date", "class_date.html", null ],
     [ "DefinitionURLRegistry", "class_definition_u_r_l_registry.html", null ],
-    [ "DistribPkgNamespaces", "class_distrib_pkg_namespaces.html", null ],
     [ "ElementFilter", "class_element_filter.html", null ],
     [ "std::exception", null, [
       [ "std::logic_error", null, [
@@ -82,12 +80,6 @@ var hierarchy =
       [ "Delay", "class_delay.html", null ],
       [ "DiffusionCoefficient", "class_diffusion_coefficient.html", null ],
       [ "Dimensions", "class_dimensions.html", null ],
-      [ "DistribBase", "class_distrib_base.html", [
-        [ "UncertParameter", "class_uncert_parameter.html", [
-          [ "UncertSpan", "class_uncert_span.html", null ]
-        ] ],
-        [ "Uncertainty", "class_uncertainty.html", null ]
-      ] ],
       [ "Domain", "class_domain.html", null ],
       [ "DomainType", "class_domain_type.html", null ],
       [ "Event", "class_event.html", null ],
@@ -216,8 +208,6 @@ var hierarchy =
         [ "ListOfSubmodels", "class_list_of_submodels.html", null ],
         [ "ListOfTextGlyphs", "class_list_of_text_glyphs.html", null ],
         [ "ListOfTransitions", "class_list_of_transitions.html", null ],
-        [ "ListOfUncertParameters", "class_list_of_uncert_parameters.html", null ],
-        [ "ListOfUncertainties", "class_list_of_uncertainties.html", null ],
         [ "ListOfUnitDefinitions", "class_list_of_unit_definitions.html", null ],
         [ "ListOfUnits", "class_list_of_units.html", null ],
         [ "ListOfUserDefinedConstraintComponents", "class_list_of_user_defined_constraint_components.html", null ],
@@ -309,7 +299,6 @@ var hierarchy =
       [ "CompSBasePlugin", "class_comp_s_base_plugin.html", [
         [ "CompModelPlugin", "class_comp_model_plugin.html", null ]
       ] ],
-      [ "DistribSBasePlugin", "class_distrib_s_base_plugin.html", null ],
       [ "FbcSBasePlugin", "class_fbc_s_base_plugin.html", [
         [ "FbcModelPlugin", "class_fbc_model_plugin.html", null ],
         [ "FbcReactionPlugin", "class_fbc_reaction_plugin.html", null ],
@@ -331,7 +320,6 @@ var hierarchy =
       [ "RenderListOfLayoutsPlugin", "class_render_list_of_layouts_plugin.html", null ],
       [ "SBMLDocumentPlugin", "class_s_b_m_l_document_plugin.html", [
         [ "CompSBMLDocumentPlugin", "class_comp_s_b_m_l_document_plugin.html", null ],
-        [ "DistribSBMLDocumentPlugin", "class_distrib_s_b_m_l_document_plugin.html", null ],
         [ "FbcSBMLDocumentPlugin", "class_fbc_s_b_m_l_document_plugin.html", null ],
         [ "GroupsSBMLDocumentPlugin", "class_groups_s_b_m_l_document_plugin.html", null ],
         [ "LayoutSBMLDocumentPlugin", "class_layout_s_b_m_l_document_plugin.html", null ],
@@ -375,7 +363,6 @@ var hierarchy =
     [ "SBMLConverterRegistry", "class_s_b_m_l_converter_registry.html", null ],
     [ "SBMLExtension", "class_s_b_m_l_extension.html", [
       [ "CompExtension", "class_comp_extension.html", null ],
-      [ "DistribExtension", "class_distrib_extension.html", null ],
       [ "FbcExtension", "class_fbc_extension.html", null ],
       [ "GroupsExtension", "class_groups_extension.html", null ],
       [ "LayoutExtension", "class_layout_extension.html", null ],
@@ -407,7 +394,6 @@ var hierarchy =
     [ "Token_t", "struct_token__t.html", null ],
     [ "Validator", "class_validator.html", [
       [ "CompValidator", "class_comp_validator.html", null ],
-      [ "DistribValidator", "class_distrib_validator.html", null ],
       [ "FbcValidator", "class_fbc_validator.html", null ],
       [ "GroupsValidator", "class_groups_validator.html", null ],
       [ "LayoutValidator", "class_layout_validator.html", null ],
