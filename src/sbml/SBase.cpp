@@ -1341,6 +1341,15 @@ SBase::setAnnotation (const XMLNode* annotation)
     mCVTerms = NULL;
   }
 
+  unsigned int level = getLevel();
+  bool hasNestedTerms = false;
+  bool validNestedTerms = true;
+  if (level < 2 ||
+    (level == 2 && getVersion() < 5) ||
+    (level == 3))
+  {
+    validNestedTerms = false;
+  }
 
   if(mAnnotation != NULL
         && RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
@@ -1348,6 +1357,21 @@ SBase::setAnnotation (const XMLNode* annotation)
     // parse mAnnotation (if any) and set mCVTerms
     mCVTerms = new List();
     RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
+    // look at cvterms to see if we have a nested term
+    for (unsigned int cv = 0; cv < mCVTerms->getSize(); cv++)
+    {
+      CVTerm * term = (CVTerm *)(mCVTerms->get(cv));
+      if (term->getNumNestedCVTerms() > 0)
+      {
+        hasNestedTerms = true;
+        /* this essentially tells the code that rewrites the annotation to
+        * reconstruct the node and should leave out the nested bit
+        * if it not allowed
+        */
+        term->setHasBeenModifiedFlag();
+        term->setCapturedInStoredAnnotation(!validNestedTerms);
+      }
+    }
     mCVTermsChanged = true;
   }
 
@@ -4670,9 +4694,10 @@ SBase::readAnnotation (XMLInputStream& stream)
   const string& name = stream.peek().getName();
 
   unsigned int level = getLevel();
+  unsigned int version = getVersion();
 
   if (name == "annotation"
-    || (level == 1 && getVersion() == 1 && name == "annotations"))
+    || (level == 1 && version == 1 && name == "annotations"))
   {
     // If this is a level 1 document then annotations are not allowed on
     // the sbml container
@@ -4702,15 +4727,15 @@ SBase::readAnnotation (XMLInputStream& stream)
         break;
       }
       msg += "has multiple <annotation> children.";
-      if (getLevel() < 3)
+      if (level < 3)
       {
-        logError(NotSchemaConformant, getLevel(), getVersion(),
+        logError(NotSchemaConformant, level, version,
           "Only one <annotation> element is permitted inside a "
           "particular containing element.  " + msg);
       }
       else
       {
-        logError(MultipleAnnotations, getLevel(), getVersion(), msg);
+        logError(MultipleAnnotations, level, version, msg);
       }
     }
 
@@ -4725,7 +4750,7 @@ SBase::readAnnotation (XMLInputStream& stream)
     }
     mCVTerms = new List();
     /* might have model history on sbase objects */
-    if (getLevel() > 2 && getTypeCode()!= SBML_MODEL)
+    if (level > 2 && getTypeCode()!= SBML_MODEL)
     {
       delete mHistory;
       if (RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
@@ -4734,7 +4759,7 @@ SBase::readAnnotation (XMLInputStream& stream)
                                                 getMetaId().c_str(), &(stream), this);
         if (mHistory != NULL && mHistory->hasRequiredAttributes() == false)
         {
-          logError(RDFNotCompleteModelHistory, getLevel(), getVersion(),
+          logError(RDFNotCompleteModelHistory, level, version,
             "An invalid ModelHistory element has been stored.");
         }
         setModelHistory(mHistory);
@@ -4750,6 +4775,14 @@ SBase::readAnnotation (XMLInputStream& stream)
                                               getMetaId().c_str(), &(stream));
 
       bool hasNestedTerms = false;
+      bool validNestedTerms = true;
+      if (level < 2 ||
+        (level == 2 && version < 5) ||
+        (level == 3))
+      {
+        validNestedTerms = false;
+      }
+
       // look at cvterms to see if we have a nested term
       for (unsigned int cv = 0; cv < mCVTerms->getSize(); cv++)
       {
@@ -4762,19 +4795,14 @@ SBase::readAnnotation (XMLInputStream& stream)
            * if it not allowed
            */
           term->setHasBeenModifiedFlag();
+          term->setCapturedInStoredAnnotation(!validNestedTerms);
         }
       }
 
-      if (hasNestedTerms == true)
+      if (hasNestedTerms == true && validNestedTerms == false)
       {
-        unsigned int version = getVersion();
-        if (level < 2 || 
-            (level == 2 && version < 5) || 
-            (level == 3) )
-        {
-          logError(NestedAnnotationNotAllowed, level, version,
-            "The nested annotation has been stored but will not be written out.");
-        }
+        logError(NestedAnnotationNotAllowed, level, version,
+          "The nested annotation has been stored but not saved as a CVTerm.");
       }
       
     }
@@ -5905,7 +5933,8 @@ SBase::syncAnnotation ()
   {
     for (unsigned int i = 0; i < getNumCVTerms(); i++)
     {
-      if (getCVTerm(i)->hasBeenModified() == true)
+      if (getCVTerm(i)->hasBeenModified() == true && 
+        getCVTerm(i)->getCapturedInStoredAnnotation() == false)
       {
         mCVTermsChanged = true;
         break;

@@ -53,6 +53,8 @@
 #include <sbml/annotation/ModelHistory.h>
 
 #include <check.h>
+#include <iostream>
+#include <fstream>
 
 LIBSBML_CPP_NAMESPACE_USE
 
@@ -109,7 +111,7 @@ START_TEST(test_read)
 
   // check we get warning about nested annotation not supported
   fail_unless(doc->getNumErrors() == 1);
-  fail_unless(doc->getError(0)->getErrorId() == 99407);
+  fail_unless(doc->getError(0)->getErrorId() == NestedAnnotationNotAllowed);
 
   delete doc;
   free(filename);
@@ -119,12 +121,12 @@ END_TEST
 
 START_TEST(test_roundtrip)
 {
-  //  fails as our parsing puts resources for is in one bag and lists hasProperty as nested
-
   const char * expected = "<species metaid=\"metaid_0000036\" id=\"SAM\" compartment=\"cytosol\" initialConcentration=\"0.01\">\n"
     "  <annotation>\n"
-    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vcard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
-    "      <rdf:Description rdf:about=\"metaid_0000036\">\n"
+    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" "
+    "xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vcard4=\"http://www.w3.org/2006/vcard/ns#\" "
+    "xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+    "      <rdf:Description rdf:about=\"#metaid_0000036\">\n"
     "        <bqbiol:is>\n"
     "          <rdf:Bag>\n"
     "            <rdf:li rdf:resource=\"http://identifiers.org/chebi/CHEBI:59789\"/>\n"
@@ -139,7 +141,7 @@ START_TEST(test_roundtrip)
     "                <rdf:li rdf:resource=\"http://amas/match_score/by_name/1.0\"/>\n"
     "              </rdf:Bag>\n"
     "            </bqbiol:hasProperty>\n"
-    "         </rdf:Bag>\n"
+    "          </rdf:Bag>\n"
     "        </bqbiol:is>\n"
     "      </rdf:Description>\n"
     "    </rdf:RDF>\n"
@@ -149,7 +151,6 @@ START_TEST(test_roundtrip)
   Species *s = m->getSpecies(0);
 
   fail_unless(equals(expected, s->toSBML()));
-
 }
 END_TEST
 
@@ -267,6 +268,7 @@ START_TEST(test_set_annotation)
 
   s->setAnnotation(node);
   fail_unless(s->isSetAnnotation() == true);
+  fail_unless(s->getNumCVTerms() == 1);
 
   fail_unless(equals(original, writeSBMLToString(d)));
 
@@ -287,11 +289,11 @@ create_suite_UnusualRDFAnnotation (void)
     UnusualRDFAnnotation_teardown);
 
 
-  //tcase_add_test(tcase, test_roundtrip);
+  tcase_add_test(tcase, test_roundtrip);
   tcase_add_test(tcase, test_read );
-   //tcase_add_test(tcase, test_hasCVTerms);
-   //tcase_add_test(tcase, test_read_XMLNode_from_file);
-   //tcase_add_test(tcase, test_set_annotation);
+  tcase_add_test(tcase, test_hasCVTerms);
+  tcase_add_test(tcase, test_read_XMLNode_from_file);
+  tcase_add_test(tcase, test_set_annotation);
 
 
   suite_add_tcase(suite, tcase);
