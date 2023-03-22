@@ -2263,9 +2263,15 @@ setValue(value, 0);
 
   /** @endcond */
 
-  /* returns true if astnodes are exactly the same
-  *  so 'a+4' == 'a+4'   
-  * but 'a+4' != '4+a'
+/**
+  * This function allows two ASTNodes to be compared for exact equivilance.
+  * It returns a boolean - true if the ASTNodes are exactly the same, false otherwise.
+  * 
+  * Given that 'a+4' == 'a+4' this function will return true if two ASTNodes with 
+  * PLUS as their operator and "a" as the left child and "4" as the right child are compared
+  * 
+  * Conversely 'a+4' != '4+a' i.e. 
+  * the function will return false if the left and right children do not match.
   */
   LIBSBML_EXTERN
   bool exactlyEqual(const ASTNode& rhs);
