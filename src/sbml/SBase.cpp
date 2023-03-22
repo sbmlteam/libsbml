@@ -1345,8 +1345,7 @@ SBase::setAnnotation (const XMLNode* annotation)
   bool hasNestedTerms = false;
   bool validNestedTerms = true;
   if (level < 2 ||
-    (level == 2 && getVersion() < 5) ||
-    (level == 3))
+    (level == 2 && getVersion() < 5))
   {
     validNestedTerms = false;
   }
@@ -4777,8 +4776,7 @@ SBase::readAnnotation (XMLInputStream& stream)
       bool hasNestedTerms = false;
       bool validNestedTerms = true;
       if (level < 2 ||
-        (level == 2 && version < 5) ||
-        (level == 3))
+        (level == 2 && version < 5))
       {
         validNestedTerms = false;
       }
