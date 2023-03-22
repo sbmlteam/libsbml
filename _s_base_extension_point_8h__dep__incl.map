@@ -1,460 +1,481 @@
 <map id="SBaseExtensionPoint.h" name="SBaseExtensionPoint.h">
-<area shape="rect" id="node1" title="Definition of SBaseExtensionPoint." alt="" coords="35872,5,36043,32"/>
-<area shape="rect" id="node2" href="$_s_base_extension_point_8cpp.html" title="Implementation of SBaseExtensionPoint." alt="" coords="35599,80,35785,107"/>
-<area shape="rect" id="node3" href="$_s_base_plugin_creator_base_8h.html" title="Definition of SBasePluginCreatorBase, the base class of SBasePlugin creator classes." alt="" coords="35860,80,36055,107"/>
-<area shape="rect" id="node14" href="$_s_b_m_l_extension_8h.html" title="Definition of SBMLExtension, the core component of SBML package extension." alt="" coords="30915,155,31050,181"/>
-<area shape="rect" id="node457" href="$_unit_8cpp.html" title="Implementations of Unit and ListOfUnits." alt="" coords="36079,80,36155,107"/>
-<area shape="rect" id="node458" href="$_unit_definition_8cpp.html" title="Implementations of SBML&#39;s UnitDefinition and ListOfUnitDefinitions." alt="" coords="36180,80,36319,107"/>
-<area shape="rect" id="node4" href="$_s_base_plugin_creator_8h.html" title="Template class for SBasePlugin&#45;based classes." alt="" coords="35385,803,35546,830"/>
-<area shape="rect" id="node13" href="$_s_base_plugin_creator_base_8cpp.html" title="Implementation of SBasePluginCreatorBase, the base class of SBasePlugin creator classes." alt="" coords="36046,155,36255,181"/>
-<area shape="rect" id="node24" href="$_s_b_m_l_document_8cpp.html" title="Implementation of the top&#45;level container for an SBML Model and associated data." alt="" coords="32067,803,32219,830"/>
-<area shape="rect" id="node5" href="$_comp_extension_8cpp.html" title="Implementation of CompExtension, the core module of comp package." alt="" coords="34422,1109,34573,1136"/>
-<area shape="rect" id="node6" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="10385,885,10521,912"/>
-<area shape="rect" id="node7" href="$_groups_extension_8cpp.html" title="Implementation of GroupsExtension." alt="" coords="23866,885,24025,912"/>
-<area shape="rect" id="node8" href="$_layout_extension_8cpp.html" title="Implementation of LayoutExtension, the core module of layout package." alt="" coords="23815,1035,23972,1061"/>
-<area shape="rect" id="node9" href="$_render_extension_8cpp.html" title="Implementation of RenderExtension, the core module of the render package." alt="" coords="24785,1333,24943,1360"/>
-<area shape="rect" id="node10" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="16703,960,16862,987"/>
-<area shape="rect" id="node11" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="27247,885,27393,912"/>
-<area shape="rect" id="node12" href="$_qual_extension_8cpp.html" title="Implementation of QualExtension, the core module of qual package." alt="" coords="30971,885,31114,912"/>
-<area shape="rect" id="node15" href="$_s_base_plugin_8h.html" title="Definition of SBasePlugin, the base class of extension entities plugged in SBase derived classes in t..." alt="" coords="28808,625,28923,651"/>
-<area shape="rect" id="node134" href="$_s_b_m_l_extension_8cpp.html" title="Implementation of SBMLExtension, the base class of package extensions." alt="" coords="35669,304,35819,331"/>
-<area shape="rect" id="node135" href="$_s_b_m_l_extension_register_8h.html" title="Template class for registering extension packages." alt="" coords="25169,304,25356,331"/>
-<area shape="rect" id="node136" href="$_comp_extension_8h.html" title="Definition of CompExtension, the core module of comp package." alt="" coords="33445,379,33581,405"/>
-<area shape="rect" id="node137" href="$_comp_base_8h.html" title="Definition of CompBase, the base class of extension entities plugged in SBase derived classes in the ..." alt="" coords="35251,453,35355,480"/>
-<area shape="rect" id="node162" href="$_fbc_extension_8h.html" title="Definition of FbcExtension, the core module of fbc package." alt="" coords="9406,379,9527,405"/>
-<area shape="rect" id="node194" href="$_groups_extension_8h.html" title="Definition of GroupsExtension." alt="" coords="11139,379,11283,405"/>
-<area shape="rect" id="node203" href="$_layout_extension_8h.html" title="Definition of LayoutExtension, the core module of layout package." alt="" coords="13142,379,13285,405"/>
-<area shape="rect" id="node281" href="$_render_extension_8h.html" title="Definition of RenderExtension, the core module of the render package." alt="" coords="21159,379,21303,405"/>
-<area shape="rect" id="node311" href="$_spatial_extension_8h.html" title="Definition of SpatialExtension." alt="" coords="4114,379,4257,405"/>
-<area shape="rect" id="node406" href="$_multi_extension_8h.html" title=": Implementation of the MultiExtension class" alt="" coords="25660,379,25791,405"/>
-<area shape="rect" id="node435" href="$_qual_extension_8h.html" title="Definition of QualExtension, the core module of qual package." alt="" coords="31668,453,31796,480"/>
-<area shape="rect" id="node448" href="$_s_b_m_l_extension_registry_8h.html" title="The registry class for tracking package extensions." alt="" coords="34139,229,34325,256"/>
-<area shape="rect" id="node456" href="$_s_b_m_l_type_codes_8cpp.html" title="Enumeration to identify SBML objects at runtime." alt="" coords="35491,304,35645,331"/>
-<area shape="rect" id="node16" href="$_s_b_m_l_level_version_converter_8cpp.html" title="Implementation of SBMLLevelVersionConverter, the base class of package extensions." alt="" coords="31261,714,31491,741"/>
-<area shape="rect" id="node17" href="$_s_b_m_l_strip_package_converter_8cpp.html" title="Implementation of SBMLStripPackageConverter, the base class of package extensions." alt="" coords="29055,714,29286,741"/>
-<area shape="rect" id="node18" href="$_s_b_m_l_units_converter_8cpp.html" title="Implementation of SBMLUnitsConverter, for converting units to SI." alt="" coords="29310,714,29493,741"/>
-<area shape="rect" id="node19" href="$_s_base_plugin_8cpp.html" title="Implementation of SBasePlugin, the base class of extension entities plugged in SBase derived classes ..." alt="" coords="31515,714,31645,741"/>
-<area shape="rect" id="node20" href="$_s_b_m_l_document_plugin_8h.html" title="Definition of SBMLDocumentPlugin, the derived class of SBasePlugin." alt="" coords="28650,714,28827,741"/>
-<area shape="rect" id="node25" href="$_comp_s_b_m_l_document_plugin_8h.html" title="Definition of CompSBMLDocumentPlugin, the plugin class of comp package for the Model element." alt="" coords="33457,803,33671,830"/>
-<area shape="rect" id="node27" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="32175,1109,32391,1136"/>
-<area shape="rect" id="node34" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="29541,960,29728,987"/>
-<area shape="rect" id="node35" href="$_fbc_to_cobra_converter_8cpp.html" title="Implementation of a fbc 2 cobra converter." alt="" coords="29752,960,29939,987"/>
-<area shape="rect" id="node36" href="$_fbc_v1_to_v2_converter_8cpp.html" title="Implementation of a fbc v1 to fbc v2 converter." alt="" coords="29963,960,30146,987"/>
-<area shape="rect" id="node37" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="30170,960,30353,987"/>
-<area shape="rect" id="node49" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="23328,1408,23531,1435"/>
-<area shape="rect" id="node70" href="$_s_b_m_l_extension_registry_8cpp.html" title="Implementation of SBMLExtensionRegistry, the registry class in which extension packages are registere..." alt="" coords="32473,714,32674,741"/>
-<area shape="rect" id="node71" href="$_v_constraint_8cpp.html" title="Base class for all SBML Validator Constraints." alt="" coords="29568,714,29693,741"/>
-<area shape="rect" id="node72" href="$_list_of_8cpp.html" title="Wraps List and inherits from SBase." alt="" coords="29718,714,29805,741"/>
-<area shape="rect" id="node73" href="$_model_8cpp.html" title="Implementation of Model." alt="" coords="30982,714,31071,741"/>
-<area shape="rect" id="node74" href="$_modifier_species_reference_8cpp.html" title="Implementation of ModifierSpeciesReference." alt="" coords="29829,714,30048,741"/>
-<area shape="rect" id="node75" href="$_s_base_8cpp.html" title="Implementation of SBase, the base object of all SBML objects." alt="" coords="31095,714,31185,741"/>
-<area shape="rect" id="node76" href="$_simple_species_reference_8cpp.html" title="Implementation of SimpleSpeciesReference." alt="" coords="30072,714,30283,741"/>
-<area shape="rect" id="node77" href="$_species_reference_8cpp.html" title="Implementation of SpeciesReference and ListOfSpeciesReferences." alt="" coords="30307,714,30472,741"/>
-<area shape="rect" id="node78" href="$_comp_model_plugin_8h.html" title="Definition of CompModelPlugin, the plugin class of comp package for the Model element." alt="" coords="34424,960,34576,987"/>
-<area shape="rect" id="node86" href="$_comp_s_base_plugin_8h.html" title="Definition of CompSBasePlugin, the plugin class of comp package for the Model element." alt="" coords="32883,885,33035,912"/>
-<area shape="rect" id="node88" href="$_fbc_model_plugin_8h.html" title="Definition of FbcModelPlugin, the plugin class of fbc package for the Model element." alt="" coords="8650,803,8787,830"/>
-<area shape="rect" id="node93" href="$_fbc_reaction_plugin_8h.html" title="Implementation of the FbcReactionPlugin class." alt="" coords="10023,803,10177,830"/>
-<area shape="rect" id="node95" href="$_fbc_s_base_plugin_8h.html" title="Definition of the FbcSBasePlugin class." alt="" coords="10213,714,10350,741"/>
-<area shape="rect" id="node97" href="$_fbc_species_plugin_8h.html" title="Definition of FbcSpeciesPlugin, the plugin class of the fbc package for the Species element." alt="" coords="9852,803,9999,830"/>
-<area shape="rect" id="node99" href="$_groups_model_plugin_8h.html" title="Definition of the GroupsModelPlugin class." alt="" coords="11103,803,11263,830"/>
-<area shape="rect" id="node101" href="$_layout_model_plugin_8h.html" title="Definition of LayoutModelPlugin, the plugin class of layout package for Model element." alt="" coords="16938,960,17097,987"/>
-<area shape="rect" id="node104" href="$_layout_species_reference_plugin_8h.html" title="Definition of LayoutSpeciesReferencePlugin, the plugin class of layout package (Level2) for the Speci..." alt="" coords="13092,960,13327,987"/>
-<area shape="rect" id="node106" href="$_render_graphical_object_plugin_8h.html" title="Definition of RenderGraphicalObjectPlugin, the plugin class of the render package for the GraphicalOb..." alt="" coords="25579,714,25803,741"/>
-<area shape="rect" id="node108" href="$_render_layout_plugin_8h.html" title="Definition of RenderLayoutPlugin, the plugin class of fbc package for the Model element." alt="" coords="23485,1259,23649,1285"/>
-<area shape="rect" id="node109" href="$_render_list_of_layouts_plugin_8h.html" title="Definition of RenderListOfLayoutsPlugin, the plugin class of fbc package for the Model element." alt="" coords="23673,1259,23882,1285"/>
-<area shape="rect" id="node110" href="$_spatial_compartment_plugin_8h.html" title="Definition of the SpatialCompartmentPlugin class." alt="" coords="16490,885,16699,912"/>
-<area shape="rect" id="node112" href="$_spatial_model_plugin_8h.html" title="Definition of the SpatialModelPlugin class." alt="" coords="16205,885,16363,912"/>
-<area shape="rect" id="node114" href="$_spatial_parameter_plugin_8h.html" title="Definition of the SpatialParameterPlugin class." alt="" coords="6016,885,6203,912"/>
-<area shape="rect" id="node116" href="$_spatial_reaction_plugin_8h.html" title="Definition of the SpatialReactionPlugin class." alt="" coords="16657,714,16833,741"/>
-<area shape="rect" id="node118" href="$_spatial_species_plugin_8h.html" title="Definition of the SpatialSpeciesPlugin class." alt="" coords="17025,714,17194,741"/>
-<area shape="rect" id="node120" href="$_multi_compartment_plugin_8h.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="28232,803,28429,830"/>
-<area shape="rect" id="node122" href="$_multi_list_of_reactions_plugin_8h.html" title=": Implementation of the MultiListOfReactionsPlugin class" alt="" coords="24177,803,24386,830"/>
-<area shape="rect" id="node124" href="$_multi_model_plugin_8h.html" title=": Implementation of the MultiModelPlugin class" alt="" coords="26840,803,26987,830"/>
-<area shape="rect" id="node126" href="$_multi_simple_species_reference_plugin_8h.html" title=": Implementation of the MultiSimpleSpeciesReferencePlugin class" alt="" coords="27137,707,27353,748"/>
-<area shape="rect" id="node130" href="$_multi_species_plugin_8h.html" title=": Implementation of the MultiSpeciesPlugin class" alt="" coords="25992,803,26149,830"/>
-<area shape="rect" id="node132" href="$_qual_model_plugin_8h.html" title="Definition of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="30981,803,31125,830"/>
-<area shape="rect" id="node21" href="$_s_b_m_l_document_plugin_8cpp.html" title="Implementation of SBMLDocumentPlugin, the derived class of SBasePlugin." alt="" coords="30128,803,30320,830"/>
-<area shape="rect" id="node22" href="$_s_b_m_l_document_plugin_not_required_8h.html" title="Definition of SBMLDocumentPluginNotRequired, the plugin class of layout package for the SBMLDocument ..." alt="" coords="29744,803,30003,830"/>
-<area shape="rect" id="node32" href="$_fbc_s_b_m_l_document_plugin_8h.html" title="Implementation of the FbcSBMLDocumentPlugin class." alt="" coords="19300,803,19500,830"/>
-<area shape="rect" id="node40" href="$_groups_s_b_m_l_document_plugin_8h.html" title="Definition of the GroupsSBMLDocumentPlugin class." alt="" coords="20486,803,20709,830"/>
-<area shape="rect" id="node44" href="$_layout_s_b_m_l_document_plugin_8h.html" title="Implementation of the LayoutSBMLDocumentPlugin class." alt="" coords="22637,803,22859,830"/>
-<area shape="rect" id="node52" href="$_render_s_b_m_l_document_plugin_8h.html" title="Definition of the RenderSBMLDocumentPlugin class." alt="" coords="28738,803,28961,830"/>
-<area shape="rect" id="node58" href="$_spatial_s_b_m_l_document_plugin_8h.html" title="Definition of the SpatialSBMLDocumentPlugin class." alt="" coords="17275,803,17498,830"/>
-<area shape="rect" id="node62" href="$_multi_s_b_m_l_document_plugin_8h.html" title=": Implementation of the MultiSBMLDocumentPlugin class" alt="" coords="28453,803,28664,830"/>
-<area shape="rect" id="node66" href="$_qual_s_b_m_l_document_plugin_8h.html" title="Implementation of the QualSBMLDocumentPlugin class." alt="" coords="30699,803,30906,830"/>
-<area shape="rect" id="node23" href="$_s_b_m_l_document_plugin_not_required_8cpp.html" title="Implementation of SBMLDocumentPluginNotRequired, the plugin class of layout package for the Model ele..." alt="" coords="29745,885,30018,912"/>
-<area shape="rect" id="node26" href="$_comp_extension_types_8h.html" title="Include all SBML types of Comp extension in a single header file." alt="" coords="34199,1035,34372,1061"/>
-<area shape="rect" id="node29" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="33681,1035,33911,1061"/>
-<area shape="rect" id="node30" href="$_external_model_definition_8cpp.html" title="Implementation of ExternalModelDefinition, the SBase&#45;derived class of the comp package." alt="" coords="33870,885,34077,912"/>
-<area shape="rect" id="node31" href="$_submodel_8cpp.html" title="Implementation of Submodel, the SBase&#45;derived class of the comp package." alt="" coords="35027,1035,35141,1061"/>
-<area shape="rect" id="node28" href="$_comp_validator_8cpp.html" title=" " alt="" coords="34213,1109,34357,1136"/>
-<area shape="rect" id="node33" href="$_fbc_extension_types_8h.html" title="Includes all SBML types of the fbc package extension in a single header file." alt="" coords="9425,885,9583,912"/>
-<area shape="rect" id="node39" href="$_fbc_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the FbcSBMLDocumentPlugin class." alt="" coords="19277,885,19491,912"/>
-<area shape="rect" id="node38" href="$_fbc_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="9439,960,9569,987"/>
-<area shape="rect" id="node41" href="$_groups_extension_types_8h.html" title="Definition of GroupsExtensionTypes." alt="" coords="10705,885,10887,912"/>
-<area shape="rect" id="node43" href="$_groups_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the GroupsSBMLDocumentPlugin class." alt="" coords="20469,885,20707,912"/>
-<area shape="rect" id="node42" href="$_groups_validator_8cpp.html" title="Definition of GroupsValidator." alt="" coords="10720,960,10872,987"/>
-<area shape="rect" id="node45" href="$_layout_extension_types_8h.html" title="Include all SBML types of layout extension in a single header file." alt="" coords="12864,1035,13043,1061"/>
-<area shape="rect" id="node51" href="$_layout_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the LayoutSBMLDocumentPlugin class." alt="" coords="22846,885,23082,912"/>
-<area shape="rect" id="node46" href="$_graphical_object_8cpp.html" title="Implementation of GraphicalObject for SBML Layout." alt="" coords="12789,1109,12942,1136"/>
-<area shape="rect" id="node47" href="$_layout_validator_8cpp.html" title="Implementation of the LayoutValidator class." alt="" coords="12966,1109,13117,1136"/>
-<area shape="rect" id="node48" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="19776,1483,20000,1509"/>
-<area shape="rect" id="node50" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="23217,1483,23364,1509"/>
-<area shape="rect" id="node53" href="$_render_extension_types_8h.html" title="Definition of RenderExtensionTypes." alt="" coords="20741,1333,20923,1360"/>
-<area shape="rect" id="node57" href="$_render_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the RenderSBMLDocumentPlugin class." alt="" coords="28721,885,28959,912"/>
-<area shape="rect" id="node54" href="$_render_layout_plugin_8cpp.html" title="Implementation of RenderLayoutPlugin, the plugin class of the fbc package for the Model element." alt="" coords="16381,1483,16560,1509"/>
-<area shape="rect" id="node55" href="$_render_utilities_8h.html" title="Definition of RenderUtilities, a class of utility functions for the render package." alt="" coords="16609,1408,16740,1435"/>
-<area shape="rect" id="node56" href="$_render_validator_8cpp.html" title="Definition of RenderValidator." alt="" coords="20756,1408,20908,1435"/>
-<area shape="rect" id="node59" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="4690,960,4870,987"/>
-<area shape="rect" id="node61" href="$_spatial_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the SpatialSBMLDocumentPlugin class." alt="" coords="17195,885,17432,912"/>
-<area shape="rect" id="node60" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="4705,1035,4855,1061"/>
-<area shape="rect" id="node63" href="$_multi_extension_types_8h.html" title=": Implementation of the MultiExtensionTypes class" alt="" coords="26192,885,26360,912"/>
-<area shape="rect" id="node65" href="$_multi_s_b_m_l_document_plugin_8cpp.html" title=": Implementation of the MultiSBMLDocumentPlugin class" alt="" coords="28370,885,28595,912"/>
-<area shape="rect" id="node64" href="$_multi_validator_8cpp.html" title=": Implementation of the MultiValidator class" alt="" coords="26207,960,26345,987"/>
-<area shape="rect" id="node67" href="$_qual_extension_types_8h.html" title="Include all SBML types of qual extension in a single header file." alt="" coords="31685,885,31851,912"/>
-<area shape="rect" id="node69" href="$_qual_s_b_m_l_document_plugin_8cpp.html" title="Implementation of QualSBMLDocumentPlugin, the plugin class of qual package for the SBase element." alt="" coords="30713,885,30935,912"/>
-<area shape="rect" id="node68" href="$_qual_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="31700,960,31836,987"/>
-<area shape="rect" id="node79" href="$_comp_model_plugin_8cpp.html" title="Implementation of CompModelPlugin, the plugin class of comp package for the SBase element." alt="" coords="32849,1035,33015,1061"/>
-<area shape="rect" id="node80" href="$_comp_base_8cpp.html" title="Implementation of CompBase, the base class of extension entities plugged in SBase derived classes in ..." alt="" coords="35813,1035,35931,1061"/>
-<area shape="rect" id="node81" href="$_replaced_by_8cpp.html" title="Implementation of ReplacedBy, the SBaseRef derived class of the comp package." alt="" coords="32701,1035,32825,1061"/>
-<area shape="rect" id="node82" href="$_replaced_element_8cpp.html" title="Implementation of ReplacedElement, the SBaseRef derived class of replacedElements package." alt="" coords="33040,1035,33203,1061"/>
-<area shape="rect" id="node83" href="$_replacing_8cpp.html" title="Implementation of Replacing, the SBaseRef derived class of Replacings package." alt="" coords="33227,1035,33341,1061"/>
-<area shape="rect" id="node84" href="$_s_base_ref_8cpp.html" title="Implementation of SBaseRef, the SBase&#45;derived class of the comp package." alt="" coords="35646,1035,35757,1061"/>
-<area shape="rect" id="node85" href="$_comp_flattening_converter_8h.html" title="Definition of a first flattening converter." alt="" coords="34397,1035,34598,1061"/>
-<area shape="rect" id="node87" href="$_comp_s_base_plugin_8cpp.html" title="Implementation of CompSBasePlugin, the plugin class of comp package for the SBase element." alt="" coords="32766,960,32933,987"/>
-<area shape="rect" id="node89" href="$_fbc_model_plugin_8cpp.html" title="Implementation of FbcModelPlugin, the plugin class of the fbc package for the Model element." alt="" coords="8608,885,8760,912"/>
-<area shape="rect" id="node90" href="$_fbc_association_8cpp.html" title="Implementation of the FbcAssociation class." alt="" coords="7925,885,8072,912"/>
-<area shape="rect" id="node91" href="$_gene_product_association_8cpp.html" title="Implementation of the GeneProductAssociation class." alt="" coords="8097,885,8303,912"/>
-<area shape="rect" id="node92" href="$_gene_product_ref_8cpp.html" title="Implementation of the GeneProductRef class." alt="" coords="8395,885,8549,912"/>
-<area shape="rect" id="node94" href="$_fbc_reaction_plugin_8cpp.html" title="Implementation of the FbcReactionPlugin class." alt="" coords="10023,885,10193,912"/>
-<area shape="rect" id="node96" href="$_fbc_s_base_plugin_8cpp.html" title="Implementation of the FbcSBasePlugin class." alt="" coords="10252,803,10404,830"/>
-<area shape="rect" id="node98" href="$_fbc_species_plugin_8cpp.html" title="Implementation of FbcSpeciesPlugin, the plugin class of the fbc package for the Species element." alt="" coords="9836,885,9999,912"/>
-<area shape="rect" id="node100" href="$_groups_model_plugin_8cpp.html" title="Implementation of the GroupsModelPlugin class." alt="" coords="11087,885,11262,912"/>
-<area shape="rect" id="node102" href="$_layout_model_plugin_8cpp.html" title="Implementation of LayoutModelPlugin, the plugin class of layout package for the Model element." alt="" coords="15065,1035,15239,1061"/>
-<area shape="rect" id="node103" href="$_layout_annotation_8cpp.html" title="Layout annotation I/O." alt="" coords="13390,1035,13554,1061"/>
-<area shape="rect" id="node105" href="$_layout_species_reference_plugin_8cpp.html" title="Implementation of LayoutSpeciesReferencePlugin, the plugin object of layout package (Level2) for the ..." alt="" coords="13117,1035,13366,1061"/>
-<area shape="rect" id="node107" href="$_render_graphical_object_plugin_8cpp.html" title="Implementation of RenderGraphicalObjectPlugin, the plugin class of the render package for the Graphic..." alt="" coords="25729,803,25967,830"/>
-<area shape="rect" id="node111" href="$_spatial_compartment_plugin_8cpp.html" title="Implementation of the SpatialCompartmentPlugin class." alt="" coords="16455,960,16679,987"/>
-<area shape="rect" id="node113" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="16154,960,16329,987"/>
-<area shape="rect" id="node115" href="$_spatial_parameter_plugin_8cpp.html" title="Implementation of the SpatialParameterPlugin class." alt="" coords="6009,960,6210,987"/>
-<area shape="rect" id="node117" href="$_spatial_reaction_plugin_8cpp.html" title="Implementation of the SpatialReactionPlugin class." alt="" coords="16650,803,16841,830"/>
-<area shape="rect" id="node119" href="$_spatial_species_plugin_8cpp.html" title="Implementation of the SpatialSpeciesPlugin class." alt="" coords="17017,803,17201,830"/>
-<area shape="rect" id="node121" href="$_multi_compartment_plugin_8cpp.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="28134,885,28346,912"/>
-<area shape="rect" id="node123" href="$_multi_list_of_reactions_plugin_8cpp.html" title=": Implementation of the MultiListOfReactionsPlugin class" alt="" coords="24169,885,24393,912"/>
-<area shape="rect" id="node125" href="$_multi_model_plugin_8cpp.html" title=": Implementation of the MultiModelPlugin class" alt="" coords="25235,885,25397,912"/>
-<area shape="rect" id="node127" href="$_multi_simple_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSimpleSpeciesReferencePlugin class" alt="" coords="27357,796,27573,837"/>
-<area shape="rect" id="node128" href="$_multi_species_reference_plugin_8h.html" title=": Implementation of the MultiSpeciesReferencePlugin class" alt="" coords="27061,803,27283,830"/>
-<area shape="rect" id="node129" href="$_multi_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSpeciesReferencePlugin class" alt="" coords="26983,885,27222,912"/>
-<area shape="rect" id="node131" href="$_multi_species_plugin_8cpp.html" title=": Implementation of the MultiSpeciesPlugin class" alt="" coords="25985,885,26157,912"/>
-<area shape="rect" id="node133" href="$_qual_model_plugin_8cpp.html" title="Implementation of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="31138,885,31297,912"/>
-<area shape="rect" id="node138" href="$_external_model_definition_8h.html" title="Definition of ExternalModelDefinition, the SBase derived class of the comp package." alt="" coords="35019,625,35210,651"/>
-<area shape="rect" id="node140" href="$_list_of_external_model_definitions_8cpp.html" title="Implementation of ListOfExternalModelDefinitions." alt="" coords="34835,803,35085,830"/>
-<area shape="rect" id="node141" href="$_model_definition_8h.html" title="Definition of ModelDefinition, the SBase derived class of the comp package." alt="" coords="34009,625,34146,651"/>
-<area shape="rect" id="node143" href="$_list_of_model_definitions_8cpp.html" title="Implementation of ListOfModelDefinitions from the comp package." alt="" coords="33899,803,34096,830"/>
-<area shape="rect" id="node144" href="$_model_definition_8cpp.html" title="Implementation of ModelDefinition, the SBase&#45;derived class of the comp package." alt="" coords="34096,960,34248,987"/>
-<area shape="rect" id="node145" href="$_s_base_ref_8h.html" title="Definition of SBaseRef, the SBase derived class of the comp package." alt="" coords="34507,535,34602,562"/>
-<area shape="rect" id="node147" href="$_deletion_8cpp.html" title="Implementation of Deletion, the SBaseRef derived class of deletions package." alt="" coords="34733,885,34837,912"/>
-<area shape="rect" id="node149" href="$_list_of_deletions_8cpp.html" title="Implementation of ListOfDeletions." alt="" coords="34611,803,34760,830"/>
-<area shape="rect" id="node150" href="$_submodel_8h.html" title="Definition of Submodel, the SBase derived class of the comp package." alt="" coords="35211,803,35309,830"/>
-<area shape="rect" id="node152" href="$_list_of_submodels_8cpp.html" title="Implementation of ListOfSubmodels." alt="" coords="33913,960,34071,987"/>
-<area shape="rect" id="node153" href="$_port_8h.html" title="Definition of Port, the SBase derived class of the comp package." alt="" coords="34425,803,34485,830"/>
-<area shape="rect" id="node155" href="$_list_of_ports_8cpp.html" title="Implementation of ListOfPorts." alt="" coords="33768,960,33888,987"/>
-<area shape="rect" id="node156" href="$_port_8cpp.html" title="Implementation of Port, the SBase&#45;derived class of the comp package." alt="" coords="34600,960,34675,987"/>
-<area shape="rect" id="node157" href="$_replacing_8h.html" title="Definition of Replacing, the SBaseRef&#45;derived class of the comp package." alt="" coords="33393,625,33492,651"/>
-<area shape="rect" id="node158" href="$_replaced_by_8h.html" title="Definition of ReplacedBy, the Replacing&#45;derived class of the comp package." alt="" coords="33171,803,33280,830"/>
-<area shape="rect" id="node159" href="$_replaced_element_8h.html" title="Definition of ReplacedElement, the SBase derived class of replacedElements package." alt="" coords="33206,714,33354,741"/>
-<area shape="rect" id="node161" href="$_list_of_replaced_elements_8cpp.html" title="Implementation of ListOfReplacedElements from the comp package." alt="" coords="32651,885,32859,912"/>
-<area shape="rect" id="node139" href="$_list_of_external_model_definitions_8h.html" title="Definition of ListOfExternalModelDefinitions, the SBase derived class of the Hierarchial Model Defint..." alt="" coords="34874,714,35110,741"/>
-<area shape="rect" id="node142" href="$_list_of_model_definitions_8h.html" title="Definition of ListOfModelDefinitions, the SBase derived class of modelDefinitions package." alt="" coords="34001,714,34183,741"/>
-<area shape="rect" id="node146" href="$_deletion_8h.html" title="Definition of Deletion, the SBase derived class of deletions package." alt="" coords="34513,625,34602,651"/>
-<area shape="rect" id="node148" href="$_list_of_deletions_8h.html" title="Definition of ListOfDeletions, the SBase derived class of deletions package." alt="" coords="34665,714,34799,741"/>
-<area shape="rect" id="node151" href="$_list_of_submodels_8h.html" title="Definition of ListOfSubmodels, the SBase derived class of submodels package." alt="" coords="34912,885,35056,912"/>
-<area shape="rect" id="node154" href="$_list_of_ports_8h.html" title="Definition of ListOfPorts, the SBase derived class of ports package." alt="" coords="34374,885,34479,912"/>
-<area shape="rect" id="node160" href="$_list_of_replaced_elements_8h.html" title="Definition of ListOfReplacedElements, the SBase derived class of replacedElements package." alt="" coords="32851,803,33045,830"/>
-<area shape="rect" id="node163" href="$_association_8cpp.html" title="Implementation of Association, the contents of a GeneAssociation." alt="" coords="7545,885,7669,912"/>
-<area shape="rect" id="node164" href="$_association_8h.html" title="Definition of Association, the contents of a GeneAssociation." alt="" coords="8995,625,9104,651"/>
-<area shape="rect" id="node165" href="$_gene_association_8h.html" title="Definition of GeneAssociation, the SBase derived class of the fbc package." alt="" coords="8442,714,8585,741"/>
-<area shape="rect" id="node166" href="$_gene_association_8cpp.html" title="Implementation of GeneAssociation, the SBase derived class of the fbc package." alt="" coords="8213,803,8371,830"/>
-<area shape="rect" id="node167" href="$_fbc_and_8h.html" title="Implementation of the FbcAnd class." alt="" coords="7740,803,7823,830"/>
-<area shape="rect" id="node170" href="$_fbc_association_8h.html" title="Implementation of the FbcAssociation class." alt="" coords="7906,625,8038,651"/>
-<area shape="rect" id="node171" href="$_fbc_or_8h.html" title="Implementation of the FbcOr class." alt="" coords="7645,803,7715,830"/>
-<area shape="rect" id="node172" href="$_gene_product_association_8h.html" title="Implementation of the GeneProductAssociation class." alt="" coords="8609,714,8801,741"/>
-<area shape="rect" id="node173" href="$_gene_product_ref_8h.html" title="Implementation of the GeneProductRef class." alt="" coords="7847,803,7985,830"/>
-<area shape="rect" id="node174" href="$_flux_bound_8cpp.html" title="Implementation of FluxBound, the SBase derived class of the fbc package." alt="" coords="9121,803,9239,830"/>
-<area shape="rect" id="node175" href="$_flux_bound_8h.html" title="Definition of FluxBound, the SBase derived class of the fbc package." alt="" coords="8978,714,9081,741"/>
-<area shape="rect" id="node176" href="$_flux_objective_8cpp.html" title="Implementation of the FluxObjective class." alt="" coords="10312,535,10451,562"/>
-<area shape="rect" id="node177" href="$_flux_objective_8h.html" title="Definition of FluxObjective, the SBase derived class of the fbc package." alt="" coords="10213,453,10337,480"/>
-<area shape="rect" id="node178" href="$_objective_8h.html" title="Definition of Objective, the SBase derived class of the fbc package." alt="" coords="9656,535,9752,562"/>
-<area shape="rect" id="node179" href="$_objective_8cpp.html" title="Implementation of the Objective class." alt="" coords="10394,625,10505,651"/>
-<area shape="rect" id="node180" href="$_gene_product_8h.html" title="Implementation of the GeneProduct class." alt="" coords="9207,714,9324,741"/>
-<area shape="rect" id="node182" href="$_key_value_pair_8h.html" title="Definition of the KeyValuePair class." alt="" coords="10012,535,10129,562"/>
-<area shape="rect" id="node184" href="$_list_of_key_value_pairs_8h.html" title="Definition of the ListOfKeyValuePairs class." alt="" coords="9871,625,10033,651"/>
-<area shape="rect" id="node186" href="$_list_of_user_defined_constraint_components_8h.html" title="Definition of the ListOfUserDefinedConstraintComponents class." alt="" coords="8610,528,8817,569"/>
-<area shape="rect" id="node188" href="$_user_defined_constraint_8h.html" title="Definition of the UserDefinedConstraint class." alt="" coords="9280,625,9461,651"/>
-<area shape="rect" id="node189" href="$_list_of_user_defined_constraints_8h.html" title="Definition of the ListOfUserDefinedConstraints class." alt="" coords="9399,714,9625,741"/>
-<area shape="rect" id="node193" href="$_user_defined_constraint_component_8h.html" title="Definition of the UserDefinedConstraintComponent class." alt="" coords="8727,453,8983,480"/>
-<area shape="rect" id="node168" href="$_fbc_and_8cpp.html" title="Implementation of the FbcAnd class." alt="" coords="7693,885,7790,912"/>
-<area shape="rect" id="node169" href="$_fbc_or_8cpp.html" title="Implementation of the FbcOr class." alt="" coords="7814,885,7901,912"/>
-<area shape="rect" id="node181" href="$_gene_product_8cpp.html" title="Implementation of the GeneProduct class." alt="" coords="8965,803,9097,830"/>
-<area shape="rect" id="node183" href="$_key_value_pair_8cpp.html" title="Implementation of the KeyValuePair class." alt="" coords="10005,714,10137,741"/>
-<area shape="rect" id="node185" href="$_list_of_key_value_pairs_8cpp.html" title="Implementation of the ListOfKeyValuePairs class." alt="" coords="9801,714,9980,741"/>
-<area shape="rect" id="node187" href="$_list_of_user_defined_constraint_components_8cpp.html" title="Implementation of the ListOfUserDefinedConstraintComponents class." alt="" coords="8367,617,8574,659"/>
-<area shape="rect" id="node192" href="$_user_defined_constraint_component_8cpp.html" title="Implementation of the UserDefinedConstraintComponent class." alt="" coords="8598,625,8869,651"/>
-<area shape="rect" id="node191" href="$_user_defined_constraint_8cpp.html" title="Implementation of the UserDefinedConstraint class." alt="" coords="9315,803,9511,830"/>
-<area shape="rect" id="node190" href="$_list_of_user_defined_constraints_8cpp.html" title="Implementation of the ListOfUserDefinedConstraints class." alt="" coords="9535,803,9777,830"/>
-<area shape="rect" id="node195" href="$_group_8h.html" title="Definition of the Group class." alt="" coords="10838,625,10911,651"/>
-<area shape="rect" id="node197" href="$_list_of_groups_8h.html" title="Definition of the ListOfGroups class." alt="" coords="10841,714,10959,741"/>
-<area shape="rect" id="node199" href="$_list_of_members_8h.html" title="Definition of the ListOfMembers class." alt="" coords="11076,535,11209,562"/>
-<area shape="rect" id="node202" href="$_member_8h.html" title="Definition of the Member class." alt="" coords="11047,453,11134,480"/>
-<area shape="rect" id="node196" href="$_group_8cpp.html" title="Implementation of the Group class." alt="" coords="10991,803,11079,830"/>
-<area shape="rect" id="node198" href="$_list_of_groups_8cpp.html" title="Implementation of the ListOfGroups class." alt="" coords="10833,803,10967,830"/>
-<area shape="rect" id="node200" href="$_list_of_members_8cpp.html" title="Implementation of the ListOfMembers class." alt="" coords="11114,625,11262,651"/>
-<area shape="rect" id="node201" href="$_member_8cpp.html" title="Implementation of the Member class." alt="" coords="10987,625,11090,651"/>
-<area shape="rect" id="node204" href="$_bounding_box_8cpp.html" title="Implementation of BoundingBox for SBML Layout." alt="" coords="15303,803,15438,830"/>
-<area shape="rect" id="node205" href="$_compartment_glyph_8cpp.html" title="Implementation of CompartmentGlyph for SBML Layout." alt="" coords="12738,960,12915,987"/>
-<area shape="rect" id="node206" href="$_cubic_bezier_8cpp.html" title="Implementation of CubicBezier for SBML Layout." alt="" coords="13516,803,13641,830"/>
-<area shape="rect" id="node207" href="$_cubic_bezier_8h.html" title="Definition of CubicBezier for SBML Layout." alt="" coords="11951,625,12062,651"/>
-<area shape="rect" id="node208" href="$_curve_8cpp.html" title="Implementation of Curve for SBML Layout." alt="" coords="11997,803,12083,830"/>
-<area shape="rect" id="node209" href="$_curve_8h.html" title="Definition of Curve for SBML Layout." alt="" coords="12395,625,12467,651"/>
-<area shape="rect" id="node210" href="$_general_glyph_8h.html" title="Definition of GeneralGlyph for SBML Layout." alt="" coords="12260,803,12383,830"/>
-<area shape="rect" id="node211" href="$_general_glyph_8cpp.html" title="Implementation of GeneralGlyph for SBML Layout." alt="" coords="12473,960,12612,987"/>
-<area shape="rect" id="node212" href="$_layout_8cpp.html" title="Implementation of Layout for SBML Layout." alt="" coords="13524,960,13617,987"/>
-<area shape="rect" id="node213" href="$_reference_glyph_8cpp.html" title="Implementation of ReferenceGlyph for SBML Layout." alt="" coords="12463,885,12617,912"/>
-<area shape="rect" id="node214" href="$_line_segment_8cpp.html" title="Implementation of LineSegment for SBML Layout." alt="" coords="12458,803,12593,830"/>
-<area shape="rect" id="node215" href="$_reaction_glyph_8h.html" title="Definition of ReactionGlyph for SBML Layout." alt="" coords="13109,803,13238,830"/>
-<area shape="rect" id="node216" href="$_layout_8h.html" title="Definition of Layout for SBML Layout." alt="" coords="13477,885,13555,912"/>
-<area shape="rect" id="node217" href="$_reaction_glyph_8cpp.html" title="Implementation of ReactionGlyph for SBML Layout." alt="" coords="13641,960,13785,987"/>
-<area shape="rect" id="node218" href="$_species_glyph_8cpp.html" title="Implementation of SpeciesGlyph for SBML Layout." alt="" coords="12210,960,12347,987"/>
-<area shape="rect" id="node219" href="$_species_reference_glyph_8cpp.html" title="Implementation of SpeciesReferenceGlyph for SBML Layout." alt="" coords="13911,960,14113,987"/>
-<area shape="rect" id="node220" href="$_text_glyph_8cpp.html" title="Implementation of TextGlyph for SBML Layout." alt="" coords="15279,960,15393,987"/>
-<area shape="rect" id="node240" href="$_reference_glyph_8h.html" title="Definition of ReferenceGlyph for SBML Layout." alt="" coords="12255,714,12393,741"/>
-<area shape="rect" id="node241" href="$_species_reference_glyph_8h.html" title="Definition of SpeciesReferenceGlyph for SBML Layout." alt="" coords="13206,714,13394,741"/>
-<area shape="rect" id="node242" href="$_dimensions_8cpp.html" title="Implementation of Dimensions for SBML Layout." alt="" coords="15789,803,15915,830"/>
-<area shape="rect" id="node243" href="$_dimensions_8h.html" title="Definition of Dimensions for SBML Layout." alt="" coords="15594,453,15705,480"/>
-<area shape="rect" id="node245" href="$_graphical_object_8h.html" title="Definition of GraphicalObject for SBML Layout." alt="" coords="12992,625,13131,651"/>
-<area shape="rect" id="node247" href="$_species_glyph_8h.html" title="Definition of SpeciesGlyph for SBML Layout." alt="" coords="11849,803,11972,830"/>
-<area shape="rect" id="node248" href="$_text_glyph_8h.html" title="Definition of TextGlyph for SBML Layout." alt="" coords="15463,803,15561,830"/>
-<area shape="rect" id="node250" href="$_point_8cpp.html" title="Implementation of Point for SBML Layout." alt="" coords="11591,803,11673,830"/>
-<area shape="rect" id="node279" href="$_line_segment_8h.html" title="Definition of LineSegment for SBML Layout." alt="" coords="12073,535,12191,562"/>
-<area shape="rect" id="node280" href="$_point_8h.html" title="Definition of Point for SBML Layout." alt="" coords="12048,453,12115,480"/>
-<area shape="rect" id="node221" href="$_layout_annotation_8h.html" title="Layout annotation I/O." alt="" coords="13351,960,13500,987"/>
-<area shape="rect" id="node222" href="$_ellipse_8cpp.html" title="Implementation of the Ellipse class." alt="" coords="15351,1035,15443,1061"/>
-<area shape="rect" id="node223" href="$_global_style_8cpp.html" title="Implementation of the GlobalStyle class." alt="" coords="19815,1109,19939,1136"/>
-<area shape="rect" id="node224" href="$_gradient_stop_8cpp.html" title="class representing a stop in a gradient definition" alt="" coords="21141,1035,21275,1061"/>
-<area shape="rect" id="node225" href="$_image_8cpp.html" title="Implementation of the Image class." alt="" coords="16273,1035,16364,1061"/>
-<area shape="rect" id="node226" href="$_linear_gradient_8cpp.html" title="Implementation of the LinearGradient class." alt="" coords="16053,1035,16198,1061"/>
-<area shape="rect" id="node227" href="$_list_of_curve_elements_8cpp.html" title="storage class for curve elements" alt="" coords="22588,1035,22775,1061"/>
-<area shape="rect" id="node228" href="$_list_of_gradient_stops_8cpp.html" title="Implementation of the ListOfGradientStops class." alt="" coords="14137,1035,14316,1061"/>
-<area shape="rect" id="node229" href="$_local_render_information_8cpp.html" title="Implementation of the LocalRenderInformation class." alt="" coords="18879,1259,19084,1285"/>
-<area shape="rect" id="node230" href="$_local_style_8cpp.html" title="class for representing a local style" alt="" coords="20201,1109,20317,1136"/>
-<area shape="rect" id="node231" href="$_polygon_8cpp.html" title="Implementation of the Polygon class." alt="" coords="22463,1035,22564,1061"/>
-<area shape="rect" id="node232" href="$_radial_gradient_8cpp.html" title="Implementation of the RadialGradient class." alt="" coords="16388,1035,16535,1061"/>
-<area shape="rect" id="node233" href="$_rectangle_8cpp.html" title="Implementation of the Rectangle class." alt="" coords="15819,1035,15933,1061"/>
-<area shape="rect" id="node234" href="$_render_cubic_bezier_8cpp.html" title="Implementation of the RenderCubicBezier class." alt="" coords="21953,1035,22124,1061"/>
-<area shape="rect" id="node235" href="$_render_curve_8cpp.html" title="Implementation of the RenderCurve class." alt="" coords="22951,1035,23084,1061"/>
-<area shape="rect" id="node236" href="$_render_group_8cpp.html" title="Implementation of the RenderGroup class." alt="" coords="18101,1035,18235,1061"/>
-<area shape="rect" id="node237" href="$_render_point_8cpp.html" title="Implementation of the RenderPoint class." alt="" coords="22799,1035,22927,1061"/>
-<area shape="rect" id="node238" href="$_style_8cpp.html" title="Implementation of the Style class." alt="" coords="19657,1109,19740,1136"/>
-<area shape="rect" id="node239" href="$_text_8cpp.html" title="Implementation of the Text class." alt="" coords="14790,1035,14866,1061"/>
-<area shape="rect" id="node244" href="$_bounding_box_8h.html" title="Definition of BoundingBox for SBML Layout." alt="" coords="14508,535,14628,562"/>
-<area shape="rect" id="node271" href="$_line_ending_8h.html" title="class representing line endings, e.g." alt="" coords="17999,885,18105,912"/>
-<area shape="rect" id="node246" href="$_compartment_glyph_8h.html" title="Definition of CompartmentGlyph for SBML Layout." alt="" coords="12871,803,13033,830"/>
-<area shape="rect" id="node249" href="$_layout_utilities_8h.html" title="Definition of LayoutUtilities for SBML Layout." alt="" coords="14466,714,14595,741"/>
-<area shape="rect" id="node251" href="$_layout_utilities_8cpp.html" title="Implementation of some methods used by many of the layout files." alt="" coords="14172,803,14316,830"/>
-<area shape="rect" id="node252" href="$_color_definition_8cpp.html" title="Implementation of the ColorDefinition class." alt="" coords="23035,803,23181,830"/>
-<area shape="rect" id="node253" href="$_global_render_information_8cpp.html" title="class for the storage of global render information" alt="" coords="21865,1259,22079,1285"/>
-<area shape="rect" id="node254" href="$_gradient_base_8cpp.html" title="abstract base class for gradient objects" alt="" coords="21453,1035,21590,1061"/>
-<area shape="rect" id="node255" href="$_line_ending_8cpp.html" title="class representing line endings,e.g." alt="" coords="17429,1035,17549,1061"/>
-<area shape="rect" id="node256" href="$_list_of_color_definitions_8cpp.html" title="Implementation of the ListOfColorDefinitions class." alt="" coords="19085,803,19275,830"/>
-<area shape="rect" id="node257" href="$_list_of_global_render_information_8cpp.html" title="Implementation of the ListOfGlobalRenderInformation class." alt="" coords="20493,1259,20744,1285"/>
-<area shape="rect" id="node258" href="$_list_of_global_styles_8cpp.html" title="Implementation of the ListOfGlobalStyles class." alt="" coords="19463,1109,19633,1136"/>
-<area shape="rect" id="node259" href="$_list_of_line_endings_8cpp.html" title="Implementation of the ListOfLineEndings class." alt="" coords="17139,1035,17304,1061"/>
-<area shape="rect" id="node260" href="$_list_of_local_render_information_8cpp.html" title="Implementation of the ListOfLocalRenderInformation class." alt="" coords="19480,1259,19723,1285"/>
-<area shape="rect" id="node261" href="$_list_of_local_styles_8cpp.html" title="Implementation of the ListOfLocalStyles class." alt="" coords="20015,1109,20177,1136"/>
-<area shape="rect" id="node262" href="$_render_cubic_bezier_8h.html" title="Definition of the RenderCubicBezier class." alt="" coords="22153,803,22309,830"/>
-<area shape="rect" id="node263" href="$_list_of_curve_elements_8h.html" title="Definition of the ListOfCurveElements class." alt="" coords="21993,885,22164,912"/>
-<area shape="rect" id="node264" href="$_polygon_8h.html" title="class representing a polygon" alt="" coords="18637,960,18723,987"/>
-<area shape="rect" id="node270" href="$_render_curve_8h.html" title="Definition of the RenderCurve class." alt="" coords="19405,960,19523,987"/>
-<area shape="rect" id="node265" href="$_graphical_primitive1_d_8cpp.html" title="abstract base class for graphical 1D objects" alt="" coords="18302,1035,18490,1061"/>
-<area shape="rect" id="node266" href="$_graphical_primitive2_d_8cpp.html" title="Implementation of the GraphicalPrimitive2D class." alt="" coords="17574,1035,17762,1061"/>
-<area shape="rect" id="node267" href="$_list_of_drawables_8cpp.html" title="Implementation of the ListOfDrawables class." alt="" coords="18605,1035,18761,1061"/>
-<area shape="rect" id="node268" href="$_transformation_8cpp.html" title="class representing a 3D affine transformation" alt="" coords="18789,1035,18936,1061"/>
-<area shape="rect" id="node269" href="$_transformation2_d_8cpp.html" title="class representing a 2D affine transformation" alt="" coords="18960,1035,19125,1061"/>
-<area shape="rect" id="node272" href="$_list_of_line_endings_8h.html" title="Definition of the ListOfLineEndings class." alt="" coords="17903,960,18054,987"/>
-<area shape="rect" id="node273" href="$_render_information_base_8h.html" title="Definition of the RenderInformationBase class." alt="" coords="22199,1035,22387,1061"/>
-<area shape="rect" id="node274" href="$_global_render_information_8h.html" title="Definition of the GlobalRenderInformation class." alt="" coords="22171,1109,22370,1136"/>
-<area shape="rect" id="node276" href="$_render_information_base_8cpp.html" title="Implementation of the RenderInformationBase class." alt="" coords="21419,1259,21621,1285"/>
-<area shape="rect" id="node277" href="$_local_render_information_8h.html" title="Definition of the LocalRenderInformation class." alt="" coords="21287,1109,21478,1136"/>
-<area shape="rect" id="node275" href="$_list_of_global_render_information_8h.html" title="Definition of the ListOfGlobalRenderInformation class." alt="" coords="22153,1184,22389,1211"/>
-<area shape="rect" id="node278" href="$_list_of_local_render_information_8h.html" title="Definition of the ListOfLocalRenderInformation class." alt="" coords="20793,1184,21021,1211"/>
-<area shape="rect" id="node282" href="$_color_definition_8h.html" title="Definition of the ColorDefinition class." alt="" coords="23052,625,23183,651"/>
-<area shape="rect" id="node283" href="$_list_of_color_definitions_8h.html" title="Definition of the ListOfColorDefinitions class." alt="" coords="22904,714,23080,741"/>
-<area shape="rect" id="node284" href="$_default_values_8h.html" title="Definition of the DefaultValues class." alt="" coords="20881,960,21007,987"/>
-<area shape="rect" id="node286" href="$_ellipse_8h.html" title="Definition of the Ellipse class." alt="" coords="17679,960,17756,987"/>
-<area shape="rect" id="node287" href="$_global_style_8h.html" title="Definition of the GlobalStyle class." alt="" coords="19953,960,20063,987"/>
-<area shape="rect" id="node288" href="$_list_of_global_styles_8h.html" title="Definition of the ListOfGlobalStyles class." alt="" coords="19865,1035,20020,1061"/>
-<area shape="rect" id="node289" href="$_gradient_base_8h.html" title="abstract base class for gradient definitions" alt="" coords="21543,885,21665,912"/>
-<area shape="rect" id="node290" href="$_linear_gradient_8h.html" title="Definition of the LinearGradient class." alt="" coords="21607,960,21737,987"/>
-<area shape="rect" id="node292" href="$_list_of_gradient_definitions_8h.html" title="Definition of the ListOfGradientDefinitions class." alt="" coords="21762,960,21961,987"/>
-<area shape="rect" id="node293" href="$_radial_gradient_8h.html" title="Definition of the RadialGradient class." alt="" coords="21351,960,21481,987"/>
-<area shape="rect" id="node294" href="$_gradient_stop_8h.html" title="class for representing a stop in a gradient definition" alt="" coords="21386,714,21505,741"/>
-<area shape="rect" id="node295" href="$_list_of_gradient_stops_8h.html" title="Definition of the ListOfGradientStops class." alt="" coords="21341,803,21505,830"/>
-<area shape="rect" id="node296" href="$_graphical_primitive1_d_8h.html" title="Definition of the GraphicalPrimitive1D class." alt="" coords="19276,625,19449,651"/>
-<area shape="rect" id="node297" href="$_graphical_primitive2_d_8h.html" title="Definition of the GraphicalPrimitive2D class." alt="" coords="17919,714,18092,741"/>
-<area shape="rect" id="node298" href="$_rectangle_8h.html" title="Definition of the Rectangle class." alt="" coords="17780,960,17879,987"/>
-<area shape="rect" id="node299" href="$_render_group_8h.html" title="Definition of the RenderGroup class." alt="" coords="18485,803,18603,830"/>
-<area shape="rect" id="node300" href="$_style_8h.html" title="Definition of the Style class." alt="" coords="19972,885,20039,912"/>
-<area shape="rect" id="node301" href="$_local_style_8h.html" title="Definition of the LocalStyle class." alt="" coords="20292,960,20393,987"/>
-<area shape="rect" id="node302" href="$_list_of_local_styles_8h.html" title="Definition of the ListOfLocalStyles class." alt="" coords="20145,1035,20292,1061"/>
-<area shape="rect" id="node303" href="$_text_8h.html" title="Definition of the Text class." alt="" coords="18813,714,18875,741"/>
-<area shape="rect" id="node304" href="$_image_8h.html" title="Definition of the Image class." alt="" coords="19153,960,19228,987"/>
-<area shape="rect" id="node305" href="$_list_of_drawables_8h.html" title="Definition of the ListOfDrawables class." alt="" coords="18591,714,18732,741"/>
-<area shape="rect" id="node306" href="$_rel_abs_vector_8h.html" title="Definition of the RelAbsVector class." alt="" coords="21003,625,21122,651"/>
-<area shape="rect" id="node308" href="$_render_point_8h.html" title="Definition of the RenderPoint class." alt="" coords="22341,714,22454,741"/>
-<area shape="rect" id="node309" href="$_transformation_8h.html" title="abstract class for representing 3D affine transformations" alt="" coords="20026,453,20158,480"/>
-<area shape="rect" id="node310" href="$_transformation2_d_8h.html" title="abstract base class for representing 2D affine transformations" alt="" coords="19853,535,20003,562"/>
-<area shape="rect" id="node285" href="$_default_values_8cpp.html" title="Implementation of the DefaultValues class." alt="" coords="20874,1035,21014,1061"/>
-<area shape="rect" id="node291" href="$_list_of_gradient_definitions_8cpp.html" title="Implementation of the ListOfGradientDefinitions class." alt="" coords="21665,1035,21879,1061"/>
-<area shape="rect" id="node307" href="$_rel_abs_vector_8cpp.html" title="class for representing coordinates that can have a relative and an absolute part" alt="" coords="21227,714,21362,741"/>
-<area shape="rect" id="node312" href="$_adjacent_domains_8h.html" title="Definition of the AdjacentDomains class." alt="" coords="2572,453,2721,480"/>
-<area shape="rect" id="node314" href="$_list_of_adjacent_domains_8h.html" title="Definition of the ListOfAdjacentDomains class." alt="" coords="2695,535,2881,562"/>
-<area shape="rect" id="node315" href="$_geometry_8h.html" title="Definition of the Geometry class." alt="" coords="2586,803,2683,830"/>
-<area shape="rect" id="node318" href="$_advection_coefficient_8h.html" title="Definition of the AdvectionCoefficient class." alt="" coords="2341,803,2510,830"/>
-<area shape="rect" id="node320" href="$_analytic_geometry_8h.html" title="Definition of the AnalyticGeometry class." alt="" coords="3087,714,3238,741"/>
-<area shape="rect" id="node325" href="$_analytic_volume_8h.html" title="Definition of the AnalyticVolume class." alt="" coords="1199,535,1335,562"/>
-<area shape="rect" id="node327" href="$_list_of_analytic_volumes_8h.html" title="Definition of the ListOfAnalyticVolumes class." alt="" coords="1023,625,1204,651"/>
-<area shape="rect" id="node329" href="$_boundary_8h.html" title="Definition of the Boundary class." alt="" coords="2066,453,2161,480"/>
-<area shape="rect" id="node331" href="$_coordinate_component_8h.html" title="Definition of the CoordinateComponent class." alt="" coords="2129,535,2309,562"/>
-<area shape="rect" id="node333" href="$_list_of_coordinate_components_8h.html" title="Definition of the ListOfCoordinateComponents class." alt="" coords="1902,625,2127,651"/>
-<area shape="rect" id="node335" href="$_boundary_condition_8h.html" title="Definition of the BoundaryCondition class." alt="" coords="5955,803,6114,830"/>
-<area shape="rect" id="node337" href="$_compartment_mapping_8h.html" title="Definition of the CompartmentMapping class." alt="" coords="6750,803,6930,830"/>
-<area shape="rect" id="node339" href="$_c_s_geometry_8h.html" title="Definition of the CSGeometry class." alt="" coords="2948,714,3063,741"/>
-<area shape="rect" id="node341" href="$_c_s_g_homogeneous_transformation_8h.html" title="Definition of the CSGHomogeneousTransformation class." alt="" coords="4833,625,5087,651"/>
-<area shape="rect" id="node348" href="$_c_s_g_node_8h.html" title="Definition of the CSGNode class." alt="" coords="4231,453,4326,480"/>
-<area shape="rect" id="node349" href="$_c_s_g_object_8h.html" title="Definition of the CSGObject class." alt="" coords="3474,535,3577,562"/>
-<area shape="rect" id="node350" href="$_list_of_c_s_g_objects_8h.html" title="Definition of the ListOfCSGObjects class." alt="" coords="3015,625,3163,651"/>
-<area shape="rect" id="node352" href="$_c_s_g_primitive_8h.html" title="Definition of the CSGPrimitive class." alt="" coords="4129,625,4249,651"/>
-<area shape="rect" id="node354" href="$_c_s_g_set_operator_8h.html" title="Definition of the CSGSetOperator class." alt="" coords="4671,625,4809,651"/>
-<area shape="rect" id="node355" href="$_c_s_g_transformation_8h.html" title="Definition of the CSGTransformation class." alt="" coords="5157,535,5315,562"/>
-<area shape="rect" id="node356" href="$_c_s_g_rotation_8h.html" title="Definition of the CSGRotation class." alt="" coords="5318,625,5434,651"/>
-<area shape="rect" id="node358" href="$_c_s_g_scale_8h.html" title="Definition of the CSGScale class." alt="" coords="5459,625,5555,651"/>
-<area shape="rect" id="node360" href="$_c_s_g_translation_8h.html" title="Definition of the CSGTranslation class." alt="" coords="5162,625,5294,651"/>
-<area shape="rect" id="node362" href="$_list_of_c_s_g_nodes_8h.html" title="Definition of the ListOfCSGNodes class." alt="" coords="4607,535,4747,562"/>
-<area shape="rect" id="node363" href="$_diffusion_coefficient_8h.html" title="Definition of the DiffusionCoefficient class." alt="" coords="6145,803,6308,830"/>
-<area shape="rect" id="node365" href="$_domain_8h.html" title="Definition of the Domain class." alt="" coords="812,625,897,651"/>
-<area shape="rect" id="node367" href="$_list_of_domains_8h.html" title="Definition of the ListOfDomains class." alt="" coords="817,714,948,741"/>
-<area shape="rect" id="node369" href="$_domain_type_8h.html" title="Definition of the DomainType class." alt="" coords="6755,453,6869,480"/>
-<area shape="rect" id="node371" href="$_list_of_domain_types_8h.html" title="Definition of the ListOfDomainTypes class." alt="" coords="6881,535,7041,562"/>
-<area shape="rect" id="node373" href="$_geometry_definition_8h.html" title="Definition of the GeometryDefinition class." alt="" coords="3601,535,3764,562"/>
-<area shape="rect" id="node374" href="$_list_of_geometry_definitions_8h.html" title="Definition of the ListOfGeometryDefinitions class." alt="" coords="3543,625,3750,651"/>
-<area shape="rect" id="node375" href="$_mixed_geometry_8h.html" title="Definition of the MixedGeometry class." alt="" coords="3364,714,3500,741"/>
-<area shape="rect" id="node376" href="$_parametric_geometry_8h.html" title="Definition of the ParametricGeometry class." alt="" coords="3886,714,4053,741"/>
-<area shape="rect" id="node378" href="$_sampled_field_geometry_8h.html" title="Definition of the SampledFieldGeometry class." alt="" coords="3677,714,3862,741"/>
-<area shape="rect" id="node380" href="$_interior_point_8h.html" title="Definition of the InteriorPoint class." alt="" coords="783,453,897,480"/>
-<area shape="rect" id="node382" href="$_list_of_interior_points_8h.html" title="Definition of the ListOfInteriorPoints class." alt="" coords="643,535,802,562"/>
-<area shape="rect" id="node384" href="$_list_of_ordinal_mappings_8h.html" title="Definition of the ListOfOrdinalMappings class." alt="" coords="6573,625,6755,651"/>
-<area shape="rect" id="node387" href="$_list_of_parametric_objects_8h.html" title="Definition of the ListOfParametricObjects class." alt="" coords="7338,625,7529,651"/>
-<area shape="rect" id="node390" href="$_list_of_sampled_fields_8h.html" title="Definition of the ListOfSampledFields class." alt="" coords="1509,535,1675,562"/>
-<area shape="rect" id="node393" href="$_list_of_sampled_volumes_8h.html" title="Definition of the ListOfSampledVolumes class." alt="" coords="147,625,333,651"/>
-<area shape="rect" id="node396" href="$_ordinal_mapping_8h.html" title="Definition of the OrdinalMapping class." alt="" coords="6471,535,6609,562"/>
-<area shape="rect" id="node397" href="$_parametric_object_8h.html" title="Definition of the ParametricObject class." alt="" coords="7195,535,7341,562"/>
-<area shape="rect" id="node398" href="$_sampled_field_8h.html" title="Definition of the SampledField class." alt="" coords="1653,453,1776,480"/>
-<area shape="rect" id="node399" href="$_sampled_volume_8h.html" title="Definition of the SampledVolume class." alt="" coords="333,535,473,562"/>
-<area shape="rect" id="node400" href="$_spatial_points_8h.html" title="Definition of the SpatialPoints class." alt="" coords="2253,625,2371,651"/>
-<area shape="rect" id="node402" href="$_spatial_symbol_reference_8h.html" title="Definition of the SpatialSymbolReference class." alt="" coords="6348,803,6543,830"/>
-<area shape="rect" id="node404" href="$_transformation_component_8h.html" title="Definition of the TransformationComponent class." alt="" coords="4325,535,4531,562"/>
-<area shape="rect" id="node313" href="$_adjacent_domains_8cpp.html" title="Implementation of the AdjacentDomains class." alt="" coords="2498,625,2662,651"/>
-<area shape="rect" id="node317" href="$_list_of_adjacent_domains_8cpp.html" title="Implementation of the ListOfAdjacentDomains class." alt="" coords="2687,625,2889,651"/>
-<area shape="rect" id="node316" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="3067,885,3179,912"/>
-<area shape="rect" id="node319" href="$_advection_coefficient_8cpp.html" title="Implementation of the AdvectionCoefficient class." alt="" coords="2340,885,2524,912"/>
-<area shape="rect" id="node321" href="$_analytic_geometry_8cpp.html" title="Implementation of the AnalyticGeometry class." alt="" coords="3065,803,3231,830"/>
-<area shape="rect" id="node322" href="$_geometry_definition_8cpp.html" title="Implementation of the GeometryDefinition class." alt="" coords="3879,803,4057,830"/>
-<area shape="rect" id="node323" href="$_list_of_geometry_definitions_8cpp.html" title="Implementation of the ListOfGeometryDefinitions class." alt="" coords="3633,803,3855,830"/>
-<area shape="rect" id="node324" href="$_mixed_geometry_8cpp.html" title="Implementation of the MixedGeometry class." alt="" coords="3458,803,3609,830"/>
-<area shape="rect" id="node326" href="$_analytic_volume_8cpp.html" title="Implementation of the AnalyticVolume class." alt="" coords="1243,714,1394,741"/>
-<area shape="rect" id="node328" href="$_list_of_analytic_volumes_8cpp.html" title="Implementation of the ListOfAnalyticVolumes class." alt="" coords="1023,714,1219,741"/>
-<area shape="rect" id="node330" href="$_boundary_8cpp.html" title="Implementation of the Boundary class." alt="" coords="1995,535,2104,562"/>
-<area shape="rect" id="node332" href="$_coordinate_component_8cpp.html" title="Implementation of the CoordinateComponent class." alt="" coords="2004,714,2199,741"/>
-<area shape="rect" id="node334" href="$_list_of_coordinate_components_8cpp.html" title="Implementation of the ListOfCoordinateComponents class." alt="" coords="1689,714,1929,741"/>
-<area shape="rect" id="node336" href="$_boundary_condition_8cpp.html" title="Implementation of the BoundaryCondition class." alt="" coords="5717,885,5891,912"/>
-<area shape="rect" id="node338" href="$_compartment_mapping_8cpp.html" title="Implementation of the CompartmentMapping class." alt="" coords="6715,885,6909,912"/>
-<area shape="rect" id="node340" href="$_c_s_geometry_8cpp.html" title="Implementation of the CSGeometry class." alt="" coords="2810,803,2939,830"/>
-<area shape="rect" id="node342" href="$_c_s_g_homogeneous_transformation_8cpp.html" title="Implementation of the CSGHomogeneousTransformation class." alt="" coords="4770,714,5038,741"/>
-<area shape="rect" id="node343" href="$_c_s_g_node_8cpp.html" title="Implementation of the CSGNode class." alt="" coords="4583,714,4694,741"/>
-<area shape="rect" id="node344" href="$_c_s_g_object_8cpp.html" title="Implementation of the CSGObject class." alt="" coords="4441,714,4559,741"/>
-<area shape="rect" id="node345" href="$_c_s_g_set_operator_8cpp.html" title="Implementation of the CSGSetOperator class." alt="" coords="5062,714,5215,741"/>
-<area shape="rect" id="node346" href="$_c_s_g_transformation_8cpp.html" title="Implementation of the CSGTransformation class." alt="" coords="5470,714,5645,741"/>
-<area shape="rect" id="node347" href="$_list_of_c_s_g_nodes_8cpp.html" title="Implementation of the ListOfCSGNodes class." alt="" coords="5240,714,5395,741"/>
-<area shape="rect" id="node351" href="$_list_of_c_s_g_objects_8cpp.html" title="Implementation of the ListOfCSGObjects class." alt="" coords="2711,714,2873,741"/>
-<area shape="rect" id="node353" href="$_c_s_g_primitive_8cpp.html" title="Implementation of the CSGPrimitive class." alt="" coords="4179,714,4314,741"/>
-<area shape="rect" id="node357" href="$_c_s_g_rotation_8cpp.html" title="Implementation of the CSGRotation class." alt="" coords="5891,714,6021,741"/>
-<area shape="rect" id="node359" href="$_c_s_g_scale_8cpp.html" title="Implementation of the CSGScale class." alt="" coords="6097,714,6207,741"/>
-<area shape="rect" id="node361" href="$_c_s_g_translation_8cpp.html" title="Implementation of the CSGTranslation class." alt="" coords="5669,714,5816,741"/>
-<area shape="rect" id="node364" href="$_diffusion_coefficient_8cpp.html" title="Implementation of the DiffusionCoefficient class." alt="" coords="6227,885,6405,912"/>
-<area shape="rect" id="node366" href="$_domain_8cpp.html" title="Implementation of the Domain class." alt="" coords="697,803,797,830"/>
-<area shape="rect" id="node368" href="$_list_of_domains_8cpp.html" title="Implementation of the ListOfDomains class." alt="" coords="821,803,966,830"/>
-<area shape="rect" id="node370" href="$_domain_type_8cpp.html" title="Implementation of the DomainType class." alt="" coords="6831,625,6961,651"/>
-<area shape="rect" id="node372" href="$_list_of_domain_types_8cpp.html" title="Implementation of the ListOfDomainTypes class." alt="" coords="7037,625,7211,651"/>
-<area shape="rect" id="node377" href="$_parametric_geometry_8cpp.html" title="Implementation of the ParametricGeometry class." alt="" coords="4509,803,4691,830"/>
-<area shape="rect" id="node379" href="$_sampled_field_geometry_8cpp.html" title="Implementation of the SampledFieldGeometry class." alt="" coords="4183,803,4383,830"/>
-<area shape="rect" id="node381" href="$_interior_point_8cpp.html" title="Implementation of the InteriorPoint class." alt="" coords="658,625,787,651"/>
-<area shape="rect" id="node383" href="$_list_of_interior_points_8cpp.html" title="Implementation of the ListOfInteriorPoints class." alt="" coords="459,625,634,651"/>
-<area shape="rect" id="node385" href="$_list_of_ordinal_mappings_8cpp.html" title="Implementation of the ListOfOrdinalMappings class." alt="" coords="6763,714,6960,741"/>
-<area shape="rect" id="node386" href="$_ordinal_mapping_8cpp.html" title="Implementation of the OrdinalMapping class." alt="" coords="6587,714,6739,741"/>
-<area shape="rect" id="node388" href="$_list_of_parametric_objects_8cpp.html" title="Implementation of the ListOfParametricObjects class." alt="" coords="7322,714,7529,741"/>
-<area shape="rect" id="node389" href="$_parametric_object_8cpp.html" title="Implementation of the ParametricObject class." alt="" coords="7137,714,7298,741"/>
-<area shape="rect" id="node391" href="$_list_of_sampled_fields_8cpp.html" title="Implementation of the ListOfSampledFields class." alt="" coords="1330,625,1513,651"/>
-<area shape="rect" id="node392" href="$_sampled_field_8cpp.html" title="Implementation of the SampledField class." alt="" coords="1589,625,1726,651"/>
-<area shape="rect" id="node394" href="$_list_of_sampled_volumes_8cpp.html" title="Implementation of the ListOfSampledVolumes class." alt="" coords="5,714,205,741"/>
-<area shape="rect" id="node395" href="$_sampled_volume_8cpp.html" title="Implementation of the SampledVolume class." alt="" coords="229,714,384,741"/>
-<area shape="rect" id="node401" href="$_spatial_points_8cpp.html" title="Implementation of the SpatialPoints class." alt="" coords="2274,714,2409,741"/>
-<area shape="rect" id="node403" href="$_spatial_symbol_reference_8cpp.html" title="Implementation of the SpatialSymbolReference class." alt="" coords="6481,885,6690,912"/>
-<area shape="rect" id="node405" href="$_transformation_component_8cpp.html" title="Implementation of the TransformationComponent class." alt="" coords="4323,625,4546,651"/>
-<area shape="rect" id="node407" href="$_binding_site_species_type_8h.html" title=": Implementation of the BindingSiteSpeciesType class" alt="" coords="26521,714,26709,741"/>
-<area shape="rect" id="node410" href="$_compartment_reference_8h.html" title=": Implementation of the CompartmentReference class" alt="" coords="27661,714,27851,741"/>
-<area shape="rect" id="node412" href="$_in_species_type_bond_8h.html" title=": Implementation of the InSpeciesTypeBond class" alt="" coords="25385,535,25543,562"/>
-<area shape="rect" id="node414" href="$_multi_species_type_8h.html" title=": Implementation of the MultiSpeciesType class" alt="" coords="26155,625,26301,651"/>
-<area shape="rect" id="node415" href="$_intra_species_reaction_8h.html" title=": Implementation of the IntraSpeciesReaction class" alt="" coords="23973,714,24144,741"/>
-<area shape="rect" id="node417" href="$_outward_binding_site_8h.html" title=": Implementation of the OutwardBindingSite class" alt="" coords="24583,714,24745,741"/>
-<area shape="rect" id="node419" href="$_possible_species_feature_value_8h.html" title=": Implementation of the PossibleSpeciesFeatureValue class" alt="" coords="25690,453,25913,480"/>
-<area shape="rect" id="node421" href="$_species_feature_type_8h.html" title=": Implementation of the SpeciesFeatureType class" alt="" coords="25951,535,26113,562"/>
-<area shape="rect" id="node423" href="$_species_feature_8h.html" title=": Implementation of the SpeciesFeature class" alt="" coords="25623,625,25756,651"/>
-<area shape="rect" id="node426" href="$_sub_list_of_species_features_8h.html" title=": Implementation of the SubListOfSpeciesFeatures class" alt="" coords="25291,714,25493,741"/>
-<area shape="rect" id="node427" href="$_species_feature_value_8h.html" title=": Implementation of the SpeciesFeatureValue class" alt="" coords="27707,535,27877,562"/>
-<area shape="rect" id="node429" href="$_species_type_component_index_8h.html" title=": Implementation of the SpeciesTypeComponentIndex class" alt="" coords="26222,535,26447,562"/>
-<area shape="rect" id="node431" href="$_species_type_component_map_in_product_8h.html" title=": Implementation of the SpeciesTypeComponentMapInProduct class" alt="" coords="24770,707,24987,748"/>
-<area shape="rect" id="node433" href="$_species_type_instance_8h.html" title=": Implementation of the SpeciesTypeInstance class" alt="" coords="25154,535,25323,562"/>
-<area shape="rect" id="node408" href="$_binding_site_species_type_8cpp.html" title=": Implementation of the BindingSiteSpeciesType class" alt="" coords="26613,803,26816,830"/>
-<area shape="rect" id="node409" href="$_multi_species_type_8cpp.html" title=": Implementation of the MultiSpeciesType class" alt="" coords="26376,803,26539,830"/>
-<area shape="rect" id="node411" href="$_compartment_reference_8cpp.html" title=": Implementation of the CompartmentReference class" alt="" coords="27699,803,27904,830"/>
-<area shape="rect" id="node413" href="$_in_species_type_bond_8cpp.html" title=": Implementation of the InSpeciesTypeBond class" alt="" coords="25373,625,25547,651"/>
-<area shape="rect" id="node416" href="$_intra_species_reaction_8cpp.html" title=": Implementation of the IntraSpeciesReaction class" alt="" coords="23965,803,24152,830"/>
-<area shape="rect" id="node418" href="$_outward_binding_site_8cpp.html" title=": Implementation of the OutwardBindingSite class" alt="" coords="24461,803,24640,830"/>
-<area shape="rect" id="node420" href="$_possible_species_feature_value_8cpp.html" title=": Implementation of the PossibleSpeciesFeatureValue class" alt="" coords="25687,535,25926,562"/>
-<area shape="rect" id="node422" href="$_species_feature_type_8cpp.html" title=": Implementation of the SpeciesFeatureType class" alt="" coords="25952,625,26131,651"/>
-<area shape="rect" id="node424" href="$_species_feature_8cpp.html" title=": Implementation of the SpeciesFeature class" alt="" coords="25161,803,25309,830"/>
-<area shape="rect" id="node425" href="$_sub_list_of_species_features_8cpp.html" title=": Implementation of the SubListOfSpeciesFeatures class" alt="" coords="25385,803,25602,830"/>
-<area shape="rect" id="node428" href="$_species_feature_value_8cpp.html" title=": Implementation of the SpeciesFeatureValue class" alt="" coords="27833,625,28017,651"/>
-<area shape="rect" id="node430" href="$_species_type_component_index_8cpp.html" title=": Implementation of the SpeciesTypeComponentIndex class" alt="" coords="26376,625,26616,651"/>
-<area shape="rect" id="node432" href="$_species_type_component_map_in_product_8cpp.html" title=": Implementation of the SpeciesTypeComponentMapInProduct class" alt="" coords="24715,796,24933,837"/>
-<area shape="rect" id="node434" href="$_species_type_instance_8cpp.html" title=": Implementation of the SpeciesTypeInstance class" alt="" coords="25113,625,25297,651"/>
-<area shape="rect" id="node436" href="$_default_term_8h.html" title="Implementation of the DefaultTerm class." alt="" coords="31899,535,32013,562"/>
-<area shape="rect" id="node438" href="$_function_term_8h.html" title="Implementation of the FunctionTerm class." alt="" coords="32193,625,32314,651"/>
-<area shape="rect" id="node440" href="$_transition_8h.html" title="Implementation of the Transition class." alt="" coords="31838,714,31935,741"/>
-<area shape="rect" id="node442" href="$_input_8h.html" title="Implementation of the Input class." alt="" coords="31795,625,31861,651"/>
-<area shape="rect" id="node444" href="$_output_8h.html" title="Implementation of the Output class." alt="" coords="31641,625,31719,651"/>
-<area shape="rect" id="node446" href="$_qualitative_species_8h.html" title="Implementation of the QualitativeSpecies class." alt="" coords="30750,714,30906,741"/>
-<area shape="rect" id="node437" href="$_default_term_8cpp.html" title="Implementation of the DefaultTerm class." alt="" coords="31937,625,32066,651"/>
-<area shape="rect" id="node439" href="$_function_term_8cpp.html" title="Implementation of the FunctionTerm class." alt="" coords="31856,803,31992,830"/>
-<area shape="rect" id="node441" href="$_transition_8cpp.html" title="Implementation of the Transition class." alt="" coords="31619,803,31731,830"/>
-<area shape="rect" id="node443" href="$_input_8cpp.html" title="Implementation of the Input class." alt="" coords="31960,714,32043,741"/>
-<area shape="rect" id="node445" href="$_output_8cpp.html" title="Implementation of the Output class." alt="" coords="31669,714,31763,741"/>
-<area shape="rect" id="node447" href="$_qualitative_species_8cpp.html" title="Implementation of the QualitativeSpecies class." alt="" coords="31200,803,31371,830"/>
-<area shape="rect" id="node449" href="$_s_b_m_l_level1_version1_converter_8cpp.html" title="Implementation of SBMLLevel1Version1Converter." alt="" coords="34319,304,34566,331"/>
-<area shape="rect" id="node450" href="$_s_b_m_l_extension_namespaces_8cpp.html" title="implementation of C&#45;API for the SBMLExtensionNamespaces class" alt="" coords="33707,379,33941,405"/>
-<area shape="rect" id="node451" href="$_s_b_m_l_extension_namespaces_8h.html" title="Class to store the SBML Level, Version and namespace of a package." alt="" coords="28585,304,28804,331"/>
-<area shape="rect" id="node452" href="$_a_s_t_node_8cpp.html" title="Abstract Syntax Tree (AST) for representing formula trees." alt="" coords="34641,304,34749,331"/>
-<area shape="rect" id="node453" href="$_l3_parser_settings_8cpp.html" title="Definition of the level 3 infix&#45;to&#45;mathml parser settings." alt="" coords="34773,304,34931,331"/>
-<area shape="rect" id="node454" href="$_s_b_m_l_error_8cpp.html" title="Represents SBML errors and other diagnostics." alt="" coords="34955,304,35069,331"/>
-<area shape="rect" id="node455" href="$_s_b_m_l_namespaces_8cpp.html" title="SBMLNamespaces class to store level/version and namespace." alt="" coords="35094,304,35263,331"/>
+<area shape="rect" id="node1" title="Definition of SBaseExtensionPoint." alt="" coords="37240,5,37411,32"/>
+<area shape="rect" id="node2" href="$_s_base_extension_point_8cpp.html" title="Implementation of SBaseExtensionPoint." alt="" coords="36967,80,37153,107"/>
+<area shape="rect" id="node3" href="$_s_base_plugin_creator_base_8h.html" title="Definition of SBasePluginCreatorBase, the base class of SBasePlugin creator classes." alt="" coords="37228,80,37423,107"/>
+<area shape="rect" id="node15" href="$_s_b_m_l_extension_8h.html" title="Definition of SBMLExtension, the core component of SBML package extension." alt="" coords="26442,155,26577,181"/>
+<area shape="rect" id="node478" href="$_unit_8cpp.html" title="Implementations of Unit and ListOfUnits." alt="" coords="37447,80,37523,107"/>
+<area shape="rect" id="node479" href="$_unit_definition_8cpp.html" title="Implementations of SBML&#39;s UnitDefinition and ListOfUnitDefinitions." alt="" coords="37548,80,37687,107"/>
+<area shape="rect" id="node4" href="$_s_base_plugin_creator_8h.html" title="Template class for SBasePlugin&#45;based classes." alt="" coords="33947,878,34109,905"/>
+<area shape="rect" id="node14" href="$_s_base_plugin_creator_base_8cpp.html" title="Implementation of SBasePluginCreatorBase, the base class of SBasePlugin creator classes." alt="" coords="37363,155,37573,181"/>
+<area shape="rect" id="node25" href="$_s_b_m_l_document_8cpp.html" title="Implementation of the top&#45;level container for an SBML Model and associated data." alt="" coords="36283,878,36435,905"/>
+<area shape="rect" id="node5" href="$_comp_extension_8cpp.html" title="Implementation of CompExtension, the core module of comp package." alt="" coords="14338,1109,14489,1136"/>
+<area shape="rect" id="node6" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="8584,960,8720,987"/>
+<area shape="rect" id="node7" href="$_groups_extension_8cpp.html" title="Implementation of GroupsExtension." alt="" coords="18867,960,19026,987"/>
+<area shape="rect" id="node8" href="$_layout_extension_8cpp.html" title="Implementation of LayoutExtension, the core module of layout package." alt="" coords="26309,1035,26467,1061"/>
+<area shape="rect" id="node9" href="$_render_extension_8cpp.html" title="Implementation of RenderExtension, the core module of the render package." alt="" coords="18645,1333,18803,1360"/>
+<area shape="rect" id="node10" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="29614,960,29773,987"/>
+<area shape="rect" id="node11" href="$_distrib_extension_8cpp.html" title="Implementation of DistribExtension." alt="" coords="31822,1035,31978,1061"/>
+<area shape="rect" id="node12" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="32697,960,32844,987"/>
+<area shape="rect" id="node13" href="$_qual_extension_8cpp.html" title="Implementation of QualExtension, the core module of qual package." alt="" coords="34003,960,34146,987"/>
+<area shape="rect" id="node16" href="$_s_base_plugin_8h.html" title="Definition of SBasePlugin, the base class of extension entities plugged in SBase derived classes in t..." alt="" coords="34889,699,35004,726"/>
+<area shape="rect" id="node141" href="$_s_b_m_l_extension_8cpp.html" title="Implementation of SBMLExtension, the base class of package extensions." alt="" coords="26243,304,26392,331"/>
+<area shape="rect" id="node142" href="$_s_b_m_l_extension_register_8h.html" title="Template class for registering extension packages." alt="" coords="26416,304,26603,331"/>
+<area shape="rect" id="node143" href="$_comp_extension_8h.html" title="Definition of CompExtension, the core module of comp package." alt="" coords="11405,379,11541,405"/>
+<area shape="rect" id="node144" href="$_comp_base_8h.html" title="Definition of CompBase, the base class of extension entities plugged in SBase derived classes in the ..." alt="" coords="12512,453,12616,480"/>
+<area shape="rect" id="node169" href="$_fbc_extension_8h.html" title="Definition of FbcExtension, the core module of fbc package." alt="" coords="8693,453,8814,480"/>
+<area shape="rect" id="node201" href="$_groups_extension_8h.html" title="Definition of GroupsExtension." alt="" coords="6687,453,6831,480"/>
+<area shape="rect" id="node210" href="$_layout_extension_8h.html" title="Definition of LayoutExtension, the core module of layout package." alt="" coords="17399,379,17542,405"/>
+<area shape="rect" id="node288" href="$_render_extension_8h.html" title="Definition of RenderExtension, the core module of the render package." alt="" coords="3253,379,3397,405"/>
+<area shape="rect" id="node318" href="$_spatial_extension_8h.html" title="Definition of SpatialExtension." alt="" coords="22623,379,22766,405"/>
+<area shape="rect" id="node413" href="$_distrib_extension_8h.html" title="Definition of DistribExtension." alt="" coords="27229,379,27371,405"/>
+<area shape="rect" id="node427" href="$_multi_extension_8h.html" title=": Implementation of the MultiExtension class" alt="" coords="29633,453,29764,480"/>
+<area shape="rect" id="node456" href="$_qual_extension_8h.html" title="Definition of QualExtension, the core module of qual package." alt="" coords="32429,528,32557,555"/>
+<area shape="rect" id="node469" href="$_s_b_m_l_extension_registry_8h.html" title="The registry class for tracking package extensions." alt="" coords="32736,229,32923,256"/>
+<area shape="rect" id="node477" href="$_s_b_m_l_type_codes_8cpp.html" title="Enumeration to identify SBML objects at runtime." alt="" coords="33743,304,33897,331"/>
+<area shape="rect" id="node17" href="$_s_b_m_l_level_version_converter_8cpp.html" title="Implementation of SBMLLevelVersionConverter, the base class of package extensions." alt="" coords="34095,789,34326,815"/>
+<area shape="rect" id="node18" href="$_s_b_m_l_strip_package_converter_8cpp.html" title="Implementation of SBMLStripPackageConverter, the base class of package extensions." alt="" coords="35669,789,35899,815"/>
+<area shape="rect" id="node19" href="$_s_b_m_l_units_converter_8cpp.html" title="Implementation of SBMLUnitsConverter, for converting units to SI." alt="" coords="35923,789,36106,815"/>
+<area shape="rect" id="node20" href="$_s_base_plugin_8cpp.html" title="Implementation of SBasePlugin, the base class of extension entities plugged in SBase derived classes ..." alt="" coords="33490,789,33619,815"/>
+<area shape="rect" id="node21" href="$_s_b_m_l_document_plugin_8h.html" title="Definition of SBMLDocumentPlugin, the derived class of SBasePlugin." alt="" coords="35263,789,35441,815"/>
+<area shape="rect" id="node26" href="$_comp_s_b_m_l_document_plugin_8h.html" title="Definition of CompSBMLDocumentPlugin, the plugin class of comp package for the Model element." alt="" coords="12362,878,12577,905"/>
+<area shape="rect" id="node28" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="19065,1109,19281,1136"/>
+<area shape="rect" id="node35" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="35295,1035,35481,1061"/>
+<area shape="rect" id="node36" href="$_fbc_to_cobra_converter_8cpp.html" title="Implementation of a fbc 2 cobra converter." alt="" coords="35505,1035,35692,1061"/>
+<area shape="rect" id="node37" href="$_fbc_v1_to_v2_converter_8cpp.html" title="Implementation of a fbc v1 to fbc v2 converter." alt="" coords="35717,1035,35899,1061"/>
+<area shape="rect" id="node38" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="35923,1035,36106,1061"/>
+<area shape="rect" id="node50" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="26772,1408,26975,1435"/>
+<area shape="rect" id="node75" href="$_s_b_m_l_extension_registry_8cpp.html" title="Implementation of SBMLExtensionRegistry, the registry class in which extension packages are registere..." alt="" coords="33643,789,33845,815"/>
+<area shape="rect" id="node76" href="$_v_constraint_8cpp.html" title="Base class for all SBML Validator Constraints." alt="" coords="36232,789,36357,815"/>
+<area shape="rect" id="node77" href="$_list_of_8cpp.html" title="Wraps List and inherits from SBase." alt="" coords="36382,789,36469,815"/>
+<area shape="rect" id="node78" href="$_model_8cpp.html" title="Implementation of Model." alt="" coords="33869,789,33958,815"/>
+<area shape="rect" id="node79" href="$_modifier_species_reference_8cpp.html" title="Implementation of ModifierSpeciesReference." alt="" coords="36493,789,36712,815"/>
+<area shape="rect" id="node80" href="$_s_base_8cpp.html" title="Implementation of SBase, the base object of all SBML objects." alt="" coords="33982,789,34071,815"/>
+<area shape="rect" id="node81" href="$_simple_species_reference_8cpp.html" title="Implementation of SimpleSpeciesReference." alt="" coords="36736,789,36947,815"/>
+<area shape="rect" id="node82" href="$_species_reference_8cpp.html" title="Implementation of SpeciesReference and ListOfSpeciesReferences." alt="" coords="36971,789,37136,815"/>
+<area shape="rect" id="node83" href="$_comp_model_plugin_8h.html" title="Definition of CompModelPlugin, the plugin class of comp package for the Model element." alt="" coords="11543,960,11695,987"/>
+<area shape="rect" id="node91" href="$_comp_s_base_plugin_8h.html" title="Definition of CompSBasePlugin, the plugin class of comp package for the Model element." alt="" coords="10377,878,10529,905"/>
+<area shape="rect" id="node93" href="$_fbc_model_plugin_8h.html" title="Definition of FbcModelPlugin, the plugin class of fbc package for the Model element." alt="" coords="8315,878,8453,905"/>
+<area shape="rect" id="node98" href="$_fbc_reaction_plugin_8h.html" title="Implementation of the FbcReactionPlugin class." alt="" coords="7656,878,7811,905"/>
+<area shape="rect" id="node100" href="$_fbc_s_base_plugin_8h.html" title="Definition of the FbcSBasePlugin class." alt="" coords="8311,789,8449,815"/>
+<area shape="rect" id="node102" href="$_fbc_species_plugin_8h.html" title="Definition of FbcSpeciesPlugin, the plugin class of the fbc package for the Species element." alt="" coords="8579,878,8725,905"/>
+<area shape="rect" id="node104" href="$_groups_model_plugin_8h.html" title="Definition of the GroupsModelPlugin class." alt="" coords="6701,878,6861,905"/>
+<area shape="rect" id="node106" href="$_layout_model_plugin_8h.html" title="Definition of LayoutModelPlugin, the plugin class of layout package for Model element." alt="" coords="18531,960,18690,987"/>
+<area shape="rect" id="node109" href="$_layout_species_reference_plugin_8h.html" title="Definition of LayoutSpeciesReferencePlugin, the plugin class of layout package (Level2) for the Speci..." alt="" coords="16563,960,16797,987"/>
+<area shape="rect" id="node111" href="$_render_graphical_object_plugin_8h.html" title="Definition of RenderGraphicalObjectPlugin, the plugin class of the render package for the GraphicalOb..." alt="" coords="19111,789,19335,815"/>
+<area shape="rect" id="node113" href="$_render_layout_plugin_8h.html" title="Definition of RenderLayoutPlugin, the plugin class of fbc package for the Model element." alt="" coords="2233,1259,2397,1285"/>
+<area shape="rect" id="node114" href="$_render_list_of_layouts_plugin_8h.html" title="Definition of RenderListOfLayoutsPlugin, the plugin class of fbc package for the Model element." alt="" coords="6326,1259,6535,1285"/>
+<area shape="rect" id="node115" href="$_spatial_compartment_plugin_8h.html" title="Definition of the SpatialCompartmentPlugin class." alt="" coords="29238,878,29447,905"/>
+<area shape="rect" id="node117" href="$_spatial_model_plugin_8h.html" title="Definition of the SpatialModelPlugin class." alt="" coords="28737,878,28895,905"/>
+<area shape="rect" id="node119" href="$_spatial_parameter_plugin_8h.html" title="Definition of the SpatialParameterPlugin class." alt="" coords="19656,878,19843,905"/>
+<area shape="rect" id="node121" href="$_spatial_reaction_plugin_8h.html" title="Definition of the SpatialReactionPlugin class." alt="" coords="29011,789,29187,815"/>
+<area shape="rect" id="node123" href="$_spatial_species_plugin_8h.html" title="Definition of the SpatialSpeciesPlugin class." alt="" coords="30010,789,30179,815"/>
+<area shape="rect" id="node125" href="$_distrib_s_base_plugin_8h.html" title="Definition of the DistribSBasePlugin class." alt="" coords="26309,960,26467,987"/>
+<area shape="rect" id="node127" href="$_multi_compartment_plugin_8h.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="34133,878,34331,905"/>
+<area shape="rect" id="node129" href="$_multi_list_of_reactions_plugin_8h.html" title=": Implementation of the MultiListOfReactionsPlugin class" alt="" coords="29769,878,29978,905"/>
+<area shape="rect" id="node131" href="$_multi_model_plugin_8h.html" title=": Implementation of the MultiModelPlugin class" alt="" coords="31080,878,31227,905"/>
+<area shape="rect" id="node133" href="$_multi_simple_species_reference_plugin_8h.html" title=": Implementation of the MultiSimpleSpeciesReferencePlugin class" alt="" coords="32641,781,32857,823"/>
+<area shape="rect" id="node137" href="$_multi_species_plugin_8h.html" title=": Implementation of the MultiSpeciesPlugin class" alt="" coords="27861,878,28019,905"/>
+<area shape="rect" id="node139" href="$_qual_model_plugin_8h.html" title="Definition of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="32331,878,32475,905"/>
+<area shape="rect" id="node22" href="$_s_b_m_l_document_plugin_8cpp.html" title="Implementation of SBMLDocumentPlugin, the derived class of SBasePlugin." alt="" coords="35379,878,35571,905"/>
+<area shape="rect" id="node23" href="$_s_b_m_l_document_plugin_not_required_8h.html" title="Definition of SBMLDocumentPluginNotRequired, the plugin class of layout package for the SBMLDocument ..." alt="" coords="35696,878,35955,905"/>
+<area shape="rect" id="node33" href="$_fbc_s_b_m_l_document_plugin_8h.html" title="Implementation of the FbcSBMLDocumentPlugin class." alt="" coords="13033,878,13233,905"/>
+<area shape="rect" id="node41" href="$_groups_s_b_m_l_document_plugin_8h.html" title="Definition of the GroupsSBMLDocumentPlugin class." alt="" coords="18225,878,18447,905"/>
+<area shape="rect" id="node45" href="$_layout_s_b_m_l_document_plugin_8h.html" title="Implementation of the LayoutSBMLDocumentPlugin class." alt="" coords="26744,878,26965,905"/>
+<area shape="rect" id="node53" href="$_render_s_b_m_l_document_plugin_8h.html" title="Definition of the RenderSBMLDocumentPlugin class." alt="" coords="17809,878,18031,905"/>
+<area shape="rect" id="node59" href="$_spatial_s_b_m_l_document_plugin_8h.html" title="Definition of the SpatialSBMLDocumentPlugin class." alt="" coords="29471,878,29694,905"/>
+<area shape="rect" id="node63" href="$_distrib_s_b_m_l_document_plugin_8h.html" title="Definition of the DistribSBMLDocumentPlugin class." alt="" coords="31739,878,31959,905"/>
+<area shape="rect" id="node67" href="$_multi_s_b_m_l_document_plugin_8h.html" title=": Implementation of the MultiSBMLDocumentPlugin class" alt="" coords="34355,878,34565,905"/>
+<area shape="rect" id="node71" href="$_qual_s_b_m_l_document_plugin_8h.html" title="Implementation of the QualSBMLDocumentPlugin class." alt="" coords="34691,878,34898,905"/>
+<area shape="rect" id="node24" href="$_s_b_m_l_document_plugin_not_required_8cpp.html" title="Implementation of SBMLDocumentPluginNotRequired, the plugin class of layout package for the Model ele..." alt="" coords="35681,960,35954,987"/>
+<area shape="rect" id="node27" href="$_comp_extension_types_8h.html" title="Include all SBML types of Comp extension in a single header file." alt="" coords="12664,1035,12837,1061"/>
+<area shape="rect" id="node30" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="11878,1035,12109,1061"/>
+<area shape="rect" id="node31" href="$_external_model_definition_8cpp.html" title="Implementation of ExternalModelDefinition, the SBase&#45;derived class of the comp package." alt="" coords="11261,960,11467,987"/>
+<area shape="rect" id="node32" href="$_submodel_8cpp.html" title="Implementation of Submodel, the SBase&#45;derived class of the comp package." alt="" coords="11328,1035,11443,1061"/>
+<area shape="rect" id="node29" href="$_comp_validator_8cpp.html" title=" " alt="" coords="12679,1109,12823,1136"/>
+<area shape="rect" id="node34" href="$_fbc_extension_types_8h.html" title="Includes all SBML types of the fbc package extension in a single header file." alt="" coords="8401,960,8559,987"/>
+<area shape="rect" id="node40" href="$_fbc_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the FbcSBMLDocumentPlugin class." alt="" coords="13026,960,13241,987"/>
+<area shape="rect" id="node39" href="$_fbc_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="8415,1035,8545,1061"/>
+<area shape="rect" id="node42" href="$_groups_extension_types_8h.html" title="Definition of GroupsExtensionTypes." alt="" coords="6592,960,6773,987"/>
+<area shape="rect" id="node44" href="$_groups_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the GroupsSBMLDocumentPlugin class." alt="" coords="18217,960,18455,987"/>
+<area shape="rect" id="node43" href="$_groups_validator_8cpp.html" title="Definition of GroupsValidator." alt="" coords="6607,1035,6759,1061"/>
+<area shape="rect" id="node46" href="$_layout_extension_types_8h.html" title="Include all SBML types of layout extension in a single header file." alt="" coords="16996,1035,17175,1061"/>
+<area shape="rect" id="node52" href="$_layout_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the LayoutSBMLDocumentPlugin class." alt="" coords="26743,960,26979,987"/>
+<area shape="rect" id="node47" href="$_graphical_object_8cpp.html" title="Implementation of GraphicalObject for SBML Layout." alt="" coords="15198,1109,15351,1136"/>
+<area shape="rect" id="node48" href="$_layout_validator_8cpp.html" title="Implementation of the LayoutValidator class." alt="" coords="15023,1109,15174,1136"/>
+<area shape="rect" id="node49" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="10580,1483,10804,1509"/>
+<area shape="rect" id="node51" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="5859,1483,6005,1509"/>
+<area shape="rect" id="node54" href="$_render_extension_types_8h.html" title="Definition of RenderExtensionTypes." alt="" coords="3663,1333,3844,1360"/>
+<area shape="rect" id="node58" href="$_render_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the RenderSBMLDocumentPlugin class." alt="" coords="17801,960,18039,987"/>
+<area shape="rect" id="node55" href="$_render_layout_plugin_8cpp.html" title="Implementation of RenderLayoutPlugin, the plugin class of the fbc package for the Model element." alt="" coords="3833,1483,4012,1509"/>
+<area shape="rect" id="node56" href="$_render_utilities_8h.html" title="Definition of RenderUtilities, a class of utility functions for the render package." alt="" coords="5867,1408,5997,1435"/>
+<area shape="rect" id="node57" href="$_render_validator_8cpp.html" title="Definition of RenderValidator." alt="" coords="3733,1408,3885,1435"/>
+<area shape="rect" id="node60" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="22518,960,22698,987"/>
+<area shape="rect" id="node62" href="$_spatial_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the SpatialSBMLDocumentPlugin class." alt="" coords="29352,960,29589,987"/>
+<area shape="rect" id="node61" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="22533,1035,22683,1061"/>
+<area shape="rect" id="node64" href="$_distrib_extension_types_8h.html" title="Definition of DistribExtensionTypes." alt="" coords="26491,1035,26669,1061"/>
+<area shape="rect" id="node66" href="$_distrib_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the DistribSBMLDocumentPlugin class." alt="" coords="31577,960,31812,987"/>
+<area shape="rect" id="node65" href="$_distrib_validator_8cpp.html" title="Definition of DistribValidator." alt="" coords="26505,1109,26655,1136"/>
+<area shape="rect" id="node68" href="$_multi_extension_types_8h.html" title=": Implementation of the MultiExtensionTypes class" alt="" coords="30267,960,30435,987"/>
+<area shape="rect" id="node70" href="$_multi_s_b_m_l_document_plugin_8cpp.html" title=": Implementation of the MultiSBMLDocumentPlugin class" alt="" coords="34457,960,34682,987"/>
+<area shape="rect" id="node69" href="$_multi_validator_8cpp.html" title=": Implementation of the MultiValidator class" alt="" coords="30281,1035,30420,1061"/>
+<area shape="rect" id="node72" href="$_qual_extension_types_8h.html" title="Include all SBML types of qual extension in a single header file." alt="" coords="33219,960,33384,987"/>
+<area shape="rect" id="node74" href="$_qual_s_b_m_l_document_plugin_8cpp.html" title="Implementation of QualSBMLDocumentPlugin, the plugin class of qual package for the SBase element." alt="" coords="34706,960,34929,987"/>
+<area shape="rect" id="node73" href="$_qual_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="33233,1035,33369,1061"/>
+<area shape="rect" id="node84" href="$_comp_model_plugin_8cpp.html" title="Implementation of CompModelPlugin, the plugin class of comp package for the SBase element." alt="" coords="10695,1035,10862,1061"/>
+<area shape="rect" id="node85" href="$_comp_base_8cpp.html" title="Implementation of CompBase, the base class of extension entities plugged in SBase derived classes in ..." alt="" coords="13249,1035,13367,1061"/>
+<area shape="rect" id="node86" href="$_replaced_by_8cpp.html" title="Implementation of ReplacedBy, the SBaseRef derived class of the comp package." alt="" coords="10155,1035,10279,1061"/>
+<area shape="rect" id="node87" href="$_replaced_element_8cpp.html" title="Implementation of ReplacedElement, the SBaseRef derived class of replacedElements package." alt="" coords="10887,1035,11049,1061"/>
+<area shape="rect" id="node88" href="$_replacing_8cpp.html" title="Implementation of Replacing, the SBaseRef derived class of Replacings package." alt="" coords="11074,1035,11187,1061"/>
+<area shape="rect" id="node89" href="$_s_base_ref_8cpp.html" title="Implementation of SBaseRef, the SBase&#45;derived class of the comp package." alt="" coords="11743,1035,11854,1061"/>
+<area shape="rect" id="node90" href="$_comp_flattening_converter_8h.html" title="Definition of a first flattening converter." alt="" coords="11518,1035,11719,1061"/>
+<area shape="rect" id="node92" href="$_comp_s_base_plugin_8cpp.html" title="Implementation of CompSBasePlugin, the plugin class of comp package for the SBase element." alt="" coords="10479,960,10646,987"/>
+<area shape="rect" id="node94" href="$_fbc_model_plugin_8cpp.html" title="Implementation of FbcModelPlugin, the plugin class of the fbc package for the Model element." alt="" coords="8205,960,8357,987"/>
+<area shape="rect" id="node95" href="$_fbc_association_8cpp.html" title="Implementation of the FbcAssociation class." alt="" coords="7377,960,7524,987"/>
+<area shape="rect" id="node96" href="$_gene_product_association_8cpp.html" title="Implementation of the GeneProductAssociation class." alt="" coords="7549,960,7755,987"/>
+<area shape="rect" id="node97" href="$_gene_product_ref_8cpp.html" title="Implementation of the GeneProductRef class." alt="" coords="7991,960,8145,987"/>
+<area shape="rect" id="node99" href="$_fbc_reaction_plugin_8cpp.html" title="Implementation of the FbcReactionPlugin class." alt="" coords="7779,960,7949,987"/>
+<area shape="rect" id="node101" href="$_fbc_s_base_plugin_8cpp.html" title="Implementation of the FbcSBasePlugin class." alt="" coords="7885,878,8037,905"/>
+<area shape="rect" id="node103" href="$_fbc_species_plugin_8cpp.html" title="Implementation of FbcSpeciesPlugin, the plugin class of the fbc package for the Species element." alt="" coords="8744,960,8907,987"/>
+<area shape="rect" id="node105" href="$_groups_model_plugin_8cpp.html" title="Implementation of the GroupsModelPlugin class." alt="" coords="6798,960,6973,987"/>
+<area shape="rect" id="node107" href="$_layout_model_plugin_8cpp.html" title="Implementation of LayoutModelPlugin, the plugin class of layout package for the Model element." alt="" coords="17351,1035,17524,1061"/>
+<area shape="rect" id="node108" href="$_layout_annotation_8cpp.html" title="Layout annotation I/O." alt="" coords="16563,1035,16727,1061"/>
+<area shape="rect" id="node110" href="$_layout_species_reference_plugin_8cpp.html" title="Implementation of LayoutSpeciesReferencePlugin, the plugin object of layout package (Level2) for the ..." alt="" coords="16222,1035,16471,1061"/>
+<area shape="rect" id="node112" href="$_render_graphical_object_plugin_8cpp.html" title="Implementation of RenderGraphicalObjectPlugin, the plugin class of the render package for the Graphic..." alt="" coords="19291,878,19530,905"/>
+<area shape="rect" id="node116" href="$_spatial_compartment_plugin_8cpp.html" title="Implementation of the SpatialCompartmentPlugin class." alt="" coords="29104,960,29328,987"/>
+<area shape="rect" id="node118" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="28729,960,28903,987"/>
+<area shape="rect" id="node120" href="$_spatial_parameter_plugin_8cpp.html" title="Implementation of the SpatialParameterPlugin class." alt="" coords="19649,960,19850,987"/>
+<area shape="rect" id="node122" href="$_spatial_reaction_plugin_8cpp.html" title="Implementation of the SpatialReactionPlugin class." alt="" coords="28971,878,29162,905"/>
+<area shape="rect" id="node124" href="$_spatial_species_plugin_8cpp.html" title="Implementation of the SpatialSpeciesPlugin class." alt="" coords="30003,878,30187,905"/>
+<area shape="rect" id="node126" href="$_distrib_s_base_plugin_8cpp.html" title="Implementation of the DistribSBasePlugin class." alt="" coords="26113,1035,26285,1061"/>
+<area shape="rect" id="node128" href="$_multi_compartment_plugin_8cpp.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="34221,960,34433,987"/>
+<area shape="rect" id="node130" href="$_multi_list_of_reactions_plugin_8cpp.html" title=": Implementation of the MultiListOfReactionsPlugin class" alt="" coords="29797,960,30021,987"/>
+<area shape="rect" id="node132" href="$_multi_model_plugin_8cpp.html" title=": Implementation of the MultiModelPlugin class" alt="" coords="30779,960,30941,987"/>
+<area shape="rect" id="node134" href="$_multi_simple_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSimpleSpeciesReferencePlugin class" alt="" coords="32997,871,33213,912"/>
+<area shape="rect" id="node135" href="$_multi_species_reference_plugin_8h.html" title=": Implementation of the MultiSpeciesReferencePlugin class" alt="" coords="31493,878,31715,905"/>
+<area shape="rect" id="node136" href="$_multi_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSpeciesReferencePlugin class" alt="" coords="31314,960,31553,987"/>
+<area shape="rect" id="node138" href="$_multi_species_plugin_8cpp.html" title=": Implementation of the MultiSpeciesPlugin class" alt="" coords="27854,960,28026,987"/>
+<area shape="rect" id="node140" href="$_qual_model_plugin_8cpp.html" title="Implementation of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="32323,960,32482,987"/>
+<area shape="rect" id="node145" href="$_external_model_definition_8h.html" title="Definition of ExternalModelDefinition, the SBase derived class of the comp package." alt="" coords="11533,699,11723,726"/>
+<area shape="rect" id="node147" href="$_list_of_external_model_definitions_8cpp.html" title="Implementation of ListOfExternalModelDefinitions." alt="" coords="11393,878,11644,905"/>
+<area shape="rect" id="node148" href="$_model_definition_8h.html" title="Definition of ModelDefinition, the SBase derived class of the comp package." alt="" coords="12310,699,12447,726"/>
+<area shape="rect" id="node150" href="$_list_of_model_definitions_8cpp.html" title="Implementation of ListOfModelDefinitions from the comp package." alt="" coords="12089,878,12287,905"/>
+<area shape="rect" id="node151" href="$_model_definition_8cpp.html" title="Implementation of ModelDefinition, the SBase&#45;derived class of the comp package." alt="" coords="12065,960,12217,987"/>
+<area shape="rect" id="node152" href="$_s_base_ref_8h.html" title="Definition of SBaseRef, the SBase derived class of the comp package." alt="" coords="12805,528,12899,555"/>
+<area shape="rect" id="node154" href="$_deletion_8cpp.html" title="Implementation of Deletion, the SBaseRef derived class of deletions package." alt="" coords="12905,878,13009,905"/>
+<area shape="rect" id="node156" href="$_list_of_deletions_8cpp.html" title="Implementation of ListOfDeletions." alt="" coords="12753,789,12903,815"/>
+<area shape="rect" id="node157" href="$_submodel_8h.html" title="Definition of Submodel, the SBase derived class of the comp package." alt="" coords="11929,789,12028,815"/>
+<area shape="rect" id="node159" href="$_list_of_submodels_8cpp.html" title="Implementation of ListOfSubmodels." alt="" coords="11078,960,11237,987"/>
+<area shape="rect" id="node160" href="$_port_8h.html" title="Definition of Port, the SBase derived class of the comp package." alt="" coords="13317,789,13377,815"/>
+<area shape="rect" id="node162" href="$_list_of_ports_8cpp.html" title="Implementation of ListOfPorts." alt="" coords="11820,960,11940,987"/>
+<area shape="rect" id="node163" href="$_port_8cpp.html" title="Implementation of Port, the SBase&#45;derived class of the comp package." alt="" coords="13437,960,13512,987"/>
+<area shape="rect" id="node164" href="$_replacing_8h.html" title="Definition of Replacing, the SBaseRef&#45;derived class of the comp package." alt="" coords="10908,610,11007,637"/>
+<area shape="rect" id="node165" href="$_replaced_by_8h.html" title="Definition of ReplacedBy, the Replacing&#45;derived class of the comp package." alt="" coords="10327,789,10436,815"/>
+<area shape="rect" id="node166" href="$_replaced_element_8h.html" title="Definition of ReplacedElement, the SBase derived class of replacedElements package." alt="" coords="10797,699,10945,726"/>
+<area shape="rect" id="node168" href="$_list_of_replaced_elements_8cpp.html" title="Implementation of ListOfReplacedElements from the comp package." alt="" coords="10756,878,10964,905"/>
+<area shape="rect" id="node146" href="$_list_of_external_model_definitions_8h.html" title="Definition of ListOfExternalModelDefinitions, the SBase derived class of the Hierarchial Model Defint..." alt="" coords="11510,789,11746,815"/>
+<area shape="rect" id="node149" href="$_list_of_model_definitions_8h.html" title="Definition of ListOfModelDefinitions, the SBase derived class of modelDefinitions package." alt="" coords="12242,789,12425,815"/>
+<area shape="rect" id="node153" href="$_deletion_8h.html" title="Definition of Deletion, the SBase derived class of deletions package." alt="" coords="12901,610,12990,637"/>
+<area shape="rect" id="node155" href="$_list_of_deletions_8h.html" title="Definition of ListOfDeletions, the SBase derived class of deletions package." alt="" coords="12811,699,12946,726"/>
+<area shape="rect" id="node158" href="$_list_of_submodels_8h.html" title="Definition of ListOfSubmodels, the SBase derived class of submodels package." alt="" coords="11820,878,11964,905"/>
+<area shape="rect" id="node161" href="$_list_of_ports_8h.html" title="Definition of ListOfPorts, the SBase derived class of ports package." alt="" coords="13257,878,13362,905"/>
+<area shape="rect" id="node167" href="$_list_of_replaced_elements_8h.html" title="Definition of ListOfReplacedElements, the SBase derived class of replacedElements package." alt="" coords="10655,789,10849,815"/>
+<area shape="rect" id="node170" href="$_association_8cpp.html" title="Implementation of Association, the contents of a GeneAssociation." alt="" coords="6997,960,7121,987"/>
+<area shape="rect" id="node171" href="$_association_8h.html" title="Definition of Association, the contents of a GeneAssociation." alt="" coords="8364,699,8473,726"/>
+<area shape="rect" id="node172" href="$_gene_association_8h.html" title="Definition of GeneAssociation, the SBase derived class of the fbc package." alt="" coords="8575,789,8718,815"/>
+<area shape="rect" id="node173" href="$_gene_association_8cpp.html" title="Implementation of GeneAssociation, the SBase derived class of the fbc package." alt="" coords="8750,878,8909,905"/>
+<area shape="rect" id="node174" href="$_fbc_and_8h.html" title="Implementation of the FbcAnd class." alt="" coords="6987,878,7069,905"/>
+<area shape="rect" id="node177" href="$_fbc_association_8h.html" title="Implementation of the FbcAssociation class." alt="" coords="7138,699,7270,726"/>
+<area shape="rect" id="node178" href="$_fbc_or_8h.html" title="Implementation of the FbcOr class." alt="" coords="7094,878,7165,905"/>
+<area shape="rect" id="node179" href="$_gene_product_association_8h.html" title="Implementation of the GeneProductAssociation class." alt="" coords="7481,789,7673,815"/>
+<area shape="rect" id="node180" href="$_gene_product_ref_8h.html" title="Implementation of the GeneProductRef class." alt="" coords="7189,878,7328,905"/>
+<area shape="rect" id="node181" href="$_flux_bound_8cpp.html" title="Implementation of FluxBound, the SBase derived class of the fbc package." alt="" coords="9198,878,9317,905"/>
+<area shape="rect" id="node182" href="$_flux_bound_8h.html" title="Definition of FluxBound, the SBase derived class of the fbc package." alt="" coords="8895,789,8998,815"/>
+<area shape="rect" id="node183" href="$_flux_objective_8cpp.html" title="Implementation of the FluxObjective class." alt="" coords="9759,610,9897,637"/>
+<area shape="rect" id="node184" href="$_flux_objective_8h.html" title="Definition of FluxObjective, the SBase derived class of the fbc package." alt="" coords="9709,528,9833,555"/>
+<area shape="rect" id="node185" href="$_objective_8h.html" title="Definition of Objective, the SBase derived class of the fbc package." alt="" coords="8887,610,8983,637"/>
+<area shape="rect" id="node186" href="$_objective_8cpp.html" title="Implementation of the Objective class." alt="" coords="9058,699,9169,726"/>
+<area shape="rect" id="node187" href="$_gene_product_8h.html" title="Implementation of the GeneProduct class." alt="" coords="9776,789,9893,815"/>
+<area shape="rect" id="node189" href="$_key_value_pair_8h.html" title="Definition of the KeyValuePair class." alt="" coords="8217,610,8335,637"/>
+<area shape="rect" id="node191" href="$_list_of_key_value_pairs_8h.html" title="Definition of the ListOfKeyValuePairs class." alt="" coords="8025,699,8188,726"/>
+<area shape="rect" id="node193" href="$_list_of_user_defined_constraint_components_8h.html" title="Definition of the ListOfUserDefinedConstraintComponents class." alt="" coords="9193,603,9399,644"/>
+<area shape="rect" id="node195" href="$_user_defined_constraint_8h.html" title="Definition of the UserDefinedConstraint class." alt="" coords="8801,699,8983,726"/>
+<area shape="rect" id="node196" href="$_list_of_user_defined_constraints_8h.html" title="Definition of the ListOfUserDefinedConstraints class." alt="" coords="9073,789,9300,815"/>
+<area shape="rect" id="node200" href="$_user_defined_constraint_component_8h.html" title="Definition of the UserDefinedConstraintComponent class." alt="" coords="9221,528,9477,555"/>
+<area shape="rect" id="node175" href="$_fbc_and_8cpp.html" title="Implementation of the FbcAnd class." alt="" coords="7145,960,7242,987"/>
+<area shape="rect" id="node176" href="$_fbc_or_8cpp.html" title="Implementation of the FbcOr class." alt="" coords="7266,960,7353,987"/>
+<area shape="rect" id="node188" href="$_gene_product_8cpp.html" title="Implementation of the GeneProduct class." alt="" coords="9714,878,9846,905"/>
+<area shape="rect" id="node190" href="$_key_value_pair_8cpp.html" title="Implementation of the KeyValuePair class." alt="" coords="8103,789,8235,815"/>
+<area shape="rect" id="node192" href="$_list_of_key_value_pairs_8cpp.html" title="Implementation of the ListOfKeyValuePairs class." alt="" coords="7900,789,8079,815"/>
+<area shape="rect" id="node194" href="$_list_of_user_defined_constraint_components_8cpp.html" title="Implementation of the ListOfUserDefinedConstraintComponents class." alt="" coords="9193,692,9399,733"/>
+<area shape="rect" id="node199" href="$_user_defined_constraint_component_8cpp.html" title="Implementation of the UserDefinedConstraintComponent class." alt="" coords="9423,699,9694,726"/>
+<area shape="rect" id="node198" href="$_user_defined_constraint_8cpp.html" title="Implementation of the UserDefinedConstraint class." alt="" coords="9341,878,9537,905"/>
+<area shape="rect" id="node197" href="$_list_of_user_defined_constraints_8cpp.html" title="Implementation of the ListOfUserDefinedConstraints class." alt="" coords="8933,878,9174,905"/>
+<area shape="rect" id="node202" href="$_group_8h.html" title="Definition of the Group class." alt="" coords="6435,699,6509,726"/>
+<area shape="rect" id="node204" href="$_list_of_groups_8h.html" title="Definition of the ListOfGroups class." alt="" coords="6439,789,6558,815"/>
+<area shape="rect" id="node206" href="$_list_of_members_8h.html" title="Definition of the ListOfMembers class." alt="" coords="6693,610,6827,637"/>
+<area shape="rect" id="node209" href="$_member_8h.html" title="Definition of the Member class." alt="" coords="6635,528,6722,555"/>
+<area shape="rect" id="node203" href="$_group_8cpp.html" title="Implementation of the Group class." alt="" coords="6589,878,6677,905"/>
+<area shape="rect" id="node205" href="$_list_of_groups_8cpp.html" title="Implementation of the ListOfGroups class." alt="" coords="6432,878,6565,905"/>
+<area shape="rect" id="node207" href="$_list_of_members_8cpp.html" title="Implementation of the ListOfMembers class." alt="" coords="6762,699,6910,726"/>
+<area shape="rect" id="node208" href="$_member_8cpp.html" title="Implementation of the Member class." alt="" coords="6635,699,6738,726"/>
+<area shape="rect" id="node211" href="$_bounding_box_8cpp.html" title="Implementation of BoundingBox for SBML Layout." alt="" coords="15891,789,16026,815"/>
+<area shape="rect" id="node212" href="$_compartment_glyph_8cpp.html" title="Implementation of CompartmentGlyph for SBML Layout." alt="" coords="15542,960,15719,987"/>
+<area shape="rect" id="node213" href="$_cubic_bezier_8cpp.html" title="Implementation of CubicBezier for SBML Layout." alt="" coords="17667,789,17792,815"/>
+<area shape="rect" id="node214" href="$_cubic_bezier_8h.html" title="Definition of CubicBezier for SBML Layout." alt="" coords="17671,610,17782,637"/>
+<area shape="rect" id="node215" href="$_curve_8cpp.html" title="Implementation of Curve for SBML Layout." alt="" coords="17505,789,17591,815"/>
+<area shape="rect" id="node216" href="$_curve_8h.html" title="Definition of Curve for SBML Layout." alt="" coords="17155,610,17227,637"/>
+<area shape="rect" id="node217" href="$_general_glyph_8h.html" title="Definition of GeneralGlyph for SBML Layout." alt="" coords="17205,789,17328,815"/>
+<area shape="rect" id="node218" href="$_general_glyph_8cpp.html" title="Implementation of GeneralGlyph for SBML Layout." alt="" coords="15912,960,16051,987"/>
+<area shape="rect" id="node219" href="$_layout_8cpp.html" title="Implementation of Layout for SBML Layout." alt="" coords="15744,960,15837,987"/>
+<area shape="rect" id="node220" href="$_reference_glyph_8cpp.html" title="Implementation of ReferenceGlyph for SBML Layout." alt="" coords="17123,878,17277,905"/>
+<area shape="rect" id="node221" href="$_line_segment_8cpp.html" title="Implementation of LineSegment for SBML Layout." alt="" coords="16995,789,17130,815"/>
+<area shape="rect" id="node222" href="$_reaction_glyph_8h.html" title="Definition of ReactionGlyph for SBML Layout." alt="" coords="16198,789,16327,815"/>
+<area shape="rect" id="node223" href="$_layout_8h.html" title="Definition of Layout for SBML Layout." alt="" coords="16187,878,16266,905"/>
+<area shape="rect" id="node224" href="$_reaction_glyph_8cpp.html" title="Implementation of ReactionGlyph for SBML Layout." alt="" coords="15147,960,15291,987"/>
+<area shape="rect" id="node225" href="$_species_glyph_8cpp.html" title="Implementation of SpeciesGlyph for SBML Layout." alt="" coords="16075,960,16213,987"/>
+<area shape="rect" id="node226" href="$_species_reference_glyph_8cpp.html" title="Implementation of SpeciesReferenceGlyph for SBML Layout." alt="" coords="15315,960,15517,987"/>
+<area shape="rect" id="node227" href="$_text_glyph_8cpp.html" title="Implementation of TextGlyph for SBML Layout." alt="" coords="14907,960,15021,987"/>
+<area shape="rect" id="node247" href="$_reference_glyph_8h.html" title="Definition of ReferenceGlyph for SBML Layout." alt="" coords="17301,699,17440,726"/>
+<area shape="rect" id="node248" href="$_species_reference_glyph_8h.html" title="Definition of SpeciesReferenceGlyph for SBML Layout." alt="" coords="16354,699,16542,726"/>
+<area shape="rect" id="node249" href="$_dimensions_8cpp.html" title="Implementation of Dimensions for SBML Layout." alt="" coords="18177,789,18303,815"/>
+<area shape="rect" id="node250" href="$_dimensions_8h.html" title="Definition of Dimensions for SBML Layout." alt="" coords="18125,453,18235,480"/>
+<area shape="rect" id="node252" href="$_graphical_object_8h.html" title="Definition of GraphicalObject for SBML Layout." alt="" coords="16588,610,16727,637"/>
+<area shape="rect" id="node254" href="$_species_glyph_8h.html" title="Definition of SpeciesGlyph for SBML Layout." alt="" coords="16051,789,16173,815"/>
+<area shape="rect" id="node255" href="$_text_glyph_8h.html" title="Definition of TextGlyph for SBML Layout." alt="" coords="15667,789,15765,815"/>
+<area shape="rect" id="node257" href="$_point_8cpp.html" title="Implementation of Point for SBML Layout." alt="" coords="17917,789,18000,815"/>
+<area shape="rect" id="node286" href="$_line_segment_8h.html" title="Definition of LineSegment for SBML Layout." alt="" coords="17542,528,17661,555"/>
+<area shape="rect" id="node287" href="$_point_8h.html" title="Definition of Point for SBML Layout." alt="" coords="17837,453,17904,480"/>
+<area shape="rect" id="node228" href="$_layout_annotation_8h.html" title="Layout annotation I/O." alt="" coords="16237,960,16387,987"/>
+<area shape="rect" id="node229" href="$_ellipse_8cpp.html" title="Implementation of the Ellipse class." alt="" coords="11211,1035,11303,1061"/>
+<area shape="rect" id="node230" href="$_global_style_8cpp.html" title="Implementation of the GlobalStyle class." alt="" coords="5805,1109,5929,1136"/>
+<area shape="rect" id="node231" href="$_gradient_stop_8cpp.html" title="class representing a stop in a gradient definition" alt="" coords="941,1035,1075,1061"/>
+<area shape="rect" id="node232" href="$_image_8cpp.html" title="Implementation of the Image class." alt="" coords="12952,1035,13043,1061"/>
+<area shape="rect" id="node233" href="$_linear_gradient_8cpp.html" title="Implementation of the LinearGradient class." alt="" coords="12305,1035,12450,1061"/>
+<area shape="rect" id="node234" href="$_list_of_curve_elements_8cpp.html" title="storage class for curve elements" alt="" coords="1927,1035,2113,1061"/>
+<area shape="rect" id="node235" href="$_list_of_gradient_stops_8cpp.html" title="Implementation of the ListOfGradientStops class." alt="" coords="14805,1035,14984,1061"/>
+<area shape="rect" id="node236" href="$_local_render_information_8cpp.html" title="Implementation of the LocalRenderInformation class." alt="" coords="3485,1259,3691,1285"/>
+<area shape="rect" id="node237" href="$_local_style_8cpp.html" title="class for representing a local style" alt="" coords="2854,1109,2970,1136"/>
+<area shape="rect" id="node238" href="$_polygon_8cpp.html" title="Implementation of the Polygon class." alt="" coords="2188,1035,2289,1061"/>
+<area shape="rect" id="node239" href="$_radial_gradient_8cpp.html" title="Implementation of the RadialGradient class." alt="" coords="12133,1035,12280,1061"/>
+<area shape="rect" id="node240" href="$_rectangle_8cpp.html" title="Implementation of the Rectangle class." alt="" coords="12475,1035,12589,1061"/>
+<area shape="rect" id="node241" href="$_render_cubic_bezier_8cpp.html" title="Implementation of the RenderCubicBezier class." alt="" coords="1423,1035,1593,1061"/>
+<area shape="rect" id="node242" href="$_render_curve_8cpp.html" title="Implementation of the RenderCurve class." alt="" coords="1769,1035,1903,1061"/>
+<area shape="rect" id="node243" href="$_render_group_8cpp.html" title="Implementation of the RenderGroup class." alt="" coords="4603,1035,4738,1061"/>
+<area shape="rect" id="node244" href="$_render_point_8cpp.html" title="Implementation of the RenderPoint class." alt="" coords="1617,1035,1745,1061"/>
+<area shape="rect" id="node245" href="$_style_8cpp.html" title="Implementation of the Style class." alt="" coords="5403,1109,5485,1136"/>
+<area shape="rect" id="node246" href="$_text_8cpp.html" title="Implementation of the Text class." alt="" coords="10383,1035,10459,1061"/>
+<area shape="rect" id="node251" href="$_bounding_box_8h.html" title="Definition of BoundingBox for SBML Layout." alt="" coords="17939,528,18059,555"/>
+<area shape="rect" id="node278" href="$_line_ending_8h.html" title="class representing line endings, e.g." alt="" coords="4934,878,5039,905"/>
+<area shape="rect" id="node253" href="$_compartment_glyph_8h.html" title="Definition of CompartmentGlyph for SBML Layout." alt="" coords="16605,789,16768,815"/>
+<area shape="rect" id="node256" href="$_layout_utilities_8h.html" title="Definition of LayoutUtilities for SBML Layout." alt="" coords="14561,699,14690,726"/>
+<area shape="rect" id="node258" href="$_layout_utilities_8cpp.html" title="Implementation of some methods used by many of the layout files." alt="" coords="14941,789,15085,815"/>
+<area shape="rect" id="node259" href="$_color_definition_8cpp.html" title="Implementation of the ColorDefinition class." alt="" coords="2797,789,2944,815"/>
+<area shape="rect" id="node260" href="$_global_render_information_8cpp.html" title="class for the storage of global render information" alt="" coords="5784,1259,5997,1285"/>
+<area shape="rect" id="node261" href="$_gradient_base_8cpp.html" title="abstract base class for gradient objects" alt="" coords="338,1035,475,1061"/>
+<area shape="rect" id="node262" href="$_line_ending_8cpp.html" title="class representing line endings,e.g." alt="" coords="5840,1035,5960,1061"/>
+<area shape="rect" id="node263" href="$_list_of_color_definitions_8cpp.html" title="Implementation of the ListOfColorDefinitions class." alt="" coords="7165,789,7355,815"/>
+<area shape="rect" id="node264" href="$_list_of_global_render_information_8cpp.html" title="Implementation of the ListOfGlobalRenderInformation class." alt="" coords="10453,1259,10704,1285"/>
+<area shape="rect" id="node265" href="$_list_of_global_styles_8cpp.html" title="Implementation of the ListOfGlobalStyles class." alt="" coords="6106,1109,6275,1136"/>
+<area shape="rect" id="node266" href="$_list_of_line_endings_8cpp.html" title="Implementation of the ListOfLineEndings class." alt="" coords="7504,1035,7669,1061"/>
+<area shape="rect" id="node267" href="$_list_of_local_render_information_8cpp.html" title="Implementation of the ListOfLocalRenderInformation class." alt="" coords="3016,1259,3259,1285"/>
+<area shape="rect" id="node268" href="$_list_of_local_styles_8cpp.html" title="Implementation of the ListOfLocalStyles class." alt="" coords="3147,1109,3309,1136"/>
+<area shape="rect" id="node269" href="$_render_cubic_bezier_8h.html" title="Definition of the RenderCubicBezier class." alt="" coords="1710,789,1866,815"/>
+<area shape="rect" id="node270" href="$_list_of_curve_elements_8h.html" title="Definition of the ListOfCurveElements class." alt="" coords="1941,878,2112,905"/>
+<area shape="rect" id="node271" href="$_polygon_8h.html" title="class representing a polygon" alt="" coords="3619,960,3706,987"/>
+<area shape="rect" id="node277" href="$_render_curve_8h.html" title="Definition of the RenderCurve class." alt="" coords="3222,960,3341,987"/>
+<area shape="rect" id="node272" href="$_graphical_primitive1_d_8cpp.html" title="abstract base class for graphical 1D objects" alt="" coords="4339,1035,4527,1061"/>
+<area shape="rect" id="node273" href="$_graphical_primitive2_d_8cpp.html" title="Implementation of the GraphicalPrimitive2D class." alt="" coords="5195,1035,5383,1061"/>
+<area shape="rect" id="node274" href="$_list_of_drawables_8cpp.html" title="Implementation of the ListOfDrawables class." alt="" coords="4107,1035,4263,1061"/>
+<area shape="rect" id="node275" href="$_transformation_8cpp.html" title="class representing a 3D affine transformation" alt="" coords="3885,1035,4032,1061"/>
+<area shape="rect" id="node276" href="$_transformation2_d_8cpp.html" title="class representing a 2D affine transformation" alt="" coords="3587,1035,3752,1061"/>
+<area shape="rect" id="node279" href="$_list_of_line_endings_8h.html" title="Definition of the ListOfLineEndings class." alt="" coords="5118,960,5269,987"/>
+<area shape="rect" id="node280" href="$_render_information_base_8h.html" title="Definition of the RenderInformationBase class." alt="" coords="2365,1035,2553,1061"/>
+<area shape="rect" id="node281" href="$_global_render_information_8h.html" title="Definition of the GlobalRenderInformation class." alt="" coords="5582,1109,5781,1136"/>
+<area shape="rect" id="node283" href="$_render_information_base_8cpp.html" title="Implementation of the RenderInformationBase class." alt="" coords="2472,1259,2675,1285"/>
+<area shape="rect" id="node284" href="$_local_render_information_8h.html" title="Definition of the LocalRenderInformation class." alt="" coords="2289,1109,2479,1136"/>
+<area shape="rect" id="node282" href="$_list_of_global_render_information_8h.html" title="Definition of the ListOfGlobalRenderInformation class." alt="" coords="5813,1184,6049,1211"/>
+<area shape="rect" id="node285" href="$_list_of_local_render_information_8h.html" title="Definition of the ListOfLocalRenderInformation class." alt="" coords="2555,1184,2783,1211"/>
+<area shape="rect" id="node289" href="$_color_definition_8h.html" title="Definition of the ColorDefinition class." alt="" coords="2797,610,2928,637"/>
+<area shape="rect" id="node290" href="$_list_of_color_definitions_8h.html" title="Definition of the ListOfColorDefinitions class." alt="" coords="2899,699,3075,726"/>
+<area shape="rect" id="node291" href="$_default_values_8h.html" title="Definition of the DefaultValues class." alt="" coords="2491,960,2616,987"/>
+<area shape="rect" id="node293" href="$_ellipse_8h.html" title="Definition of the Ellipse class." alt="" coords="4459,960,4536,987"/>
+<area shape="rect" id="node294" href="$_global_style_8h.html" title="Definition of the GlobalStyle class." alt="" coords="5648,960,5757,987"/>
+<area shape="rect" id="node295" href="$_list_of_global_styles_8h.html" title="Definition of the ListOfGlobalStyles class." alt="" coords="5611,1035,5765,1061"/>
+<area shape="rect" id="node296" href="$_gradient_base_8h.html" title="abstract base class for gradient definitions" alt="" coords="740,878,863,905"/>
+<area shape="rect" id="node297" href="$_linear_gradient_8h.html" title="Definition of the LinearGradient class." alt="" coords="669,960,800,987"/>
+<area shape="rect" id="node299" href="$_list_of_gradient_definitions_8h.html" title="Definition of the ListOfGradientDefinitions class." alt="" coords="447,960,646,987"/>
+<area shape="rect" id="node300" href="$_radial_gradient_8h.html" title="Definition of the RadialGradient class." alt="" coords="824,960,955,987"/>
+<area shape="rect" id="node301" href="$_gradient_stop_8h.html" title="class for representing a stop in a gradient definition" alt="" coords="961,699,1079,726"/>
+<area shape="rect" id="node302" href="$_list_of_gradient_stops_8h.html" title="Definition of the ListOfGradientStops class." alt="" coords="841,789,1005,815"/>
+<area shape="rect" id="node303" href="$_graphical_primitive1_d_8h.html" title="Definition of the GraphicalPrimitive1D class." alt="" coords="3677,610,3851,637"/>
+<area shape="rect" id="node304" href="$_graphical_primitive2_d_8h.html" title="Definition of the GraphicalPrimitive2D class." alt="" coords="4147,699,4320,726"/>
+<area shape="rect" id="node305" href="$_rectangle_8h.html" title="Definition of the Rectangle class." alt="" coords="4133,960,4232,987"/>
+<area shape="rect" id="node306" href="$_render_group_8h.html" title="Definition of the RenderGroup class." alt="" coords="4390,789,4509,815"/>
+<area shape="rect" id="node307" href="$_style_8h.html" title="Definition of the Style class." alt="" coords="4589,878,4656,905"/>
+<area shape="rect" id="node308" href="$_local_style_8h.html" title="Definition of the LocalStyle class." alt="" coords="2691,960,2792,987"/>
+<area shape="rect" id="node309" href="$_list_of_local_styles_8h.html" title="Definition of the ListOfLocalStyles class." alt="" coords="1252,1035,1399,1061"/>
+<area shape="rect" id="node310" href="$_text_8h.html" title="Definition of the Text class." alt="" coords="3819,699,3880,726"/>
+<area shape="rect" id="node311" href="$_image_8h.html" title="Definition of the Image class." alt="" coords="3731,960,3805,987"/>
+<area shape="rect" id="node312" href="$_list_of_drawables_8h.html" title="Definition of the ListOfDrawables class." alt="" coords="4699,699,4840,726"/>
+<area shape="rect" id="node313" href="$_rel_abs_vector_8h.html" title="Definition of the RelAbsVector class." alt="" coords="2145,610,2263,637"/>
+<area shape="rect" id="node315" href="$_render_point_8h.html" title="Definition of the RenderPoint class." alt="" coords="1638,699,1751,726"/>
+<area shape="rect" id="node316" href="$_transformation_8h.html" title="abstract class for representing 3D affine transformations" alt="" coords="3311,453,3443,480"/>
+<area shape="rect" id="node317" href="$_transformation2_d_8h.html" title="abstract base class for representing 2D affine transformations" alt="" coords="3401,528,3551,555"/>
+<area shape="rect" id="node292" href="$_default_values_8cpp.html" title="Implementation of the DefaultValues class." alt="" coords="2577,1035,2717,1061"/>
+<area shape="rect" id="node298" href="$_list_of_gradient_definitions_8cpp.html" title="Implementation of the ListOfGradientDefinitions class." alt="" coords="551,1035,764,1061"/>
+<area shape="rect" id="node314" href="$_rel_abs_vector_8cpp.html" title="class for representing coordinates that can have a relative and an absolute part" alt="" coords="2030,699,2165,726"/>
+<area shape="rect" id="node319" href="$_adjacent_domains_8h.html" title="Definition of the AdjacentDomains class." alt="" coords="20151,453,20300,480"/>
+<area shape="rect" id="node321" href="$_list_of_adjacent_domains_8h.html" title="Definition of the ListOfAdjacentDomains class." alt="" coords="20273,528,20460,555"/>
+<area shape="rect" id="node322" href="$_geometry_8h.html" title="Definition of the Geometry class." alt="" coords="22371,789,22469,815"/>
+<area shape="rect" id="node325" href="$_advection_coefficient_8h.html" title="Definition of the AdvectionCoefficient class." alt="" coords="18734,789,18903,815"/>
+<area shape="rect" id="node327" href="$_analytic_geometry_8h.html" title="Definition of the AnalyticGeometry class." alt="" coords="19477,699,19627,726"/>
+<area shape="rect" id="node332" href="$_analytic_volume_8h.html" title="Definition of the AnalyticVolume class." alt="" coords="22420,528,22556,555"/>
+<area shape="rect" id="node334" href="$_list_of_analytic_volumes_8h.html" title="Definition of the ListOfAnalyticVolumes class." alt="" coords="22476,610,22657,637"/>
+<area shape="rect" id="node336" href="$_boundary_8h.html" title="Definition of the Boundary class." alt="" coords="21109,453,21203,480"/>
+<area shape="rect" id="node338" href="$_coordinate_component_8h.html" title="Definition of the CoordinateComponent class." alt="" coords="21283,528,21463,555"/>
+<area shape="rect" id="node340" href="$_list_of_coordinate_components_8h.html" title="Definition of the ListOfCoordinateComponents class." alt="" coords="21199,610,21425,637"/>
+<area shape="rect" id="node342" href="$_boundary_condition_8h.html" title="Definition of the BoundaryCondition class." alt="" coords="18927,789,19086,815"/>
+<area shape="rect" id="node344" href="$_compartment_mapping_8h.html" title="Definition of the CompartmentMapping class." alt="" coords="24839,789,25019,815"/>
+<area shape="rect" id="node346" href="$_c_s_geometry_8h.html" title="Definition of the CSGeometry class." alt="" coords="19652,699,19767,726"/>
+<area shape="rect" id="node348" href="$_c_s_g_homogeneous_transformation_8h.html" title="Definition of the CSGHomogeneousTransformation class." alt="" coords="23781,610,24035,637"/>
+<area shape="rect" id="node355" href="$_c_s_g_node_8h.html" title="Definition of the CSGNode class." alt="" coords="23971,453,24066,480"/>
+<area shape="rect" id="node356" href="$_c_s_g_object_8h.html" title="Definition of the CSGObject class." alt="" coords="23306,528,23409,555"/>
+<area shape="rect" id="node357" href="$_list_of_c_s_g_objects_8h.html" title="Definition of the ListOfCSGObjects class." alt="" coords="22875,610,23023,637"/>
+<area shape="rect" id="node359" href="$_c_s_g_primitive_8h.html" title="Definition of the CSGPrimitive class." alt="" coords="23637,610,23757,637"/>
+<area shape="rect" id="node361" href="$_c_s_g_set_operator_8h.html" title="Definition of the CSGSetOperator class." alt="" coords="24280,610,24419,637"/>
+<area shape="rect" id="node362" href="$_c_s_g_transformation_8h.html" title="Definition of the CSGTransformation class." alt="" coords="23877,528,24035,555"/>
+<area shape="rect" id="node363" href="$_c_s_g_rotation_8h.html" title="Definition of the CSGRotation class." alt="" coords="23497,610,23613,637"/>
+<area shape="rect" id="node365" href="$_c_s_g_scale_8h.html" title="Definition of the CSGScale class." alt="" coords="24160,610,24256,637"/>
+<area shape="rect" id="node367" href="$_c_s_g_translation_8h.html" title="Definition of the CSGTranslation class." alt="" coords="24443,610,24575,637"/>
+<area shape="rect" id="node369" href="$_list_of_c_s_g_nodes_8h.html" title="Definition of the ListOfCSGNodes class." alt="" coords="24363,528,24503,555"/>
+<area shape="rect" id="node370" href="$_diffusion_coefficient_8h.html" title="Definition of the DiffusionCoefficient class." alt="" coords="19359,789,19521,815"/>
+<area shape="rect" id="node372" href="$_domain_8h.html" title="Definition of the Domain class." alt="" coords="19815,610,19900,637"/>
+<area shape="rect" id="node374" href="$_list_of_domains_8h.html" title="Definition of the ListOfDomains class." alt="" coords="20153,699,20284,726"/>
+<area shape="rect" id="node376" href="$_domain_type_8h.html" title="Definition of the DomainType class." alt="" coords="21620,453,21735,480"/>
+<area shape="rect" id="node378" href="$_list_of_domain_types_8h.html" title="Definition of the ListOfDomainTypes class." alt="" coords="21661,528,21821,555"/>
+<area shape="rect" id="node380" href="$_geometry_definition_8h.html" title="Definition of the GeometryDefinition class." alt="" coords="19329,528,19492,555"/>
+<area shape="rect" id="node381" href="$_list_of_geometry_definitions_8h.html" title="Definition of the ListOfGeometryDefinitions class." alt="" coords="19533,610,19739,637"/>
+<area shape="rect" id="node382" href="$_mixed_geometry_8h.html" title="Definition of the MixedGeometry class." alt="" coords="19892,699,20028,726"/>
+<area shape="rect" id="node383" href="$_parametric_geometry_8h.html" title="Definition of the ParametricGeometry class." alt="" coords="20359,699,20526,726"/>
+<area shape="rect" id="node385" href="$_sampled_field_geometry_8h.html" title="Definition of the SampledFieldGeometry class." alt="" coords="20602,699,20787,726"/>
+<area shape="rect" id="node387" href="$_interior_point_8h.html" title="Definition of the InteriorPoint class." alt="" coords="20928,453,21043,480"/>
+<area shape="rect" id="node389" href="$_list_of_interior_points_8h.html" title="Definition of the ListOfInteriorPoints class." alt="" coords="20763,528,20922,555"/>
+<area shape="rect" id="node391" href="$_list_of_ordinal_mappings_8h.html" title="Definition of the ListOfOrdinalMappings class." alt="" coords="25102,610,25285,637"/>
+<area shape="rect" id="node394" href="$_list_of_parametric_objects_8h.html" title="Definition of the ListOfParametricObjects class." alt="" coords="25550,610,25741,637"/>
+<area shape="rect" id="node397" href="$_list_of_sampled_fields_8h.html" title="Definition of the ListOfSampledFields class." alt="" coords="22125,528,22291,555"/>
+<area shape="rect" id="node400" href="$_list_of_sampled_volumes_8h.html" title="Definition of the ListOfSampledVolumes class." alt="" coords="26119,610,26305,637"/>
+<area shape="rect" id="node403" href="$_ordinal_mapping_8h.html" title="Definition of the OrdinalMapping class." alt="" coords="25001,528,25138,555"/>
+<area shape="rect" id="node404" href="$_parametric_object_8h.html" title="Definition of the ParametricObject class." alt="" coords="25407,528,25553,555"/>
+<area shape="rect" id="node405" href="$_sampled_field_8h.html" title="Definition of the SampledField class." alt="" coords="22021,453,22144,480"/>
+<area shape="rect" id="node406" href="$_sampled_volume_8h.html" title="Definition of the SampledVolume class." alt="" coords="26018,528,26158,555"/>
+<area shape="rect" id="node407" href="$_spatial_points_8h.html" title="Definition of the SpatialPoints class." alt="" coords="22733,610,22851,637"/>
+<area shape="rect" id="node409" href="$_spatial_symbol_reference_8h.html" title="Definition of the SpatialSymbolReference class." alt="" coords="19545,789,19740,815"/>
+<area shape="rect" id="node411" href="$_transformation_component_8h.html" title="Definition of the TransformationComponent class." alt="" coords="22997,528,23203,555"/>
+<area shape="rect" id="node320" href="$_adjacent_domains_8cpp.html" title="Implementation of the AdjacentDomains class." alt="" coords="20077,610,20241,637"/>
+<area shape="rect" id="node324" href="$_list_of_adjacent_domains_8cpp.html" title="Implementation of the ListOfAdjacentDomains class." alt="" coords="20265,610,20468,637"/>
+<area shape="rect" id="node323" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="20884,878,20996,905"/>
+<area shape="rect" id="node326" href="$_advection_coefficient_8cpp.html" title="Implementation of the AdvectionCoefficient class." alt="" coords="18784,878,18968,905"/>
+<area shape="rect" id="node328" href="$_analytic_geometry_8cpp.html" title="Implementation of the AnalyticGeometry class." alt="" coords="19967,789,20132,815"/>
+<area shape="rect" id="node329" href="$_geometry_definition_8cpp.html" title="Implementation of the GeometryDefinition class." alt="" coords="20463,789,20641,815"/>
+<area shape="rect" id="node330" href="$_list_of_geometry_definitions_8cpp.html" title="Implementation of the ListOfGeometryDefinitions class." alt="" coords="20942,789,21165,815"/>
+<area shape="rect" id="node331" href="$_mixed_geometry_8cpp.html" title="Implementation of the MixedGeometry class." alt="" coords="20767,789,20918,815"/>
+<area shape="rect" id="node333" href="$_analytic_volume_8cpp.html" title="Implementation of the AnalyticVolume class." alt="" coords="21853,699,22003,726"/>
+<area shape="rect" id="node335" href="$_list_of_analytic_volumes_8cpp.html" title="Implementation of the ListOfAnalyticVolumes class." alt="" coords="22027,699,22223,726"/>
+<area shape="rect" id="node337" href="$_boundary_8cpp.html" title="Implementation of the Boundary class." alt="" coords="21099,528,21208,555"/>
+<area shape="rect" id="node339" href="$_coordinate_component_8cpp.html" title="Implementation of the CoordinateComponent class." alt="" coords="21065,699,21260,726"/>
+<area shape="rect" id="node341" href="$_list_of_coordinate_components_8cpp.html" title="Implementation of the ListOfCoordinateComponents class." alt="" coords="21335,699,21575,726"/>
+<area shape="rect" id="node343" href="$_boundary_condition_8cpp.html" title="Implementation of the BoundaryCondition class." alt="" coords="19043,878,19216,905"/>
+<area shape="rect" id="node345" href="$_compartment_mapping_8cpp.html" title="Implementation of the CompartmentMapping class." alt="" coords="24829,878,25024,905"/>
+<area shape="rect" id="node347" href="$_c_s_geometry_8cpp.html" title="Implementation of the CSGeometry class." alt="" coords="20258,789,20387,815"/>
+<area shape="rect" id="node349" href="$_c_s_g_homogeneous_transformation_8cpp.html" title="Implementation of the CSGHomogeneousTransformation class." alt="" coords="23458,699,23726,726"/>
+<area shape="rect" id="node350" href="$_c_s_g_node_8cpp.html" title="Implementation of the CSGNode class." alt="" coords="24542,699,24653,726"/>
+<area shape="rect" id="node351" href="$_c_s_g_object_8cpp.html" title="Implementation of the CSGObject class." alt="" coords="23263,699,23382,726"/>
+<area shape="rect" id="node352" href="$_c_s_g_set_operator_8cpp.html" title="Implementation of the CSGSetOperator class." alt="" coords="23750,699,23903,726"/>
+<area shape="rect" id="node353" href="$_c_s_g_transformation_8cpp.html" title="Implementation of the CSGTransformation class." alt="" coords="23927,699,24102,726"/>
+<area shape="rect" id="node354" href="$_list_of_c_s_g_nodes_8cpp.html" title="Implementation of the ListOfCSGNodes class." alt="" coords="24228,699,24383,726"/>
+<area shape="rect" id="node358" href="$_list_of_c_s_g_objects_8cpp.html" title="Implementation of the ListOfCSGObjects class." alt="" coords="22509,699,22672,726"/>
+<area shape="rect" id="node360" href="$_c_s_g_primitive_8cpp.html" title="Implementation of the CSGPrimitive class." alt="" coords="23105,699,23239,726"/>
+<area shape="rect" id="node364" href="$_c_s_g_rotation_8cpp.html" title="Implementation of the CSGRotation class." alt="" coords="22899,699,23029,726"/>
+<area shape="rect" id="node366" href="$_c_s_g_scale_8cpp.html" title="Implementation of the CSGScale class." alt="" coords="24407,699,24518,726"/>
+<area shape="rect" id="node368" href="$_c_s_g_translation_8cpp.html" title="Implementation of the CSGTranslation class." alt="" coords="24779,699,24925,726"/>
+<area shape="rect" id="node371" href="$_diffusion_coefficient_8cpp.html" title="Implementation of the DiffusionCoefficient class." alt="" coords="19867,878,20045,905"/>
+<area shape="rect" id="node373" href="$_domain_8cpp.html" title="Implementation of the Domain class." alt="" coords="21409,789,21509,815"/>
+<area shape="rect" id="node375" href="$_list_of_domains_8cpp.html" title="Implementation of the ListOfDomains class." alt="" coords="21239,789,21385,815"/>
+<area shape="rect" id="node377" href="$_domain_type_8cpp.html" title="Implementation of the DomainType class." alt="" coords="21499,610,21629,637"/>
+<area shape="rect" id="node379" href="$_list_of_domain_types_8cpp.html" title="Implementation of the ListOfDomainTypes class." alt="" coords="21654,610,21829,637"/>
+<area shape="rect" id="node384" href="$_parametric_geometry_8cpp.html" title="Implementation of the ParametricGeometry class." alt="" coords="21635,789,21818,815"/>
+<area shape="rect" id="node386" href="$_sampled_field_geometry_8cpp.html" title="Implementation of the SampledFieldGeometry class." alt="" coords="21995,789,22195,815"/>
+<area shape="rect" id="node388" href="$_interior_point_8cpp.html" title="Implementation of the InteriorPoint class." alt="" coords="20793,610,20922,637"/>
+<area shape="rect" id="node390" href="$_list_of_interior_points_8cpp.html" title="Implementation of the ListOfInteriorPoints class." alt="" coords="20594,610,20769,637"/>
+<area shape="rect" id="node392" href="$_list_of_ordinal_mappings_8cpp.html" title="Implementation of the ListOfOrdinalMappings class." alt="" coords="25227,699,25424,726"/>
+<area shape="rect" id="node393" href="$_ordinal_mapping_8cpp.html" title="Implementation of the OrdinalMapping class." alt="" coords="25051,699,25203,726"/>
+<area shape="rect" id="node395" href="$_list_of_parametric_objects_8cpp.html" title="Implementation of the ListOfParametricObjects class." alt="" coords="25685,699,25891,726"/>
+<area shape="rect" id="node396" href="$_parametric_object_8cpp.html" title="Implementation of the ParametricObject class." alt="" coords="25499,699,25661,726"/>
+<area shape="rect" id="node398" href="$_list_of_sampled_fields_8cpp.html" title="Implementation of the ListOfSampledFields class." alt="" coords="22117,610,22299,637"/>
+<area shape="rect" id="node399" href="$_sampled_field_8cpp.html" title="Implementation of the SampledField class." alt="" coords="21955,610,22093,637"/>
+<area shape="rect" id="node401" href="$_list_of_sampled_volumes_8cpp.html" title="Implementation of the ListOfSampledVolumes class." alt="" coords="26247,699,26447,726"/>
+<area shape="rect" id="node402" href="$_sampled_volume_8cpp.html" title="Implementation of the SampledVolume class." alt="" coords="26068,699,26223,726"/>
+<area shape="rect" id="node408" href="$_spatial_points_8cpp.html" title="Implementation of the SpatialPoints class." alt="" coords="22350,699,22485,726"/>
+<area shape="rect" id="node410" href="$_spatial_symbol_reference_8cpp.html" title="Implementation of the SpatialSymbolReference class." alt="" coords="20121,878,20330,905"/>
+<area shape="rect" id="node412" href="$_transformation_component_8cpp.html" title="Implementation of the TransformationComponent class." alt="" coords="23098,610,23321,637"/>
+<area shape="rect" id="node414" href="$_distrib_a_s_t_plugin_8cpp.html" title="Implementation of the DistribASTPlugin class." alt="" coords="27560,453,27717,480"/>
+<area shape="rect" id="node415" href="$_distrib_base_8h.html" title="Definition of the DistribBase class." alt="" coords="27245,453,27355,480"/>
+<area shape="rect" id="node417" href="$_uncertainty_8h.html" title="Definition of the Uncertainty class." alt="" coords="27150,789,27258,815"/>
+<area shape="rect" id="node418" href="$_list_of_uncertainties_8h.html" title="Definition of the ListOfUncertainties class." alt="" coords="25753,878,25911,905"/>
+<area shape="rect" id="node421" href="$_uncert_parameter_8h.html" title="Definition of the UncertParameter class." alt="" coords="27023,528,27166,555"/>
+<area shape="rect" id="node422" href="$_list_of_uncert_parameters_8h.html" title="Definition of the ListOfUncertParameters class." alt="" coords="27028,699,27217,726"/>
+<area shape="rect" id="node425" href="$_uncert_span_8h.html" title="Definition of the UncertSpan class." alt="" coords="27343,610,27452,637"/>
+<area shape="rect" id="node416" href="$_distrib_base_8cpp.html" title="Implementation of the DistribBase class." alt="" coords="26139,878,26263,905"/>
+<area shape="rect" id="node420" href="$_uncertainty_8cpp.html" title="Implementation of the Uncertainty class." alt="" coords="25992,960,26115,987"/>
+<area shape="rect" id="node419" href="$_list_of_uncertainties_8cpp.html" title="Implementation of the ListOfUncertainties class." alt="" coords="25753,960,25927,987"/>
+<area shape="rect" id="node424" href="$_uncert_parameter_8cpp.html" title="Implementation of the UncertParameter class." alt="" coords="26687,789,26846,815"/>
+<area shape="rect" id="node423" href="$_list_of_uncert_parameters_8cpp.html" title="Implementation of the ListOfUncertParameters class." alt="" coords="26870,789,27074,815"/>
+<area shape="rect" id="node426" href="$_uncert_span_8cpp.html" title="Implementation of the UncertSpan class." alt="" coords="27343,699,27467,726"/>
+<area shape="rect" id="node428" href="$_binding_site_species_type_8h.html" title=": Implementation of the BindingSiteSpeciesType class" alt="" coords="30541,789,30729,815"/>
+<area shape="rect" id="node431" href="$_compartment_reference_8h.html" title=": Implementation of the CompartmentReference class" alt="" coords="28501,789,28691,815"/>
+<area shape="rect" id="node433" href="$_in_species_type_bond_8h.html" title=": Implementation of the InSpeciesTypeBond class" alt="" coords="30151,610,30310,637"/>
+<area shape="rect" id="node435" href="$_multi_species_type_8h.html" title=": Implementation of the MultiSpeciesType class" alt="" coords="30656,699,30803,726"/>
+<area shape="rect" id="node436" href="$_intra_species_reaction_8h.html" title=": Implementation of the IntraSpeciesReaction class" alt="" coords="28816,789,28987,815"/>
+<area shape="rect" id="node438" href="$_outward_binding_site_8h.html" title=": Implementation of the OutwardBindingSite class" alt="" coords="27739,789,27901,815"/>
+<area shape="rect" id="node440" href="$_possible_species_feature_value_8h.html" title=": Implementation of the PossibleSpeciesFeatureValue class" alt="" coords="29841,528,30063,555"/>
+<area shape="rect" id="node442" href="$_species_feature_type_8h.html" title=": Implementation of the SpeciesFeatureType class" alt="" coords="30584,610,30747,637"/>
+<area shape="rect" id="node444" href="$_species_feature_8h.html" title=": Implementation of the SpeciesFeature class" alt="" coords="28197,699,28331,726"/>
+<area shape="rect" id="node447" href="$_sub_list_of_species_features_8h.html" title=": Implementation of the SubListOfSpeciesFeatures class" alt="" coords="27976,789,28179,815"/>
+<area shape="rect" id="node448" href="$_species_feature_value_8h.html" title=": Implementation of the SpeciesFeatureValue class" alt="" coords="28385,610,28554,637"/>
+<area shape="rect" id="node450" href="$_species_type_component_index_8h.html" title=": Implementation of the SpeciesTypeComponentIndex class" alt="" coords="30334,610,30559,637"/>
+<area shape="rect" id="node452" href="$_species_type_component_map_in_product_8h.html" title=": Implementation of the SpeciesTypeComponentMapInProduct class" alt="" coords="31081,781,31298,823"/>
+<area shape="rect" id="node454" href="$_species_type_instance_8h.html" title=": Implementation of the SpeciesTypeInstance class" alt="" coords="30890,610,31059,637"/>
+<area shape="rect" id="node429" href="$_binding_site_species_type_8cpp.html" title=": Implementation of the BindingSiteSpeciesType class" alt="" coords="30515,878,30717,905"/>
+<area shape="rect" id="node430" href="$_multi_species_type_8cpp.html" title=": Implementation of the MultiSpeciesType class" alt="" coords="30741,878,30904,905"/>
+<area shape="rect" id="node432" href="$_compartment_reference_8cpp.html" title=": Implementation of the CompartmentReference class" alt="" coords="28195,878,28400,905"/>
+<area shape="rect" id="node434" href="$_in_species_type_bond_8cpp.html" title=": Implementation of the InSpeciesTypeBond class" alt="" coords="30091,699,30266,726"/>
+<area shape="rect" id="node437" href="$_intra_species_reaction_8cpp.html" title=": Implementation of the IntraSpeciesReaction class" alt="" coords="28475,878,28661,905"/>
+<area shape="rect" id="node439" href="$_outward_binding_site_8cpp.html" title=": Implementation of the OutwardBindingSite class" alt="" coords="27192,878,27371,905"/>
+<area shape="rect" id="node441" href="$_possible_species_feature_value_8cpp.html" title=": Implementation of the PossibleSpeciesFeatureValue class" alt="" coords="29889,610,30127,637"/>
+<area shape="rect" id="node443" href="$_species_feature_type_8cpp.html" title=": Implementation of the SpeciesFeatureType class" alt="" coords="30827,699,31005,726"/>
+<area shape="rect" id="node445" href="$_species_feature_8cpp.html" title=": Implementation of the SpeciesFeature class" alt="" coords="27689,878,27837,905"/>
+<area shape="rect" id="node446" href="$_sub_list_of_species_features_8cpp.html" title=": Implementation of the SubListOfSpeciesFeatures class" alt="" coords="27395,878,27613,905"/>
+<area shape="rect" id="node449" href="$_species_feature_value_8cpp.html" title=": Implementation of the SpeciesFeatureValue class" alt="" coords="28405,699,28589,726"/>
+<area shape="rect" id="node451" href="$_species_type_component_index_8cpp.html" title=": Implementation of the SpeciesTypeComponentIndex class" alt="" coords="30341,699,30581,726"/>
+<area shape="rect" id="node453" href="$_species_type_component_map_in_product_8cpp.html" title=": Implementation of the SpeciesTypeComponentMapInProduct class" alt="" coords="31251,871,31469,912"/>
+<area shape="rect" id="node455" href="$_species_type_instance_8cpp.html" title=": Implementation of the SpeciesTypeInstance class" alt="" coords="31080,699,31264,726"/>
+<area shape="rect" id="node457" href="$_default_term_8h.html" title="Implementation of the DefaultTerm class." alt="" coords="32677,610,32792,637"/>
+<area shape="rect" id="node459" href="$_function_term_8h.html" title="Implementation of the FunctionTerm class." alt="" coords="32887,699,33009,726"/>
+<area shape="rect" id="node461" href="$_transition_8h.html" title="Implementation of the Transition class." alt="" coords="32351,789,32449,815"/>
+<area shape="rect" id="node463" href="$_input_8h.html" title="Implementation of the Input class." alt="" coords="32284,699,32351,726"/>
+<area shape="rect" id="node465" href="$_output_8h.html" title="Implementation of the Output class." alt="" coords="32430,699,32509,726"/>
+<area shape="rect" id="node467" href="$_qualitative_species_8h.html" title="Implementation of the QualitativeSpecies class." alt="" coords="31810,789,31966,815"/>
+<area shape="rect" id="node458" href="$_default_term_8cpp.html" title="Implementation of the DefaultTerm class." alt="" coords="32734,699,32863,726"/>
+<area shape="rect" id="node460" href="$_function_term_8cpp.html" title="Implementation of the FunctionTerm class." alt="" coords="32736,878,32872,905"/>
+<area shape="rect" id="node462" href="$_transition_8cpp.html" title="Implementation of the Transition class." alt="" coords="32549,878,32661,905"/>
+<area shape="rect" id="node464" href="$_input_8cpp.html" title="Implementation of the Input class." alt="" coords="32193,789,32276,815"/>
+<area shape="rect" id="node466" href="$_output_8cpp.html" title="Implementation of the Output class." alt="" coords="32473,789,32567,815"/>
+<area shape="rect" id="node468" href="$_qualitative_species_8cpp.html" title="Implementation of the QualitativeSpecies class." alt="" coords="32035,878,32205,905"/>
+<area shape="rect" id="node470" href="$_s_b_m_l_level1_version1_converter_8cpp.html" title="Implementation of SBMLLevel1Version1Converter." alt="" coords="32267,304,32514,331"/>
+<area shape="rect" id="node471" href="$_s_b_m_l_extension_namespaces_8cpp.html" title="implementation of C&#45;API for the SBMLExtensionNamespaces class" alt="" coords="32471,379,32705,405"/>
+<area shape="rect" id="node472" href="$_s_b_m_l_extension_namespaces_8h.html" title="Class to store the SBML Level, Version and namespace of a package." alt="" coords="26627,304,26845,331"/>
+<area shape="rect" id="node473" href="$_a_s_t_node_8cpp.html" title="Abstract Syntax Tree (AST) for representing formula trees." alt="" coords="32538,304,32646,331"/>
+<area shape="rect" id="node474" href="$_l3_parser_settings_8cpp.html" title="Definition of the level 3 infix&#45;to&#45;mathml parser settings." alt="" coords="32671,304,32828,331"/>
+<area shape="rect" id="node475" href="$_s_b_m_l_error_8cpp.html" title="Represents SBML errors and other diagnostics." alt="" coords="32852,304,32967,331"/>
+<area shape="rect" id="node476" href="$_s_b_m_l_namespaces_8cpp.html" title="SBMLNamespaces class to store level/version and namespace." alt="" coords="32991,304,33161,331"/>
 </map>

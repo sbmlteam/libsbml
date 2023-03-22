@@ -307,6 +307,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:affc61b0ed965134978817150ef2e7036"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#affc61b0ed965134978817150ef2e7036">derivative</a> (const std::string &amp;variable)</td></tr>
 <tr class="separator:affc61b0ed965134978817150ef2e7036"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51ed1ea50a0c15bd65590d9e599e622f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a51ed1ea50a0c15bd65590d9e599e622f">exactlyEqual</a> (const <a class="el" href="class_a_s_t_node.html">ASTNode</a> &amp;rhs)</td></tr>
+<tr class="memdesc:a51ed1ea50a0c15bd65590d9e599e622f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function allows two ASTNodes to be compared for exact equivilance.  <a href="class_a_s_t_node.html#a51ed1ea50a0c15bd65590d9e599e622f">More...</a><br /></td></tr>
 <tr class="separator:a51ed1ea50a0c15bd65590d9e599e622f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20ae22da3c9e91336c6e5c40c3619148"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a20ae22da3c9e91336c6e5c40c3619148">fillListOfNodes</a> (<a class="el" href="_a_s_t_node_8h.html#a6faa792f81e0be497e904b2b2e273072">ASTNodePredicate</a> predicate, <a class="el" href="class_list.html">List</a> *lst) const</td></tr>
 <tr class="memdesc:a20ae22da3c9e91336c6e5c40c3619148"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of nodes rooted at a given node and satisfying a given predicate.  <a href="class_a_s_t_node.html#a20ae22da3c9e91336c6e5c40c3619148">More...</a><br /></td></tr>
@@ -1350,6 +1351,11 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>This function allows two ASTNodes to be compared for exact equivilance. </p>
+<p>It returns a boolean - true if the ASTNodes are exactly the same, false otherwise.</p>
+<p>Given that 'a+4' == 'a+4' this function will return true if two ASTNodes with PLUS as their operator and "a" as the left child and "4" as the right child are compared</p>
+<p>Conversely 'a+4' != '4+a' i.e. the function will return false if the left and right children do not match. </p>
 
 </div>
 </div>
