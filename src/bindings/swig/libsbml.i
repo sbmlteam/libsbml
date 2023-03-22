@@ -779,6 +779,7 @@ as a comment in the output stream.
 %include sbml/common/common-documentation.h
 %include sbml/common/common-sbmlerror-codes.h
 
+%catches(std::exception, ...) IdList::at;
 %include <sbml/util/IdList.h>
 %include <sbml/util/IdentifierTransformer.h>
 %include <sbml/util/ElementFilter.h>
