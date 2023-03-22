@@ -66,6 +66,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 CVTerm::CVTerm(QualifierType_t type) :
     mHasBeenModified (false)
   , mNestedCVTerms (NULL)
+  , mCapturedInStoredAnnotation (false)
 
 {
   mResources = new XMLAttributes();
@@ -87,6 +88,7 @@ CVTerm::CVTerm(QualifierType_t type) :
 CVTerm::CVTerm(const XMLNode node) :
     mHasBeenModified (false)
   , mNestedCVTerms(NULL)
+  , mCapturedInStoredAnnotation(false)
 {
   const string& name = node.getName();
   const string& prefix = node.getPrefix();
@@ -170,6 +172,7 @@ CVTerm::CVTerm(const CVTerm& orig)
     mBiolQualifier  = orig.mBiolQualifier;
     mResources      = new XMLAttributes(*orig.mResources);
     mHasBeenModified = orig.mHasBeenModified;
+    mCapturedInStoredAnnotation = orig.mCapturedInStoredAnnotation;
 
     if(orig.mNestedCVTerms != NULL)
     {
@@ -204,6 +207,7 @@ CVTerm::operator=(const CVTerm& rhs)
     mResources=new XMLAttributes(*rhs.mResources);
 
     mHasBeenModified = rhs.mHasBeenModified;
+    mCapturedInStoredAnnotation = rhs.mCapturedInStoredAnnotation;
 
     if(this->mNestedCVTerms != NULL)
     {
@@ -579,6 +583,18 @@ void
 CVTerm::setHasBeenModifiedFlag()
 {
   mHasBeenModified = true;
+}
+
+void
+CVTerm::setCapturedInStoredAnnotation(bool captured)
+{
+  mCapturedInStoredAnnotation = captured;
+}
+
+bool
+CVTerm::getCapturedInStoredAnnotation()
+{
+   return mCapturedInStoredAnnotation;
 }
 
 unsigned int

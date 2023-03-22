@@ -516,20 +516,35 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
     return NULL;
   }
 
+  unsigned int n = 0;
+  // see how many cvterms are captured in an additional
+  // rdf annotation that will also be output as it contains
+  // nested terms that will not be output
+  // this avoids 2 descr elements
+  for (unsigned int i = 0; i < object->getNumCVTerms(); i++)
+  {
+    if (static_cast <CVTerm *>(object->getCVTerms()->get(i))->getCapturedInStoredAnnotation())
+    {
+      n++;
+    }
+  }
+  if (n != object->getNumCVTerms())
+  {
+    XMLNode *CVTerms = createRDFDescriptionWithCVTerms(object);
 
-  XMLNode *CVTerms = createRDFDescriptionWithCVTerms(object);
+    XMLNode * RDF = createRDFAnnotation(object->getLevel(), object->getVersion());
+    RDF->addChild(*CVTerms);
 
-  XMLNode * RDF = createRDFAnnotation(object->getLevel(), object->getVersion());
-  RDF->addChild(*CVTerms);
+    delete CVTerms;
 
-  delete CVTerms;
+    XMLNode *ann = createAnnotation();
+    ann->addChild(*RDF);
 
-  XMLNode *ann = createAnnotation();
-  ann->addChild(*RDF);
+    delete RDF;
 
-  delete RDF;
-
-  return ann;
+    return ann;
+  }
+  return NULL;
 }
 
 
@@ -543,6 +558,21 @@ RDFAnnotationParser::createRDFDescriptionWithCVTerms(const SBase * object)
     !object->isSetMetaId())
   {
     return NULL;
+  }
+  else
+  {
+    unsigned int n = 0;
+    for (unsigned int i = 0; i < object->getNumCVTerms(); i++)
+    { 
+      if (static_cast <CVTerm *>(object->getCVTerms()->get(i))->getCapturedInStoredAnnotation())
+      {
+        n++;
+      }
+    }
+    if (n == object->getNumCVTerms())
+    {
+      return NULL;
+    }
   }
 
   XMLNode *description = createRDFDescription(object);

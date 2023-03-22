@@ -1279,7 +1279,16 @@ protected:
 
   void setHasBeenModifiedFlag();
 
+  // when technically invalid nested cvterms have been
+  // used people have complained about getting two description tags
+  // marking this true avoids writing out twice
+  bool mCapturedInStoredAnnotation;
+
+  void setCapturedInStoredAnnotation(bool captured);
+  bool getCapturedInStoredAnnotation();
+
   friend class SBase;
+  friend class RDFAnnotationParser;
   /** @endcond */
 };
 
