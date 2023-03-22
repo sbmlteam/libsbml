@@ -122,25 +122,23 @@ main (int argc, char* argv[])
   int num_failed;
   setTestDataDirectory();
 
-  SRunner *runner = srunner_create(create_suite_UnusualRDFAnnotation() );
-
-//  SRunner *runner = srunner_create(create_suite_CVTerms());
-  //srunner_add_suite( runner, create_suite_CVTerms_newSetters  () );
-  //srunner_add_suite( runner, create_suite_ModelHistory  () );
-  //srunner_add_suite( runner, create_suite_Date_newSetters  () );
-  //srunner_add_suite( runner, create_suite_ModelCreator_newSetters  () );
-  //srunner_add_suite( runner, create_suite_ModelHistory_newSetters  () );
-  //srunner_add_suite( runner, create_suite_CopyAndClone  () );
-  //srunner_add_suite( runner, create_suite_RDFAnnotation () );
-  //srunner_add_suite( runner, create_suite_RDFAnnotation2() );
-  //srunner_add_suite( runner, create_suite_Validation () );
-  //srunner_add_suite( runner, create_suite_RDFAnnotation_C () );
-  //srunner_add_suite( runner, create_suite_L3ModelHistory  () );
-  //srunner_add_suite( runner, create_suite_SyncAnnotation  () );
-  //srunner_add_suite( runner, create_suite_RDFAnnotationMetaid () );
-  //srunner_add_suite( runner, create_suite_RDFAnnotationNestedCVTerm () );
-  //srunner_add_suite( runner, create_suite_RDFAnnotationV4() );
-  //srunner_add_suite( runner, create_suite_UnusualRDFAnnotation());
+  SRunner *runner = srunner_create(create_suite_CVTerms());
+  srunner_add_suite( runner, create_suite_CVTerms_newSetters  () );
+  srunner_add_suite( runner, create_suite_ModelHistory  () );
+  srunner_add_suite( runner, create_suite_Date_newSetters  () );
+  srunner_add_suite( runner, create_suite_ModelCreator_newSetters  () );
+  srunner_add_suite( runner, create_suite_ModelHistory_newSetters  () );
+  srunner_add_suite( runner, create_suite_CopyAndClone  () );
+  srunner_add_suite( runner, create_suite_RDFAnnotation () );
+  srunner_add_suite( runner, create_suite_RDFAnnotation2() );
+  srunner_add_suite( runner, create_suite_Validation () );
+  srunner_add_suite( runner, create_suite_RDFAnnotation_C () );
+  srunner_add_suite( runner, create_suite_L3ModelHistory  () );
+  srunner_add_suite( runner, create_suite_SyncAnnotation  () );
+  srunner_add_suite( runner, create_suite_RDFAnnotationMetaid () );
+  srunner_add_suite( runner, create_suite_RDFAnnotationNestedCVTerm () );
+  srunner_add_suite( runner, create_suite_RDFAnnotationV4() );
+  srunner_add_suite( runner, create_suite_UnusualRDFAnnotation());
 
   if (argc > 1 && !strcmp(argv[1], "-nofork"))
   {
