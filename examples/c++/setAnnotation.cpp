@@ -11,29 +11,6 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
-XMLNode* parseAnnotation(const std::string& annotationFile)
-{
-	// read file into memory
-	FILE* file = fopen(annotationFile.c_str(), "r");
-	fseek(file, 0, SEEK_END);
-	long length = ftell(file);
-
-	fseek(file, 0, SEEK_SET);
-	char* data = new char[length + 1];
-	
-	// fill data with zeros
-	memset(data, 0, length + 1);
-
-	fread(data, 1, length, file);
-	fclose(file);
-	data[length] = '\0';
-
-	// parse the string
-	XMLNode* xmlnode = XMLNode::convertStringToXMLNode(data);
-	delete[] data;
-	return xmlnode;
-}
-
 bool setAnnotation(const std::string& sbmlFile, const std::string& metaId,
 	const std::string& annotationFile, const std::string& outputFile)
 {
@@ -52,7 +29,7 @@ bool setAnnotation(const std::string& sbmlFile, const std::string& metaId,
 		return false;
 	}
 
-	XMLNode* annotation = parseAnnotation(annotationFile);
+	XMLNode* annotation = XMLNode::readXMLNodeFromFile(annotationFile);
 	if (!annotation)
 	{
 		cerr << "the annotation could not be parsed from file: " << annotationFile << "." << std::endl;
