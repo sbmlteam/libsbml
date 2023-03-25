@@ -300,13 +300,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a88091f57f7717247d0c72da41063ab1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to a canonical form and returns <code>true</code> if successful, <code>false</code> otherwise.  <a href="class_a_s_t_node.html#a88091f57f7717247d0c72da41063ab1f">More...</a><br /></td></tr>
 <tr class="separator:a88091f57f7717247d0c72da41063ab1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1718696693db25031c132567b36ed1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#ad1718696693db25031c132567b36ed1b">decompose</a> ()</td></tr>
+<tr class="memdesc:ad1718696693db25031c132567b36ed1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function allows decomposition of <a class="el" href="class_a_s_t_node.html">ASTNode</a> into components such that we reduce the need for brackets.  <a href="class_a_s_t_node.html#ad1718696693db25031c132567b36ed1b">More...</a><br /></td></tr>
 <tr class="separator:ad1718696693db25031c132567b36ed1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e898544e22c7bb1651a63cad88e0188"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a9e898544e22c7bb1651a63cad88e0188">deepCopy</a> () const</td></tr>
 <tr class="memdesc:a9e898544e22c7bb1651a63cad88e0188"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a recursive copy of this node and all its children.  <a href="class_a_s_t_node.html#a9e898544e22c7bb1651a63cad88e0188">More...</a><br /></td></tr>
 <tr class="separator:a9e898544e22c7bb1651a63cad88e0188"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affc61b0ed965134978817150ef2e7036"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#affc61b0ed965134978817150ef2e7036">derivative</a> (const std::string &amp;variable)</td></tr>
+<tr class="memdesc:affc61b0ed965134978817150ef2e7036"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="class_a_s_t_node.html">ASTNode</a> representing the derivative of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> with respect to the given variable.  <a href="class_a_s_t_node.html#affc61b0ed965134978817150ef2e7036">More...</a><br /></td></tr>
 <tr class="separator:affc61b0ed965134978817150ef2e7036"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51ed1ea50a0c15bd65590d9e599e622f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a51ed1ea50a0c15bd65590d9e599e622f">exactlyEqual</a> (const <a class="el" href="class_a_s_t_node.html">ASTNode</a> &amp;rhs)</td></tr>
+<tr class="memdesc:a51ed1ea50a0c15bd65590d9e599e622f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function allows two ASTNodes to be compared for exact equivilance.  <a href="class_a_s_t_node.html#a51ed1ea50a0c15bd65590d9e599e622f">More...</a><br /></td></tr>
 <tr class="separator:a51ed1ea50a0c15bd65590d9e599e622f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20ae22da3c9e91336c6e5c40c3619148"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a20ae22da3c9e91336c6e5c40c3619148">fillListOfNodes</a> (<a class="el" href="_a_s_t_node_8h.html#a6faa792f81e0be497e904b2b2e273072">ASTNodePredicate</a> predicate, <a class="el" href="class_list.html">List</a> *lst) const</td></tr>
 <tr class="memdesc:a20ae22da3c9e91336c6e5c40c3619148"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of nodes rooted at a given node and satisfying a given predicate.  <a href="class_a_s_t_node.html#a20ae22da3c9e91336c6e5c40c3619148">More...</a><br /></td></tr>
@@ -536,6 +539,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a645bd2cc1e1f1be0620a6742e7828ded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reduces this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to a binary tree.  <a href="class_a_s_t_node.html#a645bd2cc1e1f1be0620a6742e7828ded">More...</a><br /></td></tr>
 <tr class="separator:a645bd2cc1e1f1be0620a6742e7828ded"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f778795d2a475489457bbb1fd5a236f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a9f778795d2a475489457bbb1fd5a236f">refactor</a> ()</td></tr>
+<tr class="memdesc:a9f778795d2a475489457bbb1fd5a236f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function refactors an <a class="el" href="class_a_s_t_node.html">ASTNode</a> to facilitate the use of the algorithm to construct a reaction network from a set of ordinary differential equations.  <a href="class_a_s_t_node.html#a9f778795d2a475489457bbb1fd5a236f">More...</a><br /></td></tr>
 <tr class="separator:a9f778795d2a475489457bbb1fd5a236f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a970e2b320c25a7a15877061e6a7b77c8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a970e2b320c25a7a15877061e6a7b77c8">removeChild</a> (unsigned int n, bool delremoved=false)</td></tr>
 <tr class="memdesc:a970e2b320c25a7a15877061e6a7b77c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the nth child of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> object.  <a href="class_a_s_t_node.html#a970e2b320c25a7a15877061e6a7b77c8">More...</a><br /></td></tr>
@@ -1062,6 +1066,11 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
       </table>
 </div><div class="memdoc">
 
+<p>This function allows decomposition of <a class="el" href="class_a_s_t_node.html">ASTNode</a> into components such that we reduce the need for brackets. </p>
+<p>Obviously an <a class="el" href="class_a_s_t_node.html">ASTNode</a> does not have brackets but when written as a string these would become necessary.</p>
+<p>The decomposition used here is such that if the top level function is multiply or divide then the arguments to these functions do not contain a plus element.</p>
+<p>for example (a + B) * c becomes ac + Bc (5 + 3)/(a-4) becomes 8/(a-4) (a + 4)/4 becomes 1 + a/4 </p>
+
 </div>
 </div>
 <a id="a9e898544e22c7bb1651a63cad88e0188"></a>
@@ -1099,6 +1108,10 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Returns an <a class="el" href="class_a_s_t_node.html">ASTNode</a> representing the derivative of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> with respect to the given variable. </p>
+<p>e.g. if we have an <a class="el" href="class_a_s_t_node.html">ASTNode</a> that represents 2*x^2 and we call the function derivative("x") on this node</p>
+<p>this will return an <a class="el" href="class_a_s_t_node.html">ASTNode</a> representing 4 * x since d(2*x^2)/dx = 4*x </p>
 
 </div>
 </div>
@@ -1350,6 +1363,11 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>This function allows two ASTNodes to be compared for exact equivilance. </p>
+<p>It returns a boolean - true if the ASTNodes are exactly the same, false otherwise.</p>
+<p>Given that 'a+4' == 'a+4' this function will return true if two ASTNodes with PLUS as their operator and "a" as the left child and "4" as the right child are compared</p>
+<p>Conversely 'a+4' != '4+a' i.e. the function will return false if the left and right children do not match. </p>
 
 </div>
 </div>
@@ -3307,6 +3325,13 @@ removeChild(unsigned int n) </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>This function refactors an <a class="el" href="class_a_s_t_node.html">ASTNode</a> to facilitate the use of the algorithm to construct a reaction network from a set of ordinary differential equations. </p>
+<p>It performs the following actions:</p>
+<p>refactors any numerical ASTNodes so that any operation involving 2 or more numerical nodes is performed and becomes a single node eg (4 + 1 x 2) becomes (6)</p>
+<p>encompases a unary minus into the numerical value of a node eg a node representing minus with a single child node representing 2 becomes a single node representing -2</p>
+<p>refactors binary nodes, which are the default, into a non-binary representation eg a node representing plus with 2 children which each represent a plus with two numerical children will become a node representing plus with four numerical children</p>
+<p>reorders the arguments of any operation so that numerical arguments come first, followed by nodes representing variables, followed by nodes representing functions eg a node (sin(a + 2) - 3 + b) becomes (-3 + b + sin(2 + a)) </p>
 
 </div>
 </div>
