@@ -47,15 +47,13 @@ LIBSBML_CPP_NAMESPACE_USE
 int
 main (int argc, char* argv[])
 {
-  //if (argc != 3)
-  //{
-  //  cout << endl << "Usage: echoSBML input-filename output-filename"
-  //       << endl << endl;
-  //  return 2;
-  //}
+  if (argc != 3)
+  {
+    cout << endl << "Usage: echoSBML input-filename output-filename"
+         << endl << endl;
+    return 2;
+  }
 
-  argv[1] = "C:\\Development\\SBML\\t\\in.xml";
-  argv[2] = "C:\\Development\\SBML\\t\\out.xml";
   SBMLDocument *d = readSBML(argv[1]);
   if ( d->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
   {
