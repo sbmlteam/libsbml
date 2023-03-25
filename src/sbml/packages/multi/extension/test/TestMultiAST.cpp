@@ -28,6 +28,19 @@ LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 
+static bool
+equals(const char* expected, const char* actual)
+{
+  if (!strcmp(expected, actual)) return true;
+
+  printf("\nStrings are not equal:\n");
+  printf("Expected:\n[%s]\n", expected);
+  printf("Actual:\n[%s]\n", actual);
+
+  return false;
+}
+
+
 
 extern char *TestDataDirectory;
 
@@ -204,6 +217,10 @@ START_TEST (test_multi_create_ci)
   math->addChild(ci);
   math->addChild(ci1);
 
+  // need to add multi ns
+  XMLNamespaces* xmlns = document->getSBMLNamespaces()->getNamespaces();
+  math->setDeclaredNamespaces(xmlns);
+
   kl->setMath(math);
   delete math;
 
@@ -334,6 +351,27 @@ START_TEST(test_multi_ast_plugin)
 END_TEST
 
 
+START_TEST(test_multi_math_ns)
+{
+  const char * expected = "<kineticLaw>\n"
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\" xmlns:multi=\"http://www.sbml.org/sbml/level3/version1/multi/version1\">\n"
+    "    <apply>\n"
+    "      <times/>\n"
+    "      <ci multi:speciesReference=\"r1\"> s1 </ci>\n"
+    "      <ci multi:representationType=\"sum\"> s1 </ci>\n"
+    "    </apply>\n"
+    "  </math>\n"
+    "</kineticLaw>";
+    
+    string filename(TestDataDirectory);
+  string cfile = filename + "multi_ci_extension.xml";
+  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
+  KineticLaw* kl = doc->getModel()->getReaction(0)->getKineticLaw();
+  fail_unless(equals(expected, kl->toSBML()));
+}
+END_TEST
+
+
 Suite *
 create_suite_MultiAST(void)
 {
@@ -344,6 +382,7 @@ create_suite_MultiAST(void)
   tcase_add_test(tcase, test_multi_write_ci);
   tcase_add_test(tcase, test_multi_create_ci);
   tcase_add_test(tcase, test_multi_ast_plugin);
+  tcase_add_test(tcase, test_multi_math_ns);
 
   suite_add_tcase(suite, tcase);
 

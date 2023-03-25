@@ -2210,34 +2210,39 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmln
 {
 
   static const string uri = "http://www.w3.org/1998/Math/MathML";
+  unsigned int level = SBML_DEFAULT_LEVEL;
+  unsigned int version = SBML_DEFAULT_VERSION;
+  if (sbmlns != NULL)
+  {
+    level = sbmlns->getLevel();
+    version = sbmlns->getVersion();
+  }
 
   stream.startElement("math");
- // stream.writeAttribute("xmlns", uri);
+  stream.writeAttribute("xmlns", uri);
 
   if (node) 
   {
+    if (node->hasUnits())
+    {
+      stream.writeAttribute(XMLTriple("sbml", "", "xmlns"),
+        SBMLNamespaces::getSBMLNamespaceURI(level, version));
+    }
+
     // write any namespaces that have been specifically declared on math element
+    //
     XMLNamespaces* xmlns = node->getDeclaredNamespaces();
     if (xmlns != NULL)
     {
       for (int i = 0; i < xmlns->getNumNamespaces(); i++)
       {
-        stream.writeAttribute("xmlns", xmlns->getPrefix(i), xmlns->getURI(i));
+        if (xmlns->getURI(i) == uri || xmlns->getURI(i) == SBMLNamespaces::getSBMLNamespaceURI(level, version))
+        {
+          continue;
+        }
+        stream.writeAttribute(xmlns->getPrefix(i), "xmlns", xmlns->getURI(i));
 
       }
-    }
-    if (node->hasUnits())
-    {
-      unsigned int level = SBML_DEFAULT_LEVEL;
-      unsigned int version = SBML_DEFAULT_VERSION;
-      if (sbmlns != NULL)
-      {
-        level = sbmlns->getLevel();
-        version = sbmlns->getVersion();
-      }
-    
-      stream.writeAttribute(XMLTriple("sbml", "", "xmlns"), 
-        SBMLNamespaces::getSBMLNamespaceURI(level, version));
     }
   
     writeNode(*node, stream,sbmlns);
