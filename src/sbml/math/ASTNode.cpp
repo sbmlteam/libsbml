@@ -261,6 +261,7 @@ ASTNode::ASTNode (ASTNodeType_t type)
   mStyle		 = "";
   mIsBvar = false;
   mUserData      = NULL;
+  mNamespaces = NULL;
 
   // move to after we have loaded plugins
   //setType(type);
@@ -307,6 +308,7 @@ ASTNode::ASTNode (Token_t* token)
   mStyle		 = "";
   mIsBvar = false;
   mUserData      = NULL;
+  mNamespaces = NULL;
 
   mChildren             = new List;
   mSemanticsAnnotations = new List;
@@ -378,6 +380,7 @@ ASTNode::ASTNode (const ASTNode& orig) :
  ,mStyle                ( orig.mStyle)
  ,mIsBvar               ( orig.mIsBvar)
  ,mUserData             ( orig.mUserData )
+  , mNamespaces         (orig.mNamespaces)
 {
   if (orig.mName)
   {
@@ -426,6 +429,8 @@ ASTNode& ASTNode::operator=(const ASTNode& rhs)
     mStyle                = rhs.mStyle;
     mIsBvar               = rhs.mIsBvar;
     mUserData             = rhs.mUserData;
+    mNamespaces = rhs.mNamespaces;
+
     freeName();
     if (rhs.mName)
     {
@@ -4570,6 +4575,20 @@ ASTNode::derivativeExp(const std::string& variable)
   delete copy;
   return derivative;
 }
+
+XMLNamespaces* 
+ASTNode::getDeclaredNamespaces() const
+{
+  return mNamespaces;
+}
+
+
+void 
+ASTNode::setDeclaredNamespaces(const XMLNamespaces* xmlns)
+{
+  mNamespaces = xmlns->clone();
+}
+
 
 #endif /* __cplusplus */
 

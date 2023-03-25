@@ -2344,6 +2344,16 @@ setValue(value, 0);
 
   LIBSBML_EXTERN
   void printMath(unsigned int level = 0);
+
+  /** @cond doxygenLibsbmlInternal */
+  LIBSBML_EXTERN
+  XMLNamespaces* getDeclaredNamespaces() const;
+
+  LIBSBML_EXTERN
+  void setDeclaredNamespaces(const XMLNamespaces* xmlns);
+  /** @endcond */
+
+
 protected:
 
   friend class SBMLRateRuleConverter;
@@ -2500,6 +2510,9 @@ protected:
   bool mIsBvar;
   void *mUserData;
   std::string mPackageName;
+
+
+  XMLNamespaces* mNamespaces;
   
   friend class MathMLFormatter;
   friend class MathMLHandler;
