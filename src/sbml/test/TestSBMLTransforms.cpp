@@ -73,7 +73,7 @@ START_TEST (test_SBMLTransforms_replaceFD)
 
 
   d = reader.readSBML(filename);
-
+  
   if (d == NULL)
   {
     fail("readSBML(\"multiple-functions.xml\") returned a NULL pointer.");
@@ -81,7 +81,7 @@ START_TEST (test_SBMLTransforms_replaceFD)
 
   m = d->getModel();
 
-  fail_unless( m->getNumFunctionDefinitions() == 2 );
+  fail_unless( m->getNumFunctionDefinitions() == 3 );
 
   /* one function definition */
   ast = *m->getReaction(2)->getKineticLaw()->getMath();
@@ -97,6 +97,26 @@ START_TEST (test_SBMLTransforms_replaceFD)
   fail_unless (!strcmp(math, "S1 * p * compartmentOne / t"), NULL);
   safe_free(math);
 
+  /* https://github.com/sbmlteam/libsbml/issues/299 */
+  /* fd: f_relabelled(p, S1) = p - S1 */
+  /* ast: f_relabelled(S1, p) * compartmentOne / t */
+  /* ast after replaceFD: (S1 - p) * compartmentOne / t */
+  
+  // use initial assignment instead of reaction, because the reaction
+  // got flagged as having invalid units
+  ast = *m->getInitialAssignment(0)->getMath();
+
+  math = SBML_formulaToString(&ast);
+  fail_unless (!strcmp(math, "f_relabelled(S1, p) * compartmentOne / t"), NULL);
+  safe_free(math);
+
+  fd = m->getFunctionDefinition(2);
+  SBMLTransforms::replaceFD(&ast, fd);
+
+  math = SBML_formulaToString(&ast);
+  fail_unless (!strcmp(math, "(S1 - p) * compartmentOne / t"), NULL);
+  safe_free(math);
+
   /* one function definition - nested */
   ast = *m->getReaction(1)->getKineticLaw()->getMath();
   
@@ -104,6 +124,8 @@ START_TEST (test_SBMLTransforms_replaceFD)
   fail_unless (!strcmp(math, "f(f(S1, p), compartmentOne) / t"), NULL);
   safe_free(math);
 
+  // need to get function definition for 'f' back
+  fd = m->getFunctionDefinition(0);
   SBMLTransforms::replaceFD(&ast, fd);
   
   math = SBML_formulaToString(&ast);
@@ -954,6 +976,61 @@ START_TEST(test_SBMLTransforms_evaluateAST_L2SpeciesReference)
 }
 END_TEST
 
+
+START_TEST(test_SBMLTransforms_multipleMaps)
+{
+  SBMLDocument d1(3, 1);
+  Model* m1 = d1.createModel();
+  Compartment* c1 = m1->createCompartment();
+  c1->setId("c");
+  c1->setConstant(true);
+  c1->setSize(1.0);
+
+  Species* s1 = m1->createSpecies();
+  s1->setId("s");
+  s1->setCompartment("c");
+  s1->setInitialConcentration(1.0);
+  s1->setHasOnlySubstanceUnits(false);
+
+  // at this point there shouldn't be a map for this model
+  fail_unless(SBMLTransforms::getComponentValues(m1).size() == 0);
+
+  // create a map for this model
+  IdList list1 = SBMLTransforms::mapComponentValues(m1);
+	fail_unless(list1.size() == 0);
+
+  SBMLDocument d2(3, 2);
+	Model* m2 = d2.createModel();
+	c1 = m2->createCompartment();
+	c1->setId("c");
+	c1->setConstant(true);
+	c1->setSize(2.0);
+
+	s1 = m2->createSpecies();
+	s1->setId("s");
+	s1->setCompartment("c");
+	s1->setInitialConcentration(2.0);
+	s1->setHasOnlySubstanceUnits(false);
+
+  fail_unless(SBMLTransforms::getComponentValues(m2).size() == 0);
+
+  IdList list2 = SBMLTransforms::mapComponentValues(m2);
+  fail_unless(list2.size() == 0);
+
+  SBMLTransforms::IdValueMap values1 = SBMLTransforms::getComponentValues(m1);
+  SBMLTransforms::IdValueMap values2 = SBMLTransforms::getComponentValues(m2);
+
+  fail_unless(values1["c"].first == 1);
+  fail_unless(values1["s"].first == 1);
+	fail_unless(values2["c"].first == 2);
+  fail_unless(values2["s"].first == 2);
+
+  SBMLTransforms::clearComponentValues(m1);
+  SBMLTransforms::clearComponentValues(m2);
+  
+}
+END_TEST
+
 Suite *
 create_suite_SBMLTransforms (void)
 {
@@ -972,6 +1049,7 @@ create_suite_SBMLTransforms (void)
   tcase_add_test(tcase, test_SBMLTransforms_evaluateL3V2ASTWithModel);
   tcase_add_test(tcase, test_SBMLTransforms_L3V2AssignmentNoMath);
   tcase_add_test(tcase, test_SBMLTransforms_StoichiometryMath);
+	tcase_add_test(tcase, test_SBMLTransforms_multipleMaps);
 
 
   suite_add_tcase(suite, tcase);

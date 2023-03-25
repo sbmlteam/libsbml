@@ -73,6 +73,7 @@ foreach(example
     translateL3Math
     unsetAnnotation
     unsetNotes
+    setAnnotation
     validateSBML
 
 )

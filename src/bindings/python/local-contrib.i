@@ -376,3 +376,19 @@ class AutoProperty(type):
         __metaclass__ = AutoProperty
     }
 }
+
+%extend IdList
+{
+    %pythoncode
+    {
+        def __len__(self):
+           return self.size()
+        
+        def __getitem__(self, index):
+            return self.at(index)
+
+        def __iter__(self):
+            for i in range(self.size()):
+                yield self.at(i)        
+    }
+}

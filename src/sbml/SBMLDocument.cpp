@@ -235,7 +235,11 @@ SBMLDocument::~SBMLDocument ()
   if (mInternalValidator != NULL)
     delete mInternalValidator;
   if (mModel != NULL)
+  {
+    // remove from static map, since this object is being deleted
+		SBMLTransforms::clearComponentValues(mModel);
     delete mModel;
+  }
   clearValidators();
 }
 

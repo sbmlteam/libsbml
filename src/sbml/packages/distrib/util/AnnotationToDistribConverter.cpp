@@ -38,6 +38,7 @@
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
 #include <sbml/util/MathFilter.h>
+#include <sbml/Model.h>
 
 #ifdef USE_COMP
 #include <sbml/packages/comp/extension/CompSBMLDocumentPlugin.h>

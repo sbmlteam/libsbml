@@ -528,6 +528,34 @@ public:
                                          const XMLNamespaces* xmlns = NULL);
 
 
+  /**
+  * Returns an XMLNode which is readfrom a file containing XML
+  * content.
+  *
+  * The XML namespace must be defined using argument @p xmlns if the
+  * corresponding XML namespace attribute is not part of the file of the
+  * first argument.
+  *
+  * @param filename string name of file to be read to a XML node.
+  * @param xmlns XMLNamespaces the namespaces to set (default value is @c NULL).
+  *
+  * @note The caller owns the returned XMLNode and is reponsible for
+  * deleting it.  The returned XMLNode object is a dummy root (container)
+  * XMLNode if the top-level element in the given XML string is NOT
+  * <code>&lt;html&gt;</code>, <code>&lt;body&gt;</code>,
+  * <code>&lt;annotation&gt;</code>, or <code>&lt;notes&gt;</code>.  In
+  * the dummy root node, each top-level element in the given XML string is
+  * contained as a child XMLNode. XMLToken::isEOF() can be used to
+  * identify if the returned XMLNode object is a dummy node.
+  *
+  * @return a XMLNode which is read from file @p filename.  If the
+  * conversion failed, this method returns @c NULL.
+  *
+  * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
+  */
+  static XMLNode* readXMLNodeFromFile(const std::string& filename);
+
+
 #ifndef SWIG
 
   /** @cond doxygenLibsbmlInternal */
