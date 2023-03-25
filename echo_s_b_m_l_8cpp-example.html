@@ -34,7 +34,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">libSBML C++ API
-   &#160;<span id="projectnumber">5.20.0</span>
+   &#160;<span id="projectnumber">5.19.7</span>
    </div>
   </td>
  </tr>
@@ -144,13 +144,15 @@ $(document).ready(function(){initNavTree('echo_s_b_m_l_8cpp-example.html',''); i
 <div class="line"><span class="keywordtype">int</span></div>
 <div class="line">main (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* argv[])</div>
 <div class="line">{</div>
-<div class="line">  <span class="keywordflow">if</span> (argc != 3)</div>
-<div class="line">  {</div>
-<div class="line">    cout &lt;&lt; endl &lt;&lt; <span class="stringliteral">&quot;Usage: echoSBML input-filename output-filename&quot;</span></div>
-<div class="line">         &lt;&lt; endl &lt;&lt; endl;</div>
-<div class="line">    <span class="keywordflow">return</span> 2;</div>
-<div class="line">  }</div>
+<div class="line">  <span class="comment">//if (argc != 3)</span></div>
+<div class="line">  <span class="comment">//{</span></div>
+<div class="line">  <span class="comment">//  cout &lt;&lt; endl &lt;&lt; &quot;Usage: echoSBML input-filename output-filename&quot;</span></div>
+<div class="line">  <span class="comment">//       &lt;&lt; endl &lt;&lt; endl;</span></div>
+<div class="line">  <span class="comment">//  return 2;</span></div>
+<div class="line">  <span class="comment">//}</span></div>
 <div class="line"> </div>
+<div class="line">  argv[1] = <span class="stringliteral">&quot;C:\\Development\\SBML\\t\\in.xml&quot;</span>;</div>
+<div class="line">  argv[2] = <span class="stringliteral">&quot;C:\\Development\\SBML\\t\\out.xml&quot;</span>;</div>
 <div class="line">  <a name="_a0"></a><a class="code" href="class_s_b_m_l_document.html">SBMLDocument</a> *d = <a name="a1"></a><a class="code" href="_s_b_m_l_reader_8h.html#a638d6486ad221b01e62d2d15d130a04e">readSBML</a>(argv[1]);</div>
 <div class="line">  <span class="keywordflow">if</span> ( d-&gt;<a name="a2"></a><a class="code" href="class_s_b_m_l_document.html#a2bfc5923e5b0f3e6716d38860b18a563">getErrorLog</a>()-&gt;<a name="a3"></a><a class="code" href="class_s_b_m_l_error_log.html#acaf1637dc7a44436c53802024a2ae5e0">getNumFailsWithSeverity</a>(<a name="a4"></a><a class="code" href="_x_m_l_error_8h.html#a54cf85ac4f9cf6e597bc2cfcb5a6d0f3ae7ad9db56eb594509b9d1fc20225f6d3">LIBSBML_SEV_ERROR</a>) &gt; 0)</div>
 <div class="line">  {</div>
