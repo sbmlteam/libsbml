@@ -488,7 +488,6 @@ ASTNode::~ASTNode ()
   delete mSemanticsAnnotations;
 
   delete mDefinitionURL;
-  delete mNamespaces;
   
   freeName();
   clearPlugins();
