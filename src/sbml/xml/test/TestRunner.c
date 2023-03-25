@@ -39,14 +39,19 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#include <string.h>
 #include <check.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <sbml/common/extern.h>
+#include <sbml/util/memory.h>
 
 #ifdef LIBSBML_USE_VLD
   #include <vld.h>
 #endif
 
 #if defined(__cplusplus)
+LIBSBML_CPP_NAMESPACE_USE
 CK_CPPSTART
 #endif
 
@@ -107,23 +112,23 @@ main (int argc, char* argv[])
 { 
   int num_failed = 0;
   setTestDataDirectory();
-  SRunner *runner = srunner_create(create_suite_XMLNode());
-  //SRunner *runner = srunner_create(create_suite_XMLAttributes());
-  //srunner_add_suite(runner, create_suite_CopyAndClone());
+//  SRunner *runner = srunner_create(create_suite_XMLNode());
+  SRunner *runner = srunner_create(create_suite_XMLAttributes());
+  srunner_add_suite(runner, create_suite_CopyAndClone());
 
-  //srunner_add_suite(runner, create_suite_XMLNamespaces());
-  //srunner_add_suite(runner, create_suite_XMLTriple());
-  //srunner_add_suite(runner, create_suite_XMLToken());
-  //srunner_add_suite(runner, create_suite_XMLToken_newSetters());
-  //srunner_add_suite(runner, create_suite_XMLNode());
-  //srunner_add_suite(runner, create_suite_XMLNode_newSetters());
-  //srunner_add_suite(runner, create_suite_XMLError());
-  //srunner_add_suite(runner, create_suite_XMLError_C());
-  //srunner_add_suite(runner, create_suite_XMLErrorLog());
-  //srunner_add_suite(runner, create_suite_XMLInputStream());
-  //srunner_add_suite(runner, create_suite_XMLOutputStream());
-  //srunner_add_suite(runner, create_suite_XMLAttributes_C());
-  //srunner_add_suite(runner, create_suite_XMLExceptions());
+  srunner_add_suite(runner, create_suite_XMLNamespaces());
+  srunner_add_suite(runner, create_suite_XMLTriple());
+  srunner_add_suite(runner, create_suite_XMLToken());
+  srunner_add_suite(runner, create_suite_XMLToken_newSetters());
+  srunner_add_suite(runner, create_suite_XMLNode());
+  srunner_add_suite(runner, create_suite_XMLNode_newSetters());
+  srunner_add_suite(runner, create_suite_XMLError());
+  srunner_add_suite(runner, create_suite_XMLError_C());
+  srunner_add_suite(runner, create_suite_XMLErrorLog());
+  srunner_add_suite(runner, create_suite_XMLInputStream());
+  srunner_add_suite(runner, create_suite_XMLOutputStream());
+  srunner_add_suite(runner, create_suite_XMLAttributes_C());
+  srunner_add_suite(runner, create_suite_XMLExceptions());
 
   if (argc > 1 && !strcmp(argv[1], "-nofork"))
   {
@@ -134,6 +139,8 @@ main (int argc, char* argv[])
   num_failed = srunner_ntests_failed(runner);
 
   srunner_free(runner);
+
+  free(TestDataDirectory);
 
   return num_failed;
 }
