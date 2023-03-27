@@ -375,14 +375,6 @@ ExpatParser::parseNext ()
     return false;
   }
 
-  // catch whether an xml declaration has been found
-  // Expat does not report a missing xml declaration
-  if (!mHandler.hasXMLDeclaration())
-  {
-    reportError(MissingXMLDecl, "", 1, 1);
-    return false;
-  }
-
   if ( !error() && done )
   {
     mHandler.endDocument();
