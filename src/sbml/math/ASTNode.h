@@ -2322,6 +2322,9 @@ setValue(value, 0);
 
   LIBSBML_EXTERN
   void setDeclaredNamespaces(const XMLNamespaces* xmlns);
+
+  LIBSBML_EXTERN
+  void unsetDeclaredNamespaces();
   /** @endcond */
 
 
