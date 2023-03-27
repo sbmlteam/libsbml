@@ -1,0 +1,23 @@
+<map id="DistribExtension.h" name="DistribExtension.h">
+<area shape="rect" id="node1" title="Definition of DistribExtension." alt="" coords="884,5,1025,32"/>
+<area shape="rect" id="node2" href="$_distrib_extension_types_8h.html" title="Definition of DistribExtensionTypes." alt="" coords="883,603,1061,629"/>
+<area shape="rect" id="node4" href="$_distrib_a_s_t_plugin_8cpp.html" title="Implementation of the DistribASTPlugin class." alt="" coords="1363,80,1520,107"/>
+<area shape="rect" id="node5" href="$_distrib_extension_8cpp.html" title="Implementation of DistribExtension." alt="" coords="265,603,421,629"/>
+<area shape="rect" id="node6" href="$_distrib_s_b_m_l_document_plugin_8h.html" title="Definition of the DistribSBMLDocumentPlugin class." alt="" coords="85,528,305,555"/>
+<area shape="rect" id="node8" href="$_distrib_base_8h.html" title="Definition of the DistribBase class." alt="" coords="951,80,1060,107"/>
+<area shape="rect" id="node10" href="$_uncertainty_8h.html" title="Definition of the Uncertainty class." alt="" coords="859,379,967,405"/>
+<area shape="rect" id="node13" href="$_list_of_uncertainties_8h.html" title="Definition of the ListOfUncertainties class." alt="" coords="625,453,783,480"/>
+<area shape="rect" id="node16" href="$_uncert_parameter_8h.html" title="Definition of the UncertParameter class." alt="" coords="1145,155,1287,181"/>
+<area shape="rect" id="node17" href="$_list_of_uncert_parameters_8h.html" title="Definition of the ListOfUncertParameters class." alt="" coords="1101,304,1291,331"/>
+<area shape="rect" id="node20" href="$_uncert_span_8h.html" title="Definition of the UncertSpan class." alt="" coords="1416,229,1525,256"/>
+<area shape="rect" id="node3" href="$_distrib_validator_8cpp.html" title="Definition of DistribValidator." alt="" coords="897,677,1047,704"/>
+<area shape="rect" id="node7" href="$_distrib_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the DistribSBMLDocumentPlugin class." alt="" coords="5,603,240,629"/>
+<area shape="rect" id="node9" href="$_distrib_base_8cpp.html" title="Implementation of the DistribBase class." alt="" coords="961,453,1085,480"/>
+<area shape="rect" id="node11" href="$_distrib_s_base_plugin_8h.html" title="Definition of the DistribSBasePlugin class." alt="" coords="380,528,537,555"/>
+<area shape="rect" id="node15" href="$_uncertainty_8cpp.html" title="Implementation of the Uncertainty class." alt="" coords="761,528,884,555"/>
+<area shape="rect" id="node12" href="$_distrib_s_base_plugin_8cpp.html" title="Implementation of the DistribSBasePlugin class." alt="" coords="445,603,617,629"/>
+<area shape="rect" id="node14" href="$_list_of_uncertainties_8cpp.html" title="Implementation of the ListOfUncertainties class." alt="" coords="562,528,737,555"/>
+<area shape="rect" id="node19" href="$_uncert_parameter_8cpp.html" title="Implementation of the UncertParameter class." alt="" coords="1322,379,1481,405"/>
+<area shape="rect" id="node18" href="$_list_of_uncert_parameters_8cpp.html" title="Implementation of the ListOfUncertParameters class." alt="" coords="1094,379,1298,405"/>
+<area shape="rect" id="node21" href="$_uncert_span_8cpp.html" title="Implementation of the UncertSpan class." alt="" coords="1417,304,1541,331"/>
+</map>
