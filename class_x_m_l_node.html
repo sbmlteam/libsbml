@@ -146,9 +146,9 @@ Conversion between an XML string and an XMLNode</h1>
 <div class="line">  ...</div>
 <div class="line">}</div>
 <div class="ttc" id="aclass_x_m_l_node_html"><div class="ttname"><a href="class_x_m_l_node.html">XMLNode</a></div><div class="ttdef"><b>Definition:</b> XMLNode.h:178</div></div>
-<div class="ttc" id="aclass_x_m_l_node_html_a02d5d8c64c480eacf80941ad851deacd"><div class="ttname"><a href="class_x_m_l_node.html#a02d5d8c64c480eacf80941ad851deacd">XMLNode::getChild</a></div><div class="ttdeci">XMLNode &amp; getChild(unsigned int n)</div><div class="ttdoc">Returns the nth child of this XMLNode.</div><div class="ttdef"><b>Definition:</b> XMLNode.cpp:329</div></div>
-<div class="ttc" id="aclass_x_m_l_node_html_a44be07ab2c8661102741f79d6fcc7b93"><div class="ttname"><a href="class_x_m_l_node.html#a44be07ab2c8661102741f79d6fcc7b93">XMLNode::getNumChildren</a></div><div class="ttdeci">unsigned int getNumChildren() const</div><div class="ttdoc">Returns the number of children for this XMLNode.</div><div class="ttdef"><b>Definition:</b> XMLNode.cpp:507</div></div>
-<div class="ttc" id="aclass_x_m_l_node_html_abe475aad26e52c716bb171ebfab85c39"><div class="ttname"><a href="class_x_m_l_node.html#abe475aad26e52c716bb171ebfab85c39">XMLNode::convertStringToXMLNode</a></div><div class="ttdeci">static XMLNode * convertStringToXMLNode(const std::string &amp;xmlstr, const XMLNamespaces *xmlns=NULL)</div><div class="ttdoc">Returns an XMLNode which is derived from a string containing XML content.</div><div class="ttdef"><b>Definition:</b> XMLNode.cpp:607</div></div>
+<div class="ttc" id="aclass_x_m_l_node_html_a02d5d8c64c480eacf80941ad851deacd"><div class="ttname"><a href="class_x_m_l_node.html#a02d5d8c64c480eacf80941ad851deacd">XMLNode::getChild</a></div><div class="ttdeci">XMLNode &amp; getChild(unsigned int n)</div><div class="ttdoc">Returns the nth child of this XMLNode.</div><div class="ttdef"><b>Definition:</b> XMLNode.cpp:328</div></div>
+<div class="ttc" id="aclass_x_m_l_node_html_a44be07ab2c8661102741f79d6fcc7b93"><div class="ttname"><a href="class_x_m_l_node.html#a44be07ab2c8661102741f79d6fcc7b93">XMLNode::getNumChildren</a></div><div class="ttdeci">unsigned int getNumChildren() const</div><div class="ttdoc">Returns the number of children for this XMLNode.</div><div class="ttdef"><b>Definition:</b> XMLNode.cpp:506</div></div>
+<div class="ttc" id="aclass_x_m_l_node_html_abe475aad26e52c716bb171ebfab85c39"><div class="ttname"><a href="class_x_m_l_node.html#abe475aad26e52c716bb171ebfab85c39">XMLNode::convertStringToXMLNode</a></div><div class="ttdeci">static XMLNode * convertStringToXMLNode(const std::string &amp;xmlstr, const XMLNamespaces *xmlns=NULL)</div><div class="ttdoc">Returns an XMLNode which is derived from a string containing XML content.</div><div class="ttdef"><b>Definition:</b> XMLNode.cpp:606</div></div>
 <div class="ttc" id="aclass_x_m_l_token_html_ae963b35615525f8af949373c5765a230"><div class="ttname"><a href="class_x_m_l_token.html#ae963b35615525f8af949373c5765a230">XMLToken::isEOF</a></div><div class="ttdeci">bool isEOF() const</div><div class="ttdoc">Returns true if this token is an end of file marker.</div><div class="ttdef"><b>Definition:</b> XMLToken.cpp:1145</div></div>
 </div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="adding_evidence_codes_2_8cpp-example.html#_a19">addingEvidenceCodes_2.cpp</a>, and <a class="el" href="create_example_s_b_m_l_8cpp-example.html#_a57">createExampleSBML.cpp</a>.</dd>
 </dl>
@@ -408,7 +408,6 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:a3b018589d7d8e2fdeff43b9c0045ea55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string representation of a given <a class="el" href="class_x_m_l_node.html">XMLNode</a>.  <a href="class_x_m_l_node.html#a3b018589d7d8e2fdeff43b9c0045ea55">More...</a><br /></td></tr>
 <tr class="separator:a3b018589d7d8e2fdeff43b9c0045ea55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65c5ed08d70c430e20a5d53e9478ac90"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_x_m_l_node.html">XMLNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_m_l_node.html#a65c5ed08d70c430e20a5d53e9478ac90">readXMLNodeFromFile</a> (const std::string &amp;filename)</td></tr>
-<tr class="memdesc:a65c5ed08d70c430e20a5d53e9478ac90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="class_x_m_l_node.html">XMLNode</a> which is readfrom a file containing XML content.  <a href="class_x_m_l_node.html#a65c5ed08d70c430e20a5d53e9478ac90">More...</a><br /></td></tr>
 <tr class="separator:a65c5ed08d70c430e20a5d53e9478ac90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -2816,18 +2815,6 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Returns an <a class="el" href="class_x_m_l_node.html">XMLNode</a> which is readfrom a file containing XML content. </p>
-<p>The XML namespace must be defined using argument <code>xmlns</code> if the corresponding XML namespace attribute is not part of the file of the first argument.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filename</td><td>string name of file to be read to a XML node. </td></tr>
-    <tr><td class="paramname">xmlns</td><td><a class="el" href="class_x_m_l_namespaces.html">XMLNamespaces</a> the namespaces to set (default value is <code>NULL</code>).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>The caller owns the returned <a class="el" href="class_x_m_l_node.html">XMLNode</a> and is reponsible for deleting it. The returned <a class="el" href="class_x_m_l_node.html">XMLNode</a> object is a dummy root (container) <a class="el" href="class_x_m_l_node.html">XMLNode</a> if the top-level element in the given XML string is NOT <code>&lt;html&gt;</code>, <code>&lt;body&gt;</code>, <code>&lt;annotation&gt;</code>, or <code>&lt;notes&gt;</code>. In the dummy root node, each top-level element in the given XML string is contained as a child <a class="el" href="class_x_m_l_node.html">XMLNode</a>. <a class="el" href="class_x_m_l_token.html#ae963b35615525f8af949373c5765a230" title="Returns true if this token is an end of file marker.">XMLToken::isEOF()</a> can be used to identify if the returned <a class="el" href="class_x_m_l_node.html">XMLNode</a> object is a dummy node.</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="class_x_m_l_node.html">XMLNode</a> which is read from file <code>filename</code>. If the conversion failed, this method returns <code>NULL</code>. </dd></dl>
 
 </div>
 </div>
