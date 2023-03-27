@@ -4603,7 +4603,10 @@ void
 ASTNode::unsetDeclaredNamespaces()
 {
   if (mNamespaces != NULL)
+  {
     delete mNamespaces;
+    mNamespaces = NULL;
+  }
 }
 
 #endif /* __cplusplus */
