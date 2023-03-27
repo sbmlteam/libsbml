@@ -694,12 +694,6 @@ XercesParser::parseNext ()
     result = false;
   }
 
-  if (! static_cast <XercesReader *> (mReader) ->hasXMLDeclaration())
-  {
-    reportError(MissingXMLDecl, "", 1, 1);
-    return false;
-  }
-
   return result;
 }
 
