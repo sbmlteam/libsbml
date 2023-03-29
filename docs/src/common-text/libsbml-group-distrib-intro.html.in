@@ -14,7 +14,7 @@ The Distributions package adds support to SBML for sampling from a probability d
 
 <h2>Authors</h2>
 
-The authors of the SBML Level&nbsp;3 Distributions specification are Lucian P Smith, Stuart L Moodie, Frank Bergmann, Colin Gillespie, Sarah Keating, Matthias König, Chris Myers, Maciej J Swat, Darren Wilkinson, and Michael Hucka.
+The authors of the SBML Level&nbsp;3 Distributions specification are Lucian P Smith, Stuart L Moodie, Frank Bergmann, Colin Gillespie, Sarah Keating, Matthias Kï¿½nig, Chris Myers, Maciej J Swat, Darren Wilkinson, and Michael Hucka.
 
 <h2>The specification for this SBML package</h2>
 
@@ -22,7 +22,8 @@ The authors of the SBML Level&nbsp;3 Distributions specification are Lucian P Sm
 provide a complete explanation of the SBML Level&nbsp;3 Distributions (&ldquo;distrib&rdquo;) package.  If you are developing software
 that uses &ldquo;distrib&rdquo;, you are strongly urged to read the actual
 specification for the package.  A link to the specification document current
-is provided below, along with a link to the page of known issues (if any).
+is provided below,<strike> along with a link to the page of known issues (if any).</strike> 
+we apologise that our known issues pages are under reconstruction.
 
 <table border="0" class="centered text-table normal-font alt-row-colors" style="padding-bottom: 0.5em">
   <caption class="top-caption">Specification for SBML Level&nbsp;3 
@@ -36,7 +37,7 @@ is provided below, along with a link to the page of known issues (if any).
 <a class="spec-link" target="_blank" href="https://www.degruyter.com/document/doi/10.1515/jib-2020-0018/html">
   <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Hierarchical Model Composition package, Version 1 Release 1</a>
 </td><td>
-<a class="spec-link" target="_blank" href="https://github.com/sbmlteam/sbml-specifications/labels/L3%20Package%3A%20distrib">
+<a class="spec-link" target="_blank" href="">
   <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
 </td></tr>
 </table>
