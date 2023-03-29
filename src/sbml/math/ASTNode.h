@@ -2322,9 +2322,12 @@ setValue(value, 0);
   * The decomposition used here is such that if the top level function is multiply or divide
   * then the arguments to these functions do not contain a plus element.
   * 
-  * for example 
+  * for example
+  *
   * (a + B) * c becomes ac + Bc
+  *
   * (5 + 3)/(a-4) becomes 8/(a-4)
+  *
   * (a + 4)/4 becomes 1 + a/4
   */
   LIBSBML_EXTERN
@@ -2342,8 +2345,8 @@ setValue(value, 0);
   LIBSBML_EXTERN
   ASTNode* derivative(const std::string& variable);
 
-  LIBSBML_EXTERN
-  void printMath(unsigned int level = 0);
+ // LIBSBML_EXTERN
+ // void printMath(unsigned int level = 0);
 
   /** @cond doxygenLibsbmlInternal */
   LIBSBML_EXTERN
