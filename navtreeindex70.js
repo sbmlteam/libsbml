@@ -1,6 +1,5 @@
 var NAVTREEINDEX70 =
 {
-"class_groups_validator.html#afad751c96c6be1dec0585d6a4676451c":[3,0,107,6],
 "class_groups_validator.html#aff43b984e67ba4bd25d8c32b0d0c9b3f":[3,0,107,4],
 "class_image.html":[3,0,108],
 "class_image.html#a0143961ca5188d00203c99eef1de854e":[3,0,108,16],
@@ -249,5 +248,6 @@ var NAVTREEINDEX70 =
 "class_in_species_type_bond.html#a779460ed0c81725ab002a090d0da8e3b":[3,0,111,3],
 "class_in_species_type_bond.html#a7a6dc5a02be520ea43c7cf71c5062c71":[3,0,111,113],
 "class_in_species_type_bond.html#a7a9574c886d54be2db67210bbd8fcf18":[3,0,111,78],
-"class_in_species_type_bond.html#a7b43de27cb29136954af762fa91d4842":[3,0,111,84]
+"class_in_species_type_bond.html#a7b43de27cb29136954af762fa91d4842":[3,0,111,84],
+"class_in_species_type_bond.html#a7b7b199563437a7977cc13cabb21ef63":[3,0,111,116]
 };

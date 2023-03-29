@@ -1,6 +1,5 @@
 var NAVTREEINDEX112 =
 {
-"class_list_of_reference_glyphs.html#a7a6dc5a02be520ea43c7cf71c5062c71":[3,0,187,116],
 "class_list_of_reference_glyphs.html#a7a9574c886d54be2db67210bbd8fcf18":[3,0,187,84],
 "class_list_of_reference_glyphs.html#a7b43de27cb29136954af762fa91d4842":[3,0,187,88],
 "class_list_of_reference_glyphs.html#a7b7b199563437a7977cc13cabb21ef63":[3,0,187,119],
@@ -249,5 +248,6 @@ var NAVTREEINDEX112 =
 "class_list_of_rules.html#a4cf8825fb83925a508eaac3d7f8fbb8c":[3,0,189,131],
 "class_list_of_rules.html#a4df4f196b8e11d08013c436c689465a5":[3,0,189,103],
 "class_list_of_rules.html#a4fbf6701023075573bd76fa0bd276291":[3,0,189,23],
-"class_list_of_rules.html#a5912bd9dc06f63029b86dbda467bb3c5":[3,0,189,60]
+"class_list_of_rules.html#a5912bd9dc06f63029b86dbda467bb3c5":[3,0,189,60],
+"class_list_of_rules.html#a5af865a159b3b1c5a16729bce7e4e3c2":[3,0,189,85]
 };

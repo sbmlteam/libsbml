@@ -1,6 +1,5 @@
 var NAVTREEINDEX77 =
 {
-"class_line_ending.html#ac39cfac9d726a12e0f05c6e393953888":[3,0,125,16],
 "class_line_ending.html#ac3b1bbfe22bad0dbc577b61c529f37bb":[3,0,125,180],
 "class_line_ending.html#ac5ffc5137be377acf90de6d39a15c540":[3,0,125,4],
 "class_line_ending.html#ac92975919a08b70b0ded5f1364f5ec44":[3,0,125,85],
@@ -249,5 +248,6 @@ var NAVTREEINDEX77 =
 "class_linear_gradient.html#a5c949d524aca47b84b18b57b76e6ee0a":[3,0,124,177],
 "class_linear_gradient.html#a5ccce6afe68f650053e44f061960d47d":[3,0,124,79],
 "class_linear_gradient.html#a5d206b237134d5ba54117f4385b3bbdf":[3,0,124,89],
-"class_linear_gradient.html#a5f4ba5630955de461287ac2e353a86fe":[3,0,124,91]
+"class_linear_gradient.html#a5f4ba5630955de461287ac2e353a86fe":[3,0,124,91],
+"class_linear_gradient.html#a5fe0e86c2c28a3226ddc42972241bddd":[3,0,124,16]
 };

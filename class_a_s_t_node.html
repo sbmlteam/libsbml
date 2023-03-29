@@ -533,8 +533,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a27fec7e37689b7119846815c7f9108a8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a27fec7e37689b7119846815c7f9108a8">prependChild</a> (<a class="el" href="class_a_s_t_node.html">ASTNode</a> *disownedChild)</td></tr>
 <tr class="memdesc:a27fec7e37689b7119846815c7f9108a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the given node as a child of this <a class="el" href="class_a_s_t_node.html">ASTNode</a>.  <a href="class_a_s_t_node.html#a27fec7e37689b7119846815c7f9108a8">More...</a><br /></td></tr>
 <tr class="separator:a27fec7e37689b7119846815c7f9108a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5422c47ff624c745546e53222f7a1d38"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a5422c47ff624c745546e53222f7a1d38">printMath</a> (unsigned int level=0)</td></tr>
-<tr class="separator:a5422c47ff624c745546e53222f7a1d38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a645bd2cc1e1f1be0620a6742e7828ded"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a645bd2cc1e1f1be0620a6742e7828ded">reduceToBinary</a> ()</td></tr>
 <tr class="memdesc:a645bd2cc1e1f1be0620a6742e7828ded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reduces this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to a binary tree.  <a href="class_a_s_t_node.html#a645bd2cc1e1f1be0620a6742e7828ded">More...</a><br /></td></tr>
 <tr class="separator:a645bd2cc1e1f1be0620a6742e7828ded"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1069,7 +1067,10 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
 <p>This function allows decomposition of <a class="el" href="class_a_s_t_node.html">ASTNode</a> into components such that we reduce the need for brackets. </p>
 <p>Obviously an <a class="el" href="class_a_s_t_node.html">ASTNode</a> does not have brackets but when written as a string these would become necessary.</p>
 <p>The decomposition used here is such that if the top level function is multiply or divide then the arguments to these functions do not contain a plus element.</p>
-<p>for example (a + B) * c becomes ac + Bc (5 + 3)/(a-4) becomes 8/(a-4) (a + 4)/4 becomes 1 + a/4 </p>
+<p>for example</p>
+<p>(a + B) * c becomes ac + Bc</p>
+<p>(5 + 3)/(a-4) becomes 8/(a-4)</p>
+<p>(a + 4)/4 becomes 1 + a/4 </p>
 
 </div>
 </div>
@@ -3270,24 +3271,6 @@ used to define a number with value <code>10</code> and unit of measurement
 <a class="el" href="class_a_s_t_node.html#a8ceb6b332df118a1dfd3576b84f1c6e4" title="Inserts the given ASTNode at point n in the list of children of this ASTNode.">insertChild(unsigned int n, ASTNode* disownedChild)</a> </dd>
 <dd>
 removeChild(unsigned int n) </dd></dl>
-
-</div>
-</div>
-<a id="a5422c47ff624c745546e53222f7a1d38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5422c47ff624c745546e53222f7a1d38">&#9670;&nbsp;</a></span>printMath()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ASTNode::printMath </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>level</em> = <code>0</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>

@@ -1,6 +1,5 @@
 var NAVTREEINDEX170 =
 {
-"class_stoichiometry_math.html#a1ac6ea8992fe090abacd2191c677545a":[3,0,347,11],
 "class_stoichiometry_math.html#a1bfd93ef72d0f624964fcfd7a8d5cdfb":[3,0,347,125],
 "class_stoichiometry_math.html#a1e89a7890f2fb291f1ba4c38866d1dcc":[3,0,347,123],
 "class_stoichiometry_math.html#a1f60a43be60ba37bff3de2c4ed8f15e0":[3,0,347,110],
@@ -249,5 +248,6 @@ var NAVTREEINDEX170 =
 "class_style.html#adbff50c6c73c044a5c8e29e6b5dcefc6":[3,0,348,22],
 "class_style.html#adea0697e71112c6b2e004820960afc84":[3,0,348,66],
 "class_style.html#adf53236595b635e895e3be11443e1dff":[3,0,348,139],
-"class_style.html#ae07ccf83cfe580d386088d88b61e60ff":[3,0,348,25]
+"class_style.html#ae07ccf83cfe580d386088d88b61e60ff":[3,0,348,25],
+"class_style.html#ae40a92f0cc3c18e4e5b7fa6d8636831c":[3,0,348,70]
 };
