@@ -36,7 +36,11 @@
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *
- * ADD DESCRIPTION
+ * This converter takes an SBML model that is defined using RateRules and uses 
+ * the algorithm developed by Fages et al (see below) to convert the ODEs to a reaction network.
+ * The returned model will contain only Reactions in place of the original RateRules.
+ * Note the algorithm will detect any unspecified species that are needed to fully
+ * define the reaction network.
  *
  * @section SBMLRateRuleConverter-usage Configuration and use of SBMLRateRuleConverter
  *
