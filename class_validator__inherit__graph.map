@@ -1,12 +1,11 @@
 <map id="Validator" name="Validator">
-<area shape="rect" id="node1" title=" " alt="" coords="5,208,85,235"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,183,85,209"/>
 <area shape="rect" id="node2" href="$class_comp_validator.html" title=" " alt="" coords="137,5,256,32"/>
-<area shape="rect" id="node3" href="$class_distrib_validator.html" title=" " alt="" coords="135,56,258,83"/>
-<area shape="rect" id="node4" href="$class_fbc_validator.html" title=" " alt="" coords="145,107,248,133"/>
-<area shape="rect" id="node5" href="$class_groups_validator.html" title=" " alt="" coords="133,157,260,184"/>
-<area shape="rect" id="node6" href="$class_layout_validator.html" title=" " alt="" coords="135,208,259,235"/>
-<area shape="rect" id="node7" href="$class_multi_validator.html" title=" " alt="" coords="140,259,253,285"/>
-<area shape="rect" id="node8" href="$class_qual_validator.html" title=" " alt="" coords="141,309,252,336"/>
-<area shape="rect" id="node9" href="$class_render_validator.html" title=" " alt="" coords="133,360,260,387"/>
-<area shape="rect" id="node10" href="$class_spatial_validator.html" title=" " alt="" coords="134,411,259,437"/>
+<area shape="rect" id="node3" href="$class_fbc_validator.html" title=" " alt="" coords="145,56,248,83"/>
+<area shape="rect" id="node4" href="$class_groups_validator.html" title=" " alt="" coords="133,107,260,133"/>
+<area shape="rect" id="node5" href="$class_layout_validator.html" title=" " alt="" coords="135,157,259,184"/>
+<area shape="rect" id="node6" href="$class_multi_validator.html" title=" " alt="" coords="140,208,253,235"/>
+<area shape="rect" id="node7" href="$class_qual_validator.html" title=" " alt="" coords="141,259,252,285"/>
+<area shape="rect" id="node8" href="$class_render_validator.html" title=" " alt="" coords="133,309,260,336"/>
+<area shape="rect" id="node9" href="$class_spatial_validator.html" title=" " alt="" coords="134,360,259,387"/>
 </map>
