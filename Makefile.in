@@ -290,6 +290,7 @@ examples =                                                          \
   examples/python/renameSId.py                                      \
   examples/python/stringInput.py                                    \
   examples/python/setIdFromNames.py                                 \
+  examples/python/setNamesFromIds.py                                \
   examples/python/translateMath.py                                  \
   examples/python/unsetAnnotation.py                                \
   examples/python/unsetNotes.py                                     \
