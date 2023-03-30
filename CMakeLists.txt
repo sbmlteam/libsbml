@@ -1060,10 +1060,10 @@ libSBML version ${PACKAGE_VERSION}
 ----------------------------------------------------------------------
 
    More information and the latest version are available online at
-   http://sbml.org/Software/libSBML
+   https://sbml.org/software/libsbml/
 
    Please report problems using the issue tracker at
-   http://sbml.org/Software/libsbml/issue-tracker
+   https://github.com/sbmlteam/libsbml/issues
 
    To contact the developers directly, email libsbml-team@googlegroups.com
 
