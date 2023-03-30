@@ -380,7 +380,7 @@ ASTNode::ASTNode (const ASTNode& orig) :
  ,mStyle                ( orig.mStyle)
  ,mIsBvar               ( orig.mIsBvar)
  ,mUserData             ( orig.mUserData )
-  , mNamespaces         (orig.mNamespaces)
+ , mNamespaces          (NULL)
 {
   if (orig.mName)
   {
@@ -396,6 +396,9 @@ ASTNode::ASTNode (const ASTNode& orig) :
   {
     addSemanticsAnnotation( orig.getSemanticsAnnotation(c)->clone() );
   }
+  if (orig.mNamespaces != NULL)
+    this->mNamespaces =
+    new XMLNamespaces(*const_cast<XMLNamespaces*>(orig.mNamespaces));
   mPlugins.resize(orig.mPlugins.size());
   transform(orig.mPlugins.begin(), orig.mPlugins.end(),
     mPlugins.begin(), CloneASTPluginEntity());
@@ -429,7 +432,6 @@ ASTNode& ASTNode::operator=(const ASTNode& rhs)
     mStyle                = rhs.mStyle;
     mIsBvar               = rhs.mIsBvar;
     mUserData             = rhs.mUserData;
-    mNamespaces = rhs.mNamespaces;
 
     freeName();
     if (rhs.mName)
@@ -463,6 +465,11 @@ ASTNode& ASTNode::operator=(const ASTNode& rhs)
     
     delete mDefinitionURL;
     mDefinitionURL        = rhs.mDefinitionURL->clone();	
+    unsetDeclaredNamespaces();
+    if (rhs.mNamespaces != NULL)
+      this->mNamespaces =
+      new XMLNamespaces(*const_cast<XMLNamespaces*>(rhs.mNamespaces));
+
     clearPlugins();
     mPlugins.resize(rhs.mPlugins.size());
     transform(rhs.mPlugins.begin(), rhs.mPlugins.end(),
@@ -488,6 +495,8 @@ ASTNode::~ASTNode ()
   delete mSemanticsAnnotations;
 
   delete mDefinitionURL;
+
+  unsetDeclaredNamespaces();
   
   freeName();
   clearPlugins();
@@ -4589,6 +4598,16 @@ ASTNode::setDeclaredNamespaces(const XMLNamespaces* xmlns)
   mNamespaces = xmlns->clone();
 }
 
+
+void
+ASTNode::unsetDeclaredNamespaces()
+{
+  if (mNamespaces != NULL)
+  {
+    delete mNamespaces;
+    mNamespaces = NULL;
+  }
+}
 
 #endif /* __cplusplus */
 

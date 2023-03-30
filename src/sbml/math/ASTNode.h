@@ -2350,10 +2350,17 @@ setValue(value, 0);
 
   /** @cond doxygenLibsbmlInternal */
   LIBSBML_EXTERN
+  void printMath(unsigned int level = 0);
+
+  /** @cond doxygenLibsbmlInternal */
+  LIBSBML_EXTERN
   XMLNamespaces* getDeclaredNamespaces() const;
 
   LIBSBML_EXTERN
   void setDeclaredNamespaces(const XMLNamespaces* xmlns);
+
+  LIBSBML_EXTERN
+  void unsetDeclaredNamespaces();
   /** @endcond */
 
 
