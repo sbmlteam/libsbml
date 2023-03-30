@@ -31,4 +31,4 @@ Detailed information about libSBML can be found at
 
 Please report problems with libSBML using the tracker at
 
-  http://sbml.org/Software/libSBML/issue-tracker
+  https://github.com/sbmlteam/libsbml/issues

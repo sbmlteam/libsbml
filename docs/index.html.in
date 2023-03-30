@@ -22,7 +22,7 @@
 <p style="width: 450px; margin: 2em auto 1em">We are keenly interested in improving the libSBML documentation.  If you find any errors or problems in these manuals, <em>please</em> report them!
 </p>
 <center>
-<a target="_blank" href="http://sbml.org/Software/libSBML/issue-tracker"><img style="vertical-align: middle; margin-right: 1ex" src=".graphics/Icon-thumbs-down-32px.jpg" alt="Report an issue." border="0" width="28" height="32" />Report issue in the documentation</a>
+<a target="_blank" href="https://github.com/sbmlteam/libsbml/issues"><img style="vertical-align: middle; margin-right: 1ex" src=".graphics/Icon-thumbs-down-32px.jpg" alt="Report an issue." border="0" width="28" height="32" />Report issue in the documentation</a>
 </center>
 <p style="width: 450px; margin: 1.5em auto">The latest release of libSBML, as well as the documentation and additional information, are always available online on SBML.org:
 </p>
