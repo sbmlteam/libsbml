@@ -2345,13 +2345,6 @@ setValue(value, 0);
   LIBSBML_EXTERN
   ASTNode* derivative(const std::string& variable);
 
- // LIBSBML_EXTERN
- // void printMath(unsigned int level = 0);
-
-  /** @cond doxygenLibsbmlInternal */
-  LIBSBML_EXTERN
-  void printMath(unsigned int level = 0);
-
   /** @cond doxygenLibsbmlInternal */
   LIBSBML_EXTERN
   XMLNamespaces* getDeclaredNamespaces() const;
