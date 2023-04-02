@@ -63,6 +63,8 @@ CK_CPPSTART
 
 static Model *m;
 static SBMLDocument* d;
+static Model *m1;
+static SBMLDocument* d1;
 
 extern char *TestDataDirectory;
 
@@ -76,12 +78,16 @@ void
 UnusualRDFAnnotation_setup (void)
 {
   char *filename = safe_strcat(TestDataDirectory, "set_annot_test.xml");
+  char *filename1 = safe_strcat(TestDataDirectory, "model_history_dates.xml");
 
   // The following will return a pointer to a new SBMLDocument.
   d = readSBML(filename);
   m = d->getModel();
+  d1 = readSBML(filename1);
+  m1 = d1->getModel();
 
   free(filename);
+  free(filename1);
 }
 
 
@@ -89,6 +95,7 @@ void
 UnusualRDFAnnotation_teardown (void)
 {
   delete d;
+  delete d1;
 }
 
 static bool
@@ -276,6 +283,104 @@ START_TEST(test_set_annotation)
 END_TEST
 
 
+START_TEST(test_roundtrip_mh_dates)
+{
+  const char * expected = "<compartment metaid=\"metaid_09\" id=\"cytosol\" constant=\"true\">\n"
+    "  <annotation>\n"
+    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
+    " xmlns:dcterms=\"http://purl.org/dc/terms/\""
+    " xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\""
+    " xmlns:vCard4=\"http://www.w3.org/2006/vcard/ns#\""
+    " xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\""
+    " xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+    "      <rdf:Description rdf:about=\"#metaid_09\">\n"
+    "        <dcterms:created rdf:parseType=\"Resource\">\n"
+    "          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+    "        </dcterms:created>\n"
+    "        <dcterms:modified rdf:parseType=\"Resource\">\n"
+    "          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+    "        </dcterms:modified>\n"
+    "      </rdf:Description>\n"
+    "    </rdf:RDF>\n"
+    "  </annotation>\n"
+    "</compartment>"
+    ;
+
+  Compartment *c = m1->getCompartment(0);
+
+  fail_unless(equals(expected, c->toSBML()));
+}
+END_TEST
+
+
+START_TEST(test_has_dates)
+{
+  Compartment *c = m1->getCompartment(0);
+
+  fail_unless(c->isSetModelHistory() == true);
+  fail_unless(c->isSetCreatedDate() == true);
+  fail_unless(c->isSetModifiedDate() == true);
+
+  ModelHistory *mh = c->getModelHistory();
+  fail_unless(mh->getNumCreators() == 0);
+  fail_unless(mh->getCreatedDate()->getDateAsString() == "2005-02-02T14:56:11Z");
+  fail_unless(mh->getNumModifiedDates() == 1);
+  fail_unless(mh->getModifiedDate(0)->getDateAsString() == "2006-05-30T10:46:02Z");
+  fail_unless(mh->getModifiedDate(1) == NULL);
+
+  fail_unless(c->getCreatedDate()->getDateAsString() == "2005-02-02T14:56:11Z");
+  fail_unless(c->getNumModifiedDates() == 1);
+  fail_unless(c->getModifiedDate(0)->getDateAsString() == "2006-05-30T10:46:02Z");
+  fail_unless(c->getModifiedDate(1) == NULL);
+}
+END_TEST
+
+
+START_TEST(test_no_dates)
+{
+  fail_unless(m1->isSetModelHistory() == false);
+  fail_unless(m1->isSetCreatedDate() == false);
+  fail_unless(m1->isSetModifiedDate() == false);
+
+  ModelHistory *mh = m1->getModelHistory();
+  fail_unless(mh == NULL);
+
+  fail_unless(m1->getCreatedDate() == NULL);
+  fail_unless(m1->getNumModifiedDates() == 0);
+  fail_unless(m1->getModifiedDate(0) == NULL);
+}
+END_TEST
+
+
+START_TEST(test_set_dates)
+{
+  char* original = writeSBMLToString(d1);
+
+  Compartment *c = m1->getCompartment(0);
+  c->unsetAnnotation();
+
+  fail_unless(c->isSetAnnotation() == false);
+  fail_unless(c->isSetModelHistory() == false);
+  fail_unless(c->isSetCreatedDate() == false);
+  fail_unless(c->isSetModifiedDate() == false);
+  fail_unless(c->getNumModifiedDates() == 0);
+
+  Date_t *date = Date_createFromString("2005-02-02T14:56:11");
+  fail_unless(c->setCreatedDate(date) == LIBSBML_OPERATION_SUCCESS);
+  
+  Date_t *date1 = Date_createFromString("2006-05-30T10:46:02");
+  fail_unless(c->addModifiedDate(date1) == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless(c->isSetAnnotation() == true);
+  fail_unless(c->isSetModelHistory() == true);
+  fail_unless(c->isSetCreatedDate() == true);
+  fail_unless(c->isSetModifiedDate() == true);
+  fail_unless(c->getNumModifiedDates() == 1);
+
+  fail_unless(equals(original, writeSBMLToString(d1)));
+
+}
+END_TEST
 
 
 Suite *
@@ -294,6 +399,11 @@ create_suite_UnusualRDFAnnotation (void)
   tcase_add_test(tcase, test_hasCVTerms);
   tcase_add_test(tcase, test_read_XMLNode_from_file);
   tcase_add_test(tcase, test_set_annotation);
+
+  tcase_add_test(tcase, test_roundtrip_mh_dates);
+  tcase_add_test(tcase, test_has_dates);
+  tcase_add_test(tcase, test_no_dates);
+  tcase_add_test(tcase, test_set_dates);
 
 
   suite_add_tcase(suite, tcase);

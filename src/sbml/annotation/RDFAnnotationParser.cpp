@@ -960,133 +960,135 @@ RDFAnnotationParser::createRDFDescriptionWithHistory(const SBase * object)
 
   /* now add the data from the ModelHistory */
 
-  for (unsigned int n = 0; n < history->getNumCreators(); n++)
+  if (history->getNumCreators() > 0)
   {
-    XMLNode * N     = 0;
-    XMLNode * Email = 0;
-    XMLNode * Org   = 0;
-
-    ModelCreator* c = history->getCreator(n);
-    if (c->usingFNVcard4())
+    for (unsigned int n = 0; n < history->getNumCreators(); n++)
     {
-      if (c->usingSingleName())
+      XMLNode * N = 0;
+      XMLNode * Email = 0;
+      XMLNode * Org = 0;
+
+      ModelCreator* c = history->getCreator(n);
+      if (c->usingFNVcard4())
       {
-        // we want to a single name but we have entered it as two
-        std::string name = c->getName();
-        if (name != c->getGivenName())
+        if (c->usingSingleName())
         {
-          name = c->getGivenName() + " " + c->getFamilyName();
+          // we want to a single name but we have entered it as two
+          std::string name = c->getName();
+          if (name != c->getGivenName())
+          {
+            name = c->getGivenName() + " " + c->getFamilyName();
+          }
+          XMLNode empty(empty_token);
+          empty.append(name);
+
+          XMLNode Text(Text_token);
+          Text.addChild(empty);
+
+          N = new XMLNode(Fn_token);
+          N->addChild(Text);
         }
-        XMLNode empty(empty_token);
-        empty.append(name);
-
-        XMLNode Text(Text_token);
-        Text.addChild(empty);
-
-        N = new XMLNode(Fn_token);
-        N->addChild(Text);
-      }
-    }
-    else
-    {
-      std::string name = c->getName();
-      std::string fname, gname;
-      // we have entered one name but want to display it as 2
-      if (name == c->getGivenName())
-      {
-        std::size_t found = name.find(" ");
-        gname = name.substr(0, found);
-        fname = name.substr(found + 1);
-        c->setFamilyName(fname);
-        c->setGivenName(gname);
-      }
-      if (c->isSetFamilyName())
-      {
-        XMLNode empty(empty_token);
-        empty.append(c->getFamilyName());
-
-        XMLNode Family(Family_token);
-        Family.addChild(empty);
-
-        N = new XMLNode(N_token);
-        N->addChild(Family);
-      }
-
-      if (c->isSetGivenName())
-      {
-        XMLNode empty(empty_token);
-        empty.append(c->getGivenName());
-
-        XMLNode Given(Given_token);
-        Given.addChild(empty);
-
-        if (N == NULL)
-        {
-          N = new XMLNode(N_token);
-        }
-        N->addChild(Given);
-      }
-    }
-
-    if (c->isSetEmail())
-    {
-      XMLNode empty(empty_token);
-      empty.append(c->getEmail());
-
-      Email = new XMLNode(Email_token);
-      Email->addChild(empty);
-    }
-
-    if (c->isSetOrganisation())
-    {
-      if (use_vcard3)
-      {
-        XMLNode empty(empty_token);
-        empty.append(c->getOrganisation());
-        XMLNode Orgname(Orgname_token);
-        Orgname.addChild(empty);
-
-        Org = new XMLNode(Org_token);
-        Org->addChild(Orgname);
       }
       else
       {
-        XMLNode empty(empty_token);
-        empty.append(c->getOrganisation());
+        std::string name = c->getName();
+        std::string fname, gname;
+        // we have entered one name but want to display it as 2
+        if (name == c->getGivenName())
+        {
+          std::size_t found = name.find(" ");
+          gname = name.substr(0, found);
+          fname = name.substr(found + 1);
+          c->setFamilyName(fname);
+          c->setGivenName(gname);
+        }
+        if (c->isSetFamilyName())
+        {
+          XMLNode empty(empty_token);
+          empty.append(c->getFamilyName());
 
-        Org = new XMLNode(Org_token);
-        Org->addChild(empty);
+          XMLNode Family(Family_token);
+          Family.addChild(empty);
+
+          N = new XMLNode(N_token);
+          N->addChild(Family);
+        }
+
+        if (c->isSetGivenName())
+        {
+          XMLNode empty(empty_token);
+          empty.append(c->getGivenName());
+
+          XMLNode Given(Given_token);
+          Given.addChild(empty);
+
+          if (N == NULL)
+          {
+            N = new XMLNode(N_token);
+          }
+          N->addChild(Given);
+        }
       }
+
+      if (c->isSetEmail())
+      {
+        XMLNode empty(empty_token);
+        empty.append(c->getEmail());
+
+        Email = new XMLNode(Email_token);
+        Email->addChild(empty);
+      }
+
+      if (c->isSetOrganisation())
+      {
+        if (use_vcard3)
+        {
+          XMLNode empty(empty_token);
+          empty.append(c->getOrganisation());
+          XMLNode Orgname(Orgname_token);
+          Orgname.addChild(empty);
+
+          Org = new XMLNode(Org_token);
+          Org->addChild(Orgname);
+        }
+        else
+        {
+          XMLNode empty(empty_token);
+          empty.append(c->getOrganisation());
+
+          Org = new XMLNode(Org_token);
+          Org->addChild(empty);
+        }
+      }
+
+      XMLNode li(li_token);
+      if (N != NULL)
+      {
+        li.addChild(*N);
+        delete N;
+      }
+      if (Email != NULL)
+      {
+        li.addChild(*Email);
+        delete Email;
+      }
+      if (Org != NULL)
+      {
+        li.addChild(*Org);
+        delete Org;
+      }
+      if (c->getAdditionalRDF() != NULL)
+      {
+        li.addChild(*(c->getAdditionalRDF()));
+      }
+
+      bag.addChild(li);
     }
 
-    XMLNode li(li_token);
-    if (N != NULL)
-    {
-      li.addChild(*N);
-      delete N;
-    }
-    if (Email != NULL)
-    {
-      li.addChild(*Email);
-      delete Email;
-    }
-    if (Org != NULL)
-    {
-      li.addChild(*Org);
-      delete Org;
-    }
-    if (c->getAdditionalRDF() != NULL)
-    {
-      li.addChild(*(c->getAdditionalRDF()));
-    }
-
-    bag.addChild(li);
+    XMLNode creator(creator_token);
+    creator.addChild(bag);
+    description->addChild(creator);
   }
-
-  XMLNode creator(creator_token);
-  creator.addChild(bag);
-  description->addChild(creator);
-  
   /* created date */
   if (history->isSetCreatedDate())
   {

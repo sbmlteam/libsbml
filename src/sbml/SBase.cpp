@@ -1064,6 +1064,31 @@ SBase::getModelHistory()
   return mHistory;
 }
 
+Date*
+SBase::getCreatedDate() const
+{
+  return (mHistory != NULL)  ? mHistory->getCreatedDate() : NULL;
+}
+
+Date*
+SBase::getCreatedDate()
+{
+  return (mHistory != NULL) ? mHistory->getCreatedDate() : NULL;
+}
+
+
+Date*
+SBase::getModifiedDate(unsigned int n)
+{
+  return (mHistory != NULL) ? mHistory->getModifiedDate(n) : NULL;
+}
+
+unsigned int
+SBase::getNumModifiedDates()
+{
+  return (mHistory != NULL) ? mHistory->getNumModifiedDates() : NULL;
+}
+
 
 /*
  * @return @c true if the metaid of this SBML object is set, false
@@ -1148,6 +1173,22 @@ SBase::isSetModelHistory() const
 {
   return (mHistory != NULL);
 }
+
+
+bool
+SBase::isSetCreatedDate() const
+{
+  return (mHistory == NULL) ? false : mHistory->isSetCreatedDate();
+}
+
+
+
+bool
+SBase::isSetModifiedDate() const
+{
+  return (mHistory == NULL) ? false : mHistory->isSetModifiedDate();
+}
+
 
 
 /*
@@ -2310,6 +2351,45 @@ SBase::setModelHistory(ModelHistory * history)
   return status;
 }
 
+int 
+SBase::setCreatedDate(Date* date)
+{
+  if (mHistory != NULL)
+  {
+    return mHistory->setCreatedDate(date);
+  }
+  else
+  {
+    ModelHistory* mh = new ModelHistory();
+    // we want to set it regardless of content
+    mHistory = static_cast<ModelHistory*>(mh->clone());
+    mHistoryChanged = true;
+    delete mh;
+
+    return mHistory->setCreatedDate(date);
+
+  }
+}
+
+int
+SBase::addModifiedDate(Date* date)
+{
+  if (mHistory != NULL)
+  {
+    return mHistory->addModifiedDate(date);
+  }
+  else
+  {
+    ModelHistory* mh = new ModelHistory();
+    // we want to set it regardless of content
+    mHistory = static_cast<ModelHistory*>(mh->clone());
+    mHistoryChanged = true;
+    delete mh;
+
+    return mHistory->addModifiedDate(date);
+
+  }
+}
 
 /** @cond doxygenLibsbmlInternal */
 /*
