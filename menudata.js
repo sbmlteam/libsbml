@@ -27,13 +27,14 @@ var menudata={children:[
 {text:"Core libSBML",url:"group__core.html"},
 {text:"Level 3 Extensions",url:"usergroup0.html",children:[
 {text:"Hierarchical Model Composition",url:"group__comp.html"},
+{text:"Distributions",url:"group__distrib.html"},
 {text:"Flux Balance Constraints",url:"group__fbc.html"},
 {text:"Groups",url:"group__groups.html"},
 {text:"Multistate/Multicomp. Species",url:"group__multi.html"},
 {text:"Layout",url:"group__layout.html"},
 {text:"Render",url:"group__render.html"},
 {text:"Qualitative Models",url:"group__qual.html"},
-{text:"Spatial",url:"group__spatial.html"}]},
+{text:"Spatial Processes",url:"group__spatial.html"}]},
 {text:"Classes",url:"annotated.html",children:[
 {text:"Class List",url:"annotated.html"},
 {text:"Class Index",url:"classes.html"},
@@ -253,6 +254,7 @@ var menudata={children:[
 {text:"a",url:"globals_defs.html#index_a"},
 {text:"b",url:"globals_defs.html#index_b"},
 {text:"c",url:"globals_defs.html#index_c"},
+{text:"d",url:"globals_defs.html#index_d"},
 {text:"e",url:"globals_defs.html#index_e"},
 {text:"f",url:"globals_defs.html#index_f"},
 {text:"g",url:"globals_defs.html#index_g"},
