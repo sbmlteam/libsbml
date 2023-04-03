@@ -85,6 +85,10 @@ Promote all local parameters in the model to global parameters.
 Program that renames all SIds that also have names specified. The new
 identifiers will be derived from the name, with all invalid characters removed.
 
+@li @ref setNamesFromId.py "setNamesFromId.py":
+Program that changes all objects' "name" attribute values to match
+their "id" attribute values.
+
 @li @ref stripPackage.py "stripPackage.py":
 Strips the given SBML Level 3 package from the given SBML file.
 
@@ -301,6 +305,10 @@ An example of creating a model using SBML Level 3 Qualitative Models.
 
 @example createSimpleModel.py
 An example of creating a simple SBML Level 3 model.
+
+@example setNamesFromIds.py
+Program that changes all objects' "name" attribute values to match
+their "id" attribute values.
 
 */
 <!-- The following is for [X]Emacs users.  Please leave in place. -->

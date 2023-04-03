@@ -623,6 +623,13 @@ if(WITH_CHECK)
             setIdFromNames.out.xml
         )
         ADJUST_PYTHONPATH(test_python_setIdFromNames)    
+
+        add_test(NAME test_python_setNamesFromIds
+            COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/setNamesFromIds.py
+            ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+            setNamesFromIds.out.xml
+        )
+        ADJUST_PYTHONPATH(test_python_setNamesFromIds)    
         
         add_test(NAME test_python_unsetAnnotation
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/unsetAnnotation.py
