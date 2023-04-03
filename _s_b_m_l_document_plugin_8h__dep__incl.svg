@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 5190;
+var viewWidth = 4708;
 var viewHeight = 252;
 var sectionId = 'dynsection-1';
 </script>
@@ -54,13 +54,13 @@ var sectionId = 'dynsection-1';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>SBMLDocumentPlugin.h</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-248 5185.5,-248 5185.5,4 -4,4"/>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-248 4704,-248 4704,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title="Definition of SBMLDocumentPlugin, the derived class of SBasePlugin.">
-<polygon fill="#bfbfbf" stroke="black" points="1885.5,-224.5 1885.5,-243.5 2018.5,-243.5 2018.5,-224.5 1885.5,-224.5"/>
-<text text-anchor="middle" x="1952" y="-231.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLDocumentPlugin.h</text>
+<polygon fill="#bfbfbf" stroke="black" points="1755.5,-224.5 1755.5,-243.5 1888.5,-243.5 1888.5,-224.5 1755.5,-224.5"/>
+<text text-anchor="middle" x="1822" y="-231.5" font-family="Helvetica,sans-Serif" font-size="10.00">SBMLDocumentPlugin.h</text>
 </a>
 </g>
 </g>
@@ -76,8 +76,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M1875.31,-233.43C1626.46,-234.31 819,-233.25 153,-188 150.18,-187.81 147.3,-187.59 144.4,-187.35"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1875.35,-236.93 1885.34,-233.39 1875.32,-229.93 1875.35,-236.93"/>
+<path fill="none" stroke="midnightblue" d="M1744.87,-233.21C1507.28,-233.38 765.62,-230.22 153,-188 150.18,-187.81 147.3,-187.59 144.4,-187.35"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1745.13,-236.71 1755.12,-233.2 1745.12,-229.71 1745.13,-236.71"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
@@ -91,8 +91,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node1&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M1875.17,-232.36C1645.65,-230.1 945,-220.82 365,-188 362.05,-187.83 359.05,-187.65 356.03,-187.46"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1875.39,-235.86 1885.42,-232.45 1875.46,-228.86 1875.39,-235.86"/>
+<path fill="none" stroke="midnightblue" d="M1745.12,-232.08C1528.1,-229.18 892.25,-218.5 365,-188 362.05,-187.83 359.05,-187.64 356.03,-187.45"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1745.09,-235.58 1755.14,-232.22 1745.19,-228.58 1745.09,-235.58"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
@@ -106,8 +106,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node5 -->
 <g id="edge4" class="edge">
 <title>Node1&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M1875.1,-233.18C1658.61,-233.15 1025.71,-229.23 502,-188 497.54,-187.65 492.93,-187.22 488.3,-186.74"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1875.39,-236.68 1885.39,-233.18 1875.39,-229.68 1875.39,-236.68"/>
+<path fill="none" stroke="midnightblue" d="M1744.98,-232.85C1541.56,-231.91 973.22,-225.82 502,-188 497.54,-187.64 492.93,-187.21 488.3,-186.72"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1745.24,-236.35 1755.26,-232.89 1745.27,-229.35 1745.24,-236.35"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
@@ -121,38 +121,38 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node6 -->
 <g id="edge5" class="edge">
 <title>Node1&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M1874.83,-231.51C1658.31,-227.07 1047.94,-212.68 849,-188 745.81,-175.2 625.97,-146.01 569.94,-131.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1875.08,-235.02 1885.15,-231.72 1875.22,-228.02 1875.08,-235.02"/>
+<path fill="none" stroke="midnightblue" d="M1745.09,-231.73C1538.39,-227.98 974.13,-215.45 790,-188 705.76,-175.44 608.95,-146.14 563.75,-131.55"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1745.18,-235.23 1755.25,-231.91 1745.31,-228.23 1745.18,-235.23"/>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
 <g id="a_node7"><a xlink:href="_comp_s_b_m_l_document_plugin_8h.html" target="_top" xlink:title="Definition of CompSBMLDocumentPlugin, the plugin class of comp package for the Model element.">
-<polygon fill="white" stroke="black" points="858.5,-168.5 858.5,-187.5 1019.5,-187.5 1019.5,-168.5 858.5,-168.5"/>
-<text text-anchor="middle" x="939" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">CompSBMLDocumentPlugin.h</text>
+<polygon fill="white" stroke="black" points="799.5,-168.5 799.5,-187.5 960.5,-187.5 960.5,-168.5 799.5,-168.5"/>
+<text text-anchor="middle" x="880" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">CompSBMLDocumentPlugin.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node7 -->
 <g id="edge6" class="edge">
 <title>Node1&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M1875.12,-228.9C1688.09,-218.93 1210.74,-193.49 1019.77,-183.31"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1874.97,-232.4 1885.14,-229.44 1875.34,-225.41 1874.97,-232.4"/>
+<path fill="none" stroke="midnightblue" d="M1745.19,-228.6C1569.5,-218.53 1139.69,-193.89 960.5,-183.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1745.2,-232.1 1755.39,-229.18 1745.6,-225.11 1745.2,-232.1"/>
 </g>
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
 <g id="a_node9"><a xlink:href="_comp_flattening_converter_8cpp.html" target="_top" xlink:title="Implementation of a first flattening converter.">
-<polygon fill="white" stroke="black" points="408,-56.5 408,-75.5 570,-75.5 570,-56.5 408,-56.5"/>
-<text text-anchor="middle" x="489" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">CompFlatteningConverter.cpp</text>
+<polygon fill="white" stroke="black" points="460,-56.5 460,-75.5 622,-75.5 622,-56.5 460,-56.5"/>
+<text text-anchor="middle" x="541" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">CompFlatteningConverter.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node9 -->
 <g id="edge14" class="edge">
 <title>Node1&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M1875.26,-231.91C1644.03,-228.35 956.3,-215.65 734,-188 615.84,-173.3 546.88,-224.58 472,-132 458.5,-115.31 473.19,-89.03 482.52,-75.57"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1875.22,-235.41 1885.27,-232.06 1875.32,-228.41 1875.22,-235.41"/>
+<path fill="none" stroke="midnightblue" d="M1745.18,-233.69C1470.66,-235.31 550.24,-233.11 472,-132 454.37,-109.22 493.09,-87.21 519.35,-75.56"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1745.47,-237.19 1755.45,-233.63 1745.43,-230.19 1745.47,-237.19"/>
 </g>
 <!-- Node14 -->
 <g id="node14" class="node">
@@ -166,83 +166,83 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node14 -->
 <g id="edge15" class="edge">
 <title>Node1&#45;&gt;Node14</title>
-<path fill="none" stroke="midnightblue" d="M1875.08,-231.81C1786.69,-228.91 1637.87,-219.29 1514,-188 1460.51,-174.49 1401.4,-146.03 1373.41,-131.68"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1875.19,-235.31 1885.29,-232.12 1875.4,-228.32 1875.19,-235.31"/>
+<path fill="none" stroke="midnightblue" d="M1745.29,-229.13C1677.91,-224.17 1577.83,-212.99 1494,-188 1446.82,-173.94 1395.47,-145.74 1371.21,-131.56"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1745.18,-232.63 1755.4,-229.84 1745.67,-225.65 1745.18,-232.63"/>
 </g>
 <!-- Node15 -->
 <g id="node15" class="node">
 <title>Node15</title>
 <g id="a_node15"><a xlink:href="_fbc_s_b_m_l_document_plugin_8h.html" target="_top" xlink:title="Implementation of the FbcSBMLDocumentPlugin class.">
-<polygon fill="white" stroke="black" points="1523,-168.5 1523,-187.5 1673,-187.5 1673,-168.5 1523,-168.5"/>
-<text text-anchor="middle" x="1598" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcSBMLDocumentPlugin.h</text>
+<polygon fill="white" stroke="black" points="1503,-168.5 1503,-187.5 1653,-187.5 1653,-168.5 1503,-168.5"/>
+<text text-anchor="middle" x="1578" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcSBMLDocumentPlugin.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node15 -->
 <g id="edge16" class="edge">
 <title>Node1&#45;&gt;Node15</title>
-<path fill="none" stroke="midnightblue" d="M1885.9,-222.92C1819.02,-212.71 1716.77,-197.12 1653.83,-187.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1885.49,-226.4 1895.91,-224.44 1886.55,-219.48 1885.49,-226.4"/>
+<path fill="none" stroke="midnightblue" d="M1773.57,-222.28C1727.46,-212.08 1658.97,-196.92 1616.48,-187.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1772.82,-225.7 1783.34,-224.44 1774.33,-218.87 1772.82,-225.7"/>
 </g>
 <!-- Node17 -->
 <g id="node17" class="node">
 <title>Node17</title>
 <g id="a_node17"><a xlink:href="_cobra_to_fbc_converter_8cpp.html" target="_top" xlink:title="Implementation of a cobra 2 fbc converter.">
-<polygon fill="white" stroke="black" points="1136,-56.5 1136,-75.5 1276,-75.5 1276,-56.5 1136,-56.5"/>
-<text text-anchor="middle" x="1206" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">CobraToFbcConverter.cpp</text>
+<polygon fill="white" stroke="black" points="1170,-56.5 1170,-75.5 1310,-75.5 1310,-56.5 1170,-56.5"/>
+<text text-anchor="middle" x="1240" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">CobraToFbcConverter.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node17 -->
 <g id="edge25" class="edge">
 <title>Node1&#45;&gt;Node17</title>
-<path fill="none" stroke="midnightblue" d="M1875.38,-233.77C1731.99,-234.18 1429,-229.85 1334,-188 1276.07,-162.48 1228.14,-99.12 1211.91,-75.8"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1875.44,-237.27 1885.43,-233.73 1875.41,-230.27 1875.44,-237.27"/>
+<path fill="none" stroke="midnightblue" d="M1744.78,-232.11C1628.05,-229.71 1412.95,-220.81 1344,-188 1291.97,-163.24 1255.83,-98.84 1244.11,-75.56"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1745.01,-235.62 1755.08,-232.31 1745.15,-228.62 1745.01,-235.62"/>
 </g>
 <!-- Node18 -->
 <g id="node18" class="node">
 <title>Node18</title>
 <g id="a_node18"><a xlink:href="_fbc_to_cobra_converter_8cpp.html" target="_top" xlink:title="Implementation of a fbc 2 cobra converter.">
-<polygon fill="white" stroke="black" points="1294,-56.5 1294,-75.5 1434,-75.5 1434,-56.5 1294,-56.5"/>
-<text text-anchor="middle" x="1364" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcToCobraConverter.cpp</text>
+<polygon fill="white" stroke="black" points="1328,-56.5 1328,-75.5 1468,-75.5 1468,-56.5 1328,-56.5"/>
+<text text-anchor="middle" x="1398" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcToCobraConverter.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node18 -->
 <g id="edge26" class="edge">
 <title>Node1&#45;&gt;Node18</title>
-<path fill="none" stroke="midnightblue" d="M1875.2,-232.11C1776.42,-229.6 1600.05,-220.46 1453,-188 1381.07,-172.12 1339.39,-192.25 1297,-132 1280.77,-108.94 1317.56,-87.2 1342.79,-75.64"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1875.31,-235.62 1885.39,-232.35 1875.48,-228.62 1875.31,-235.62"/>
+<path fill="none" stroke="midnightblue" d="M1745.32,-230.85C1611.95,-225.2 1346.71,-204.85 1297,-132 1277.96,-104.1 1323.46,-85.48 1359.45,-75.57"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1745.33,-234.35 1755.47,-231.26 1745.62,-227.36 1745.33,-234.35"/>
 </g>
 <!-- Node19 -->
 <g id="node19" class="node">
 <title>Node19</title>
 <g id="a_node19"><a xlink:href="_fbc_v1_to_v2_converter_8cpp.html" target="_top" xlink:title="Implementation of a fbc v1 to fbc v2 converter.">
-<polygon fill="white" stroke="black" points="1567.5,-56.5 1567.5,-75.5 1704.5,-75.5 1704.5,-56.5 1567.5,-56.5"/>
-<text text-anchor="middle" x="1636" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcV1ToV2Converter.cpp</text>
+<polygon fill="white" stroke="black" points="1601.5,-56.5 1601.5,-75.5 1738.5,-75.5 1738.5,-56.5 1601.5,-56.5"/>
+<text text-anchor="middle" x="1670" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcV1ToV2Converter.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node19 -->
 <g id="edge27" class="edge">
 <title>Node1&#45;&gt;Node19</title>
-<path fill="none" stroke="midnightblue" d="M1916.41,-220.93C1894.15,-212.81 1865.22,-201.21 1841,-188 1789.47,-159.9 1783.82,-141.36 1733,-112 1707.92,-97.52 1677.39,-83.97 1657.36,-75.6"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1915.52,-224.33 1926.12,-224.4 1917.88,-217.74 1915.52,-224.33"/>
+<path fill="none" stroke="midnightblue" d="M1811.76,-215.73C1796.58,-190.98 1766.28,-144.81 1733,-112 1718.17,-97.37 1698.2,-83.96 1684.75,-75.66"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1808.82,-217.62 1816.98,-224.37 1814.81,-214 1808.82,-217.62"/>
 </g>
 <!-- Node20 -->
 <g id="node20" class="node">
 <title>Node20</title>
 <g id="a_node20"><a xlink:href="_fbc_v2_to_v1_converter_8cpp.html" target="_top" xlink:title="Implementation of a fbc v2 to fbc v1 converter.">
-<polygon fill="white" stroke="black" points="1722.5,-56.5 1722.5,-75.5 1859.5,-75.5 1859.5,-56.5 1722.5,-56.5"/>
-<text text-anchor="middle" x="1791" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcV2ToV1Converter.cpp</text>
+<polygon fill="white" stroke="black" points="1756.5,-56.5 1756.5,-75.5 1893.5,-75.5 1893.5,-56.5 1756.5,-56.5"/>
+<text text-anchor="middle" x="1825" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcV2ToV1Converter.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node20 -->
 <g id="edge28" class="edge">
 <title>Node1&#45;&gt;Node20</title>
-<path fill="none" stroke="midnightblue" d="M1922.92,-219.72C1890.64,-203.51 1839.25,-173.1 1810,-132 1797.59,-114.57 1793.22,-89.07 1791.74,-75.78"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1921.76,-223.05 1932.28,-224.29 1924.83,-216.76 1921.76,-223.05"/>
+<path fill="none" stroke="midnightblue" d="M1817.24,-214.67C1811.73,-190.89 1804.13,-148.16 1810,-112 1812.11,-98.99 1817.44,-84.67 1821.14,-75.75"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1813.85,-215.57 1819.64,-224.44 1820.65,-213.9 1813.85,-215.57"/>
 </g>
 <!-- Node23 -->
 <g id="node23" class="node">
@@ -256,68 +256,68 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node23 -->
 <g id="edge29" class="edge">
 <title>Node1&#45;&gt;Node23</title>
-<path fill="none" stroke="midnightblue" d="M1937.32,-216.63C1930.2,-208.33 1921.75,-197.93 1915,-188 1901.95,-168.8 1889.45,-144.46 1883.18,-131.71"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1934.91,-219.19 1944.13,-224.41 1940.18,-214.58 1934.91,-219.19"/>
+<path fill="none" stroke="midnightblue" d="M1831.16,-215.32C1843.57,-191.37 1865.24,-149.55 1874.55,-131.59"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1827.97,-213.88 1826.47,-224.37 1834.18,-217.1 1827.97,-213.88"/>
 </g>
 <!-- Node24 -->
 <g id="node24" class="node">
 <title>Node24</title>
 <g id="a_node24"><a xlink:href="_groups_s_b_m_l_document_plugin_8h.html" target="_top" xlink:title="Definition of the GroupsSBMLDocumentPlugin class.">
-<polygon fill="white" stroke="black" points="1924.5,-168.5 1924.5,-187.5 2091.5,-187.5 2091.5,-168.5 1924.5,-168.5"/>
-<text text-anchor="middle" x="2008" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">GroupsSBMLDocumentPlugin.h</text>
+<polygon fill="white" stroke="black" points="1922.5,-168.5 1922.5,-187.5 2089.5,-187.5 2089.5,-168.5 1922.5,-168.5"/>
+<text text-anchor="middle" x="2006" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">GroupsSBMLDocumentPlugin.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node24 -->
 <g id="edge30" class="edge">
 <title>Node1&#45;&gt;Node24</title>
-<path fill="none" stroke="midnightblue" d="M1968.33,-217.25C1978.26,-207.67 1990.59,-195.79 1998.84,-187.83"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1965.77,-214.86 1961,-224.32 1970.63,-219.9 1965.77,-214.86"/>
+<path fill="none" stroke="midnightblue" d="M1860.95,-221.57C1895.66,-211.38 1945.68,-196.7 1976.98,-187.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1859.77,-218.27 1851.16,-224.44 1861.74,-224.99 1859.77,-218.27"/>
 </g>
 <!-- Node28 -->
 <g id="node28" class="node">
 <title>Node28</title>
 <g id="a_node28"><a xlink:href="_layout_extension_8cpp.html" target="_top" xlink:title="Implementation of LayoutExtension, the core module of layout package.">
-<polygon fill="white" stroke="black" points="2309,-112.5 2309,-131.5 2427,-131.5 2427,-112.5 2309,-112.5"/>
-<text text-anchor="middle" x="2368" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">LayoutExtension.cpp</text>
+<polygon fill="white" stroke="black" points="2308,-112.5 2308,-131.5 2426,-131.5 2426,-112.5 2308,-112.5"/>
+<text text-anchor="middle" x="2367" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">LayoutExtension.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node28 -->
 <g id="edge35" class="edge">
 <title>Node1&#45;&gt;Node28</title>
-<path fill="none" stroke="midnightblue" d="M1994.17,-221.85C2077.42,-199.84 2261.25,-151.23 2335.72,-131.53"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1993.07,-218.52 1984.3,-224.46 1994.86,-225.29 1993.07,-218.52"/>
+<path fill="none" stroke="midnightblue" d="M1892.69,-222.98C1948.61,-214.69 2028.56,-202.03 2098,-188 2184.18,-170.59 2284.61,-144.85 2334.88,-131.59"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1891.92,-219.55 1882.54,-224.47 1892.94,-226.48 1891.92,-219.55"/>
 </g>
 <!-- Node29 -->
 <g id="node29" class="node">
 <title>Node29</title>
 <g id="a_node29"><a xlink:href="_layout_s_b_m_l_document_plugin_8h.html" target="_top" xlink:title="Implementation of the LayoutSBMLDocumentPlugin class.">
-<polygon fill="white" stroke="black" points="2413,-168.5 2413,-187.5 2579,-187.5 2579,-168.5 2413,-168.5"/>
-<text text-anchor="middle" x="2496" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">LayoutSBMLDocumentPlugin.h</text>
+<polygon fill="white" stroke="black" points="2367,-168.5 2367,-187.5 2533,-187.5 2533,-168.5 2367,-168.5"/>
+<text text-anchor="middle" x="2450" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">LayoutSBMLDocumentPlugin.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node29 -->
 <g id="edge36" class="edge">
 <title>Node1&#45;&gt;Node29</title>
-<path fill="none" stroke="midnightblue" d="M2028.88,-225.37C2130.31,-215.3 2308.17,-197.64 2412.71,-187.27"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2028.31,-221.91 2018.71,-226.38 2029,-228.87 2028.31,-221.91"/>
+<path fill="none" stroke="midnightblue" d="M1898.7,-226.4C2017.31,-216.21 2244.29,-196.69 2366.76,-186.16"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1898.28,-222.93 1888.61,-227.27 1898.88,-229.9 1898.28,-222.93"/>
 </g>
 <!-- Node34 -->
 <g id="node34" class="node">
 <title>Node34</title>
 <g id="a_node34"><a xlink:href="_render_layout_converter_8cpp.html" target="_top" xlink:title="Simple converter to convert Layout + Render from l2 to L3 and vice versa.">
-<polygon fill="white" stroke="black" points="2625,-56.5 2625,-75.5 2777,-75.5 2777,-56.5 2625,-56.5"/>
-<text text-anchor="middle" x="2701" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">RenderLayoutConverter.cpp</text>
+<polygon fill="white" stroke="black" points="2726,-56.5 2726,-75.5 2878,-75.5 2878,-56.5 2726,-56.5"/>
+<text text-anchor="middle" x="2802" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">RenderLayoutConverter.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node34 -->
 <g id="edge57" class="edge">
 <title>Node1&#45;&gt;Node34</title>
-<path fill="none" stroke="midnightblue" d="M2029.15,-232.72C2149.46,-231.12 2388.62,-223.28 2588,-188 2676.79,-172.29 2728.75,-204.02 2783,-132 2801.69,-107.19 2758.82,-86.52 2728.3,-75.53"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2028.9,-229.22 2018.94,-232.84 2028.98,-236.22 2028.9,-229.22"/>
+<path fill="none" stroke="midnightblue" d="M1898.92,-232.37C2031.08,-230.35 2309.51,-222.04 2542,-188 2650.8,-172.07 2703.09,-207.55 2783,-132 2798.89,-116.98 2801.72,-89.47 2802.08,-75.55"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1898.84,-228.87 1888.89,-232.51 1898.94,-235.87 1898.84,-228.87"/>
 </g>
 <!-- Node37 -->
 <g id="node37" class="node">
@@ -331,8 +331,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node37 -->
 <g id="edge45" class="edge">
 <title>Node1&#45;&gt;Node37</title>
-<path fill="none" stroke="midnightblue" d="M2028.76,-229.08C2179.6,-221.37 2525.33,-203.59 2816,-188 2841.75,-186.62 2869.79,-185.08 2895.24,-183.67"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2028.48,-225.59 2018.67,-229.6 2028.84,-232.58 2028.48,-225.59"/>
+<path fill="none" stroke="midnightblue" d="M1898.78,-229.78C2065.67,-222.74 2474.01,-205.18 2816,-188 2841.76,-186.71 2869.8,-185.19 2895.25,-183.78"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1898.46,-226.29 1888.61,-230.21 1898.75,-233.29 1898.46,-226.29"/>
 </g>
 <!-- Node44 -->
 <g id="node44" class="node">
@@ -346,113 +346,83 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node44 -->
 <g id="edge58" class="edge">
 <title>Node1&#45;&gt;Node44</title>
-<path fill="none" stroke="midnightblue" d="M2028.81,-231.6C2247.16,-227.34 2868.75,-213.29 3071,-188 3172.9,-175.26 3291.19,-146.04 3346.48,-131.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2028.65,-228.1 2018.72,-231.79 2028.78,-235.1 2028.65,-228.1"/>
+<path fill="none" stroke="midnightblue" d="M1899.04,-231.97C2134.51,-228.53 2842.48,-216.09 3071,-188 3172.93,-175.47 3291.2,-146.15 3346.48,-131.56"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1898.81,-228.47 1888.86,-232.11 1898.91,-235.47 1898.81,-228.47"/>
 </g>
 <!-- Node45 -->
 <g id="node45" class="node">
 <title>Node45</title>
 <g id="a_node45"><a xlink:href="_spatial_s_b_m_l_document_plugin_8h.html" target="_top" xlink:title="Definition of the SpatialSBMLDocumentPlugin class.">
-<polygon fill="white" stroke="black" points="3422.5,-168.5 3422.5,-187.5 3589.5,-187.5 3589.5,-168.5 3422.5,-168.5"/>
-<text text-anchor="middle" x="3506" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">SpatialSBMLDocumentPlugin.h</text>
+<polygon fill="white" stroke="black" points="3360.5,-168.5 3360.5,-187.5 3527.5,-187.5 3527.5,-168.5 3360.5,-168.5"/>
+<text text-anchor="middle" x="3444" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">SpatialSBMLDocumentPlugin.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node45 -->
 <g id="edge59" class="edge">
 <title>Node1&#45;&gt;Node45</title>
-<path fill="none" stroke="midnightblue" d="M2028.91,-230.33C2229.52,-223.38 2785.23,-204.11 3248,-188 3306.23,-185.97 3371.85,-183.68 3422.34,-181.92"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2028.64,-226.84 2018.77,-230.69 2028.89,-233.84 2028.64,-226.84"/>
+<path fill="none" stroke="midnightblue" d="M1898.85,-231.06C2113.79,-225.54 2739.4,-208.77 3259,-188 3292.09,-186.68 3328.51,-184.96 3360.21,-183.38"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1898.53,-227.57 1888.62,-231.32 1898.71,-234.57 1898.53,-227.57"/>
 </g>
 <!-- Node49 -->
 <g id="node49" class="node">
 <title>Node49</title>
-<g id="a_node49"><a xlink:href="_distrib_extension_8cpp.html" target="_top" xlink:title="Implementation of DistribExtension.">
-<polygon fill="white" stroke="black" points="3805.5,-112.5 3805.5,-131.5 3922.5,-131.5 3922.5,-112.5 3805.5,-112.5"/>
-<text text-anchor="middle" x="3864" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">DistribExtension.cpp</text>
+<g id="a_node49"><a xlink:href="_multi_extension_8cpp.html" target="_top" xlink:title=": Implementation of the MultiExtension class">
+<polygon fill="white" stroke="black" points="3806,-112.5 3806,-131.5 3916,-131.5 3916,-112.5 3806,-112.5"/>
+<text text-anchor="middle" x="3861" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">MultiExtension.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node49 -->
 <g id="edge64" class="edge">
 <title>Node1&#45;&gt;Node49</title>
-<path fill="none" stroke="midnightblue" d="M2028.93,-233.06C2311.1,-232.95 3288.92,-229.51 3598,-188 3687.05,-176.04 3789.6,-146.31 3837.18,-131.57"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2028.79,-229.56 2018.79,-233.06 2028.79,-236.56 2028.79,-229.56"/>
+<path fill="none" stroke="midnightblue" d="M1899.08,-232.73C2188.77,-231.44 3212.2,-224.36 3536,-188 3644.07,-175.86 3769.71,-146.22 3828.08,-131.53"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1898.67,-229.23 1888.68,-232.77 1898.7,-236.23 1898.67,-229.23"/>
 </g>
 <!-- Node50 -->
 <g id="node50" class="node">
 <title>Node50</title>
-<g id="a_node50"><a xlink:href="_distrib_s_b_m_l_document_plugin_8h.html" target="_top" xlink:title="Definition of the DistribSBMLDocumentPlugin class.">
-<polygon fill="white" stroke="black" points="3909.5,-168.5 3909.5,-187.5 4074.5,-187.5 4074.5,-168.5 3909.5,-168.5"/>
-<text text-anchor="middle" x="3992" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">DistribSBMLDocumentPlugin.h</text>
+<g id="a_node50"><a xlink:href="_multi_s_b_m_l_document_plugin_8h.html" target="_top" xlink:title=": Implementation of the MultiSBMLDocumentPlugin class">
+<polygon fill="white" stroke="black" points="3843,-168.5 3843,-187.5 4001,-187.5 4001,-168.5 3843,-168.5"/>
+<text text-anchor="middle" x="3922" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">MultiSBMLDocumentPlugin.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node50 -->
 <g id="edge65" class="edge">
 <title>Node1&#45;&gt;Node50</title>
-<path fill="none" stroke="midnightblue" d="M2028.76,-231.44C2277.87,-226.31 3086.31,-209.04 3755,-188 3806.34,-186.38 3863.92,-184.21 3909.47,-182.4"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2028.65,-227.94 2018.72,-231.65 2028.79,-234.94 2028.65,-227.94"/>
+<path fill="none" stroke="midnightblue" d="M1899.16,-231.59C2155.07,-226.82 2999.23,-210.33 3697,-188 3745.45,-186.45 3799.75,-184.29 3842.87,-182.47"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1898.79,-228.1 1888.86,-231.78 1898.92,-235.1 1898.79,-228.1"/>
 </g>
 <!-- Node54 -->
 <g id="node54" class="node">
 <title>Node54</title>
-<g id="a_node54"><a xlink:href="_multi_extension_8cpp.html" target="_top" xlink:title=": Implementation of the MultiExtension class">
-<polygon fill="white" stroke="black" points="4287,-112.5 4287,-131.5 4397,-131.5 4397,-112.5 4287,-112.5"/>
-<text text-anchor="middle" x="4342" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">MultiExtension.cpp</text>
+<g id="a_node54"><a xlink:href="_qual_extension_8cpp.html" target="_top" xlink:title="Implementation of QualExtension, the core module of qual package.">
+<polygon fill="white" stroke="black" points="4266.5,-112.5 4266.5,-131.5 4373.5,-131.5 4373.5,-112.5 4266.5,-112.5"/>
+<text text-anchor="middle" x="4320" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">QualExtension.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node54 -->
 <g id="edge70" class="edge">
 <title>Node1&#45;&gt;Node54</title>
-<path fill="none" stroke="midnightblue" d="M2028.96,-232.4C2386.48,-229.48 3876.67,-215.71 4083,-188 4170.07,-176.31 4270.15,-146.31 4316.28,-131.51"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2028.68,-228.9 2018.71,-232.48 2028.74,-235.9 2028.68,-228.9"/>
+<path fill="none" stroke="midnightblue" d="M1898.74,-233.34C2235.96,-234.52 3588.28,-236.13 4010,-188 4113.26,-176.22 4233.02,-146.4 4288.63,-131.6"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1898.6,-229.84 1888.58,-233.3 1898.57,-236.84 1898.6,-229.84"/>
 </g>
 <!-- Node55 -->
 <g id="node55" class="node">
 <title>Node55</title>
-<g id="a_node55"><a xlink:href="_multi_s_b_m_l_document_plugin_8h.html" target="_top" xlink:title=": Implementation of the MultiSBMLDocumentPlugin class">
-<polygon fill="white" stroke="black" points="4385,-168.5 4385,-187.5 4543,-187.5 4543,-168.5 4385,-168.5"/>
-<text text-anchor="middle" x="4464" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">MultiSBMLDocumentPlugin.h</text>
+<g id="a_node55"><a xlink:href="_qual_s_b_m_l_document_plugin_8h.html" target="_top" xlink:title="Implementation of the QualSBMLDocumentPlugin class.">
+<polygon fill="white" stroke="black" points="4319.5,-168.5 4319.5,-187.5 4474.5,-187.5 4474.5,-168.5 4319.5,-168.5"/>
+<text text-anchor="middle" x="4397" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">QualSBMLDocumentPlugin.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node55 -->
 <g id="edge71" class="edge">
 <title>Node1&#45;&gt;Node55</title>
-<path fill="none" stroke="midnightblue" d="M2029.24,-232.04C2319.24,-228.3 3370.72,-213.7 4237,-188 4286.18,-186.54 4341.33,-184.37 4384.96,-182.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2028.79,-228.54 2018.84,-232.17 2028.88,-235.54 2028.79,-228.54"/>
-</g>
-<!-- Node59 -->
-<g id="node59" class="node">
-<title>Node59</title>
-<g id="a_node59"><a xlink:href="_qual_extension_8cpp.html" target="_top" xlink:title="Implementation of QualExtension, the core module of qual package.">
-<polygon fill="white" stroke="black" points="4746.5,-112.5 4746.5,-131.5 4853.5,-131.5 4853.5,-112.5 4746.5,-112.5"/>
-<text text-anchor="middle" x="4800" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">QualExtension.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node59 -->
-<g id="edge76" class="edge">
-<title>Node1&#45;&gt;Node59</title>
-<path fill="none" stroke="midnightblue" d="M2028.84,-232.76C2432.3,-231.38 4296.97,-223.11 4552,-188 4635.56,-176.5 4731.3,-146.41 4775.41,-131.55"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2028.73,-229.26 2018.74,-232.8 2028.75,-236.26 2028.73,-229.26"/>
-</g>
-<!-- Node60 -->
-<g id="node60" class="node">
-<title>Node60</title>
-<g id="a_node60"><a xlink:href="_qual_s_b_m_l_document_plugin_8h.html" target="_top" xlink:title="Implementation of the QualSBMLDocumentPlugin class.">
-<polygon fill="white" stroke="black" points="4789.5,-168.5 4789.5,-187.5 4944.5,-187.5 4944.5,-168.5 4789.5,-168.5"/>
-<text text-anchor="middle" x="4867" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">QualSBMLDocumentPlugin.h</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node60 -->
-<g id="edge77" class="edge">
-<title>Node1&#45;&gt;Node60</title>
-<path fill="none" stroke="midnightblue" d="M2028.8,-232.94C2354.03,-232.45 3649.96,-227.95 4714,-188 4738.46,-187.08 4765.1,-185.66 4789.2,-184.22"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2028.55,-229.44 2018.55,-232.96 2028.56,-236.44 2028.55,-229.44"/>
+<path fill="none" stroke="midnightblue" d="M1898.82,-232.17C2194.08,-228.85 3284.34,-215.34 4182,-188 4227.56,-186.61 4278.52,-184.5 4319.39,-182.68"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1898.61,-228.67 1888.65,-232.28 1898.69,-235.67 1898.61,-228.67"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
@@ -472,317 +442,317 @@ var sectionId = 'dynsection-1';
 <!-- Node7&#45;&gt;Node6 -->
 <g id="edge10" class="edge">
 <title>Node7&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M865.23,-167.13C797.35,-158.04 693.88,-144.17 604,-132 600.91,-131.58 597.73,-131.15 594.52,-130.72"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="865.02,-170.64 875.4,-168.49 865.95,-163.7 865.02,-170.64"/>
+<path fill="none" stroke="midnightblue" d="M815.74,-166.85C751.12,-156.65 652.62,-141.1 591.94,-131.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="815.39,-170.34 825.81,-168.44 816.48,-163.43 815.39,-170.34"/>
 </g>
 <!-- Node8 -->
 <g id="node8" class="node">
 <title>Node8</title>
 <g id="a_node8"><a xlink:href="_comp_extension_types_8h.html" target="_top" xlink:title="Include all SBML types of Comp extension in a single header file.">
-<polygon fill="white" stroke="black" points="613,-112.5 613,-131.5 743,-131.5 743,-112.5 613,-112.5"/>
-<text text-anchor="middle" x="678" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">CompExtensionTypes.h</text>
+<polygon fill="white" stroke="black" points="717,-112.5 717,-131.5 847,-131.5 847,-112.5 717,-112.5"/>
+<text text-anchor="middle" x="782" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">CompExtensionTypes.h</text>
 </a>
 </g>
 </g>
 <!-- Node7&#45;&gt;Node8 -->
 <g id="edge7" class="edge">
 <title>Node7&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M887.81,-166.41C838.49,-156.2 764.81,-140.96 719.16,-131.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="887.14,-169.84 897.64,-168.44 888.56,-162.99 887.14,-169.84"/>
+<path fill="none" stroke="midnightblue" d="M855.41,-163.45C837.32,-153.48 813.27,-140.23 797.71,-131.65"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="853.81,-166.56 864.25,-168.32 857.19,-160.43 853.81,-166.56"/>
 </g>
 <!-- Node11 -->
 <g id="node11" class="node">
 <title>Node11</title>
 <g id="a_node11"><a xlink:href="_comp_s_b_m_l_document_plugin_8cpp.html" target="_top" xlink:title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element.">
-<polygon fill="white" stroke="black" points="761.5,-112.5 761.5,-131.5 934.5,-131.5 934.5,-112.5 761.5,-112.5"/>
-<text text-anchor="middle" x="848" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">CompSBMLDocumentPlugin.cpp</text>
+<polygon fill="white" stroke="black" points="865.5,-112.5 865.5,-131.5 1038.5,-131.5 1038.5,-112.5 865.5,-112.5"/>
+<text text-anchor="middle" x="952" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">CompSBMLDocumentPlugin.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node7&#45;&gt;Node11 -->
 <g id="edge11" class="edge">
 <title>Node7&#45;&gt;Node11</title>
-<path fill="none" stroke="midnightblue" d="M915.71,-163.18C898.96,-153.24 876.9,-140.15 862.58,-131.65"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="913.99,-166.23 924.38,-168.32 917.57,-160.21 913.99,-166.23"/>
+<path fill="none" stroke="midnightblue" d="M899.87,-162.1C912.82,-152.38 929.3,-140.03 940.22,-131.83"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="897.47,-159.52 891.57,-168.32 901.67,-165.12 897.47,-159.52"/>
 </g>
 <!-- Node12 -->
 <g id="node12" class="node">
 <title>Node12</title>
 <g id="a_node12"><a xlink:href="_external_model_definition_8cpp.html" target="_top" xlink:title="Implementation of ExternalModelDefinition, the SBase&#45;derived class of the comp package.">
-<polygon fill="white" stroke="black" points="952.5,-112.5 952.5,-131.5 1107.5,-131.5 1107.5,-112.5 952.5,-112.5"/>
-<text text-anchor="middle" x="1030" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">ExternalModelDefinition.cpp</text>
+<polygon fill="white" stroke="black" points="1056.5,-112.5 1056.5,-131.5 1211.5,-131.5 1211.5,-112.5 1056.5,-112.5"/>
+<text text-anchor="middle" x="1134" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">ExternalModelDefinition.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node7&#45;&gt;Node12 -->
 <g id="edge12" class="edge">
 <title>Node7&#45;&gt;Node12</title>
-<path fill="none" stroke="midnightblue" d="M962.29,-163.18C979.04,-153.24 1001.1,-140.15 1015.42,-131.65"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="960.43,-160.21 953.62,-168.32 964.01,-166.23 960.43,-160.21"/>
+<path fill="none" stroke="midnightblue" d="M930.12,-166.35C978.12,-156.14 1049.62,-140.94 1093.94,-131.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="929.3,-162.94 920.25,-168.44 930.76,-169.79 929.3,-162.94"/>
 </g>
 <!-- Node13 -->
 <g id="node13" class="node">
 <title>Node13</title>
 <g id="a_node13"><a xlink:href="_submodel_8cpp.html" target="_top" xlink:title="Implementation of Submodel, the SBase&#45;derived class of the comp package.">
-<polygon fill="white" stroke="black" points="1126,-112.5 1126,-131.5 1212,-131.5 1212,-112.5 1126,-112.5"/>
-<text text-anchor="middle" x="1169" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">Submodel.cpp</text>
+<polygon fill="white" stroke="black" points="613,-112.5 613,-131.5 699,-131.5 699,-112.5 613,-112.5"/>
+<text text-anchor="middle" x="656" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">Submodel.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node7&#45;&gt;Node13 -->
 <g id="edge13" class="edge">
 <title>Node7&#45;&gt;Node13</title>
-<path fill="none" stroke="midnightblue" d="M985.2,-166.15C1028.66,-155.95 1092.84,-140.88 1132.73,-131.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="984.38,-162.75 975.44,-168.44 985.98,-169.57 984.38,-162.75"/>
+<path fill="none" stroke="midnightblue" d="M834.74,-166.09C792.42,-155.89 730.09,-140.86 691.33,-131.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="833.96,-169.5 844.51,-168.44 835.61,-162.7 833.96,-169.5"/>
 </g>
 <!-- Node8&#45;&gt;Node9 -->
 <g id="edge8" class="edge">
 <title>Node8&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M637.99,-109.57C602.33,-99.38 550.96,-84.7 518.81,-75.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="637.48,-113.06 648.05,-112.44 639.4,-106.33 637.48,-113.06"/>
+<path fill="none" stroke="midnightblue" d="M733.88,-110.22C688.34,-100.01 620.89,-84.9 579.01,-75.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="733.29,-113.67 743.81,-112.44 734.82,-106.84 733.29,-113.67"/>
 </g>
 <!-- Node10 -->
 <g id="node10" class="node">
 <title>Node10</title>
 <g id="a_node10"><a xlink:href="_comp_validator_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="624,-56.5 624,-75.5 732,-75.5 732,-56.5 624,-56.5"/>
-<text text-anchor="middle" x="678" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">CompValidator.cpp</text>
+<polygon fill="white" stroke="black" points="728,-56.5 728,-75.5 836,-75.5 836,-56.5 728,-56.5"/>
+<text text-anchor="middle" x="782" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">CompValidator.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node8&#45;&gt;Node10 -->
 <g id="edge9" class="edge">
 <title>Node8&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M678,-101.8C678,-92.91 678,-82.78 678,-75.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="674.5,-102.08 678,-112.08 681.5,-102.08 674.5,-102.08"/>
+<path fill="none" stroke="midnightblue" d="M782,-101.8C782,-92.91 782,-82.78 782,-75.75"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="778.5,-102.08 782,-112.08 785.5,-102.08 778.5,-102.08"/>
 </g>
 <!-- Node15&#45;&gt;Node14 -->
 <g id="edge23" class="edge">
 <title>Node15&#45;&gt;Node14</title>
-<path fill="none" stroke="midnightblue" d="M1549.88,-166.22C1504.34,-156.01 1436.89,-140.9 1395.01,-131.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1549.29,-169.67 1559.81,-168.44 1550.82,-162.84 1549.29,-169.67"/>
+<path fill="none" stroke="midnightblue" d="M1533.08,-166.02C1491.33,-155.82 1430.02,-140.84 1391.85,-131.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1532.44,-169.47 1542.98,-168.44 1534.1,-162.67 1532.44,-169.47"/>
 </g>
 <!-- Node16 -->
 <g id="node16" class="node">
 <title>Node16</title>
 <g id="a_node16"><a xlink:href="_fbc_extension_types_8h.html" target="_top" xlink:title="Includes all SBML types of the fbc package extension in a single header file.">
-<polygon fill="white" stroke="black" points="1426.5,-112.5 1426.5,-131.5 1545.5,-131.5 1545.5,-112.5 1426.5,-112.5"/>
-<text text-anchor="middle" x="1486" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcExtensionTypes.h</text>
+<polygon fill="white" stroke="black" points="1605.5,-112.5 1605.5,-131.5 1724.5,-131.5 1724.5,-112.5 1605.5,-112.5"/>
+<text text-anchor="middle" x="1665" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcExtensionTypes.h</text>
 </a>
 </g>
 </g>
 <!-- Node15&#45;&gt;Node16 -->
 <g id="edge17" class="edge">
 <title>Node15&#45;&gt;Node16</title>
-<path fill="none" stroke="midnightblue" d="M1570.75,-163.86C1549.98,-153.85 1521.98,-140.35 1503.95,-131.65"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1569.48,-167.13 1580.01,-168.32 1572.52,-160.83 1569.48,-167.13"/>
+<path fill="none" stroke="midnightblue" d="M1600.72,-162.9C1616.67,-153 1637.5,-140.07 1651.06,-131.65"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1598.63,-160.08 1591.98,-168.32 1602.32,-166.02 1598.63,-160.08"/>
 </g>
 <!-- Node22 -->
 <g id="node22" class="node">
 <title>Node22</title>
 <g id="a_node22"><a xlink:href="_fbc_s_b_m_l_document_plugin_8cpp.html" target="_top" xlink:title="Implementation of the FbcSBMLDocumentPlugin class.">
-<polygon fill="white" stroke="black" points="1563.5,-112.5 1563.5,-131.5 1724.5,-131.5 1724.5,-112.5 1563.5,-112.5"/>
-<text text-anchor="middle" x="1644" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcSBMLDocumentPlugin.cpp</text>
+<polygon fill="white" stroke="black" points="1426.5,-112.5 1426.5,-131.5 1587.5,-131.5 1587.5,-112.5 1426.5,-112.5"/>
+<text text-anchor="middle" x="1507" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcSBMLDocumentPlugin.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node15&#45;&gt;Node22 -->
 <g id="edge24" class="edge">
 <title>Node15&#45;&gt;Node22</title>
-<path fill="none" stroke="midnightblue" d="M1612.11,-160.43C1620.18,-150.97 1629.96,-139.48 1636.55,-131.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1609.42,-158.2 1605.6,-168.08 1614.75,-162.74 1609.42,-158.2"/>
+<path fill="none" stroke="midnightblue" d="M1558.41,-162.1C1545.63,-152.38 1529.39,-140.03 1518.61,-131.83"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1556.51,-165.06 1566.59,-168.32 1560.75,-159.48 1556.51,-165.06"/>
 </g>
 <!-- Node16&#45;&gt;Node17 -->
 <g id="edge18" class="edge">
 <title>Node16&#45;&gt;Node17</title>
-<path fill="none" stroke="midnightblue" d="M1431.75,-110.54C1378.83,-100.33 1299.33,-85 1250.16,-75.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1431.15,-113.99 1441.63,-112.44 1432.48,-107.11 1431.15,-113.99"/>
+<path fill="none" stroke="midnightblue" d="M1595.21,-111.9C1488.75,-98.24 1377.4,-84.22 1307.93,-75.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1594.8,-115.38 1605.16,-113.18 1595.69,-108.44 1594.8,-115.38"/>
 </g>
 <!-- Node16&#45;&gt;Node18 -->
 <g id="edge19" class="edge">
 <title>Node16&#45;&gt;Node18</title>
-<path fill="none" stroke="midnightblue" d="M1457.46,-108.37C1434.61,-98.26 1403.19,-84.35 1383.24,-75.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1456.11,-111.6 1466.67,-112.44 1458.94,-105.2 1456.11,-111.6"/>
+<path fill="none" stroke="midnightblue" d="M1612.64,-110.41C1562.18,-100.2 1486.8,-84.96 1440.11,-75.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1612.2,-113.89 1622.69,-112.44 1613.59,-107.03 1612.2,-113.89"/>
 </g>
 <!-- Node16&#45;&gt;Node19 -->
 <g id="edge20" class="edge">
 <title>Node16&#45;&gt;Node19</title>
-<path fill="none" stroke="midnightblue" d="M1519.22,-109.04C1547.45,-98.88 1587.26,-84.55 1612.34,-75.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1517.99,-105.76 1509.77,-112.44 1520.36,-112.35 1517.99,-105.76"/>
+<path fill="none" stroke="midnightblue" d="M1666.75,-102.1C1667.58,-93.14 1668.53,-82.86 1669.19,-75.75"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1663.26,-101.8 1665.83,-112.08 1670.23,-102.45 1663.26,-101.8"/>
 </g>
 <!-- Node16&#45;&gt;Node20 -->
 <g id="edge21" class="edge">
 <title>Node16&#45;&gt;Node20</title>
-<path fill="none" stroke="midnightblue" d="M1544.38,-110.66C1602.02,-100.46 1689.12,-85.04 1742.9,-75.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1543.56,-107.25 1534.33,-112.44 1544.79,-114.15 1543.56,-107.25"/>
+<path fill="none" stroke="midnightblue" d="M1700.05,-109.17C1730.17,-99 1772.9,-84.59 1799.77,-75.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1698.71,-105.93 1690.35,-112.44 1700.95,-112.56 1698.71,-105.93"/>
 </g>
 <!-- Node21 -->
 <g id="node21" class="node">
 <title>Node21</title>
 <g id="a_node21"><a xlink:href="_fbc_validator_8cpp.html" target="_top" xlink:title="Base class for SBML Validators.">
-<polygon fill="white" stroke="black" points="1452.5,-56.5 1452.5,-75.5 1549.5,-75.5 1549.5,-56.5 1452.5,-56.5"/>
-<text text-anchor="middle" x="1501" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcValidator.cpp</text>
+<polygon fill="white" stroke="black" points="1486.5,-56.5 1486.5,-75.5 1583.5,-75.5 1583.5,-56.5 1486.5,-56.5"/>
+<text text-anchor="middle" x="1535" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">FbcValidator.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node16&#45;&gt;Node21 -->
 <g id="edge22" class="edge">
 <title>Node16&#45;&gt;Node21</title>
-<path fill="none" stroke="midnightblue" d="M1491.17,-102.4C1493.68,-93.36 1496.57,-82.94 1498.57,-75.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1487.78,-101.51 1488.48,-112.08 1494.53,-103.38 1487.78,-101.51"/>
+<path fill="none" stroke="midnightblue" d="M1634.91,-108.5C1610.54,-98.38 1576.86,-84.39 1555.5,-75.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1633.82,-111.84 1644.4,-112.44 1636.51,-105.38 1633.82,-111.84"/>
 </g>
 <!-- Node24&#45;&gt;Node23 -->
 <g id="edge33" class="edge">
 <title>Node24&#45;&gt;Node23</title>
-<path fill="none" stroke="midnightblue" d="M1978.15,-164.5C1953.96,-154.38 1920.54,-140.39 1899.34,-131.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1976.98,-167.81 1987.56,-168.44 1979.69,-161.35 1976.98,-167.81"/>
+<path fill="none" stroke="midnightblue" d="M1976.61,-164.5C1952.8,-154.38 1919.89,-140.39 1899.03,-131.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1975.3,-167.75 1985.88,-168.44 1978.04,-161.31 1975.3,-167.75"/>
 </g>
 <!-- Node25 -->
 <g id="node25" class="node">
 <title>Node25</title>
 <g id="a_node25"><a xlink:href="_groups_extension_types_8h.html" target="_top" xlink:title="Definition of GroupsExtensionTypes.">
-<polygon fill="white" stroke="black" points="1957,-112.5 1957,-131.5 2093,-131.5 2093,-112.5 1957,-112.5"/>
-<text text-anchor="middle" x="2025" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">GroupsExtensionTypes.h</text>
+<polygon fill="white" stroke="black" points="2154,-112.5 2154,-131.5 2290,-131.5 2290,-112.5 2154,-112.5"/>
+<text text-anchor="middle" x="2222" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">GroupsExtensionTypes.h</text>
 </a>
 </g>
 </g>
 <!-- Node24&#45;&gt;Node25 -->
 <g id="edge31" class="edge">
 <title>Node24&#45;&gt;Node25</title>
-<path fill="none" stroke="midnightblue" d="M2013.86,-158.4C2016.7,-149.36 2019.98,-138.94 2022.25,-131.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2010.47,-157.49 2010.81,-168.08 2017.15,-159.6 2010.47,-157.49"/>
+<path fill="none" stroke="midnightblue" d="M2050.16,-165.96C2090.96,-155.76 2150.71,-140.82 2187.93,-131.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2049.08,-162.62 2040.23,-168.44 2050.78,-169.41 2049.08,-162.62"/>
 </g>
 <!-- Node27 -->
 <g id="node27" class="node">
 <title>Node27</title>
 <g id="a_node27"><a xlink:href="_groups_s_b_m_l_document_plugin_8cpp.html" target="_top" xlink:title="Implementation of the GroupsSBMLDocumentPlugin class.">
-<polygon fill="white" stroke="black" points="2111.5,-112.5 2111.5,-131.5 2290.5,-131.5 2290.5,-112.5 2111.5,-112.5"/>
-<text text-anchor="middle" x="2201" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">GroupsSBMLDocumentPlugin.cpp</text>
+<polygon fill="white" stroke="black" points="1956.5,-112.5 1956.5,-131.5 2135.5,-131.5 2135.5,-112.5 1956.5,-112.5"/>
+<text text-anchor="middle" x="2046" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">GroupsSBMLDocumentPlugin.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node24&#45;&gt;Node27 -->
 <g id="edge34" class="edge">
 <title>Node24&#45;&gt;Node27</title>
-<path fill="none" stroke="midnightblue" d="M2048.39,-165.7C2084.82,-155.51 2137.59,-140.74 2170.56,-131.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2047.27,-162.38 2038.58,-168.44 2049.15,-169.12 2047.27,-162.38"/>
+<path fill="none" stroke="midnightblue" d="M2018.7,-159.86C2025.63,-150.5 2033.91,-139.33 2039.52,-131.75"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2015.75,-157.96 2012.61,-168.08 2021.37,-162.13 2015.75,-157.96"/>
 </g>
 <!-- Node26 -->
 <g id="node26" class="node">
 <title>Node26</title>
 <g id="a_node26"><a xlink:href="_groups_validator_8cpp.html" target="_top" xlink:title="Definition of GroupsValidator.">
-<polygon fill="white" stroke="black" points="1968,-56.5 1968,-75.5 2082,-75.5 2082,-56.5 1968,-56.5"/>
-<text text-anchor="middle" x="2025" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">GroupsValidator.cpp</text>
+<polygon fill="white" stroke="black" points="2165,-56.5 2165,-75.5 2279,-75.5 2279,-56.5 2165,-56.5"/>
+<text text-anchor="middle" x="2222" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">GroupsValidator.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node25&#45;&gt;Node26 -->
 <g id="edge32" class="edge">
 <title>Node25&#45;&gt;Node26</title>
-<path fill="none" stroke="midnightblue" d="M2025,-101.8C2025,-92.91 2025,-82.78 2025,-75.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2021.5,-102.08 2025,-112.08 2028.5,-102.08 2021.5,-102.08"/>
+<path fill="none" stroke="midnightblue" d="M2222,-101.8C2222,-92.91 2222,-82.78 2222,-75.75"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2218.5,-102.08 2222,-112.08 2225.5,-102.08 2218.5,-102.08"/>
 </g>
 <!-- Node29&#45;&gt;Node28 -->
 <g id="edge43" class="edge">
 <title>Node29&#45;&gt;Node28</title>
-<path fill="none" stroke="midnightblue" d="M2466.38,-164.5C2442.38,-154.38 2409.22,-140.39 2388.19,-131.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2465.14,-167.78 2475.72,-168.44 2467.86,-161.33 2465.14,-167.78"/>
+<path fill="none" stroke="midnightblue" d="M2427.9,-162.62C2412.74,-152.76 2393.12,-139.99 2380.3,-131.65"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2426.37,-165.8 2436.66,-168.32 2430.19,-159.94 2426.37,-165.8"/>
 </g>
 <!-- Node30 -->
 <g id="node30" class="node">
 <title>Node30</title>
 <g id="a_node30"><a xlink:href="_layout_extension_types_8h.html" target="_top" xlink:title="Include all SBML types of layout extension in a single header file.">
-<polygon fill="white" stroke="black" points="2445,-112.5 2445,-131.5 2579,-131.5 2579,-112.5 2445,-112.5"/>
-<text text-anchor="middle" x="2512" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">LayoutExtensionTypes.h</text>
+<polygon fill="white" stroke="black" points="2640,-112.5 2640,-131.5 2774,-131.5 2774,-112.5 2640,-112.5"/>
+<text text-anchor="middle" x="2707" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">LayoutExtensionTypes.h</text>
 </a>
 </g>
 </g>
 <!-- Node29&#45;&gt;Node30 -->
 <g id="edge37" class="edge">
 <title>Node29&#45;&gt;Node30</title>
-<path fill="none" stroke="midnightblue" d="M2501.51,-158.4C2504.19,-149.36 2507.28,-138.94 2509.41,-131.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2498.13,-157.5 2498.64,-168.08 2504.84,-159.49 2498.13,-157.5"/>
+<path fill="none" stroke="midnightblue" d="M2500.71,-166.35C2549.28,-156.14 2621.62,-140.94 2666.47,-131.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2499.79,-162.96 2490.72,-168.44 2501.23,-169.81 2499.79,-162.96"/>
 </g>
 <!-- Node36 -->
 <g id="node36" class="node">
 <title>Node36</title>
 <g id="a_node36"><a xlink:href="_layout_s_b_m_l_document_plugin_8cpp.html" target="_top" xlink:title="Implementation of the LayoutSBMLDocumentPlugin class.">
-<polygon fill="white" stroke="black" points="2597.5,-112.5 2597.5,-131.5 2774.5,-131.5 2774.5,-112.5 2597.5,-112.5"/>
-<text text-anchor="middle" x="2686" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">LayoutSBMLDocumentPlugin.cpp</text>
+<polygon fill="white" stroke="black" points="2444.5,-112.5 2444.5,-131.5 2621.5,-131.5 2621.5,-112.5 2444.5,-112.5"/>
+<text text-anchor="middle" x="2533" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">LayoutSBMLDocumentPlugin.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node29&#45;&gt;Node36 -->
 <g id="edge44" class="edge">
 <title>Node29&#45;&gt;Node36</title>
-<path fill="none" stroke="midnightblue" d="M2535.76,-165.7C2571.62,-155.51 2623.57,-140.74 2656.03,-131.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2534.77,-162.34 2526.11,-168.44 2536.68,-169.08 2534.77,-162.34"/>
+<path fill="none" stroke="midnightblue" d="M2472.1,-162.62C2487.26,-152.76 2506.88,-139.99 2519.7,-131.65"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2469.81,-159.94 2463.34,-168.32 2473.63,-165.8 2469.81,-159.94"/>
 </g>
 <!-- Node31 -->
 <g id="node31" class="node">
 <title>Node31</title>
 <g id="a_node31"><a xlink:href="_graphical_object_8cpp.html" target="_top" xlink:title="Implementation of GraphicalObject for SBML Layout.">
-<polygon fill="white" stroke="black" points="2283.5,-56.5 2283.5,-75.5 2398.5,-75.5 2398.5,-56.5 2283.5,-56.5"/>
-<text text-anchor="middle" x="2341" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">GraphicalObject.cpp</text>
+<polygon fill="white" stroke="black" points="2385.5,-56.5 2385.5,-75.5 2500.5,-75.5 2500.5,-56.5 2385.5,-56.5"/>
+<text text-anchor="middle" x="2443" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">GraphicalObject.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node30&#45;&gt;Node31 -->
 <g id="edge38" class="edge">
 <title>Node30&#45;&gt;Node31</title>
-<path fill="none" stroke="midnightblue" d="M2474.96,-109.3C2442.74,-99.13 2396.81,-84.62 2367.97,-75.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2474.31,-112.77 2484.9,-112.44 2476.42,-106.09 2474.31,-112.77"/>
+<path fill="none" stroke="midnightblue" d="M2655.22,-110.41C2605.33,-100.2 2530.8,-84.96 2484.64,-75.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2654.67,-113.87 2665.17,-112.44 2656.07,-107.01 2654.67,-113.87"/>
 </g>
 <!-- Node32 -->
 <g id="node32" class="node">
 <title>Node32</title>
 <g id="a_node32"><a xlink:href="_layout_validator_8cpp.html" target="_top" xlink:title="Implementation of the LayoutValidator class.">
-<polygon fill="white" stroke="black" points="2455.5,-56.5 2455.5,-75.5 2568.5,-75.5 2568.5,-56.5 2455.5,-56.5"/>
-<text text-anchor="middle" x="2512" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">LayoutValidator.cpp</text>
+<polygon fill="white" stroke="black" points="2518.5,-56.5 2518.5,-75.5 2631.5,-75.5 2631.5,-56.5 2518.5,-56.5"/>
+<text text-anchor="middle" x="2575" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">LayoutValidator.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node30&#45;&gt;Node32 -->
 <g id="edge39" class="edge">
 <title>Node30&#45;&gt;Node32</title>
-<path fill="none" stroke="midnightblue" d="M2512,-101.8C2512,-92.91 2512,-82.78 2512,-75.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2508.5,-102.08 2512,-112.08 2515.5,-102.08 2508.5,-102.08"/>
+<path fill="none" stroke="midnightblue" d="M2676.78,-108.64C2652.01,-98.5 2617.6,-84.43 2595.82,-75.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2675.5,-111.9 2686.08,-112.44 2678.15,-105.42 2675.5,-111.9"/>
 </g>
 <!-- Node33 -->
 <g id="node33" class="node">
 <title>Node33</title>
 <g id="a_node33"><a xlink:href="_render_list_of_layouts_plugin_8cpp.html" target="_top" xlink:title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen...">
-<polygon fill="white" stroke="black" points="2527,-0.5 2527,-19.5 2695,-19.5 2695,-0.5 2527,-0.5"/>
-<text text-anchor="middle" x="2611" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">RenderListOfLayoutsPlugin.cpp</text>
+<polygon fill="white" stroke="black" points="2621,-0.5 2621,-19.5 2789,-19.5 2789,-0.5 2621,-0.5"/>
+<text text-anchor="middle" x="2705" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">RenderListOfLayoutsPlugin.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node30&#45;&gt;Node33 -->
 <g id="edge40" class="edge">
 <title>Node30&#45;&gt;Node33</title>
-<path fill="none" stroke="midnightblue" d="M2481.99,-107.76C2458.08,-95.33 2430.92,-75.75 2446,-56 2458.98,-39.01 2509.56,-26.9 2551.34,-19.55"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2480.71,-111.03 2491.23,-112.31 2483.81,-104.75 2480.71,-111.03"/>
+<path fill="none" stroke="midnightblue" d="M2695.58,-103.44C2691.02,-95.42 2686.31,-85.58 2684,-76 2679.06,-55.48 2691.14,-32.07 2698.96,-19.71"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2692.71,-105.46 2700.9,-112.19 2698.69,-101.83 2692.71,-105.46"/>
 </g>
 <!-- Node30&#45;&gt;Node34 -->
 <g id="edge41" class="edge">
 <title>Node30&#45;&gt;Node34</title>
-<path fill="none" stroke="midnightblue" d="M2552.01,-109.57C2587.67,-99.38 2639.04,-84.7 2671.19,-75.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2550.6,-106.33 2541.95,-112.44 2552.52,-113.06 2550.6,-106.33"/>
+<path fill="none" stroke="midnightblue" d="M2731.32,-107.18C2748.8,-97.24 2771.83,-84.15 2786.77,-75.65"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2729.23,-104.34 2722.26,-112.32 2732.69,-110.43 2729.23,-104.34"/>
 </g>
 <!-- Node35 -->
 <g id="node35" class="node">
 <title>Node35</title>
 <g id="a_node35"><a xlink:href="_render_utilities_8cpp.html" target="_top" xlink:title="implementation of RenderUtilities, a class of utility functions for the render package">
-<polygon fill="white" stroke="black" points="2896,-0.5 2896,-19.5 3006,-19.5 3006,-0.5 2896,-0.5"/>
-<text text-anchor="middle" x="2951" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">RenderUtilities.cpp</text>
+<polygon fill="white" stroke="black" points="2851,-0.5 2851,-19.5 2961,-19.5 2961,-0.5 2851,-0.5"/>
+<text text-anchor="middle" x="2906" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">RenderUtilities.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node30&#45;&gt;Node35 -->
 <g id="edge42" class="edge">
 <title>Node30&#45;&gt;Node35</title>
-<path fill="none" stroke="midnightblue" d="M2532.73,-106.57C2557.8,-89.38 2598.79,-62.21 2616,-56 2710.4,-21.96 2828.16,-13.32 2895.95,-11.33"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2530.53,-103.84 2524.28,-112.39 2534.5,-109.6 2530.53,-103.84"/>
+<path fill="none" stroke="midnightblue" d="M2704.68,-101.86C2704.06,-87.46 2705.76,-68.19 2717,-56 2734.89,-36.6 2801.54,-24.1 2850.65,-17.32"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2701.22,-102.46 2705.55,-112.13 2708.2,-101.87 2701.22,-102.46"/>
 </g>
 <!-- Node38 -->
 <g id="node38" class="node">
@@ -832,281 +802,230 @@ var sectionId = 'dynsection-1';
 <!-- Node38&#45;&gt;Node34 -->
 <g id="edge48" class="edge">
 <title>Node38&#45;&gt;Node34</title>
-<path fill="none" stroke="midnightblue" d="M2856.77,-109.7C2819.59,-99.51 2765.73,-84.74 2732.07,-75.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2856.22,-113.18 2866.78,-112.44 2858.07,-106.42 2856.22,-113.18"/>
+<path fill="none" stroke="midnightblue" d="M2873.43,-107.18C2855.76,-97.24 2832.49,-84.15 2817.39,-75.65"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2872.14,-110.47 2882.58,-112.32 2875.58,-104.37 2872.14,-110.47"/>
 </g>
 <!-- Node38&#45;&gt;Node35 -->
 <g id="edge49" class="edge">
 <title>Node38&#45;&gt;Node35</title>
-<path fill="none" stroke="midnightblue" d="M2950.73,-110.22C2984.51,-102.12 3023.86,-90.04 3034,-76 3052.22,-50.78 3009.64,-30.39 2978.98,-19.54"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2949.87,-106.82 2940.92,-112.5 2951.45,-113.64 2949.87,-106.82"/>
+<path fill="none" stroke="midnightblue" d="M2899.36,-102.35C2901.11,-78.25 2904.09,-37.31 2905.38,-19.59"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2895.86,-102.14 2898.63,-112.37 2902.84,-102.65 2895.86,-102.14"/>
 </g>
 <!-- Node39 -->
 <g id="node39" class="node">
 <title>Node39</title>
 <g id="a_node39"><a xlink:href="_render_layout_plugin_8cpp.html" target="_top" xlink:title="Implementation of RenderLayoutPlugin, the plugin class of the fbc package for the Model element.">
-<polygon fill="white" stroke="black" points="3024,-0.5 3024,-19.5 3158,-19.5 3158,-0.5 3024,-0.5"/>
-<text text-anchor="middle" x="3091" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">RenderLayoutPlugin.cpp</text>
+<polygon fill="white" stroke="black" points="2986,-0.5 2986,-19.5 3120,-19.5 3120,-0.5 2986,-0.5"/>
+<text text-anchor="middle" x="3053" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">RenderLayoutPlugin.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node38&#45;&gt;Node39 -->
 <g id="edge47" class="edge">
 <title>Node38&#45;&gt;Node39</title>
-<path fill="none" stroke="midnightblue" d="M2974.19,-110.09C3000.48,-103.49 3028.86,-92.92 3051,-76 3070.58,-61.03 3082.82,-33.5 3088.06,-19.57"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2973.17,-106.74 2964.23,-112.43 2974.77,-113.55 2973.17,-106.74"/>
+<path fill="none" stroke="midnightblue" d="M2951.12,-110.28C2986.56,-102.04 3028.82,-89.76 3041,-76 3054.99,-60.18 3055.07,-33.52 3054.01,-19.78"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2950.31,-106.87 2941.33,-112.49 2951.86,-113.7 2950.31,-106.87"/>
 </g>
 <!-- Node40 -->
 <g id="node40" class="node">
 <title>Node40</title>
 <g id="a_node40"><a xlink:href="_render_utilities_8h.html" target="_top" xlink:title="Definition of RenderUtilities, a class of utility functions for the render package.">
-<polygon fill="white" stroke="black" points="2927,-56.5 2927,-75.5 3025,-75.5 3025,-56.5 2927,-56.5"/>
-<text text-anchor="middle" x="2976" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">RenderUtilities.h</text>
+<polygon fill="white" stroke="black" points="2934,-56.5 2934,-75.5 3032,-75.5 3032,-56.5 2934,-56.5"/>
+<text text-anchor="middle" x="2983" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">RenderUtilities.h</text>
 </a>
 </g>
 </g>
 <!-- Node38&#45;&gt;Node40 -->
 <g id="edge50" class="edge">
 <title>Node38&#45;&gt;Node40</title>
-<path fill="none" stroke="midnightblue" d="M2918.77,-106.62C2933.02,-96.76 2951.46,-83.99 2963.5,-75.65"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2916.76,-103.75 2910.53,-112.32 2920.75,-109.51 2916.76,-103.75"/>
+<path fill="none" stroke="midnightblue" d="M2920.19,-106.9C2935.78,-97 2956.13,-84.07 2969.38,-75.65"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2918.22,-104.01 2911.66,-112.32 2921.97,-109.92 2918.22,-104.01"/>
 </g>
 <!-- Node41 -->
 <g id="node41" class="node">
 <title>Node41</title>
 <g id="a_node41"><a xlink:href="_render_validator_8cpp.html" target="_top" xlink:title="Definition of RenderValidator.">
-<polygon fill="white" stroke="black" points="2795,-56.5 2795,-75.5 2909,-75.5 2909,-56.5 2795,-56.5"/>
-<text text-anchor="middle" x="2852" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">RenderValidator.cpp</text>
+<polygon fill="white" stroke="black" points="3088,-56.5 3088,-75.5 3202,-75.5 3202,-56.5 3088,-56.5"/>
+<text text-anchor="middle" x="3145" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">RenderValidator.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node38&#45;&gt;Node41 -->
 <g id="edge54" class="edge">
 <title>Node38&#45;&gt;Node41</title>
-<path fill="none" stroke="midnightblue" d="M2883.89,-104.43C2875.82,-94.97 2866.04,-83.48 2859.45,-75.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2881.25,-106.74 2890.4,-112.08 2886.58,-102.2 2881.25,-106.74"/>
+<path fill="none" stroke="midnightblue" d="M2947.03,-110.28C2993.7,-100.08 3063.03,-84.92 3106.05,-75.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2946.16,-106.89 2937.14,-112.44 2947.65,-113.73 2946.16,-106.89"/>
 </g>
 <!-- Node40&#45;&gt;Node33 -->
 <g id="edge52" class="edge">
 <title>Node40&#45;&gt;Node33</title>
-<path fill="none" stroke="midnightblue" d="M2916.91,-55.85C2824.87,-41.99 2729.83,-28.15 2670.16,-19.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2916.55,-59.33 2926.96,-57.36 2917.59,-52.41 2916.55,-59.33"/>
+<path fill="none" stroke="midnightblue" d="M2928.81,-54.47C2876.27,-44.27 2797.56,-28.98 2748.84,-19.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2928.47,-57.97 2938.95,-56.44 2929.8,-51.1 2928.47,-57.97"/>
 </g>
 <!-- Node40&#45;&gt;Node35 -->
 <g id="edge53" class="edge">
 <title>Node40&#45;&gt;Node35</title>
-<path fill="none" stroke="midnightblue" d="M2967.66,-46.98C2963.42,-37.82 2958.45,-27.09 2955.05,-19.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2964.49,-48.48 2971.87,-56.08 2970.85,-45.54 2964.49,-48.48"/>
+<path fill="none" stroke="midnightblue" d="M2962.1,-50.34C2948.09,-40.52 2930.12,-27.91 2918.34,-19.65"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2960.43,-53.45 2970.63,-56.32 2964.45,-47.72 2960.43,-53.45"/>
 </g>
 <!-- Node40&#45;&gt;Node39 -->
 <g id="edge51" class="edge">
 <title>Node40&#45;&gt;Node39</title>
-<path fill="none" stroke="midnightblue" d="M3003.48,-52.1C3024.97,-42.01 3054.22,-28.27 3072.86,-19.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3001.79,-49.02 2994.22,-56.44 3004.76,-55.36 3001.79,-49.02"/>
+<path fill="none" stroke="midnightblue" d="M3002.31,-50.1C3014.91,-40.38 3030.93,-28.03 3041.55,-19.83"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3000.03,-47.44 2994.25,-56.32 3004.3,-52.99 3000.03,-47.44"/>
 </g>
 <!-- Node45&#45;&gt;Node44 -->
 <g id="edge62" class="edge">
 <title>Node45&#45;&gt;Node44</title>
-<path fill="none" stroke="midnightblue" d="M3476.38,-164.5C3452.38,-154.38 3419.22,-140.39 3398.19,-131.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3475.14,-167.78 3485.72,-168.44 3477.86,-161.33 3475.14,-167.78"/>
+<path fill="none" stroke="midnightblue" d="M3425.45,-161.82C3413.62,-152.15 3398.71,-139.95 3388.8,-131.83"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3423.44,-164.7 3433.4,-168.32 3427.87,-159.28 3423.44,-164.7"/>
 </g>
 <!-- Node46 -->
 <g id="node46" class="node">
 <title>Node46</title>
 <g id="a_node46"><a xlink:href="_spatial_extension_types_8h.html" target="_top" xlink:title="Definition of SpatialExtensionTypes.">
-<polygon fill="white" stroke="black" points="3455.5,-112.5 3455.5,-131.5 3590.5,-131.5 3590.5,-112.5 3455.5,-112.5"/>
-<text text-anchor="middle" x="3523" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">SpatialExtensionTypes.h</text>
+<polygon fill="white" stroke="black" points="3652.5,-112.5 3652.5,-131.5 3787.5,-131.5 3787.5,-112.5 3652.5,-112.5"/>
+<text text-anchor="middle" x="3720" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">SpatialExtensionTypes.h</text>
 </a>
 </g>
 </g>
 <!-- Node45&#45;&gt;Node46 -->
 <g id="edge60" class="edge">
 <title>Node45&#45;&gt;Node46</title>
-<path fill="none" stroke="midnightblue" d="M3511.86,-158.4C3514.7,-149.36 3517.98,-138.94 3520.25,-131.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3508.47,-157.49 3508.81,-168.08 3515.15,-159.6 3508.47,-157.49"/>
+<path fill="none" stroke="midnightblue" d="M3497.8,-166.47C3549.96,-156.27 3628.11,-140.98 3676.47,-131.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3496.87,-163.09 3487.73,-168.44 3498.22,-169.96 3496.87,-163.09"/>
 </g>
 <!-- Node48 -->
 <g id="node48" class="node">
 <title>Node48</title>
 <g id="a_node48"><a xlink:href="_spatial_s_b_m_l_document_plugin_8cpp.html" target="_top" xlink:title="Implementation of the SpatialSBMLDocumentPlugin class.">
-<polygon fill="white" stroke="black" points="3609,-112.5 3609,-131.5 3787,-131.5 3787,-112.5 3609,-112.5"/>
-<text text-anchor="middle" x="3698" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">SpatialSBMLDocumentPlugin.cpp</text>
+<polygon fill="white" stroke="black" points="3456,-112.5 3456,-131.5 3634,-131.5 3634,-112.5 3456,-112.5"/>
+<text text-anchor="middle" x="3545" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">SpatialSBMLDocumentPlugin.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node45&#45;&gt;Node48 -->
 <g id="edge63" class="edge">
 <title>Node45&#45;&gt;Node48</title>
-<path fill="none" stroke="midnightblue" d="M3546.18,-165.7C3582.42,-155.51 3634.91,-140.74 3667.72,-131.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3545.1,-162.37 3536.42,-168.44 3547,-169.11 3545.1,-162.37"/>
+<path fill="none" stroke="midnightblue" d="M3469.08,-163.59C3487.76,-153.61 3512.7,-140.27 3528.81,-131.65"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3467.4,-160.52 3460.23,-168.32 3470.7,-166.7 3467.4,-160.52"/>
 </g>
 <!-- Node47 -->
 <g id="node47" class="node">
 <title>Node47</title>
 <g id="a_node47"><a xlink:href="_spatial_validator_8cpp.html" target="_top" xlink:title="Definition of SpatialValidator.">
-<polygon fill="white" stroke="black" points="3466.5,-56.5 3466.5,-75.5 3579.5,-75.5 3579.5,-56.5 3466.5,-56.5"/>
-<text text-anchor="middle" x="3523" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">SpatialValidator.cpp</text>
+<polygon fill="white" stroke="black" points="3663.5,-56.5 3663.5,-75.5 3776.5,-75.5 3776.5,-56.5 3663.5,-56.5"/>
+<text text-anchor="middle" x="3720" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">SpatialValidator.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node46&#45;&gt;Node47 -->
 <g id="edge61" class="edge">
 <title>Node46&#45;&gt;Node47</title>
-<path fill="none" stroke="midnightblue" d="M3523,-101.8C3523,-92.91 3523,-82.78 3523,-75.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3519.5,-102.08 3523,-112.08 3526.5,-102.08 3519.5,-102.08"/>
+<path fill="none" stroke="midnightblue" d="M3720,-101.8C3720,-92.91 3720,-82.78 3720,-75.75"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3716.5,-102.08 3720,-112.08 3723.5,-102.08 3716.5,-102.08"/>
 </g>
 <!-- Node50&#45;&gt;Node49 -->
 <g id="edge68" class="edge">
 <title>Node50&#45;&gt;Node49</title>
-<path fill="none" stroke="midnightblue" d="M3962.38,-164.5C3938.38,-154.38 3905.22,-140.39 3884.19,-131.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3961.14,-167.78 3971.72,-168.44 3963.86,-161.33 3961.14,-167.78"/>
+<path fill="none" stroke="midnightblue" d="M3904.53,-161.54C3893.66,-151.91 3880.06,-139.87 3870.98,-131.83"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3902.39,-164.32 3912.2,-168.32 3907.03,-159.07 3902.39,-164.32"/>
 </g>
 <!-- Node51 -->
 <g id="node51" class="node">
 <title>Node51</title>
-<g id="a_node51"><a xlink:href="_distrib_extension_types_8h.html" target="_top" xlink:title="Definition of DistribExtensionTypes.">
-<polygon fill="white" stroke="black" points="3941,-112.5 3941,-131.5 4075,-131.5 4075,-112.5 3941,-112.5"/>
-<text text-anchor="middle" x="4008" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">DistribExtensionTypes.h</text>
+<g id="a_node51"><a xlink:href="_multi_extension_types_8h.html" target="_top" xlink:title=": Implementation of the MultiExtensionTypes class">
+<polygon fill="white" stroke="black" points="4122,-112.5 4122,-131.5 4248,-131.5 4248,-112.5 4122,-112.5"/>
+<text text-anchor="middle" x="4185" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">MultiExtensionTypes.h</text>
 </a>
 </g>
 </g>
 <!-- Node50&#45;&gt;Node51 -->
 <g id="edge66" class="edge">
 <title>Node50&#45;&gt;Node51</title>
-<path fill="none" stroke="midnightblue" d="M3997.51,-158.4C4000.19,-149.36 4003.28,-138.94 4005.41,-131.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="3994.13,-157.5 3994.64,-168.08 4000.84,-159.49 3994.13,-157.5"/>
+<path fill="none" stroke="midnightblue" d="M3973.58,-166.41C4023.28,-156.2 4097.53,-140.96 4143.52,-131.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3972.76,-163 3963.67,-168.44 3974.17,-169.86 3972.76,-163"/>
 </g>
 <!-- Node53 -->
 <g id="node53" class="node">
 <title>Node53</title>
-<g id="a_node53"><a xlink:href="_distrib_s_b_m_l_document_plugin_8cpp.html" target="_top" xlink:title="Implementation of the DistribSBMLDocumentPlugin class.">
-<polygon fill="white" stroke="black" points="4093,-112.5 4093,-131.5 4269,-131.5 4269,-112.5 4093,-112.5"/>
-<text text-anchor="middle" x="4181" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">DistribSBMLDocumentPlugin.cpp</text>
+<g id="a_node53"><a xlink:href="_multi_s_b_m_l_document_plugin_8cpp.html" target="_top" xlink:title=": Implementation of the MultiSBMLDocumentPlugin class">
+<polygon fill="white" stroke="black" points="3934.5,-112.5 3934.5,-131.5 4103.5,-131.5 4103.5,-112.5 3934.5,-112.5"/>
+<text text-anchor="middle" x="4019" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">MultiSBMLDocumentPlugin.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node50&#45;&gt;Node53 -->
 <g id="edge69" class="edge">
 <title>Node50&#45;&gt;Node53</title>
-<path fill="none" stroke="midnightblue" d="M4032.01,-165.57C4067.67,-155.38 4119.04,-140.7 4151.19,-131.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4030.6,-162.33 4021.95,-168.44 4032.52,-169.06 4030.6,-162.33"/>
+<path fill="none" stroke="midnightblue" d="M3946.34,-163.45C3964.24,-153.48 3988.05,-140.23 4003.45,-131.65"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="3944.62,-160.4 3937.58,-168.32 3948.02,-166.52 3944.62,-160.4"/>
 </g>
 <!-- Node52 -->
 <g id="node52" class="node">
 <title>Node52</title>
-<g id="a_node52"><a xlink:href="_distrib_validator_8cpp.html" target="_top" xlink:title="Definition of DistribValidator.">
-<polygon fill="white" stroke="black" points="3952,-56.5 3952,-75.5 4064,-75.5 4064,-56.5 3952,-56.5"/>
-<text text-anchor="middle" x="4008" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">DistribValidator.cpp</text>
+<g id="a_node52"><a xlink:href="_multi_validator_8cpp.html" target="_top" xlink:title=": Implementation of the MultiValidator class">
+<polygon fill="white" stroke="black" points="4133,-56.5 4133,-75.5 4237,-75.5 4237,-56.5 4133,-56.5"/>
+<text text-anchor="middle" x="4185" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">MultiValidator.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node51&#45;&gt;Node52 -->
 <g id="edge67" class="edge">
 <title>Node51&#45;&gt;Node52</title>
-<path fill="none" stroke="midnightblue" d="M4008,-101.8C4008,-92.91 4008,-82.78 4008,-75.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4004.5,-102.08 4008,-112.08 4011.5,-102.08 4004.5,-102.08"/>
+<path fill="none" stroke="midnightblue" d="M4185,-101.8C4185,-92.91 4185,-82.78 4185,-75.75"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4181.5,-102.08 4185,-112.08 4188.5,-102.08 4181.5,-102.08"/>
 </g>
 <!-- Node55&#45;&gt;Node54 -->
 <g id="edge74" class="edge">
 <title>Node55&#45;&gt;Node54</title>
-<path fill="none" stroke="midnightblue" d="M4435.46,-164.37C4412.61,-154.26 4381.19,-140.35 4361.24,-131.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4434.11,-167.6 4444.67,-168.44 4436.94,-161.2 4434.11,-167.6"/>
+<path fill="none" stroke="midnightblue" d="M4376.1,-162.34C4362.09,-152.52 4344.12,-139.91 4332.34,-131.65"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4374.43,-165.45 4384.63,-168.32 4378.45,-159.72 4374.43,-165.45"/>
 </g>
 <!-- Node56 -->
 <g id="node56" class="node">
 <title>Node56</title>
-<g id="a_node56"><a xlink:href="_multi_extension_types_8h.html" target="_top" xlink:title=": Implementation of the MultiExtensionTypes class">
-<polygon fill="white" stroke="black" points="4415,-112.5 4415,-131.5 4541,-131.5 4541,-112.5 4415,-112.5"/>
-<text text-anchor="middle" x="4478" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">MultiExtensionTypes.h</text>
+<g id="a_node56"><a xlink:href="_qual_extension_types_8h.html" target="_top" xlink:title="Include all SBML types of qual extension in a single header file.">
+<polygon fill="white" stroke="black" points="4576,-112.5 4576,-131.5 4700,-131.5 4700,-112.5 4576,-112.5"/>
+<text text-anchor="middle" x="4638" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">QualExtensionTypes.h</text>
 </a>
 </g>
 </g>
 <!-- Node55&#45;&gt;Node56 -->
 <g id="edge72" class="edge">
 <title>Node55&#45;&gt;Node56</title>
-<path fill="none" stroke="midnightblue" d="M4468.82,-158.4C4471.17,-149.36 4473.87,-138.94 4475.73,-131.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4465.43,-157.52 4466.31,-168.08 4472.21,-159.28 4465.43,-157.52"/>
+<path fill="none" stroke="midnightblue" d="M4445.12,-166.22C4490.66,-156.01 4558.11,-140.9 4599.99,-131.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4444.18,-162.84 4435.19,-168.44 4445.71,-169.67 4444.18,-162.84"/>
 </g>
 <!-- Node58 -->
 <g id="node58" class="node">
 <title>Node58</title>
-<g id="a_node58"><a xlink:href="_multi_s_b_m_l_document_plugin_8cpp.html" target="_top" xlink:title=": Implementation of the MultiSBMLDocumentPlugin class">
-<polygon fill="white" stroke="black" points="4559.5,-112.5 4559.5,-131.5 4728.5,-131.5 4728.5,-112.5 4559.5,-112.5"/>
-<text text-anchor="middle" x="4644" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">MultiSBMLDocumentPlugin.cpp</text>
+<g id="a_node58"><a xlink:href="_qual_s_b_m_l_document_plugin_8cpp.html" target="_top" xlink:title="Implementation of QualSBMLDocumentPlugin, the plugin class of qual package for the SBase element.">
+<polygon fill="white" stroke="black" points="4391.5,-112.5 4391.5,-131.5 4558.5,-131.5 4558.5,-112.5 4391.5,-112.5"/>
+<text text-anchor="middle" x="4475" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">QualSBMLDocumentPlugin.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node55&#45;&gt;Node58 -->
 <g id="edge75" class="edge">
 <title>Node55&#45;&gt;Node58</title>
-<path fill="none" stroke="midnightblue" d="M4502.11,-165.57C4536.06,-155.38 4584.99,-140.7 4615.61,-131.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4501.09,-162.22 4492.52,-168.44 4503.11,-168.92 4501.09,-162.22"/>
+<path fill="none" stroke="midnightblue" d="M4417.77,-162.62C4432.02,-152.76 4450.46,-139.99 4462.5,-131.65"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4415.76,-159.75 4409.53,-168.32 4419.75,-165.51 4415.76,-159.75"/>
 </g>
 <!-- Node57 -->
 <g id="node57" class="node">
 <title>Node57</title>
-<g id="a_node57"><a xlink:href="_multi_validator_8cpp.html" target="_top" xlink:title=": Implementation of the MultiValidator class">
-<polygon fill="white" stroke="black" points="4426,-56.5 4426,-75.5 4530,-75.5 4530,-56.5 4426,-56.5"/>
-<text text-anchor="middle" x="4478" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">MultiValidator.cpp</text>
+<g id="a_node57"><a xlink:href="_qual_validator_8cpp.html" target="_top" xlink:title="Base class for SBML Validators.">
+<polygon fill="white" stroke="black" points="4587,-56.5 4587,-75.5 4689,-75.5 4689,-56.5 4587,-56.5"/>
+<text text-anchor="middle" x="4638" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">QualValidator.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node56&#45;&gt;Node57 -->
 <g id="edge73" class="edge">
 <title>Node56&#45;&gt;Node57</title>
-<path fill="none" stroke="midnightblue" d="M4478,-101.8C4478,-92.91 4478,-82.78 4478,-75.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4474.5,-102.08 4478,-112.08 4481.5,-102.08 4474.5,-102.08"/>
-</g>
-<!-- Node60&#45;&gt;Node59 -->
-<g id="edge80" class="edge">
-<title>Node60&#45;&gt;Node59</title>
-<path fill="none" stroke="midnightblue" d="M4848.17,-161.82C4836.16,-152.15 4821.03,-139.95 4810.96,-131.83"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4846.25,-164.77 4856.24,-168.32 4850.65,-159.32 4846.25,-164.77"/>
-</g>
-<!-- Node61 -->
-<g id="node61" class="node">
-<title>Node61</title>
-<g id="a_node61"><a xlink:href="_qual_extension_types_8h.html" target="_top" xlink:title="Include all SBML types of qual extension in a single header file.">
-<polygon fill="white" stroke="black" points="4872,-112.5 4872,-131.5 4996,-131.5 4996,-112.5 4872,-112.5"/>
-<text text-anchor="middle" x="4934" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">QualExtensionTypes.h</text>
-</a>
-</g>
-</g>
-<!-- Node60&#45;&gt;Node61 -->
-<g id="edge78" class="edge">
-<title>Node60&#45;&gt;Node61</title>
-<path fill="none" stroke="midnightblue" d="M4885.83,-161.82C4897.84,-152.15 4912.97,-139.95 4923.04,-131.83"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4883.35,-159.32 4877.76,-168.32 4887.75,-164.77 4883.35,-159.32"/>
-</g>
-<!-- Node63 -->
-<g id="node63" class="node">
-<title>Node63</title>
-<g id="a_node63"><a xlink:href="_qual_s_b_m_l_document_plugin_8cpp.html" target="_top" xlink:title="Implementation of QualSBMLDocumentPlugin, the plugin class of qual package for the SBase element.">
-<polygon fill="white" stroke="black" points="5014.5,-112.5 5014.5,-131.5 5181.5,-131.5 5181.5,-112.5 5014.5,-112.5"/>
-<text text-anchor="middle" x="5098" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">QualSBMLDocumentPlugin.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node60&#45;&gt;Node63 -->
-<g id="edge81" class="edge">
-<title>Node60&#45;&gt;Node63</title>
-<path fill="none" stroke="midnightblue" d="M4913.4,-166.15C4957.05,-155.95 5021.51,-140.88 5061.57,-131.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4912.54,-162.76 4903.6,-168.44 4914.14,-169.58 4912.54,-162.76"/>
-</g>
-<!-- Node62 -->
-<g id="node62" class="node">
-<title>Node62</title>
-<g id="a_node62"><a xlink:href="_qual_validator_8cpp.html" target="_top" xlink:title="Base class for SBML Validators.">
-<polygon fill="white" stroke="black" points="4883,-56.5 4883,-75.5 4985,-75.5 4985,-56.5 4883,-56.5"/>
-<text text-anchor="middle" x="4934" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">QualValidator.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node61&#45;&gt;Node62 -->
-<g id="edge79" class="edge">
-<title>Node61&#45;&gt;Node62</title>
-<path fill="none" stroke="midnightblue" d="M4934,-101.8C4934,-92.91 4934,-82.78 4934,-75.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4930.5,-102.08 4934,-112.08 4937.5,-102.08 4930.5,-102.08"/>
+<path fill="none" stroke="midnightblue" d="M4638,-101.8C4638,-92.91 4638,-82.78 4638,-75.75"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4634.5,-102.08 4638,-112.08 4641.5,-102.08 4634.5,-102.08"/>
 </g>
 </g>
 </svg>

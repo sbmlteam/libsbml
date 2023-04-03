@@ -99,6 +99,7 @@ var class_a_s_t_node =
     [ "isWellFormedASTNode", "class_a_s_t_node.html#ab6cc27f060b99173529b20e6ba770b2a", null ],
     [ "operator=", "class_a_s_t_node.html#af15cbd49549142db74fffa17555c5a68", null ],
     [ "prependChild", "class_a_s_t_node.html#a27fec7e37689b7119846815c7f9108a8", null ],
+    [ "printMath", "class_a_s_t_node.html#a5422c47ff624c745546e53222f7a1d38", null ],
     [ "reduceToBinary", "class_a_s_t_node.html#a645bd2cc1e1f1be0620a6742e7828ded", null ],
     [ "refactor", "class_a_s_t_node.html#a9f778795d2a475489457bbb1fd5a236f", null ],
     [ "refactorNumbers", "class_a_s_t_node.html#aca95716234ea68c1821d3bf0408dfa01", null ],
