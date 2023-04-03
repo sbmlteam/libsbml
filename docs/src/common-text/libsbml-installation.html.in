@@ -63,8 +63,8 @@ used to build the documentation.
 
 In all cases below, you will need to download the libSBML source code archive
 from the
- <a target="_blank" href="http://sf.net/projects/sbml/files/libsbml">download
-area on SourceForge.net</a> then unpack the archive somewhere on your computer.
+ <a target="_blank" href="http://github.com/sbmlteam/libsbml/releases/">download
+area on GitHub</a> then unpack the archive somewhere on your computer.
 
 <!-- ---------------------------------------------------------------------- -->
 <h3><a class="anchor" name="unix-cmake">1.1 Configuring using CMake</a></h3>
@@ -372,8 +372,8 @@ the possible options offered by <code>configure</code>.
 
 <p> The libSBML distribution ships with certain interface files provided,
 so that you do not need to have the software necessary to recreate them.
-However, if you obtained the libSBML distribution from the project SVN
-repository on SourceForge, or you want to recreate the files deliberately,
+However, if you obtained the libSBML distribution from the project 
+repository on GitHub, or you want to recreate the files deliberately,
 you may need to configure libSBML to use SWIG to regenerate the libSBML
 language interfaces.  Please see the section below on using <a
 href="#unix-swig">SWIG</a>.
@@ -867,8 +867,8 @@ downloading a copy of CMake version 2.8.4 or later from <a target="_blank"
 href="http://www.cmake.org/">cmake.org</a>.) Once you have CMake installed,
 also download and unzip the libSBML source code archive from the <a
 target="_blank"
-href="http://sf.net/projects/sbml/files/libsbml">download
-area on SourceForge.net</a> and save the archive somewhere on your file
+href="http://github.com/sbmlteam/libsbml/releases/">download
+area on GitHub.net</a> and save the archive somewhere on your file
 system, then unpack it.
 
 <p> Before going further, an issue on Windows concerns the dependency

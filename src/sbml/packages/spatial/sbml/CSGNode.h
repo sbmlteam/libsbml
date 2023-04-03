@@ -40,7 +40,12 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CSGNode
- * @sbmlbrief{spatial} TODO:Definition of the CSGNode class.
+ * @sbmlbrief{spatial} The operators and operands used to construct a constructed 
+ * solid geometry are generalized as a CSGNode. The classes that inherit from 
+ * CSGNode can be one of the following: CSGSetOperator, CSGTransformation 
+ * (operators; itself another abstract base class), or CSGPrimitive (operands). 
+ * The CSGNode has one attribute: id. The CSGObject contains a CSGNode object which 
+ * is the root of the CSGObject scene graph (representing one constructed solid geometry domain).
  */
 
 

@@ -40,7 +40,15 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Boundary
- * @sbmlbrief{spatial} TODO:Definition of the Boundary class.
+ * @sbmlbrief{spatial} The minimum and the maximum for a CoordinateComponent 
+ * represent the bounds in each coordinate.  For example, for three dimensional
+ * Cartesian coordinate system with x, y, and z coordinates, the minimum and maximum
+ * limits for each coordinates define planes orthogonal to each coordinate axis
+ * and passing through the minimum or maximum.  If max-min is the same for each x,y,z
+ * then the bounds on the geometry is a cube.  The Boundary class interacts with the 
+ * BoundaryCondition class, allowing modelers to define how model elements behave
+ * at the boundary of the model.  For species defined within volumes adjacent to these
+ * surfaces, BoundaryCondition elements must be introduced.
  */
 
 

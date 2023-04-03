@@ -40,7 +40,18 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class DiffusionCoefficient
- * @sbmlbrief{spatial} TODO:Definition of the DiffusionCoefficient class.
+ * @sbmlbrief{spatial} When a species in a spatial model has a diffusion rate
+ * constant, a Parameter for this diffusion constant is created in the SBML model
+ * with a DiffusionCoefficient child, which is used to identify the Species whose
+ * diffusion rate the Parameter represents. The diffusion coefficient can then be
+ * set like any other variable: its initial ue can be set using the Parameter's
+ * tokenue attribute or through an InitialAssignment, and if the diffusion
+ * coefficient changes in time, this can be defined with a Rule or Event. If set,
+ * the units of this Parameter should be length^2/time. If left unset, the
+ * DiffusionCoefficient will inherit the model units of length^2/time (typically
+ * cm^2s^-1 or um^2s^-1).
+ *
+ * It is possible to define both diffusion and advection for the same Species.
  */
 
 /**

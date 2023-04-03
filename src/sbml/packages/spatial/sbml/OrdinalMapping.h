@@ -40,7 +40,10 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class OrdinalMapping
- * @sbmlbrief{spatial} TODO:Definition of the OrdinalMapping class.
+ * @sbmlbrief{spatial} A OrdinalMapping defines an ordinal level for the various
+ * geometries that comprised this MixedGeometry. In this way, the overlap between
+ * them can be resolved cleanly. There must be exactly one OrdinalMapping for
+ * each child GeometryDefinition of a MixedGeometry.
  */
 
 

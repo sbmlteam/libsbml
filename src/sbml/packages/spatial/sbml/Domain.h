@@ -40,7 +40,12 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Domain
- * @sbmlbrief{spatial} TODO:Definition of the Domain class.
+ * @sbmlbrief{spatial} Domains represent contiguous regions identified by the
+ * same DomainType. One, two, and three dimensional domains are contiguous linear
+ * regions, surface regions, and volume regions (respectively), bounded by the
+ * limits of the coordinate system (e.g. min/max of x,y,z) and adjacent domains
+ * corresponding to different domain types. changedZero-dimensional domains are
+ * also allowed as boundaries of one-dimensional geometry domains.
  */
 
 

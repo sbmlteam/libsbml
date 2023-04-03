@@ -40,7 +40,13 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class AnalyticVolume
- * @sbmlbrief{spatial} TODO:Definition of the AnalyticVolume class.
+ * @sbmlbrief{spatial} The AnalyticVolume is used to specify the analytic 
+ * expression of a domain. The analytic expression for the AnalyticVolume 
+ * is defined in the Math element.  Despite the word 'volume' in the name,
+ * an AnalyticVolume may be defined for geometries of any dimension. 
+ * The only difference is that the Math of an AnalyticVolume for a
+ * 3-dimensional geometry will contain references to the three CoordinateComponent
+ * axes (i.e. x,y, and z), but will contain fewer for lower-dimensional geometries.
  */
 
 /**

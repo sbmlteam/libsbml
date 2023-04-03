@@ -12,7 +12,11 @@ The primary authors of the SBML Level&nbsp;3 Groups specification are Michael Hu
 
 <h2>The specification for this SBML package</h2>
 
-<p style="color: #880000"> This API documentation for libSBML does not provide a complete explanation of the SBML Level&nbsp;3 Groups package (whose nickname is also &ldquo;groups&rdquo;).  If you are developing software that uses &ldquo;groups&rdquo;, you are strongly urged to read the actual specification for the package.  A link to the specification document current is provided below, along with a link to the page of known issues (if any).
+<p style="color: #880000"> This API documentation for libSBML does not provide a complete explanation of the SBML Level&nbsp;3
+ Groups package (whose nickname is also &ldquo;groups&rdquo;).  If you are developing software that uses &ldquo;groups&rdquo;,
+  you are strongly urged to read the actual specification for the package.  A link to the specification document current is provided
+   below,<strike> along with a link to the page of known issues (if any).</strike> 
+we apologise that our known issues pages are under reconstruction.
 
 <table border="0" class="centered text-table width80 normal-font alt-row-colors" style="padding-bottom: 0.5em">
   <caption class="top-caption">Specification for SBML Level&nbsp;3 
@@ -28,7 +32,7 @@ The primary authors of the SBML Level&nbsp;3 Groups specification are Michael Hu
 
 <a class="spec-link" target="_blank" href="@PACKAGE_GROUPS_V1_SPEC_URL@"> <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Groups package, Version&nbsp;@PACKAGE_GROUPS_V1_VERSION@ Release&nbsp;@PACKAGE_GROUPS_V1_RELEASE@</a> </td><td>
 
-<a class="spec-link" target="_blank" href="@PACKAGE_GROUPS_V1_ERRATA_URL@"> <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+<a class="spec-link" target="_blank" href="https://github.com/sbmlteam/sbml-specifications/issues?q=is%3Aissue+is%3Aopen+label%3A%22L3+Package%3A+groups%22"> <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
 
 </td></tr>
 </table>

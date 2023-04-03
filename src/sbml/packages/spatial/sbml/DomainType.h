@@ -40,7 +40,24 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class DomainType
- * @sbmlbrief{spatial} TODO:Definition of the DomainType class.
+ * @sbmlbrief{spatial} A DomainType is a class of domains that are identified as
+ * being anatomically and physiologically similar. For example, a DomainType
+ * "cytosol" may be defined in a Geometry as identifying the structure and
+ * function of the cell interior. If there is one cell, then there is one domain,
+ * if there are multiple cells, then there are multiple disjoint domains
+ * ("cytosol1","cytosol2", etc.) identified with the DomainType "cytosol".
+ * CompartmentMappings, defined as an extension to an SBML core Compartment, map
+ * compartments to domain types such that each corresponding domain is assigned
+ * the same biological and mathematical function. figDomainType-uml shows the
+ * DomainType object.
+ *
+ * Each SBML Compartment maps to a single DomainType, meaning that the initial
+ * condition of each Species in each Compartment changedwill be defined
+ * consistently across Domains that map to a given DomainType. If those Species
+ * are spatially distributed, they will subsequently evolve independently from
+ * each other. However, if modeling two Domains that are similar but whose
+ * Species changedhave initial conditions that must be defined in different ways,
+ * those Domains should be modeled as separate DomainTypes.
  */
 
 

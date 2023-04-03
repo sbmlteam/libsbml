@@ -40,7 +40,12 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CSGSetOperator
- * @sbmlbrief{spatial} TODO:Definition of the CSGSetOperator class.
+ * @sbmlbrief{spatial} The CSGSetOperator element represents the set operations 
+ * (union, intersection, difference) that can be performed on a set of primitive 
+ * geometric shapes (CSGPrimitives) or on a set of CSGNodes (a transformation or 
+ * set operation on one or a set of CSGPrimitives). This element has one attribute 
+ * of type primtype string. It also contains a required child ListOfCSGNodes that 
+ * represents the set of nodes on which the set operation is performed.
  */
 
 /**

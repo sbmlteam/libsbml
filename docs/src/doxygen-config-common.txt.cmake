@@ -576,6 +576,10 @@ INPUT =                                    \
   ../../src/sbml/packages/spatial/extension \
   ../../src/sbml/packages/spatial/sbml      \
   ../../src/sbml/packages/spatial/validator \
+  ../../src/sbml/packages/distrib/common    \
+  ../../src/sbml/packages/distrib/extension \
+  ../../src/sbml/packages/distrib/sbml      \
+  ../../src/sbml/packages/distrib/validator \
   ../../src/sbml/packages/multi/common    \
   ../../src/sbml/packages/multi/extension \
   ../../src/sbml/packages/multi/sbml      \

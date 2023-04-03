@@ -3685,24 +3685,24 @@ ASTNode::createVectorOfChildTypes(std::vector<unsigned int>& numbers,
 }
 
 
-void 
-ASTNode::printMath(unsigned int level)
-{
-  if (this == NULL)
-  {
-    std::cout << "Level " << level << ": NULL" << std::endl;
-    return;
-  }
-
-  const char * str = SBML_formulaToL3String(this);
-  std::cout << "Level " << level << ": " << str << std::endl;
-  safe_free((char *)(str));
-
-  for (unsigned int i = 0; i < getNumChildren(); i++)
-  {
-    getChild(i)->printMath(level + 1);
-  }
-}
+//void 
+//ASTNode::printMath(unsigned int level)
+//{
+//  if (this == NULL)
+//  {
+//    std::cout << "Level " << level << ": NULL" << std::endl;
+//    return;
+//  }
+//
+//  const char * str = SBML_formulaToL3String(this);
+//  std::cout << "Level " << level << ": " << str << std::endl;
+//  safe_free((char *)(str));
+//
+//  for (unsigned int i = 0; i < getNumChildren(); i++)
+//  {
+//    getChild(i)->printMath(level + 1);
+//  }
+//}
 
 /* combine numbers:
 * returns AST that is number 

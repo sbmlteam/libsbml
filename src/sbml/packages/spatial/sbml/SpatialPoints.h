@@ -40,7 +40,11 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SpatialPoints
- * @sbmlbrief{spatial} TODO:Definition of the SpatialPoints class.
+ * @sbmlbrief{spatial} The SpatialPoints element represents the set of points to
+ * be used as vertices in the ParametricGeometry. In essence, the SpatialPoints
+ * defines a lattice on which each ParametricObject is to be drawn. There may be
+ * unused points in the list if no ParametricObject ever uses that index to draw
+ * its shape.
  */
 
 /**

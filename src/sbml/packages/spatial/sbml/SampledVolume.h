@@ -40,7 +40,17 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SampledVolume
- * @sbmlbrief{spatial} TODO:Definition of the SampledVolume class.
+ * @sbmlbrief{spatial} A SampledVolume represents an inter of the sampled field
+ * that constitutes one or more contiguous regions. A SampledVolume is defined
+ * for each volumetric (3-dimensional) Domain in the Geometry. Volumes are
+ * defined as regions within the referenced image that match a particular pixel
+ * ue (sampledValue) or that match a range of pixel ues (minValue and maxValue).
+ * A given SampledVolume must define for itself either a single ue or a range of
+ * ues to which it applies, but not both. Within a ListOfSampledVolumes, there
+ * must be at most one SampledVolume that corresponds to any given pixel ue. That
+ * is, any given pixel ue may only appear as the sampledVolume of a single
+ * SampledVolume, or be between the minValue and maxValue (inclusive) of a single
+ * SampledVolume. It has the following attributes:
  */
 
 

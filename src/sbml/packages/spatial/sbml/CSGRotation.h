@@ -40,7 +40,9 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CSGRotation
- * @sbmlbrief{spatial} TODO:Definition of the CSGRotation class.
+ * @sbmlbrief{spatial} The CSGRotation element represents a rotation transformation 
+ * on a CSGNode (a transformation or set operation on one or a set of CSGPrimitives) 
+ * or a CSGPrimitive about the axes defined in the Geometry. 
  */
 
 

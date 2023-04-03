@@ -10,6 +10,13 @@
 
 */
 
+
+/** @defgroup distrib Distributions
+
+@htmlinclude libsbml-group-distrib-intro.html
+
+*/
+
 /** @defgroup fbc Flux Balance Constraints
 
 @htmlinclude libsbml-group-fbc-intro.html
@@ -46,7 +53,7 @@
 
 */
 
-/** @defgroup spatial Spatial
+/** @defgroup spatial Spatial Processes
 
 @htmlinclude libsbml-group-spatial-intro.html
 

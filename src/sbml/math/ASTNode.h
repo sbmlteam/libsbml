@@ -2277,44 +2277,73 @@ setValue(value, 0);
 
   /** @endcond */
 
-  /* returns true if astnodes are exactly the same
-  *  so 'a+4' == 'a+4'   
-  * but 'a+4' != '4+a'
+/**
+  * This function allows two ASTNodes to be compared for exact equivilance.
+  * It returns a boolean - true if the ASTNodes are exactly the same, false otherwise.
+  * 
+  * Given that 'a+4' == 'a+4' this function will return true if two ASTNodes with 
+  * PLUS as their operator and "a" as the left child and "4" as the right child are compared
+  * 
+  * Conversely 'a+4' != '4+a' i.e. 
+  * the function will return false if the left and right children do not match.
   */
   LIBSBML_EXTERN
   bool exactlyEqual(const ASTNode& rhs);
 
-  /* calls
-    refactorNumbers();
-    encompassUnaryMinus();
-    createNonBinaryTree();
-    reorderArguments();
-  */
+  /**
+   * This function refactors an ASTNode to facilitate the use of the algorithm to construct
+   * a reaction network from a set of ordinary differential equations.
+   * 
+   * It performs the following actions: 
+   * 
+   * refactors any numerical ASTNodes so that any operation involving 2 or more numerical nodes is performed
+   * and becomes a single node
+   * eg (4 + 1 x 2) becomes (6)
+   * 
+   * encompases a unary minus into the numerical value of a node
+   * eg a node representing minus with a single child node representing 2 becomes a single node representing -2
+   * 
+   * refactors binary nodes, which are the default, into a non-binary representation 
+   * eg a node representing plus with 2 children which each represent a plus with two numerical children
+   * will become a node representing plus with four numerical children
+   *
+   * reorders the arguments of any operation so that numerical arguments come first, followed by
+   * nodes representing variables, followed by nodes representing functions
+   * eg a node (sin(a + 2) - 3 + b) becomes (-3 + b + sin(2 + a))
+   */
   LIBSBML_EXTERN
   void refactor();
 
-  /*
-  * a decomposed ast is one where if the top level func is *or /
-  * the arguments are not sums
+  /**
+  * This function allows decomposition of ASTNode into components such that we reduce the need
+  * for brackets. Obviously an ASTNode does not have brackets but when written as a string
+  * these would become necessary. 
+  * 
+  * The decomposition used here is such that if the top level function is multiply or divide
+  * then the arguments to these functions do not contain a plus element.
+  * 
+  * for example
+  *
   * (a + B) * c becomes ac + Bc
+  *
   * (5 + 3)/(a-4) becomes 8/(a-4)
+  *
   * (a + 4)/4 becomes 1 + a/4
   */
   LIBSBML_EXTERN
   void decompose();
 
-  /*
-  * Returns an ASTNode representing the derivative w.r.t variable
-  * e.g. Node represents 2*x^2 
-  *      variable = "x"
-  * returns Node representing 4 * x 
+  /**
+  * Returns an ASTNode representing the derivative of this ASTNode with respect to the given variable  
+  *
+  * e.g. if we have an ASTNode that represents 2*x^2
+  * and we call the function derivative("x") on this node
+  *      
+  * this will return an ASTNode representing 4 * x 
   * since d(2*x^2)/dx = 4*x
   */
   LIBSBML_EXTERN
   ASTNode* derivative(const std::string& variable);
-
-  LIBSBML_EXTERN
-  void printMath(unsigned int level = 0);
 
   /** @cond doxygenLibsbmlInternal */
   LIBSBML_EXTERN

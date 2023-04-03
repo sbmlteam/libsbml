@@ -40,7 +40,46 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class BoundaryCondition
- * @sbmlbrief{spatial} TODO:Definition of the BoundaryCondition class.
+ * @sbmlbrief{spatial} A \Species in a spatial model that has a diffusion rate
+ * or an advection velocity needs to have specified boundary conditions. A boundary
+ * condition is either the concentration of the species or the flux density of the 
+ * species at a boundary.  The boundary refers to either an internal membrane boundary
+ * or a face of the box defined by the minimum and maximum coordinates of the geometry
+ * (the geometries bounding box).
+ *
+ * When creating a spatial SBML model, species boundary conditions are created as
+ * parameters, one for each boundary condition, by adding a child BoundaryCondition
+ * that points to the corresponding Species and boundary, depending on the coordinate system.
+ *
+ * For Cartesian Geometries, there are two boundaries for every axis being modeled.
+ * For example, in a 2D cartesian geometry for the external boundaries, there could be
+ * up to four parameters or parameter sets created for each spatial Species whose 
+ * Compartments abut the minimum and maximums of the X and Y axes).
+ *
+ * For internal boundaries, one may either define a BoundaryCondition for a Species
+ * at that boundary, or one may define one or more transport reactions that describe
+ * how the physical entities that Species represent are moved (or converted) from one
+ * side of the boundary to the other.  One may not define both a BoundaryCondition and
+ * a Reaction that describes the same phenomenon, as this would result in the equivalent
+ * of an overdetermined system, not dissimilar from the reason that the change in a 
+ * Species may not be defined by both a Reaction and a RateRule.
+ *
+ * If neither a BoundaryCondition nor a Reaction is defined for a particular 
+ * Species/boundary pair, the flux of that Species at that boundary is zero.
+ *
+ * The boundaryCondition attribute on an SBML core Species defines whether it is
+ * (false) or is not (true) changed by any Reaction it may appear in as a product or reactant. 
+ * In a spatial context, setting this attribute to true additionally means that is
+ * will not be changed by advection, diffusion, or (confusingly) any BoundaryCondition. 
+ * This is because the 'boundary' of a BoundaryCondition refers to a physical boundary,
+ * while the 'boundary' of the boundaryCondition attribute refers to the conceptual boundary
+ * of the reaction network.  As in SBML Core, a Species with a boundaryCondition of true
+ * may only be changed by a Rule (AssignmentRule, RateRule, or AlgebraicRule).
+ *
+ * The Parameter's value is set either through the token value attribute or an InitialAssignment.
+ * If the boundary condition changes in time, it can be set with a Rule or Event.  
+ * If set, the \Parameter unit must be equal to the appropriate unit for its type. 
+ * Only one BoundaryCondition may be defined per Species per boundary (regardless of type).
  */
 
 /**

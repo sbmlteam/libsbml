@@ -40,7 +40,14 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CSGScale
- * @sbmlbrief{spatial} TODO:Definition of the CSGScale class.
+ * @sbmlbrief{spatial} The CSGScale element represents a scale transformation on a 
+ * CSGNode (a transformation or set operation on one or a set of CSGPrimitives) or a 
+ * CSGPrimitive along the axes defined in the Geometry.  All scaling occurs collectively 
+ * for the component primitive shapes, and the expansion occurs from the geometrical 
+ * center of the object, i.e. the center of the smallest bounding box that would contain 
+ * the current volume of the object.  This means, for example, that if the child of the 
+ * CSGScale object is a hemisphere, defined as the intersection of a sphere and a cube, 
+ * the bounding box would be half the size of a box that would have included the original entire sphere.
  */
 
 
