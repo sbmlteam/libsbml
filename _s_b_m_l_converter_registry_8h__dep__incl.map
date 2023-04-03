@@ -1,5 +1,5 @@
 <map id="SBMLConverterRegistry.h" name="SBMLConverterRegistry.h">
-<area shape="rect" id="node1" title="Definition of SBMLConverterRegistry, a registry of available converters." alt="" coords="3010,5,3197,32"/>
+<area shape="rect" id="node1" title="Definition of SBMLConverterRegistry, a registry of available converters." alt="" coords="3125,5,3311,32"/>
 <area shape="rect" id="node2" href="$_s_b_m_l_converter_registry_8cpp.html" title="Implementation of SBMLConverterRegistry, a registry of available converters." alt="" coords="5,80,207,107"/>
 <area shape="rect" id="node3" href="$_s_b_m_l_converter_types_8h.html" title="Definition of SBMLConverterTypes." alt="" coords="231,80,402,107"/>
 <area shape="rect" id="node4" href="$_s_b_m_l_function_definition_converter_8cpp.html" title="Implementation of SBMLFunctionDefinitionConverter, a converter replacing function definitions." alt="" coords="426,80,693,107"/>
@@ -26,4 +26,5 @@
 <area shape="rect" id="node25" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="5200,80,5383,107"/>
 <area shape="rect" id="node26" href="$_render_extension_8cpp.html" title="Implementation of RenderExtension, the core module of the render package." alt="" coords="5407,80,5565,107"/>
 <area shape="rect" id="node27" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="5590,80,5793,107"/>
+<area shape="rect" id="node28" href="$_distrib_extension_8cpp.html" title="Implementation of DistribExtension." alt="" coords="5817,80,5973,107"/>
 </map>

@@ -1,0 +1,13 @@
+<map id="DistribSBMLError.h" name="DistribSBMLError.h">
+<area shape="rect" id="node1" title="Definition of the DistribSBMLError class." alt="" coords="837,5,980,32"/>
+<area shape="rect" id="node2" href="$_distrib_s_base_plugin_8cpp.html" title="Implementation of the DistribSBasePlugin class." alt="" coords="5,80,177,107"/>
+<area shape="rect" id="node3" href="$_distrib_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the DistribSBMLDocumentPlugin class." alt="" coords="202,80,437,107"/>
+<area shape="rect" id="node4" href="$_distrib_base_8cpp.html" title="Implementation of the DistribBase class." alt="" coords="460,80,584,107"/>
+<area shape="rect" id="node5" href="$_list_of_uncertainties_8cpp.html" title="Implementation of the ListOfUncertainties class." alt="" coords="608,80,783,107"/>
+<area shape="rect" id="node6" href="$_list_of_uncert_parameters_8cpp.html" title="Implementation of the ListOfUncertParameters class." alt="" coords="807,80,1011,107"/>
+<area shape="rect" id="node7" href="$_uncertainty_8cpp.html" title="Implementation of the Uncertainty class." alt="" coords="1035,80,1158,107"/>
+<area shape="rect" id="node8" href="$_uncert_parameter_8cpp.html" title="Implementation of the UncertParameter class." alt="" coords="1183,80,1341,107"/>
+<area shape="rect" id="node9" href="$_uncert_span_8cpp.html" title="Implementation of the UncertSpan class." alt="" coords="1365,80,1489,107"/>
+<area shape="rect" id="node10" href="$_distrib_s_b_m_l_error_table_8h.html" title="Definition of the DistribSBMLErrorTable class." alt="" coords="1514,80,1693,107"/>
+<area shape="rect" id="node11" href="$_distrib_extension_8cpp.html" title="Implementation of DistribExtension." alt="" coords="1525,155,1681,181"/>
+</map>
