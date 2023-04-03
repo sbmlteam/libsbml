@@ -51,6 +51,7 @@
 #include <sbml/util/util.h>
 
 #include <sbml/annotation/RDFAnnotation.h>
+#include <sbml/annotation/Date.h>
 
 #include <sbml/KineticLaw.h>
 #include <sbml/SBMLError.h>
@@ -1064,6 +1065,31 @@ SBase::getModelHistory()
   return mHistory;
 }
 
+Date*
+SBase::getCreatedDate() const
+{
+  return (mHistory != NULL)  ? mHistory->getCreatedDate() : NULL;
+}
+
+Date*
+SBase::getCreatedDate()
+{
+  return (mHistory != NULL) ? mHistory->getCreatedDate() : NULL;
+}
+
+
+Date*
+SBase::getModifiedDate(unsigned int n)
+{
+  return (mHistory != NULL) ? mHistory->getModifiedDate(n) : NULL;
+}
+
+unsigned int
+SBase::getNumModifiedDates()
+{
+  return (mHistory != NULL) ? mHistory->getNumModifiedDates() : NULL;
+}
+
 
 /*
  * @return @c true if the metaid of this SBML object is set, false
@@ -1148,6 +1174,22 @@ SBase::isSetModelHistory() const
 {
   return (mHistory != NULL);
 }
+
+
+bool
+SBase::isSetCreatedDate() const
+{
+  return (mHistory == NULL) ? false : mHistory->isSetCreatedDate();
+}
+
+
+
+bool
+SBase::isSetModifiedDate() const
+{
+  return (mHistory == NULL) ? false : mHistory->isSetModifiedDate();
+}
+
 
 
 /*
@@ -2310,6 +2352,39 @@ SBase::setModelHistory(ModelHistory * history)
   return status;
 }
 
+int 
+SBase::setCreatedDate(Date* date)
+{
+  if (mHistory != NULL)
+  {
+    return mHistory->setCreatedDate(date);
+  }
+  else
+  {
+    mHistory = new ModelHistory();
+    mHistoryChanged = true;
+
+    return mHistory->setCreatedDate(date);
+
+  }
+}
+
+int
+SBase::addModifiedDate(Date* date)
+{
+  if (mHistory != NULL)
+  {
+    return mHistory->addModifiedDate(date);
+  }
+  else
+  {
+    mHistory = new ModelHistory();
+    mHistoryChanged = true;
+
+    return mHistory->addModifiedDate(date);
+
+  }
+}
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -2882,6 +2957,74 @@ SBase::unsetModelHistory()
   }
 
   if (mHistory != NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+int
+SBase::unsetCreatedDate()
+{
+  if (mHistory != NULL && mHistory->isSetCreatedDate())
+  {
+    mHistoryChanged = true;
+  }
+  else
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
+  /* ModelHistory is only allowed on Model in L2
+  * but on any element in L3
+  */
+  if (getLevel() < 3 && getTypeCode() != SBML_MODEL)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
+  Date* created = mHistory->getCreatedDate();
+  delete created;
+  mHistory->mCreatedDate = NULL;
+
+  if (mHistory->isSetCreatedDate() == true)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+int
+SBase::unsetModifiedDates()
+{
+  if (mHistory != NULL && mHistory->isSetModifiedDate())
+  {
+    mHistoryChanged = true;
+  }
+  else
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
+  /* ModelHistory is only allowed on Model in L2
+  * but on any element in L3
+  */
+  if (getLevel() < 3 && getTypeCode() != SBML_MODEL)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
+  List_freeItems(mHistory->getListModifiedDates(), Date_free, Date_t);
+
+  if (mHistory->getNumModifiedDates() > 0)
   {
     return LIBSBML_OPERATION_FAILED;
   }

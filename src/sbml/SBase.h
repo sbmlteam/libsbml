@@ -976,6 +976,19 @@ public:
 
 
   /**
+  * Returns the "creation date" portion of the ModelHistory of this object.
+  *
+  * @return a Date object representing the creation date stored in
+  * this ModelHistory object.
+  *
+  * @note In SBML Level&nbsp;2, model history annotations were only
+  * permitted on the Model element.  In SBML Level&nbsp;3, they are
+  * permitted on all SBML components derived from SBase.
+  */
+  Date * getCreatedDate() const;
+
+
+  /**
    * Returns the ModelHistory object, if any, attached to this object.
    * 
    * @return the ModelHistory object attached to this object, or @c NULL if
@@ -986,6 +999,46 @@ public:
    * permitted on all SBML components derived from SBase.
    */
   ModelHistory* getModelHistory();
+
+
+  /**
+  * Returns the "creation date" portion of the ModelHistory of this object.
+  *
+  * @return a Date object representing the creation date stored in
+  * this ModelHistory object.
+  *
+  * @note In SBML Level&nbsp;2, model history annotations were only
+  * permitted on the Model element.  In SBML Level&nbsp;3, they are
+  * permitted on all SBML components derived from SBase.
+  */
+  Date * getCreatedDate();
+
+
+  /**
+  * Get the nth Date object in the list of "modified date" values stored
+  * in the ModelHistory of this object.
+  *
+  * In the MIRIAM format for annotations, there can be multiple
+  * modification dates.  The libSBML ModelHistory class supports this by
+  * storing a list of "modified date" values.
+  *
+  * @return the nth Date in the list of ModifiedDates of this
+  * ModelHistory or @c NULL if no such object exists.
+  */
+  Date* getModifiedDate(unsigned int n);
+
+
+  /**
+  * Get the number of Date objects in the ModelHistory of this Iobject's list of
+  * "modified dates".
+  *
+  * In the MIRIAM format for annotations, there can be multiple
+  * modification dates.  The libSBML ModelHistory class supports this by
+  * storing a list of "modified date" values.
+  *
+  * @return the number of ModifiedDates in this ModelHistory.
+  */
+  unsigned int getNumModifiedDates();
 
 
   /**
@@ -1161,6 +1214,30 @@ public:
    * permitted on all SBML components derived from SBase.
    */
   bool isSetModelHistory() const;
+
+
+  /**
+  * Predicate returning @c true if this
+  * object has a ModelHistory object attached to it and the created date is set
+  *
+  * @return @c true if the CreatedDate of the ModelHistory of this object is set,
+  * @c false otherwise.
+  *
+  * @note In SBML Level&nbsp;2, model history annotations were only
+  * permitted on the Model element.  In SBML Level&nbsp;3, they are
+  * permitted on all SBML components derived from SBase.
+  */
+  bool isSetCreatedDate() const;
+
+
+  /**
+  * Predicate returning @c true or @c false depending on whether the
+  * ModelHistory's "modified date" of this object is set.
+  *
+  * @return @c true if the modification date value of this ModelHistory
+  * object is set, @c false otherwise.
+  */
+  bool isSetModifiedDate() const;
 
 
   /**
@@ -1697,6 +1774,32 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   int setModelHistory(ModelHistory * history);
 
 
+  /**
+  * Sets the creation date of the ModelHistory of this object.
+  *
+  * @param date a Date object representing the date to which the "created
+  * date" portion of this ModelHistory should be set.
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+  */
+  int setCreatedDate(Date* date);
+
+
+  /**
+  * Adds a modified date to the ModelHistory of this object.
+  *
+  * @param date a Date object representing the date to which the "modified
+  * date" portion of this ModelHistory should be set.
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+  */
+  int addModifiedDate(Date* date);
+
+
   /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBMLDocument of this SBML object.
@@ -2016,6 +2119,36 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * permitted on all SBML components derived from SBase.
    */
   int unsetModelHistory();
+
+
+  /**
+  * Unsets the created date of the ModelHistory object attached to this object.
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+  *
+  * @note In SBML Level&nbsp;2, model history annotations were only
+  * permitted on the Model element.  In SBML Level&nbsp;3, they are
+  * permitted on all SBML components derived from SBase.
+  */
+  int unsetCreatedDate();
+
+
+  /**
+  * Unsets the modified dates of the ModelHistory object attached to this object.
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+  *
+  * @note In SBML Level&nbsp;2, model history annotations were only
+  * permitted on the Model element.  In SBML Level&nbsp;3, they are
+  * permitted on all SBML components derived from SBase.
+  */
+  int unsetModifiedDates();
 
 
   /**
