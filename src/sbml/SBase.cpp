@@ -51,6 +51,7 @@
 #include <sbml/util/util.h>
 
 #include <sbml/annotation/RDFAnnotation.h>
+#include <sbml/annotation/Date.h>
 
 #include <sbml/KineticLaw.h>
 #include <sbml/SBMLError.h>
@@ -2962,6 +2963,74 @@ SBase::unsetModelHistory()
   }
 
   if (mHistory != NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+int
+SBase::unsetCreatedDate()
+{
+  if (mHistory != NULL && mHistory->isSetCreatedDate())
+  {
+    mHistoryChanged = true;
+  }
+  else
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
+  /* ModelHistory is only allowed on Model in L2
+  * but on any element in L3
+  */
+  if (getLevel() < 3 && getTypeCode() != SBML_MODEL)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
+  Date* created = mHistory->getCreatedDate();
+  delete created;
+  mHistory->mCreatedDate = NULL;
+
+  if (mHistory->isSetCreatedDate() == true)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+int
+SBase::unsetModifiedDates()
+{
+  if (mHistory != NULL && mHistory->isSetModifiedDate())
+  {
+    mHistoryChanged = true;
+  }
+  else
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
+  /* ModelHistory is only allowed on Model in L2
+  * but on any element in L3
+  */
+  if (getLevel() < 3 && getTypeCode() != SBML_MODEL)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
+  List_freeItems(mHistory->getListModifiedDates(), Date_free, Date_t);
+
+  if (mHistory->getNumModifiedDates() > 0)
   {
     return LIBSBML_OPERATION_FAILED;
   }

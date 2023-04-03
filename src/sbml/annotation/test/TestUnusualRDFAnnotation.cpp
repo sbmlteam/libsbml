@@ -383,6 +383,31 @@ START_TEST(test_set_dates)
 END_TEST
 
 
+START_TEST(test_unset_dates)
+{
+  Compartment *c = m1->getCompartment(0);
+
+  fail_unless(c->isSetModelHistory() == true);
+  fail_unless(c->isSetCreatedDate() == true);
+  fail_unless(c->isSetModifiedDate() == true);
+  fail_unless(c->getNumModifiedDates() == 1);
+  Date_t *date1 = Date_createFromString("2006-05-30T10:46:02");
+  fail_unless(c->addModifiedDate(date1) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(c->getNumModifiedDates() == 2);
+
+  fail_unless(c->unsetCreatedDate() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(c->isSetCreatedDate() == false);
+
+  fail_unless(c->unsetModifiedDates() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(c->isSetModifiedDate() == false);
+  fail_unless(c->getNumModifiedDates() == 0);
+
+  delete date1;
+}
+END_TEST
+
+
+
 Suite *
 create_suite_UnusualRDFAnnotation (void)
 {
@@ -404,6 +429,7 @@ create_suite_UnusualRDFAnnotation (void)
   tcase_add_test(tcase, test_has_dates);
   tcase_add_test(tcase, test_no_dates);
   tcase_add_test(tcase, test_set_dates);
+  tcase_add_test(tcase, test_unset_dates);
 
 
   suite_add_tcase(suite, tcase);

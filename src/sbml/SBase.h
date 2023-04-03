@@ -2122,6 +2122,36 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
 
   /**
+  * Unsets the created date of the ModelHistory object attached to this object.
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+  *
+  * @note In SBML Level&nbsp;2, model history annotations were only
+  * permitted on the Model element.  In SBML Level&nbsp;3, they are
+  * permitted on all SBML components derived from SBase.
+  */
+  int unsetCreatedDate();
+
+
+  /**
+  * Unsets the modified dates of the ModelHistory object attached to this object.
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+  *
+  * @note In SBML Level&nbsp;2, model history annotations were only
+  * permitted on the Model element.  In SBML Level&nbsp;3, they are
+  * permitted on all SBML components derived from SBase.
+  */
+  int unsetModifiedDates();
+
+
+  /**
    * Returns the MIRIAM <em>biological qualifier</em> associated with the
    * given resource.
    *
