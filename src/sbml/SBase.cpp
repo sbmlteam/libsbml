@@ -2361,11 +2361,8 @@ SBase::setCreatedDate(Date* date)
   }
   else
   {
-    ModelHistory* mh = new ModelHistory();
-    // we want to set it regardless of content
-    mHistory = static_cast<ModelHistory*>(mh->clone());
+    mHistory = new ModelHistory();
     mHistoryChanged = true;
-    delete mh;
 
     return mHistory->setCreatedDate(date);
 
@@ -2381,11 +2378,8 @@ SBase::addModifiedDate(Date* date)
   }
   else
   {
-    ModelHistory* mh = new ModelHistory();
-    // we want to set it regardless of content
-    mHistory = static_cast<ModelHistory*>(mh->clone());
+    mHistory = new ModelHistory();
     mHistoryChanged = true;
-    delete mh;
 
     return mHistory->addModifiedDate(date);
 
