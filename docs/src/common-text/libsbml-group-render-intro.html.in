@@ -49,7 +49,7 @@ we apologise that our known issues pages are under reconstruction.
        <a class="spec-link" target="_blank" href="@PACKAGE_RENDER_SPEC_URL@">
          <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Render package, Version&nbsp;@PACKAGE_RENDER_VERSION@ Release&nbsp;@PACKAGE_RENDER_RELEASE@</a>
      </td><td>
-       <a class="spec-link" target="_blank" href="https://github.com/sbmlteam/sbml-specifications/issues?q=is%3Aissue+is%3Aopen+label%3A%22L3+Package%3A+render%22">
+       <a class="spec-link" target="_blank" href="@PACKAGE_RENDER_ERRATA_URL@">
          <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
      </td></tr>
    </table>

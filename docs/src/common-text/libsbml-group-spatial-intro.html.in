@@ -32,10 +32,10 @@ is provided below, along with a link to the page of known issues (if any).
 </tr>
 
 <tr><td>
-<a class="spec-link" target="_blank" href="https://www.degruyter.com/document/doi/10.1515/jib-2022-0054/html">
+<a class="spec-link" target="_blank" href="@PACKAGE_SPATIAL_SPEC_URL@">
   <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML level 3 package: spatial processes,version 1, release 1</a>
 </td><td>
-<a class="spec-link" target="_blank" href="https://github.com/sbmlteam/sbml-specifications/issues?q=is%3Aissue+is%3Aopen+label%3A%22L3+Package%3A+spatial%22">
+<a class="spec-link" target="_blank" href="@PACKAGE_SPATIAL_ERRATA_URL@">
   <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
 </td></tr>
 </table>
