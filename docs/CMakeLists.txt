@@ -49,8 +49,18 @@ endif()
 
 SET(PACKAGE_COMP_VERSION 1)
 SET(PACKAGE_COMP_RELEASE 3)
-SET(PACKAGE_COMP_SPEC_URL "http://sbml.org/specifications/sbml-level-3/version-1/comp/sbml-comp-version-1-release-3.pdf")
-SET(PACKAGE_COMP_ERRATA_URL "http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Hierarchical_Model_Composition_%28comp%29/Confirmed_issues_in_the_Hierarchical_Model_Composition_package_specification")
+SET(PACKAGE_COMP_SPEC_URL "http://identifiers.org/combine.specifications/sbml.level-3.version-1.comp.version-1.release-3")
+SET(PACKAGE_COMP_ERRATA_URL "https://github.com/sbmlteam/sbml-specifications/issues?q=is%3Aissue+is%3Aopen+label%3A%22L3+Package%3A+comp%22")
+
+# -----------------------------------------------------------------------------
+# 'distrib' package
+# -----------------------------------------------------------------------------
+
+SET(PACKAGE_DISTRIB_VERSION 1)
+SET(PACKAGE_DISTRIB_RELEASE 1)
+SET(PACKAGE_DISTRIB_SPEC_URL "http://identifiers.org/combine.specifications/sbml.level-3.version-1.distrib.version-1.release-1")
+SET(PACKAGE_DISTRIB_ERRATA_URL "https://github.com/sbmlteam/sbml-specifications/issues?q=is%3Aissue+is%3Aopen+label%3A%22L3+Package%3A+distrib%22")
+
 
 # -----------------------------------------------------------------------------
 # 'fbc' package v1
@@ -59,7 +69,7 @@ SET(PACKAGE_COMP_ERRATA_URL "http://sbml.org/Documents/Specifications/SBML_Level
 SET(PACKAGE_FBC_V1_VERSION 1)
 SET(PACKAGE_FBC_V1_RELEASE 1)
 SET(PACKAGE_FBC_V1_SPEC_URL "http://identifiers.org/combine.specifications/sbml.level-3.version-1.fbc.version-1.release-1")
-SET(PACKAGE_FBC_V1_ERRATA_URL "http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Flux_Balance_Constraints_%28flux%29/Confirmed_issues_in_the_Flux_Balance_Constraints_package_specification")
+SET(PACKAGE_FBC_V1_ERRATA_URL "https://github.com/sbmlteam/sbml-specifications/issues?q=is%3Aissue+is%3Aopen+label%3A%22L3+Package%3A+fbc%22")
 
 # -----------------------------------------------------------------------------
 # 'fbc' package v2
@@ -68,7 +78,7 @@ SET(PACKAGE_FBC_V1_ERRATA_URL "http://sbml.org/Documents/Specifications/SBML_Lev
 SET(PACKAGE_FBC_V2_VERSION 2)
 SET(PACKAGE_FBC_V2_RELEASE 1)
 SET(PACKAGE_FBC_V2_SPEC_URL "http://identifiers.org/combine.specifications/sbml.level-3.version-1.fbc.version-2.release-1")
-SET(PACKAGE_FBC_V2_ERRATA_URL "http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Flux_Balance_Constraints_%28flux%29/Confirmed_issues_in_the_Flux_Balance_Constraints_package_specification")
+SET(PACKAGE_FBC_V2_ERRATA_URL "https://github.com/sbmlteam/sbml-specifications/issues?q=is%3Aissue+is%3Aopen+label%3A%22L3+Package%3A+fbc%22")
 
 # -----------------------------------------------------------------------------
 # 'groups' package v1
@@ -77,7 +87,7 @@ SET(PACKAGE_FBC_V2_ERRATA_URL "http://sbml.org/Documents/Specifications/SBML_Lev
 SET(PACKAGE_GROUPS_V1_VERSION 1)
 SET(PACKAGE_GROUPS_V1_RELEASE 1)
 SET(PACKAGE_GROUPS_V1_SPEC_URL "http://identifiers.org/combine.specifications/sbml.level-3.version-1.groups.version-1.release-1")
-SET(PACKAGE_GROUPS_V1_ERRATA_URL "http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Groups/Confirmed_issues_in_the_Groups_package_specification")
+SET(PACKAGE_GROUPS_V1_ERRATA_URL "https://github.com/sbmlteam/sbml-specifications/issues?q=is%3Aissue+is%3Aopen+label%3A%22L3+Package%3A+groups%22")
 
 # -----------------------------------------------------------------------------
 # 'multi' package v1
@@ -86,7 +96,7 @@ SET(PACKAGE_GROUPS_V1_ERRATA_URL "http://sbml.org/Documents/Specifications/SBML_
 SET(PACKAGE_MULTI_V1_VERSION 1)
 SET(PACKAGE_MULTI_V1_RELEASE 1)
 SET(PACKAGE_MULTI_V1_SPEC_URL "http://identifiers.org/combine.specifications/sbml.level-3.version-1.multi.version-1.release-1")
-SET(PACKAGE_MULTI_V1_ERRATA_URL "http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Multi/Confirmed_issues_in_the_Multi_package_specification")
+SET(PACKAGE_MULTI_V1_ERRATA_URL "https://github.com/sbmlteam/sbml-specifications/issues?q=is%3Aissue+is%3Aopen+label%3A%22L3+Package%3A+multi%22")
 
 # -----------------------------------------------------------------------------
 # 'layout' package
@@ -95,7 +105,7 @@ SET(PACKAGE_MULTI_V1_ERRATA_URL "http://sbml.org/Documents/Specifications/SBML_L
 SET(PACKAGE_LAYOUT_VERSION 1)
 SET(PACKAGE_LAYOUT_RELEASE 1)
 SET(PACKAGE_LAYOUT_SPEC_URL "http://identifiers.org/combine.specifications/sbml.level-3.version-1.layout.version-1.release-1")
-SET(PACKAGE_LAYOUT_ERRATA_URL "http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Layout_%28layout%29/Confirmed_issues_in_the_Layout_package_specification")
+SET(PACKAGE_LAYOUT_ERRATA_URL "https://github.com/sbmlteam/sbml-specifications/issues?q=is%3Aissue+is%3Aopen+label%3A%22L3+Package%3A+layout%22")
 
 # -----------------------------------------------------------------------------
 # 'render' package
@@ -104,7 +114,7 @@ SET(PACKAGE_LAYOUT_ERRATA_URL "http://sbml.org/Documents/Specifications/SBML_Lev
 SET(PACKAGE_RENDER_VERSION 1)
 SET(PACKAGE_RENDER_RELEASE 1)
 SET(PACKAGE_RENDER_SPEC_URL "http://identifiers.org/combine.specifications/sbml.level-3.version-1.render.version-1.release-1")
-SET(PACKAGE_RENDER_ERRATA_URL "http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Render_%28render%29/Confirmed_issues_in_the_Render_package_specification")
+SET(PACKAGE_RENDER_ERRATA_URL "https://github.com/sbmlteam/sbml-specifications/issues?q=is%3Aissue+is%3Aopen+label%3A%22L3+Package%3A+render%22")
 
 # -----------------------------------------------------------------------------
 # 'qual' package
@@ -113,7 +123,16 @@ SET(PACKAGE_RENDER_ERRATA_URL "http://sbml.org/Documents/Specifications/SBML_Lev
 SET(PACKAGE_QUAL_VERSION 1)
 SET(PACKAGE_QUAL_RELEASE 1)
 SET(PACKAGE_QUAL_SPEC_URL "http://identifiers.org/combine.specifications/sbml.level-3.version-1.qual.version-1.release-1")
-SET(PACKAGE_QUAL_ERRATA_URL "http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Qualitative_Models_%28qual%29/Confirmed_issues_in_the_Qualitative_Models_package_specification")
+SET(PACKAGE_QUAL_ERRATA_URL "https://github.com/sbmlteam/sbml-specifications/issues?q=is%3Aissue+is%3Aopen+label%3A%22L3+Package%3A+qual%22")
+
+# -----------------------------------------------------------------------------
+# 'spatial' package
+# -----------------------------------------------------------------------------
+
+SET(PACKAGE_SPATIAL_VERSION 1)
+SET(PACKAGE_SPATIAL_RELEASE 1)
+SET(PACKAGE_SPATIAL_SPEC_URL "https://www.degruyter.com/document/doi/10.1515/jib-2022-0054/html")
+SET(PACKAGE_SPATIAL_ERRATA_URL "https://github.com/sbmlteam/sbml-specifications/issues?q=is%3Aissue+is%3Aopen+label%3A%22L3+Package%3A+spatial%22")
 
 
 # determine doxygen version
