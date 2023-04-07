@@ -2240,6 +2240,9 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmln
         {
           continue;
         }
+        if (xmlns->getPrefix(i) == "sbml") {
+          continue;
+        }
         stream.writeAttribute(xmlns->getPrefix(i), "xmlns", xmlns->getURI(i));
 
       }
