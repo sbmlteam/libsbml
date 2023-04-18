@@ -2240,6 +2240,9 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmln
         {
           continue;
         }
+
+        // skip previously defined sbml namespaces, as they 
+        // are handled above in the case the node has units
         if (xmlns->getPrefix(i) == "sbml") {
           continue;
         }
