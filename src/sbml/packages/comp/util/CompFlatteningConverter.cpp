@@ -385,6 +385,8 @@ CompFlatteningConverter::performConversion()
     mDocument->getVersion(),
     "The subsequent errors are from this attempt.");
 
+  unsetExplicitlyListed();
+
   // setup callback that will enable the packages on submodels
   disable_info mainDoc;
   mainDoc.doc = mDocument;
@@ -1253,6 +1255,19 @@ CompFlatteningConverter::restoreNamespaces()
     mDocument->enablePackage((*pkg).first, (*pkg).second, true);
   }
 }
+
+void CompFlatteningConverter::unsetExplicitlyListed()
+{
+    List* elements = mDocument->getAllElements();
+    for (unsigned int el = 0; el < elements->getSize(); el++) {
+        SBase* element = static_cast<SBase*>(elements->get(el));
+        if (element->getTypeCode() == SBML_LIST_OF) {
+            ListOf* lo = static_cast<ListOf*>(element);
+            lo->setExplicitlyListed(false);
+        }
+    }
+}
+
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
