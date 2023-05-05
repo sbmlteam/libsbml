@@ -191,7 +191,7 @@ main (int argc, char *argv[])
   {
     Rule_t *r = Model_getRule(model, i);
     char* u = UnitDefinition_printUnits(Rule_getDerivedUnitDefinition(r), 0);
-    printf( "Rule %d: %s\n", j, u);
+    printf( "Rule %d: %s\n", i, u);
     printf( "        undeclared units: %s",
      (Rule_containsUndeclaredUnits(r) ? "yes\n" : "no\n"));
     free(u);

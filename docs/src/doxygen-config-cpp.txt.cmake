@@ -23,7 +23,7 @@ PROJECT_NAME           = "@PACKAGE_NAME@ C++ API"
 # This could be handy for archiving the generated documentation or 
 # if some version control system is used.
 
-PROJECT_NUMBER         = "@PACKAGE_NAME@ @PACKAGE_VERSION@ C++ API"
+PROJECT_NUMBER         = "@PACKAGE_VERSION@"
 
 # The HTML_OUTPUT tag is used to specify where the HTML docs will be put. 
 # If a relative path is entered the value of OUTPUT_DIRECTORY will be 
@@ -78,4 +78,5 @@ ENABLED_SECTIONS       = cpp clike doxygenCppOnly hasDefaultArgs
 EXAMPLE_PATH           = common-text . ../.. ../../examples/c++ \
                          ../../examples/c++/comp ../../examples/c++/layout \
                          ../../examples/c++/fbc ../../examples/c++/groups \
-                         ../../examples/c++/qual ../../examples/c++/multi
+                         ../../examples/c++/qual ../../examples/c++/multi \
+                         ../../examples/c++/render ../../examples/c++/spatial

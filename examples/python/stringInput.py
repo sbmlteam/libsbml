@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ## 
 ## @file    stringInput.py
 ## @brief   illustrates how libSBML deals with string and unicode input

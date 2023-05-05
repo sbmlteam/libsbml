@@ -539,23 +539,6 @@ Delay::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Returns the value of the "attributeName" attribute of this Delay.
- */
-//int
-//Delay::getAttribute(const std::string& attributeName, const char* value) const
-//{
-//  int return_value = SBase::getAttribute(attributeName, value);
-//
-//  return return_value;
-//}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this Delay's attribute "attributeName" is
  * set.
  */
@@ -652,23 +635,6 @@ Delay::setAttribute(const std::string& attributeName,
 
   return return_value;
 }
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this Delay.
- */
-//int
-//Delay::setAttribute(const std::string& attributeName, const char* value)
-//{
-//  int return_value = SBase::setAttribute(attributeName, value);
-//
-//  return return_value;
-//}
 
 /** @endcond */
 

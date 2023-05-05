@@ -49,6 +49,8 @@
 
 #include <SBMLError.h>
 #include <SBMLErrorLog.h>
+#include <SBMLReader.h>
+#include <SBMLDocument.h>
 
 #undef fail
 #include <check.h>
@@ -173,6 +175,80 @@ START_TEST(test_SBMLErrorLog_removeAll)
 }
 END_TEST
 
+START_TEST(test_SBMLErrorLog_getErrorWithSeverity)
+{
+    SBMLErrorLog log;
+
+    log.add(SBMLError(ConstraintContainsXMLDecl));
+    // Severity = LIBSBML_SEV_ERROR);
+
+    log.add(SBMLError(EmptyListInReaction));
+    // Severity = LIBSBML_SEV_NOT_APPLICABLE);
+
+    log.add(SBMLError(OverdeterminedSystem, 2, 1));
+    // Severity = LIBSBML_SEV_WARNING);
+
+    log.add(SBMLError(OffsetNoLongerValid, 2, 2));
+    // Severity = LIBSBML_SEV_ERROR);
+
+    log.add(SBMLError(NoSBOTermsInL1, 2, 2));
+    // Severity = LIBSBML_SEV_WARNING);
+
+    log.add(SBMLError(DisallowedMathMLEncodingUse, 2, 2));
+    // Severity = LIBSBML_SEV_ERROR);
+
+    log.add(SBMLError(DisallowedMathMLEncodingUse, 1, 2));
+    // Severity = LIBSBML_SEV_NOT_APPLICABLE);
+
+    log.add(SBMLError(UnknownError, 2, 4));
+    // Severity = LIBSBML_SEV_FATAL);
+
+    log.add(SBMLError(70912, 2, 4));
+    // Severity = LIBSBML_SEV_WARNING);
+
+    const SBMLError* error = log.getErrorWithSeverity(0, LIBSBML_SEV_ERROR);
+    fail_unless(error->getErrorId() == ConstraintContainsXMLDecl);
+
+    error = log.getErrorWithSeverity(1, LIBSBML_SEV_ERROR);
+    fail_unless(error->getErrorId() == OffsetNoLongerValid);
+
+    error = log.getErrorWithSeverity(2, LIBSBML_SEV_ERROR);
+    fail_unless(error->getErrorId() == DisallowedMathMLEncodingUse);
+
+    error = log.getErrorWithSeverity(0, LIBSBML_SEV_WARNING);
+    fail_unless(error->getErrorId() == OverdeterminedSystem);
+
+    error = log.getErrorWithSeverity(1, LIBSBML_SEV_WARNING);
+    fail_unless(error->getErrorId() == NoSBOTermsInL1);
+
+    error = log.getErrorWithSeverity(2, LIBSBML_SEV_WARNING);
+    fail_unless(error->getErrorId() == 70912);
+
+    error = log.getErrorWithSeverity(0, LIBSBML_SEV_NOT_APPLICABLE);
+    fail_unless(error == NULL); //N/A errors are not added.
+
+    error = log.getErrorWithSeverity(0, LIBSBML_SEV_FATAL);
+    fail_unless(error->getErrorId() == UnknownError);
+
+}
+END_TEST
+
+START_TEST(test_SBMLErrorLog_getErrorWithSeverity_XMLError)
+{
+    //NOTE:  This test failed originally because an XMLError cannot be dynamically cast to an SBMLError; it must be statically cast.  I believe this is because the XMLError has no functions for the dynamic cast checker to test, so it returns NULL.
+    SBMLDocument* doc = readSBMLFromString("Not actually SBML.");
+
+    const SBMLError* error = doc->getErrorWithSeverity(0, LIBSBML_SEV_ERROR);
+    fail_unless(error != NULL);
+    fail_unless(error->getErrorId() < XMLErrorCodesUpperBound);
+
+    error = doc->getError(0);
+    fail_unless(error != NULL);
+    fail_unless(error->getErrorId() < XMLErrorCodesUpperBound);
+
+}
+END_TEST
+
 Suite *
 create_suite_SBMLError (void)
 {
@@ -181,6 +257,8 @@ create_suite_SBMLError (void)
 
   tcase_add_test( tcase, test_SBMLError_create  );
   tcase_add_test( tcase, test_SBMLErrorLog_removeAll  );
+  tcase_add_test( tcase, test_SBMLErrorLog_getErrorWithSeverity );
+  tcase_add_test( tcase, test_SBMLErrorLog_getErrorWithSeverity_XMLError );
   suite_add_tcase(suite, tcase);
 
   return suite;

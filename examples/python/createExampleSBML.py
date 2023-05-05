@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ## 
 ## @file    createExampleSBML.py
 ## @brief   Creates example SBML models presented in the SBML specification.

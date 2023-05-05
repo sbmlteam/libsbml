@@ -89,6 +89,7 @@ public:
   typedef std::pair<double, bool>   ValueSet;
   typedef std::map<const std::string, ValueSet> IdValueMap;
   typedef IdValueMap::iterator                  IdValueIter;
+  typedef std::map<const Model*, IdValueMap> ModelValuesMap;
 #endif
 
   /**
@@ -136,24 +137,119 @@ public:
                         const IdList* idsToExclude = NULL);
 
 
+  /**
+   * Expands the initial assignments in the given model
+   * 
+   * @param m the model to expand the initial assignments in
+   * 
+   * @return true if the model was changed, false otherwise
+   */
   static bool expandInitialAssignments(Model * m);
 
-
+  /**
+   * Evaluates the given AST node for the specified model 
+   * 
+   * @param node the AST node to evaluate
+   * @param m the model to evaluate the AST node for (if not NULL, all 
+   *        component values will be added to the map of values)
+   * 
+   * @return the result of the evaluation
+   */
   static double evaluateASTNode(const ASTNode * node, const Model * m = NULL);
 
+  /**
+   * Expands the initial assignments in the given L3V2 model
+   *
+   * @param m the model to expand the initial assignments in
+   *
+   * @return true if the model was changed, false otherwise
+   */
   static bool expandL3V2InitialAssignments(Model * m);
 
 
 #ifndef SWIG
+
+  /**
+   * Evaluates the given AST node for the specified model and values
+   * 
+   * @param node the AST node to evaluate
+   * @param values the values to use for the evaluation of identifiers
+   * @param m the model to evaluate the AST node for
+   * 
+   * @return the result of the evaluation
+   */
   static double evaluateASTNode(const ASTNode * node, const IdValueMap& values, const Model * m = NULL);
+
+  /**
+   * Evaluates the given AST node for the specified model and values
+   * 
+   * This overload converts the map of values to an IdValueMap first
+   *
+   * @param node the AST node to evaluate
+   * @param values the values to use for the evaluation of identifiers 
+   * @param m the model to evaluate the AST node for
+   *
+   * @return the result of the evaluation
+   */
   static double evaluateASTNode(const ASTNode * node, const std::map<std::string, double>& values, const Model * m = NULL);
+  
+  /**
+   * creates a new component value map for the specified model (without adding it to the static map)
+   * 
+   * @param m the model to create the map for
+   * @param values the values to fill from the model
+   * 
+   * @return a list of all ids in the created map
+   */
   static IdList getComponentValuesForModel(const Model * m, IdValueMap& values);
+
+  /** 
+   * Returns the component values for the specified model 
+   * 
+   * @param m the model to get the component values for
+   * 
+   * @return the component values for the specified model (or empty if not in the static map)
+   */
+  
+  static IdValueMap getComponentValues(const Model* m);
+
+  /**
+   * Creates an IdList of the map of component values for the specified model
+   * 
+   * @param m the model to get the component value ids for
+   * 
+   * @return the list of ids in the map of component values for the specified model
+   */
+  static IdList getComponentIds(const Model* m);
 #endif
   
+  /**
+   * Creates a map of all values of the specified model. 
+   * 
+   * This also adds the created map to the static map of all model values. All 
+   * identifiers that cannot be determined are returned. 
+   * 
+   * @param m the model to create the map for
+   * 
+   * @return a list of all ids of the model that could not be determined
+   */
   static IdList mapComponentValues(const Model * m);
 
-  static void clearComponentValues();
+  /**
+   * Clears the component values for the specified model or all models if NULL
+   * 
+   * @param m the model to clear the component values for or NULL to clear all
+   */
+  static void clearComponentValues(const Model *m = NULL);
 
+  /**
+   * Checks whether the node contains any id in the specified list
+   * 
+   * @param node the node to check
+   * @param ids the list of ids to check for
+   * 
+   * @return true, if the node contains any id in the list, false otherwise
+   */
   static bool nodeContainsId(const ASTNode * node, IdList& ids);
 
 
@@ -183,7 +279,7 @@ protected:
                         const IdList* idsToExclude);
 
 
-  static IdValueMap mValues;
+  static ModelValuesMap mModelValues;
 
 };
 

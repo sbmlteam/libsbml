@@ -199,7 +199,8 @@ provide a complete explanation of the SBML Level&nbsp;3 Layout
 (&ldquo;layout&rdquo;) package.  If you are developing software that uses
 &ldquo;layout&rdquo;, you are strongly urged to read the actual specification
 for the package.  A link to the specification document current is provided
-below, along with a link to the page of known issues (if any).
+below, <strike> along with a link to the page of known issues (if any).</strike> 
+we apologise that our known issues pages are under reconstruction.
 
 <table border="0" class="centered text-table normal-font alt-row-colors" style="padding-bottom: 0.5em">
   <caption class="top-caption">Specification for SBML Level&nbsp;3 Layout,

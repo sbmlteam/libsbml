@@ -324,7 +324,7 @@ endif()
 # Determine the python installation directory
 #
 set(PYTHON_PACKAGE_INSTALL_DIR)
-if (UNIX OR CYGWIN) 
+if (UNIX OR CYGWIN OR MINGW)
     execute_process(COMMAND "${PYTHON_EXECUTABLE}" -c "import sys; sys.stdout.write('{}.{}'.format(*sys.version_info[:2]))"
         OUTPUT_VARIABLE PYTHON_VERSION)
     set(PYTHON_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/python${PYTHON_VERSION}/site-packages)
@@ -623,6 +623,13 @@ if(WITH_CHECK)
             setIdFromNames.out.xml
         )
         ADJUST_PYTHONPATH(test_python_setIdFromNames)    
+
+        add_test(NAME test_python_setNamesFromIds
+            COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/setNamesFromIds.py
+            ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+            setNamesFromIds.out.xml
+        )
+        ADJUST_PYTHONPATH(test_python_setNamesFromIds)    
         
         add_test(NAME test_python_unsetAnnotation
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/unsetAnnotation.py

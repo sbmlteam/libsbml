@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## @file    stripPackage.py
 ## @brief   Strips the given package from the given SBML file.

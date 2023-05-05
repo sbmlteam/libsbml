@@ -369,7 +369,7 @@ ListOfMembers::createMember()
 /*
  * Used by ListOfMembers::get() to lookup a Member based on its IdRef.
  */
-struct IdEqIR : public std::unary_function<SBase*, bool>
+struct IdEqIR
 {
   const string& id;
    

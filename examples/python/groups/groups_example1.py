@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # 
 #  @file    groups_example1.py
 #  @brief   SBML Groups example

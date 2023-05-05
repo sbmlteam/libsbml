@@ -248,7 +248,8 @@ ModelHistory*
 RDFAnnotationParser::parseRDFAnnotation(
      const XMLNode * annotation, 
      const char* metaId, 
-     XMLInputStream* stream /*= NULL*/)
+     XMLInputStream* stream /*= NULL*/,
+     const SBase* parent)
 {
   ModelHistory * history = NULL;
 
@@ -310,7 +311,11 @@ RDFAnnotationParser::parseRDFAnnotation(
   {
     history = deriveHistoryFromAnnotation(annotation);
   }
-  
+  // add a parent SBase object with level and version
+  if (history != NULL && parent != NULL)
+  {
+    history->setParentSBMLObject(parent);
+  }
   return history;
 }
 
@@ -511,20 +516,35 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
     return NULL;
   }
 
+  unsigned int n = 0;
+  // see how many cvterms are captured in an additional
+  // rdf annotation that will also be output as it contains
+  // nested terms that will not be output
+  // this avoids 2 descr elements
+  for (unsigned int i = 0; i < object->getNumCVTerms(); i++)
+  {
+    if (static_cast <CVTerm *>(object->getCVTerms()->get(i))->getCapturedInStoredAnnotation())
+    {
+      n++;
+    }
+  }
+  if (n != object->getNumCVTerms())
+  {
+    XMLNode *CVTerms = createRDFDescriptionWithCVTerms(object);
 
-  XMLNode *CVTerms = createRDFDescriptionWithCVTerms(object);
+    XMLNode * RDF = createRDFAnnotation(object->getLevel(), object->getVersion());
+    RDF->addChild(*CVTerms);
 
-  XMLNode * RDF = createRDFAnnotation(object->getLevel(), object->getVersion());
-  RDF->addChild(*CVTerms);
+    delete CVTerms;
 
-  delete CVTerms;
+    XMLNode *ann = createAnnotation();
+    ann->addChild(*RDF);
 
-  XMLNode *ann = createAnnotation();
-  ann->addChild(*RDF);
+    delete RDF;
 
-  delete RDF;
-
-  return ann;
+    return ann;
+  }
+  return NULL;
 }
 
 
@@ -538,6 +558,21 @@ RDFAnnotationParser::createRDFDescriptionWithCVTerms(const SBase * object)
     !object->isSetMetaId())
   {
     return NULL;
+  }
+  else
+  {
+    unsigned int n = 0;
+    for (unsigned int i = 0; i < object->getNumCVTerms(); i++)
+    { 
+      if (static_cast <CVTerm *>(object->getCVTerms()->get(i))->getCapturedInStoredAnnotation())
+      {
+        n++;
+      }
+    }
+    if (n == object->getNumCVTerms())
+    {
+      return NULL;
+    }
   }
 
   XMLNode *description = createRDFDescription(object);
@@ -710,6 +745,7 @@ RDFAnnotationParser::parseModelHistory(const SBase *object)
   {
     return NULL;
   }
+  history->setParentSBMLObject(object);
 
   XMLNode *description = createRDFDescriptionWithHistory(object);
 
@@ -924,133 +960,135 @@ RDFAnnotationParser::createRDFDescriptionWithHistory(const SBase * object)
 
   /* now add the data from the ModelHistory */
 
-  for (unsigned int n = 0; n < history->getNumCreators(); n++)
+  if (history->getNumCreators() > 0)
   {
-    XMLNode * N     = 0;
-    XMLNode * Email = 0;
-    XMLNode * Org   = 0;
-
-    ModelCreator* c = history->getCreator(n);
-    if (c->usingFNVcard4())
+    for (unsigned int n = 0; n < history->getNumCreators(); n++)
     {
-      if (c->usingSingleName())
+      XMLNode * N = 0;
+      XMLNode * Email = 0;
+      XMLNode * Org = 0;
+
+      ModelCreator* c = history->getCreator(n);
+      if (c->usingFNVcard4())
       {
-        // we want to a single name but we have entered it as two
-        std::string name = c->getName();
-        if (name != c->getGivenName())
+        if (c->usingSingleName())
         {
-          name = c->getGivenName() + " " + c->getFamilyName();
+          // we want to a single name but we have entered it as two
+          std::string name = c->getName();
+          if (name != c->getGivenName())
+          {
+            name = c->getGivenName() + " " + c->getFamilyName();
+          }
+          XMLNode empty(empty_token);
+          empty.append(name);
+
+          XMLNode Text(Text_token);
+          Text.addChild(empty);
+
+          N = new XMLNode(Fn_token);
+          N->addChild(Text);
         }
-        XMLNode empty(empty_token);
-        empty.append(name);
-
-        XMLNode Text(Text_token);
-        Text.addChild(empty);
-
-        N = new XMLNode(Fn_token);
-        N->addChild(Text);
-      }
-    }
-    else
-    {
-      std::string name = c->getName();
-      std::string fname, gname;
-      // we have entered one name but want to display it as 2
-      if (name == c->getGivenName())
-      {
-        std::size_t found = name.find(" ");
-        gname = name.substr(0, found);
-        fname = name.substr(found + 1);
-        c->setFamilyName(fname);
-        c->setGivenName(gname);
-      }
-      if (c->isSetFamilyName())
-      {
-        XMLNode empty(empty_token);
-        empty.append(c->getFamilyName());
-
-        XMLNode Family(Family_token);
-        Family.addChild(empty);
-
-        N = new XMLNode(N_token);
-        N->addChild(Family);
-      }
-
-      if (c->isSetGivenName())
-      {
-        XMLNode empty(empty_token);
-        empty.append(c->getGivenName());
-
-        XMLNode Given(Given_token);
-        Given.addChild(empty);
-
-        if (N == NULL)
-        {
-          N = new XMLNode(N_token);
-        }
-        N->addChild(Given);
-      }
-    }
-
-    if (c->isSetEmail())
-    {
-      XMLNode empty(empty_token);
-      empty.append(c->getEmail());
-
-      Email = new XMLNode(Email_token);
-      Email->addChild(empty);
-    }
-
-    if (c->isSetOrganisation())
-    {
-      if (use_vcard3)
-      {
-        XMLNode empty(empty_token);
-        empty.append(c->getOrganisation());
-        XMLNode Orgname(Orgname_token);
-        Orgname.addChild(empty);
-
-        Org = new XMLNode(Org_token);
-        Org->addChild(Orgname);
       }
       else
       {
-        XMLNode empty(empty_token);
-        empty.append(c->getOrganisation());
+        std::string name = c->getName();
+        std::string fname, gname;
+        // we have entered one name but want to display it as 2
+        if (name == c->getGivenName())
+        {
+          std::size_t found = name.find(" ");
+          gname = name.substr(0, found);
+          fname = name.substr(found + 1);
+          c->setFamilyName(fname);
+          c->setGivenName(gname);
+        }
+        if (c->isSetFamilyName())
+        {
+          XMLNode empty(empty_token);
+          empty.append(c->getFamilyName());
 
-        Org = new XMLNode(Org_token);
-        Org->addChild(empty);
+          XMLNode Family(Family_token);
+          Family.addChild(empty);
+
+          N = new XMLNode(N_token);
+          N->addChild(Family);
+        }
+
+        if (c->isSetGivenName())
+        {
+          XMLNode empty(empty_token);
+          empty.append(c->getGivenName());
+
+          XMLNode Given(Given_token);
+          Given.addChild(empty);
+
+          if (N == NULL)
+          {
+            N = new XMLNode(N_token);
+          }
+          N->addChild(Given);
+        }
       }
+
+      if (c->isSetEmail())
+      {
+        XMLNode empty(empty_token);
+        empty.append(c->getEmail());
+
+        Email = new XMLNode(Email_token);
+        Email->addChild(empty);
+      }
+
+      if (c->isSetOrganisation())
+      {
+        if (use_vcard3)
+        {
+          XMLNode empty(empty_token);
+          empty.append(c->getOrganisation());
+          XMLNode Orgname(Orgname_token);
+          Orgname.addChild(empty);
+
+          Org = new XMLNode(Org_token);
+          Org->addChild(Orgname);
+        }
+        else
+        {
+          XMLNode empty(empty_token);
+          empty.append(c->getOrganisation());
+
+          Org = new XMLNode(Org_token);
+          Org->addChild(empty);
+        }
+      }
+
+      XMLNode li(li_token);
+      if (N != NULL)
+      {
+        li.addChild(*N);
+        delete N;
+      }
+      if (Email != NULL)
+      {
+        li.addChild(*Email);
+        delete Email;
+      }
+      if (Org != NULL)
+      {
+        li.addChild(*Org);
+        delete Org;
+      }
+      if (c->getAdditionalRDF() != NULL)
+      {
+        li.addChild(*(c->getAdditionalRDF()));
+      }
+
+      bag.addChild(li);
     }
 
-    XMLNode li(li_token);
-    if (N != NULL)
-    {
-      li.addChild(*N);
-      delete N;
-    }
-    if (Email != NULL)
-    {
-      li.addChild(*Email);
-      delete Email;
-    }
-    if (Org != NULL)
-    {
-      li.addChild(*Org);
-      delete Org;
-    }
-    if (c->getAdditionalRDF() != NULL)
-    {
-      li.addChild(*(c->getAdditionalRDF()));
-    }
-
-    bag.addChild(li);
+    XMLNode creator(creator_token);
+    creator.addChild(bag);
+    description->addChild(creator);
   }
-
-  XMLNode creator(creator_token);
-  creator.addChild(bag);
-  description->addChild(creator);
-  
   /* created date */
   if (history->isSetCreatedDate())
   {

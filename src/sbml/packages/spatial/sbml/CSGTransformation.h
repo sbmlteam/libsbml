@@ -40,7 +40,19 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CSGTransformation
- * @sbmlbrief{spatial} TODO:Definition of the CSGTransformation class.
+ * @sbmlbrief{spatial} The CSGTransformation represents a generalization for the 
+ * type of transformation that can be performed on a primitive geometric shape 
+ * (CSGPrimitive) or on a CSGNode (a transformation or set operation on one or a 
+ * set of CSGPrimitives). The types of possible transformations are 'rotation', 
+ * 'translation', 'scaling', and 'homogeneous transformation', defined below. The 
+ * CSGTransformation element contains a CSGNode element upon which the transformation is performed.
+ *
+ * Each transformation is performed directly on its child CSGNode, with any 
+ * transformation or set operation from that node already performed.  This essentially 
+ * defines a 'bottom-up' approach, where the tips of the XML tree children of a 
+ * CSGObject are all CSGPrimitive objects, that are progressively transformed or 
+ * combined with other CSGPrimitive objects by each successive node moving rootward 
+ * through the XML.  
  */
 
 

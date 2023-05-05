@@ -40,6 +40,7 @@
 #include <sbml/packages/distrib/extension/DistribASTPlugin.h>
 #include <sbml/util/MathFilter.h>
 #include <sbml/math/L3Parser.h>
+#include <sbml/Model.h>
 
 #ifdef USE_COMP
 #include <sbml/packages/comp/extension/CompSBMLDocumentPlugin.h>

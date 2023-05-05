@@ -1021,23 +1021,6 @@ Rule::getAttribute(const std::string& attributeName, std::string& value) const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Returns the value of the "attributeName" attribute of this Rule.
- */
-//int
-//Rule::getAttribute(const std::string& attributeName, const char* value) const
-//{
-//  int return_value = SBase::getAttribute(attributeName, value);
-//
-//  return return_value;
-//}
-//
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this Rule's attribute "attributeName" is set.
  */
 bool
@@ -1132,23 +1115,6 @@ Rule::setAttribute(const std::string& attributeName, const std::string& value)
 
   return return_value;
 }
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this Rule.
- */
-//int
-//Rule::setAttribute(const std::string& attributeName, const char* value)
-//{
-//  int return_value = SBase::setAttribute(attributeName, value);
-//
-//  return return_value;
-//}
 
 /** @endcond */
 
@@ -1673,7 +1639,7 @@ ListOfRules::get(unsigned int n) const
 /**
  * Used by ListOf::get() to lookup an SBase based by its id.
  */
-struct IdEqRule : public unary_function<SBase*, bool>
+struct IdEqRule 
 {
   const string& mId;
 

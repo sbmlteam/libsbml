@@ -133,6 +133,7 @@ END_TEST
 
 START_TEST (test_Validation_ModelHistory1)
 {
+  
   ModelHistory * mh = new ModelHistory();
   fail_unless(mh != NULL);
 
@@ -157,7 +158,6 @@ START_TEST (test_Validation_ModelHistory1)
   
   delete mh;
   delete mc;
-  delete date;
 }
 END_TEST
 
@@ -221,7 +221,6 @@ START_TEST (test_Validation_ModelHistory3)
   delete date;
 }
 END_TEST
-
 
 START_TEST (test_Validation_CVTerm1)
 {

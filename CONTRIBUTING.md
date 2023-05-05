@@ -4,12 +4,16 @@ Any constructive contributions &ndash; bug reports, pull requests (code or docum
 
 ## Procedure
 
-Our default branch is **development** which should be used for branching/forking and creating Pull Requests. 
+Our default branch is **development** which should be used for branching/forking and creating Pull Requests. **NOTE** Create **Draft Pull Request** until you have finished - see note on Testing below.
+
 
 The **stable** branch reflects the latest release and will only be updated when we create an official release. 
 
 Please fill in the template when creating PRs and link to any issues fixed. Note for the moment these may be [GitHub issues](https://github.com/sbmlteam/libsbml/issues) or [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/248655) issues
 
+### Continuous Integration Testing
+
+Our full CI tests involve several combinations of configuration options. This means they currently take about 7 hours to run. Marking your pull request as *draft* means that any pushes will trigger a reduced test workflow (taking about 30 minutes).
 
 ## Conduct
 

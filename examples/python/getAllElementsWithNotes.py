@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## @file    getAllElementsWithNotes.py
 ## @brief   Utility program, demonstrating how to use the element filter

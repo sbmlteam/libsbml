@@ -104,7 +104,7 @@ SpeciesReference::SpeciesReference (SBMLNamespaces *sbmlns) :
 {
   if (!hasValidLevelVersionNamespaceCombination())
   {
-    throw SBMLConstructorException(getElementName(), sbmlns);
+    throw SBMLConstructorException(SpeciesReference::getElementName(), sbmlns);
   }
 
   loadPlugins(sbmlns);
@@ -539,7 +539,7 @@ SpeciesReference::createStoichiometryMath ()
   {
     mStoichiometryMath = new StoichiometryMath(getSBMLNamespaces());
   }
-  catch (...)
+  catch (SBMLConstructorException)
   {
     /* here we do not create a default object as the level/version must
      * match the parent object
@@ -728,25 +728,6 @@ SpeciesReference::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Returns the value of the "attributeName" attribute of this SpeciesReference.
- */
-//int
-//SpeciesReference::getAttribute(const std::string& attributeName,
-//                               const char* value) const
-//{
-//  int return_value = SimpleSpeciesReference::getAttribute(attributeName,
-//    value);
-//
-//  return return_value;
-//}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this SpeciesReference's attribute
  * "attributeName" is set.
  */
@@ -888,25 +869,6 @@ SpeciesReference::setAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the value of the "attributeName" attribute of this SpeciesReference.
- */
-//int
-//SpeciesReference::setAttribute(const std::string& attributeName,
-//                               const char* value)
-//{
-//  int return_value = SimpleSpeciesReference::setAttribute(attributeName,
-//    value);
-//
-//  return return_value;
-//}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Unsets the value of the "attributeName" attribute of this SpeciesReference.
  */
 int
@@ -1000,12 +962,9 @@ SpeciesReference::getNumObjects(const std::string& elementName)
 {
   unsigned int n = 0;
 
-  if (elementName == "stoichiometryMath")
+  if (elementName == "stoichiometryMath" && isSetStoichiometryMath())
   {
-    if (isSetStoichiometryMath())
-    {
-      return 1;
-    }
+    n=1;
   }
 
   return n;
@@ -1046,10 +1005,6 @@ SpeciesReference::setAnnotation (const XMLNode* annotation)
 {
   int success = SBase::setAnnotation(annotation);
 
-  if (success == 0)
-  {
-  }
-
   return success;
 }
 
@@ -1071,7 +1026,7 @@ SpeciesReference::setAnnotation (const std::string& annotation)
   XMLNode* annt_xmln;
   if (getSBMLDocument() != NULL)
   {
-    XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+    const XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
     annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
   }
   else
@@ -1120,7 +1075,7 @@ SpeciesReference::appendAnnotation (const std::string& annotation)
   XMLNode* annt_xmln;
   if (getSBMLDocument() != NULL)
   {
-    XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+    const XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
     annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
   }
   else
@@ -1160,7 +1115,7 @@ SpeciesReference::sortMath()
     mStoichiometryMath->isSetMath() &&
     mStoichiometryMath->getMath()->isRational())
   {
-    mStoichiometry = mStoichiometryMath->getMath()->getNumerator();
+    mStoichiometry = (double)mStoichiometryMath->getMath()->getNumerator();
     mDenominator   = (int)mStoichiometryMath->getMath()->getDenominator();
 
     delete mStoichiometryMath;
@@ -1193,13 +1148,7 @@ SpeciesReference::createObject (XMLInputStream& stream)
     {
       mStoichiometryMath = new StoichiometryMath(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException*)
-    {
-      mStoichiometryMath = new StoichiometryMath(
-                                           SBMLDocument::getDefaultLevel(),
-                                           SBMLDocument::getDefaultVersion());
-    }
-    catch ( ... )
+    catch (SBMLConstructorException)
     {
       mStoichiometryMath = new StoichiometryMath(
                                            SBMLDocument::getDefaultLevel(),
@@ -1226,81 +1175,12 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
   bool          read = false;
   const string& name = stream.peek().getName();
 
- // if (name == "stoichiometryMath")
- // {
- //   const XMLToken wrapperElement = stream.next();
- //   stream.skipText();
- //   const XMLToken element = stream.peek();
-
- //   bool found = false;
-
- //   /* The first element must always be 'math'. */
-
- //   if (element.getName() != "math")
- //   {
- //     found = true;
- //   }
-
- //   /* Check this declares the MathML namespace.  This may be explicitly
- //    * declared here or implicitly declared on the whole document
- //    */
-
- //   if (!found && element.getNamespaces().getLength() != 0)
- //   {
- //     for (int n = 0; n < element.getNamespaces().getLength(); n++)
- //     {
- //       if (!strcmp(element.getNamespaces().getURI(n).c_str(),
-  //	    "http://www.w3.org/1998/Math/MathML"))
- //       {
-  //  found = true;
- //         break;
- //       }
- //     }
- //   }
- //   if (!found && mSBML->getNamespaces() != 0)
- //   {
- //     /* check for implicit declaration */
- //     for (int n = 0; n < mSBML->getNamespaces()->getLength(); n++)
- //     {
-  //if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(),
-  //	    "http://www.w3.org/1998/Math/MathML"))
-  //{
-  //  found = true;
-  //  break;
-  //}
- //     }
- //   }
-
- //   if (! found)
- //   {
- //     static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10201);
- //   }
-
- //   delete mStoichiometryMath;
- //   mStoichiometryMath = readMathML(stream);
- //   read               = true;
-
- //   stream.skipPastEnd(wrapperElement);
-
- //   if (mStoichiometryMath && mStoichiometryMath->isRational())
- //   {
- //     mStoichiometry = mStoichiometryMath->getNumerator();
- //     mDenominator   = mStoichiometryMath->getDenominator();
-
- //     delete mStoichiometryMath;
- //     mStoichiometryMath = 0;
- //   }
- // }
-  //else 
-
   // This has to do additional work for reading annotations, so the code
   // here is copied and expanded from SBase::readNotes().
 
   if (name == "annotation")
   {
-//    XMLNode* new_annotation = NULL;
-    /* if annotation already exists then it is an error 
-     */
+    // if annotation already exists then it is an error 
     if (mAnnotation != NULL)
     {
       if (getLevel() < 3) 
@@ -1333,7 +1213,7 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
     if (RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
     {
       mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation, 
-                                            getMetaId().c_str(), &(stream));
+                                            getMetaId().c_str(), &(stream), this);
 
       if (mHistory != NULL && mHistory->hasRequiredAttributes() == false)
       {
@@ -1347,9 +1227,6 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
     if (RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
       RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms, 
                                                getMetaId().c_str(), &(stream));
-//    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
-//    delete mAnnotation;
-//    mAnnotation = new_annotation;
 
     read = true;
   }
@@ -1413,8 +1290,7 @@ SpeciesReference::readAttributes (const XMLAttributes& attributes,
   case 2:
     readL2Attributes(attributes);
     break;
-  case 3:
-  default:
+  default: //case 3:
     readL3Attributes(attributes);
     break;
   }
@@ -1490,12 +1366,13 @@ SpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   // stoichiometry: double   { use="optional" default="1" }  (L2v1->)
   //
   mIsSetStoichiometry = attributes.readInto("stoichiometry", mStoichiometry, getErrorLog(), false, getLine(), getColumn());
+  mExplicitlySetStoichiometry = mIsSetStoichiometry;
 
   string elplusid = "<" + getElementName() + ">";
   if (!mId.empty()) {
     elplusid += " with the id '" + mId + "'";
   }
-  SBase* rxn = getAncestorOfType(SBML_REACTION);
+  const SBase* rxn = getAncestorOfType(SBML_REACTION);
   if (rxn && rxn->isSetId()) 
   {
     elplusid += " from the <reaction> with the id '" + rxn->getId() + "'";
@@ -1504,6 +1381,7 @@ SpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   // constant: bool { use="required" } (L3v1 -> )
   //
   mIsSetConstant = attributes.readInto("constant", mConstant, getErrorLog(), false, getLine(), getColumn());
+  
   if (!mIsSetConstant && !isModifier())
   {
     logError(AllowedAttributesOnSpeciesReference, level, version, 
@@ -1558,11 +1436,10 @@ SpeciesReference::writeAttributes (XMLOutputStream& stream) const
   //
   // constant: bool { use="required" } (L3v1 -> )
   //
-  if (getLevel() > 2)
+  if (getLevel() > 2 && isSetConstant())
   {
     // in L3 only write it out if it has been set
-    if (isSetConstant())
-      stream.writeAttribute("constant", mConstant);
+    stream.writeAttribute("constant", mConstant);
   }
 }
 /** @endcond */
@@ -1585,23 +1462,23 @@ SpeciesReference::writeElements (XMLOutputStream& stream) const
   sr->syncAnnotation();
   if ( mAnnotation != NULL ) stream << *mAnnotation;
 
-  if (getLevel() == 2)
+  if (
+      getLevel() == 2
+      && (mStoichiometryMath || mDenominator != 1)
+     )
   {
-    if (mStoichiometryMath || mDenominator != 1)
+    if (mStoichiometryMath != NULL) 
     {
-      if (mStoichiometryMath != NULL) 
-      {
-        mStoichiometryMath->write(stream);
-      }
-      else
-      {
-        ASTNode node;
-        node.setValue(static_cast<long>(mStoichiometry), mDenominator);
+      mStoichiometryMath->write(stream);
+    }
+    else
+    {
+      ASTNode node;
+      node.setValue(static_cast<long>(mStoichiometry), mDenominator);
 
-        stream.startElement("stoichiometryMath");
-        writeMathML(&node, stream);
-        stream.endElement("stoichiometryMath");
-      }
+      stream.startElement("stoichiometryMath");
+      writeMathML(&node, stream);
+      stream.endElement("stoichiometryMath");
     }
   }
 
@@ -1610,18 +1487,6 @@ SpeciesReference::writeElements (XMLOutputStream& stream) const
   //
   SBase::writeExtensionElements(stream);
 
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Synchronizes the annotation of this SBML object.
- */
-void
-SpeciesReference::syncAnnotation ()
-{
-  SBase::syncAnnotation();
 }
 /** @endcond */
 
@@ -1691,9 +1556,9 @@ ListOfSpeciesReferences::getItemTypeCode () const
     return SBML_MODIFIER_SPECIES_REFERENCE;
   case Unknown:
     return SBML_UNKNOWN;
+  default:
+    return SBML_UNKNOWN;
   }
-  //Shouldn't reach:  all enum values accounted for above
-  return SBML_UNKNOWN;
 }
 
 
@@ -1718,12 +1583,12 @@ ListOfSpeciesReferences::getElementName () const
 /**
  * Used by ListOfSpeciesReferences::get() to lookup an SBase based by its id.
  */
-struct IdEqSSR : public unary_function<SBase*, bool>
+struct IdEqSSR
 {
   const string& mId;
 
-  IdEqSSR (const string& id) : mId(id) { }
-  bool operator() (SBase* sb)
+  explicit IdEqSSR (const string& id) : mId(id) { }
+  bool operator() (SBase* sb) const
        { return (static_cast <SimpleSpeciesReference *> (sb)->getId()  == mId)
          || (static_cast <SimpleSpeciesReference *> (sb)->getSpecies() == mId); } 
 };
@@ -1875,12 +1740,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
       {
         object = new SpeciesReference(getSBMLNamespaces());
       }
-      catch (SBMLConstructorException*)
-      {
-        object = new SpeciesReference(SBMLDocument::getDefaultLevel(),
-        SBMLDocument::getDefaultVersion());
-      }
-      catch ( ... )
+      catch (SBMLConstructorException)
       {
         object = new SpeciesReference(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1899,12 +1759,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
       {
         object = new SpeciesReference(getSBMLNamespaces());
       }
-      catch (SBMLConstructorException*)
-      {
-        object = new SpeciesReference(SBMLDocument::getDefaultLevel(),
-        SBMLDocument::getDefaultVersion());
-      }
-      catch ( ... )
+      catch (SBMLConstructorException)
       {
         object = new SpeciesReference(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1920,12 +1775,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
       {
         object = new ModifierSpeciesReference(getSBMLNamespaces());
       }
-      catch (SBMLConstructorException*)
-      {
-        object = new ModifierSpeciesReference(SBMLDocument::getDefaultLevel(),
-        SBMLDocument::getDefaultVersion());
-      }
-      catch ( ... )
+      catch (SBMLConstructorException)
       {
         object = new ModifierSpeciesReference(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1941,12 +1791,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
       {
         object = new ModifierSpeciesReference(getSBMLNamespaces());
       }
-      catch (SBMLConstructorException*)
-      {
-        object = new ModifierSpeciesReference(SBMLDocument::getDefaultLevel(),
-        SBMLDocument::getDefaultVersion());
-      }
-      catch ( ... )
+      catch (SBMLConstructorException)
       {
         object = new ModifierSpeciesReference(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -2033,7 +1878,7 @@ void
 SpeciesReference_free (SpeciesReference_t *sr)
 {
   if (sr != NULL)
-  delete sr;
+    delete sr;
 }
 
 
@@ -2059,7 +1904,7 @@ SpeciesReference_initDefaults (SpeciesReference_t *sr)
 
 LIBSBML_EXTERN
 const XMLNamespaces_t *
-SpeciesReference_getNamespaces(SpeciesReference_t *sr)
+SpeciesReference_getNamespaces(const SpeciesReference_t *sr)
 {
   return (sr != NULL) ? sr->getNamespaces() : NULL;
 }

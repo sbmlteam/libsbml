@@ -235,15 +235,6 @@ SBMLError::SBMLError (  const unsigned int errorId
     {
       // The id is in the range of error numbers that are supposed to be in
       // the SBML layer, but it's NOT in our table. This is an internal error.
-      // Unfortunately, we don't have an error log or anywhere to report it
-      // except the measure of last resort: the standard error output.
-    
-      //cerr << "Internal error: unknown error code '" << mErrorId
-      //     << "' encountered while processing error." << endl;
-      //return;
-      // Changed this behaviour
-
-      // Now we log the error as an UnKnown Error and mark it as invalid
 
       mValidError = false;
     }
@@ -397,9 +388,9 @@ SBMLError::SBMLError (  const unsigned int errorId
         else {
           mSeverity = severity;
         }
-        mCategory = sbext->getCategory(index);
+        mCategory = sbext->getCategory(index, pkgVersion);
         mMessage = sbext->getMessage(index, pkgVersion, details);
-        mShortMessage = sbext->getShortMessage(index);
+        mShortMessage = sbext->getShortMessage(index, pkgVersion);
         mPackage = package;
         mErrorIdOffset = sbext->getErrorIdOffset();
       }
@@ -425,23 +416,6 @@ SBMLError::SBMLError (  const unsigned int errorId
   mCategory       = category;
   mSeverityString = stringForSeverity(mSeverity);
   mCategoryString = stringForCategory(mCategory);
-}
-
-
-/*
- * Copy Constructor
- */
-SBMLError::SBMLError(const SBMLError& orig) :
- XMLError(orig)
-{
-}
-
-
- /*
- * Destroys this SBMLError.
- */
-SBMLError::~SBMLError ()
-{
 }
 
 
@@ -489,9 +463,7 @@ SBMLError::print(ostream& s) const
 void
 SBMLError::adjustErrorId(unsigned int)
 {
-  // actually dont do this since it means a user cannot 
-  // look for the specific error
-  //mErrorId = mErrorId - offset;
+  // TODO deprecate this unused function
 }
 /** @endcond */
 

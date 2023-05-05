@@ -61,11 +61,7 @@ LIBSBML_CPP_NAMESPACE_USE
 class MyCustomValidator : public SBMLValidator
 {
 public:
-  MyCustomValidator() : SBMLValidator() {}
-  MyCustomValidator(const MyCustomValidator& orig) : SBMLValidator(orig) {
-
-  }
-  virtual ~MyCustomValidator() {}
+  // Implicitly defined constructors are adequate here
 
   virtual SBMLValidator* clone() const { return new MyCustomValidator(*this); }
 
@@ -117,7 +113,6 @@ public:
     return numErrors;
   }
 
-  
 };
 
 

@@ -227,3 +227,13 @@ TestRunner
 # temporary files during testing
 src/sbml/test/test-data/tempOut.xml
 dev/packages/create_archives/*.zip
+
+# temporary files during documentation generation
+docs/src/common-text/libsbml-group-spatial-intro.html
+docs/src/doxygen-config-common.txt
+docs/src/doxygen-config-c.1.txt
+docs/src/doxygen-config-c.2.txt
+docs/src/doxygen-config-cpp.1.txt
+docs/src/doxygen-config-cpp.2.txt
+docs/src/doxygen-config-python.1.txt
+docs/src/doxygen-config-python.2.txt

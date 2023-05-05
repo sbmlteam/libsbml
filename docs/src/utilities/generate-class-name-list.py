@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # @file   generate-class-name-list.py
 # @brief  Generate a list of class & enum names defined in libSBML

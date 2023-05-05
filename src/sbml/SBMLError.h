@@ -1220,19 +1220,6 @@ public:
   );
 
 
-  /**
-   * Copy constructor; creates a copy of this SBMLError.
-   *
-   * @param orig the instance to copy.
-   */
-  SBMLError(const SBMLError& orig);
-
-  /**
-   * Destroys this SBMLError.
-   */
-  virtual ~SBMLError();
-
-
 #ifndef SWIG
 
   /** @cond doxygenLibsbmlInternal **/

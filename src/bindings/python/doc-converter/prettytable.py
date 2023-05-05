@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Copyright (c) 2009-2013, Luke Maurits <luke@maurits.id.au>
 # All rights reserved.

@@ -1,2 +1,7 @@
 runTests.log
 *.mex*
+testout.xml
+mytest.m
+*.asv
+test/Out-test1/*
+

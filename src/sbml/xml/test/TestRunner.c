@@ -39,14 +39,19 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#include <string.h>
 #include <check.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <sbml/common/extern.h>
+#include <sbml/util/memory.h>
 
 #ifdef LIBSBML_USE_VLD
   #include <vld.h>
 #endif
 
 #if defined(__cplusplus)
+LIBSBML_CPP_NAMESPACE_USE
 CK_CPPSTART
 #endif
 
@@ -66,10 +71,48 @@ Suite *create_suite_XMLOutputStream (void);
 Suite *create_suite_XMLAttributes_C (void);
 Suite *create_suite_XMLExceptions (void);
 
+/**
+ * Global.
+ *
+ * Declared extern in TestAnnotation suite.
+ */
+char *TestDataDirectory;
+
+
+/**
+ * Sets TestDataDirectory for the the TestAnnotation suite.
+ *
+ * For Automake's distcheck target to work properly, TestDataDirectory must
+ * begin with the value of the environment variable SRCDIR.
+ */
+void
+setTestDataDirectory (void)
+{
+  char *srcdir = getenv("srcdir");
+  size_t  length  = (srcdir == NULL) ? 0 : strlen(srcdir);
+
+
+  /**
+   * strlen("/test-data/") = 11 + 1 (for NULL) = 12
+   */
+  TestDataDirectory = (char *) safe_calloc( length + 12, sizeof(char) );
+
+  if (srcdir != NULL)
+  {
+    strcpy(TestDataDirectory, srcdir);
+    strcat(TestDataDirectory, "/");
+  }
+
+  strcat(TestDataDirectory, "test-data/");
+}
+
+
 int
 main (int argc, char* argv[]) 
 { 
   int num_failed = 0;
+  setTestDataDirectory();
+//  SRunner *runner = srunner_create(create_suite_XMLNode());
   SRunner *runner = srunner_create(create_suite_XMLAttributes());
   srunner_add_suite(runner, create_suite_CopyAndClone());
 
@@ -96,6 +139,8 @@ main (int argc, char* argv[])
   num_failed = srunner_ntests_failed(runner);
 
   srunner_free(runner);
+
+  free(TestDataDirectory);
 
   return num_failed;
 }

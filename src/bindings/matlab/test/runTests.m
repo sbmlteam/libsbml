@@ -3,5 +3,5 @@
 %% 
 addpath('..')
 addpath('../../..')
-testBinding
-exit
+fail = testBinding
+exit(fail)

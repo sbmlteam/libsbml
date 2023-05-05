@@ -40,7 +40,12 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CSGeometry
- * @sbmlbrief{spatial} TODO:Definition of the CSGeometry class.
+ * @sbmlbrief{spatial} CSGeometry (Constructed Solid Geometry) is a type of 
+ * GeometryDefinition that defines a combined, solid, volumetric object from a number
+ * of primitive solid volumes by the application of set operations such as union,
+ * intersection and difference and affine transformations such as rotation, scaling,
+ * translation, etc. The CSGeometry element is defined by a listOfCSGObjects element 
+ * that contains a collection of CSGObjects. 
  */
 
 

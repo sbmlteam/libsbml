@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## @file    callExternalValidator.py
 ## @brief   Example that shows how to call an external program for validation

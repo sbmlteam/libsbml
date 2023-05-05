@@ -40,7 +40,23 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class MixedGeometry
- * @sbmlbrief{spatial} TODO:Definition of the MixedGeometry class.
+ * @sbmlbrief{spatial} A MixedGeometry defines a Geometry constructed from a
+ * collection of various GeometryDefinition objects that together define the
+ * complete geometry for the Model. It has a child ListOfGeometryDefinitions
+ * object that behaves exactly the same as the ListOfGeometryDefinitions child of
+ * the Geometry, but instead of that collection of geometry definitions defining
+ * alternate geometries, or alternate ways to define one geometry, the collection
+ * of geometry definitions in a MixedGeometry together define a single space. For
+ * example, a MixedGeometry may contain a ParametricGeometry that defines the
+ * contours of a cell membrane, plus a CSGeometry that defines a sphere that
+ * models the nucleus of that cell. The definition of a MixedGeometry is shown in
+ * figmixedgeometry-uml. Its OrdinalMapping children define how those geometries
+ * overlap one another.
+ *
+ * Note that every child GeometryDefinition of a MixedGeometry must have an
+ * isActive ue of false. 'Active' geometries are a concept that applies only to
+ * the Model and its direct children, not to component geometries of a
+ * MixedGeometry.
  */
 
 

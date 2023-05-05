@@ -651,8 +651,8 @@ SyntaxChecker::isUnicodeLetter(std::string::iterator it, unsigned int numBytes)
 
 
   unsigned char c1 = (unsigned char)*it;
-  unsigned char c2 ;/* = *(it+1); */
-  unsigned char c3 ;/* = *(it+2); */
+  unsigned char c2;
+  unsigned char c3;
   
   switch (numBytes)
   {
@@ -1344,8 +1344,8 @@ SyntaxChecker::isUnicodeDigit(std::string::iterator it, unsigned int numBytes)
 
 
   unsigned char c1 = (unsigned char)*it;
-  unsigned char c2 ;/* = *(it+1); */
-  unsigned char c3 ;/* = *(it+2); */
+  unsigned char c2;
+  unsigned char c3;
   
   switch (numBytes)
   {
@@ -1585,8 +1585,8 @@ SyntaxChecker::isCombiningChar(std::string::iterator it, unsigned int numBytes)
   */
 
   unsigned char c1 = (unsigned char)*it;
-  unsigned char c2 ;/* = *(it+1); */
-  unsigned char c3 ;/* = *(it+2); */
+  unsigned char c2;
+  unsigned char c3;
   
   switch (numBytes)
   {
@@ -1987,8 +1987,8 @@ SyntaxChecker::isExtender(std::string::iterator it, unsigned int numBytes)
   */
 
   unsigned char c1 = (unsigned char)*it;
-  unsigned char c2 ;/* = *(it+1); */
-  unsigned char c3 ;/* = *(it+2); */
+  unsigned char c2;
+  unsigned char c3;
   
   switch (numBytes)
   {

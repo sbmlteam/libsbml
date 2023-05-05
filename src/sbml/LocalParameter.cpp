@@ -383,35 +383,6 @@ LocalParameter::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Returns the value of the "attributeName" attribute of this LocalParameter.
- */
-//int
-//LocalParameter::getAttribute(const std::string& attributeName,
-//                             const char* value) const
-//{
-//  int return_value = SBase::getAttribute(attributeName, value);
-//
-//  if (return_value == LIBSBML_OPERATION_SUCCESS)
-//  {
-//    return return_value;
-//  }
-//
-//  if (attributeName == "units")
-//  {
-//    value = getUnits().c_str();
-//    return_value = LIBSBML_OPERATION_SUCCESS;
-//  }
-//
-//  return return_value;
-//}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this LocalParameter's attribute
  * "attributeName" is set.
  */
@@ -528,29 +499,6 @@ LocalParameter::setAttribute(const std::string& attributeName,
 
   return return_value;
 }
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this LocalParameter.
- */
-//int
-//LocalParameter::setAttribute(const std::string& attributeName,
-//                             const char* value)
-//{
-//  int return_value = SBase::setAttribute(attributeName, value);
-//
-//  if (attributeName == "units")
-//  {
-//    return_value = setUnits(value);
-//  }
-//
-//  return return_value;
-//}
 
 /** @endcond */
 
@@ -698,7 +646,7 @@ ListOfLocalParameters::get(unsigned int n) const
 /**
  * Used by ListOf::get() to lookup an SBase based by its id.
  */
-struct IdEqP : public unary_function<SBase*, bool>
+struct IdEqP
 {
   const string& mId;
 

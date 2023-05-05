@@ -31,22 +31,12 @@
 #
 ###############################################################################
 
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.12...3.19)
 project(libsbml)
 
-if(POLICY CMP0054)
-    cmake_policy(SET CMP0054 NEW)
-endif()
-
-if(POLICY CMP0058)
-    cmake_policy(SET CMP0058 OLD)
-endif()
-
-
-
-set(LIBSBML_ROOT_SOURCE_DIR "${CMAKE_SOURCE_DIR}" CACHE PATH
+set(LIBSBML_ROOT_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}" CACHE PATH
     "Path to the libSBML root source directory")
-set(LIBSBML_ROOT_BINARY_DIR "${CMAKE_BINARY_DIR}" CACHE PATH
+set(LIBSBML_ROOT_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}" CACHE PATH
     "Path to the libSBML root build directory")
 
 include (CMakeTestCCompiler)
@@ -134,6 +124,7 @@ add_custom_target(check COMMAND ${CMAKE_MAKE_PROGRAM} test)
 # cpack -G zip|deb|rpm|dmg|nsis
 #
 
+set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_NO_WARNINGS ON)
 include(InstallRequiredSystemLibraries)
 
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "An API library for reading/writing/manipulating SBML.")
@@ -167,6 +158,13 @@ endif()
 include(CPack)
 
 
+# add local modules to module path
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules;${CMAKE_MODULE_PATH}")
+
+# install find modules, so they can readily be used by others: start with libSBML
+set (LIBSBML_FIND_MODULES "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/FindLIBSBML.cmake")
+
+
 ###############################################################################
 #
 # Here we have the main configuration options for libsbml.
@@ -193,7 +191,7 @@ option(WITH_STABLE_PACKAGES "Compile libSBML with all stable packages." OFF)
 option(WITH_ALL_PACKAGES    "Compile libSBML with all packages." OFF)
 
 if (WITH_ALL_PACKAGES)
-  set(_EXPERIMENTAL_PACKGES "arrays;dyn;spatial;REQUIREDELEMENTS")
+  set(_EXPERIMENTAL_PACKGES "arrays;dyn;REQUIREDELEMENTS")
   foreach(package ${_EXPERIMENTAL_PACKGES})
     string(TOUPPER ${package} package_upper)
     string(CONCAT package_option "ENABLE_" ${package_upper})
@@ -203,7 +201,7 @@ if (WITH_ALL_PACKAGES)
 endif(WITH_ALL_PACKAGES)
 
 if (WITH_STABLE_PACKAGES)
-  set(_STABLE_PACKGES "comp;distrib;fbc;groups;layout;multi;qual;render")
+  set(_STABLE_PACKGES "comp;distrib;fbc;groups;layout;multi;qual;render;spatial")
   foreach(package ${_STABLE_PACKGES})
     string(TOUPPER ${package} package_upper)
     string(CONCAT package_option "ENABLE_" ${package_upper})
@@ -297,23 +295,25 @@ option (LIBSBML_SHARED_VERSION
 "Include version information into the compiled libSBML shared library." ON)
 mark_as_advanced(LIBSBML_SHARED_VERSION)
 
-# Enable the generation of unit tests. If enabled, all test runners
-# will be created and can be run with "make test" or ctest.
-# This won't work in Visual Studio 2003, so we disable this option there.
-#
-if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio 6" AND NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio 7")
-    option(WITH_CHECK
-"Compile the libSBML unit tests. (You can then run the tests with the
-command 'make test' or 'ctest'.)" OFF)
+# initial value for xml2 parser will default to ON, 
+# unless expat or xerces are chosen
+set(WITH_LIBXML_INITIAL ON)
+if (WITH_EXPAT OR WITH_XERCES)
+set(WITH_LIBXML_INITIAL OFF)
 endif()
 
 # Choose the xml parsing library to be used.
 option(WITH_EXPAT    "Use the Expat XML parser library."     OFF)
-option(WITH_LIBXML   "Use the libxml2 XML parser library."   ON )
+option(WITH_LIBXML   "Use the libxml2 XML parser library."   ${WITH_LIBXML_INITIAL})
 option(WITH_XERCES   "Use the Xerces XML parser library."    OFF)
 
 # Use C++ namespace.
 option(WITH_CPP_NAMESPACE "Use a C++ namespace for libSBML."   OFF)
+
+option(WITH_THREADSAFE_PARSER "Use a threadsafe parser."   OFF)
+if(WITH_THREADSAFE_PARSER)
+    add_definitions(-DLIBSBML_WITH_THREADSAFE_PARSER=1)
+endif()
 
 # Generate documentation.
 option(WITH_DOXYGEN  "Generate documentation for libSBML using Doxygen."  OFF )
@@ -418,64 +418,20 @@ set(LIBSBML_XML_LIBRARY_INCLUDE)
 set(LIBSBML_XML_LIBRARY_LIBS)
 
 if(WITH_EXPAT)
-  if (NOT LIBEXPAT_LIBRARY)
-    find_library(LIBEXPAT_LIBRARY
-        NAMES libexpat.lib expat
-        PATHS ${LIBSBML_DEPENDENCY_DIR}/lib
-              /usr/lib /usr/local/lib
-              /usr/lib/i386-linux-gnu
-        DOC "The file name of the Expat library."
-                )
-
-  endif()
-
-  if (NOT LIBEXPAT_INCLUDE_DIR)
-    find_path(LIBEXPAT_INCLUDE_DIR
-        NAMES expat.h
-        PATHS ${LIBSBML_DEPENDENCY_DIR}/include
-              /usr/include /usr/local/include
-              ${CMAKE_OSX_SYSROOT}/usr/include
-        DOC "The directory containing the Expat include files."
-              )
-  endif()
+  
+    if(NOT TARGET EXPAT::EXPAT)
+    find_package(EXPAT REQUIRED)
+    endif()
 
     add_definitions( -DUSE_EXPAT )
     list(APPEND SWIG_EXTRA_ARGS -DUSE_EXPAT)
 
     set(LIBSBML_XML_LIBRARY "expat")
-    set(LIBSBML_XML_LIBRARY_INCLUDE ${LIBEXPAT_INCLUDE_DIR})
-    set(LIBSBML_XML_LIBRARY_LIBS ${LIBEXPAT_LIBRARY})
+    set(LIBSBML_XML_LIBRARY_INCLUDE ${EXPAT_INCLUDE_DIR})
+    set(LIBSBML_XML_LIBRARY_LIBS ${EXPAT_LIBRARY})
 
-    if(NOT EXISTS "${LIBEXPAT_INCLUDE_DIR}/expat.h")
-        message(FATAL_ERROR
-"The include directory specified for Expat appears to be invalid.
-It should contain the file expat.h, but it does not.")
-    else()
-        if (LIBEXPAT_INCLUDE_DIR AND EXISTS "${LIBEXPAT_INCLUDE_DIR}/expat.h")
-            file(STRINGS "${LIBEXPAT_INCLUDE_DIR}/expat.h" expat_version_str
-                 REGEX "^#[\t ]*define[\t ]+XML_(MAJOR|MINOR|MICRO)_VERSION[\t ]+[0-9]+$")
+    list(APPEND LIBSBML_FIND_MODULES "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/FindEXPAT.cmake")
 
-            unset(EXPAT_VERSION_STRING)
-            foreach(VPART MAJOR MINOR MICRO)
-                foreach(VLINE ${expat_version_str})
-                    if(VLINE MATCHES "^#[\t ]*define[\t ]+XML_${VPART}_VERSION[\t ]+([0-9]+)$")
-                        set(EXPAT_VERSION_PART "${CMAKE_MATCH_1}")
-                        if(EXPAT_VERSION_STRING)
-                            set(EXPAT_VERSION_STRING "${EXPAT_VERSION_STRING}.${EXPAT_VERSION_PART}")
-                        else()
-                            set(EXPAT_VERSION_STRING "${EXPAT_VERSION_PART}")
-                        endif()
-                    endif()
-                endforeach()
-            endforeach()
-
-            if (EXPAT_VERSION_STRING VERSION_LESS 1.95.9)
-                     message(FATAL_ERROR
-"Expat version ${EXPAT_VERSION_STRING} is not compatible with libSBML.
-Please use a version newer than 1.95.8 or an alternate XML parser.")
-            endif()
-        endif()
-    endif()
 endif(WITH_EXPAT)
 
 
@@ -485,28 +441,9 @@ endif(WITH_EXPAT)
 #
 set(USE_LIBXML OFF)
 if(WITH_LIBXML)
-  if (NOT LIBXML_LIBRARY)
-    find_library(LIBXML_LIBRARY
-        NAMES libxml2.lib xml2
-        PATHS /usr/lib /usr/local/lib
-              ${LIBSBML_DEPENDENCY_DIR}/lib
-        DOC "The file name of the libxml2 library."
-                )
-  endif()
 
-  if (NOT LIBXML_INCLUDE_DIR)
-    find_path(LIBXML_INCLUDE_DIR
-        NAMES libxml/parser.h
-        PATHS ${LIBSBML_DEPENDENCY_DIR}/include
-              /usr/include /usr/local/include
-              /usr/include/libxml2
-              ${CMAKE_OSX_SYSROOT}/usr/include/libxml2
-              /usr/local/include/libxml2
-
-        DOC "The directory containing the libxml2 include files."
-              )
-  endif()
-
+  find_package(LIBXML REQUIRED)
+  
   add_definitions( -DUSE_LIBXML )
   list(APPEND SWIG_EXTRA_ARGS -DUSE_LIBXML)
   set(USE_LIBXML ON)
@@ -515,11 +452,8 @@ if(WITH_LIBXML)
   set(LIBSBML_XML_LIBRARY_INCLUDE ${LIBXML_INCLUDE_DIR})
   set(LIBSBML_XML_LIBRARY_LIBS ${LIBXML_LIBRARY})
 
-  if(NOT EXISTS "${LIBXML_INCLUDE_DIR}/libxml/parser.h")
-        message(FATAL_ERROR
-"The include directory specified for libxml appears to be invalid.
-It should contain the file libxml/parser.h, but it does not.")
-  endif()
+  list(APPEND LIBSBML_FIND_MODULES "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/FindLIBXML.cmake")
+
 endif(WITH_LIBXML)
 
 
@@ -529,69 +463,17 @@ endif(WITH_LIBXML)
 #
 
 if(WITH_XERCES)
+
+    find_package(XERCES REQUIRED)
+
     add_definitions( -DUSE_XERCES )
     list(APPEND SWIG_EXTRA_ARGS -DUSE_XERCES)
-
-    find_library(XERCES_LIBRARY
-        NAMES xerces-c_3.lib xerces-c
-        PATHS /usr/lib /usr/local/lib
-              ${LIBSBML_DEPENDENCY_DIR}/lib
-        DOC "The file name of the Xerces library."
-                )
-
-    find_path(XERCES_INCLUDE_DIR
-        NAMES xercesc/parsers/XercesDOMParser.hpp
-        PATHS /usr/include /usr/local/include
-              ${CMAKE_OSX_SYSROOT}/usr/include/xercesc
-              /usr/include/xercesc
-              /usr/local/include/xercesc
-              ${LIBSBML_DEPENDENCY_DIR}/include
-        DOC "The directory containing the Xerces include files."
-              )
-
-    if (EXISTS "${XERCES_INCLUDE_DIR}/xercesc/util/XercesVersion.hpp")
-        function(_myXercesC_GET_VERSION  version_hdr)
-            file(STRINGS ${version_hdr} _contents REGEX "^[ \t]*#define XERCES_VERSION_.*")
-            if(_contents)
-                string(REGEX REPLACE ".*#define XERCES_VERSION_MAJOR[ \t]+([0-9]+).*" "\\1" XercesC_MAJOR "${_contents}")
-                string(REGEX REPLACE ".*#define XERCES_VERSION_MINOR[ \t]+([0-9]+).*" "\\1" XercesC_MINOR "${_contents}")
-                string(REGEX REPLACE ".*#define XERCES_VERSION_REVISION[ \t]+([0-9]+).*" "\\1" XercesC_PATCH "${_contents}")
-
-                if(NOT XercesC_MAJOR MATCHES "^[0-9]+$")
-                    message(FATAL_ERROR "Version parsing failed for XERCES_VERSION_MAJOR!")
-                endif()
-                if(NOT XercesC_MINOR MATCHES "^[0-9]+$")
-                    message(FATAL_ERROR "Version parsing failed for XERCES_VERSION_MINOR!")
-                endif()
-                if(NOT XercesC_PATCH MATCHES "^[0-9]+$")
-                    message(FATAL_ERROR "Version parsing failed for XERCES_VERSION_REVISION!")
-                endif()
-
-                set(XercesC_VERSION "${XercesC_MAJOR}.${XercesC_MINOR}.${XercesC_PATCH}" PARENT_SCOPE)
-            else()
-                message(FATAL_ERROR "Include file ${version_hdr} does not exist or does not contain expected version information")
-            endif()
-        endfunction()
-
-        _myXercesC_GET_VERSION("${XERCES_INCLUDE_DIR}/xercesc/util/XercesVersion.hpp")
-        if (XercesC_VERSION VERSION_EQUAL 2.6.0)
-         message(FATAL_ERROR
-"Xerces version ${XercesC_VERSION} contains known bugs
-and is not compatible with libSBML. Please use a newer version of
-Xerces or an alternate XML parser.")
-        endif()
-    endif ()
 
     set(LIBSBML_XML_LIBRARY "xerces-c")
     set(LIBSBML_XML_LIBRARY_INCLUDE ${XERCES_INCLUDE_DIR})
     set(LIBSBML_XML_LIBRARY_LIBS ${XERCES_LIBRARY})
 
-    if(NOT EXISTS "${XERCES_INCLUDE_DIR}/xercesc/parsers/XercesDOMParser.hpp")
-        message(FATAL_ERROR
-"The include directory specified for Xerces appears to be invalid.
-It should contain the file xercesc/parsers/XercesDOMParser.hpp, but
-it does not.")
-    endif()
+    list(APPEND LIBSBML_FIND_MODULES "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/FindXERCES.cmake")
 
 endif(WITH_XERCES)
 
@@ -601,30 +483,7 @@ endif(WITH_XERCES)
 #
 
 set(BZIP_INITIAL_VALUE)
-if (NOT LIBBZ_LIBRARY)
-find_library(LIBBZ_LIBRARY
-    NAMES bzip2.lib bz2 libbz2.lib
-    PATHS /usr/lib /usr/local/lib
-          ${CMAKE_OSX_SYSROOT}/usr/lib
-          ${LIBSBML_DEPENDENCY_DIR}/lib
-          NO_DEFAULT_PATH
-          NO_CMAKE_ENVIRONMENT_PATH
-          NO_CMAKE_PATH
-          NO_SYSTEM_ENVIRONMENT_PATH
-          NO_CMAKE_SYSTEM_PATH
-
-          DOC "The file name of the bzip2 library."
-)
-endif()
-if (NOT LIBBZ_LIBRARY)
-find_library(LIBBZ_LIBRARY
-    NAMES bzip2.lib bz2 libbz2.lib
-    PATHS /usr/lib /usr/local/lib
-          ${CMAKE_OSX_SYSROOT}/usr/lib
-          ${LIBSBML_DEPENDENCY_DIR}/lib
-    DOC "The file name of the bzip2 library."
-)
-endif()
+find_package(BZ2 QUIET)
 
 if(EXISTS ${LIBBZ_LIBRARY})
     set(BZIP_INITIAL_VALUE ON)
@@ -635,55 +494,11 @@ endif()
 option(WITH_BZIP2    "Enable the use of bzip2 compression."  ${BZIP_INITIAL_VALUE})
 set(USE_BZ2 OFF)
 if(WITH_BZIP2)
-
-  if (NOT LIBBZ_INCLUDE_DIR)
-    find_path(LIBBZ_INCLUDE_DIR
-        NAMES bzlib.h bzip2/bzlib.h
-        PATHS ${CMAKE_OSX_SYSROOT}/usr/include
-              /usr/include /usr/local/include
-              ${LIBSBML_DEPENDENCY_DIR}/include
-              NO_DEFAULT_PATH
-        DOC "The directory containing the bzip2 include files."
-        )
-  endif()
-
-  if (NOT LIBBZ_INCLUDE_DIR)
-      find_path(LIBBZ_INCLUDE_DIR
-        NAMES bzlib.h bzip2/bzlib.h
-        PATHS ${CMAKE_OSX_SYSROOT}/usr/include
-              /usr/include /usr/local/include
-              ${LIBSBML_DEPENDENCY_DIR}/include
-        DOC "The directory containing the bzip2 include files."
-              )
-  endif()
-
-    set(USE_BZ2 ON)
-    add_definitions( -DUSE_BZ2 )
+  find_package(BZ2 REQUIRED)
+  set(USE_BZ2 ON)
+  add_definitions( -DUSE_BZ2 )
   list(APPEND SWIG_EXTRA_ARGS -DUSE_BZ2)
-
-    # make sure that we have a valid bzip2 library
-    file(TO_CMAKE_PATH "${LIBBZ_LIBRARY}" LIBBZ2_CMAKE_PATH)
-    check_library_exists("${LIBBZ2_CMAKE_PATH}" "BZ2_bzCompressInit" "" LIBBZ_FOUND_SYMBOL)
-    if(NOT LIBBZ_FOUND_SYMBOL)
-        # this is odd, but on windows this check always fails! must be a
-        # bug in the current cmake version so for now only issue this
-        # warning on linux
-        if(UNIX)
-            message(WARNING
-"The chosen bz2 library does not appear to be valid because it is
-missing some required symbols. Please check that ${LIBBZ_LIBRARY}
-is the bzip2 library. For details about the error, please see
-${LIBSBML_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
-        endif()
-    endif()
-    if(NOT EXISTS "${LIBBZ_INCLUDE_DIR}/bzlib.h")
-        message(FATAL_ERROR
-"The include directory specified for the bz2 library does not
-appear to be valid.  It should contain the file bzlib.h, but
-it does not.")
-    endif()
-
-
+  list(APPEND LIBSBML_FIND_MODULES "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/FindBZ2.cmake")
 endif(WITH_BZIP2)
 
 
@@ -785,8 +600,20 @@ ${LIBSBML_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
 valid. It should contain the file zlib.h, but it does not.")
     endif()
 
+  if(NOT TARGET ZLIB::ZLIB)
+    add_library(ZLIB::ZLIB UNKNOWN IMPORTED)
+    set_target_properties(ZLIB::ZLIB PROPERTIES
+      IMPORTED_LINK_INTERFACE_LANGUAGES "C"
+      IMPORTED_LOCATION "${LIBZ_LIBRARY}"
+      INTERFACE_INCLUDE_DIRECTORIES "${LIBZ_INCLUDE_DIR}")
+  endif()
+
+  list(APPEND LIBSBML_FIND_MODULES "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/FindZLIB.cmake")
+
 endif(WITH_ZLIB)
 
+# install find scripts only for used dependencies
+install(FILES ${LIBSBML_FIND_MODULES} DESTINATION share/cmake/Modules)
 
 ###############################################################################
 #
@@ -837,36 +664,13 @@ endif(WITH_CSHARP)
 
 if(WITH_CHECK)
 
-    # we do use tests, that require 2.8.4
-    cmake_minimum_required(VERSION 2.8.4)
+  # set test timeout to 3000 as the normal time limit is not sufficient
+  # for the comp tests
+  SET(DART_TESTING_TIMEOUT "3000" CACHE STRING "" FORCE)
 
-    # set test timeout to 3000 as the normal time limit is not sufficient
-    # for the comp tests
-    SET(DART_TESTING_TIMEOUT "3000" CACHE STRING "" FORCE)
+  enable_testing()
 
-    enable_testing()
-
-    find_library(LIBCHECK_LIBRARY
-        NAMES check libcheck
-        PATHS /usr/lib /usr/local/lib ${LIBSBML_DEPENDENCY_DIR}/lib
-        DOC "The file name of the libcheck library."
-    )
-
-    find_path(LIBCHECK_INCLUDE_DIR
-        NAMES check.h
-        PATHS /usr/include /usr/local/include  ${LIBSBML_DEPENDENCY_DIR}/include
-        DOC "The directory containing the libcheck include files."
-              )
-
-    if(NOT EXISTS "${LIBCHECK_INCLUDE_DIR}/check.h")
-        message(FATAL_ERROR
-"The include directory specified for the 'check' library appears to be
-invalid. It should contain the file check.h, but it does not.")
-    endif()
-
-    if(${CMAKE_GENERATOR} MATCHES "Visual Studio 6" OR ${CMAKE_GENERATOR} MATCHES "Visual Studio 7")
-        message(WARNING "Libcheck is not compatible with Visual Studio 2003 (or earlier versions).")
-    endif()
+  find_package(CHECK REQUIRED)
 
   if (UNIX)
       # setup valgrind
@@ -878,77 +682,10 @@ invalid. It should contain the file check.h, but it does not.")
          "${CMAKE_MEMORYCHECK_COMMAND} ${CMAKE_MEMORYCHECK_COMMAND_OPTIONS}")
       separate_arguments(MEMCHECK_COMMAND)
 
-      # check that check compiles/links - needs cmake 3+
-
-      if(${CMAKE_VERSION} VERSION_GREATER 3.0.0)
-        set(CHECK_CHECK_CODE
-        "
-        #include <check.h>
-        
-        START_TEST (sanity_check)
-        {
-            fail_unless(5 == 5, \"this should succeed\");
-            fail_unless(6 == 5, \"this should fail\");
-        }
-        END_TEST
-        
-        int 
-        main(void)
-        {
-            Suite *s1 = suite_create(\"Core\");
-            TCase *tc1_1 = tcase_create(\"Core\");
-            SRunner *sr = srunner_create(s1);
-            int nf;
-        
-            suite_add_tcase(s1, tc1_1);
-            tcase_add_test(tc1_1, sanity_check);
-        
-            srunner_run_all(sr, CK_ENV);
-            nf = srunner_ntests_failed(sr);
-            srunner_free(sr);
-            ;
-            return nf == 0 ? 0 : 1;
-        }
-        " 
-        )
-
-        set(CMAKE_REQUIRED_LIBRARIES_CACHE ${CMAKE_REQUIRED_LIBRARIES})
-        unset(CHECK_CHECK_TEST CACHE)
-        unset(CHECK_CHECK_TEST2 CACHE)
-
-        set(CHECK_CHECK_TEST)
-        set(CMAKE_REQUIRED_LIBRARIES "-lcheck -lm ${EXTRA_LIBS}")
-        CHECK_C_SOURCE_COMPILES("${CHECK_CHECK_CODE}" CHECK_CHECK_TEST)
-
-        if (NOT CHECK_CHECK_TEST)
-            set(CHECK_CHECK_TEST2)
-            set(CMAKE_REQUIRED_LIBRARIES "-lcheck -lm -pthread -lrt -lsubunit ${EXTRA_LIBS}")
-            CHECK_C_SOURCE_COMPILES("${CHECK_CHECK_CODE}" CHECK_CHECK_TEST2)
-            
-            if (CHECK_CHECK_TEST2)
-                set(CHECK_TMP_LIBS "-pthread -lrt -lsubunit ${EXTRA_LIBS}")
-                string(STRIP "${CHECK_TMP_LIBS}" CHECK_TMP_LIBS)
-                set(EXTRA_LIBS "${CHECK_TMP_LIBS}" CACHE STRING
-                "List of additional libraries to link against.  Separate multiple
-                names using semicolons." FORCE)                
-                unset(CHECK_TMP_LIBS)
-                message(STATUS "Check requires the following EXTRA_LIBS : ${EXTRA_LIBS}")
-            else ()
-                message(WARNING
-"Check cannot compile tests, please specify the correct EXTRA_LIBS for your operating system.")            
-            endif (CHECK_CHECK_TEST2)
-            unset(CHECK_CHECK_TEST2 CACHE)
-
-        endif (NOT CHECK_CHECK_TEST)
-
-        unset(CHECK_CHECK_TEST CACHE)
-        set(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_FLAGS_CACHE})
-
-      endif(${CMAKE_VERSION} VERSION_GREATER 3.0.0)
-
   endif(UNIX)
+  
+  include(CTest)
 
-    include(CTest)
 
 endif(WITH_CHECK)
 
@@ -1072,37 +809,6 @@ other operating systems.)" OFF)
         set(BUILD_DEFINITIONS "${BUILD_DEFINITIONS} -DLINUX")
     endif(APPLE)
 
-    if(WITH_CHECK)
-        if(CMAKE_VERSION VERSION_GREATER "3.0.0")
-            # https://cmake.org/cmake/help/v3.0/module/CheckCXXSourceCompiles.html
-            # CMAKE_REQUIRED_FLAGS = string of compile command line flags
-            # CMAKE_REQUIRED_DEFINITIONS = list of macros to define (-DFOO=bar)
-            # CMAKE_REQUIRED_INCLUDES = list of include directories
-            # CMAKE_REQUIRED_LIBRARIES = list of libraries to link
-            
-            # <code>       - source code to try to compile, must define 'main'
-            # <var>        - variable to store whether the source code compiled
-            # <fail-regex> - fail if test output matches this regex
-
-            # set(CMAKE_REQUIRED_LIBRARIES "${EXTRA_LIBS}")
-            # CHECK_CXX_SOURCE_COMPILES(<code> <var> [FAIL_REGEX <fail-regex>])
-
-            # set(CMAKE_REQUIRED_LIBRARIES "-lrt -lpthread -lsubunit")
-            # CHECK_CXX_SOURCE_COMPILES(<code> <var> [FAIL_REGEX <fail-regex>])
-
-            # set(CMAKE_REQUIRED_LIBRARIES "-lrt -lpthread")
-            # CHECK_CXX_SOURCE_COMPILES(<code> <var> [FAIL_REGEX <fail-regex>])
-        endif(CMAKE_VERSION VERSION_GREATER "3.0.0")
-        # plan A now extinct
-        #add_subdirectory(dev/utilities/linux-check-libs)
-        #target_link_libraries(${LIBSBML_LIBRARY} ${LIBSBML_LIBS} ${EXTRA_LIBS})
-    endif(WITH_CHECK)
-
-    
-    # not needing these defines, and they do cause warnings
-    # add_definitions( -DPACKAGE_VERSION=\"${PACKAGE_VERSION}\"  -DPACKAGE_NAME=\"${PROJECT_NAME}\")
-    # set(BUILD_DEFINITIONS "${BUILD_DEFINITIONS} -DPACKAGE_VERSION=\"${PACKAGE_VERSION}\"  -DPACKAGE_NAME=\"${PROJECT_NAME}\"")
-
 else(UNIX)
     # not needing these defines, and they do cause warnings
     # add_definitions(-DPACKAGE_VERSION=\"${PACKAGE_VERSION}\"  -DPACKAGE_NAME=\"${PROJECT_NAME}\")
@@ -1125,6 +831,7 @@ else(UNIX)
 
             endforeach(flag_var)
         add_definitions( -D_MT)
+        set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
         endif(WITH_STATIC_RUNTIME)
 
         # on VS enable multiprocessor build
@@ -1175,27 +882,7 @@ else(UNIX)
         INSTALL(FILES ${WIN32_BINARIES} DESTINATION bin)
         file(GLOB WIN32_DEPENDENCIES ${LIBSBML_DEPENDENCY_DIR}/lib/*.lib)
         install(FILES ${WIN32_DEPENDENCIES} DESTINATION lib)
-        if(WITH_LIBXML)
-      if (EXTRA_LIBS STREQUAL "")
-        # populate EXTRA_LIBS variable
-              find_library(LIBICONV_LIBRARY
-                NAMES libiconv.lib iconv.lib iconv
-                PATHS /usr/lib /usr/local/lib
-                      ${CMAKE_OSX_SYSROOT}/usr/lib
-                      ${LIBSBML_DEPENDENCY_DIR}/lib
-                DOC "The file name of the libiconv library."
-              )
 
-        set(ADDITIONAL_LIBS)
-        if (EXISTS ${LIBICONV_LIBRARY})
-        set(ADDITIONAL_LIBS "${ADDITIONAL_LIBS}${LIBICONV_LIBRARY};")
-        endif()
-        if (EXISTS ${LIBZ_LIBRARY})
-        set(ADDITIONAL_LIBS "${ADDITIONAL_LIBS}${LIBZ_LIBRARY};")
-        endif()
-        set(EXTRA_LIBS "WS2_32.lib;${ADDITIONAL_LIBS}" CACHE STRING "List of additional libraries to link against." FORCE)
-      endif()
-    endif()
     elseif(CYGWIN)
         add_definitions(-DCYGWIN)
         set(BUILD_DEFINITIONS "${BUILD_DEFINITIONS} -DCYGWIN")
@@ -1353,10 +1040,11 @@ if (WITH_LIBXML)
 file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "Requires.private: libxml-2.0 >= 2.6.22\n")
 endif()
 
-if (UNIX)
+if (UNIX OR MINGW)
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc"
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 endif()
+
 
 ###############################################################################
 #
@@ -1372,10 +1060,10 @@ libSBML version ${PACKAGE_VERSION}
 ----------------------------------------------------------------------
 
    More information and the latest version are available online at
-   http://sbml.org/Software/libSBML
+   https://sbml.org/software/libsbml/
 
    Please report problems using the issue tracker at
-   http://sbml.org/Software/libsbml/issue-tracker
+   https://github.com/sbmlteam/libsbml/issues
 
    To contact the developers directly, email libsbml-team@googlegroups.com
 

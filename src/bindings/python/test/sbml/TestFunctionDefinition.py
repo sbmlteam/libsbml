@@ -50,13 +50,13 @@ class TestFunctionDefinition(unittest.TestCase):
     pass  
 
   def test_FunctionDefinition_create(self):
-    self.assert_( self.FD.getTypeCode() == libsbml.SBML_FUNCTION_DEFINITION )
-    self.assert_( self.FD.getMetaId() == "" )
-    self.assert_( self.FD.getNotes() == None )
-    self.assert_( self.FD.getAnnotation() == None )
-    self.assert_( self.FD.getId() == "" )
-    self.assert_( self.FD.getName() == "" )
-    self.assert_( self.FD.getMath() == None )
+    self.assertTrue( self.FD.getTypeCode() == libsbml.SBML_FUNCTION_DEFINITION )
+    self.assertTrue( self.FD.getMetaId() == "" )
+    self.assertTrue( self.FD.getNotes() == None )
+    self.assertTrue( self.FD.getAnnotation() == None )
+    self.assertTrue( self.FD.getId() == "" )
+    self.assertTrue( self.FD.getName() == "" )
+    self.assertTrue( self.FD.getMath() == None )
     pass  
 
   def test_FunctionDefinition_createWith(self):
@@ -64,19 +64,19 @@ class TestFunctionDefinition(unittest.TestCase):
     fd = libsbml.FunctionDefinition(2,4)
     fd.setId( "pow3")
     fd.setMath(math)
-    self.assert_( fd.getTypeCode() == libsbml.SBML_FUNCTION_DEFINITION )
-    self.assert_( fd.getMetaId() == "" )
-    self.assert_( fd.getNotes() == None )
-    self.assert_( fd.getAnnotation() == None )
-    self.assert_( fd.getName() == "" )
+    self.assertTrue( fd.getTypeCode() == libsbml.SBML_FUNCTION_DEFINITION )
+    self.assertTrue( fd.getMetaId() == "" )
+    self.assertTrue( fd.getNotes() == None )
+    self.assertTrue( fd.getAnnotation() == None )
+    self.assertTrue( fd.getName() == "" )
     math1 = fd.getMath()
-    self.assert_( math1 != None )
+    self.assertTrue( math1 != None )
     formula = libsbml.formulaToString(math1)
-    self.assert_( formula != None )
-    self.assert_((  "lambda(x, x^3)" == formula ))
-    self.assert_( fd.getMath() != math )
+    self.assertTrue( formula != None )
+    self.assertTrue((  "lambda(x, x^3)" == formula ))
+    self.assertTrue( fd.getMath() != math )
     self.assertEqual( True, fd.isSetMath() )
-    self.assert_((  "pow3" == fd.getId() ))
+    self.assertTrue((  "pow3" == fd.getId() ))
     self.assertEqual( True, fd.isSetId() )
     _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ fd ]; _dummyList[:] = []; del _dummyList
@@ -88,14 +88,14 @@ class TestFunctionDefinition(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(2,1)
     sbmlns.addNamespaces(xmlns)
     object = libsbml.FunctionDefinition(sbmlns)
-    self.assert_( object.getTypeCode() == libsbml.SBML_FUNCTION_DEFINITION )
-    self.assert_( object.getMetaId() == "" )
-    self.assert_( object.getNotes() == None )
-    self.assert_( object.getAnnotation() == None )
-    self.assert_( object.getLevel() == 2 )
-    self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != None )
-    self.assert_( object.getNamespaces().getLength() == 2 )
+    self.assertTrue( object.getTypeCode() == libsbml.SBML_FUNCTION_DEFINITION )
+    self.assertTrue( object.getMetaId() == "" )
+    self.assertTrue( object.getNotes() == None )
+    self.assertTrue( object.getAnnotation() == None )
+    self.assertTrue( object.getLevel() == 2 )
+    self.assertTrue( object.getVersion() == 1 )
+    self.assertTrue( object.getNamespaces() != None )
+    self.assertTrue( object.getNamespaces().getLength() == 2 )
     _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -105,41 +105,41 @@ class TestFunctionDefinition(unittest.TestCase):
 
   def test_FunctionDefinition_getArguments(self):
     self.FD.setMath(libsbml.parseFormula("lambda(x, y, x^y)"))
-    self.assert_( self.FD.getNumArguments() == 2 )
+    self.assertTrue( self.FD.getNumArguments() == 2 )
     math = self.FD.getArgument(0)
-    self.assert_( math != None )
+    self.assertTrue( math != None )
     self.assertEqual( True, math.isName() )
-    self.assert_((  "x" == math.getName() ))
-    self.assert_( math.getNumChildren() == 0 )
+    self.assertTrue((  "x" == math.getName() ))
+    self.assertTrue( math.getNumChildren() == 0 )
     math = self.FD.getArgument(1)
-    self.assert_( math != None )
+    self.assertTrue( math != None )
     self.assertEqual( True, math.isName() )
-    self.assert_((  "y" == math.getName() ))
-    self.assert_( math.getNumChildren() == 0 )
-    self.assert_( self.FD.getArgument(0) == self.FD.getArgument( "x") )
-    self.assert_( self.FD.getArgument(1) == self.FD.getArgument( "y") )
+    self.assertTrue((  "y" == math.getName() ))
+    self.assertTrue( math.getNumChildren() == 0 )
+    self.assertTrue( self.FD.getArgument(0) == self.FD.getArgument( "x") )
+    self.assertTrue( self.FD.getArgument(1) == self.FD.getArgument( "y") )
     pass  
 
   def test_FunctionDefinition_getBody(self):
     math1 = libsbml.parseFormula("lambda(x, x)")
     self.FD.setMath(math1)
     math = self.FD.getBody()
-    self.assert_( math != None )
+    self.assertTrue( math != None )
     self.assertEqual( True, math.isName() )
-    self.assert_((  "x" == math.getName() ))
-    self.assert_( math.getNumChildren() == 0 )
+    self.assertTrue((  "x" == math.getName() ))
+    self.assertTrue( math.getNumChildren() == 0 )
     _dummyList = [ math1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_FunctionDefinition_setId(self):
     id =  "pow3";
     self.FD.setId(id)
-    self.assert_(( id == self.FD.getId() ))
+    self.assertTrue(( id == self.FD.getId() ))
     self.assertEqual( True, self.FD.isSetId() )
     if (self.FD.getId() == id):
       pass    
     self.FD.setId(self.FD.getId())
-    self.assert_(( id == self.FD.getId() ))
+    self.assertTrue(( id == self.FD.getId() ))
     self.FD.setId("")
     self.assertEqual( False, self.FD.isSetId() )
     if (self.FD.getId() != None):
@@ -150,19 +150,19 @@ class TestFunctionDefinition(unittest.TestCase):
     math = libsbml.parseFormula("lambda(x, x^3)")
     self.FD.setMath(math)
     math1 = self.FD.getMath()
-    self.assert_( math1 != None )
+    self.assertTrue( math1 != None )
     formula = libsbml.formulaToString(math1)
-    self.assert_( formula != None )
-    self.assert_((  "lambda(x, x^3)" == formula ))
-    self.assert_( self.FD.getMath() != math )
+    self.assertTrue( formula != None )
+    self.assertTrue((  "lambda(x, x^3)" == formula ))
+    self.assertTrue( self.FD.getMath() != math )
     self.assertEqual( True, self.FD.isSetMath() )
     self.FD.setMath(self.FD.getMath())
     math1 = self.FD.getMath()
-    self.assert_( math1 != None )
+    self.assertTrue( math1 != None )
     formula = libsbml.formulaToString(math1)
-    self.assert_( formula != None )
-    self.assert_((  "lambda(x, x^3)" == formula ))
-    self.assert_( self.FD.getMath() != math )
+    self.assertTrue( formula != None )
+    self.assertTrue((  "lambda(x, x^3)" == formula ))
+    self.assertTrue( self.FD.getMath() != math )
     self.FD.setMath(None)
     self.assertEqual( False, self.FD.isSetMath() )
     if (self.FD.getMath() != None):
@@ -172,12 +172,12 @@ class TestFunctionDefinition(unittest.TestCase):
   def test_FunctionDefinition_setName(self):
     name =  "Cube_Me";
     self.FD.setName(name)
-    self.assert_(( name == self.FD.getName() ))
+    self.assertTrue(( name == self.FD.getName() ))
     self.assertEqual( True, self.FD.isSetName() )
     if (self.FD.getName() == name):
       pass    
     self.FD.setName(self.FD.getName())
-    self.assert_(( name == self.FD.getName() ))
+    self.assertTrue(( name == self.FD.getName() ))
     self.FD.setName("")
     self.assertEqual( False, self.FD.isSetName() )
     if (self.FD.getName() != None):

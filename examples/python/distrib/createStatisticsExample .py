@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # @file    createStatisticsExample.py
 # @brief   SBML distrib example
 # @author  Sarah Keating

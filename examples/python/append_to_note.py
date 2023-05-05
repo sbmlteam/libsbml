@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## \file    append_to_note.py
 ## \brief   adds to the notes of an element in a document
@@ -75,7 +75,7 @@ def addToNotes(doc, id, stringToAdd):
         exit(4)
     print ("Body before change: ")
     print (body.toXMLString())
-    body.addChild(libsbml.XMLNode_convertStringToXMLNode(stringToAdd))
+    body.addChild(libsbml.XMLNode.convertStringToXMLNode(stringToAdd))
     print ("\nBody after change: ")
     print (body.toXMLString())
 

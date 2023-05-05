@@ -76,7 +76,7 @@ main (int argc, char* argv[])
        << "translation. Ctrl-C quits" << endl
        << endl;
 
-  while (1)
+  do
   {
     cout << "Enter infix formula or MathML expression (Ctrl-C to quit):"
          << endl << endl;
@@ -110,7 +110,7 @@ main (int argc, char* argv[])
 
       cin.getline(line, BUFFER_SIZE, '\n');
     }
-  }
+  } while (line != 0);
 
   StringBuffer_free(sb);
   return 0;

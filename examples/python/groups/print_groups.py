@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## @file    print_groups.py
 ## @brief   Example printing the groups contained in an sbml file

@@ -1,0 +1,58 @@
+name: Documentation generation
+
+on: 
+  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize, ready_for_review, reopened] # defaults + ready_to_review
+    branches:
+      - development
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - uses: seanmiddleditch/gha-setup-ninja@master
+
+    - name: Install Ubuntu dependencies
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install --no-install-recommends  -y check ccache doxygen graphviz 
+        git clone https://github.com/libexpat/libexpat
+        cmake -G Ninja -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
+        cmake --build libexpat
+        cmake --install libexpat
+
+    - name: Create Build Environment
+      run: cmake -E make_directory ${{runner.workspace}}/build
+
+    # - name: Setup tmate session
+    #   uses: mxschmitt/action-tmate@v3
+
+    - name: Configure
+      shell: bash
+      working-directory: ${{runner.workspace}}/build
+      run: |
+        cmake $GITHUB_WORKSPACE \
+        -G "Ninja" \
+        -DCMAKE_BUILD_TYPE=Debug \
+        -DWITH_CHECK=OFF \
+        -DWITH_LIBXML=OFF \
+        -DWITH_EXPAT=ON \
+        -DWITH_STABLE_PACKAGES=ON \
+        -DWITH_DOXYGEN=ON
+
+    - name: Build
+      working-directory: ${{runner.workspace}}/build
+      shell: bash
+      run: |
+        cmake --build . --config Release --target api_docs_cpp
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/formatted/cpp-api

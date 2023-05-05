@@ -419,26 +419,6 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Returns the value of the "attributeName" attribute of this SpeciesType.
-   *
-   * @param attributeName, the name of the attribute to retrieve.
-   *
-   * @param value, the address of the value to record.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  //virtual int getAttribute(const std::string& attributeName,
-  //                         const char* value) const;
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
    * Predicate returning @c true if this SpeciesType's attribute
    * "attributeName" is set.
    *
@@ -553,26 +533,6 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this SpeciesType.
-   *
-   * @param attributeName, the name of the attribute to set.
-   *
-   * @param value, the value of the attribute to set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  //virtual int setAttribute(const std::string& attributeName, const char*
-  //  value);
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
    * Unsets the value of the "attributeName" attribute of this SpeciesType.
    *
    * @param attributeName, the name of the attribute to query.
@@ -623,9 +583,6 @@ protected:
    * @param stream the XMLOutputStream to use.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
-
-  //std::string  mId;
-  //std::string  mName;
 
   /* the validator classes need to be friends to access the 
    * protected constructor that takes no arguments

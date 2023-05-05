@@ -40,7 +40,18 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CompartmentMapping
- * @sbmlbrief{spatial} TODO:Definition of the CompartmentMapping class.
+ * @sbmlbrief{spatial} Each Compartment in a model that defines a spatial geometry
+ * may contain an optional CompartmentMapping. A CompartmentMapping is defined as 
+ * part of the model rather than part of the geometry so that the geometry is modular
+ * and may be readily shared between models and reused.  A CompartmentMapping maps a 
+ * Compartment defined in the model to a DomainType defined in the geometry such that 
+ * each corresponding DomainType is assigned the same biological and mathematical 
+ * function described by the set of Compartments that are mapped to that DomainType. 
+ *
+ * This mapping need not be one-to-one.  In fact, it is common to map er-lumen, 
+ * er-membrane, and cytosol to the same cell interior volume or 3D DomainType.  
+ * The unitSize attribute specifies the relative quantity of each Compartment that is
+ * mapped to the DomainType.
  */
 
 

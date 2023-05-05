@@ -90,7 +90,7 @@ SBMLErrorLog& SBMLErrorLog::operator=(const SBMLErrorLog& other)
 /*
  * Used by the Destructor to delete each item in mErrors.
  */
-struct Delete : public unary_function<XMLError*, void>
+struct Delete 
 {
   void operator() (XMLError* error) { delete error; }
 };
@@ -168,6 +168,27 @@ void
 SBMLErrorLog::add (const SBMLError& error)
 {
   if (error.getSeverity() != LIBSBML_SEV_NOT_APPLICABLE)
+    XMLErrorLog::add(error);
+}
+
+
+/*
+ * Adds the given XMLError to the log.
+ *
+ * @param error SBMLError, the error to be logged.
+ */
+void
+SBMLErrorLog::add(const XMLError& error)
+{
+    if (error.getSeverity() == LIBSBML_SEV_NOT_APPLICABLE)
+        return;
+    const SBMLError* serror = dynamic_cast<const SBMLError*>(&error);
+    if (serror == NULL)
+    {
+        SBMLError sbmlerr(error.getErrorId(), 0, 0, "", error.getLine(), error.getColumn(), error.getSeverity(), error.getCategory());
+        sbmlerr.setMessage(error.getMessage());
+        return XMLErrorLog::add(sbmlerr);
+    }
     XMLErrorLog::add(error);
 }
 
@@ -364,7 +385,7 @@ SBMLErrorLog::getNumFailsWithSeverity(unsigned int severity)
 const SBMLError*
 SBMLErrorLog::getError (unsigned int n) const
 {
-  return static_cast<const SBMLError*>(XMLErrorLog::getError(n));
+  return dynamic_cast<const SBMLError*>(XMLErrorLog::getError(n));
 }
 
 /*

@@ -40,7 +40,10 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ParametricObject
- * @sbmlbrief{spatial} TODO:Definition of the ParametricObject class.
+ * @sbmlbrief{spatial} The ParametricObject element represents a single
+ * parametric geometry object. It contains a list of point indices from the
+ * parent ParametricGeometry's SpatialPoints, which collectively define the faces
+ * of the object.
  */
 
 /**
@@ -63,8 +66,6 @@
  * allowable values for "polygonType":
  * <ul>
  * <li> @c "triangle", TODO:add description
- *
- * <li> @c "quadrilateral", TODO:add description
  *
  * </ul>
  *
@@ -247,7 +248,6 @@ public:
    * @endif
    * The possible values returned by this method are:
    * @li @sbmlconstant{SPATIAL_POLYGONKIND_TRIANGLE, PolygonKind_t}
-   * @li @sbmlconstant{SPATIAL_POLYGONKIND_QUADRILATERAL, PolygonKind_t}
    * @li @sbmlconstant{SPATIAL_POLYGONKIND_INVALID, PolygonKind_t}
    */
   PolygonKind_t getPolygonType() const;
@@ -262,7 +262,6 @@ public:
    * @copydetails doc_parametricobject_polygonType
    * The possible values returned by this method are:
    * @li @c "triangle"
-   * @li @c "quadrilateral"
    * @li @c "invalid PolygonKind value"
    */
   std::string getPolygonTypeAsString() const;
@@ -1414,7 +1413,6 @@ ParametricObject_getName(const ParametricObject_t * po);
  * @if clike The value is drawn from the enumeration @ref PolygonKind_t @endif
  * The possible values returned by this method are:
  * @li @sbmlconstant{SPATIAL_POLYGONKIND_TRIANGLE, PolygonKind_t}
- * @li @sbmlconstant{SPATIAL_POLYGONKIND_QUADRILATERAL, PolygonKind_t}
  * @li @sbmlconstant{SPATIAL_POLYGONKIND_INVALID, PolygonKind_t}
  *
  * @memberof ParametricObject_t
@@ -1437,7 +1435,6 @@ ParametricObject_getPolygonType(const ParametricObject_t * po);
  * @copydetails doc_parametricobject_polygonType
  * The possible values returned by this method are:
  * @li @c "triangle"
- * @li @c "quadrilateral"
  * @li @c "invalid PolygonKind value"
  *
  * @memberof ParametricObject_t

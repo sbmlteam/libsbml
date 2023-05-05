@@ -1,0 +1,41 @@
+<p> The libSBML &ldquo;spatial&rdquo; extension implements support for the SBML
+Level&nbsp;3 <em>Spatial</em> ("spatial") package.  It can be used
+in SBML Level&nbsp;3 Version&nbsp;1 and Version&nbsp;2 documents.
+
+<h2>Introduction</h2>
+
+<p>There is no better test of our understanding of a biological system than to create a mechanistic model of that system and show that it possesses all known properties of the system -- i.e., that it is consistent with all measurements or observations of the system in hand. However, the creation of such models is even more useful when a system is not already understood, because the model may suggest mechanisms by which known behaviors are accomplished, or predict behaviors not previously expected. Extensive work has been done on the creation of methods for simulating biochemical systems, including the development of languages, such as the Systems Biology Markup anguage (SBML), for saving and exchanging the definition of the system being simulated and the simulation parameters used.</p>
+
+<p> Historically, most tools for biochemical simulations either did not consider possible spatial relationships or compartmentalization of system components, or used a compartmental modeling approach (Jacquez et al., 1985) in which spatial organization is approximated by a set of compartments (e.g. membrane-bound organelles in a cell) containing well-mixed populations of molecules. However, a growing number of modeling and simulation tools do permit specification of the size, shape and positions of compartments and the initial spatial distributions of components (typically referred to as a 'geometry' definition). While SBML Level 3 Core has explicit support for multi-compartmental modeling, it does not have a standardized mechanism to store or exchange geometries. We address this deficit here through the definition of a package of extensions to SBML termed SBML spatial.</p>
+
+<p>Saving geometries in a standardized way is useful to ensure that the definition is complete (which is important when, for example, provided as part of supplementary information for published studies), and to permit comparison of simulations of the same spatial system using different simulation tools, to enable simulations of a new biochemical model using the same geometry as a previous model (or vice versa). Historically, the creation of a geometry has been done (often through painstaking manual work) by the same investigators who defined a biochemical model and performed a simulation. The advent of SBML has permitted a partial division of this labor, by enabling databases of biochemical models, such as the BioModels database, to be created. Building on this theme, having a mechanism to exchange geometries will enable an open access 'marketplace' in which some investigators focus on the creation of well-characterized geometries (and distribute them through databases or repositories) enabling others to focus on biochemical model creation and/or performance of simulations. These geometries, however, typically need to be more than raw images. To be most broadly useful across different modeling approaches, they need, for example, to define explicit watertight boundaries for cells and intracellular compartments and contain statistically accurate estimates of concentrations of components at various locations. This can be accomplished for individual images by hand segmentation or automated segmentation. An alternative is to produce synthetic geometries that are drawn from generative models of cell shape and organization learned from many images. In both cases, the availability of well-characterized geometries for examples of different cell types (and multiple cells of each type) can enhance the use of simulation methods.</p>
+
+
+<h2>Authors</h2>
+
+The authors of the SBML Level,&nbsp;3 Spatial package are James C. Schaff, Anuradha Lakshminarayana, Robert F. Murphy, Frank T. Bergmann, Akira Funahashi, Devin P. Sullivan, and Lucian P. Smith.
+
+<h2>The specification for this SBML package</h2>
+
+<p style="color: #880000"> This API documentation for libSBML does not
+provide a complete explanation of the SBML Level&nbsp;3 Spatial (&ldquo;spatial&rdquo;) package.  If you are developing software
+that uses &ldquo;spatial&rdquo;, you are strongly urged to read the actual
+specification for the package.  A link to the specification document current
+is provided below, along with a link to the page of known issues (if any).
+
+<table border="0" class="centered text-table width80 normal-font alt-row-colors" style="padding-bottom: 0.5em">
+  <caption class="top-caption">Specification for SBML Level&nbsp;3 
+    Spatial, version 1.</caption>
+<tr>
+<th style="text-align: left">Specification publication</th>
+<th style="text-align: left">Known issues</th>
+</tr>
+
+<tr><td>
+<a class="spec-link" target="_blank" href="@PACKAGE_SPATIAL_SPEC_URL@">
+  <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML level 3 package: spatial processes,version 1, release 1</a>
+</td><td>
+<a class="spec-link" target="_blank" href="@PACKAGE_SPATIAL_ERRATA_URL@">
+  <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+</td></tr>
+</table>

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ## 
 ## @file    unsetAnnotation.py
 ## @brief   unset annotation for each element

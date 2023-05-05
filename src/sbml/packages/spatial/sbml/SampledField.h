@@ -40,7 +40,15 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SampledField
- * @sbmlbrief{spatial} TODO:Definition of the SampledField class.
+ * @sbmlbrief{spatial} A SampledField is a sampled scalar field such as an image
+ * or samples from a level set. The attributes of SampledField represent the
+ * specification of a sample dataset (the number of samples in x, y, z
+ * coordinates, data type of the sample representation, etc.) and the text child
+ * of the SampledField is the actual sampled data, defined in
+ * figsampledfield-uml. The purpose of a SampledField is to fill the Geometry
+ * with ues that can be used in math and/or in SampledFieldGeometry elements.
+ * Values are defined at lattice points within the Geometry, and are interpolated
+ * to fill the remainder of all off-lattice locations.
  */
 
 /**

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## @file    run.py
 ## @brief   Unit test runner for libSBML Python doc converter

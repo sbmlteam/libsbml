@@ -584,6 +584,9 @@ END_TEST
 
 START_TEST (test_RDFAnnotationNestedCVTerm_dcterms_31)
 {
+  ModelHistory * mh = m31->getModelHistory();
+  fail_unless(mh->hasRequiredAttributes() == true);
+
   XMLNode* node = RDFAnnotationParser::parseModelHistory(m31);
 
   fail_unless(node->getNumChildren() == 1);
@@ -600,7 +603,7 @@ START_TEST (test_RDFAnnotationNestedCVTerm_dcterms_31)
   fail_unless(!strcmp(XMLNode_getName(desc), "Description"));
   fail_unless(!strcmp(XMLNode_getPrefix(desc), "rdf"));
   fail_unless(!strcmp(XMLNode_getURI(desc), "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
-  fail_unless(XMLNode_getNumChildren(desc) == 3);
+  fail_unless(XMLNode_getNumChildren(desc) == 2);
 
   const XMLNode_t * creator = XMLNode_getChild(desc, 0);
   fail_unless(!strcmp(XMLNode_getName(creator), "creator"));
@@ -671,17 +674,17 @@ START_TEST (test_RDFAnnotationNestedCVTerm_dcterms_31)
   fail_unless(!strcmp(XMLNode_getURI(cr_date), "http://purl.org/dc/terms/"));
   fail_unless(XMLNode_getNumChildren(cr_date) == 1);
 
-  const XMLNode_t * modified = XMLNode_getChild(desc, 2);
-  fail_unless(!strcmp(XMLNode_getName(modified), "modified"));
-  fail_unless(!strcmp(XMLNode_getPrefix(modified), "dcterms"));
-  fail_unless(!strcmp(XMLNode_getURI(modified), "http://purl.org/dc/terms/"));
-  fail_unless(XMLNode_getNumChildren(modified) == 1);
+  //const XMLNode_t * modified = XMLNode_getChild(desc, 2);
+  //fail_unless(!strcmp(XMLNode_getName(modified), "modified"));
+  //fail_unless(!strcmp(XMLNode_getPrefix(modified), "dcterms"));
+  //fail_unless(!strcmp(XMLNode_getURI(modified), "http://purl.org/dc/terms/"));
+  //fail_unless(XMLNode_getNumChildren(modified) == 1);
 
-  const XMLNode_t * mo_date = XMLNode_getChild(created, 0);
-  fail_unless(!strcmp(XMLNode_getName(mo_date), "W3CDTF"));
-  fail_unless(!strcmp(XMLNode_getPrefix(mo_date), "dcterms"));
-  fail_unless(!strcmp(XMLNode_getURI(mo_date), "http://purl.org/dc/terms/"));
-  fail_unless(XMLNode_getNumChildren(mo_date) == 1);
+  //const XMLNode_t * mo_date = XMLNode_getChild(created, 0);
+  //fail_unless(!strcmp(XMLNode_getName(mo_date), "W3CDTF"));
+  //fail_unless(!strcmp(XMLNode_getPrefix(mo_date), "dcterms"));
+  //fail_unless(!strcmp(XMLNode_getURI(mo_date), "http://purl.org/dc/terms/"));
+  //fail_unless(XMLNode_getNumChildren(mo_date) == 1);
 
 
   delete node;
@@ -714,9 +717,6 @@ START_TEST(test_RDFAnnotationNestedCVTerm_writeDC_creator_31)
 		"        <dcterms:created rdf:parseType=\"Resource\">\n"
 		"          <dcterms:W3CDTF>2005-02-02T14:56:11</dcterms:W3CDTF>\n"
 		"        </dcterms:created>\n"
-		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
-		"          <dcterms:W3CDTF>2006-05-30T10:46:02</dcterms:W3CDTF>\n"
-		"        </dcterms:modified>\n"
 		"      </rdf:Description>\n"
 		"    </rdf:RDF>\n"
     "  </annotation>\n"

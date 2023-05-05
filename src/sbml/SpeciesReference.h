@@ -995,26 +995,6 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Returns the value of the "attributeName" attribute of this SpeciesReference.
-   *
-   * @param attributeName, the name of the attribute to retrieve.
-   *
-   * @param value, the address of the value to record.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  //virtual int getAttribute(const std::string& attributeName,
-  //                         const char* value) const;
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
    * Predicate returning @c true if this SpeciesReference's attribute
    * "attributeName" is set.
    *
@@ -1121,26 +1101,6 @@ public:
    */
   virtual int setAttribute(const std::string& attributeName,
                            const std::string& value);
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Sets the value of the "attributeName" attribute of this SpeciesReference.
-   *
-   * @param attributeName, the name of the attribute to set.
-   *
-   * @param value, the value of the attribute to set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  //virtual int setAttribute(const std::string& attributeName, const char*
-  //  value);
 
   /** @endcond */
 
@@ -1297,17 +1257,6 @@ protected:
    * of this method as well.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
-
-  /**
-   *
-   * Synchronizes the annotation of this SBML object.
-   *
-   * Annotation element (XMLNode* mAnnotation) is synchronized with the
-   * current CVTerm objects (List* mCVTerm) and id string (std::string mId)
-   * Currently, this method is called in getAnnotation(), isSetAnnotation(),
-   * and writeElements() methods.
-   */
-  virtual void syncAnnotation();
 
   bool isExplicitlySetStoichiometry() const;
 
@@ -1699,7 +1648,7 @@ SpeciesReference_initDefaults (SpeciesReference_t *sr);
  */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
-SpeciesReference_getNamespaces(SpeciesReference_t *sr);
+SpeciesReference_getNamespaces(const SpeciesReference_t *sr);
 
 
 /**

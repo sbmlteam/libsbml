@@ -4,10 +4,12 @@ libSBML<img width="22%" align="right" src=".graphics/libsbml-logo-and-name.svg">
 LibSBML is an open-source library for working with SBML (the Systems Biology Markup Language).  It is written in C++ and provides language bindings for many other programming languages.
 
 [![License](https://img.shields.io/badge/License-LGPL-blue.svg?style=flat-square)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html)
-[![Stable release](https://img.shields.io/badge/Stable_release-5.18.0-brightgreen.svg?style=flat-square)](https://sourceforge.net/projects/sbml/files/libsbml/5.18.0/stable/)
-[![Experimental release](https://img.shields.io/badge/Experimental_release-5.18.0-b44e88.svg?style=flat-square)](https://sourceforge.net/projects/sbml/files/libsbml/5.18.0/experimental/)
+[![Stable release](https://img.shields.io/badge/Stable_release-5.19.0-brightgreen.svg?style=flat-square)](https://sourceforge.net/projects/sbml/files/libsbml/5.19.0/stable/)
+[![Experimental release](https://img.shields.io/badge/Experimental_release-5.19.0-b44e88.svg?style=flat-square)](https://sourceforge.net/projects/sbml/files/libsbml/5.19.0/experimental/)
 [![Pivotal Tracker](https://img.shields.io/badge/Project_management-Pivotal-d07a3e.svg?style=flat-square)](https://www.pivotaltracker.com/n/projects/248655)
-[![Discussion](https://img.shields.io/badge/Discussion-libsbml--development-lightgray.svg?style=flat-square)]()
+[![Discussion](https://img.shields.io/badge/Discussion-libsbml--development-lightgray.svg?style=flat-square)](https://groups.google.com/g/libsbml-development)
+[![Nightly build](https://img.shields.io/github/workflow/status/sbmlteam/libsbml/Nightly%20build%20(binaries)?label=Nightly%20build&style=flat-square)](https://github.com/sbmlteam/libsbml/actions/workflows/store-artefact.yml)
+
 
 
 Table of contents
@@ -21,7 +23,7 @@ Table of contents
 * [Contributing](#contributing)
 * [License](#license)
 * [Authors and history](#authors-and-history)
-* [Acknowledgments](#authors-and-acknowledgments)
+* [Acknowledgments](#acknowledgments)
 
 
 Introduction
@@ -49,7 +51,7 @@ Installation
 
 A **stable release** of libSBML includes support for SBML Level&nbsp;3 Core and all accepted SBML &nbsp;3 packages, as well as support for packages that are currently under development. An **experimental-only release** only updates code for the SBML Level&nbsp;3 packages under development.
 
-Before the year 2020, we used SourceForge for our code repository and software downloads.  Our software releases for libSBML are currently still done from SourceForge at this location:
+Before the year 2020, we used SourceForge for our code repository and software downloads.  Though you can find the source code releases on GitHub, our **binary** software releases for libSBML are currently still done from SourceForge at the following location:
 
 <p align="center"><b>
 ↓ ↓ ↓<br>
@@ -59,24 +61,28 @@ Before the year 2020, we used SourceForge for our code repository and software d
 
 We provide Zenodo DOIs for specific releases, so that you can cite the exact version of the software that you use:
 
+* libSBML-5.19.0 &rArr; [10.5281/zenodo.4293358](https://doi.org/10.5281/zenodo.4293358)
 * libSBML-5.18.0 &rArr; [10.5281/zenodo.2645216](https://doi.org/10.5281/zenodo.2645216)
-* libSBML-5.17.0 &rArr; [10.5281/zenodo.1250696](https://doi.org/10.5281/zenodo.)
-* libSBML-5.16.0 &rArr; [10.5281/zenodo.1095483](https://doi.org/10.5281/zenodo.)
-* libSBML-5.15.0 &rArr; [10.5281/zenodo.495344](https://doi.org/10.5281/zenodo.)
+* libSBML-5.17.0 &rArr; [10.5281/zenodo.1250696](https://doi.org/10.5281/zenodo.1250696)
+* libSBML-5.16.0 &rArr; [10.5281/zenodo.1095483](https://doi.org/10.5281/zenodo.1095483)
+* libSBML-5.15.0 &rArr; [10.5281/zenodo.495344](https://doi.org/10.5281/zenodo.495344)
+
+If you'd like to include the latest features, binaries of the latest `development` branch of `SBMLTeam/libsbml` are [built nightly](artefacts.md) by the CI/CD system.
+Further information for developers about the CI/CD system can be found [here](ci.md).
 
 
 Usage
 -----
 
-Please read the file [NEWS.txt](NEWS.txt) for highlights about recent changes in libSBML and important information.
+Please read the file [NEWS.txt]() for highlights about recent changes in libSBML and important information.
 
-Documentation is available online at http://sbml.org/Software/libSBML
+Documentation is available online at http://sbml.org/software/libsbml
 
 
 Getting help
 ------------
 
-We encourage you to join the [sbml-interoperability](https://groups.google.com/g/sbml-interoperability) group, where other libSBML users can be found.  You can ask questions and discuss the development, use, and interoperability of all kinds of software that supports SBML.
+We encourage you to join the [sbml-discuss](https://groups.google.com/g/sbml-discuss) group, where other libSBML users can be found.  You can ask questions and discuss the development, use, and interoperability of all kinds of software that supports SBML.
 
 You can report issues, suggestions and requests using the [GitHub issue tracker](https://github.com/sbmlteam/libsbml/issues).  If you are interested in participating in or observing libSBML development more closely, we encourage you to join [libsbml-development@googlegroups.com](https://groups.google.com/forum/#!forum/libsbml-development), a mailing list and web forum devoted to discussions about LIBSBML.
 
@@ -102,6 +108,7 @@ LibSBML's main authors are [Sarah M. Keating](https://github.com/skeating), [Fra
 
 * Gordon Ball
 * Bill Denney
+* Alessandro Felder
 * Christoph Flamm
 * Akira Funahashi
 * Ralph Gauges
@@ -114,15 +121,33 @@ LibSBML's main authors are [Sarah M. Keating](https://github.com/skeating), [Fra
 * Rainer Machn&eacute;
 * Thomas Pfau
 * Nicolas Rodriguez
+* Jamie J Quinn
 * Fengkai Zhang
 
+
+Research notice
+---------------
+Please note that this repository is participating in a study into sustainability
+ of open source projects. Data will be gathered about this repository for
+ approximately the next 12 months, starting from July 2021.
+
+Data collected will include number of contributors, number of PRs, time taken to
+ close/merge these PRs, and issues closed.
+
+For more information, please visit
+[this informational page](https://sustainable-open-science-and-software.github.io/) or download the [participant information sheet](https://sustainable-open-science-and-software.github.io/assets/PIS_sustainable_software.pdf).
 
 Acknowledgments
 ---------------
 
 The development of libSBML was supported in largely by funding from the [National Institute of General Medical Sciences](https://www.nigms.nih.gov) (USA) under grant R01&nbsp;GM070923 (principal investigator: Michael Hucka).
 
+The work to facilitate moving libSBML to GitHub and establishing Continuous Integration Testing was funded by [Chan Zuckerberg Initiative](https://chanzuckerberg.com/) under grant 2020-218578 (5022) (principal investigator: Sarah M Keating).
+
+
 Contributions to libSBML have also come as a result of work by the SBML Team and others on other grant-funded projects.  The core development of SBML from its inception through 2003 was principally funded by the [Japan Science and Technology Agency](http://www.jst.go.jp/EN/) under the [ERATO Kitano Symbiotic Systems Project](http://www.symbio.jst.go.jp/symbio), with funding going to the group of [John Doyle](http://www.cds.caltech.edu/~doyle/) at Caltech.  This included the first version of libSBML.  After 2003, primary direct support for the core development of SBML and supporting software and activities came from the [National Institute of General Medical Sciences (NIH/NIGMS)](http://www.nigms.nih.gov/) under grants R01 GM070923 and R01GM077671. Additional support came from the following agencies and programs: the [National Human Genome Research Institute](http://www.genome.gov/) (USA), the [International Joint Research Program of NEDO](http://www.nedo.go.jp/) (Japan), the [ERATO-SORST](http://www.jst.go.jp/kisoken/sorst/) Program of the Japan Science and Technology Agency (Japan), the [Ministry of Agriculture](http://www.maff.go.jp/eindex.html) (Japan), the [Ministry of Education, Culture, Sports, Science and Technology](http://www.mext.go.jp/) (Japan), the [BBSRC e-Science Initiative](http://www.bbsrc.ac.uk/) (UK), the [DARPA IPTO Bio-Computation Program](http://www.darpa.mil/ipto/programs/biocomp/vision.htm) (USA), the Army Research Office's [Institute for Collaborative Biotechnologies](https://www.icb.ucsb.edu) (USA), the [Air Force Office of Scientific Research](http://www.afosr.af.mil/) (USA), the [EU Commission 6th Framework Programme](http://ec.europa.eu/research/fp6/index_en.cfm), the [European Commision's 7th Framework Programme for Research and Technological Development](http://systemsbiology.ucsd.edu/projects/AMBiCon), the [Federal Ministry of Education and Research (BMBF, Germany)](https://www.bmbf.de/en/index.html), the [Virtual Liver Network](http://www.virtual-liver.de), the [Systems Biology Institute](http://systems-biology.org/) (Japan), and [Google Summer of Code](https://developers.google.com/open-source/gsoc/).
+
+Thanks also go to the developers of the [msvc-dev-cmd](https://github.com/ilammy/msvc-dev-cmd) and [gha-setup-ninja](https://github.com/seanmiddleditch/gha-setup-ninja) Github actions. They have come in handy in the CI/CD system.
 
 <br>
 <div align="center">

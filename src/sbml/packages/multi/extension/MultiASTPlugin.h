@@ -86,7 +86,7 @@ public:
    * @param uri the URI of the SBML Level&nbsp;3 package implemented by
    * this libSBML package extension.
    */
-  MultiASTPlugin (const std::string &uri);
+  MultiASTPlugin (const std::string& uri);
 
 
   /**

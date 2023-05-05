@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## \file    addCVTerms.py
 ## \brief   adds controlled vocabulary terms to a species in a model

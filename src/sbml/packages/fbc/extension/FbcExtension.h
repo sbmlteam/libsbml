@@ -160,6 +160,16 @@ public:
    * @copydetails doc_note_static_methods
    */
   static const std::string&  getXmlnsL3V1V2();
+  /**
+   * Returns the XML namespace URI of the SBML Level&nbsp;3 package implemented
+   * by this libSBML extension.
+   *
+   * @return the XML namespace, as a string.
+   *
+   * @copydetails doc_note_static_methods
+   */
+  static const std::string& getXmlnsL3V1V3();
+
   //
   // Other URI needed in this package (if any)
   //
@@ -241,7 +251,7 @@ public:
    * @return the SBML Level for the given URI of this package, or @c 0 if the
    * given URI is invalid, or for a different package.
    */
-  virtual unsigned int getLevel(const std::string &uri) const;
+  virtual unsigned int getLevel(const std::string& uri) const;
 
 
   /**
@@ -253,7 +263,7 @@ public:
    * @return the SBML Version within the SBML Level for the given URI of this
    * package, or @c 0 if the given URI is invalid, or for a different package.
    */
-  virtual unsigned int getVersion(const std::string &uri) const;
+  virtual unsigned int getVersion(const std::string& uri) const;
 
 
   /**
@@ -266,7 +276,7 @@ public:
    * @return the version of the SBML Level&nbsp;3 package with the given URI,
    * or @c 0 if the given URI is invalid, or for a different package.
    */
-  virtual unsigned int getPackageVersion(const std::string &uri) const;
+  virtual unsigned int getPackageVersion(const std::string& uri) const;
 
 
   /**
@@ -278,7 +288,7 @@ public:
    * @return an FbcPkgNamespaces object corresponding to the given @p uri, or
    * @c NULL if the URI is not defined in the &ldquo;fbc&rdquo; package.
    */
-  virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string &uri) const;
+  virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string& uri) const;
 
 
   /**
@@ -294,22 +304,6 @@ public:
    * <code>"(Unknown SBML Fbc Type)"</code>.
    */
   virtual const char* getStringFromTypeCode(int typeCode) const;
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Initializes fbc extension by creating an object of this class with 
-   * required SBasePlugin derived objects and registering the object 
-   * to the SBMLExtensionRegistry class.
-   *
-   * (NOTE) This function is automatically invoked when creating the following
-   *        global object in FbcExtension.cpp
-   *
-   *        static SBMLExtensionRegister<FbcExtension> fbcExtensionRegister;
-   *
-   */
-  static void init();
-  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -332,7 +326,7 @@ public:
    *
    * @return packageErrorTableEntry object in the FbcSBMLErrorTable corresponding to the index given.
    */
-  virtual packageErrorTableEntryV2 getErrorTableV2(unsigned int index) const;
+  virtual packageErrorTableEntryV3 getErrorTableV3(unsigned int index) const;
   /** @endcond */
 
 
@@ -344,7 +338,7 @@ public:
    *
    * @return unsigned integer representing the index in the FbcSBMLErrorTable corresponding to the errorId given.
    */
-  virtual unsigned int getErrorTableIndex(unsigned int errorId) const;
+  unsigned int getErrorTableIndex(unsigned int errorId) const;
   /** @endcond */
 
 
@@ -359,8 +353,49 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-  virtual bool hasMutiplePackageVersions() const;
+  virtual bool hasMultiplePackageVersions() const;
   /** @endcond */
+
+
+  /**
+  * @ifnot clike @internal @endif@~
+  */
+  virtual unsigned int getSeverity(unsigned int index, unsigned int pkgVersion) const;
+
+  /**
+  * @ifnot clike @internal @endif@~
+  */
+  virtual unsigned int getCategory(unsigned int index, unsigned int pkgVersion) const;
+
+  /**
+  * @ifnot clike @internal @endif@~
+  */
+  virtual std::string getMessage(unsigned int index, unsigned int pkgVersion,
+    const std::string& details) const;
+
+  /**
+  * @ifnot clike @internal @endif@~
+  */
+  virtual std::string getShortMessage(unsigned int index, unsigned int pkgVersion) const;
+
+  /** @endcond */
+
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+  * Initializes fbc extension by creating an object of this class with
+  * required SBasePlugin derived objects and registering the object
+  * to the SBMLExtensionRegistry class.
+  *
+  * (NOTE) This function is automatically invoked when creating the following
+  *        global object in FbcExtension.cpp
+  *
+  *        static SBMLExtensionRegister<FbcExtension> fbcExtensionRegister;
+  *
+  */
+  static void init();
+  /** @endcond */
+
 
 
 };
@@ -382,6 +417,20 @@ public:
 // in FbcExtension.cpp for DLL.
 //
 typedef SBMLExtensionNamespaces<FbcExtension> FbcPkgNamespaces;
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* __cplusplus */
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 /**
  * @enum  SBMLFbcTypeCode_t
@@ -405,13 +454,136 @@ typedef enum
   , SBML_FBC_GENEPRODUCTREF         = 808 /*!< GeneProductRef */
   , SBML_FBC_AND                    = 809 /*!< FbcAnd */
   , SBML_FBC_OR                     = 810 /*!< FbcOr */
+  , SBML_FBC_USERDEFINEDCONSTRAINTCOMPONENT     =   811  /*!<UserDefinedConstraintComponent */
+  , SBML_FBC_USERDEFINEDCONSTRAINT              =   812  /*!<UserDefinedConstraint */
+  , SBML_FBC_KEYVALUEPAIR                       =   813  /*!<KeyValuePair */
 } SBMLFbcTypeCode_t;
+
+
+
+/**
+ * @enum FbcVariableType_t
+ * @brief Enumeration of values permitted as the value of the "fbcvariabletype"
+ * attribute on Fbc objects.
+ *
+ * @if conly
+ * @see Fbc_getFbcvariabletype()
+ * @see Fbc_setFbcvariabletype()
+ * @elseif java
+ * @see Fbc::getFbcvariabletype()
+ * @see Fbc::setFbcvariabletype(long)
+ * @else
+ * @see Fbc::getFbcvariabletype()
+ * @see Fbc::setFbcvariabletype()
+ * @endif
+ */
+typedef enum
+{
+  FBC_VARIABLE_TYPE_LINEAR          /*!< The fbc fbcvariabletype is @c "linear". */
+, FBC_VARIABLE_TYPE_QUADRATIC       /*!< The fbc fbcvariabletype is @c "quadratic". */
+, FBC_VARIABLE_TYPE_INVALID         /*!< Invalid FbcVariableType value. */
+} FbcVariableType_t;
+
+
+/**
+ * Returns the string version of the provided #FbcVariableType_t enumeration.
+ *
+ * @param fvt the #FbcVariableType_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "linear",
+ * "quadratic",
+ * "invalid FbcVariableType value",
+ * or @c NULL if the value is @sbmlconstant{FBC_VARIABLE_TYPE_INVALID,
+ * FbcVariableType_t} or another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof Fbc_t
+ * @endif
+ */
+LIBSBML_EXTERN
+const char*
+FbcVariableType_toString(FbcVariableType_t fvt);
+
+
+/**
+ * Returns the #FbcVariableType_t enumeration corresponding to the given string
+ * or @sbmlconstant{FBC_VARIABLE_TYPE_INVALID, FbcVariableType_t} if there is
+ * no such match.
+ *
+ * @param code the string to convert to a #FbcVariableType_t.
+ *
+ * @return the corresponding #FbcVariableType_t or
+ * @sbmlconstant{FBC_VARIABLE_TYPE_INVALID, FbcVariableType_t} if no match is
+ * found.
+ *
+ * @note The matching is case-sensitive: "linear" will return
+ * @sbmlconstant{FBC_VARIABLE_TYPE_LINEAR, FbcVariableType_t}, but "Linear"
+ * will return @sbmlconstant{FBC_VARIABLE_TYPE_INVALID, FbcVariableType_t}.
+ *
+ * @if conly
+ * @memberof Fbc_t
+ * @endif
+ */
+LIBSBML_EXTERN
+FbcVariableType_t
+FbcVariableType_fromString(const char* code);
+
+
+/**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #FbcVariableType_t is valid.
+ *
+ * @param fvt the #FbcVariableType_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #FbcVariableType_t is
+ * @sbmlconstant{FBC_VARIABLE_TYPE_LINEAR, FbcVariableType_t}, or
+ * @sbmlconstant{FBC_VARIABLE_TYPE_QUADRATIC, FbcVariableType_t};
+ * @c 0 (false) otherwise (including @sbmlconstant{FBC_VARIABLE_TYPE_INVALID,
+ * FbcVariableType_t}).
+ *
+ * @if conly
+ * @memberof Fbc_t
+ * @endif
+ */
+LIBSBML_EXTERN
+int
+FbcVariableType_isValid(FbcVariableType_t fvt);
+
+
+/**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #FbcVariableType_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "linear",
+ * "quadratic", or
+ * "invalid FbcVariableType value";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "linear" will return @c 1 (true), but
+ * "Linear" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof Fbc_t
+ * @endif
+ */
+LIBSBML_EXTERN
+int
+FbcVariableType_isValidString(const char* code);
+
+
 
 
 LIBSBML_CPP_NAMESPACE_END
 
 
-#endif /* __cplusplus */
-#endif /* FbcExtension_H__ */
+
+
+#endif /* !FbcExtension_H__ */
 
 

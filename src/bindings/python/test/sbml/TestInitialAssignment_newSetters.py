@@ -52,12 +52,12 @@ class TestInitialAssignment_newSetters(unittest.TestCase):
   def test_InitialAssignment_setMath1(self):
     math = libsbml.parseFormula("2 * k")
     i = self.E.setMath(math)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.E.getMath() != math )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.E.getMath() != math )
     self.assertEqual( True, self.E.isSetMath() )
     i = self.E.setMath(None)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.E.getMath() == None )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.E.getMath() == None )
     self.assertEqual( False, self.E.isSetMath() )
     _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -65,7 +65,7 @@ class TestInitialAssignment_newSetters(unittest.TestCase):
   def test_InitialAssignment_setMath2(self):
     math = libsbml.ASTNode(libsbml.AST_DIVIDE)
     i = self.E.setMath(math)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assertEqual( False, self.E.isSetMath() )
     _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -73,18 +73,18 @@ class TestInitialAssignment_newSetters(unittest.TestCase):
   def test_InitialAssignment_setSymbol1(self):
     id =  "1e1";
     i = self.E.setSymbol(id)
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, self.E.isSetSymbol() )
     pass  
 
   def test_InitialAssignment_setSymbol2(self):
     id =  "e1";
     i = self.E.setSymbol(id)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_(( id == self.E.getSymbol() ))
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue(( id == self.E.getSymbol() ))
     self.assertEqual( True, self.E.isSetSymbol() )
     i = self.E.setSymbol("")
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.E.isSetSymbol() )
     pass  
 

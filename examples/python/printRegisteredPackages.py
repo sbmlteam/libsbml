@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ## 
 ## @file    printRegisteredPackages.py
 ## @brief   Prints the registered packages for this libSBML

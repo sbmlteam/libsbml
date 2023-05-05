@@ -390,7 +390,7 @@ public:
    * @see insertChild(unsigned int n, ASTNode* disownedChild)
    */
   LIBSBML_EXTERN
-  int removeChild(unsigned int n);
+  int removeChild(unsigned int n, bool delremoved = false);
 
 
   /**
@@ -1796,7 +1796,7 @@ setValue(value, 0);
    * For example, if the formula in this ASTNode is <code>x + y</code>,
    * and the function is called with @c bvar = @c "x" and @c arg = an ASTNode
    * representing the real value @c 3.  This method would substitute @c 3 for
-   * @c x within this ASTNode object, resulting in the forula <code>3 + y</code>.
+   * @c x within this ASTNode object, resulting in the formula <code>3 + y</code>.
    *
    * @param bvar a string representing the variable name to be substituted.
    * @param arg an ASTNode representing the name/value/formula to use as
@@ -1805,8 +1805,22 @@ setValue(value, 0);
   LIBSBML_EXTERN
   void replaceArgument(const std::string& bvar, ASTNode * arg);
 
+  /**
+   * Replaces occurrences of each given name with the corresponding ASTNode.
+   *
+   * For example, if the formula in this ASTNode is <code>x - y</code>,
+   * and the function is called with bvars = {"x", "y"} and args = ASTNodes
+   * representing objects with names {"y", "x"}, the result would be <code>y - x</code>.
+   *
+   * @param bvars a vector of strings representing the variable names to be substituted.
+   * @param args a vector of ASTNodes representing the name/value/formula to use as
+   * a replacement for each variable name
+   */
+  LIBSBML_EXTERN
+  void replaceArguments(const std::vector<std::string>& bvars, std::vector<ASTNode *>& args);
 
-  /** @cond doxygenLibsbmlInternal */
+
+    /** @cond doxygenLibsbmlInternal */
 
   /**
    * Sets the parent SBML object of this node.  Is not recursive, and will not set the parent SBML object of any children of this node.
@@ -2263,8 +2277,194 @@ setValue(value, 0);
 
   /** @endcond */
 
+/**
+  * This function allows two ASTNodes to be compared for exact equivilance.
+  * It returns a boolean - true if the ASTNodes are exactly the same, false otherwise.
+  * 
+  * Given that 'a+4' == 'a+4' this function will return true if two ASTNodes with 
+  * PLUS as their operator and "a" as the left child and "4" as the right child are compared
+  * 
+  * Conversely 'a+4' != '4+a' i.e. 
+  * the function will return false if the left and right children do not match.
+  */
+  LIBSBML_EXTERN
+  bool exactlyEqual(const ASTNode& rhs);
+
+  /**
+   * This function refactors an ASTNode to facilitate the use of the algorithm to construct
+   * a reaction network from a set of ordinary differential equations.
+   * 
+   * It performs the following actions: 
+   * 
+   * refactors any numerical ASTNodes so that any operation involving 2 or more numerical nodes is performed
+   * and becomes a single node
+   * eg (4 + 1 x 2) becomes (6)
+   * 
+   * encompases a unary minus into the numerical value of a node
+   * eg a node representing minus with a single child node representing 2 becomes a single node representing -2
+   * 
+   * refactors binary nodes, which are the default, into a non-binary representation 
+   * eg a node representing plus with 2 children which each represent a plus with two numerical children
+   * will become a node representing plus with four numerical children
+   *
+   * reorders the arguments of any operation so that numerical arguments come first, followed by
+   * nodes representing variables, followed by nodes representing functions
+   * eg a node (sin(a + 2) - 3 + b) becomes (-3 + b + sin(2 + a))
+   */
+  LIBSBML_EXTERN
+  void refactor();
+
+  /**
+  * This function allows decomposition of ASTNode into components such that we reduce the need
+  * for brackets. Obviously an ASTNode does not have brackets but when written as a string
+  * these would become necessary. 
+  * 
+  * The decomposition used here is such that if the top level function is multiply or divide
+  * then the arguments to these functions do not contain a plus element.
+  * 
+  * for example
+  *
+  * (a + B) * c becomes ac + Bc
+  *
+  * (5 + 3)/(a-4) becomes 8/(a-4)
+  *
+  * (a + 4)/4 becomes 1 + a/4
+  */
+  LIBSBML_EXTERN
+  void decompose();
+
+  /**
+  * Returns an ASTNode representing the derivative of this ASTNode with respect to the given variable  
+  *
+  * e.g. if we have an ASTNode that represents 2*x^2
+  * and we call the function derivative("x") on this node
+  *      
+  * this will return an ASTNode representing 4 * x 
+  * since d(2*x^2)/dx = 4*x
+  */
+  LIBSBML_EXTERN
+  ASTNode* derivative(const std::string& variable);
+
+  /** @cond doxygenLibsbmlInternal */
+  LIBSBML_EXTERN
+  XMLNamespaces* getDeclaredNamespaces() const;
+
+  LIBSBML_EXTERN
+  void setDeclaredNamespaces(const XMLNamespaces* xmlns);
+
+  LIBSBML_EXTERN
+  void unsetDeclaredNamespaces();
+  /** @endcond */
+
 
 protected:
+
+  friend class SBMLRateRuleConverter;
+
+//  void printMath(unsigned int level = 0);
+
+  /* change all numbers to real*/
+  void refactorNumbers();
+
+  /*
+  * simplify the node based on math i.e 1 * x becomes x
+  * see inline
+  */
+  void simplify();
+
+  /* for plus or times order arguments so we have number + names + functions
+  * 3.1 +b + 2 becomes 5.1 + b
+  * 2 * 5 becomes 10
+  * sin(2+3) + 3.1 + b becomes 3.1 +b + sin(5)
+  */
+  bool reorderArguments(unsigned int level=0 );
+
+  /* remove any instances of unary minus
+  * Level 0: -
+  * Level 1: 2
+  * becomes
+  * Level 0: -2
+  *
+  * Level 0: -
+  * Level 1: 2 * a
+  * Level 2: 2
+  * Level 2: a
+  * becomes
+  * Level 0: -2 * a
+  * Level 1: -2
+  * Level 1: a
+  *
+  * Level 0: -
+  * Level 1: b / a
+  * Level 2: b
+  * Level 2: a
+  * becomes
+  * Level 0: (-1*b)/a
+  * Level 1: -1*b
+  * Level 2: -1
+  * Level 2: b
+  * Level 1: a
+  */
+  void encompassUnaryMinus();
+    
+
+  /* create AST the is non binary
+    * Binary each node has 2 children 
+    * Level 0: a + b + (c + s)
+    * Level 1: a + b
+    * Level 2: a
+    * Level 2: b
+    * Level 1: c + s
+    * Level 2: c
+    * Level 2: s
+    *
+    * Non binary Node at Level 0 has 4 children
+    * Level 0: a + b + c + s
+    * Level 1: a
+    * Level 1: b
+    * Level 1: c
+    * Level 1: s
+  */
+  void createNonBinaryTree();
+
+  /*
+  * change a root node to power ie root(2, x) becomes x^0.5
+  */
+  void convertRootToPower();
+
+  /*
+  * returns derivativeof particular function
+  * i.e. derivativePlus gets a function A + B and returns d(A+B)/dx
+  */
+  ASTNode* derivativePlus(const std::string& variable);
+  ASTNode* derivativeMinus(const std::string& variable);
+  ASTNode* derivativeTimes(const std::string& variable);
+  ASTNode* derivativeDivide(const std::string& variable);
+  ASTNode* derivativePower(const std::string& variable);
+  ASTNode* derivativeLog(const std::string& variable);
+  ASTNode* derivativeLn(const std::string& variable);
+  ASTNode* derivativeExp(const std::string& variable);
+
+
+  /*
+  * produce three vectors of the child index of the ASTNodes
+  * numbers : any nodes representing just a number
+  * names : any nodes representing a variable i.e.a node of type AST_NAME (in alphabetical order)
+  * others : any nodes that are not numbers/names - usually functions
+  */
+  void createVectorOfChildTypes(std::vector<unsigned int>& numbers,
+    std::vector<unsigned int>& names,
+    std::vector<unsigned int>& others);
+
+
+  /* combine numbers:
+  * return an AST representing combined no 
+  */
+  ASTNode* combineNumbers(std::vector<unsigned int>& numbers);
+
+  //========================================================
+
+
   /** @cond doxygenLibsbmlInternal */
 
   LIBSBML_EXTERN
@@ -2313,6 +2513,9 @@ protected:
   bool mIsBvar;
   void *mUserData;
   std::string mPackageName;
+
+
+  XMLNamespaces* mNamespaces;
   
   friend class MathMLFormatter;
   friend class MathMLHandler;
@@ -3294,7 +3497,7 @@ ASTNode_isLog10 (const ASTNode_t *node);
  * @param node the node to query.
  *
  * @return @c 1 (true) if @p node is a MathML logical operator (@c and, @c or,
- * @c not, @c xor), @c 0otherwise.
+ * @c not, @c xor), @c 0 otherwise.
  *
  * @memberof ASTNode_t
  */

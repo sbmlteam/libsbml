@@ -176,6 +176,24 @@ typedef struct {
   packageReferenceEntryV2 reference;
 } packageErrorTableEntryV2;
 
+typedef struct {
+  const char * ref_l3v1v1;
+  const char * ref_l3v1v2;
+  const char * ref_l3v1v3;
+} packageReferenceEntryV3;
+
+typedef struct {
+  unsigned int code;
+  const char*  shortMessage;
+  unsigned int category;
+  unsigned int l3v1v1_severity;
+  unsigned int l3v1v2_severity;
+  unsigned int l3v1v3_severity;
+  const char*  message;
+  packageReferenceEntryV3 reference;
+} packageErrorTableEntryV3;
+
+
 
 #endif
   /** @endcond */
@@ -430,7 +448,7 @@ public:
    *
    * @copydetails doc_note_override_in_extensions
    */
-  virtual unsigned int getLevel(const std::string &uri) const = 0;
+  virtual unsigned int getLevel(const std::string& uri) const = 0;
 
 
   /**
@@ -442,7 +460,7 @@ public:
    *
    * @copydetails doc_note_override_in_extensions
    */
-  virtual unsigned int getVersion(const std::string &uri) const = 0;
+  virtual unsigned int getVersion(const std::string& uri) const = 0;
 
 
   /**
@@ -454,7 +472,7 @@ public:
    *
    * @copydetails doc_note_override_in_extensions
    */
-  virtual unsigned int getPackageVersion(const std::string &uri) const = 0;
+  virtual unsigned int getPackageVersion(const std::string& uri) const = 0;
 
 
   /**
@@ -500,7 +518,7 @@ SBMLExtensionNamespaces<LayoutExtension>
    *
    * @copydetails doc_note_override_in_extensions
    */
-  virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string &uri) const = 0;
+  virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string& uri) const = 0;
 
 
   /**
@@ -599,7 +617,7 @@ if (doc->getLevel() == 2)
 
   /** @cond doxygenLibsbmlInternal */
 
-  virtual bool hasMutiplePackageVersions() const;
+  virtual bool hasMultiplePackageVersions() const;
 
   /** @endcond */
 
@@ -616,8 +634,6 @@ if (doc->getLevel() == 2)
 #ifndef SWIG
   virtual packageErrorTableEntry getErrorTable(unsigned int index) const;
 
-  virtual packageErrorTableEntryV2 getErrorTableV2(unsigned int index) const;
-
 #endif
   /**
    * @ifnot clike @internal @endif@~
@@ -627,23 +643,23 @@ if (doc->getLevel() == 2)
   /**
    * @ifnot clike @internal @endif@~
    */
-  unsigned int getSeverity(unsigned int index, unsigned int pkgVersion) const;
+  virtual unsigned int getSeverity(unsigned int index, unsigned int pkgVersion) const;
 
   /**
    * @ifnot clike @internal @endif@~
    */
-  unsigned int getCategory(unsigned int index) const;
+  virtual unsigned int getCategory(unsigned int index, unsigned int pkgVersion) const;
 
   /**
    * @ifnot clike @internal @endif@~
    */
-  std::string getMessage(unsigned int index, unsigned int pkgVersion,
+  virtual std::string getMessage(unsigned int index, unsigned int pkgVersion,
                          const std::string& details) const;
 
   /**
    * @ifnot clike @internal @endif@~
    */
-  std::string getShortMessage(unsigned int index) const;
+  virtual std::string getShortMessage(unsigned int index, unsigned int pkgVersion) const;
 
   /** @endcond */
 

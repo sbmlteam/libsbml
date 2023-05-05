@@ -246,7 +246,7 @@ public:
    *
    * @return pointer to the first element found with the given identifier.
    */
-  const SBase* getElementBySId(const std::string& id) const;
+  virtual const SBase* getElementBySId(const std::string& id) const;
   
   /**
    * Returns the first child element it can find with a specific "metaid"
@@ -350,7 +350,7 @@ public:
    *
    * @return pointer to the first element found with the given @p id.
    */
-  virtual SBase* getElementFromPluginsBySId(std::string id);
+  virtual SBase* getElementFromPluginsBySId(const std::string& id);
   /** @endcond */
   
   
@@ -364,7 +364,7 @@ public:
    *
    * @return pointer to the first element found with the given @p metaid.
    */
-  virtual SBase* getElementFromPluginsByMetaId(std::string metaid);
+  virtual SBase* getElementFromPluginsByMetaId(const std::string& metaid);
   /** @endcond */
 
   
@@ -976,6 +976,19 @@ public:
 
 
   /**
+  * Returns the "creation date" portion of the ModelHistory of this object.
+  *
+  * @return a Date object representing the creation date stored in
+  * this ModelHistory object.
+  *
+  * @note In SBML Level&nbsp;2, model history annotations were only
+  * permitted on the Model element.  In SBML Level&nbsp;3, they are
+  * permitted on all SBML components derived from SBase.
+  */
+  Date * getCreatedDate() const;
+
+
+  /**
    * Returns the ModelHistory object, if any, attached to this object.
    * 
    * @return the ModelHistory object attached to this object, or @c NULL if
@@ -986,6 +999,46 @@ public:
    * permitted on all SBML components derived from SBase.
    */
   ModelHistory* getModelHistory();
+
+
+  /**
+  * Returns the "creation date" portion of the ModelHistory of this object.
+  *
+  * @return a Date object representing the creation date stored in
+  * this ModelHistory object.
+  *
+  * @note In SBML Level&nbsp;2, model history annotations were only
+  * permitted on the Model element.  In SBML Level&nbsp;3, they are
+  * permitted on all SBML components derived from SBase.
+  */
+  Date * getCreatedDate();
+
+
+  /**
+  * Get the nth Date object in the list of "modified date" values stored
+  * in the ModelHistory of this object.
+  *
+  * In the MIRIAM format for annotations, there can be multiple
+  * modification dates.  The libSBML ModelHistory class supports this by
+  * storing a list of "modified date" values.
+  *
+  * @return the nth Date in the list of ModifiedDates of this
+  * ModelHistory or @c NULL if no such object exists.
+  */
+  Date* getModifiedDate(unsigned int n);
+
+
+  /**
+  * Get the number of Date objects in the ModelHistory of this Iobject's list of
+  * "modified dates".
+  *
+  * In the MIRIAM format for annotations, there can be multiple
+  * modification dates.  The libSBML ModelHistory class supports this by
+  * storing a list of "modified date" values.
+  *
+  * @return the number of ModifiedDates in this ModelHistory.
+  */
+  unsigned int getNumModifiedDates();
 
 
   /**
@@ -1160,7 +1213,31 @@ public:
    * permitted on the Model element.  In SBML Level&nbsp;3, they are
    * permitted on all SBML components derived from SBase.
    */
-  bool isSetModelHistory();
+  bool isSetModelHistory() const;
+
+
+  /**
+  * Predicate returning @c true if this
+  * object has a ModelHistory object attached to it and the created date is set
+  *
+  * @return @c true if the CreatedDate of the ModelHistory of this object is set,
+  * @c false otherwise.
+  *
+  * @note In SBML Level&nbsp;2, model history annotations were only
+  * permitted on the Model element.  In SBML Level&nbsp;3, they are
+  * permitted on all SBML components derived from SBase.
+  */
+  bool isSetCreatedDate() const;
+
+
+  /**
+  * Predicate returning @c true or @c false depending on whether the
+  * ModelHistory's "modified date" of this object is set.
+  *
+  * @return @c true if the modification date value of this ModelHistory
+  * object is set, @c false otherwise.
+  */
+  bool isSetModifiedDate() const;
 
 
   /**
@@ -1697,6 +1774,32 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   int setModelHistory(ModelHistory * history);
 
 
+  /**
+  * Sets the creation date of the ModelHistory of this object.
+  *
+  * @param date a Date object representing the date to which the "created
+  * date" portion of this ModelHistory should be set.
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+  */
+  int setCreatedDate(Date* date);
+
+
+  /**
+  * Adds a modified date to the ModelHistory of this object.
+  *
+  * @param date a Date object representing the date to which the "modified
+  * date" portion of this ModelHistory should be set.
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+  */
+  int addModifiedDate(Date* date);
+
+
   /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBMLDocument of this SBML object.
@@ -1978,7 +2081,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * 
    * @return the number of CVTerms for this SBML object.
    */
-  unsigned int getNumCVTerms();
+  unsigned int getNumCVTerms() const;
 
 
   /**
@@ -2016,6 +2119,36 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * permitted on all SBML components derived from SBase.
    */
   int unsetModelHistory();
+
+
+  /**
+  * Unsets the created date of the ModelHistory object attached to this object.
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+  *
+  * @note In SBML Level&nbsp;2, model history annotations were only
+  * permitted on the Model element.  In SBML Level&nbsp;3, they are
+  * permitted on all SBML components derived from SBase.
+  */
+  int unsetCreatedDate();
+
+
+  /**
+  * Unsets the modified dates of the ModelHistory object attached to this object.
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+  *
+  * @note In SBML Level&nbsp;2, model history annotations were only
+  * permitted on the Model element.  In SBML Level&nbsp;3, they are
+  * permitted on all SBML components derived from SBase.
+  */
+  int unsetModifiedDates();
 
 
   /**
@@ -2095,7 +2228,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * the values defined by MIRIAM at that later time.
    * @endif@~
    */
-  BiolQualifierType_t getResourceBiologicalQualifier(std::string resource);
+  BiolQualifierType_t getResourceBiologicalQualifier(std::string resource) const;
 
 
   /**
@@ -2176,7 +2309,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * the values defined by MIRIAM at that later time.
    * @endif@~
    */
-  ModelQualifierType_t getResourceModelQualifier(std::string resource);
+  ModelQualifierType_t getResourceModelQualifier(std::string resource) const;
 
 
   /**
@@ -2351,7 +2484,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Attempting to serialize a large tree structure (e.g., a large Model) may
    * consume significant computer memory and time.</span>
    */
-   void read(XMLNode& node, XMLErrorSeverityOverride_t flag = LIBSBML_OVERRIDE_DISABLED);
+   void read(const XMLNode& node, XMLErrorSeverityOverride_t flag = LIBSBML_OVERRIDE_DISABLED);
 
 
 #ifndef SWIG
@@ -2389,8 +2522,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /** @endcond */
 
-//   virtual int getAttribute(const std::string& attributeName, const char * value) const;
-
+  /** @cond doxygenLibsbmlInternal */
 
    virtual bool isSetAttribute(const std::string& attributeName) const;
 
@@ -2423,12 +2555,6 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /** @cond doxygenLibsbmlInternal */
 
    virtual int setAttribute(const std::string& attributeName, const std::string& value);
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-//   virtual int setAttribute(const std::string& attributeName, const char* value);
 
   /** @endcond */
 
@@ -3039,7 +3165,7 @@ newModel.addSpecies(s1);
 
   /** @cond doxygenLibsbmlInternal */
   /* sets the SBMLnamespaces - internal use only*/
-  int setSBMLNamespaces(SBMLNamespaces * sbmlns);
+  int setSBMLNamespaces(const SBMLNamespaces * sbmlns);
 
   /* sets the SBMLNamaepaces and owns the given object - internal use only */
   void setSBMLNamespacesAndOwn(SBMLNamespaces * disownedNs);
@@ -3055,7 +3181,7 @@ newModel.addSpecies(s1);
   /** @cond doxygenLibsbmlInternal */
   /* removes duplicate top level annotations*/
   void removeDuplicateAnnotations();
-  const std::string checkMathMLNamespace(const XMLToken elem);
+  std::string checkMathMLNamespace(const XMLToken &elem);
   /** @endcond */
 
 
@@ -3291,7 +3417,7 @@ protected:
    * Creates a new SBase object with the given SBMLNamespaces.
    * Only subclasses may create SBase objects.
    */
-  SBase (SBMLNamespaces* sbmlns);
+  SBase (const SBMLNamespaces* sbmlns);
 
 
   /**
@@ -3341,7 +3467,7 @@ protected:
    * constructors. This allows to use it in scenarios where the namespaces or
    * typecode have not yet been initialized.
    */
-  bool hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xmlns);
+  bool hasValidLevelVersionNamespaceCombination(int typecode, const XMLNamespaces *xmlns);
 
 
   /**
@@ -3571,7 +3697,7 @@ protected:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
-  int setElementNamespace(const std::string &uri);
+  int setElementNamespace(const std::string& uri);
 
 
   /**
@@ -3756,8 +3882,6 @@ SBase.readExtensionAttributes(attributes, expectedAttributes);
   //
   std::string mURI;
 
-  // boolean to keep track of whether the user has touched an annotation
-  //bool            mAnnotationChanged;
   bool            mHistoryChanged;
   bool            mCVTermsChanged;
 
@@ -3805,7 +3929,7 @@ private:
  /**
   * adds the given term to an existing bag. Returns 1 if added, 0 otherwise. 
   */
-  int addTermToExistingBag(CVTerm *term, QualifierType_t type);
+  int addTermToExistingBag(CVTerm *term, QualifierType_t type) const;
 
   /**
    * Reads the notes from the stream and returns true if successful.
@@ -3856,7 +3980,7 @@ SBase_getMetaId (SBase_t *sb);
  */
 LIBSBML_EXTERN
 const char * 
-SBase_getIdAttribute(SBase_t * sb);
+SBase_getIdAttribute(const SBase_t * sb);
 
 
 /**
@@ -3871,7 +3995,7 @@ SBase_getIdAttribute(SBase_t * sb);
   */
 LIBSBML_EXTERN
 const char * 
-SBase_getName(SBase_t * sb);
+SBase_getName(const SBase_t * sb);
 
 
 /**
@@ -4330,7 +4454,7 @@ SBase_setNamespaces (SBase_t *sb, XMLNamespaces_t *xmlns);
  */
 LIBSBML_EXTERN
 int
-SBase_setNotes (SBase_t *sb, XMLNode_t *notes);
+SBase_setNotes (SBase_t *sb, const XMLNode_t *notes);
 
 
 /**
@@ -4384,7 +4508,7 @@ SBase_setNotesStringAddMarkup (SBase_t *sb, const char *notes);
  */
 LIBSBML_EXTERN
 int
-SBase_appendNotes (SBase_t *sb, XMLNode_t *notes);
+SBase_appendNotes (SBase_t *sb, const XMLNode_t *notes);
 
 
 /**
@@ -4419,7 +4543,7 @@ SBase_appendNotesString (SBase_t *sb, const char *notes);
  */
 LIBSBML_EXTERN
 int
-SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation);
+SBase_setAnnotation (SBase_t *sb, const XMLNode_t *annotation);
 
 
 /**
@@ -4453,7 +4577,7 @@ SBase_setAnnotationString (SBase_t *sb, const char *annotation);
  */
 LIBSBML_EXTERN
 int
-SBase_appendAnnotation (SBase_t *sb, XMLNode_t *annotation);
+SBase_appendAnnotation (SBase_t *sb, const XMLNode_t *annotation);
 
 
 /**
@@ -4576,7 +4700,7 @@ SBase_removeTopLevelAnnotationElementWithURI (SBase_t *sb, const char *name,
  */
 LIBSBML_EXTERN
 int
-SBase_replaceTopLevelAnnotationElement (SBase_t *sb, XMLNode_t *annotation);
+SBase_replaceTopLevelAnnotationElement (SBase_t *sb, const XMLNode_t *annotation);
 
 
 /**
@@ -5083,7 +5207,7 @@ SBase_hasValidLevelVersionNamespaceCombination(SBase_t *sb);
  */
 LIBSBML_EXTERN
 int
-SBase_getNumPlugins(SBase_t *sb);
+SBase_getNumPlugins(const SBase_t *sb);
 
 /**
  * Returns a plug-in structure (extension interface) for an SBML Level&nbsp;3

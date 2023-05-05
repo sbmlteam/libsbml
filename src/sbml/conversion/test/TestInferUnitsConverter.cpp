@@ -392,6 +392,31 @@ START_TEST (test_infer_localParam_fromReaction)
 END_TEST
 
 
+START_TEST (test_infer_reaction_with_4_params_func_call)
+{
+  string filename(TestDataDirectory);
+  filename += "inferUnits-4.xml";
+
+  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+  fail_unless(d != NULL);
+
+  SBMLInferUnitsConverter * units = new SBMLInferUnitsConverter();
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+
+  // TO DO infer units using the function formula
+  // fail_unless(d->getModel()->getParameter("k1")->isSetUnits() == true);
+  // fail_unless(d->getModel()->getParameter("k1")->getUnits() == "unitSid_0");
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestInferUnitsConverter (void)
 { 
@@ -409,6 +434,7 @@ create_suite_TestInferUnitsConverter (void)
   tcase_add_test(tcase, test_infer_baseUnit_fromMath);
   tcase_add_test(tcase, test_infer_fromReaction);
   tcase_add_test(tcase, test_infer_localParam_fromReaction);
+  tcase_add_test(tcase, test_infer_reaction_with_4_params_func_call);
 
   suite_add_tcase(suite, tcase);
 

@@ -54,7 +54,6 @@ main (int argc, char* argv[])
     return 2;
   }
 
-//  writeSBML(readSBML(argv[1]), argv[2]);
   SBMLDocument *d = readSBML(argv[1]);
   if ( d->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
   {

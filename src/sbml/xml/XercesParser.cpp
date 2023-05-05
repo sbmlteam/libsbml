@@ -52,6 +52,7 @@
 #include <xercesc/parsers/SAX2XMLReaderImpl.hpp>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
+#include <xercesc/util/XercesDefs.hpp>
 
 #include <sbml/xml/XMLHandler.h>
 #include <sbml/xml/XMLErrorLog.h>
@@ -66,6 +67,7 @@
 
 using namespace std;
 using namespace xercesc;
+using namespace XERCES_CPP_NAMESPACE;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -260,8 +262,8 @@ public:
       break;
 
     default:
-      line   = static_cast<XMLSSize_t>(theLineNumber);
-      column = static_cast<XMLSSize_t>(theColumnNumber);
+      line   = static_cast<XercesFileLoc>(theLineNumber);
+      column = static_cast<XercesFileLoc>(theColumnNumber);
 
     }
   };
@@ -273,11 +275,11 @@ public:
    * Linux Fedora Core), attempting to get a line number causes a seg
    * fault.
    */
-  XMLSSize_t getColumnNumber() const {
+  XercesFileLoc getColumnNumber() const {
     return column;
   }
 
-  XMLSSize_t getLineNumber() const {
+  XercesFileLoc getLineNumber() const {
     return line;
   }
 
@@ -292,8 +294,8 @@ public:
    * Last error's line and column numbers.  This is only needed because
    * sometimes we have to clean up the values returned by Xerces.
    */
-  XMLSSize_t line;
-  XMLSSize_t column;
+  XercesFileLoc line;
+  XercesFileLoc column;
 };
 
 
@@ -364,11 +366,15 @@ protected:
 XercesParser::XercesParser (XMLHandler& handler) :
    mReader         ( NULL    )
  , mSource         ( NULL    )
+ , mSM             ( NULL    )
  , mHandler        ( handler )
 {
   try
   {
     XMLPlatformUtils::Initialize();
+
+    mSM = new SecurityManager();
+    mSM->setEntityExpansionLimit(100);
 
     mReader = new XercesReader(handler); // XMLReaderFactory::createXMLReader();
 
@@ -378,7 +384,14 @@ XercesParser::XercesParser (XMLHandler& handler) :
     mReader->setFeature( XMLUni::fgSAX2CoreNameSpaces,            true );
     mReader->setFeature( XMLUni::fgSAX2CoreNameSpacePrefixes,     true );
     mReader->setFeature( XMLUni::fgXercesValidationErrorAsFatal,  true );
+    mReader->setFeature( XMLUni::fgXercesLoadExternalDTD,         false );
+    mReader->setFeature( XMLUni::fgXercesSchema,                  false );
+    mReader->setFeature( XMLUni::fgXercesLoadSchema,              false );
+    mReader->setFeature( XMLUni::fgXercesDisableDefaultEntityResolution, true);
     mReader->setFeature( XMLUni::fgXercesContinueAfterFatalError, false );
+    mReader->setFeature( XMLUni::fgXercesSkipDTDValidation,       true );
+    
+    mReader->setProperty( XMLUni::fgXercesSecurityManager, (void*)mSM);
   }
   catch (...)
   {
@@ -393,6 +406,7 @@ XercesParser::~XercesParser ()
 {
   delete mReader;
   delete mSource;
+  delete mSM;
   XMLPlatformUtils::Terminate();
 }
 
@@ -678,12 +692,6 @@ XercesParser::parseNext ()
   {
     reportError(XMLUnknownError, "thrown by Xerces", 0, 0);
     result = false;
-  }
-
-  if (! static_cast <XercesReader *> (mReader) ->hasXMLDeclaration())
-  {
-    reportError(MissingXMLDecl, "", 1, 1);
-    return false;
   }
 
   return result;

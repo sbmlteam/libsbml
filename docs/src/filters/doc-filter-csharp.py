@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # @file    doc-filter-csharp.py
 # @brief   Post-process libSBML's csharp doc strings for use by Doxygen.
@@ -67,7 +67,7 @@ def main (args):
   """
 
   if len(args) != 2:
-    print main.__doc__
+    print(main.__doc__)
     sys.exit(1)
 
   istream = open(args[1], 'r')

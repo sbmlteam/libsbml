@@ -88,8 +88,7 @@ XMLErrorLog& XMLErrorLog::operator=(const XMLErrorLog& other)
   {
     mOverriddenSeverity = other.mOverriddenSeverity;
     mParser = NULL;
-    
-    mErrors.clear();
+    clearLog();
     add(other.mErrors);
   }
   return *this;
@@ -100,7 +99,7 @@ XMLErrorLog& XMLErrorLog::operator=(const XMLErrorLog& other)
 /**
  * Used by the Destructor to delete each item in mErrors.
  */
-struct Delete : public unary_function<XMLError*, void>
+struct Delete 
 {
   void operator() (XMLError* error) { delete error; }
 };

@@ -40,7 +40,15 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CSGObject
- * @sbmlbrief{spatial} TODO:Definition of the CSGObject class.
+ * @sbmlbrief{spatial} Each CSGObject is a scene graph representing a particular 
+ * geometric object using constructed solid geometry. A node in a tree (scene graph) 
+ * is made up of CSGPrimitives, CSGSetOperators, and CSGTransformations.  
+ * Note that the CSGPrimitives are always leaves in this tree. The CSGObject is 
+ * analogous to an AnalyticVolume element in the sense that it is a constructed 
+ * geometry (from primitives) used to specify a volumetric (3-dimensional) domain. 
+ * The CSGObject element has three attributes : id, domainType and ordinal. 
+ * The definition of the CSGObject is completed by defining a CSGNode which is 
+ * the root of the CSGObject scene graph.
  */
 
 

@@ -92,6 +92,7 @@ fbc:charge="-4" fbc:chemicalFormula="C10H12N5O13P3"/>
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/extension/SBasePlugin.h>
+#include <sbml/packages/fbc/extension/FbcSBasePlugin.h>
 #include <sbml/packages/fbc/sbml/FluxBound.h>
 #include <sbml/packages/fbc/sbml/Objective.h>
 #include <sbml/packages/fbc/sbml/GeneAssociation.h>
@@ -99,7 +100,7 @@ fbc:charge="-4" fbc:chemicalFormula="C10H12N5O13P3"/>
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class LIBSBML_EXTERN FbcSpeciesPlugin : public SBasePlugin
+class LIBSBML_EXTERN FbcSpeciesPlugin : public FbcSBasePlugin
 {
 public:
 
@@ -227,6 +228,14 @@ public:
 
 
   /**
+  * Returns the value of the "charge" attribute of this FbcSpeciesPlugin.
+  *
+  * @return the value of the "charge" attribute of this FbcSpeciesPlugin as a double.
+  */
+  virtual double getChargeAsDouble() const;
+
+
+  /**
    * Returns the value of the "chemicalFormula" attribute of this FbcSpeciesPlugin.
    *
    * @return the value of the "chemicalFormula" attribute of this FbcSpeciesPlugin as a string.
@@ -267,6 +276,21 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setCharge(int charge);
+
+
+  /**
+  * Sets the value of the "charge" attribute of this FbcSpeciesPlugin.
+  *
+  * @param charge; double value of the "charge" attribute to be set
+  *
+  * @return integer value indicating success/failure of the
+  * function.  @if clike The value is drawn from the
+  * enumeration #OperationReturnValues_t. @endif The possible values
+  * returned by this function are:
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+  */
+  virtual int setCharge(double charge);
 
 
   /**
@@ -588,6 +612,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   int           mCharge;
+  double        mChargeAsDouble;
   bool          mIsSetCharge;
   std::string   mChemicalFormula;
 
@@ -619,7 +644,21 @@ BEGIN_C_DECLS
  */
 LIBSBML_EXTERN
 int
-FbcSpeciesPlugin_getCharge(SBasePlugin_t * fbc);
+FbcSpeciesPlugin_getCharge(FbcSBasePlugin_t * fbc);
+
+
+/**
+* Takes a FbcSpeciesPlugin_t structure and returns its charge.
+*
+* @param fbc the FbcSpeciesPlugin_t whose charge is sought.
+*
+* @return the charge attribute of the given FbcSpeciesPlugin_t, as an @c double.
+*
+* @memberof FbcSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+double
+FbcSpeciesPlugin_getChargeAsDouble(FbcSBasePlugin_t * fbc);
 
 
 /**
@@ -635,7 +674,7 @@ FbcSpeciesPlugin_getCharge(SBasePlugin_t * fbc);
  */
 LIBSBML_EXTERN
 int
-FbcSpeciesPlugin_isSetCharge(SBasePlugin_t * fbc);
+FbcSpeciesPlugin_isSetCharge(FbcSBasePlugin_t * fbc);
 
 
 /**
@@ -654,7 +693,26 @@ FbcSpeciesPlugin_isSetCharge(SBasePlugin_t * fbc);
  */
 LIBSBML_EXTERN
 int
-FbcSpeciesPlugin_setCharge(SBasePlugin_t * fbc, int charge);
+FbcSpeciesPlugin_setCharge(FbcSBasePlugin_t * fbc, int charge);
+
+
+/**
+* Sets the "charge" attribute of the given FbcSpeciesPlugin_t
+* structure.
+*
+* @param fbc the FbcSpeciesPlugin_t structure
+*
+* @param charge the value of charge to assign to the "charge" attribute
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+*
+* @memberof FbcSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+int
+FbcSpeciesPlugin_setChargeAsDouble(FbcSBasePlugin_t * fbc, double charge);
 
 
 /**
@@ -670,7 +728,7 @@ FbcSpeciesPlugin_setCharge(SBasePlugin_t * fbc, int charge);
  */
 LIBSBML_EXTERN
 int
-FbcSpeciesPlugin_unsetCharge(SBasePlugin_t * fbc);
+FbcSpeciesPlugin_unsetCharge(FbcSBasePlugin_t * fbc);
 
 
 /**
@@ -684,7 +742,7 @@ FbcSpeciesPlugin_unsetCharge(SBasePlugin_t * fbc);
  */
 LIBSBML_EXTERN
 char *
-FbcSpeciesPlugin_getChemicalFormula(SBasePlugin_t * fbc);
+FbcSpeciesPlugin_getChemicalFormula(FbcSBasePlugin_t * fbc);
 
 
 /**
@@ -700,7 +758,7 @@ FbcSpeciesPlugin_getChemicalFormula(SBasePlugin_t * fbc);
  */
 LIBSBML_EXTERN
 int
-FbcSpeciesPlugin_isSetChemicalFormula(SBasePlugin_t * fbc);
+FbcSpeciesPlugin_isSetChemicalFormula(FbcSBasePlugin_t * fbc);
 
 
 /**
@@ -720,7 +778,7 @@ FbcSpeciesPlugin_isSetChemicalFormula(SBasePlugin_t * fbc);
  */
 LIBSBML_EXTERN
 int
-FbcSpeciesPlugin_setChemicalFormula(SBasePlugin_t * fbc, const char * chemicalFormula);
+FbcSpeciesPlugin_setChemicalFormula(FbcSBasePlugin_t * fbc, const char * chemicalFormula);
 
 
 /**
@@ -736,7 +794,7 @@ FbcSpeciesPlugin_setChemicalFormula(SBasePlugin_t * fbc, const char * chemicalFo
  */
 LIBSBML_EXTERN
 int
-FbcSpeciesPlugin_unsetChemicalFormula(SBasePlugin_t * fbc);
+FbcSpeciesPlugin_unsetChemicalFormula(FbcSBasePlugin_t * fbc);
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

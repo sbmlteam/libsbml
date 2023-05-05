@@ -280,25 +280,22 @@ SBMLReader::readInternal (const char* content, bool isFile)
 
         d->setInvalidLevel();
 
-	      return d;
+        return d;
       }
     }
     else
     {
-      // here we do not have an xml document at all
-//      d->getErrorLog()->logError(NotSchemaConformant);
-
       if (stream.isError())
       {
         sortReportedErrors(d);    
       }
       d->setInvalidLevel();
-      
+
       return d;
     }
-	
+
     d->read(stream);
-    
+
     if (stream.isError())
     {
       // If we encountered an error, some parsers will report it sooner

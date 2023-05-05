@@ -61,7 +61,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
-CompSBMLDocumentPlugin::CompSBMLDocumentPlugin (const string &uri, const string &prefix, CompPkgNamespaces *compns)
+CompSBMLDocumentPlugin::CompSBMLDocumentPlugin (const string& uri, const string &prefix, CompPkgNamespaces *compns)
   : SBMLDocumentPlugin(uri,prefix, compns)
   , mListOfModelDefinitions(compns)
   , mListOfExternalModelDefinitions(compns)

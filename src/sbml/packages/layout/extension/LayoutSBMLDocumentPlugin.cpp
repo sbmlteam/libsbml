@@ -57,7 +57,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-LayoutSBMLDocumentPlugin::LayoutSBMLDocumentPlugin (const std::string &uri, 
+LayoutSBMLDocumentPlugin::LayoutSBMLDocumentPlugin (const std::string& uri, 
                                                     const std::string &prefix, LayoutPkgNamespaces *layoutns)
   : SBMLDocumentPlugin(uri,prefix, layoutns)
   , mElementsWithId(NULL)

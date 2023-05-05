@@ -15,7 +15,7 @@
                    http://sbml.org/Software/libSBML
 
        Please report problems with libSBML using the tracker at
-            http://sbml.org/Software/libSBML/issue-tracker
+            https://github.com/sbmlteam/libsbml/issues
 
   Mailing lists and online web forums for discussing libSBML are at
                         http://sbml.org/Forums
@@ -279,7 +279,7 @@ We invite you to report bugs and other problems using the issue
 tracker for libSBML on SourceForge.  The following URL will take you
 there directly:
 
-  http://sbml.org/Software/libSBML/issue-tracker
+  https://github.com/sbmlteam/libsbml/issues
 
 You can also ask questions on the 'sbml-interoperability' mailing
 list, either over email or using the web forum interface (see below).

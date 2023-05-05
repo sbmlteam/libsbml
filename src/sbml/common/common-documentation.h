@@ -111,6 +111,23 @@
  * all of the functionality available. @endif@~
  *
  * <!-- ------------------------------------------------------------------- -->
+ * @class doc_returns_success_code
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_returns_one_success_code
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ This particular
+ * function only does one thing irrespective of user input or 
+ * object state, and thus will only return a single value:
+ *
+ * <!-- ------------------------------------------------------------------- -->
  * @class doc_what_are_xmlnamespaces
  *
  * @par
@@ -2010,6 +2027,7 @@ void example (SBase sb)
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_renamesidref_common
  *
+ * @par
  * Replaces all uses of a given @c SIdRef type attribute value with another
  * value.
  *
@@ -2027,6 +2045,7 @@ void example (SBase sb)
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_renameunitsidref_common
  *
+ * @par
  * Replaces all uses of a given @c UnitSIdRef type attribute value with
  * another value.
  *
@@ -2044,6 +2063,7 @@ void example (SBase sb)
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_renamemetasidref_common
  *
+ * @par
  * Replaces all uses of a given meta identifier attribute value with
  * another value.
  *
@@ -2256,23 +2276,6 @@ if (config != None) {
  * expression encountered within the model.
  *
  * <!-- ------------------------------------------------------------------- -->
- * @class doc_returns_success_code
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- *
- * <!-- ------------------------------------------------------------------- -->
- * @class doc_returns_one_success_code
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ This particular
- * function only does one thing irrespective of user input or 
- * object state, and thus will only return a single value:
- *
- * <!-- ------------------------------------------------------------------- -->
  * @class doc_extension_sbmlextension
  *
  * @par
@@ -2348,11 +2351,11 @@ const std::string& GroupsExtension::getXmlnsL3V1V1 ()
  * method returns the nickname of the package (e.g., "layout",
  * "groups").
  *
- * @li <code>virtual unsigned int getLevel(const std::string &uri) const
+ * @li <code>virtual unsigned int getLevel(const std::string& uri) const
  * =0</code>. This method returns the SBML Level with the given URI of
  * this package.
  *
- * @li <code>virtual unsigned int getVersion(const std::string &uri)
+ * @li <code>virtual unsigned int getVersion(const std::string& uri)
  * const =0</code>. This method returns the SBML Version with the given
  * URI of this package.
  *
@@ -2377,7 +2380,7 @@ const std::string& GroupsExtension::getName() const
   return getPackageName();
 }
 
-unsigned int GroupsExtension::getLevel(const std::string &uri) const
+unsigned int GroupsExtension::getLevel(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
     return 3;
@@ -2385,7 +2388,7 @@ unsigned int GroupsExtension::getLevel(const std::string &uri) const
     return 0;
 }
 
-unsigned int GroupsExtension::getVersion(const std::string &uri) const
+unsigned int GroupsExtension::getVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
     return 1;
@@ -2393,7 +2396,7 @@ unsigned int GroupsExtension::getVersion(const std::string &uri) const
     return 0;
 }
 
-unsigned int GroupsExtension::getPackageVersion(const std::string &uri) const
+unsigned int GroupsExtension::getPackageVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
     return 1;
@@ -2479,7 +2482,7 @@ Group g = new Group(&gpns);        // Creates a Group object.
  * is overridden in the class <code>GroupsExtension</code> as follows:
 @code{.cpp}
 SBMLNamespaces*
-GroupsExtension::getSBMLExtensionNamespaces(const std::string &uri) const
+GroupsExtension::getSBMLExtensionNamespaces(const std::string& uri) const
 {
   GroupsPkgNamespaces* pkgns = NULL;
   if ( uri == getXmlnsL3V1V1())

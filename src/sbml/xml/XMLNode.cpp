@@ -48,6 +48,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/xml/XMLConstructorException.h>
+#include <sbml/xml/XMLErrorLog.h>
 /** @endcond */
 
 #include <sbml/xml/XMLNode.h>
@@ -667,6 +668,26 @@ XMLNode* XMLNode::convertStringToXMLNode(const std::string& xmlstr, const XMLNam
   return xmlnode;
 }
 
+
+/*
+* read xmlnode from file
+*/
+XMLNode*
+XMLNode::readXMLNodeFromFile(const std::string& filename)
+{
+  XMLNode * xmlnode = NULL;
+  if (!util_file_exists(filename.c_str()))
+  {
+    return xmlnode;
+  }
+  XMLErrorLog * log = new XMLErrorLog();
+
+  XMLInputStream stream(filename.c_str(), true, "", log);
+  if (!stream.peek().isStart())
+    return NULL;
+
+  return new XMLNode(stream);
+}
 
 /** @cond doxygenLibsbmlInternal */
 /*

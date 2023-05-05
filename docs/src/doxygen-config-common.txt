@@ -194,11 +194,9 @@ ALIASES += sbmlmarker{1}="@htmlinclude pkg-marker-\1.html"
 ALIASES += sbmlbrief{1}="@sbmlpackage{\1}\n\
 @brief @sbmlmarker{\1} "
 
-ALIASES += sbmlfunction{2}="@if cpp SBML_\1()@endif @if conly SBML_\1()@endif @if csharp SBML_\1()@endif @if python @link libsbml.\1() \1()@endlink@endif@~"
+ALIASES += sbmlfunction{2}="@if clike SBML_\1()@endif @if csharp SBML_\1()@endif @if python @link libsbml.\1() \1()endif@~"
 
-ALIASES += sbmlconstant{2}="@if clike @link \2#\1 \1@endlink@endif @if csharp @link libsbml#\1 \1@endlink@endif @if python @link libsbml#\1 \1@endlink@endif @if java @link libsbmlConstants#\1 \1@endlink@endif@~"
-
-ALIASES += sbmlglobalfunction{2}="@if cpp \1()@endif @if conly \1()@endif @if csharp \1()@endif @if python @link libsbml.\1() \1()@endlink@endif@~"
+ALIASES += sbmlconstant{2}="@if clike @link \2#\1 \1endif @if csharp @link libsbml#\1 \1endif @if python @link libsbml#\1 \1endif @if java @link libsbmlConstants#\1 \1endif@~"
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"
@@ -564,10 +562,6 @@ INPUT =                                    \
   ../../src/sbml/packages/groups/extension \
   ../../src/sbml/packages/groups/sbml      \
   ../../src/sbml/packages/groups/validator \
-  ../../src/sbml/packages/multi/common     \
-  ../../src/sbml/packages/multi/extension  \
-  ../../src/sbml/packages/multi/sbml       \
-  ../../src/sbml/packages/multi/validator  \
   ../../src/sbml/packages/layout/common    \
   ../../src/sbml/packages/layout/extension \
   ../../src/sbml/packages/layout/sbml      \
@@ -575,13 +569,24 @@ INPUT =                                    \
   ../../src/sbml/packages/layout/validator \
   ../../src/sbml/packages/render/common    \
   ../../src/sbml/packages/render/extension \
-  ../../src/sbml/packages/render/util      \ 
   ../../src/sbml/packages/render/sbml      \
+  ../../src/sbml/packages/render/util      \ 
   ../../src/sbml/packages/render/validator \
+  ../../src/sbml/packages/spatial/common    \
+  ../../src/sbml/packages/spatial/extension \
+  ../../src/sbml/packages/spatial/sbml      \
+  ../../src/sbml/packages/spatial/validator \
+  ../../src/sbml/packages/multi/common    \
+  ../../src/sbml/packages/multi/extension \
+  ../../src/sbml/packages/multi/sbml      \
+  ../../src/sbml/packages/multi/validator \
   ../../src/sbml/packages/qual/common      \
   ../../src/sbml/packages/qual/extension   \
   ../../src/sbml/packages/qual/sbml        \
-  ../../src/sbml/packages/qual/validator
+  ../../src/sbml/packages/qual/validator \
+  ../../src/sbml/common/common-documentation.h \
+  ../../src/sbml/common/common-sbmlerror-codes.h
+  
 
 # The RECURSIVE tag can be used to turn specify whether or not subdirectories 
 # should be searched for input files as well. Possible values are YES and NO. 
@@ -771,6 +776,20 @@ IGNORE_PREFIX          =
 # generate HTML output.
 
 GENERATE_HTML          = YES
+
+
+# Enable the USE_MATHJAX option to render $\mbox{\LaTeX}$ formulas using 
+# MathJax (see https://www.mathjax.org) which uses client side JavaScript 
+# for the rendering instead of using pre-rendered bitmaps. Use this if you 
+# do not have $\mbox{\LaTeX}$ installed or if you want to formulas look 
+# prettier in the HTML output. When enabled you may also need to install 
+# MathJax separately and configure the path to it using the MATHJAX_RELPATH option.
+USE_MATHJAX            = YES
+
+# MATHJAX_FORMAT = SVG
+
+MATHJAX_RELPATH = https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5
+
 
 # The HTML_FILE_EXTENSION tag can be used to specify the file extension for 
 # each generated HTML page (for example: .htm,.php,.asp). If it is left blank 
@@ -1306,15 +1325,21 @@ DOT_MULTI_TARGETS      = YES
 
 DOT_GRAPH_MAX_NODES    = 5000
 
-MARKDOWN_SUPPORT       = NO
-
 #---------------------------------------------------------------------------
 # Configuration:additions related to the search engine   
 #---------------------------------------------------------------------------
 
-# The following file does not exist in the distribution.  It's created by the
-# Makefile at run time, to generate different search systems depending on
-# whether we're building a copy of the docs for users' local use or for
-# installing them on sbml.org.
+# The SEARCHENGINE tag specifies whether or not a search engine should be 
+# used. If set to NO the values of all tags below this one will be ignored.
 
-@INCLUDE = doxygen-search-config.txt
+SEARCHENGINE           = YES
+SERVER_BASED_SEARCH    = NO
+
+#---------------------------------------------------------------------------
+# Configuration: handling of Doxygen version-specific features
+#---------------------------------------------------------------------------
+
+# The following file does not exist in the distribution.  It's created
+# automatically by the Makefile at run-time.
+
+@INCLUDE = doxygen-version-specific.txt

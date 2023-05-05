@@ -52,12 +52,12 @@ class TestConstraint_newSetters(unittest.TestCase):
   def test_Constraint_setMath1(self):
     math = libsbml.parseFormula("2 * k")
     i = self.C.setMath(math)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.C.getMath() != math )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.C.getMath() != math )
     self.assertEqual( True, self.C.isSetMath() )
     i = self.C.setMath(None)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.C.getMath() == None )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.C.getMath() == None )
     self.assertEqual( False, self.C.isSetMath() )
     _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -65,7 +65,7 @@ class TestConstraint_newSetters(unittest.TestCase):
   def test_Constraint_setMath2(self):
     math = libsbml.ASTNode(libsbml.AST_DIVIDE)
     i = self.C.setMath(math)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assertEqual( False, self.C.isSetMath() )
     _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -73,10 +73,10 @@ class TestConstraint_newSetters(unittest.TestCase):
   def test_Constraint_setMessage1(self):
     node = libsbml.XMLNode()
     i = self.C.setMessage(node)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
-    self.assert_( self.C.isSetMessage() == False )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertTrue( self.C.isSetMessage() == False )
     i = self.C.unsetMessage()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.C.isSetMessage() )
     if (self.C.getMessage() != None):
       pass    
@@ -96,10 +96,10 @@ class TestConstraint_newSetters(unittest.TestCase):
     node = libsbml.XMLNode(triple1,att1)
     node.addChild(p)
     i = self.C.setMessage(node)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( self.C.isSetMessage() == True )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( self.C.isSetMessage() == True )
     i = self.C.unsetMessage()
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.C.isSetMessage() )
     if (self.C.getMessage() != None):
       pass    

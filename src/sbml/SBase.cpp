@@ -51,6 +51,7 @@
 #include <sbml/util/util.h>
 
 #include <sbml/annotation/RDFAnnotation.h>
+#include <sbml/annotation/Date.h>
 
 #include <sbml/KineticLaw.h>
 #include <sbml/SBMLError.h>
@@ -80,7 +81,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /*
  * Used by the Destructor to delete each item in mPlugins.
  */
-struct DeletePluginEntity : public unary_function<SBasePlugin*, void>
+struct DeletePluginEntity
 {
   void operator() (SBasePlugin* sb) { delete sb; }
 };
@@ -89,9 +90,9 @@ struct DeletePluginEntity : public unary_function<SBasePlugin*, void>
 /*
  * Used by the Copy Constructor to clone each item in mPlugins.
  */
-struct ClonePluginEntity : public unary_function<SBasePlugin*, SBasePlugin*>
+struct ClonePluginEntity 
 {
-  SBasePlugin* operator() (SBasePlugin* sb) {
+  SBasePlugin* operator() (const SBasePlugin* sb) {
     if (!sb) return NULL;
     return sb->clone();
   }
@@ -182,7 +183,7 @@ SBase::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 
 /** @cond doxygenLibsbmlInternal */
 SBase*
-SBase::getElementFromPluginsBySId(std::string id)
+SBase::getElementFromPluginsBySId(const std::string& id)
 {
   for (size_t i=0; i < mPlugins.size(); i++)
   {
@@ -196,7 +197,7 @@ SBase::getElementFromPluginsBySId(std::string id)
 
 /** @cond doxygenLibsbmlInternal */
 SBase*
-SBase::getElementFromPluginsByMetaId(std::string metaid)
+SBase::getElementFromPluginsByMetaId(const std::string& metaid)
 {
   for (size_t i=0; i < mPlugins.size(); i++)
   {
@@ -357,7 +358,7 @@ SBase::SBase (unsigned int level, unsigned int version) :
  * Creates a new SBase object with the given SBMLNamespaces.
  * Only subclasses may create SBase objects.
  */
-SBase::SBase (SBMLNamespaces *sbmlns) :
+SBase::SBase (const SBMLNamespaces *sbmlns) :
    mId   ( "" )
  , mName ( "" )
  , mMetaId ( "" )
@@ -451,8 +452,8 @@ SBase::SBase(const SBase& orig)
   if(orig.mCVTerms != NULL)
   {
     this->mCVTerms  = new List();
-    unsigned int i,iMax = orig.mCVTerms->getSize();
-    for(i = 0; i < iMax; ++i)
+    unsigned int iMax = orig.mCVTerms->getSize();
+    for(unsigned int i = 0; i < iMax; ++i)
     {
       this->mCVTerms
         ->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
@@ -555,8 +556,8 @@ SBase& SBase::operator=(const SBase& rhs)
     if(rhs.mCVTerms != NULL)
     {
       this->mCVTerms  = new List();
-      unsigned int i,iMax = rhs.mCVTerms->getSize();
-      for(i = 0; i < iMax; ++i)
+      unsigned int iMax = rhs.mCVTerms->getSize();
+      for(unsigned int i = 0; i < iMax; ++i)
       {
         this->mCVTerms
           ->add(static_cast<CVTerm*>(rhs.mCVTerms->get(i))->clone());
@@ -605,7 +606,7 @@ SBase::loadPlugins(SBMLNamespaces *sbmlns)
   //
   // (EXTENSION)
   //
-  XMLNamespaces *xmlns = sbmlns->getNamespaces();
+  const XMLNamespaces *xmlns = sbmlns->getNamespaces();
 
   if (xmlns)
   {
@@ -615,7 +616,7 @@ SBase::loadPlugins(SBMLNamespaces *sbmlns)
 
     for (int i=0; i < numxmlns; i++)
     {
-      const std::string &uri = xmlns->getURI(i);
+      const std::string& uri = xmlns->getURI(i);
       const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
 
       if (sbmlext && sbmlext->isEnabled())
@@ -636,10 +637,6 @@ SBase::loadPlugins(SBMLNamespaces *sbmlns)
 
         if (sbPluginCreator)
         {
-          // (debug)
-          //cout << "sbPluginCreator " << sbPluginCreator << endl;
-          //sbPluginCreator->createPlugin(uri,prefix);
-          // (debug)
           SBasePlugin* entity = sbPluginCreator->createPlugin(uri,prefix,xmlns);
           entity->connectToParent(this);
           mPlugins.push_back(entity);
@@ -848,22 +845,18 @@ SBase::getURI() const
 
 
 /** @cond doxygenLibsbmlInternal */
-/*
- * This function does nothing itself--subclasses with ASTNode subelements must override this function.
- */
 void
 SBase::replaceSIDWithFunction(const std::string&, const ASTNode*)
 {
+ // This function does nothing itself--subclasses with ASTNode subelements must override this function.
 }
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-/*
- * This function does nothing itself--subclasses with ASTNode subelements must override this function.
- */
 void
 SBase::divideAssignmentsToSIdByFunction(const std::string&, const ASTNode*)
 {
+ // This function does nothing itself--subclasses with ASTNode subelements must override this function.
 }
 /** @endcond */
 
@@ -871,6 +864,7 @@ SBase::divideAssignmentsToSIdByFunction(const std::string&, const ASTNode*)
 void
 SBase::multiplyAssignmentsToSIdByFunction(const std::string&, const ASTNode*)
 {
+ // This function does nothing itself--subclasses with ASTNode subelements must override this function.
 }
 /** @endcond */
 
@@ -946,25 +940,11 @@ SBase::getNamespaces() const
 const SBMLDocument*
 SBase::getSBMLDocument () const
 {
-  if (mSBML != NULL)
+  // if the doc object has been deleted the pointer is
+  // still valid but points to nothing
+  if (mSBML != NULL && mSBML->getHasBeenDeleted())
   {
-    // if the doc object has been deleted the pointer is
-    // still valid but points to nothing
-    try
-    {
-      if (mSBML->getHasBeenDeleted())
-      {
-        return NULL;
-      }
-      else
-      {
-        return mSBML;
-      }
-    }
-    catch ( ... )
-    {
-      return NULL;
-    }
+    return NULL;
   }
 
   return mSBML;
@@ -976,50 +956,22 @@ SBase::getSBMLDocument () const
 SBMLDocument*
 SBase::getSBMLDocument ()
 {
-  if (mSBML != NULL)
+  // if the doc object has been deleted the pointer is
+  // still valid but points to nothing
+  if (mSBML != NULL && mSBML->getHasBeenDeleted())
   {
-    // if the doc object has been deleted the pointer is
-    // still valid but points to nothing
-    try
-    {
-      if (mSBML->getHasBeenDeleted())
-      {
-        return NULL;
-      }
-      else
-      {
-        return mSBML;
-      }
-    }
-    catch ( ... )
-    {
-      return NULL;
-    }
+    return NULL;
   }
   return mSBML;
 }
 SBase*
 SBase::getParentSBMLObject ()
 {
-  if (mParentSBMLObject != NULL)
+  // if the parent object has been deleted the pointer is
+  // still valid but points to nothing
+  if (mParentSBMLObject != NULL && mParentSBMLObject->getHasBeenDeleted())
   {
-    // if the parent object has been deleted the pointer is
-    // still valid but points to nothing
-    try
-    {
-      if (mParentSBMLObject->getHasBeenDeleted())
-      {
-        return NULL;
-      }
-      else
-      {
-        return mParentSBMLObject;
-      }
-    }
-    catch ( ... )
-    {
-      return NULL;
-    }
+    return NULL;
   }
 
   return mParentSBMLObject;
@@ -1028,25 +980,11 @@ SBase::getParentSBMLObject ()
 const SBase*
 SBase::getParentSBMLObject () const
 {
-  if (mParentSBMLObject != NULL)
+  // if the parent object has been deleted the pointer is
+  // still valid but points to nothing
+  if (mParentSBMLObject != NULL && mParentSBMLObject->getHasBeenDeleted())
   {
-    // if the parent object has been deleted the pointer is
-    // still valid but points to nothing
-    try
-    {
-      if (mParentSBMLObject->getHasBeenDeleted())
-      {
-        return NULL;
-      }
-      else
-      {
-        return mParentSBMLObject;
-      }
-    }
-    catch ( ... )
-    {
-      return NULL;
-    }
+    return NULL;
   }
 
   return mParentSBMLObject;
@@ -1125,6 +1063,31 @@ ModelHistory*
 SBase::getModelHistory()
 {
   return mHistory;
+}
+
+Date*
+SBase::getCreatedDate() const
+{
+  return (mHistory != NULL)  ? mHistory->getCreatedDate() : NULL;
+}
+
+Date*
+SBase::getCreatedDate()
+{
+  return (mHistory != NULL) ? mHistory->getCreatedDate() : NULL;
+}
+
+
+Date*
+SBase::getModifiedDate(unsigned int n)
+{
+  return (mHistory != NULL) ? mHistory->getModifiedDate(n) : NULL;
+}
+
+unsigned int
+SBase::getNumModifiedDates()
+{
+  return (mHistory != NULL) ? mHistory->getNumModifiedDates() : NULL;
 }
 
 
@@ -1207,10 +1170,26 @@ SBase::isSetSBOTerm () const
 
 
 bool
-SBase::isSetModelHistory()
+SBase::isSetModelHistory() const
 {
   return (mHistory != NULL);
 }
+
+
+bool
+SBase::isSetCreatedDate() const
+{
+  return (mHistory == NULL) ? false : mHistory->isSetCreatedDate();
+}
+
+
+
+bool
+SBase::isSetModifiedDate() const
+{
+  return (mHistory == NULL) ? false : mHistory->isSetModifiedDate();
+}
+
 
 
 /*
@@ -1332,10 +1311,6 @@ SBase::setAnnotation (const XMLNode* annotation)
   }
 
 
-  //else if (!(math->isWellFormedASTNode()))
-  //{
-  //  return LIBSBML_INVALID_OBJECT;
-  //}
   if (mAnnotation != annotation)
   {
     delete mAnnotation;
@@ -1408,6 +1383,14 @@ SBase::setAnnotation (const XMLNode* annotation)
     mCVTerms = NULL;
   }
 
+  unsigned int level = getLevel();
+  bool hasNestedTerms = false;
+  bool validNestedTerms = true;
+  if (level < 2 ||
+    (level == 2 && getVersion() < 5))
+  {
+    validNestedTerms = false;
+  }
 
   if(mAnnotation != NULL
         && RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
@@ -1415,6 +1398,21 @@ SBase::setAnnotation (const XMLNode* annotation)
     // parse mAnnotation (if any) and set mCVTerms
     mCVTerms = new List();
     RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
+    // look at cvterms to see if we have a nested term
+    for (unsigned int cv = 0; cv < mCVTerms->getSize(); cv++)
+    {
+      CVTerm * term = (CVTerm *)(mCVTerms->get(cv));
+      if (term->getNumNestedCVTerms() > 0)
+      {
+        hasNestedTerms = true;
+        /* this essentially tells the code that rewrites the annotation to
+        * reconstruct the node and should leave out the nested bit
+        * if it not allowed
+        */
+        term->setHasBeenModifiedFlag();
+        term->setCapturedInStoredAnnotation(!validNestedTerms);
+      }
+    }
     mCVTermsChanged = true;
   }
 
@@ -1430,10 +1428,6 @@ SBase::setAnnotation (const XMLNode* annotation)
   {
     mPlugins[i]->parseAnnotation(this, mAnnotation);
   }
-
-
-  //mAnnotationChanged = true;
-
 
   return LIBSBML_OPERATION_SUCCESS;
 }
@@ -1465,7 +1459,7 @@ SBase::setAnnotation (const std::string& annotation)
   // you might not have a document !!
   if (getSBMLDocument() != NULL)
   {
-    XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+    const XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
     annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
   }
   else
@@ -1622,7 +1616,7 @@ SBase::appendAnnotation (const std::string& annotation)
   XMLNode* annt_xmln;
   if (getSBMLDocument() != NULL)
   {
-    XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+    const XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
     annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
   }
   else
@@ -1755,7 +1749,7 @@ SBase::replaceTopLevelAnnotationElement(const std::string& annotation)
   XMLNode* annt_xmln;
   if (getSBMLDocument() != NULL)
   {
-    XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+    const XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
     annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
   }
   else
@@ -1831,19 +1825,17 @@ SBase::setNotes(const XMLNode* notes)
   // in L2v2 and beyond the XHTML content of notes is restricted
   // but I need the notes tag to use the function
   // so I havent tested it until now
-  if (getLevel() > 2
-    || (getLevel() == 2 && getVersion() > 1))
+  bool isCorrectLevel = getLevel() > 2
+    || (getLevel() == 2 && getVersion() > 1);
+  if (isCorrectLevel
+      && !SyntaxChecker::hasExpectedXHTMLSyntax(mNotes, getSBMLNamespaces()))
   {
-    if (!SyntaxChecker::hasExpectedXHTMLSyntax(mNotes, getSBMLNamespaces()))
-    {
-      delete mNotes;
-      mNotes = NULL;
-      return LIBSBML_INVALID_OBJECT;
-    }
+    delete mNotes;
+    mNotes = NULL;
+    return LIBSBML_INVALID_OBJECT;
   }
 
   return LIBSBML_OPERATION_SUCCESS;
-
 }
 
 /*
@@ -1865,7 +1857,7 @@ SBase::setNotes(const std::string& notes, bool addXHTMLMarkup)
     // you might not have a document !!
     if (getSBMLDocument() != NULL)
     {
-      XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+      const XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
       notes_xmln = XMLNode::convertStringToXMLNode(notes,xmlns);
     }
     else
@@ -2052,16 +2044,14 @@ SBase::appendNotes(const XMLNode* notes)
   // checks the addedNotes of "html" if the html tag contains "head" and
   // "body" tags which must be located in this order.
   //
-  if (addedNotesType == _ANotesHTML)
+  if (addedNotesType == _ANotesHTML
+      && ((addedNotes.getNumChildren() != 2) ||
+      ( (addedNotes.getChild(0).getName() != "head") ||
+        (addedNotes.getChild(1).getName() != "body")
+      )
+     ))
   {
-    if ((addedNotes.getNumChildren() != 2) ||
-        ( (addedNotes.getChild(0).getName() != "head") ||
-          (addedNotes.getChild(1).getName() != "body")
-        )
-       )
-    {
-      return LIBSBML_INVALID_OBJECT;
-    }
+    return LIBSBML_INVALID_OBJECT;
   }
 
   // check whether notes is valid xhtml
@@ -2257,7 +2247,7 @@ SBase::appendNotes(const XMLNode* notes)
       success = LIBSBML_OPERATION_SUCCESS;
     }
   }
-  else // if (mNotes == NULL)
+  else
   {
     // setNotes accepts XMLNode with/without top level notes tags.
     success = setNotes(notes);
@@ -2284,7 +2274,7 @@ SBase::appendNotes(const std::string& notes)
   // you might not have a document !!
   if (getSBMLDocument() != NULL)
   {
-      XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+      const XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
       notes_xmln = XMLNode::convertStringToXMLNode(notes,xmlns);
   }
   else
@@ -2304,48 +2294,97 @@ SBase::appendNotes(const std::string& notes)
 int
 SBase::setModelHistory(ModelHistory * history)
 {
+  // if there is no parent then the required attributes are not
+  // correctly identified
+  bool dummyParent = false;
+  if (history != NULL && history->getParentSBMLObject() == NULL)
+  {
+    history->setParentSBMLObject(this);
+    dummyParent = true;
+  }
+
+  int status = LIBSBML_OPERATION_SUCCESS;
+
   /* ModelHistory is only allowed on Model in L2
    * but on any element in L3
    */
-  if (getLevel() < 3)
+  if (getLevel() < 3 && getTypeCode() != SBML_MODEL)
   {
-    if (getTypeCode() != SBML_MODEL)
-    {
-      return LIBSBML_UNEXPECTED_ATTRIBUTE;
-    }
+    status = LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
   // shouldnt add a history to an object with no metaid
-  if (!isSetMetaId())
+  if (status == LIBSBML_OPERATION_SUCCESS && !isSetMetaId())
   {
-    return LIBSBML_MISSING_METAID;
+    status = LIBSBML_MISSING_METAID;
   }
+  
+  if (status == LIBSBML_OPERATION_SUCCESS)
+  {
+    if (mHistory == history)
+    {
+      status = LIBSBML_OPERATION_SUCCESS;
+    }
+    else if (history == NULL)
+    {
+      delete mHistory;
+      mHistory = NULL;
+      mHistoryChanged = true;
+      status = LIBSBML_OPERATION_SUCCESS;
+    }
+    else if (!(history->hasRequiredAttributes()))
+    {
+      delete mHistory;
+      mHistory = NULL;
+      status = LIBSBML_INVALID_OBJECT;
+    }
+    else
+    {
+      delete mHistory;
+      mHistory = static_cast<ModelHistory*>(history->clone());
+      mHistoryChanged = true;
+      status = LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+  // if we set a dummy parent unset
+  if (dummyParent)
+    history->unsetParentSBMLObject();
 
-  if (mHistory == history)
+  return status;
+}
+
+int 
+SBase::setCreatedDate(Date* date)
+{
+  if (mHistory != NULL)
   {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (history == NULL)
-  {
-    delete mHistory;
-    mHistory = NULL;
-    mHistoryChanged = true;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (!(history->hasRequiredAttributes()))
-  {
-    delete mHistory;
-    mHistory = NULL;
-    return LIBSBML_INVALID_OBJECT;
+    return mHistory->setCreatedDate(date);
   }
   else
   {
-    delete mHistory;
-    mHistory = static_cast<ModelHistory*>( history->clone() );
+    mHistory = new ModelHistory();
     mHistoryChanged = true;
-    return LIBSBML_OPERATION_SUCCESS;
+
+    return mHistory->setCreatedDate(date);
+
   }
 }
 
+int
+SBase::addModifiedDate(Date* date)
+{
+  if (mHistory != NULL)
+  {
+    return mHistory->addModifiedDate(date);
+  }
+  else
+  {
+    mHistory = new ModelHistory();
+    mHistoryChanged = true;
+
+    return mHistory->addModifiedDate(date);
+
+  }
+}
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -2644,7 +2683,7 @@ SBase::unsetNotes ()
 int
 SBase::unsetAnnotation ()
 {
-  XMLNode* empty = NULL;
+  const XMLNode* empty = NULL;
   return setAnnotation(empty);
 }
 
@@ -2708,7 +2747,7 @@ void SBase::removeDuplicatedResources(CVTerm *term, QualifierType_t type)
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-int SBase::addTermToExistingBag(CVTerm *term, QualifierType_t type )
+int SBase::addTermToExistingBag(CVTerm *term, QualifierType_t type ) const
 {
   unsigned int added = 0;
   unsigned int length = mCVTerms->getSize();
@@ -2849,7 +2888,7 @@ SBase::getCVTerms() const
  * @return the number of CVTerms for this SBML object.
  */
 unsigned int
-SBase::getNumCVTerms()
+SBase::getNumCVTerms() const
 {
   if (mCVTerms != NULL)
   {
@@ -2928,6 +2967,74 @@ SBase::unsetModelHistory()
 }
 
 
+int
+SBase::unsetCreatedDate()
+{
+  if (mHistory != NULL && mHistory->isSetCreatedDate())
+  {
+    mHistoryChanged = true;
+  }
+  else
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
+  /* ModelHistory is only allowed on Model in L2
+  * but on any element in L3
+  */
+  if (getLevel() < 3 && getTypeCode() != SBML_MODEL)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
+  Date* created = mHistory->getCreatedDate();
+  delete created;
+  mHistory->mCreatedDate = NULL;
+
+  if (mHistory->isSetCreatedDate() == true)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+int
+SBase::unsetModifiedDates()
+{
+  if (mHistory != NULL && mHistory->isSetModifiedDate())
+  {
+    mHistoryChanged = true;
+  }
+  else
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
+  /* ModelHistory is only allowed on Model in L2
+  * but on any element in L3
+  */
+  if (getLevel() < 3 && getTypeCode() != SBML_MODEL)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
+  List_freeItems(mHistory->getListModifiedDates(), Date_free, Date_t);
+
+  if (mHistory->getNumModifiedDates() > 0)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
 /*
  * Returns the BiologicalQualifier associated with this resource,
  * an empty string if the resource does not exist.
@@ -2938,7 +3045,7 @@ SBase::unsetModelHistory()
  * @return the BiolQualifierType_t associated with the resource
  */
 BiolQualifierType_t
-SBase::getResourceBiologicalQualifier(std::string resource)
+SBase::getResourceBiologicalQualifier(std::string resource) const
 {
   if (mCVTerms != NULL)
   {
@@ -2975,7 +3082,7 @@ SBase::getResourceBiologicalQualifier(std::string resource)
  * @return the ModelQualifierType_t associated with the resource
  */
 ModelQualifierType_t
-SBase::getResourceModelQualifier(std::string resource)
+SBase::getResourceModelQualifier(std::string resource) const
 {
   if (mCVTerms != NULL)
   {
@@ -3134,37 +3241,6 @@ SBase::getAttribute(const std::string& attributeName, std::string& value) const
 
 
 /** @cond doxygenLibsbmlInternal */
-//int 
-//SBase::getAttribute(const std::string& attributeName, const char * value) const
-//{
-//  if (attributeName == "metaid")
-//  {
-//    value = getMetaId().c_str();
-//    return LIBSBML_OPERATION_SUCCESS;
-//  }
-//  else if (attributeName == "id")
-//  {
-//    value = getIdAttribute().c_str();
-//    return LIBSBML_OPERATION_SUCCESS;
-//  }
-//  else if (attributeName == "name")
-//  {
-//    value = getName().c_str();
-//    return LIBSBML_OPERATION_SUCCESS;
-//  }
-//  else if (attributeName == "sboTerm")
-//  {
-//    value = getSBOTermID().c_str();
-//    return LIBSBML_OPERATION_SUCCESS;
-//  }
-//
-//
-//  return LIBSBML_OPERATION_FAILED;
-//}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
 bool 
 SBase::isSetAttribute(const std::string& attributeName) const
 {
@@ -3260,33 +3336,6 @@ SBase::setAttribute(const std::string& attributeName, const std::string& value)
 
   return return_value;
 }
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-//int 
-//SBase::setAttribute(const std::string& attributeName, const char * value)
-//{
-//  int return_value = LIBSBML_OPERATION_FAILED;
-//  if (attributeName == "metaid")
-//  {
-//    return_value = setMetaId(value);
-//  }
-//  else if (attributeName == "id")
-//  {
-//    return_value = setIdAttribute(value);
-//  }
-//  else if (attributeName == "name")
-//  {
-//    return_value = setName(value);
-//  }
-//  else if (attributeName == "sboTerm")
-//  {
-//    return_value = setSBOTerm(value);
-//  }
-//
-//  return return_value;
-//}
 /** @endcond */
 
 
@@ -3486,12 +3535,9 @@ SBase::getPlugin(const std::string& package)
   {
     std::string uri = mPlugins[i]->getURI();
     const SBMLExtension* sbext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
-    if (uri == package)
-    {
-      sbPlugin = mPlugins[i];
-      break;
-    }
-    else if (sbext && (sbext->getName() == package) )
+    bool uri_matches_package = uri == package;
+    bool sbext_name_matches = sbext && (sbext->getName() == package);
+    if (uri_matches_package || sbext_name_matches)
     {
       sbPlugin = mPlugins[i];
       break;
@@ -3675,11 +3721,6 @@ SBase::enablePackage(const std::string& pkgURI, const std::string& prefix, bool 
         return LIBSBML_PKG_VERSION_MISMATCH;
       }
     }
-    // we decided l3v1 packages would work with l3v2 so dont force the version 
-    // to be the same
-    //else if ( (sbmlext->getLevel(pkgURI)   != getLevel()  ) ||
-    //     (sbmlext->getVersion(pkgURI) != getVersion())
-    //   )
     else if (sbmlext->getLevel(pkgURI)   != getLevel()  )
     {
       return LIBSBML_PKG_VERSION_MISMATCH;
@@ -3995,8 +4036,8 @@ SBase::matchesRequiredSBMLNamespacesForAddition(const SBase * sb)
 
   if (match == true)
   {
-    XMLNamespaces *xmlns = getSBMLNamespaces()->getNamespaces();
-    XMLNamespaces *xmlns_rhs = sb->getSBMLNamespaces()->getNamespaces();
+    const XMLNamespaces *xmlns = getSBMLNamespaces()->getNamespaces();
+    const XMLNamespaces *xmlns_rhs = sb->getSBMLNamespaces()->getNamespaces();
 
     // if child has a package it must match the parent
     for (int i = 0; i < xmlns_rhs->getNumNamespaces(); i++)
@@ -4009,12 +4050,9 @@ SBase::matchesRequiredSBMLNamespacesForAddition(const SBase * sb)
       {
         version = uri.find("version", version+33);
       }
-      if (version != string::npos)
+      if (version != string::npos && !xmlns->containsUri(uri))
       {
-        if (xmlns->containsUri(uri) == false)
-        {
-          match = false;
-        }
+        match = false;
       }
     }
   }
@@ -4031,8 +4069,8 @@ SBase::matchesRequiredSBMLNamespacesForAddition(const SBase * sb) const
 
   if (match == true)
   {
-    XMLNamespaces *xmlns = getSBMLNamespaces()->getNamespaces();
-    XMLNamespaces *xmlns_rhs = sb->getSBMLNamespaces()->getNamespaces();
+    const XMLNamespaces *xmlns = getSBMLNamespaces()->getNamespaces();
+    const XMLNamespaces *xmlns_rhs = sb->getSBMLNamespaces()->getNamespaces();
 
     // if child has a package it must match the parent
     for (int i = 0; i < xmlns_rhs->getNumNamespaces(); i++)
@@ -4045,12 +4083,9 @@ SBase::matchesRequiredSBMLNamespacesForAddition(const SBase * sb) const
       {
         version = uri.find("version", version+33);
       }
-      if (version != string::npos)
+      if (version != string::npos && !xmlns->containsUri(uri))
       {
-        if (xmlns->containsUri(uri) == false)
-        {
-          match = false;
-        }
+        match = false;
       }
     }
   }
@@ -4082,12 +4117,6 @@ SBase::matchesCoreSBMLNamespace(const SBase * sb)
     match = true;
   }
 
-  //if (sbmlns->getNamespaces()->containIdenticalSetNS(sbmlns_rhs->getNamespaces())
-  //                                     == true)
-  //{
-  //  match = true;
-  //}
-
   return match;
 }
 
@@ -4115,18 +4144,12 @@ SBase::matchesCoreSBMLNamespace(const SBase * sb) const
     match = true;
   }
 
-  //if (sbmlns->getNamespaces()->containIdenticalSetNS(sbmlns_rhs->getNamespaces())
-  //                                     == true)
-  //{
-  //  match = true;
-  //}
-
   return match;
 }
 
 
 bool
-SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xmlns)
+SBase::hasValidLevelVersionNamespaceCombination(int typecode, const XMLNamespaces *xmlns)
 {
 
 
@@ -4225,9 +4248,6 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
 
   if (pkgName == "core")
   {
-  // we need to consider whether it should be necessary to declare the sbml namespace.
-  //if (!sbmlDeclared)
-  //  return false;
 
     if (typecode == SBML_UNKNOWN)
     {
@@ -4258,12 +4278,9 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
           case 2:
             // the namespaces contains the sbml namespaces
             // check it is the correct ns for the level/version
-            if (sbmlDeclared)
+            if (sbmlDeclared && declaredURI != string(SBML_XMLNS_L1))
             {
-              if (declaredURI != string(SBML_XMLNS_L1))
-              {
-                valid = false;
-              }
+              valid = false;
             }
             break;
           default:
@@ -4286,56 +4303,41 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
               valid = false;
             // the namespaces contains the sbml namespaces
             // check it is the correct ns for the level/version
-            if (sbmlDeclared)
+            if (sbmlDeclared && declaredURI != string(SBML_XMLNS_L2V1))
             {
-              if (declaredURI != string(SBML_XMLNS_L2V1))
-              {
-                valid = false;
-              }
+              valid = false;
             }
             break;
           case 2:
             // the namespaces contains the sbml namespaces
             // check it is the correct ns for the level/version
-            if (sbmlDeclared)
+            if (sbmlDeclared && declaredURI != string(SBML_XMLNS_L2V2))
             {
-              if (declaredURI != string(SBML_XMLNS_L2V2))
-              {
-                valid = false;
-              }
+              valid = false;
             }
             break;
           case 3:
             // the namespaces contains the sbml namespaces
             // check it is the correct ns for the level/version
-            if (sbmlDeclared)
+            if (sbmlDeclared && declaredURI != string(SBML_XMLNS_L2V3))
             {
-              if (declaredURI != string(SBML_XMLNS_L2V3))
-              {
-                valid = false;
-              }
+              valid = false;
             }
             break;
           case 4:
             // the namespaces contains the sbml namespaces
             // check it is the correct ns for the level/version
-            if (sbmlDeclared)
+            if (sbmlDeclared && declaredURI != string(SBML_XMLNS_L2V4))
             {
-              if (declaredURI != string(SBML_XMLNS_L2V4))
-              {
-                valid = false;
-              }
+              valid = false;
             }
             break;
           case 5:
             // the namespaces contains the sbml namespaces
             // check it is the correct ns for the level/version
-            if (sbmlDeclared)
+            if (sbmlDeclared && declaredURI != string(SBML_XMLNS_L2V5))
             {
-              if (declaredURI != string(SBML_XMLNS_L2V5))
-              {
-                valid = false;
-              }
+              valid = false;
             }
             break;
           default:
@@ -4354,23 +4356,17 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
           case 1:
            // the namespaces contains the sbml namespaces
             // check it is the correct ns for the level/version
-            if (sbmlDeclared)
+            if (sbmlDeclared && declaredURI != string(SBML_XMLNS_L3V1))
             {
-              if (declaredURI != string(SBML_XMLNS_L3V1))
-              {
-                valid = false;
-              }
+              valid = false;
             }
             break;
           case 2:
            // the namespaces contains the sbml namespaces
             // check it is the correct ns for the level/version
-            if (sbmlDeclared)
+            if (sbmlDeclared && declaredURI != string(SBML_XMLNS_L3V2))
             {
-              if (declaredURI != string(SBML_XMLNS_L3V2))
-              {
-                valid = false;
-              }
+              valid = false;
             }
             break;
           default:
@@ -4386,7 +4382,7 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
 
   // if this is an extension namespace, this method will return the wrong answer,
   // so instead return true
-  ISBMLExtensionNamespaces* test = dynamic_cast<ISBMLExtensionNamespaces*> (mSBMLNamespaces);
+  const ISBMLExtensionNamespaces* test = dynamic_cast<ISBMLExtensionNamespaces*> (mSBMLNamespaces);
   if (!valid && test != NULL)
     return true;
 
@@ -4395,7 +4391,7 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
 
 /* sets the SBMLnamespaces - internal use only*/
 int
-SBase::setSBMLNamespaces(SBMLNamespaces * sbmlns)
+SBase::setSBMLNamespaces(const SBMLNamespaces * sbmlns)
 {
   if (sbmlns == NULL)
     return LIBSBML_INVALID_OBJECT;
@@ -4481,7 +4477,7 @@ SBase::read (XMLInputStream& stream)
     // need to check that any prefix on the sbmlns also occurs on element
     // remembering the horrible situation where the sbmlns might be declared
     // with more than one prefix
-    XMLNamespaces * xmlns = this->getSBMLNamespaces()->getNamespaces();
+    const XMLNamespaces * xmlns = this->getSBMLNamespaces()->getNamespaces();
     if (xmlns != NULL)
     {
       int i = xmlns->getIndexByPrefix(element.getPrefix());
@@ -4559,9 +4555,7 @@ SBase::read (XMLInputStream& stream)
       break;
     }
 
-    // this used to skip the text
-    //    stream.skipText();
-    // instead, read text and store in variable
+    // read text and store in variable
     std::string text;
     while(stream.isGood() && stream.peek().isText())
     {
@@ -4842,11 +4836,11 @@ SBase::readAnnotation (XMLInputStream& stream)
   const string& name = stream.peek().getName();
 
   unsigned int level = getLevel();
+  unsigned int version = getVersion();
 
   if (name == "annotation"
-    || (level == 1 && getVersion() == 1 && name == "annotations"))
+    || (level == 1 && version == 1 && name == "annotations"))
   {
-//    XMLNode* new_annotation = NULL;
     // If this is a level 1 document then annotations are not allowed on
     // the sbml container
     if (level == 1 && getTypeCode() == SBML_DOCUMENT)
@@ -4875,15 +4869,15 @@ SBase::readAnnotation (XMLInputStream& stream)
         break;
       }
       msg += "has multiple <annotation> children.";
-      if (getLevel() < 3)
+      if (level < 3)
       {
-        logError(NotSchemaConformant, getLevel(), getVersion(),
+        logError(NotSchemaConformant, level, version,
           "Only one <annotation> element is permitted inside a "
           "particular containing element.  " + msg);
       }
       else
       {
-        logError(MultipleAnnotations, getLevel(), getVersion(), msg);
+        logError(MultipleAnnotations, level, version, msg);
       }
     }
 
@@ -4898,16 +4892,16 @@ SBase::readAnnotation (XMLInputStream& stream)
     }
     mCVTerms = new List();
     /* might have model history on sbase objects */
-    if (getLevel() > 2 && getTypeCode()!= SBML_MODEL)
+    if (level > 2 && getTypeCode()!= SBML_MODEL)
     {
       delete mHistory;
       if (RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
       {
         mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation,
-                                                getMetaId().c_str(), &(stream));
+                                                getMetaId().c_str(), &(stream), this);
         if (mHistory != NULL && mHistory->hasRequiredAttributes() == false)
         {
-          logError(RDFNotCompleteModelHistory, getLevel(), getVersion(),
+          logError(RDFNotCompleteModelHistory, level, version,
             "An invalid ModelHistory element has been stored.");
         }
         setModelHistory(mHistory);
@@ -4923,6 +4917,13 @@ SBase::readAnnotation (XMLInputStream& stream)
                                               getMetaId().c_str(), &(stream));
 
       bool hasNestedTerms = false;
+      bool validNestedTerms = true;
+      if (level < 2 ||
+        (level == 2 && version < 5))
+      {
+        validNestedTerms = false;
+      }
+
       // look at cvterms to see if we have a nested term
       for (unsigned int cv = 0; cv < mCVTerms->getSize(); cv++)
       {
@@ -4935,19 +4936,14 @@ SBase::readAnnotation (XMLInputStream& stream)
            * if it not allowed
            */
           term->setHasBeenModifiedFlag();
+          term->setCapturedInStoredAnnotation(!validNestedTerms);
         }
       }
 
-      if (hasNestedTerms == true)
+      if (hasNestedTerms == true && validNestedTerms == false)
       {
-        unsigned int version = getVersion();
-        if (level < 2 || 
-            (level == 2 && version < 5) || 
-            (level == 3) )
-        {
-          logError(NestedAnnotationNotAllowed, level, version,
-            "The nested annotation has been stored but will not be written out.");
-        }
+        logError(NestedAnnotationNotAllowed, level, version,
+          "The nested annotation has been stored but not saved as a CVTerm.");
       }
       
     }
@@ -5017,12 +5013,9 @@ SBase::readNotes (XMLInputStream& stream)
     const XMLNamespaces &xmlns = mNotes->getNamespaces();
     checkDefaultNamespace(&xmlns,"notes");
 
-    if (getSBMLDocument() != NULL)
+    if (getSBMLDocument() != NULL && getSBMLDocument()->getNumErrors() == 0)
     {
-      if (getSBMLDocument()->getNumErrors() == 0)
-      {
-        checkXHTML(mNotes);
-      }
+      checkXHTML(mNotes);
     }
     return true;
   }
@@ -5452,6 +5445,9 @@ SBase::logUnknownElement( const string& element,
                                 getLine(), getColumn());
       logged = true;
       break;
+    default:
+      // above should capture all cases
+      break;
     }
   }
 
@@ -5601,10 +5597,8 @@ SBase::readAttributes (const XMLAttributes& attributes,
     //
     // (e.g. xsi:type attribute in Curve element in layout extension)
     //
-    if (!prefix.empty())
-    {
-      if ( expectedAttributes.hasAttribute(prefix + ":" + name) ) continue;
-    }
+    if (!prefix.empty() && expectedAttributes.hasAttribute(prefix + ":" + name))
+      continue;
 
 
     //
@@ -5620,9 +5614,9 @@ SBase::readAttributes (const XMLAttributes& attributes,
         if (name == "required")
         {
           //we have an l2 doc with a package declared
-          for (unsigned int i = 0; i < this->getNumPlugins(); ++i)
+          for (unsigned int j = 0; j < this->getNumPlugins(); ++j)
           {
-            if (getPlugin(i)->getURI() == uri)
+            if (getPlugin(j)->getURI() == uri)
             {
               enablePackageInternal(uri, prefix, false);
             }
@@ -5660,12 +5654,9 @@ SBase::readAttributes (const XMLAttributes& attributes,
                      SBMLTypeCode_toString(getTypeCode(), getPackageName().c_str()));
     }
 
-    if (isSetMetaId())
+    if (isSetMetaId() && !SyntaxChecker::isValidXMLID(mMetaId))
     {
-      if (!SyntaxChecker::isValidXMLID(mMetaId))
-      {
-        logError(InvalidMetaidSyntax, getLevel(), getVersion(), "The metaid '" + mMetaId + "' does not conform to the syntax.");
-      }
+      logError(InvalidMetaidSyntax, getLevel(), getVersion(), "The metaid '" + mMetaId + "' does not conform to the syntax.");
     }
   }
 
@@ -5687,15 +5678,14 @@ SBase::readAttributes (const XMLAttributes& attributes,
   // for l3v2 a document should only have sbo terms from modelling framework
   // this is impossible to catch in the validation framework which does not work
   // on a document level - so we will need to catch it here
-  if (isSetSBOTerm() && getTypeCode() == SBML_DOCUMENT)
+  if (isSetSBOTerm()
+      && getTypeCode() == SBML_DOCUMENT
+      && !SBO::isModellingFramework(mSBOTerm))
   {
-    if (!SBO::isModellingFramework(mSBOTerm))
-    {
-      std::string message = SBO::intToString(mSBOTerm);
-      message += " does not derive from the modelling framework branch.";
-      this->getErrorLog()->logError(InvalidSBMLElementSBOTerm, level, version,
-        message, getLine(), getColumn());
-    }
+    std::string message = SBO::intToString(mSBOTerm);
+    message += " does not derive from the modelling framework branch.";
+    this->getErrorLog()->logError(InvalidSBMLElementSBOTerm, level, version,
+      message, getLine(), getColumn());
   }
 
   // for l3v2 and above
@@ -5713,9 +5703,9 @@ SBase::readAttributes (const XMLAttributes& attributes,
            SBMLTypeCode_toString(getTypeCode(), getPackageName().c_str()));
     }
 
-    if (isSetId())
+    if (isSetId() && !SyntaxChecker::isValidInternalSId(mId))
     {
-      if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+      logError(InvalidIdSyntax);
     }
 
     XMLTriple tripleName("name", "", "");
@@ -5800,13 +5790,6 @@ SBase::storeUnknownExtAttribute(const std::string& element,
       std::string value  = xattr.getValue((int)index);
 
       mAttributesOfUnknownPkg.add(name,value,uri,prefix);
-
-      /* this is now caught earlier and so can be ignored here
-      if (mSBML->getPackageRequired(uri))
-      {
-        logUnknownAttribute(prefix + ":" + name, getLevel(), getVersion(), element);
-      }
-      */
     }
     else
     {
@@ -5829,21 +5812,6 @@ SBase::storeUnknownExtElement(XMLInputStream &stream)
   }
   else if (mSBML != NULL && mSBML->isIgnoredPackage(uri))
   {
-    //
-    // Checks if the extension package with the uri is unknown
-    // (ignored)
-    //
-    /* do not need to do this now i have logged this as
-     * a required package that cannot be interpreted
-
-    if (mSBML->getPackageRequired(uri))
-    {
-      const string& name   = stream.peek().getName();
-      string prefix = stream.peek().getPrefix();
-      if (!prefix.empty()) prefix += ":";
-      logUnknownElement(prefix + name, getLevel(), getVersion());
-    }
-    */
 
     XMLNode xmlnode(stream);
     mElementsOfUnknownPkg.addChild(xmlnode);
@@ -5865,7 +5833,7 @@ SBase::getPrefix() const
 {
   std::string prefix = "";
 
-  XMLNamespaces *xmlns = getNamespaces();
+  const XMLNamespaces *xmlns = getNamespaces();
   string uri = getURI();
   if(xmlns && mSBML && !mSBML->isEnabledDefaultNS(uri))
   {
@@ -5904,7 +5872,7 @@ SBase::getSBMLPrefix() const
 {
   std::string prefix = "";
 
-  XMLNamespaces *xmlns = getNamespaces();
+  const XMLNamespaces *xmlns = getNamespaces();
   if (xmlns == NULL)
     return getPrefix();
 
@@ -5951,13 +5919,8 @@ SBase::getRootElement()
 void
 SBase::writeAttributes (XMLOutputStream& stream) const
 {
-//  if (getTypeCode() == SBML_DOCUMENT)
-//  {
-//    if (this->getNamespaces()) stream << *(this->getNamespaces());
-//  }
   unsigned int level   = getLevel();
   unsigned int version = getVersion();
-  unsigned int pkgCoreVersion = getPackageCoreVersion();
   string sbmlPrefix    = getSBMLPrefix();
   if ( level > 1 && !mMetaId.empty() )
   {
@@ -6099,22 +6062,20 @@ void
 SBase::syncAnnotation ()
 {
   // look to see whether an existing history has been altered
-  if (mHistoryChanged == false)
+  if (!mHistoryChanged
+      && getModelHistory() != NULL
+      && getModelHistory()->hasBeenModified()
+      )
   {
-    if (getModelHistory() != NULL)
-    {
-      if (getModelHistory()->hasBeenModified() == true)
-      {
-        mHistoryChanged = true;
-      }
-    }
+    mHistoryChanged = true;
   }
   // or an existing CVTerm
   if (mCVTermsChanged == false)
   {
     for (unsigned int i = 0; i < getNumCVTerms(); i++)
     {
-      if (getCVTerm(i)->hasBeenModified() == true)
+      if (getCVTerm(i)->hasBeenModified() == true && 
+        getCVTerm(i)->getCapturedInStoredAnnotation() == false)
       {
         mCVTermsChanged = true;
         break;
@@ -6174,16 +6135,16 @@ SBase::reconstructRDFAnnotation()
     hasRDF = RDFAnnotationParser::hasRDFAnnotation(mAnnotation);
     hasAdditionalRDF =
       RDFAnnotationParser::hasAdditionalRDFAnnotation(mAnnotation);
-    if (hasAdditionalRDF == false)
+    if (!hasAdditionalRDF
+        && getLevel() < 3 
+        && getTypeCode() != SBML_MODEL
+        && RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation)
+        )
     {
       // look for bizaare case where a user has added a history annotation
       // to an object that does not legally include history in MIRIAM compliant
       // RDF - this needs to get written out as additional RDF
-      if (getLevel() < 3 && getTypeCode() != SBML_MODEL
-        && RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation) == true)
-      {
-        hasAdditionalRDF = true;
-      }
+      hasAdditionalRDF = true;
     }
 
     if (getLevel() == 2 && getVersion() < 5)
@@ -6306,11 +6267,11 @@ SBase::reconstructRDFAnnotation()
       unsigned int noChild
         = history->getChild("RDF").getChild("Description").getNumChildren();
       if (mAnnotation != NULL)
-      for (unsigned int i = noChild; i > 0; i--)
-      {
-        ((mAnnotation->getChild("RDF")).getChild("Description")).insertChild(
-          0, history->getChild("RDF").getChild("Description").getChild(i-1));
-      }
+        for (unsigned int i = noChild; i > 0; i--)
+        {
+          ((mAnnotation->getChild("RDF")).getChild("Description")).insertChild(
+            0, history->getChild("RDF").getChild("Description").getChild(i-1));
+        }
     }
   }
 
@@ -6369,11 +6330,11 @@ SBase::reconstructRDFAnnotation()
       unsigned int noChild
         = cvTerms->getChild("RDF").getChild("Description").getNumChildren();
       if (mAnnotation != NULL)
-      for (unsigned int i = 0; i < noChild; i++)
-      {
-        ((mAnnotation->getChild("RDF")).getChild("Description")).addChild(
-          cvTerms->getChild("RDF").getChild("Description").getChild(i));
-      }
+        for (unsigned int i = 0; i < noChild; i++)
+        {
+          ((mAnnotation->getChild("RDF")).getChild("Description")).addChild(
+            cvTerms->getChild("RDF").getChild("Description").getChild(i));
+        }
     }
   }
 
@@ -6506,7 +6467,6 @@ SBase::checkOrderAndLogError (SBase* object, int expected)
       if (object->getTypeCode() == SBML_LIST_OF)
       {
         int tc = static_cast<ListOf*>(object)->getItemTypeCode();
-        //typecode (int) tc = static_cast<ListOf*>(object)->getItemTypeCode();
 
         if (tc == SBML_SPECIES_REFERENCE || tc == SBML_MODIFIER_SPECIES_REFERENCE)
         {
@@ -6587,7 +6547,6 @@ SBase::checkListOfPopulated(SBase* object)
     // Check that the list has at least one element.
     if (static_cast <ListOf*> (object)->size() == 0)
     {
-      //typecode (int) tc = static_cast<ListOf*>(object)->getItemTypeCode();
       int tc = static_cast<ListOf*>(object)->getItemTypeCode();
       SBMLErrorCode_t error = EmptyListElement;
 
@@ -6698,7 +6657,7 @@ int SBase::removeFromParentAndDelete()
   ListOf* parentList = static_cast<ListOf*>(parent);
   if (parentList == NULL) return LIBSBML_OPERATION_FAILED;
   for (unsigned int i=0; i<parentList->size(); i++) {
-    SBase* sibling = parentList->get(i);
+    const SBase* sibling = parentList->get(i);
     if (sibling == this) {
       parentList->remove(i);
       delete this;
@@ -6709,8 +6668,8 @@ int SBase::removeFromParentAndDelete()
 }
 
 /** @cond doxygenLibsbmlInternal */
-const std::string
-SBase::checkMathMLNamespace(const XMLToken elem)
+std::string
+SBase::checkMathMLNamespace(const XMLToken &elem)
 {
   std::string prefix = "";
   unsigned int match = 0;
@@ -6727,20 +6686,16 @@ SBase::checkMathMLNamespace(const XMLToken elem)
       }
     }
   }
-  if (match == 0)
+  if (match == 0 && mSBML->getNamespaces() != NULL)
   {
-    if( mSBML->getNamespaces() != NULL)
-    /* check for implicit declaration */
+    for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
     {
-      for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
+      if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(),
+                  "http://www.w3.org/1998/Math/MathML"))
       {
-        if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(),
-                    "http://www.w3.org/1998/Math/MathML"))
-        {
-          match = 1;
-          prefix = mSBML->getNamespaces()->getPrefix(n);
-          break;
-        }
+        match = 1;
+        prefix = mSBML->getNamespaces()->getPrefix(n);
+        break;
       }
     }
   }
@@ -6760,6 +6715,10 @@ SBase::checkDefaultNamespace(const XMLNamespaces* xmlns,
                              const std::string& elementName,
                              const std::string prefix)
 {
+  // listOfKeyValuePairs can be in any NS
+  if (elementName == "listOfKeyValuePairs")
+    return;
+
   //
   // checks if the given default namespace (if any) is a valid
   // SBML namespace
@@ -6788,7 +6747,7 @@ SBase::checkDefaultNamespace(const XMLNamespaces* xmlns,
 }
 
 void
-SBase::read(XMLNode& node, XMLErrorSeverityOverride_t flag /*= LIBSBML_OVERRIDE_DISABLED*/)
+SBase::read(const XMLNode& node, XMLErrorSeverityOverride_t flag /*= LIBSBML_OVERRIDE_DISABLED*/)
 {
   XMLErrorLog* log = getErrorLog();
 
@@ -6824,7 +6783,7 @@ SBase::toXMLNode()
   // in rare cases the above returns a package element with default namespace, however the
   // XMLNamespaces would then assign the actual default namespace, which is in most cases
   // the SBML namespace. In that case we adjust the default namespace here
-  ISBMLExtensionNamespaces *extns = dynamic_cast<ISBMLExtensionNamespaces*>(sbmlns);
+  const ISBMLExtensionNamespaces *extns = dynamic_cast<ISBMLExtensionNamespaces*>(sbmlns);
   if (extns != NULL)
   {
     xmlns.remove("");
@@ -6844,7 +6803,6 @@ void
 SBase::checkAnnotation()
 {
   unsigned int nNodes = 0;
-  unsigned int match = 0;
   int n = 0;
   std::vector<std::string> uri_list;
   uri_list.clear();
@@ -6908,7 +6866,6 @@ SBase::checkAnnotation()
       uri_list.push_back(uri);
     }
 
-    match = 0;
     n = 0;
 
     bool implicitNSdecl = false;
@@ -6936,25 +6893,27 @@ SBase::checkAnnotation()
         logError(MissingAnnotationNamespace);
       }
     }
+    bool match = false;
     // cannot declare sbml namespace
     while(!match && n < topLevel.getNamespaces().getLength())
     {
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
-                                          "http://www.sbml.org/sbml/level1");
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
-                                          "http://www.sbml.org/sbml/level2");
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
-                                "http://www.sbml.org/sbml/level2/version2");
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
-                                "http://www.sbml.org/sbml/level2/version3");
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
-                                "http://www.sbml.org/sbml/level2/version4");
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
-                                "http://www.sbml.org/sbml/level2/version5");
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
-                                "http://www.sbml.org/sbml/level3/version1/core");
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
-                                "http://www.sbml.org/sbml/level3/version2/core");
+      match = match
+        || !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                   "http://www.sbml.org/sbml/level1")
+        || !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                   "http://www.sbml.org/sbml/level2")
+        || !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                   "http://www.sbml.org/sbml/level2/version2")
+        || !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                   "http://www.sbml.org/sbml/level2/version3")
+        || !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                   "http://www.sbml.org/sbml/level2/version4")
+        || !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                   "http://www.sbml.org/sbml/level2/version5")
+        || !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                   "http://www.sbml.org/sbml/level3/version1/core")
+        || !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                   "http://www.sbml.org/sbml/level3/version2/core");
       n++;
     }
     string msg = "An SBML <" + getElementName() + "> element ";
@@ -6971,7 +6930,7 @@ SBase::checkAnnotation()
       }
       break;
     }
-    if (match > 0)
+    if (match)
     {
       msg += "uses a restricted namespace on an element in its child <annotation>.";
       logError(SBMLNamespaceInAnnotation, getLevel(), getVersion(), msg);
@@ -7009,7 +6968,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
   if (xhtml == NULL) return;
 
   const string&  name = xhtml->getName();
-  unsigned int i, errorNS, errorXML, errorDOC, errorELEM;
+  unsigned int errorNS, errorXML, errorDOC, errorELEM;
 
   if (name == "notes")
   {
@@ -7038,7 +6997,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
   * it will be in the XML currently being checked and so a more
   * informative message can be added
   */
-  for (i = 0; i < getErrorLog()->getNumErrors(); i++)
+  for (unsigned int i = 0; i < getErrorLog()->getNumErrors(); i++)
   {
     if (getErrorLog()->getError(i)->getErrorId() == BadXMLDeclLocation)
     {
@@ -7050,7 +7009,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
     }
   }
 
-  XMLNamespaces* toplevelNS = (mSBML) ? mSBML->getNamespaces() : NULL;
+  const XMLNamespaces* toplevelNS = (mSBML) ? mSBML->getNamespaces() : NULL;
 
   /*
   * namespace declaration is variable
@@ -7061,7 +7020,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
 
   if (children > 1)
   {
-    for (i=0; i < children; i++)
+    for (unsigned int i=0; i < children; i++)
     {
       if (SyntaxChecker::isAllowedElement(xhtml->getChild(i)))
       {
@@ -7249,9 +7208,8 @@ SBase::setSBaseFields (const XMLToken& element)
  *
  */
 int
-SBase::setElementNamespace(const std::string &uri)
+SBase::setElementNamespace(const std::string& uri)
 {
-//  cout << "[DEBUG] SBase::setElementNamespace() " << uri << endl;
   mURI = uri;
 
   return LIBSBML_OPERATION_SUCCESS;
@@ -7287,21 +7245,18 @@ SBase::updateSBMLNamespace(const std::string& package, unsigned int level,
       case 4:
         uri = SBML_XMLNS_L2V4;
         break;
-      case 5:
-      default:
+      default: //case 5:
         uri = SBML_XMLNS_L2V5;
         break;
       }
       break;
-    case 3:
-    default:
+    default: //case 3:
       switch (version)
       {
       case 1:
         uri = SBML_XMLNS_L3V1;
         break;
-      case 2:
-      default:
+      default: //case 2:
         uri = SBML_XMLNS_L3V2;
         break;
       }
@@ -7523,7 +7478,7 @@ SBase_getMetaId (SBase_t *sb)
 
 LIBSBML_EXTERN
 const char *
-SBase_getIdAttribute (SBase_t *sb)
+SBase_getIdAttribute (const SBase_t *sb)
 {
   return (sb != NULL && sb->isSetIdAttribute()) ? sb->getIdAttribute().c_str() : NULL;
 }
@@ -7531,7 +7486,7 @@ SBase_getIdAttribute (SBase_t *sb)
 
 LIBSBML_EXTERN
 const char *
-SBase_getName (SBase_t *sb)
+SBase_getName (const SBase_t *sb)
 {
   return (sb != NULL && sb->isSetName()) ? sb->getName().c_str() : NULL;
 }
@@ -7753,7 +7708,7 @@ SBase_setNamespaces (SBase_t *sb, XMLNamespaces_t *xmlns)
 
 LIBSBML_EXTERN
 int
-SBase_setNotes (SBase_t *sb, XMLNode_t *notes)
+SBase_setNotes (SBase_t *sb, const XMLNode_t *notes)
 {
   if (sb != NULL)
     return sb->setNotes(notes);
@@ -7804,7 +7759,7 @@ SBase_setNotesStringAddMarkup (SBase_t *sb, const char *notes)
 
 LIBSBML_EXTERN
 int
-SBase_appendNotes (SBase_t *sb, XMLNode_t *notes)
+SBase_appendNotes (SBase_t *sb, const XMLNode_t *notes)
 {
   if (sb != NULL)
     return sb->appendNotes(notes);
@@ -7831,7 +7786,7 @@ SBase_appendNotesString (SBase_t *sb, const char *notes)
 
 LIBSBML_EXTERN
 int
-SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation)
+SBase_setAnnotation (SBase_t *sb, const XMLNode_t *annotation)
 {
   if (sb != NULL)
     return sb->setAnnotation(annotation);
@@ -7862,7 +7817,7 @@ SBase_setAnnotationString (SBase_t *sb, const char *annotation)
 
 LIBSBML_EXTERN
 int
-SBase_appendAnnotation (SBase_t *sb, XMLNode_t *annotation)
+SBase_appendAnnotation (SBase_t *sb, const XMLNode_t *annotation)
 {
   if (sb != NULL)
     return sb->appendAnnotation(annotation);
@@ -7921,7 +7876,7 @@ SBase_removeTopLevelAnnotationElementWithURI (SBase_t *sb, const char *name,
 
 LIBSBML_EXTERN
 int
-SBase_replaceTopLevelAnnotationElement (SBase_t *sb, XMLNode_t *annotation)
+SBase_replaceTopLevelAnnotationElement (SBase_t *sb, const XMLNode_t *annotation)
 {
   if (sb != NULL)
   {
@@ -7983,23 +7938,6 @@ SBase_unsetName (SBase_t *sb)
     return LIBSBML_INVALID_OBJECT;
 }
 
-
-///*
-//* Unsets the "id" attribute of the given object.
-//*
-//* @param sb the SBase_t structure.
-//*
-//* @copydetails doc_returns_success_code
-//* @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-//* @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-//*/
-//LIBSBML_EXTERN
-//int
-//SBase_unsetId (SBase_t *sb)
-//{
-// return sb->unsetId();
-//}
-//
 
 LIBSBML_EXTERN
 int
@@ -8094,7 +8032,7 @@ SBase_hasValidLevelVersionNamespaceCombination(SBase_t *sb)
 
 LIBSBML_EXTERN
 int
-SBase_getNumPlugins(SBase_t *sb)
+SBase_getNumPlugins(const SBase_t *sb)
 {
   return (sb != NULL) ? (int)sb->getNumPlugins() : 0;
 }

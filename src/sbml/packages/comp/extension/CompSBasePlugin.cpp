@@ -50,7 +50,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-CompSBasePlugin::CompSBasePlugin (const std::string &uri, const std::string &prefix, CompPkgNamespaces *compns)
+CompSBasePlugin::CompSBasePlugin (const std::string& uri, const std::string &prefix, CompPkgNamespaces *compns)
   : SBasePlugin(uri,prefix, compns)
   , mListOfReplacedElements(NULL)
   , mReplacedBy(NULL)

@@ -189,14 +189,14 @@ TAB_SIZE               = 4
 
 # Note: @sbmlpackage is defined in Makefile.in dynamically.
 
-ALIASES += sbmlmarker{1}="@htmlinclude pkg-marker-\1.html"
+# ALIASES += sbmlmarker{1}="@htmlinclude pkg-marker-\1.html"
 
-ALIASES += sbmlbrief{1}="@sbmlpackage{\1}\n\
-@brief @sbmlmarker{\1} "
+# ALIASES += sbmlbrief{1}="@sbmlpackage{\1}\n\
+# @brief @sbmlmarker{\1} "
 
-ALIASES += sbmlfunction{2}="@if clike SBML_\1()@endif @if csharp SBML_\1()@endif @if python @link libsbml.\1() \1()@endlink@endif@~"
+# ALIASES += sbmlfunction{2}="@if clike SBML_\1()@endif @if csharp SBML_\1()@endif @if python @link libsbml.\1() \1()@endlink@endif@~"
 
-ALIASES += sbmlconstant{2}="@if clike @link \2#\1 \1@endlink@endif @if csharp @link libsbml#\1 \1@endlink@endif @if python @link libsbml#\1 \1@endlink@endif @if java @link libsbmlConstants#\1 \1@endlink@endif@~"
+# ALIASES += sbmlconstant{2}="@if clike @link \2#\1 \1@endlink@endif @if csharp @link libsbml#\1 \1@endlink@endif @if python @link libsbml#\1 \1@endlink@endif @if java @link libsbmlConstants#\1 \1@endlink@endif@~"
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"
@@ -250,7 +250,7 @@ EXTRACT_ALL            = YES
 # If the EXTRACT_PRIVATE tag is set to YES all private members of a class 
 # will be included in the documentation.
 
-EXTRACT_PRIVATE        = NO
+EXTRACT_PRIVATE        = YES
 
 # If the EXTRACT_STATIC tag is set to YES all static members of a file 
 # will be included in the documentation.
@@ -572,6 +572,14 @@ INPUT =                                    \
   ../../src/sbml/packages/render/sbml      \
   ../../src/sbml/packages/render/util      \ 
   ../../src/sbml/packages/render/validator \
+  ../../src/sbml/packages/spatial/common    \
+  ../../src/sbml/packages/spatial/extension \
+  ../../src/sbml/packages/spatial/sbml      \
+  ../../src/sbml/packages/spatial/validator \
+  ../../src/sbml/packages/distrib/common    \
+  ../../src/sbml/packages/distrib/extension \
+  ../../src/sbml/packages/distrib/sbml      \
+  ../../src/sbml/packages/distrib/validator \
   ../../src/sbml/packages/multi/common    \
   ../../src/sbml/packages/multi/extension \
   ../../src/sbml/packages/multi/sbml      \
@@ -579,7 +587,24 @@ INPUT =                                    \
   ../../src/sbml/packages/qual/common      \
   ../../src/sbml/packages/qual/extension   \
   ../../src/sbml/packages/qual/sbml        \
-  ../../src/sbml/packages/qual/validator
+  ../../src/sbml/packages/qual/validator   \
+  common-text
+
+
+  # ../../src/sbml/common/operationReturnValues.h \
+  # ../../src/sbml/packages/layout/extension/LayoutExtension.h \
+  # ../../src/sbml/SBMLTypeCodes.h                           \
+  # ../../src/sbml/common/common-documentation.h \
+  # ../../src/sbml/xml/XMLError.h \
+  # ../../src/sbml/SBMLError.h \
+  # ../../src/sbml/packages/comp/extension/CompExtension.h \
+  # ../../src/sbml/packages/comp/validator/CompSBMLError.h \
+  # ../../src/sbml/packages/fbc/validator/FbcSBMLError.h \
+  # ../../src/sbml/packages/qual/validator/QualSBMLError.h \
+  # ../../src/sbml/packages/groups/validator/GroupsSBMLError.h \
+  # ../../src/sbml/packages/layout/validator/LayoutSBMLError.h \
+  # ../../src/sbml/packages/render/validator/RenderSBMLError.h \
+  # ../../src/sbml/common/common-sbmlerror-codes.h  
 
 # The RECURSIVE tag can be used to turn specify whether or not subdirectories 
 # should be searched for input files as well. Possible values are YES and NO. 
@@ -608,7 +633,7 @@ EXCLUDE_PATTERNS       = */test/*
 # *.c *.cc *.cxx *.cpp *.c++ *.java *.ii *.ixx *.ipp *.i++ *.inl *.h *.hh
 # *.hxx *.hpp *.h++ *.idl *.odl *.cs *.php *.php3 *.inc
 
-FILE_PATTERNS          = *.c *.cpp *.hpp *.h *.java *.py
+FILE_PATTERNS          = *.c *.cpp *.hpp *.h *.java *.py temp_*.txt
 
 # The EXCLUDE_SYMLINKS tag can be used select whether or not files or directories 
 # that are symbolic links (a Unix filesystem feature) are excluded from the input.
@@ -769,6 +794,20 @@ IGNORE_PREFIX          =
 # generate HTML output.
 
 GENERATE_HTML          = YES
+
+
+# Enable the USE_MATHJAX option to render $\mbox{\LaTeX}$ formulas using 
+# MathJax (see https://www.mathjax.org) which uses client side JavaScript 
+# for the rendering instead of using pre-rendered bitmaps. Use this if you 
+# do not have $\mbox{\LaTeX}$ installed or if you want to formulas look 
+# prettier in the HTML output. When enabled you may also need to install 
+# MathJax separately and configure the path to it using the MATHJAX_RELPATH option.
+USE_MATHJAX            = YES
+
+# MATHJAX_FORMAT = SVG
+
+MATHJAX_RELPATH = https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5
+
 
 # The HTML_FILE_EXTENSION tag can be used to specify the file extension for 
 # each generated HTML page (for example: .htm,.php,.asp). If it is left blank 

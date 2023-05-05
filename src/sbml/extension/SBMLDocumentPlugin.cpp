@@ -52,7 +52,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-SBMLDocumentPlugin::SBMLDocumentPlugin (const std::string &uri,
+SBMLDocumentPlugin::SBMLDocumentPlugin (const std::string& uri,
                                         const std::string &prefix,
                                         SBMLNamespaces *sbmlns)
   : SBasePlugin(uri,prefix,sbmlns)

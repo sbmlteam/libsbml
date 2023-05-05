@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## @file    addCustomValidator.py
 ## @brief   Example creating a custom validator to be called during validation

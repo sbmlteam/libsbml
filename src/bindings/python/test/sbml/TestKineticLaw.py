@@ -53,24 +53,24 @@ class TestKineticLaw(unittest.TestCase):
     p = libsbml.Parameter(2,4)
     p.setId( "p")
     self.kl.addParameter(p)
-    self.assert_( self.kl.getNumParameters() == 1 )
+    self.assertTrue( self.kl.getNumParameters() == 1 )
     _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_create(self):
-    self.assert_( self.kl.getTypeCode() == libsbml.SBML_KINETIC_LAW )
-    self.assert_( self.kl.getMetaId() == "" )
-    self.assert_( self.kl.getNotes() == None )
-    self.assert_( self.kl.getAnnotation() == None )
-    self.assert_( self.kl.getFormula() == "" )
-    self.assert_( self.kl.getMath() == None )
-    self.assert_( self.kl.getTimeUnits() == "" )
-    self.assert_( self.kl.getSubstanceUnits() == "" )
+    self.assertTrue( self.kl.getTypeCode() == libsbml.SBML_KINETIC_LAW )
+    self.assertTrue( self.kl.getMetaId() == "" )
+    self.assertTrue( self.kl.getNotes() == None )
+    self.assertTrue( self.kl.getAnnotation() == None )
+    self.assertTrue( self.kl.getFormula() == "" )
+    self.assertTrue( self.kl.getMath() == None )
+    self.assertTrue( self.kl.getTimeUnits() == "" )
+    self.assertTrue( self.kl.getSubstanceUnits() == "" )
     self.assertEqual( False, self.kl.isSetFormula() )
     self.assertEqual( False, self.kl.isSetMath() )
     self.assertEqual( False, self.kl.isSetTimeUnits() )
     self.assertEqual( False, self.kl.isSetSubstanceUnits() )
-    self.assert_( self.kl.getNumParameters() == 0 )
+    self.assertTrue( self.kl.getNumParameters() == 0 )
     pass  
 
   def test_KineticLaw_createWithNS(self):
@@ -79,14 +79,14 @@ class TestKineticLaw(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(2,1)
     sbmlns.addNamespaces(xmlns)
     object = libsbml.KineticLaw(sbmlns)
-    self.assert_( object.getTypeCode() == libsbml.SBML_KINETIC_LAW )
-    self.assert_( object.getMetaId() == "" )
-    self.assert_( object.getNotes() == None )
-    self.assert_( object.getAnnotation() == None )
-    self.assert_( object.getLevel() == 2 )
-    self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != None )
-    self.assert_( object.getNamespaces().getLength() == 2 )
+    self.assertTrue( object.getTypeCode() == libsbml.SBML_KINETIC_LAW )
+    self.assertTrue( object.getMetaId() == "" )
+    self.assertTrue( object.getNotes() == None )
+    self.assertTrue( object.getAnnotation() == None )
+    self.assertTrue( object.getLevel() == 2 )
+    self.assertTrue( object.getVersion() == 1 )
+    self.assertTrue( object.getNamespaces() != None )
+    self.assertTrue( object.getNamespaces().getLength() == 2 )
     _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -105,13 +105,13 @@ class TestKineticLaw(unittest.TestCase):
     self.kl.addParameter(k2)
     _dummyList = [ k1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ k2 ]; _dummyList[:] = []; del _dummyList
-    self.assert_( self.kl.getNumParameters() == 2 )
+    self.assertTrue( self.kl.getNumParameters() == 2 )
     k1 = self.kl.getParameter(0)
     k2 = self.kl.getParameter(1)
-    self.assert_((  "k1" == k1.getId() ))
-    self.assert_((  "k2" == k2.getId() ))
-    self.assert_( k1.getValue() == 3.14 )
-    self.assert_( k2.getValue() == 2.72 )
+    self.assertTrue((  "k1" == k1.getId() ))
+    self.assertTrue((  "k2" == k2.getId() ))
+    self.assertTrue( k1.getValue() == 3.14 )
+    self.assertTrue( k2.getValue() == 2.72 )
     pass  
 
   def test_KineticLaw_getParameterById(self):
@@ -125,13 +125,13 @@ class TestKineticLaw(unittest.TestCase):
     self.kl.addParameter(k2)
     _dummyList = [ k1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ k2 ]; _dummyList[:] = []; del _dummyList
-    self.assert_( self.kl.getNumParameters() == 2 )
+    self.assertTrue( self.kl.getNumParameters() == 2 )
     k1 = self.kl.getParameter( "k1")
     k2 = self.kl.getParameter( "k2")
-    self.assert_((  "k1" == k1.getId() ))
-    self.assert_((  "k2" == k2.getId() ))
-    self.assert_( k1.getValue() == 3.14 )
-    self.assert_( k2.getValue() == 2.72 )
+    self.assertTrue((  "k1" == k1.getId() ))
+    self.assertTrue((  "k2" == k2.getId() ))
+    self.assertTrue( k1.getValue() == 3.14 )
+    self.assertTrue( k2.getValue() == 2.72 )
     pass  
 
   def test_KineticLaw_removeParameter(self):
@@ -139,12 +139,12 @@ class TestKineticLaw(unittest.TestCase):
     o2 = self.kl.createParameter()
     o3 = self.kl.createParameter()
     o3.setId("test")
-    self.assert_( self.kl.removeParameter(0) == o1 )
-    self.assert_( self.kl.getNumParameters() == 2 )
-    self.assert_( self.kl.removeParameter(0) == o2 )
-    self.assert_( self.kl.getNumParameters() == 1 )
-    self.assert_( self.kl.removeParameter("test") == o3 )
-    self.assert_( self.kl.getNumParameters() == 0 )
+    self.assertTrue( self.kl.removeParameter(0) == o1 )
+    self.assertTrue( self.kl.getNumParameters() == 2 )
+    self.assertTrue( self.kl.removeParameter(0) == o2 )
+    self.assertTrue( self.kl.getNumParameters() == 1 )
+    self.assertTrue( self.kl.removeParameter("test") == o3 )
+    self.assertTrue( self.kl.getNumParameters() == 0 )
     _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
@@ -160,12 +160,12 @@ class TestKineticLaw(unittest.TestCase):
   def test_KineticLaw_setFormula(self):
     formula =  "k1*X0";
     self.kl.setFormula(formula)
-    self.assert_(( formula == self.kl.getFormula() ))
+    self.assertTrue(( formula == self.kl.getFormula() ))
     self.assertEqual( True, self.kl.isSetFormula() )
     if (self.kl.getFormula() == formula):
       pass    
     self.kl.setFormula(self.kl.getFormula())
-    self.assert_(( formula == self.kl.getFormula() ))
+    self.assertTrue(( formula == self.kl.getFormula() ))
     self.kl.setFormula("")
     self.assertEqual( False, self.kl.isSetFormula() )
     if (self.kl.getFormula() != None):
@@ -179,7 +179,7 @@ class TestKineticLaw(unittest.TestCase):
     self.kl.setMath(math)
     self.assertEqual( True, self.kl.isSetMath() )
     self.assertEqual( True, self.kl.isSetFormula() )
-    self.assert_((  "k1 * X0" == self.kl.getFormula() ))
+    self.assertTrue((  "k1 * X0" == self.kl.getFormula() ))
     _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -187,19 +187,19 @@ class TestKineticLaw(unittest.TestCase):
     math = libsbml.parseFormula("k3 / k2")
     self.kl.setMath(math)
     math1 = self.kl.getMath()
-    self.assert_( math1 != None )
+    self.assertTrue( math1 != None )
     formula = libsbml.formulaToString(math1)
-    self.assert_( formula != None )
-    self.assert_((  "k3 / k2" == formula ))
-    self.assert_( self.kl.getMath() != math )
+    self.assertTrue( formula != None )
+    self.assertTrue((  "k3 / k2" == formula ))
+    self.assertTrue( self.kl.getMath() != math )
     self.assertEqual( True, self.kl.isSetMath() )
     self.kl.setMath(self.kl.getMath())
     math1 = self.kl.getMath()
-    self.assert_( math1 != None )
+    self.assertTrue( math1 != None )
     formula = libsbml.formulaToString(math1)
-    self.assert_( formula != None )
-    self.assert_((  "k3 / k2" == formula ))
-    self.assert_( self.kl.getMath() != math )
+    self.assertTrue( formula != None )
+    self.assertTrue((  "k3 / k2" == formula ))
+    self.assertTrue( self.kl.getMath() != math )
     self.kl.setMath(None)
     self.assertEqual( False, self.kl.isSetMath() )
     if (self.kl.getMath() != None):
@@ -215,7 +215,7 @@ class TestKineticLaw(unittest.TestCase):
     self.assertEqual( True, self.kl.isSetMath() )
     self.assertEqual( True, self.kl.isSetFormula() )
     formula = libsbml.formulaToString(self.kl.getMath())
-    self.assert_((  "k3 / k2" == formula ))
+    self.assertTrue((  "k3 / k2" == formula ))
     pass  
 
 def suite():

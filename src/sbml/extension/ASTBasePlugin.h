@@ -291,7 +291,7 @@ public:
   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
   */
-  int setElementNamespace(const std::string &uri);
+  int setElementNamespace(const std::string& uri);
 
   /**
   * Returns the SBML level of the package extension of
@@ -406,7 +406,7 @@ protected:
   * Constructor. Creates an ASTBasePlugin object with the URI and
   * prefix of an package extension.
   */
-  ASTBasePlugin(const std::string &uri);
+  ASTBasePlugin(const std::string& uri);
 
   ASTBasePlugin();
 

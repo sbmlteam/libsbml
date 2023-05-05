@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" metaid="metaid_0000001" level="2" version="1">
+  <model metaid="metaid_0000002" id="model_0000001" name="Clancy2001_Kchannel">
+    <listOfUnitDefinitions>
+      <unitDefinition metaid="metaid_0000047" id="time" name="ms">
+        <listOfUnits>
+          <unit metaid="_119243" kind="second" scale="-3"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition metaid="metaid_0000049" id="mV">
+        <listOfUnits>
+          <unit metaid="_119255" kind="volt" scale="-3"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition metaid="metaid_0000050" id="substance" name="mM">
+        <listOfUnits>
+          <unit metaid="_119267" kind="mole" scale="-3"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment metaid="metaid_0000003" id="cell" size="1"/>
+    </listOfCompartments>
+    <listOfParameters>
+      <parameter metaid="metaid_0000009" id="R" name="gas constant" value="8.314"/>
+      <parameter metaid="metaid_0000010" id="F" name="Faraday constant" value="96.485"/>
+      <parameter metaid="metaid_0000011" id="Temp" name="temperature" value="310"/>
+      <parameter metaid="metaid_0000012" id="ko" name="extracellular K" value="5.4"/>
+      <parameter metaid="metaid_0000013" id="ki" name="introcellular K" value="140"/>
+      <parameter metaid="metaid_0000014" id="vhold" name="holding_potential" value="-40"/>
+      <parameter metaid="metaid_0000015" id="vtest" name="test_potential" value="0"/>
+      <parameter metaid="metaid_0000018" id="vk" name="reversal potential for k" constant="false"/>
+      <parameter metaid="metaid_0000019" id="Gk" name="membrane_conductance" constant="false"/>
+      <parameter metaid="metaid_0000020" id="a" constant="false"/>
+      <parameter metaid="metaid_0000021" id="b" constant="false"/>
+      <parameter metaid="metaid_0000022" id="ain" value="2.172"/>
+      <parameter metaid="metaid_0000023" id="bin" value="1.077"/>
+      <parameter metaid="metaid_0000024" id="aa" constant="false"/>
+      <parameter metaid="metaid_0000025" id="bb" constant="false"/>
+      <parameter metaid="metaid_0000026" id="ai" constant="false"/>
+      <parameter metaid="metaid_0000027" id="bi" constant="false"/>
+      <parameter metaid="metaid_0000028" id="u" constant="false"/>
+      <parameter metaid="metaid_0000033" id="v" name="membrane_potential" value="-40" constant="false"/>
+      <parameter metaid="metaid_0000048" id="ik" name="cardiac delayed rectifier current" value="0.1" constant="false"/>
+      <parameter metaid="metaid_0000008" id="i" name="InactivationState" value="0" constant="false"/>
+      <parameter metaid="metaid_0000007" id="o" name="OpenState" value="0.06" constant="false"/>
+      <parameter metaid="metaid_0000006" id="c1" name="ClosedState_1" value="0" constant="false"/>
+      <parameter metaid="metaid_0000005" id="c2" name="ClosedState_2" value="0" constant="false"/>
+      <parameter metaid="metaid_0000004" id="c3" name="ClosedState_3" value="1" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule metaid="metaid_0000030" variable="vk">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> R </ci>
+                <ci> Temp </ci>
+              </apply>
+              <ci> F </ci>
+            </apply>
+            <apply>
+              <ln/>
+              <apply>
+                <divide/>
+                <ci> ko </ci>
+                <ci> ki </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="metaid_0000031" variable="Gk">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn type="e-notation"> 1.35 <sep/> -2 </cn>
+            <apply>
+              <power/>
+              <ci> ko </ci>
+              <cn> 0.59 </cn>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="metaid_0000032" variable="a">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn type="e-notation"> 5.55 <sep/> -2 </cn>
+            <apply>
+              <exp/>
+              <apply>
+                <times/>
+                <cn> 0.05547153 </cn>
+                <apply>
+                  <minus/>
+                  <ci> v </ci>
+                  <cn type="integer"> 12 </cn>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="metaid_0000034" variable="b">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn type="e-notation"> 2.357 <sep/> -3 </cn>
+            <apply>
+              <exp/>
+              <apply>
+                <times/>
+                <cn> -0.036588 </cn>
+                <ci> v </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="metaid_0000035" variable="aa">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn type="e-notation"> 6.55 <sep/> -2 </cn>
+            <apply>
+              <exp/>
+              <apply>
+                <times/>
+                <cn> 0.05547153 </cn>
+                <apply>
+                  <minus/>
+                  <ci> v </ci>
+                  <cn type="integer"> 36 </cn>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="metaid_0000036" variable="bb">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn type="e-notation"> 2.9357 <sep/> -3 </cn>
+            <apply>
+              <exp/>
+              <apply>
+                <times/>
+                <cn> -0.02158 </cn>
+                <ci> v </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="metaid_0000037" variable="ai">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <cn> 0.439 </cn>
+              <apply>
+                <exp/>
+                <apply>
+                  <times/>
+                  <cn> -0.02352 </cn>
+                  <apply>
+                    <plus/>
+                    <ci> v </ci>
+                    <cn type="integer"> 25 </cn>
+                  </apply>
+                </apply>
+              </apply>
+              <cn> 4.5 </cn>
+            </apply>
+            <ci> ko </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="metaid_0000038" variable="bi">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 0.656 </cn>
+            <apply>
+              <exp/>
+              <apply>
+                <times/>
+                <cn> 0.000942 </cn>
+                <ci> v </ci>
+              </apply>
+            </apply>
+            <apply>
+              <power/>
+              <apply>
+                <divide/>
+                <cn> 4.5 </cn>
+                <ci> ko </ci>
+              </apply>
+              <cn> 0.3 </cn>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="metaid_0000039" variable="u">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> ai </ci>
+              <ci> bb </ci>
+              <ci> aa </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> aa </ci>
+              <ci> bi </ci>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="metaid_0000053" variable="ik">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> Gk </ci>
+            <ci> o </ci>
+            <apply>
+              <minus/>
+              <ci> v </ci>
+              <ci> vk </ci>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <rateRule variable="c2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> a </ci>
+                      <ci> c3 </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <ci> b </ci>
+                      <ci> c2 </ci>
+                    </apply>
+                  </apply>
+                  <ci> cell </ci>
+                </apply>
+                <ci> cell </ci>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> ain </ci>
+                      <ci> c2 </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <ci> bin </ci>
+                      <ci> c1 </ci>
+                    </apply>
+                  </apply>
+                  <ci> cell </ci>
+                </apply>
+                <ci> cell </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="c3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <minus/>
+              <cn> 1 </cn>
+            </apply>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <times/>
+                    <ci> a </ci>
+                    <ci> c3 </ci>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> b </ci>
+                    <ci> c2 </ci>
+                  </apply>
+                </apply>
+                <ci> cell </ci>
+              </apply>
+              <ci> cell </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="c1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> ain </ci>
+                      <ci> c2 </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <ci> bin </ci>
+                      <ci> c1 </ci>
+                    </apply>
+                  </apply>
+                  <ci> cell </ci>
+                </apply>
+                <ci> cell </ci>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> c1 </ci>
+                      <ci> aa </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <ci> bb </ci>
+                      <ci> o </ci>
+                    </apply>
+                  </apply>
+                  <ci> cell </ci>
+                </apply>
+                <ci> cell </ci>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> aa </ci>
+                      <ci> c1 </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <ci> u </ci>
+                      <ci> i </ci>
+                    </apply>
+                  </apply>
+                  <ci> cell </ci>
+                </apply>
+                <ci> cell </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="o">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> c1 </ci>
+                      <ci> aa </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <ci> bb </ci>
+                      <ci> o </ci>
+                    </apply>
+                  </apply>
+                  <ci> cell </ci>
+                </apply>
+                <ci> cell </ci>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> o </ci>
+                      <ci> bi </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <ci> ai </ci>
+                      <ci> i </ci>
+                    </apply>
+                  </apply>
+                  <ci> cell </ci>
+                </apply>
+                <ci> cell </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="i">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> o </ci>
+                      <ci> bi </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <ci> ai </ci>
+                      <ci> i </ci>
+                    </apply>
+                  </apply>
+                  <ci> cell </ci>
+                </apply>
+                <ci> cell </ci>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> aa </ci>
+                      <ci> c1 </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <ci> u </ci>
+                      <ci> i </ci>
+                    </apply>
+                  </apply>
+                  <ci> cell </ci>
+                </apply>
+                <ci> cell </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+    <listOfEvents>
+      <event metaid="metaid_0000046" id="event_0000001">
+        <trigger metaid="_119460">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <and/>
+              <apply>
+                <gt/>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                <cn type="integer"> 50 </cn>
+              </apply>
+              <apply>
+                <leq/>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                <cn type="integer"> 300 </cn>
+              </apply>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment metaid="_119472" variable="v">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <ci> vtest </ci>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+      <event metaid="metaid_0000051" id="event_0000002">
+        <trigger metaid="_119484">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <gt/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <cn type="integer"> 300 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment metaid="_119496" variable="v">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <ci> vhold </ci>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>

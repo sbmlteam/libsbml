@@ -40,7 +40,11 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CSGPrimitive
- * @sbmlbrief{spatial} TODO:Definition of the CSGPrimitive class.
+ * @sbmlbrief{spatial} CSGPrimitive element represents the primitive geometric 
+ * shapes that can be represented by the CSGeometry. These shapes are defined 
+ * in primitive-definitions with a predefined orientation and fitting within the 
+ * unit cube (+/- 1 in x, y, and z) or unit square (+/- 1 in x and y). This element 
+ * has one required attribute : primitiveType of type primtype PrimitiveKind.
  */
 
 /**

@@ -40,7 +40,14 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SampledFieldGeometry
- * @sbmlbrief{spatial} TODO:Definition of the SampledFieldGeometry class.
+ * @sbmlbrief{spatial} SampledFieldGeometry is a type of GeometryDefinition that
+ * defines a sampled image-based geometry or a geometry based on samples from a
+ * level set. SampledFieldGeometry is defined by referencing a SampledField from
+ * the ListOfSampledFields on the Geometry element that specifies the sampled
+ * image, together with a a list of SampledVolumes that represent the volumetric
+ * domains as sampled image regions. figSampledFieldGeometry-uml shows the
+ * definition of the SampledFieldGeometry object. It may be used for geometries
+ * of any dimension.
  */
 
 

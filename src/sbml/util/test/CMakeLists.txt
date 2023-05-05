@@ -30,7 +30,7 @@
 ## ------------------------------------------------------------------------ -->
 
 file(GLOB TEST_FILES_UTIL ${CMAKE_CURRENT_SOURCE_DIR}/*.c)
-include_directories(${LIBCHECK_INCLUDE_DIR})
+
 include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 
 if (EXTRA_INCLUDE_DIRS) 
@@ -45,6 +45,6 @@ file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/TestUtil.c "// test")
 
 endif()
 
-target_link_libraries(test_sbml_util ${LIBSBML_LIBRARY}-static ${LIBCHECK_LIBRARY})
+target_link_libraries(test_sbml_util ${LIBSBML_LIBRARY}-static CHECK::CHECK)
 add_test(test_sbml_util_run ${CMAKE_CURRENT_BINARY_DIR}/test_sbml_util )
 

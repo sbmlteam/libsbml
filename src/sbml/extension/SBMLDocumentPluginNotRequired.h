@@ -87,7 +87,7 @@ public:
    *
    * @param sbmlns the SBMLNamespaces object for the package.
    */
-  SBMLDocumentPluginNotRequired (const std::string &uri, const std::string &prefix,
+  SBMLDocumentPluginNotRequired (const std::string& uri, const std::string &prefix,
                                  SBMLNamespaces *sbmlns);
 
 

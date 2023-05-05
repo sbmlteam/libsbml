@@ -239,24 +239,6 @@ AlgebraicRule::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Returns the value of the "attributeName" attribute of this AlgebraicRule.
- */
-//int
-//AlgebraicRule::getAttribute(const std::string& attributeName,
-//                            const char* value) const
-//{
-//  int return_value = Rule::getAttribute(attributeName, value);
-//
-//  return return_value;
-//}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this AlgebraicRule's attribute
  * "attributeName" is set.
  */
@@ -354,24 +336,6 @@ AlgebraicRule::setAttribute(const std::string& attributeName,
 
   return return_value;
 }
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this AlgebraicRule.
- */
-//int
-//AlgebraicRule::setAttribute(const std::string& attributeName,
-//                            const char* value)
-//{
-//  int return_value = Rule::setAttribute(attributeName, value);
-//
-//  return return_value;
-//}
 
 /** @endcond */
 

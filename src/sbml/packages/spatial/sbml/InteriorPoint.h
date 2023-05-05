@@ -40,7 +40,18 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class InteriorPoint
- * @sbmlbrief{spatial} TODO:Definition of the InteriorPoint class.
+ * @sbmlbrief{spatial} Each Domain can contain a ListOfInteriorPoints. The list
+ * of spatial points for a domain is interior to that domain. This list is
+ * optional for a Domain if it is the only Domain defined for its DomainType, but
+ * is required otherwise.
+ *
+ * For those geometric descriptions that can describe multiple disjoint domains
+ * belonging to the same tokendomainType, these interior points allow unambiguous
+ * identification of each domain. Formally, a single point would suffice, but in
+ * practice some tools (e.g. Smoldyn) require multiple points to handle
+ * non-convex volumes bounded by explicit surfaces. For discontinuous surfaces
+ * with the same domainType, the interior point identifies which domain is
+ * associated with which surface patch defined in the geometry definition.
  */
 
 

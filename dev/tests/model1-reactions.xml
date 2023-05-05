@@ -1,0 +1,1511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" xmlns:render="http://www.sbml.org/sbml/level3/version1/render/version1" level="3" version="1" layout:required="false" render:required="false">
+  <model metaid="COPASI0" id="Pandey2018_reversible_transition_between_quiescence_and_proliferation" name="Pandey2018-reversible transition between quiescence and proliferation" substanceUnits="substance" timeUnits="time" volumeUnits="volume" areaUnits="area" lengthUnits="length" extentUnits="substance">
+    <listOfUnitDefinitions>
+      <unitDefinition id="length" name="length">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="area" name="area">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="volume" name="volume">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="time" name="time">
+        <listOfUnits>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="substance" name="substance">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment metaid="COPASI1" id="compartment" name="compartment" spatialDimensions="3" size="1" units="volume" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species metaid="COPASI2" id="Myc" name="Myc" compartment="compartment" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI3" id="CycDT" name="CycDT" compartment="compartment" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI4" id="CycET" name="CycET" compartment="compartment" initialConcentration="0.119" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI5" id="CycAT" name="CycAT" compartment="compartment" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI6" id="E2FT" name="E2FT" compartment="compartment" initialConcentration="0.106" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI7" id="Comp1" name="Comp1" compartment="compartment" initialConcentration="0.105" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI8" id="Comp2" name="Comp2" compartment="compartment" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI9" id="Rbp" name="Rbp" compartment="compartment" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI10" id="CkiT" name="CkiT" compartment="compartment" initialConcentration="0.2" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI11" id="CycECki" name="CycECki" compartment="compartment" initialConcentration="0.115" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI12" id="CycDCki" name="CycDCki" compartment="compartment" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI13" id="CycACki" name="CycACki" compartment="compartment" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI14" id="Cdh1dp" name="Cdh1dp" compartment="compartment" initialConcentration="1" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI15" id="Emi1T" name="Emi1T" compartment="compartment" initialConcentration="0.002" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI16" id="EmiC" name="EmiC" compartment="compartment" initialConcentration="0.002" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI17" id="Cdh1" name="Cdh1" compartment="compartment" initialConcentration="0.998" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI18" id="UbI" name="UbI" compartment="compartment" initialConcentration="0.02" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI19" id="E2F" name="E2F" compartment="compartment" initialConcentration="0.001" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+      <species metaid="COPASI20" id="Rb" name="Rb" compartment="compartment" initialConcentration="0.894" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+      <species metaid="COPASI21" id="Rbpp" name="Rbpp" compartment="compartment" initialConcentration="0.001" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="COPASI22" id="CycE" name="CycE" compartment="compartment" initialConcentration="0.00399999999999999" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+      <species metaid="COPASI23" id="CycD" name="CycD" compartment="compartment" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+      <species metaid="COPASI24" id="CycA" name="CycA" compartment="compartment" initialConcentration="0" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+      <species metaid="COPASI25" id="Cdh1p" name="Cdh1p" compartment="compartment" initialConcentration="1.12757025938492e-16" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+      <species metaid="COPASI26" id="Cdh1T" name="Cdh1T" compartment="compartment" initialConcentration="1" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="true"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter metaid="COPASI27" id="S" name="S" value="1" constant="true"/>
+      <parameter metaid="COPASI28" id="Ksm" name="Ksm" value="0.1" constant="true"/>
+      <parameter metaid="COPASI29" id="Kdm" name="Kdm" value="0.1" constant="true"/>
+      <parameter metaid="COPASI30" id="Kscycdm" name="Kscycdm" value="0.004" constant="true"/>
+      <parameter metaid="COPASI31" id="Kscycds" name="Kscycds" value="0.004" constant="true"/>
+      <parameter metaid="COPASI32" id="Kdcycd" name="Kdcycd" value="0.008" constant="true"/>
+      <parameter metaid="COPASI33" id="Kscyceb" name="Kscyceb" value="0.0001" constant="true"/>
+      <parameter metaid="COPASI34" id="Kscycem" name="Kscycem" value="0" constant="true"/>
+      <parameter metaid="COPASI35" id="Kscyce" name="Kscyce" value="0.004" constant="true"/>
+      <parameter metaid="COPASI36" id="Kdcyce" name="Kdcyce" value="0.001" constant="true"/>
+      <parameter metaid="COPASI37" id="Kdcycea" name="Kdcycea" value="0.01" constant="true"/>
+      <parameter metaid="COPASI38" id="Khcyce" name="Khcyce" value="0.25" constant="true"/>
+      <parameter metaid="COPASI39" id="Kscyca" name="Kscyca" value="0.008" constant="true"/>
+      <parameter metaid="COPASI40" id="Kdcyca" name="Kdcyca" value="0.004" constant="true"/>
+      <parameter metaid="COPASI41" id="Kdcycac" name="Kdcycac" value="0.5" constant="true"/>
+      <parameter metaid="COPASI42" id="Khcyca" name="Khcyca" value="0.1" constant="true"/>
+      <parameter metaid="COPASI43" id="Kse2fm" name="Kse2fm" value="0" constant="true"/>
+      <parameter metaid="COPASI44" id="Kse2f" name="Kse2f" value="0.004" constant="true"/>
+      <parameter metaid="COPASI45" id="Kde2f" name="Kde2f" value="0.003" constant="true"/>
+      <parameter metaid="COPASI46" id="Kde2fa" name="Kde2fa" value="0.01" constant="true"/>
+      <parameter metaid="COPASI47" id="Khe2f" name="Khe2f" value="0.25" constant="true"/>
+      <parameter metaid="COPASI48" id="RbT" name="RbT" value="1" constant="true"/>
+      <parameter metaid="COPASI49" id="Kase2f" name="Kase2f" value="100" constant="true"/>
+      <parameter metaid="COPASI50" id="Kdise2f" name="Kdise2f" value="1" constant="true"/>
+      <parameter metaid="COPASI51" id="Kprb" name="Kprb" value="5" constant="true"/>
+      <parameter metaid="COPASI52" id="Kdprbp" name="Kdprbp" value="1" constant="true"/>
+      <parameter metaid="COPASI53" id="Kppeb" name="Kppeb" value="0.5" constant="true"/>
+      <parameter metaid="COPASI54" id="Kdprbpp" name="Kdprbpp" value="0.1" constant="true"/>
+      <parameter metaid="COPASI55" id="Kprbp" name="Kprbp" value="2" constant="true"/>
+      <parameter metaid="COPASI56" id="JpRb" name="JpRb" value="0.01" constant="true"/>
+      <parameter metaid="COPASI57" id="JpRbp" name="JpRbp" value="0.05" constant="true"/>
+      <parameter metaid="COPASI58" id="JdpRb" name="JdpRb" value="0.05" constant="true"/>
+      <parameter metaid="COPASI59" id="JppRb" name="JppRb" value="0.5" constant="true"/>
+      <parameter metaid="COPASI60" id="Kscki" name="Kscki" value="0.04" constant="true"/>
+      <parameter metaid="COPASI61" id="Kdcki" name="Kdcki" value="0.2" constant="true"/>
+      <parameter metaid="COPASI62" id="Kascki" name="Kascki" value="100" constant="true"/>
+      <parameter metaid="COPASI63" id="Kdiscki" name="Kdiscki" value="0.1" constant="true"/>
+      <parameter metaid="COPASI64" id="Ksub1" name="Ksub1" value="0.004" constant="true"/>
+      <parameter metaid="COPASI65" id="Kdub1" name="Kdub1" value="0.002" constant="true"/>
+      <parameter metaid="COPASI66" id="Kdub1c" name="Kdub1c" value="0.2" constant="true"/>
+      <parameter metaid="COPASI67" id="Ksemi1" name="Ksemi1" value="0.45" constant="true"/>
+      <parameter metaid="COPASI68" id="Kdemi1" name="Kdemi1" value="0.2" constant="true"/>
+      <parameter metaid="COPASI69" id="Kdemi1c" name="Kdemi1c" value="2" constant="true"/>
+      <parameter metaid="COPASI70" id="Khemi1" name="Khemi1" value="0.1" constant="true"/>
+      <parameter metaid="COPASI71" id="Kascdh1" name="Kascdh1" value="100" constant="true"/>
+      <parameter metaid="COPASI72" id="Kdiscdh1" name="Kdiscdh1" value="0.1" constant="true"/>
+      <parameter metaid="COPASI73" id="Kacdh1" name="Kacdh1" value="0.1" constant="true"/>
+      <parameter metaid="COPASI74" id="Kicdh1e" name="Kicdh1e" value="0.14" constant="true"/>
+      <parameter metaid="COPASI75" id="Kicdh1a" name="Kicdh1a" value="0.2" constant="true"/>
+      <parameter metaid="COPASI76" id="JdpCdh1" name="JdpCdh1" value="0.02" constant="true"/>
+      <parameter metaid="COPASI77" id="JpCdh1" name="JpCdh1" value="0.25" constant="true"/>
+      <parameter metaid="COPASI78" id="Kse2fb" name="Kse2fb" value="0.0003" constant="true"/>
+      <parameter metaid="COPASI79" id="Kdckic" name="Kdckic" value="1" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="Rb">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <minus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> RbT </ci>
+                  <ci> Rbp </ci>
+                </apply>
+                <ci> Rbpp </ci>
+              </apply>
+              <ci> Comp1 </ci>
+            </apply>
+            <ci> Comp2 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="CycA">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <ci> CycAT </ci>
+            <ci> CycACki </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="CycE">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <ci> CycET </ci>
+            <ci> CycECki </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="CycD">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <ci> CycDT </ci>
+            <ci> CycDCki </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Cdh1p">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <minus/>
+              <ci> Cdh1T </ci>
+              <ci> Cdh1 </ci>
+            </apply>
+            <ci> EmiC </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="E2F">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <minus/>
+              <ci> E2FT </ci>
+              <ci> Comp1 </ci>
+            </apply>
+            <ci> Comp2 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction metaid="COPASI80" id="reaction_for_Myc_production" name="reaction for Myc production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="Myc" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <ci> Ksm </ci>
+              <ci> S </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI81" id="reaction_for_Myc_decay" name="reaction for Myc decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="Myc" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <ci> Kdm </ci>
+              <ci> Myc </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI82" id="reaction_for_CycDT_production" name="reaction for CycDT production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="CycDT" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Myc"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> Kscycdm </ci>
+                  <ci> Myc </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Kscycds </ci>
+                  <ci> S </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI83" id="reaction_CycDT_decay" name="reaction CycDT decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="CycDT" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <ci> Kdcycd </ci>
+              <ci> CycDT </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI84" id="reaction_for_CycET_production" name="reaction for CycET production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="CycET" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Myc"/>
+          <modifierSpeciesReference species="E2F"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <ci> Kscyceb </ci>
+                <apply>
+                  <times/>
+                  <ci> Kscycem </ci>
+                  <ci> Myc </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Kscyce </ci>
+                  <apply>
+                    <divide/>
+                    <ci> E2F </ci>
+                    <apply>
+                      <plus/>
+                      <ci> Khcyce </ci>
+                      <ci> E2F </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI85" id="reaction_CycET_decay" name="reaction CycET decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="CycET" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="CycA"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <ci> Kdcyce </ci>
+                <apply>
+                  <times/>
+                  <ci> Kdcycea </ci>
+                  <ci> CycA </ci>
+                </apply>
+              </apply>
+              <ci> CycET </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI86" id="reaction_for_CycAT_production" name="reaction for CycAT production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="CycAT" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="E2F"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <ci> Kscyca </ci>
+              <apply>
+                <divide/>
+                <ci> E2F </ci>
+                <apply>
+                  <plus/>
+                  <ci> Khcyca </ci>
+                  <ci> E2F </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI87" id="reaction_CycAT_decay" name="reaction CycAT decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="CycAT" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Cdh1"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <ci> Kdcyca </ci>
+                <apply>
+                  <times/>
+                  <ci> Kdcycac </ci>
+                  <ci> Cdh1 </ci>
+                </apply>
+              </apply>
+              <ci> CycAT </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI88" id="reaction_for_E2FT_production" name="reaction for E2FT production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="E2FT" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Myc"/>
+          <modifierSpeciesReference species="E2F"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <ci> Kse2fb </ci>
+                <apply>
+                  <times/>
+                  <ci> Kse2fm </ci>
+                  <ci> Myc </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Kse2f </ci>
+                  <apply>
+                    <divide/>
+                    <ci> E2F </ci>
+                    <apply>
+                      <plus/>
+                      <ci> Khe2f </ci>
+                      <ci> E2F </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI89" id="reaction_E2FT_decay" name="reaction E2FT decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="E2FT" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="CycA"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <ci> Kde2f </ci>
+                <apply>
+                  <times/>
+                  <ci> Kde2fa </ci>
+                  <ci> CycA </ci>
+                </apply>
+              </apply>
+              <ci> E2FT </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI90" id="reaction_Comp1_production" name="reaction Comp1 production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="Comp1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="E2F"/>
+          <modifierSpeciesReference species="Rb"/>
+          <modifierSpeciesReference species="Comp2"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> Kase2f </ci>
+                  <ci> E2F </ci>
+                  <ci> Rb </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Kdprbp </ci>
+                  <apply>
+                    <divide/>
+                    <ci> Comp2 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> JdpRb </ci>
+                      <ci> Comp2 </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI91" id="reaction_Comp1_decay" name="reaction Comp1 decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="Comp1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="CycD"/>
+          <modifierSpeciesReference species="CycE"/>
+          <modifierSpeciesReference species="CycA"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> Kdise2f </ci>
+                  <ci> Comp1 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Kprb </ci>
+                  <ci> CycD </ci>
+                  <apply>
+                    <divide/>
+                    <ci> Comp1 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> JpRb </ci>
+                      <ci> Comp1 </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Kppeb </ci>
+                  <apply>
+                    <plus/>
+                    <ci> CycE </ci>
+                    <ci> CycA </ci>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <ci> Comp1 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> JppRb </ci>
+                      <ci> Comp1 </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> Kde2f </ci>
+                    <apply>
+                      <times/>
+                      <ci> Kde2fa </ci>
+                      <ci> CycA </ci>
+                    </apply>
+                  </apply>
+                  <ci> Comp1 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI92" id="reaction_for_Comp2_production" name="reaction for Comp2 production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="Comp2" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="E2F"/>
+          <modifierSpeciesReference species="Rbp"/>
+          <modifierSpeciesReference species="CycD"/>
+          <modifierSpeciesReference species="Comp1"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> Kase2f </ci>
+                  <ci> E2F </ci>
+                  <ci> Rbp </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Kprb </ci>
+                  <ci> CycD </ci>
+                  <apply>
+                    <divide/>
+                    <ci> Comp1 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> JpRb </ci>
+                      <ci> Comp1 </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI93" id="reaction_Comp2_decay" name="reaction Comp2 decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="Comp2" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="CycE"/>
+          <modifierSpeciesReference species="CycA"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> Kdise2f </ci>
+                  <ci> Comp2 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Kdprbp </ci>
+                  <apply>
+                    <divide/>
+                    <ci> Comp2 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> JdpRb </ci>
+                      <ci> Comp2 </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Kprbp </ci>
+                  <apply>
+                    <plus/>
+                    <ci> CycE </ci>
+                    <ci> CycA </ci>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <ci> Comp2 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> JpRbp </ci>
+                      <ci> Comp2 </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> Kde2f </ci>
+                    <apply>
+                      <times/>
+                      <ci> Kde2fa </ci>
+                      <ci> CycA </ci>
+                    </apply>
+                  </apply>
+                  <ci> Comp2 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI94" id="reactionfor_Rbp_production" name="reactionfor Rbp production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="Rbp" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="CycD"/>
+          <modifierSpeciesReference species="Rb"/>
+          <modifierSpeciesReference species="Comp2"/>
+          <modifierSpeciesReference species="CycA"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> Kprb </ci>
+                  <ci> CycD </ci>
+                  <apply>
+                    <divide/>
+                    <ci> Rb </ci>
+                    <apply>
+                      <plus/>
+                      <ci> JpRb </ci>
+                      <ci> Rb </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Kdise2f </ci>
+                  <ci> Comp2 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> Kde2f </ci>
+                    <apply>
+                      <times/>
+                      <ci> Kde2fa </ci>
+                      <ci> CycA </ci>
+                    </apply>
+                  </apply>
+                  <ci> Comp2 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI95" id="reaction_for_Rbp_decay" name="reaction for Rbp decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="Rbp" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="E2F"/>
+          <modifierSpeciesReference species="CycE"/>
+          <modifierSpeciesReference species="CycA"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> Kase2f </ci>
+                  <ci> E2F </ci>
+                  <ci> Rbp </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Kdprbp </ci>
+                  <apply>
+                    <divide/>
+                    <ci> Rbp </ci>
+                    <apply>
+                      <plus/>
+                      <ci> JpRb </ci>
+                      <ci> Rbp </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Kprbp </ci>
+                  <apply>
+                    <plus/>
+                    <ci> CycE </ci>
+                    <ci> CycA </ci>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <ci> Rbp </ci>
+                    <apply>
+                      <plus/>
+                      <ci> JpRbp </ci>
+                      <ci> Rbp </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI96" id="reaction_for_CkiT_production" name="reaction for CkiT production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="CkiT" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <ci> Kscki </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI97" id="reaction_for_CkiT_decay" name="reaction for CkiT decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="CkiT" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="CycE"/>
+          <modifierSpeciesReference species="CycA"/>
+          <modifierSpeciesReference species="UbI"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <ci> Kdcki </ci>
+                <apply>
+                  <times/>
+                  <ci> Kdckic </ci>
+                  <apply>
+                    <plus/>
+                    <ci> CycE </ci>
+                    <ci> CycA </ci>
+                  </apply>
+                  <ci> UbI </ci>
+                </apply>
+              </apply>
+              <ci> CkiT </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI98" id="reaction_for_CycECki_production" name="reaction for CycECki production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="CycECki" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="CycE"/>
+          <modifierSpeciesReference species="CkiT"/>
+          <modifierSpeciesReference species="CycDCki"/>
+          <modifierSpeciesReference species="CycACki"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <ci> Kascki </ci>
+              <ci> CycE </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <ci> CkiT </ci>
+                    <ci> CycECki </ci>
+                  </apply>
+                  <ci> CycDCki </ci>
+                </apply>
+                <ci> CycACki </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI99" id="reaction_for_CycECki_decay" name="reaction for CycECki decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="CycECki" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="CycA"/>
+          <modifierSpeciesReference species="CycE"/>
+          <modifierSpeciesReference species="UbI"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <ci> Kdiscki </ci>
+                <ci> Kdcyce </ci>
+                <apply>
+                  <times/>
+                  <ci> Kdcycea </ci>
+                  <ci> CycA </ci>
+                </apply>
+                <ci> Kdcki </ci>
+                <apply>
+                  <times/>
+                  <ci> Kdckic </ci>
+                  <apply>
+                    <plus/>
+                    <ci> CycE </ci>
+                    <ci> CycA </ci>
+                  </apply>
+                  <ci> UbI </ci>
+                </apply>
+              </apply>
+              <ci> CycECki </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI100" id="reaction_for_CycDCki_production" name="reaction for CycDCki production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="CycDCki" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="CycD"/>
+          <modifierSpeciesReference species="CkiT"/>
+          <modifierSpeciesReference species="CycECki"/>
+          <modifierSpeciesReference species="CycACki"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <ci> Kascki </ci>
+              <ci> CycD </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <ci> CkiT </ci>
+                    <ci> CycECki </ci>
+                  </apply>
+                  <ci> CycDCki </ci>
+                </apply>
+                <ci> CycACki </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI101" id="reaction_for_CycDCki_decay" name="reaction for CycDCki decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="CycDCki" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="CycE"/>
+          <modifierSpeciesReference species="CycA"/>
+          <modifierSpeciesReference species="UbI"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <ci> Kdiscki </ci>
+                <ci> Kdcycd </ci>
+                <ci> Kdcki </ci>
+                <apply>
+                  <times/>
+                  <ci> Kdckic </ci>
+                  <apply>
+                    <plus/>
+                    <ci> CycE </ci>
+                    <ci> CycA </ci>
+                  </apply>
+                  <ci> UbI </ci>
+                </apply>
+              </apply>
+              <ci> CycDCki </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI102" id="reaction_for_CycACki_production" name="reaction for CycACki production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="CycACki" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="CycA"/>
+          <modifierSpeciesReference species="CkiT"/>
+          <modifierSpeciesReference species="CycECki"/>
+          <modifierSpeciesReference species="CycDCki"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <ci> Kascki </ci>
+              <ci> CycA </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <ci> CkiT </ci>
+                    <ci> CycECki </ci>
+                  </apply>
+                  <ci> CycDCki </ci>
+                </apply>
+                <ci> CycACki </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI103" id="reaction_for_CycACki_decay" name="reaction for CycACki decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="CycACki" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Cdh1"/>
+          <modifierSpeciesReference species="CycE"/>
+          <modifierSpeciesReference species="CycA"/>
+          <modifierSpeciesReference species="UbI"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <ci> Kdiscki </ci>
+                <ci> Kdcyca </ci>
+                <apply>
+                  <times/>
+                  <ci> Kdcycac </ci>
+                  <ci> Cdh1 </ci>
+                </apply>
+                <ci> Kdcki </ci>
+                <apply>
+                  <times/>
+                  <ci> Kdckic </ci>
+                  <apply>
+                    <plus/>
+                    <ci> CycE </ci>
+                    <ci> CycA </ci>
+                  </apply>
+                  <ci> UbI </ci>
+                </apply>
+              </apply>
+              <ci> CycACki </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI104" id="reaction_for_Cdh1dp_production" name="reaction for Cdh1dp production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="Cdh1dp" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Cdh1T"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <ci> Kacdh1 </ci>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <ci> Cdh1T </ci>
+                  <ci> Cdh1dp </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> JdpCdh1 </ci>
+                  <apply>
+                    <minus/>
+                    <ci> Cdh1T </ci>
+                    <ci> Cdh1dp </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI105" id="reaction_for_Cdh1dp_decay" name="reaction for Cdh1dp decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="Cdh1dp" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="CycE"/>
+          <modifierSpeciesReference species="CycA"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> Kicdh1e </ci>
+                  <ci> CycE </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Kicdh1a </ci>
+                  <ci> CycA </ci>
+                </apply>
+              </apply>
+              <apply>
+                <divide/>
+                <ci> Cdh1dp </ci>
+                <apply>
+                  <plus/>
+                  <ci> JpCdh1 </ci>
+                  <ci> Cdh1dp </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI106" id="reaction_for_Emi1T_production" name="reaction for Emi1T production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="Emi1T" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="E2F"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <ci> Ksemi1 </ci>
+              <apply>
+                <divide/>
+                <ci> E2F </ci>
+                <apply>
+                  <plus/>
+                  <ci> Khemi1 </ci>
+                  <ci> E2F </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI107" id="reaction_for_Emi1T_decay" name="reaction for Emi1T decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="Emi1T" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Cdh1"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <ci> Kdemi1 </ci>
+                <apply>
+                  <times/>
+                  <ci> Kdemi1c </ci>
+                  <ci> Cdh1 </ci>
+                </apply>
+              </apply>
+              <ci> Emi1T </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI108" id="reaction_for_EmiC_production" name="reaction for EmiC production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="EmiC" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Cdh1T"/>
+          <modifierSpeciesReference species="Emi1T"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <ci> Kascdh1 </ci>
+              <apply>
+                <minus/>
+                <ci> Cdh1T </ci>
+                <ci> EmiC </ci>
+              </apply>
+              <apply>
+                <minus/>
+                <ci> Emi1T </ci>
+                <ci> EmiC </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI109" id="reaction_for_EmiC_decay" name="reaction for EmiC decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="EmiC" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Cdh1"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <ci> Kdiscdh1 </ci>
+                <ci> Kdemi1 </ci>
+                <apply>
+                  <times/>
+                  <ci> Kdemi1c </ci>
+                  <ci> Cdh1 </ci>
+                </apply>
+              </apply>
+              <ci> EmiC </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI110" id="reaction_for_Cdh1_production" name="reaction for Cdh1 production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="Cdh1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Cdh1T"/>
+          <modifierSpeciesReference species="EmiC"/>
+          <modifierSpeciesReference species="Cdh1dp"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> Kacdh1 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <apply>
+                        <minus/>
+                        <ci> Cdh1T </ci>
+                        <ci> EmiC </ci>
+                      </apply>
+                      <ci> Cdh1 </ci>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <ci> JdpCdh1 </ci>
+                      <apply>
+                        <minus/>
+                        <ci> Cdh1T </ci>
+                        <ci> Cdh1dp </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> Kdiscdh1 </ci>
+                    <ci> Kdemi1 </ci>
+                    <apply>
+                      <times/>
+                      <ci> Kdemi1c </ci>
+                      <ci> Cdh1 </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <ci> Cdh1dp </ci>
+                    <ci> Cdh1 </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI111" id="reaction_for_Cdh1_decay" name="reaction for Cdh1 decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="Cdh1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="CycE"/>
+          <modifierSpeciesReference species="CycA"/>
+          <modifierSpeciesReference species="Cdh1dp"/>
+          <modifierSpeciesReference species="Emi1T"/>
+          <modifierSpeciesReference species="EmiC"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <apply>
+                      <times/>
+                      <ci> Kicdh1e </ci>
+                      <ci> CycE </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <ci> Kicdh1a </ci>
+                      <ci> CycA </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <ci> Cdh1 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> JpCdh1 </ci>
+                      <ci> Cdh1dp </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Kascdh1 </ci>
+                  <ci> Cdh1 </ci>
+                  <apply>
+                    <minus/>
+                    <ci> Emi1T </ci>
+                    <ci> EmiC </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI112" id="reaction_for_UbI_production" name="reaction for UbI production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="UbI" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <ci> Ksub1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI113" id="reaction_for_UbI_decay" name="reaction for UbI decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="UbI" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Cdh1"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <ci> Kdub1 </ci>
+                <apply>
+                  <times/>
+                  <ci> Kdub1c </ci>
+                  <ci> Cdh1 </ci>
+                </apply>
+              </apply>
+              <ci> UbI </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI114" id="reaction_for_Rbpp_production" name="reaction for Rbpp production" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="Rbpp" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="CycE"/>
+          <modifierSpeciesReference species="CycA"/>
+          <modifierSpeciesReference species="Rbp"/>
+          <modifierSpeciesReference species="Comp2"/>
+          <modifierSpeciesReference species="Rb"/>
+          <modifierSpeciesReference species="Comp1"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> Kprbp </ci>
+                  <apply>
+                    <plus/>
+                    <ci> CycE </ci>
+                    <ci> CycA </ci>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <ci> Rbp </ci>
+                    <apply>
+                      <plus/>
+                      <ci> JpRbp </ci>
+                      <ci> Rbp </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Kprbp </ci>
+                  <apply>
+                    <plus/>
+                    <ci> CycE </ci>
+                    <ci> CycA </ci>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <ci> Comp2 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> JpRbp </ci>
+                      <ci> Comp2 </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Kppeb </ci>
+                  <apply>
+                    <plus/>
+                    <ci> CycE </ci>
+                    <ci> CycA </ci>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <ci> Rb </ci>
+                    <apply>
+                      <plus/>
+                      <ci> JppRb </ci>
+                      <ci> Rb </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Kppeb </ci>
+                  <apply>
+                    <plus/>
+                    <ci> CycE </ci>
+                    <ci> CycA </ci>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <ci> Comp1 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> JppRb </ci>
+                      <ci> Comp1 </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction metaid="COPASI115" id="reaction_for_Rbpp_decay" name="reaction for Rbpp decay" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="Rbpp" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> compartment </ci>
+              <ci> Kdprbpp </ci>
+              <apply>
+                <divide/>
+                <ci> Rbpp </ci>
+                <apply>
+                  <plus/>
+                  <ci> JdpRb </ci>
+                  <ci> Rbpp </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

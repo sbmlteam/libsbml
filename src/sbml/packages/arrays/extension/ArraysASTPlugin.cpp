@@ -127,7 +127,7 @@ int ArraysASTPlugin::allowedInFunctionDefinition(ASTNodeType_t type) const
 /*
 * Constructor
 */
-ArraysASTPlugin::ArraysASTPlugin(const std::string &uri)
+ArraysASTPlugin::ArraysASTPlugin(const std::string& uri)
   : ASTBasePlugin(uri)
 {
   mExtendedMathType = EM_ARRAYS;

@@ -120,7 +120,7 @@ LayoutModelPlugin::appendFrom(const Model* model)
 
 
 
-LayoutModelPlugin::LayoutModelPlugin (const std::string &uri, 
+LayoutModelPlugin::LayoutModelPlugin (const std::string& uri, 
                                       const std::string &prefix,
                                       LayoutPkgNamespaces *layoutns)
   : SBasePlugin(uri,prefix,layoutns)

@@ -68,13 +68,14 @@
 
 
 #include <sbml/extension/SBasePlugin.h>
+#include <sbml/packages/fbc/extension/FbcSBasePlugin.h>
 #include <sbml/packages/fbc/sbml/GeneProductAssociation.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class LIBSBML_EXTERN FbcReactionPlugin : public SBasePlugin
+class LIBSBML_EXTERN FbcReactionPlugin : public FbcSBasePlugin
 {
 public:
 
@@ -722,6 +723,20 @@ BEGIN_C_DECLS
 
 
 /**
+ * Creates a new GeneProductAssociation_t object and adds it to the FbcReactionPlugin_t object.
+ *
+ * @param fbc the FbcReactionPlugin_t that should have the GeneProductAssociation_t added
+ *
+ * @copydetails doc_note_geneproduct_v2_only
+ *
+ * @return pointer to the newly created GeneProductAssociation_t object.
+ */
+LIBSBML_EXTERN
+GeneProductAssociation_t*
+FbcReactionPlugin_createGeneProductAssociation(FbcSBasePlugin_t * fbc);
+
+
+/**
  * Takes a FbcReactionPlugin_t structure and returns its "upperFluxBound" attribute.
  *
  * @param fbc the FbcReactionPlugin_t whose "upperFluxBound" attribute is sought.
@@ -732,7 +747,7 @@ BEGIN_C_DECLS
  */
 LIBSBML_EXTERN
 char *
-FbcReactionPlugin_getUpperFluxBound(SBasePlugin_t * fbc);
+FbcReactionPlugin_getUpperFluxBound(FbcSBasePlugin_t * fbc);
 
 
 /**
@@ -748,7 +763,7 @@ FbcReactionPlugin_getUpperFluxBound(SBasePlugin_t * fbc);
  */
 LIBSBML_EXTERN
 int
-FbcReactionPlugin_isSetUpperFluxBound(SBasePlugin_t * fbc);
+FbcReactionPlugin_isSetUpperFluxBound(FbcSBasePlugin_t * fbc);
 
 
 /**
@@ -768,7 +783,7 @@ FbcReactionPlugin_isSetUpperFluxBound(SBasePlugin_t * fbc);
  */
 LIBSBML_EXTERN
 int
-FbcReactionPlugin_setUpperFluxBound(SBasePlugin_t * fbc, const char * UpperFluxBound);
+FbcReactionPlugin_setUpperFluxBound(FbcSBasePlugin_t * fbc, const char * UpperFluxBound);
 
 
 /**
@@ -784,7 +799,7 @@ FbcReactionPlugin_setUpperFluxBound(SBasePlugin_t * fbc, const char * UpperFluxB
  */
 LIBSBML_EXTERN
 int
-FbcReactionPlugin_unsetUpperFluxBound(SBasePlugin_t * fbc);
+FbcReactionPlugin_unsetUpperFluxBound(FbcSBasePlugin_t * fbc);
 
 
 /**
@@ -798,7 +813,7 @@ FbcReactionPlugin_unsetUpperFluxBound(SBasePlugin_t * fbc);
  */
 LIBSBML_EXTERN
 char *
-FbcReactionPlugin_getLowerFluxBound(SBasePlugin_t * fbc);
+FbcReactionPlugin_getLowerFluxBound(FbcSBasePlugin_t * fbc);
 
 
 /**
@@ -814,7 +829,7 @@ FbcReactionPlugin_getLowerFluxBound(SBasePlugin_t * fbc);
  */
 LIBSBML_EXTERN
 int
-FbcReactionPlugin_isSetLowerFluxBound(SBasePlugin_t * fbc);
+FbcReactionPlugin_isSetLowerFluxBound(FbcSBasePlugin_t * fbc);
 
 
 /**
@@ -834,11 +849,11 @@ FbcReactionPlugin_isSetLowerFluxBound(SBasePlugin_t * fbc);
  */
 LIBSBML_EXTERN
 int
-FbcReactionPlugin_setLowerFluxBound(SBasePlugin_t * fbc, const char * LowerFluxBound);
+FbcReactionPlugin_setLowerFluxBound(FbcSBasePlugin_t * fbc, const char * LowerFluxBound);
 
 
 /**
- * Unsets the "upperFluxBound" attribute of the given FbcReactionPlugin_t structure.
+ * Unsets the "lowerFluxBound" attribute of the given FbcReactionPlugin_t structure.
  *
  * @param fbc the FbcReactionPlugin_t structure to unset.
  *
@@ -850,7 +865,7 @@ FbcReactionPlugin_setLowerFluxBound(SBasePlugin_t * fbc, const char * LowerFluxB
  */
 LIBSBML_EXTERN
 int
-FbcReactionPlugin_unsetUpperFluxBound(SBasePlugin_t * fbc);
+FbcReactionPlugin_unsetLowerFluxBound(FbcSBasePlugin_t * fbc);
 
 
 /**
@@ -866,7 +881,7 @@ FbcReactionPlugin_unsetUpperFluxBound(SBasePlugin_t * fbc);
  */
 LIBSBML_EXTERN
 int
-FbcReactionPlugin_isSetGeneProductAssociation(SBasePlugin_t * fbc);
+FbcReactionPlugin_isSetGeneProductAssociation(FbcSBasePlugin_t * fbc);
 
 
 /**
@@ -880,7 +895,7 @@ FbcReactionPlugin_isSetGeneProductAssociation(SBasePlugin_t * fbc);
  */
 LIBSBML_EXTERN
 GeneProductAssociation_t*
-FbcReactionPlugin_getGeneProductAssociation(SBasePlugin_t * fbc);
+FbcReactionPlugin_getGeneProductAssociation(FbcSBasePlugin_t * fbc);
 
 
 /**
@@ -897,7 +912,7 @@ FbcReactionPlugin_getGeneProductAssociation(SBasePlugin_t * fbc);
  */
 LIBSBML_EXTERN
 int
-FbcReactionPlugin_setGeneProductAssociation(SBasePlugin_t * fbc, 
+FbcReactionPlugin_setGeneProductAssociation(FbcSBasePlugin_t * fbc, 
                                             GeneProductAssociation_t* gpa);
 
 

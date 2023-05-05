@@ -377,7 +377,10 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node,
 
   if(node->getType() == AST_FUNCTION)
   {
-    const FunctionDefinition *fd = 
+    // The function name get lost by ASTNode::reduceToBinary when it has more
+    // than one parameter. So we need to check we have a name before calling
+    // model->getFunctionDefinition to avoid crashing.
+    const FunctionDefinition *fd = node->getName() == NULL ? NULL :
                                model->getFunctionDefinition(node->getName());
     if (fd && fd->isSetMath())
     {
@@ -592,9 +595,9 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
     exponentNode->isReal() == true ||
     exponentUD->isVariantOfDimensionless())
   {
-    SBMLTransforms::mapComponentValues(model);
-    exponentValue = SBMLTransforms::evaluateASTNode(node->getRightChild(), model);
-    SBMLTransforms::clearComponentValues();
+    SBMLTransforms::IdValueMap values;
+    SBMLTransforms::getComponentValuesForModel(model, values);
+    exponentValue = SBMLTransforms::evaluateASTNode(node->getRightChild(), values, model);
 
     for (unsigned int n = 0; n < variableUD->getNumUnits(); n++)
     {
@@ -749,9 +752,9 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
 
           if (tempUD2->isVariantOfDimensionless())
           {
-            SBMLTransforms::mapComponentValues(model);
-            double value = SBMLTransforms::evaluateASTNode(child);
-            SBMLTransforms::clearComponentValues();
+            SBMLTransforms::IdValueMap values;
+            SBMLTransforms::getComponentValuesForModel(model, values);
+            double value = SBMLTransforms::evaluateASTNode(child, values);
             if (!util_isNaN(value))
             {
               double doubleExponent =
@@ -2716,8 +2719,9 @@ UnitFormulaFormatter::inverseFunctionOnUnits(UnitDefinition* expectedUD,
       if (mathUD == NULL || mathUD->getNumUnits() == 0 
         || mathUD->isVariantOfDimensionless() == true)
       {
-        SBMLTransforms::mapComponentValues(this->model);
-        double exp = 1.0/(SBMLTransforms::evaluateASTNode(math, this->model));
+        SBMLTransforms::IdValueMap values;
+        SBMLTransforms::getComponentValuesForModel(this->model, values);
+        double exp = 1.0/(SBMLTransforms::evaluateASTNode(math, values, this->model));
         resolvedUD = new UnitDefinition(*expectedUD);
         for (unsigned int i = 0; i < resolvedUD->getNumUnits(); i++)
         {

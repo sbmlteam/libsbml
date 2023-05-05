@@ -50,12 +50,12 @@ class TestSpeciesType(unittest.TestCase):
     pass  
 
   def test_SpeciesType_create(self):
-    self.assert_( self.CT.getTypeCode() == libsbml.SBML_SPECIES_TYPE )
-    self.assert_( self.CT.getMetaId() == "" )
-    self.assert_( self.CT.getNotes() == None )
-    self.assert_( self.CT.getAnnotation() == None )
-    self.assert_( self.CT.getId() == "" )
-    self.assert_( self.CT.getName() == "" )
+    self.assertTrue( self.CT.getTypeCode() == libsbml.SBML_SPECIES_TYPE )
+    self.assertTrue( self.CT.getMetaId() == "" )
+    self.assertTrue( self.CT.getNotes() == None )
+    self.assertTrue( self.CT.getAnnotation() == None )
+    self.assertTrue( self.CT.getId() == "" )
+    self.assertTrue( self.CT.getName() == "" )
     self.assertEqual( False, self.CT.isSetId() )
     self.assertEqual( False, self.CT.isSetName() )
     pass  
@@ -66,14 +66,14 @@ class TestSpeciesType(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(2,2)
     sbmlns.addNamespaces(xmlns)
     object = libsbml.SpeciesType(sbmlns)
-    self.assert_( object.getTypeCode() == libsbml.SBML_SPECIES_TYPE )
-    self.assert_( object.getMetaId() == "" )
-    self.assert_( object.getNotes() == None )
-    self.assert_( object.getAnnotation() == None )
-    self.assert_( object.getLevel() == 2 )
-    self.assert_( object.getVersion() == 2 )
-    self.assert_( object.getNamespaces() != None )
-    self.assert_( object.getNamespaces().getLength() == 2 )
+    self.assertTrue( object.getTypeCode() == libsbml.SBML_SPECIES_TYPE )
+    self.assertTrue( object.getMetaId() == "" )
+    self.assertTrue( object.getNotes() == None )
+    self.assertTrue( object.getAnnotation() == None )
+    self.assertTrue( object.getLevel() == 2 )
+    self.assertTrue( object.getVersion() == 2 )
+    self.assertTrue( object.getNamespaces() != None )
+    self.assertTrue( object.getNamespaces().getLength() == 2 )
     _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -84,12 +84,12 @@ class TestSpeciesType(unittest.TestCase):
   def test_SpeciesType_setId(self):
     id =  "mitochondria";
     self.CT.setId(id)
-    self.assert_(( id == self.CT.getId() ))
+    self.assertTrue(( id == self.CT.getId() ))
     self.assertEqual( True, self.CT.isSetId() )
     if (self.CT.getId() == id):
       pass    
     self.CT.setId(self.CT.getId())
-    self.assert_(( id == self.CT.getId() ))
+    self.assertTrue(( id == self.CT.getId() ))
     self.CT.setId("")
     self.assertEqual( False, self.CT.isSetId() )
     if (self.CT.getId() != None):
@@ -99,12 +99,12 @@ class TestSpeciesType(unittest.TestCase):
   def test_SpeciesType_setName(self):
     name =  "My_Favorite_Factory";
     self.CT.setName(name)
-    self.assert_(( name == self.CT.getName() ))
+    self.assertTrue(( name == self.CT.getName() ))
     self.assertEqual( True, self.CT.isSetName() )
     if (self.CT.getName() == name):
       pass    
     self.CT.setName(self.CT.getName())
-    self.assert_(( name == self.CT.getName() ))
+    self.assertTrue(( name == self.CT.getName() ))
     self.CT.setName("")
     self.assertEqual( False, self.CT.isSetName() )
     if (self.CT.getName() != None):
@@ -113,7 +113,7 @@ class TestSpeciesType(unittest.TestCase):
 
   def test_SpeciesType_unsetName(self):
     self.CT.setName( "name")
-    self.assert_((  "name"      == self.CT.getName() ))
+    self.assertTrue((  "name"      == self.CT.getName() ))
     self.assertEqual( True, self.CT.isSetName() )
     self.CT.unsetName()
     self.assertEqual( False, self.CT.isSetName() )

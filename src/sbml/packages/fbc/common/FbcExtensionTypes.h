@@ -38,22 +38,26 @@
 #include <sbml/packages/fbc/common/fbcfwd.h>
 
 #include <sbml/packages/fbc/extension/FbcExtension.h>
+#include <sbml/packages/fbc/extension/FbcSBMLDocumentPlugin.h>
 #include <sbml/packages/fbc/extension/FbcModelPlugin.h>
 #include <sbml/packages/fbc/extension/FbcSpeciesPlugin.h>
 #include <sbml/packages/fbc/extension/FbcReactionPlugin.h>
-#include <sbml/packages/fbc/extension/FbcSBMLDocumentPlugin.h>
+#include <sbml/packages/fbc/extension/FbcSBasePlugin.h>
 
 #include <sbml/packages/fbc/sbml/FbcAssociation.h>
-#include <sbml/packages/fbc/sbml/Association.h>
-#include <sbml/packages/fbc/sbml/FluxBound.h>
-#include <sbml/packages/fbc/sbml/FluxObjective.h>
 #include <sbml/packages/fbc/sbml/GeneAssociation.h>
+#include <sbml/packages/fbc/sbml/FluxBound.h>
 #include <sbml/packages/fbc/sbml/Objective.h>
-#include <sbml/packages/fbc/sbml/GeneProductAssociation.h>
+#include <sbml/packages/fbc/sbml/FluxObjective.h>
 #include <sbml/packages/fbc/sbml/GeneProduct.h>
 #include <sbml/packages/fbc/sbml/GeneProductRef.h>
 #include <sbml/packages/fbc/sbml/FbcAnd.h>
 #include <sbml/packages/fbc/sbml/FbcOr.h>
+#include <sbml/packages/fbc/sbml/Association.h>
+#include <sbml/packages/fbc/sbml/GeneProductAssociation.h>
+#include <sbml/packages/fbc/sbml/UserDefinedConstraintComponent.h>
+#include <sbml/packages/fbc/sbml/UserDefinedConstraint.h>
+#include <sbml/packages/fbc/sbml/KeyValuePair.h>
 
 #endif  /* FbcExtensionTypes_H */
 

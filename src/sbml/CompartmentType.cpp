@@ -177,15 +177,6 @@ CompartmentType::isSetName () const
 int
 CompartmentType::setId (const std::string& sid)
 {
-  /* since the setId function has been used as an
-   * alias for setName we cant require it to only
-   * be used on a L2 model
-   */
-/*  if (getLevel() == 1)
-  {
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  }
-*/
   if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
@@ -407,24 +398,6 @@ CompartmentType::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Returns the value of the "attributeName" attribute of this CompartmentType.
- */
-//int
-//CompartmentType::getAttribute(const std::string& attributeName,
-//                              const char* value) const
-//{
-//  int return_value = SBase::getAttribute(attributeName, value);
-//
-//  return return_value;
-//}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this CompartmentType's attribute
  * "attributeName" is set.
  */
@@ -523,24 +496,6 @@ CompartmentType::setAttribute(const std::string& attributeName,
   return return_value;
 }
 
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this CompartmentType.
- */
-//int
-//CompartmentType::setAttribute(const std::string& attributeName,
-//                              const char* value)
-//{
-//  int return_value = SBase::setAttribute(attributeName, value);
-//
-//  return return_value;
-//}
-//
 /** @endcond */
 
 
@@ -763,7 +718,7 @@ ListOfCompartmentTypes::get(unsigned int n) const
 /**
  * Used by ListOf::get() to lookup an SBase based by its id.
  */
-struct IdEqCT : public unary_function<SBase*, bool>
+struct IdEqCT
 {
   const string& mId;
 

@@ -905,6 +905,10 @@ FbcAnd::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("fbc", FbcUnknown,
                        getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      } 
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        getErrorLog()->remove(NotSchemaConformant);
       }
     }
   }

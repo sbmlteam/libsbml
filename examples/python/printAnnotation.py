@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ## 
 ## @file    printAnnotation.py
 ## @brief   Prints annotation strings for each element

@@ -124,11 +124,12 @@ main (int argc, char* argv[])
           printf( "Will now target MathML but with units on numbers.\n\n> ");
         }
         else if (line[0] == 'F' && line[1] == 'I' && line[2]=='L' 
-          && line[3]=='E' && line[4]==':') {
-		  size_t len = strlen(line);
-		  char *filename = (char*) malloc(len-5+1);
-		  strncpy(filename, line+5, len-5);
-		  SBMLDocument_free(doc);
+          && line[3]=='E' && line[4]==':') 
+        {
+          size_t len = strlen(line);
+          char *filename = (char*) malloc(len-5+1);
+          strncpy(filename, line+5, len-5);
+          SBMLDocument_free(doc);
           doc = readSBMLFromFile(filename);
           if (SBMLDocument_getModel(doc)==NULL) {
             printf( "File '%s' not found or no model present.", filename);
@@ -140,6 +141,7 @@ main (int argc, char* argv[])
             printf( "as native MathML or SBML-defined elements.\n\n> ");;
           }
           L3ParserSettings_setModel(settings, SBMLDocument_getModel(doc));
+          free(filename);
         }
         else
         {
@@ -162,6 +164,7 @@ main (int argc, char* argv[])
 
   }
 
+  free(buffer);
   free(line);
   return 0;
 }

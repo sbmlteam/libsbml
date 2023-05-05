@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- python-indent-offset: 2 -*-
 #
 # @file    doc-filter-python.py
@@ -284,7 +284,7 @@ def main (args):
   global libsbml_enums
 
   if len(args) != 2:
-    print main.__doc__
+    print(main.__doc__)
     sys.exit(1)
 
   # Check if the environment variable LIBSBML_CLASSES_LIST is set.

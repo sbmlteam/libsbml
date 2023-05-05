@@ -809,7 +809,11 @@ FluxBound::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("fbc", FbcLOFluxBoundsAllowedAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      } 
+      }
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        getErrorLog()->remove(NotSchemaConformant);
+      }
     }
   }
 
@@ -836,7 +840,11 @@ FluxBound::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("fbc", FbcFluxBoundAllowedL3Attributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      } 
+      }
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == NotSchemaConformant)
+      {
+        getErrorLog()->remove(NotSchemaConformant);
+      }
     }
   }
 

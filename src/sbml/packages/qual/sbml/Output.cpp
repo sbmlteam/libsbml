@@ -1154,7 +1154,7 @@ ListOfOutputs::getBySpecies(const std::string& sid)
  * Used by ListOfOutputs::get() to lookup an Output based by its 
  * qualitativeSpecies.
  */
-struct IdEqQS : public std::unary_function<SBase*, bool>
+struct IdEqQS
 {
   const string& mId;
 

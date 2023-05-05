@@ -73,31 +73,31 @@ class TestModel(unittest.TestCase):
     r1.setKineticLaw(kl)
     self.M.addReaction(r1)
     kl1 = self.M.getReaction(0).getKineticLaw()
-    self.assert_( kl1.getParameter( "k1" ) != k3 )
-    self.assert_( kl1.getParameter( "k1" ) != k1 )
-    self.assert_( kl1.getParameter( "k2" ) != k4 )
-    self.assert_( kl1.getParameter( "k3" ) == None )
+    self.assertTrue( kl1.getParameter( "k1" ) != k3 )
+    self.assertTrue( kl1.getParameter( "k1" ) != k1 )
+    self.assertTrue( kl1.getParameter( "k2" ) != k4 )
+    self.assertTrue( kl1.getParameter( "k3" ) == None )
     pass  
 
   def test_Model_addCompartment(self):
     c = libsbml.Compartment(2,4)
     c.setId( "c")
     self.M.addCompartment(c)
-    self.assert_( self.M.getNumCompartments() == 1 )
+    self.assertTrue( self.M.getNumCompartments() == 1 )
     pass  
 
   def test_Model_addParameter(self):
     p = libsbml.Parameter(2,4)
     p.setId( "p")
     self.M.addParameter(p)
-    self.assert_( self.M.getNumParameters() == 1 )
+    self.assertTrue( self.M.getNumParameters() == 1 )
     pass  
 
   def test_Model_addReaction(self):
     r = libsbml.Reaction(2,4)
     r.setId( "r")
     self.M.addReaction(r)
-    self.assert_( self.M.getNumReactions() == 1 )
+    self.assertTrue( self.M.getNumReactions() == 1 )
     pass  
 
   def test_Model_addRules(self):
@@ -112,7 +112,7 @@ class TestModel(unittest.TestCase):
     self.M.addRule(r1)
     self.M.addRule(r2)
     self.M.addRule(r3)
-    self.assert_( self.M.getNumRules() == 3 )
+    self.assertTrue( self.M.getNumRules() == 3 )
     pass  
 
   def test_Model_addSpecies(self):
@@ -120,7 +120,7 @@ class TestModel(unittest.TestCase):
     s.setId( "s")
     s.setCompartment( "c")
     self.M.addSpecies(s)
-    self.assert_( self.M.getNumSpecies() == 1 )
+    self.assertTrue( self.M.getNumSpecies() == 1 )
     pass  
 
   def test_Model_add_get_Event(self):
@@ -134,10 +134,10 @@ class TestModel(unittest.TestCase):
     e2.createEventAssignment()
     self.M.addEvent(e1)
     self.M.addEvent(e2)
-    self.assert_( self.M.getNumEvents() == 2 )
-    self.assert_( self.M.getEvent(0) != e1 )
-    self.assert_( self.M.getEvent(1) != e2 )
-    self.assert_( self.M.getEvent(2) == None )
+    self.assertTrue( self.M.getNumEvents() == 2 )
+    self.assertTrue( self.M.getEvent(0) != e1 )
+    self.assertTrue( self.M.getEvent(1) != e2 )
+    self.assertTrue( self.M.getEvent(2) == None )
     pass  
 
   def test_Model_add_get_FunctionDefinitions(self):
@@ -149,10 +149,10 @@ class TestModel(unittest.TestCase):
     fd2.setMath(libsbml.parseFormula("2"))
     self.M.addFunctionDefinition(fd1)
     self.M.addFunctionDefinition(fd2)
-    self.assert_( self.M.getNumFunctionDefinitions() == 2 )
-    self.assert_( self.M.getFunctionDefinition(0) != fd1 )
-    self.assert_( self.M.getFunctionDefinition(1) != fd2 )
-    self.assert_( self.M.getFunctionDefinition(2) == None )
+    self.assertTrue( self.M.getNumFunctionDefinitions() == 2 )
+    self.assertTrue( self.M.getFunctionDefinition(0) != fd1 )
+    self.assertTrue( self.M.getFunctionDefinition(1) != fd2 )
+    self.assertTrue( self.M.getFunctionDefinition(2) == None )
     pass  
 
   def test_Model_add_get_UnitDefinitions(self):
@@ -164,110 +164,110 @@ class TestModel(unittest.TestCase):
     ud2.createUnit()
     self.M.addUnitDefinition(ud1)
     self.M.addUnitDefinition(ud2)
-    self.assert_( self.M.getNumUnitDefinitions() == 2 )
-    self.assert_( self.M.getUnitDefinition(0) != ud1 )
-    self.assert_( self.M.getUnitDefinition(1) != ud2 )
-    self.assert_( self.M.getUnitDefinition(2) == None )
+    self.assertTrue( self.M.getNumUnitDefinitions() == 2 )
+    self.assertTrue( self.M.getUnitDefinition(0) != ud1 )
+    self.assertTrue( self.M.getUnitDefinition(1) != ud2 )
+    self.assertTrue( self.M.getUnitDefinition(2) == None )
     pass  
 
   def test_Model_create(self):
-    self.assert_( self.M.getTypeCode() == libsbml.SBML_MODEL )
-    self.assert_( self.M.getMetaId() == "" )
-    self.assert_( self.M.getNotes() == None )
-    self.assert_( self.M.getAnnotation() == None )
-    self.assert_( self.M.getId() == "" )
-    self.assert_( self.M.getName() == "" )
+    self.assertTrue( self.M.getTypeCode() == libsbml.SBML_MODEL )
+    self.assertTrue( self.M.getMetaId() == "" )
+    self.assertTrue( self.M.getNotes() == None )
+    self.assertTrue( self.M.getAnnotation() == None )
+    self.assertTrue( self.M.getId() == "" )
+    self.assertTrue( self.M.getName() == "" )
     self.assertEqual( False, self.M.isSetId() )
     self.assertEqual( False, self.M.isSetName() )
-    self.assert_( self.M.getNumUnitDefinitions() == 0 )
-    self.assert_( self.M.getNumCompartments() == 0 )
-    self.assert_( self.M.getNumSpecies() == 0 )
-    self.assert_( self.M.getNumParameters() == 0 )
-    self.assert_( self.M.getNumReactions() == 0 )
+    self.assertTrue( self.M.getNumUnitDefinitions() == 0 )
+    self.assertTrue( self.M.getNumCompartments() == 0 )
+    self.assertTrue( self.M.getNumSpecies() == 0 )
+    self.assertTrue( self.M.getNumParameters() == 0 )
+    self.assertTrue( self.M.getNumReactions() == 0 )
     pass  
 
   def test_Model_createAlgebraicRule(self):
     ar = self.M.createAlgebraicRule()
-    self.assert_( ar != None )
-    self.assert_( self.M.getNumRules() == 1 )
-    self.assert_( self.M.getRule(0) == ar )
+    self.assertTrue( ar != None )
+    self.assertTrue( self.M.getNumRules() == 1 )
+    self.assertTrue( self.M.getRule(0) == ar )
     pass  
 
   def test_Model_createAssignmentRule(self):
     ar = self.M.createAssignmentRule()
-    self.assert_( ar != None )
-    self.assert_( self.M.getNumRules() == 1 )
-    self.assert_( self.M.getRule(0) == ar )
+    self.assertTrue( ar != None )
+    self.assertTrue( self.M.getNumRules() == 1 )
+    self.assertTrue( self.M.getRule(0) == ar )
     pass  
 
   def test_Model_createCompartment(self):
     c = self.M.createCompartment()
-    self.assert_( c != None )
-    self.assert_( self.M.getNumCompartments() == 1 )
-    self.assert_( self.M.getCompartment(0) == c )
+    self.assertTrue( c != None )
+    self.assertTrue( self.M.getNumCompartments() == 1 )
+    self.assertTrue( self.M.getCompartment(0) == c )
     pass  
 
   def test_Model_createCompartmentType(self):
     c = self.M.createCompartmentType()
-    self.assert_( c != None )
-    self.assert_( self.M.getNumCompartmentTypes() == 1 )
-    self.assert_( self.M.getCompartmentType(0) == c )
+    self.assertTrue( c != None )
+    self.assertTrue( self.M.getNumCompartmentTypes() == 1 )
+    self.assertTrue( self.M.getCompartmentType(0) == c )
     pass  
 
   def test_Model_createConstraint(self):
     c = self.M.createConstraint()
-    self.assert_( c != None )
-    self.assert_( self.M.getNumConstraints() == 1 )
-    self.assert_( self.M.getConstraint(0) == c )
+    self.assertTrue( c != None )
+    self.assertTrue( self.M.getNumConstraints() == 1 )
+    self.assertTrue( self.M.getConstraint(0) == c )
     pass  
 
   def test_Model_createEvent(self):
     e = self.M.createEvent()
-    self.assert_( e != None )
-    self.assert_( self.M.getNumEvents() == 1 )
-    self.assert_( self.M.getEvent(0) == e )
+    self.assertTrue( e != None )
+    self.assertTrue( self.M.getNumEvents() == 1 )
+    self.assertTrue( self.M.getEvent(0) == e )
     pass  
 
   def test_Model_createEventAssignment(self):
     self.M.createEvent()
     self.M.createEvent()
     ea = self.M.createEventAssignment()
-    self.assert_( ea != None )
-    self.assert_( self.M.getNumEvents() == 2 )
+    self.assertTrue( ea != None )
+    self.assertTrue( self.M.getNumEvents() == 2 )
     e = self.M.getEvent(1)
-    self.assert_( e.getNumEventAssignments() == 1 )
-    self.assert_( e.getEventAssignment(0) == ea )
+    self.assertTrue( e.getNumEventAssignments() == 1 )
+    self.assertTrue( e.getEventAssignment(0) == ea )
     pass  
 
   def test_Model_createEventAssignment_noEvent(self):
-    self.assert_( self.M.getNumEvents() == 0 )
-    self.assert_( self.M.createEventAssignment() == None )
+    self.assertTrue( self.M.getNumEvents() == 0 )
+    self.assertTrue( self.M.createEventAssignment() == None )
     pass  
 
   def test_Model_createFunctionDefinition(self):
     fd = self.M.createFunctionDefinition()
-    self.assert_( fd != None )
-    self.assert_( self.M.getNumFunctionDefinitions() == 1 )
-    self.assert_( self.M.getFunctionDefinition(0) == fd )
+    self.assertTrue( fd != None )
+    self.assertTrue( self.M.getNumFunctionDefinitions() == 1 )
+    self.assertTrue( self.M.getFunctionDefinition(0) == fd )
     pass  
 
   def test_Model_createInitialAssignment(self):
     c = self.M.createInitialAssignment()
-    self.assert_( c != None )
-    self.assert_( self.M.getNumInitialAssignments() == 1 )
-    self.assert_( self.M.getInitialAssignment(0) == c )
+    self.assertTrue( c != None )
+    self.assertTrue( self.M.getNumInitialAssignments() == 1 )
+    self.assertTrue( self.M.getInitialAssignment(0) == c )
     pass  
 
   def test_Model_createKineticLaw(self):
     self.M.createReaction()
     self.M.createReaction()
     kl = self.M.createKineticLaw()
-    self.assert_( kl != None )
-    self.assert_( self.M.getNumReactions() == 2 )
+    self.assertTrue( kl != None )
+    self.assertTrue( self.M.getNumReactions() == 2 )
     r = self.M.getReaction(0)
-    self.assert_( r.getKineticLaw() == None )
+    self.assertTrue( r.getKineticLaw() == None )
     r = self.M.getReaction(1)
-    self.assert_( r.getKineticLaw() == kl )
+    self.assertTrue( r.getKineticLaw() == kl )
     pass  
 
   def test_Model_createKineticLawParameter(self):
@@ -275,142 +275,142 @@ class TestModel(unittest.TestCase):
     self.M.createReaction()
     self.M.createKineticLaw()
     p = self.M.createKineticLawParameter()
-    self.assert_( self.M.getNumReactions() == 2 )
+    self.assertTrue( self.M.getNumReactions() == 2 )
     r = self.M.getReaction(0)
-    self.assert_( r.getKineticLaw() == None )
+    self.assertTrue( r.getKineticLaw() == None )
     r = self.M.getReaction(1)
-    self.assert_( r.getKineticLaw() != None )
+    self.assertTrue( r.getKineticLaw() != None )
     kl = r.getKineticLaw()
-    self.assert_( kl.getNumParameters() == 1 )
-    self.assert_( kl.getParameter(0) == p )
+    self.assertTrue( kl.getNumParameters() == 1 )
+    self.assertTrue( kl.getParameter(0) == p )
     pass  
 
   def test_Model_createKineticLawParameter_noKineticLaw(self):
     r = self.M.createReaction()
-    self.assert_( r.getKineticLaw() == None )
-    self.assert_( self.M.createKineticLawParameter() == None )
+    self.assertTrue( r.getKineticLaw() == None )
+    self.assertTrue( self.M.createKineticLawParameter() == None )
     pass  
 
   def test_Model_createKineticLawParameter_noReaction(self):
-    self.assert_( self.M.getNumReactions() == 0 )
-    self.assert_( self.M.createKineticLawParameter() == None )
+    self.assertTrue( self.M.getNumReactions() == 0 )
+    self.assertTrue( self.M.createKineticLawParameter() == None )
     pass  
 
   def test_Model_createKineticLaw_alreadyExists(self):
     r = self.M.createReaction()
     kl = self.M.createKineticLaw()
-    self.assert_( r.getKineticLaw() == kl )
+    self.assertTrue( r.getKineticLaw() == kl )
     pass  
 
   def test_Model_createKineticLaw_noReaction(self):
-    self.assert_( self.M.getNumReactions() == 0 )
-    self.assert_( self.M.createKineticLaw() == None )
+    self.assertTrue( self.M.getNumReactions() == 0 )
+    self.assertTrue( self.M.createKineticLaw() == None )
     pass  
 
   def test_Model_createModifier(self):
     self.M.createReaction()
     self.M.createReaction()
     msr = self.M.createModifier()
-    self.assert_( msr != None )
-    self.assert_( self.M.getNumReactions() == 2 )
+    self.assertTrue( msr != None )
+    self.assertTrue( self.M.getNumReactions() == 2 )
     r = self.M.getReaction(1)
-    self.assert_( r.getNumModifiers() == 1 )
-    self.assert_( r.getModifier(0) == msr )
+    self.assertTrue( r.getNumModifiers() == 1 )
+    self.assertTrue( r.getModifier(0) == msr )
     pass  
 
   def test_Model_createModifier_noReaction(self):
-    self.assert_( self.M.getNumReactions() == 0 )
-    self.assert_( self.M.createModifier() == None )
+    self.assertTrue( self.M.getNumReactions() == 0 )
+    self.assertTrue( self.M.createModifier() == None )
     pass  
 
   def test_Model_createParameter(self):
     p = self.M.createParameter()
-    self.assert_( p != None )
-    self.assert_( self.M.getNumParameters() == 1 )
-    self.assert_( self.M.getParameter(0) == p )
+    self.assertTrue( p != None )
+    self.assertTrue( self.M.getNumParameters() == 1 )
+    self.assertTrue( self.M.getParameter(0) == p )
     pass  
 
   def test_Model_createProduct(self):
     self.M.createReaction()
     self.M.createReaction()
     sr = self.M.createProduct()
-    self.assert_( sr != None )
-    self.assert_( self.M.getNumReactions() == 2 )
+    self.assertTrue( sr != None )
+    self.assertTrue( self.M.getNumReactions() == 2 )
     r = self.M.getReaction(1)
-    self.assert_( r.getNumProducts() == 1 )
-    self.assert_( r.getProduct(0) == sr )
+    self.assertTrue( r.getNumProducts() == 1 )
+    self.assertTrue( r.getProduct(0) == sr )
     pass  
 
   def test_Model_createProduct_noReaction(self):
-    self.assert_( self.M.getNumReactions() == 0 )
-    self.assert_( self.M.createProduct() == None )
+    self.assertTrue( self.M.getNumReactions() == 0 )
+    self.assertTrue( self.M.createProduct() == None )
     pass  
 
   def test_Model_createRateRule(self):
     rr = self.M.createRateRule()
-    self.assert_( rr != None )
-    self.assert_( self.M.getNumRules() == 1 )
-    self.assert_( self.M.getRule(0) == rr )
+    self.assertTrue( rr != None )
+    self.assertTrue( self.M.getNumRules() == 1 )
+    self.assertTrue( self.M.getRule(0) == rr )
     pass  
 
   def test_Model_createReactant(self):
     self.M.createReaction()
     self.M.createReaction()
     sr = self.M.createReactant()
-    self.assert_( sr != None )
-    self.assert_( self.M.getNumReactions() == 2 )
+    self.assertTrue( sr != None )
+    self.assertTrue( self.M.getNumReactions() == 2 )
     r = self.M.getReaction(1)
-    self.assert_( r.getNumReactants() == 1 )
-    self.assert_( r.getReactant(0) == sr )
+    self.assertTrue( r.getNumReactants() == 1 )
+    self.assertTrue( r.getReactant(0) == sr )
     pass  
 
   def test_Model_createReactant_noReaction(self):
-    self.assert_( self.M.getNumReactions() == 0 )
-    self.assert_( self.M.createReactant() == None )
+    self.assertTrue( self.M.getNumReactions() == 0 )
+    self.assertTrue( self.M.createReactant() == None )
     pass  
 
   def test_Model_createReaction(self):
     r = self.M.createReaction()
-    self.assert_( r != None )
-    self.assert_( self.M.getNumReactions() == 1 )
-    self.assert_( self.M.getReaction(0) == r )
+    self.assertTrue( r != None )
+    self.assertTrue( self.M.getNumReactions() == 1 )
+    self.assertTrue( self.M.getReaction(0) == r )
     pass  
 
   def test_Model_createSpecies(self):
     s = self.M.createSpecies()
-    self.assert_( s != None )
-    self.assert_( self.M.getNumSpecies() == 1 )
-    self.assert_( self.M.getSpecies(0) == s )
+    self.assertTrue( s != None )
+    self.assertTrue( self.M.getNumSpecies() == 1 )
+    self.assertTrue( self.M.getSpecies(0) == s )
     pass  
 
   def test_Model_createSpeciesType(self):
     c = self.M.createSpeciesType()
-    self.assert_( c != None )
-    self.assert_( self.M.getNumSpeciesTypes() == 1 )
-    self.assert_( self.M.getSpeciesType(0) == c )
+    self.assertTrue( c != None )
+    self.assertTrue( self.M.getNumSpeciesTypes() == 1 )
+    self.assertTrue( self.M.getSpeciesType(0) == c )
     pass  
 
   def test_Model_createUnit(self):
     self.M.createUnitDefinition()
     self.M.createUnitDefinition()
     u = self.M.createUnit()
-    self.assert_( u != None )
-    self.assert_( self.M.getNumUnitDefinitions() == 2 )
+    self.assertTrue( u != None )
+    self.assertTrue( self.M.getNumUnitDefinitions() == 2 )
     ud = self.M.getUnitDefinition(1)
-    self.assert_( ud.getNumUnits() == 1 )
-    self.assert_( ud.getUnit(0) == u )
+    self.assertTrue( ud.getNumUnits() == 1 )
+    self.assertTrue( ud.getUnit(0) == u )
     pass  
 
   def test_Model_createUnitDefinition(self):
     ud = self.M.createUnitDefinition()
-    self.assert_( ud != None )
-    self.assert_( self.M.getNumUnitDefinitions() == 1 )
-    self.assert_( self.M.getUnitDefinition(0) == ud )
+    self.assertTrue( ud != None )
+    self.assertTrue( self.M.getNumUnitDefinitions() == 1 )
+    self.assertTrue( self.M.getUnitDefinition(0) == ud )
     pass  
 
   def test_Model_createUnit_noUnitDefinition(self):
-    self.assert_( self.M.getNumUnitDefinitions() == 0 )
-    self.assert_( self.M.createUnit() == None )
+    self.assertTrue( self.M.getNumUnitDefinitions() == 0 )
+    self.assertTrue( self.M.createUnit() == None )
     pass  
 
   def test_Model_createWithNS(self):
@@ -419,14 +419,14 @@ class TestModel(unittest.TestCase):
     sbmlns = libsbml.SBMLNamespaces(2,1)
     sbmlns.addNamespaces(xmlns)
     object = libsbml.Model(sbmlns)
-    self.assert_( object.getTypeCode() == libsbml.SBML_MODEL )
-    self.assert_( object.getMetaId() == "" )
-    self.assert_( object.getNotes() == None )
-    self.assert_( object.getAnnotation() == None )
-    self.assert_( object.getLevel() == 2 )
-    self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != None )
-    self.assert_( object.getNamespaces().getLength() == 2 )
+    self.assertTrue( object.getTypeCode() == libsbml.SBML_MODEL )
+    self.assertTrue( object.getMetaId() == "" )
+    self.assertTrue( object.getNotes() == None )
+    self.assertTrue( object.getAnnotation() == None )
+    self.assertTrue( object.getLevel() == 2 )
+    self.assertTrue( object.getVersion() == 1 )
+    self.assertTrue( object.getNamespaces() != None )
+    self.assertTrue( object.getNamespaces().getLength() == 2 )
     _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -441,11 +441,11 @@ class TestModel(unittest.TestCase):
     c2.setId( "B")
     self.M.addCompartment(c1)
     self.M.addCompartment(c2)
-    self.assert_( self.M.getNumCompartments() == 2 )
+    self.assertTrue( self.M.getNumCompartments() == 2 )
     c1 = self.M.getCompartment(0)
     c2 = self.M.getCompartment(1)
-    self.assert_((  "A" == c1.getId() ))
-    self.assert_((  "B" == c2.getId() ))
+    self.assertTrue((  "A" == c1.getId() ))
+    self.assertTrue((  "B" == c2.getId() ))
     pass  
 
   def test_Model_getCompartmentById(self):
@@ -455,10 +455,10 @@ class TestModel(unittest.TestCase):
     c2.setId( "B" )
     self.M.addCompartment(c1)
     self.M.addCompartment(c2)
-    self.assert_( self.M.getNumCompartments() == 2 )
-    self.assert_( self.M.getCompartment( "A" ) != c1 )
-    self.assert_( self.M.getCompartment( "B" ) != c2 )
-    self.assert_( self.M.getCompartment( "C" ) == None )
+    self.assertTrue( self.M.getNumCompartments() == 2 )
+    self.assertTrue( self.M.getCompartment( "A" ) != c1 )
+    self.assertTrue( self.M.getCompartment( "B" ) != c2 )
+    self.assertTrue( self.M.getCompartment( "C" ) == None )
     pass  
 
   def test_Model_getEventById(self):
@@ -474,10 +474,10 @@ class TestModel(unittest.TestCase):
     e2.setId( "e2" )
     self.M.addEvent(e1)
     self.M.addEvent(e2)
-    self.assert_( self.M.getNumEvents() == 2 )
-    self.assert_( self.M.getEvent( "e1" ) != e1 )
-    self.assert_( self.M.getEvent( "e2" ) != e2 )
-    self.assert_( self.M.getEvent( "e3" ) == None )
+    self.assertTrue( self.M.getNumEvents() == 2 )
+    self.assertTrue( self.M.getEvent( "e1" ) != e1 )
+    self.assertTrue( self.M.getEvent( "e2" ) != e2 )
+    self.assertTrue( self.M.getEvent( "e3" ) == None )
     pass  
 
   def test_Model_getFunctionDefinitionById(self):
@@ -489,10 +489,10 @@ class TestModel(unittest.TestCase):
     fd2.setMath(libsbml.parseFormula("2"))
     self.M.addFunctionDefinition(fd1)
     self.M.addFunctionDefinition(fd2)
-    self.assert_( self.M.getNumFunctionDefinitions() == 2 )
-    self.assert_( self.M.getFunctionDefinition( "sin" ) != fd1 )
-    self.assert_( self.M.getFunctionDefinition( "cos" ) != fd2 )
-    self.assert_( self.M.getFunctionDefinition( "tan" ) == None )
+    self.assertTrue( self.M.getNumFunctionDefinitions() == 2 )
+    self.assertTrue( self.M.getFunctionDefinition( "sin" ) != fd1 )
+    self.assertTrue( self.M.getFunctionDefinition( "cos" ) != fd2 )
+    self.assertTrue( self.M.getFunctionDefinition( "tan" ) == None )
     pass  
 
   def test_Model_getNumSpeciesWithBoundaryCondition(self):
@@ -508,17 +508,17 @@ class TestModel(unittest.TestCase):
     s1.setBoundaryCondition(True)
     s2.setBoundaryCondition(False)
     s3.setBoundaryCondition(True)
-    self.assert_( self.M.getNumSpecies() == 0 )
-    self.assert_( self.M.getNumSpeciesWithBoundaryCondition() == 0 )
+    self.assertTrue( self.M.getNumSpecies() == 0 )
+    self.assertTrue( self.M.getNumSpeciesWithBoundaryCondition() == 0 )
     self.M.addSpecies(s1)
-    self.assert_( self.M.getNumSpecies() == 1 )
-    self.assert_( self.M.getNumSpeciesWithBoundaryCondition() == 1 )
+    self.assertTrue( self.M.getNumSpecies() == 1 )
+    self.assertTrue( self.M.getNumSpeciesWithBoundaryCondition() == 1 )
     self.M.addSpecies(s2)
-    self.assert_( self.M.getNumSpecies() == 2 )
-    self.assert_( self.M.getNumSpeciesWithBoundaryCondition() == 1 )
+    self.assertTrue( self.M.getNumSpecies() == 2 )
+    self.assertTrue( self.M.getNumSpeciesWithBoundaryCondition() == 1 )
     self.M.addSpecies(s3)
-    self.assert_( self.M.getNumSpecies() == 3 )
-    self.assert_( self.M.getNumSpeciesWithBoundaryCondition() == 2 )
+    self.assertTrue( self.M.getNumSpecies() == 3 )
+    self.assertTrue( self.M.getNumSpeciesWithBoundaryCondition() == 2 )
     pass  
 
   def test_Model_getParameter(self):
@@ -528,11 +528,11 @@ class TestModel(unittest.TestCase):
     p2.setId( "Km2")
     self.M.addParameter(p1)
     self.M.addParameter(p2)
-    self.assert_( self.M.getNumParameters() == 2 )
+    self.assertTrue( self.M.getNumParameters() == 2 )
     p1 = self.M.getParameter(0)
     p2 = self.M.getParameter(1)
-    self.assert_((  "Km1" == p1.getId() ))
-    self.assert_((  "Km2" == p2.getId() ))
+    self.assertTrue((  "Km1" == p1.getId() ))
+    self.assertTrue((  "Km2" == p2.getId() ))
     pass  
 
   def test_Model_getParameterById(self):
@@ -542,10 +542,10 @@ class TestModel(unittest.TestCase):
     p2.setId( "Km2" )
     self.M.addParameter(p1)
     self.M.addParameter(p2)
-    self.assert_( self.M.getNumParameters() == 2 )
-    self.assert_( self.M.getParameter( "Km1" ) != p1 )
-    self.assert_( self.M.getParameter( "Km2" ) != p2 )
-    self.assert_( self.M.getParameter( "Km3" ) == None )
+    self.assertTrue( self.M.getNumParameters() == 2 )
+    self.assertTrue( self.M.getParameter( "Km1" ) != p1 )
+    self.assertTrue( self.M.getParameter( "Km2" ) != p2 )
+    self.assertTrue( self.M.getParameter( "Km3" ) == None )
     pass  
 
   def test_Model_getReaction(self):
@@ -555,11 +555,11 @@ class TestModel(unittest.TestCase):
     r2.setId( "reaction_2")
     self.M.addReaction(r1)
     self.M.addReaction(r2)
-    self.assert_( self.M.getNumReactions() == 2 )
+    self.assertTrue( self.M.getNumReactions() == 2 )
     r1 = self.M.getReaction(0)
     r2 = self.M.getReaction(1)
-    self.assert_((  "reaction_1" == r1.getId() ))
-    self.assert_((  "reaction_2" == r2.getId() ))
+    self.assertTrue((  "reaction_1" == r1.getId() ))
+    self.assertTrue((  "reaction_2" == r2.getId() ))
     pass  
 
   def test_Model_getReactionById(self):
@@ -569,10 +569,10 @@ class TestModel(unittest.TestCase):
     r2.setId( "reaction_2" )
     self.M.addReaction(r1)
     self.M.addReaction(r2)
-    self.assert_( self.M.getNumReactions() == 2 )
-    self.assert_( self.M.getReaction( "reaction_1" ) != r1 )
-    self.assert_( self.M.getReaction( "reaction_2" ) != r2 )
-    self.assert_( self.M.getReaction( "reaction_3" ) == None )
+    self.assertTrue( self.M.getNumReactions() == 2 )
+    self.assertTrue( self.M.getReaction( "reaction_1" ) != r1 )
+    self.assertTrue( self.M.getReaction( "reaction_2" ) != r2 )
+    self.assertTrue( self.M.getReaction( "reaction_3" ) == None )
     pass  
 
   def test_Model_getRules(self):
@@ -591,15 +591,15 @@ class TestModel(unittest.TestCase):
     self.M.addRule(scr)
     self.M.addRule(cvr)
     self.M.addRule(pr)
-    self.assert_( self.M.getNumRules() == 4 )
+    self.assertTrue( self.M.getNumRules() == 4 )
     ar = self.M.getRule(0)
     scr = self.M.getRule(1)
     cvr = self.M.getRule(2)
     pr = self.M.getRule(3)
-    self.assert_((  "x + 1"         == ar.getFormula() ))
-    self.assert_((  "k * t/(1 + k)" == scr.getFormula() ))
-    self.assert_((  "0.10 * t"      == cvr.getFormula() ))
-    self.assert_((  "k3/k2"         == pr.getFormula() ))
+    self.assertTrue((  "x + 1"         == ar.getFormula() ))
+    self.assertTrue((  "k * t/(1 + k)" == scr.getFormula() ))
+    self.assertTrue((  "0.10 * t"      == cvr.getFormula() ))
+    self.assertTrue((  "k3/k2"         == pr.getFormula() ))
     pass  
 
   def test_Model_getSpecies(self):
@@ -611,11 +611,11 @@ class TestModel(unittest.TestCase):
     s2.setCompartment( "c")
     self.M.addSpecies(s1)
     self.M.addSpecies(s2)
-    self.assert_( self.M.getNumSpecies() == 2 )
+    self.assertTrue( self.M.getNumSpecies() == 2 )
     s1 = self.M.getSpecies(0)
     s2 = self.M.getSpecies(1)
-    self.assert_((  "Glucose"      == s1.getId() ))
-    self.assert_((  "Glucose_6_P"  == s2.getId() ))
+    self.assertTrue((  "Glucose"      == s1.getId() ))
+    self.assertTrue((  "Glucose_6_P"  == s2.getId() ))
     pass  
 
   def test_Model_getSpeciesById(self):
@@ -627,10 +627,10 @@ class TestModel(unittest.TestCase):
     s2.setCompartment( "c")
     self.M.addSpecies(s1)
     self.M.addSpecies(s2)
-    self.assert_( self.M.getNumSpecies() == 2 )
-    self.assert_( self.M.getSpecies( "Glucose"    ) != s1 )
-    self.assert_( self.M.getSpecies( "Glucose_6_P") != s2 )
-    self.assert_( self.M.getSpecies( "Glucose2"   ) == None )
+    self.assertTrue( self.M.getNumSpecies() == 2 )
+    self.assertTrue( self.M.getSpecies( "Glucose"    ) != s1 )
+    self.assertTrue( self.M.getSpecies( "Glucose_6_P") != s2 )
+    self.assertTrue( self.M.getSpecies( "Glucose2"   ) == None )
     pass  
 
   def test_Model_getSpeciesReferenceById(self):
@@ -639,8 +639,8 @@ class TestModel(unittest.TestCase):
     sr = r1.createReactant()
     sr.setId( "s1")
     self.M.addReaction(r1)
-    self.assert_( self.M.getNumReactions() == 1 )
-    self.assert_( self.M.getSpeciesReference( "s1" ) != sr )
+    self.assertTrue( self.M.getNumReactions() == 1 )
+    self.assertTrue( self.M.getSpeciesReference( "s1" ) != sr )
     pass  
 
   def test_Model_getUnitDefinition(self):
@@ -652,11 +652,11 @@ class TestModel(unittest.TestCase):
     ud2.createUnit()
     self.M.addUnitDefinition(ud1)
     self.M.addUnitDefinition(ud2)
-    self.assert_( self.M.getNumUnitDefinitions() == 2 )
+    self.assertTrue( self.M.getNumUnitDefinitions() == 2 )
     ud1 = self.M.getUnitDefinition(0)
     ud2 = self.M.getUnitDefinition(1)
-    self.assert_((  "mmls"    == ud1.getId() ))
-    self.assert_((  "volume"  == ud2.getId() ))
+    self.assertTrue((  "mmls"    == ud1.getId() ))
+    self.assertTrue((  "volume"  == ud2.getId() ))
     pass  
 
   def test_Model_getUnitDefinitionById(self):
@@ -668,10 +668,10 @@ class TestModel(unittest.TestCase):
     ud2.createUnit()
     self.M.addUnitDefinition(ud1)
     self.M.addUnitDefinition(ud2)
-    self.assert_( self.M.getNumUnitDefinitions() == 2 )
-    self.assert_( self.M.getUnitDefinition( "mmls"       ) != ud1 )
-    self.assert_( self.M.getUnitDefinition( "volume"     ) != ud2 )
-    self.assert_( self.M.getUnitDefinition( "rototillers") == None )
+    self.assertTrue( self.M.getNumUnitDefinitions() == 2 )
+    self.assertTrue( self.M.getUnitDefinition( "mmls"       ) != ud1 )
+    self.assertTrue( self.M.getUnitDefinition( "volume"     ) != ud2 )
+    self.assertTrue( self.M.getUnitDefinition( "rototillers") == None )
     pass  
 
   def test_Model_removeCompartment(self):
@@ -679,12 +679,12 @@ class TestModel(unittest.TestCase):
     o2 = self.M.createCompartment()
     o3 = self.M.createCompartment()
     o3.setId("test")
-    self.assert_( self.M.removeCompartment(0) == o1 )
-    self.assert_( self.M.getNumCompartments() == 2 )
-    self.assert_( self.M.removeCompartment(0) == o2 )
-    self.assert_( self.M.getNumCompartments() == 1 )
-    self.assert_( self.M.removeCompartment("test") == o3 )
-    self.assert_( self.M.getNumCompartments() == 0 )
+    self.assertTrue( self.M.removeCompartment(0) == o1 )
+    self.assertTrue( self.M.getNumCompartments() == 2 )
+    self.assertTrue( self.M.removeCompartment(0) == o2 )
+    self.assertTrue( self.M.getNumCompartments() == 1 )
+    self.assertTrue( self.M.removeCompartment("test") == o3 )
+    self.assertTrue( self.M.getNumCompartments() == 0 )
     _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
@@ -695,12 +695,12 @@ class TestModel(unittest.TestCase):
     o2 = self.M.createCompartmentType()
     o3 = self.M.createCompartmentType()
     o3.setId("test")
-    self.assert_( self.M.removeCompartmentType(0) == o1 )
-    self.assert_( self.M.getNumCompartmentTypes() == 2 )
-    self.assert_( self.M.removeCompartmentType(0) == o2 )
-    self.assert_( self.M.getNumCompartmentTypes() == 1 )
-    self.assert_( self.M.removeCompartmentType("test") == o3 )
-    self.assert_( self.M.getNumCompartmentTypes() == 0 )
+    self.assertTrue( self.M.removeCompartmentType(0) == o1 )
+    self.assertTrue( self.M.getNumCompartmentTypes() == 2 )
+    self.assertTrue( self.M.removeCompartmentType(0) == o2 )
+    self.assertTrue( self.M.getNumCompartmentTypes() == 1 )
+    self.assertTrue( self.M.removeCompartmentType("test") == o3 )
+    self.assertTrue( self.M.getNumCompartmentTypes() == 0 )
     _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
@@ -710,12 +710,12 @@ class TestModel(unittest.TestCase):
     o1 = self.M.createConstraint()
     o2 = self.M.createConstraint()
     o3 = self.M.createConstraint()
-    self.assert_( self.M.removeConstraint(0) == o1 )
-    self.assert_( self.M.getNumConstraints() == 2 )
-    self.assert_( self.M.removeConstraint(0) == o2 )
-    self.assert_( self.M.getNumConstraints() == 1 )
-    self.assert_( self.M.removeConstraint(0) == o3 )
-    self.assert_( self.M.getNumConstraints() == 0 )
+    self.assertTrue( self.M.removeConstraint(0) == o1 )
+    self.assertTrue( self.M.getNumConstraints() == 2 )
+    self.assertTrue( self.M.removeConstraint(0) == o2 )
+    self.assertTrue( self.M.getNumConstraints() == 1 )
+    self.assertTrue( self.M.removeConstraint(0) == o3 )
+    self.assertTrue( self.M.getNumConstraints() == 0 )
     _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
@@ -726,12 +726,12 @@ class TestModel(unittest.TestCase):
     o2 = self.M.createEvent()
     o3 = self.M.createEvent()
     o3.setId("test")
-    self.assert_( self.M.removeEvent(0) == o1 )
-    self.assert_( self.M.getNumEvents() == 2 )
-    self.assert_( self.M.removeEvent(0) == o2 )
-    self.assert_( self.M.getNumEvents() == 1 )
-    self.assert_( self.M.removeEvent("test") == o3 )
-    self.assert_( self.M.getNumEvents() == 0 )
+    self.assertTrue( self.M.removeEvent(0) == o1 )
+    self.assertTrue( self.M.getNumEvents() == 2 )
+    self.assertTrue( self.M.removeEvent(0) == o2 )
+    self.assertTrue( self.M.getNumEvents() == 1 )
+    self.assertTrue( self.M.removeEvent("test") == o3 )
+    self.assertTrue( self.M.getNumEvents() == 0 )
     _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
@@ -742,12 +742,12 @@ class TestModel(unittest.TestCase):
     o2 = self.M.createFunctionDefinition()
     o3 = self.M.createFunctionDefinition()
     o3.setId("test")
-    self.assert_( self.M.removeFunctionDefinition(0) == o1 )
-    self.assert_( self.M.getNumFunctionDefinitions() == 2 )
-    self.assert_( self.M.removeFunctionDefinition(0) == o2 )
-    self.assert_( self.M.getNumFunctionDefinitions() == 1 )
-    self.assert_( self.M.removeFunctionDefinition("test") == o3 )
-    self.assert_( self.M.getNumFunctionDefinitions() == 0 )
+    self.assertTrue( self.M.removeFunctionDefinition(0) == o1 )
+    self.assertTrue( self.M.getNumFunctionDefinitions() == 2 )
+    self.assertTrue( self.M.removeFunctionDefinition(0) == o2 )
+    self.assertTrue( self.M.getNumFunctionDefinitions() == 1 )
+    self.assertTrue( self.M.removeFunctionDefinition("test") == o3 )
+    self.assertTrue( self.M.getNumFunctionDefinitions() == 0 )
     _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
@@ -758,12 +758,12 @@ class TestModel(unittest.TestCase):
     o2 = self.M.createInitialAssignment()
     o3 = self.M.createInitialAssignment()
     o3.setSymbol("test")
-    self.assert_( self.M.removeInitialAssignment(0) == o1 )
-    self.assert_( self.M.getNumInitialAssignments() == 2 )
-    self.assert_( self.M.removeInitialAssignment(0) == o2 )
-    self.assert_( self.M.getNumInitialAssignments() == 1 )
-    self.assert_( self.M.removeInitialAssignment("test") == o3 )
-    self.assert_( self.M.getNumInitialAssignments() == 0 )
+    self.assertTrue( self.M.removeInitialAssignment(0) == o1 )
+    self.assertTrue( self.M.getNumInitialAssignments() == 2 )
+    self.assertTrue( self.M.removeInitialAssignment(0) == o2 )
+    self.assertTrue( self.M.getNumInitialAssignments() == 1 )
+    self.assertTrue( self.M.removeInitialAssignment("test") == o3 )
+    self.assertTrue( self.M.getNumInitialAssignments() == 0 )
     _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
@@ -774,12 +774,12 @@ class TestModel(unittest.TestCase):
     o2 = self.M.createParameter()
     o3 = self.M.createParameter()
     o3.setId("test")
-    self.assert_( self.M.removeParameter(0) == o1 )
-    self.assert_( self.M.getNumParameters() == 2 )
-    self.assert_( self.M.removeParameter(0) == o2 )
-    self.assert_( self.M.getNumParameters() == 1 )
-    self.assert_( self.M.removeParameter("test") == o3 )
-    self.assert_( self.M.getNumParameters() == 0 )
+    self.assertTrue( self.M.removeParameter(0) == o1 )
+    self.assertTrue( self.M.getNumParameters() == 2 )
+    self.assertTrue( self.M.removeParameter(0) == o2 )
+    self.assertTrue( self.M.getNumParameters() == 1 )
+    self.assertTrue( self.M.removeParameter("test") == o3 )
+    self.assertTrue( self.M.getNumParameters() == 0 )
     _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
@@ -790,12 +790,12 @@ class TestModel(unittest.TestCase):
     o2 = self.M.createReaction()
     o3 = self.M.createReaction()
     o3.setId("test")
-    self.assert_( self.M.removeReaction(0) == o1 )
-    self.assert_( self.M.getNumReactions() == 2 )
-    self.assert_( self.M.removeReaction(0) == o2 )
-    self.assert_( self.M.getNumReactions() == 1 )
-    self.assert_( self.M.removeReaction("test") == o3 )
-    self.assert_( self.M.getNumReactions() == 0 )
+    self.assertTrue( self.M.removeReaction(0) == o1 )
+    self.assertTrue( self.M.getNumReactions() == 2 )
+    self.assertTrue( self.M.removeReaction(0) == o2 )
+    self.assertTrue( self.M.getNumReactions() == 1 )
+    self.assertTrue( self.M.removeReaction("test") == o3 )
+    self.assertTrue( self.M.getNumReactions() == 0 )
     _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
@@ -806,12 +806,12 @@ class TestModel(unittest.TestCase):
     o2 = self.M.createAlgebraicRule()
     o3 = self.M.createRateRule()
     o3.setVariable("test")
-    self.assert_( self.M.removeRule(0) == o1 )
-    self.assert_( self.M.getNumRules() == 2 )
-    self.assert_( self.M.removeRule(0) == o2 )
-    self.assert_( self.M.getNumRules() == 1 )
-    self.assert_( self.M.removeRule("test") == o3 )
-    self.assert_( self.M.getNumRules() == 0 )
+    self.assertTrue( self.M.removeRule(0) == o1 )
+    self.assertTrue( self.M.getNumRules() == 2 )
+    self.assertTrue( self.M.removeRule(0) == o2 )
+    self.assertTrue( self.M.getNumRules() == 1 )
+    self.assertTrue( self.M.removeRule("test") == o3 )
+    self.assertTrue( self.M.getNumRules() == 0 )
     _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
@@ -822,12 +822,12 @@ class TestModel(unittest.TestCase):
     o2 = self.M.createSpecies()
     o3 = self.M.createSpecies()
     o3.setId("test")
-    self.assert_( self.M.removeSpecies(0) == o1 )
-    self.assert_( self.M.getNumSpecies() == 2 )
-    self.assert_( self.M.removeSpecies(0) == o2 )
-    self.assert_( self.M.getNumSpecies() == 1 )
-    self.assert_( self.M.removeSpecies("test") == o3 )
-    self.assert_( self.M.getNumSpecies() == 0 )
+    self.assertTrue( self.M.removeSpecies(0) == o1 )
+    self.assertTrue( self.M.getNumSpecies() == 2 )
+    self.assertTrue( self.M.removeSpecies(0) == o2 )
+    self.assertTrue( self.M.getNumSpecies() == 1 )
+    self.assertTrue( self.M.removeSpecies("test") == o3 )
+    self.assertTrue( self.M.getNumSpecies() == 0 )
     _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
@@ -838,12 +838,12 @@ class TestModel(unittest.TestCase):
     o2 = self.M.createSpeciesType()
     o3 = self.M.createSpeciesType()
     o3.setId("test")
-    self.assert_( self.M.removeSpeciesType(0) == o1 )
-    self.assert_( self.M.getNumSpeciesTypes() == 2 )
-    self.assert_( self.M.removeSpeciesType(0) == o2 )
-    self.assert_( self.M.getNumSpeciesTypes() == 1 )
-    self.assert_( self.M.removeSpeciesType("test") == o3 )
-    self.assert_( self.M.getNumSpeciesTypes() == 0 )
+    self.assertTrue( self.M.removeSpeciesType(0) == o1 )
+    self.assertTrue( self.M.getNumSpeciesTypes() == 2 )
+    self.assertTrue( self.M.removeSpeciesType(0) == o2 )
+    self.assertTrue( self.M.getNumSpeciesTypes() == 1 )
+    self.assertTrue( self.M.removeSpeciesType("test") == o3 )
+    self.assertTrue( self.M.getNumSpeciesTypes() == 0 )
     _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
@@ -854,12 +854,12 @@ class TestModel(unittest.TestCase):
     o2 = self.M.createUnitDefinition()
     o3 = self.M.createUnitDefinition()
     o3.setId("test")
-    self.assert_( self.M.removeUnitDefinition(0) == o1 )
-    self.assert_( self.M.getNumUnitDefinitions() == 2 )
-    self.assert_( self.M.removeUnitDefinition(0) == o2 )
-    self.assert_( self.M.getNumUnitDefinitions() == 1 )
-    self.assert_( self.M.removeUnitDefinition("test") == o3 )
-    self.assert_( self.M.getNumUnitDefinitions() == 0 )
+    self.assertTrue( self.M.removeUnitDefinition(0) == o1 )
+    self.assertTrue( self.M.getNumUnitDefinitions() == 2 )
+    self.assertTrue( self.M.removeUnitDefinition(0) == o2 )
+    self.assertTrue( self.M.getNumUnitDefinitions() == 1 )
+    self.assertTrue( self.M.removeUnitDefinition("test") == o3 )
+    self.assertTrue( self.M.getNumUnitDefinitions() == 0 )
     _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
@@ -868,12 +868,12 @@ class TestModel(unittest.TestCase):
   def test_Model_setId(self):
     id =  "Branch";
     self.M.setId(id)
-    self.assert_(( id == self.M.getId() ))
+    self.assertTrue(( id == self.M.getId() ))
     self.assertEqual( True, self.M.isSetId() )
     if (self.M.getId() == id):
       pass    
     self.M.setId(self.M.getId())
-    self.assert_(( id == self.M.getId() ))
+    self.assertTrue(( id == self.M.getId() ))
     self.M.setId("")
     self.assertEqual( False, self.M.isSetId() )
     if (self.M.getId() != None):
@@ -886,12 +886,12 @@ class TestModel(unittest.TestCase):
   def test_Model_setName(self):
     name =  "My_Branch_Model";
     self.M.setName(name)
-    self.assert_(( name == self.M.getName() ))
+    self.assertTrue(( name == self.M.getName() ))
     self.assertEqual( True, self.M.isSetName() )
     if (self.M.getName() == name):
       pass    
     self.M.setName(self.M.getName())
-    self.assert_(( name == self.M.getName() ))
+    self.assertTrue(( name == self.M.getName() ))
     self.M.setName("")
     self.assertEqual( False, self.M.isSetName() )
     if (self.M.getName() != None):
@@ -910,17 +910,17 @@ class TestModel(unittest.TestCase):
     history.addCreator(mc)
     history.setCreatedDate(date)
     history.setModifiedDate(date)
-    self.assert_( self.M.isSetModelHistory() == False )
+    self.assertTrue( self.M.isSetModelHistory() == False )
     self.M.setModelHistory(history)
-    self.assert_( self.M.isSetModelHistory() == True )
+    self.assertTrue( self.M.isSetModelHistory() == True )
     newMC = history.getCreator(0)
-    self.assert_( newMC != None )
-    self.assert_((  "Keating" == newMC.getFamilyName() ))
-    self.assert_((  "Sarah" == newMC.getGivenName() ))
-    self.assert_((  "sbml-team@caltech.edu" == newMC.getEmail() ))
-    self.assert_((  "UH" == newMC.getOrganisation() ))
+    self.assertTrue( newMC != None )
+    self.assertTrue((  "Keating" == newMC.getFamilyName() ))
+    self.assertTrue((  "Sarah" == newMC.getGivenName() ))
+    self.assertTrue((  "sbml-team@caltech.edu" == newMC.getEmail() ))
+    self.assertTrue((  "UH" == newMC.getOrganisation() ))
     self.M.unsetModelHistory()
-    self.assert_( self.M.isSetModelHistory() == False )
+    self.assertTrue( self.M.isSetModelHistory() == False )
     _dummyList = [ history ]; _dummyList[:] = []; del _dummyList
     _dummyList = [ mc ]; _dummyList[:] = []; del _dummyList
     pass  

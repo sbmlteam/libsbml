@@ -1391,7 +1391,10 @@ public:
    * prefix will be written when writing elements defined in the given
    * package extension if @c true is given as second argument.
    *
-   * @param package the name or URI of the package extension.
+   * @param package the name or URI of the package extension. Passing a package
+   * name (or "nickname") is only supported if libSBML was compiled with support for
+   * that particular package, see the installation documentation for more details.
+   * Passing the package URI is supported regardless of the installation configuration.
    * @param flag boolean value to indicate whether to write a namespace
    * prefix.
    *
@@ -1410,7 +1413,10 @@ public:
    * This basically checks if the attribute
    * <code>xmlns=&quot;...&quot;</code> is present.
    *   
-   * @param package the name or URI of the package extension.
+   * @param package the name or URI of the package extension. Passing a package
+   * name (or "nickname") is only supported if libSBML was compiled with support for
+   * that particular package, see the installation documentation for more details.
+   * Passing the package URI is supported regardless of the installation configuration.
    *
    * @return a boolean indicating whether the given package's default namespace is enabled.
    */
@@ -1421,7 +1427,10 @@ public:
    * Sets the <code>required</code> attribute value of the given package
    * extension.
    *
-   * @param package the name or URI of the package extension.
+   * @param package the name or URI of the package extension. Passing a package
+   * name (or "nickname") is only supported if libSBML was compiled with support for
+   * that particular package, see the installation documentation for more details.
+   * Passing the package URI is supported regardless of the installation configuration.
    * @param flag Boolean value indicating whether the package is required.
    *
    * @copydetails doc_returns_success_code
@@ -1435,7 +1444,10 @@ public:
    * Returns the <code>required</code> attribute of the given package
    * extension.
    *
-   * @param package the name or URI of the package extension.
+   * @param package the name or URI of the package extension. Passing a package
+   * name (or "nickname") is only supported if libSBML was compiled with support for
+   * that particular package, see the installation documentation for more details.
+   * Passing the package URI is supported regardless of the installation configuration.
    *
    * @return Boolean flag indicating whether the package is flagged as
    * being required.
@@ -1447,7 +1459,10 @@ public:
    * Returns @c true if the required attribute of the given package extension
    * is defined, otherwise returns @c false.
    *
-   * @param package the name or URI of the package extension.
+   * @param package the name or URI of the package extension. Passing a package
+   * name (or "nickname") is only supported if libSBML was compiled with support for
+   * that particular package, see the installation documentation for more details.
+   * Passing the package URI is supported regardless of the installation configuration.
    *
    * @return a Boolean indicating whether the package's 'required' flag is set.
    */
@@ -1483,14 +1498,17 @@ public:
    * @return a Boolean, @c true if the package is being ignored and
    * @c false otherwise.
    */
-  bool isDisabledIgnoredPackage(const std::string& pkgURI);
+  bool isDisabledIgnoredPackage(const std::string& pkgURI) const;
   
   
   /**
    * Sets the value of the <code>required</code> attribute for the given
    * package.
    *
-   * @param package the name or URI of the package extension.
+   * @param package the name or URI of the package extension. Passing a package
+   * name (or "nickname") is only supported if libSBML was compiled with support for
+   * that particular package, see the installation documentation for more details.
+   * Passing the package URI is supported regardless of the installation configuration.
    * @param flag a Boolean value.
    *
    * @copydetails doc_returns_success_code
@@ -1507,7 +1525,10 @@ public:
    * Returns the <code>required</code> attribute of the given package
    * extension.
    *
-   * @param package the name or URI of the package extension.
+   * @param package the name or URI of the package extension. Passing a package
+   * name (or "nickname") is only supported if libSBML was compiled with support for
+   * that particular package, see the installation documentation for more details.
+   * Passing the package URI is supported regardless of the installation configuration.
    *
    * @return a Boolean value indicating whether the package is flagged as
    * being required in this SBML document.
@@ -1522,7 +1543,10 @@ public:
    * Returns @c true if the required attribute of the given package extension
    * is defined, otherwise returns @c false.
    *
-   * @param package the name or URI of the package extension.
+   * @param package the name or URI of the package extension. Passing a package
+   * name (or "nickname") is only supported if libSBML was compiled with support for
+   * that particular package, see the installation documentation for more details.
+   * Passing the package URI is supported regardless of the installation configuration.
    *
    * @return a Boolean value.
    *
@@ -1622,7 +1646,7 @@ public:
   int addUnknownPackageRequired(const std::string& pkgURI,
                                 const std::string& prefix, bool flag);
 
-  bool hasUnknownPackage(const std::string& pkgURI);
+  bool hasUnknownPackage(const std::string& pkgURI) const;
 
   int getNumUnknownPackages() const;
 
@@ -1634,8 +1658,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-  //typedef std::map<std::string, bool>  PkgRequiredMap;
-  //typedef PkgRequiredMap::iterator     PkgRequiredMapIter;
   typedef std::map<std::string, bool>  PkgUseDefaultNSMap;
   typedef PkgUseDefaultNSMap::iterator PkgUseDefaultNSMapIter;
 
@@ -1705,7 +1727,6 @@ protected:
   std::list<SBMLValidator*> mValidators;
   SBMLInternalValidator *mInternalValidator;
 
-  //PkgRequiredMap           mPkgRequiredMap;
   XMLAttributes            mRequiredAttrOfUnknownPkg;
   XMLAttributes            mRequiredAttrOfUnknownDisabledPkg;
 
@@ -2736,7 +2757,10 @@ SBMLDocument_setSBMLNamespaces (SBMLDocument_t *d, SBMLNamespaces_t * sbmlns);
  * extension.
  *
  * @param d the SBMLDocument_t structure to check.
- * @param package the name or URI of the package extension.
+ * @param package the name or URI of the package extension. Passing a package
+ * name (or "nickname") is only supported if libSBML was compiled with support for
+ * that particular package, see the installation documentation for more details.
+ * Passing the package URI is supported regardless of the installation configuration.
  *
  * @return @c 1 (true) if the package is flagged as
  * being required in this SBML document, @c 0 (false) otherwise.
@@ -2755,7 +2779,10 @@ SBMLDocument_getPkgRequired (SBMLDocument_t *d, const char * package);
  * extension.
  *
  * @param d the SBMLDocument_t structure to check.
- * @param package the name or URI of the package extension.
+ * @param package the name or URI of the package extension. Passing a package
+ * name (or "nickname") is only supported if libSBML was compiled with support for
+ * that particular package, see the installation documentation for more details.
+ * Passing the package URI is supported regardless of the installation configuration.
  *
  * @return @c 1 (true) if the package is flagged as
  * being required in this SBML document, @c 0 (false) otherwise.
@@ -2772,7 +2799,10 @@ SBMLDocument_getPackageRequired (SBMLDocument_t *d, const char * package);
  * package.
  *
  * @param d the SBMLDocument_t structure.
- * @param package the name or URI of the package extension.
+ * @param package the name or URI of the package extension. Passing a package
+ * name (or "nickname") is only supported if libSBML was compiled with support for
+ * that particular package, see the installation documentation for more details.
+ * Passing the package URI is supported regardless of the installation configuration.
  * @param flag integer,
  * with @c nonzero indicating @c true, and @c zero indicating @c false.
  *
@@ -2794,7 +2824,10 @@ SBMLDocument_setPkgRequired (SBMLDocument_t *d, const char * package, int flag);
  * package.
  *
  * @param d the SBMLDocument_t structure.
- * @param package the name or URI of the package extension.
+ * @param package the name or URI of the package extension. Passing a package
+ * name (or "nickname") is only supported if libSBML was compiled with support for
+ * that particular package, see the installation documentation for more details.
+ * Passing the package URI is supported regardless of the installation configuration.
  * @param flag integer,
  * with @c nonzero indicating @c true, and @c zero indicating @c false.
  *
@@ -2814,7 +2847,10 @@ SBMLDocument_setPackageRequired (SBMLDocument_t *d, const char * package, int fl
  * is defined.
  *
  * @param d the SBMLDocument_t structure.
- * @param package the name or URI of the package extension.
+ * @param package the name or URI of the package extension. Passing a package
+ * name (or "nickname") is only supported if libSBML was compiled with support for
+ * that particular package, see the installation documentation for more details.
+ * Passing the package URI is supported regardless of the installation configuration.
  *
  * @return @c 1 (true) if the required attribute of the given package extension
  * is defined, @c 0 (false) otherwise.
@@ -2833,7 +2869,10 @@ SBMLDocument_isSetPkgRequired (SBMLDocument_t *d, const char * package);
  * is defined.
  *
  * @param d the SBMLDocument_t structure.
- * @param package the name or URI of the package extension.
+ * @param package the name or URI of the package extension. Passing a package
+ * name (or "nickname") is only supported if libSBML was compiled with support for
+ * that particular package, see the installation documentation for more details.
+ * Passing the package URI is supported regardless of the installation configuration.
  *
  * @return @c 1 (true) if the required attribute of the given package extension
  * is defined, @c 0 (false) otherwise.

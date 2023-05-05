@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##
 ## @file    unsetNotes.py
 ## @brief   unset notes for each element

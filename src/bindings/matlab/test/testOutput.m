@@ -31,11 +31,12 @@ function fail = testOutput(outdir, in_installer, fbcEnabled)
 % and also available online as http://sbml.org/software/sbmltoolbox/license.html
 %----------------------------------------------------------------------- -->
 
-if (~isdir(outdir))
-mkdir (outdir);
-end;
-
+if (~isfolder(outdir))
+  mkdir (outdir);
+end
+is_octave = 0;
 if exist('OCTAVE_VERSION')
+  is_octave = 1;
   ff = dir('test-data');
   j = 1;
   for i=1:length(ff)
@@ -52,23 +53,18 @@ disp('Testing output model');
 
 fail = 0;
 test = 0;
-
 for i=1:length(files)
-  if isFileExpected(files(i).name) == 0
+  disp(sprintf('File: %s', files(i).name));
+  if isInGroup(files(i).name, 'expected', is_octave) == 0 || ...
+          isInGroup(files(i).name, 'readerrors', is_octave)
+        disp(sprintf('Skipping %s', files(i).name));
+  elseif ~fbcEnabled && isInGroup(files(i).name, 'fbc', is_octave)
+        disp(sprintf('Skipping %s', files(i).name));
     %donothing
-  %skip models that will cause read errors
-  elseif (strcmp(files(i).name, 'readerror.xml'))
-    % donothing
-  elseif (strcmp(files(i).name, 'fatal.xml'))
-    %do nothing
-  elseif (fbcEnabled == 0 && strcmp(files(i).name, 'fbc.xml'))
-    % do nothing
-  elseif (fbcEnabled == 0 && strcmp(files(i).name, 'fbcV2.xml'))
-    % do nothing
   else
     model = [];
     disp(sprintf('Reading  %s', files(i).name));
-    model = TranslateSBML(['test-data', filesep, files(i).name]);
+    model = TranslateSBML(['test-data', filesep, files(i).name], 0, 0);
     if (~isempty(model))
         disp(sprintf('Printing  %s', files(i).name));
         
@@ -76,15 +72,15 @@ for i=1:length(files)
         OutputSBML(model, [outdir, filesep, files(i).name], in_installer);
       else
         OutputSBML(model, [outdir, filesep, files(i).name]);
-      end;
+      end
       test = test + 1;
       if (compareFiles(['test-data', filesep, files(i).name], [outdir, filesep, files(i).name]))
         disp(sprintf('Output of %s failed', files(i).name));
         fail = fail + 1;
-      end;
-    end;
-  end;
-end;
+      end
+    end
+  end
+end
 
 if (fbcEnabled)
     % test new arguments to Translate/Output
@@ -121,8 +117,8 @@ if (fbcEnabled)
     if (compareFiles(filename, outfile2))
         disp(sprintf('Output of %s failed', outfile2));
         fail = fail + 1;
-    end;
-end; % fbc enabled
+    end
+end % fbc enabled
 
 if (isEnabled('qual'))
     disp('Reading qual');
@@ -229,7 +225,7 @@ end;
 
 
 disp ('************************************');
-disp('Overall tests:');
+disp('Overall tests in testOutput:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', fail));
 disp(sprintf('Pass rate: %d%%\n', ((test-fail)/test)*100));
@@ -274,7 +270,7 @@ catch
 end;
 
 disp ('************************************');
-disp('Overall tests:');
+disp('Overall invalid tests in testOutput:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', invalidFail));
 disp(sprintf('Pass rate: %d%%\n', ((test-invalidFail)/test)*100));
@@ -284,7 +280,7 @@ fail = fail + invalidFail;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % unexpected files cause problems
 
-function isExpected = isFileExpected(filename)
+function isInGroup = isInGroup(filename, group_name, is_octave)
 
 expected_files = { ...
 'algebraicRules.xml', ...
@@ -300,6 +296,9 @@ expected_files = { ...
 'fatal.xml', ...
 'fbc.xml', ...
 'fbcV2.xml', ...
+'fbcV3.xml', ...
+'fbcV3_1.xml', ...
+'fbc_kvp.xml', ...
 'fbcL3V2V1.xml', ...
 'fbcL3V2V2.xml', ...
 'funcDefsWithInitialAssignments.xml', ...
@@ -339,8 +338,20 @@ expected_files = { ...
  'l3v2-newmath.xml', ...
  };
 
-if sum(ismember(expected_files, filename)) == 1
-  isExpected = 1;
+readerrors_files = {'readerror.xml', 'fatal.xml'};
+fbc_files = {'fbc.xml', 'fbcV2.xml', 'fbcL3V2V1.xml', 'fbcL3V2V2.xml', ...
+    'fbcV3.xml', 'fbc_kvp.xml'};
+
+if is_octave == 0
+    group = eval(group_name + "_files");
 else
-  isExpected = 0;
-end;
+    mygrp = strcat(group_name, "_files");
+    group = eval(mygrp);
+end
+if sum(ismember(group, filename)) == 1
+  isInGroup = 1;
+else
+  isInGroup = 0;
+end
+
+

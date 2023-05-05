@@ -1,0 +1,43 @@
+<p> The libSBML &ldquo;distrib&rdquo; extension implements support for the SBML
+Level&nbsp;3 <em>Distributions</em> ("distrib") package.  It can be used
+in SBML Level&nbsp;3 Version&nbsp;1 and Version&nbsp;2 documents.
+
+<h2>Introduction</h2>
+The Distributions package (also known as 'distrib') provides an extension to SBML Level 3 that extends MathML to allow draws from distributions, and also provides the ability to annotate model elements with information about the distribution their values were drawn from.
+
+The Distributions package adds support to SBML for sampling from a probability distribution. In particular the following are in scope:
+<ul>
+<li>Sampling from a univariate continuous distribution</li>
+<li>Sampling from a univariate discrete distribution</li>
+<li>Specification of descriptive statistics (mean, standard deviation, standard error, etc.)</li>
+</ul>
+
+<h2>Authors</h2>
+
+The authors of the SBML Level&nbsp;3 Distributions specification are Lucian P Smith, Stuart L Moodie, Frank Bergmann, Colin Gillespie, Sarah Keating, Matthias K�nig, Chris Myers, Maciej J Swat, Darren Wilkinson, and Michael Hucka.
+
+<h2>The specification for this SBML package</h2>
+
+<p style="color: #880000"> This API documentation for libSBML does not
+provide a complete explanation of the SBML Level&nbsp;3 Distributions (&ldquo;distrib&rdquo;) package.  If you are developing software
+that uses &ldquo;distrib&rdquo;, you are strongly urged to read the actual
+specification for the package.  A link to the specification document current
+is provided below,<strike> along with a link to the page of known issues (if any).</strike> 
+we apologise that our known issues pages are under reconstruction.
+
+<table border="0" class="centered text-table normal-font alt-row-colors" style="padding-bottom: 0.5em">
+  <caption class="top-caption">Specification for SBML Level&nbsp;3 
+    Distributions package, Version 1</caption>
+<tr>
+<th style="text-align: left">Specification publication</th>
+<th style="text-align: left">Known issues</th>
+</tr>
+
+<tr><td>
+<a class="spec-link" target="_blank" href="@PACKAGE_DISTRIB_SPEC_URL@">
+  <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Distributions package, Version 1 Release 1</a>
+</td><td>
+<a class="spec-link" target="_blank" href="@PACKAGE_DISTRIB_ERRATA_URL@">
+  <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+</td></tr>
+</table>

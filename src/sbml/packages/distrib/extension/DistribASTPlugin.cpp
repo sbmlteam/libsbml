@@ -206,7 +206,7 @@ int DistribASTPlugin::allowedInFunctionDefinition(ASTNodeType_t type) const
 /*
 * Constructor
 */
-DistribASTPlugin::DistribASTPlugin(const std::string &uri)
+DistribASTPlugin::DistribASTPlugin(const std::string& uri)
   : ASTBasePlugin(uri)
 {
   mExtendedMathType = EM_DISTRIB;

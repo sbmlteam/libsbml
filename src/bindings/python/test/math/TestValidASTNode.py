@@ -42,7 +42,7 @@ class TestValidASTNode(unittest.TestCase):
     self.assertEqual( True, n.isWellFormedASTNode() )
     #d = libsbml.parseFormula("d")
     #i = n.addChild(d)
-    #self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    #self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
     n = None
     pass  
 
@@ -51,7 +51,7 @@ class TestValidASTNode(unittest.TestCase):
     self.assertEqual( True, n.isWellFormedASTNode() )
     #d = libsbml.parseFormula("d")
     #i = n.addChild(d)
-    #self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    #self.assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT )
     n = None
     pass  
 
@@ -73,10 +73,10 @@ class TestValidASTNode(unittest.TestCase):
     "    <plus/>" + 
     "  </apply>" + 
     "</math>")
-    self.assert_( n != None )
+    self.assertTrue( n != None )
     formula = libsbml.formulaToString(n)
     node = libsbml.parseFormula(formula)
-    self.assert_( node != None )
+    self.assertTrue( node != None )
     n = None
     node = None
     pass  
@@ -88,10 +88,10 @@ class TestValidASTNode(unittest.TestCase):
     "    <cn> 0 </cn>" + 
     "  </apply>" + 
     "</math>")
-    self.assert_( n != None )
+    self.assertTrue( n != None )
     formula = libsbml.formulaToString(n)
     node = libsbml.parseFormula(formula)
-    self.assert_( node != None )
+    self.assertTrue( node != None )
     n = None
     node = None
     pass  
@@ -102,10 +102,10 @@ class TestValidASTNode(unittest.TestCase):
     "    <times/>" + 
     "  </apply>" + 
     "</math>")
-    self.assert_( n != None )
+    self.assertTrue( n != None )
     formula = libsbml.formulaToString(n)
     node = libsbml.parseFormula(formula)
-    self.assert_( node != None )
+    self.assertTrue( node != None )
     n = None
     node = None
     pass  
@@ -117,10 +117,10 @@ class TestValidASTNode(unittest.TestCase):
     "    <cn> 0 </cn>" + 
     "  </apply>" + 
     "</math>")
-    self.assert_( n != None )
+    self.assertTrue( n != None )
     formula = libsbml.formulaToString(n)
     node = libsbml.parseFormula(formula)
-    self.assert_( node != None )
+    self.assertTrue( node != None )
     n = None
     node = None
     pass  
@@ -210,18 +210,18 @@ class TestValidASTNode(unittest.TestCase):
   def test_ValidASTNode_setType(self):
     n = libsbml.ASTNode()
     i = n.setType(libsbml.AST_REAL)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( n.getType() == libsbml.AST_REAL )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( n.getType() == libsbml.AST_REAL )
     i = n.setType(libsbml.AST_PLUS)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( n.getType() == libsbml.AST_PLUS )
-    self.assert_( n.getCharacter() ==  '+'  )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( n.getType() == libsbml.AST_PLUS )
+    self.assertTrue( n.getCharacter() ==  '+'  )
     i = n.setType(libsbml.AST_FUNCTION_ARCCOSH)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( n.getType() == libsbml.AST_FUNCTION_ARCCOSH )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertTrue( n.getType() == libsbml.AST_FUNCTION_ARCCOSH )
     i = n.setType(libsbml.AST_UNKNOWN)
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
-    self.assert_( n.getType() == libsbml.AST_UNKNOWN )
+    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assertTrue( n.getType() == libsbml.AST_UNKNOWN )
     n = None
     pass  
 

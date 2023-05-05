@@ -148,7 +148,7 @@ namespace LibSBMLCSTest {
       {
       }
       m = d.getModel();
-      assertTrue( m.getNumFunctionDefinitions() == 2 );
+      assertTrue( m.getNumFunctionDefinitions() == 3 );
       d.expandFunctionDefinitions();
       assertTrue( d.getModel().getNumFunctionDefinitions() == 0 );
       ast = d.getModel().getReaction(0).getKineticLaw().getMath();
