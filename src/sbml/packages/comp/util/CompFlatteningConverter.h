@@ -656,6 +656,8 @@ private:
 
   void restoreNamespaces();
 
+  void unsetExplicitlyListed();
+
   std::set<std::pair<std::string, std::string> > mDisabledPackages;
 
 #ifndef SWIG
