@@ -87,6 +87,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
     pResult->transferFrom(pSublist);\
     delete pSublist;\
   }\
+  else {\
+    if ((pFilter == NULL || pFilter->filter(&list)) && list.getLevel() >= 3 && list.getVersion() >= 2 && list.isExplicitlyListed())\
+    pResult->add(&list);\
+  }\
 }
 
 #define ADD_FILTERED_PLIST(pResult,pSublist,pList,pFilter)\
