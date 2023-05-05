@@ -266,6 +266,10 @@ Macros</h2></td></tr>
 <div class="line">    pResult-&gt;transferFrom(pSublist);\</div>
 <div class="line">    delete pSublist;\</div>
 <div class="line">  }\</div>
+<div class="line">  else {\</div>
+<div class="line">    if ((pFilter == NULL || pFilter-&gt;filter(&amp;list)) &amp;&amp; list.getLevel() &gt;= 3 &amp;&amp; list.getVersion() &gt;= 2 &amp;&amp; list.isExplicitlyListed())\</div>
+<div class="line">    pResult-&gt;add(&amp;list);\</div>
+<div class="line">  }\</div>
 <div class="line">}</div>
 </div><!-- fragment -->
 </div>
