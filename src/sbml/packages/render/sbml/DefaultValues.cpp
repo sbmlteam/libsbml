@@ -3777,7 +3777,7 @@ LIBSBML_EXTERN
 char *
 DefaultValues_getFillRuleAsString(const DefaultValues_t * dv)
 {
-  return (char *)(FillRule_toString((FillRule_t)(dv->getFillRule())));
+  return (char *)safe_strdup(FillRule_toString((FillRule_t)(dv->getFillRule())));
 }
 
 
