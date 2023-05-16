@@ -633,7 +633,7 @@ SBMLDocument::createModel (const std::string sid)
   {
     mModel = new Model(getSBMLNamespaces());
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &e)
   {
     /* here we do not create a default object as the level/version must
      * match the parent object
@@ -1307,7 +1307,7 @@ SBMLDocument::createObject (XMLInputStream& stream)
     {
       mModel = new Model(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException)
+    catch (SBMLConstructorException &e)
     {
       mModel = new Model(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -2204,7 +2204,7 @@ SBMLDocument_create ()
     SBMLDocument* obj = new SBMLDocument();
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &e)
   {
     return NULL;
   }
@@ -2220,7 +2220,7 @@ SBMLDocument_createWithLevelAndVersion (unsigned int level, unsigned int version
     SBMLDocument* obj = new SBMLDocument(level, version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &e)
   {
     return NULL;
   }
@@ -2236,7 +2236,7 @@ SBMLDocument_createWithSBMLNamespaces (SBMLNamespaces_t *sbmlns)
     SBMLDocument* obj = new SBMLDocument(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &e)
   {
     return NULL;
   }
