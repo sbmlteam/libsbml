@@ -140,7 +140,11 @@ bool
 SBMLWriter::writeSBML (const SBMLDocument* d, const std::string& filename)
 {
   std::ostream* stream = NULL;
-  if (d != NULL)
+  if (d == NULL)
+  {
+    return false;
+  }
+  else
   {
     try
     {
@@ -221,11 +225,10 @@ SBMLWriter::writeSBML (const SBMLDocument* d, const std::string& filename)
     }
   }
 
-   bool result = writeSBML(d, *stream);
-   delete stream;
+  bool result = writeSBML(d, *stream);
+  delete stream;
 
-   return result;
-
+  return result;
 }
 
 
