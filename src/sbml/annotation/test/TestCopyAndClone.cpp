@@ -120,7 +120,7 @@ START_TEST ( test_Date_ConstructorException )
     Date * date = new Date(2005, 12, 30, 12, 15, 45, 1, 2, 0);
     delete date;
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -202,7 +202,7 @@ START_TEST ( test_ModelCreator_ConstructorException )
     ModelCreator * mc = new ModelCreator();
     delete mc;
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -329,7 +329,7 @@ START_TEST ( test_ModelHistory_ConstructorException )
     ModelHistory * mh = new ModelHistory();
     delete mh;
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -414,7 +414,7 @@ START_TEST ( test_CVTerm_ConstructorException )
     CVTerm * cvterm = new CVTerm(BIOLOGICAL_QUALIFIER);
     delete cvterm;
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }

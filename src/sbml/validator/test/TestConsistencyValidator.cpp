@@ -159,7 +159,7 @@ runUnitTest (const TestFile& file)
   {
     result = tester.test(file);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     cout << e.getSBMLErrMsg() << endl;
     result = false;

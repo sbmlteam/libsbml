@@ -117,7 +117,7 @@ START_TEST ( test_SBMLConstructorException_Compartment )
     Compartment sn24(&SN24);
     Compartment sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -128,7 +128,7 @@ START_TEST ( test_SBMLConstructorException_Compartment )
   {
     Compartment s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -139,7 +139,7 @@ START_TEST ( test_SBMLConstructorException_Compartment )
   {
     Compartment s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -151,7 +151,7 @@ START_TEST ( test_SBMLConstructorException_Compartment )
   {
     Compartment s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -172,7 +172,7 @@ START_TEST ( test_SBMLConstructorException_CompartmentType )
     CompartmentType sn23(&SN23);
     CompartmentType sn24(&SN24);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -183,7 +183,7 @@ START_TEST ( test_SBMLConstructorException_CompartmentType )
   {
     CompartmentType s(1,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -194,7 +194,7 @@ START_TEST ( test_SBMLConstructorException_CompartmentType )
   {
     CompartmentType s(1,2);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -205,7 +205,7 @@ START_TEST ( test_SBMLConstructorException_CompartmentType )
   {
     CompartmentType s(2,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -216,7 +216,7 @@ START_TEST ( test_SBMLConstructorException_CompartmentType )
   {
     CompartmentType s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -227,7 +227,7 @@ START_TEST ( test_SBMLConstructorException_CompartmentType )
   {
     CompartmentType s(&SN11);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -238,7 +238,7 @@ START_TEST ( test_SBMLConstructorException_CompartmentType )
   {
     CompartmentType s(&SN12);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -249,7 +249,7 @@ START_TEST ( test_SBMLConstructorException_CompartmentType )
   {
     CompartmentType s(&SN21);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -260,7 +260,7 @@ START_TEST ( test_SBMLConstructorException_CompartmentType )
   {
     CompartmentType s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -271,7 +271,7 @@ START_TEST ( test_SBMLConstructorException_CompartmentType )
   {
     CompartmentType s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -295,7 +295,7 @@ START_TEST ( test_SBMLConstructorException_Constraint )
     Constraint sn24(&SN24);
     Constraint sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -306,7 +306,7 @@ START_TEST ( test_SBMLConstructorException_Constraint )
   {
     Constraint s(1,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -317,7 +317,7 @@ START_TEST ( test_SBMLConstructorException_Constraint )
   {
     Constraint s(1,2);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -328,7 +328,7 @@ START_TEST ( test_SBMLConstructorException_Constraint )
   {
     Constraint s(2,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -339,7 +339,7 @@ START_TEST ( test_SBMLConstructorException_Constraint )
   {
     Constraint s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -350,7 +350,7 @@ START_TEST ( test_SBMLConstructorException_Constraint )
   {
     Constraint s(&SN11);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -361,7 +361,7 @@ START_TEST ( test_SBMLConstructorException_Constraint )
   {
     Constraint s(&SN12);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -372,7 +372,7 @@ START_TEST ( test_SBMLConstructorException_Constraint )
   {
     Constraint s(&SN21);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -383,7 +383,7 @@ START_TEST ( test_SBMLConstructorException_Constraint )
   {
     Constraint s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -394,7 +394,7 @@ START_TEST ( test_SBMLConstructorException_Constraint )
   {
     Constraint s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -417,7 +417,7 @@ START_TEST ( test_SBMLConstructorException_InitialAssignment )
     InitialAssignment sn24(&SN24);
     InitialAssignment sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -428,7 +428,7 @@ START_TEST ( test_SBMLConstructorException_InitialAssignment )
   {
     InitialAssignment s(1,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -439,7 +439,7 @@ START_TEST ( test_SBMLConstructorException_InitialAssignment )
   {
     InitialAssignment s(1,2);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -450,7 +450,7 @@ START_TEST ( test_SBMLConstructorException_InitialAssignment )
   {
     InitialAssignment s(2,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -461,7 +461,7 @@ START_TEST ( test_SBMLConstructorException_InitialAssignment )
   {
     InitialAssignment s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -472,7 +472,7 @@ START_TEST ( test_SBMLConstructorException_InitialAssignment )
   {
     InitialAssignment s(&SN11);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -483,7 +483,7 @@ START_TEST ( test_SBMLConstructorException_InitialAssignment )
   {
     InitialAssignment s(&SN12);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -494,7 +494,7 @@ START_TEST ( test_SBMLConstructorException_InitialAssignment )
   {
     InitialAssignment s(&SN21);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -505,7 +505,7 @@ START_TEST ( test_SBMLConstructorException_InitialAssignment )
   {
     InitialAssignment s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -516,7 +516,7 @@ START_TEST ( test_SBMLConstructorException_InitialAssignment )
   {
     InitialAssignment s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -546,7 +546,7 @@ START_TEST ( test_SBMLConstructorException_Species )
     Species sn24(&SN24);
     Species sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -557,7 +557,7 @@ START_TEST ( test_SBMLConstructorException_Species )
   {
     Species s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -568,7 +568,7 @@ START_TEST ( test_SBMLConstructorException_Species )
   {
     Species s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -579,7 +579,7 @@ START_TEST ( test_SBMLConstructorException_Species )
   {
     Species s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -601,7 +601,7 @@ START_TEST ( test_SBMLConstructorException_SpeciesType )
     SpeciesType sn23(&SN23);
     SpeciesType sn24(&SN24);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -612,7 +612,7 @@ START_TEST ( test_SBMLConstructorException_SpeciesType )
   {
     SpeciesType s(1,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -623,7 +623,7 @@ START_TEST ( test_SBMLConstructorException_SpeciesType )
   {
     SpeciesType s(1,2);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -634,7 +634,7 @@ START_TEST ( test_SBMLConstructorException_SpeciesType )
   {
     SpeciesType s(2,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -645,7 +645,7 @@ START_TEST ( test_SBMLConstructorException_SpeciesType )
   {
     SpeciesType s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -656,7 +656,7 @@ START_TEST ( test_SBMLConstructorException_SpeciesType )
   {
     SpeciesType s(&SN11);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -667,7 +667,7 @@ START_TEST ( test_SBMLConstructorException_SpeciesType )
   {
     SpeciesType s(&SN12);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -678,7 +678,7 @@ START_TEST ( test_SBMLConstructorException_SpeciesType )
   {
     SpeciesType s(&SN21);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -689,7 +689,7 @@ START_TEST ( test_SBMLConstructorException_SpeciesType )
   {
     SpeciesType s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -700,7 +700,7 @@ START_TEST ( test_SBMLConstructorException_SpeciesType )
   {
     SpeciesType s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -726,7 +726,7 @@ START_TEST ( test_SBMLConstructorException_Delay )
     Delay sn24(&SN24);
     Delay sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -737,7 +737,7 @@ START_TEST ( test_SBMLConstructorException_Delay )
   {
     Delay s(1,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -748,7 +748,7 @@ START_TEST ( test_SBMLConstructorException_Delay )
   {
     Delay s(1,2);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -759,7 +759,7 @@ START_TEST ( test_SBMLConstructorException_Delay )
   {
     Delay s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -770,7 +770,7 @@ START_TEST ( test_SBMLConstructorException_Delay )
   {
     Delay s(&SN11);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -781,7 +781,7 @@ START_TEST ( test_SBMLConstructorException_Delay )
   {
     Delay s(&SN12);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -792,7 +792,7 @@ START_TEST ( test_SBMLConstructorException_Delay )
   {
     Delay s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -803,7 +803,7 @@ START_TEST ( test_SBMLConstructorException_Delay )
   {
     Delay s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -829,7 +829,7 @@ START_TEST ( test_SBMLConstructorException_Trigger )
     Trigger sn24(&SN24);
     Trigger sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -840,7 +840,7 @@ START_TEST ( test_SBMLConstructorException_Trigger )
   {
     Trigger s(1,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -851,7 +851,7 @@ START_TEST ( test_SBMLConstructorException_Trigger )
   {
     Trigger s(1,2);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -862,7 +862,7 @@ START_TEST ( test_SBMLConstructorException_Trigger )
   {
     Trigger s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -873,7 +873,7 @@ START_TEST ( test_SBMLConstructorException_Trigger )
   {
     Trigger s(&SN11);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -884,7 +884,7 @@ START_TEST ( test_SBMLConstructorException_Trigger )
   {
     Trigger s(&SN12);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -895,7 +895,7 @@ START_TEST ( test_SBMLConstructorException_Trigger )
   {
     Trigger s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -906,7 +906,7 @@ START_TEST ( test_SBMLConstructorException_Trigger )
   {
     Trigger s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -932,7 +932,7 @@ START_TEST ( test_SBMLConstructorException_Event )
     Event sn24(&SN24);
     Event sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -943,7 +943,7 @@ START_TEST ( test_SBMLConstructorException_Event )
   {
     Event s(1,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -954,7 +954,7 @@ START_TEST ( test_SBMLConstructorException_Event )
   {
     Event s(1,2);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -965,7 +965,7 @@ START_TEST ( test_SBMLConstructorException_Event )
   {
     Event s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -976,7 +976,7 @@ START_TEST ( test_SBMLConstructorException_Event )
   {
     Event s(&SN11);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -987,7 +987,7 @@ START_TEST ( test_SBMLConstructorException_Event )
   {
     Event s(&SN12);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -998,7 +998,7 @@ START_TEST ( test_SBMLConstructorException_Event )
   {
     Event s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1009,7 +1009,7 @@ START_TEST ( test_SBMLConstructorException_Event )
   {
     Event s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1035,7 +1035,7 @@ START_TEST ( test_SBMLConstructorException_EventAssignment )
     EventAssignment sn24(&SN24);
     EventAssignment sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1046,7 +1046,7 @@ START_TEST ( test_SBMLConstructorException_EventAssignment )
   {
     EventAssignment s(1,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1057,7 +1057,7 @@ START_TEST ( test_SBMLConstructorException_EventAssignment )
   {
     EventAssignment s(1,2);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1068,7 +1068,7 @@ START_TEST ( test_SBMLConstructorException_EventAssignment )
   {
     EventAssignment s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1079,7 +1079,7 @@ START_TEST ( test_SBMLConstructorException_EventAssignment )
   {
     EventAssignment s(&SN11);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1090,7 +1090,7 @@ START_TEST ( test_SBMLConstructorException_EventAssignment )
   {
     EventAssignment s(&SN12);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1101,7 +1101,7 @@ START_TEST ( test_SBMLConstructorException_EventAssignment )
   {
     EventAssignment s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1112,7 +1112,7 @@ START_TEST ( test_SBMLConstructorException_EventAssignment )
   {
     EventAssignment s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1138,7 +1138,7 @@ START_TEST ( test_SBMLConstructorException_ModifierSpeciesReference )
     ModifierSpeciesReference sn24(&SN24);
     ModifierSpeciesReference sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1149,7 +1149,7 @@ START_TEST ( test_SBMLConstructorException_ModifierSpeciesReference )
   {
     ModifierSpeciesReference s(1,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1160,7 +1160,7 @@ START_TEST ( test_SBMLConstructorException_ModifierSpeciesReference )
   {
     ModifierSpeciesReference s(1,2);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1171,7 +1171,7 @@ START_TEST ( test_SBMLConstructorException_ModifierSpeciesReference )
   {
     ModifierSpeciesReference s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1182,7 +1182,7 @@ START_TEST ( test_SBMLConstructorException_ModifierSpeciesReference )
   {
     ModifierSpeciesReference s(&SN11);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1193,7 +1193,7 @@ START_TEST ( test_SBMLConstructorException_ModifierSpeciesReference )
   {
     ModifierSpeciesReference s(&SN12);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1204,7 +1204,7 @@ START_TEST ( test_SBMLConstructorException_ModifierSpeciesReference )
   {
     ModifierSpeciesReference s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1215,7 +1215,7 @@ START_TEST ( test_SBMLConstructorException_ModifierSpeciesReference )
   {
     ModifierSpeciesReference s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1239,7 +1239,7 @@ START_TEST ( test_SBMLConstructorException_StoichiometryMath )
     StoichiometryMath sn23(&SN23);
     StoichiometryMath sn24(&SN24);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1250,7 +1250,7 @@ START_TEST ( test_SBMLConstructorException_StoichiometryMath )
   {
     StoichiometryMath s(1,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1261,7 +1261,7 @@ START_TEST ( test_SBMLConstructorException_StoichiometryMath )
   {
     StoichiometryMath s(1,2);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1272,7 +1272,7 @@ START_TEST ( test_SBMLConstructorException_StoichiometryMath )
   {
     StoichiometryMath s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1283,7 +1283,7 @@ START_TEST ( test_SBMLConstructorException_StoichiometryMath )
   {
     StoichiometryMath s(&SN11);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1294,7 +1294,7 @@ START_TEST ( test_SBMLConstructorException_StoichiometryMath )
   {
     StoichiometryMath s(&SN12);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1305,7 +1305,7 @@ START_TEST ( test_SBMLConstructorException_StoichiometryMath )
   {
     StoichiometryMath s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1316,7 +1316,7 @@ START_TEST ( test_SBMLConstructorException_StoichiometryMath )
   {
     StoichiometryMath s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1346,7 +1346,7 @@ START_TEST ( test_SBMLConstructorException_SpeciesReference )
     SpeciesReference sn24(&SN24);
     SpeciesReference sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1357,7 +1357,7 @@ START_TEST ( test_SBMLConstructorException_SpeciesReference )
   {
     SpeciesReference s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1368,7 +1368,7 @@ START_TEST ( test_SBMLConstructorException_SpeciesReference )
   {
     SpeciesReference s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1379,7 +1379,7 @@ START_TEST ( test_SBMLConstructorException_SpeciesReference )
   {
     SpeciesReference s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1405,7 +1405,7 @@ START_TEST ( test_SBMLConstructorException_FunctionDefinition )
     FunctionDefinition sn24(&SN24);
     FunctionDefinition sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1416,7 +1416,7 @@ START_TEST ( test_SBMLConstructorException_FunctionDefinition )
   {
     FunctionDefinition s(1,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1427,7 +1427,7 @@ START_TEST ( test_SBMLConstructorException_FunctionDefinition )
   {
     FunctionDefinition s(1,2);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1438,7 +1438,7 @@ START_TEST ( test_SBMLConstructorException_FunctionDefinition )
   {
     FunctionDefinition s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1449,7 +1449,7 @@ START_TEST ( test_SBMLConstructorException_FunctionDefinition )
   {
     FunctionDefinition s(&SN11);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1460,7 +1460,7 @@ START_TEST ( test_SBMLConstructorException_FunctionDefinition )
   {
     FunctionDefinition s(&SN12);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1471,7 +1471,7 @@ START_TEST ( test_SBMLConstructorException_FunctionDefinition )
   {
     FunctionDefinition s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1482,7 +1482,7 @@ START_TEST ( test_SBMLConstructorException_FunctionDefinition )
   {
     FunctionDefinition s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1512,7 +1512,7 @@ START_TEST ( test_SBMLConstructorException_KineticLaw )
     KineticLaw sn24(&SN24);
     KineticLaw sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1523,7 +1523,7 @@ START_TEST ( test_SBMLConstructorException_KineticLaw )
   {
     KineticLaw s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1534,7 +1534,7 @@ START_TEST ( test_SBMLConstructorException_KineticLaw )
   {
     KineticLaw s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1545,7 +1545,7 @@ START_TEST ( test_SBMLConstructorException_KineticLaw )
   {
     KineticLaw s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1575,7 +1575,7 @@ START_TEST ( test_SBMLConstructorException_Model )
     Model sn24(&SN24);
     Model sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1586,7 +1586,7 @@ START_TEST ( test_SBMLConstructorException_Model )
   {
     Model s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1597,7 +1597,7 @@ START_TEST ( test_SBMLConstructorException_Model )
   {
     Model s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1608,7 +1608,7 @@ START_TEST ( test_SBMLConstructorException_Model )
   {
     Model s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1638,7 +1638,7 @@ START_TEST ( test_SBMLConstructorException_Parameter )
     Parameter sn24(&SN24);
     Parameter sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1649,7 +1649,7 @@ START_TEST ( test_SBMLConstructorException_Parameter )
   {
     Parameter s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1660,7 +1660,7 @@ START_TEST ( test_SBMLConstructorException_Parameter )
   {
     Parameter s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1671,7 +1671,7 @@ START_TEST ( test_SBMLConstructorException_Parameter )
   {
     Parameter s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1701,7 +1701,7 @@ START_TEST ( test_SBMLConstructorException_Reaction )
     Reaction sn24(&SN24);
     Reaction sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1712,7 +1712,7 @@ START_TEST ( test_SBMLConstructorException_Reaction )
   {
     Reaction s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1723,7 +1723,7 @@ START_TEST ( test_SBMLConstructorException_Reaction )
   {
     Reaction s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1734,7 +1734,7 @@ START_TEST ( test_SBMLConstructorException_Reaction )
   {
     Reaction s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1763,7 +1763,7 @@ START_TEST ( test_SBMLConstructorException_Unit )
     Unit sn24(&SN24);
     Unit sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1774,7 +1774,7 @@ START_TEST ( test_SBMLConstructorException_Unit )
   {
     Unit s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1785,7 +1785,7 @@ START_TEST ( test_SBMLConstructorException_Unit )
   {
     Unit s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1796,7 +1796,7 @@ START_TEST ( test_SBMLConstructorException_Unit )
   {
     Unit s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1826,7 +1826,7 @@ START_TEST ( test_SBMLConstructorException_UnitDefinition )
     UnitDefinition sn24(&SN24);
     UnitDefinition sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1837,7 +1837,7 @@ START_TEST ( test_SBMLConstructorException_UnitDefinition )
   {
     UnitDefinition s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1848,7 +1848,7 @@ START_TEST ( test_SBMLConstructorException_UnitDefinition )
   {
     UnitDefinition s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1859,7 +1859,7 @@ START_TEST ( test_SBMLConstructorException_UnitDefinition )
   {
     UnitDefinition s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1888,7 +1888,7 @@ START_TEST ( test_SBMLConstructorException_AssignmentRule )
     AssignmentRule sn24(&SN24);
     AssignmentRule sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1899,7 +1899,7 @@ START_TEST ( test_SBMLConstructorException_AssignmentRule )
   {
     AssignmentRule s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1910,7 +1910,7 @@ START_TEST ( test_SBMLConstructorException_AssignmentRule )
   {
     AssignmentRule s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1921,7 +1921,7 @@ START_TEST ( test_SBMLConstructorException_AssignmentRule )
   {
     AssignmentRule s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1950,7 +1950,7 @@ START_TEST ( test_SBMLConstructorException_AlgebraicRule )
     AlgebraicRule sn24(&SN24);
     AlgebraicRule sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1961,7 +1961,7 @@ START_TEST ( test_SBMLConstructorException_AlgebraicRule )
   {
     AlgebraicRule s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1972,7 +1972,7 @@ START_TEST ( test_SBMLConstructorException_AlgebraicRule )
   {
     AlgebraicRule s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -1983,7 +1983,7 @@ START_TEST ( test_SBMLConstructorException_AlgebraicRule )
   {
     AlgebraicRule s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2013,7 +2013,7 @@ START_TEST ( test_SBMLConstructorException_RateRule )
     RateRule sn24(&SN24);
     RateRule sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2024,7 +2024,7 @@ START_TEST ( test_SBMLConstructorException_RateRule )
   {
     RateRule s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2035,7 +2035,7 @@ START_TEST ( test_SBMLConstructorException_RateRule )
   {
     RateRule s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2046,7 +2046,7 @@ START_TEST ( test_SBMLConstructorException_RateRule )
   {
     RateRule s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2063,7 +2063,7 @@ START_TEST ( test_SBMLConstructorException_Priority )
   {
     Priority sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2074,7 +2074,7 @@ START_TEST ( test_SBMLConstructorException_Priority )
   {
     Priority s(3,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2085,7 +2085,7 @@ START_TEST ( test_SBMLConstructorException_Priority )
   {
     Priority s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2096,7 +2096,7 @@ START_TEST ( test_SBMLConstructorException_Priority )
   {
     Priority s(&SN21);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2107,7 +2107,7 @@ START_TEST ( test_SBMLConstructorException_Priority )
   {
     Priority s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2118,7 +2118,7 @@ START_TEST ( test_SBMLConstructorException_Priority )
   {
     Priority s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2135,7 +2135,7 @@ START_TEST ( test_SBMLConstructorException_LocalParameter )
   {
     LocalParameter sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2146,7 +2146,7 @@ START_TEST ( test_SBMLConstructorException_LocalParameter )
   {
     LocalParameter s(3,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2157,7 +2157,7 @@ START_TEST ( test_SBMLConstructorException_LocalParameter )
   {
     LocalParameter s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what(); 
   }
@@ -2168,7 +2168,7 @@ START_TEST ( test_SBMLConstructorException_LocalParameter )
   {
     LocalParameter s(&SN21);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2179,7 +2179,7 @@ START_TEST ( test_SBMLConstructorException_LocalParameter )
   {
     LocalParameter s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2190,7 +2190,7 @@ START_TEST ( test_SBMLConstructorException_LocalParameter )
   {
     LocalParameter s(0);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2208,7 +2208,7 @@ START_TEST ( test_SBMLConstructorException_SBMLNamespaces )
   {
     SBMLNamespaces sn31(3,1);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2219,7 +2219,7 @@ START_TEST ( test_SBMLConstructorException_SBMLNamespaces )
   //{
   //  SBMLNamespaces s(4,2);
   //}
-  //catch (SBMLConstructorException &e)
+  //catch (SBMLConstructorException &)
   //{
   //  msg = e.what();
   //}
@@ -2249,7 +2249,7 @@ START_TEST ( test_SBMLConstructorException_SBMLDocument )
     SBMLDocument sn24(&SN24);
     SBMLDocument sn31(&SN31);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }
@@ -2260,7 +2260,7 @@ START_TEST ( test_SBMLConstructorException_SBMLDocument )
   {
     SBMLDocument s(9,9);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what(); 
   }
@@ -2271,7 +2271,7 @@ START_TEST ( test_SBMLConstructorException_SBMLDocument )
   {
     SBMLDocument s(&SN99);
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     msg = e.what();
   }

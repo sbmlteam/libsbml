@@ -1281,7 +1281,7 @@ Event::createObject (XMLInputStream& stream)
     {
       mTrigger = new Trigger(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException &e)
+    catch (SBMLConstructorException &)
     {
       mTrigger = new Trigger(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1310,7 +1310,7 @@ Event::createObject (XMLInputStream& stream)
     {
       mDelay = new Delay(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException &e)
+    catch (SBMLConstructorException &)
     {
       mDelay = new Delay(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1341,7 +1341,7 @@ Event::createObject (XMLInputStream& stream)
     {
       mPriority = new Priority(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException &e)
+    catch (SBMLConstructorException &)
     {
       mPriority = new Priority(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -2293,7 +2293,7 @@ ListOfEvents::createObject (XMLInputStream& stream)
     {
       object = new Event(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException &e)
+    catch (SBMLConstructorException &)
     {
       object = new Event(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -2324,7 +2324,7 @@ Event_create (unsigned int level, unsigned int version)
     Event* obj = new Event(level,version);
     return obj;
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -2340,7 +2340,7 @@ Event_createWithNS (SBMLNamespaces_t* sbmlns)
     Event* obj = new Event(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException &e)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
