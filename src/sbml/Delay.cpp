@@ -856,7 +856,7 @@ Delay_create (unsigned int level, unsigned int version)
     Delay* obj = new Delay(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -872,7 +872,7 @@ Delay_createWithNS (SBMLNamespaces_t* sbmlns)
     Delay* obj = new Delay(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

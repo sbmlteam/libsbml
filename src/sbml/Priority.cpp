@@ -703,7 +703,7 @@ Priority_create (unsigned int level, unsigned int version)
     Priority* obj = new Priority(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -719,7 +719,7 @@ Priority_createWithNS (SBMLNamespaces_t* sbmlns)
     Priority* obj = new Priority(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

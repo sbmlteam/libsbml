@@ -807,7 +807,7 @@ ListOfCompartmentTypes::createObject (XMLInputStream& stream)
     {
       object = new CompartmentType(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException*)
+    catch (SBMLConstructorException &)
     {
       // compartment type does not exist in L3
       object = new CompartmentType(2,4);
@@ -837,7 +837,7 @@ CompartmentType_create (unsigned int level, unsigned int version)
     CompartmentType* obj = new CompartmentType(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -853,7 +853,7 @@ CompartmentType_createWithNS (SBMLNamespaces_t* sbmlns)
     CompartmentType* obj = new CompartmentType(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

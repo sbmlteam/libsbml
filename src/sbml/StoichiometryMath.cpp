@@ -644,7 +644,7 @@ StoichiometryMath_create (unsigned int level, unsigned int version)
     StoichiometryMath* obj = new StoichiometryMath(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -660,7 +660,7 @@ StoichiometryMath_createWithNS (SBMLNamespaces_t* sbmlns)
     StoichiometryMath* obj = new StoichiometryMath(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

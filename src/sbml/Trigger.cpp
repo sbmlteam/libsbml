@@ -979,7 +979,7 @@ Trigger_create (unsigned int level, unsigned int version)
     Trigger* obj = new Trigger(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -995,7 +995,7 @@ Trigger_createWithNS (SBMLNamespaces_t* sbmlns)
     Trigger* obj = new Trigger(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

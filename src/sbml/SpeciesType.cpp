@@ -804,7 +804,7 @@ ListOfSpeciesTypes::createObject (XMLInputStream& stream)
     {
       object = new SpeciesType(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException*)
+    catch (SBMLConstructorException &)
     {
       // species type does not exist in L3, hence we fall back
       object = new SpeciesType(2,
@@ -836,7 +836,7 @@ SpeciesType_create (unsigned int level, unsigned int version)
     SpeciesType* obj = new SpeciesType(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -852,7 +852,7 @@ SpeciesType_createWithNS (SBMLNamespaces_t* sbmlns)
     SpeciesType* obj = new SpeciesType(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

@@ -539,7 +539,7 @@ SpeciesReference::createStoichiometryMath ()
   {
     mStoichiometryMath = new StoichiometryMath(getSBMLNamespaces());
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     /* here we do not create a default object as the level/version must
      * match the parent object
@@ -1148,7 +1148,7 @@ SpeciesReference::createObject (XMLInputStream& stream)
     {
       mStoichiometryMath = new StoichiometryMath(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException)
+    catch (SBMLConstructorException &)
     {
       mStoichiometryMath = new StoichiometryMath(
                                            SBMLDocument::getDefaultLevel(),
@@ -1740,7 +1740,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
       {
         object = new SpeciesReference(getSBMLNamespaces());
       }
-      catch (SBMLConstructorException)
+      catch (SBMLConstructorException &)
       {
         object = new SpeciesReference(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1759,7 +1759,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
       {
         object = new SpeciesReference(getSBMLNamespaces());
       }
-      catch (SBMLConstructorException)
+      catch (SBMLConstructorException &)
       {
         object = new SpeciesReference(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1775,7 +1775,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
       {
         object = new ModifierSpeciesReference(getSBMLNamespaces());
       }
-      catch (SBMLConstructorException)
+      catch (SBMLConstructorException &)
       {
         object = new ModifierSpeciesReference(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1791,7 +1791,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
       {
         object = new ModifierSpeciesReference(getSBMLNamespaces());
       }
-      catch (SBMLConstructorException)
+      catch (SBMLConstructorException &)
       {
         object = new ModifierSpeciesReference(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1818,7 +1818,7 @@ SpeciesReference_create (unsigned int level, unsigned int version)
     SpeciesReference* obj = new SpeciesReference(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -1834,7 +1834,7 @@ SpeciesReference_createWithNS (SBMLNamespaces_t* sbmlns)
     SpeciesReference* obj = new SpeciesReference(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -1850,7 +1850,7 @@ SpeciesReference_createModifier (unsigned int level, unsigned int version)
     ModifierSpeciesReference* obj = new ModifierSpeciesReference(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -1866,7 +1866,7 @@ SpeciesReference_createModifierWithNS (SBMLNamespaces_t* sbmlns)
     ModifierSpeciesReference* obj = new ModifierSpeciesReference(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

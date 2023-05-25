@@ -371,7 +371,7 @@ AlgebraicRule_create(unsigned int level, unsigned int version)
     AlgebraicRule* obj = new AlgebraicRule(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -387,7 +387,7 @@ AlgebraicRule_createWithNS (SBMLNamespaces_t* sbmlns)
     AlgebraicRule* obj = new AlgebraicRule(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

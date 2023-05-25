@@ -140,91 +140,95 @@ bool
 SBMLWriter::writeSBML (const SBMLDocument* d, const std::string& filename)
 {
   std::ostream* stream = NULL;
-
-  try
+  if (d == NULL)
   {
-    // open an uncompressed XML file.
-    if ( string::npos != filename.find(".xml", filename.length() - 4) )
+    return false;
+  }
+  else
+  {
+    try
     {
-      stream = new(std::nothrow) std::ofstream(filename.c_str());
-    }
-    // open a gzip file
-    else if ( string::npos != filename.find(".gz", filename.length() - 3) )
-    {
-     stream = OutputCompressor::openGzipOStream(filename);
-    }
-    // open a bz2 file
-    else if ( string::npos != filename.find(".bz2", filename.length() - 4) )
-    {
-      stream = OutputCompressor::openBzip2OStream(filename);
-    }
-    // open a zip file
-    else if ( string::npos != filename.find(".zip", filename.length() - 4) )
-    {
-      std::string filenameinzip = filename.substr(0, filename.length() - 4);
-  
-      if ( ( string::npos == filenameinzip.find(".xml",  filenameinzip.length() - 4) ) &&
-           ( string::npos == filenameinzip.find(".sbml", filenameinzip.length() - 5) )
-         )
+      // open an uncompressed XML file.
+      if (string::npos != filename.find(".xml", filename.length() - 4))
       {
-        filenameinzip += ".xml";
+        stream = new(std::nothrow) std::ofstream(filename.c_str());
       }
+      // open a gzip file
+      else if (string::npos != filename.find(".gz", filename.length() - 3))
+      {
+        stream = OutputCompressor::openGzipOStream(filename);
+      }
+      // open a bz2 file
+      else if (string::npos != filename.find(".bz2", filename.length() - 4))
+      {
+        stream = OutputCompressor::openBzip2OStream(filename);
+      }
+      // open a zip file
+      else if (string::npos != filename.find(".zip", filename.length() - 4))
+      {
+        std::string filenameinzip = filename.substr(0, filename.length() - 4);
+
+        if ((string::npos == filenameinzip.find(".xml", filenameinzip.length() - 4)) &&
+          (string::npos == filenameinzip.find(".sbml", filenameinzip.length() - 5))
+          )
+        {
+          filenameinzip += ".xml";
+        }
 
 
 #if defined(WIN32) && !defined(CYGWIN)
-      char sepr = '\\';
+        char sepr = '\\';
 #else
-      char sepr = '/';
+        char sepr = '/';
 #endif
-      size_t spos = filenameinzip.rfind(sepr, filenameinzip.length() - 1);
-      if( spos != string::npos )
-      {
-        filenameinzip = filenameinzip.substr(spos + 1, filenameinzip.length() - 1);
+        size_t spos = filenameinzip.rfind(sepr, filenameinzip.length() - 1);
+        if (spos != string::npos)
+        {
+          filenameinzip = filenameinzip.substr(spos + 1, filenameinzip.length() - 1);
+        }
+
+
+        stream = OutputCompressor::openZipOStream(filename, filenameinzip);
       }
-
-      
-      stream = OutputCompressor::openZipOStream(filename, filenameinzip);
+      else
+      {
+        stream = new(std::nothrow) std::ofstream(filename.c_str());
+      }
     }
-    else
+    catch (ZlibNotLinked&)
     {
-      stream = new(std::nothrow) std::ofstream(filename.c_str());
+      // libSBML is not linked with zlib.
+      XMLErrorLog *log = (const_cast<SBMLDocument *>(d))->getErrorLog();
+      std::ostringstream oss;
+      oss << "Tried to write " << filename << ". Writing a gzip/zip file is not enabled because "
+        << "underlying libSBML is not linked with zlib.";
+      log->add(XMLError(XMLFileUnwritable, oss.str(), 0, 0));
+      return false;
+    }
+    catch (Bzip2NotLinked&)
+    {
+      // libSBML is not linked with bzip2.
+      XMLErrorLog *log = (const_cast<SBMLDocument *>(d))->getErrorLog();
+      std::ostringstream oss;
+      oss << "Tried to write " << filename << ". Writing a bzip2 file is not enabled because "
+        << "underlying libSBML is not linked with bzip2.";
+      log->add(XMLError(XMLFileUnwritable, oss.str(), 0, 0));
+      return false;
+    }
+
+    if (stream == NULL || stream->fail() || stream->bad())
+    {
+      SBMLErrorLog *log = (const_cast<SBMLDocument *>(d))->getErrorLog();
+      log->logError(XMLFileUnwritable);
+      delete stream;
+      return false;
     }
   }
-  catch ( ZlibNotLinked& )
-  {
-    // libSBML is not linked with zlib.
-    XMLErrorLog *log = (const_cast<SBMLDocument *>(d))->getErrorLog();
-    std::ostringstream oss;
-    oss << "Tried to write " << filename << ". Writing a gzip/zip file is not enabled because "
-        << "underlying libSBML is not linked with zlib."; 
-    log->add(XMLError( XMLFileUnwritable, oss.str(), 0, 0) );
-    return false;
-  } 
-  catch ( Bzip2NotLinked& )
-  {
-    // libSBML is not linked with bzip2.
-    XMLErrorLog *log = (const_cast<SBMLDocument *>(d))->getErrorLog();
-    std::ostringstream oss;
-    oss << "Tried to write " << filename << ". Writing a bzip2 file is not enabled because "
-        << "underlying libSBML is not linked with bzip2."; 
-    log->add(XMLError( XMLFileUnwritable, oss.str(), 0, 0) );
-    return false;
-  } 
 
+  bool result = writeSBML(d, *stream);
+  delete stream;
 
-  if ( stream == NULL || stream->fail() || stream->bad())
-  {
-    SBMLErrorLog *log = (const_cast<SBMLDocument *>(d))->getErrorLog();
-    log->logError(XMLFileUnwritable);
-    delete stream;
-    return false;
-  }
-
-   bool result = writeSBML(d, *stream);
-   delete stream;
-
-   return result;
-
+  return result;
 }
 
 
@@ -238,6 +242,10 @@ bool
 SBMLWriter::writeSBML (const SBMLDocument* d, std::ostream& stream)
 {
   bool result = false;
+  if (d == NULL)
+  {
+    return result;
+  }
 
   try
   {

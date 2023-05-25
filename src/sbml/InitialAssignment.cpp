@@ -1194,7 +1194,7 @@ ListOfInitialAssignments::createObject (XMLInputStream& stream)
     {
       object = new InitialAssignment(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException*)
+    catch (SBMLConstructorException &)
     {
       object = new InitialAssignment(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1225,7 +1225,7 @@ InitialAssignment_create (unsigned int level, unsigned int version)
     InitialAssignment* obj = new InitialAssignment(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -1241,7 +1241,7 @@ InitialAssignment_createWithNS (SBMLNamespaces_t* sbmlns)
     InitialAssignment* obj = new InitialAssignment(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

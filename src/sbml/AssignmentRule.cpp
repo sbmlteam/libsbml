@@ -450,7 +450,7 @@ AssignmentRule_create(unsigned int level, unsigned int version)
     AssignmentRule* obj = new AssignmentRule(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -466,7 +466,7 @@ AssignmentRule_createWithNS (SBMLNamespaces_t* sbmlns)
     AssignmentRule* obj = new AssignmentRule(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
