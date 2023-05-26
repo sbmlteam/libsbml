@@ -1,4 +1,5 @@
 include(CheckLibraryExists)
+include(CheckCSourceCompiles)
 
 string(TOUPPER ${PROJECT_NAME} _UPPER_PROJECT_NAME)
 set(_PROJECT_DEPENDENCY_DIR ${_UPPER_PROJECT_NAME}_DEPENDENCY_DIR)
