@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model timeUnits="second">
+    <listOfFunctionDefinitions>
+      <functionDefinition metaid="_tt" id="fd" name="ggh">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+              <apply>
+                <ci> undefined_function </ci>
+                <cn> 0.5 </cn>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+  </model>
+</sbml>
