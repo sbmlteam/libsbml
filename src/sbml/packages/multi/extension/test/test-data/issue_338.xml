@@ -4,7 +4,7 @@
     <listOfCompartments>
       <compartment id="c" spatialDimensions="3" units="litre" constant="true" size="1" multi:isType="false"/>
     </listOfCompartments>
-
+<!--
         <multi:listOfSpeciesTypes>
           <multi:speciesType multi:id="st" multi:name="st">
         <multi:listOfSpeciesFeatureTypes>
@@ -17,7 +17,7 @@
         </multi:listOfSpeciesFeatureTypes>
       </multi:speciesType>
       </multi:listOfSpeciesTypes>
-
+-->
     <listOfSpecies>
       <species id="s" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st">
         <multi:listOfSpeciesFeatures>
