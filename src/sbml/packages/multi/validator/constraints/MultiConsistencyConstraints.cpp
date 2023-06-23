@@ -1119,7 +1119,7 @@ START_CONSTRAINT (MultiSpeFtrVal_ValAtt_Ref, SpeciesFeatureValue, speciesFeature
 
   // species
   const Species * species = dynamic_cast<const Species *>(sbaseSpecies);
-  if (species == NULL) { // possible from subListOfSpeciesFeatures?
+  if (species == NULL && sbaseSpecies != NULL) { // possible from subListOfSpeciesFeatures?
       species = dynamic_cast<const Species *>(sbaseSpecies->getParentSBMLObject());
   }
 
