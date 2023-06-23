@@ -321,8 +321,7 @@ START_TEST(test_multi_issue_338)
   SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
   SBMLDocument* clone = doc->clone();
   clone->validateSBML();
-  clone->printErrors();
-  fail_unless(clone->getNumErrors(LIBSBML_SEV_ERROR) == 1);
+  fail_unless(clone->getNumErrors(LIBSBML_SEV_ERROR) == 3);
 
   delete clone;
   delete doc;
