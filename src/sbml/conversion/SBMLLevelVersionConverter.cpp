@@ -421,6 +421,7 @@ SBMLLevelVersionConverter::convert()
           /* undo any changes */
           delete currentModel; //!! deletes mDocument->mModel!!!!
           currentModel = origModel.clone();
+          currentModel->setSBMLDocument(mDocument); // tell the model who its parent document is
           mDocument->mModel = currentModel; // so we have to set it again
 
           mDocument->updateSBMLNamespace("core", origLevel, origVersion);
