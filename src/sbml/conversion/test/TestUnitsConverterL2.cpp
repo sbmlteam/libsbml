@@ -44,6 +44,7 @@
 #include <sbml/SBMLReader.h>
 #include <sbml/SBMLTypes.h>
 
+#include <sbml/conversion/SBMLLevelVersionConverter.h>
 #include <sbml/conversion/SBMLUnitsConverter.h>
 #include <sbml/conversion/ConversionProperties.h>
 
@@ -1301,13 +1302,47 @@ START_TEST (test_convert_time)
 }
 END_TEST
 
+START_TEST(test_crash_after_conversion_and_unit_inference)
+{
+  // replicates https://github.com/sbmlteam/libsbml/issues/334
+
+  SBMLNamespaces sbmlns(3, 2);
+  ConversionProperties prop(&sbmlns);
+  prop.addOption("strict", true, "should validity be preserved");
+  prop.addOption("setLevelAndVersion", true, "convert the document to the given level and version");
+  prop.addOption("ignorePackages", true);
+  prop.addOption("addDefaultUnits", false);
+
+  SBMLLevelVersionConverter converter;
+  converter.setProperties(&prop);
+
+  string filename(TestDataDirectory);
+  filename += "many-params-function.xml";
+
+  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+  // convert to L3V2
+  converter.setDocument(d);
+  int returnCode = converter.convert();
+  fail_unless(returnCode == LIBSBML_OPERATION_SUCCESS);
+
+  Model* m = d->getModel();
+  fail_unless(m->getLevel() == 3);
+  fail_unless(m->getVersion() == 2);
+
+  m->getListFormulaUnitsData();
+  FormulaUnitsData* fud = m->getFormulaUnitsDataForVariable("k3");
+  UnitDefinition* ud = fud->getUnitDefinition();
+  fail_unless(ud->getLevel() == 3);
+  fail_unless(ud->getVersion() == 2);
+}
+END_TEST
 
 Suite *
-create_suite_TestUnitsConverterL2 (void)
-{ 
+create_suite_TestUnitsConverterL2(void)
+{
   Suite *suite = suite_create("UnitsConverterL2");
   TCase *tcase = tcase_create("UnitsConverterL2");
-
 
   tcase_add_test(tcase, test_convert_model_volume);
   tcase_add_test(tcase, test_convert_model_volume1);
@@ -1338,6 +1373,8 @@ create_suite_TestUnitsConverterL2 (void)
   tcase_add_test(tcase, test_convertSpecies_noCompSize5);
   tcase_add_test(tcase, test_convertParameter_noValue);
   tcase_add_test(tcase, test_convert_time);
+  tcase_add_test(tcase, test_crash_after_conversion_and_unit_inference);
+
 
   suite_add_tcase(suite, tcase);
 

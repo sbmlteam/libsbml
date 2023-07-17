@@ -295,6 +295,10 @@ private:
   // to levels/versions that have no speciesReference ids
   bool speciesReferenceIdUsed();
 
+  void updateUnitMap(SBMLDocument* d);
+
+  void forceAnnotationReset(SBMLDocument* d);
+
   IdList* collectSpeciesReferenceIds();
   void populateMathElements();
 
