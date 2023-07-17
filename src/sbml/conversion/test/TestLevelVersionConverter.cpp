@@ -512,9 +512,13 @@ START_TEST(test_crash_after_strictconversion_fail)
   fail_unless(returnCode == LIBSBML_OPERATION_FAILED);
 
   Model* m = d->getModel();
+  Reaction* r = m->getReaction(0);
+  KineticLaw* kl = r->getKineticLaw();
 
   fail_unless(m != NULL);
   fail_unless(m->getSBMLDocument() != NULL);
+  fail_unless(r->getSBMLDocument() != NULL);
+  fail_unless(kl->getSBMLDocument() != NULL);
 
   delete d;
 }
