@@ -1318,7 +1318,7 @@ SBMLLevelVersionConverter::collectSpeciesReferenceIds()
 void
 SBMLLevelVersionConverter::updateUnitMap(SBMLDocument* d)
 {
-  if (d->getModel()->isPopulatedListFormulaUnitsData())
+  if (d && d->isSetModel() && d->getModel()->isPopulatedListFormulaUnitsData())
   { 
     d->getModel()->removeListFormulaUnitsData();
     d->getModel()->populateListFormulaUnitsData();
@@ -1330,7 +1330,7 @@ SBMLLevelVersionConverter::forceAnnotationReset(SBMLDocument* d)
 {
   // hack to force the model history to think it haschanged - this will
   // change the vacrd if necessary
-  if (d->isSetModel() && d->getModel()->isSetModelHistory())
+  if (d && d->isSetModel() && d->getModel()->isSetModelHistory())
   {
     ModelHistory * history = d->getModel()->getModelHistory()->clone();
     d->getModel()->setModelHistory(history);
