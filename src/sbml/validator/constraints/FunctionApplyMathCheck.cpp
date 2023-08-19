@@ -120,10 +120,19 @@ FunctionApplyMathCheck::checkMath (const Model& m, const ASTNode& node, const SB
 
       checkChildren(m, node, sb);
       break;
-
   }
 }
 
+void
+FunctionApplyMathCheck::checkFunctionDefinition(const Model& m, const ASTNode& node,
+  const SBase & sb)
+{
+  // a missing fd is caught by 20301 for l2v3 and lower
+  if (m.getLevel() > 2 || (m.getLevel() == 2 && m.getVersion() > 3))
+  {
+    checkMath(m, node, sb);
+  }
+}
   
 /*
   * Checks that the functionDefinition referred to by a &lt;ci&gt; element exists

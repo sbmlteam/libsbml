@@ -219,8 +219,25 @@ MathMLBase::check_ (const Model& m, const Model& object)
       checkMath(m, *m.getConstraint(n)->getMath(), *m.getConstraint(n));
     }
   }
+
+
+  for (n = 0; n < m.getNumFunctionDefinitions(); n++)
+  {
+    if (m.getFunctionDefinition(n)->isSetMath())
+    {
+      checkFunctionDefinition(m, *m.getFunctionDefinition(n)->getMath(), *m.getFunctionDefinition(n));
+    }
+  }
+
 }
 
+void
+MathMLBase::checkFunctionDefinition(const Model& m,
+  const ASTNode& node,
+  const SBase & sb)
+{
+  return;
+}
 
 /*
   * Checks the MathML of the children of ASTnode 

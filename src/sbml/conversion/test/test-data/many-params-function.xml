@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" metaid="ea71b239_15b6_4fa3_a76f_dd6c414eede6" version="4">
+  <model id="MODEL1212210000" metaid="f4425bc4_80db_4c1c_b889_aae600e0ce20" name="Smith2013 - Regulation of Insulin Signalling by Oxidative Stress">
+    <listOfFunctionDefinitions>
+      <functionDefinition id="function_1" metaid="_0b927bb6_7666_4bab_9a62_1bb488a2950b" name="Function for R1f_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> InR </ci>
+            </bvar>
+            <bvar>
+              <ci> Ins </ci>
+            </bvar>
+            <bvar>
+              <ci> cellsurface </ci>
+            </bvar>
+            <bvar>
+              <ci> extracellular </ci>
+            </bvar>
+            <bvar>
+              <ci> k1 </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> k1 </ci>
+              <ci> Ins </ci>
+              <ci> extracellular </ci>
+              <ci> InR </ci>
+              <ci> cellsurface </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition id="function_3" metaid="_3aae2449_6625_4edd_948a_128e89463603" name="Function for R2_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> Ins_InR </ci>
+            </bvar>
+            <bvar>
+              <ci> cellsurface </ci>
+            </bvar>
+            <bvar>
+              <ci> k3 </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> k3 </ci>
+                <ci> Ins_InR </ci>
+                <ci> cellsurface </ci>
+              </apply>
+              <ci> cellsurface </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfCompartments>
+      <compartment constant="true" id="extracellular" metaid="_33c764a6_3a3f_4ef0_8617_010e61aaadc6" name="extracellular" sboTerm="SBO:0000290" size="8.3E-12" spatialDimensions="3">
+      </compartment>
+      <compartment constant="true" id="cellsurface" metaid="_3998f93a_7adc_4437_90cb_86503740c79e" name="cellsurface" outside="extracellular" sboTerm="SBO:0000290" size="6.4E-14" spatialDimensions="3">
+      </compartment>
+      <compartment constant="true" id="cytoplasm" metaid="_546b89ee_5e8b_4791_875c_73de58897f5e" name="cytoplasm" outside="cellsurface" sboTerm="SBO:0000290" size="1.65E-11" spatialDimensions="3">
+      </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species boundaryCondition="true" compartment="extracellular" constant="true" hasOnlySubstanceUnits="false" id="Ins" initialAmount="0" metaid="_820723ff_e05b_49d4_b9bd_b025befd02dc" name="Ins">
+      </species>
+      <species boundaryCondition="false" compartment="cellsurface" constant="false" hasOnlySubstanceUnits="false" id="InR" initialAmount="90000" metaid="d8602ba9_77a8_4307_ab2d_280bbcc14b67" name="InR">
+      </species>
+      <species boundaryCondition="false" compartment="cellsurface" constant="false" hasOnlySubstanceUnits="false" id="Ins_InR" initialAmount="0" metaid="_9672349d_f3af_4c17_8def_526d82171d04" name="Ins_InR">
+      </species>
+      <species boundaryCondition="false" compartment="cellsurface" constant="false" hasOnlySubstanceUnits="false" id="Ins_InR_P" initialAmount="0" metaid="_32dd5508_cc6c_45ee_ac3e_520d63194b60" name="Ins_InR_P">
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter constant="true" id="k1" metaid="_2ad1244a_ce86_42ed_9222_df283a1c56a5" name="k1" value="2E-5"/>
+      <parameter constant="true" id="k3" metaid="_45dae5e2_484a_4b84_9c11_f6b3642711e9" name="k3" value="2500"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="R1f" metaid="b644817b_aa91_4732_9b17_f83803035b63" name="R1f" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_652747b2_354c_407c_9dee_9680991fa150" species="Ins" stoichiometry="1"/>
+          <speciesReference metaid="_725a5142_9442_4c37_908f_aeea73cdae7d" species="InR" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="cc7fe296_cb4a_401f_ac8c_64cedf7f36d2" species="Ins_InR" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_0d4998c7_4bc9_4fa7_85b8_9fa7250d6151" species="InR"/>
+          <modifierSpeciesReference metaid="a8a2b586_05fe_478f_a9e7_66a5ff911afe" species="Ins"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_1d9b134e_3620_4ad0_8872_400169c862ca">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> function_1 </ci>
+              <ci> InR </ci>
+              <ci> Ins </ci>
+              <ci> cellsurface </ci>
+              <ci> extracellular </ci>
+              <ci> k1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="R2" metaid="_8521c1fb_b9a1_4b6c_87ed_29dd68558277" name="R2" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="ef7c1289_16d7_40be_ac30_7f720ef8dcdf" species="Ins_InR" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="fec5e2e7_7a6e_458e_859f_726447393b9d" species="Ins_InR_P" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_07c4a440_b527_4ec1_a72c_afe5377c0f28" species="Ins_InR"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_28843ae9_c963_4a1c_9c71_d4446cb1867a">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> cellsurface </ci>
+              <apply>
+                <ci> function_3 </ci>
+                <ci> Ins_InR </ci>
+                <ci> cellsurface </ci>
+                <ci> k3 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

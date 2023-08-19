@@ -4123,6 +4123,14 @@ public:
 
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+  /*
+  * Clears the list of FormulaUnitsData object in this Model.
+  */
+  void removeListFormulaUnitsData();
+  /** @endcond */
+
+
 
 protected:
   /** @cond doxygenLibsbmlInternal */
@@ -4249,12 +4257,6 @@ protected:
   void createSpeciesReferenceUnitsData(SpeciesReference* sr,
                              UnitFormulaFormatter* unitFormatter);
 
-  /*
-   * Clears the list of FormulaUnitsData object in this Model.
-   */
-  void removeListFormulaUnitsData();
-
-  
   /*
    * creates the substance units data item
    */

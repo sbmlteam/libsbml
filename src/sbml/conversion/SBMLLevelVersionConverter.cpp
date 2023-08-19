@@ -421,6 +421,7 @@ SBMLLevelVersionConverter::convert()
           /* undo any changes */
           delete currentModel; //!! deletes mDocument->mModel!!!!
           currentModel = origModel.clone();
+          currentModel->setSBMLDocument(mDocument); // tell the model who its parent document is
           mDocument->mModel = currentModel; // so we have to set it again
 
           mDocument->updateSBMLNamespace("core", origLevel, origVersion);
@@ -430,30 +431,21 @@ SBMLLevelVersionConverter::convert()
         {
           if (resetAnnotations) 
           {
-            // hack to force the model history to think it haschanged - this will
-            // change the vacrd if necessary
-            if (mDocument->isSetModel() && mDocument->getModel()->isSetModelHistory())
-            {
-              ModelHistory * history = mDocument->getModel()->getModelHistory()->clone();
-              mDocument->getModel()->setModelHistory(history);
-              delete history;
-            }
+            forceAnnotationReset(mDocument);
           }
+
+          // need change the unit map as the original will be at old level and version
+          updateUnitMap(mDocument);
         }
       }
       else
       {
         if (resetAnnotations) 
         {
-          // hack to force the model history to think it haschanged - this will
-          // change the vcard if necessary
-          if (mDocument->isSetModel() && mDocument->getModel()->isSetModelHistory())
-          {
-            ModelHistory * history = mDocument->getModel()->getModelHistory()->clone();
-            mDocument->getModel()->setModelHistory(history);
-            delete history;
-          }
+          forceAnnotationReset(mDocument);
         }
+        // need change the unit map as the original will be at old level and version
+        updateUnitMap(mDocument);
       }
     }
   }
@@ -1321,6 +1313,32 @@ SBMLLevelVersionConverter::collectSpeciesReferenceIds()
 
   return srids;
 }
+
+
+void
+SBMLLevelVersionConverter::updateUnitMap(SBMLDocument* d)
+{
+  if (d && d->isSetModel() && d->getModel()->isPopulatedListFormulaUnitsData())
+  { 
+    d->getModel()->removeListFormulaUnitsData();
+    d->getModel()->populateListFormulaUnitsData();
+  }
+}
+
+void
+SBMLLevelVersionConverter::forceAnnotationReset(SBMLDocument* d)
+{
+  // hack to force the model history to think it haschanged - this will
+  // change the vacrd if necessary
+  if (d && d->isSetModel() && d->getModel()->isSetModelHistory())
+  {
+    ModelHistory * history = d->getModel()->getModelHistory()->clone();
+    d->getModel()->setModelHistory(history);
+    delete history;
+  }
+}
+
+
 /** @endcond */
 
 
@@ -1468,7 +1486,6 @@ SBMLLevelVersionConverter::has_fatal_errors(unsigned int level, unsigned int ver
     }
     return false;
   }
-
 }
 /** @endcond */
 
