@@ -257,6 +257,12 @@ typedef CLASS_OR_STRUCT SBMLWriter                SBMLWriter_t;
 typedef CLASS_OR_STRUCT SBMLError                 SBMLError_t;
 
 /**
+* @var typedef class SBMLErrorLog SBMLErrorLog_t
+* @copydoc SBMLErrorLog
+*/
+typedef CLASS_OR_STRUCT SBMLErrorLog           SBMLErrorLog_t;
+
+/**
  * @var typedef class ASTNode ASTNode_t
  * @copydoc ASTNode
  */

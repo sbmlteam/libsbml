@@ -2472,8 +2472,8 @@ SBMLDocument_checkL2v2Compatibility (SBMLDocument_t *d);
  * @memberof SBMLDocument_t
  */
 LIBSBML_EXTERN
-unsigned int 
-SBMLDocument_checkL2v3Compatibility (SBMLDocument_t *d);
+unsigned int
+SBMLDocument_checkL2v3Compatibility(SBMLDocument_t *d);
 
 
 /**
@@ -2586,6 +2586,11 @@ SBMLDocument_checkL3v2Compatibility(SBMLDocument_t *d);
 LIBSBML_EXTERN
 const SBMLError_t *
 SBMLDocument_getError (SBMLDocument_t *d, unsigned int n);
+
+
+LIBSBML_EXTERN
+const SBMLErrorLog_t *
+SBMLDocument_getErrorLog(SBMLDocument_t *d);
 
 
 /**
