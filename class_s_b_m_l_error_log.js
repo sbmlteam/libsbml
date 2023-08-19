@@ -4,7 +4,7 @@ var class_s_b_m_l_error_log =
     [ "clearLog", "class_s_b_m_l_error_log.html#a5317fa30642829454f79815bc4bed8a6", null ],
     [ "contains", "class_s_b_m_l_error_log.html#a826fd47e97417397169d3bb83b3b11e6", null ],
     [ "getError", "class_s_b_m_l_error_log.html#ada1f0b883a164d651645db35efc08805", null ],
-    [ "getErrorWithSeverity", "class_s_b_m_l_error_log.html#a1782cc388c71147564e3fb304587d3f4", null ],
+    [ "getErrorWithSeverity", "class_s_b_m_l_error_log.html#ae783790dbae1bd2b9b8b29a63d948128", null ],
     [ "getNumErrors", "class_s_b_m_l_error_log.html#a75a0e49a64a66fcacd3eb3d4b3ce9c83", null ],
     [ "getNumFailsWithSeverity", "class_s_b_m_l_error_log.html#acaf1637dc7a44436c53802024a2ae5e0", null ],
     [ "getNumFailsWithSeverity", "class_s_b_m_l_error_log.html#ae8ae89e1ea1e2e779f53c03064ec51f8", null ],

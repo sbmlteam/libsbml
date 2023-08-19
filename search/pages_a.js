@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['reading_20and_20writing_20sbml_20content_20246',['Reading and writing SBML content',['../libsbml-reading-files.html',1,'libsbml-api-guide']]]
+  ['reading_20and_20writing_20sbml_20content_20248',['Reading and writing SBML content',['../libsbml-reading-files.html',1,'libsbml-api-guide']]]
 ];
