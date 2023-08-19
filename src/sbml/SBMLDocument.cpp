@@ -2486,6 +2486,13 @@ SBMLDocument_getError (SBMLDocument_t *d, unsigned int n)
 }
 
 LIBSBML_EXTERN
+const SBMLErrorLog_t *
+SBMLDocument_getErrorLog(SBMLDocument_t *d)
+{
+  return (d != NULL) ? d->getErrorLog() : NULL;
+}
+
+LIBSBML_EXTERN
 const SBMLError_t *
 SBMLDocument_getErrorWithSeverity(SBMLDocument_t *d, unsigned int n, unsigned int severity)
 {

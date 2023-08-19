@@ -117,6 +117,7 @@ Suite *create_suite_SBMLConvertStrict             (void);
 Suite *create_suite_SBMLConvertFromL3V2           (void);
 Suite *create_suite_SBMLDocument                  (void);
 Suite *create_suite_SBMLError                     (void);
+Suite *create_suite_SBMLErrorLog                  (void);
 Suite *create_suite_SBMLReader                    (void);
 Suite *create_suite_SBMLWriter                    (void);
 Suite *create_suite_SimpleSpeciesReference        (void);
@@ -223,6 +224,7 @@ main (int argc, char* argv[])
   int num_failed;
 
   setTestDataDirectory();
+  //SRunner *runner = srunner_create(create_suite_SBMLErrorLog());
 
   SRunner *runner = srunner_create( create_suite_ReadSBML               () );
   srunner_add_suite( runner, create_suite_SBMLValidatorAPI              () );
@@ -298,6 +300,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_SBMLConvertFromL3V2           () );
   srunner_add_suite( runner, create_suite_SBMLDocument                  () );
   srunner_add_suite( runner, create_suite_SBMLError                     () );
+  srunner_add_suite( runner, create_suite_SBMLErrorLog                  () );
   srunner_add_suite( runner, create_suite_TestReadFromFile1             () );
   srunner_add_suite( runner, create_suite_TestReadFromFile2             () );
   srunner_add_suite( runner, create_suite_TestReadFromFile3             () );
