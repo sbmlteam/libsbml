@@ -487,10 +487,10 @@ SBMLErrorLog_getNumErrors(const SBMLErrorLog_t *log)
 
 
 LIBSBML_EXTERN
-bool
+int
 SBMLErrorLog_contains(const SBMLErrorLog_t *log, unsigned int errorId)
 {
-  return (log != NULL) ? log->contains(errorId) : false;
+  return (log != NULL) ? (int)(log->contains(errorId)) : 0;
 }
 
 LIBSBML_EXTERN

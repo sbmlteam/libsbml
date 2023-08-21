@@ -493,7 +493,7 @@ SBMLErrorLog_getNumErrors(const SBMLErrorLog_t *log);
  * @memberof SBMLErrorLog_t
  */
 LIBSBML_EXTERN
-bool
+int
 SBMLErrorLog_contains(const SBMLErrorLog_t *log, unsigned int errorId);
 
 
