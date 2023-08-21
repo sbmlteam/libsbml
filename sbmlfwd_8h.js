@@ -40,7 +40,6 @@ var sbmlfwd_8h =
     [ "SBMLDocument_t", "sbmlfwd_8h.html#a5654a5c9f151c4ed9882bed8c8bf34ad", null ],
     [ "SBMLDocumentPlugin_t", "sbmlfwd_8h.html#a68f3c87cfe35c9e412b1a80002870a07", null ],
     [ "SBMLError_t", "sbmlfwd_8h.html#a5d9a211dd5836342706bb25212097d40", null ],
-    [ "SBMLErrorLog_t", "sbmlfwd_8h.html#ac04c8aec623efb0ac55e732f2c7f071f", null ],
     [ "SBMLExtension_t", "sbmlfwd_8h.html#a5a31d03fb6f197e87f1332dd8ad89c67", null ],
     [ "SBMLExtensionNamespaces_t", "sbmlfwd_8h.html#a4e00a7bb511a1e92fc80cc501829ce10", null ],
     [ "SBMLNamespaces_t", "sbmlfwd_8h.html#a9d371851bb341b7efc8935a3d0c2b4df", null ],

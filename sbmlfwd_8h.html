@@ -197,8 +197,6 @@ Typedefs</h2></td></tr>
 <tr class="separator:a68f3c87cfe35c9e412b1a80002870a07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d9a211dd5836342706bb25212097d40"><td class="memItemLeft" align="right" valign="top">typedef class <a class="el" href="class_s_b_m_l_error.html">SBMLError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sbmlfwd_8h.html#a5d9a211dd5836342706bb25212097d40">SBMLError_t</a></td></tr>
 <tr class="separator:a5d9a211dd5836342706bb25212097d40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac04c8aec623efb0ac55e732f2c7f071f"><td class="memItemLeft" align="right" valign="top">typedef class <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sbmlfwd_8h.html#ac04c8aec623efb0ac55e732f2c7f071f">SBMLErrorLog_t</a></td></tr>
-<tr class="separator:ac04c8aec623efb0ac55e732f2c7f071f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a31d03fb6f197e87f1332dd8ad89c67"><td class="memItemLeft" align="right" valign="top">typedef class <a class="el" href="class_s_b_m_l_extension.html">SBMLExtension</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sbmlfwd_8h.html#a5a31d03fb6f197e87f1332dd8ad89c67">SBMLExtension_t</a></td></tr>
 <tr class="separator:a5a31d03fb6f197e87f1332dd8ad89c67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e00a7bb511a1e92fc80cc501829ce10"><td class="memItemLeft" align="right" valign="top">typedef class ISBMLExtensionNamespaces&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sbmlfwd_8h.html#a4e00a7bb511a1e92fc80cc501829ce10">SBMLExtensionNamespaces_t</a></td></tr>
@@ -4229,38 +4227,6 @@ defined in SBML.
  there are no additional severity codes in <a class="el" href="_s_b_m_l_error_8h.html#aa4224962df10d5a97c2d79e883b68a72" title="Severity codes for SBMLError diagnostics.">SBMLErrorSeverity_t</a> beyond those defined in <a class="el" href="_x_m_l_error_8h.html#a54cf85ac4f9cf6e597bc2cfcb5a6d0f3" title="Severity codes for errors in the XML layer.">XMLErrorSeverity_t</a>.</p>
 <hr  />
  
-</div>
-</div>
-<a id="ac04c8aec623efb0ac55e732f2c7f071f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac04c8aec623efb0ac55e732f2c7f071f">&#9670;&nbsp;</a></span>SBMLErrorLog_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef class <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a> <a class="el" href="sbmlfwd_8h.html#ac04c8aec623efb0ac55e732f2c7f071f">SBMLErrorLog_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p></p>
- Log of diagnostics reported during processing.</p>
-<p style='color: #777; font-style: italic'>
-This class of objects is defined by libSBML only and has no direct
-equivalent in terms of SBML components.  This class is not prescribed by
-the SBML specifications, although it is used to implement features
-defined in SBML.
-</p>
-<p>The error log is a list. Each <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> maintains its own <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a>. When a libSBML operation on SBML content results in an error, or when there is something worth noting about the SBML content, the issue is reported as an <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> object stored in the <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a> list.</p>
-<p><a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a> is derived from <a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a>, an object class that serves exactly the same purpose but for the XML parsing layer. <a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> provides crucial methods such as getNumErrors() for determining how many <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> or <a class="el" href="class_x_m_l_error.html">XMLError</a> objects are in the log. <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a> inherits these methods.</p>
-<p>The general approach to working with <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a> in user programs involves first obtaining a pointer to a log from a libSBML object such as <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a>. Callers should then use getNumErrors() to inquire how many objects there are in the list. (The answer may be 0.) If there is at least one <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> object in the <a class="el" href="class_s_b_m_l_error_log.html">SBMLErrorLog</a> instance, callers can then iterate over the list using SBMLErrorLog::getError()const, using methods provided by the <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> class to find out the error code and associated information such as the error severity, the message, and the line number in the input.</p>
-<p>If you wish to simply print the error strings for a human to read, an easier and more direct way might be to use <a class="el" href="class_s_b_m_l_document.html#a4ba64417bb8900acc865a4bb3319a4d2" title="Prints all the errors or warnings encountered trying to parse, check, or translate this SBML document...">SBMLDocument::printErrors()</a>.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_b_m_l_error.html">SBMLError</a> </dd>
-<dd>
-<a class="el" href="class_x_m_l_error_log.html">XMLErrorLog</a> </dd>
-<dd>
-<a class="el" href="class_x_m_l_error.html">XMLError</a> </dd></dl>
-
 </div>
 </div>
 <a id="a5a31d03fb6f197e87f1332dd8ad89c67"></a>
