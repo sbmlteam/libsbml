@@ -397,7 +397,7 @@ SBMLErrorLog::getError (unsigned int n) const
  * @return the nth SBMLError in this log.
  */
 const SBMLError*
-SBMLErrorLog::getErrorWithSeverity(unsigned int n, unsigned int severity, unsigned int fromCAPI) const
+SBMLErrorLog::getErrorWithSeverity(unsigned int n, unsigned int severity) const
 {
   unsigned int count = 0;
   MatchSeverity matcher(severity);
@@ -406,17 +406,7 @@ SBMLErrorLog::getErrorWithSeverity(unsigned int n, unsigned int severity, unsign
   {
     if (matcher(*it))
     {
-      if (count == n)
-      {
-        if (fromCAPI == 0)
-        {
-          return dynamic_cast<const SBMLError*>(*it);
-        } 
-        else
-        {
-          return static_cast<const SBMLError*>(*it);
-        }
-      }
+      if (count == n) return dynamic_cast<const SBMLError*>(*it);
       ++count;
     }
   }
@@ -457,10 +447,7 @@ LIBSBML_EXTERN
 const SBMLError_t *
 SBMLErrorLog_getError(const SBMLErrorLog_t *log, unsigned int n)
 {
-  if (log == NULL) 
-    return NULL;
-
-  return (const SBMLError_t*)(XMLErrorLog_getError((const XMLErrorLog_t*)(log), n));
+  return (log != NULL) ? log->getError(n) : NULL;
 }
 
 
@@ -468,7 +455,7 @@ LIBSBML_EXTERN
 const SBMLError_t *
 SBMLErrorLog_getErrorWithSeverity(const SBMLErrorLog_t *log, unsigned int n, unsigned int severity)
 {
-  return (log != NULL) ? log->getErrorWithSeverity(n, severity, 1) : NULL;
+  return (log != NULL) ? log->getErrorWithSeverity(n, severity) : NULL;
 }
 
 LIBSBML_EXTERN
