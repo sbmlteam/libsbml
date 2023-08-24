@@ -46,6 +46,7 @@
 #include <sbml/xml/XMLError.h>
 #include <sbml/xml/XMLNamespaces.h>
 #include <sbml/SBMLDocument.h>
+#include <sbml/SBMLReader.h>
 
 #include <check.h>
 
@@ -58,6 +59,8 @@ LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 
+extern char *TestDataDirectory;
+
 START_TEST(test_SBMLErrorLog_removeAll)
 {
   SBMLErrorLog_t *log = SBMLErrorLog_create();
@@ -68,15 +71,15 @@ START_TEST(test_SBMLErrorLog_removeAll)
   SBMLErrorLog_add(log, (const SBMLError_t*)(e));
   SBMLErrorLog_add(log, (const SBMLError_t*)(e));
   
-  fail_unless(SBMLErrorLog_contains(log, 1234) == true);
+  fail_unless(SBMLErrorLog_contains(log, 1234) == 1);
   fail_unless(SBMLErrorLog_getNumErrors(log) == 4);
   
   SBMLErrorLog_remove(log, 1234);
-  fail_unless(SBMLErrorLog_contains(log, 1234) == true);
+  fail_unless(SBMLErrorLog_contains(log, 1234) == 1);
   fail_unless(SBMLErrorLog_getNumErrors(log) == 3);
 
   SBMLErrorLog_removeAll(log, 1234);
-  fail_unless(SBMLErrorLog_contains(log, 1234) == false);
+  fail_unless(SBMLErrorLog_contains(log, 1234) == 0);
   fail_unless(SBMLErrorLog_getNumErrors(log) == 0);
 
   XMLError_free(e);
@@ -97,13 +100,13 @@ START_TEST(test_SBMLErrorLog_add_clear)
   SBMLErrorLog_add(log, (const SBMLError_t*)(e));
   SBMLErrorLog_add(log, (const SBMLError_t*)(e));
 
-  fail_unless(SBMLErrorLog_contains(log, 1234) == true);
-  fail_unless(SBMLErrorLog_contains(log, 2345) == true);
+  fail_unless(SBMLErrorLog_contains(log, 1234) == 1);
+  fail_unless(SBMLErrorLog_contains(log, 2345) == 1);
   fail_unless(SBMLErrorLog_getNumErrors(log) == 4);
 
   SBMLErrorLog_remove(log, 2345);
-  fail_unless(SBMLErrorLog_contains(log, 1234) == true);
-  fail_unless(SBMLErrorLog_contains(log, 2345) == false);
+  fail_unless(SBMLErrorLog_contains(log, 1234) == 1);
+  fail_unless(SBMLErrorLog_contains(log, 2345) == 0);
   fail_unless(SBMLErrorLog_getNumErrors(log) == 3);
 
   SBMLErrorLog_clearLog(log);
@@ -120,30 +123,39 @@ START_TEST(test_SBMLErrorLog_get)
 {
   SBMLErrorLog_t *log = SBMLErrorLog_create();
   XMLError_t *e = XMLError_createWithIdAndMessage(1234, "1");
-  XMLError_t *e1 = XMLError_createWithIdAndMessage(2345, "1");
 
   SBMLErrorLog_add(log, (const SBMLError_t*)(e));
-  SBMLErrorLog_add(log, (const SBMLError_t*)(e1));
 
+  // here the xmlerror is merely cast as an sbmlerror
+  // it is added to the log as an xmlerror
+  fail_unless(SBMLErrorLog_getNumErrors(log) == 1);
+
+  // the dynamic cast on return fails
   const SBMLError_t* r = SBMLErrorLog_getError(log, 1);
-
-  fail_unless(r != NULL);
-  fail_unless(XMLError_getSeverity(r) == 1);
-  fail_unless(XMLError_getErrorId(r) == 2345);
-
-  const SBMLError_t* r1 = SBMLErrorLog_getErrorWithSeverity(log, 0, 1);
-
-  fail_unless(r1 != NULL);
-  fail_unless(XMLError_getSeverity(r1) == 1);
-  fail_unless(XMLError_getErrorId(r1) == 1234);
-
-  fail_unless(SBMLErrorLog_getNumFailsWithSeverity(log, 1) == 2);
+  fail_unless(r == NULL);
 
   XMLError_free(e);
-  XMLError_free(e1);
-  //XMLError_free((SBMLError_t*)(r));
-  //XMLError_free((SBMLError_t*)(r1));
   SBMLErrorLog_free(log);
+}
+END_TEST
+
+START_TEST(test_SBMLErrorLog_type)
+{
+  SBMLDocument_t     *d;
+
+  char *filename = safe_strcat(TestDataDirectory, "01006-fail-01-13.xml");
+  
+  d = readSBML(filename);
+
+  unsigned int n = SBMLDocument_validateSBML(d);
+  const SBMLErrorLog_t *log = SBMLDocument_getErrorLog(d);
+  const SBMLError_t* r = SBMLErrorLog_getError(log, 0);
+
+  // the error is an xmlerror but does get correctly cast to sbmlerror
+  fail_unless(r != NULL);
+
+  SBMLDocument_free(d);
+  safe_free((char*)(filename));
 }
 END_TEST
 
@@ -158,6 +170,7 @@ create_suite_SBMLErrorLog (void)
   tcase_add_test(tcase, test_SBMLErrorLog_removeAll);
   tcase_add_test(tcase, test_SBMLErrorLog_add_clear);
   tcase_add_test(tcase, test_SBMLErrorLog_get);
+  tcase_add_test(tcase, test_SBMLErrorLog_type);
 
   suite_add_tcase(suite, tcase);
 

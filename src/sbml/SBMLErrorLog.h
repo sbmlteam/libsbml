@@ -163,7 +163,7 @@ public:
    *
    * @see getNumFailsWithSeverity(unsigned int severity)
    */
-  const SBMLError* getErrorWithSeverity(unsigned int n, unsigned int severity, unsigned int fromCAPI=0) const;
+  const SBMLError* getErrorWithSeverity(unsigned int n, unsigned int severity) const;
 
 
   /**

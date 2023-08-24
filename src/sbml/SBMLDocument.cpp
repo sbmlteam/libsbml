@@ -2405,6 +2405,11 @@ SBMLDocument_checkConsistency (SBMLDocument_t *d)
 
 
 LIBSBML_EXTERN
+unsigned int SBMLDocument_validateSBML(SBMLDocument_t * d)
+{
+  return (d != NULL) ? d->validateSBML() : SBML_INT_MAX;
+}
+
 unsigned int
 SBMLDocument_checkInternalConsistency (SBMLDocument_t *d)
 {
