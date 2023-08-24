@@ -261,7 +261,7 @@ Functions</h2></td></tr>
 <p>This function was introduced to deal with a specific memory issue arising on Windows OS when using libSBML compiled against a static MSVC runtime library. In this situation, it was not possible to use the standard <code>free()</code> function when freeing memory that was actually allocated within the libSBML function call. The following is an example of where the free function fails and needs to be replaced with <a class="el" href="util_8h.html#a905ae2aebc0923ecba8688bda13d2985" title="Function for freeing memory allocated by libSBML functions.">util_freeArray()</a>. </p><div class="fragment"><div class="line"><span class="keywordtype">int</span> length;</div>
 <div class="line"><a class="code" href="sbmlfwd_8h.html#a9d371851bb341b7efc8935a3d0c2b4df">SBMLNamespaces_t</a>** supported = SBMLNamespaces_getSupportedNamespaces(&amp;length);</div>
 <div class="line">free(supported);</div>
-<div class="ttc" id="asbmlfwd_8h_html_a9d371851bb341b7efc8935a3d0c2b4df"><div class="ttname"><a href="sbmlfwd_8h.html#a9d371851bb341b7efc8935a3d0c2b4df">SBMLNamespaces_t</a></div><div class="ttdeci">class SBMLNamespaces SBMLNamespaces_t</div><div class="ttdef"><b>Definition:</b> sbmlfwd.h:371</div></div>
+<div class="ttc" id="asbmlfwd_8h_html_a9d371851bb341b7efc8935a3d0c2b4df"><div class="ttname"><a href="sbmlfwd_8h.html#a9d371851bb341b7efc8935a3d0c2b4df">SBMLNamespaces_t</a></div><div class="ttdeci">class SBMLNamespaces SBMLNamespaces_t</div><div class="ttdef"><b>Definition:</b> sbmlfwd.h:377</div></div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>This function is only necessary when using a version of libSBML compiled and linked against a static MSVC runtime library. </dd></dl>
 
 </div>
