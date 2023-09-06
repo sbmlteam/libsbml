@@ -326,7 +326,7 @@ ModelHistory::getModifiedDate(unsigned int n)
  * @return number in List of Creator
  */
 unsigned int 
-ModelHistory::getNumCreators()
+ModelHistory::getNumCreators() const
 {
   return mCreators != NULL ? mCreators->getSize() : 0;
 }
@@ -336,7 +336,7 @@ ModelHistory::getNumCreators()
  * @return number in List of modified dates
  */
 unsigned int 
-ModelHistory::getNumModifiedDates()
+ModelHistory::getNumModifiedDates() const
 {
   return mModifiedDates->getSize();
 }
@@ -356,7 +356,7 @@ ModelHistory::getCreator(unsigned int n)
  * otherwise.
  */
 bool 
-ModelHistory::isSetCreatedDate()
+ModelHistory::isSetCreatedDate() const
 {
   return mCreatedDate != NULL;
 }
@@ -367,7 +367,7 @@ ModelHistory::isSetCreatedDate()
  * otherwise.
  */
 bool 
-ModelHistory::isSetModifiedDate()
+ModelHistory::isSetModifiedDate() const
 {
   return (getNumModifiedDates() != 0);
 }
