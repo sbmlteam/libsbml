@@ -206,7 +206,7 @@ public:
    * @return @c true if the creation date value of this ModelHistory is
    * set, @c false otherwise.
    */
-  bool isSetCreatedDate();
+  bool isSetCreatedDate() const;
 
   
   /**
@@ -216,7 +216,7 @@ public:
    * @return @c true if the modification date value of this ModelHistory
    * object is set, @c false otherwise.
    */
-  bool isSetModifiedDate();
+  bool isSetModifiedDate() const;
 
   
   /**
@@ -302,7 +302,7 @@ public:
    * 
    * @return the number of ModifiedDates in this ModelHistory.
    */
-  unsigned int getNumModifiedDates();
+  unsigned int getNumModifiedDates() const;
 
   
   /**
@@ -358,7 +358,7 @@ public:
    * 
    * @return the number of ModelCreators objects.
    */
-  unsigned int getNumCreators();
+  unsigned int getNumCreators() const;
 
 
   /**
