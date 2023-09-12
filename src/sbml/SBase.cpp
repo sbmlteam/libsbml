@@ -1087,7 +1087,7 @@ SBase::getModifiedDate(unsigned int n)
 unsigned int
 SBase::getNumModifiedDates()
 {
-  return (mHistory != NULL) ? mHistory->getNumModifiedDates() : NULL;
+  return (mHistory != NULL) ? mHistory->getNumModifiedDates() : 0;
 }
 
 
