@@ -34,7 +34,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">libSBML C++ API
-   &#160;<span id="projectnumber">5.20.1</span>
+   &#160;<span id="projectnumber">5.20.2</span>
    </div>
   </td>
  </tr>
@@ -98,7 +98,32 @@ $(document).ready(function(){initNavTree('libsbml-news.html',''); initResizable(
  </p><pre class="fragment">           libSBML NEWS -- History of user-visible changes
 
 ====================================================================
-5.20.0
+5.20.2
+====================================================================
+
+This is mostly a bug fix release enhancing stability when validating
+and converting models.
+
+* New features / improvements
+
+  - Access to error logs from the C API  
+
+  - Attributes of the ModelHistory can now be accessed from 
+    const objects. 
+
+* Bug fixes
+
+  - A bug converting / validating models with the 'comp' package
+    has been fixed.
+
+  - A crash when inferring units has been resolved. 
+
+  - A fix to the CMake Build system ensures that check for dependencies
+    is more robust. Thanks to first time contributor @adelhpour
+  
+
+====================================================================
+5.20.0 (2023-04-03)
 ====================================================================
 
 Given the length of time since our last release the list of changes
