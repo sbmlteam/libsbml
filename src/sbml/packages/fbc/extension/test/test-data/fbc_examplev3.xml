@@ -21,7 +21,7 @@
         
         <fbc:listOfUserDefinedConstraintComponents>
 
-          <fbc:userDefinedConstraintComponent fbc:coefficient="2" fbc:variable="Avar" fbc:variableType="linear"/>
+          <fbc:userDefinedConstraintComponent fbc:coefficient="uc2ub" fbc:variable="Avar" fbc:variableType="linear"/>
         </fbc:listOfUserDefinedConstraintComponents>
       </fbc:userDefinedConstraint>
     </fbc:listOfUserDefinedConstraints>  
