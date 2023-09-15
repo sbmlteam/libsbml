@@ -69,6 +69,7 @@ FluxObjective::FluxObjective (unsigned int level, unsigned int version, unsigned
   , mCoefficient (numeric_limits<double>::quiet_NaN())
   , mIsSetCoefficient (false)
   , mVariableType (FBC_VARIABLE_TYPE_INVALID)
+  , mReaction2 ("")
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new FbcPkgNamespaces(level, version, pkgVersion));
@@ -86,6 +87,7 @@ FluxObjective::FluxObjective (FbcPkgNamespaces* fbcns)
   , mCoefficient (numeric_limits<double>::quiet_NaN())
   , mIsSetCoefficient (false)
   , mVariableType (FBC_VARIABLE_TYPE_INVALID)
+  , mReaction2 ("")
 {
   // set the element namespace of this object
   setElementNamespace(fbcns->getURI());
@@ -104,6 +106,7 @@ FluxObjective::FluxObjective(const FluxObjective& orig)
   , mCoefficient ( orig.mCoefficient )
   , mIsSetCoefficient ( orig.mIsSetCoefficient )
   , mVariableType ( orig.mVariableType )
+  , mReaction2 (orig.mReaction2)
 {
 }
 
@@ -123,6 +126,7 @@ FluxObjective::operator=(const FluxObjective& rhs)
     mCoefficient  = rhs.mCoefficient;
     mIsSetCoefficient  = rhs.mIsSetCoefficient;
     mVariableType = rhs.mVariableType;
+    mReaction2  = rhs.mReaction2;
   }
   return *this;
 }
@@ -173,6 +177,16 @@ const std::string&
 FluxObjective::getReaction() const
 {
   return mReaction;
+}
+
+
+/*
+ * Returns the value of the "reaction2" attribute of this FluxObjective.
+ */
+const std::string&
+FluxObjective::getReaction2() const
+{
+  return mReaction2;
 }
 
 
@@ -239,6 +253,16 @@ FluxObjective::isSetReaction() const
 
 
 /*
+ * Predicate returning @c true if this FluxObjective's "reaction2" attribute is
+ * set.
+ */
+bool
+FluxObjective::isSetReaction2() const
+{
+  return (mReaction2.empty() == false);
+}
+
+/*
  * Predicate returning @c true if this FluxObjective's "coefficient" attribute
  * is set.
  */
@@ -287,7 +311,17 @@ FluxObjective::setName(const std::string& name)
 int
 FluxObjective::setReaction(const std::string& reaction)
 {
-  return SyntaxChecker::checkAndSetSId(reaction ,mReaction);
+  return SyntaxChecker::checkAndSetSId(reaction, mReaction);
+}
+
+
+/*
+ * Sets reaction2 and returns value indicating success.
+ */
+int
+FluxObjective::setReaction2(const std::string& reaction)
+{
+  return SyntaxChecker::checkAndSetSId(reaction, mReaction2);
 }
 
 
@@ -419,6 +453,25 @@ FluxObjective::unsetReaction()
 
 
 /*
+ * Unsets reaction and returns value indicating success.
+ */
+int
+FluxObjective::unsetReaction2()
+{
+  mReaction2.erase();
+
+  if (mReaction2.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
  * Unsets coefficient and returns value indicating success.
  */
 int
@@ -459,6 +512,10 @@ FluxObjective::renameSIdRefs(const std::string& oldid, const std::string& newid)
   if (isSetReaction() == true && mReaction == oldid)
   {
     setReaction(newid);
+  }
+  if (isSetReaction2() == true && mReaction2 == oldid)
+  {
+    setReaction2(newid);
   }
 
 }
@@ -697,7 +754,12 @@ FluxObjective::getAttribute(const std::string& attributeName,
     value = getVariableTypeAsString();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
-
+  else if (attributeName == "reaction2")
+  {
+    value = getReaction2();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  
   return return_value;
 }
 
@@ -735,6 +797,10 @@ FluxObjective::isSetAttribute(const std::string& attributeName) const
   else if (attributeName == "variableType")
   {
     value = isSetVariableType();
+  }
+  else if (attributeName == "reaction2")
+  {
+    value = isSetReaction2();
   }
 
   return value;
@@ -845,6 +911,10 @@ FluxObjective::setAttribute(const std::string& attributeName,
   {
     return_value = setVariableType(value);
   }
+  else if (attributeName == "reaction2")
+  {
+    return_value = setReaction2(value);
+  }
 
   return return_value;
 }
@@ -883,6 +953,10 @@ FluxObjective::unsetAttribute(const std::string& attributeName)
   {
     value = unsetVariableType();
   }
+  else if (attributeName == "reaction2")
+  {
+    value = unsetReaction2();
+  }
 
   return value;
 }
@@ -912,6 +986,7 @@ FluxObjective::addExpectedAttributes(ExpectedAttributes& attributes)
   if (level == 3 && coreVersion == 1 && pkgVersion == 3)
   {
     attributes.add("variableType");
+    attributes.add("reaction2");
   }
 }
 
@@ -1052,6 +1127,17 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
   }
 
 
+  assigned = attributes.readInto("reaction2", mReaction2);
+  if (assigned && !SyntaxChecker::isValidSBMLSId(mReaction2))
+  {
+    //
+    // Logs an error if the "id" attribute doesn't
+    // conform to the SBML type SId.
+    //
+    log->logPackageError("fbc", FbcFluxObjectReactionMustBeSIdRef,
+      getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
+  }
+
   unsigned int numErrs = log->getNumErrors();
   mIsSetCoefficient = attributes.readInto("coefficient", mCoefficient, log);
 
@@ -1152,6 +1238,9 @@ FluxObjective::writeAttributes (XMLOutputStream& stream) const
     stream.writeAttribute("variableType", getPrefix(),
       FbcVariableType_toString(mVariableType));
   }
+
+  if (isSetReaction2() == true)
+    stream.writeAttribute("reaction2", getPrefix(), mReaction2);
 
   //
   // (EXTENSION)
@@ -1542,6 +1631,13 @@ FluxObjective_getVariableTypeAsString(const FluxObjective_t * fo)
   return (char*)(FbcVariableType_toString(fo->getVariableType()));
 }
 
+LIBSBML_EXTERN
+const char *
+FluxObjective_getReaction2(const FluxObjective_t * fo)
+{
+  return (fo != NULL && fo->isSetReaction2()) ? fo->getReaction2().c_str() : NULL;
+}
+
 
 LIBSBML_EXTERN
 int
@@ -1580,6 +1676,14 @@ int
 FluxObjective_isSetVariableType(const FluxObjective_t * fo)
 {
   return (fo != NULL) ? static_cast<int>(fo->isSetVariableType()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+FluxObjective_isSetReaction2(const FluxObjective_t * fo)
+{
+  return (fo != NULL) ? static_cast<int>(fo->isSetReaction2()) : 0;
 }
 
 
@@ -1652,6 +1756,18 @@ FluxObjective_setVariableTypeAsString(FluxObjective_t * fo,
     LIBSBML_INVALID_OBJECT;
 }
 
+
+LIBSBML_EXTERN
+int
+FluxObjective_setReaction2(FluxObjective_t * fo, const char * reaction)
+{
+  if (fo != NULL)
+    return (reaction == NULL) ? fo->setReaction2("") : fo->setReaction2(reaction);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
 LIBSBML_EXTERN
 int
 FluxObjective_unsetId(FluxObjective_t * fo)
@@ -1692,6 +1808,14 @@ int
 FluxObjective_unsetVariableType(FluxObjective_t * fo)
 {
   return (fo != NULL) ? fo->unsetVariableType() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+FluxObjective_unsetReaction2(FluxObjective_t * fo)
+{
+  return (fo != NULL) ? fo->unsetReaction2() : LIBSBML_INVALID_OBJECT;
 }
 
 

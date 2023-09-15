@@ -93,10 +93,10 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  double mCoefficient;
-  bool mIsSetCoefficient;
+  std::string mCoefficient;
   std::string mVariable;
   FbcVariableType_t mVariableType;
+  std::string mVariable2;
 
   /** @endcond */
 
@@ -196,9 +196,9 @@ public:
    * UserDefinedConstraintComponent.
    *
    * @return the value of the "coefficient" attribute of this
-   * UserDefinedConstraintComponent as a double.
+   * UserDefinedConstraintComponent as a string.
    */
-  double getCoefficient() const;
+  const std::string& getCoefficient() const;
 
 
   /**
@@ -210,6 +210,15 @@ public:
    */
   const std::string& getVariable() const;
 
+
+  /**
+   * Returns the value of the "variable2" attribute of this
+   * UserDefinedConstraintComponent.
+   *
+   * @return the value of the "variable2" attribute of this
+   * UserDefinedConstraintComponent as a string.
+   */
+  const std::string& getVariable2() const;
 
   /**
    * Returns the value of the "variableType" attribute of this
@@ -287,6 +296,15 @@ public:
 
   /**
    * Predicate returning @c true if this UserDefinedConstraintComponent's
+   * "variable2" attribute is set.
+   *
+   * @return @c true if this UserDefinedConstraintComponent's "variable2"
+   * attribute has been set, otherwise @c false is returned.
+   */
+  bool isSetVariable2() const;
+
+  /**
+   * Predicate returning @c true if this UserDefinedConstraintComponent's
    * "variableType" attribute is set.
    *
    * @return @c true if this UserDefinedConstraintComponent's "variableType"
@@ -333,14 +351,14 @@ public:
    * Sets the value of the "coefficient" attribute of this
    * UserDefinedConstraintComponent.
    *
-   * @param coefficient double value of the "coefficient" attribute to be set.
+   * @param coefficient string value of the "coefficient" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
-  int setCoefficient(double coefficient);
+  int setCoefficient(const std::string& coefficient);
 
 
   /**
@@ -356,6 +374,19 @@ public:
    */
   int setVariable(const std::string& variable);
 
+
+  /**
+   * Sets the value of the "variable" attribute of this
+   * UserDefinedConstraintComponent.
+   *
+   * @param variable std::string& value of the "variable2" attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setVariable2(const std::string& variable);
 
   /**
    * Sets the value of the "variableType" attribute of this
@@ -434,6 +465,16 @@ public:
    */
   int unsetVariable();
 
+
+  /**
+   * Unsets the value of the "variable2" attribute of this
+   * UserDefinedConstraintComponent.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetVariable2();
 
   /**
    * Unsets the value of the "variableType" attribute of this
@@ -988,12 +1029,14 @@ UserDefinedConstraintComponent_getName(const UserDefinedConstraintComponent_t *
  * is sought.
  *
  * @return the value of the "coefficient" attribute of this
- * UserDefinedConstraintComponent_t as a double.
+ * UserDefinedConstraintComponent_t as a pointer to a string.
+ *
+ *  @copydetails doc_returned_owned_char
  *
  * @memberof UserDefinedConstraintComponent_t
  */
 LIBSBML_EXTERN
-double
+char*
 UserDefinedConstraintComponent_getCoefficient(const
   UserDefinedConstraintComponent_t * udcc);
 
@@ -1067,6 +1110,26 @@ UserDefinedConstraintComponent_getVariableType(const
 LIBSBML_EXTERN
 char *
 UserDefinedConstraintComponent_getVariableTypeAsString(const
+  UserDefinedConstraintComponent_t * udcc);
+
+
+/**
+ * Returns the value of the "variable2" attribute of this
+ * UserDefinedConstraintComponent_t.
+ *
+ * @param udcc the UserDefinedConstraintComponent_t structure whose variable is
+ * sought.
+ *
+ * @return the value of the "variable2" attribute of this
+ * UserDefinedConstraintComponent_t as a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof UserDefinedConstraintComponent_t
+ */
+LIBSBML_EXTERN
+char *
+UserDefinedConstraintComponent_getVariable2(const
   UserDefinedConstraintComponent_t * udcc);
 
 
@@ -1158,6 +1221,23 @@ UserDefinedConstraintComponent_isSetVariableType(const
 
 
 /**
+ * Predicate returning @c 1 (true) if this UserDefinedConstraintComponent_t's
+ * "variable2" attribute is set.
+ *
+ * @param udcc the UserDefinedConstraintComponent_t structure.
+ *
+ * @return @c 1 (true) if this UserDefinedConstraintComponent_t's "variable2"
+ * attribute has been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof UserDefinedConstraintComponent_t
+ */
+LIBSBML_EXTERN
+int
+UserDefinedConstraintComponent_isSetVariable2(const
+  UserDefinedConstraintComponent_t * udcc);
+
+
+/**
  * Sets the value of the "id" attribute of this
  * UserDefinedConstraintComponent_t.
  *
@@ -1210,7 +1290,7 @@ UserDefinedConstraintComponent_setName(UserDefinedConstraintComponent_t * udcc,
  *
  * @param udcc the UserDefinedConstraintComponent_t structure.
  *
- * @param coefficient double value of the "coefficient" attribute to be set.
+ * @param coefficient const char* value of the "coefficient" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1224,7 +1304,7 @@ int
 UserDefinedConstraintComponent_setCoefficient(
                                               UserDefinedConstraintComponent_t
                                                 * udcc,
-                                              double coefficient);
+                                              const char* coefficient);
 
 
 /**
@@ -1300,6 +1380,29 @@ UserDefinedConstraintComponent_setVariableTypeAsString(
                                                          * udcc,
                                                        const char *
                                                          variableType);
+
+
+/**
+ * Sets the value of the "variable2" attribute of this
+ * UserDefinedConstraintComponent_t.
+ *
+ * @param udcc the UserDefinedConstraintComponent_t structure.
+ *
+ * @param variable const char * value of the "variable2" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof UserDefinedConstraintComponent_t
+ */
+LIBSBML_EXTERN
+int
+UserDefinedConstraintComponent_setVariable2(
+                                           UserDefinedConstraintComponent_t *
+                                             udcc,
+                                           const char * variable);
 
 
 /**
@@ -1396,6 +1499,25 @@ LIBSBML_EXTERN
 int
 UserDefinedConstraintComponent_unsetVariableType(UserDefinedConstraintComponent_t
   * udcc);
+
+
+/**
+ * Unsets the value of the "variable2" attribute of this
+ * UserDefinedConstraintComponent_t.
+ *
+ * @param udcc the UserDefinedConstraintComponent_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof UserDefinedConstraintComponent_t
+ */
+LIBSBML_EXTERN
+int
+UserDefinedConstraintComponent_unsetVariable2(UserDefinedConstraintComponent_t *
+  udcc);
 
 
 /**
