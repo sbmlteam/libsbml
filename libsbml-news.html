@@ -111,6 +111,11 @@ and converting models.
   - Attributes of the ModelHistory can now be accessed from 
     const objects. 
 
+  - The FBC V3 package has been updated to reflect the latest
+    specification. There are now optional attributes `fbc:reaction2` 
+    on the FluxObjective and `fbc:variable2` on the 
+    UserDefinedConstraintComponent.
+
 * Bug fixes
 
   - A bug converting / validating models with the 'comp' package
@@ -120,6 +125,11 @@ and converting models.
 
   - A fix to the CMake Build system ensures that check for dependencies
     is more robust. Thanks to first time contributor @adelhpour
+
+  - The type of the FBC V3 `coefficient` attribute on the 
+    UserDefinedConstraintComponent has been corrected, it was mistakenly
+    a double before, now it has been corrected to be a SIdRef as 
+    described in the specification.
   
 
 ====================================================================
