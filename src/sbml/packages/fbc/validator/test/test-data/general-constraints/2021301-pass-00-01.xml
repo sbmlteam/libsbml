@@ -80,7 +80,7 @@
         
         <fbc:listOfUserDefinedConstraintComponents>
 
-          <fbc:userDefinedConstraintComponent metaid="_udc1" sboTerm="SBO:0000001" fbc:coefficient="2" fbc:variable="R2" fbc:variableType="linear">
+          <fbc:userDefinedConstraintComponent metaid="_udc1" sboTerm="SBO:0000001" fbc:coefficient="uc2ub" fbc:variable="R2" fbc:variableType="linear">
           </fbc:userDefinedConstraintComponent>
         </fbc:listOfUserDefinedConstraintComponents>
       </fbc:userDefinedConstraint>

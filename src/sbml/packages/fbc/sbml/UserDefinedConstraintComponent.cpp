@@ -1254,13 +1254,14 @@ UserDefinedConstraintComponent::readL3V1V3Attributes(const XMLAttributes&
   // 
 
   numErrs = log ? log->getNumErrors() : 0;
-  assigned = attributes.readInto("coefficient", mCoefficient);
+  XMLTriple tripleCOEFF("coefficient", mURI, getPrefix());
+  assigned = attributes.readInto(tripleCOEFF, mCoefficient);
 
   if (assigned == true)
   {
-    if (mId.empty() == true)
+    if (mCoefficient.empty() == true)
     {
-      logEmptyString(mCoefficient, level, version, "<UserDefinedConstraintComponent>");
+      logEmptyString("coefficient", level, version, "<UserDefinedConstraintComponent>");
     }
     else if (SyntaxChecker::isValidSBMLSId(mCoefficient) == false)
     {

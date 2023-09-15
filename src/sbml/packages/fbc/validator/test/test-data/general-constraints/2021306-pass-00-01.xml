@@ -81,7 +81,7 @@
         
         <fbc:listOfUserDefinedConstraintComponents>
 
-          <fbc:userDefinedConstraintComponent fbc:coefficient="2" fbc:variable="P1" fbc:variableType="quadratic"/>
+          <fbc:userDefinedConstraintComponent fbc:coefficient="uc2ub" fbc:variable="P1" fbc:variableType="quadratic"/>
         </fbc:listOfUserDefinedConstraintComponents>
       </fbc:userDefinedConstraint>
     </fbc:listOfUserDefinedConstraints>  
