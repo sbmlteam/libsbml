@@ -115,6 +115,8 @@ typedef enum
 , FbcFluxObjectCoefficientMustBeDouble = 2020607 /*!< The attribute 'fbc:coefficient' must be of the data type double */
 , FbcFluxObjectCoefficientWhenStrict   = 2020608 /*!< The 'fbc:coefficient' must be declared when strict */
 , FbcFluxObjectiveVariableTypeMustBeFbcVariableTypeEnum       = 2020609
+, FbcFluxObjectReaction2MustBeSIdRef = 2020610 /*!< Datatype for 'fbc:reaction' must be SIdRef */
+, FbcFluxObjectReaction2MustExist = 2020611 /*!< 'fbc:reaction' must refer to valid reaction */
 
 , FbcReactionOnlyOneGeneProdAss         = 2020701 /*!< One GeneProductAssociation in a Reaction */
 , FbcReactionAllowedAttributes          = 2020702 /*!< Fbc attributes on a Reaction */
@@ -165,11 +167,11 @@ typedef enum
 , FbcUserDefinedConstraintComponentAllowedCoreAttributes      = 2021301
 , FbcUserDefinedConstraintComponentAllowedCoreElements        = 2021302
 , FbcUserDefinedConstraintComponentAllowedAttributes          = 2021303
-, FbcUserDefinedConstraintComponentCoefficientMustBeDouble    = 2021304
+, FbcUserDefinedConstraintComponentCoefficientMustBeParameter    = 2021304
 , FbcUserDefinedConstraintComponentVariableMustBeReactionOrParameter= 2021305
 , FbcUserDefinedConstraintComponentVariableTypeMustBeFbcVariableTypeEnum= 2021306
 , FbcUserDefinedConstraintComponentNameMustBeString           = 2021307
-
+, FbcUserDefinedConstraintComponentVariable2MustBeReactionOrParameter= 2021308
 , FbcUserDefinedConstraintAllowedCoreAttributes               = 2021401
 , FbcUserDefinedConstraintAllowedCoreElements                 = 2021402
 , FbcUserDefinedConstraintAllowedAttributes                   = 2021403

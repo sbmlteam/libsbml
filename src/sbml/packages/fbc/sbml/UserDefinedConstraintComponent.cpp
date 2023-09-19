@@ -65,8 +65,8 @@ UserDefinedConstraintComponent::UserDefinedConstraintComponent(
   : SBase(level, version)
   , mCoefficient ("")
   , mVariable ("")
-  , mVariableType (FBC_VARIABLE_TYPE_INVALID)
   , mVariable2 ("")
+  , mVariableType (FBC_VARIABLE_TYPE_INVALID)
 {
   setSBMLNamespacesAndOwn(new FbcPkgNamespaces(level, version, pkgVersion));
 }
@@ -81,8 +81,8 @@ UserDefinedConstraintComponent::UserDefinedConstraintComponent(FbcPkgNamespaces
   : SBase(fbcns)
   , mCoefficient ("")
   , mVariable ("")
-  , mVariableType (FBC_VARIABLE_TYPE_INVALID)
   , mVariable2 ("")
+  , mVariableType (FBC_VARIABLE_TYPE_INVALID)
 {
   setElementNamespace(fbcns->getURI());
   loadPlugins(fbcns);
@@ -97,8 +97,8 @@ UserDefinedConstraintComponent::UserDefinedConstraintComponent(const
   : SBase( orig )
   , mCoefficient ( orig.mCoefficient )
   , mVariable ( orig.mVariable )
-  , mVariableType ( orig.mVariableType )
   , mVariable2 ( orig.mVariable2 )
+  , mVariableType ( orig.mVariableType )
 {
 }
 
@@ -115,8 +115,8 @@ UserDefinedConstraintComponent::operator=(const UserDefinedConstraintComponent&
     SBase::operator=(rhs);
     mCoefficient = rhs.mCoefficient;
     mVariable = rhs.mVariable;
-    mVariableType = rhs.mVariableType;
     mVariable2 = rhs.mVariable2;
+    mVariableType = rhs.mVariableType;
   }
 
   return *this;
@@ -184,6 +184,7 @@ UserDefinedConstraintComponent::getVariable() const
 {
   return mVariable;
 }
+
 
 /*
  * Returns the value of the "variable2" attribute of this
@@ -273,6 +274,7 @@ UserDefinedConstraintComponent::isSetVariable2() const
   return (mVariable2.empty() == false);
 }
 
+
 /*
  * Predicate returning @c true if this UserDefinedConstraintComponent's
  * "variableType" attribute is set.
@@ -341,8 +343,15 @@ UserDefinedConstraintComponent::setCoefficient(const std::string& coefficient)
 
   if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
   {
-    mCoefficient = coefficient;
-    return LIBSBML_OPERATION_SUCCESS;
+    if (!(SyntaxChecker::isValidInternalSId(coefficient)))
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    else
+    {
+      mCoefficient = coefficient;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
   }
   else
   {
@@ -409,6 +418,7 @@ UserDefinedConstraintComponent::setVariable2(const std::string& variable)
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
 }
+
 
 /*
  * Sets the value of the "variableType" attribute of this
@@ -521,7 +531,7 @@ UserDefinedConstraintComponent::unsetCoefficient()
 {
   mCoefficient.erase();
 
-  if (isSetCoefficient() == false)
+  if (mCoefficient.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -571,6 +581,7 @@ UserDefinedConstraintComponent::unsetVariable2()
   }
 }
 
+
 /*
  * Unsets the value of the "variableType" attribute of this
  * UserDefinedConstraintComponent.
@@ -594,10 +605,12 @@ UserDefinedConstraintComponent::renameSIdRefs(const std::string& oldid,
   {
     setCoefficient(newid);
   }
+
   if (isSetVariable() && mVariable == oldid)
   {
     setVariable(newid);
   }
+
   if (isSetVariable2() && mVariable2 == oldid)
   {
     setVariable2(newid);
@@ -786,11 +799,6 @@ UserDefinedConstraintComponent::getAttribute(const std::string& attributeName,
 {
   int return_value = SBase::getAttribute(attributeName, value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
   return return_value;
 }
 
@@ -844,24 +852,24 @@ UserDefinedConstraintComponent::getAttribute(const std::string& attributeName,
     value = getName();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
-  else if (attributeName == "variable")
-  {
-    value = getVariable();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "variableType")
-  {
-    value = getVariableTypeAsString();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
   else if (attributeName == "coefficient")
   {
     value = getCoefficient();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
+  else if (attributeName == "variable")
+  {
+    value = getVariable();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
   else if (attributeName == "variable2")
   {
     value = getVariable2();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "variableType")
+  {
+    value = getVariableTypeAsString();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
 
@@ -900,13 +908,13 @@ UserDefinedConstraintComponent::isSetAttribute(const std::string&
   {
     value = isSetVariable();
   }
-  else if (attributeName == "variableType")
-  {
-    value = isSetVariableType();
-  }
   else if (attributeName == "variable2")
   {
     value = isSetVariable2();
+  }
+  else if (attributeName == "variableType")
+  {
+    value = isSetVariableType();
   }
 
   return value;
@@ -1012,21 +1020,21 @@ UserDefinedConstraintComponent::setAttribute(const std::string& attributeName,
   {
     return_value = setName(value);
   }
-  else if (attributeName == "variable")
-  {
-    return_value = setVariable(value);
-  }
-  else if (attributeName == "variableType")
-  {
-    return_value = setVariableType(value);
-  }
   else if (attributeName == "coefficient")
   {
     return_value = setCoefficient(value);
   }
+  else if (attributeName == "variable")
+  {
+    return_value = setVariable(value);
+  }
   else if (attributeName == "variable2")
   {
     return_value = setVariable2(value);
+  }
+  else if (attributeName == "variableType")
+  {
+    return_value = setVariableType(value);
   }
 
   return return_value;
@@ -1064,13 +1072,13 @@ UserDefinedConstraintComponent::unsetAttribute(const std::string&
   {
     value = unsetVariable();
   }
-  else if (attributeName == "variableType")
-  {
-    value = unsetVariableType();
-  }
   else if (attributeName == "variable2")
   {
     value = unsetVariable2();
+  }
+  else if (attributeName == "variableType")
+  {
+    value = unsetVariableType();
   }
 
   return value;
@@ -1101,8 +1109,8 @@ UserDefinedConstraintComponent::addExpectedAttributes(ExpectedAttributes&
     attributes.add("name");
     attributes.add("coefficient");
     attributes.add("variable");
-    attributes.add("variableType");
     attributes.add("variable2");
+    attributes.add("variableType");
   }
 }
 
@@ -1250,12 +1258,12 @@ UserDefinedConstraintComponent::readL3V1V3Attributes(const XMLAttributes&
   }
 
   // 
-  // coefficient double (use = "required" )
+  // coefficient SIdRef (use = "required" )
   // 
 
   numErrs = log ? log->getNumErrors() : 0;
   XMLTriple tripleCOEFF("coefficient", mURI, getPrefix());
-  assigned = attributes.readInto(tripleCOEFF, mCoefficient);
+  assigned = attributes.readInto("coefficient", mCoefficient);
 
   if (assigned == true)
   {
@@ -1318,6 +1326,34 @@ UserDefinedConstraintComponent::readL3V1V3Attributes(const XMLAttributes&
       log->logPackageError("fbc",
         FbcUserDefinedConstraintComponentAllowedAttributes, pkgVersion, level,
           version, message, getLine(), getColumn());
+    }
+  }
+
+  // 
+  // variable2 SIdRef (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("variable2", mVariable2);
+
+  if (assigned == true)
+  {
+    if (mVariable2.empty() == true)
+    {
+      logEmptyString(mVariable2, level, version,
+        "<UserDefinedConstraintComponent>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mVariable2) == false)
+    {
+      std::string msg = "The variable2 attribute on the <" + getElementName() +
+        ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mVariable2 + "', which does not conform to the syntax.";
+      log->logPackageError("fbc", FbcSBMLSIdSyntax, pkgVersion, level, version, msg,
+        getLine(), getColumn());
     }
   }
 
@@ -1456,17 +1492,16 @@ UserDefinedConstraintComponent::writeL3V1V3Attributes(XMLOutputStream& stream)
     stream.writeAttribute("variable", getPrefix(), mVariable);
   }
 
-  if (isSetVariableType() == true)
-  {
-    stream.writeAttribute("variableType", getPrefix(),
-      FbcVariableType_toString(mVariableType));
-  }
-
   if (isSetVariable2() == true)
   {
     stream.writeAttribute("variable2", getPrefix(), mVariable2);
   }
 
+  if (isSetVariableType() == true)
+  {
+    stream.writeAttribute("variableType", getPrefix(),
+      FbcVariableType_toString(mVariableType));
+  }
 }
 
 /** @endcond */
@@ -1698,6 +1733,7 @@ UserDefinedConstraintComponent_isSetVariable(const
   return (udcc != NULL) ? static_cast<int>(udcc->isSetVariable()) : 0;
 }
 
+
 /*
  * Predicate returning @c 1 (true) if this UserDefinedConstraintComponent_t's
  * "variable2" attribute is set.
@@ -1709,6 +1745,7 @@ UserDefinedConstraintComponent_isSetVariable2(const
 {
   return (udcc != NULL) ? static_cast<int>(udcc->isSetVariable2()) : 0;
 }
+
 
 /*
  * Predicate returning @c 1 (true) if this UserDefinedConstraintComponent_t's
@@ -1758,7 +1795,7 @@ int
 UserDefinedConstraintComponent_setCoefficient(
                                               UserDefinedConstraintComponent_t
                                                 * udcc,
-                                              const char* coefficient)
+                                              const char * coefficient)
 {
   return (udcc != NULL) ? udcc->setCoefficient(coefficient) :
     LIBSBML_INVALID_OBJECT;
@@ -1878,17 +1915,19 @@ UserDefinedConstraintComponent_unsetVariable(UserDefinedConstraintComponent_t *
   return (udcc != NULL) ? udcc->unsetVariable() : LIBSBML_INVALID_OBJECT;
 }
 
+
 /*
  * Unsets the value of the "variable2" attribute of this
  * UserDefinedConstraintComponent_t.
  */
 LIBSBML_EXTERN
 int
-UserDefinedConstraintComponent_unsetVariable2(UserDefinedConstraintComponent_t *
-  udcc)
+UserDefinedConstraintComponent_unsetVariable2(UserDefinedConstraintComponent_t
+  * udcc)
 {
   return (udcc != NULL) ? udcc->unsetVariable2() : LIBSBML_INVALID_OBJECT;
 }
+
 
 /*
  * Unsets the value of the "variableType" attribute of this
