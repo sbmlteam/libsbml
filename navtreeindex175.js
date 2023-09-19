@@ -1,5 +1,8 @@
 var NAVTREEINDEX175 =
 {
+"class_species_glyph.html#aad43f3efb39b3c56ec0db212b6e97cf4":[3,0,340,44],
+"class_species_glyph.html#aae88836846f004fcf9cfa1fa9b98879a":[3,0,340,1],
+"class_species_glyph.html#ab2dd934010a3508dcccbe510f86a8286":[3,0,340,4],
 "class_species_glyph.html#ab3428c9a9705777183a0ded66981b504":[3,0,340,64],
 "class_species_glyph.html#ab4de53b00ecec3e135fcb9d36fb1bf3b":[3,0,340,62],
 "class_species_glyph.html#ab65f2358ae580d6ed278789698f80209":[3,0,340,55],
@@ -246,8 +249,5 @@ var NAVTREEINDEX175 =
 "class_species_reference_glyph.html#a33897f0c6bf974b8a2418589360ae916":[3,0,342,41],
 "class_species_reference_glyph.html#a33da5a2b0b03cbe6af69730869e35212":[3,0,342,10],
 "class_species_reference_glyph.html#a34e9db5b2f64180ca3fc1f5e7e01edba":[3,0,342,44],
-"class_species_reference_glyph.html#a37287e48bd51353012b74e4d200bb446":[3,0,342,144],
-"class_species_reference_glyph.html#a39e0febad1c149b4a8455662afd845b4":[3,0,342,116],
-"class_species_reference_glyph.html#a3cfe21e995a3189ba44b3d8b485b1b48":[3,0,342,5],
-"class_species_reference_glyph.html#a40dba8a849dbda05d3f9f42000119dc5":[3,0,342,120]
+"class_species_reference_glyph.html#a37287e48bd51353012b74e4d200bb446":[3,0,342,144]
 };

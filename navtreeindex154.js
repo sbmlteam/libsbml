@@ -1,5 +1,8 @@
 var NAVTREEINDEX154 =
 {
+"class_reference_glyph.html#a7a9574c886d54be2db67210bbd8fcf18":[3,0,258,95],
+"class_reference_glyph.html#a7b43de27cb29136954af762fa91d4842":[3,0,258,102],
+"class_reference_glyph.html#a7b7b199563437a7977cc13cabb21ef63":[3,0,258,143],
 "class_reference_glyph.html#a7d34cc625c18425a35a5513b88851a73":[3,0,258,83],
 "class_reference_glyph.html#a7e1725f1b98e08e54485ec52404d579a":[3,0,258,81],
 "class_reference_glyph.html#a8012eba52b904a1fcfb2a483eef94810":[3,0,258,38],
@@ -246,8 +249,5 @@ var NAVTREEINDEX154 =
 "class_render_cubic_bezier.html#a8c576e7dfaa4651bca4a782c9e09ac20":[3,0,260,94],
 "class_render_cubic_bezier.html#a8dc979f439ea2b4dc7c8f841f7ee131d":[3,0,260,212],
 "class_render_cubic_bezier.html#a8e3e54c62bc34c720d96b421c9798dde":[3,0,260,99],
-"class_render_cubic_bezier.html#a8e455a93329e407b4b1d8ad307c95a22":[3,0,260,144],
-"class_render_cubic_bezier.html#a8ed6545c2fab20f6dc44ae0c282c4fbf":[3,0,260,96],
-"class_render_cubic_bezier.html#a8feb29c929aeae063c6969131caa6d83":[3,0,260,21],
-"class_render_cubic_bezier.html#a90e4753ab8d4611987557b4d64129529":[3,0,260,71]
+"class_render_cubic_bezier.html#a8e455a93329e407b4b1d8ad307c95a22":[3,0,260,144]
 };

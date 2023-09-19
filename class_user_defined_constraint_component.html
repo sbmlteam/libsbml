@@ -488,7 +488,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a7fc38a7796a7fa252376962d3e2005cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "variable" attribute of this <a class="el" href="class_user_defined_constraint_component.html">UserDefinedConstraintComponent</a>.  <a href="class_user_defined_constraint_component.html#a7fc38a7796a7fa252376962d3e2005cb">More...</a><br /></td></tr>
 <tr class="separator:a7fc38a7796a7fa252376962d3e2005cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba27a5b29066c2521e64987bfa000cfb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_user_defined_constraint_component.html#aba27a5b29066c2521e64987bfa000cfb">setVariable2</a> (const std::string &amp;variable)</td></tr>
-<tr class="memdesc:aba27a5b29066c2521e64987bfa000cfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "variable" attribute of this <a class="el" href="class_user_defined_constraint_component.html">UserDefinedConstraintComponent</a>.  <a href="class_user_defined_constraint_component.html#aba27a5b29066c2521e64987bfa000cfb">More...</a><br /></td></tr>
+<tr class="memdesc:aba27a5b29066c2521e64987bfa000cfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "variable2" attribute of this <a class="el" href="class_user_defined_constraint_component.html">UserDefinedConstraintComponent</a>.  <a href="class_user_defined_constraint_component.html#aba27a5b29066c2521e64987bfa000cfb">More...</a><br /></td></tr>
 <tr class="separator:aba27a5b29066c2521e64987bfa000cfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7d79dd754d0834c0b104ee3174d9c6e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_user_defined_constraint_component.html#aa7d79dd754d0834c0b104ee3174d9c6e">setVariableType</a> (const <a class="el" href="_fbc_extension_8h.html#a81eb902aac600b439e7bf9acb33ac7ae">FbcVariableType_t</a> variableType)</td></tr>
 <tr class="memdesc:aa7d79dd754d0834c0b104ee3174d9c6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of the "variableType" attribute of this <a class="el" href="class_user_defined_constraint_component.html">UserDefinedConstraintComponent</a>.  <a href="class_user_defined_constraint_component.html#aa7d79dd754d0834c0b104ee3174d9c6e">More...</a><br /></td></tr>
@@ -4935,15 +4935,14 @@ Level&#160;3 Version&#160;2 Core: &quot;<code style="margin-right:0; padding-rig
 <p>Sets the value of the "coefficient" attribute of this <a class="el" href="class_user_defined_constraint_component.html">UserDefinedConstraintComponent</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">coefficient</td><td>string value of the "coefficient" attribute to be set.</td></tr>
+    <tr><td class="paramname">coefficient</td><td>std::string&amp; value of the "coefficient" attribute to be set.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. The possible values returned by this function are: <ul>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a> </li>
-<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da2018dcd1ec4e8d61debae043b1697d4e">LIBSBML_INVALID_ATTRIBUTE_VALUE</a> </li>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function. The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>. This particular function only does one thing irrespective of user input or object state, and thus will only return a single value: <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></li>
 </ul>
-</dd></dl>
+Calling this function with <code>coefficient</code> = <code>NULL</code> or an empty string is equivalent to calling <a class="el" href="class_user_defined_constraint_component.html#a69f2d128882ffd5acb729c8e273ea2fb" title="Unsets the value of the &quot;coefficient&quot; attribute of this UserDefinedConstraintComponent.">unsetCoefficient()</a>. </dd></dl>
 
 </div>
 </div>
@@ -5594,7 +5593,7 @@ Calling this function with <code>name</code> = <code>NULL</code> or an empty str
       </table>
 </div><div class="memdoc">
 
-<p>Sets the value of the "variable" attribute of this <a class="el" href="class_user_defined_constraint_component.html">UserDefinedConstraintComponent</a>. </p>
+<p>Sets the value of the "variable2" attribute of this <a class="el" href="class_user_defined_constraint_component.html">UserDefinedConstraintComponent</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">variable</td><td>std::string&amp; value of the "variable2" attribute to be set.</td></tr>

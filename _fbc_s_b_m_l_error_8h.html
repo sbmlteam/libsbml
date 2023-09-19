@@ -219,6 +219,10 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="_fbc_s_b_m_l_error_8h.html#a310b38bf1efd71c27a67032d2bca5374a1f7a6adb6dffeafaf9d75c9b76d87fba">FbcFluxObjectiveVariableTypeMustBeFbcVariableTypeEnum</a> = 2020609
 , <br />
+&#160;&#160;<a class="el" href="_fbc_s_b_m_l_error_8h.html#a310b38bf1efd71c27a67032d2bca5374a0d0e4038d7e3fc90e9d3cf62995c7409">FbcFluxObjectReaction2MustBeSIdRef</a> = 2020610
+, <br />
+&#160;&#160;<a class="el" href="_fbc_s_b_m_l_error_8h.html#a310b38bf1efd71c27a67032d2bca5374aa28e151cf392dedb45f8e00c2fe00fe6">FbcFluxObjectReaction2MustExist</a> = 2020611
+, <br />
 &#160;&#160;<a class="el" href="_fbc_s_b_m_l_error_8h.html#a310b38bf1efd71c27a67032d2bca5374a90d8f12084260ae95a6d27e8fdcc9846">FbcReactionOnlyOneGeneProdAss</a> = 2020701
 , <br />
 &#160;&#160;<a class="el" href="_fbc_s_b_m_l_error_8h.html#a310b38bf1efd71c27a67032d2bca5374ad85038667a62c84ea7bc24a01531ae89">FbcReactionAllowedAttributes</a> = 2020702
@@ -305,13 +309,15 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="_fbc_s_b_m_l_error_8h.html#a310b38bf1efd71c27a67032d2bca5374a81db7e7e3209f62d6a461f24a3ce9cb1">FbcUserDefinedConstraintComponentAllowedAttributes</a> = 2021303
 , <br />
-&#160;&#160;<a class="el" href="_fbc_s_b_m_l_error_8h.html#a310b38bf1efd71c27a67032d2bca5374aa316f28cb75a056a38a604adbdac7d6e">FbcUserDefinedConstraintComponentCoefficientMustBeDouble</a> = 2021304
+&#160;&#160;<a class="el" href="_fbc_s_b_m_l_error_8h.html#a310b38bf1efd71c27a67032d2bca5374a19cc1a72b6c37db31098b3a77f6906d2">FbcUserDefinedConstraintComponentCoefficientMustBeParameter</a> = 2021304
 , <br />
 &#160;&#160;<a class="el" href="_fbc_s_b_m_l_error_8h.html#a310b38bf1efd71c27a67032d2bca5374a231a096ce4e09cdbf2ff13dfe1706f69">FbcUserDefinedConstraintComponentVariableMustBeReactionOrParameter</a> = 2021305
 , <br />
 &#160;&#160;<a class="el" href="_fbc_s_b_m_l_error_8h.html#a310b38bf1efd71c27a67032d2bca5374a16400ce761d19a6e9120f4eb65fce5f6">FbcUserDefinedConstraintComponentVariableTypeMustBeFbcVariableTypeEnum</a> = 2021306
 , <br />
 &#160;&#160;<a class="el" href="_fbc_s_b_m_l_error_8h.html#a310b38bf1efd71c27a67032d2bca5374a50f2487899322b9b976361b06f14c209">FbcUserDefinedConstraintComponentNameMustBeString</a> = 2021307
+, <br />
+&#160;&#160;<a class="el" href="_fbc_s_b_m_l_error_8h.html#a310b38bf1efd71c27a67032d2bca5374a507a9871091e8ac6ac7090c14b9caac5">FbcUserDefinedConstraintComponentVariable2MustBeReactionOrParameter</a> = 2021308
 , <br />
 &#160;&#160;<a class="el" href="_fbc_s_b_m_l_error_8h.html#a310b38bf1efd71c27a67032d2bca5374ac7f1ece1b844de053e6b43b9859f29b6">FbcUserDefinedConstraintAllowedCoreAttributes</a> = 2021401
 , <br />
@@ -494,6 +500,10 @@ Other error code ranges are reserved for other packages. </dd></dl>
 <tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374ac34899edf8d612ca01bc35387068beb2"></a>FbcFluxObjectCoefficientWhenStrict&#160;</td><td class="fielddoc"><p>The 'fbc:coefficient' must be declared when strict </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374a1f7a6adb6dffeafaf9d75c9b76d87fba"></a>FbcFluxObjectiveVariableTypeMustBeFbcVariableTypeEnum&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374a0d0e4038d7e3fc90e9d3cf62995c7409"></a>FbcFluxObjectReaction2MustBeSIdRef&#160;</td><td class="fielddoc"><p>Datatype for 'fbc:reaction' must be SIdRef </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374aa28e151cf392dedb45f8e00c2fe00fe6"></a>FbcFluxObjectReaction2MustExist&#160;</td><td class="fielddoc"><p>'fbc:reaction' must refer to valid reaction </p>
+</td></tr>
 <tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374a90d8f12084260ae95a6d27e8fdcc9846"></a>FbcReactionOnlyOneGeneProdAss&#160;</td><td class="fielddoc"><p>One <a class="el" href="class_gene_product_association.html">GeneProductAssociation</a> in a <a class="el" href="class_reaction.html">Reaction</a> </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374ad85038667a62c84ea7bc24a01531ae89"></a>FbcReactionAllowedAttributes&#160;</td><td class="fielddoc"><p>Fbc attributes on a <a class="el" href="class_reaction.html">Reaction</a> </p>
@@ -577,10 +587,11 @@ Other error code ranges are reserved for other packages. </dd></dl>
 <tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374a0827589a1a90722841e2e9d9a2c0dd68"></a>FbcUserDefinedConstraintComponentAllowedCoreAttributes&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374a7f7e7750216bdd9d559495a38003ce81"></a>FbcUserDefinedConstraintComponentAllowedCoreElements&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374a81db7e7e3209f62d6a461f24a3ce9cb1"></a>FbcUserDefinedConstraintComponentAllowedAttributes&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374aa316f28cb75a056a38a604adbdac7d6e"></a>FbcUserDefinedConstraintComponentCoefficientMustBeDouble&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374a19cc1a72b6c37db31098b3a77f6906d2"></a>FbcUserDefinedConstraintComponentCoefficientMustBeParameter&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374a231a096ce4e09cdbf2ff13dfe1706f69"></a>FbcUserDefinedConstraintComponentVariableMustBeReactionOrParameter&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374a16400ce761d19a6e9120f4eb65fce5f6"></a>FbcUserDefinedConstraintComponentVariableTypeMustBeFbcVariableTypeEnum&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374a50f2487899322b9b976361b06f14c209"></a>FbcUserDefinedConstraintComponentNameMustBeString&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374a507a9871091e8ac6ac7090c14b9caac5"></a>FbcUserDefinedConstraintComponentVariable2MustBeReactionOrParameter&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374ac7f1ece1b844de053e6b43b9859f29b6"></a>FbcUserDefinedConstraintAllowedCoreAttributes&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374aaccf6d83a1841a47eb3dcf69ddc4f5de"></a>FbcUserDefinedConstraintAllowedCoreElements&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a310b38bf1efd71c27a67032d2bca5374a991529323034ad7af06185fc41421fbc"></a>FbcUserDefinedConstraintAllowedAttributes&#160;</td><td class="fielddoc"></td></tr>

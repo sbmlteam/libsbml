@@ -1,5 +1,8 @@
 var NAVTREEINDEX106 =
 {
+"class_list_of_line_endings.html#a269ee4b549ed8c0fd3f44157500575c7":[3,0,168,38],
+"class_list_of_line_endings.html#a2880c1c6a2df519371637a9234ed68a4":[3,0,168,51],
+"class_list_of_line_endings.html#a2a1a8d70043a2386cbcfa299624de010":[3,0,168,43],
 "class_list_of_line_endings.html#a2bcd32c8ab7537433f7f7851818c60ed":[3,0,168,75],
 "class_list_of_line_endings.html#a2da81b22af670c12375835a6f992c5db":[3,0,168,87],
 "class_list_of_line_endings.html#a2e322246cd669131af4bd325a99ac0fd":[3,0,168,35],
@@ -246,8 +249,5 @@ var NAVTREEINDEX106 =
 "class_list_of_line_segments.html#acedca54527b2f715f968a53c5051311f":[3,0,169,8],
 "class_list_of_line_segments.html#ad0a14de158d4139b4c28130eb7d8aa60":[3,0,169,68],
 "class_list_of_line_segments.html#ad17b3447a4eb8ddd9bac16b0fd5bfa6d":[3,0,169,100],
-"class_list_of_line_segments.html#ad2c0ef4eb8d357c990a32d3352803da7":[3,0,169,82],
-"class_list_of_line_segments.html#ad3be0bf5891c2b6bf4340cce12b8630f":[3,0,169,132],
-"class_list_of_line_segments.html#ad5ffefa4d9901ca0d55f2343c08bb057":[3,0,169,40],
-"class_list_of_line_segments.html#ad66c6e186d50df79ce90492eeeb060e2":[3,0,169,84]
+"class_list_of_line_segments.html#ad2c0ef4eb8d357c990a32d3352803da7":[3,0,169,82]
 };

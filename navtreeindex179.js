@@ -1,5 +1,8 @@
 var NAVTREEINDEX179 =
 {
+"class_stoichiometry_math.html#a60f1d849c7f806d075836b21d322150f":[3,0,347,48],
+"class_stoichiometry_math.html#a611a4bd98a4e32e3573980b2481ce77e":[3,0,347,124],
+"class_stoichiometry_math.html#a62d09cb6602f1abfbf3188b59bd5aa0e":[3,0,347,38],
 "class_stoichiometry_math.html#a63bf923bf768a4b2a8a7aee09854f797":[3,0,347,57],
 "class_stoichiometry_math.html#a65f77b6aa5f6f5d80b2d01558f7496f5":[3,0,347,133],
 "class_stoichiometry_math.html#a69c66e9efaa9f3724a3254802330ede6":[3,0,347,49],
@@ -246,8 +249,5 @@ var NAVTREEINDEX179 =
 "class_sub_list_of_species_features.html":[3,0,349],
 "class_sub_list_of_species_features.html#a0143961ca5188d00203c99eef1de854e":[3,0,349,24],
 "class_sub_list_of_species_features.html#a027dbf22b8bf74bbb0ce5cd4453851c7":[3,0,349,53],
-"class_sub_list_of_species_features.html#a02a6692a180f9281c071b77f908dce0e":[3,0,349,39],
-"class_sub_list_of_species_features.html#a031d1da6a39bae8afd5201677fb32c02":[3,0,349,68],
-"class_sub_list_of_species_features.html#a050779a94ecdb2d73d7edfef73bc1e55":[3,0,349,130],
-"class_sub_list_of_species_features.html#a06852592c2c2d7db5d35d6539939d8d0":[3,0,349,106]
+"class_sub_list_of_species_features.html#a02a6692a180f9281c071b77f908dce0e":[3,0,349,39]
 };

@@ -1,5 +1,8 @@
 var NAVTREEINDEX92 =
 {
+"class_list_of_event_assignments.html#a000b6b6da7f12319fb3b99f5431e643e":[3,0,145,17],
+"class_list_of_event_assignments.html#a0143961ca5188d00203c99eef1de854e":[3,0,145,21],
+"class_list_of_event_assignments.html#a027dbf22b8bf74bbb0ce5cd4453851c7":[3,0,145,49],
 "class_list_of_event_assignments.html#a02a6692a180f9281c071b77f908dce0e":[3,0,145,35],
 "class_list_of_event_assignments.html#a031d1da6a39bae8afd5201677fb32c02":[3,0,145,63],
 "class_list_of_event_assignments.html#a050779a94ecdb2d73d7edfef73bc1e55":[3,0,145,121],
@@ -246,8 +249,5 @@ var NAVTREEINDEX92 =
 "class_list_of_events.html#aa585552960ae4b7e8d4cec0c301d670e":[3,0,146,91],
 "class_list_of_events.html#aa78ef1ca7e89aa9be18302622aad221f":[3,0,146,118],
 "class_list_of_events.html#aa9a0611fba68fb2d56db3565425f65a0":[3,0,146,23],
-"class_list_of_events.html#aac93855c11d3e29c120fad461d6cab80":[3,0,146,112],
-"class_list_of_events.html#aad43f3efb39b3c56ec0db212b6e97cf4":[3,0,146,45],
-"class_list_of_events.html#ab3428c9a9705777183a0ded66981b504":[3,0,146,64],
-"class_list_of_events.html#ab4de53b00ecec3e135fcb9d36fb1bf3b":[3,0,146,62]
+"class_list_of_events.html#aac93855c11d3e29c120fad461d6cab80":[3,0,146,112]
 };
