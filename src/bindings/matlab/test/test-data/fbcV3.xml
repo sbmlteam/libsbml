@@ -75,7 +75,7 @@
     <fbc:listOfUserDefinedConstraints>
       <fbc:userDefinedConstraint sboTerm="SBO:0000001" fbc:id="uc2" fbc:lowerBound="uc2lb" fbc:upperBound="uc2ub">
         <fbc:listOfUserDefinedConstraintComponents>
-          <fbc:userDefinedConstraintComponent metaid="_udc1" sboTerm="SBO:0000001" fbc:id="dd" fbc:name="string" fbc:coefficient="2" fbc:variable="R2" fbc:variableType="linear"/>
+          <fbc:userDefinedConstraintComponent metaid="_udc1" sboTerm="SBO:0000001" fbc:id="dd" fbc:name="string" fbc:coefficient="uc2ub" fbc:variable="R2" fbc:variableType="linear"/>
         </fbc:listOfUserDefinedConstraintComponents>
       </fbc:userDefinedConstraint>
     </fbc:listOfUserDefinedConstraints>

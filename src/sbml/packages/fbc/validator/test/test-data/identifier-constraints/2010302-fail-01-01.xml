@@ -107,7 +107,7 @@
       </reaction>
     </listOfReactions>
     <fbc:listOfFluxBounds>
-      <fbc:fluxBound fbc:id="3bound2" fbc:reaction="J0" fbc:operation="lessEqual" fbc:value="10"/>
+      day2.c9<fbc:fluxBound fbc:id="3bound2" fbc:reaction="J0" fbc:operation="lessEqual" fbc:value="10"/>
     </fbc:listOfFluxBounds>
     <fbc:listOfObjectives fbc:activeObjective="obj1">
       <fbc:objective fbc:id="obj1" fbc:type="maximize">

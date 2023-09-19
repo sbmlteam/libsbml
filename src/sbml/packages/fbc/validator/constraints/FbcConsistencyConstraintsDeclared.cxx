@@ -48,6 +48,8 @@ addConstraint(new VConstraintFluxObjectiveFbcFluxObjectReactionMustExist(*this))
 
 addConstraint(new VConstraintFluxObjectiveFbcFluxObjectCoefficientWhenStrict(*this));
 
+addConstraint(new VConstraintFluxObjectiveFbcFluxObjectReaction2MustExist(*this));
+
 addConstraint(new VConstraintReactionFbcReactionLwrBoundRefExists(*this));
 
 addConstraint(new VConstraintReactionFbcReactionUpBoundRefExists(*this));
@@ -84,7 +86,11 @@ addConstraint(new UniqueGeneProductLabels(FbcGeneProductLabelMustBeUnique, *this
 
 addConstraint(new VConstraintGeneProductFbcGeneProductAssocSpeciesMustExist(*this));
 
+addConstraint(new VConstraintUserDefinedConstraintComponentFbcUserDefinedConstraintComponentCoefficientMustBeParameter(*this));
+
 addConstraint(new VConstraintUserDefinedConstraintComponentFbcUserDefinedConstraintComponentVariableMustBeReactionOrParameter(*this));
+
+addConstraint(new VConstraintUserDefinedConstraintComponentFbcUserDefinedConstraintComponentVariable2MustBeReactionOrParameter(*this));
 
 addConstraint(new VConstraintUserDefinedConstraintFbcUserDefinedConstraintLowerBoundMustBeParameter(*this));
 

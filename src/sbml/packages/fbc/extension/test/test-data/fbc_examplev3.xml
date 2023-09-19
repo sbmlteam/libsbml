@@ -21,14 +21,14 @@
         
         <fbc:listOfUserDefinedConstraintComponents>
 
-          <fbc:userDefinedConstraintComponent fbc:coefficient="2" fbc:variable="Avar" fbc:variableType="linear"/>
+          <fbc:userDefinedConstraintComponent fbc:coefficient="uc2ub" fbc:variable="Avar" fbc:variableType="linear"/>
         </fbc:listOfUserDefinedConstraintComponents>
       </fbc:userDefinedConstraint>
     </fbc:listOfUserDefinedConstraints>  
     <fbc:listOfObjectives fbc:activeObjective="obj1">
       <fbc:objective fbc:id="obj1" fbc:type="maximize">
         <fbc:listOfFluxes>
-          <fbc:fluxObjective fbc:reaction="J8" fbc:coefficient="1" fbc:variableType="linear"/>
+          <fbc:fluxObjective fbc:reaction="J8" fbc:coefficient="1" fbc:variableType="quadratic" fbc:reaction2="J8"/>
         </fbc:listOfFluxes>
       </fbc:objective>
     </fbc:listOfObjectives>

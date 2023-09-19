@@ -903,6 +903,37 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   }
   },
 
+    // 2020610
+  { FbcFluxObjectReaction2MustBeSIdRef,
+    "Datatype for 'fbc:reaction2' must be SIdRef",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The value of the attribute 'fbc:reaction2' of a <fluxObjective> object "
+    "must conform to the syntax of the SBML data type 'SIdRef'.",
+    { "",
+    "",
+    "L3V1 Fbc V3, Section 3.7"
+    }
+  },
+
+    // 2020611
+  { FbcFluxObjectReaction2MustExist,
+    "'fbc:reaction2' must refer to valid reaction",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The value of the attribute 'fbc:reaction2' of a "
+    "<fluxObjective> object must be the identifier of an existing <reaction> "
+    "object defined in the enclosing <model> object.",
+    { "",
+    "",
+    "L3V1 Fbc V3, Section 3.7"
+    }
+  },
+
 
 
   // 2020701
@@ -1616,9 +1647,10 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
     LIBSBML_SEV_ERROR,
     "An <userDefinedConstraintComponent> object must have the required "
   "attributes 'fbc:coefficient', 'fbc:variable' and 'fbc:variableType', and "
-  "may have the optional attributes 'fbc:id' and 'fbc:name'. No other "
-  "attributes from the SBML Level 3 Flux Balance Constraints namespaces are "
-  "permitted on an <userDefinedConstraintComponent> object. ",
+    "may have the optional attributes 'fbc:id', 'fbc:name' and "
+    "'fbc:variable2'. No other attributes from the SBML Level 3 Flux Balance "
+    "Constraints namespaces are permitted on an "
+    "<userDefinedConstraintComponent> object. ",
   { "",
   "",
   ""
@@ -1626,14 +1658,15 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   },
 
   // 2021304
-  { FbcUserDefinedConstraintComponentCoefficientMustBeDouble,
-  "The 'coefficient' attribute must be Double.",
+  { FbcUserDefinedConstraintComponentCoefficientMustBeParameter,
+    "The attribute 'coefficient' must point to Parameter object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "The attribute 'fbc:coefficient' on an <userDefinedConstraintComponent> "
-  "must have a value of data type 'double'.",
+    "The value of the attribute 'fbc:coefficient' of an "
+    "<userDefinedConstraintComponent> object must be the identifier of an "
+    "existing <parameter> object defined in the enclosing <model> object.",
   { "",
   "",
   ""
@@ -1688,6 +1721,23 @@ static const packageErrorTableEntryV3 fbcErrorTableV3[] =
   "",
   ""
   }
+  },
+
+  // 2021308
+  { FbcUserDefinedConstraintComponentVariable2MustBeReactionOrParameter,
+    "The attribute 'variable2' must point to ReactionOrParameter object.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The value of the attribute 'fbc:variable2' of an "
+    "<userDefinedConstraintComponent> object must be the identifier of an "
+    "existing <reaction> or <parameter> object defined in the enclosing <model> "
+    "object.",
+    { "",
+    "",
+    ""
+    }
   },
 
   // 2021401
