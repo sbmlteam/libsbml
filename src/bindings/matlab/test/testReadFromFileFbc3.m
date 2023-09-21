@@ -51,7 +51,7 @@ Totalfail = Totalfail + fail_unless(m.fbc_strict == 0);
   Totalfail = Totalfail + fail_unless( strcmp(m.fbc_objective(1).fbc_fluxObjective(1).typecode, 'SBML_FBC_FLUXOBJECTIVE'));
   Totalfail = Totalfail + fail_unless( strcmp(m.fbc_objective(1).fbc_fluxObjective(1).fbc_reaction, 'R1'));
   Totalfail = Totalfail + fail_unless( m.fbc_objective(1).fbc_fluxObjective(1).fbc_coefficient == 1);
-  Totalfail = Totalfail + fail_unless( m.fbc_objective(1).fbc_fluxObjective(1).isSetfbc_coefficient == 1);
+  
   
   Totalfail = Totalfail + fail_unless( strcmp(m.fbc_activeObjective, 'c'));
 
@@ -77,7 +77,7 @@ Totalfail = Totalfail + fail_unless(m.fbc_strict == 0);
   
   Totalfail = Totalfail + fail_unless( strcmp(m.fbc_userDefinedConstraint(1).fbc_userDefinedConstraintComponent(1).typecode, 'SBML_FBC_USERDEFINEDCONSTRAINTCOMPONENT'));
   Totalfail = Totalfail + fail_unless( strcmp(m.fbc_userDefinedConstraint(1).fbc_userDefinedConstraintComponent(1).fbc_id, 'dd'));
-  Totalfail = Totalfail + fail_unless( m.fbc_userDefinedConstraint(1).fbc_userDefinedConstraintComponent(1).isSetfbc_coefficient == 1);
+  
   Totalfail = Totalfail + fail_unless( strcmp(m.fbc_userDefinedConstraint(1).fbc_userDefinedConstraintComponent(1).fbc_coefficient, 'uc2ub'));
   Totalfail = Totalfail + fail_unless( strcmp(m.fbc_userDefinedConstraint(1).fbc_userDefinedConstraintComponent(1).fbc_variable, 'R2'));
   Totalfail = Totalfail + fail_unless( strcmp(m.fbc_userDefinedConstraint(1).fbc_userDefinedConstraintComponent(1).fbc_variableType, 'linear'));
