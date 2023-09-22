@@ -296,6 +296,7 @@ ModelCreator::setFamilyName(const std::string& name)
     mFamilyName = name;
     mHasBeenModified = true;
     mUseSingleName = false;
+    mUsingFNVcard4 = false;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -311,6 +312,7 @@ ModelCreator::setGivenName(const std::string& name)
     mGivenName = name;
     mHasBeenModified = true;
     mUseSingleName = false;
+    mUsingFNVcard4 = false;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
