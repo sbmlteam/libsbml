@@ -87,6 +87,14 @@ protected:
   virtual void checkMath (const Model& m, const ASTNode& node, const SBase & sb);
   
   /**
+  * Checks the MathML of the ASTnode for FunctionDefinitions
+  * is appropriate for the function being performed
+  *
+  * If an inconsistency is found, an error message is logged.
+  */
+  virtual void checkFunctionDefinition(const Model& m, const ASTNode& node, const SBase & sb);
+
+  /**
    * Returns the preamble to use when logging constraint violations.  
    *
    * @return the preamble to use when logging constraint violations.  The

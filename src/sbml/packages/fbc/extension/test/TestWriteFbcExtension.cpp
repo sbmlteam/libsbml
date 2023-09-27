@@ -415,7 +415,8 @@ START_TEST(test_FbcExtension_create_and_write_L3V1V3)
   FluxObjective* fluxObjective = objective->createFluxObjective();
   fluxObjective->setReaction("J0");
   fluxObjective->setCoefficient(1);
-  fluxObjective->setVariableType("linear");
+  fluxObjective->setReaction2("J0");
+  fluxObjective->setVariableType("quadratic");
 
   UserDefinedConstraint* userconstraint = mplugin->createUserDefinedConstraint();
   userconstraint->setId("uc2");
@@ -423,9 +424,10 @@ START_TEST(test_FbcExtension_create_and_write_L3V1V3)
   userconstraint->setUpperBound("uc2ub");
 
   UserDefinedConstraintComponent * udcc = userconstraint->createUserDefinedConstraintComponent();
-  udcc->setCoefficient(2);
+  udcc->setCoefficient("ucc1");
   udcc->setVariable("Avar");
-  udcc->setVariableType("linear");
+  udcc->setVariableType("quadratic");
+  udcc->setVariable2("Avar2");
 
   // check annotations on several types
   FbcSBasePlugin* sbaseplugin = dynamic_cast<FbcSBasePlugin*>(compartment->getPlugin("fbc"));

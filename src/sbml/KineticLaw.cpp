@@ -2007,7 +2007,7 @@ KineticLaw_create (unsigned int level, unsigned int version)
     KineticLaw* obj = new KineticLaw(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -2023,7 +2023,7 @@ KineticLaw_createWithNS (SBMLNamespaces_t* sbmlns)
     KineticLaw* obj = new KineticLaw(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

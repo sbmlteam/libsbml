@@ -175,6 +175,7 @@ set (LIBSBML_FIND_MODULES "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/FindLIBSBML.
 
 # Whether to compile examples
 option(WITH_EXAMPLES "Compile the libSBML example programs."  OFF)
+option(WITH_CHECK "Enable testing of libSBML."  OFF)
 
 # Which language bindings should be built
 option(WITH_CSHARP   "Generate the C# language interface for libSBML."     OFF)

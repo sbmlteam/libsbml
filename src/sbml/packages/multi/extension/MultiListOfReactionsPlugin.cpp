@@ -137,7 +137,7 @@ MultiListOfReactionsPlugin::createObject (XMLInputStream& stream)
        object = new IntraSpeciesReaction(multins);
        delete multins;
     }
-    catch (SBMLConstructorException*)
+    catch (SBMLConstructorException &)
     {
       object = new IntraSpeciesReaction(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());

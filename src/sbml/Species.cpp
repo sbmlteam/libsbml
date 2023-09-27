@@ -2545,7 +2545,7 @@ ListOfSpecies::createObject (XMLInputStream& stream)
     {
       object = new Species(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException*)
+    catch (SBMLConstructorException &)
     {
       object = new Species(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -2575,7 +2575,7 @@ Species_create (unsigned int level, unsigned int version)
     Species* obj = new Species(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -2591,7 +2591,7 @@ Species_createWithNS (SBMLNamespaces_t* sbmlns)
     Species* obj = new Species(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

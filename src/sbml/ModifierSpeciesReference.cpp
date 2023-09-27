@@ -397,7 +397,7 @@ ModifierSpeciesReference_create(unsigned int level, unsigned int version)
     ModifierSpeciesReference* obj = new ModifierSpeciesReference(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -413,7 +413,7 @@ ModifierSpeciesReference_createWithNS (SBMLNamespaces_t* sbmlns)
     ModifierSpeciesReference* obj = new ModifierSpeciesReference(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

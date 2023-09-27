@@ -1755,7 +1755,7 @@ ListOfRules::createObject (XMLInputStream& stream)
     {
       object = new AlgebraicRule(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException*)
+    catch (SBMLConstructorException &)
     {
       object = new AlgebraicRule(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1777,7 +1777,7 @@ ListOfRules::createObject (XMLInputStream& stream)
       {
         object = new AssignmentRule(getSBMLNamespaces());
       }
-      catch (SBMLConstructorException*)
+      catch (SBMLConstructorException &)
       {
         object = new AssignmentRule(1, 2);
       }
@@ -1792,7 +1792,7 @@ ListOfRules::createObject (XMLInputStream& stream)
       {
         object = new RateRule(getSBMLNamespaces());
       }
-      catch (SBMLConstructorException*)
+      catch (SBMLConstructorException &)
       {
         object = new RateRule(1, 2);
       }
@@ -1832,7 +1832,7 @@ ListOfRules::createObject (XMLInputStream& stream)
       {
         object = new AssignmentRule(getSBMLNamespaces());
       }
-      catch (SBMLConstructorException*)
+      catch (SBMLConstructorException &)
       {
         object = new AssignmentRule(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1849,7 +1849,7 @@ ListOfRules::createObject (XMLInputStream& stream)
       {
         object = new RateRule(getSBMLNamespaces());
       }
-      catch (SBMLConstructorException*)
+      catch (SBMLConstructorException &)
       {
         object = new RateRule(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1880,7 +1880,7 @@ Rule_createAlgebraic (unsigned int level, unsigned int version)
     AlgebraicRule* obj = new AlgebraicRule(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -1896,7 +1896,7 @@ Rule_createAlgebraicWithNS (SBMLNamespaces_t* sbmlns)
     AlgebraicRule* obj = new AlgebraicRule(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -1912,7 +1912,7 @@ Rule_createAssignment (unsigned int level, unsigned int version)
     AssignmentRule* obj = new AssignmentRule(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -1928,7 +1928,7 @@ Rule_createAssignmentWithNS (SBMLNamespaces_t* sbmlns)
     AssignmentRule* obj = new AssignmentRule(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -1944,7 +1944,7 @@ Rule_createRate (unsigned int level, unsigned int version)
     RateRule* obj = new RateRule(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -1960,7 +1960,7 @@ Rule_createRateWithNS (SBMLNamespaces_t* sbmlns)
     RateRule* obj = new RateRule(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

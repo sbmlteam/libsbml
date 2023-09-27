@@ -449,7 +449,7 @@ RateRule_create(unsigned int level, unsigned int version)
     RateRule* obj = new RateRule(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -465,7 +465,7 @@ RateRule_createWithNS (SBMLNamespaces_t* sbmlns)
     RateRule* obj = new RateRule(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

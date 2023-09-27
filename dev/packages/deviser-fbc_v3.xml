@@ -168,6 +168,7 @@
             <attribute name="id" required="false" type="SId" abstract="false"/>
             <attribute name="name" required="false" type="string" abstract="false"/>
             <attribute name="reaction" required="true" type="SIdRef" element="Reaction" abstract="false"/>
+            <attribute name="reaction2" required="false" type="SIdRef" element="Reaction" abstract="false"/>
             <attribute name="coefficient" required="true" type="double" abstract="false"/>
             <attribute name="variableType" required="true" type="enum" element="FbcVariableType" abstract="false"/>
           </attributes>
@@ -226,8 +227,9 @@
           <attributes>
             <attribute name="id" required="false" type="SId" abstract="false"/>
             <attribute name="name" required="false" type="string" abstract="false"/>
-            <attribute name="coefficient" required="true" type="double" abstract="false"/>
+            <attribute name="coefficient" required="true" type="SIdRef" element="Parameter" abstract="false"/>
             <attribute name="variable" required="true" type="SIdRef" element="Reaction,Parameter" abstract="false"/>
+            <attribute name="variable2" required="false" type="SIdRef" element="Reaction,Parameter" abstract="false"/>
             <attribute name="variableType" required="true" type="enum" element="FbcVariableType" abstract="false"/>
           </attributes>
         </element>

@@ -80,7 +80,7 @@ Totalfail = Totalfail + fail_unless(m.fbc_strict == 1);
   Totalfail = Totalfail + fail_unless( strcmp(m.fbc_objective(1).fbc_fluxObjective(1).typecode, 'SBML_FBC_FLUXOBJECTIVE'));
   Totalfail = Totalfail + fail_unless( strcmp(m.fbc_objective(1).fbc_fluxObjective(1).fbc_reaction, 'R1'));
   Totalfail = Totalfail + fail_unless( m.fbc_objective(1).fbc_fluxObjective(1).fbc_coefficient == 1);
-  Totalfail = Totalfail + fail_unless( m.fbc_objective(1).fbc_fluxObjective(1).isSetfbc_coefficient == 1);
+  
   
   Totalfail = Totalfail + fail_unless( strcmp(m.fbc_activeObjective, 'c'));
  

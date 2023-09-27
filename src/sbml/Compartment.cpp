@@ -1999,7 +1999,7 @@ ListOfCompartments::createObject (XMLInputStream& stream)
     {
       object = new Compartment(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException*)
+    catch (SBMLConstructorException &)
     {
       object = new Compartment(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -2029,7 +2029,7 @@ Compartment_create (unsigned int level, unsigned int version)
     Compartment* obj = new Compartment(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -2045,7 +2045,7 @@ Compartment_createWithNS (SBMLNamespaces_t* sbmlns)
     Compartment* obj = new Compartment(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

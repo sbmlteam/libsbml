@@ -129,6 +129,18 @@ START_TEST (test_WriteSBML_error)
 END_TEST
 
 
+START_TEST(test_WriteSBML_NULL_doc)
+{
+  SBMLDocument *d = NULL;
+  SBMLWriter   *w = new SBMLWriter();
+
+  fail_unless(!w->writeSBML(d, "/tmp/"));
+
+  delete w;
+}
+END_TEST
+
+
 START_TEST (test_SBMLWriter_create)
 {
   SBMLWriter_t   *w = SBMLWriter_create();
@@ -3268,6 +3280,7 @@ create_suite_WriteSBML ()
 
   // Basic writing capability
   tcase_add_test( tcase, test_WriteSBML_error );  
+  tcase_add_test(tcase, test_WriteSBML_NULL_doc);
 
   // SBMLDocument
   tcase_add_test( tcase, test_WriteSBML_SBMLDocument_L1v1 );

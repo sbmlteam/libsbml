@@ -316,7 +316,7 @@ public:
    *
    * @return the year from this Date.
    */
-  unsigned int getYear()    { return mYear;   }
+  unsigned int getYear() const   { return mYear;   }
 
 
   /**
@@ -324,7 +324,7 @@ public:
    *
    * @return the month from this Date.
    */
-  unsigned int getMonth()   { return mMonth;  }
+  unsigned int getMonth() const { return mMonth;  }
 
 
   /**
@@ -332,7 +332,7 @@ public:
    *
    * @return the day from this Date.
    */
-  unsigned int getDay()     { return mDay;    }
+  unsigned int getDay() const { return mDay;    }
 
 
   /**
@@ -340,7 +340,7 @@ public:
    *
    * @return the hour from this Date.
    */
-  unsigned int getHour()    { return mHour;   }
+  unsigned int getHour() const { return mHour;   }
 
 
   /**
@@ -348,7 +348,7 @@ public:
    *
    * @return the minute from this Date.
    */
-  unsigned int getMinute()  { return mMinute; }
+  unsigned int getMinute() const { return mMinute; }
 
 
   /**
@@ -356,7 +356,7 @@ public:
    *
    * @return the seconds from this Date.
    */
-  unsigned int getSecond()  { return mSecond; }
+  unsigned int getSecond() const { return mSecond; }
   
 
   /**
@@ -364,7 +364,7 @@ public:
    *
    * @return the sign of the offset from this Date.
    */
-  unsigned int getSignOffset()    { return mSignOffset;   }
+  unsigned int getSignOffset() const { return mSignOffset;   }
  
 
   /**
@@ -372,7 +372,7 @@ public:
    *
    * @return the hours of the offset from this Date.
    */
-  unsigned int getHoursOffset()   { return mHoursOffset;  }
+  unsigned int getHoursOffset() const { return mHoursOffset;  }
 
   
   /**
@@ -380,7 +380,7 @@ public:
    *
    * @return the minutes of the offset from this Date.
    */
-   unsigned int getMinutesOffset() { return mMinutesOffset;}
+   unsigned int getMinutesOffset() const { return mMinutesOffset;}
 
    
   /**
@@ -394,7 +394,7 @@ public:
    *
    * @return the date as a string.
    */
-  const std::string& getDateAsString() { return mDate; }
+  const std::string& getDateAsString() const { return mDate; }
 
 
   /**

@@ -214,7 +214,7 @@ RateOfCompartmentMathCheck::getMessage (const ASTNode& node, const SBase& object
     }
     break;
   }
-  oss_msg << "uses the species'" << node.getChild(0)->getName();
+  oss_msg << "uses the species '" << node.getChild(0)->getName();
   oss_msg << "' whose compartment is referenced as the variable in an assignmentRule.";
   safe_free(formula);
 

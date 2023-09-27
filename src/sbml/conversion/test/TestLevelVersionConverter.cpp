@@ -487,6 +487,44 @@ START_TEST (test_convertToL3V2)
 END_TEST
 
 
+START_TEST(test_crash_after_strictconversion_fail)
+{
+  // replicates https://github.com/sbmlteam/libsbml/issues/333
+
+  SBMLNamespaces sbmlns(3, 2);
+  ConversionProperties prop(&sbmlns);
+  prop.addOption("strict", true, "should validity be preserved");
+  prop.addOption("setLevelAndVersion", true, "convert the document to the given level and version");
+  prop.addOption("ignorePackages", true);
+  prop.addOption("addDefaultUnits", false);
+
+  SBMLLevelVersionConverter converter;
+  converter.setProperties(&prop);
+
+  string filename(TestDataDirectory);
+  filename += "conversion_seg_fault.xml";
+
+  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+  // convert to L3V2
+  converter.setDocument(d);
+  int returnCode = converter.convert();
+  fail_unless(returnCode == LIBSBML_OPERATION_FAILED);
+
+  Model* m = d->getModel();
+  Reaction* r = m->getReaction(0);
+  KineticLaw* kl = r->getKineticLaw();
+
+  fail_unless(m != NULL);
+  fail_unless(m->getSBMLDocument() != NULL);
+  fail_unless(r->getSBMLDocument() != NULL);
+  fail_unless(kl->getSBMLDocument() != NULL);
+
+  delete d;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestLevelVersionConverter (void)
 { 
@@ -508,6 +546,7 @@ create_suite_TestLevelVersionConverter (void)
   tcase_add_test(tcase, test_lv_rxn_variables);
   tcase_add_test(tcase, test_specref_ref_onlynot);
   tcase_add_test(tcase, test_specref_ref_real);
+  tcase_add_test(tcase, test_crash_after_strictconversion_fail);
 
   suite_add_tcase(suite, tcase);
 

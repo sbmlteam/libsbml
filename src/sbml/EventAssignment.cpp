@@ -1212,7 +1212,7 @@ ListOfEventAssignments::createObject (XMLInputStream& stream)
     {
       object = new EventAssignment(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException*)
+    catch (SBMLConstructorException &)
     {
       object = new EventAssignment(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1243,7 +1243,7 @@ EventAssignment_create (unsigned int level, unsigned int version)
     EventAssignment* obj = new EventAssignment(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -1259,7 +1259,7 @@ EventAssignment_createWithNS (SBMLNamespaces_t* sbmlns)
     EventAssignment* obj = new EventAssignment(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

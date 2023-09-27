@@ -752,7 +752,7 @@ ListOfLocalParameters::createObject (XMLInputStream& stream)
     {
       object = new LocalParameter(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException*)
+    catch (SBMLConstructorException &)
     {
       object = new LocalParameter(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -782,7 +782,7 @@ LocalParameter_create (unsigned int level, unsigned int version)
     LocalParameter* obj = new LocalParameter(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -798,7 +798,7 @@ LocalParameter_createWithNS (SBMLNamespaces_t* sbmlns)
     LocalParameter* obj = new LocalParameter(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

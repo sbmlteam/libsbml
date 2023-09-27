@@ -360,4 +360,185 @@ public:
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
+
+#ifndef SWIG
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+BEGIN_C_DECLS
+
+/**
+ * Creates a new empty SBMLErrorLog_t structure and returns it.
+ *
+ * @return the new SBMLErrorLog_t structure.
+ *
+ * @memberof SBMLErrorLog_t
+ */
+LIBSBML_EXTERN
+SBMLErrorLog_t*
+SBMLErrorLog_create(void);
+
+
+/**
+ * Frees the SBMLErrorLog_t structure.
+ *
+ * @memberof SBMLErrorLog_t
+ */
+LIBSBML_EXTERN
+void
+SBMLErrorLog_free(SBMLErrorLog_t*);
+
+
+/**
+ * Logs the given XMLError_t structure.
+ *
+ * @param log SBMLErrorLog_t, the error log to be added to.
+ * @param error XMLError_t, the error to be logged.
+ *
+ * @memberof SBMLErrorLog_t
+ */
+LIBSBML_EXTERN
+void
+SBMLErrorLog_add(SBMLErrorLog_t *log, const SBMLError_t *error);
+
+
+/**
+ * Returns the nth SBMLError_t in this log.
+ *
+ * @param log SBMLErrorLog_t, the error log to be queried.
+ * @param n unsigned int number of the error to retrieve.
+ *
+ * @return the nth SBMLError_t in this log.
+ * If the index @p n is invalid, @c NULL is returned.
+ *
+ * @memberof SBMLErrorLog_t
+ */
+LIBSBML_EXTERN
+const SBMLError_t *
+SBMLErrorLog_getError(const SBMLErrorLog_t *log, unsigned int n);
+
+
+/**
+ * Returns the <i>n</i>th SBMLError object with given severity in this log.
+ *
+ * Index @p n is counted from 0.  Callers should first inquire about the
+ * number of items in the log by using the
+ * @if java SBMLErrorLog::getNumFailsWithSeverity(long severity)@else getNumFailsWithSeverity()@endif@~ method.
+ * Attempts to use an error index number that exceeds the actual number
+ * of errors in the log will result in a @c NULL being returned.
+ *
+ * @param log SBMLErrorLog_t, the error log to be queried.
+ * @param n the index number of the error to retrieve (with 0 being the
+ * first error).
+ * @param severity the severity of the error to retrieve.
+ *
+ * @return the <i>n</i>th SBMLError in this log, or @c NULL if @p n is
+ * greater than or equal to
+ * @if java SBMLErrorLog::getNumFailsWithSeverity(long severity)@else getNumFailsWithSeverity()@endif.
+ *
+ * @see getNumFailsWithSeverity(unsigned int severity)
+ *
+ * @memberof SBMLErrorLog_t
+ */
+LIBSBML_EXTERN
+const SBMLError_t *
+SBMLErrorLog_getErrorWithSeverity(const SBMLErrorLog_t *log, unsigned int n, unsigned int severity);
+
+
+/**
+ * Returns the number of errors that have been logged with the given
+ * severity code.
+ *
+ * @copydetails doc_errorlog_what_are_severities
+ *
+ * @param log SBMLErrorLog_t, the error log to be queried.
+ * @if clike @param severity a value from
+ * #SBMLErrorSeverity_t @endif@if java @param severity a
+ * value from the set of <code>LIBSBML_SEV_</code> constants defined by
+ * the interface class <code><a
+ * href="libsbmlConstants.html">libsbmlConstants</a></code> @endif@if python @param severity a
+ * value from the set of <code>LIBSBML_SEV_</code> constants defined by
+ * the interface class @link libsbml libsbml@endlink. @endif@~
+ *
+ * @return a count of the number of errors with the given severity code.
+ *
+ * @see getNumErrors()
+ *
+ * @memberof SBMLErrorLog_t
+ */
+LIBSBML_EXTERN
+unsigned int
+SBMLErrorLog_getNumFailsWithSeverity(const SBMLErrorLog_t *log, unsigned int severity);
+
+
+/**
+ * Returns the number of errors that have been logged.
+ *
+ * @param log SBMLErrorLog_t, the error log to be queried.
+ *
+ * @return the number of errors that have been logged.
+ *
+ * @memberof SBMLErrorLog_t
+ */
+LIBSBML_EXTERN
+unsigned int
+SBMLErrorLog_getNumErrors(const SBMLErrorLog_t *log);
+
+
+/**
+ * Returns @c true if SBMLErrorLog contains an errorId
+ *
+ * @param log SBMLErrorLog_t, the error log to be queried.
+ * @param errorId the error identifier of the error to be found.
+ *
+ * @memberof SBMLErrorLog_t
+ */
+LIBSBML_EXTERN
+int
+SBMLErrorLog_contains(const SBMLErrorLog_t *log, unsigned int errorId);
+
+
+/**
+ * Removes an error having errorId from the SBMLError list.
+ *
+ * Only the first item will be removed if there are multiple errors
+ * with the given errorId.
+ *
+ * @param log SBMLErrorLog_t, the error log to be cleared.
+ * @param errorId the error identifier of the error to be removed.
+ *
+ * @memberof SBMLErrorLog_t
+ */
+LIBSBML_EXTERN
+void
+SBMLErrorLog_remove(SBMLErrorLog_t *log, unsigned int errorId);
+
+
+/**
+ * Removes all errors having errorId from the SBMLError list.
+ *
+ * @param log SBMLErrorLog_t, the error log to be cleared.
+ * @param errorId the error identifier of the error to be removed.
+ *
+ * @memberof SBMLErrorLog_t
+ */
+LIBSBML_EXTERN
+void
+SBMLErrorLog_removeAll(SBMLErrorLog_t *log, unsigned int errorId);
+
+
+/**
+ * Removes all errors from this log.
+ *
+ * @param log SBMLErrorLog_t, the error log to be cleared.
+ *
+ * @memberof SBMLErrorLog_t
+ */
+LIBSBML_EXTERN
+void
+SBMLErrorLog_clearLog(SBMLErrorLog_t *log);
+
+END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
+
+#endif  /* !SWIG */
 #endif  /* SBMLErrorLog_h */

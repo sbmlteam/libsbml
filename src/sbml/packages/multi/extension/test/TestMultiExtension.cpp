@@ -314,6 +314,19 @@ START_TEST(test_MultiExtension_read)
 }
 END_TEST
 
+START_TEST(test_multi_issue_338)
+{
+  string filename(TestDataDirectory);
+  string cfile = filename + "issue_338.xml";
+  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
+  SBMLDocument* clone = doc->clone();
+  clone->validateSBML();
+  fail_unless(clone->getNumErrors(LIBSBML_SEV_ERROR) == 3);
+
+  delete clone;
+  delete doc;
+}
+END_TEST
 
 Suite *
 create_suite_MultiExtension(void)
@@ -334,6 +347,7 @@ create_suite_MultiExtension(void)
   tcase_add_test(tcase, test_MultiExtension_typecode);
   tcase_add_test(tcase, test_MultiExtension_SBMLtypecode);
   tcase_add_test(tcase, test_MultiExtension_read);
+  tcase_add_test(tcase, test_multi_issue_338);
 
   suite_add_tcase(suite, tcase);
 

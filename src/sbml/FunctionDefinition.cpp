@@ -1292,7 +1292,7 @@ ListOfFunctionDefinitions::createObject (XMLInputStream& stream)
     {
       object = new FunctionDefinition(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException*)
+    catch (SBMLConstructorException &)
     {
       object = new FunctionDefinition(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1322,7 +1322,7 @@ FunctionDefinition_create (unsigned int level, unsigned int version)
     FunctionDefinition* obj = new FunctionDefinition(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -1338,7 +1338,7 @@ FunctionDefinition_createWithNS (SBMLNamespaces_t* sbmlns)
     FunctionDefinition* obj = new FunctionDefinition(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

@@ -1076,7 +1076,7 @@ ListOfConstraints::createObject (XMLInputStream& stream)
     {
       object = new Constraint(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException*)
+    catch (SBMLConstructorException &)
     {
       object = new Constraint(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1107,7 +1107,7 @@ Constraint_create (unsigned int level, unsigned int version)
     Constraint* obj = new Constraint(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -1123,7 +1123,7 @@ Constraint_createWithNS (SBMLNamespaces_t* sbmlns)
     Constraint* obj = new Constraint(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

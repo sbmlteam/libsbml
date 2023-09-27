@@ -2310,7 +2310,7 @@ ListOfUnitDefinitions::createObject (XMLInputStream& stream)
     {
       object = new UnitDefinition(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException)
+    catch (SBMLConstructorException &)
     {
       object = new UnitDefinition(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -2335,7 +2335,7 @@ UnitDefinition_create (unsigned int level, unsigned int version)
     UnitDefinition* obj = new UnitDefinition(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -2351,7 +2351,7 @@ UnitDefinition_createWithNS (SBMLNamespaces_t* sbmlns)
     UnitDefinition* obj = new UnitDefinition(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

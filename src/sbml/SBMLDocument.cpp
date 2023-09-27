@@ -633,7 +633,7 @@ SBMLDocument::createModel (const std::string sid)
   {
     mModel = new Model(getSBMLNamespaces());
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     /* here we do not create a default object as the level/version must
      * match the parent object
@@ -827,6 +827,12 @@ unsigned int SBMLDocument::validateSBML ()
   getErrorLog()->setSeverityOverride(LIBSBML_OVERRIDE_DISABLED);
 
   unsigned int numErrors = mInternalValidator->checkConsistency();
+
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    numErrors += static_cast<SBMLDocumentPlugin*>
+      (getPlugin(i))->checkConsistency();
+  }
 
   list<SBMLValidator*>::iterator it;
   for (it = mValidators.begin(); it != mValidators.end(); it++)
@@ -1301,7 +1307,7 @@ SBMLDocument::createObject (XMLInputStream& stream)
     {
       mModel = new Model(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException)
+    catch (SBMLConstructorException &)
     {
       mModel = new Model(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -2198,7 +2204,7 @@ SBMLDocument_create ()
     SBMLDocument* obj = new SBMLDocument();
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -2214,7 +2220,7 @@ SBMLDocument_createWithLevelAndVersion (unsigned int level, unsigned int version
     SBMLDocument* obj = new SBMLDocument(level, version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -2230,7 +2236,7 @@ SBMLDocument_createWithSBMLNamespaces (SBMLNamespaces_t *sbmlns)
     SBMLDocument* obj = new SBMLDocument(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -2399,6 +2405,11 @@ SBMLDocument_checkConsistency (SBMLDocument_t *d)
 
 
 LIBSBML_EXTERN
+unsigned int SBMLDocument_validateSBML(SBMLDocument_t * d)
+{
+  return (d != NULL) ? d->validateSBML() : SBML_INT_MAX;
+}
+
 unsigned int
 SBMLDocument_checkInternalConsistency (SBMLDocument_t *d)
 {
@@ -2477,6 +2488,13 @@ const SBMLError_t *
 SBMLDocument_getError (SBMLDocument_t *d, unsigned int n)
 {
   return (d != NULL) ? d->getError(n) : NULL;
+}
+
+LIBSBML_EXTERN
+const SBMLErrorLog_t *
+SBMLDocument_getErrorLog(SBMLDocument_t *d)
+{
+  return (d != NULL) ? d->getErrorLog() : NULL;
 }
 
 LIBSBML_EXTERN

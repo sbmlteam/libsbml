@@ -113,6 +113,7 @@ protected:
   double        mCoefficient;
   bool          mIsSetCoefficient;
   FbcVariableType_t mVariableType;
+  std::string   mReaction2;
   /** @endcond */
 
 public:
@@ -215,6 +216,14 @@ public:
    */
   virtual const std::string& getReaction() const;
 
+  /**
+   * Returns the value of the "reaction2" attribute of this FluxObjective.
+   *
+   * @return the value of the "reaction2" attribute of this FluxObjective as a
+   * string.
+   */
+  virtual const std::string& getReaction2() const;
+
 
   /**
    * Returns the value of the "coefficient" attribute of this FluxObjective.
@@ -284,6 +293,15 @@ public:
    */
   virtual bool isSetReaction() const;
 
+  /**
+   * Predicate returning @c true if this FluxObjective's "reaction2" attribute
+   * is set.
+   *
+   * @return @c true if this FluxObjective's "reaction2" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetReaction2() const;
+
 
   /**
    * Predicate returning @c true if this FluxObjective's "coefficient"
@@ -334,6 +352,16 @@ public:
    */
   virtual int setReaction(const std::string& reaction);
 
+  /**
+   * Sets the value of the "reaction2" attribute of this FluxObjective.
+   *
+   * @param reaction the value of the "reaction2" attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   */
+  virtual int setReaction2(const std::string& reaction);
 
   /**
    * Sets the value of the "coefficient" attribute of this FluxObjective.
@@ -403,6 +431,16 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetReaction();
+
+
+  /**
+   * Unsets the value of the "reaction2" attribute of this FluxObjective.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetReaction2();
 
 
   /**
@@ -1202,6 +1240,21 @@ FluxObjective_getVariableTypeAsString(const FluxObjective_t * fo);
 
 
 /**
+ * Returns the value of the "reaction2" attribute of the given FluxObjective_t
+ * structure.
+ *
+ * @param fo the FluxObjective_t structure.
+ *
+ * @return the reaction of this structure.
+ *
+ * @memberof FluxObjective_t
+ */
+LIBSBML_EXTERN
+const char *
+FluxObjective_getReaction2(const FluxObjective_t * fo);
+
+
+/**
  * Predicate returning @c 1 (true) if this FluxObjective_t's "id" attribute is
  * set.
  *
@@ -1281,6 +1334,22 @@ FluxObjective_isSetCoefficient(const FluxObjective_t * fo);
 LIBSBML_EXTERN
 int
 FluxObjective_isSetVariableType(const FluxObjective_t * fo);
+
+
+/**
+ * Predicate returning @c 1 (true) if the given FluxObjective_t structure's "reaction2"
+ * is set.
+ *
+ * @param fo the FluxObjective_t structure.
+ *
+ * @return @c 1 (true) if the "reaction2" of this FluxObjective_t structure is
+ * set, @c 0 (false) otherwise.
+ *
+ * @memberof FluxObjective_t
+ */
+LIBSBML_EXTERN
+int
+FluxObjective_isSetReaction2(const FluxObjective_t * fo);
 
 
 /**
@@ -1424,6 +1493,32 @@ FluxObjective_setVariableTypeAsString(FluxObjective_t * fo,
 
 
 /**
+ * Sets the "reaction2" attribute of the given FluxObjective_t structure.
+ *
+ * This function copies the string given in @p reaction.  If the string is
+ * a null pointer, this function is equivalent to calling FluxObjective_unsetReaction().
+ *
+ * @param fo the FluxObjective_t structure.
+ *
+ * @param reaction the string to which the structures "reaction2" attribute should be
+ * set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @note Using this function with a null pointer for @p reaction is equivalent to
+ * unsetting the value of the "reaction2" attribute.
+ * 
+ * @memberof FluxObjective_t
+ */
+LIBSBML_EXTERN
+int
+FluxObjective_setReaction2(FluxObjective_t * fo, const char * reaction);
+
+
+/**
  * Unsets the value of the "id" attribute of this FluxObjective_t.
  *
  * @param fo the FluxObjective_t structure.
@@ -1510,6 +1605,24 @@ FluxObjective_unsetCoefficient(FluxObjective_t * fo);
 LIBSBML_EXTERN
 int
 FluxObjective_unsetVariableType(FluxObjective_t * fo);
+
+
+/**
+ * Unsets the value of the "reaction2" attribute of the given 
+ * FluxObjective_t structure.
+ *
+ * @param fo the FluxObjective_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof FluxObjective_t
+ */
+LIBSBML_EXTERN
+int
+FluxObjective_unsetReaction2(FluxObjective_t * fo);
 
 
 /**

@@ -417,6 +417,101 @@ SBMLErrorLog::getErrorWithSeverity(unsigned int n, unsigned int severity) const
 
 
 /** @cond doxygenIgnored */
+
+LIBSBML_EXTERN
+SBMLErrorLog_t*
+SBMLErrorLog_create(void)
+{
+  return new(nothrow) SBMLErrorLog;
+}
+
+
+LIBSBML_EXTERN
+void
+SBMLErrorLog_free(SBMLErrorLog_t* log)
+{
+  delete log;
+}
+
+
+LIBSBML_EXTERN
+void
+SBMLErrorLog_add(SBMLErrorLog_t *log, const SBMLError_t *error)
+{
+  if (log == NULL || error == NULL) return;
+  log->add(*error);
+}
+
+
+LIBSBML_EXTERN
+const SBMLError_t *
+SBMLErrorLog_getError(const SBMLErrorLog_t *log, unsigned int n)
+{
+  return (log != NULL) ? log->getError(n) : NULL;
+}
+
+
+LIBSBML_EXTERN
+const SBMLError_t *
+SBMLErrorLog_getErrorWithSeverity(const SBMLErrorLog_t *log, unsigned int n, unsigned int severity)
+{
+  return (log != NULL) ? log->getErrorWithSeverity(n, severity) : NULL;
+}
+
+LIBSBML_EXTERN
+unsigned int
+SBMLErrorLog_getNumFailsWithSeverity(const SBMLErrorLog_t *log, unsigned int severity)
+{
+  return (log != NULL) ? log->getNumFailsWithSeverity(severity) : 0;
+}
+
+LIBSBML_EXTERN
+unsigned int
+SBMLErrorLog_getNumErrors(const SBMLErrorLog_t *log)
+{
+  return (log != NULL) ? log->getNumErrors() : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+SBMLErrorLog_contains(const SBMLErrorLog_t *log, unsigned int errorId)
+{
+  return (log != NULL) ? (int)(log->contains(errorId)) : 0;
+}
+
+LIBSBML_EXTERN
+void
+SBMLErrorLog_remove(SBMLErrorLog_t *log, unsigned int errorId)
+{
+  if (log != NULL)
+  {
+    log->remove(errorId);
+  }
+}
+
+LIBSBML_EXTERN
+void
+SBMLErrorLog_removeAll(SBMLErrorLog_t *log, unsigned int errorId)
+{
+  if (log != NULL)
+  {
+    log->removeAll(errorId);
+  }
+}
+
+LIBSBML_EXTERN
+void
+SBMLErrorLog_clearLog(SBMLErrorLog_t *log) 
+{
+  if (log != NULL)
+  {
+    log->clearLog();
+  }
+}
+
+
+
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

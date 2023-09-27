@@ -1918,7 +1918,7 @@ ListOfParameters::createObject (XMLInputStream& stream)
     {
       object = new Parameter(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException*)
+    catch (SBMLConstructorException &)
     {
       object = new Parameter(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -1948,7 +1948,7 @@ Parameter_create (unsigned int level, unsigned int version)
     Parameter* obj = new Parameter(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -1964,7 +1964,7 @@ Parameter_createWithNS (SBMLNamespaces_t* sbmlns)
     Parameter* obj = new Parameter(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

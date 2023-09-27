@@ -1564,7 +1564,7 @@ Reaction::createObject (XMLInputStream& stream)
     {
       mKineticLaw = new KineticLaw(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException*)
+    catch (SBMLConstructorException &)
     {
       mKineticLaw = new KineticLaw(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -2599,7 +2599,7 @@ ListOfReactions::createObject (XMLInputStream& stream)
     {
       object = new Reaction(getSBMLNamespaces());
     }
-    catch (SBMLConstructorException*)
+    catch (SBMLConstructorException &)
     {
       object = new Reaction(SBMLDocument::getDefaultLevel(),
         SBMLDocument::getDefaultVersion());
@@ -2630,7 +2630,7 @@ Reaction_create (unsigned int level, unsigned int version)
     Reaction* obj = new Reaction(level,version);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }
@@ -2646,7 +2646,7 @@ Reaction_createWithNS (SBMLNamespaces_t* sbmlns)
     Reaction* obj = new Reaction(sbmlns);
     return obj;
   }
-  catch (SBMLConstructorException)
+  catch (SBMLConstructorException &)
   {
     return NULL;
   }

@@ -162,8 +162,8 @@ END_CONSTRAINT
 // 20601 - caught at read
 // 20602 - caught at read
 // 20603 - caught at read
-// 20606 - caught at read
-// 20606 - caught at read
+// 20604 - caught at read
+// 20605 - caught at read
 
 // 20606
 START_CONSTRAINT (FbcFluxObjectReactionMustExist, FluxObjective, fo)
@@ -216,6 +216,36 @@ START_CONSTRAINT(FbcFluxObjectCoefficientWhenStrict, FluxObjective, fo)
 
 }
 END_CONSTRAINT
+
+// 20809 - caught at read
+// 20810 - caught at read
+
+// 20811
+START_CONSTRAINT(FbcFluxObjectReaction2MustExist, FluxObjective, fo)
+{
+  pre(fo.isSetReaction2());
+
+  bool fail = false;
+
+  msg = "The <fluxObjective> ";
+  if (fo.isSetId()) {
+    msg += "with the id '" + fo.getId() + "' ";
+  }
+  msg += "refers to a reaction with id '";
+  msg += fo.getReaction2();
+  msg += "' that does not exist within the <model>.";
+
+  std::string reaction = fo.getReaction2();
+
+  if (m.getReaction(reaction) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
 
 // 20701 - caught at read
 // 20702 - caught at read
@@ -826,7 +856,31 @@ END_CONSTRAINT
 // 21301 - caught at read
 // 21302 - caught at read
 // 21303 - caught at read
-// 21304 - caught at read
+
+// 21304
+START_CONSTRAINT(FbcUserDefinedConstraintComponentCoefficientMustBeParameter, UserDefinedConstraintComponent, udcc)
+{
+  pre(udcc.isSetCoefficient());
+
+  std::string as = udcc.getCoefficient();
+
+  bool fail = false;
+
+  msg = "The <UserDefinedConstraintComponent> with id '";
+  msg += udcc.getId();
+  msg += "' refers to a parameter '";
+  msg += as;
+  msg += "' that does not exist within the <model>.";
+
+  if (m.getParameter(as) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
 
 // 21305
 START_CONSTRAINT(FbcUserDefinedConstraintComponentVariableMustBeReactionOrParameter, UserDefinedConstraintComponent, udcc)
@@ -853,7 +907,33 @@ START_CONSTRAINT(FbcUserDefinedConstraintComponentVariableMustBeReactionOrParame
 END_CONSTRAINT
 
 // 21306 - caught at read
-// 21307 - sring
+// 21307 - string
+
+// 21308
+START_CONSTRAINT(FbcUserDefinedConstraintComponentVariable2MustBeReactionOrParameter, UserDefinedConstraintComponent, udcc)
+{
+  pre(udcc.isSetVariable2());
+
+  std::string as = udcc.getVariable2();
+
+  bool fail = false;
+
+  msg = "The <UserDefinedConstraintComponent> with id '";
+  msg += udcc.getId();
+  msg += "' refers to a variable2 '";
+  msg += as;
+  msg += "' that does not exist within the <model>.";
+
+  if (m.getReaction(as) == NULL && m.getParameter(as) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 
 // 21401 - caught at read
 // 21402 - caught at read

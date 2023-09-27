@@ -1266,6 +1266,8 @@ void CompFlatteningConverter::unsetExplicitlyListed()
             lo->setExplicitlyListed(false);
         }
     }
+
+    delete elements;
 }
 
 /** @endcond */
