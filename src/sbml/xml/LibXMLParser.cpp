@@ -424,7 +424,7 @@ LibXMLParser::parseNext ()
 
   if ( xmlParseChunk(mParser, mBuffer, bytes, done) )
   {
-    xmlErrorPtr libxmlError = xmlGetLastError();
+    const xmlError* libxmlError = xmlGetLastError();
 
     // I tried reporting the message from libXML that's available in
     // libxmlError->message, but the thing is bogus: it will say things
