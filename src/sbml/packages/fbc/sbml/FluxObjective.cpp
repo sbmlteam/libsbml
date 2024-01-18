@@ -343,11 +343,9 @@ FluxObjective::setCoefficient(double coefficient)
 int
 FluxObjective::setVariableType(const FbcVariableType_t variableType)
 {
-  unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     if (FbcVariableType_isValid(variableType) == 0)
     {
@@ -373,11 +371,9 @@ FluxObjective::setVariableType(const FbcVariableType_t variableType)
 int
 FluxObjective::setVariableType(const std::string& variableType)
 {
-  unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     mVariableType = FbcVariableType_fromString(variableType.c_str());
 
@@ -550,8 +546,6 @@ FluxObjective::hasRequiredAttributes () const
 {
   bool allPresent = true;
 
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
   if (isSetReaction() == false)
@@ -560,7 +554,7 @@ FluxObjective::hasRequiredAttributes () const
   if (isSetCoefficient() == false)
     allPresent = false;
 
-  if (level == 3 && version == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     if (isSetVariableType() == false)
     {
@@ -974,8 +968,6 @@ FluxObjective::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   SBase::addExpectedAttributes(attributes);
 
-  unsigned int level = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
   attributes.add("id");
@@ -983,7 +975,7 @@ FluxObjective::addExpectedAttributes(ExpectedAttributes& attributes)
   attributes.add("reaction");
   attributes.add("coefficient");
 
-  if (level == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     attributes.add("variableType");
     attributes.add("reaction2");
@@ -1162,7 +1154,7 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
   // 
 
   std::string variableType;
-  if (pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     assigned = attributes.readInto("variableType", variableType);
 
@@ -1351,10 +1343,6 @@ ListOfFluxObjectives::addFluxObjective(const FluxObjective* fo)
   else if (getLevel() != fo->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != fo->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(fo)) == false)
   {

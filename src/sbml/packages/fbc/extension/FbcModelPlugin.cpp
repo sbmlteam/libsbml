@@ -656,10 +656,6 @@ int
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != bound->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != bound->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;
@@ -907,10 +903,6 @@ FbcModelPlugin::addObjective(const Objective* o)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != o->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != o->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;
@@ -1086,10 +1078,6 @@ FbcModelPlugin::addGeneProduct(const GeneProduct* gp)
   else if (getLevel() != gp->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != gp->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (getPackageVersion() != gp->getPackageVersion())
   {
@@ -1308,10 +1296,6 @@ int
   else if (getLevel() != association->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != association->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (getPackageVersion() != association->getPackageVersion())
   {
@@ -1533,10 +1517,6 @@ FbcModelPlugin::addUserDefinedConstraint(const UserDefinedConstraint* udc)
   else if (getLevel() != udc->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != udc->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (getPackageVersion() != udc->getPackageVersion())
   {

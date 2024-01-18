@@ -432,10 +432,6 @@ Objective::addFluxObjective(const FluxObjective* fo)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != fo->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(fo)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
@@ -1398,10 +1394,6 @@ ListOfObjectives::addObjective(const Objective* o)
   else if (getLevel() != o->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != o->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(o)) == false)
   {

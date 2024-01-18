@@ -226,11 +226,9 @@ UserDefinedConstraint::isSetUpperBound() const
 int
 UserDefinedConstraint::setId(const std::string& id)
 {
-  unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     return SyntaxChecker::checkAndSetSId(id, mId);
   }
@@ -247,11 +245,9 @@ UserDefinedConstraint::setId(const std::string& id)
 int
 UserDefinedConstraint::setName(const std::string& name)
 {
-  unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     mName = name;
     return LIBSBML_OPERATION_SUCCESS;
@@ -269,11 +265,9 @@ UserDefinedConstraint::setName(const std::string& name)
 int
 UserDefinedConstraint::setLowerBound(const std::string& lowerBound)
 {
-  unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     if (!(SyntaxChecker::isValidInternalSId(lowerBound)))
     {
@@ -298,11 +292,9 @@ UserDefinedConstraint::setLowerBound(const std::string& lowerBound)
 int
 UserDefinedConstraint::setUpperBound(const std::string& upperBound)
 {
-  unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     if (!(SyntaxChecker::isValidInternalSId(upperBound)))
     {
@@ -509,10 +501,6 @@ UserDefinedConstraint::addUserDefinedConstraintComponent(const
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != udcc->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(udcc)) == false)
   {
@@ -643,11 +631,9 @@ UserDefinedConstraint::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && version == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     if (isSetLowerBound() == false)
     {
@@ -655,7 +641,7 @@ UserDefinedConstraint::hasRequiredAttributes() const
     }
   }
 
-  if (level == 3 && version == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     if (isSetUpperBound() == false)
     {
@@ -1335,11 +1321,9 @@ UserDefinedConstraint::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   SBase::addExpectedAttributes(attributes);
 
-  unsigned int level = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     attributes.add("id");
     attributes.add("name");
@@ -1428,7 +1412,7 @@ UserDefinedConstraint::readAttributes(const XMLAttributes& attributes,
     }
   }
 
-  if (level == 3 && version == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     readL3V1V3Attributes(attributes);
   }
@@ -1581,11 +1565,9 @@ UserDefinedConstraint::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && version == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     writeL3V1V3Attributes(stream);
   }
