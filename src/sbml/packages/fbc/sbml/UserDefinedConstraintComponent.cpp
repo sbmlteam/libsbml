@@ -292,11 +292,9 @@ UserDefinedConstraintComponent::isSetVariableType() const
 int
 UserDefinedConstraintComponent::setId(const std::string& id)
 {
-  unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     return SyntaxChecker::checkAndSetSId(id, mId);
   }
@@ -314,11 +312,9 @@ UserDefinedConstraintComponent::setId(const std::string& id)
 int
 UserDefinedConstraintComponent::setName(const std::string& name)
 {
-  unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     mName = name;
     return LIBSBML_OPERATION_SUCCESS;
@@ -337,11 +333,9 @@ UserDefinedConstraintComponent::setName(const std::string& name)
 int
 UserDefinedConstraintComponent::setCoefficient(const std::string& coefficient)
 {
-  unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     if (!(SyntaxChecker::isValidInternalSId(coefficient)))
     {
@@ -367,11 +361,9 @@ UserDefinedConstraintComponent::setCoefficient(const std::string& coefficient)
 int
 UserDefinedConstraintComponent::setVariable(const std::string& variable)
 {
-  unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     if (!(SyntaxChecker::isValidInternalSId(variable)))
     {
@@ -397,11 +389,9 @@ UserDefinedConstraintComponent::setVariable(const std::string& variable)
 int
 UserDefinedConstraintComponent::setVariable2(const std::string& variable)
 {
-  unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     if (!(SyntaxChecker::isValidInternalSId(variable)))
     {
@@ -428,11 +418,9 @@ int
 UserDefinedConstraintComponent::setVariableType(const FbcVariableType_t
   variableType)
 {
-  unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     if (FbcVariableType_isValid(variableType) == 0)
     {
@@ -460,11 +448,9 @@ int
 UserDefinedConstraintComponent::setVariableType(const std::string&
   variableType)
 {
-  unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     mVariableType = FbcVariableType_fromString(variableType.c_str());
 
@@ -649,28 +635,18 @@ UserDefinedConstraintComponent::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && version == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     if (isSetCoefficient() == false)
     {
       allPresent = false;
     }
-  }
-
-  if (level == 3 && version == 1 && pkgVersion == 3)
-  {
     if (isSetVariable() == false)
     {
       allPresent = false;
     }
-  }
-
-  if (level == 3 && version == 1 && pkgVersion == 3)
-  {
     if (isSetVariableType() == false)
     {
       allPresent = false;
@@ -1099,11 +1075,9 @@ UserDefinedConstraintComponent::addExpectedAttributes(ExpectedAttributes&
 {
   SBase::addExpectedAttributes(attributes);
 
-  unsigned int level = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && coreVersion == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     attributes.add("id");
     attributes.add("name");
@@ -1194,7 +1168,7 @@ UserDefinedConstraintComponent::readAttributes(const XMLAttributes& attributes,
     }
   }
 
-  if (level == 3 && version == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     readL3V1V3Attributes(attributes);
   }
@@ -1448,10 +1422,9 @@ UserDefinedConstraintComponent::writeAttributes(XMLOutputStream& stream) const
   SBase::writeAttributes(stream);
 
   unsigned int level = getLevel();
-  unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && pkgVersion == 3)
+  if (level == 3 && pkgVersion >= 3)
   {
     writeL3V1V3Attributes(stream);
   }
