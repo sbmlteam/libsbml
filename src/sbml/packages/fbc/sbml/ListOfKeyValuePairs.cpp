@@ -156,11 +156,9 @@ ListOfKeyValuePairs::setXmlns(const XMLNamespaces* xmlns, const std::string& pre
 int
 ListOfKeyValuePairs::setXmlns(const std::string& xmlns)
 {
-  unsigned int coreLevel = getLevel();
-  unsigned int coreVersion = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     mXmlns = xmlns;
     return LIBSBML_OPERATION_SUCCESS;
@@ -286,10 +284,6 @@ ListOfKeyValuePairs::addKeyValuePair(const KeyValuePair* kvp)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != kvp->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(kvp)) == false)
   {
@@ -382,11 +376,9 @@ ListOfKeyValuePairs::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     if (isSetXmlns() == false)
     {
@@ -483,7 +475,7 @@ ListOfKeyValuePairs::readAttributes(const XMLAttributes& attributes,
     }
   }
 
-  if (level == 3 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     readL3V1V3Attributes(attributes);
   }
@@ -550,11 +542,9 @@ ListOfKeyValuePairs::writeAttributes(XMLOutputStream& stream) const
 {
   ListOf::writeAttributes(stream);
 
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     writeL3V1V3Attributes(stream);
   }

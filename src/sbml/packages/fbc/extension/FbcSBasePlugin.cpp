@@ -190,10 +190,6 @@ FbcSBasePlugin::addKeyValuePair(const KeyValuePair* kvp)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != kvp->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != kvp->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;

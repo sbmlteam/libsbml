@@ -1071,10 +1071,6 @@ ListOfGeneProducts::addGeneProduct(const GeneProduct* gp)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != gp->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(gp)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;

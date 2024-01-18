@@ -235,10 +235,9 @@ KeyValuePair::isSetUri() const
 int
 KeyValuePair::setId(const std::string& id)
 {
-  unsigned int coreLevel = getLevel();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     return SyntaxChecker::checkAndSetSId(id, mId);
   }
@@ -255,10 +254,9 @@ KeyValuePair::setId(const std::string& id)
 int
 KeyValuePair::setName(const std::string& name)
 {
-  unsigned int coreLevel = getLevel();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     mName = name;
     return LIBSBML_OPERATION_SUCCESS;
@@ -276,10 +274,9 @@ KeyValuePair::setName(const std::string& name)
 int
 KeyValuePair::setKey(const std::string& key)
 {
-  unsigned int coreLevel = getLevel();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     mKey = key;
     return LIBSBML_OPERATION_SUCCESS;
@@ -297,10 +294,9 @@ KeyValuePair::setKey(const std::string& key)
 int
 KeyValuePair::setValue(const std::string& value)
 {
-  unsigned int coreLevel = getLevel();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     mValue = value;
     return LIBSBML_OPERATION_SUCCESS;
@@ -318,10 +314,9 @@ KeyValuePair::setValue(const std::string& value)
 int
 KeyValuePair::setUri(const std::string& uri)
 {
-  unsigned int coreLevel = getLevel();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (coreLevel == 3 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     mUri = uri;
     return LIBSBML_OPERATION_SUCCESS;
@@ -458,11 +453,9 @@ KeyValuePair::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && version == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     if (isSetKey() == false)
     {
@@ -854,10 +847,9 @@ KeyValuePair::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   SBase::addExpectedAttributes(attributes);
 
-  unsigned int level = getLevel();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     attributes.add("id");
     attributes.add("name");
@@ -936,7 +928,7 @@ KeyValuePair::readAttributes(const XMLAttributes& attributes,
     }
   }
 
-  if (level == 3 && version == 1 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     readL3V1V3Attributes(attributes);
   }
@@ -1063,11 +1055,9 @@ KeyValuePair::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && pkgVersion == 3)
+  if (pkgVersion >= 3)
   {
     writeL3V1V3Attributes(stream);
   }

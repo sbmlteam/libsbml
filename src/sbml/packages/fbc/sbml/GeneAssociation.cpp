@@ -391,10 +391,6 @@ int
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != association->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else
   {
     if (mAssociation != NULL)
