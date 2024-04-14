@@ -48,11 +48,13 @@ find_path(EXPAT_INCLUDE_DIR expat.h
           /opt/csw/include   # Blastwave
           /opt/include
           /usr/freeware/include
-          NO_DEFAULT_PATH)
+          NO_DEFAULT_PATH
+          CMAKE_FIND_ROOT_PATH_BOTH)
 endif ()
 
 if (NOT EXPAT_INCLUDE_DIR)
-    find_path(EXPAT_INCLUDE_DIR expat.h)
+    find_path(EXPAT_INCLUDE_DIR expat.h
+    CMAKE_FIND_ROOT_PATH_BOTH)
 endif ()
 
 find_library(EXPAT_LIBRARY 
@@ -81,11 +83,13 @@ find_library(EXPAT_LIBRARY
           /opt/csw/lib   # Blastwave
           /opt/lib
           /usr/freeware/lib64
-          NO_DEFAULT_PATH)
+          NO_DEFAULT_PATH
+          CMAKE_FIND_ROOT_PATH_BOTH)
 endif()
 
 if (NOT EXPAT_LIBRARY)
-    find_library(EXPAT_LIBRARY NAMES libexpat expat)
+    find_library(EXPAT_LIBRARY NAMES libexpat expat
+    CMAKE_FIND_ROOT_PATH_BOTH )
 endif ()
 
 mark_as_advanced(EXPAT_INCLUDE_DIR EXPAT_LIBRARY)
