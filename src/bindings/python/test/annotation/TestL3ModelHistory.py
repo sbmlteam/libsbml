@@ -341,7 +341,7 @@ class TestL3ModelHistory(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestL3ModelHistory))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestL3ModelHistory))
 
   return suite
 

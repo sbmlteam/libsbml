@@ -156,7 +156,7 @@ class TestReadFromFile3(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestReadFromFile3))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestReadFromFile3))
 
   return suite
 

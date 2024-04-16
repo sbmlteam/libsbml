@@ -1010,7 +1010,7 @@ class TestModel_newSetters(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestModel_newSetters))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestModel_newSetters))
 
   return suite
 

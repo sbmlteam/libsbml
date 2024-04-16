@@ -935,7 +935,7 @@ class TestReadMathML(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestReadMathML))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestReadMathML))
 
   return suite
 

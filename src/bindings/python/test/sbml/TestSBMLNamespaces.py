@@ -152,7 +152,7 @@ class TestSBMLNamespaces(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestSBMLNamespaces))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestSBMLNamespaces))
 
   return suite
 

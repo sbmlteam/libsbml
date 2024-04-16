@@ -90,7 +90,7 @@ class TestEventAssignment_newSetters(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestEventAssignment_newSetters))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestEventAssignment_newSetters))
 
   return suite
 

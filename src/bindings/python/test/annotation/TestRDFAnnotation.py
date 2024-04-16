@@ -746,7 +746,7 @@ class TestRDFAnnotation(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestRDFAnnotation))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestRDFAnnotation))
 
   return suite
 

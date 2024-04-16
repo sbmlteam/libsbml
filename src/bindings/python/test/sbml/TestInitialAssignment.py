@@ -120,7 +120,7 @@ class TestInitialAssignment(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestInitialAssignment))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestInitialAssignment))
 
   return suite
 

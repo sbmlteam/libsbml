@@ -123,7 +123,7 @@ class TestTrigger(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestTrigger))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestTrigger))
 
   return suite
 

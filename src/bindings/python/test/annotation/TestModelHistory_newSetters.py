@@ -127,7 +127,7 @@ class TestModelHistory_newSetters(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestModelHistory_newSetters))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestModelHistory_newSetters))
 
   return suite
 

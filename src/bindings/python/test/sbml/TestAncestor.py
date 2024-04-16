@@ -887,7 +887,7 @@ class TestAncestor(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestAncestor))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestAncestor))
 
   return suite
 

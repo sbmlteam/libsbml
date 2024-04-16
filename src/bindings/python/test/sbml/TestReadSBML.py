@@ -1497,7 +1497,7 @@ class TestReadSBML(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestReadSBML))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestReadSBML))
 
   return suite
 

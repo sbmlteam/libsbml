@@ -186,7 +186,7 @@ class TestFunctionDefinition(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestFunctionDefinition))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestFunctionDefinition))
 
   return suite
 

@@ -177,7 +177,7 @@ class TestSBMLDocument(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestSBMLDocument))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestSBMLDocument))
 
   return suite
 

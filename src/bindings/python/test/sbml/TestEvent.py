@@ -214,7 +214,7 @@ class TestEvent(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestEvent))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestEvent))
 
   return suite
 

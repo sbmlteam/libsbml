@@ -758,7 +758,7 @@ class TestSBMLParentObject(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestSBMLParentObject))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestSBMLParentObject))
 
   return suite
 

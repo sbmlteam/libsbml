@@ -471,7 +471,7 @@ class TestXMLToken(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestXMLToken))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestXMLToken))
 
   return suite
 

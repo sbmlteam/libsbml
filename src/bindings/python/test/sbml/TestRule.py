@@ -88,7 +88,7 @@ class TestRule(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestRule))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestRule))
 
   return suite
 

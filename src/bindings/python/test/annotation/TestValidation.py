@@ -156,7 +156,7 @@ class TestValidation(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestValidation))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestValidation))
 
   return suite
 

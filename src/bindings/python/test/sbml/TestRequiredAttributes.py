@@ -267,7 +267,7 @@ class TestRequiredAttributes(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestRequiredAttributes))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestRequiredAttributes))
 
   return suite
 

@@ -106,7 +106,7 @@ class TestAlgebraicRule(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestAlgebraicRule))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestAlgebraicRule))
 
   return suite
 

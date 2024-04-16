@@ -1158,7 +1158,7 @@ class TestASTNode(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestASTNode))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestASTNode))
 
   return suite
 

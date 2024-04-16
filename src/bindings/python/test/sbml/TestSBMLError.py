@@ -92,7 +92,7 @@ class TestSBMLError(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestSBMLError))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestSBMLError))
 
   return suite
 

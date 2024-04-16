@@ -239,7 +239,7 @@ class TestXMLNamespaces(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestXMLNamespaces))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestXMLNamespaces))
 
   return suite
 

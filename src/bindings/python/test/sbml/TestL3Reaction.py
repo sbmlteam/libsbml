@@ -175,7 +175,7 @@ class TestL3Reaction(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestL3Reaction))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestL3Reaction))
 
   return suite
 

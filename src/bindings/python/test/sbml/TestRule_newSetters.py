@@ -173,7 +173,7 @@ class TestRule_newSetters(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestRule_newSetters))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestRule_newSetters))
 
   return suite
 

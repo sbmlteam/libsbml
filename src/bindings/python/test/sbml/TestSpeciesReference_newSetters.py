@@ -265,7 +265,7 @@ class TestSpeciesReference_newSetters(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestSpeciesReference_newSetters))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestSpeciesReference_newSetters))
 
   return suite
 

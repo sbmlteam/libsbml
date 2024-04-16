@@ -220,7 +220,7 @@ class TestKineticLaw(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestKineticLaw))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestKineticLaw))
 
   return suite
 

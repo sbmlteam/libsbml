@@ -83,7 +83,7 @@ class TestCompartmentVolumeRule(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestCompartmentVolumeRule))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestCompartmentVolumeRule))
 
   return suite
 

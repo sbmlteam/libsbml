@@ -108,7 +108,7 @@ class TestConstraint_newSetters(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestConstraint_newSetters))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestConstraint_newSetters))
 
   return suite
 

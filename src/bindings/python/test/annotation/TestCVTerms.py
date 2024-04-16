@@ -124,7 +124,7 @@ class TestCVTerms(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestCVTerms))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestCVTerms))
 
   return suite
 

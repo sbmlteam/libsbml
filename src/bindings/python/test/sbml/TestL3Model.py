@@ -243,7 +243,7 @@ class TestL3Model(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestL3Model))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestL3Model))
 
   return suite
 

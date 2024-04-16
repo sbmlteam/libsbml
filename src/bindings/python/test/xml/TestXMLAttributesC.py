@@ -220,7 +220,7 @@ class TestXMLAttributesC(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestXMLAttributesC))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestXMLAttributesC))
 
   return suite
 

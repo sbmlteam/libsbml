@@ -120,7 +120,7 @@ class TestMathReadFromFile2(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestMathReadFromFile2))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestMathReadFromFile2))
 
   return suite
 

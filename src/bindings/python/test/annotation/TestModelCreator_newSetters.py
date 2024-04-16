@@ -111,7 +111,7 @@ class TestModelCreator_newSetters(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestModelCreator_newSetters))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestModelCreator_newSetters))
 
   return suite
 

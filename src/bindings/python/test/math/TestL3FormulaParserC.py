@@ -1268,7 +1268,7 @@ class TestL3FormulaParserC(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestL3FormulaParserC))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestL3FormulaParserC))
 
   return suite
 

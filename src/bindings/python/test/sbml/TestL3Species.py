@@ -331,7 +331,7 @@ class TestL3Species(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestL3Species))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestL3Species))
 
   return suite
 

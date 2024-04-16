@@ -1547,7 +1547,7 @@ class TestSBMLConstructorException(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestSBMLConstructorException))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestSBMLConstructorException))
 
   return suite
 

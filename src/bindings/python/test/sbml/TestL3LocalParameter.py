@@ -161,7 +161,7 @@ class TestL3LocalParameter(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestL3LocalParameter))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestL3LocalParameter))
 
   return suite
 

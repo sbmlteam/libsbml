@@ -185,7 +185,7 @@ class TestUnitKind(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestUnitKind))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestUnitKind))
 
   return suite
 

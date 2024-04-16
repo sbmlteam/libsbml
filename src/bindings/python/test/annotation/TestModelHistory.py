@@ -280,7 +280,7 @@ class TestModelHistory(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestModelHistory))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestModelHistory))
 
   return suite
 

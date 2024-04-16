@@ -344,7 +344,7 @@ class TestXMLToken_newSetters(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestXMLToken_newSetters))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestXMLToken_newSetters))
 
   return suite
 

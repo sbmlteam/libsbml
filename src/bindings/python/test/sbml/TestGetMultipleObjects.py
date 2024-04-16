@@ -282,7 +282,7 @@ class TestGetMultipleObjects(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestGetMultipleObjects))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestGetMultipleObjects))
 
   return suite
 

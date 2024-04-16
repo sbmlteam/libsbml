@@ -468,7 +468,7 @@ class TestUnitDefinition(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestUnitDefinition))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestUnitDefinition))
 
   return suite
 
