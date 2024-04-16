@@ -96,7 +96,7 @@ class TestSyntaxChecker(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestSyntaxChecker))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestSyntaxChecker))
 
   return suite
 

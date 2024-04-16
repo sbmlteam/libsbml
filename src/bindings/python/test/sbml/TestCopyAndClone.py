@@ -925,7 +925,7 @@ class TestCopyAndClone(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestCopyAndClone))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestCopyAndClone))
 
   return suite
 

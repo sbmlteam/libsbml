@@ -83,7 +83,7 @@ class TestSpeciesConcentrationRule(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestSpeciesConcentrationRule))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestSpeciesConcentrationRule))
 
   return suite
 

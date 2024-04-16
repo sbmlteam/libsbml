@@ -98,7 +98,7 @@ class TestRateRule(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestRateRule))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestRateRule))
 
   return suite
 

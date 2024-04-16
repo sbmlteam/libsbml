@@ -103,7 +103,7 @@ class TestL3Trigger(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestL3Trigger))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestL3Trigger))
 
   return suite
 

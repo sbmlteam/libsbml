@@ -244,7 +244,7 @@ class TestReaction(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestReaction))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestReaction))
 
   return suite
 

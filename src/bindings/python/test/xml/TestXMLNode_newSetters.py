@@ -218,7 +218,7 @@ class TestXMLNode_newSetters(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestXMLNode_newSetters))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestXMLNode_newSetters))
 
   return suite
 

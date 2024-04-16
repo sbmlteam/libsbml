@@ -60,7 +60,7 @@ class TestXMLTriple(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestXMLTriple))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestXMLTriple))
 
   return suite
 

@@ -212,7 +212,7 @@ class TestSpecies(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestSpecies))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestSpecies))
 
   return suite
 

@@ -239,7 +239,7 @@ class TestValidASTNode(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestValidASTNode))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestValidASTNode))
 
   return suite
 

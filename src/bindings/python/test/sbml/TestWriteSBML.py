@@ -1677,7 +1677,7 @@ class TestWriteSBML(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestWriteSBML))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestWriteSBML))
 
   return suite
 

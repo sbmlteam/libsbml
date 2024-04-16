@@ -94,7 +94,7 @@ class TestCompartmentType_newSetters(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestCompartmentType_newSetters))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestCompartmentType_newSetters))
 
   return suite
 

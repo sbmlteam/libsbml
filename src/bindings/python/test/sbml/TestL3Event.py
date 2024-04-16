@@ -177,7 +177,7 @@ class TestL3Event(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestL3Event))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestL3Event))
 
   return suite
 

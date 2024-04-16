@@ -465,7 +465,7 @@ class TestSBMLConvert(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestSBMLConvert))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestSBMLConvert))
 
   return suite
 

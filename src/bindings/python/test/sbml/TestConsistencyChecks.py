@@ -80,7 +80,7 @@ class TestConsistencyChecks(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestConsistencyChecks))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestConsistencyChecks))
 
   return suite
 

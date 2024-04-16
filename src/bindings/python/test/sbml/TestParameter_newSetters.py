@@ -154,7 +154,7 @@ class TestParameter_newSetters(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestParameter_newSetters))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestParameter_newSetters))
 
   return suite
 

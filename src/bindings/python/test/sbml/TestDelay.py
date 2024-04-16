@@ -123,7 +123,7 @@ class TestDelay(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestDelay))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestDelay))
 
   return suite
 

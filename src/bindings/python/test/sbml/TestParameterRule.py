@@ -100,7 +100,7 @@ class TestParameterRule(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestParameterRule))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestParameterRule))
 
   return suite
 

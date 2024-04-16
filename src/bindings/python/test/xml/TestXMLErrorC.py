@@ -63,7 +63,7 @@ class TestXMLErrorC(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestXMLErrorC))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestXMLErrorC))
 
   return suite
 

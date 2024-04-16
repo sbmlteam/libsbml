@@ -223,7 +223,7 @@ class TestAnnotationCopyAndClone(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestAnnotationCopyAndClone))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestAnnotationCopyAndClone))
 
   return suite
 

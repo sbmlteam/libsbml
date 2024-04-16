@@ -568,7 +568,7 @@ class TestWriteMathML(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestWriteMathML))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestWriteMathML))
 
   return suite
 

@@ -123,7 +123,7 @@ class TestStoichiometryMath(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestStoichiometryMath))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestStoichiometryMath))
 
   return suite
 

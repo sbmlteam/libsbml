@@ -123,7 +123,7 @@ class TestPriority(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestPriority))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestPriority))
 
   return suite
 

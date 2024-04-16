@@ -137,7 +137,7 @@ class TestXMLAttributes(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestXMLAttributes))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestXMLAttributes))
 
   return suite
 

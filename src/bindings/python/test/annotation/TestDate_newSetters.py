@@ -190,7 +190,7 @@ class TestDate_newSetters(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestDate_newSetters))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestDate_newSetters))
 
   return suite
 

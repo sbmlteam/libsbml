@@ -133,7 +133,7 @@ class TestParameter(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestParameter))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestParameter))
 
   return suite
 

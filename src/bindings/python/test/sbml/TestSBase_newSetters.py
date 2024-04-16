@@ -1370,7 +1370,7 @@ class TestSBase_newSetters(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestSBase_newSetters))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestSBase_newSetters))
 
   return suite
 

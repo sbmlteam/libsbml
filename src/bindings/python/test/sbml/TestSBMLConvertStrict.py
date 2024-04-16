@@ -155,7 +155,7 @@ class TestSBMLConvertStrict(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestSBMLConvertStrict))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestSBMLConvertStrict))
 
   return suite
 

@@ -120,7 +120,7 @@ class TestConstraint(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestConstraint))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestConstraint))
 
   return suite
 

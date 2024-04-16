@@ -149,7 +149,7 @@ class TestXMLOutputStream(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestXMLOutputStream))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestXMLOutputStream))
 
   return suite
 

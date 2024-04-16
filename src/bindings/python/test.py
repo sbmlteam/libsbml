@@ -43,6 +43,7 @@ test_files   = "/Test*.py"
 
 def suite():
   suite = unittest.TestSuite()
+  loader = unittest.TestLoader()
   cwd = os.getcwd()    
   sys.path.append(cwd)
   os.chdir(test_basedir + '/..')
@@ -52,7 +53,7 @@ def suite():
       module_name = re.compile(r"\.py$").sub('',os.path.basename(file))     
       module = __import__(module_name)
       class_name = getattr(module, module_name)
-      suite.addTest(unittest.makeSuite(class_name))
+      suite.addTest(loader.loadTestsFromTestCase(class_name))
   return suite
 
 if __name__ == "__main__":

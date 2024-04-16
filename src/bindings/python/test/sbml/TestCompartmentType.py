@@ -121,7 +121,7 @@ class TestCompartmentType(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestCompartmentType))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestCompartmentType))
 
   return suite
 

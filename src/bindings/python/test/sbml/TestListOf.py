@@ -132,7 +132,7 @@ class TestListOf(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestListOf))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestListOf))
 
   return suite
 

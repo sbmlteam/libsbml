@@ -174,7 +174,7 @@ class TestL3SpeciesReference(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestL3SpeciesReference))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestL3SpeciesReference))
 
   return suite
 

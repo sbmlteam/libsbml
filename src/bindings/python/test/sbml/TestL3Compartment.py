@@ -226,7 +226,7 @@ class TestL3Compartment(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestL3Compartment))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestL3Compartment))
 
   return suite
 

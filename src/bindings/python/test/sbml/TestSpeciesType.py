@@ -121,7 +121,7 @@ class TestSpeciesType(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestSpeciesType))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestSpeciesType))
 
   return suite
 

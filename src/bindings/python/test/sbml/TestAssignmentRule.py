@@ -127,7 +127,7 @@ class TestAssignmentRule(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestAssignmentRule))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestAssignmentRule))
 
   return suite
 

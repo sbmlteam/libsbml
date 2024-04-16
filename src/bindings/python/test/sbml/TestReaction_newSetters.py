@@ -294,7 +294,7 @@ class TestReaction_newSetters(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestReaction_newSetters))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestReaction_newSetters))
 
   return suite
 

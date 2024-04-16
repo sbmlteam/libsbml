@@ -106,7 +106,7 @@ class TestL3KineticLaw(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestL3KineticLaw))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestL3KineticLaw))
 
   return suite
 

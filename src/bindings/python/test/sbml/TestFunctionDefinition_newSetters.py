@@ -114,7 +114,7 @@ class TestFunctionDefinition_newSetters(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestFunctionDefinition_newSetters))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestFunctionDefinition_newSetters))
 
   return suite
 

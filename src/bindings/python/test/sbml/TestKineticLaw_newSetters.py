@@ -239,7 +239,7 @@ class TestKineticLaw_newSetters(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestKineticLaw_newSetters))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestKineticLaw_newSetters))
 
   return suite
 

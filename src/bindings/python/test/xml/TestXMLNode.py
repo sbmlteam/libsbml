@@ -907,7 +907,7 @@ class TestXMLNode(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestXMLNode))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestXMLNode))
 
   return suite
 

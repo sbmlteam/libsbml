@@ -233,7 +233,7 @@ class TestRequiredElements(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestRequiredElements))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestRequiredElements))
 
   return suite
 

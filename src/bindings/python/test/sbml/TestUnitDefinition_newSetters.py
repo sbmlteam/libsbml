@@ -140,7 +140,7 @@ class TestUnitDefinition_newSetters(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestUnitDefinition_newSetters))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestUnitDefinition_newSetters))
 
   return suite
 

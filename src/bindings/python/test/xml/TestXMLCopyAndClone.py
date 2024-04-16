@@ -289,7 +289,7 @@ class TestXMLCopyAndClone(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestXMLCopyAndClone))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestXMLCopyAndClone))
 
   return suite
 

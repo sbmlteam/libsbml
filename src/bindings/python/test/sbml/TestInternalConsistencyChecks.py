@@ -1621,7 +1621,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestInternalConsistencyChecks))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestInternalConsistencyChecks))
 
   return suite
 

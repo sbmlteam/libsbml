@@ -927,7 +927,7 @@ class TestModel(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestModel))
+  suite.addTest(unittest.TestLoader.loadTestsFromTestCase(TestModel))
 
   return suite
 
