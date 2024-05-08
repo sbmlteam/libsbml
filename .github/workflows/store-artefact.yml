@@ -27,8 +27,7 @@ jobs:
         package_option: ["-DWITH_ALL_PACKAGES=ON", "-DWITH_STABLE_PACKAGES=ON"]
         language_bindings:
           [
-            "-DWITH_JAVA=True -DWITH_CSHARP=True -DWITH_PYTHON=True
-            -DWITH_R=OFF",
+            "-DWITH_JAVA=True -DWITH_PYTHON=True -DWITH_R=OFF",
           ]
     runs-on: ${{ matrix.platform }}
 
@@ -74,6 +73,7 @@ jobs:
         run: |
           echo $GITHUB_WORKSPACE"/swig/swigwin-3.0.12/" >> $GITHUB_PATH
           echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
+          echo CSHARP_OPTION="-DWITH_CSHARP=True" >> "${GITHUB_ENV}"
           ./dev/utilities/expdef/expdef64.exe -dRlib.def -l R.dll
           echo R_PLATFORM_SPECIFIC_OPTIONS="-DR_LIB=${GITHUB_WORKSPACE}\Rlib.lib" >> "${GITHUB_ENV}"
 
@@ -94,6 +94,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y check ccache
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
+          echo CSHARP_OPTION="-DWITH_CSHARP=True" >> "${GITHUB_ENV}"
           git clone https://github.com/libexpat/libexpat
           cmake -G Ninja -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
           cmake --build libexpat
@@ -107,6 +108,7 @@ jobs:
         run: |
           brew install check swig ccache
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
+          echo CSHARP_OPTION="-DWITH_CSHARP=OFF" >> "${GITHUB_ENV}"
 
       - name: Unix R options
         if: matrix.platform != 'windows-latest'
@@ -169,6 +171,7 @@ jobs:
           -DR_INCLUDE_DIRS="$R_INCLUDE_PATH" \
           ${RUNTIME_LINKING_OPTION} \
           ${PYTHON_LINKING_OPTION} \
+          ${CSHARP_OPTION}
 
       - name: Build
         working-directory: ${{runner.workspace}}/build
