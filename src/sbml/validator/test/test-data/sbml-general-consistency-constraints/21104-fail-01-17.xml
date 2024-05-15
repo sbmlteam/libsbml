@@ -30,7 +30,7 @@
           <speciesReference species="s" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <modiferSpeciesReference species="s" constant="true"/>
+          <modifierSpeciesReference species="s" constant="true"/>
         </listOfProducts>
       </reaction>
     </listOfReactions>
