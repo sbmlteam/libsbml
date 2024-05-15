@@ -15,7 +15,7 @@ listOfModifiers (optional), kineticLaw. (References: L2V2 Section 4.13.)
 		<listOfReactions>
 			<reaction id="r">
 				<listOfReactants>
-					<modiferSpeciesReference species="s"/>
+					<modifierSpeciesReference species="s"/>
 				</listOfReactants>
 				<listOfProducts>
 					<speciesReference species="s"/>
