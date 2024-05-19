@@ -230,10 +230,10 @@ namespace std
     $action
   }
   catch (const SBMLConstructorException &e){
-    Rf_error(e.what());    
+    Rf_error("%s", e.what());    
   }
   catch (const SBMLExtensionException &e){
-    Rf_error(e.what());    
+    Rf_error("%s", e.what());    
   }  
 }
 %enddef
@@ -311,7 +311,7 @@ SBMLCONSTRUCTOR_EXCEPTION(ListOfUnits)
     $action
   }
   catch (const XMLConstructorException &e){
-    Rf_error(e.what());    
+    Rf_error("%s", e.what());    
   }
   
 }
