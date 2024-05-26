@@ -92,8 +92,8 @@ protected:
 
 
   /* helper function to check if a pair already exists */
-  bool alreadyExistsInMap(IdMap map, 
-                          std::pair<const std::string, std::string> dependency);
+  bool alreadyExistsInMap(IdMap& map, 
+                          const std::pair<const std::string, std::string>& dependency) const;
 
   
   /* check for explicit use of original variable */
