@@ -274,9 +274,9 @@ bool
 AssignmentCycles::alreadyExistsInMap(IdMap& map, 
                                      const pair<const std::string, std::string>& dependency) const
 {
-  auto range = map.equal_range(dependency.first);
+  IdRange range = map.equal_range(dependency.first);
 
-  for (auto it = range.first; it != range.second; ++it)
+  for (IdIter it = range.first; it != range.second; ++it)
   {
       if (it->second == dependency.second)
           return true;
