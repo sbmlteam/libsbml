@@ -44,6 +44,7 @@
 
 #include <sbml/packages/distrib/validator/DistribConsistencyValidator.h>
 #include <sbml/packages/distrib/validator/DistribIdentifierConsistencyValidator.h>
+#include <sbml/validator/UnitConsistencyValidator.h>
 
 #ifdef LIBSBML_USE_VLD
   #include <vld.h>
@@ -82,6 +83,21 @@ bool
 runIdTest (const TestFile& file)
 {
   DistribIdentifierConsistencyValidator validator;
+  TestValidator        tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
+/**
+ * @return true if the Validator behaved as expected when validating
+ * TestFile, false otherwise.
+ */
+bool
+runUnitTest (const TestFile& file)
+{
+  UnitConsistencyValidator validator;
   TestValidator        tester(validator);
 
 
@@ -164,9 +180,14 @@ main (int argc, char* argv[])
   failed += runTests( "Testing General XML Consistency Constraints (20000 - 29999)",
 		      testThisDataDir, 0, 0, runMainTest, library);
 
-  testThisDataDir = testDataDir + "/" + "identifier-constraints";
-  failed += runTests( "Testing Id Consistency Constraints (10300 - 10399)",
-		      testThisDataDir, 0, 0, runIdTest, library);
+  // commented out as we don't actually have any of these tests
+  //testThisDataDir = testDataDir + "/" + "identifier-constraints";
+  //failed += runTests( "Testing Id Consistency Constraints (10300 - 10399)",
+		//      testThisDataDir, 0, 0, runIdTest, library);
+
+  testThisDataDir = testDataDir + "/" + "unit-constraints";
+  failed += runTests("Testing Unit Consistency Constraints (10500 - 10599)",
+	  testThisDataDir, 0, 0, runUnitTest, library);
 
   return failed;
 }
