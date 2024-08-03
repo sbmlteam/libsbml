@@ -265,8 +265,30 @@ double DistribASTPlugin::evaluateASTNode(const ASTNode * node, const Model * m) 
 
 UnitDefinition * DistribASTPlugin::getUnitDefinitionFromPackage(UnitFormulaFormatter* uff, const ASTNode * node, bool inKL, int reactNo) const
 {
-  //OK, this *definitely* could be actually coded, so we could do unit checking on draws from distributions.  But it will be a fair amount of work to get right.
-  return NULL;
+    UnitDefinition* ud = NULL;
+    switch (node->getType())
+    {
+    case AST_DISTRIB_FUNCTION_UNIFORM:
+
+        ud = uff->getUnitDefinitionFromArgUnitsReturnFunction(node, inKL, reactNo);
+        break;
+
+    case AST_DISTRIB_FUNCTION_BERNOULLI:
+    case AST_DISTRIB_FUNCTION_BINOMIAL:
+    case AST_DISTRIB_FUNCTION_CAUCHY:
+    case AST_DISTRIB_FUNCTION_CHISQUARE:
+    case AST_DISTRIB_FUNCTION_EXPONENTIAL:
+    case AST_DISTRIB_FUNCTION_GAMMA:
+    case AST_DISTRIB_FUNCTION_LAPLACE:
+    case AST_DISTRIB_FUNCTION_LOGNORMAL:
+    case AST_DISTRIB_FUNCTION_POISSON:
+    case AST_DISTRIB_FUNCTION_RAYLEIGH:
+    case AST_DISTRIB_FUNCTION_NORMAL:
+    default:
+        break;
+    }
+    return ud;
+
 }
 
 #endif /* __cplusplus */
