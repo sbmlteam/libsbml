@@ -268,10 +268,6 @@ MultiSpeciesReferencePlugin::addSpeciesTypeComponentMapInProduct (const SpeciesT
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != speciesTypeComponentMapInProduct->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != speciesTypeComponentMapInProduct->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;

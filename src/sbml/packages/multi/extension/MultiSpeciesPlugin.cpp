@@ -453,10 +453,6 @@ MultiSpeciesPlugin::addOutwardBindingSite (const OutwardBindingSite* outwardBind
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != outwardBindingSite->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != outwardBindingSite->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;
@@ -606,10 +602,6 @@ MultiSpeciesPlugin::addSpeciesFeature (const SpeciesFeature* speciesFeature)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != speciesFeature->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != speciesFeature->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;
@@ -707,10 +699,6 @@ MultiSpeciesPlugin::addSubListOfSpeciesFeatures (SubListOfSpeciesFeatures* subLi
   else if (getLevel() != subListOfSpeciesFeatures->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != subListOfSpeciesFeatures->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (getPackageVersion() != subListOfSpeciesFeatures->getPackageVersion())
   {

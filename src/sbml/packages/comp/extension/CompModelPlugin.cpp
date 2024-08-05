@@ -286,10 +286,6 @@ CompModelPlugin::addSubmodel (const Submodel* submodel)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != submodel->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != submodel->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;
@@ -426,10 +422,6 @@ CompModelPlugin::addPort (const Port* port)
   else if (getLevel() != port->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != port->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (getPackageVersion() != port->getPackageVersion())
   {

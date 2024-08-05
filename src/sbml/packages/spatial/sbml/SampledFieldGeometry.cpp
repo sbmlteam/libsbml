@@ -297,10 +297,6 @@ SampledFieldGeometry::addSampledVolume(const SampledVolume* sv)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != sv->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(sv)) == false)
   {

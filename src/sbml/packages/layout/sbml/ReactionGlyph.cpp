@@ -411,10 +411,6 @@ ReactionGlyph::addSpeciesReferenceGlyph (const SpeciesReferenceGlyph* glyph)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != glyph->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != glyph->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;

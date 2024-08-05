@@ -220,10 +220,6 @@ ListOfCSGObjects::addCSGObject(const CSGObject* csgo)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != csgo->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(csgo)) == false)
   {

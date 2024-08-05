@@ -1044,10 +1044,6 @@ RenderGroup::addElement(const Transformation2D* td)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != td->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(td)) == false)
   {
@@ -1077,10 +1073,6 @@ RenderGroup::addChildElement(const Transformation2D* td)
   else if (getLevel() != td->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != td->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(td)) == false)

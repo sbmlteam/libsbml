@@ -234,10 +234,6 @@ ListOfGeometryDefinitions::addGeometryDefinition(const GeometryDefinition* gd)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != gd->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(gd)) == false)
   {

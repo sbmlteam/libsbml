@@ -1046,10 +1046,6 @@ ListOfFunctionTerms::setDefaultTerm(const DefaultTerm* dt)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != dt->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else
   {
     delete mDefaultTerm;
