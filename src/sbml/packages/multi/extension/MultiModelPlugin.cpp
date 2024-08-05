@@ -294,10 +294,6 @@ MultiModelPlugin::addMultiSpeciesType (const MultiSpeciesType* multiSpeciesType)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != multiSpeciesType->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != multiSpeciesType->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;

@@ -413,10 +413,6 @@ Transition::addInput(const Input* i)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != i->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(i)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
@@ -597,10 +593,6 @@ Transition::addOutput(const Output* i)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != i->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(i)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
@@ -761,10 +753,6 @@ Transition::addFunctionTerm(const FunctionTerm* i)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != i->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(i)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
@@ -840,10 +828,6 @@ Transition::setDefaultTerm(const DefaultTerm* i)
   else if (getLevel() != i->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != i->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(i)) == false)
   {

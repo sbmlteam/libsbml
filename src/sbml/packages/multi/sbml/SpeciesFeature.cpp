@@ -509,10 +509,6 @@ SpeciesFeature::addSpeciesFeatureValue(const SpeciesFeatureValue* sfv)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != sfv->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(sfv)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;

@@ -474,10 +474,6 @@ Submodel::addDeletion (const Deletion* deletion)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != deletion->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != deletion->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;

@@ -414,10 +414,6 @@ MultiSpeciesType::addSpeciesFeatureType(const SpeciesFeatureType* sft)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != sft->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(sft)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
@@ -570,10 +566,6 @@ MultiSpeciesType::addSpeciesTypeInstance(const SpeciesTypeInstance* sti)
   else if (getLevel() != sti->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != sti->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(sti)) == false)
   {
@@ -728,10 +720,6 @@ MultiSpeciesType::addSpeciesTypeComponentIndex(const SpeciesTypeComponentIndex* 
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != stci->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(stci)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
@@ -884,10 +872,6 @@ MultiSpeciesType::addInSpeciesTypeBond(const InSpeciesTypeBond* istb)
   else if (getLevel() != istb->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != istb->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(istb)) == false)
   {

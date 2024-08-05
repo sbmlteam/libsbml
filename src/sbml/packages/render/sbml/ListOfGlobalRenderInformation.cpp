@@ -567,10 +567,6 @@ ListOfGlobalRenderInformation::addGlobalRenderInformation(const
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != gri->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(gri)) == false)
   {

@@ -392,10 +392,6 @@ SpeciesFeatureType::addPossibleSpeciesFeatureValue(const PossibleSpeciesFeatureV
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != psfv->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(psfv)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;

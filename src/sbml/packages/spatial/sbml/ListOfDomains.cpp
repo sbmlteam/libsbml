@@ -218,10 +218,6 @@ ListOfDomains::addDomain(const Domain* d)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != d->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(d)) == false)
   {

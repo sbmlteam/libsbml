@@ -219,10 +219,6 @@ MixedGeometry::addGeometryDefinition(const GeometryDefinition* gd)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != gd->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(gd)) == false)
   {
@@ -491,10 +487,6 @@ MixedGeometry::addOrdinalMapping(const OrdinalMapping* om)
   else if (getLevel() != om->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != om->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(om)) == false)

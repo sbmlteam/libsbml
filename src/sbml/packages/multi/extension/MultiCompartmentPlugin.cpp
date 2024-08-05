@@ -556,10 +556,6 @@ MultiCompartmentPlugin::addCompartmentReference (const CompartmentReference* com
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != compartmentReference->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != compartmentReference->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;

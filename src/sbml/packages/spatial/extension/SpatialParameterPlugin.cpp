@@ -343,10 +343,6 @@ SpatialParameterPlugin::setSpatialSymbolReference(const SpatialSymbolReference*
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != spatialSymbolReference->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != spatialSymbolReference->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;
@@ -381,10 +377,6 @@ SpatialParameterPlugin::setAdvectionCoefficient(const AdvectionCoefficient*
   else if (getLevel() != advectionCoefficient->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != advectionCoefficient->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (getPackageVersion() != advectionCoefficient->getPackageVersion())
   {
@@ -421,10 +413,6 @@ SpatialParameterPlugin::setBoundaryCondition(const BoundaryCondition*
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != boundaryCondition->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != boundaryCondition->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;
@@ -459,10 +447,6 @@ SpatialParameterPlugin::setDiffusionCoefficient(const DiffusionCoefficient*
   else if (getLevel() != diffusionCoefficient->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != diffusionCoefficient->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (getPackageVersion() != diffusionCoefficient->getPackageVersion())
   {

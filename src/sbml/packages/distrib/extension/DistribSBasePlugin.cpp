@@ -175,10 +175,6 @@ DistribSBasePlugin::addUncertainty(const Uncertainty* u)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != u->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != u->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;

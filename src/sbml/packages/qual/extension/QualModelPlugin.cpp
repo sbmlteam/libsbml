@@ -808,10 +808,6 @@ QualModelPlugin::addQualitativeSpecies (const QualitativeSpecies* qual)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != qual->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != qual->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;
@@ -989,10 +985,6 @@ QualModelPlugin::addTransition (const Transition* qual)
   else if (getLevel() != qual->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != qual->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (getPackageVersion() != qual->getPackageVersion())
   {

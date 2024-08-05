@@ -220,10 +220,6 @@ ListOfUncertParameters::addUncertParameter(const UncertParameter* up)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != up->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(up)) == false)
   {
@@ -253,10 +249,6 @@ ListOfUncertParameters::addUncertSpan(const UncertSpan* up)
   else if (getLevel() != up->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != up->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(up)) == false)

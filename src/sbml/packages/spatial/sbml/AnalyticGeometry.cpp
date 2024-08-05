@@ -235,10 +235,6 @@ AnalyticGeometry::addAnalyticVolume(const AnalyticVolume* av)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != av->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(av)) == false)
   {
