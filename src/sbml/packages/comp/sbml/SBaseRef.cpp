@@ -474,10 +474,6 @@ SBaseRef::setSBaseRef (const SBaseRef* sBaseRef)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != sBaseRef->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != sBaseRef->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;

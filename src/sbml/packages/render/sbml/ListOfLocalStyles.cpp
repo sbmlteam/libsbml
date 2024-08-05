@@ -263,10 +263,6 @@ ListOfLocalStyles::addLocalStyle(const LocalStyle* ls)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != ls->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(ls)) == false)
   {

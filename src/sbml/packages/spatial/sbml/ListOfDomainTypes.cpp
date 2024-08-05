@@ -216,10 +216,6 @@ ListOfDomainTypes::addDomainType(const DomainType* dt)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != dt->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(dt)) == false)
   {

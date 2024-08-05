@@ -336,10 +336,6 @@ CompSBasePlugin::addReplacedElement (const ReplacedElement* replacedElement)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != replacedElement->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != replacedElement->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;
@@ -422,10 +418,6 @@ CompSBasePlugin::setReplacedBy (const ReplacedBy* replacedBy)
   else if (getLevel() != replacedBy->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != replacedBy->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (getPackageVersion() != replacedBy->getPackageVersion())
   {

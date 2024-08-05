@@ -219,10 +219,6 @@ ListOfOrdinalMappings::addOrdinalMapping(const OrdinalMapping* om)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != om->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(om)) == false)
   {

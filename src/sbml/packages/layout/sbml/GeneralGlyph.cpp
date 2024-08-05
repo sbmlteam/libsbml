@@ -523,10 +523,6 @@ GeneralGlyph::addReferenceGlyph (const ReferenceGlyph* glyph)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != glyph->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != glyph->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;
@@ -554,10 +550,6 @@ GeneralGlyph::addSubGlyph (const GraphicalObject* glyph)
   else if (getLevel() != glyph->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != glyph->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (getPackageVersion() != glyph->getPackageVersion())
   {

@@ -189,10 +189,6 @@ SpatialCompartmentPlugin::setCompartmentMapping(const CompartmentMapping*
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != compartmentMapping->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != compartmentMapping->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;

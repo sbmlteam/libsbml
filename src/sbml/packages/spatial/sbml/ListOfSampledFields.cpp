@@ -217,10 +217,6 @@ ListOfSampledFields::addSampledField(const SampledField* sf)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != sf->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(sf)) == false)
   {

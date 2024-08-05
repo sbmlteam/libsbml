@@ -181,10 +181,6 @@ SpatialModelPlugin::setGeometry(const Geometry* geometry)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != geometry->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != geometry->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;

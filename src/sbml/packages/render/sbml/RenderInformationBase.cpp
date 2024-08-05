@@ -694,10 +694,6 @@ RenderInformationBase::addColorDefinition(const ColorDefinition* cd)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != cd->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(cd)) == false)
   {
@@ -855,10 +851,6 @@ RenderInformationBase::addGradientDefinition(const GradientBase* gb)
   else if (getLevel() != gb->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != gb->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(gb)) == false)
@@ -1045,10 +1037,6 @@ RenderInformationBase::addLineEnding(const LineEnding* le)
   else if (getLevel() != le->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != le->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(le)) == false)

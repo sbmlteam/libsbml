@@ -373,10 +373,6 @@ CompSBMLDocumentPlugin::addModelDefinition (const ModelDefinition* modelDefiniti
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != modelDefinition->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (getPackageVersion() != modelDefinition->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;
@@ -510,10 +506,6 @@ CompSBMLDocumentPlugin::addExternalModelDefinition (const ExternalModelDefinitio
   else if (getLevel() != externalModelDefinition->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != externalModelDefinition->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (getPackageVersion() != externalModelDefinition->getPackageVersion())
   {

@@ -371,10 +371,6 @@ Geometry::addCoordinateComponent(const CoordinateComponent* cc)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != cc->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(cc)) == false)
   {
@@ -528,10 +524,6 @@ Geometry::addDomainType(const DomainType* dt)
   else if (getLevel() != dt->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != dt->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(dt)) == false)
@@ -709,10 +701,6 @@ Geometry::addDomain(const Domain* d)
   else if (getLevel() != d->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != d->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(d)) == false)
@@ -911,10 +899,6 @@ Geometry::addAdjacentDomains(const AdjacentDomains* ad)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != ad->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(ad)) == false)
   {
@@ -1069,10 +1053,6 @@ Geometry::addGeometryDefinition(const GeometryDefinition* gd)
   else if (getLevel() != gd->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != gd->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(gd)) == false)
@@ -1339,10 +1319,6 @@ Geometry::addSampledField(const SampledField* sf)
   else if (getLevel() != sf->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != sf->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(sf)) == false)

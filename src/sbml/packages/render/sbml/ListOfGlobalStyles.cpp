@@ -247,10 +247,6 @@ ListOfGlobalStyles::addGlobalStyle(const GlobalStyle* gs)
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != gs->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
     SBase*>(gs)) == false)
   {
