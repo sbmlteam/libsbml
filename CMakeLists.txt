@@ -171,10 +171,20 @@ set (LIBSBML_FIND_MODULES "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/FindLIBSBML.
 #
 
 # Build static / shared library
-option(BUILD_SHARED_LIBS  "Build shared library. (Set to OFF to build static libraries.)" ON)
+# 
+# Here we check whether the user has defined BUILD_SHARED_LIBS. If it is
+# defined we will honor the value, otherwise we continue to use the 
+# LIBSBML_SKIP variables to determine whether to build shared or static
+# libraries.
 
-if(NOT BUILD_SHARED_LIBS)
-  set(LIBSBML_SKIP_SHARED_LIBRARY ON)
+if(DEFINED BUILD_SHARED_LIBS)
+  if (BUILD_SHARED_LIBS)
+    set(LIBSBML_SKIP_SHARED_LIBRARY OFF)
+    set(LIBSBML_SKIP_STATIC_LIBRARY ON)
+  else()
+    set(LIBSBML_SKIP_SHARED_LIBRARY ON)
+    set(LIBSBML_SKIP_STATIC_LIBRARY OFF)
+  endif()
 endif()
 
 # Whether to compile examples
