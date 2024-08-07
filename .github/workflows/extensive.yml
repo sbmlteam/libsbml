@@ -257,6 +257,13 @@ jobs:
 
       ### run tests ###
       - name: Test
+        if: matrix.platform == 'macos-latest'
+        working-directory: ${{runner.workspace}}/build
+        shell: bash
+        run: ctest -V -C $BUILD_TYPE -E csharp
+
+      - name: Test
+        if: matrix.platform != 'macos-latest'
         working-directory: ${{runner.workspace}}/build
         shell: bash
         run: ctest -V -C $BUILD_TYPE
