@@ -98,6 +98,18 @@ $(document).ready(function(){initNavTree('libsbml-news.html',''); initResizable(
  </p><pre class="fragment">           libSBML NEWS -- History of user-visible changes
 
 ====================================================================
+5.20.4
+====================================================================
+
+This is mostly a bug fix release enhancing stability and improving 
+performance when validating models. Main points: 
+
+* support compilation when using libxml 2.12.0 and later
+* improved performance when testing for assignment cycles 
+* cmake build system honors the BUILD_SHARED_LIB flag if defined
+
+
+====================================================================
 5.20.2
 ====================================================================
 
