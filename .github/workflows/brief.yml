@@ -160,7 +160,7 @@ jobs:
         if: matrix.platform == 'macos-latest'
         working-directory: ${{runner.workspace}}/build
         shell: bash
-        run: ctest -V -C $BUILD_TYPE -E csharp
+        run: ctest -V -C $BUILD_TYPE -E test_cs
 
       - name: Test
         if: matrix.platform != 'macos-latest'
