@@ -43,6 +43,8 @@
 #include <sbml/packages/distrib/validator/DistribSBMLError.h>
 #include <sbml/packages/distrib/validator/DistribConsistencyValidator.h>
 #include <sbml/packages/distrib/validator/DistribIdentifierConsistencyValidator.h>
+#include <sbml/packages/distrib/validator/DistribMathMLConsistencyValidator.h>
+#include <sbml/packages/distrib/validator/DistribUnitConsistencyValidator.h>
 
 
 using namespace std;
@@ -167,7 +169,11 @@ DistribSBMLDocumentPlugin::checkConsistency()
   unsigned char applicableValidators = doc->getApplicableValidators();
   bool id = ((applicableValidators & 0x01) ==0x01);
   bool core = ((applicableValidators & 0x02) ==0x02);
+  bool math = ((applicableValidators & 0x08) == 0x08);
+  bool units = ((applicableValidators & 0x10) == 0x10);
 
+  DistribMathMLConsistencyValidator math_validator;
+  DistribUnitConsistencyValidator unit_validator;
   DistribIdentifierConsistencyValidator id_validator;
   DistribConsistencyValidator core_validator;
 
@@ -200,7 +206,32 @@ DistribSBMLDocumentPlugin::checkConsistency()
       }
     }
   }
+  if (math)
+  {
+      math_validator.init();
+      nerrors = math_validator.validate(*doc);
+      total_errors += nerrors;
+      if (nerrors > 0)
+      {
+          log->add(math_validator.getFailures());
+          /* only want to bail if errors not warnings */
+          if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
+          {
+              return total_errors;
+          }
+      }
+  }
 
+  if (units)
+  {
+      unit_validator.init();
+      nerrors = unit_validator.validate(*doc);
+      total_errors += nerrors;
+      if (nerrors > 0)
+      {
+          log->add(unit_validator.getFailures());
+      }
+  }
   return total_errors;
 }
 

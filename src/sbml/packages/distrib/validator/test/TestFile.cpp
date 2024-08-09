@@ -100,6 +100,11 @@ TestFile::getConstraintId () const
     {
         constraint = constraint - 1500000;
     }
+    else if (constraint > 1510200 && constraint < 1510299)
+    {
+        constraint = constraint - 1500000;
+    }
+
     return constraint;
 }
 

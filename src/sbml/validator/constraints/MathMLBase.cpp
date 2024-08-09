@@ -229,6 +229,7 @@ MathMLBase::check_ (const Model& m, const Model& object)
     }
   }
 
+
 }
 
 void

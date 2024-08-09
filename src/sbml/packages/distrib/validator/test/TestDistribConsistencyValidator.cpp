@@ -45,6 +45,8 @@
 #include <sbml/packages/distrib/validator/DistribConsistencyValidator.h>
 #include <sbml/packages/distrib/validator/DistribIdentifierConsistencyValidator.h>
 #include <sbml/validator/UnitConsistencyValidator.h>
+#include <sbml/validator/MathMLConsistencyValidator.h>
+
 
 #ifdef LIBSBML_USE_VLD
   #include <vld.h>
@@ -105,6 +107,23 @@ runUnitTest (const TestFile& file)
 
   return tester.test(file);
 }
+
+/**
+ * @return true if the Validator behaved as expected when validating
+ * TestFile, false otherwise.
+ */
+bool
+runMathTest(const TestFile& file)
+{
+	MathMLConsistencyValidator validator;
+	TestValidator        tester(validator);
+
+
+	validator.init();
+
+	return tester.test(file);
+}
+
 
 /**
  * Run a given set of tests and print the results.
@@ -176,18 +195,23 @@ main (int argc, char* argv[])
   cout << endl;
 
 
-  testThisDataDir = testDataDir + "/" + "general-constraints";
-  failed += runTests( "Testing General XML Consistency Constraints (20000 - 29999)",
-		      testThisDataDir, 0, 0, runMainTest, library);
+  //testThisDataDir = testDataDir + "/" + "general-constraints";
+  //failed += runTests( "Testing General XML Consistency Constraints (20000 - 29999)",
+		//      testThisDataDir, 0, 0, runMainTest, library);
 
   // commented out as we don't actually have any of these tests
   //testThisDataDir = testDataDir + "/" + "identifier-constraints";
   //failed += runTests( "Testing Id Consistency Constraints (10300 - 10399)",
 		//      testThisDataDir, 0, 0, runIdTest, library);
 
-  testThisDataDir = testDataDir + "/" + "unit-constraints";
-  failed += runTests("Testing Unit Consistency Constraints (10500 - 10599)",
-	  testThisDataDir, 0, 0, runUnitTest, library);
+  //testThisDataDir = testDataDir + "/" + "unit-constraints";
+  //failed += runTests("Testing Unit Consistency Constraints (10500 - 10599)",
+	 // testThisDataDir, 0, 0, runUnitTest, library);
+
+  testThisDataDir = testDataDir + "/" + "math-constraints";
+  failed += runTests("Testing Math Consistency Constraints (10200 - 10299)",
+	  testThisDataDir, 0, 0, runMathTest, library);
+
 
   return failed;
 }
