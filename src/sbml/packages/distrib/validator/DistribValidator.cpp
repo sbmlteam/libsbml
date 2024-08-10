@@ -245,6 +245,14 @@ public:
 
   using SBMLVisitor::visit;
 
+  virtual void visit(const Model& x)
+  {
+      v.mDistribConstraints->mModel.applyTo(m, x);
+      v.mDistribConstraints->mModel.empty();
+  }
+
+
+
   bool
   visit(const UncertParameter& x)
   {
@@ -370,12 +378,13 @@ DistribValidator::validate(const SBMLDocument& d)
   if (m != NULL)
   {
     DistribValidatingVisitor vv(*this, *m);
-    const DistribSBMLDocumentPlugin* plugin = static_cast<const
+    m->accept(vv);
+    /*const DistribSBMLDocumentPlugin* plugin = static_cast<const
       DistribSBMLDocumentPlugin*>(d.getPlugin("distrib"));
     if (plugin != NULL)
     {
       plugin->accept(vv);
-    }
+    }*/
   }
 
   // ADD ANY OTHER OBJECTS THAT HAS PLUGINS

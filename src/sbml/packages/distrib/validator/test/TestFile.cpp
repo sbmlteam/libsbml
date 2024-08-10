@@ -96,14 +96,6 @@ unsigned int
 TestFile::getConstraintId () const
 { 
     unsigned int constraint = atol( mFilename.substr(0, 7).c_str() );
-    if (constraint > 1510500 && constraint < 1510599)
-    {
-        constraint = constraint - 1500000;
-    }
-    else if (constraint > 1510200 && constraint < 1510299)
-    {
-        constraint = constraint - 1500000;
-    }
 
     return constraint;
 }
