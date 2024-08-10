@@ -69,8 +69,10 @@ typedef enum
   DistribUnknown                                              = 1510100
 , DistribNSUndeclared                                         = 1510101
 , DistribElementNotInNs                                       = 1510102
+, DistribMathnumber                                           = 1510201
 , DistribDuplicateComponentId                                 = 1510301
 , DistribIdSyntaxRule                                         = 1510302
+, DistribUnitsRule                                            = 1510501
 , DistribAttributeRequiredMissing                             = 1520101
 , DistribAttributeRequiredMustBeBoolean                       = 1520102
 , DistribAttributeRequiredMustHaveValue                       = 1520103

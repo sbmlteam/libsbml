@@ -44,8 +44,8 @@
 
 #include <sbml/packages/distrib/validator/DistribConsistencyValidator.h>
 #include <sbml/packages/distrib/validator/DistribIdentifierConsistencyValidator.h>
-#include <sbml/validator/UnitConsistencyValidator.h>
-#include <sbml/validator/MathMLConsistencyValidator.h>
+#include <sbml/packages/distrib/validator/DistribUnitConsistencyValidator.h>
+#include <sbml/packages/distrib/validator/DistribMathMLConsistencyValidator.h>
 
 
 #ifdef LIBSBML_USE_VLD
@@ -99,7 +99,7 @@ runIdTest (const TestFile& file)
 bool
 runUnitTest (const TestFile& file)
 {
-  UnitConsistencyValidator validator;
+  DistribUnitConsistencyValidator validator;
   TestValidator        tester(validator);
 
 
@@ -115,7 +115,7 @@ runUnitTest (const TestFile& file)
 bool
 runMathTest(const TestFile& file)
 {
-	MathMLConsistencyValidator validator;
+	DistribMathMLConsistencyValidator validator;
 	TestValidator        tester(validator);
 
 

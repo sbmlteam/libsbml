@@ -92,6 +92,19 @@ static const packageErrorTableEntry distribErrorTable[] =
     }
   },
 
+    // 1510201
+      { DistribMathnumber,
+        "Element not in Distrib namespace",
+        LIBSBML_CAT_GENERAL_CONSISTENCY,
+        LIBSBML_SEV_ERROR,
+        "Wherever they appear in an SBML document, elements and attributes from the "
+        "Distributions Package must use the "
+        "'http://www.sbml.org/sbml/level3/version1/distrib/version1' namespace, "
+        "declaring so either explicitly or implicitly.",
+        { "L3V1 Distrib V1 Section 3.1"
+        }
+      },
+
   // 1510301
   { DistribDuplicateComponentId,
     "Duplicate 'id' attribute value",
