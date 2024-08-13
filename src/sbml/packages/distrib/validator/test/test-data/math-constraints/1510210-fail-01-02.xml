@@ -10,8 +10,6 @@
           <apply>
             <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/distrib/uniform"> uniform </csymbol>
             <cn sbml:units="dimensionless" type="integer"> 1 </cn>
-            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
-            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
           </apply>
         </math>
       </initialAssignment>

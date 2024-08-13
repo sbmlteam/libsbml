@@ -316,7 +316,7 @@ NumberArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
   //oss_msg << getPreamble();
 
   char * formula = SBML_formulaToString(&node);
-  oss_msg << "The formula '" << formula;
+  oss_msg << ".[The formula '" << formula;
   oss_msg << "' in the " << getFieldname() << " element of the <" << object.getElementName();
   oss_msg << "> ";
   switch(object.getTypeCode()) {

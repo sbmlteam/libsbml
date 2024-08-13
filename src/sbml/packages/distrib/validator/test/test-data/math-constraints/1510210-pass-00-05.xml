@@ -8,9 +8,8 @@
       <initialAssignment symbol="protein_random">
         <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version2/core">
           <apply>
-            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/distrib/uniform"> uniform </csymbol>
-            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
-            <cn sbml:units="dimensionless" type="integer"> 1 </cn>
+            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/distrib/binomial"> binomial </csymbol>
+            <cn sbml:units="dimensionless" type="integer"> 0 </cn>
             <cn sbml:units="dimensionless" type="integer"> 1 </cn>
           </apply>
         </math>

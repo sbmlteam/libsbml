@@ -59,7 +59,7 @@ using namespace std;
  * PUT CONSTRAINTS HERE
  */
 
-EXTERN_CONSTRAINT(1410501, L3v2EMArgumentsUnitsCheck)
+EXTERN_CONSTRAINT(1510501, DistribArgumentsUnitsCheck)
 
 /** @endcond */
 

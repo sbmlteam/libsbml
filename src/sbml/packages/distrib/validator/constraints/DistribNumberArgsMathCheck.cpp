@@ -99,10 +99,10 @@ DistribNumberArgsMathCheck::checkMath(const Model& m, const ASTNode& node, const
     int result = astPlugin->checkNumArguments(&node, error);
     if (result == -1)
     {
-      string errmsg = "The function '";
-      errmsg += node.getName();
-      errmsg += "' takes " + error.str();
-      logPackageMathConflict(node, sb, errmsg);
+      //string errmsg = "The function '";
+      //errmsg += node.getName();
+      //errmsg += "' takes " + error.str();
+      logPackageMathConflict(node, sb, error.str());
     }
   }
 
