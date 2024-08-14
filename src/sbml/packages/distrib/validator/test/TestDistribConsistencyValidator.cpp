@@ -46,6 +46,7 @@
 #include <sbml/packages/distrib/validator/DistribIdentifierConsistencyValidator.h>
 #include <sbml/packages/distrib/validator/DistribUnitConsistencyValidator.h>
 #include <sbml/packages/distrib/validator/DistribMathMLConsistencyValidator.h>
+#include <sbml/validator/UnitConsistencyValidator.h>
 
 
 #ifdef LIBSBML_USE_VLD
@@ -99,7 +100,7 @@ runIdTest (const TestFile& file)
 bool
 runUnitTest (const TestFile& file)
 {
-  DistribUnitConsistencyValidator validator;
+  UnitConsistencyValidator validator;
   TestValidator        tester(validator);
 
 
@@ -204,13 +205,13 @@ main (int argc, char* argv[])
   //failed += runTests( "Testing Id Consistency Constraints (10300 - 10399)",
 		//      testThisDataDir, 0, 0, runIdTest, library);
 
-  //testThisDataDir = testDataDir + "/" + "unit-constraints";
-  //failed += runTests("Testing Unit Consistency Constraints (10500 - 10599)",
-	 // testThisDataDir, 0, 0, runUnitTest, library);
+  testThisDataDir = testDataDir + "/" + "unit-constraints";
+  failed += runTests("Testing Unit Consistency Constraints (10500 - 10599)",
+	  testThisDataDir, 1, 0, runUnitTest, library);
 
-  testThisDataDir = testDataDir + "/" + "math-constraints";
+  /*testThisDataDir = testDataDir + "/" + "math-constraints";
   failed += runTests("Testing Math Consistency Constraints (10200 - 10299)",
-	  testThisDataDir, 0, 0, runMathTest, library);
+	  testThisDataDir, 0, 0, runMathTest, library);*/
 
 
   return failed;

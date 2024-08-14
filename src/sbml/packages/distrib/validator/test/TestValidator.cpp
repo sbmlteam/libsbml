@@ -109,6 +109,10 @@ TestValidator::test (const TestFile& file)
   if (id == 90502 || id == 90503 || id == 90504)
     id = 90501;
 
+  /* change number for unit test that report non distrib package unit fails*/
+  if (id == 1510523)
+      id = 10523;
+
   unsigned int expected = file.getNumFailures();
   unsigned int others   = file.getAdditionalFailId();
   /* for 10311 called using just the id validator you will get 99303 */

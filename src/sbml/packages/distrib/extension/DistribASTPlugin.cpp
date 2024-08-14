@@ -269,11 +269,7 @@ UnitDefinition * DistribASTPlugin::getUnitDefinitionFromPackage(UnitFormulaForma
     switch (node->getType())
     {
     case AST_DISTRIB_FUNCTION_UNIFORM:
-
-        ud = uff->getUnitDefinitionFromArgUnitsReturnFunction(node, inKL, reactNo);
-        break;
-
-    case AST_DISTRIB_FUNCTION_BERNOULLI:
+    case AST_DISTRIB_FUNCTION_NORMAL:
     case AST_DISTRIB_FUNCTION_BINOMIAL:
     case AST_DISTRIB_FUNCTION_CAUCHY:
     case AST_DISTRIB_FUNCTION_CHISQUARE:
@@ -283,7 +279,11 @@ UnitDefinition * DistribASTPlugin::getUnitDefinitionFromPackage(UnitFormulaForma
     case AST_DISTRIB_FUNCTION_LOGNORMAL:
     case AST_DISTRIB_FUNCTION_POISSON:
     case AST_DISTRIB_FUNCTION_RAYLEIGH:
-    case AST_DISTRIB_FUNCTION_NORMAL:
+    case AST_DISTRIB_FUNCTION_BERNOULLI:
+
+        ud = uff->getUnitDefinitionFromArgUnitsReturnFunction(node, inKL, reactNo);
+        break;
+
     default:
         break;
     }
