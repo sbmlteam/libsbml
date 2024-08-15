@@ -1,5 +1,11 @@
 var NAVTREEINDEX179 =
 {
+"class_stoichiometry_math.html#a5af865a159b3b1c5a16729bce7e4e3c2":[3,0,347,87],
+"class_stoichiometry_math.html#a5bca707ae547873a5dea083038c8ccda":[3,0,347,23],
+"class_stoichiometry_math.html#a5c949d524aca47b84b18b57b76e6ee0a":[3,0,347,129],
+"class_stoichiometry_math.html#a5fd4be8061a6a0338ebc2b8018ffbd46":[3,0,347,34],
+"class_stoichiometry_math.html#a5fe0e86c2c28a3226ddc42972241bddd":[3,0,347,14],
+"class_stoichiometry_math.html#a5fed1bd6da28c0cc0ec118209f7327a2":[3,0,347,97],
 "class_stoichiometry_math.html#a60f1d849c7f806d075836b21d322150f":[3,0,347,48],
 "class_stoichiometry_math.html#a611a4bd98a4e32e3573980b2481ce77e":[3,0,347,124],
 "class_stoichiometry_math.html#a62d09cb6602f1abfbf3188b59bd5aa0e":[3,0,347,38],
@@ -243,11 +249,5 @@ var NAVTREEINDEX179 =
 "class_style.html#aef0ea49f9a3ad67d72edb2c1cf92ad82":[3,0,348,132],
 "class_style.html#aef9c68a40e7c72bc29e436a8ffd20212":[3,0,348,137],
 "class_style.html#aefcb20704f591f1d5ad95975c86ded4b":[3,0,348,38],
-"class_style.html#af0a70ab6f715e912c6431072c4339f2c":[3,0,348,42],
-"class_style.html#af273fbddd3c8152801016fe5be0bd703":[3,0,348,143],
-"class_style.html#afa8510b65b37c54c8faf9f453cf1cb44":[3,0,348,12],
-"class_sub_list_of_species_features.html":[3,0,349],
-"class_sub_list_of_species_features.html#a0143961ca5188d00203c99eef1de854e":[3,0,349,24],
-"class_sub_list_of_species_features.html#a027dbf22b8bf74bbb0ce5cd4453851c7":[3,0,349,53],
-"class_sub_list_of_species_features.html#a02a6692a180f9281c071b77f908dce0e":[3,0,349,39]
+"class_style.html#af0a70ab6f715e912c6431072c4339f2c":[3,0,348,42]
 };
