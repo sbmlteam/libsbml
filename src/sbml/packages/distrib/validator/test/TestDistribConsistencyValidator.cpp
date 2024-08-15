@@ -109,6 +109,24 @@ runUnitTest (const TestFile& file)
   return tester.test(file);
 }
 
+
+/**
+ * @return true if the Validator behaved as expected when validating
+ * TestFile, false otherwise.
+ */
+bool
+runDistribUnitTest(const TestFile& file)
+{
+	DistribUnitConsistencyValidator validator;
+	TestValidator        tester(validator);
+
+
+	validator.init();
+
+	return tester.test(file);
+}
+
+
 /**
  * @return true if the Validator behaved as expected when validating
  * TestFile, false otherwise.
@@ -196,9 +214,9 @@ main (int argc, char* argv[])
   cout << endl;
 
 
-  //testThisDataDir = testDataDir + "/" + "general-constraints";
-  //failed += runTests( "Testing General XML Consistency Constraints (20000 - 29999)",
-		//      testThisDataDir, 0, 0, runMainTest, library);
+  testThisDataDir = testDataDir + "/" + "general-constraints";
+  failed += runTests( "Testing General XML Consistency Constraints (20000 - 29999)",
+		      testThisDataDir, 0, 0, runMainTest, library);
 
   // commented out as we don't actually have any of these tests
   //testThisDataDir = testDataDir + "/" + "identifier-constraints";
@@ -209,9 +227,13 @@ main (int argc, char* argv[])
   failed += runTests("Testing Unit Consistency Constraints (10500 - 10599)",
 	  testThisDataDir, 1, 0, runUnitTest, library);
 
-  /*testThisDataDir = testDataDir + "/" + "math-constraints";
+  testThisDataDir = testDataDir + "/" + "math-constraints";
   failed += runTests("Testing Math Consistency Constraints (10200 - 10299)",
-	  testThisDataDir, 0, 0, runMathTest, library);*/
+	  testThisDataDir, 0, 0, runMathTest, library);
+
+  testThisDataDir = testDataDir + "/" + "distrib-unit-constraints";
+  failed += runTests("Testing Unit Consistency Constraints (10500 - 10599)",
+	  testThisDataDir, 1, 0, runDistribUnitTest, library);
 
 
   return failed;

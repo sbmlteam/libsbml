@@ -96,9 +96,7 @@ DistribArgumentsUnitsCheck::checkUnits (const Model& m, const ASTNode& node, con
   {
     /* functions that act on same units */
     case AST_DISTRIB_FUNCTION_UNIFORM:
-
-      checkSameUnitsAsArgs(m, node, sb, inKL, reactNo);
-      break;
+    case AST_DISTRIB_FUNCTION_NORMAL:
 
     case AST_DISTRIB_FUNCTION_BERNOULLI:
     case AST_DISTRIB_FUNCTION_BINOMIAL:
@@ -110,7 +108,8 @@ DistribArgumentsUnitsCheck::checkUnits (const Model& m, const ASTNode& node, con
     case AST_DISTRIB_FUNCTION_LOGNORMAL:
     case AST_DISTRIB_FUNCTION_POISSON:
     case AST_DISTRIB_FUNCTION_RAYLEIGH:
-    case AST_DISTRIB_FUNCTION_NORMAL:
+        checkSameUnitsAsArgs(m, node, sb, inKL, reactNo);
+        break;
     default:
       checkChildren(m, node, sb, inKL, reactNo);
       break;

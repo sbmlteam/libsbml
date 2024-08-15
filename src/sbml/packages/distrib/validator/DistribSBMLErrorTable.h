@@ -127,13 +127,12 @@ static const packageErrorTableEntry distribErrorTable[] =
     }
   },
 
-    // 1510302
+    // 1510501
  { DistribUnitsRule,
-   "Invalid SId syntax",
+   "Invalid units",
    LIBSBML_CAT_GENERAL_CONSISTENCY,
    LIBSBML_SEV_ERROR,
-   "The value of a 'distrib:id' must conform to the syntax of the <sbml> data "
-   "type 'SId'",
+   "The unit supplied to an argument must be correct.",
    { "L3V1 Distrib V1 Section"
    }
  },
