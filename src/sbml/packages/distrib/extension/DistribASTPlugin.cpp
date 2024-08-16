@@ -45,6 +45,7 @@
 #include <sbml/xml/XMLNamespaces.h>
 #include <sbml/math/L3ParserSettings.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
+#include <sbml/units/UnitFormulaFormatter.h>
 
 /** @cond doxygenIgnored */
 
