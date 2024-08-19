@@ -566,11 +566,11 @@ ${LIBSBML_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
         endif()
     endif()
 
-    if(NOT EXISTS "${ZLIB_INCLUDE_DIR}/zlib.h")
-        message(FATAL_ERROR
-"The include directory specified for zlib does not appear to be
-valid. It should contain the file zlib.h, but it does not.")
-    endif()
+#    if(NOT EXISTS "${ZLIB_INCLUDE_DIR}/zlib.h")
+#        message(FATAL_ERROR
+#"The include directory specified for zlib does not appear to be
+#valid. It should contain the file zlib.h, but it does not.")
+#    endif()
 
   list(APPEND LIBSBML_FIND_MODULES "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/FindZLIB.cmake")
 
