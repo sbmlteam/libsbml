@@ -467,7 +467,7 @@ class Method:
     # this fixes a real problem in the Java documentation for libSBML.
 
     if language == 'java' or language == 'csharp':
-      if isConst and 'unsigned int' in args >= 0:
+      if isConst and 'unsigned int' in args:
         self.args = ''
       elif not args.strip() == '()':
         if isConst:
