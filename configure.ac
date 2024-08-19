@@ -38,15 +38,11 @@ dnl ---------------------------------------------------------------------------
 
 m4_define(LIBSBML_VERSION, m4_esyscmd_s(cat VERSION.txt))
 
-dnl The AC_PREREQ macro can come before AC_INIT (but it's the only one).
+dnl The AC_PREREQ([2.72]) macro can come before AC_INIT (but it's the only one).
 
-AC_PREREQ([2.62])
+AC_PREREQ([2.72])
 
-AC_INIT([libSBML],
-        [LIBSBML_VERSION],
-        [libsbml-team@googlegroups.com],
-        [libsbml],
-        [http://sbml.org/Software/libSBML])
+AC_INIT([libSBML],[LIBSBML_VERSION],[libsbml-team@googlegroups.com],[libsbml],[http://sbml.org/Software/libSBML])
 
 AC_CONFIG_AUX_DIR(config)
 
@@ -86,8 +82,7 @@ dnl ---------------------------------------------------------------------------
 dnl [2007-06-25] This is not currently functioning and may never be again.
 
 dnl AC_ARG_ENABLE([memory-tracing],
-dnl   AC_HELP_STRING([--enable-memory-tracing],
-dnl                  [Enable memory tracing (default: disabled)]),
+dnl   AS_HELP_STRING([--enable-memory-tracing],[dnl                  Enable memory tracing (default: disabled)]),
 dnl     [enable_tracing=$withval],
 dnl     [enable_tracing=no])
 
@@ -378,7 +373,9 @@ dnl ---------------------------------------------------------------------------
 dnl Checks for header files.
 dnl ---------------------------------------------------------------------------
 
-AC_HEADER_STDC
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
+
 AC_CHECK_HEADERS(errno.h)
 AC_CHECK_HEADERS(math.h)
 AC_CHECK_HEADERS(ieeefp.h)
