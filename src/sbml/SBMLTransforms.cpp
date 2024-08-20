@@ -545,6 +545,9 @@ SBMLTransforms::getComponentIds(const Model* m)
 void 
 SBMLTransforms::clearComponentValues(const Model* m)
 {
+  if (mModelValues.empty()) {
+    return;
+  }
   if (!m)
   {
     // clear all maps if no model specified
@@ -1260,7 +1263,7 @@ SBMLTransforms::expandInitialAssignments(Model * m)
   while(count > 0 && needToBail == false);
 
   // clear the internal map of values
-  clearComponentValues(m);
+  //clearComponentValues(m);
 
   return true;
 }
