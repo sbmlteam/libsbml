@@ -76,7 +76,25 @@ if (NOT (ZLIB_INCLUDE_DIR AND ZLIB_LIBRARY) OR NOT ZLIB_FOUND)
             set(ZLIB_VERSION ${PC_ZLIB_VERSION} CACHE STRING "Zlib Version found" )
         endif (PC_ZLIB_FOUND)
     endif (NOT WIN32)
-    
+
+    # make sure that we have a valid zip library
+    file(TO_CMAKE_PATH "${ZLIB_LIBRARY}" LIBZ_CMAKE_PATH)
+    include (CheckLibraryExists)
+    check_library_exists("${LIBZ_CMAKE_PATH}" "gzopen" "" LIBZ_CMAKE_PATH)
+    if(NOT LIBZ_FOUND_SYMBOL)
+        # this is odd, but on windows this check always fails! must be a
+        # bug in the current cmake version so for now only issue this
+        # warning on linux
+        if(UNIX)
+            message(WARNING
+"The chosen zlib library does not appear to be valid because it is
+missing certain required symbols. Please check that ${LIBZ_LIBRARY} is
+the correct zlib library. For details about the error, please see
+${LIBSBML_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
+        endif()
+    endif()
+
+
     mark_as_advanced(ZLIB_INCLUDE_DIR ZLIB_LIBRARY)
 
 endif () # Check for cached values
