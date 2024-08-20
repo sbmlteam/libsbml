@@ -546,32 +546,10 @@ set(USE_ZLIB OFF)
 if(WITH_ZLIB)
 
   find_package(ZLIB REQUIRED)
+
   set(USE_ZLIB ON)
   add_definitions( -DUSE_ZLIB )
   list(APPEND SWIG_EXTRA_ARGS -DUSE_ZLIB)
-
-    # make sure that we have a valid zip library
-    file(TO_CMAKE_PATH "${ZLIB_LIBRARY}" LIBZ_CMAKE_PATH)
-    check_library_exists("${LIBZ_CMAKE_PATH}" "gzopen" "" LIBZ_CMAKE_PATH)
-    if(NOT LIBZ_FOUND_SYMBOL)
-        # this is odd, but on windows this check always fails! must be a
-        # bug in the current cmake version so for now only issue this
-        # warning on linux
-        if(UNIX)
-            message(WARNING
-"The chosen zlib library does not appear to be valid because it is
-missing certain required symbols. Please check that ${LIBZ_LIBRARY} is
-the correct zlib library. For details about the error, please see
-${LIBSBML_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
-        endif()
-    endif()
-
-#    if(NOT EXISTS "${ZLIB_INCLUDE_DIR}/zlib.h")
-#        message(FATAL_ERROR
-#"The include directory specified for zlib does not appear to be
-#valid. It should contain the file zlib.h, but it does not.")
-#    endif()
-
   list(APPEND LIBSBML_FIND_MODULES "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/FindZLIB.cmake")
 
 endif(WITH_ZLIB)
