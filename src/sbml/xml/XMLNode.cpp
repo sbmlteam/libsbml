@@ -874,6 +874,13 @@ XMLNode_getPrefix (const XMLNode_t *node)
   return node->getPrefix().empty() ? NULL : node->getPrefix().c_str();
 }
 
+LIBLAX_EXTERN
+int
+XMLNode_hasPrefix (const XMLNode_t *node)
+{
+  if (node == NULL) return 0;
+  return node->getPrefix().empty() ? 0 : 1;
+}
 
 LIBLAX_EXTERN
 const char *
