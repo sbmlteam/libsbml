@@ -180,6 +180,7 @@ START_TEST (test_XMLNode_createFromToken)
 
   fail_unless(strcmp(XMLNode_getName(node), "attr") == 0);
   fail_unless(strcmp(XMLNode_getPrefix(node), "prefix") == 0);
+  fail_unless(XMLNode_hasPrefix(node) == 1);
   fail_unless(strcmp(XMLNode_getURI(node), "uri") == 0);
   fail_unless (XMLNode_getChild(node, 1) != NULL);
 
@@ -220,6 +221,7 @@ START_TEST (test_XMLNode_createElement)
   fail_unless(XMLNode_getNumChildren(snode) == 0);
   fail_unless(strcmp(XMLNode_getName  (snode), name  ) == 0);
   fail_unless(strcmp(XMLNode_getPrefix(snode), prefix) == 0);
+  fail_unless(XMLNode_hasPrefix(snode) == 1);
   fail_unless(strcmp(XMLNode_getURI   (snode), uri   ) == 0);
   fail_unless(XMLNode_isElement(snode) == 1);
   fail_unless(XMLNode_isStart  (snode) == 1);
@@ -266,6 +268,7 @@ START_TEST (test_XMLNode_createElement)
   fail_unless(XMLNode_getNumChildren(snode) == 0);
   fail_unless(strcmp(XMLNode_getName  (snode), "test") == 0);
   fail_unless(XMLNode_getPrefix(snode) == NULL );
+  fail_unless(XMLNode_hasPrefix(snode) == 0 );
   fail_unless(XMLNode_getURI   (snode) == NULL );
   fail_unless(XMLNode_isElement(snode) == 1);
   fail_unless(XMLNode_isStart  (snode) == 1);
@@ -284,6 +287,7 @@ START_TEST (test_XMLNode_createElement)
   free(test);
 
   fail_unless(XMLAttributes_getPrefix(cattr, 0) == NULL);
+  fail_unless(XMLAttributes_hasPrefix(cattr, 0) == 0);
   fail_unless(XMLAttributes_getURI   (cattr, 0) == NULL);
 
   /* end element */
@@ -293,6 +297,7 @@ START_TEST (test_XMLNode_createElement)
   fail_unless(XMLNode_getNumChildren(enode) == 0);
   fail_unless(strcmp(XMLNode_getName(enode), "test") == 0);
   fail_unless(XMLNode_getPrefix(enode) == NULL );
+  fail_unless(XMLNode_hasPrefix(enode) == 0 );
   fail_unless(XMLNode_getURI   (enode) == NULL );
   fail_unless(XMLNode_isElement(enode) == 1);
   fail_unless(XMLNode_isStart  (enode) == 0);
