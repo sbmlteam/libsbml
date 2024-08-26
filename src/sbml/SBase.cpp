@@ -4576,6 +4576,7 @@ SBase::read (XMLInputStream& stream)
     else if ( next.isStart() )
     {
       const std::string nextName = next.getName();
+      const std::string nextURI = next.getURI();
 #if 0
       cout << "[DEBUG] SBase::read " << nextName << " uri "
            << stream.peek().getURI() << endl;
@@ -4620,7 +4621,7 @@ SBase::read (XMLInputStream& stream)
                    || readAnnotation(stream)
                    || readNotes(stream) ))
       {
-        logUnknownElement(nextName, getLevel(), getVersion());
+        logUnknownElement(nextName, getLevel(), getVersion(), nextURI);
         stream.skipPastEnd( stream.next() );
       }
     }
@@ -5343,10 +5344,16 @@ SBase::logUnknownAttribute( const string& attribute,
 void
 SBase::logUnknownElement( const string& element,
         const unsigned int level,
-        const unsigned int version )
+        const unsigned int version,
+    const string& URI)
 {
   bool logged = false;
   ostringstream msg;
+
+  // if we have an unknown element that is not in an SBML name space
+  // this is perfectly allowed XML
+  if (SBMLNamespaces::getSBMLNamespaceURI(level, version) != URI)
+      return;
 
   if (level > 2 && getTypeCode() == SBML_LIST_OF)
   {
