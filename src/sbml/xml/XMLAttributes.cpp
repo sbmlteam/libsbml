@@ -1448,6 +1448,13 @@ XMLAttributes_getPrefix (const XMLAttributes_t *xa, int index)
   return xa->getPrefix(index).empty() ? NULL : safe_strdup(xa->getPrefix(index).c_str());
 }
 
+LIBLAX_EXTERN
+int
+XMLAttributes_hasPrefix (const XMLAttributes_t *xa, int index)
+{
+  if (xa == NULL) return 0;
+  return xa->getPrefix(index).empty() ? 0 : 1;
+}
 
 LIBLAX_EXTERN
 char *

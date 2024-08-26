@@ -2165,6 +2165,25 @@ LIBLAX_EXTERN
 char *
 XMLAttributes_getPrefix (const XMLAttributes_t *xa, int index);
 
+/**
+ * Return whether an attribute in this XMLAttributes_t structure (by position) has a prefix.
+ *
+ * @param xa the XMLAttributes_t structure.
+ * @param index an integer, the position of the attribute whose value is
+ * required.
+ *
+ * @return 1 if the attribute has a prefix, 0 otherwise.
+ *
+ * @note If index
+ * is out of range, 0 will be returned.
+ * Use XMLAttributes_hasAttribute() != 0 to test for attribute existence.
+ *
+ * @memberof XMLAttributes_t
+ */
+LIBLAX_EXTERN
+int
+XMLAttributes_hasPrefix (const XMLAttributes_t *xa, int index);
+
 
 /**
  * Return the namespace URI of an attribute in this XMLAttributes_t structure (by position).

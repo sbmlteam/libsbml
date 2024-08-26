@@ -833,8 +833,7 @@ XMLNode_getName (const XMLNode_t *node);
  *
  * @return the namespace prefix of this XML element.
  *
- * @note If no prefix
- * exists, an empty string will be return.
+ * @note If no prefix exists, NULL will be returned.
  *
  * @memberof XMLNode_t
  */
@@ -842,6 +841,19 @@ LIBLAX_EXTERN
 const char *
 XMLNode_getPrefix (const XMLNode_t *node);
 
+/**
+ * Returns a flag, whether this XML element has a namespace prefix.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return 1 (true) if this XML element has a namespace prefix, 
+ *         0 (false) otherwise.
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+int
+XMLNode_hasPrefix (const XMLNode_t *node);
 
 /**
  * Returns the namespace URI of this XML element.
