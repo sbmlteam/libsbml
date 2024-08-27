@@ -1,5 +1,6 @@
 var NAVTREEINDEX112 =
 {
+"class_list_of_ordinal_mappings.html#aee8d8b8cb1ae5980d228174073fc5abc":[3,0,177,74],
 "class_list_of_ordinal_mappings.html#aef0ea49f9a3ad67d72edb2c1cf92ad82":[3,0,177,130],
 "class_list_of_ordinal_mappings.html#af09ec59980c57c45166c966b655c97d1":[3,0,177,16],
 "class_list_of_ordinal_mappings.html#af0a70ab6f715e912c6431072c4339f2c":[3,0,177,50],
@@ -248,6 +249,5 @@ var NAVTREEINDEX112 =
 "class_list_of_outward_binding_sites.html#a9121d6a4f7401fe957cc75647a1e95ed":[3,0,179,133],
 "class_list_of_outward_binding_sites.html#a936f753a9032913c569dafa3642d8252":[3,0,179,103],
 "class_list_of_outward_binding_sites.html#a944bad557986b43d8328d5727d1aa890":[3,0,179,68],
-"class_list_of_outward_binding_sites.html#a94ead78ebf80118b1027af5438f22516":[3,0,179,101],
-"class_list_of_outward_binding_sites.html#a973c76cb7a7370cb221911591a73460a":[3,0,179,60]
+"class_list_of_outward_binding_sites.html#a94ead78ebf80118b1027af5438f22516":[3,0,179,101]
 };

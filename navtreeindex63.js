@@ -1,5 +1,6 @@
 var NAVTREEINDEX63 =
 {
+"class_gene_product.html#a19efde8c152ee942e6d86d591a45ff0d":[3,0,89,113],
 "class_gene_product.html#a1b3b81d1dff203fbfa9f11ff58c8da8e":[3,0,89,112],
 "class_gene_product.html#a1bfd93ef72d0f624964fcfd7a8d5cdfb":[3,0,89,134],
 "class_gene_product.html#a1e89a7890f2fb291f1ba4c38866d1dcc":[3,0,89,132],
@@ -248,6 +249,5 @@ var NAVTREEINDEX63 =
 "class_gene_product_association.html#ac90d5a07254e09c182bbef5071e7e9e1":[3,0,90,91],
 "class_gene_product_association.html#ac92975919a08b70b0ded5f1364f5ec44":[3,0,90,71],
 "class_gene_product_association.html#accc96fb06a79df769eb3669e090771e5":[3,0,90,7],
-"class_gene_product_association.html#ad0a14de158d4139b4c28130eb7d8aa60":[3,0,90,68],
-"class_gene_product_association.html#ad17b3447a4eb8ddd9bac16b0fd5bfa6d":[3,0,90,101]
+"class_gene_product_association.html#ad0a14de158d4139b4c28130eb7d8aa60":[3,0,90,68]
 };
