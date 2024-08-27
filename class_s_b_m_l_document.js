@@ -12,7 +12,6 @@ var class_s_b_m_l_document =
     [ "appendNotes", "class_s_b_m_l_document.html#adb8c800163c108a27880bd644d7767ad", null ],
     [ "checkConsistency", "class_s_b_m_l_document.html#a25684f139b8f5e44ec2089eba3fdfda0", null ],
     [ "checkConsistencyWithStrictUnits", "class_s_b_m_l_document.html#ae0aab76900fd8e4fca9da7529132d8e7", null ],
-    [ "checkConsistencyWithStrictUnits", "class_s_b_m_l_document.html#a5312c6e466bebbfe916e490e8a97cbfa", null ],
     [ "checkInternalConsistency", "class_s_b_m_l_document.html#a5d0aceba94d7005122b9149470998349", null ],
     [ "checkL1Compatibility", "class_s_b_m_l_document.html#a4d74bae94611c12f9b87204574db2e14", null ],
     [ "checkL2v1Compatibility", "class_s_b_m_l_document.html#ade9b66aba44df83de0f8444ec31bf471", null ],

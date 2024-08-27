@@ -1,6 +1,5 @@
 var NAVTREEINDEX98 =
 {
-"class_list_of_geometry_definitions.html#a0df1a731505cbddfcb2c504bd86ba9c0":[3,0,155,97],
 "class_list_of_geometry_definitions.html#a101f321c584c5c6b70a5a41f1da9ca94":[3,0,155,51],
 "class_list_of_geometry_definitions.html#a118148398f5c626bf9697887296f97b8":[3,0,155,9],
 "class_list_of_geometry_definitions.html#a11d9c02a3690d9a13362835ef0133125":[3,0,155,126],
@@ -249,5 +248,6 @@ var NAVTREEINDEX98 =
 "class_list_of_global_render_information.html#a89f626f2593df8e83da4cdbfe79142f7":[3,0,156,168],
 "class_list_of_global_render_information.html#a8a342a0f8387842fb6700c50c4c43344":[3,0,156,139],
 "class_list_of_global_render_information.html#a8c576e7dfaa4651bca4a782c9e09ac20":[3,0,156,85],
-"class_list_of_global_render_information.html#a8e353898f4f40b0cb0cce1128863d1dc":[3,0,156,142]
+"class_list_of_global_render_information.html#a8e353898f4f40b0cb0cce1128863d1dc":[3,0,156,142],
+"class_list_of_global_render_information.html#a8e3e54c62bc34c720d96b421c9798dde":[3,0,156,90]
 };

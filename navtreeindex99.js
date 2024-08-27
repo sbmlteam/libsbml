@@ -1,6 +1,5 @@
 var NAVTREEINDEX99 =
 {
-"class_list_of_global_render_information.html#a8e3e54c62bc34c720d96b421c9798dde":[3,0,156,90],
 "class_list_of_global_render_information.html#a8e455a93329e407b4b1d8ad307c95a22":[3,0,156,123],
 "class_list_of_global_render_information.html#a8ed6545c2fab20f6dc44ae0c282c4fbf":[3,0,156,87],
 "class_list_of_global_render_information.html#a90c178dc55006f4bf86eb3f16437870e":[3,0,156,94],
@@ -249,5 +248,6 @@ var NAVTREEINDEX99 =
 "class_list_of_gradient_definitions.html#a1bfd93ef72d0f624964fcfd7a8d5cdfb":[3,0,158,146],
 "class_list_of_gradient_definitions.html#a1cb550ebcb8d92c77f42af9d8603ad4e":[3,0,158,6],
 "class_list_of_gradient_definitions.html#a1e89a7890f2fb291f1ba4c38866d1dcc":[3,0,158,144],
-"class_list_of_gradient_definitions.html#a21580da1d75f4782effcc57b45ed37c8":[3,0,158,121]
+"class_list_of_gradient_definitions.html#a21580da1d75f4782effcc57b45ed37c8":[3,0,158,121],
+"class_list_of_gradient_definitions.html#a21766ad77868a914ec0780653d0e924f":[3,0,158,34]
 };

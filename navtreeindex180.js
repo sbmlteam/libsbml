@@ -1,7 +1,5 @@
 var NAVTREEINDEX180 =
 {
-"class_style.html#aefcb20704f591f1d5ad95975c86ded4b":[3,0,348,38],
-"class_style.html#af0a70ab6f715e912c6431072c4339f2c":[3,0,348,42],
 "class_style.html#af273fbddd3c8152801016fe5be0bd703":[3,0,348,143],
 "class_style.html#afa8510b65b37c54c8faf9f453cf1cb44":[3,0,348,12],
 "class_sub_list_of_species_features.html":[3,0,349],
@@ -249,5 +247,7 @@ var NAVTREEINDEX180 =
 "class_submodel.html#a77fbeb82f6ffa8e56c9199c5ff93b212":[3,0,350,70],
 "class_submodel.html#a793474c95c07f445d0c1f8935e1909d1":[3,0,350,133],
 "class_submodel.html#a7a260cec1705d70d0fea2259b5665b92":[3,0,350,114],
-"class_submodel.html#a7a6dc5a02be520ea43c7cf71c5062c71":[3,0,350,156]
+"class_submodel.html#a7a6dc5a02be520ea43c7cf71c5062c71":[3,0,350,156],
+"class_submodel.html#a7a9574c886d54be2db67210bbd8fcf18":[3,0,350,105],
+"class_submodel.html#a7b1e9adaca97a6275a64d9cb98f1c7a6":[3,0,350,37]
 };

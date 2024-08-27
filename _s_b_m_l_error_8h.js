@@ -17,8 +17,7 @@ var _s_b_m_l_error_8h =
       [ "LIBSBML_CAT_SBML_L2V4_COMPAT", "_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187ac22c084892a489ddb97f354088b904c8", null ],
       [ "LIBSBML_CAT_SBML_L3V1_COMPAT", "_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187a1628a5fba7f206c16d0d2204980bbac0", null ],
       [ "LIBSBML_CAT_SBML_L3V2_COMPAT", "_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187aa70cea38b6ec8423db46b35a7989a8cf", null ],
-      [ "LIBSBML_CAT_SBML_COMPATIBILITY", "_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187ac1a41dcbf87502d2fc165061edbf5b16", null ],
-      [ "LIBSBML_CAT_STRICT_UNITS_CONSISTENCY", "_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187a02b9fb9e825404638c3f60fe9d665679", null ]
+      [ "LIBSBML_CAT_SBML_COMPATIBILITY", "_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187ac1a41dcbf87502d2fc165061edbf5b16", null ]
     ] ],
     [ "SBMLErrorCode_t", "_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627", [
       [ "UnknownError", "_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627a36b13bee92e122caddcb8abefb6eec31", null ],
