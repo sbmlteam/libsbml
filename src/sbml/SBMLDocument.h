@@ -344,6 +344,7 @@ class SBMLLevelVersionConverter;
 #define StrictUnitsCheckON 0x80
 #define StrictUnitsCheckOFF 0x7f
 #define AllChecksON       0x7f
+#define AllChecksONWithStrictUnits 0xff
 /** @endcond */
 
 
