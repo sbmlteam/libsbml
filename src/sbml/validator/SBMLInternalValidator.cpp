@@ -54,6 +54,7 @@
 #include <sbml/validator/MathMLConsistencyValidator.h>
 #include <sbml/validator/SBOConsistencyValidator.h>
 #include <sbml/validator/UnitConsistencyValidator.h>
+#include <sbml/validator/StrictUnitConsistencyValidator.h>
 #include <sbml/validator/OverdeterminedValidator.h>
 #include <sbml/validator/ModelingPracticeValidator.h>
 #include <sbml/validator/L1CompatibilityValidator.h>
@@ -176,6 +177,18 @@ SBMLInternalValidator::setConsistencyChecks(SBMLErrorCategory_t category,
 
     break;
   
+  case LIBSBML_CAT_STRICT_UNITS_CONSISTENCY:
+    if (apply)
+    {
+      mApplicableValidators |= StrictUnitsCheckON;
+    }
+    else
+    {
+      mApplicableValidators &= StrictUnitsCheckOFF;
+    }
+
+    break;
+
   case LIBSBML_CAT_OVERDETERMINED_MODEL:
     if (apply)
     {
@@ -274,6 +287,18 @@ SBMLInternalValidator::setConsistencyChecksForConversion(SBMLErrorCategory_t cat
 
     break;
   
+  case LIBSBML_CAT_STRICT_UNITS_CONSISTENCY:
+    if (apply)
+    {
+      mApplicableValidatorsForConversion |= StrictUnitsCheckON;
+    }
+    else
+    {
+      mApplicableValidatorsForConversion &= StrictUnitsCheckOFF;
+    }
+
+    break;
+
   case LIBSBML_CAT_OVERDETERMINED_MODEL:
     if (apply)
     {
@@ -329,6 +354,7 @@ SBMLInternalValidator::checkConsistency (bool writeDocument)
   bool units = ((mApplicableValidators & 0x10) == 0x10);
   bool over  = ((mApplicableValidators & 0x20) == 0x20);
   bool practice = ((mApplicableValidators & 0x40) == 0x40);
+  bool strictUnits = ((mApplicableValidators & 0x80) == 0x80);
 
   /* taken the state machine concept out for now
   if (LibSBMLStateMachine::isActive()) 
@@ -489,6 +515,25 @@ SBMLInternalValidator::checkConsistency (bool writeDocument)
   if (units)
   {
     UnitConsistencyValidator unit_validator;
+    unit_validator.init();
+    nerrors = unit_validator.validate(*doc);
+    total_errors += nerrors;
+    if (nerrors > 0) 
+    {
+      log->add( unit_validator.getFailures() );
+      /* only want to bail if errors not warnings */
+      if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
+      {
+        if (writeDocument)
+          SBMLDocument_free(doc);
+        return total_errors;
+      }
+    }
+  }
+
+  if (strictUnits)
+  {
+    StrictUnitConsistencyValidator unit_validator;
     unit_validator.init();
     nerrors = unit_validator.validate(*doc);
     total_errors += nerrors;
