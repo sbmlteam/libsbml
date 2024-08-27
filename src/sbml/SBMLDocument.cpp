@@ -730,6 +730,12 @@ SBMLDocument::checkConsistency ()
 }
 
 
+unsigned int
+SBMLDocument::checkConsistencyWithStrictUnits ()
+{
+  return checkConsistencyWithStrictUnits(LIBSBML_OVERRIDE_ERROR);
+}
+
 /*
  * Performs a set of semantic consistency checks on the document.  Query
  * the results by calling getNumErrors() and getError().

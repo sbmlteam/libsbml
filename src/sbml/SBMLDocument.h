@@ -1015,8 +1015,28 @@ public:
    *
    * @see SBMLDocument::checkInternalConsistency()
    */
-  unsigned int checkConsistencyWithStrictUnits (XMLErrorSeverityOverride_t strictErrorOverride = LIBSBML_OVERRIDE_ERROR );
+  unsigned int checkConsistencyWithStrictUnits ();
 
+  /**
+   * Performs consistency checking and validation on this SBML document
+   * using the ultra strict units validator that assumes that there
+   * are no hidden numerical conversion factors.
+   *
+   * If this method returns a nonzero value (meaning, one or more
+   * consistency checks have failed for SBML document), the failures may be
+   * due to warnings @em or errors.  Callers should inspect the severity
+   * flag in the individual SBMLError objects returned by
+   * SBMLDocument::getError(@if java long@endif) to determine the nature of the failures.
+   *
+   * @param strictErrorOverride the severity of the error to use for strict units checking
+   *       by default unit validations will be flagged as an error using this method. Use
+   *       LIBSBML_OVERRIDE_WARNING to change this to a warning.
+   * 
+   * @return the number of failed checks (errors) encountered.
+   *
+   * @see SBMLDocument::checkInternalConsistency()
+   */
+  unsigned int checkConsistencyWithStrictUnits (XMLErrorSeverityOverride_t strictErrorOverride);
 
   /**
    * Performs consistency checking and validation on this SBML document.
