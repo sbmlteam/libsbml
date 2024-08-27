@@ -305,7 +305,7 @@
 #include <sbml/SBMLErrorLog.h>
 #include <sbml/SBase.h>
 #include <sbml/SBMLTransforms.h>
-
+#include <sbml/xml/XMLError.h>
 
 #ifdef __cplusplus
 
@@ -318,7 +318,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 class Model;
 class ConversionProperties;
 class SBMLVisitor;
-class XMLError;
 
 class SBMLValidator;
 class SBMLInternalValidator;
