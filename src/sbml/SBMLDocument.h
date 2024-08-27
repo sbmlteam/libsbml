@@ -341,6 +341,8 @@ class SBMLLevelVersionConverter;
 #define OverdeterCheckOFF 0xdf
 #define PracticeCheckON   0x40
 #define PracticeCheckOFF  0xbf
+#define StrictUnitsCheckON 0x80
+#define StrictUnitsCheckOFF 0x7f
 #define AllChecksON       0x7f
 /** @endcond */
 
@@ -1005,11 +1007,15 @@ public:
    * flag in the individual SBMLError objects returned by
    * SBMLDocument::getError(@if java long@endif) to determine the nature of the failures.
    *
+   * @param strictErrorOverride the severity of the error to use for strict units checking
+   *       by default unit validations will be flagged as an error using this method. Use
+   *       LIBSBML_OVERRIDE_WARNING to change this to a warning.
+   * 
    * @return the number of failed checks (errors) encountered.
    *
    * @see SBMLDocument::checkInternalConsistency()
    */
-  unsigned int checkConsistencyWithStrictUnits ();
+  unsigned int checkConsistencyWithStrictUnits (XMLErrorSeverityOverride_t strictErrorOverride = LIBSBML_OVERRIDE_ERROR );
 
 
   /**
