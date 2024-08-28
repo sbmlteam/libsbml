@@ -525,6 +525,9 @@ SBMLRateRuleConverter::isPositive(const ASTNode* node, bool& posDeriv)
 {
   bool signDetermined = false;
 
+  if (!node)
+    return signDetermined;
+
   // node will be refactored so should be able to detect sign from first child
   ASTNodeType_t type = node->getType();
 
