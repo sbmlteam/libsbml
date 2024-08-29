@@ -150,10 +150,55 @@ START_TEST (test_strict_unit_consistency_checks)
   fail_unless(d->getError(0)->getErrorId() == 10513);
   fail_unless(d->getError(0)->getSeverity() == LIBSBML_SEV_ERROR);
 
+  d->getErrorLog()->clearLog();
+
+  // now once more as warning
+  errors = d->checkConsistencyWithStrictUnits(LIBSBML_OVERRIDE_WARNING);
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 10513);
+  fail_unless(d->getError(0)->getSeverity() == LIBSBML_SEV_WARNING);
+
+
+
   delete d;
 }
 END_TEST
 
+START_TEST (test_check_consistency_settings)
+{
+  SBMLReader        reader;
+  SBMLDocument*     d;
+  unsigned int errors;
+  std::string filename(TestDataDirectory);
+  filename += "l3v1-units.xml";
+
+
+  d = reader.readSBML(filename);
+
+  if (d == NULL)
+  {
+    fail("readSBML(\"l3v1-units.xml\") returned a NULL pointer.");
+  }
+
+  errors = d->checkConsistency();
+
+  fail_unless(errors == 0);
+
+  d->getErrorLog()->clearLog();
+
+  // now enable the strict units check
+  d->setConsistencyChecks(LIBSBML_CAT_STRICT_UNITS_CONSISTENCY, true);
+
+  errors = d->checkConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 10513);
+  fail_unless(d->getError(0)->getSeverity() == LIBSBML_SEV_WARNING);
+
+  delete d;
+}
+END_TEST
 
 Suite *
 create_suite_TestConsistencyChecks (void)
@@ -164,6 +209,7 @@ create_suite_TestConsistencyChecks (void)
 
   tcase_add_test(tcase, test_consistency_checks);
   tcase_add_test(tcase, test_strict_unit_consistency_checks);
+  tcase_add_test(tcase, test_check_consistency_settings);
 
   suite_add_tcase(suite, tcase);
 
