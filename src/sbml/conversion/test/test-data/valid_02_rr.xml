@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model>
+    <listOfCompartments>
+      <compartment id="compartmentOne" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="y_1" name="y_1" compartment="compartmentOne" initialConcentration="2" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="a" name="a" value="0.5" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="y_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> a </ci>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>

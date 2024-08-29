@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model>
+    <listOfCompartments>
+      <compartment id="compartmentOne" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="Y_1" name="Y_1" compartment="compartmentOne" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Y_2" name="Y_2" compartment="compartmentOne" initialConcentration="2" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Y_3" name="Y_3" compartment="compartmentOne" initialConcentration="3" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="k1" name="k1" value="1" constant="true"/>
+      <parameter id="k2" name="k2" value="5" constant="true"/>
+      <parameter id="k3" name="k3" value="6" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="J1" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="Y_2" stoichiometry="1" constant="true"/>
+          <speciesReference species="Y_3" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Y_1" stoichiometry="1" constant="true"/>
+          <speciesReference species="Y_2" stoichiometry="1" constant="true"/>
+          <speciesReference species="Y_3" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> Y_2 </ci>
+              <ci> Y_3 </ci>
+              <ci> k1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="J2" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="Y_1" stoichiometry="1" constant="true"/>
+          <speciesReference species="Y_2" stoichiometry="1" constant="true"/>
+          <speciesReference species="Y_3" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Y_1" stoichiometry="1" constant="true"/>
+          <speciesReference species="Y_3" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> Y_1 </ci>
+              <ci> Y_3 </ci>
+              <ci> k2 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="J3" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="Y_1" stoichiometry="1" constant="true"/>
+          <speciesReference species="Y_2" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Y_1" stoichiometry="1" constant="true"/>
+          <speciesReference species="Y_2" stoichiometry="1" constant="true"/>
+          <speciesReference species="Y_3" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> Y_1 </ci>
+              <ci> Y_2 </ci>
+              <ci> k3 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
