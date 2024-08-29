@@ -190,6 +190,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae0aab76900fd8e4fca9da7529132d8e7"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_document.html#ae0aab76900fd8e4fca9da7529132d8e7">checkConsistencyWithStrictUnits</a> ()</td></tr>
 <tr class="memdesc:ae0aab76900fd8e4fca9da7529132d8e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs consistency checking and validation on this SBML document using the ultra strict units validator that assumes that there are no hidden numerical conversion factors.  <a href="class_s_b_m_l_document.html#ae0aab76900fd8e4fca9da7529132d8e7">More...</a><br /></td></tr>
 <tr class="separator:ae0aab76900fd8e4fca9da7529132d8e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5312c6e466bebbfe916e490e8a97cbfa"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_document.html#a5312c6e466bebbfe916e490e8a97cbfa">checkConsistencyWithStrictUnits</a> (<a class="el" href="_x_m_l_error_8h.html#a8a35e0419c4745cae351cfcec58dc710">XMLErrorSeverityOverride_t</a> strictErrorOverride)</td></tr>
+<tr class="memdesc:a5312c6e466bebbfe916e490e8a97cbfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs consistency checking and validation on this SBML document using the ultra strict units validator that assumes that there are no hidden numerical conversion factors.  <a href="class_s_b_m_l_document.html#a5312c6e466bebbfe916e490e8a97cbfa">More...</a><br /></td></tr>
+<tr class="separator:a5312c6e466bebbfe916e490e8a97cbfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d0aceba94d7005122b9149470998349"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_document.html#a5d0aceba94d7005122b9149470998349">checkInternalConsistency</a> ()</td></tr>
 <tr class="memdesc:a5d0aceba94d7005122b9149470998349"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs consistency checking on libSBML's internal representation of an SBML <a class="el" href="class_model.html">Model</a>.  <a href="class_s_b_m_l_document.html#a5d0aceba94d7005122b9149470998349">More...</a><br /></td></tr>
 <tr class="separator:a5d0aceba94d7005122b9149470998349"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1197,7 +1200,7 @@ date" portion of this <a class="el" href="class_model_history.html">ModelHistory
 </div>
 </div>
 <a id="ae0aab76900fd8e4fca9da7529132d8e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0aab76900fd8e4fca9da7529132d8e7">&#9670;&nbsp;</a></span>checkConsistencyWithStrictUnits()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0aab76900fd8e4fca9da7529132d8e7">&#9670;&nbsp;</a></span>checkConsistencyWithStrictUnits() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1213,6 +1216,41 @@ date" portion of this <a class="el" href="class_model_history.html">ModelHistory
 
 <p>Performs consistency checking and validation on this SBML document using the ultra strict units validator that assumes that there are no hidden numerical conversion factors. </p>
 <p>If this method returns a nonzero value (meaning, one or more consistency checks have failed for SBML document), the failures may be due to warnings <em>or</em> errors. Callers should inspect the severity flag in the individual <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> objects returned by <a class="el" href="class_s_b_m_l_document.html#a412aa5420aa21531826c16d270a5f5e0" title="Returns the nth error or warning encountered during parsing, consistency checking,...">SBMLDocument::getError()</a> to determine the nature of the failures.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">strictErrorOverride</td><td>the severity of the error to use for strict units checking by default unit validations will be flagged as an error using this method. Use LIBSBML_OVERRIDE_WARNING to change this to a warning.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the number of failed checks (errors) encountered.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_b_m_l_document.html#a5d0aceba94d7005122b9149470998349" title="Performs consistency checking on libSBML&#39;s internal representation of an SBML Model.">SBMLDocument::checkInternalConsistency()</a> </dd></dl>
+
+</div>
+</div>
+<a id="a5312c6e466bebbfe916e490e8a97cbfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5312c6e466bebbfe916e490e8a97cbfa">&#9670;&nbsp;</a></span>checkConsistencyWithStrictUnits() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int SBMLDocument::checkConsistencyWithStrictUnits </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_x_m_l_error_8h.html#a8a35e0419c4745cae351cfcec58dc710">XMLErrorSeverityOverride_t</a>&#160;</td>
+          <td class="paramname"><em>strictErrorOverride</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs consistency checking and validation on this SBML document using the ultra strict units validator that assumes that there are no hidden numerical conversion factors. </p>
+<p>If this method returns a nonzero value (meaning, one or more consistency checks have failed for SBML document), the failures may be due to warnings <em>or</em> errors. Callers should inspect the severity flag in the individual <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> objects returned by <a class="el" href="class_s_b_m_l_document.html#a412aa5420aa21531826c16d270a5f5e0" title="Returns the nth error or warning encountered during parsing, consistency checking,...">SBMLDocument::getError()</a> to determine the nature of the failures.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">strictErrorOverride</td><td>the severity of the error to use for strict units checking by default unit validations will be flagged as an error using this method. Use LIBSBML_OVERRIDE_WARNING to change this to a warning.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>the number of failed checks (errors) encountered.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_b_m_l_document.html#a5d0aceba94d7005122b9149470998349" title="Performs consistency checking on libSBML&#39;s internal representation of an SBML Model.">SBMLDocument::checkInternalConsistency()</a> </dd></dl>
 
@@ -6586,7 +6624,7 @@ Level&#160;3 Version&#160;2 </li>
 <p>The format of "notes" elements must be <a href="http://www.w3.org/TR/xhtml1/" target="_blank">XHTML&#160;1.0</a>. To help verify the formatting of "notes" content, libSBML provides the static utility method <a class="el" href="class_syntax_checker.html#ade6c33a7180bbc7bc70b4421b917a7b0" title="Returns true or false depending on whether the given XMLNode object contains valid XHTML content.">SyntaxChecker::hasExpectedXHTMLSyntax()</a>; however, readers are urged to consult the appropriate <a href="http://sbml.org/Documents/Specifications" target="_blank">SBML specification document</a> for the Level and Version of their model for more in-depth explanations. The SBML Level&#160;2 and&#160;3 specifications have considerable detail about how "notes" element content must be structured.</p>
 <p>The following code illustrates a very simple way of setting the notes using this method. Here, the object being annotated is the whole SBML document, but that is for illustration purposes only; you could of course use this same approach to annotate any other SBML component. </p><div class="fragment"><div class="line"><a class="code" href="class_s_b_m_l_document.html">SBMLDocument</a>* s = <span class="keyword">new</span> <a class="code" href="class_s_b_m_l_document.html#a4499912c5a3038d5bc6a9c3e385d15a7">SBMLDocument</a>(3, 1);</div>
 <div class="line">s-&gt;<a class="code" href="class_s_base.html#a611a4bd98a4e32e3573980b2481ce77e">setNotes</a>(<span class="stringliteral">&quot;&lt;body xmlns=&#39;http://www.w3.org/1999/xhtml&#39;&gt;&lt;p&gt;here is my note&lt;/p&gt;&lt;/body&gt;&quot;</span>);</div>
-<div class="ttc" id="aclass_s_b_m_l_document_html"><div class="ttname"><a href="class_s_b_m_l_document.html">SBMLDocument</a></div><div class="ttdef"><b>Definition:</b> SBMLDocument.h:349</div></div>
+<div class="ttc" id="aclass_s_b_m_l_document_html"><div class="ttname"><a href="class_s_b_m_l_document.html">SBMLDocument</a></div><div class="ttdef"><b>Definition:</b> SBMLDocument.h:351</div></div>
 <div class="ttc" id="aclass_s_b_m_l_document_html_a4499912c5a3038d5bc6a9c3e385d15a7"><div class="ttname"><a href="class_s_b_m_l_document.html#a4499912c5a3038d5bc6a9c3e385d15a7">SBMLDocument::SBMLDocument</a></div><div class="ttdeci">SBMLDocument(unsigned int level=0, unsigned int version=0)</div><div class="ttdoc">Creates a new SBMLDocument, optionally with given values for the SBML Level and Version.</div><div class="ttdef"><b>Definition:</b> SBMLDocument.cpp:122</div></div>
 <div class="ttc" id="aclass_s_base_html_a611a4bd98a4e32e3573980b2481ce77e"><div class="ttname"><a href="class_s_base.html#a611a4bd98a4e32e3573980b2481ce77e">SBase::setNotes</a></div><div class="ttdeci">int setNotes(const XMLNode *notes)</div><div class="ttdoc">Sets the value of the &quot;notes&quot; subelement of this SBML object.</div><div class="ttdef"><b>Definition:</b> SBase.cpp:1775</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>

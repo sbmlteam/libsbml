@@ -1,5 +1,6 @@
 var NAVTREEINDEX101 =
 {
+"class_list_of_gradient_stops.html#ac8fd45680e346922adabecac83b006bd":[3,0,159,113],
 "class_list_of_gradient_stops.html#ac92975919a08b70b0ded5f1364f5ec44":[3,0,159,79],
 "class_list_of_gradient_stops.html#ac9f9a3703526cd1fb929778df3050692":[3,0,159,126],
 "class_list_of_gradient_stops.html#acb13650439a9a7ec081ddeee3f3a8f64":[3,0,159,48],
@@ -248,6 +249,5 @@ var NAVTREEINDEX101 =
 "class_list_of_groups.html#a6eee96ee206a55837c0d7b936f20f14d":[3,0,161,60],
 "class_list_of_groups.html#a6fa57e2a0627aabd85e511315505bfe4":[3,0,161,15],
 "class_list_of_groups.html#a70abee08c67db2cba0c5ed40af9aa1c0":[3,0,161,102],
-"class_list_of_groups.html#a70becec9ecd5ecf42973a8e0d4609487":[3,0,161,71],
-"class_list_of_groups.html#a75b1541bd854ad7edfe0aff79ab3231f":[3,0,161,121]
+"class_list_of_groups.html#a70becec9ecd5ecf42973a8e0d4609487":[3,0,161,71]
 };

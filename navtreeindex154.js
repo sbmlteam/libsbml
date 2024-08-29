@@ -1,5 +1,6 @@
 var NAVTREEINDEX154 =
 {
+"class_reference_glyph.html#a70becec9ecd5ecf42973a8e0d4609487":[3,0,258,71],
 "class_reference_glyph.html#a75b1541bd854ad7edfe0aff79ab3231f":[3,0,258,125],
 "class_reference_glyph.html#a77068f549f7aa55f56a072cda2960183":[3,0,258,43],
 "class_reference_glyph.html#a776e0b06ec3f0dd2bfdafeec6c9d7cc2":[3,0,258,53],
@@ -248,6 +249,5 @@ var NAVTREEINDEX154 =
 "class_render_cubic_bezier.html#a85f760f10a144f5e1ac1d19a83635802":[3,0,260,105],
 "class_render_cubic_bezier.html#a8622fc0a6d8731ee188a7d197edb6fd1":[3,0,260,179],
 "class_render_cubic_bezier.html#a8780fee6d576f5d4c17d6a9c29913371":[3,0,260,118],
-"class_render_cubic_bezier.html#a88efc5089dc69a582738cbe315085385":[3,0,260,159],
-"class_render_cubic_bezier.html#a89f626f2593df8e83da4cdbfe79142f7":[3,0,260,204]
+"class_render_cubic_bezier.html#a88efc5089dc69a582738cbe315085385":[3,0,260,159]
 };

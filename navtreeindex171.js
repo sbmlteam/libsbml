@@ -1,5 +1,7 @@
 var NAVTREEINDEX171 =
 {
+"class_spatial_points.html#ad7463b70032c344b42454f0291e2e204":[3,0,330,70],
+"class_spatial_points.html#ada0b37251e4b259cb09a6fca2f9d03bb":[3,0,330,56],
 "class_spatial_points.html#adaf48d5d5868578bf8be163fb7038402":[3,0,330,89],
 "class_spatial_points.html#adb8c800163c108a27880bd644d7767ad":[3,0,330,9],
 "class_spatial_points.html#adb90be26c77f519375553365af009a58":[3,0,330,62],
@@ -247,7 +249,5 @@ var NAVTREEINDEX171 =
 "class_spatial_symbol_reference.html#ae431ca4044e40e1fe8e0ff4136dce838":[3,0,334,101],
 "class_spatial_symbol_reference.html#ae57cbc2da2e34a8c829e42743e68dd85":[3,0,334,71],
 "class_spatial_symbol_reference.html#ae8317d5157b70e4f1bc68e33e5c84001":[3,0,334,124],
-"class_spatial_symbol_reference.html#ae89a4757c093b8f9c491338bcb278921":[3,0,334,13],
-"class_spatial_symbol_reference.html#ae914a599fa7810902b795ab9e06a049b":[3,0,334,34],
-"class_spatial_symbol_reference.html#aed8f42e0f220bd85af8d01b51d87aeff":[3,0,334,76]
+"class_spatial_symbol_reference.html#ae89a4757c093b8f9c491338bcb278921":[3,0,334,13]
 };

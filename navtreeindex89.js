@@ -1,5 +1,6 @@
 var NAVTREEINDEX89 =
 {
+"class_list_of_curve_elements.html#a0b02092069159bda9b7ff14ecacfca5d":[3,0,140,6],
 "class_list_of_curve_elements.html#a0df1a731505cbddfcb2c504bd86ba9c0":[3,0,140,94],
 "class_list_of_curve_elements.html#a0f45b479da5fa86f3c587ac156de01c8":[3,0,140,45],
 "class_list_of_curve_elements.html#a118148398f5c626bf9697887296f97b8":[3,0,140,10],
@@ -248,6 +249,5 @@ var NAVTREEINDEX89 =
 "class_list_of_deletions.html#aa585552960ae4b7e8d4cec0c301d670e":[3,0,141,91],
 "class_list_of_deletions.html#aa78ef1ca7e89aa9be18302622aad221f":[3,0,141,118],
 "class_list_of_deletions.html#aa9a0611fba68fb2d56db3565425f65a0":[3,0,141,23],
-"class_list_of_deletions.html#aac93855c11d3e29c120fad461d6cab80":[3,0,141,112],
-"class_list_of_deletions.html#aad43f3efb39b3c56ec0db212b6e97cf4":[3,0,141,45]
+"class_list_of_deletions.html#aac93855c11d3e29c120fad461d6cab80":[3,0,141,112]
 };
