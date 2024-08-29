@@ -641,8 +641,12 @@ SBMLRateRuleConverter::addToTerms(ASTNode* node)
   }
   else if (term->isNumber())
   {
-    delete term;
-    return;
+    // however if the term is a constant we don't want to delete
+      if (term->getNumChildren() != 0)
+      {
+          delete term;
+          return;
+      }
   }
 
   if (mTerms.size() == 0)
