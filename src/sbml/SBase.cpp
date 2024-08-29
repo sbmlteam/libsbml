@@ -5352,7 +5352,7 @@ SBase::logUnknownElement( const string& element,
 
   // if we have an unknown element that is not in an SBML name space
   // this is perfectly allowed XML
-  if (SBMLNamespaces::getSBMLNamespaceURI(level, version) != URI)
+  if (getPackageName() == "core" && SBMLNamespaces::getSBMLNamespaceURI(level, version) != URI)
       return;
 
   if (level > 2 && getTypeCode() == SBML_LIST_OF)
