@@ -11047,8 +11047,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "LibSBML expected to read the annotation into a ModelHistory "
     "object. Unfortunately, some attributes were not present or correct "
     "and the resulting ModelHistory object will not correctly "
-    "produce the annotation.  This functionality will be improved in "
-    "later versions of libSBML. ",
+    "produce the annotation.  ",
     {"",
      "",
      "L2V2 Section 6.3",
@@ -11076,8 +11075,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "LibSBML expected to read the annotation into a ModelHistory "
     "object. Unfortunately, some attributes were not present or correct "
     "and the resulting ModelHistory object is NULL. Thus it will fail to "
-    "produce the annotation.  This functionality will be improved in "
-    "later versions of libSBML. ",
+    "produce the annotation. ",
     {"",
      "",
      "L2V2 Section 6.3",
