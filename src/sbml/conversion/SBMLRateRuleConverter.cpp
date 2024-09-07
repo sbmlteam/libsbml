@@ -196,6 +196,74 @@ SBMLRateRuleConverter::matchesProperties(const ConversionProperties &props) cons
 }
 
 
+void
+SBMLRateRuleConverter::catchAnomalies()
+{
+    // if a rate rule is actually assigned to a variable that is itself
+    // the subject of an assignment rule we want to replace that math
+    // before we do any analysis
+    AssignmentRule* assignment;
+    Model* model = mDocument->getModel();
+    for (unsigned int i = 0; i < mDocument->getModel()->getNumRules(); ++i)
+    {
+        Rule* rule = model->getRule(i);
+        if (rule->getTypeCode() != SBML_RATE_RULE)
+        {
+            continue;
+        }
+        ASTNode* math = const_cast<ASTNode*>(rule->getMath());
+        if (math->getType() == AST_NAME)
+        {
+            assignment = model->getAssignmentRuleByVariable(math->getName());
+            if (assignment == NULL)
+            {
+                continue;
+            }
+
+            const ASTNode* assignment_math = assignment->getMath();
+            math->setType(assignment_math->getType());
+            for (unsigned int n = 0; n < assignment_math->getNumChildren(); ++n)
+            {
+                math->addChild(assignment_math->getChild(n)->deepCopy());
+            }
+        }
+    
+    }
+
+
+    //if (this->getType() == AST_NAME)
+    //{
+    //    // here the node is a variable
+    //    std::string name = this->getName();
+    //    const SBase* parent = this->getParentSBMLObject();
+    //    const Model* model = static_cast<const Model*>(parent->getAncestorOfType(SBML_MODEL));
+    //    const AssignmentRule* rule = model->getAssignmentRuleByVariable(name);
+
+    //    // and the variable is assigned by rule
+    //    // we want to replace this node by the rule
+    //    if (rule != NULL)
+    //    {
+    //        const ASTNode* math = rule->getMath();
+    //        // if this is a name we just want to replace
+    //        ASTNodeType_t type = math->getType();
+    //        if (type == AST_NAME)
+    //        
+    //       {
+    //            this->setName(math->getName());
+    //        }
+    //        else
+    //        {
+    //            this->setType(math->getType());
+    //            for (unsigned int i = 0; i < math->getNumChildren(); ++i)
+    //            {
+    //                this->addChild(math->getChild(i)->deepCopy());
+    //            }
+    //        }
+
+    //    }
+    //}
+}
+
 int 
 SBMLRateRuleConverter::convert()
 {
@@ -205,6 +273,7 @@ SBMLRateRuleConverter::convert()
   {
     return returnValue;
   }
+  catchAnomalies();
 
   // Fages algo 3.6 Steps 1-2
   populateODEinfo();
@@ -376,7 +445,12 @@ SBMLRateRuleConverter::determineCoefficient(ASTNode* ode, unsigned int termN, do
   // first child should be a number
   // take it out of the term
   // it will be used as a coefficient
-  if (term1->getType() == AST_TIMES && term1->getNumChildren() > 0)
+  if (term1->getType() == AST_REAL)
+  {
+      coeff = term1->getValue();
+      found = true;
+  }
+  else if (term1->getType() == AST_TIMES && term1->getNumChildren() > 0)
   {
     if (term1->getChild(0)->isNumber())
     {
@@ -647,6 +721,7 @@ SBMLRateRuleConverter::addToTerms(ASTNode* node)
           delete term;
           return;
       }
+      term->setValue(1.0);
   }
 
   if (mTerms.size() == 0)

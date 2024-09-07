@@ -244,6 +244,8 @@ private:
   void createReactions();
   void removeRules();
 
+  void catchAnomalies();
+
 
   // member variables populated during analysis
   pairODEs mODEs;
