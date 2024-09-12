@@ -789,6 +789,8 @@ ListOfGlobalRenderInformation::getAllElements(ElementFilter* filter)
 {
   List* ret = new List();
   List* sublist = ListOf::getAllElements(filter);
+  ret->transferFrom(sublist);
+  delete sublist;
 
   ADD_FILTERED_POINTER(ret, sublist, mDefaultValues, filter);
 
