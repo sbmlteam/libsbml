@@ -714,65 +714,72 @@ Transformation2D::addExpectedAttributes(ExpectedAttributes& attributes)
  */
 void
 Transformation2D::readAttributes(const XMLAttributes& attributes,
-                                 const ExpectedAttributes& expectedAttributes)
+    const ExpectedAttributes& expectedAttributes)
 {
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  unsigned int pkgVersion = getPackageVersion();
-  unsigned int numErrs;
-  SBMLErrorLog* log = getErrorLog();
+    unsigned int level = getLevel();
+    unsigned int version = getVersion();
+    unsigned int pkgVersion = getPackageVersion();
+    unsigned int numErrs;
+    SBMLErrorLog* log = getErrorLog();
 
-  if (log && getParentSBMLObject() &&
-    static_cast<ListOfDrawables*>(getParentSBMLObject())->size() < 2)
-  {
-    numErrs = log->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
-    {
-      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details = log->getError(n)->getMessage();
-        log->remove(UnknownPackageAttribute);
-        log->logPackageError("render", RenderUnknown, pkgVersion, level,
-          version, details, getLine(), getColumn());
-      }
-      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details = log->getError(n)->getMessage();
-        log->remove(UnknownCoreAttribute);
-        log->logPackageError("render", RenderUnknown, pkgVersion, level,
-          version, details, getLine(), getColumn());
-      }
+    if (log && getParentSBMLObject()) {
+        bool isSizeOne = false;
+        int type = getParentSBMLObject()->getTypeCode();
+        switch (type) {
+        case SBML_LIST_OF:
+            if (static_cast<ListOf*>(getParentSBMLObject())->size() < 2)
+            {
+                isSizeOne = true;
+            }
+            break;
+        case SBML_RENDER_LINEENDING:
+        case SBML_RENDER_STYLE_BASE:
+        case SBML_RENDER_LOCALSTYLE:
+        case SBML_RENDER_GLOBALSTYLE:
+            // These objects all have a single RenderGroup child, so the size can never be greater than 2.
+            isSizeOne = true;
+            break;
+        case SBML_RENDER_GROUP:
+        {
+            //A RenderGroup can have multiple Transformation2D children.
+            RenderGroup* rg = static_cast<RenderGroup*>(getParentSBMLObject());
+            if (rg->getNumElements() < 2)
+            {
+                isSizeOne = false;
+            }
+            break;
+        }
+        default:
+            assert(false); //Some situation we didn't think through; could be anything.
+            isSizeOne = true;
+        }
+        if (isSizeOne) {
+            numErrs = log->getNumErrors();
+            for (int n = numErrs - 1; n >= 0; n--)
+            {
+                if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+                {
+                    const std::string details = log->getError(n)->getMessage();
+                    log->remove(UnknownPackageAttribute);
+                    log->logPackageError("render", RenderUnknown, pkgVersion, level,
+                        version, details, getLine(), getColumn());
+                }
+                else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+                {
+                    const std::string details = log->getError(n)->getMessage();
+                    log->remove(UnknownCoreAttribute);
+                    log->logPackageError("render", RenderUnknown, pkgVersion, level,
+                        version, details, getLine(), getColumn());
+                }
+            }
+        }
     }
-  }
 
-  Transformation::readAttributes(attributes, expectedAttributes);
+    Transformation::readAttributes(attributes, expectedAttributes);
 
-  //if (log)
-  //{
-  //  numErrs = log->getNumErrors();
-
-  //  for (int n = numErrs-1; n >= 0; n--)
-  //  {
-  //    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
-  //    {
-  //      const std::string details = log->getError(n)->getMessage();
-  //      log->remove(UnknownPackageAttribute);
-  //      log->logPackageError("render", RenderUnknown, pkgVersion, level,
-  //        version, details);
-  //    }
-  //    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-  //    {
-  //      const std::string details = log->getError(n)->getMessage();
-  //      log->remove(UnknownCoreAttribute);
-  //      log->logPackageError("render",
-  //        RenderTransformation2DAllowedCoreAttributes, pkgVersion, level,
-  //          version, details);
-  //    }
-  //  }
-  //}
     std::string s;
     attributes.readInto("transform", s);
-    if(!s.empty())
+    if (!s.empty())
     {
         this->parseTransformation(s);
     }
