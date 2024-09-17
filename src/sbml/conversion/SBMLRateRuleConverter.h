@@ -62,6 +62,7 @@
 #include <sbml/conversion/SBMLConverter.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
 #include <sbml/math/ASTNode.h>
+#include <iostream>
 
 typedef enum
 {
@@ -74,6 +75,7 @@ typedef enum
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 typedef std::vector< std::pair< std::string, ASTNode*> > pairODEs;
 
 class LIBSBML_EXTERN SBMLRateRuleConverter : public SBMLConverter

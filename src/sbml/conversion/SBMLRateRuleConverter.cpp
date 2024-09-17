@@ -581,7 +581,8 @@ SBMLRateRuleConverter::determineDerivativeSign(std::string variable, ASTNode* te
   }
   else
   {
-    ASTNode *deriv = term->derivative(variable);
+      ASTNode* deriv = term->derivative(variable);
+
     signDetermined = isPositive(deriv, posDeriv);
     if (!signDetermined)
     {
@@ -617,7 +618,7 @@ SBMLRateRuleConverter::isPositive(const ASTNode* node, bool& posDeriv)
     }
     else
     {
-      if (mDerivSign == NEGATIVE_DERIVATIVE) posDeriv = true;
+      if (mDerivSign == NEGATIVE_DERIVATIVE) posDeriv = false;
     }
     signDetermined = true;
   }

@@ -6,12 +6,12 @@
       <compartment id="compartmentOne" spatialDimensions="3" size="1" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="SimData_0" name="SimData_0" compartment="compartmentOne" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="SimData_1" name="SimData_1" compartment="compartmentOne" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="SimData_2" name="SimData_2" compartment="compartmentOne" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="SimData_3" name="SimData_3" compartment="compartmentOne" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="SimData_3" name="SimData_3" compartment="compartmentOne" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="SimData_4" name="SimData_4" compartment="compartmentOne" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="SimData_5" name="SimData_5" compartment="compartmentOne" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="SimData_6" name="SimData_6" compartment="compartmentOne" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
       <parameter id="I" name="I" value="1" constant="true"/>
@@ -29,24 +29,24 @@
       <parameter id="k_12" name="k_12" value="0.0014" constant="true"/>
     </listOfParameters>
     <listOfReactions>
-      <reaction id="R_1" reversible="false" fast="false">
+      <reaction id="J1" reversible="false" fast="false">
         <listOfReactants>
-          <speciesReference species="SimData_0" stoichiometry="1" constant="true"/>
+          <speciesReference species="SimData_1" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="SimData_5" stoichiometry="1" constant="true"/>
+          <speciesReference species="SimData_6" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
-              <ci> SimData_0 </ci>
+              <ci> SimData_1 </ci>
               <apply>
                 <divide/>
                 <ci> k_2 </ci>
                 <apply>
                   <plus/>
-                  <ci> SimData_0 </ci>
+                  <ci> SimData_1 </ci>
                   <ci> k_8 </ci>
                 </apply>
               </apply>
@@ -54,25 +54,25 @@
           </math>
         </kineticLaw>
       </reaction>
-      <reaction id="R_2" reversible="false" fast="false">
+      <reaction id="J2" reversible="false" fast="false">
         <listOfReactants>
-          <speciesReference species="SimData_5" stoichiometry="1" constant="true"/>
+          <speciesReference species="SimData_6" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="SimData_0" stoichiometry="1" constant="true"/>
+          <speciesReference species="SimData_1" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
               <ci> k_1 </ci>
-              <ci> SimData_5 </ci>
+              <ci> SimData_6 </ci>
               <apply>
                 <divide/>
                 <ci> I </ci>
                 <apply>
                   <plus/>
-                  <ci> SimData_5 </ci>
+                  <ci> SimData_6 </ci>
                   <ci> k_7 </ci>
                 </apply>
               </apply>
@@ -80,24 +80,24 @@
           </math>
         </kineticLaw>
       </reaction>
-      <reaction id="R_3" reversible="false" fast="false">
+      <reaction id="J3" reversible="false" fast="false">
         <listOfReactants>
-          <speciesReference species="SimData_1" stoichiometry="1" constant="true"/>
+          <speciesReference species="SimData_2" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="SimData_4" stoichiometry="1" constant="true"/>
+          <speciesReference species="SimData_5" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
-              <ci> SimData_1 </ci>
+              <ci> SimData_2 </ci>
               <apply>
                 <divide/>
                 <ci> k_4 </ci>
                 <apply>
                   <plus/>
-                  <ci> SimData_1 </ci>
+                  <ci> SimData_2 </ci>
                   <ci> k_10 </ci>
                 </apply>
               </apply>
@@ -105,27 +105,27 @@
           </math>
         </kineticLaw>
       </reaction>
-      <reaction id="R_4" reversible="false" fast="false">
+      <reaction id="J4" reversible="false" fast="false">
         <listOfReactants>
-          <speciesReference species="SimData_0" stoichiometry="1" constant="true"/>
-          <speciesReference species="SimData_4" stoichiometry="1" constant="true"/>
+          <speciesReference species="SimData_1" stoichiometry="1" constant="true"/>
+          <speciesReference species="SimData_5" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="SimData_0" stoichiometry="1" constant="true"/>
           <speciesReference species="SimData_1" stoichiometry="1" constant="true"/>
+          <speciesReference species="SimData_2" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
-              <ci> SimData_0 </ci>
-              <ci> SimData_4 </ci>
+              <ci> SimData_1 </ci>
+              <ci> SimData_5 </ci>
               <apply>
                 <divide/>
                 <ci> k_3 </ci>
                 <apply>
                   <plus/>
-                  <ci> SimData_4 </ci>
+                  <ci> SimData_5 </ci>
                   <ci> k_9 </ci>
                 </apply>
               </apply>
@@ -133,10 +133,38 @@
           </math>
         </kineticLaw>
       </reaction>
-      <reaction id="R_5" reversible="false" fast="false">
+      <reaction id="J5" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="SimData_2" stoichiometry="1" constant="true"/>
+          <speciesReference species="SimData_3" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="SimData_2" stoichiometry="1" constant="true"/>
+          <speciesReference species="SimData_4" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> SimData_2 </ci>
+              <ci> SimData_3 </ci>
+              <apply>
+                <divide/>
+                <ci> k_6 </ci>
+                <apply>
+                  <plus/>
+                  <ci> SimData_3 </ci>
+                  <ci> k_12 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="J6" reversible="false" fast="false">
         <listOfReactants>
           <speciesReference species="SimData_1" stoichiometry="1" constant="true"/>
-          <speciesReference species="SimData_2" stoichiometry="1" constant="true"/>
+          <speciesReference species="SimData_4" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="SimData_1" stoichiometry="1" constant="true"/>
@@ -147,41 +175,13 @@
             <apply>
               <times/>
               <ci> SimData_1 </ci>
-              <ci> SimData_2 </ci>
-              <apply>
-                <divide/>
-                <ci> k_6 </ci>
-                <apply>
-                  <plus/>
-                  <ci> SimData_2 </ci>
-                  <ci> k_12 </ci>
-                </apply>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="R_6" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="SimData_0" stoichiometry="1" constant="true"/>
-          <speciesReference species="SimData_3" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="SimData_0" stoichiometry="1" constant="true"/>
-          <speciesReference species="SimData_2" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <ci> SimData_0 </ci>
-              <ci> SimData_3 </ci>
+              <ci> SimData_4 </ci>
               <apply>
                 <divide/>
                 <ci> k_5 </ci>
                 <apply>
                   <plus/>
-                  <ci> SimData_3 </ci>
+                  <ci> SimData_4 </ci>
                   <ci> k_11 </ci>
                 </apply>
               </apply>
