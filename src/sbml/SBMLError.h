@@ -1039,6 +1039,9 @@ typedef enum
   , LIBSBML_CAT_SBML_COMPATIBILITY
     /*!< Category of errors that can only occur during attempted
      * translation from one Level/Version of SBML to another. */
+  , LIBSBML_CAT_STRICT_UNITS_CONSISTENCY
+    /*!< Category of errors that occur running the strict unit 
+     * validator. */
 
 } SBMLErrorCategory_t;
 

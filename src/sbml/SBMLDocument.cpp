@@ -730,6 +730,12 @@ SBMLDocument::checkConsistency ()
 }
 
 
+unsigned int
+SBMLDocument::checkConsistencyWithStrictUnits ()
+{
+  return checkConsistencyWithStrictUnits(LIBSBML_OVERRIDE_ERROR);
+}
+
 /*
  * Performs a set of semantic consistency checks on the document.  Query
  * the results by calling getNumErrors() and getError().
@@ -737,7 +743,7 @@ SBMLDocument::checkConsistency ()
  * @return the number of failed checks (errors) encountered.
  */
 unsigned int
-SBMLDocument::checkConsistencyWithStrictUnits ()
+SBMLDocument::checkConsistencyWithStrictUnits (XMLErrorSeverityOverride_t strictErrorOverride /* = LIBSBML_OVERRIDE_ERROR */)
 {
   // keep a copy of the override status
   // and then override any change
@@ -781,7 +787,7 @@ SBMLDocument::checkConsistencyWithStrictUnits ()
   else
   {
     // log as errors
-    getErrorLog()->setSeverityOverride(LIBSBML_OVERRIDE_ERROR);
+    getErrorLog()->setSeverityOverride(strictErrorOverride);
     StrictUnitConsistencyValidator unit_validator;
     unit_validator.init();
     unsigned int nerrors = unit_validator.validate(*this);

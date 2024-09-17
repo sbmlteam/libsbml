@@ -601,6 +601,7 @@ Style::createGroup()
 
   delete renderns;
   this->setGroup(g);
+  delete g;
 
   connectToChild();
 
@@ -1280,6 +1281,7 @@ Style::createObject(XMLInputStream& stream)
     RenderGroup* g = new RenderGroup(renderns);
     g->setElementName(name);
     setGroup(g);
+    delete g;
     obj = &mGroup;
   }
 

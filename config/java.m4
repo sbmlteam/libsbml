@@ -166,81 +166,6 @@ AC_DEFUN([CONFIG_PROG_JAVA],
     dnl
 
     case "$host" in
-      *darwin*)
-        framework="/System/Library/Frameworks/JavaVM.framework"
-        case $JAVA_VERSION in
-          9)
-            if test -e "$framework/Versions/Current/Headers"; then
-              headers="$framework/Versions/Current/Headers"
-            elif test -e "$framework/Versions/CurrentJDK/Headers"; then
-              headers="$framework/Versions/CurrentJDK/Headers"
-            fi
-            ;;
-          8)
-            if test -e "$framework/Versions/Current/Headers"; then
-              headers="$framework/Versions/Current/Headers"
-            elif test -e "$framework/Versions/CurrentJDK/Headers"; then
-              headers="$framework/Versions/CurrentJDK/Headers"
-            fi
-            ;;
-          7)
-            if test -e "$framework/Versions/Current/Headers"; then
-              headers="$framework/Versions/Current/Headers"
-            elif test -e "$framework/Versions/CurrentJDK/Headers"; then
-              headers="$framework/Versions/CurrentJDK/Headers"
-            elif test -e "$framework/Versions/1.7.0/Headers"; then
-              headers="$framework/Versions/1.7.0/Headers"
-            elif test -e "$framework/Versions/1.7/Headers"; then
-              headers="$framework/Versions/1.7/Headers"
-            fi
-            ;;
-          6)
-            if test -e "$framework/Versions/Current/Headers"; then
-              headers="$framework/Versions/Current/Headers"
-            elif test -e "$framework/Versions/CurrentJDK/Headers"; then
-              headers="$framework/Versions/CurrentJDK/Headers"
-            elif test -e "$framework/Versions/1.6.0/Headers"; then
-              headers="$framework/Versions/1.6.0/Headers"
-            elif test -e "$framework/Versions/1.6/Headers"; then
-              headers="$framework/Versions/1.6/Headers"
-            fi
-            ;;
-          5)
-            if test -e "$framework/Versions/CurrentJDK/Headers"; then
-              headers="$framework/Versions/CurrentJDK/Headers"
-            elif test -e "$framework/Versions/1.5.0/Headers"; then
-              headers="$framework/Versions/1.5.0/Headers"
-            elif test -e "$framework/Versions/1.5/Headers"; then
-              headers="$framework/Versions/1.5/Headers"
-            fi
-            ;;
-        esac
-
-        if ! test -e "$headers/jni.h"; then
-          AC_MSG_ERROR([
-Cannot find Java include files. Your environment may lack a Java
-development kit installation.
-])
-        fi
-
-        JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$headers\""
-
-        parent=`dirname "$headers"`
-        if test $JAVA_VERSION -ge 9; then
-	  JAVADOC_JAR=
-        elif test -e "$parent/Classes/classes.jar"; then
-          JAVADOC_JAR="$parent/Classes/classes.jar"
-        elif test -e "$parent/Classes/tools.jar"; then
-          JAVADOC_JAR="$parent/Classes/tools.jar"
-        elif test -e "${parent}JDK/Classes/classes.jar"; then
-          JAVADOC_JAR="${parent}JDK/Classes/classes.jar"
-        elif test -e "/usr/libexec/java_home"; then
-          JAVADOC_JAR=`/usr/libexec/java_home`/lib/tools.jar
-        else
-          JAVADOC_JAR="$parent/lib/tools.jar"
-        fi
-      ;;
-
       *)
         parent=`dirname "$JAVAC"`
 
@@ -282,6 +207,11 @@ development kit installation.
           freebsd*) JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$parent/include/freebsd\"";;
           linux*)   JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$parent/include/linux\"";;
           solaris*) JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$parent/include/solaris\"";;
+          darwin*)  JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$parent/include/darwin\"";;
+        esac
+
+        case "$host" in
+          darwin*)  JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$parent/include/darwin\"";;
         esac
       ;;
     esac

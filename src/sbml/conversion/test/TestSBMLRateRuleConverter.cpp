@@ -217,6 +217,56 @@ START_TEST(test_conversion_raterule_converter)
 }
 END_TEST
 
+
+START_TEST(test_crash_converter)
+{
+  ConversionProperties props;
+  props.addOption("inferReactions", true);
+
+  SBMLConverter* converter = new SBMLRateRuleConverter();
+  converter->setProperties(&props);
+
+  SBMLDocument* doc = new SBMLDocument(3, 2);
+  Model* model = doc->createModel();
+  model->setId("m");
+
+  Parameter* parameter1 = model->createParameter();
+  parameter1->setId("s");
+  parameter1->setConstant(false);
+  parameter1->setValue(0);
+
+  Parameter* parameter = model->createParameter();
+  parameter->setId("p");
+  parameter->setConstant(false);
+  parameter->setValue(0);
+
+  parameter = model->createParameter();
+  parameter->setId("k");
+  parameter->setConstant(true);
+  parameter->setValue(0);
+
+  RateRule* rr1 = model->createRateRule();
+  rr1->setVariable("s");
+  ASTNode *math = SBML_parseL3Formula("cos(s)");
+  rr1->setMath(math);
+  delete math;
+
+  RateRule* rr2 = model->createRateRule();
+  rr1->setVariable("s");
+  math = SBML_parseL3Formula("sin(s)");
+  rr1->setMath(math);
+  delete math;
+
+  converter->setDocument(doc);
+  fail_unless(converter->convert() == LIBSBML_OPERATION_FAILED);
+
+  delete converter;
+  delete doc;
+}
+END_TEST
+
+
+
 START_TEST(test_conversion_raterule_converter_non_standard_stoichiometry)
 {
 	// example 3.13 in Fages et al, TCS, 2015
@@ -681,6 +731,7 @@ create_suite_TestSBMLRateRuleConverter (void)
   tcase_add_test(tcase, test_conversion_raterule_converter);
   tcase_add_test(tcase, test_conversion_raterule_converter_non_standard_stoichiometry);
   tcase_add_test(tcase, test_conversion_raterule_converter_hidden_variable);
+  tcase_add_test(tcase, test_crash_converter);
   tcase_add_test(tcase, test_model);
   tcase_add_test(tcase, test_model1);
   tcase_add_test(tcase, test_model2);
