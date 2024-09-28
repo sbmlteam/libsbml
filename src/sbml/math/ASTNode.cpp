@@ -4298,7 +4298,7 @@ ASTNode::derivativePlus(const std::string& variable)
   for (unsigned int n = 0; n < copy->getNumChildren(); ++n)
   {
     ASTNode* child_der = copy->getChild(n)->derivative(variable);
-    if (!(child_der->exactlyEqual(*zero)))
+    if (child_der && !(child_der->exactlyEqual(*zero)))
     {
       derivative->addChild(child_der->deepCopy());
     }
@@ -4324,11 +4324,11 @@ ASTNode::derivativeMinus(const std::string& variable)
   // d (A - B)/dx = dA/dx - dB/dx
   ASTNode* child_derA = copy->getChild(0)->derivative(variable);
   ASTNode* child_derB = copy->getChild(1)->derivative(variable);
-  if (child_derB->exactlyEqual(*zero))
+  if (!child_derB || child_derB->exactlyEqual(*zero))
   {
     derivative = child_derA->deepCopy();
   }
-  else if (child_derA->exactlyEqual(*zero))
+  else if (!child_derA || child_derA->exactlyEqual(*zero))
   {
     derivative = new ASTNode(AST_MINUS);
     derivative->addChild(child_derB->deepCopy());
@@ -4364,14 +4364,14 @@ ASTNode::derivativeTimes(const std::string& variable)
   // d(A*B)/dx = B * dA/dx + A * dB/dx
   ASTNode* child_derA = copy->getChild(0)->derivative(variable);
   ASTNode* child_derB = copy->getChild(1)->derivative(variable);
-  if (child_derB->exactlyEqual(*zero))
+  if (!child_derB || child_derB->exactlyEqual(*zero))
   {
     // shouldnt get here as refactorng will put fns of x last
     derivative = new ASTNode(AST_TIMES);
     derivative->addChild(copy->getChild(1)->deepCopy());
     derivative->addChild(child_derA->deepCopy());
   }
-  else if (child_derA->exactlyEqual(*zero))
+  else if (!child_derA || child_derA->exactlyEqual(*zero))
   {
     derivative = new ASTNode(AST_TIMES);
     derivative->addChild(copy->getChild(0)->deepCopy());
