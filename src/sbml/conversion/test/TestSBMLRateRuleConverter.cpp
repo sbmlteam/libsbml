@@ -720,6 +720,314 @@ START_TEST(test_model6)
 }
 END_TEST
 
+START_TEST(test_model_valid_01)
+{
+	ConversionProperties props;
+	props.addOption("inferReactions", true);
+
+	SBMLConverter* converter = new SBMLRateRuleConverter();
+	converter->setProperties(&props);
+
+	std::string filename(TestDataDirectory);
+	filename += "valid_01_rr.xml";
+	std::string filename1(TestDataDirectory);
+	filename1 += "valid_01_bio.xml";
+
+	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+	converter->setDocument(d);
+	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d1);
+
+	fail_unless(equals(expected.c_str(), out.c_str()));
+
+	delete converter;
+	delete d;
+	delete d1;
+}
+END_TEST
+
+
+START_TEST(test_model_valid_02)
+{
+	ConversionProperties props;
+	props.addOption("inferReactions", true);
+
+	SBMLConverter* converter = new SBMLRateRuleConverter();
+	converter->setProperties(&props);
+
+	std::string filename(TestDataDirectory);
+	filename += "valid_02_rr.xml";
+	std::string filename1(TestDataDirectory);
+	filename1 += "valid_02_bio.xml";
+
+	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+	converter->setDocument(d);
+	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d1);
+
+	fail_unless(equals(expected.c_str(), out.c_str()));
+
+	delete converter;
+	delete d;
+	delete d1;
+}
+END_TEST
+
+
+START_TEST(test_model_valid_03)
+{
+	ConversionProperties props;
+	props.addOption("inferReactions", true);
+
+	SBMLConverter* converter = new SBMLRateRuleConverter();
+	converter->setProperties(&props);
+
+	std::string filename(TestDataDirectory);
+	filename += "valid_03_rr.xml";
+	std::string filename1(TestDataDirectory);
+	filename1 += "valid_03_bio.xml";
+
+	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+	converter->setDocument(d);
+	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d1);
+
+	fail_unless(equals(expected.c_str(), out.c_str()));
+
+	delete converter;
+	delete d;
+	delete d1;
+}
+END_TEST
+
+
+START_TEST(test_model_valid_04)
+{
+	ConversionProperties props;
+	props.addOption("inferReactions", true);
+
+	SBMLConverter* converter = new SBMLRateRuleConverter();
+	converter->setProperties(&props);
+
+	std::string filename(TestDataDirectory);
+	filename += "valid_04_rr.xml";
+	std::string filename1(TestDataDirectory);
+	filename1 += "valid_04_bio.xml";
+
+	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+	converter->setDocument(d);
+	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d1);
+
+	fail_unless(equals(expected.c_str(), out.c_str()));
+
+	delete converter;
+	delete d;
+	delete d1;
+}
+END_TEST
+
+
+START_TEST(test_model_valid_05)
+{
+	ConversionProperties props;
+	props.addOption("inferReactions", true);
+
+	SBMLConverter* converter = new SBMLRateRuleConverter();
+	converter->setProperties(&props);
+
+	std::string filename(TestDataDirectory);
+	filename += "valid_05_rr.xml";
+	std::string filename1(TestDataDirectory);
+	filename1 += "valid_05_bio.xml";
+
+	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+	converter->setDocument(d);
+	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d1);
+
+	fail_unless(equals(expected.c_str(), out.c_str()));
+
+	delete converter;
+	delete d;
+	delete d1;
+}
+END_TEST
+
+
+START_TEST(test_model_valid_51)
+{
+	ConversionProperties props;
+	props.addOption("inferReactions", true);
+
+	SBMLConverter* converter = new SBMLRateRuleConverter();
+	converter->setProperties(&props);
+
+	std::string filename(TestDataDirectory);
+	filename += "valid_51_rr.xml";
+	std::string filename1(TestDataDirectory);
+	filename1 += "valid_51_bio.xml";
+
+	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+	converter->setDocument(d);
+	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d1);
+
+	fail_unless(equals(expected.c_str(), out.c_str()));
+
+	delete converter;
+	delete d;
+	delete d1;
+}
+END_TEST
+
+
+
+START_TEST(test_model_valid_52)
+{
+	ConversionProperties props;
+	props.addOption("inferReactions", true);
+
+	SBMLConverter* converter = new SBMLRateRuleConverter();
+	converter->setProperties(&props);
+
+	std::string filename(TestDataDirectory);
+	filename += "valid_52_rr.xml";
+	std::string filename1(TestDataDirectory);
+	filename1 += "valid_52_bio.xml";
+
+	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+	converter->setDocument(d);
+	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d1);
+
+	fail_unless(equals(expected.c_str(), out.c_str()));
+
+	delete converter;
+	delete d;
+	delete d1;
+}
+END_TEST
+
+START_TEST(test_model_valid_53)
+{
+	ConversionProperties props;
+	props.addOption("inferReactions", true);
+
+	SBMLConverter* converter = new SBMLRateRuleConverter();
+	converter->setProperties(&props);
+
+	std::string filename(TestDataDirectory);
+	filename += "valid_53_rr.xml";
+	std::string filename1(TestDataDirectory);
+	filename1 += "valid_53_bio.xml";
+	
+	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+	converter->setDocument(d);
+	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d1);
+
+	fail_unless(equals(expected.c_str(), out.c_str()));
+
+	delete converter;
+	delete d;
+	delete d1;
+}
+END_TEST
+
+START_TEST(test_model_valid_54)
+{
+	ConversionProperties props;
+	props.addOption("inferReactions", true);
+
+	SBMLConverter* converter = new SBMLRateRuleConverter();
+	converter->setProperties(&props);
+
+	std::string filename(TestDataDirectory);
+	filename += "valid_54_rr.xml";
+	std::string filename1(TestDataDirectory);
+	filename1 += "valid_54_bio.xml";
+	
+	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+	converter->setDocument(d);
+	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d1);
+
+	fail_unless(equals(expected.c_str(), out.c_str()));
+
+	delete converter;
+	delete d;
+	delete d1;
+}
+END_TEST
+
+
+START_TEST(test_model_valid_55)
+{
+	ConversionProperties props;
+	props.addOption("inferReactions", true);
+
+	SBMLConverter* converter = new SBMLRateRuleConverter();
+	converter->setProperties(&props);
+
+	std::string filename(TestDataDirectory);
+	filename += "valid_55_rr.xml";
+	std::string filename1(TestDataDirectory);
+	filename1 += "valid_55_bio.xml";
+	
+	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+	converter->setDocument(d);
+	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d1);
+
+	fail_unless(equals(expected.c_str(), out.c_str()));
+
+	delete converter;
+	delete d;
+	delete d1;
+}
+END_TEST
+
 
 Suite *
 create_suite_TestSBMLRateRuleConverter (void)
@@ -727,19 +1035,29 @@ create_suite_TestSBMLRateRuleConverter (void)
   Suite *suite = suite_create("SBMLRateRuleConverter");
   TCase *tcase = tcase_create("SBMLRateRuleConverter");
 
-  tcase_add_test(tcase, test_conversion_raterule_converter_invalid);
-  tcase_add_test(tcase, test_conversion_raterule_converter);
+    tcase_add_test(tcase, test_conversion_raterule_converter_invalid);
+     tcase_add_test(tcase, test_conversion_raterule_converter);
   tcase_add_test(tcase, test_conversion_raterule_converter_non_standard_stoichiometry);
   tcase_add_test(tcase, test_conversion_raterule_converter_hidden_variable);
-  tcase_add_test(tcase, test_crash_converter);
-  tcase_add_test(tcase, test_model);
-  tcase_add_test(tcase, test_model1);
-  tcase_add_test(tcase, test_model2);
-  tcase_add_test(tcase, test_model3);
-  tcase_add_test(tcase, test_model4);
-  tcase_add_test(tcase, test_model5);
-  tcase_add_test(tcase, test_model6);
-
+   tcase_add_test(tcase, test_crash_converter);
+   tcase_add_test(tcase, test_model);
+    tcase_add_test(tcase, test_model1);
+   tcase_add_test(tcase, test_model2);
+   tcase_add_test(tcase, test_model3);
+   tcase_add_test(tcase, test_model4);
+   tcase_add_test(tcase, test_model5);
+   tcase_add_test(tcase, test_model6);
+   tcase_add_test(tcase, test_model_valid_01); // this one works
+  tcase_add_test(tcase, test_model_valid_02);	// this one works
+ tcase_add_test(tcase, test_model_valid_03);	// this one replaces the kinetic law'b' with the assignment rule for b
+  tcase_add_test(tcase, test_model_valid_04);	// this one works
+   tcase_add_test(tcase, test_model_valid_05);	// this one works
+   tcase_add_test(tcase, test_model_valid_51);	// this one works
+ tcase_add_test(tcase, test_model_valid_52);	// this one works although puts the kinetic law in a different order
+  tcase_add_test(tcase, test_model_valid_53);	// this one has hidden species that I'm not picked up
+tcase_add_test(tcase, test_model_valid_54);	//
+  tcase_add_test(tcase, test_model_valid_55);	// 
+  
   suite_add_tcase(suite, tcase);
 
   return suite;
