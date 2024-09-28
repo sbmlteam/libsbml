@@ -507,14 +507,35 @@ SBMLRateRuleConverter::determineDerivativeSign(std::string variable, ASTNode* te
   }
   else
   {
-    ASTNode *deriv = term->derivative(variable);
-    signDetermined = isPositive(deriv, posDeriv);
+      if (mDerivSign == NEGATIVE_DERIVATIVE)
+      {
+          ASTNode* minus_one = new ASTNode(AST_REAL);
+          minus_one->setValue(-1.0);
+          ASTNode* minus = new ASTNode(AST_TIMES);
+          minus->addChild(minus_one);
+          minus->addChild(term);
+          //cout << "derive: " << SBML_formulaToL3String(minus) << " var: " << variable << " = "  << endl;
+          
+          ASTNode* deriv = minus->derivative(variable);
+          //cout << "derive: " << SBML_formulaToL3String(minus) << " var: " << variable << " = " <<SBML_formulaToL3String(deriv) << endl;
+          signDetermined = isPositive(deriv, posDeriv);
+
+          delete deriv;
+          //delete minus;
+      }
+      else
+      {
+          ASTNode* deriv = term->derivative(variable);
+          //cout << "derive: " << SBML_formulaToL3String(term) << " var: " << variable << " = " << SBML_formulaToL3String(deriv) << endl;
+          signDetermined = isPositive(deriv, posDeriv);
+
+          delete deriv;
+      }
     if (!signDetermined)
     {
       // TO DO log an error
       //getDocument()->getErrorLog()->add()
     }
-    delete deriv;
   }
   delete names;
   return signDetermined;
@@ -530,6 +551,9 @@ SBMLRateRuleConverter::isPositive(const ASTNode* node, bool& posDeriv)
 
   // node will be refactored so should be able to detect sign from first child
   ASTNodeType_t type = node->getType();
+   
+  // posDerivative - true if the derivative of positive term will always be > 0
+// negDerivative - true if the derivative of negative term will always be > 0
 
   if (type == AST_REAL)
   {
@@ -539,20 +563,19 @@ SBMLRateRuleConverter::isPositive(const ASTNode* node, bool& posDeriv)
     }
     else if (node->getValue() > 0)
     {
-      if (mDerivSign == POSITIVE_DERIVATIVE) posDeriv = true;
+        posDeriv = true;
     }
     else
     {
-      if (mDerivSign == NEGATIVE_DERIVATIVE) posDeriv = true;
+        posDeriv = false;
     }
     signDetermined = true;
   }
   else if (type == AST_NAME)
   {
     // variable first always consider >0
-    if (mDerivSign == POSITIVE_DERIVATIVE) posDeriv = true;
-    else if (mDerivSign == NEGATIVE_DERIVATIVE) posDeriv = false;
-    signDetermined = true;
+      posDeriv = true;
+      signDetermined = true;
 
   }
 
