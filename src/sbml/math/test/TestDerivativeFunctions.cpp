@@ -764,6 +764,34 @@ START_TEST(test_deriv_exp1)
 END_TEST
 
 
+START_TEST(test_deriv_not_implemented )
+{
+    ASTNode* n = readMathMLFromString(
+        "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+        "  <apply>"
+        "    <sin/>"
+        "    <ci> x </ci>"
+        "  </apply>"
+        "</math>"
+    );
+
+    fail_unless(n != NULL);
+    const std::string& x = "x";
+
+    L3ParserSettings ps;
+    ps.setParseCollapseMinus(true);
+    ASTNode* node = SBML_parseL3FormulaWithSettings("sin(x)", &ps);
+
+    ASTNode* deriv = n->derivative(x);
+
+    fail_unless(deriv == NULL);
+    delete n;
+    delete node;
+    delete deriv;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestDerivativeFunctions()
 {
@@ -794,6 +822,8 @@ create_suite_TestDerivativeFunctions()
   tcase_add_test(tcase, test_deriv_ln1);
   tcase_add_test(tcase, test_deriv_exp);
   tcase_add_test(tcase, test_deriv_exp1);
+
+  tcase_add_test(tcase, test_deriv_not_implemented);
 
   suite_add_tcase(suite, tcase);
 
