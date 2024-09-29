@@ -224,6 +224,41 @@ START_TEST(test_deriv_plus2)
 END_TEST
 
 
+START_TEST(test_deriv_plus3)
+{
+    const std::string& x = "x";
+    ASTNode* n = SBML_parseFormula("x + foo(x)");
+    fail_unless(n != NULL);
+
+    ASTNode* node = SBML_parseFormula("1.0");
+
+    ASTNode* deriv = n->derivative(x);
+
+    fail_unless(deriv->exactlyEqual(*node) == true);
+    delete n;
+    delete node;
+    delete deriv;
+}
+END_TEST
+
+START_TEST(test_deriv_plus4)
+{
+    const std::string& x = "x";
+    ASTNode* n = SBML_parseFormula("foo(x) + x");
+    fail_unless(n != NULL);
+
+    ASTNode* node = SBML_parseFormula("1.0");
+
+    ASTNode* deriv = n->derivative(x);
+
+    fail_unless(deriv->exactlyEqual(*node) == true);
+    delete n;
+    delete node;
+    delete deriv;
+}
+END_TEST
+
+
 START_TEST(test_deriv_times)
 {
   ASTNode *n = readMathMLFromString(
@@ -250,6 +285,39 @@ START_TEST(test_deriv_times)
 }
 END_TEST
 
+START_TEST(test_deriv_times1)
+{
+    const std::string& x = "x";
+    ASTNode* n = SBML_parseFormula("x * foo(x)");
+    fail_unless(n != NULL);
+
+    ASTNode* node = SBML_parseFormula("foo(x)");
+
+    ASTNode* deriv = n->derivative(x);
+
+    fail_unless(deriv->exactlyEqual(*node) == true);
+    delete n;
+    delete node;
+    delete deriv;
+}
+END_TEST
+
+START_TEST(test_deriv_times2)
+{
+    const std::string& x = "x";
+    ASTNode* n = SBML_parseFormula("foo(x) * x");
+    fail_unless(n != NULL);
+
+    ASTNode* node = SBML_parseFormula("foo(x)");
+
+    ASTNode* deriv = n->derivative(x);
+
+    fail_unless(deriv->exactlyEqual(*node) == true);
+    delete n;
+    delete node;
+    delete deriv;
+}
+END_TEST
 
 START_TEST(test_deriv_divide)
 {
@@ -333,6 +401,42 @@ START_TEST(test_deriv_divide2)
   delete n;
   delete node;
   delete deriv;
+}
+END_TEST
+
+START_TEST(test_deriv_divide3)
+{
+    const std::string& x = "x";
+    ASTNode* n = SBML_parseFormula("foo(x) / x");
+    fail_unless(n != NULL);
+
+    ASTNode* node = SBML_parseFormula("-1.0 * foo(x)/x^2.0");
+
+    ASTNode* deriv = n->derivative(x);
+
+    fail_unless(deriv->exactlyEqual(*node) == true);
+    delete n;
+    delete node;
+    delete deriv;
+}
+END_TEST
+
+START_TEST(test_deriv_divide4)
+{
+    const std::string& x = "x";
+    ASTNode* n = SBML_parseFormula("x/foo(x)");
+    fail_unless(n != NULL);
+
+    ASTNode* node = SBML_parseFormula("foo(x)/((foo(x))^2.0)");
+
+    ASTNode* deriv = n->derivative(x);
+    //cout << SBML_formulaToL3String(deriv) << endl;
+    //cout << SBML_formulaToL3String(node) << endl;
+
+    fail_unless(deriv->exactlyEqual(*node) == true);
+    delete n;
+    delete node;
+    delete deriv;
 }
 END_TEST
 
@@ -432,6 +536,39 @@ START_TEST(test_deriv_minus2)
 }
 END_TEST
 
+START_TEST(test_deriv_minus3)
+{
+    const std::string& x = "x";
+    ASTNode* n = SBML_parseFormula("foo(x) - x");
+    fail_unless(n != NULL);
+
+    ASTNode* node = SBML_parseFormula("-1.0");
+
+    ASTNode* deriv = n->derivative(x);
+
+    fail_unless(deriv->exactlyEqual(*node) == true);
+    delete n;
+    delete node;
+    delete deriv;
+}
+END_TEST
+
+START_TEST(test_deriv_minus4)
+{
+    const std::string& x = "x";
+    ASTNode* n = SBML_parseFormula("x - foo(x)");
+    fail_unless(n != NULL);
+
+    ASTNode* node = SBML_parseFormula("1.0");
+
+    ASTNode* deriv = n->derivative(x);
+
+    fail_unless(deriv->exactlyEqual(*node) == true);
+    delete n;
+    delete node;
+    delete deriv;
+}
+END_TEST
 
 START_TEST(test_deriv_power)
 {
@@ -518,6 +655,40 @@ START_TEST(test_deriv_power2)
 }
 END_TEST
 
+START_TEST(test_deriv_power3)
+{
+    const std::string& x = "x";
+    ASTNode* n = SBML_parseFormula("foo(x)^6.0");
+    fail_unless(n != NULL);
+
+    ASTNode* node = SBML_parseFormula("6.0*foo(x)^5.0");
+
+    ASTNode* deriv = n->derivative(x);
+
+    fail_unless(deriv->exactlyEqual(*node) == true);
+    delete n;
+    delete node;
+    delete deriv;
+}
+END_TEST
+
+START_TEST(test_deriv_power4)
+{
+    const std::string& x = "x";
+    ASTNode* n = SBML_parseFormula("x^(foo(x))");
+    fail_unless(n != NULL);
+
+    ASTNode* node = SBML_parseFormula("1.0");
+
+    ASTNode* deriv = n->derivative(x);
+
+    //fail_unless(deriv->exactlyEqual(*node) == true);
+    fail_unless(deriv == NULL);
+    delete n;
+    delete node;
+    //delete deriv;
+}
+END_TEST
 
 START_TEST(test_deriv_root)
 {
@@ -592,8 +763,7 @@ START_TEST(test_deriv_log)
     "    <log/>"
     "    <ci> x </ci>"
     "  </apply>"
-    "</math>"
-  );
+    "</math>"  );
 
   fail_unless(n != NULL);
   const std::string& x = "x";
@@ -804,16 +974,26 @@ create_suite_TestDerivativeFunctions()
   tcase_add_test(tcase, test_deriv_plus);
   tcase_add_test(tcase, test_deriv_plus1);
   tcase_add_test(tcase, test_deriv_plus2);
+  tcase_add_test(tcase, test_deriv_plus3);
+  tcase_add_test(tcase, test_deriv_plus4);
   tcase_add_test(tcase, test_deriv_times);
+  tcase_add_test(tcase, test_deriv_times1);
+  tcase_add_test(tcase, test_deriv_times2);
   tcase_add_test(tcase, test_deriv_divide);
   tcase_add_test(tcase, test_deriv_divide1);
   tcase_add_test(tcase, test_deriv_divide2);
+  tcase_add_test(tcase, test_deriv_divide3);
+  tcase_add_test(tcase, test_deriv_divide4);
   tcase_add_test(tcase, test_deriv_minus);
   tcase_add_test(tcase, test_deriv_minus1);
   tcase_add_test(tcase, test_deriv_minus2);
+  tcase_add_test(tcase, test_deriv_minus3);
+  tcase_add_test(tcase, test_deriv_minus4);
   tcase_add_test(tcase, test_deriv_power);
   tcase_add_test(tcase, test_deriv_power1);
   tcase_add_test(tcase, test_deriv_power2);
+  tcase_add_test(tcase, test_deriv_power3);
+  tcase_add_test(tcase, test_deriv_power4);
   tcase_add_test(tcase, test_deriv_root);
   tcase_add_test(tcase, test_deriv_root1);
   tcase_add_test(tcase, test_deriv_log);

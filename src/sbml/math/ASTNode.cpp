@@ -4366,7 +4366,6 @@ ASTNode::derivativeTimes(const std::string& variable)
   ASTNode* child_derB = copy->getChild(1)->derivative(variable);
   if (!child_derB || child_derB->exactlyEqual(*zero))
   {
-    // shouldnt get here as refactorng will put fns of x last
     derivative = new ASTNode(AST_TIMES);
     derivative->addChild(copy->getChild(1)->deepCopy());
     derivative->addChild(child_derA->deepCopy());
@@ -4425,13 +4424,13 @@ ASTNode::derivativeDivide(const std::string& variable)
 
   ASTNode* child_derA = copy->getChild(0)->derivative(variable);
   ASTNode* child_derB = copy->getChild(1)->derivative(variable);
-  if (child_derB->exactlyEqual(*zero))
+  if (child_derB && child_derB->exactlyEqual(*zero))
   {
     nominator = new ASTNode(AST_TIMES);
     nominator->addChild(copy->getChild(1)->deepCopy());
     nominator->addChild(child_derA->deepCopy());
   }
-  else if (child_derA->exactlyEqual(*zero))
+  else if (child_derA && child_derA->exactlyEqual(*zero))
   {
     term1 = new ASTNode(AST_TIMES);
     term1->addChild(copy->getChild(0)->deepCopy());
@@ -4440,20 +4439,38 @@ ASTNode::derivativeDivide(const std::string& variable)
     nominator = new ASTNode(AST_MINUS);
     nominator->addChild(term1->deepCopy());
   }
-  else
+  else if (child_derA == NULL)
   {
-    term1 = new ASTNode(AST_TIMES);
-    term1->addChild(copy->getChild(1)->deepCopy());
-    term1->addChild(child_derA->deepCopy());
-
     term2 = new ASTNode(AST_TIMES);
     term2->addChild(copy->getChild(0)->deepCopy());
     term2->addChild(child_derB->deepCopy());
 
     nominator = new ASTNode(AST_MINUS);
-    nominator->addChild(term1->deepCopy());
     nominator->addChild(term2->deepCopy());
   }
+  else if (child_derB == NULL)
+  {
+      term1 = new ASTNode(AST_TIMES);
+      term1->addChild(copy->getChild(1)->deepCopy());
+      term1->addChild(child_derA->deepCopy());
+
+      nominator = term1->deepCopy();
+  }
+  else
+  {
+      term1 = new ASTNode(AST_TIMES);
+      term1->addChild(copy->getChild(1)->deepCopy());
+      term1->addChild(child_derA->deepCopy());
+
+      term2 = new ASTNode(AST_TIMES);
+      term2->addChild(copy->getChild(0)->deepCopy());
+      term2->addChild(child_derB->deepCopy());
+
+      nominator = new ASTNode(AST_MINUS);
+      nominator->addChild(term1->deepCopy());
+      nominator->addChild(term2->deepCopy());
+  }
+
   derivative = new ASTNode(AST_DIVIDE);
   derivative->addChild(nominator->deepCopy());
   derivative->addChild(denominator->deepCopy());
@@ -4498,7 +4515,8 @@ ASTNode::derivativePower(const std::string& variable)
     derivative->addChild(power->deepCopy());
   }
 
-  derivative->decompose();
+  if (derivative)
+    derivative->decompose();
 
   delete copy;
   delete exp;
