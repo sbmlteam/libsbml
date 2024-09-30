@@ -754,6 +754,21 @@ START_TEST(test_deriv_root1)
 }
 END_TEST
 
+START_TEST(test_deriv_root2)
+{
+    const std::string& x = "x";
+    ASTNode* n = SBML_parseFormula("x^(1.0/foo(x))");
+    fail_unless(n != NULL);
+
+    ASTNode* node = SBML_parseFormula("1.0");
+
+    ASTNode* deriv = n->derivative(x);
+    fail_unless(deriv == NULL);
+    delete n;
+    delete node;
+    //delete deriv;
+}
+END_TEST
 
 START_TEST(test_deriv_log)
 {
@@ -996,6 +1011,7 @@ create_suite_TestDerivativeFunctions()
   tcase_add_test(tcase, test_deriv_power4);
   tcase_add_test(tcase, test_deriv_root);
   tcase_add_test(tcase, test_deriv_root1);
+  tcase_add_test(tcase, test_deriv_root2);
   tcase_add_test(tcase, test_deriv_log);
   tcase_add_test(tcase, test_deriv_log1);
   tcase_add_test(tcase, test_deriv_ln);
