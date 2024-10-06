@@ -273,10 +273,15 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
     if (numChildren != 2 || !isVariableSpeciesOrParameter(rightChild))
       return false;
     // if left child is  numerical constant or a parameter and right child variable, it IS k-x
-    if (isNumericalConstantOrConstantParameter(leftChild) 
+    if (isNumericalConstantOrConstantParameter(leftChild, isNumber)
       && isVariableSpeciesOrParameter(rightChild))
     {
-      value->k_value = leftChild->getName();
+     
+      if (isNumber)
+      {
+          value->k_value = "number";
+          value->k_real_value = leftChild->getValue();
+      }
       value->x_value = rightChild->getName();
       value->dxdt_expression = getODEFor(rightChild->getName());
       value->type = TYPE_K_MINUS_X;
@@ -287,7 +292,7 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
     // left child + with it's left child k-x we have k-x+w-y
     else if (leftChild->getType() == AST_PLUS)
     {
-      if (isNumericalConstantOrConstantParameter(leftChild->getChild(0)))
+      if (isNumericalConstantOrConstantParameter(leftChild->getChild(0), isNumber))
       {
         value->k_value = leftChild->getChild(0)->getName();
         value->x_value = rightChild->getName();
@@ -373,6 +378,7 @@ ExpressionAnalyser::analyse(bool minusXPlusYOnly)
     while (it != operators->end())
     {
       ASTNode* currentNode = (ASTNode*)*it;
+      cout << SBML_formulaToL3String(currentNode) << endl;
       if (minusXPlusYOnly && currentNode->getType() != AST_PLUS)
       {
         it++;
@@ -380,6 +386,7 @@ ExpressionAnalyser::analyse(bool minusXPlusYOnly)
       }
       SubstitutionValues_t* value = new SubstitutionValues_t;
       value->type = TYPE_UNKNOWN;
+      value->k_real_value = util_NaN();
       value->dxdt_expression = NULL;
       value->dydt_expression = NULL;
       value->v_expression = NULL;
@@ -735,14 +742,27 @@ bool ExpressionAnalyser::isVariableSpeciesOrParameter(ASTNode* node)
 /*
 * Check whether for node is a name node representing a constant parameter or a numerical node
 */
-bool ExpressionAnalyser::isNumericalConstantOrConstantParameter(ASTNode* node)
+bool ExpressionAnalyser::isNumericalConstantOrConstantParameter(ASTNode* node, bool& isNumber)
 {
-    if (!node->isName()) // some nodes, like * operators, don't seem to have a name in the first place
+    bool isConstantParameter = false;
+    isNumber = false;
+
+    if (node->isName()) // some nodes, like * operators, don't seem to have a name in the first place
+    {
+        Parameter* parameter = mModel->getParameter(node->getName());
+        isConstantParameter = (parameter != NULL) && (parameter->getConstant());
+    }
+    bool isNumericalConstant = node->isNumber() || node->isConstant();
+
+    if (isConstantParameter)
+        return true;
+    else if (isNumericalConstant)
+    {
+        isNumber = true;
+        return true;
+    }
+    else
         return false;
-    Parameter* parameter = mModel->getParameter(node->getName());
-    bool isConstantParameter = (parameter != NULL) && (parameter->getConstant());
-    bool isNumericalConstant = node->isNumber() && node->isConstant();
-    return isNumericalConstant || isConstantParameter;
 }
 
 /*

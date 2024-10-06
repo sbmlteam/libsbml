@@ -4086,6 +4086,7 @@ LIBSBML_EXTERN
 void 
 ASTNode::refactor()
 {
+    // we need to look at whether we have got a single variable that is assigned by an assignment rule
   refactorNumbers();
   encompassUnaryMinus();
   createNonBinaryTree();

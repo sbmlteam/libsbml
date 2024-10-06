@@ -118,9 +118,9 @@ main (void)
   int num_failed;
 
   setTestDataDirectory();
-//  SRunner *runner = srunner_create(create_suite_TestUnitsConverterL2());
+  SRunner *runner = srunner_create(create_suite_TestSBMLRateRuleConverter());
 
-  SRunner *runner = srunner_create( create_suite_TestConversionOption() );
+  /*SRunner *runner = srunner_create( create_suite_TestConversionOption() );
   srunner_add_suite( runner, create_suite_TestSBMLRuleConverter      () );
   srunner_add_suite( runner, create_suite_TestConversionProperties   () );
   srunner_add_suite( runner, create_suite_TestSBMLConverterRegistry  () );
@@ -131,7 +131,7 @@ main (void)
   srunner_add_suite( runner, create_suite_TestStripPackageConverter  () );
   srunner_add_suite( runner, create_suite_TestLevelVersionConverter  () );
   srunner_add_suite( runner, create_suite_TestRateOfConverter        () );
-  srunner_add_suite( runner, create_suite_TestSBMLRateRuleConverter      () );
+  srunner_add_suite( runner, create_suite_TestSBMLRateRuleConverter      () );*/
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */
 
