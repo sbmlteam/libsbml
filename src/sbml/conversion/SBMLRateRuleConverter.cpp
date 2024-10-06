@@ -521,7 +521,6 @@ SBMLRateRuleConverter::determineDerivativeSign(std::string variable, ASTNode* te
           signDetermined = isPositive(deriv, posDeriv);
 
           delete deriv;
-          //delete minus;
       }
       else
       {
@@ -555,6 +554,7 @@ SBMLRateRuleConverter::isPositive(const ASTNode* node, bool& posDeriv)
   // posDerivative - true if the derivative of positive term will always be > 0
 // negDerivative - true if the derivative of negative term will always be > 0
 
+  //cout << SBML_formulaToL3String(node) << endl;
   if (type == AST_REAL)
   {
     if (util_isEqual(node->getValue(), 0.0))

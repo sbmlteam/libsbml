@@ -4267,9 +4267,11 @@ ASTNode::derivative(const std::string& variable)
     case AST_FUNCTION_LN:
       derivative = derivativeLn(variable);
       break;
-
     case AST_FUNCTION_EXP:
       derivative = derivativeExp(variable);
+      break;
+    case AST_FUNCTION_ABS:
+      derivative = derivativeAbs(variable);
       break;
 
 
@@ -4536,25 +4538,29 @@ ASTNode::derivativeLog(const std::string& variable)
   //d(log(base,A)/dx = dA/dx / (ln(base) *A)
 
   // in log function child0 is base
-  ASTNode *ln = new ASTNode(AST_FUNCTION_LN);
-  ASTNode *number = new ASTNode(AST_REAL);
-  number->setValue((double)(copy->getChild(0)->getValue()));
-  ln->addChild(number->deepCopy());
+  if (getChild(1)->derivative(variable) != NULL)
+  {
+      ASTNode* ln = new ASTNode(AST_FUNCTION_LN);
+      ASTNode* number = new ASTNode(AST_REAL);
+      number->setValue((double)(copy->getChild(0)->getValue()));
+      ln->addChild(number->deepCopy());
 
-  ASTNode *times = new ASTNode(AST_TIMES);
-  times->addChild(ln->deepCopy());
-  times->addChild(copy->getChild(1)->deepCopy());
+      ASTNode* times = new ASTNode(AST_TIMES);
+      times->addChild(ln->deepCopy());
+      times->addChild(copy->getChild(1)->deepCopy());
 
-  derivative = new ASTNode(AST_DIVIDE);
-  derivative->addChild(getChild(1)->derivative(variable));
-  derivative->addChild(times->deepCopy());
+      derivative = new ASTNode(AST_DIVIDE);
+      derivative->addChild(getChild(1)->derivative(variable));
+      derivative->addChild(times->deepCopy());
 
 
-  derivative->decompose();
+      derivative->decompose();
 
-  delete number;
-  delete ln;
-  delete times;
+
+      delete number;
+      delete ln;
+      delete times;
+  }
   delete copy;
   return derivative;
 }
@@ -4568,15 +4574,16 @@ ASTNode::derivativeLn(const std::string& variable)
 
   //d(ln(x)/dx = 1/(x)
   //d(ln(A)/dx = dA/dx / (A)
+  
+  if (getChild(0)->derivative(variable) != NULL)
+  {
+      derivative = new ASTNode(AST_DIVIDE);
+      derivative->addChild(getChild(0)->derivative(variable));
+      derivative->addChild(getChild(0)->deepCopy());
 
 
-  derivative = new ASTNode(AST_DIVIDE);
-  derivative->addChild(getChild(0)->derivative(variable));
-  derivative->addChild(getChild(0)->deepCopy());
-
-
-  derivative->decompose();
-
+      derivative->decompose();
+  }
   delete copy;
   return derivative;
 }
@@ -4591,16 +4598,59 @@ ASTNode::derivativeExp(const std::string& variable)
   //d(exp(x)/dx = exp(x)
   //d(exp(A)/dx = dA/dx * exp(A)
 
+  if (getChild(0)->derivative(variable) != NULL)
+  {
+      derivative = new ASTNode(AST_TIMES);
+      derivative->addChild(getChild(0)->derivative(variable));
+      derivative->addChild(copy->deepCopy());
 
-  derivative = new ASTNode(AST_TIMES);
-  derivative->addChild(getChild(0)->derivative(variable));
-  derivative->addChild(copy->deepCopy());
-
-
-  derivative->decompose();
-
+      derivative->decompose();
+  }
   delete copy;
   return derivative;
+}
+
+
+ASTNode*
+ASTNode::derivativeAbs(const std::string& variable)
+{
+    ASTNode* copy = deepCopy();
+    copy->decompose();
+    ASTNode* derivative = NULL;
+    ASTNode* one = new ASTNode(AST_REAL);
+    one->setValue(1.0);
+    ASTNode* divide = new ASTNode(AST_DIVIDE);
+
+     //d(abs(x)/dx = x/abs(x)
+    //d(abs(A)/dx = dA/dx * (A/abs(A))
+
+    if (getChild(0)->derivative(variable) != NULL)
+    {
+        if (getChild(0)->derivative(variable)->exactlyEqual(*one))
+        {
+            derivative = new ASTNode(AST_DIVIDE);
+            derivative->addChild(getChild(0)->deepCopy());
+            derivative->addChild(copy->deepCopy());
+
+            derivative->decompose();
+        }
+        else
+        {
+			derivative = new ASTNode(AST_TIMES);
+
+            divide->addChild(getChild(0)->deepCopy());
+			divide->addChild(copy->deepCopy());
+
+			derivative->addChild(getChild(0)->derivative(variable)->deepCopy());
+			derivative->addChild(divide->deepCopy());
+
+            derivative->decompose();
+        }
+    }
+    delete copy;
+	delete one;
+	delete divide;
+    return derivative;
 }
 
 XMLNamespaces* 

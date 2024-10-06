@@ -2444,6 +2444,7 @@ protected:
   ASTNode* derivativeLog(const std::string& variable);
   ASTNode* derivativeLn(const std::string& variable);
   ASTNode* derivativeExp(const std::string& variable);
+  ASTNode* derivativeAbs(const std::string& variable);
 
 
   /*
