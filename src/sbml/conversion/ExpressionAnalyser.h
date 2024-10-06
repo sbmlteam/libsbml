@@ -161,6 +161,9 @@ public:
 private:
   /** @cond doxygenLibsbmlInternal */
 
+    bool areIdenticalSubstitutionValues(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+
+
   // functions that represents steps of algo 3.1
 
   void reorderMinusXPlusYIteratively();
