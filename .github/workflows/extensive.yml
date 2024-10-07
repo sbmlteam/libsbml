@@ -80,12 +80,12 @@ jobs:
     runs-on: ${{ matrix.platform }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: Add msbuild to PATH (Windows)
         if: matrix.platform == 'windows-latest'
-        uses: ilammy/msvc-dev-cmd@v1.6.0
+        uses: ilammy/msvc-dev-cmd@v1
 
       ### configure the operating system ###
       - name: Cache Windows dependencies and SWIG
@@ -93,7 +93,7 @@ jobs:
         # For the CI, we put SWIG there too, for simplicity.
         if: matrix.platform == 'windows-latest'
         id: cache-win-dependencies-static
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: |
             ./dependencies
@@ -178,7 +178,7 @@ jobs:
           echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
       - name: cache ccache files
         if: matrix.platform != 'windows-latest'
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ${{runner.workspace}}/.ccache
           key:
