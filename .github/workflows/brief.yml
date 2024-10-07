@@ -186,7 +186,7 @@ jobs:
         cpp_standard: [98, 20]
         language_bindings:
           ["-DWITH_JAVA=True -DWITH_PYTHON=True -DWITH_CSHARP=True"]
-        container: ["quay.io/pypa/manylinux2010_x86_64"]
+        container: ["quay.io/pypa/manylinux2014_x86_64"]
     runs-on: ${{ matrix.platform }}
     container: ${{ matrix.container}}
 
