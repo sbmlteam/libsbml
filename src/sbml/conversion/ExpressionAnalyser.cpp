@@ -1,4 +1,3 @@
-
 /**
  * @file    ExpressionAnalyser.cpp
  * @brief   Implementation of ExpressionAnalyser
@@ -59,6 +58,7 @@ ExpressionAnalyser::ExpressionAnalyser()
     mNewVarCount(1)
 {
 }
+
 
 
 ExpressionAnalyser::ExpressionAnalyser(Model * m, pairODEs odes)
@@ -148,31 +148,6 @@ ExpressionAnalyser::setModel(Model* model)
 }
 
 /*
-* Check whether two SubstitutionValues_t are identical.
- */
-bool
-ExpressionAnalyser::areIdenticalSubstitutionValues(SubstitutionValues_t* values1, SubstitutionValues_t* values2)
-{
-    if (values1->k_value == values2->k_value &&
-        util_isEqual(values1->k_real_value, values2->k_real_value) &&
-        values1->x_value == values2->x_value &&
-        values1->y_value == values2->y_value &&
-        values1->dxdt_expression == values2->dxdt_expression &&
-        values1->dydt_expression == values2->dydt_expression &&
-        values1->v_expression == values2->v_expression  &&
-        values1->w_expression == values2->w_expression  &&
-        values1->type == values2->type  &&
-        values1->current == values2->current  &&
-        values1->z_value == values2->z_value  &&
-        values1->odeIndex == values2->odeIndex)
-    {
-        return true;
-    }
-    return false;
-}
-
-
-/*
 * Check whether the expression has a parent expression which may already have been analysed 
 * in which case we do not need to re analyse the child expression
 * e.g. if we have k-x-y do not need to analyse k-x
@@ -190,77 +165,75 @@ ExpressionAnalyser::hasExpressionAlreadyRecorded(SubstitutionValues_t* value)
     {
       return true;
     }
-    return areIdenticalSubstitutionValues(value, exp);
-    //switch (value->type)
-  //  {
-  //  case TYPE_K_MINUS_X_MINUS_Y:
-  //    if (value->k_value == exp->k_value  &&
-  //      value->x_value == exp->x_value &&
-  //      value->y_value == exp->y_value &&
-  //      util_isEqual(value->k_real_value, exp->k_real_value) &&
-  //      value->dxdt_expression == exp->dxdt_expression &&
-  //      value->dydt_expression == exp->dydt_expression &&
-  //      value->type == exp->type)
-  //    {
-  //      return true;
-  //    }
-  //    break;
-  //  case TYPE_K_PLUS_V_MINUS_X_MINUS_Y:
-  //    if (value->k_value == exp->k_value  &&
-  //      value->x_value == exp->x_value &&
-  //      value->y_value == exp->y_value &&
-  //      value->dxdt_expression == exp->dxdt_expression &&
-  //      value->dydt_expression == exp->dydt_expression &&
-  //      value->v_expression == exp->v_expression &&
-  //      value->type == exp->type)
-  //    {
-  //      return true;
-  //    }
-  //    break;
-  //  case TYPE_K_MINUS_X_PLUS_W_MINUS_Y:
-  //    if (value->k_value == exp->k_value  &&
-  //      value->x_value == exp->x_value &&
-  //      value->y_value == exp->y_value &&
-  //      value->dxdt_expression == exp->dxdt_expression &&
-  //      value->dydt_expression == exp->dydt_expression &&
-  //      value->w_expression == exp->w_expression &&
-  //      value->type == exp->type)
-  //    {
-  //      return true;
-  //    }
-  //    break;
-  //  case TYPE_K_MINUS_X:
-  //    if (value->k_value == exp->k_value  &&
-  //      value->x_value == exp->x_value &&
-  //      value->dxdt_expression == exp->dxdt_expression &&
-  //      value->type == exp->type)
-  //    {
-  //      return true;
-  //    }
-  //    break;
-  //  case TYPE_K_PLUS_V_MINUS_X:
-  //    if (value->k_value == exp->k_value  &&
-  //      value->x_value == exp->x_value &&
-  //      value->dxdt_expression == exp->dxdt_expression &&
-  //      value->v_expression == exp->v_expression &&
-  //      value->type == exp->type)
-  //    {
-  //      return true;
-  //    }
-  //    break;
-  //  case TYPE_MINUS_X_PLUS_Y:
-  //    if (value->x_value == exp->x_value &&
-  //      value->y_value == exp->y_value &&
-  //      value->dxdt_expression == exp->dxdt_expression &&
-  //      value->dydt_expression == exp->dydt_expression &&
-  //      value->type == exp->type)
-  //    {
-  //      return true;
-  //    }
-  //    break;
-  //  default:
-  //    break;
-  //  }
+    switch (value->type)
+    {
+    case TYPE_K_MINUS_X_MINUS_Y:
+      if (value->k_value == exp->k_value  &&
+        value->x_value == exp->x_value &&
+        value->y_value == exp->y_value &&
+        value->dxdt_expression == exp->dxdt_expression &&
+        value->dydt_expression == exp->dydt_expression &&
+        value->type == exp->type)
+      {
+        return true;
+      }
+      break;
+    case TYPE_K_PLUS_V_MINUS_X_MINUS_Y:
+      if (value->k_value == exp->k_value  &&
+        value->x_value == exp->x_value &&
+        value->y_value == exp->y_value &&
+        value->dxdt_expression == exp->dxdt_expression &&
+        value->dydt_expression == exp->dydt_expression &&
+        value->v_expression == exp->v_expression &&
+        value->type == exp->type)
+      {
+        return true;
+      }
+      break;
+    case TYPE_K_MINUS_X_PLUS_W_MINUS_Y:
+      if (value->k_value == exp->k_value  &&
+        value->x_value == exp->x_value &&
+        value->y_value == exp->y_value &&
+        value->dxdt_expression == exp->dxdt_expression &&
+        value->dydt_expression == exp->dydt_expression &&
+        value->w_expression == exp->w_expression &&
+        value->type == exp->type)
+      {
+        return true;
+      }
+      break;
+    case TYPE_K_MINUS_X:
+      if (value->k_value == exp->k_value  &&
+        value->x_value == exp->x_value &&
+        value->dxdt_expression == exp->dxdt_expression &&
+        value->type == exp->type)
+      {
+        return true;
+      }
+      break;
+    case TYPE_K_PLUS_V_MINUS_X:
+      if (value->k_value == exp->k_value  &&
+        value->x_value == exp->x_value &&
+        value->dxdt_expression == exp->dxdt_expression &&
+        value->v_expression == exp->v_expression &&
+        value->type == exp->type)
+      {
+        return true;
+      }
+      break;
+    case TYPE_MINUS_X_PLUS_Y:
+      if (value->x_value == exp->x_value &&
+        value->y_value == exp->y_value &&
+        value->dxdt_expression == exp->dxdt_expression &&
+        value->dydt_expression == exp->dydt_expression &&
+        value->type == exp->type)
+      {
+        return true;
+      }
+      break;
+    default:
+      break;
+    }
   }
   return false;
 }
@@ -273,7 +246,7 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
   ASTNodeType_t type = node->getType();
   ASTNode* rightChild = node->getRightChild();
   ASTNode* leftChild = node->getLeftChild();
-  bool isNumber = false;
+  //node->printMath();
   switch (type)
   {
   case AST_PLUS:
@@ -315,19 +288,10 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
     if (numChildren != 2 || !isVariableSpeciesOrParameter(rightChild))
       return false;
     // if left child is  numerical constant or a parameter and right child variable, it IS k-x
-    if (isNumericalConstantOrConstantParameter(leftChild, isNumber)
+    if (isNumericalConstantOrConstantParameter(leftChild) 
       && isVariableSpeciesOrParameter(rightChild))
     {
-     
-      if (isNumber)
-      {
-          value->k_value = "number";
-          value->k_real_value = leftChild->getValue();
-      }
-      else
-      {
-          value->k_value = leftChild->getName();
-      }
+      value->k_value = leftChild->getName();
       value->x_value = rightChild->getName();
       value->dxdt_expression = getODEFor(rightChild->getName());
       value->type = TYPE_K_MINUS_X;
@@ -338,9 +302,7 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
     // left child + with it's left child k-x we have k-x+w-y
     else if (leftChild->getType() == AST_PLUS)
     {
-
-        // TO DO fix this for k Or w being a number
-      if (isNumericalConstantOrConstantParameter(leftChild->getChild(0), isNumber))
+      if (isNumericalConstantOrConstantParameter(leftChild->getChild(0)))
       {
         value->k_value = leftChild->getChild(0)->getName();
         value->x_value = rightChild->getName();
@@ -426,7 +388,6 @@ ExpressionAnalyser::analyse(bool minusXPlusYOnly)
     while (it != operators->end())
     {
       ASTNode* currentNode = (ASTNode*)*it;
-      cout << SBML_formulaToL3String(currentNode) << endl;
       if (minusXPlusYOnly && currentNode->getType() != AST_PLUS)
       {
         it++;
@@ -434,7 +395,6 @@ ExpressionAnalyser::analyse(bool minusXPlusYOnly)
       }
       SubstitutionValues_t* value = new SubstitutionValues_t;
       value->type = TYPE_UNKNOWN;
-      value->k_real_value = util_NaN();
       value->dxdt_expression = NULL;
       value->dydt_expression = NULL;
       value->v_expression = NULL;
@@ -790,27 +750,14 @@ bool ExpressionAnalyser::isVariableSpeciesOrParameter(ASTNode* node)
 /*
 * Check whether for node is a name node representing a constant parameter or a numerical node
 */
-bool ExpressionAnalyser::isNumericalConstantOrConstantParameter(ASTNode* node, bool& isNumber)
+bool ExpressionAnalyser::isNumericalConstantOrConstantParameter(ASTNode* node)
 {
-    bool isConstantParameter = false;
-    isNumber = false;
-
-    if (node->isName()) // some nodes, like * operators, don't seem to have a name in the first place
-    {
-        Parameter* parameter = mModel->getParameter(node->getName());
-        isConstantParameter = (parameter != NULL) && (parameter->getConstant());
-    }
-    bool isNumericalConstant = node->isNumber() || node->isConstant();
-
-    if (isConstantParameter)
-        return true;
-    else if (isNumericalConstant)
-    {
-        isNumber = true;
-        return true;
-    }
-    else
+    if (!node->isName()) // some nodes, like * operators, don't seem to have a name in the first place
         return false;
+    Parameter* parameter = mModel->getParameter(node->getName());
+    bool isConstantParameter = (parameter != NULL) && (parameter->getConstant());
+    bool isNumericalConstant = node->isNumber() && node->isConstant();
+    return isNumericalConstant || isConstantParameter;
 }
 
 /*
