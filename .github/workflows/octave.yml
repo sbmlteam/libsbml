@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Checkout submodules
       run: git submodule update --init --recursive
@@ -65,7 +65,7 @@ jobs:
       run: LD_LIBRARY_PATH=../../../../.. octave --eval "runTests()"
 
     - name: Upload
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v4
       with:
         path: ${{runner.workspace}}/build/octave_${{ matrix.os }}.tar.gz
         name: octave_${{ matrix.os }}.tar.gz
