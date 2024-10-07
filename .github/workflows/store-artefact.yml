@@ -277,7 +277,7 @@ jobs:
         cpp_standard: [98]
         language_bindings:
           ["-DWITH_JAVA=True -DWITH_PYTHON=True -DWITH_CSHARP=True -DWITH_R=True"]
-        container: ["quay.io/pypa/manylinux2010_x86_64"]
+        container: ["quay.io/pypa/manylinux_2_28_x86_64"]
     runs-on: ${{ matrix.platform }}
     container: ${{ matrix.container}}
 
@@ -363,10 +363,10 @@ jobs:
         run: |
           echo "ARTIFACT_NAME_SUFFIX=all-packages" >> "${GITHUB_ENV}"
 
-      - name: Upload Manylinux2010 binary archive
+      - name: Upload Manylinux binary archive
         uses: actions/upload-artifact@v4
         with:
           name:
-            Manylinux2010 nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
+            Manylinux nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
             ${{env.ARTIFACT_NAME_SUFFIX}})-${{ strategy.job-index }}
           path: ../install
