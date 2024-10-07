@@ -148,6 +148,31 @@ ExpressionAnalyser::setModel(Model* model)
 }
 
 /*
+* Check whether two SubstitutionValues_t are identical.
+ */
+bool
+ExpressionAnalyser::areIdenticalSubstitutionValues(SubstitutionValues_t* values1, SubstitutionValues_t* values2)
+{
+    if (values1->k_value == values2->k_value &&
+        util_isEqual(values1->k_real_value, values2->k_real_value) &&
+        values1->x_value == values2->x_value &&
+        values1->y_value == values2->y_value &&
+        values1->dxdt_expression == values2->dxdt_expression &&
+        values1->dydt_expression == values2->dydt_expression &&
+        values1->v_expression == values2->v_expression  &&
+        values1->w_expression == values2->w_expression  &&
+        values1->type == values2->type  &&
+        values1->current == values2->current  &&
+        values1->z_value == values2->z_value  &&
+        values1->odeIndex == values2->odeIndex)
+    {
+        return true;
+    }
+    return false;
+}
+
+
+/*
 * Check whether the expression has a parent expression which may already have been analysed 
 * in which case we do not need to re analyse the child expression
 * e.g. if we have k-x-y do not need to analyse k-x
@@ -165,75 +190,77 @@ ExpressionAnalyser::hasExpressionAlreadyRecorded(SubstitutionValues_t* value)
     {
       return true;
     }
-    switch (value->type)
-    {
-    case TYPE_K_MINUS_X_MINUS_Y:
-      if (value->k_value == exp->k_value  &&
-        value->x_value == exp->x_value &&
-        value->y_value == exp->y_value &&
-        value->dxdt_expression == exp->dxdt_expression &&
-        value->dydt_expression == exp->dydt_expression &&
-        value->type == exp->type)
-      {
-        return true;
-      }
-      break;
-    case TYPE_K_PLUS_V_MINUS_X_MINUS_Y:
-      if (value->k_value == exp->k_value  &&
-        value->x_value == exp->x_value &&
-        value->y_value == exp->y_value &&
-        value->dxdt_expression == exp->dxdt_expression &&
-        value->dydt_expression == exp->dydt_expression &&
-        value->v_expression == exp->v_expression &&
-        value->type == exp->type)
-      {
-        return true;
-      }
-      break;
-    case TYPE_K_MINUS_X_PLUS_W_MINUS_Y:
-      if (value->k_value == exp->k_value  &&
-        value->x_value == exp->x_value &&
-        value->y_value == exp->y_value &&
-        value->dxdt_expression == exp->dxdt_expression &&
-        value->dydt_expression == exp->dydt_expression &&
-        value->w_expression == exp->w_expression &&
-        value->type == exp->type)
-      {
-        return true;
-      }
-      break;
-    case TYPE_K_MINUS_X:
-      if (value->k_value == exp->k_value  &&
-        value->x_value == exp->x_value &&
-        value->dxdt_expression == exp->dxdt_expression &&
-        value->type == exp->type)
-      {
-        return true;
-      }
-      break;
-    case TYPE_K_PLUS_V_MINUS_X:
-      if (value->k_value == exp->k_value  &&
-        value->x_value == exp->x_value &&
-        value->dxdt_expression == exp->dxdt_expression &&
-        value->v_expression == exp->v_expression &&
-        value->type == exp->type)
-      {
-        return true;
-      }
-      break;
-    case TYPE_MINUS_X_PLUS_Y:
-      if (value->x_value == exp->x_value &&
-        value->y_value == exp->y_value &&
-        value->dxdt_expression == exp->dxdt_expression &&
-        value->dydt_expression == exp->dydt_expression &&
-        value->type == exp->type)
-      {
-        return true;
-      }
-      break;
-    default:
-      break;
-    }
+    return areIdenticalSubstitutionValues(value, exp);
+    //switch (value->type)
+  //  {
+  //  case TYPE_K_MINUS_X_MINUS_Y:
+  //    if (value->k_value == exp->k_value  &&
+  //      value->x_value == exp->x_value &&
+  //      value->y_value == exp->y_value &&
+  //      util_isEqual(value->k_real_value, exp->k_real_value) &&
+  //      value->dxdt_expression == exp->dxdt_expression &&
+  //      value->dydt_expression == exp->dydt_expression &&
+  //      value->type == exp->type)
+  //    {
+  //      return true;
+  //    }
+  //    break;
+  //  case TYPE_K_PLUS_V_MINUS_X_MINUS_Y:
+  //    if (value->k_value == exp->k_value  &&
+  //      value->x_value == exp->x_value &&
+  //      value->y_value == exp->y_value &&
+  //      value->dxdt_expression == exp->dxdt_expression &&
+  //      value->dydt_expression == exp->dydt_expression &&
+  //      value->v_expression == exp->v_expression &&
+  //      value->type == exp->type)
+  //    {
+  //      return true;
+  //    }
+  //    break;
+  //  case TYPE_K_MINUS_X_PLUS_W_MINUS_Y:
+  //    if (value->k_value == exp->k_value  &&
+  //      value->x_value == exp->x_value &&
+  //      value->y_value == exp->y_value &&
+  //      value->dxdt_expression == exp->dxdt_expression &&
+  //      value->dydt_expression == exp->dydt_expression &&
+  //      value->w_expression == exp->w_expression &&
+  //      value->type == exp->type)
+  //    {
+  //      return true;
+  //    }
+  //    break;
+  //  case TYPE_K_MINUS_X:
+  //    if (value->k_value == exp->k_value  &&
+  //      value->x_value == exp->x_value &&
+  //      value->dxdt_expression == exp->dxdt_expression &&
+  //      value->type == exp->type)
+  //    {
+  //      return true;
+  //    }
+  //    break;
+  //  case TYPE_K_PLUS_V_MINUS_X:
+  //    if (value->k_value == exp->k_value  &&
+  //      value->x_value == exp->x_value &&
+  //      value->dxdt_expression == exp->dxdt_expression &&
+  //      value->v_expression == exp->v_expression &&
+  //      value->type == exp->type)
+  //    {
+  //      return true;
+  //    }
+  //    break;
+  //  case TYPE_MINUS_X_PLUS_Y:
+  //    if (value->x_value == exp->x_value &&
+  //      value->y_value == exp->y_value &&
+  //      value->dxdt_expression == exp->dxdt_expression &&
+  //      value->dydt_expression == exp->dydt_expression &&
+  //      value->type == exp->type)
+  //    {
+  //      return true;
+  //    }
+  //    break;
+  //  default:
+  //    break;
+  //  }
   }
   return false;
 }
