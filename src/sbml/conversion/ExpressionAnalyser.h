@@ -227,7 +227,7 @@ private:
    * @param node the node to check
    * @return true if the node is a constant number/parameter
    */
-  bool isNumericalConstantOrConstantParameter(ASTNode* node);
+  bool isNumericalConstantOrConstantParameter(ASTNode* node, bool& isNumber);
 
   /*
   * Have we already created a parameter for this expression

@@ -191,76 +191,6 @@ ExpressionAnalyser::hasExpressionAlreadyRecorded(SubstitutionValues_t* value)
       return true;
     }
     return areIdenticalSubstitutionValues(value, exp);
-    //switch (value->type)
-  //  {
-  //  case TYPE_K_MINUS_X_MINUS_Y:
-  //    if (value->k_value == exp->k_value  &&
-  //      value->x_value == exp->x_value &&
-  //      value->y_value == exp->y_value &&
-  //      util_isEqual(value->k_real_value, exp->k_real_value) &&
-  //      value->dxdt_expression == exp->dxdt_expression &&
-  //      value->dydt_expression == exp->dydt_expression &&
-  //      value->type == exp->type)
-  //    {
-  //      return true;
-  //    }
-  //    break;
-  //  case TYPE_K_PLUS_V_MINUS_X_MINUS_Y:
-  //    if (value->k_value == exp->k_value  &&
-  //      value->x_value == exp->x_value &&
-  //      value->y_value == exp->y_value &&
-  //      value->dxdt_expression == exp->dxdt_expression &&
-  //      value->dydt_expression == exp->dydt_expression &&
-  //      value->v_expression == exp->v_expression &&
-  //      value->type == exp->type)
-  //    {
-  //      return true;
-  //    }
-  //    break;
-  //  case TYPE_K_MINUS_X_PLUS_W_MINUS_Y:
-  //    if (value->k_value == exp->k_value  &&
-  //      value->x_value == exp->x_value &&
-  //      value->y_value == exp->y_value &&
-  //      value->dxdt_expression == exp->dxdt_expression &&
-  //      value->dydt_expression == exp->dydt_expression &&
-  //      value->w_expression == exp->w_expression &&
-  //      value->type == exp->type)
-  //    {
-  //      return true;
-  //    }
-  //    break;
-  //  case TYPE_K_MINUS_X:
-  //    if (value->k_value == exp->k_value  &&
-  //      value->x_value == exp->x_value &&
-  //      value->dxdt_expression == exp->dxdt_expression &&
-  //      value->type == exp->type)
-  //    {
-  //      return true;
-  //    }
-  //    break;
-  //  case TYPE_K_PLUS_V_MINUS_X:
-  //    if (value->k_value == exp->k_value  &&
-  //      value->x_value == exp->x_value &&
-  //      value->dxdt_expression == exp->dxdt_expression &&
-  //      value->v_expression == exp->v_expression &&
-  //      value->type == exp->type)
-  //    {
-  //      return true;
-  //    }
-  //    break;
-  //  case TYPE_MINUS_X_PLUS_Y:
-  //    if (value->x_value == exp->x_value &&
-  //      value->y_value == exp->y_value &&
-  //      value->dxdt_expression == exp->dxdt_expression &&
-  //      value->dydt_expression == exp->dydt_expression &&
-  //      value->type == exp->type)
-  //    {
-  //      return true;
-  //    }
-  //    break;
-  //  default:
-  //    break;
-  //  }
   }
   return false;
 }
@@ -273,7 +203,7 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
   ASTNodeType_t type = node->getType();
   ASTNode* rightChild = node->getRightChild();
   ASTNode* leftChild = node->getLeftChild();
-  //node->printMath();
+  bool isNumber = false;
   switch (type)
   {
   case AST_PLUS:
@@ -315,10 +245,19 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
     if (numChildren != 2 || !isVariableSpeciesOrParameter(rightChild))
       return false;
     // if left child is  numerical constant or a parameter and right child variable, it IS k-x
-    if (isNumericalConstantOrConstantParameter(leftChild) 
+    if (isNumericalConstantOrConstantParameter(leftChild, isNumber)
       && isVariableSpeciesOrParameter(rightChild))
     {
-      value->k_value = leftChild->getName();
+     
+      if (isNumber)
+      {
+          value->k_value = "number";
+          value->k_real_value = leftChild->getValue();
+      }
+      else
+      {
+          value->k_value = leftChild->getName();
+      }
       value->x_value = rightChild->getName();
       value->dxdt_expression = getODEFor(rightChild->getName());
       value->type = TYPE_K_MINUS_X;
@@ -329,7 +268,9 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
     // left child + with it's left child k-x we have k-x+w-y
     else if (leftChild->getType() == AST_PLUS)
     {
-      if (isNumericalConstantOrConstantParameter(leftChild->getChild(0)))
+
+        // TO DO fix this for k Or w being a number
+      if (isNumericalConstantOrConstantParameter(leftChild->getChild(0), isNumber))
       {
         value->k_value = leftChild->getChild(0)->getName();
         value->x_value = rightChild->getName();
@@ -422,6 +363,7 @@ ExpressionAnalyser::analyse(bool minusXPlusYOnly)
       }
       SubstitutionValues_t* value = new SubstitutionValues_t;
       value->type = TYPE_UNKNOWN;
+      value->k_real_value = util_NaN();
       value->dxdt_expression = NULL;
       value->dydt_expression = NULL;
       value->v_expression = NULL;
@@ -553,11 +495,23 @@ ExpressionAnalyser::addParametersAndRateRules(List* hiddenSpecies)
     if (mModel->getParameter(exp->z_value) == NULL)
     {
       // create expression for z
-      ASTNode* kx = new ASTNode(AST_MINUS);
-      ASTNode* k = new ASTNode(AST_NAME);
-      k->setName(exp->k_value.c_str());
-      ASTNode* x = new ASTNode(AST_NAME);
-      x->setName(exp->x_value.c_str());
+        ASTNode* kx = new ASTNode(AST_MINUS);
+        ASTNode* x = new ASTNode(AST_NAME);
+        ASTNode* k = NULL;
+
+        x->setName(exp->x_value.c_str());
+
+        if (exp->k_value == "number")
+        {
+            k = new ASTNode(AST_REAL);
+            k->setValue(exp->k_real_value);
+        }
+        else
+        {
+            k = new ASTNode(AST_NAME);
+            k->setName(exp->k_value.c_str());
+        }
+      
       kx->addChild(k);
       kx->addChild(x);
 
@@ -722,7 +676,8 @@ ExpressionAnalyser::matchesVariables(SubstitutionValues_t* exp, SubstitutionValu
 {
   if (exp->k_value == exp1->k_value &&
     exp->x_value == exp1->x_value &&
-    exp->y_value == exp1->y_value)
+    exp->y_value == exp1->y_value &&
+    util_isEqual(exp->k_real_value, exp1->k_real_value))
   {
     return true;
   }
@@ -777,14 +732,27 @@ bool ExpressionAnalyser::isVariableSpeciesOrParameter(ASTNode* node)
 /*
 * Check whether for node is a name node representing a constant parameter or a numerical node
 */
-bool ExpressionAnalyser::isNumericalConstantOrConstantParameter(ASTNode* node)
+bool ExpressionAnalyser::isNumericalConstantOrConstantParameter(ASTNode* node, bool& isNumber)
 {
-    if (!node->isName()) // some nodes, like * operators, don't seem to have a name in the first place
+    bool isConstantParameter = false;
+    isNumber = false;
+
+    if (node->isName()) // some nodes, like * operators, don't seem to have a name in the first place
+    {
+        Parameter* parameter = mModel->getParameter(node->getName());
+        isConstantParameter = (parameter != NULL) && (parameter->getConstant());
+    }
+    bool isNumericalConstant = node->isNumber() || node->isConstant();
+
+    if (isConstantParameter)
+        return true;
+    else if (isNumericalConstant)
+    {
+        isNumber = true;
+        return true;
+    }
+    else
         return false;
-    Parameter* parameter = mModel->getParameter(node->getName());
-    bool isConstantParameter = (parameter != NULL) && (parameter->getConstant());
-    bool isNumericalConstant = node->isNumber() && node->isConstant();
-    return isNumericalConstant || isConstantParameter;
 }
 
 /*
