@@ -185,7 +185,7 @@ jobs:
         package_option: ["-DWITH_STABLE_PACKAGES=ON"]
         cpp_standard: [98, 20]
         language_bindings:
-          ["-DWITH_JAVA=True -DWITH_PYTHON=True -DWITH_CSHARP=True"]
+          ["-DWITH_JAVA=True -DWITH_PYTHON=True"]
         container: ["quay.io/pypa/manylinux_2_28_x86_64"]
     runs-on: ${{ matrix.platform }}
     container: ${{ matrix.container}}
@@ -213,7 +213,7 @@ jobs:
           ctest --version
       - name: Install dependencies, configure, build
         run: |
-          yum install -y libxml2-devel check-devel java-devel mono-devel
+          yum install -y libxml2-devel check-devel java-devel
           cd ..
           mkdir build
           cd build
