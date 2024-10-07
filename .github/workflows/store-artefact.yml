@@ -32,12 +32,12 @@ jobs:
     runs-on: ${{ matrix.platform }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: Add msbuild to PATH (Windows)
         if: matrix.platform == 'windows-latest'
-        uses: ilammy/msvc-dev-cmd@v1.6.0
+        uses: ilammy/msvc-dev-cmd@v1
 
       ### configure the operating system ###
       - name: Cache Windows dependencies and SWIG
@@ -45,7 +45,7 @@ jobs:
         # For the CI, we put SWIG there too, for simplicity.
         if: matrix.platform == 'windows-latest'
         id: cache-win-dependencies-static
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: |
             ./dependencies
@@ -133,12 +133,11 @@ jobs:
           echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
       - name: cache ccache files
         if: matrix.platform != 'windows-latest'
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ${{runner.workspace}}/.ccache
           key:
-            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp
-            }}
+            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp}}
           restore-keys: |
             ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
             ${{ runner.os }}-
@@ -226,22 +225,22 @@ jobs:
       ### Upload installed versions ###
       - name: Upload Windows binary archive
         if: matrix.platform == 'windows-latest'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name:
             Windows (zip, libSBML ${{env.LIBSBML_VERSION}},
-            ${{env.ARTIFACT_NAME_SUFFIX}})
+            ${{env.ARTIFACT_NAME_SUFFIX}})-${{ strategy.job-index }}
           path: ${{runner.workspace}}/install/*
           retention-days: 1
           if-no-files-found: error
 
       - name: Upload MacOS binary archive
         if: matrix.platform == 'macos-latest'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name:
             MacOS (zip, libSBML ${{env.LIBSBML_VERSION}},
-            ${{env.ARTIFACT_NAME_SUFFIX}})
+            ${{env.ARTIFACT_NAME_SUFFIX}})-${{ strategy.job-index }}
           path: |
             ${{runner.workspace}}/install/*
             ${{runner.workspace}}/build/r-binaries/*
@@ -250,14 +249,13 @@ jobs:
 
       - name: Upload Ubuntu binary archive
         if: matrix.platform == 'ubuntu-latest'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name:
             Ubuntu nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
-            ${{env.ARTIFACT_NAME_SUFFIX}})
+            ${{env.ARTIFACT_NAME_SUFFIX}})-${{ strategy.job-index }}
           path: |
             ${{runner.workspace}}/install/*
-#            ${{runner.workspace}}/build/r-binaries/*
           retention-days: 1
           if-no-files-found: error
   manylinuxbuild:
@@ -284,7 +282,7 @@ jobs:
     container: ${{ matrix.container}}
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - name: install Swig 4 from source
         run: |
           yum install -y pcre-devel
@@ -366,17 +364,9 @@ jobs:
           echo "ARTIFACT_NAME_SUFFIX=all-packages" >> "${GITHUB_ENV}"
 
       - name: Upload Manylinux2010 binary archive
-        uses: actions/upload-artifact@v1 # note v1 used here, because v2 incompatible
+        uses: actions/upload-artifact@v4
         with:
           name:
             Manylinux2010 nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
-            ${{env.ARTIFACT_NAME_SUFFIX}})
-          path: ../install # paths handled differently by v1 - note that "./install/*" does not work
-
-      # - name: Upload Manylinux2010 R binary archive
-        # uses: actions/upload-artifact@v1 # note v1 used here, because v2 incompatible
-        # with:
-          # name:
-            # Manylinux2010 R nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
-            # ${{env.ARTIFACT_NAME_SUFFIX}})
-          # path: ../build/r-binaries # paths handled differently by v1 - note that v1 doesn't allow multiple paths
+            ${{env.ARTIFACT_NAME_SUFFIX}})-${{ strategy.job-index }}
+          path: ../install
