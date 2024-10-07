@@ -18,6 +18,6 @@ The artefacts are built using [virtual machines provided by GitHub Actions](http
 - Precompiled version of libSBML, built using the [libxml2](http://xmlsoft.org/) parser. Contains interfaces to C, C++, C# (Mono), Python, and R.
 - Precompiled R package for libSBML. 
   
-## CentOS 6 ([ManyLinux2010](quay.io/pypa/manylinux2010_x86_64))
+## CentOS 6 ([ManyLinux2014](quay.io/pypa/manylinux2014_x86_64))
 - Precompiled version of libSBML, built using the [libxml2](http://xmlsoft.org/) parser. Contains interfaces to C, C++, C# (Mono), Python, and R.
 - Precompiled R package for libSBML (as a separate artefact). 
