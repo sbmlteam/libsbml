@@ -196,74 +196,6 @@ SBMLRateRuleConverter::matchesProperties(const ConversionProperties &props) cons
 }
 
 
-void
-SBMLRateRuleConverter::catchAnomalies()
-{
-    // if a rate rule is actually assigned to a variable that is itself
-    // the subject of an assignment rule we want to replace that math
-    // before we do any analysis
-    AssignmentRule* assignment;
-    Model* model = mDocument->getModel();
-    for (unsigned int i = 0; i < mDocument->getModel()->getNumRules(); ++i)
-    {
-        Rule* rule = model->getRule(i);
-        if (rule->getTypeCode() != SBML_RATE_RULE)
-        {
-            continue;
-        }
-        ASTNode* math = const_cast<ASTNode*>(rule->getMath());
-        if (math->getType() == AST_NAME)
-        {
-            assignment = model->getAssignmentRuleByVariable(math->getName());
-            if (assignment == NULL)
-            {
-                continue;
-            }
-
-            const ASTNode* assignment_math = assignment->getMath();
-            math->setType(assignment_math->getType());
-            for (unsigned int n = 0; n < assignment_math->getNumChildren(); ++n)
-            {
-                math->addChild(assignment_math->getChild(n)->deepCopy());
-            }
-        }
-    
-    }
-
-
-    //if (this->getType() == AST_NAME)
-    //{
-    //    // here the node is a variable
-    //    std::string name = this->getName();
-    //    const SBase* parent = this->getParentSBMLObject();
-    //    const Model* model = static_cast<const Model*>(parent->getAncestorOfType(SBML_MODEL));
-    //    const AssignmentRule* rule = model->getAssignmentRuleByVariable(name);
-
-    //    // and the variable is assigned by rule
-    //    // we want to replace this node by the rule
-    //    if (rule != NULL)
-    //    {
-    //        const ASTNode* math = rule->getMath();
-    //        // if this is a name we just want to replace
-    //        ASTNodeType_t type = math->getType();
-    //        if (type == AST_NAME)
-    //        
-    //       {
-    //            this->setName(math->getName());
-    //        }
-    //        else
-    //        {
-    //            this->setType(math->getType());
-    //            for (unsigned int i = 0; i < math->getNumChildren(); ++i)
-    //            {
-    //                this->addChild(math->getChild(i)->deepCopy());
-    //            }
-    //        }
-
-    //    }
-    //}
-}
-
 int 
 SBMLRateRuleConverter::convert()
 {
@@ -273,7 +205,6 @@ SBMLRateRuleConverter::convert()
   {
     return returnValue;
   }
-  catchAnomalies();
 
   // Fages algo 3.6 Steps 1-2
   populateODEinfo();
@@ -445,12 +376,12 @@ SBMLRateRuleConverter::determineCoefficient(ASTNode* ode, unsigned int termN, do
   // first child should be a number
   // take it out of the term
   // it will be used as a coefficient
-  if (term1->getType() == AST_REAL)
-  {
-      coeff = term1->getValue();
-      found = true;
-  }
-  else if (term1->getType() == AST_TIMES && term1->getNumChildren() > 0)
+  //if (term1->getType() == AST_REAL)
+  //{
+  //    coeff = term1->getValue();
+  //    found = true;
+  //}
+  if (term1->getType() == AST_TIMES && term1->getNumChildren() > 0)
   {
     if (term1->getChild(0)->isNumber())
     {
@@ -550,7 +481,7 @@ SBMLRateRuleConverter::populateCoefficientVector(unsigned int termN)
 }
 
 bool
-SBMLRateRuleConverter::determineDerivativeSign(std::string variable, ASTNode* term, bool& posDeriv)
+SBMLRateRuleConverter::determineDerivativeSign(std::string variable, ASTNode* term, bool& derivativeSign)
 {
   // we need to know whether (d(term[termN])/dvariable) > 0
   // we already know that term is non-decomposable - so it will not be a top-level +/-
@@ -558,8 +489,9 @@ SBMLRateRuleConverter::determineDerivativeSign(std::string variable, ASTNode* te
   // but the derivative will have an explicit +/- number if it encountered variable
 
   bool found = false;
-  posDeriv = false;
+  derivativeSign = false;
   bool signDetermined = false;
+  ASTNode* deriv = NULL;
 
   // if variable is not in term that derivative not > 0
   List* names;
@@ -576,7 +508,7 @@ SBMLRateRuleConverter::determineDerivativeSign(std::string variable, ASTNode* te
 
   if (!found)
   {
-    posDeriv = false;
+    derivativeSign = false;
     signDetermined = true;
   }
   else
@@ -588,20 +520,22 @@ SBMLRateRuleConverter::determineDerivativeSign(std::string variable, ASTNode* te
           ASTNode* minus = new ASTNode(AST_TIMES);
           minus->addChild(minus_one);
           minus->addChild(term);
-          //cout << "derive: " << SBML_formulaToL3String(minus) << " var: " << variable << " = "  << endl;
           
           ASTNode* deriv = minus->derivative(variable);
+          if (deriv != NULL) deriv->decompose();
           //cout << "derive: " << SBML_formulaToL3String(minus) << " var: " << variable << " = " <<SBML_formulaToL3String(deriv) << endl;
-          signDetermined = isPositive(deriv, posDeriv);
+          signDetermined = checkDerivativeSign(deriv, derivativeSign);
 
+          //cout << "sign determined: " << derivativeSign << endl;
           delete deriv;
       }
       else
       {
           ASTNode* deriv = term->derivative(variable);
+          if (deriv != NULL) deriv->decompose();
           //cout << "derive: " << SBML_formulaToL3String(term) << " var: " << variable << " = " << SBML_formulaToL3String(deriv) << endl;
-          signDetermined = isPositive(deriv, posDeriv);
-
+          signDetermined = checkDerivativeSign(deriv, derivativeSign);
+          //cout << "sign determined: " << derivativeSign << endl;
           delete deriv;
       }
     if (!signDetermined)
@@ -609,13 +543,14 @@ SBMLRateRuleConverter::determineDerivativeSign(std::string variable, ASTNode* te
       // TO DO log an error
       //getDocument()->getErrorLog()->add()
     }
+    delete deriv;
   }
   delete names;
   return signDetermined;
 }
 
 bool
-SBMLRateRuleConverter::isPositive(const ASTNode* node, bool& posDeriv)
+SBMLRateRuleConverter::checkDerivativeSign(const ASTNode* node, bool& derivativeSign)
 {
   bool signDetermined = false;
 
@@ -628,27 +563,26 @@ SBMLRateRuleConverter::isPositive(const ASTNode* node, bool& posDeriv)
   // posDerivative - true if the derivative of positive term will always be > 0
 // negDerivative - true if the derivative of negative term will always be > 0
 
-  //cout << SBML_formulaToL3String(node) << endl;
   if (type == AST_REAL)
   {
     if (util_isEqual(node->getValue(), 0.0))
     {
-      posDeriv = false;
+      derivativeSign = false;
     }
     else if (node->getValue() > 0)
     {
-        posDeriv = true;
+      derivativeSign = true;
     }
     else
     {
-      if (mDerivSign == NEGATIVE_DERIVATIVE) posDeriv = false;
+        derivativeSign = false;
     }
     signDetermined = true;
   }
   else if (type == AST_NAME)
   {
     // variable first always consider >0
-      posDeriv = true;
+      derivativeSign = true;
       signDetermined = true;
 
   }
@@ -656,7 +590,7 @@ SBMLRateRuleConverter::isPositive(const ASTNode* node, bool& posDeriv)
   unsigned int n = 0;
   while (!signDetermined && n < node->getNumChildren())
   {
-    signDetermined = isPositive(node->getChild(n), posDeriv);
+    signDetermined = checkDerivativeSign(node->getChild(n), derivativeSign);
     n++;
   }
 
@@ -672,15 +606,15 @@ SBMLRateRuleConverter::populateDerivativeVector(unsigned int termN)
   {
     std::string variable = mODEs.at(n).first;
 
-    bool posDeriv;
+    bool derivativeSign;
 
-    bool determined = determineDerivativeSign(variable, mTerms.at(termN), posDeriv);
+    bool determined = determineDerivativeSign(variable, mTerms.at(termN), derivativeSign);
     if (!determined)
     {
       mMathNotSupported = true;
     }
 
-    derivatives.push_back(posDeriv);
+    derivatives.push_back(derivativeSign);
   }
 
   return derivatives;
@@ -738,13 +672,8 @@ SBMLRateRuleConverter::addToTerms(ASTNode* node)
   }
   else if (term->isNumber())
   {
-    // however if the term is a constant we don't want to delete
-      if (term->getNumChildren() != 0)
-      {
-          delete term;
-          return;
-      }
-      term->setValue(1.0);
+    delete term;
+    return;
   }
 
   if (mTerms.size() == 0)

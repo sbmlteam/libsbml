@@ -62,7 +62,6 @@
 #include <sbml/conversion/SBMLConverter.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
 #include <sbml/math/ASTNode.h>
-#include <iostream>
 
 typedef enum
 {
@@ -75,7 +74,6 @@ typedef enum
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
 typedef std::vector< std::pair< std::string, ASTNode*> > pairODEs;
 
 class LIBSBML_EXTERN SBMLRateRuleConverter : public SBMLConverter
@@ -228,11 +226,11 @@ private:
 
   unsigned int locateTerm(ASTNode* node);
 
-  bool determineDerivativeSign(std::string variable, ASTNode* term, bool& posDeriv);
+  bool determineDerivativeSign(std::string variable, ASTNode* term, bool& derivativeSign);
 
   std::vector<bool> populateDerivativeVector(unsigned int termN);
 
-  bool isPositive(const ASTNode* node, bool& posDeriv);
+  bool checkDerivativeSign(const ASTNode* node, bool& derivativeSign);
 
   // functions for Reaction Coefficients
   void createInitialValues();
@@ -245,8 +243,6 @@ private:
   void dealWithSpecies();
   void createReactions();
   void removeRules();
-
-  void catchAnomalies();
 
 
   // member variables populated during analysis
