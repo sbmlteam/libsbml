@@ -53,6 +53,7 @@ foreach(example
     createExampleSBML
     echoSBML
     inferUnits
+    inferReactions
     inlineFunctionDefintions
     convertReactions
     getAllElementsWithNotes
@@ -146,6 +147,11 @@ add_test(NAME test_cxx_echoSBML
          COMMAND "$<TARGET_FILE:example_cpp_echoSBML>"
          ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
          echoSBML.out.xml
+)
+add_test(NAME test_cxx_inferReactions
+         COMMAND "$<TARGET_FILE:example_cpp_inferReactions>"
+         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         inferReactions.out.xml
 )
 add_test(NAME test_cxx_inferUnits
          COMMAND "$<TARGET_FILE:example_cpp_inferUnits>"
