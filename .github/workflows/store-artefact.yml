@@ -306,7 +306,7 @@ jobs:
 
       - name: Install dependencies, configure, build
         run: |
-          yum install -y libxml2-devel check-devel java-devel mono-devel R
+          yum install -y libxml2-devel check-devel java-devel
           git clone https://github.com/libexpat/libexpat
           cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
           cmake --build libexpat
