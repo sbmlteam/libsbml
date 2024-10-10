@@ -276,7 +276,7 @@ jobs:
         package_option: ["-DWITH_ALL_PACKAGES=ON", "-DWITH_STABLE_PACKAGES=ON"]
         cpp_standard: [98]
         language_bindings:
-          ["-DWITH_JAVA=True -DWITH_PYTHON=True -DWITH_CSHARP=True -DWITH_R=True"]
+          ["-DWITH_JAVA=True -DWITH_PYTHON=True"]
         container: ["quay.io/pypa/manylinux_2_28_x86_64"]
     runs-on: ${{ matrix.platform }}
     container: ${{ matrix.container}}
@@ -327,15 +327,11 @@ jobs:
           ${{matrix.xml_parser_option}} \
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
-          -DWITH_CREATE_R_SOURCE=ON \
-          -DWITH_SKIP_R_BINARY=ON \
           -DPYTHON_EXECUTABLE=/opt/python/cp38-cp38/bin/python \
           -DPYTHON_INCLUDE_DIR=/opt/python/cp38-cp38/include/python3.8/ \
           -DWITH_STATIC_RUNTIME=ON \
           -DPYTHON_USE_DYNAMIC_LOOKUP=ON
           cmake --build . --config $BUILD_TYPE
-          # mkdir r-binaries
-          # R CMD INSTALL -l r-binaries --build ./src/bindings/r/out/libSBML_5.19.3.tar.gz
 
       - name: Test
         run: |
