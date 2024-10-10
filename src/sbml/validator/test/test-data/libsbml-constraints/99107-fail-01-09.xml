@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core"  level="3" version="2" 
-xmlns:appear="http://www.sbml.org/sbml/version1"
-      appear:required="false">
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core"  level="3" version="1" 
+xmlns:appear="http://www.sbml.org/sbml/level3/version1/appear"
+      appear:required="true">
   <model>
     <listOfCompartments>
       <compartment id="c" constant="true" appear:shape="circle"/>

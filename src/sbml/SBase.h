@@ -3532,7 +3532,8 @@ protected:
    */
   void logUnknownElement( const std::string& element,
         const unsigned int level,
-        const unsigned int version );
+        const unsigned int version,
+      const std::string& URI = NULL);
 
  
   /**
