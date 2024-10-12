@@ -47,10 +47,23 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
+#include <intrin.h>
+#include <windows.h>
+
 int
 main (int argc, char *argv[])
 {
- 
+
+  // Wait for debugger to attach
+  while (!IsDebuggerPresent())
+  {
+    Sleep(100); // Sleep for 100 milliseconds
+  }
+
+  // at this point for debugging purposes throw the VS abort dialog so we can
+  // easily attach to the process
+  __debugbreak();
+
   if (argc != 3)
   {
     cout 
@@ -64,6 +77,7 @@ main (int argc, char *argv[])
     return 1;
   }
 
+  
   const char* inputFile   = argv[1];
   const char* outputFile  = argv[2];
 

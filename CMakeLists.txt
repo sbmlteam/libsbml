@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Description       : CMake build script for libSBML
+# Description       : CMake build script for libSBML 
 # Original author(s): Frank Bergmann <fbergman@caltech.edu>
 # Organization      : California Institute of Technology
 #
