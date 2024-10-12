@@ -62,6 +62,7 @@
 #include <sbml/conversion/SBMLConverter.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
 #include <sbml/math/ASTNode.h>
+#include <iostream>
 
 typedef enum
 {
@@ -75,6 +76,8 @@ typedef enum
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 typedef std::vector< std::pair< std::string, ASTNode*> > pairODEs;
+typedef std::vector<std::pair<ASTNode*, std::vector<double> > > setCoeff;
+typedef std::vector<std::pair<ASTNode*, std::vector<double> > >::iterator setCoeffIt;
 
 class LIBSBML_EXTERN SBMLRateRuleConverter : public SBMLConverter
 {
@@ -182,8 +185,6 @@ public:
   // helper functions whilst creating code
   typedef std::pair<std::string, std::string > pairString;
 
-  typedef std::vector<std::pair<ASTNode*, std::vector<double> > > setCoeff;
-  typedef std::vector<std::pair<ASTNode*, std::vector<double> > >::iterator setCoeffIt;
   typedef std::vector< std::vector<double> > setRnCoeffs;
   typedef std::vector< std::pair< std::string, ASTNode*> >::iterator odeIt;
 
@@ -216,9 +217,9 @@ private:
 
   void addODEPair(std::string id, Model* model);
 
-  void addToTerms(ASTNode* node);
+  void addToTerms(ASTNode* node, bool isToplevel);
 
-  void createTerms(ASTNode* node);
+  void createTerms(ASTNode* node, bool isToplevel = true);
 
   bool determineCoefficient(ASTNode* ode, unsigned int termN, double& coeff);
 

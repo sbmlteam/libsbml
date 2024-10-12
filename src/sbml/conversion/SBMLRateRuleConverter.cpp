@@ -622,23 +622,23 @@ SBMLRateRuleConverter::populateDerivativeVector(unsigned int termN)
 
 
 void
-SBMLRateRuleConverter::createTerms(ASTNode* node)
+SBMLRateRuleConverter::createTerms(ASTNode* node, bool isToplevel)
 {
   if (node->getType() == AST_PLUS || node->getType() == AST_MINUS)
   {
     for (unsigned int i = 0; i < node->getNumChildren(); i++)
     {
-      createTerms(node->getChild(i));
+      createTerms(node->getChild(i), false);
     }
   }
   else
   {
-    addToTerms(node);
+    addToTerms(node, isToplevel);
   }
 
 }
 void 
-SBMLRateRuleConverter::addToTerms(ASTNode* node)
+SBMLRateRuleConverter::addToTerms(ASTNode* node, bool isToplevel)
 {
   if (node == NULL)
   {
@@ -664,7 +664,7 @@ SBMLRateRuleConverter::addToTerms(ASTNode* node)
       // if term is +/- then go back to create term and do not process further
       if (term->getType() == AST_PLUS || term->getType() == AST_MINUS)
       {
-        createTerms(term);
+        createTerms(term, false);
         delete term;
         return;
       }
@@ -672,8 +672,23 @@ SBMLRateRuleConverter::addToTerms(ASTNode* node)
   }
   else if (term->isNumber())
   {
-    delete term;
-    return;
+      // here we need to deal with the case where the term is just a number
+      // if it is the top level but not equal to zero then we need to add it
+      // if not top level we delete the term
+      // if it is the top level but equal zero
+      if (isToplevel)
+      {
+          if (util_isEqual(term->getValue(), 0.0))
+          {
+              delete term;
+              return;
+          }
+      }
+      else
+      {
+          delete term;
+          return;
+      }
   }
 
   if (mTerms.size() == 0)
@@ -699,6 +714,46 @@ SBMLRateRuleConverter::addToTerms(ASTNode* node)
     }
   }
 }
+
+
+
+static void print_vectors(setCoeff co)
+{
+    unsigned int noTerms = co.size();
+    for (unsigned int n = 0; n < noTerms; n++)
+    {
+        ASTNode* term = co.at(n).first;
+        std::vector<double> values = co.at(n).second;
+        unsigned int noValues = values.size();
+
+        cout << SBML_formulaToL3String(term) << ": Coefficients [";
+        for (unsigned int l = 0; l < noValues; l++)
+        {
+            cout << values.at(l) << ", ";
+        }
+        cout << "]\n";
+    }
+}
+
+void print_vectors_bool(std::vector<std::vector<bool>> co)
+{
+    unsigned int noTerms = co.size();
+    for (unsigned int n = 0; n < noTerms; n++)
+    {
+        std::vector<bool> values = co.at(n);
+        unsigned int noValues = values.size();
+
+        cout << "term " << n << ": Coefficients [";
+        for (unsigned int l = 0; l < noValues; l++)
+        {
+            cout << values.at(l) << ", ";
+        }
+        cout << "]\n";
+    }
+}
+
+
+
 void 
 SBMLRateRuleConverter::populateODEinfo()
 {
@@ -727,10 +782,10 @@ SBMLRateRuleConverter::populateODEinfo()
     }
   }
 
-  //for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
-  //{
-  //  cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
-  //}
+  for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+  {
+    cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+  }
   // implement Algo 3.1 here (hidden variables!)
   // check for hidden variables, and add an appropriate ODE if a hidden variable is found
   ExpressionAnalyser *ea = new ExpressionAnalyser(model, mODEs);
@@ -744,11 +799,11 @@ SBMLRateRuleConverter::populateODEinfo()
       Parameter* hidden = (Parameter*) hiddenSpecies.get(hs);
       addODEPair(hidden->getId(), model);
   }
-  //cout << "After\n";
-  //for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
-  //{
-  //  cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
-  //}
+  cout << "After\n";
+  for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+  {
+    cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+  }
 
   // Fages algo 3.6 Step 1
   //create set of non decomposable terms used in ODES
@@ -765,11 +820,11 @@ SBMLRateRuleConverter::populateODEinfo()
     // Fages algo 3.6 Step 2
     createTerms(node);
   }
-  //for (unsigned int n = 0; n < mTerms.size(); n++)
-  //{
-  //  ASTNode* node = mTerms.at(n);
-  //  cout << "Term " << n << ": " << SBML_formulaToL3String(node) << endl;
-  //}
+  for (unsigned int n = 0; n < mTerms.size(); n++)
+  {
+    ASTNode* node = mTerms.at(n);
+    cout << "Term " << n << ": " << SBML_formulaToL3String(node) << endl;
+  }
 
   // cooefficients
   // these are a set of numerical coefficients of each term as it occurs in each ODE
@@ -777,45 +832,53 @@ SBMLRateRuleConverter::populateODEinfo()
   //
   //  mCoefficients[0] = [mTerms[0], [-1, 1, 0]] - coeff of k1*S1 in -k1*S1, k1*S1, k2*S3
   //  mCoefficients[1] = [mTerms[1], [0, 0, 1]] -  coeff of k2*S3 in -k1*S1, k1*S1, k2*S3
+    // posDerivative/negDerivative
+    // vector < vector<bool> >
+    // these are vector of booleans for each term's derivative wrt each variable
+    // posDerivative - true if the derivative of positive term will always be > 0
+    // negDerivative - true if the derivative of negative term will always be > 0
+    //
+    // in the example
+    // posDerivative = [[true, false, false], [false, false, true]]
+    // corresponding to 
+    // d(mTerms[0])/dODEs[0].first > 0 ie d(k1S1)/dS1 = k1 > 0 (true
+    // d(mTerms[0])/dODEs[1].first > 0 ie d(k1S1)/dS2 = 0 > 0 (false
+    // d(mTerms[0])/dODEs[2].first > 0 ie d(k1S1)/dS3 = 0 > 0 (false
+    // d(mTerms[1])/dODEs[0].first > 0 ie d(k2S3)/dS1 = 0 > 0 (false
+    // d(mTerms[1])/dODEs[1].first > 0 ie d(k2S3)/dS2 = 0 > 0 (false
+    // d(mTerms[1])/dODEs[2].first > 0 ie d(k2S3)/dS3 = k2 > 0 (true
+    //
+    // negDerivative = [[false, false, false], [false, false, false]]
+    // corresponding to 
+    // d(-1*mTerms[0])/dODEs[0].first > 0 ie d(-k1S1)/dS1 = -k1 > 0 (false
+    // d(-1*mTerms[0])/dODEs[1].first > 0 ie d(-k1S1)/dS2 = 0 > 0 (false
+    // d(-1*mTerms[0])/dODEs[2].first > 0 ie d(-k1S1)/dS3 = 0 > 0 (false
+    // d(-1*mTerms[1])/dODEs[0].first > 0 ie d(-k2S3)/dS1 = 0 > 0 (false
+    // d(-1*mTerms[1])/dODEs[1].first > 0 ie d(-k2S3)/dS2 = 0 > 0 (false
+    // d(-1*mTerms[1])/dODEs[2].first > 0 ie d(-k2S3)/dS3 = -k2 > 0 (false
+    //
+    // NOTE: variable values are considered positive
+    for (unsigned int n = 0; n < mTerms.size(); n++)
+    {
+        ASTNode* node = mTerms.at(n);
+        std::vector<double> coeffVector = populateCoefficientVector(n);
+        mCoefficients.push_back(std::make_pair(node, coeffVector));
+        mDerivSign = POSITIVE_DERIVATIVE;
+        cout << "positive\n";
+        std::vector<bool> posDerVector = populateDerivativeVector(n);
+        mPosDerivative.push_back(posDerVector);
+        mDerivSign = NEGATIVE_DERIVATIVE;
+        cout << "negative\n";
+        std::vector<bool> negDerVector = populateDerivativeVector(n);
+        mNegDerivative.push_back(negDerVector);
+    }
+    
+    
+    
+    print_vectors(mCoefficients);
+    print_vectors_bool(mPosDerivative);
+    print_vectors_bool(mNegDerivative);
 
-  // posDerivative/negDerivative
-  // vector < vector<bool> >
-  // these are vector of booleans for each term's derivative wrt each variable
-  // posDerivative - true if the derivative of positive term will always be > 0
-  // negDerivative - true if the derivative of negative term will always be > 0
-  //
-  // in the example
-  // posDerivative = [[true, false, false], [false, false, true]]
-  // corresponding to 
-  // d(mTerms[0])/dODEs[0].first > 0 ie d(k1S1)/dS1 = k1 > 0 (true
-  // d(mTerms[0])/dODEs[1].first > 0 ie d(k1S1)/dS2 = 0 > 0 (false
-  // d(mTerms[0])/dODEs[2].first > 0 ie d(k1S1)/dS3 = 0 > 0 (false
-  // d(mTerms[1])/dODEs[0].first > 0 ie d(k2S3)/dS1 = 0 > 0 (false
-  // d(mTerms[1])/dODEs[1].first > 0 ie d(k2S3)/dS2 = 0 > 0 (false
-  // d(mTerms[1])/dODEs[2].first > 0 ie d(k2S3)/dS3 = k2 > 0 (true
-  //
-  // negDerivative = [[false, false, false], [false, false, false]]
-  // corresponding to 
-  // d(-1*mTerms[0])/dODEs[0].first > 0 ie d(-k1S1)/dS1 = -k1 > 0 (false
-  // d(-1*mTerms[0])/dODEs[1].first > 0 ie d(-k1S1)/dS2 = 0 > 0 (false
-  // d(-1*mTerms[0])/dODEs[2].first > 0 ie d(-k1S1)/dS3 = 0 > 0 (false
-  // d(-1*mTerms[1])/dODEs[0].first > 0 ie d(-k2S3)/dS1 = 0 > 0 (false
-  // d(-1*mTerms[1])/dODEs[1].first > 0 ie d(-k2S3)/dS2 = 0 > 0 (false
-  // d(-1*mTerms[1])/dODEs[2].first > 0 ie d(-k2S3)/dS3 = -k2 > 0 (false
-  //
-  // NOTE: variable values are considered positive
-  for (unsigned int n = 0; n < mTerms.size(); n++)
-  {
-    ASTNode* node = mTerms.at(n);
-    std::vector<double> coeffVector = populateCoefficientVector(n);
-    mCoefficients.push_back(std::make_pair(node, coeffVector));
-    mDerivSign = POSITIVE_DERIVATIVE;
-    std::vector<bool> posDerVector = populateDerivativeVector(n);
-    mPosDerivative.push_back(posDerVector);
-    mDerivSign = NEGATIVE_DERIVATIVE;
-    std::vector<bool> negDerVector = populateDerivativeVector(n);
-    mNegDerivative.push_back(negDerVector);
-  }
 
 }
 
