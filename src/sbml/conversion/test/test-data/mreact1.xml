@@ -76,6 +76,26 @@
           </math>
         </kineticLaw>
       </reaction>
+      <reaction id="J4" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="d" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn> 0.2 </cn>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="J5" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="newVar1" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn> -0.2 </cn>
+          </math>
+        </kineticLaw>
+      </reaction>
     </listOfReactions>
   </model>
 </sbml>
