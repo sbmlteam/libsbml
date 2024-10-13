@@ -11,12 +11,21 @@
     <listOfReactions>
       <reaction id="J1" reversible="false" fast="false">
         <listOfProducts>
-          <speciesReference species="y_1" stoichiometry="11" constant="true"/>
-          <speciesReference species="y_2" stoichiometry="22" constant="true"/>
+          <speciesReference species="y_1" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <cn> 1 </cn>
+            <cn> 11 </cn>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="J2" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="y_2" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn> 22 </cn>
           </math>
         </kineticLaw>
       </reaction>
