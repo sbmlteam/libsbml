@@ -153,23 +153,77 @@ ExpressionAnalyser::setModel(Model* model)
 bool
 ExpressionAnalyser::areIdenticalSubstitutionValues(SubstitutionValues_t* values1, SubstitutionValues_t* values2)
 {
+    printSubstitutionValues(values1);
+    printSubstitutionValues(values2);
+
     if (values1->k_value == values2->k_value &&
         util_isEqual(values1->k_real_value, values2->k_real_value) &&
         values1->x_value == values2->x_value &&
         values1->y_value == values2->y_value &&
-        values1->dxdt_expression == values2->dxdt_expression &&
-        values1->dydt_expression == values2->dydt_expression &&
-        values1->v_expression == values2->v_expression  &&
-        values1->w_expression == values2->w_expression  &&
         values1->type == values2->type  &&
-        values1->current == values2->current  &&
-        values1->z_value == values2->z_value  &&
+        values1->z_value == values2->z_value &&
         values1->odeIndex == values2->odeIndex)
     {
-        return true;
+        if ((values1->dxdt_expression != NULL && values2->dxdt_expression != NULL &&
+            values1->dxdt_expression->exactlyEqual(*(values2->dxdt_expression)) == false)
+            ||
+            (values1->dydt_expression != NULL && values2->dydt_expression != NULL &&
+                values1->dydt_expression->exactlyEqual(*(values2->dydt_expression)) == false)
+            ||
+            (values1->v_expression != NULL && values2->v_expression != NULL &&
+                values1->v_expression->exactlyEqual(*(values2->v_expression)) == false)
+            ||
+            (values1->w_expression != NULL && values2->w_expression != NULL &&
+                values1->w_expression->exactlyEqual(*(values2->w_expression)) == false)
+            ||
+            (values1->current != NULL && values2->current != NULL &&
+                values1->current->exactlyEqual(*(values2->current)) == false)
+            )
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
-    return false;
+    else
+    {
+        return false;
+    }
 }
+
+void
+ExpressionAnalyser::printSubstitutionValues(const SubstitutionValues_t* values)
+{
+    cout << "k_value: " << values->k_value << endl;
+    cout << "k_real_value: " << values->k_real_value << endl;
+        cout << "x_value: " << values->x_value << endl;
+        cout << "y_value: " << values->y_value << endl;
+        if (values->dxdt_expression != NULL) 
+            cout << "dxdt_expression: " << SBML_formulaToL3String(values->dxdt_expression) << " " << values->dxdt_expression << endl;
+        else
+            cout << "dxdt_expression: NULL" << endl;
+        if (values->dydt_expression != NULL) 
+            cout << "dydt_expression: " << SBML_formulaToL3String(values->dydt_expression) << " " << values->dydt_expression << endl;
+        else
+            cout << "dydt_expression: NULL" << endl;
+        if (values->v_expression != NULL) 
+            cout << "v_expression: " << SBML_formulaToL3String(values->v_expression) << " " << values->v_expression << endl;
+        else
+            cout << "v_expression: NULL" << endl;
+        if (values->w_expression != NULL) 
+            cout << "w_expression: " << SBML_formulaToL3String(values->w_expression) << " " << values->w_expression << endl;
+        else
+            cout << "w_expression: NULL" << endl;
+        cout << "type: " << values->type << endl;
+        if (values->current != NULL) 
+            cout << "current: " << SBML_formulaToL3String(values->current) << " " << values->current << endl;
+        else
+            cout << "current: NULL" << endl;
+        cout << "odeIndex: " << values->odeIndex << endl;
+}
+
 
 
 /*
@@ -356,6 +410,7 @@ ExpressionAnalyser::analyse(bool minusXPlusYOnly)
     while (it != operators->end())
     {
       ASTNode* currentNode = (ASTNode*)*it;
+      cout << "current node " << SBML_formulaToL3String(currentNode)  << endl;
       if (minusXPlusYOnly && currentNode->getType() != AST_PLUS)
       {
         it++;
@@ -386,16 +441,25 @@ ExpressionAnalyser::detectHiddenSpecies(List * hiddenSpecies)
 {
   // find -x+y and replace with y-x 
   analyse(true);
+  for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+  {
+      cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+  }
+
   reorderMinusXPlusYIteratively();
   mExpressions.clear();
   
   // find cases of k-x/k-x-y/k+v-x/k+v-x-y/k-x+w-y
   analyse();
+  for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+  {
+      cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+  }
+
 
   for (unsigned int i = 0; i < mExpressions.size(); i++)
   {
     SubstitutionValues_t *exp = mExpressions.at(i);
-    ASTNode* currentNode = exp->current;
     for (unsigned int j = 0; j < mODEs.size(); j++)
     {
       std::pair<std::string, ASTNode*> ode = mODEs.at(j);
@@ -412,10 +476,11 @@ ExpressionAnalyser::detectHiddenSpecies(List * hiddenSpecies)
         exp->z_value = zName;
         replaceExpressionWithNewParameter(odeRHS, exp);
       }
-//     cout << "ode in main: " << SBML_formulaToL3String(odeRHS) << endl;
+     cout << "ode in main: " << SBML_formulaToL3String(odeRHS) << endl;
     }
-  } 
-  addParametersAndRateRules(hiddenSpecies);
+    addParametersAndRateRules(hiddenSpecies, exp);
+  }
+  //addParametersAndRateRules(hiddenSpecies);
 }
 
 /*
@@ -475,6 +540,8 @@ ExpressionAnalyser::getUniqueNewParameterName()
   sprintf(number, "%u", mNewVarCount);
 
   std::string name = mNewVarName + string(number);
+  mModel->clearAllElementIdList();
+  mModel->populateAllElementIdList();
   IdList ids = mModel->getAllElementIdList();
   while (ids.contains(name))
   {
@@ -487,11 +554,11 @@ ExpressionAnalyser::getUniqueNewParameterName()
 
 
 void
-ExpressionAnalyser::addParametersAndRateRules(List* hiddenSpecies)
+ExpressionAnalyser::addParametersAndRateRules(List* hiddenSpecies, SubstitutionValues_t* exp)
 {
-  for (unsigned int i = 0; i < mExpressions.size(); i++)
-  {
-    SubstitutionValues_t *exp = mExpressions.at(i);
+  //for (unsigned int i = 0; i < mExpressions.size(); i++)
+  ////{
+  //  SubstitutionValues_t *exp = mExpressions.at(i);
     if (mModel->getParameter(exp->z_value) == NULL)
     {
       // create expression for z
@@ -574,7 +641,7 @@ ExpressionAnalyser::addParametersAndRateRules(List* hiddenSpecies)
       delete zNode;
       delete math; //its children dxdt and minus1 deleted as part of this.
     }
-  }
+  //}
 }
 
 
@@ -694,7 +761,7 @@ ExpressionAnalyser::parameterAlreadyCreated(SubstitutionValues_t* exp)
 {
   int match = -1;
   unsigned int i = 0;
-  while (!match && i < mExpressions.size())
+  while (match == -1 && i < mExpressions.size())
   {
     SubstitutionValues_t* thisexp = mExpressions.at(i);
     if (thisexp->z_value.empty() || !matchesVariables(thisexp, exp))

@@ -163,6 +163,7 @@ private:
 
     bool areIdenticalSubstitutionValues(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
 
+    void printSubstitutionValues(const SubstitutionValues_t* values1);
 
   // functions that represents steps of algo 3.1
 
@@ -182,7 +183,7 @@ private:
   /*
   * 
   */
-  void addParametersAndRateRules(List* hiddenSpecies);
+  void addParametersAndRateRules(List* hiddenSpecies, SubstitutionValues_t* exp);
 
   void replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
 
