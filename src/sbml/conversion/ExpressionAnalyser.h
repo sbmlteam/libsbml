@@ -181,9 +181,11 @@ private:
   ASTNode* getODEFor(std::string name);
 
   /*
-  * 
+  * THIS NEEDS PROPERLY SORTING IS DO THE FUNCTIONS THAT DEAL WITH MATCHING WHETHER A PARAMETER IS ALREADY IN THE MODEL
+  * ALSO NEED TO TAKE THE MATCHING OF THE ODES OUT OF THE COMPARISON OF EXPRESSIONS
+  * AND CHECK THAT THE MATCHES VARIABLES INCLUDES ALL THE VARIABLES
   */
-  void addParametersAndRateRules(List* hiddenSpecies, SubstitutionValues_t* exp);
+  void addParametersAndRateRules(List* hiddenSpecies, SubstitutionValues_t* exp = NULL);
 
   void replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
 
@@ -235,7 +237,8 @@ private:
   * if so, return index of matching exp
   */
   int parameterAlreadyCreated(SubstitutionValues_t *value);
- 
+  bool isParameterAlreadyCreated(std::string& name);
+
   // member variables populated during analysis
   pairODEs mODEs;
 
