@@ -446,7 +446,7 @@ ExpressionAnalyser::analyse(bool minusXPlusYOnly)
         value->odeIndex = odeIndex;
         if (!hasExpressionAlreadyRecorded(value))
         {
-//printSubstitutionValues(value);
+            printSubstitutionValues(value);
           mExpressions.push_back(value);
         }
       }
@@ -483,22 +483,6 @@ ExpressionAnalyser::detectHiddenSpecies(List * hiddenSpecies)
     {
         std::pair<std::string, ASTNode*> ode = mODEs.at(j);
         ASTNode* odeRHS = ode.second;
-        //  int index = parameterAlreadyCreated(exp);
-        //  if (index >= 0)
-        //  {
-        //    exp->z_value = mExpressions.at(index)->z_value;
-        //    replaceExpressionWithNewParameter(odeRHS, exp);
-        //  }
-        //  else
-        //  {
-        //    std::string zName = getUniqueNewParameterName();
-        //    exp->z_value = zName;
-        //    replaceExpressionWithNewParameter(odeRHS, exp);
-        //  }
-        // cout << "ode in main: " << SBML_formulaToL3String(odeRHS) << endl;
-        //}
-        ////addParametersAndRateRules(hiddenSpecies, exp);
-      //}
         bool index = isParameterAlreadyCreated(exp->z_value);
         if (index == true)
         {
@@ -508,13 +492,11 @@ ExpressionAnalyser::detectHiddenSpecies(List * hiddenSpecies)
         {
             std::string zName = getUniqueNewParameterName();
             exp->z_value = zName;
+            mNewVarCount++;
             replaceExpressionWithNewParameter(odeRHS, exp);
             addParametersAndRateRules(hiddenSpecies, exp);
         }
         cout << "ode in main: " << SBML_formulaToL3String(odeRHS) << endl;
-        //}
-        ////addParametersAndRateRules(hiddenSpecies, exp);
-
     }
   }
 }
@@ -798,7 +780,6 @@ ExpressionAnalyser::isParameterAlreadyCreated(std::string& name)
         IdList ids = mModel->getAllElementIdList();
         if (ids.contains(name))
         {
-            mNewVarCount++;
             return true;
         }
 
