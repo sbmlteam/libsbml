@@ -985,7 +985,7 @@ SBMLRateRuleConverter::dealWithSpecies()
     }
     else
     {
-      // must be a parameter
+      // must be a parameter turn it into a species
       Parameter *p = mDocument->getModel()->removeParameter(variable);
       Species *newSpecies = mDocument->getModel()->createSpecies();
       newSpecies->setId(variable);
