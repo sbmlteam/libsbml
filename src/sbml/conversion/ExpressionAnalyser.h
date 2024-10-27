@@ -169,7 +169,6 @@ private:
 
   void reorderMinusXPlusYIteratively();
 
-  bool addHiddenVariablesForKMinusX(List* hiddenSpecies);
 
   void analyse(bool minusXPlusYOnly = false);
   bool analyseNode(ASTNode* node, SubstitutionValues_t* value);
@@ -193,10 +192,6 @@ private:
 
   std::string getUniqueNewParameterName();
 
-  /*
-  * check that the variable names in these two expressions match
-  */
-  bool matchesVariables(SubstitutionValues_t* exp, SubstitutionValues_t* exp1);
 
   
   void replaceExpressionWithNewParameter(ASTNode* ode, SubstitutionValues_t* exp);
@@ -233,10 +228,11 @@ private:
   bool isNumericalConstantOrConstantParameter(ASTNode* node, bool& isNumber);
 
   /*
-  * Have we already created a parameter for this expression
-  * if so, return index of matching exp
+  * Checks whether a parameter with the given name is already in the model.
+  * 
+  * @param name the name of the parameter to check
+  * @return true if the parameter is already in the model, false otherwise.flac
   */
-  int parameterAlreadyCreated(SubstitutionValues_t *value);
   bool isParameterAlreadyCreated(std::string& name);
 
   // member variables populated during analysis

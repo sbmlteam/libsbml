@@ -153,8 +153,8 @@ ExpressionAnalyser::setModel(Model* model)
 bool
 ExpressionAnalyser::areIdenticalSubstitutionValues(SubstitutionValues_t* values1, SubstitutionValues_t* values2)
 {
-    printSubstitutionValues(values1);
-    printSubstitutionValues(values2);
+    //printSubstitutionValues(values1);
+    //printSubstitutionValues(values2);
 
     if (values1->k_value == values2->k_value &&
         values1->x_value == values2->x_value &&
@@ -184,24 +184,24 @@ ExpressionAnalyser::areIdenticalSubstitutionValues(SubstitutionValues_t* values1
                     values1->current->exactlyEqual(*(values2->current)) == false)
                 )
             {
-                cout << "false " << endl;
+                //cout << "false " << endl;
                 return false;
             }
             else
             {
-                cout << "true " << endl;
+                //cout << "true " << endl;
                 return true;
             }
         }
         else
         {
-            cout << "true " << endl;
+            //cout << "true " << endl;
             return true;
         }
     }
     else
     {
-        cout << "false " << endl;
+        //cout << "false " << endl;
         return false;
     }
 }
@@ -428,7 +428,7 @@ ExpressionAnalyser::analyse(bool minusXPlusYOnly)
     while (it != operators->end())
     {
       ASTNode* currentNode = (ASTNode*)*it;
-      cout << "current node " << SBML_formulaToL3String(currentNode)  << endl;
+      //cout << "current node " << SBML_formulaToL3String(currentNode)  << endl;
       if (minusXPlusYOnly && currentNode->getType() != AST_PLUS)
       {
         it++;
@@ -446,7 +446,7 @@ ExpressionAnalyser::analyse(bool minusXPlusYOnly)
         value->odeIndex = odeIndex;
         if (!hasExpressionAlreadyRecorded(value))
         {
-            printSubstitutionValues(value);
+            //printSubstitutionValues(value);
           mExpressions.push_back(value);
         }
       }
@@ -460,20 +460,20 @@ ExpressionAnalyser::detectHiddenSpecies(List * hiddenSpecies)
 {
   // find -x+y and replace with y-x 
   analyse(true);
-  for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
-  {
-      cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
-  }
+  //for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+  //{
+  //    cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+  //}
 
   reorderMinusXPlusYIteratively();
   mExpressions.clear();
   
   // find cases of k-x/k-x-y/k+v-x/k+v-x-y/k-x+w-y
   analyse();
-  for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
-  {
-      cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
-  }
+  //for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+  //{
+  //    cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+  //}
 
 
   for (unsigned int i = 0; i < mExpressions.size(); i++)
@@ -496,7 +496,7 @@ ExpressionAnalyser::detectHiddenSpecies(List * hiddenSpecies)
             replaceExpressionWithNewParameter(odeRHS, exp);
             addParametersAndRateRules(hiddenSpecies, exp);
         }
-        cout << "ode in main: " << SBML_formulaToL3String(odeRHS) << endl;
+        //cout << "ode in main: " << SBML_formulaToL3String(odeRHS) << endl;
     }
   }
 }
@@ -554,11 +554,7 @@ ExpressionAnalyser::replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* repla
 std::string
 ExpressionAnalyser::getUniqueNewParameterName()
 { 
-  char number[4];
-  sprintf(number, "%u", mNewVarCount);
-
-  std::string name = mNewVarName + string(number);
-  return name;
+  return mNewVarName + std::to_string(mNewVarCount);
 }
 
 
@@ -739,29 +735,6 @@ ExpressionAnalyser::replaceExpressionWithNewParameter(ASTNode* ode, Substitution
 }
 
 
-bool
-ExpressionAnalyser::addHiddenVariablesForKMinusX(List* hiddenSpecies)
-{
-  return true;
-}
-
-/*
-* check that the variable names in these two expressions match
-*/
-bool
-ExpressionAnalyser::matchesVariables(SubstitutionValues_t* exp, SubstitutionValues_t* exp1)
-{
-  if (exp->k_value == exp1->k_value &&
-    exp->x_value == exp1->x_value &&
-    exp->y_value == exp1->y_value &&
-    util_isEqual(exp->k_real_value, exp1->k_real_value))
-  {
-    return true;
-  }
-  return false;
-}
-
-
 /*
 * Have we already created a parameter for this expression
 * if so, return name
@@ -777,39 +750,9 @@ ExpressionAnalyser::isParameterAlreadyCreated(std::string& name)
     {
         mModel->clearAllElementIdList();
         mModel->populateAllElementIdList();
-        IdList ids = mModel->getAllElementIdList();
-        if (ids.contains(name))
-        {
-            return true;
-        }
-
+        IdList& ids = mModel->getAllElementIdList();
+        return ids.contains(name);
     }
-    return false;
-}
-int
-ExpressionAnalyser::parameterAlreadyCreated(SubstitutionValues_t* exp)
-{
-int match = -1;
-  unsigned int i = 0;
-  while (match == -1 && i < mExpressions.size())
-  {
-    SubstitutionValues_t* thisexp = mExpressions.at(i);
-    if (thisexp->z_value.empty() || !matchesVariables(thisexp, exp))
-    {
-      i++;
-      continue;
-    }
-    if (thisexp->type == exp->type)
-    {
-      match = i;
-    }
-    else if (thisexp->type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y && exp->type == TYPE_K_MINUS_X_MINUS_Y)
-    {
-      match = i;
-    }
-    i++;
-  }
-  return match;
 }
 
 /*
