@@ -217,6 +217,10 @@ private:
 
   void addODEPair(std::string id, Model* model);
 
+  void populateTerms();
+
+  void createAnalysisVectors();
+
   void addToTerms(ASTNode* node, bool isToplevel);
 
   void createTerms(ASTNode* node, bool isToplevel = true);
