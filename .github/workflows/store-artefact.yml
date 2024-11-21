@@ -322,9 +322,9 @@ jobs:
           -DPYTHON_EXECUTABLE=/opt/python/cp38-cp38/bin/python \
           -DPYTHON_INCLUDE_DIR=/opt/python/cp38-cp38/include/python3.8/ \
           -DWITH_STATIC_RUNTIME=ON \
-          -DLIBSBML_DEPENDENCY_DIR=./dependencies \
-          -DEXPAT_LIBRARY=./dependencies/lib64/libexpat.a \
-          -DEXPAT_INCLUDE_DIR=./dependencies/include \
+          -DLIBSBML_DEPENDENCY_DIR=../dependencies \
+          -DEXPAT_LIBRARY=../dependencies/lib64/libexpat.a \
+          -DEXPAT_INCLUDE_DIR=../dependencies/include \
           -DPYTHON_USE_DYNAMIC_LOOKUP=ON
           cmake --build . --config $BUILD_TYPE
 
