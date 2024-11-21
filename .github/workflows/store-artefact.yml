@@ -324,6 +324,7 @@ jobs:
           -DWITH_STATIC_RUNTIME=ON \
           -DLIBSBML_DEPENDENCY_DIR=./dependencies \
           -DEXPAT_LIBRARY=./dependencies/lib64/libexpat.a \
+          -DEXPAT_INCLUDE_DIR=./dependencies/include \
           -DPYTHON_USE_DYNAMIC_LOOKUP=ON
           cmake --build . --config $BUILD_TYPE
 
