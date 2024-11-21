@@ -301,15 +301,15 @@ jobs:
           yum install -y libxml2-devel check-devel java-devel
           git clone https://github.com/libexpat/libexpat
           export DEPENDENCY_DIR=$PWD/dependencies
+          export INSTALL_DIR=$PWD/install
           cmake -G Ninja -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=$DEPENDENCY_DIR -B libexpat -S libexpat/expat 
           cmake --build libexpat
           cmake --install libexpat
           cd ..
           mkdir build
           cd build
-          mkdir ../install
           cmake ../libsbml -G Ninja \
-          -DCMAKE_INSTALL_PREFIX=../install \
+          -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_CHECK=True \
@@ -361,4 +361,5 @@ jobs:
           name:
             Manylinux nightly (zip, libSBML ${{env.LIBSBML_VERSION}},
             ${{env.ARTIFACT_NAME_SUFFIX}})-${{ strategy.job-index }}
-          path: ../install
+          path:
+            install/
