@@ -300,7 +300,8 @@ jobs:
         run: |
           yum install -y libxml2-devel check-devel java-devel
           git clone https://github.com/libexpat/libexpat
-          cmake -G Ninja -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
+          export DEPENDENCY_DIR=$PWD/dependencies
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=$DEPENDENCY_DIR -B libexpat -S libexpat/expat 
           cmake --build libexpat
           cmake --install libexpat
           cd ..
@@ -322,9 +323,7 @@ jobs:
           -DPYTHON_EXECUTABLE=/opt/python/cp38-cp38/bin/python \
           -DPYTHON_INCLUDE_DIR=/opt/python/cp38-cp38/include/python3.8/ \
           -DWITH_STATIC_RUNTIME=ON \
-          -DLIBSBML_DEPENDENCY_DIR=../dependencies \
-          -DEXPAT_LIBRARY=../dependencies/lib64/libexpat.a \
-          -DEXPAT_INCLUDE_DIR=../dependencies/include \
+          -DLIBSBML_DEPENDENCY_DIR=$DEPENDENCY_DIR \
           -DPYTHON_USE_DYNAMIC_LOOKUP=ON
           cmake --build . --config $BUILD_TYPE
 
