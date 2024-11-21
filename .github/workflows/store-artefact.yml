@@ -286,7 +286,7 @@ jobs:
 
       - name: install CMake, ninja and swig using pip
         run: |
-          /opt/python/cp38-cp38/bin/pip install cmake swig
+          /opt/python/cp38-cp38/bin/pip install cmake swig ninja
           ln -s /opt/python/cp38-cp38/bin/cmake /usr/bin/cmake
           ln -s /opt/python/cp38-cp38/bin/ctest /usr/bin/ctest
           ln -s /opt/python/cp38-cp38/bin/swig /usr/bin/swig
