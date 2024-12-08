@@ -241,6 +241,7 @@ SBMLRateRuleConverter::convert()
   }
 
   // Fages algo 3.6 Steps 1-2
+  populateInitialODEinfo();
   populateODEinfo();
 
   if (getMathNotSupportedFlag() == true)
@@ -835,37 +836,45 @@ SBMLRateRuleConverter::addToTerms(ASTNode* node, bool isToplevel)
 
 
 void 
+SBMLRateRuleConverter::populateInitialODEinfo()
+{
+    Model* model = mDocument->getModel();
+
+    // Fages algo 3.6 create set O
+    // create pairs of variables and their corresponding ODE
+    // eg. ODEs[0] = [S1, -k1*S1]
+    //     ODES[1] = [S2, k1*S1]
+    //     ODES[2] = [S3, k2*S3]
+    //
+    for (unsigned int n = 0; n < model->getNumSpecies(); n++)
+    {
+        Species* s = model->getSpecies(n);
+        if (s->getConstant() == false)
+        {
+            addODEPair(s->getId(), model);
+        }
+    }
+    for (unsigned int n = 0; n < model->getNumParameters(); n++)
+    {
+        Parameter* p = model->getParameter(n);
+        if (p->getConstant() == false)
+        {
+            addODEPair(p->getId(), model);
+        }
+    }
+
+    for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+    {
+        cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+    }
+}
+
+
+void
 SBMLRateRuleConverter::populateODEinfo()
 {
-  Model* model = mDocument->getModel();
+    Model* model = mDocument->getModel();
 
-  // Fages algo 3.6 create set O
-  // create pairs of variables and their corresponding ODE
-  // eg. ODEs[0] = [S1, -k1*S1]
-  //     ODES[1] = [S2, k1*S1]
-  //     ODES[2] = [S3, k2*S3]
-  //
-  for (unsigned int n = 0; n < model->getNumSpecies(); n++)
-  {
-    Species *s = model->getSpecies(n);
-    if (s->getConstant() == false)
-    {
-      addODEPair(s->getId(), model);
-    }
-  }
-  for (unsigned int n = 0; n < model->getNumParameters(); n++)
-  {
-    Parameter *p = model->getParameter(n);
-    if (p->getConstant() == false)
-    {
-      addODEPair(p->getId(), model);
-    }
-  }
-
-  for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
-  {
-    cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
-  }
   // implement Algo 3.1 here (hidden variables!)
   // check for hidden variables, and add an appropriate ODE if a hidden variable is found
   ExpressionAnalyser *ea = new ExpressionAnalyser(model, mODEs);

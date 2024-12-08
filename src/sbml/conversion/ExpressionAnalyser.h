@@ -75,8 +75,8 @@ typedef enum
 } ExpressionType_t;
 
 /*
-*
-|*/
+* the structure to contain the substitution values
+*/
 struct SubstitutionValues_t {
   std::string k_value;
   double k_real_value;
@@ -89,6 +89,7 @@ struct SubstitutionValues_t {
   ExpressionType_t type;
   ASTNode* current;
   std::string z_value;
+  ASTNode* z_expression;
   unsigned int odeIndex;
 };
 
@@ -155,23 +156,60 @@ public:
   int setModel(Model* m);
 
 
+  SubstitutionValues_t* createBlankSubstitutionValues();
+  unsigned int getNumExpressions();
+  SubstitutionValues_t* getExpression(unsigned int index);
+
+
   void detectHiddenSpecies(List * hiddenSpecies);
 
+  bool analyseNode(ASTNode* node, SubstitutionValues_t* value);
 
-private:
-  /** @cond doxygenLibsbmlInternal */
+  void analyse(bool minusXPlusYOnly = false);
 
-    bool areIdenticalSubstitutionValues(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+  void orderExpressions();
 
-    void printSubstitutionValues(const SubstitutionValues_t* values1);
+  void printSubstitutionValues(const SubstitutionValues_t* values1);
+  bool areIdenticalSubstitutionValues(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
 
-  // functions that represents steps of algo 3.1
+  bool expressionExists(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+
+  void substituteParametersForExpressions(List* hiddenSpecies);
+
+  /*
+  * identify instances of - x + y within formula and create expressions
+  * 
+  */
+  void detect_minusXPlusYOnly();
 
   void reorderMinusXPlusYIteratively();
 
+private:
+  /** @cond doxygenLibsbmlInternal */
+    bool matchesK(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
 
-  void analyse(bool minusXPlusYOnly = false);
-  bool analyseNode(ASTNode* node, SubstitutionValues_t* value);
+    bool matchesKValue(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+    bool matchesKRealValue(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+    bool matchesXValue(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+    bool matchesYValue(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+    bool matchesVExpression(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+    bool matchesWExpression(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+    bool matchesDxdtExpression(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+    bool matchesDydtExpression(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+    bool matchesCurrentNode(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+
+
+    void substituteParameters(List* hiddenSpecies, SubstitutionValues_t* values);
+
+    SubstitutionValues_t* getSubstitutionValuesByType(ExpressionType_t type, size_t index = 0);
+
+
+    //void printSubstitutionValues(const SubstitutionValues_t* values1);
+
+  // functions that represents steps of algo 3.1
+
+
+
   
   /*
   * Return the ODE for the given variable
@@ -199,7 +237,7 @@ private:
   /*
    * Loops through expressions already recorded and checks for exact matches
    */
-  bool hasExpressionAlreadyRecorded(SubstitutionValues_t* value);
+  bool hasExpressionAlreadyBeenRecorded(SubstitutionValues_t* value);
 
   /**
    * Searches for a node's parent and its index as the parent's child in a one-directional tree (nodes know their children, but not their parent).
@@ -235,12 +273,36 @@ private:
   */
   bool isParameterAlreadyCreated(std::string& name);
 
+  bool isTypeKminusXminusY(unsigned int numChildren, ASTNode* rightChild, 
+      ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
+
+  bool isTypeKminusX(unsigned int numChildren, ASTNode* rightChild,
+      ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
+
+  bool isTypeKplusVminusX(unsigned int numChildren, ASTNode* rightChild,
+      ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
+ 
+  bool isTypeKplusV(unsigned int numChildren, ASTNode* rightChild,
+      ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
+
+  bool isTypeKplusVminusXminusY(unsigned int numChildren, ASTNode* rightChild,
+      ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
+
+  bool isTypeKminusXplusWminusY(unsigned int numChildren, ASTNode* rightChild,
+      ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
+
+  bool isTypeWplusKminusX(unsigned int numChildren, ASTNode* rightChild,
+      ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
+
   // member variables populated during analysis
   pairODEs mODEs;
 
   Model* mModel;
 
   std::vector <SubstitutionValues_t*> mExpressions;
+   
+  // list of hidden species that are identified during the analysis
+  List* mHiddenSpecies;
 
   // variables to ensure unique new parameter name
 

@@ -188,7 +188,7 @@ public:
   typedef std::vector< std::vector<double> > setRnCoeffs;
   typedef std::vector< std::pair< std::string, ASTNode*> >::iterator odeIt;
 
-  pairODEs getOde() { return mODEs; };
+  pairODEs getOdePairs() { return mODEs; };
 
   setCoeff getCoeff() { return mCoefficients; };
   setRnCoeffs getReactants() { return mReactants; };
@@ -200,6 +200,9 @@ public:
   std::vector< std::vector<bool> > getNegDer() { return mNegDerivative; };
   bool getMathNotSupportedFlag() const;
 
+  void populateInitialODEinfo();
+
+  void populateODEinfo();
 
 private:
   /** @cond doxygenLibsbmlInternal */
@@ -208,7 +211,6 @@ private:
 
   bool isDocumentAppropriate(OperationReturnValues_t& returnVal);
 
-  void populateODEinfo();
 
   void populateReactionCoefficients();
 
