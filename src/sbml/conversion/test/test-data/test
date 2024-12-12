@@ -98,25 +98,59 @@ reconstructModel
         analyzeNode k-x-y 
         right: y 
         left: k-x 
+        minus
           analyzeNode k-x 
           right: x 
           left: k 
+          minus
           values: k x dx type=k-x 
         values: y dy type=k-x-y   
   , TYPE_K_PLUS_V_MINUS_X_MINUS_Y
         analyzeNode k+v-x-y 
         right: y 
         left: k+v-x 
+        minus
           analyzeNode: k+v-x 
           right: x 
           left: k+v 
+          minus
             analyzeNode: k+v 
             right: v 
             left: k 
+            plus
             return False
         values: k x dx v type=k+v-x 
       values: y dy type=k+v-x-y 
   , TYPE_K_MINUS_X_PLUS_W_MINUS_Y
+      analyzeNode (k-x)+w-y IT BECOMES w+(k-x)-y 
+      right: y 
+      left: w+(k-x) 
+      minus
+        analyzeNode  w+(k-x)
+        right: k-x 
+        left: w 
+        plus 
+          analyzeNode k-x 
+          right: x 
+          left: k 
+          minus 
+          values: k x dx type=k-x 
+        values: w type=k-x+w-y 
+      values: y dy  
   , TYPE_K_MINUS_X
+      analyzeNode k-x 
+      right: x 
+      left: k 
+      minus 
+      values: k x dx type=k-x 
   , TYPE_K_PLUS_V_MINUS_X
-ne
+      analyzeNode: k+v-x 
+      right: x 
+      left: k+v 
+      minus
+        analyzeNode: k+v 
+        right: v 
+        left: k 
+        plus
+        return False
+    values: k x dx v type=k+v-x 

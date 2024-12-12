@@ -1,5 +1,5 @@
 /**
- * @file    TestExpressionAnalyser.cpp
+ +* @file    TestExpressionAnalyser.cpp
  * @brief   Tests for raterule to reaction converter
  * @author  Sarah Keating
  * @author  Alessandro Felder
@@ -166,6 +166,80 @@ START_TEST(test_analyse)
 	fail_unless(formulas_equal("k - x - y", value->current));
 	fail_unless(formulas_equal( "0", value->dxdt_expression));
 	fail_unless(formulas_equal( "0", value->dydt_expression));
+	fail_unless(value->v_expression == NULL);
+	fail_unless(value->w_expression == NULL);
+	fail_unless(value->z_expression == NULL);
+	fail_unless(value->odeIndex == 0);
+	fail_unless(util_isNaN(value->k_real_value));
+}
+END_TEST
+
+START_TEST(test_analyse_same_expression)
+{
+	RateRule* rr = d->getModel()->createRateRule();
+	rr->setVariable("a");
+	rr->setMath(SBML_parseFormula("k-x-y"));
+
+	RateRule* rr1 = d->getModel()->createRateRule();
+	rr1->setVariable("b");
+	rr1->setMath(SBML_parseFormula("k-x-y"));
+
+
+	converter->populateInitialODEinfo();
+	ExpressionAnalyser* analyser = new ExpressionAnalyser(m, converter->getOdePairs());
+
+	fail_unless(analyser->getNumExpressions() == 0);
+
+	analyser->analyse();
+
+	fail_unless(analyser->getNumExpressions() == 1);
+	SubstitutionValues_t* value = analyser->getExpression(0);
+	fail_unless(value->k_value == "k");
+	fail_unless(value->x_value == "x");
+	fail_unless(value->y_value == "y");
+	fail_unless(value->z_value.empty());
+	fail_unless(value->type == TYPE_K_MINUS_X_MINUS_Y);
+	fail_unless(formulas_equal("k - x - y", value->current));
+	fail_unless(formulas_equal("0", value->dxdt_expression));
+	fail_unless(formulas_equal("0", value->dydt_expression));
+	fail_unless(value->v_expression == NULL);
+	fail_unless(value->w_expression == NULL);
+	fail_unless(value->z_expression == NULL);
+	fail_unless(value->odeIndex == 0);
+	fail_unless(util_isNaN(value->k_real_value));
+}
+END_TEST
+
+
+START_TEST(test_analyse_different_expression)
+{
+	// the second expression is the same type but has a different variable
+	RateRule* rr = d->getModel()->createRateRule();
+	rr->setVariable("a");
+	rr->setMath(SBML_parseFormula("k-x-y"));
+
+	RateRule* rr1 = d->getModel()->createRateRule();
+	rr1->setVariable("b");
+	rr1->setMath(SBML_parseFormula("k-x-a"));
+
+
+	converter->populateInitialODEinfo();
+	ExpressionAnalyser* analyser = new ExpressionAnalyser(m, converter->getOdePairs());
+
+	fail_unless(analyser->getNumExpressions() == 0);
+
+	analyser->analyse();
+
+	fail_unless(analyser->getNumExpressions() == 2);
+	SubstitutionValues_t* value = analyser->getExpression(1);
+	fail_unless(value->k_value == "k");
+	fail_unless(value->x_value == "x");
+	fail_unless(value->y_value == "c");
+	fail_unless(value->z_value.empty());
+	fail_unless(value->type == TYPE_K_MINUS_X_MINUS_Y);
+	fail_unless(formulas_equal("k - x - c", value->current));
+	fail_unless(formulas_equal("0", value->dxdt_expression));
+	fail_unless(formulas_equal("0", value->dydt_expression));
 	fail_unless(value->v_expression == NULL);
 	fail_unless(value->w_expression == NULL);
 	fail_unless(value->z_expression == NULL);
@@ -524,7 +598,7 @@ END_TEST
 Suite *
 create_suite_TestExpressionAnalyser (void)
 { 
-	bool testing = false;
+	bool testing = true;
 Suite *suite = suite_create("ExpressionAnalyser");
   TCase *tcase = tcase_create("ExpressionAnalyser");
   tcase_add_checked_fixture(tcase,
@@ -532,7 +606,7 @@ Suite *suite = suite_create("ExpressionAnalyser");
 
   if (testing)
   {
-	  tcase_add_test(tcase, test_analyse_2);
+	  tcase_add_test(tcase, test_analyse_different_expression);
   }
   else
   {
@@ -541,6 +615,7 @@ Suite *suite = suite_create("ExpressionAnalyser");
 	  tcase_add_test(tcase, test_analyse_2); //k-x+w-y
 	  tcase_add_test(tcase, test_analyse_3); //k-x
 	  tcase_add_test(tcase, test_analyse_4); //k+v-x
+	  tcase_add_test(tcase, test_analyse_same_expression); //k-x-y
 	  //tcase_add_test(tcase, test_order_of_replacements);
 	  //tcase_add_test(tcase, test_order_of_replacements1);
 	  //tcase_add_test(tcase, test_order_of_replacements2);

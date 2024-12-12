@@ -312,6 +312,28 @@ bool ExpressionAnalyser::expressionExists(SubstitutionValues_t* current,
         matchesXValue(current, mightAdd) &&
         matchesDxdtExpression(current, mightAdd);
 
+    if (alreadyExists && current->type == mightAdd->type)
+    {
+        switch (current->type)
+        {
+        case TYPE_K_MINUS_X_MINUS_Y:
+            alreadyExists = alreadyExists && matchesYValue(current, mightAdd) &&
+                matchesDydtExpression(current, mightAdd);
+            break;
+        case TYPE_K_PLUS_V_MINUS_X_MINUS_Y:
+            alreadyExists = alreadyExists && matchesVExpression(current, mightAdd) &&
+                matchesYValue(current, mightAdd);
+            break;
+        case TYPE_K_MINUS_X_PLUS_W_MINUS_Y:
+            alreadyExists = alreadyExists && matchesWExpression(current, mightAdd) &&
+                matchesYValue(current, mightAdd);
+            break;
+        default:
+            break;
+        }
+        return alreadyExists;
+    }
+
     //switch (current->type)
     //{
     //case TYPE_K_MINUS_X_MINUS_Y:
@@ -567,8 +589,8 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
     ASTNodeType_t type = node->getType();
     ASTNode* rightChild = node->getRightChild();
     ASTNode* leftChild = node->getLeftChild();
-      cout << "RIGHT CHILD: " << SBML_formulaToL3String(rightChild) << endl;
-      cout << "left CHILD: " << SBML_formulaToL3String(leftChild) << endl;
+      //cout << "RIGHT CHILD: " << SBML_formulaToL3String(rightChild) << endl;
+      //cout << "left CHILD: " << SBML_formulaToL3String(leftChild) << endl;
 
     if (isTypeKminusX(numChildren, rightChild, leftChild, type, value) ||
         isTypeKminusXminusY(numChildren, rightChild, leftChild, type, value) ||
@@ -581,150 +603,6 @@ ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
     }
     return false;
 }
-
-
-
-  //switch (type)
-  //{
-  ////case AST_PLUS:
-  //  //  -x+y node binary; plus; left child type minus; rightchild var/const
-  //  //           +
-  //  //        -     y
-  //  //        x
-  //  // we might have encountered w+(k-x)as part of k-x+w-y but it might not be part of it
-  //    if (rightChild->getNumChildren() == 2 && analyseNode(rightChild, value) && value->type == TYPE_K_MINUS_X)
-  //    {
-  //        value->w_expression = leftChild;
-  //        value->type = TYPE_K_MINUS_X_PLUS_W_MINUS_Y;
-  //        value->current = node;
-  //        return true;
-  //    }
-  //  if (numChildren != 2 || rightChild->getType() != AST_NAME
-  //    || leftChild->getType() != AST_MINUS
-  //    || leftChild->getNumChildren() != 1)
-  //    return false;
-
-  //  // if we get to this point, the only thing left to check is 
-  //  // whether the ->left->right grandchild (the x in -x+y) is a variable species.
-  //  if (isVariableSpeciesOrParameter(leftChild->getChild(0)))
-  //  {
-  //    value->x_value = leftChild->getChild(0)->getName();
-  //    value->y_value = rightChild->getName();
-  //    value->dydt_expression = getODEFor(rightChild->getName());
-  //    value->dxdt_expression = getODEFor(leftChild->getChild(0)->getName());
-  //    value->type = TYPE_MINUS_X_PLUS_Y;
-  //    value->current = node;
-  //    return true;
-  //  }
-  //  break;
-
-  //case AST_MINUS:
-  //  //          -                -               
-  //  //        k   x           -     y    
-  //  //                      k   x      
-  //  //  k-x or k-x-y node binary; right child (x,y) is variable
-  //  //          -                    -                          -
-  //  //      +      x            -         y              +            y
-  //  //   k     v            +      x                 -       w
-  //  //                  k      v                 k       x
-  //  //    
-  //  // //  k+v-x; right child x var; left child plus node with left child k constant
-  //  //  k+v-x-y; rightchild var y; left child minus == k+v-x
-  //  //  k-x+w-y; rightchild var y; left child plus with left child == k-x 
-  //  if (numChildren != 2 || !isVariableSpeciesOrParameter(rightChild))
-  //    return false;
-  //  // if left child is  numerical constant or a parameter and right child variable, it IS k-x
-  //  if (isNumericalConstantOrConstantParameter(leftChild, isNumber)
-  //    && isVariableSpeciesOrParameter(rightChild))
-  //  {
-  //   
-  //    if (isNumber)
-  //    {
-  //        value->k_value = "number";
-  //        value->k_real_value = leftChild->getValue();
-  //    }
-  //    else
-  //    {
-  //        value->k_value = leftChild->getName();
-  //    }
-  //    value->x_value = rightChild->getName();
-  //    value->dxdt_expression = getODEFor(rightChild->getName());
-  //    value->type = TYPE_K_MINUS_X;
-  //    value->current = node;
-  //    return true;
-  //  }
-  //  // left child + with it's left child const we have k+v-x
-  //  // left child + with it's left child k-x+w-y we have already finished
-  //  else if (leftChild->getType() == AST_PLUS)
-  //  {
-
-  //      // TO DO fix this for k Or w being a number
-  //      if (value->type == TYPE_K_MINUS_X_PLUS_W_MINUS_Y)
-  //      {
-  //          return true;
-  //      }
-  //      else if (analyseNode(leftChild, value))
-  //      {
-  //          if (value->type == TYPE_K_MINUS_X_PLUS_W_MINUS_Y)
-  //          {
-  //              value->y_value = rightChild->getName();
-  //              value->dydt_expression = getODEFor(rightChild->getName());
-  //              value->current = node;
-  //              return true;
-  //          }
-  //          else if (value->type == TYPE_K_MINUS_X)
-  //          {
-  //              value->y_value = rightChild->getName();
-  //              value->dydt_expression = getODEFor(rightChild->getName());
-  //              value->w_expression = leftChild->getChild(1);
-  //              value->type = TYPE_K_MINUS_X_PLUS_W_MINUS_Y;
-  //              value->current = node;
-  //              return true;
-
-  //          }
-  //      }
-  //      else if (isNumericalConstantOrConstantParameter(leftChild->getChild(0), isNumber))
-  //      {
-  //          value->k_value = leftChild->getChild(0)->getName();
-  //          value->x_value = rightChild->getName();
-  //          value->dxdt_expression = getODEFor(rightChild->getName());
-  //          value->v_expression = leftChild->getChild(1);
-  //          value->type = TYPE_K_PLUS_V_MINUS_X;
-  //          value->current = node;
-  //          return true;
-  //      }
-  //  }
-  //  else if (leftChild->getType() == AST_MINUS
-  //    && isVariableSpeciesOrParameter(leftChild->getRightChild()))
-  //  {
-  //    // if left child is k+v-x we have k+v-x-ymean you'll have to come againthat you can pay3
-  //    // or if left child is k-x we have k-x-y
-  //    if (analyseNode(leftChild, value))
-  //    {
-  //      if (value->type == TYPE_K_PLUS_V_MINUS_X)
-  //      {
-  //        value->type = TYPE_K_PLUS_V_MINUS_X_MINUS_Y;
-  //        value->y_value = rightChild->getName();
-  //        value->dydt_expression = getODEFor(value->y_value);
-  //        value->current = node;
-  //        return true;
-  //      }
-  //      else if (value->type == TYPE_K_MINUS_X)
-  //      {
-  //        value->y_value = rightChild->getName();
-  //        value->dydt_expression = getODEFor(rightChild->getName());
-  //        value->type = TYPE_K_MINUS_X_MINUS_Y;
-  //        value->current = node;
-  //        return true;
-  //      }
-  //    }
-  //    return false;
-  //  }
-  //  break;
-  //default:
-  //  return false;
-  //}
-  //return false;
 
 
 /*
@@ -824,21 +702,12 @@ ExpressionAnalyser::analyse(bool minusXPlusYOnly)
     while (it != operators->end())
     {
       ASTNode* currentNode = (ASTNode*)*it;
-      if (minusXPlusYOnly)
-        cout << "current node in -x+y analyze: " << SBML_formulaToL3String(currentNode)  << endl;
-      else
-        cout << "current node in not -x+y analyze: " << SBML_formulaToL3String(currentNode) << endl;
-      if (minusXPlusYOnly && currentNode->getType() != AST_PLUS)
-      {
-        it++;
-        continue;
-      }
       SubstitutionValues_t* value = createBlankSubstitutionValues();
 
       if (analyseNode(currentNode, value))
       {
         value->odeIndex = odeIndex;
-        if (!hasExpressionAlreadyBeenRecorded(value))
+        if (hasExpressionAlreadyBeenRecorded(value) == false)
         {
             //printSubstitutionValues(value);
             mExpressions.push_back(value);
