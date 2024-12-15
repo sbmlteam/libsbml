@@ -308,11 +308,12 @@ bool ExpressionAnalyser::expressionExists(SubstitutionValues_t* current,
 {
     bool alreadyExists = false;
     // all expressions will have K and X
-    alreadyExists = matchesK(current, mightAdd) &&
+    alreadyExists = matchesType(current, mightAdd) &&
+        matchesK(current, mightAdd) &&
         matchesXValue(current, mightAdd) &&
         matchesDxdtExpression(current, mightAdd);
 
-    if (alreadyExists && current->type == mightAdd->type)
+    if (alreadyExists)
     {
         switch (current->type)
         {
@@ -334,106 +335,62 @@ bool ExpressionAnalyser::expressionExists(SubstitutionValues_t* current,
         return alreadyExists;
     }
 
-    //switch (current->type)
-    //{
-    //case TYPE_K_MINUS_X_MINUS_Y:
-    //    switch (mightAdd->type)
-    //    {
-    //    case TYPE_K_MINUS_X_MINUS_Y:
-    //        alreadyExists = matchesKValue(current, mightAdd) && 
-    //            matchesXValue(current, mightAdd) && 
-    //            matchesYValue(current, mightAdd) && 
-    //            matchesDxdtExpression(current, mightAdd) && 
-    //            matchesDydtExpression(current, mightAdd) ;
-    //        break;
-    //    case TYPE_K_PLUS_V_MINUS_X_MINUS_Y:
-    //        alreadyExists = matchesKValue(current, mightAdd) && 
-    //            matchesVExpression(current, mightAdd) && 
-    //            matchesXValue(current, mightAdd) && 
-    //            matchesYValue(current, mightAdd);
-    //        break;
-    //    case TYPE_K_MINUS_X_PLUS_W_MINUS_Y:
-    //        alreadyExists = matchesKValue(current, mightAdd) && 
-    //            matchesWExpression(current, mightAdd) && 
-    //            matchesXValue(current, mightAdd) && 
-    //            matchesYValue(current, mightAdd);
-    //        break;
-    //    case TYPE_K_MINUS_X:
-    //        alreadyExists = matchesKValue(current, mightAdd) && 
-    //            matchesXValue(current, mightAdd) &&
-    //            matchesDxdtExpression(current, mightAdd);
-    //         break;
-    //    case TYPE_K_PLUS_V_MINUS_X:
-    //        alreadyExists = matchesKValue(current, mightAdd) && 
-    //            matchesVExpression(current, mightAdd) && 
-    //            matchesXValue(current, mightAdd);
-    //        break;
-    //    default:
-    //        break;
-    //    }
-    //    break;
-    //case TYPE_K_PLUS_V_MINUS_X_MINUS_Y:
-    //    switch (mightAdd->type)
-    //    { // if we already have k+v-x-y then we need to record that we have k-x-y as well
-    //        // so we only record a match value if one of the values doesn't match
-    //    case TYPE_K_MINUS_X_MINUS_Y:
-    //        alreadyExists = !matchesKValue(current, mightAdd) ||
-    //            !matchesXValue(current, mightAdd) ||
-    //            !matchesYValue(current, mightAdd) ||
-    //            !matchesDxdtExpression(current, mightAdd) ||
-    //            !matchesDydtExpression(current, mightAdd);
-    //        break;
-    //    case TYPE_K_PLUS_V_MINUS_X_MINUS_Y:
-    //        alreadyExists = matchesKValue(current, mightAdd) && 
-    //            matchesVExpression(current, mightAdd) && 
-    //            matchesXValue(current, mightAdd) && 
-    //            matchesYValue(current, mightAdd);
-    //        break;
-    //    case TYPE_K_MINUS_X_PLUS_W_MINUS_Y:
-    //        alreadyExists = matchesKValue(current, mightAdd) && 
-    //            matchesWExpression(current, mightAdd) && 
-    //            matchesXValue(current, mightAdd) &&
-    //            matchesYValue(current, mightAdd);
-    //        break;
-    //    case TYPE_K_MINUS_X:
-    //        alreadyExists = matchesKValue(current, mightAdd) &&
-    //            matchesXValue(current, mightAdd) &&
-    //            matchesDxdtExpression(current, mightAdd);
-    //        break;
-    //    case TYPE_K_PLUS_V_MINUS_X:
-    //        alreadyExists = matchesKValue(current, mightAdd) &&
-    //            matchesXValue(current, mightAdd) &&
-    //            matchesDxdtExpression(current, mightAdd);
-    //        break;
-    //    default:
-    //        break;
-    //    }
-    //    break;
-    //case TYPE_K_MINUS_X_PLUS_W_MINUS_Y:
-    //    printSubstitutionValues(current);
-    //    printSubstitutionValues(mightAdd);
-    //    alreadyExists = matchesKValue(current, mightAdd) && 
-    //        matchesWExpression(current, mightAdd) && 
-    //        matchesXValue(current, mightAdd) && 
-    //        matchesDxdtExpression(current, mightAdd) &&
-    //        matchesYValue(current, mightAdd) &&
-    //        matchesDydtExpression(current, mightAdd);
-    //    break;
-    //case TYPE_K_MINUS_X:
-    //    alreadyExists = matchesKValue(current, mightAdd) && 
-    //        matchesXValue(current, mightAdd);
-    //    break;
-    //case TYPE_K_PLUS_V_MINUS_X:
-    //    alreadyExists = matchesKValue(current, mightAdd) && 
-    //        matchesVExpression(current, mightAdd) && 
-    //        matchesXValue(current, mightAdd);
-    //    break;
-    //default:
-    //    break;
-    //}
-
     return alreadyExists;
-} 
+}
+bool ExpressionAnalyser::parentExpressionExists(SubstitutionValues_t* current, SubstitutionValues_t* mightAdd)
+{
+    bool parentExists = false;
+    // here we want to find out if the expression is actually a child of another 
+    // and therefore need not be logged
+    // all expressions will have K and X but the type may not be the same
+    parentExists = matchesK(current, mightAdd) &&
+        matchesXValue(current, mightAdd) &&
+        matchesDxdtExpression(current, mightAdd);
+
+    if (parentExists)
+    {
+        switch (current->type)
+        {
+        case TYPE_K_MINUS_X_MINUS_Y:
+            parentExists = parentExists && mightAdd->type == TYPE_K_MINUS_X;
+            break;
+        case TYPE_K_PLUS_V_MINUS_X_MINUS_Y:
+            switch (mightAdd->type)
+            {
+            case TYPE_K_PLUS_V_MINUS_X:
+                parentExists = parentExists && matchesVExpression(current, mightAdd);
+                break;
+            case TYPE_K_MINUS_X:
+                parentExists = true;
+                break;
+            default:
+                parentExists = false;
+                break;
+            }
+            break;
+        case TYPE_K_MINUS_X_PLUS_W_MINUS_Y:
+            switch (mightAdd->type)
+            {
+            case TYPE_K_MINUS_X:
+                parentExists = true;
+                break;
+            case TYPE_K_MINUS_X_MINUS_Y:
+                parentExists = parentExists && matchesYValue(current, mightAdd);
+                break;
+            default:
+                parentExists = false;
+                break;
+            }
+            break;
+        default:
+            break;
+        }
+        return parentExists;
+    }
+
+    return parentExists;
+}
+
 
 bool ExpressionAnalyser::matchesK(SubstitutionValues_t* values1, SubstitutionValues_t* values2)
 {
@@ -489,6 +446,11 @@ bool ExpressionAnalyser::matchesCurrentNode(SubstitutionValues_t* values1, Subst
 {
     return (values1->current != NULL && values2->current != NULL &&
         values1->current->exactlyEqual(*(values2->current)) == true);
+}
+
+bool ExpressionAnalyser::matchesType(SubstitutionValues_t* values1, SubstitutionValues_t* values2)
+{
+    return values1->type == values2->type;
 }
 
 
@@ -568,9 +530,10 @@ SubstitutionValues_t* ExpressionAnalyser::getExpression(unsigned int index)
 * e.g. if we have k-x-y do not need to analyse k-x
 */
 bool
-ExpressionAnalyser::hasExpressionAlreadyBeenRecorded(SubstitutionValues_t* value)
+ExpressionAnalyser::shouldAddExpression(SubstitutionValues_t* value)
 {
   bool found = false;
+  bool foundParent = false;
   size_t size = mExpressions.size();
 
   while (size > 0 && !found)
@@ -578,13 +541,24 @@ ExpressionAnalyser::hasExpressionAlreadyBeenRecorded(SubstitutionValues_t* value
       found = expressionExists(mExpressions.at(size - 1), value);
       size--;
   }
-  return found  ;
+  if (!found)
+  {
+      size = mExpressions.size();
+      while (size > 0 && !foundParent)
+      {
+          foundParent = parentExpressionExists(mExpressions.at(size - 1), value);
+          size--;
+      }
+
+  }
+  return !found && !foundParent;
 }
 
 
 bool
 ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
 {
+    cout << "current node: " << SBML_formulaToL3String(node) << endl;
     unsigned int numChildren = node->getNumChildren();
     ASTNodeType_t type = node->getType();
     ASTNode* rightChild = node->getRightChild();
@@ -674,7 +648,7 @@ ExpressionAnalyser::detect_minusXPlusYOnly()
                 value->type = TYPE_MINUS_X_PLUS_Y;
                 value->current = currentNode;
                 value->odeIndex = odeIndex;
-                if (!hasExpressionAlreadyBeenRecorded(value))
+                if (!shouldAddExpression(value))
                 {
                     printSubstitutionValues(value);
                     mExpressions.push_back(value);
@@ -707,7 +681,7 @@ ExpressionAnalyser::analyse(bool minusXPlusYOnly)
       if (analyseNode(currentNode, value))
       {
         value->odeIndex = odeIndex;
-        if (hasExpressionAlreadyBeenRecorded(value) == false)
+        if (shouldAddExpression(value))
         {
             //printSubstitutionValues(value);
             mExpressions.push_back(value);

@@ -234,16 +234,16 @@ START_TEST(test_analyse_different_expression)
 	SubstitutionValues_t* value = analyser->getExpression(1);
 	fail_unless(value->k_value == "k");
 	fail_unless(value->x_value == "x");
-	fail_unless(value->y_value == "c");
+	fail_unless(value->y_value == "a");
 	fail_unless(value->z_value.empty());
 	fail_unless(value->type == TYPE_K_MINUS_X_MINUS_Y);
-	fail_unless(formulas_equal("k - x - c", value->current));
+	fail_unless(formulas_equal("k - x - a", value->current));
 	fail_unless(formulas_equal("0", value->dxdt_expression));
-	fail_unless(formulas_equal("0", value->dydt_expression));
+	fail_unless(formulas_equal("k - x - y", value->dydt_expression));
 	fail_unless(value->v_expression == NULL);
 	fail_unless(value->w_expression == NULL);
 	fail_unless(value->z_expression == NULL);
-	fail_unless(value->odeIndex == 0);
+	fail_unless(value->odeIndex == 1);
 	fail_unless(util_isNaN(value->k_real_value));
 }
 END_TEST
@@ -598,7 +598,7 @@ END_TEST
 Suite *
 create_suite_TestExpressionAnalyser (void)
 { 
-	bool testing = true;
+	bool testing = false;
 Suite *suite = suite_create("ExpressionAnalyser");
   TCase *tcase = tcase_create("ExpressionAnalyser");
   tcase_add_checked_fixture(tcase,
@@ -616,6 +616,7 @@ Suite *suite = suite_create("ExpressionAnalyser");
 	  tcase_add_test(tcase, test_analyse_3); //k-x
 	  tcase_add_test(tcase, test_analyse_4); //k+v-x
 	  tcase_add_test(tcase, test_analyse_same_expression); //k-x-y
+	  tcase_add_test(tcase, test_analyse_different_expression); //k-x-y
 	  //tcase_add_test(tcase, test_order_of_replacements);
 	  //tcase_add_test(tcase, test_order_of_replacements1);
 	  //tcase_add_test(tcase, test_order_of_replacements2);

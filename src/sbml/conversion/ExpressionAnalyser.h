@@ -172,8 +172,6 @@ public:
   void printSubstitutionValues(const SubstitutionValues_t* values1);
   bool areIdenticalSubstitutionValues(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
 
-  bool expressionExists(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
-
   void substituteParametersForExpressions(List* hiddenSpecies);
 
   /*
@@ -197,6 +195,7 @@ private:
     bool matchesDxdtExpression(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
     bool matchesDydtExpression(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
     bool matchesCurrentNode(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+    bool matchesType(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
 
 
     void substituteParameters(List* hiddenSpecies, SubstitutionValues_t* values);
@@ -237,7 +236,11 @@ private:
   /*
    * Loops through expressions already recorded and checks for exact matches
    */
-  bool hasExpressionAlreadyBeenRecorded(SubstitutionValues_t* value);
+  bool shouldAddExpression(SubstitutionValues_t* value);
+
+  bool expressionExists(SubstitutionValues_t* current, SubstitutionValues_t* mightAdd);
+
+  bool parentExpressionExists(SubstitutionValues_t* current, SubstitutionValues_t* mightAdd);
 
   /**
    * Searches for a node's parent and its index as the parent's child in a one-directional tree (nodes know their children, but not their parent).
