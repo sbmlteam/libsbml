@@ -553,7 +553,9 @@ SBMLTransforms::clearComponentValues(const Model* m)
   }
 
   // otherwise remove only specific set
-	mModelValues.erase(m);
+  if (!mModelValues.empty()) {
+      mModelValues.erase(m);
+  }
 }
 
 

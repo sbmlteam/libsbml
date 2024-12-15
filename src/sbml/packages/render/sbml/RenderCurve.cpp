@@ -1142,7 +1142,7 @@ RenderCurve::createObject(XMLInputStream& stream)
 
   const std::string& name = stream.peek().getName();
 
-  if (name == "listOfCurveElements")
+  if (name == "listOfCurveElements" || name == "listOfElements")
   {
     if (mRenderPoints.size() != 0 && getErrorLog() != NULL)
     {
