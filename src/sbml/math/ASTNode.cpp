@@ -1130,6 +1130,19 @@ ASTNode::getListOfNodes (ASTNodePredicate predicate) const
   return lst;
 }
 
+LIBSBML_EXTERN 
+ASTNodeLevels 
+ASTNode::getListOfNodesWithLevel() const
+{
+    ASTNodeLevels vector_pairs;
+
+
+    fillListOfNodesWithLevel((ASTNodePredicate)ASTNode_isOperator, vector_pairs, 0);
+    fillListOfNodesWithLevel((ASTNodePredicate)ASTNode_isName, vector_pairs, 0);
+
+    return vector_pairs;
+}
+
 
 /*
  * This method is identical in functionality to getListOfNodes(), except
@@ -1145,8 +1158,6 @@ ASTNode::fillListOfNodes (ASTNodePredicate predicate, List* lst) const
   unsigned int c;
   unsigned int numChildren = getNumChildren();
 
-
-
   if (predicate(this) != 0)
   {
     lst->add( const_cast<ASTNode*>(this) );
@@ -1157,6 +1168,31 @@ ASTNode::fillListOfNodes (ASTNodePredicate predicate, List* lst) const
     child = getChild(c);
     child->fillListOfNodes(predicate, lst);
   }
+}
+
+void ASTNode::fillListOfNodesWithLevel(ASTNodePredicate predicate, ASTNodeLevels& vector_pairs, unsigned int level) const
+{
+    if (this == NULL || 
+        (vector_pairs.size() == 1 && vector_pairs.back().second == NULL) ||
+        predicate == NULL) 
+        return;
+
+    ASTNode* child;
+    unsigned int c;
+    unsigned int numChildren = getNumChildren();
+
+    if (predicate(this) != 0)
+    {
+        cout << "Level " << level << ": " << SBML_formulaToL3String(this) << endl;
+        vector_pairs.push_back(std::make_pair(level, (ASTNode*)this));
+    }
+
+    for (c = 0; c < numChildren; c++)
+    {
+        child = getChild(c);
+        child->fillListOfNodesWithLevel(predicate, vector_pairs, level + 1);
+    }
+
 }
 
 

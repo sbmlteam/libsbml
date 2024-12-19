@@ -558,7 +558,7 @@ ExpressionAnalyser::shouldAddExpression(SubstitutionValues_t* value)
 bool
 ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
 {
-    cout << "current node: " << SBML_formulaToL3String(node) << endl;
+//    cout << "current node: " << SBML_formulaToL3String(node) << endl;
     unsigned int numChildren = node->getNumChildren();
     ASTNodeType_t type = node->getType();
     ASTNode* rightChild = node->getRightChild();
@@ -678,6 +678,7 @@ ExpressionAnalyser::analyse(bool minusXPlusYOnly)
       ASTNode* currentNode = (ASTNode*)*it;
       SubstitutionValues_t* value = createBlankSubstitutionValues();
 
+      cout << "current node: " << SBML_formulaToL3String(currentNode) << endl;
       if (analyseNode(currentNode, value))
       {
         value->odeIndex = odeIndex;

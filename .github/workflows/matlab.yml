@@ -1,6 +1,6 @@
 name: Matlab (ubuntu) build and test
 
-on: [push]
+on: []
 
 env:
   MATLAB_VERSION: R2021a

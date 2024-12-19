@@ -154,3 +154,6 @@ reconstructModel
         plus
         return False
     values: k x dx v type=k+v-x 
+
+hasExpressionAlreadyBeanRecorded   
+  expressionExistsaround

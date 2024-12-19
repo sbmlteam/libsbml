@@ -210,8 +210,13 @@ typedef int (*ASTNodePredicate) (const ASTNode_t *node);
 LIBSBML_CPP_NAMESPACE_END
 
 #ifdef __cplusplus
-
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+typedef std::pair<unsigned int, ASTNode*> ASTNodePair;
+typedef std::vector<ASTNodePair> ASTNodeLevels;
+typedef ASTNodeLevels::iterator ASTNodeLevelsIterator;
+
+
 
 class List;
 class ASTBasePlugin;
@@ -604,6 +609,10 @@ int (*ASTNodePredicate) (const ASTNode *node);
   List* getListOfNodes (ASTNodePredicate predicate) const;
 
 
+  LIBSBML_EXTERN
+  ASTNodeLevels getListOfNodesWithLevel () const;
+
+
   /**
    * Returns a list of nodes rooted at a given node and satisfying a given
    * predicate.
@@ -634,6 +643,10 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    */
   LIBSBML_EXTERN
   void fillListOfNodes (ASTNodePredicate predicate, List* lst) const;
+
+  LIBSBML_EXTERN
+  void fillListOfNodesWithLevel(ASTNodePredicate predicate, ASTNodeLevels& vector_pairs, unsigned int level) const;
+
 
 
   /**
