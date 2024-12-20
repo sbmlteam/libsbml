@@ -485,6 +485,38 @@ START_TEST(test_analyse_4)
 }
 END_TEST
 
+START_TEST(test_order_expressions_1)
+{
+	RateRule* rr = d->getModel()->createRateRule();
+	rr->setVariable("b");
+	rr->setMath(SBML_parseFormula("k - x + w - y"));
+
+	RateRule* rrr = d->getModel()->createRateRule();
+	rrr->setVariable("a");
+	rrr->setMath(SBML_parseFormula("k-x-y"));
+	converter->populateInitialODEinfo();
+	ExpressionAnalyser* analyser = new ExpressionAnalyser(m, converter->getOdePairs());
+
+	fail_unless(analyser->getNumExpressions() == 0);
+
+	analyser->analyse();
+
+	fail_unless(analyser->getNumExpressions() == 2);
+	SubstitutionValues_t* value = analyser->getExpression(0);
+	//fail_unless(value->type == TYPE_K_MINUS_X_PLUS_W_MINUS_Y);
+	SubstitutionValues_t* value1 = analyser->getExpression(1);
+	//fail_unless(value1->type == TYPE_K_MINUS_X_MINUS_Y);
+
+	analyser->orderExpressions();
+    fail_unless(analyser->getNumExpressions() == 2);
+    SubstitutionValues_t* value2 = analyser->getExpression(0);
+    fail_unless(value2->type == TYPE_K_MINUS_X_MINUS_Y);
+    SubstitutionValues_t* value3 = analyser->getExpression(1);
+    fail_unless(value3->type == TYPE_K_MINUS_X_PLUS_W_MINUS_Y);
+}
+END_TEST
+
+
 START_TEST(test_reorder_minusXplusYIteratively_simple)
 {
 	RateRule* rr = d->getModel()->createRateRule();
@@ -495,25 +527,26 @@ START_TEST(test_reorder_minusXplusYIteratively_simple)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detect_minusXPlusYOnly();
+	analyser->analyse();
 
-	fail_unless(analyser->getNumExpressions() == 1);
+	// since we decomposed the term we no longer need to identify this type
 
-	analyser->reorderMinusXPlusYIteratively();
-	SubstitutionValues_t* value = analyser->getExpression(0);
-	fail_unless(value->k_value.empty());
-	fail_unless(value->x_value == "x");
-	fail_unless(value->y_value == "y");
-	fail_unless(value->z_value.empty());
-	fail_unless(value->type == TYPE_MINUS_X_PLUS_Y);
-	fail_unless(formulas_equal("-x + y", value->current));
-	fail_unless(formulas_equal("0", value->dxdt_expression));
-	fail_unless(formulas_equal("0", value->dydt_expression));
-	fail_unless(value->v_expression == NULL);
-	fail_unless(value->w_expression == NULL);
-	fail_unless(value->z_expression == NULL);
-	fail_unless(value->odeIndex == 0);
-	fail_unless(util_isNaN(value->k_real_value));
+	fail_unless(analyser->getNumExpressions() == 0);
+
+	//SubstitutionValues_t* value = analyser->getExpression(0);
+	//fail_unless(value->k_value.empty());
+	//fail_unless(value->x_value == "x");
+	//fail_unless(value->y_value == "y");
+	//fail_unless(value->z_value.empty());
+	//fail_unless(value->type == TYPE_MINUS_X_PLUS_Y);
+	//fail_unless(formulas_equal("-x + y", value->current));
+	//fail_unless(formulas_equal("0", value->dxdt_expression));
+	//fail_unless(formulas_equal("0", value->dydt_expression));
+	//fail_unless(value->v_expression == NULL);
+	//fail_unless(value->w_expression == NULL);
+	//fail_unless(value->z_expression == NULL);
+	//fail_unless(value->odeIndex == 0);
+	//fail_unless(util_isNaN(value->k_real_value));
 }
 END_TEST
 
@@ -724,7 +757,7 @@ Suite *suite = suite_create("ExpressionAnalyser");
 
   if (testing)
   {
-	  tcase_add_test(tcase, test_analyse_1_two_terms);
+	  tcase_add_test(tcase, test_order_expressions_1);
   }
   else
   {
@@ -738,7 +771,7 @@ Suite *suite = suite_create("ExpressionAnalyser");
 	  tcase_add_test(tcase, test_analyse_1_same); //k+v-x-y
 	  tcase_add_test(tcase, test_analyse_1_two_terms); //(k+v-x-y)+(k-x)
 	  tcase_add_test(tcase, test_analyse_1_different); //k+v-x-y
-	  //tcase_add_test(tcase, test_order_of_replacements);
+	  tcase_add_test(tcase, test_reorder_minusXplusYIteratively_simple);
 	  //tcase_add_test(tcase, test_order_of_replacements1);
 	  //tcase_add_test(tcase, test_order_of_replacements2);
 

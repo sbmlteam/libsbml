@@ -52,6 +52,13 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+bool compareExpressions(SubstitutionValues_t* values1, SubstitutionValues_t* values2)
+{
+    if (values1->type >= values2->type)
+        return true;
+    return false;
+}
+
 ExpressionAnalyser::ExpressionAnalyser()
     : mModel (NULL), 
       mODEs (),
@@ -340,6 +347,13 @@ bool ExpressionAnalyser::expressionExists(SubstitutionValues_t* current,
 bool ExpressionAnalyser::parentExpressionExists(SubstitutionValues_t* current, SubstitutionValues_t* mightAdd)
 {
     bool parentExists = false;
+
+    // if the expressions are on the same level then one cannot be the child of another
+    if (current->levelInExpression == mightAdd->levelInExpression)
+    {
+        return false;
+    }
+
     // here we want to find out if the expression is actually a child of another 
     // and therefore need not be logged
     // all expressions will have K and X but the type may not be the same
@@ -530,7 +544,7 @@ SubstitutionValues_t* ExpressionAnalyser::getExpression(unsigned int index)
 * e.g. if we have k-x-y do not need to analyse k-x
 */
 bool
-ExpressionAnalyser::shouldAddExpression(SubstitutionValues_t* value)
+ExpressionAnalyser::shouldAddExpression(SubstitutionValues_t* value, ASTNodePair currentNode)
 {
   bool found = false;
   bool foundParent = false;
@@ -559,8 +573,22 @@ bool
 ExpressionAnalyser::analyseNode(ASTNode* node, SubstitutionValues_t *value)
 {
 //    cout << "current node: " << SBML_formulaToL3String(node) << endl;
-    unsigned int numChildren = node->getNumChildren();
     ASTNodeType_t type = node->getType();
+
+    // type must be plus or minus
+    if (type != AST_PLUS && type != AST_MINUS)
+    {
+        return false;
+    }
+    unsigned int numChildren = node->getNumChildren();
+
+    // we must have two children
+    if (numChildren != 2)
+    {
+        return false;
+    }
+
+
     ASTNode* rightChild = node->getRightChild();
     ASTNode* leftChild = node->getLeftChild();
       //cout << "RIGHT CHILD: " << SBML_formulaToL3String(rightChild) << endl;
@@ -648,11 +676,11 @@ ExpressionAnalyser::detect_minusXPlusYOnly()
                 value->type = TYPE_MINUS_X_PLUS_Y;
                 value->current = currentNode;
                 value->odeIndex = odeIndex;
-                if (!shouldAddExpression(value))
-                {
-                    printSubstitutionValues(value);
-                    mExpressions.push_back(value);
-                }
+                //if (shouldAddExpression(value))
+                ////{
+                //    printSubstitutionValues(value);
+                //    mExpressions.push_back(value);
+                //}
 
             }
 
@@ -670,19 +698,20 @@ ExpressionAnalyser::analyse(bool minusXPlusYOnly)
     ASTNode* odeRHS = ode.second;
     odeRHS->decompose();
     odeRHS->reduceToBinary();
-    List* operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
-    ListIterator it = operators->begin();
+    ASTNodeLevels operators = odeRHS->getListOfNodesWithLevel();
+    ASTNodeLevelsIterator it = operators.begin();
 
-    while (it != operators->end())
+    while (it != operators.end())
     {
-      ASTNode* currentNode = (ASTNode*)*it;
+        ASTNodePair currentNode = (ASTNodePair)*it;
       SubstitutionValues_t* value = createBlankSubstitutionValues();
 
-      cout << "current node: " << SBML_formulaToL3String(currentNode) << endl;
-      if (analyseNode(currentNode, value))
+      cout << "Level " << currentNode.first << ": " << SBML_formulaToL3String(currentNode.second) << endl;
+      if (analyseNode(currentNode.second, value))
       {
         value->odeIndex = odeIndex;
-        if (shouldAddExpression(value))
+        value->levelInExpression = currentNode.first;
+        if (shouldAddExpression(value, currentNode))
         {
             //printSubstitutionValues(value);
             mExpressions.push_back(value);
@@ -695,18 +724,7 @@ ExpressionAnalyser::analyse(bool minusXPlusYOnly)
 
 void ExpressionAnalyser::orderExpressions()
 {
-  for (unsigned int i = 0; i < mExpressions.size(); i++)
-  {
-    for (unsigned int j = i + 1; j < mExpressions.size(); j++)
-    {
-      if (mExpressions[i]->type > mExpressions[j]->type)
-      {
-        SubstitutionValues_t* temp = mExpressions[i];
-        mExpressions[i] = mExpressions[j];
-        mExpressions[j] = temp;
-      }
-    }
-  }
+    std::sort(mExpressions.begin(), mExpressions.end(), compareExpressions);
 }
 
 void
@@ -1250,5 +1268,4 @@ std::pair<ASTNode*, int> ExpressionAnalyser::getParentNode(const ASTNode* child,
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
-
 

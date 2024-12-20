@@ -1183,7 +1183,7 @@ void ASTNode::fillListOfNodesWithLevel(ASTNodePredicate predicate, ASTNodeLevels
 
     if (predicate(this) != 0)
     {
-        cout << "Level " << level << ": " << SBML_formulaToL3String(this) << endl;
+        //cout << "Level " << level << ": " << SBML_formulaToL3String(this) << endl;
         vector_pairs.push_back(std::make_pair(level, (ASTNode*)this));
     }
 

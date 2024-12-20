@@ -863,10 +863,10 @@ SBMLRateRuleConverter::populateInitialODEinfo()
         }
     }
 
-    for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
-    {
-        cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
-    }
+    //for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+    //{
+    //    cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+    //}
 }
 
 

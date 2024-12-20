@@ -212,10 +212,13 @@ LIBSBML_CPP_NAMESPACE_END
 #ifdef __cplusplus
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+#ifndef SWIG
+
 typedef std::pair<unsigned int, ASTNode*> ASTNodePair;
 typedef std::vector<ASTNodePair> ASTNodeLevels;
 typedef ASTNodeLevels::iterator ASTNodeLevelsIterator;
 
+#endif // !SWIG
 
 
 class List;

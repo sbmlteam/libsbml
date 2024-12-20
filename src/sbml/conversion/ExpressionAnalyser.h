@@ -91,8 +91,10 @@ struct SubstitutionValues_t {
   std::string z_value;
   ASTNode* z_expression;
   unsigned int odeIndex;
+  unsigned int levelInExpression;
 };
 
+bool compareExpressions(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
 
 
 class LIBSBML_EXTERN ExpressionAnalyser
@@ -236,7 +238,7 @@ private:
   /*
    * Loops through expressions already recorded and checks for exact matches
    */
-  bool shouldAddExpression(SubstitutionValues_t* value);
+  bool shouldAddExpression(SubstitutionValues_t* value, ASTNodePair currentNode);
 
   bool expressionExists(SubstitutionValues_t* current, SubstitutionValues_t* mightAdd);
 
