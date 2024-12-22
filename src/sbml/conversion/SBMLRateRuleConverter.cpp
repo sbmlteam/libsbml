@@ -880,12 +880,11 @@ SBMLRateRuleConverter::populateODEinfo()
   ExpressionAnalyser *ea = new ExpressionAnalyser(model, mODEs);
 
 
-  List hiddenSpecies;
-  ea->detectHiddenSpecies(&hiddenSpecies);
+  ea->detectHiddenSpecies();
   // add all hidden species to the model
-  for (unsigned int hs=0; hs < hiddenSpecies.getSize(); hs++)
+  for (unsigned int hs=0; hs < (*ea->getHiddenSpecies()).getSize(); hs++)
   {
-      Parameter* hidden = (Parameter*) hiddenSpecies.get(hs);
+      Parameter* hidden = (Parameter*) (*ea->getHiddenSpecies()).get(hs);
       addODEPair(hidden->getId(), model);
   }
   cout << "After\n";

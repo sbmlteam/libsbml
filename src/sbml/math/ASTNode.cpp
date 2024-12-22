@@ -1139,6 +1139,7 @@ ASTNode::getListOfNodesWithLevel() const
 
     fillListOfNodesWithLevel((ASTNodePredicate)ASTNode_isOperator, vector_pairs, 0);
     fillListOfNodesWithLevel((ASTNodePredicate)ASTNode_isName, vector_pairs, 0);
+    fillListOfNodesWithLevel((ASTNodePredicate)ASTNode_isNumber, vector_pairs, 0);
 
     return vector_pairs;
 }
@@ -4718,6 +4719,18 @@ ASTNode::unsetDeclaredNamespaces()
 
 
 /** @cond doxygenIgnored */
+
+LIBSBML_EXTERN
+void
+printNodeLevels(ASTNodeLevels vector_pairs)
+{
+    ASTNodeLevels::iterator it;
+    for (it = vector_pairs.begin(); it != vector_pairs.end(); it++)
+    {
+        cout << "level:" << it->first << " " << SBML_formulaToL3String(it->second) << endl;
+    }
+}
+
 
 LIBSBML_EXTERN
 ASTNode_t *

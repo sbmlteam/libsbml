@@ -157,13 +157,13 @@ public:
   */
   int setModel(Model* m);
 
-
+  List* getHiddenSpecies();
   SubstitutionValues_t* createBlankSubstitutionValues();
   unsigned int getNumExpressions();
   SubstitutionValues_t* getExpression(unsigned int index);
 
 
-  void detectHiddenSpecies(List * hiddenSpecies);
+  void detectHiddenSpecies();
 
   bool analyseNode(ASTNode* node, SubstitutionValues_t* value);
 
@@ -174,7 +174,7 @@ public:
   void printSubstitutionValues(const SubstitutionValues_t* values1);
   bool areIdenticalSubstitutionValues(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
 
-  void substituteParametersForExpressions(List* hiddenSpecies);
+  void substituteParametersForExpressions();
 
   /*
   * identify instances of - x + y within formula and create expressions
@@ -200,7 +200,7 @@ private:
     bool matchesType(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
 
 
-    void substituteParameters(List* hiddenSpecies, SubstitutionValues_t* values);
+    void substituteParameters(SubstitutionValues_t* values);
 
     SubstitutionValues_t* getSubstitutionValuesByType(ExpressionType_t type, size_t index = 0);
 
@@ -223,7 +223,7 @@ private:
   * ALSO NEED TO TAKE THE MATCHING OF THE ODES OUT OF THE COMPARISON OF EXPRESSIONS
   * AND CHECK THAT THE MATCHES VARIABLES INCLUDES ALL THE VARIABLES
   */
-  void addParametersAndRateRules(List* hiddenSpecies, SubstitutionValues_t* exp = NULL);
+  void addParametersAndRateRules(SubstitutionValues_t* exp = NULL);
 
   void replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
 
@@ -335,3 +335,4 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* !SWIG */
 #endif  /* ExpressionAnalyser_h */
 
+  

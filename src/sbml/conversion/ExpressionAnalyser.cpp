@@ -54,7 +54,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 bool compareExpressions(SubstitutionValues_t* values1, SubstitutionValues_t* values2)
 {
-    if (values1->type >= values2->type)
+    if (values1->type <= values2->type)
         return true;
     return false;
 }
@@ -160,9 +160,9 @@ ExpressionAnalyser::setModel(Model* model)
   return LIBSBML_OPERATION_SUCCESS;
 }
 
-void ExpressionAnalyser::substituteParametersForExpressions(List* hiddenSpecies)
+void ExpressionAnalyser::substituteParametersForExpressions()
 {
-    if (hiddenSpecies == NULL || mExpressions.empty())
+    if (mHiddenSpecies == NULL || mExpressions.empty())
         return;
 
     // need to actually address the expressions in the correct order
@@ -202,7 +202,7 @@ void ExpressionAnalyser::substituteParametersForExpressions(List* hiddenSpecies)
     }
 }
 
-void ExpressionAnalyser::substituteParameters(List* hiddenSpecies, SubstitutionValues_t* exp)
+void ExpressionAnalyser::substituteParameters(SubstitutionValues_t* exp)
 {
     for (unsigned int j = 0; j < mODEs.size(); j++)
     {
@@ -219,7 +219,7 @@ void ExpressionAnalyser::substituteParameters(List* hiddenSpecies, SubstitutionV
             exp->z_value = zName;
             mNewVarCount++;
 //            replaceExpressionWithNewParameter(odeRHS, exp);
-//            addParametersAndRateRules(hiddenSpecies, exp);
+//            addParametersAndRateRules(exp);
         }
         //cout << "ode in main: " << SBML_formulaToL3String(odeRHS) << endl;
     }
@@ -502,6 +502,12 @@ ExpressionAnalyser::printSubstitutionValues(const SubstitutionValues_t* values)
         else
             cout << "current: NULL" << endl;
         cout << "odeIndex: " << values->odeIndex << endl;
+        cout << "levelInExpression: " << values->levelInExpression << endl;
+}
+
+List* ExpressionAnalyser::getHiddenSpecies()
+{
+    return mHiddenSpecies;
 }
 
 SubstitutionValues_t* ExpressionAnalyser::createBlankSubstitutionValues()
@@ -713,7 +719,7 @@ ExpressionAnalyser::analyse(bool minusXPlusYOnly)
         value->levelInExpression = currentNode.first;
         if (shouldAddExpression(value, currentNode))
         {
-            //printSubstitutionValues(value);
+            printSubstitutionValues(value);
             mExpressions.push_back(value);
         }
       }
@@ -728,7 +734,7 @@ void ExpressionAnalyser::orderExpressions()
 }
 
 void
-ExpressionAnalyser::detectHiddenSpecies(List * hiddenSpecies)
+ExpressionAnalyser::detectHiddenSpecies()
 {
   // find -x+y and replace with y-x 
   // actually don't have to do this if we decompose the AST
@@ -748,7 +754,8 @@ ExpressionAnalyser::detectHiddenSpecies(List * hiddenSpecies)
   //{
   //    cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
   //}
-  substituteParametersForExpressions(hiddenSpecies);
+  orderExpressions();
+  substituteParametersForExpressions();
 }
 
 /*
@@ -809,7 +816,7 @@ ExpressionAnalyser::getUniqueNewParameterName()
 
 
 void
-ExpressionAnalyser::addParametersAndRateRules(List* hiddenSpecies, SubstitutionValues_t* exp)
+ExpressionAnalyser::addParametersAndRateRules(SubstitutionValues_t* exp)
 {
     if (exp->z_value.empty()) return;
   //for (unsigned int i = 0; i < mExpressions.size(); i++)
@@ -892,7 +899,7 @@ ExpressionAnalyser::addParametersAndRateRules(List* hiddenSpecies, SubstitutionV
       zParam->setId(exp->z_value);
       zParam->setConstant(false);
       zParam->setValue(SBMLTransforms::evaluateASTNode(zNode, mModel));
-      hiddenSpecies->add(zParam);
+      mHiddenSpecies->add(zParam);
 
       delete zNode;
       delete math; //its children dxdt and minus1 deleted as part of this.

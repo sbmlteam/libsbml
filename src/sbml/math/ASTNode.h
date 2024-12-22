@@ -220,7 +220,6 @@ typedef ASTNodeLevels::iterator ASTNodeLevelsIterator;
 
 #endif // !SWIG
 
-
 class List;
 class ASTBasePlugin;
 class ExtendedMathList;
@@ -2373,7 +2372,6 @@ setValue(value, 0);
   /** @endcond */
 
 
-protected:
 
   friend class SBMLRateRuleConverter;
 
@@ -2447,6 +2445,8 @@ protected:
   * change a root node to power ie root(2, x) becomes x^0.5
   */
   void convertRootToPower();
+
+  protected:
 
   /*
   * returns derivativeof particular function
@@ -2562,6 +2562,11 @@ LIBSBML_CPP_NAMESPACE_END
 #ifndef SWIG
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+LIBSBML_EXTERN
+void
+printNodeLevels(ASTNodeLevels vector_pairs);
+
+
 BEGIN_C_DECLS
 
 
