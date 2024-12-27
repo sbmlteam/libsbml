@@ -132,34 +132,34 @@ main (void)
 
   setTestDataDirectory();
 
-  SRunner *runner = srunner_create(create_suite_TestRefactoringFunctions() );
+  //SRunner *runner = srunner_create(create_suite_TestDerivativeFunctions() );
 
-  //SRunner *runner = srunner_create( create_suite_ASTNode() );
+  SRunner *runner = srunner_create( create_suite_ASTNode() );
 
-  //srunner_add_suite( runner, create_suite_FormulaFormatter     () );
-  //srunner_add_suite( runner, create_suite_FormulaParser        () );
-  //srunner_add_suite( runner, create_suite_L3FormulaFormatter   () );
-  //srunner_add_suite( runner, create_suite_L3FormulaParser      () );
-  //srunner_add_suite( runner, create_suite_L3FormulaParserC     () );
-  //srunner_add_suite( runner, create_suite_FormulaTokenizer     () );
-  //srunner_add_suite( runner, create_suite_ReadMathML           () );
-  //srunner_add_suite( runner, create_suite_WriteMathML          () );
-  //srunner_add_suite( runner, create_suite_WriteMathMLFromAST   () );
+  srunner_add_suite( runner, create_suite_FormulaFormatter     () );
+  srunner_add_suite( runner, create_suite_FormulaParser        () );
+  srunner_add_suite( runner, create_suite_L3FormulaFormatter   () );
+  srunner_add_suite( runner, create_suite_L3FormulaParser      () );
+  srunner_add_suite( runner, create_suite_L3FormulaParserC     () );
+  srunner_add_suite( runner, create_suite_FormulaTokenizer     () );
+  srunner_add_suite( runner, create_suite_ReadMathML           () );
+  srunner_add_suite( runner, create_suite_WriteMathML          () );
+  srunner_add_suite( runner, create_suite_WriteMathMLFromAST   () );
 
-  //srunner_add_suite( runner, create_suite_TestReadFromFile1() );
-  //srunner_add_suite( runner, create_suite_TestReadFromFile2() );
+  srunner_add_suite( runner, create_suite_TestReadFromFile1() );
+  srunner_add_suite( runner, create_suite_TestReadFromFile2() );
  
-  //srunner_add_suite( runner, create_suite_TestValidASTNode() );
+  srunner_add_suite( runner, create_suite_TestValidASTNode() );
 
-  //srunner_add_suite( runner, create_suite_TestChildFunctions() );
-  //srunner_add_suite( runner, create_suite_TestGetValue() );
+  srunner_add_suite( runner, create_suite_TestChildFunctions() );
+  srunner_add_suite( runner, create_suite_TestGetValue() );
 
-  //srunner_add_suite(runner, create_suite_TestReadFromFileL3V2());
-  //srunner_add_suite(runner, create_suite_TestInferRnFunctions());
-  //srunner_add_suite(runner, create_suite_TestDerivativeFunctions());
+  srunner_add_suite(runner, create_suite_TestReadFromFileL3V2());
+  srunner_add_suite(runner, create_suite_TestInferRnFunctions());
+  srunner_add_suite(runner, create_suite_TestDerivativeFunctions());
 
-  //srunner_add_suite(runner, create_suite_TestLevelNodeFunction());
-  //srunner_add_suite(runner, create_suite_TestRefactoringFunctions());
+  srunner_add_suite(runner, create_suite_TestLevelNodeFunction());
+  srunner_add_suite(runner, create_suite_TestRefactoringFunctions());
   /* srunner_set_fork_status(runner, CK_NOFORK); */
 
   srunner_run_all(runner, CK_NORMAL);

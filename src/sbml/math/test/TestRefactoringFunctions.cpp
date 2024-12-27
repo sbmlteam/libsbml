@@ -76,7 +76,10 @@ equals(const char* expected, const char* actual)
 static bool
 formulas_equal(const char* expected, ASTNode* actual)
 {
-    return equals(expected, SBML_formulaToL3String(actual));
+    L3ParserSettings_t * l3ps = new L3ParserSettings_t();
+    l3ps->setParseUnits(false);
+
+    return equals(expected, SBML_formulaToL3StringWithSettings(actual, l3ps));
 }
 /** @endcond */
 
@@ -97,7 +100,7 @@ START_TEST(test_refactor_numbers_integer)
 
   fail_unless(n->getType() == AST_REAL);
   fail_unless(util_isEqual(n->getValue(), 1.0));
-}
+    delete n; }
 END_TEST
 
 START_TEST(test_refactor_numbers_real)
@@ -115,6 +118,7 @@ START_TEST(test_refactor_numbers_real)
 
     fail_unless(n->getType() == AST_REAL);
     fail_unless(util_isEqual(n->getValue(), 4.0));
+    delete n; 
 }
 END_TEST
 
@@ -133,7 +137,7 @@ START_TEST(test_refactor_numbers_e_notation)
 
     fail_unless(n->getType() == AST_REAL);
     fail_unless(util_isEqual(n->getValue(), 410));
-}
+    delete n; }
 END_TEST
 
 START_TEST(test_refactor_numbers_rational)
@@ -151,6 +155,7 @@ START_TEST(test_refactor_numbers_rational)
 
     fail_unless(n->getType() == AST_REAL);
     fail_unless(util_isEqual(n->getValue(), 2.0));
+    delete n; 
 }
 END_TEST
 
@@ -174,7 +179,7 @@ START_TEST(test_refactor_numbers_encompass_unary_minus_1)
 
     fail_unless(n->getType() == AST_REAL);
     fail_unless(util_isEqual(n->getValue(), -4.0));
-}
+    delete n; }
 END_TEST
 
 START_TEST(test_refactor_numbers_encompass_unary_minus_2)
@@ -204,7 +209,7 @@ START_TEST(test_refactor_numbers_encompass_unary_minus_2)
 
     fail_unless(util_isEqual(n->getChild(0)->getValue(), -4.0));
     fail_unless(n->getChild(1)->getType() == AST_NAME);
-}
+    delete n; }
 END_TEST
 
 START_TEST(test_refactor_numbers_encompass_unary_minus_3)
@@ -235,6 +240,7 @@ START_TEST(test_refactor_numbers_encompass_unary_minus_3)
     fail_unless(util_isEqual(n->getChild(0)->getValue(), -1.0));
     fail_unless(n->getChild(1)->getType() == AST_NAME);
     fail_unless(n->getChild(2)->getType() == AST_NAME);
+    delete n; 
 }
 END_TEST
 
@@ -267,6 +273,7 @@ START_TEST(test_refactor_numbers_encompass_unary_minus_4)
     fail_unless(util_isEqual(n->getChild(0)->getChild(0)->getValue(), -1.0));
     fail_unless(n->getChild(0)->getChild(1)->getType() == AST_NAME);
     fail_unless(n->getChild(1)->getType() == AST_NAME);
+    delete n; 
 }
 END_TEST
 
@@ -301,6 +308,7 @@ START_TEST(test_refactor_create_non_binary_tree_1)
     fail_unless(n->getChild(1)->getType() == AST_NAME);
     fail_unless(n->getChild(2)->getType() == AST_NAME);
     fail_unless(n->getChild(3)->getType() == AST_NAME);
+    delete n; 
 }
 END_TEST
 
@@ -333,11 +341,13 @@ START_TEST(test_refactor_create_non_binary_tree_2)
     fail_unless(n->getChild(0)->getType() == AST_NAME);
     fail_unless(n->getChild(1)->getType() == AST_NAME);
     fail_unless(n->getChild(2)->getType() == AST_NAME);
+    delete n; 
 }
 END_TEST
 
 START_TEST(test_refactor_reorder_arguments_1)
 {
+    // 4.3 + 2.8 becomes 7.1
     ASTNode* n = readMathMLFromString(
         "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
         "   <apply>"
@@ -360,11 +370,14 @@ START_TEST(test_refactor_reorder_arguments_1)
     fail_unless(util_isEqual(n->getValue(), 7.1));
     fail_unless(formulas_equal("7.1", n));
 
+    delete n; 
 }
 END_TEST
 
 START_TEST(test_refactor_reorder_arguments_2)
 {
+    // a + 2.8 becomes 2.8 + a
+    // numbers become the first element
     ASTNode* n = readMathMLFromString(
         "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
         "   <apply>"
@@ -386,11 +399,12 @@ START_TEST(test_refactor_reorder_arguments_2)
     fail_unless(n->getNumChildren() == 2);
     fail_unless(formulas_equal("2.8 + a", n));
 
-}
+    delete n; }
 END_TEST
 
 START_TEST(test_refactor_reorder_arguments_3)
 {
+    // 1 * a becomes a
     ASTNode* n = readMathMLFromString(
         "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
         "   <apply>"
@@ -412,11 +426,13 @@ START_TEST(test_refactor_reorder_arguments_3)
     fail_unless(n->getNumChildren() == 0);
     fail_unless(formulas_equal("a", n));
 
+    delete n; 
 }
 END_TEST
 
 START_TEST(test_refactor_reorder_arguments_4)
 {
+    // a - a becomes 0
     ASTNode* n = readMathMLFromString(
         "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
         "   <apply>"
@@ -439,6 +455,182 @@ START_TEST(test_refactor_reorder_arguments_4)
     fail_unless(formulas_equal("0", n));
     fail_unless(util_isEqual(n->getValue(), 0.0));
 
+    delete n; 
+}
+END_TEST
+
+START_TEST(test_refactor_reorder_arguments_5)
+{
+    // a / a becomes 1
+    ASTNode* n = readMathMLFromString(
+        "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+        "   <apply>"
+        "      <divide/>"
+        "      <ci> a </ci>"
+        "      <ci> a </ci>"
+        "   </apply>"
+        "</math>"
+    );
+
+    fail_unless(n != NULL);
+    fail_unless(n->getType() == AST_DIVIDE);
+    fail_unless(n->getNumChildren() == 2);
+    fail_unless(formulas_equal("a / a", n));
+
+    n->reorderArguments();
+
+    fail_unless(n->getType() == AST_REAL);
+    fail_unless(n->getNumChildren() == 0);
+    fail_unless(formulas_equal("1", n));
+    fail_unless(util_isEqual(n->getValue(), 1.0));
+
+    delete n;
+}
+END_TEST
+
+START_TEST(test_refactor_reorder_arguments_6)
+{
+    // a ^ 1 becomes a
+    ASTNode* n = readMathMLFromString(
+        "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+        "   <apply>"
+        "      <power/>"
+        "      <ci> a </ci>"
+        "      <cn> 1 </cn>"
+        "   </apply>"
+        "</math>"
+    );
+
+    fail_unless(n != NULL);
+    fail_unless(n->getType() == AST_FUNCTION_POWER);
+    fail_unless(n->getNumChildren() == 2);
+    fail_unless(formulas_equal("a^1", n));
+
+    n->reorderArguments();
+
+    fail_unless(n->getType() == AST_NAME);
+    fail_unless(n->getNumChildren() == 0);
+    fail_unless(formulas_equal("a", n));
+    delete n; 
+}
+END_TEST
+
+START_TEST(test_refactor_reorder_arguments_7)
+{
+    // a ^ 0 becomes 1
+    ASTNode* n = readMathMLFromString(
+        "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+        "   <apply>"
+        "      <power/>"
+        "      <ci> a </ci>"
+        "      <cn> 0 </cn>"
+        "   </apply>"
+        "</math>"
+    );
+
+    fail_unless(n != NULL);
+    fail_unless(n->getType() == AST_FUNCTION_POWER);
+    fail_unless(n->getNumChildren() == 2);
+    fail_unless(formulas_equal("a^0", n));
+
+    n->reorderArguments();
+
+    fail_unless(n->getType() == AST_REAL);
+    fail_unless(n->getNumChildren() == 0);
+    fail_unless(formulas_equal("1", n));
+    fail_unless(util_isEqual(n->getValue(), 1.0));
+    delete n; }
+END_TEST
+
+START_TEST(test_refactor_reorder_arguments_8)
+{
+    // sqrt(a) becomes a^0.5
+    ASTNode* n = readMathMLFromString(
+        "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+        "   <apply>"
+        "      <root/>"
+        "      <ci> a </ci>"
+        "   </apply>"
+        "</math>"
+    );
+
+    fail_unless(n != NULL);
+    fail_unless(n->getType() == AST_FUNCTION_ROOT);
+    fail_unless(n->getNumChildren() == 2);
+    fail_unless(formulas_equal("sqrt(a)", n));
+
+    n->reorderArguments();
+
+    fail_unless(n->getType() == AST_POWER);
+    fail_unless(n->getNumChildren() == 2);
+    fail_unless(formulas_equal("a^0.5", n));
+    delete n; 
+}
+END_TEST
+
+START_TEST(test_refactor_1)
+{
+    // this will require the wholly refactor function
+    // a + b + 3 + b becomes 3 + a + 2 * b
+    ASTNode* n = readMathMLFromString(
+        "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+        "   <apply>"
+        "      <plus/>"
+        "      <ci> a </ci>"
+        "      <ci> b </ci>"
+        "      <cn> 3 </cn>"
+        "      <ci> b </ci>"
+        "   </apply>"
+        "</math>"
+    );
+
+    fail_unless(n != NULL);
+    fail_unless(n->getType() == AST_PLUS);
+    fail_unless(formulas_equal("a + b + 3 + b", n));
+
+    n->refactor();
+
+    fail_unless(n->getType() == AST_PLUS);
+    fail_unless(n->getNumChildren() == 3);
+    fail_unless(formulas_equal("3 + a + 2 * b", n));
+    delete n; 
+}
+END_TEST
+
+START_TEST(test_refactor_2)
+{
+    // this will require the wholly refactor function
+    // a + b + 3 + b becomes 3 + a + 2 * b
+    ASTNode* n = readMathMLFromString(
+        "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+        "   <apply>"
+        "       <plus/>"
+        "       <ci> a </ci>"
+        "       <apply>"
+        "           <divide/>"
+        "           <ci> a </ci>"
+        "           <ci> b </ci>"
+        "       </apply>"
+        "       <cn> 3 </cn>"
+        "       <apply>"
+        "           <root/>"
+        "           <degree><cn> 4 </cn></degree>"
+        "           <ci> b </ci>"
+        "       </apply>"
+        "   </apply>"
+        "</math>"
+    );
+
+    fail_unless(n != NULL);
+    fail_unless(n->getType() == AST_PLUS);
+    fail_unless(formulas_equal("a + a / b + 3 + root(4, b)", n));
+
+    n->refactor();
+
+    fail_unless(n->getType() == AST_PLUS);
+    fail_unless(n->getNumChildren() == 4);
+    fail_unless(formulas_equal("3 + a + a / b + b^0.25", n));
+    delete n; 
 }
 END_TEST
 
@@ -448,22 +640,30 @@ create_suite_TestRefactoringFunctions()
   Suite *suite = suite_create("TestRefactoringFunctions");
   TCase *tcase = tcase_create("TestRefactoringFunctions");
 
-  //tcase_add_test(tcase, test_refactor_numbers_integer); 
-  ////tcase_add_test(tcase, test_refactor_numbers_real); 
-  //tcase_add_test(tcase, test_refactor_numbers_e_notation); 
-  //tcase_add_test(tcase, test_refactor_numbers_rational);
-  //tcase_add_test(tcase, test_refactor_numbers_encompass_unary_minus_1);
-  //tcase_add_test(tcase, test_refactor_numbers_encompass_unary_minus_2);
-  //tcase_add_test(tcase, test_refactor_numbers_encompass_unary_minus_3);
-  //tcase_add_test(tcase, test_refactor_numbers_encompass_unary_minus_4);
-  //tcase_add_test(tcase, test_refactor_create_non_binary_tree_1);
-  //tcase_add_test(tcase, test_refactor_create_non_binary_tree_2);
+  tcase_add_test(tcase, test_refactor_numbers_integer); 
+  tcase_add_test(tcase, test_refactor_numbers_real); 
+  tcase_add_test(tcase, test_refactor_numbers_e_notation); 
+  tcase_add_test(tcase, test_refactor_numbers_rational);
+ 
+  tcase_add_test(tcase, test_refactor_numbers_encompass_unary_minus_1);
+  tcase_add_test(tcase, test_refactor_numbers_encompass_unary_minus_2);
+  tcase_add_test(tcase, test_refactor_numbers_encompass_unary_minus_3);
+  tcase_add_test(tcase, test_refactor_numbers_encompass_unary_minus_4);
+  
+  tcase_add_test(tcase, test_refactor_create_non_binary_tree_1);
+  tcase_add_test(tcase, test_refactor_create_non_binary_tree_2);
+  
   tcase_add_test(tcase, test_refactor_reorder_arguments_1);
   tcase_add_test(tcase, test_refactor_reorder_arguments_2);
   tcase_add_test(tcase, test_refactor_reorder_arguments_3);
   tcase_add_test(tcase, test_refactor_reorder_arguments_4);
+  tcase_add_test(tcase, test_refactor_reorder_arguments_5);
+  tcase_add_test(tcase, test_refactor_reorder_arguments_6);
+  tcase_add_test(tcase, test_refactor_reorder_arguments_7);
+  tcase_add_test(tcase, test_refactor_reorder_arguments_8);
 
-  // TESTED SIMPLIFY UP TO A + A
+  tcase_add_test(tcase, test_refactor_1);
+  tcase_add_test(tcase, test_refactor_2);
 
   suite_add_tcase(suite, tcase);
 

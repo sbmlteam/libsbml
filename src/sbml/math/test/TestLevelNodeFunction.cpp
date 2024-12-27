@@ -269,13 +269,13 @@ create_suite_TestLevelNodeFunction()
   Suite *suite = suite_create("TestLevelNodeFunction");
   TCase *tcase = tcase_create("TestLevelNodeFunction");
 
-  //tcase_add_test(tcase, test_null); 
-  //tcase_add_test(tcase, test_level_1);
-  //tcase_add_test(tcase, test_level_2);
-  //tcase_add_test(tcase, test_level_3);
-  //tcase_add_test(tcase, test_level_4);
-  //tcase_add_test(tcase, test_level_5);
-  //tcase_add_test(tcase, test_level_6);
+  tcase_add_test(tcase, test_null); 
+  tcase_add_test(tcase, test_level_1);
+  tcase_add_test(tcase, test_level_2);
+  tcase_add_test(tcase, test_level_3);
+  tcase_add_test(tcase, test_level_4);
+  tcase_add_test(tcase, test_level_5);
+  tcase_add_test(tcase, test_level_6);
   tcase_add_test(tcase, test_level_7);
 
   suite_add_tcase(suite, tcase);

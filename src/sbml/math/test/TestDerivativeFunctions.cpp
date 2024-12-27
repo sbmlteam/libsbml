@@ -1,6 +1,6 @@
 /**
- * \file    TestInferRnFunctions.cpp
- * \brief   Test extra functions for inferring rns
+ * \file    TestDerivativeFunctions.cpp
+ * \brief   Test extra functions for differentiation
  * \author  Sarah Keating
  * 
  * <!--------------------------------------------------------------------------
