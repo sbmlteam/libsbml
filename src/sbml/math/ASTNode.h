@@ -612,7 +612,7 @@ int (*ASTNodePredicate) (const ASTNode *node);
 
 
   LIBSBML_EXTERN
-  ASTNodeLevels getListOfNodesWithLevel () const;
+  ASTNodeLevels getListOfNodesWithLevel (bool operatorsOnly = false) const;
 
 
   /**

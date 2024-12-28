@@ -1132,14 +1132,17 @@ ASTNode::getListOfNodes (ASTNodePredicate predicate) const
 
 LIBSBML_EXTERN 
 ASTNodeLevels 
-ASTNode::getListOfNodesWithLevel() const
+ASTNode::getListOfNodesWithLevel(bool operatorsOnly) const
 {
     ASTNodeLevels vector_pairs;
 
 
     fillListOfNodesWithLevel((ASTNodePredicate)ASTNode_isOperator, vector_pairs, 0);
-    fillListOfNodesWithLevel((ASTNodePredicate)ASTNode_isName, vector_pairs, 0);
-    fillListOfNodesWithLevel((ASTNodePredicate)ASTNode_isNumber, vector_pairs, 0);
+    if (!operatorsOnly)
+    {
+        fillListOfNodesWithLevel((ASTNodePredicate)ASTNode_isName, vector_pairs, 0);
+        fillListOfNodesWithLevel((ASTNodePredicate)ASTNode_isNumber, vector_pairs, 0);
+    }
 
     return vector_pairs;
 }
