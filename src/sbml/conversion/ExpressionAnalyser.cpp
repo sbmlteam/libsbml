@@ -123,18 +123,23 @@ ExpressionAnalyser::clone() const
  * Destroy this object.
  */
 ExpressionAnalyser::~ExpressionAnalyser ()
-{
-  for (std::vector<std::pair<std::string, ASTNode*> >::iterator it = mODEs.begin(); it != mODEs.end(); ++it)
-  {
-    if (it->second != NULL)
-    {
-      delete it->second;
-      it->second = NULL;
-    }
-  }
-  mODEs.clear();
+{ 
+    // these are owned by the converter
+  //for (std::vector<std::pair<std::string, ASTNode*> >::iterator it = mODEs.begin(); it != mODEs.end(); ++it)
+  //{
+  //  if (it->second != NULL)
+  //  {
+  //    delete it->second;
+  //    it->second = NULL;
+  //  }
+  //}
+  //mODEs.clear();
   SBMLTransforms::clearComponentValues(mModel);
   mHiddenSpecies = NULL;
+  if (mExpressions.size() > 0)
+  {
+    mExpressions.clear();
+  }
 }
 
 /*
@@ -156,13 +161,13 @@ ExpressionAnalyser::setModel(Model* model)
 {
   SBMLTransforms::clearComponentValues(mModel);
   mModel = model;
-  SBMLTransforms::mapComponentValues(model);
+  SBMLTransforms::mapComponentValues(mModel);
   return LIBSBML_OPERATION_SUCCESS;
 }
 
 void ExpressionAnalyser::substituteParametersForExpressions()
 {
-    if (mHiddenSpecies == NULL || mExpressions.empty())
+    if (mExpressions.empty())
         return;
 
     // need to actually address the expressions in the correct order
@@ -184,6 +189,10 @@ void ExpressionAnalyser::substituteParametersForExpressions()
             std::string zName = getUniqueNewParameterName();
             exp->z_value = zName;
             mNewVarCount++;
+            ASTNode* z = new ASTNode(AST_NAME);
+            z->setName(zName.c_str());
+            exp->z_expression = z->deepCopy();
+            delete z;
         }
         else if (j > 0 &&
             exp->type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y &&
@@ -366,16 +375,13 @@ bool ExpressionAnalyser::parentExpressionExists(SubstitutionValues_t* current, S
         switch (current->type)
         {
         case TYPE_K_MINUS_X_MINUS_Y:
-            parentExists = parentExists && mightAdd->type == TYPE_K_MINUS_X;
+            parentExists = mightAdd->type == TYPE_K_MINUS_X;
             break;
         case TYPE_K_PLUS_V_MINUS_X_MINUS_Y:
             switch (mightAdd->type)
             {
             case TYPE_K_PLUS_V_MINUS_X:
-                parentExists = parentExists && matchesVExpression(current, mightAdd);
-                break;
-            case TYPE_K_MINUS_X:
-                parentExists = true;
+                parentExists = matchesVExpression(current, mightAdd);
                 break;
             default:
                 parentExists = false;
@@ -387,9 +393,6 @@ bool ExpressionAnalyser::parentExpressionExists(SubstitutionValues_t* current, S
             {
             case TYPE_K_MINUS_X:
                 parentExists = true;
-                break;
-            case TYPE_K_MINUS_X_MINUS_Y:
-                parentExists = parentExists && matchesYValue(current, mightAdd);
                 break;
             default:
                 parentExists = false;
@@ -633,78 +636,76 @@ ExpressionAnalyser::getODEFor(std::string name)
   return zero->deepCopy();
 }
 
+//-//ExpressionAnalyser::detect_minusXPlusYOnly()
+//{
+//    for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+//    {
+//        std::pair<std::string, ASTNode*> ode = mODEs.at(odeIndex);
+//        ASTNode* odeRHS = ode.second;
+//        //odeRHS->decompose();
+//        odeRHS->reduceToBinary();
+//        odeRHS->decompose();
+//        List* operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
+//        ListIterator it = operators->begin();
+//
+//        while (it != operators->end())
+//        {
+//            ASTNode* currentNode = (ASTNode*)*it;
+//                cout << "current node in not -x+y analyze: " << SBML_formulaToL3String(currentNode) << endl;
+//            if (currentNode->getType() != AST_PLUS)
+//            {
+//                it++;
+//                continue;
+//            }
+//            SubstitutionValues_t* value = createBlankSubstitutionValues();
+//            unsigned int numChildren = currentNode->getNumChildren();
+//            ASTNode* rightChild = currentNode->getRightChild();
+//            ASTNode* leftChild = currentNode->getLeftChild();
+//            //  -x+y node binary; plus; left child type minus; rightchild var/const
+//            //           +
+//            //        -     y
+//            //        x
+//            if (numChildren != 2 || rightChild->getType() != AST_NAME
+//                || leftChild->getType() != AST_MINUS
+//                || leftChild->getNumChildren() != 1)
+//            {
+//                it++;
+//                continue;
+//            }
+//
+//            // if we get to this point, the only thing left to check is 
+//            // whether the ->left->right grandchild (the x in -x+y) is a variable species.
+//            if (isVariableSpeciesOrParameter(leftChild->getChild(0)))
+//            {
+//                value->x_value = leftChild->getChild(0)->getName();
+//                value->y_value = rightChild->getName();
+//                value->dydt_expression = getODEFor(rightChild->getName());
+//                value->dxdt_expression = getODEFor(leftChild->getChild(0)->getName());
+//                value->type = TYPE_MINUS_X_PLUS_Y;
+//                value->current = currentNode;
+//                value->odeIndex = odeIndex;
+//                //if (shouldAddExpression(value))
+//                ////{
+//                //    printSubstitutionValues(value);
+//                //    mExpressions.push_back(value);
+//                //}
+//
+//            }
+//
+//            it++;
+//        }
+//    }
+//
+//}
 void
-ExpressionAnalyser::detect_minusXPlusYOnly()
-{
-    for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
-    {
-        std::pair<std::string, ASTNode*> ode = mODEs.at(odeIndex);
-        ASTNode* odeRHS = ode.second;
-        //odeRHS->decompose();
-        odeRHS->reduceToBinary();
-        odeRHS->decompose();
-        List* operators = odeRHS->getListOfNodes((ASTNodePredicate)ASTNode_isOperator);
-        ListIterator it = operators->begin();
-
-        while (it != operators->end())
-        {
-            ASTNode* currentNode = (ASTNode*)*it;
-                cout << "current node in not -x+y analyze: " << SBML_formulaToL3String(currentNode) << endl;
-            if (currentNode->getType() != AST_PLUS)
-            {
-                it++;
-                continue;
-            }
-            SubstitutionValues_t* value = createBlankSubstitutionValues();
-            unsigned int numChildren = currentNode->getNumChildren();
-            ASTNode* rightChild = currentNode->getRightChild();
-            ASTNode* leftChild = currentNode->getLeftChild();
-            //  -x+y node binary; plus; left child type minus; rightchild var/const
-            //           +
-            //        -     y
-            //        x
-            if (numChildren != 2 || rightChild->getType() != AST_NAME
-                || leftChild->getType() != AST_MINUS
-                || leftChild->getNumChildren() != 1)
-            {
-                it++;
-                continue;
-            }
-
-            // if we get to this point, the only thing left to check is 
-            // whether the ->left->right grandchild (the x in -x+y) is a variable species.
-            if (isVariableSpeciesOrParameter(leftChild->getChild(0)))
-            {
-                value->x_value = leftChild->getChild(0)->getName();
-                value->y_value = rightChild->getName();
-                value->dydt_expression = getODEFor(rightChild->getName());
-                value->dxdt_expression = getODEFor(leftChild->getChild(0)->getName());
-                value->type = TYPE_MINUS_X_PLUS_Y;
-                value->current = currentNode;
-                value->odeIndex = odeIndex;
-                //if (shouldAddExpression(value))
-                ////{
-                //    printSubstitutionValues(value);
-                //    mExpressions.push_back(value);
-                //}
-
-            }
-
-            it++;
-        }
-    }
-
-}
-void
-ExpressionAnalyser::analyse(bool minusXPlusYOnly)
+ExpressionAnalyser::analyse()
 {
   for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
   {
     std::pair<std::string, ASTNode*> ode = mODEs.at(odeIndex);
     ASTNode* odeRHS = ode.second;
-    odeRHS->decompose();
-    odeRHS->reduceToBinary();
-    ASTNodeLevels operators = odeRHS->getListOfNodesWithLevel();
+    odeRHS->refactor();
+    ASTNodeLevels operators = odeRHS->getListOfNodesWithLevel(true);
     ASTNodeLevelsIterator it = operators.begin();
 
     while (it != operators.end())
@@ -719,7 +720,7 @@ ExpressionAnalyser::analyse(bool minusXPlusYOnly)
         value->levelInExpression = currentNode.first;
         if (shouldAddExpression(value, currentNode))
         {
-            printSubstitutionValues(value);
+            //printSubstitutionValues(value);
             mExpressions.push_back(value);
         }
       }
@@ -1229,24 +1230,24 @@ bool ExpressionAnalyser::isNumericalConstantOrConstantParameter(ASTNode* node, b
 * Reorder any instance of - x + y with y - x in the set of ODEs.
 * Fages Algorithm 3.1 Step 1
 */
-void ExpressionAnalyser::reorderMinusXPlusYIteratively()
-{
-  for (unsigned int i = 0; i < mExpressions.size(); i++)
-  {
-    SubstitutionValues_t* exp = mExpressions.at(i);
-    if (exp->type != TYPE_MINUS_X_PLUS_Y)
-      continue;
-    ASTNode* ode = (mODEs.at(exp->odeIndex)).second;
-    ASTNode* replacement = new ASTNode(AST_MINUS);
-    ASTNode* y = new ASTNode(AST_NAME);
-    y->setName((exp->y_value).c_str());
-    ASTNode* x = new ASTNode(AST_NAME);
-    x->setName((exp->x_value).c_str());
-    replacement->addChild(y);
-    replacement->addChild(x);
-    replaceExpressionInNodeWithNode(ode, exp->current, replacement);
-  }
-}
+//void ExpressionAnalyser::reorderMinusXPlusYIteratively()
+//{
+//  for (unsigned int i = 0; i < mExpressions.size(); i++)
+//  {
+//    SubstitutionValues_t* exp = mExpressions.at(i);
+//    if (exp->type != TYPE_MINUS_X_PLUS_Y)
+//      continue;
+//    ASTNode* ode = (mODEs.at(exp->odeIndex)).second;
+//    ASTNode* replacement = new ASTNode(AST_MINUS);
+//    ASTNode* y = new ASTNode(AST_NAME);
+//    y->setName((exp->y_value).c_str());
+//    ASTNode* x = new ASTNode(AST_NAME);
+//    x->setName((exp->x_value).c_str());
+//    replacement->addChild(y);
+//    replacement->addChild(x);
+//    replaceExpressionInNodeWithNode(ode, exp->current, replacement);
+//  }
+//}
 
 std::pair<ASTNode*, int> ExpressionAnalyser::getParentNode(const ASTNode* child, const ASTNode* root)
 {

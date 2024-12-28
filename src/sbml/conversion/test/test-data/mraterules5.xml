@@ -15,7 +15,7 @@
             <parameter id="v" value="2.1" constant="false"/>
         </listOfParameters>
         <listOfRules>
-            <rateRule variable="a">
+            <rateRule variable="c">
                 <math xmlns="http://www.w3.org/1998/Math/MathML">
                     <apply>
                         <times/>
@@ -37,7 +37,7 @@
                     <ci> c </ci>
                 </math>
             </rateRule>
-<rateRule variable="c">
+<rateRule variable="a">
                 <math xmlns="http://www.w3.org/1998/Math/MathML">
                      <apply>
                         <times/>

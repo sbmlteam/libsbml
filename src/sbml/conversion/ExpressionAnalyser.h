@@ -167,7 +167,7 @@ public:
 
   bool analyseNode(ASTNode* node, SubstitutionValues_t* value);
 
-  void analyse(bool minusXPlusYOnly = false);
+  void analyse();
 
   void orderExpressions();
 
@@ -180,9 +180,9 @@ public:
   * identify instances of - x + y within formula and create expressions
   * 
   */
-  void detect_minusXPlusYOnly();
+  //void detect_minusXPlusYOnly();
 
-  void reorderMinusXPlusYIteratively();
+  //void reorderMinusXPlusYIteratively();
 
 private:
   /** @cond doxygenLibsbmlInternal */
