@@ -94,7 +94,6 @@ struct SubstitutionValues_t {
   unsigned int levelInExpression;
 };
 
-bool compareExpressions(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
 
 
 class LIBSBML_EXTERN ExpressionAnalyser

@@ -698,10 +698,231 @@ START_TEST(test_analyse_replace)
 	delete analyser;
 }
 END_TEST
+
+START_TEST(test_analyse_same_expression_replace)
+{
+	RateRule* rr = d->getModel()->createRateRule();
+	rr->setVariable("a");
+	rr->setMath(SBML_parseFormula("k-x-y"));
+
+	RateRule* rr1 = d->getModel()->createRateRule();
+	rr1->setVariable("b");
+	rr1->setMath(SBML_parseFormula("k-x-y"));
+
+
+	converter->populateInitialODEinfo();
+	ExpressionAnalyser* analyser = new ExpressionAnalyser(m, converter->getOdePairs());
+
+	fail_unless(analyser->getNumExpressions() == 0);
+
+	analyser->detectHiddenSpecies();
+
+	fail_unless(analyser->getNumExpressions() == 1);
+	SubstitutionValues_t* value = analyser->getExpression(0);
+	fail_unless(value->k_value == "k");
+	fail_unless(value->x_value == "x");
+	fail_unless(value->y_value == "y");
+	fail_unless(value->z_value == "newVar1");
+	fail_unless(value->type == TYPE_K_MINUS_X_MINUS_Y);
+	fail_unless(formulas_equal("k - x - y", value->current));
+	fail_unless(formulas_equal("0", value->dxdt_expression));
+	fail_unless(formulas_equal("0", value->dydt_expression));
+	fail_unless(value->v_expression == NULL);
+	fail_unless(value->w_expression == NULL);
+	fail_unless(formulas_equal("newVar1", value->z_expression));
+	fail_unless(value->odeIndex == 0);
+	fail_unless(util_isNaN(value->k_real_value));
+
+	delete analyser;
+}
+END_TEST
+
+START_TEST(test_analyse_different_expression_replace)
+{
+	// the second expression is the same type but has a different variable
+	RateRule* rr = d->getModel()->createRateRule();
+	rr->setVariable("a");
+	rr->setMath(SBML_parseFormula("k-x-y"));
+
+	RateRule* rr1 = d->getModel()->createRateRule();
+	rr1->setVariable("b");
+	rr1->setMath(SBML_parseFormula("k-x-a"));
+
+
+	converter->populateInitialODEinfo();
+	ExpressionAnalyser* analyser = new ExpressionAnalyser(m, converter->getOdePairs());
+
+	fail_unless(analyser->getNumExpressions() == 0);
+
+	analyser->detectHiddenSpecies();
+
+	fail_unless(analyser->getNumExpressions() == 2);
+	SubstitutionValues_t* value = analyser->getExpression(0);
+	fail_unless(value->k_value == "k");
+	fail_unless(value->x_value == "x");
+	fail_unless(value->y_value == "y");
+	fail_unless(value->z_value == "newVar1");
+	fail_unless(value->type == TYPE_K_MINUS_X_MINUS_Y);
+	fail_unless(formulas_equal("k - x - y", value->current));
+	fail_unless(formulas_equal("0", value->dxdt_expression));
+	fail_unless(formulas_equal("0", value->dydt_expression));
+	fail_unless(value->v_expression == NULL);
+	fail_unless(value->w_expression == NULL);
+	fail_unless(formulas_equal("newVar1", value->z_expression));
+	fail_unless(value->odeIndex == 0);
+	fail_unless(util_isNaN(value->k_real_value));
+
+	SubstitutionValues_t* value1 = analyser->getExpression(1);
+	fail_unless(value1->k_value == "k");
+	fail_unless(value1->x_value == "x");
+	fail_unless(value1->y_value == "a");
+	fail_unless(value1->z_value == "newVar2");
+	fail_unless(value1->type == TYPE_K_MINUS_X_MINUS_Y);
+	fail_unless(formulas_equal("k - x - a", value1->current));
+	fail_unless(formulas_equal("0", value1->dxdt_expression));
+	fail_unless(formulas_equal("k - x - y", value1->dydt_expression));
+	fail_unless(value1->v_expression == NULL);
+	fail_unless(value1->w_expression == NULL);
+	fail_unless(formulas_equal("newVar2", value1->z_expression));
+	fail_unless(value1->odeIndex == 1);
+	fail_unless(util_isNaN(value1->k_real_value));
+
+	delete analyser;
+}
+END_TEST
+
+START_TEST(test_analyse_1_replace)
+{
+	RateRule* rr = d->getModel()->createRateRule();
+	rr->setVariable("a");
+	rr->setMath(SBML_parseFormula("k + v - x - y"));
+	converter->populateInitialODEinfo();
+	ExpressionAnalyser* analyser = new ExpressionAnalyser(m, converter->getOdePairs());
+
+	fail_unless(analyser->getNumExpressions() == 0);
+
+	analyser->detectHiddenSpecies();
+
+	fail_unless(analyser->getNumExpressions() == 1);
+	SubstitutionValues_t* value = analyser->getExpression(0);
+	fail_unless(value->k_value == "k");
+	fail_unless(value->x_value == "x");
+	fail_unless(value->y_value == "y");
+	fail_unless(value->z_value == "newVar1");
+	fail_unless(value->type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y);
+	fail_unless(formulas_equal("k + v - x - y", value->current));
+	fail_unless(formulas_equal("0", value->dxdt_expression));
+	fail_unless(formulas_equal("0", value->dydt_expression));
+	fail_unless(formulas_equal("v", value->v_expression));
+	fail_unless(value->w_expression == NULL);
+	fail_unless(formulas_equal("newVar1 + v", value->z_expression));
+	fail_unless(value->odeIndex == 0);
+	fail_unless(util_isNaN(value->k_real_value));
+
+	delete analyser;
+}
+END_TEST
+
+START_TEST(test_analyse_2_replace)
+{
+	RateRule* rr = d->getModel()->createRateRule();
+	rr->setVariable("a");
+	rr->setMath(SBML_parseFormula("k - x + w - y"));
+	converter->populateInitialODEinfo();
+	ExpressionAnalyser* analyser = new ExpressionAnalyser(m, converter->getOdePairs());
+
+	fail_unless(analyser->getNumExpressions() == 0);
+
+	analyser->detectHiddenSpecies();
+
+	fail_unless(analyser->getNumExpressions() == 1);
+	SubstitutionValues_t* value = analyser->getExpression(0);
+	fail_unless(value->k_value == "k");
+	fail_unless(value->x_value == "x");
+	fail_unless(value->y_value == "y");
+	fail_unless(value->z_value == "newVar1");
+	fail_unless(value->type == TYPE_K_MINUS_X_PLUS_W_MINUS_Y);
+	fail_unless(formulas_equal("w + (k - x) - y", value->current));
+	fail_unless(formulas_equal("0", value->dxdt_expression));
+	fail_unless(formulas_equal("0", value->dydt_expression));
+	fail_unless(formulas_equal("w", value->w_expression));
+	fail_unless(value->v_expression == NULL);
+	fail_unless(formulas_equal("newVar1 + w", value->z_expression));
+	fail_unless(value->odeIndex == 0);
+	fail_unless(util_isNaN(value->k_real_value));
+
+	delete analyser;
+}
+END_TEST
+
+START_TEST(test_analyse_3_replace)
+{
+	RateRule* rr = d->getModel()->createRateRule();
+	rr->setVariable("a");
+	rr->setMath(SBML_parseFormula("k - x"));
+	converter->populateInitialODEinfo();
+	ExpressionAnalyser* analyser = new ExpressionAnalyser(m, converter->getOdePairs());
+
+	fail_unless(analyser->getNumExpressions() == 0);
+
+	analyser->detectHiddenSpecies();
+
+	fail_unless(analyser->getNumExpressions() == 1);
+	SubstitutionValues_t* value = analyser->getExpression(0);
+	fail_unless(value->k_value == "k");
+	fail_unless(value->x_value == "x");
+	fail_unless(value->y_value.empty());
+	fail_unless(value->z_value == "newVar1");
+	fail_unless(value->type == TYPE_K_MINUS_X);
+	fail_unless(formulas_equal("k - x", value->current));
+	fail_unless(formulas_equal("0", value->dxdt_expression));
+	fail_unless(value->dydt_expression == NULL);
+	fail_unless(value->v_expression == NULL);
+	fail_unless(value->w_expression == NULL);
+	fail_unless(formulas_equal("newVar1", value->z_expression));
+	fail_unless(value->odeIndex == 0);
+	fail_unless(util_isNaN(value->k_real_value));
+
+	delete analyser;
+}
+END_TEST
+
+START_TEST(test_analyse_4_replace)
+{
+	RateRule* rr = d->getModel()->createRateRule();
+	rr->setVariable("a");
+	rr->setMath(SBML_parseFormula("k + v - x"));
+	converter->populateInitialODEinfo();
+	ExpressionAnalyser* analyser = new ExpressionAnalyser(m, converter->getOdePairs());
+
+	fail_unless(analyser->getNumExpressions() == 0);
+
+	analyser->detectHiddenSpecies();
+
+	fail_unless(analyser->getNumExpressions() == 1);
+	SubstitutionValues_t* value = analyser->getExpression(0);
+	fail_unless(value->k_value == "k");
+	fail_unless(value->x_value == "x");
+	fail_unless(value->y_value.empty());
+	fail_unless(value->z_value == "newVar1");
+	fail_unless(value->type == TYPE_K_PLUS_V_MINUS_X);
+	fail_unless(formulas_equal("k + v - x", value->current));
+	fail_unless(formulas_equal("0", value->dxdt_expression));
+	fail_unless(value->dydt_expression == NULL);
+	fail_unless(formulas_equal("v", value->v_expression));
+	fail_unless(value->w_expression == NULL);
+	fail_unless(formulas_equal("newVar1 + v", value->z_expression));
+	fail_unless(value->odeIndex == 0);
+	fail_unless(util_isNaN(value->k_real_value));
+
+	delete analyser;
+}
+END_TEST
+
 Suite *
 create_suite_TestExpressionAnalyser (void)
 { 
-	bool testing = true;
+	bool testing = false;
 	Suite *suite = suite_create("ExpressionAnalyser");
 	TCase *tcase = tcase_create("ExpressionAnalyser");
 	tcase_add_checked_fixture(tcase, ExpressionAnalyser_setup, 
@@ -709,7 +930,7 @@ create_suite_TestExpressionAnalyser (void)
 
   if (testing)
   {
-	  tcase_add_test(tcase, test_analyse_replace);
+	  tcase_add_test(tcase, test_analyse_4_replace); //k-x-y
   }
   else
   {
@@ -729,7 +950,12 @@ create_suite_TestExpressionAnalyser (void)
 	  tcase_add_test(tcase, test_order_expressions_3);
 	  tcase_add_test(tcase, test_order_expressions_4);
 	  tcase_add_test(tcase, test_analyse_replace); //k-x-y
-
+	  tcase_add_test(tcase, test_analyse_same_expression_replace); //k-x-y
+	  tcase_add_test(tcase, test_analyse_different_expression_replace); //k-x-y
+	  tcase_add_test(tcase, test_analyse_1_replace); //k+v-x-y
+	  tcase_add_test(tcase, test_analyse_2_replace); //k-x+w-y
+	  tcase_add_test(tcase, test_analyse_3_replace); //k-x
+	  tcase_add_test(tcase, test_analyse_4_replace); //k+v-x
   }
   suite_add_tcase(suite, tcase);
 
@@ -738,3 +964,4 @@ create_suite_TestExpressionAnalyser (void)
 }
 END_C_DECLS
 
+	 

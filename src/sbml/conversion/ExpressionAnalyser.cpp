@@ -51,13 +51,19 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-
-bool compareExpressions(SubstitutionValues_t* values1, SubstitutionValues_t* values2)
+struct compareExpressions
 {
-    if (values1->type <= values2->type)
-        return true;
-    return false;
-}
+    bool operator() (SubstitutionValues_t* values1, SubstitutionValues_t* values2)
+    {
+        if (values1 == NULL || values2 == NULL)
+            return false;
+        if (values1->type == TYPE_UNKNOWN || values2->type == TYPE_UNKNOWN)
+            return false;
+        if (values1->type < values2->type)
+            return true;
+        return false;
+    }
+};
 
 ExpressionAnalyser::ExpressionAnalyser()
     : mModel (NULL), 
@@ -184,30 +190,75 @@ void ExpressionAnalyser::substituteParametersForExpressions()
     for (unsigned int j = 0; j < mExpressions.size(); j++)
     {
         SubstitutionValues_t* exp = mExpressions[j];
-        if (exp->type == TYPE_K_MINUS_X_MINUS_Y && exp->z_value.empty())
+        // if this is the first expression then we need to create a new parameter 
+        // and cannot rely on any other expression
+        if (j == 0)
         {
             std::string zName = getUniqueNewParameterName();
             exp->z_value = zName;
             mNewVarCount++;
             ASTNode* z = new ASTNode(AST_NAME);
             z->setName(zName.c_str());
-            exp->z_expression = z->deepCopy();
-            delete z;
+            if (exp->type == TYPE_K_MINUS_X_MINUS_Y || 
+                exp->type == TYPE_K_MINUS_X)
+            {
+                // we have a value for  k-x-y or k-x
+                exp->z_expression = z->deepCopy();
+                delete z;
+            }
+            else if (exp->type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y ||
+                exp->type == TYPE_K_PLUS_V_MINUS_X)
+            {
+                // we have a value for  k+v-x-y and no value for k-x-y
+                // we have a value for  k+v-x and no value for k-x
+                ASTNode* replacement = new ASTNode(AST_PLUS);
+                ASTNode* v = exp->v_expression->deepCopy();
+                replacement->addChild(z);
+                replacement->addChild(v);
+                exp->z_expression = replacement->deepCopy();
+                delete replacement;
+            }
+            else if (exp->type == TYPE_K_MINUS_X_PLUS_W_MINUS_Y)
+            {
+                // we have a value for  k-x+w-y and no value for k-x-y
+                ASTNode* replacement = new ASTNode(AST_PLUS);
+                ASTNode* w = exp->w_expression->deepCopy();
+                replacement->addChild(z);
+                replacement->addChild(w);
+                exp->z_expression = replacement->deepCopy();
+                delete replacement;
+            }
         }
-        else if (j > 0 &&
-            exp->type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y &&
-            exp->z_expression == NULL)
+        else
         {
-            // we have a value for  k-x-y
-            ASTNode* replacement = new ASTNode(AST_PLUS);
+            std::string zName = getUniqueNewParameterName();
+            exp->z_value = zName;
+            mNewVarCount++;
             ASTNode* z = new ASTNode(AST_NAME);
-            z->setName(mExpressions[j - 1]->z_value.c_str());
-            ASTNode* v = exp->v_expression->deepCopy();
-            replacement->addChild(z);
-            replacement->addChild(v);
-            exp->z_expression = replacement->deepCopy();
+            z->setName(zName.c_str());
+            if (exp->type == TYPE_K_MINUS_X_MINUS_Y ||
+                exp->type == TYPE_K_MINUS_X)
+            {
+                // we have a different value for  k-x-y or k-x
+                exp->z_expression = z->deepCopy();
+                delete z;
+            }
 
         }
+        //else if (j > 0 &&
+        //    exp->type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y &&
+        //    exp->z_expression == NULL)
+        //{
+        //    // we have a value for  k-x-y
+        //    ASTNode* replacement = new ASTNode(AST_PLUS);
+        //    ASTNode* z = new ASTNode(AST_NAME);
+        //    z->setName(mExpressions[j - 1]->z_value.c_str());
+        //    ASTNode* v = exp->v_expression->deepCopy();
+        //    replacement->addChild(z);
+        //    replacement->addChild(v);
+        //    exp->z_expression = replacement->deepCopy();
+
+        //}
     }
 }
 
@@ -731,7 +782,7 @@ ExpressionAnalyser::analyse()
 
 void ExpressionAnalyser::orderExpressions()
 {
-    std::sort(mExpressions.begin(), mExpressions.end(), compareExpressions);
+    std::sort(mExpressions.begin(), mExpressions.end(), compareExpressions());
 }
 
 void
