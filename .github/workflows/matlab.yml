@@ -11,11 +11,12 @@ on:
         - ".github/workflows/matlab.yml"
 
 env:
-  MATLAB_VERSION: R2021a
+  CC: gcc-10
+  CXX: g++-10
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -24,8 +25,6 @@ jobs:
 
     - name: Set up MATLAB
       uses: matlab-actions/setup-matlab@v2
-      # with:
-      #   release: ${{ env.MATLAB_VERSION }}
 
     - name: Install Ubuntu dependencies
       shell: bash
