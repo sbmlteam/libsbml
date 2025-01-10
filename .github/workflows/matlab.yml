@@ -1,11 +1,17 @@
 name: Matlab (ubuntu) build and test
 
-on: [push]
+on:
+  push:
+    paths:
+        - "src/**"
+        - "CMakeModules/**"
+        - "CMakeLists.txt"
+        - "VERSION.txt"
+        - "!.github/**"
+        - ".github/workflows/matlab.yml"
 
 env:
   MATLAB_VERSION: R2021a
-  CC: gcc-9
-  CXX: g++-9
 
 jobs:
   build:

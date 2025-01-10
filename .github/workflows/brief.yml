@@ -1,7 +1,14 @@
 name: CMake (rapid build on push)
 
-on: [push]
-
+on:
+  push:
+    paths:
+        - "src/**"
+        - "CMakeModules/**"
+        - "CMakeLists.txt"
+        - "VERSION.txt"
+        - "!.github/**"
+        - ".github/workflows/brief.yml"
 env:
   BUILD_TYPE: Release
 
