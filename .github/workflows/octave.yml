@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-22.04]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -29,13 +29,11 @@ jobs:
       run: git submodule update --init --recursive
       
     - name: update 
-      if: matrix.os == 'ubuntu-latest'
       shell: bash
       run: |
            sudo apt-get update
 
     - name: add linux dependencies
-      if: matrix.os == 'ubuntu-latest'
       shell: bash
       run: |
            sudo apt-get install swig liboctave-dev
