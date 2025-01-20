@@ -1,7 +1,19 @@
 name: CMake (rapid build on push)
 
+<<<<<<< HEAD
 on: 
 
+=======
+on:
+  push:
+    paths:
+        - "src/**"
+        - "CMakeModules/**"
+        - "CMakeLists.txt"
+        - "VERSION.txt"
+        - "!.github/**"
+        - ".github/workflows/brief.yml"
+>>>>>>> origin/development
 env:
   BUILD_TYPE: Release
 
@@ -81,7 +93,7 @@ jobs:
         shell: bash
         run: |
           sudo apt-get update
-          sudo apt-get install -y check ccache
+          sudo apt-get install -y check ccache r-base mono-devel
           echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON -DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
           echo R_BINDINGS="-DWITH_R=True" >> "${GITHUB_ENV}"
           git clone https://github.com/libexpat/libexpat

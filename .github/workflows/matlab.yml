@@ -1,15 +1,26 @@
 name: Matlab (ubuntu) build and test
 
+<<<<<<< HEAD
 on: []
+=======
+on:
+  push:
+    paths:
+        - "src/**"
+        - "CMakeModules/**"
+        - "CMakeLists.txt"
+        - "VERSION.txt"
+        - "!.github/**"
+        - ".github/workflows/matlab.yml"
+>>>>>>> origin/development
 
 env:
-  MATLAB_VERSION: R2021a
-  CC: gcc-9
-  CXX: g++-9
+  CC: gcc-10
+  CXX: g++-10
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -18,8 +29,6 @@ jobs:
 
     - name: Set up MATLAB
       uses: matlab-actions/setup-matlab@v2
-      # with:
-      #   release: ${{ env.MATLAB_VERSION }}
 
     - name: Install Ubuntu dependencies
       shell: bash
