@@ -175,6 +175,8 @@ void ExpressionAnalyser::substituteParametersForExpressions()
 {
     if (mExpressions.empty())
         return;
+    if (mHiddenSpecies == NULL)
+        mHiddenSpecies = new List();
 
     // need to actually address the expressions in the correct order
    // replace k-x-y first with newParam type=TYPE_K_MINUS_X_MINUS_Y
@@ -194,71 +196,147 @@ void ExpressionAnalyser::substituteParametersForExpressions()
         // and cannot rely on any other expression
         if (j == 0)
         {
-            std::string zName = getUniqueNewParameterName();
-            exp->z_value = zName;
-            mNewVarCount++;
-            ASTNode* z = new ASTNode(AST_NAME);
-            z->setName(zName.c_str());
             if (exp->type == TYPE_K_MINUS_X_MINUS_Y || 
                 exp->type == TYPE_K_MINUS_X)
             {
                 // we have a value for  k-x-y or k-x
-                exp->z_expression = z->deepCopy();
-                delete z;
+                addSingleNewParameter(exp);
             }
             else if (exp->type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y ||
                 exp->type == TYPE_K_PLUS_V_MINUS_X)
             {
                 // we have a value for  k+v-x-y and no value for k-x-y
                 // we have a value for  k+v-x and no value for k-x
-                ASTNode* replacement = new ASTNode(AST_PLUS);
-                ASTNode* v = exp->v_expression->deepCopy();
-                replacement->addChild(z);
-                replacement->addChild(v);
-                exp->z_expression = replacement->deepCopy();
-                delete replacement;
+                addNewParameterPlusVOrW(exp);
             }
             else if (exp->type == TYPE_K_MINUS_X_PLUS_W_MINUS_Y)
             {
                 // we have a value for  k-x+w-y and no value for k-x-y
-                ASTNode* replacement = new ASTNode(AST_PLUS);
-                ASTNode* w = exp->w_expression->deepCopy();
-                replacement->addChild(z);
-                replacement->addChild(w);
-                exp->z_expression = replacement->deepCopy();
-                delete replacement;
+                addNewParameterPlusVOrW(exp, "w");
             }
         }
-        else
+        else // j > 0 so not the first expression
         {
-            std::string zName = getUniqueNewParameterName();
-            exp->z_value = zName;
-            mNewVarCount++;
-            ASTNode* z = new ASTNode(AST_NAME);
-            z->setName(zName.c_str());
-            if (exp->type == TYPE_K_MINUS_X_MINUS_Y ||
-                exp->type == TYPE_K_MINUS_X)
+            if (exp->type == TYPE_K_MINUS_X_MINUS_Y)
             {
-                // we have a different value for  k-x-y or k-x
-                exp->z_expression = z->deepCopy();
-                delete z;
+                // we have a different value for  k-x-y 
+                // we know this because the expressions are in order and k-x-y is always first
+                // and the code that decides whether to add the expression well have checked that it is not identical
+                // so we if we have an expression of this type but is not first then it must be
+                // k-x-y but with a different value
+                addSingleNewParameter(exp);
             }
-
+            else if (exp->type == TYPE_K_MINUS_X)
+            {
+                // k-x will always be replaced by a new variable
+                addSingleNewParameter(exp);
+            }
+            else if (exp->type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y)
+            {
+                // we need to know what type of expression has come before
+                // deal with the case where the previous expression was the same type
+                if (mExpressions[j - 1]->type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y)
+                {
+                    // here we are dealing with the fact that we have k+v-x-y and k+v-x-a
+                    // so we have two different expressions of the same type
+                    // need to create a new parameter
+                    addNewParameterPlusVOrW(exp);
+                }
+                else if (mExpressions[j - 1]->type == TYPE_K_MINUS_X_MINUS_Y)
+                {
+                    // here we are dealing with the fact that we have k+v-x-y and k-x-y
+                    // need to check whether they have the same values for k,x,y
+                    if (matchesK(mExpressions[j - 1], exp) &&
+                        matchesXValue(mExpressions[j - 1], exp) &&
+                        matchesYValue(mExpressions[j - 1], exp))
+                    {
+                        // the values are the same so we can use the same new parameter
+                        exp->z_value = mExpressions[j - 1]->z_value;
+                        ASTNode* z = new ASTNode(AST_NAME);
+                        z->setName(mExpressions[j - 1]->z_value.c_str());
+                        ASTNode* replacement = new ASTNode(AST_PLUS);
+                        ASTNode* v = exp->v_expression->deepCopy();
+                        replacement->addChild(z);
+                        replacement->addChild(v);
+                        exp->z_expression = replacement->deepCopy();
+                        delete replacement;
+                    }
+                    else
+                    {
+                        addNewParameterPlusVOrW(exp);
+                    }
+                }
+            }
+            else if (exp->type == TYPE_K_MINUS_X_PLUS_W_MINUS_Y)
+            {
+                // we need to know what type of expression has come before
+                // deal with the case where the previous expression was the same type
+                if (mExpressions[j - 1]->type == TYPE_K_MINUS_X_PLUS_W_MINUS_Y)
+                {
+                    // here we are dealing with the fact that we have k-x+w-y and k-x+w-a
+                    // so we have two different expressions of the same time
+                    // need to create a new parameter
+                    addNewParameterPlusVOrW(exp, "w");
+                }
+                else if (mExpressions[j - 1]->type == TYPE_K_MINUS_X_MINUS_Y)
+                {
+                    // here we are dealing with the fact that we have k-x+w-y and k-x-y
+                    // need to check whether they have the same values for k,x,y
+                    if (matchesK(mExpressions[j - 1], exp) &&
+                        matchesXValue(mExpressions[j - 1], exp) &&
+                        matchesYValue(mExpressions[j - 1], exp))
+                    {
+                        // the values are the same so we can use the same new parameter
+                        exp->z_value = mExpressions[j - 1]->z_value;
+                        ASTNode* z = new ASTNode(AST_NAME);
+                        z->setName(mExpressions[j - 1]->z_value.c_str());
+                        ASTNode* replacement = new ASTNode(AST_PLUS);
+                        ASTNode* w = exp->w_expression->deepCopy();
+                        replacement->addChild(z);
+                        replacement->addChild(w);
+                        exp->z_expression = replacement->deepCopy();
+                        delete replacement;
+                    }
+                    else
+                    {
+                        addNewParameterPlusVOrW(exp, "w");
+                    }
+                }
+            }
+            else if (exp->type == TYPE_K_PLUS_V_MINUS_X)
+            {
+                if (mExpressions[j - 1]->type == TYPE_K_MINUS_X)
+                {
+                // here we are dealing with the fact that we have k+v-x and k-x
+                // need to check whether they have the same values for k,x,y
+                    if (matchesK(mExpressions[j - 1], exp) &&
+                        matchesXValue(mExpressions[j - 1], exp))
+                    {
+                        // the values are the same so we can use the same new parameter
+                        exp->z_value = mExpressions[j - 1]->z_value;
+                        ASTNode* z = new ASTNode(AST_NAME);
+                        z->setName(mExpressions[j - 1]->z_value.c_str());
+                        ASTNode* replacement = new ASTNode(AST_PLUS);
+                        ASTNode* v = exp->v_expression->deepCopy();
+                        replacement->addChild(z);
+                        replacement->addChild(v);
+                        exp->z_expression = replacement->deepCopy();
+                        delete replacement;
+                    }
+                    else
+                    {
+                        // if the type before was not k-x then we need to create a new parameter
+                        addNewParameterPlusVOrW(exp, "v");
+                    }
+                }
+                else
+                {
+                    // if the type before was not k-x then we need to create a new parameter
+                    // because it doesn't matter what it was.
+                    addNewParameterPlusVOrW(exp, "v");
+                }
+            }
         }
-        //else if (j > 0 &&
-        //    exp->type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y &&
-        //    exp->z_expression == NULL)
-        //{
-        //    // we have a value for  k-x-y
-        //    ASTNode* replacement = new ASTNode(AST_PLUS);
-        //    ASTNode* z = new ASTNode(AST_NAME);
-        //    z->setName(mExpressions[j - 1]->z_value.c_str());
-        //    ASTNode* v = exp->v_expression->deepCopy();
-        //    replacement->addChild(z);
-        //    replacement->addChild(v);
-        //    exp->z_expression = replacement->deepCopy();
-
-        //}
     }
 }
 
@@ -305,6 +383,43 @@ SubstitutionValues_t* ExpressionAnalyser::getSubstitutionValuesByType(Expression
         }
     }
     return NULL;
+}
+
+void ExpressionAnalyser::addSingleNewParameter(SubstitutionValues_t* exp)
+{
+    std::string zName = getUniqueNewParameterName();
+    exp->z_value = zName;
+    mNewVarCount++;
+    ASTNode* z = new ASTNode(AST_NAME);
+    z->setName(zName.c_str());
+    exp->z_expression = z->deepCopy();
+    mHiddenSpecies->add(z);
+    delete z;
+
+}
+
+void ExpressionAnalyser::addNewParameterPlusVOrW(SubstitutionValues_t* exp, std::string vOrW)
+{
+    ASTNode* var = NULL;
+    if (vOrW == "v")
+    {
+        var = exp->v_expression->deepCopy();
+    }
+    else
+    {
+        var = exp->w_expression->deepCopy();
+    }
+    std::string zName = getUniqueNewParameterName();
+    exp->z_value = zName;
+    mNewVarCount++;
+    ASTNode* z = new ASTNode(AST_NAME);
+    z->setName(zName.c_str());
+    ASTNode* replacement = new ASTNode(AST_PLUS);
+    replacement->addChild(z);
+    replacement->addChild(var);
+    exp->z_expression = replacement->deepCopy();
+    mHiddenSpecies->add(z);
+    delete replacement;
 }
 
 /*
@@ -525,43 +640,48 @@ bool ExpressionAnalyser::matchesType(SubstitutionValues_t* values1, Substitution
 void
 ExpressionAnalyser::printSubstitutionValues(const SubstitutionValues_t* values)
 {
-    cout << "k_value: " << values->k_value << endl;
-    cout << "k_real_value: " << values->k_real_value << endl;
-        cout << "x_value: " << values->x_value << endl;
-        cout << "y_value: " << values->y_value << endl;
-        cout << "z_value: " << values->z_value << endl;
-        if (values->dxdt_expression != NULL) 
-            cout << "dxdt_expression: " << SBML_formulaToL3String(values->dxdt_expression) << " " << values->dxdt_expression << endl;
-        else
-            cout << "dxdt_expression: NULL" << endl;
-        if (values->dydt_expression != NULL) 
-            cout << "dydt_expression: " << SBML_formulaToL3String(values->dydt_expression) << " " << values->dydt_expression << endl;
-        else
-            cout << "dydt_expression: NULL" << endl;
-        if (values->v_expression != NULL) 
-            cout << "v_expression: " << SBML_formulaToL3String(values->v_expression) << " " << values->v_expression << endl;
-        else
-            cout << "v_expression: NULL" << endl;
-        if (values->w_expression != NULL) 
-            cout << "w_expression: " << SBML_formulaToL3String(values->w_expression) << " " << values->w_expression << endl;
-        else
-            cout << "w_expression: NULL" << endl;
-        if (values->z_expression != NULL)
-            cout << "z_expression: " << SBML_formulaToL3String(values->z_expression) << " " << values->z_expression << endl;
-        else
-            cout << "z_expression: NULL" << endl;
-        cout << "type: " << values->type << endl;
-        if (values->current != NULL) 
-            cout << "current: " << SBML_formulaToL3String(values->current) << " " << values->current << endl;
-        else
-            cout << "current: NULL" << endl;
-        cout << "odeIndex: " << values->odeIndex << endl;
-        cout << "levelInExpression: " << values->levelInExpression << endl;
+//    cout << "k_value: " << values->k_value << endl;
+//    cout << "k_real_value: " << values->k_real_value << endl;
+//        cout << "x_value: " << values->x_value << endl;
+//        cout << "y_value: " << values->y_value << endl;
+//        cout << "z_value: " << values->z_value << endl;
+//        if (values->dxdt_expression != NULL) 
+//            cout << "dxdt_expression: " << SBML_formulaToL3String(values->dxdt_expression) << " " << values->dxdt_expression << endl;
+//        else
+//            cout << "dxdt_expression: NULL" << endl;
+//        if (values->dydt_expression != NULL) 
+//            cout << "dydt_expression: " << SBML_formulaToL3String(values->dydt_expression) << " " << values->dydt_expression << endl;
+//        else
+//            cout << "dydt_expression: NULL" << endl;
+//        if (values->v_expression != NULL) 
+//            cout << "v_expression: " << SBML_formulaToL3String(values->v_expression) << " " << values->v_expression << endl;
+//        else
+//            cout << "v_expression: NULL" << endl;
+//        if (values->w_expression != NULL) 
+//            cout << "w_expression: " << SBML_formulaToL3String(values->w_expression) << " " << values->w_expression << endl;
+//        else
+//            cout << "w_expression: NULL" << endl;
+//        if (values->z_expression != NULL)
+//            cout << "z_expression: " << SBML_formulaToL3String(values->z_expression) << " " << values->z_expression << endl;
+//        else
+//            cout << "z_expression: NULL" << endl;
+//        cout << "type: " << values->type << endl;
+//        if (values->current != NULL) 
+//            cout << "current: " << SBML_formulaToL3String(values->current) << " " << values->current << endl;
+//        else
+//            cout << "current: NULL" << endl;
+//        cout << "odeIndex: " << values->odeIndex << endl;
+//        cout << "levelInExpression: " << values->levelInExpression << endl;
 }
 
 List* ExpressionAnalyser::getHiddenSpecies()
 {
     return mHiddenSpecies;
+}
+
+unsigned int ExpressionAnalyser::getNumHiddenSpecies()
+{
+    return mHiddenSpecies->getSize();
 }
 
 SubstitutionValues_t* ExpressionAnalyser::createBlankSubstitutionValues()

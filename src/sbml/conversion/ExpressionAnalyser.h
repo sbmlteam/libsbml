@@ -157,6 +157,8 @@ public:
   int setModel(Model* m);
 
   List* getHiddenSpecies();
+
+  unsigned int getNumHiddenSpecies();
   SubstitutionValues_t* createBlankSubstitutionValues();
   unsigned int getNumExpressions();
   SubstitutionValues_t* getExpression(unsigned int index);
@@ -208,9 +210,9 @@ private:
 
   // functions that represents steps of algo 3.1
 
+    void addSingleNewParameter(SubstitutionValues_t* exp);
 
-
-  
+    void addNewParameterPlusVOrW(SubstitutionValues_t* exp, std::string var = "v");
   /*
   * Return the ODE for the given variable
   * or an ASTNode representing zero if there is no time derivative
