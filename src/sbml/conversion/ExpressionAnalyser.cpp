@@ -217,18 +217,15 @@ void ExpressionAnalyser::substituteParametersForExpressions()
         }
         else // j > 0 so not the first expression
         {
-            if (exp->type == TYPE_K_MINUS_X_MINUS_Y)
+            if (exp->type == TYPE_K_MINUS_X_MINUS_Y ||
+                exp->type == TYPE_K_MINUS_X)
             {
                 // we have a different value for  k-x-y 
                 // we know this because the expressions are in order and k-x-y is always first
                 // and the code that decides whether to add the expression well have checked that it is not identical
                 // so we if we have an expression of this type but is not first then it must be
                 // k-x-y but with a different value
-                addSingleNewParameter(exp);
-            }
-            else if (exp->type == TYPE_K_MINUS_X)
-            {
-                // k-x will always be replaced by a new variable
+                // similarly for k-x
                 addSingleNewParameter(exp);
             }
             else if (exp->type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y)
@@ -242,7 +239,7 @@ void ExpressionAnalyser::substituteParametersForExpressions()
                     // need to create a new parameter
                     addNewParameterPlusVOrW(exp);
                 }
-                else if (mExpressions[j - 1]->type == TYPE_K_MINUS_X_MINUS_Y)
+                else if (getSubstitutionValuesByType(TYPE_K_MINUS_X_MINUS_Y) != NULL)
                 {
                     // here we are dealing with the fact that we have k+v-x-y and k-x-y
                     // need to check whether they have the same values for k,x,y
@@ -339,9 +336,10 @@ void ExpressionAnalyser::substituteParameters(SubstitutionValues_t* exp)
     }
 }
 
-SubstitutionValues_t* ExpressionAnalyser::getSubstitutionValuesByType(ExpressionType_t type,
-    size_t index)
+SubstitutionValues_t* 
+ExpressionAnalyser::getSubstitutionValuesByType(ExpressionType_t type)
 {
+    unsigned int index = 0;
     SubstitutionValues_t* exp = NULL;
 
     while (exp == NULL && index < mExpressions.size())
@@ -376,15 +374,7 @@ void ExpressionAnalyser::addSingleNewParameter(SubstitutionValues_t* exp)
 
 void ExpressionAnalyser::addNewParameterPlusVOrW(SubstitutionValues_t* exp, std::string vOrW)
 {
-    ASTNode* var = NULL;
-    if (vOrW == "v")
-    {
-        var = exp->v_expression->deepCopy();
-    }
-    else
-    {
-        var = exp->w_expression->deepCopy();
-    }
+    ASTNode* var = (vOrW == "v") ? exp->v_expression->deepCopy() : exp->w_expression->deepCopy();    
     std::string zName = getUniqueNewParameterName();
     exp->z_value = zName;
     mNewVarCount++;
@@ -400,15 +390,7 @@ void ExpressionAnalyser::addNewParameterPlusVOrW(SubstitutionValues_t* exp, std:
 
 void ExpressionAnalyser::addPreviousParameterPlusVOrW(SubstitutionValues_t* exp, SubstitutionValues_t* previous, std::string vOrW)
 {
-    ASTNode* var = NULL;
-    if (vOrW == "v")
-    {
-        var = exp->v_expression->deepCopy();
-    }
-    else
-    {
-        var = exp->w_expression->deepCopy();
-    }
+    ASTNode* var = (vOrW == "v") ? exp->v_expression->deepCopy() : exp->w_expression->deepCopy();
     exp->z_value = previous->z_value;
     ASTNode* z = new ASTNode(AST_NAME);
     z->setName(previous->z_value.c_str());

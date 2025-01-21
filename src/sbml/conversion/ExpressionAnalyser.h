@@ -203,7 +203,7 @@ private:
 
     void substituteParameters(SubstitutionValues_t* values);
 
-    SubstitutionValues_t* getSubstitutionValuesByType(ExpressionType_t type, size_t index = 0);
+    SubstitutionValues_t* getSubstitutionValuesByType(ExpressionType_t type);
 
 
     //void printSubstitutionValues(const SubstitutionValues_t* values1);
