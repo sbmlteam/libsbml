@@ -251,15 +251,7 @@ void ExpressionAnalyser::substituteParametersForExpressions()
                         matchesYValue(mExpressions[j - 1], exp))
                     {
                         // the values are the same so we can use the same new parameter
-                        exp->z_value = mExpressions[j - 1]->z_value;
-                        ASTNode* z = new ASTNode(AST_NAME);
-                        z->setName(mExpressions[j - 1]->z_value.c_str());
-                        ASTNode* replacement = new ASTNode(AST_PLUS);
-                        ASTNode* v = exp->v_expression->deepCopy();
-                        replacement->addChild(z);
-                        replacement->addChild(v);
-                        exp->z_expression = replacement->deepCopy();
-                        delete replacement;
+                        addPreviousParameterPlusVOrW(exp, mExpressions[j - 1], "v");
                     }
                     else
                     {
@@ -287,15 +279,7 @@ void ExpressionAnalyser::substituteParametersForExpressions()
                         matchesYValue(mExpressions[j - 1], exp))
                     {
                         // the values are the same so we can use the same new parameter
-                        exp->z_value = mExpressions[j - 1]->z_value;
-                        ASTNode* z = new ASTNode(AST_NAME);
-                        z->setName(mExpressions[j - 1]->z_value.c_str());
-                        ASTNode* replacement = new ASTNode(AST_PLUS);
-                        ASTNode* w = exp->w_expression->deepCopy();
-                        replacement->addChild(z);
-                        replacement->addChild(w);
-                        exp->z_expression = replacement->deepCopy();
-                        delete replacement;
+                        addPreviousParameterPlusVOrW(exp, mExpressions[j - 1], "w");
                     }
                     else
                     {
@@ -308,20 +292,12 @@ void ExpressionAnalyser::substituteParametersForExpressions()
                 if (mExpressions[j - 1]->type == TYPE_K_MINUS_X)
                 {
                 // here we are dealing with the fact that we have k+v-x and k-x
-                // need to check whether they have the same values for k,x,y
+                // need to check whether they have the same values for k,x
                     if (matchesK(mExpressions[j - 1], exp) &&
                         matchesXValue(mExpressions[j - 1], exp))
                     {
                         // the values are the same so we can use the same new parameter
-                        exp->z_value = mExpressions[j - 1]->z_value;
-                        ASTNode* z = new ASTNode(AST_NAME);
-                        z->setName(mExpressions[j - 1]->z_value.c_str());
-                        ASTNode* replacement = new ASTNode(AST_PLUS);
-                        ASTNode* v = exp->v_expression->deepCopy();
-                        replacement->addChild(z);
-                        replacement->addChild(v);
-                        exp->z_expression = replacement->deepCopy();
-                        delete replacement;
+                        addPreviousParameterPlusVOrW(exp, mExpressions[j - 1], "v");
                     }
                     else
                     {
@@ -420,6 +396,28 @@ void ExpressionAnalyser::addNewParameterPlusVOrW(SubstitutionValues_t* exp, std:
     exp->z_expression = replacement->deepCopy();
     mHiddenSpecies->add(z);
     delete replacement;
+}
+
+void ExpressionAnalyser::addPreviousParameterPlusVOrW(SubstitutionValues_t* exp, SubstitutionValues_t* previous, std::string vOrW)
+{
+    ASTNode* var = NULL;
+    if (vOrW == "v")
+    {
+        var = exp->v_expression->deepCopy();
+    }
+    else
+    {
+        var = exp->w_expression->deepCopy();
+    }
+    exp->z_value = previous->z_value;
+    ASTNode* z = new ASTNode(AST_NAME);
+    z->setName(previous->z_value.c_str());
+    ASTNode* replacement = new ASTNode(AST_PLUS);
+    replacement->addChild(z);
+    replacement->addChild(var);
+    exp->z_expression = replacement->deepCopy();
+    delete replacement;
+
 }
 
 /*

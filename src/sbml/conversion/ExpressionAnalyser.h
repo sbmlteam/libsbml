@@ -213,6 +213,9 @@ private:
     void addSingleNewParameter(SubstitutionValues_t* exp);
 
     void addNewParameterPlusVOrW(SubstitutionValues_t* exp, std::string var = "v");
+
+    void addPreviousParameterPlusVOrW(SubstitutionValues_t* exp, SubstitutionValues_t* previous, std::string var = "v");
+
   /*
   * Return the ODE for the given variable
   * or an ASTNode representing zero if there is no time derivative
