@@ -188,7 +188,7 @@ void ExpressionAnalyser::substituteParametersForExpressions()
 
     // need to go through the expressions and make sure that they are substituting the correct thing
     // this needs to be done before any parameters are substituted I think
-
+    int i = -1;
     for (unsigned int j = 0; j < mExpressions.size(); j++)
     {
         SubstitutionValues_t* exp = mExpressions[j];
@@ -228,87 +228,68 @@ void ExpressionAnalyser::substituteParametersForExpressions()
                 // similarly for k-x
                 addSingleNewParameter(exp);
             }
-            else if (exp->type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y)
+            else if (exp->type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y ||
+                exp->type == TYPE_K_MINUS_X_PLUS_W_MINUS_Y ||
+                exp->type == TYPE_K_PLUS_V_MINUS_X)
             {
-                // we need to know what type of expression has come before
-                // deal with the case where the previous expression was the same type
-                if (mExpressions[j - 1]->type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y)
-                {
-                    // here we are dealing with the fact that we have k+v-x-y and k+v-x-a
-                    // so we have two different expressions of the same type
-                    // need to create a new parameter
-                    addNewParameterPlusVOrW(exp);
-                }
-                else if (getSubstitutionValuesByType(TYPE_K_MINUS_X_MINUS_Y) != NULL)
+                // the rules will be the same for k+v-x-y and k-x+w-y   but must have k-x-y before
+                // and k+v-x which must have k-x before
+                // so need to determine the type of the expression
+                ExpressionType_t type = exp->type;
+                ExpressionType_t parentType = (type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y || type == TYPE_K_MINUS_X_PLUS_W_MINUS_Y)
+                    ? TYPE_K_MINUS_X_MINUS_Y : TYPE_K_MINUS_X;
+                std::string vOrW = (type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y || type == TYPE_K_PLUS_V_MINUS_X) ? "v" : "w";
+
+                if (getSubstitutionValuesByType(parentType) != NULL)
                 {
                     // here we are dealing with the fact that we have k+v-x-y and k-x-y
                     // need to check whether they have the same values for k,x,y
-                    if (matchesK(mExpressions[j - 1], exp) &&
-                        matchesXValue(mExpressions[j - 1], exp) &&
-                        matchesYValue(mExpressions[j - 1], exp))
+                    // but need to know which expression as we might have two of the same k-x-y k-x-a
+                    i = getMatchingParentExpression(exp, j);
+                    if (i != -1)
                     {
                         // the values are the same so we can use the same new parameter
-                        addPreviousParameterPlusVOrW(exp, mExpressions[j - 1], "v");
+                        addPreviousParameterPlusVOrW(exp, mExpressions[i], vOrW);
                     }
                     else
                     {
-                        addNewParameterPlusVOrW(exp);
+                        addNewParameterPlusVOrW(exp, vOrW);
                     }
                 }
+                else if (mExpressions[j - 1]->type == type)
+                {
+                    // here we are dealing with the fact that we have k+v-x-y and k+v-x-a
+                    // so we have two different expressions of the same type
+                    // need to create a new parameter 
+                    addNewParameterPlusVOrW(exp, vOrW);
+                }
+
             }
-            else if (exp->type == TYPE_K_MINUS_X_PLUS_W_MINUS_Y)
-            {
-                // we need to know what type of expression has come before
-                // deal with the case where the previous expression was the same type
-                if (mExpressions[j - 1]->type == TYPE_K_MINUS_X_PLUS_W_MINUS_Y)
-                {
-                    // here we are dealing with the fact that we have k-x+w-y and k-x+w-a
-                    // so we have two different expressions of the same time
-                    // need to create a new parameter
-                    addNewParameterPlusVOrW(exp, "w");
-                }
-                else if (mExpressions[j - 1]->type == TYPE_K_MINUS_X_MINUS_Y)
-                {
-                    // here we are dealing with the fact that we have k-x+w-y and k-x-y
-                    // need to check whether they have the same values for k,x,y
-                    if (matchesK(mExpressions[j - 1], exp) &&
-                        matchesXValue(mExpressions[j - 1], exp) &&
-                        matchesYValue(mExpressions[j - 1], exp))
-                    {
-                        // the values are the same so we can use the same new parameter
-                        addPreviousParameterPlusVOrW(exp, mExpressions[j - 1], "w");
-                    }
-                    else
-                    {
-                        addNewParameterPlusVOrW(exp, "w");
-                    }
-                }
-            }
-            else if (exp->type == TYPE_K_PLUS_V_MINUS_X)
-            {
-                if (mExpressions[j - 1]->type == TYPE_K_MINUS_X)
-                {
-                // here we are dealing with the fact that we have k+v-x and k-x
-                // need to check whether they have the same values for k,x
-                    if (matchesK(mExpressions[j - 1], exp) &&
-                        matchesXValue(mExpressions[j - 1], exp))
-                    {
-                        // the values are the same so we can use the same new parameter
-                        addPreviousParameterPlusVOrW(exp, mExpressions[j - 1], "v");
-                    }
-                    else
-                    {
-                        // if the type before was not k-x then we need to create a new parameter
-                        addNewParameterPlusVOrW(exp, "v");
-                    }
-                }
-                else
-                {
-                    // if the type before was not k-x then we need to create a new parameter
-                    // because it doesn't matter what it was.
-                    addNewParameterPlusVOrW(exp, "v");
-                }
-            }
+            //else if (exp->type == TYPE_K_PLUS_V_MINUS_X)
+            //{
+            //    if (mExpressions[j - 1]->type == TYPE_K_MINUS_X)
+            //    {
+            //    // here we are dealing with the fact that we have k+v-x and k-x
+            //    // need to check whether they have the same values for k,x
+            //        if (matchesK(mExpressions[j - 1], exp) &&
+            //            matchesXValue(mExpressions[j - 1], exp))
+            //        {
+            //            // the values are the same so we can use the same new parameter
+            //            addPreviousParameterPlusVOrW(exp, mExpressions[j - 1], "v");
+            //        }
+            //        else
+            //        {
+            //            // if the type before was not k-x then we need to create a new parameter
+            //            addNewParameterPlusVOrW(exp, "v");
+            //        }
+            //    }
+            //    else
+            //    {
+            //        // if the type before was not k-x then we need to create a new parameter
+            //        // because it doesn't matter what it was.
+            //        addNewParameterPlusVOrW(exp, "v");
+            //    }
+            //}
         }
     }
 }
@@ -357,6 +338,23 @@ ExpressionAnalyser::getSubstitutionValuesByType(ExpressionType_t type)
         }
     }
     return NULL;
+}
+
+int 
+ExpressionAnalyser::getMatchingParentExpression(SubstitutionValues_t* value, unsigned int index)
+{
+    int matchingIndex = -1;
+    for (unsigned int i = 0; i < index; i++)
+    {
+        if (matchesK(mExpressions[i], value) &&
+            matchesXValue(mExpressions[i], value) &&
+            matchesYValue(mExpressions[i], value))
+        {
+            matchingIndex = i;
+            break;
+        }
+    }
+    return matchingIndex;
 }
 
 void ExpressionAnalyser::addSingleNewParameter(SubstitutionValues_t* exp)

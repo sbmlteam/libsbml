@@ -205,7 +205,7 @@ private:
 
     SubstitutionValues_t* getSubstitutionValuesByType(ExpressionType_t type);
 
-
+    int getMatchingParentExpression(SubstitutionValues_t* value, unsigned int index);
     //void printSubstitutionValues(const SubstitutionValues_t* values1);
 
   // functions that represents steps of algo 3.1
