@@ -1886,7 +1886,7 @@ create_suite_TestExpressionAnalyser (void)
 
   if (testing)
   {
-	  tcase_add_test(tcase, test_analyse_1_different_replace_6); //k-x-y & k+v-x-a & k+v-x-y
+	  tcase_add_test(tcase, test_analyse_4_replace_4); //k-x-y & k+v-x
   }
   else
   {

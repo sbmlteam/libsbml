@@ -882,7 +882,7 @@ SBMLRateRuleConverter::populateODEinfo()
 
   ea->detectHiddenSpecies();
   // add all hidden species to the model
-  for (unsigned int hs=0; hs < (*ea->getHiddenSpecies()).getSize(); hs++)
+  for (unsigned int hs=0; hs < ea->getNumHiddenSpecies(); hs++)
   {
       Parameter* hidden = (Parameter*) (*ea->getHiddenSpecies()).get(hs);
       addODEPair(hidden->getId(), model);

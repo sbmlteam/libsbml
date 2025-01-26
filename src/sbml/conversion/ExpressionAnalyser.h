@@ -101,92 +101,111 @@ class LIBSBML_EXTERN ExpressionAnalyser
 public:
 
 
-  /**
-   * Creates a new ExpressionAnalyser object.
-   */
-  ExpressionAnalyser();
+    /**
+    * Creates a new ExpressionAnalyser object.
+    */
+    ExpressionAnalyser();
 
 
-  /**
-  * Creates a new ExpressionAnalyser object with Model and ODEs
-  */
-  ExpressionAnalyser(Model* m, pairODEs ode);
+    /**
+    * Creates a new ExpressionAnalyser object with Model and ODEs
+    */
+    ExpressionAnalyser(Model* m, pairODEs ode);
 
 
-  /**
-   * Copy constructor; creates a copy of an ExpressionAnalyser
-   * object.
-   *
-   * @param obj the ExpressionAnalyser object to copy.
-   */
-  ExpressionAnalyser(const ExpressionAnalyser& obj);
+    /**
+    * Copy constructor; creates a copy of an ExpressionAnalyser
+    * object.
+    *
+    * @param obj the ExpressionAnalyser object to copy.
+    */
+    ExpressionAnalyser(const ExpressionAnalyser& obj);
 
 
-  /**
-  * Assignment operator for SBMLInferUnitsConverter.
-  *
-  * @param rhs the object whose values are used as the basis of the
-  * assignment.
-  */
-  ExpressionAnalyser& operator=(const ExpressionAnalyser& rhs);
+    /**
+    * Assignment operator for SBMLInferUnitsConverter.
+    *
+    * @param rhs the object whose values are used as the basis of the
+    * assignment.
+    */
+    ExpressionAnalyser& operator=(const ExpressionAnalyser& rhs);
 
 
-  /**
-   * Creates and returns a deep copy of this ExpressionAnalyser
-   * object.
-   *
-   * @return a (deep) copy of this converter.
-   */
-  virtual ExpressionAnalyser* clone() const;
+    /**
+    * Creates and returns a deep copy of this ExpressionAnalyser
+    * object.
+    *
+    * @return a (deep) copy of this converter.
+    */
+    virtual ExpressionAnalyser* clone() const;
 
 
-  /**
-   * Destroy this ExpressionAnalyser object.
-   */
-  virtual ~ExpressionAnalyser ();
+    /**
+    * Destroy this ExpressionAnalyser object.
+    */
+    virtual ~ExpressionAnalyser ();
 
-  /*
-  *  Set the value of the ODE pairs
-  */
-  int setODEPairs(std::vector< std::pair< std::string, ASTNode*> > odes);
+    /**
+    * Returns the list of hidden species
+    */
+    List* getHiddenSpecies();
+
+    /**
+    * Returns the number of hidden species
+    */
+    unsigned int getNumHiddenSpecies();
+
+    // need a function to get hidden species by index
+    // TODO
+
+    /**
+    * Function to work through all the expressions and detect hidden species
+    */
+    void detectHiddenSpecies();
+
+    /**
+    * Function to create a blank substitution value
+    */
+    SubstitutionValues_t* createBlankSubstitutionValues();
+    
+    /**
+    * Returns the number of expressions
+    * Only used in testing
+    */
+    unsigned int getNumExpressions();
+
+    /**
+    * Returns the expression at the given index
+    * Only used in testing
+    */
+    SubstitutionValues_t* getExpression(unsigned int index);
+
+    /**
+    * Function to work through all the mathematical expressions and create substitution values
+    */
+    bool analyseNode(ASTNode* node, SubstitutionValues_t* value);
 
 
-  /*
-  *  Set the model
-  */
-  int setModel(Model* m);
-
-  List* getHiddenSpecies();
-
-  unsigned int getNumHiddenSpecies();
-  SubstitutionValues_t* createBlankSubstitutionValues();
-  unsigned int getNumExpressions();
-  SubstitutionValues_t* getExpression(unsigned int index);
+    /**
+    * Function to work through all the ODE expressions and invoke analyseNode where appropriate
+    */
+    void analyse();
 
 
-  void detectHiddenSpecies();
+    /**
+    * Function to order the expressions by type
+    */
+    void orderExpressions();
 
-  bool analyseNode(ASTNode* node, SubstitutionValues_t* value);
+    /**
+    * Function to identify hidden species within expressions
+    * and substitute with the correct mathematical expression
+    * ie if we find k+v-x-y and k-x-y then replace k-x-y with newVar and replace k+v-x-y with newVar+v
+    */
+    void identifyHiddenSpeciesWithinExpressions();
 
-  void analyse();
-
-  void orderExpressions();
-
-  void printSubstitutionValues(const SubstitutionValues_t* values1);
-  bool areIdenticalSubstitutionValues(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
-
-  void substituteParametersForExpressions();
-
-  /*
-  * identify instances of - x + y within formula and create expressions
-  * 
-  */
-  //void detect_minusXPlusYOnly();
-
-  //void reorderMinusXPlusYIteratively();
-
-private:
-  /** @cond doxygenLibsbmlInternal */
+    private:
+    /** @cond doxygenLibsbmlInternal */
     bool matchesK(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
 
     bool matchesKValue(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
@@ -206,9 +225,8 @@ private:
     SubstitutionValues_t* getSubstitutionValuesByType(ExpressionType_t type);
 
     int getMatchingParentExpression(SubstitutionValues_t* value, unsigned int index);
-    //void printSubstitutionValues(const SubstitutionValues_t* values1);
 
-  // functions that represents steps of algo 3.1
+    // functions that represents steps of algo 3.1
 
     void addSingleNewParameter(SubstitutionValues_t* exp);
 
@@ -216,109 +234,109 @@ private:
 
     void addPreviousParameterPlusVOrW(SubstitutionValues_t* exp, SubstitutionValues_t* previous, std::string var = "v");
 
-  /*
-  * Return the ODE for the given variable
-  * or an ASTNode representing zero if there is no time derivative
-  */
-  ASTNode* getODEFor(std::string name);
+    /*
+    * Return the ODE for the given variable
+    * or an ASTNode representing zero if there is no time derivative
+    */
+    ASTNode* getODEFor(std::string name);
 
-  /*
-  * THIS NEEDS PROPERLY SORTING IS DO THE FUNCTIONS THAT DEAL WITH MATCHING WHETHER A PARAMETER IS ALREADY IN THE MODEL
-  * ALSO NEED TO TAKE THE MATCHING OF THE ODES OUT OF THE COMPARISON OF EXPRESSIONS
-  * AND CHECK THAT THE MATCHES VARIABLES INCLUDES ALL THE VARIABLES
-  */
-  void addParametersAndRateRules(SubstitutionValues_t* exp = NULL);
+    /*
+    * THIS NEEDS PROPERLY SORTING IS DO THE FUNCTIONS THAT DEAL WITH MATCHING WHETHER A PARAMETER IS ALREADY IN THE MODEL
+    * ALSO NEED TO TAKE THE MATCHING OF THE ODES OUT OF THE COMPARISON OF EXPRESSIONS
+    * AND CHECK THAT THE MATCHES VARIABLES INCLUDES ALL THE VARIABLES
+    */
+    void addParametersAndRateRules(SubstitutionValues_t* exp = NULL);
 
-  void replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
+    void replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
 
-  void replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* replaced, std::string var);
+    void replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* replaced, std::string var);
 
-  std::string getUniqueNewParameterName();
+    std::string getUniqueNewParameterName();
 
 
   
-  void replaceExpressionWithNewParameter(ASTNode* ode, SubstitutionValues_t* exp);
+    void replaceExpressionWithNewParameter(ASTNode* ode, SubstitutionValues_t* exp);
 
-  /*
-   * Loops through expressions already recorded and checks for exact matches
-   */
-  bool shouldAddExpression(SubstitutionValues_t* value, ASTNodePair currentNode);
+    /*
+    * Loops through expressions already recorded and checks for exact matches
+    */
+    bool shouldAddExpression(SubstitutionValues_t* value, ASTNodePair currentNode);
 
-  bool expressionExists(SubstitutionValues_t* current, SubstitutionValues_t* mightAdd);
+    bool expressionExists(SubstitutionValues_t* current, SubstitutionValues_t* mightAdd);
 
-  bool parentExpressionExists(SubstitutionValues_t* current, SubstitutionValues_t* mightAdd);
+    bool parentExpressionExists(SubstitutionValues_t* current, SubstitutionValues_t* mightAdd);
 
-  /**
-   * Searches for a node's parent and its index as the parent's child in a one-directional tree (nodes know their children, but not their parent).
-   * E.g. if the node is the first child of a node, this function will return a pair (parent, 0).
-   *
-   * @param child node whose parent should be found
-   * @param root root node of the tree to search
-   * @return pair of parent and index - or (nullptr, NAN) if not found.
-   */
-  std::pair<ASTNode*, int> getParentNode(const ASTNode* child, const ASTNode* root);
+    /**
+    * Searches for a node's parent and its index as the parent's child in a one-directional tree (nodes know their children, but not their parent).
+    * E.g. if the node is the first child of a node, this function will return a pair (parent, 0).
+    *
+    * @param child node whose parent should be found
+    * @param root root node of the tree to search
+    * @return pair of parent and index - or (nullptr, NAN) if not found.
+    */
+    std::pair<ASTNode*, int> getParentNode(const ASTNode* child, const ASTNode* root);
 
-  /**
-   * Checks whether a node is a variable species or a variable parameter in a model.
-   * 
-   * @param node the node to check
-   * @return true if the node is a variable species/parameter
-   */
-  bool isVariableSpeciesOrParameter(ASTNode* node);
+    /**
+    * Checks whether a node is a variable species or a variable parameter in a model.
+    * 
+    * @param node the node to check
+    * @return true if the node is a variable species/parameter
+    */
+    bool isVariableSpeciesOrParameter(ASTNode* node);
   
-  /**
-   * Checks whether a node is a constant number or constant parameter in a model.
-   *
-   * @param node the node to check
-   * @return true if the node is a constant number/parameter
-   */
-  bool isNumericalConstantOrConstantParameter(ASTNode* node, bool& isNumber);
+    /**
+    * Checks whether a node is a constant number or constant parameter in a model.
+    *
+    * @param node the node to check
+    * @return true if the node is a constant number/parameter
+    */
+    bool isNumericalConstantOrConstantParameter(ASTNode* node, bool& isNumber);
 
-  /*
-  * Checks whether a parameter with the given name is already in the model.
-  * 
-  * @param name the name of the parameter to check
-  * @return true if the parameter is already in the model, false otherwise.flac
-  */
-  bool isParameterAlreadyCreated(std::string& name);
+    /*
+    * Checks whether a parameter with the given name is already in the model.
+    * 
+    * @param name the name of the parameter to check
+    * @return true if the parameter is already in the model, false otherwise.flac
+    */
+    bool isParameterAlreadyCreated(std::string& name);
 
-  bool isTypeKminusXminusY(unsigned int numChildren, ASTNode* rightChild, 
-      ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
+    bool isTypeKminusXminusY(unsigned int numChildren, ASTNode* rightChild, 
+        ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
 
-  bool isTypeKminusX(unsigned int numChildren, ASTNode* rightChild,
-      ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
+    bool isTypeKminusX(unsigned int numChildren, ASTNode* rightChild,
+        ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
 
-  bool isTypeKplusVminusX(unsigned int numChildren, ASTNode* rightChild,
-      ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
+    bool isTypeKplusVminusX(unsigned int numChildren, ASTNode* rightChild,
+        ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
  
-  bool isTypeKplusV(unsigned int numChildren, ASTNode* rightChild,
-      ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
+    bool isTypeKplusV(unsigned int numChildren, ASTNode* rightChild,
+        ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
 
-  bool isTypeKplusVminusXminusY(unsigned int numChildren, ASTNode* rightChild,
-      ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
+    bool isTypeKplusVminusXminusY(unsigned int numChildren, ASTNode* rightChild,
+        ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
 
-  bool isTypeKminusXplusWminusY(unsigned int numChildren, ASTNode* rightChild,
-      ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
+    bool isTypeKminusXplusWminusY(unsigned int numChildren, ASTNode* rightChild,
+        ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
 
-  bool isTypeWplusKminusX(unsigned int numChildren, ASTNode* rightChild,
-      ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
+    bool isTypeWplusKminusX(unsigned int numChildren, ASTNode* rightChild,
+        ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
 
-  // member variables populated during analysis
-  pairODEs mODEs;
+    // member variables populated during analysis
+    pairODEs mODEs;
 
-  Model* mModel;
+    Model* mModel;
 
-  std::vector <SubstitutionValues_t*> mExpressions;
+    std::vector <SubstitutionValues_t*> mExpressions;
    
-  // list of hidden species that are identified during the analysis
-  List* mHiddenSpecies;
+    // list of hidden species that are identified during the analysis
+    List* mHiddenSpecies;
 
-  // variables to ensure unique new parameter name
+    // variables to ensure unique new parameter name
 
-  std::string mNewVarName;
+    std::string mNewVarName;
 
-  unsigned int mNewVarCount;
-  /** @endcond */
+    unsigned int mNewVarCount;
+    /** @endcond */
 
 };
 
