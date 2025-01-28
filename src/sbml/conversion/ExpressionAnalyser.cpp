@@ -71,7 +71,8 @@ ExpressionAnalyser::ExpressionAnalyser()
       mODEs (),
     mNewVarName("newVar"),
     mNewVarCount(1),
-    mHiddenSpecies (NULL)
+    mHiddenSpecies (NULL),
+    mHiddenNodes (NULL)
 {
 }
 
@@ -82,7 +83,8 @@ ExpressionAnalyser::ExpressionAnalyser(Model * m, pairODEs odes)
     mODEs(odes),
     mNewVarName("newVar"),
     mNewVarCount(1),
-    mHiddenSpecies(NULL) 
+    mHiddenSpecies(NULL),
+    mHiddenNodes(NULL)
 {
   SBMLTransforms::mapComponentValues(mModel);
   mModel->populateAllElementIdList();
@@ -93,7 +95,8 @@ ExpressionAnalyser::ExpressionAnalyser(const ExpressionAnalyser& orig) :
     mODEs(orig.mODEs),
     mNewVarName(orig.mNewVarName),
     mNewVarCount(orig.mNewVarCount),
-    mHiddenSpecies(orig.mHiddenSpecies)
+    mHiddenSpecies(orig.mHiddenSpecies),
+    mHiddenNodes(orig.mHiddenNodes)
 {
     SBMLTransforms::mapComponentValues(mModel);
     mModel->populateAllElementIdList();
@@ -112,6 +115,7 @@ ExpressionAnalyser::operator=(const ExpressionAnalyser& rhs)
     mNewVarName = rhs.mNewVarName;
     mNewVarCount = rhs.mNewVarCount;
     mHiddenSpecies = rhs.mHiddenSpecies;
+    mHiddenNodes = rhs.mHiddenNodes;
   }
   SBMLTransforms::mapComponentValues(mModel);
   mModel->populateAllElementIdList();
@@ -134,6 +138,7 @@ ExpressionAnalyser::~ExpressionAnalyser ()
   // note the odes are owned by the converter
   SBMLTransforms::clearComponentValues(mModel);
   mHiddenSpecies = NULL;
+  mHiddenNodes = NULL;
   if (mExpressions.size() > 0)
   {
     mExpressions.clear();
@@ -144,8 +149,8 @@ void ExpressionAnalyser::identifyHiddenSpeciesWithinExpressions()
 {
     if (mExpressions.empty())
         return;
-    if (mHiddenSpecies == NULL)
-        mHiddenSpecies = new List();
+    if (mHiddenNodes == NULL)
+        mHiddenNodes = new List();
 
     // need to actually address the expressions in the correct order
    // replace k-x-y first with newParam type=TYPE_K_MINUS_X_MINUS_Y
@@ -238,32 +243,9 @@ void ExpressionAnalyser::identifyHiddenSpeciesWithinExpressions()
                     addNewParameterPlusVOrW(exp, "v");
                 }
             }
-            //else if (exp->type == TYPE_K_PLUS_V_MINUS_X)
-            //{
-            //    if (mExpressions[j - 1]->type == TYPE_K_MINUS_X)
-            //    {
-            //    // here we are dealing with the fact that we have k+v-x and k-x
-                //// need to check whether they have the same values for k,x
-                //    if (matchesK(mExpressions[j - 1], exp) &&
-                //        matchesXValue(mExpressions[j - 1], exp))
-                //    {
-                //        // the values are the same so we can use the same new parameter
-                //        addPreviousParameterPlusVOrW(exp, mExpressions[j - 1], "v");
-                //    }
-                //    else
-                //    {
-                //        // if the type before was not k-x then we need to create a new parameter
-                //        addNewParameterPlusVOrW(exp, "v");
-                //    }
-                //}
-                //else
-                //{
-                //    // if the type before was not k-x then we need to create a new parameter
-                //    // because it doesn't matter what it was.
-                //    addNewParameterPlusVOrW(exp, "v");
-                //}
-            }
+        }
     }
+    substituteNodes();
 }
 
 void ExpressionAnalyser::substituteParameters(SubstitutionValues_t* exp)
@@ -337,7 +319,7 @@ void ExpressionAnalyser::addSingleNewParameter(SubstitutionValues_t* exp)
     ASTNode* z = new ASTNode(AST_NAME);
     z->setName(zName.c_str());
     exp->z_expression = z->deepCopy();
-    mHiddenSpecies->add(z);
+    mHiddenNodes->add(z);
     delete z;
 
 }
@@ -354,7 +336,7 @@ void ExpressionAnalyser::addNewParameterPlusVOrW(SubstitutionValues_t* exp, std:
     replacement->addChild(z);
     replacement->addChild(var);
     exp->z_expression = replacement->deepCopy();
-    mHiddenSpecies->add(z);
+    mHiddenNodes->add(z);
     delete replacement;
 }
 
@@ -371,6 +353,7 @@ void ExpressionAnalyser::addPreviousParameterPlusVOrW(SubstitutionValues_t* exp,
     delete replacement;
 
 }
+
 
 
 /*
@@ -517,12 +500,6 @@ bool ExpressionAnalyser::matchesDydtExpression(SubstitutionValues_t* values1, Su
         values1->dydt_expression->exactlyEqual(*(values2->dydt_expression)) == true);
 }
 
-bool ExpressionAnalyser::matchesCurrentNode(SubstitutionValues_t* values1, SubstitutionValues_t* values2)
-{
-    return (values1->current != NULL && values2->current != NULL &&
-        values1->current->exactlyEqual(*(values2->current)) == true);
-}
-
 bool ExpressionAnalyser::matchesType(SubstitutionValues_t* values1, SubstitutionValues_t* values2)
 {
     return values1->type == values2->type;
@@ -667,6 +644,17 @@ ExpressionAnalyser::getODEFor(std::string name)
   zero->setValue(0.0);
   return zero->deepCopy();
 }
+
+ASTNode* 
+ExpressionAnalyser::getODE(unsigned int odeIndex)
+{
+    if (odeIndex < mODEs.size())
+    {
+        return mODEs.at(odeIndex).second;
+    }
+    return nullptr;
+}
+
 void
 ExpressionAnalyser::analyse()
 {
@@ -731,9 +719,9 @@ ExpressionAnalyser::replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* repl
   {
     return;
   }
-  //cout << "node: " << SBML_formulaToL3String(node) << endl;
-  //cout << "with: " << SBML_formulaToL3String(replaced) << endl;
-  //cout << "by: " << SBML_formulaToL3String(replacement) << endl;
+  cout << "node: " << SBML_formulaToL3String(node) << endl;
+  cout << "with: " << SBML_formulaToL3String(replaced) << endl;
+  cout << "by: " << SBML_formulaToL3String(replacement) << endl;
   // we might be replcing the whole node
   if (node == replaced)
   {
@@ -771,6 +759,16 @@ std::string
 ExpressionAnalyser::getUniqueNewParameterName()
 { 
   return mNewVarName + std::to_string(mNewVarCount);
+}
+
+void ExpressionAnalyser::substituteNodes()
+{
+  for (unsigned int i = 0; i < mExpressions.size(); i++)
+  {
+    SubstitutionValues_t* exp = mExpressions.at(i);
+    replaceExpressionInNodeWithNode(exp->current, exp->z_expression, getODE(exp->odeIndex)); //getODEFor(exp->current);
+    cout << "node: " << SBML_formulaToL3String(getODE(exp->odeIndex)) << endl;
+  }
 }
 
 

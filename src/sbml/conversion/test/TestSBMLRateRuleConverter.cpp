@@ -413,7 +413,7 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	fail_unless(doc->getModel()->getNumRules() == 4);
 	fail_unless(doc->getModel()->getNumReactions() == 0);
 
-  converter->setDocument(doc);
+	converter->setDocument(doc);
 	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
 	fail_unless(doc->getModel()->getNumCompartments() == 1);
@@ -1041,12 +1041,12 @@ END_TEST
 Suite *
 create_suite_TestSBMLRateRuleConverter (void)
 { 
-	bool testing = false;
+	bool testing = true;
 Suite *suite = suite_create("SBMLRateRuleConverter");
   TCase *tcase = tcase_create("SBMLRateRuleConverter");
   if (testing)
   {
-	  tcase_add_test(tcase, test_conversion_raterule_converter_invalid);
+	  tcase_add_test(tcase, test_conversion_raterule_converter_hidden_variable);
   }
   else
   {

@@ -100,7 +100,7 @@ class LIBSBML_EXTERN ExpressionAnalyser
 {
 public:
 
-
+    
     /**
     * Creates a new ExpressionAnalyser object.
     */
@@ -206,27 +206,68 @@ public:
 
     private:
     /** @cond doxygenLibsbmlInternal */
+    
+    /**
+    * Function to match two substitution values matching the k parameter
+    */
     bool matchesK(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
 
+    /**
+    * Function to match two substitution values matching the k parameter string value
+    */
     bool matchesKValue(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+    
+    /**
+    * Function to match two substitution values matching the k parameter numerical value
+    */
     bool matchesKRealValue(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+    
+    /**
+    * Function to match two substitution values matching the x parameter
+    */
     bool matchesXValue(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+
+    /**
+    * Function to match two substitution values matching the y parameter
+    */
     bool matchesYValue(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+    
+    /**
+    * Function to match two substitution values matching the v expression
+    */
     bool matchesVExpression(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+
+    /**
+    * Function to match two substitution values matching the w expression
+    */
     bool matchesWExpression(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+
+    /**
+    * Function to match two substitution values matching the dx/dt expression
+    */
     bool matchesDxdtExpression(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+
+    /**
+    * Function to match two substitution values matching the dy/dt expression
+    */
     bool matchesDydtExpression(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
-    bool matchesCurrentNode(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
+
+    /**
+    * Function to match two substitution values matching the type
+    */
     bool matchesType(SubstitutionValues_t* values1, SubstitutionValues_t* values2);
 
-
-    void substituteParameters(SubstitutionValues_t* values);
-
+    /**
+    * Function to get the substitution values by type
+    */
     SubstitutionValues_t* getSubstitutionValuesByType(ExpressionType_t type);
 
+    /**
+    * Function to get the matching parent expression for the given expression
+    * suppose current expression is k-x+w-y it's parent expression will be k-x-y
+    */
     int getMatchingParentExpression(SubstitutionValues_t* value, unsigned int index);
 
-    // functions that represents steps of algo 3.1
 
     void addSingleNewParameter(SubstitutionValues_t* exp);
 
@@ -240,41 +281,28 @@ public:
     */
     ASTNode* getODEFor(std::string name);
 
+    ASTNode* getODE(unsigned int odeIndex);
+
+
     /*
-    * THIS NEEDS PROPERLY SORTING IS DO THE FUNCTIONS THAT DEAL WITH MATCHING WHETHER A PARAMETER IS ALREADY IN THE MODEL
-    * ALSO NEED TO TAKE THE MATCHING OF THE ODES OUT OF THE COMPARISON OF EXPRESSIONS
-    * AND CHECK THAT THE MATCHES VARIABLES INCLUDES ALL THE VARIABLES
+    * Check whether the expression has a parent expression which may already have been analysed
+    * in which case we do not need to re analyse the child expression
+    * e.g. if we have k-x-y do not need to analyse k-x
     */
-    void addParametersAndRateRules(SubstitutionValues_t* exp = NULL);
-
-    void replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
-
-    void replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* replaced, std::string var);
-
-    std::string getUniqueNewParameterName();
-
-
-  
-    void replaceExpressionWithNewParameter(ASTNode* ode, SubstitutionValues_t* exp);
-
+    bool parentExpressionExists(SubstitutionValues_t* current, SubstitutionValues_t* mightAdd);
+    
     /*
-    * Loops through expressions already recorded and checks for exact matches
+    * Check whether the expression should be added to the list of expressions 
+    * This involves checking whether it has a parent expression which may already have been analysed
+    * and checking whether it already exists
     */
     bool shouldAddExpression(SubstitutionValues_t* value, ASTNodePair currentNode);
 
+    /*
+    * Check whether the expression already exists in the list of expressions
+    */
     bool expressionExists(SubstitutionValues_t* current, SubstitutionValues_t* mightAdd);
 
-    bool parentExpressionExists(SubstitutionValues_t* current, SubstitutionValues_t* mightAdd);
-
-    /**
-    * Searches for a node's parent and its index as the parent's child in a one-directional tree (nodes know their children, but not their parent).
-    * E.g. if the node is the first child of a node, this function will return a pair (parent, 0).
-    *
-    * @param child node whose parent should be found
-    * @param root root node of the tree to search
-    * @return pair of parent and index - or (nullptr, NAN) if not found.
-    */
-    std::pair<ASTNode*, int> getParentNode(const ASTNode* child, const ASTNode* root);
 
     /**
     * Checks whether a node is a variable species or a variable parameter in a model.
@@ -291,35 +319,94 @@ public:
     * @return true if the node is a constant number/parameter
     */
     bool isNumericalConstantOrConstantParameter(ASTNode* node, bool& isNumber);
-
+    
     /*
-    * Checks whether a parameter with the given name is already in the model.
-    * 
-    * @param name the name of the parameter to check
-    * @return true if the parameter is already in the model, false otherwise.flac
+    * Function to get a unique name for a new parameter
     */
-    bool isParameterAlreadyCreated(std::string& name);
+    std::string getUniqueNewParameterName();
 
+    void substituteNodes();
+    /*
+    * Function to check whether the expressions are of the form k-x-y
+    */
     bool isTypeKminusXminusY(unsigned int numChildren, ASTNode* rightChild, 
         ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
 
+
+    /*
+    * Function to check whether the expressions are of the form k-x
+    */
     bool isTypeKminusX(unsigned int numChildren, ASTNode* rightChild,
         ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
 
+
+    /*
+    * Function to check whether the expressions are of the form k+v-x
+    */
     bool isTypeKplusVminusX(unsigned int numChildren, ASTNode* rightChild,
         ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
  
+
+    /*
+    * Function to check whether the expressions are of the form k+v
+    */
     bool isTypeKplusV(unsigned int numChildren, ASTNode* rightChild,
         ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
 
+    /*
+    * Function to check whether the expressions are of the form k+v-x-y
+    */
     bool isTypeKplusVminusXminusY(unsigned int numChildren, ASTNode* rightChild,
         ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
 
+
+    /*
+    * Function to check whether the expressions are of the form k-x+w-y
+    */
     bool isTypeKminusXplusWminusY(unsigned int numChildren, ASTNode* rightChild,
         ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
 
+
+    /*
+    * Function to check whether the expressions are of the form k+w-x
+    */
     bool isTypeWplusKminusX(unsigned int numChildren, ASTNode* rightChild,
         ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
+
+    // to do see if this is necessary ====================================================
+     /**
+    * Searches for a node's parent and its index as the parent's child in a one-directional tree (nodes know their children, but not their parent).
+    * E.g. if the node is the first child of a node, this function will return a pair (parent, 0).
+    *
+    * @param child node whose parent should be found
+    * @param root root node of the tree to search
+    * @return pair of parent and index - or (nullptr, NAN) if not found.
+    */
+    std::pair<ASTNode*, int> getParentNode(const ASTNode* child, const ASTNode* root);
+
+    /*
+* Checks whether a parameter with the given name is already in the model.
+*
+* @param name the name of the parameter to check
+* @return true if the parameter is already in the model, false otherwise.flac
+*/
+    bool isParameterAlreadyCreated(std::string& name);
+
+
+    void substituteParameters(SubstitutionValues_t* values);
+    /*
+* THIS NEEDS PROPERLY SORTING IS DO THE FUNCTIONS THAT DEAL WITH MATCHING WHETHER A PARAMETER IS ALREADY IN THE MODEL
+* ALSO NEED TO TAKE THE MATCHING OF THE ODES OUT OF THE COMPARISON OF EXPRESSIONS
+* AND CHECK THAT THE MATCHES VARIABLES INCLUDES ALL THE VARIABLES
+*/
+    void addParametersAndRateRules(SubstitutionValues_t* exp = NULL);
+
+    void replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
+
+    void replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* replaced, std::string var);
+
+    void replaceExpressionWithNewParameter(ASTNode* ode, SubstitutionValues_t* exp);
+
 
     // member variables populated during analysis
     pairODEs mODEs;
@@ -330,6 +417,9 @@ public:
    
     // list of hidden species that are identified during the analysis
     List* mHiddenSpecies;
+
+    // list of hidden nodes that are identified during the analysis
+    List* mHiddenNodes;
 
     // variables to ensure unique new parameter name
 
