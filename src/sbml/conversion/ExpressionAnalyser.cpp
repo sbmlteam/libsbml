@@ -245,7 +245,7 @@ void ExpressionAnalyser::identifyHiddenSpeciesWithinExpressions()
             }
         }
     }
-    substituteNodes();
+    //substituteNodes();
 }
 
 void ExpressionAnalyser::substituteParameters(SubstitutionValues_t* exp)
@@ -691,7 +691,7 @@ void ExpressionAnalyser::orderExpressions()
 }
 
 void
-ExpressionAnalyser::detectHiddenSpecies()
+ExpressionAnalyser::detectHiddenSpecies(bool testing)
 {
   mExpressions.clear();
   
@@ -703,6 +703,10 @@ ExpressionAnalyser::detectHiddenSpecies()
   //}
   orderExpressions();
   identifyHiddenSpeciesWithinExpressions();
+  if (!testing)
+  {
+      substituteNodes();
+  }
 }
 
 /*
@@ -766,8 +770,9 @@ void ExpressionAnalyser::substituteNodes()
   for (unsigned int i = 0; i < mExpressions.size(); i++)
   {
     SubstitutionValues_t* exp = mExpressions.at(i);
-    replaceExpressionInNodeWithNode(exp->current, exp->z_expression, getODE(exp->odeIndex)); //getODEFor(exp->current);
+    replaceExpressionInNodeWithNode(getODE(exp->odeIndex), exp->current, exp->z_expression); //getODEFor(exp->current);
     cout << "node: " << SBML_formulaToL3String(getODE(exp->odeIndex)) << endl;
+    addParametersAndRateRules(exp);
   }
 }
 
@@ -776,6 +781,7 @@ void
 ExpressionAnalyser::addParametersAndRateRules(SubstitutionValues_t* exp)
 {
     if (exp->z_value.empty()) return;
+    if (mHiddenSpecies == NULL) mHiddenSpecies = new List();
   //for (unsigned int i = 0; i < mExpressions.size(); i++)
   //{
   //  SubstitutionValues_t *exp = mExpressions.at(i);
@@ -945,6 +951,14 @@ ExpressionAnalyser::replaceExpressionWithNewParameter(ASTNode* ode, Substitution
       }
     }
   }
+}
+
+unsigned int ExpressionAnalyser::getNumHiddenNodes()
+{   
+    if (mHiddenNodes == NULL)
+        return 0;
+    else
+        return mHiddenNodes->getSize();
 }
 
 

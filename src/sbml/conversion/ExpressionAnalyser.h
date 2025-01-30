@@ -155,13 +155,16 @@ public:
     */
     unsigned int getNumHiddenSpecies();
 
+    unsigned int getNumHiddenNodes();
+
+
     // need a function to get hidden species by index
     // TODO
 
     /**
     * Function to work through all the expressions and detect hidden species
     */
-    void detectHiddenSpecies();
+    void detectHiddenSpecies(bool testing = false);
 
     /**
     * Function to create a blank substitution value
@@ -406,7 +409,6 @@ public:
     void replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* replaced, std::string var);
 
     void replaceExpressionWithNewParameter(ASTNode* ode, SubstitutionValues_t* exp);
-
 
     // member variables populated during analysis
     pairODEs mODEs;

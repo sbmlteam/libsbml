@@ -1041,7 +1041,7 @@ END_TEST
 Suite *
 create_suite_TestSBMLRateRuleConverter (void)
 { 
-	bool testing = true;
+	bool testing = false;
 Suite *suite = suite_create("SBMLRateRuleConverter");
   TCase *tcase = tcase_create("SBMLRateRuleConverter");
   if (testing)
@@ -1051,26 +1051,26 @@ Suite *suite = suite_create("SBMLRateRuleConverter");
   else
   {
 	  tcase_add_test(tcase, test_conversion_raterule_converter_invalid); 
-	  //tcase_add_test(tcase, test_conversion_raterule_converter); 
-	  //tcase_add_test(tcase, test_conversion_raterule_converter_non_standard_stoichiometry); 
-	  //tcase_add_test(tcase, test_crash_converter); 
-	  //tcase_add_test(tcase, test_conversion_raterule_converter_hidden_variable);
-	  //tcase_add_test(tcase, test_model); 
-	  //tcase_add_test(tcase, test_model1); // ??? not sure these are accurate
-	  //tcase_add_test(tcase, test_model2); 
-	  //tcase_add_test(tcase, test_model3);
-	  //tcase_add_test(tcase, test_model4); 
-	  //tcase_add_test(tcase, test_model5); // not working again
-	  ////tcase_add_test(tcase, test_model6); // not working
-	  //tcase_add_test(tcase, test_model_valid_01); // fixed
-	  //tcase_add_test(tcase, test_model_valid_02);	
-	  //tcase_add_test(tcase, test_model_valid_04);	
-	  //tcase_add_test(tcase, test_model_valid_05);	// have changed the output model but I think it was only valid if compartment volume is one
-	  //tcase_add_test(tcase, test_model_valid_51);	
-	  //tcase_add_test(tcase, test_model_valid_52);	 
-	  //tcase_add_test(tcase, test_model_valid_53); //	
-	  //tcase_add_test(tcase, test_model_valid_54); //	
-	  //tcase_add_test(tcase, test_model_valid_55); //	 
+	  tcase_add_test(tcase, test_conversion_raterule_converter); 
+	  tcase_add_test(tcase, test_conversion_raterule_converter_non_standard_stoichiometry); 
+	  tcase_add_test(tcase, test_crash_converter); 
+	  tcase_add_test(tcase, test_conversion_raterule_converter_hidden_variable);
+	  tcase_add_test(tcase, test_model); 
+	  tcase_add_test(tcase, test_model1); // ??? not sure these are accurate
+	  tcase_add_test(tcase, test_model2); 
+	  tcase_add_test(tcase, test_model3);
+	  tcase_add_test(tcase, test_model4); 
+	  tcase_add_test(tcase, test_model5); // not working again
+	  //tcase_add_test(tcase, test_model6); // not working
+	  tcase_add_test(tcase, test_model_valid_01); // fixed
+	  tcase_add_test(tcase, test_model_valid_02);	
+	  tcase_add_test(tcase, test_model_valid_04);	
+	  tcase_add_test(tcase, test_model_valid_05);	// have changed the output model but I think it was only valid if compartment volume is one
+	  tcase_add_test(tcase, test_model_valid_51);	
+	  tcase_add_test(tcase, test_model_valid_52);	 
+	  tcase_add_test(tcase, test_model_valid_53); //	
+	  tcase_add_test(tcase, test_model_valid_54); //	
+	  tcase_add_test(tcase, test_model_valid_55); //	 
   }
   suite_add_tcase(suite, tcase);
 

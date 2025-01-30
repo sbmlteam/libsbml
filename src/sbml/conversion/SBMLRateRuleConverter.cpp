@@ -881,6 +881,7 @@ SBMLRateRuleConverter::populateODEinfo()
 
 
   ea->detectHiddenSpecies();
+ 
   // add all hidden species to the model
   for (unsigned int hs=0; hs < ea->getNumHiddenSpecies(); hs++)
   {

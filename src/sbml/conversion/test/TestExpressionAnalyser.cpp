@@ -677,7 +677,7 @@ START_TEST(test_analyse_replace)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 1);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -695,7 +695,7 @@ START_TEST(test_analyse_replace)
 	fail_unless(value->odeIndex == 0);
 	fail_unless(util_isNaN(value->k_real_value));
 
-	fail_unless(analyser->getNumHiddenSpecies() == 1);
+	fail_unless(analyser->getNumHiddenNodes() == 1);
 	delete analyser;
 }
 END_TEST
@@ -716,7 +716,7 @@ START_TEST(test_analyse_same_expression_replace)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 1);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -733,7 +733,7 @@ START_TEST(test_analyse_same_expression_replace)
 	fail_unless(formulas_equal("newVar1", value->z_expression));
 	fail_unless(value->odeIndex == 0);
 	fail_unless(util_isNaN(value->k_real_value));
-	fail_unless(analyser->getNumHiddenSpecies() == 1);
+	fail_unless(analyser->getNumHiddenNodes() == 1);
 
 	delete analyser;
 }
@@ -756,7 +756,7 @@ START_TEST(test_analyse_different_expression_replace)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 2);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -788,7 +788,7 @@ START_TEST(test_analyse_different_expression_replace)
 	fail_unless(formulas_equal("newVar2", value1->z_expression));
 	fail_unless(value1->odeIndex == 1);
 	fail_unless(util_isNaN(value1->k_real_value));
-	fail_unless(analyser->getNumHiddenSpecies() == 2);
+	fail_unless(analyser->getNumHiddenNodes() == 2);
 
 	delete analyser;
 }
@@ -804,7 +804,7 @@ START_TEST(test_analyse_1_replace)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 1);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -821,7 +821,7 @@ START_TEST(test_analyse_1_replace)
 	fail_unless(formulas_equal("newVar1 + v", value->z_expression));
 	fail_unless(value->odeIndex == 0);
 	fail_unless(util_isNaN(value->k_real_value));
-	fail_unless(analyser->getNumHiddenSpecies() == 1);
+	fail_unless(analyser->getNumHiddenNodes() == 1);
 
 	delete analyser;
 }
@@ -837,7 +837,7 @@ START_TEST(test_analyse_2_replace)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 1);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -854,7 +854,7 @@ START_TEST(test_analyse_2_replace)
 	fail_unless(formulas_equal("newVar1 + w", value->z_expression));
 	fail_unless(value->odeIndex == 0);
 	fail_unless(util_isNaN(value->k_real_value));
-	fail_unless(analyser->getNumHiddenSpecies() == 1);
+	fail_unless(analyser->getNumHiddenNodes() == 1);
 
 	delete analyser;
 }
@@ -870,7 +870,7 @@ START_TEST(test_analyse_3_replace)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 1);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -887,7 +887,7 @@ START_TEST(test_analyse_3_replace)
 	fail_unless(formulas_equal("newVar1", value->z_expression));
 	fail_unless(value->odeIndex == 0);
 	fail_unless(util_isNaN(value->k_real_value));
-	fail_unless(analyser->getNumHiddenSpecies() == 1);
+	fail_unless(analyser->getNumHiddenNodes() == 1);
 
 	delete analyser;
 }
@@ -903,7 +903,7 @@ START_TEST(test_analyse_4_replace)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 1);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -920,7 +920,7 @@ START_TEST(test_analyse_4_replace)
 	fail_unless(formulas_equal("newVar1 + v", value->z_expression));
 	fail_unless(value->odeIndex == 0);
 	fail_unless(util_isNaN(value->k_real_value));
-	fail_unless(analyser->getNumHiddenSpecies() == 1);
+	fail_unless(analyser->getNumHiddenNodes() == 1);
 
 	delete analyser;
 }
@@ -939,7 +939,7 @@ START_TEST(test_analyse_1_different_replace)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 2);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -971,7 +971,7 @@ START_TEST(test_analyse_1_different_replace)
 	fail_unless(formulas_equal("newVar2 + v", value1->z_expression));
 	fail_unless(value1->odeIndex == 1);
 	fail_unless(util_isNaN(value1->k_real_value));
-	fail_unless(analyser->getNumHiddenSpecies() == 2);
+	fail_unless(analyser->getNumHiddenNodes() == 2);
 
 	delete analyser;
 }
@@ -990,7 +990,7 @@ START_TEST(test_analyse_1_different_replace_1)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 2);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -1022,7 +1022,7 @@ START_TEST(test_analyse_1_different_replace_1)
 	fail_unless(formulas_equal("newVar1 + v", value1->z_expression));
 	fail_unless(value1->odeIndex == 1);
 	fail_unless(util_isNaN(value1->k_real_value));
-	fail_unless(analyser->getNumHiddenSpecies() == 1);
+	fail_unless(analyser->getNumHiddenNodes() == 1);
 
 	delete analyser;
 }
@@ -1041,7 +1041,7 @@ START_TEST(test_analyse_1_different_replace_2)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 2);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -1069,7 +1069,7 @@ START_TEST(test_analyse_1_different_replace_2)
 	fail_unless(formulas_equal("newVar2 + v", value1->z_expression));
 	fail_unless(value1->odeIndex == 1);
 	fail_unless(util_isNaN(value1->k_real_value));
-	fail_unless(analyser->getNumHiddenSpecies() == 2);
+	fail_unless(analyser->getNumHiddenNodes() == 2);
 
 	delete analyser;
 }
@@ -1088,7 +1088,7 @@ START_TEST(test_analyse_1_different_replace_3)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 2);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -1119,7 +1119,7 @@ START_TEST(test_analyse_1_different_replace_3)
 	fail_unless(formulas_equal("newVar1 + w", value1->z_expression));
 	fail_unless(value1->odeIndex == 1);
 	fail_unless(util_isNaN(value1->k_real_value));
-	fail_unless(analyser->getNumHiddenSpecies() == 1);
+	fail_unless(analyser->getNumHiddenNodes() == 1);
 
 	delete analyser;
 }
@@ -1138,7 +1138,7 @@ START_TEST(test_analyse_1_different_replace_4)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 2);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -1169,7 +1169,7 @@ START_TEST(test_analyse_1_different_replace_4)
 	fail_unless(formulas_equal("newVar2 + w", value1->z_expression));
 	fail_unless(value1->odeIndex == 1);
 	fail_unless(util_isNaN(value1->k_real_value));
-	fail_unless(analyser->getNumHiddenSpecies() == 2);
+	fail_unless(analyser->getNumHiddenNodes() == 2);
 
 	delete analyser;
 }
@@ -1192,7 +1192,7 @@ START_TEST(test_analyse_1_different_replace_5)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 3);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -1231,7 +1231,7 @@ START_TEST(test_analyse_1_different_replace_5)
 	fail_unless(formulas_equal("newVar1 + v", value1->z_expression));
 	fail_unless(value1->odeIndex == 1);
 	fail_unless(util_isNaN(value1->k_real_value));
-	fail_unless(analyser->getNumHiddenSpecies() == 2);
+	fail_unless(analyser->getNumHiddenNodes() == 2);
 
 	delete analyser;
 }
@@ -1254,7 +1254,7 @@ START_TEST(test_analyse_1_different_replace_6)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 3);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -1293,7 +1293,7 @@ START_TEST(test_analyse_1_different_replace_6)
 	fail_unless(formulas_equal("newVar1 + v", value1->z_expression));
 	fail_unless(value1->odeIndex == 2);
 	fail_unless(util_isNaN(value1->k_real_value));
-	fail_unless(analyser->getNumHiddenSpecies() == 2);
+	fail_unless(analyser->getNumHiddenNodes() == 2);
 
 	delete analyser;
 }
@@ -1312,7 +1312,7 @@ START_TEST(test_analyse_1_two_terms_replace)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 2);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -1345,7 +1345,7 @@ START_TEST(test_analyse_1_two_terms_replace)
 	fail_unless(value1->odeIndex == 0);
 	fail_unless(util_isNaN(value1->k_real_value));
 
-	fail_unless(analyser->getNumHiddenSpecies() == 2);
+	fail_unless(analyser->getNumHiddenNodes() == 2);
 
 	delete analyser;
 }
@@ -1364,7 +1364,7 @@ START_TEST(test_analyse_2_replace_1)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 2);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -1395,7 +1395,7 @@ START_TEST(test_analyse_2_replace_1)
 	fail_unless(formulas_equal("newVar2 + w", value1->z_expression));
 	fail_unless(value1->odeIndex == 1);
 	fail_unless(util_isNaN(value1->k_real_value));
-	fail_unless(analyser->getNumHiddenSpecies() == 2);
+	fail_unless(analyser->getNumHiddenNodes() == 2);
 
 	delete analyser;
 }
@@ -1418,7 +1418,7 @@ START_TEST(test_analyse_2_replace_2)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 3);
 	SubstitutionValues_t* value = analyser->getExpression(1);
@@ -1462,7 +1462,7 @@ START_TEST(test_analyse_2_replace_2)
 	fail_unless(value2->odeIndex == 2);
 	fail_unless(util_isNaN(value2->k_real_value));
 
-	fail_unless(analyser->getNumHiddenSpecies() == 2);
+	fail_unless(analyser->getNumHiddenNodes() == 2);
 
 	delete analyser;
 }
@@ -1483,7 +1483,7 @@ START_TEST(test_analyse_3_replace_1)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 2);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -1508,7 +1508,7 @@ START_TEST(test_analyse_3_replace_1)
     fail_unless(value1->odeIndex == 1);
     fail_unless(util_isNaN(value1->k_real_value));
 
-	fail_unless(analyser->getNumHiddenSpecies() == 2);
+	fail_unless(analyser->getNumHiddenNodes() == 2);
 
 	delete analyser;
 }
@@ -1527,7 +1527,7 @@ START_TEST(test_analyse_4_replace_1)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 2);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -1552,7 +1552,7 @@ START_TEST(test_analyse_4_replace_1)
 	fail_unless(value1->odeIndex == 0);
 	fail_unless(util_isNaN(value1->k_real_value));
 
-	fail_unless(analyser->getNumHiddenSpecies() == 1);
+	fail_unless(analyser->getNumHiddenNodes() == 1);
 
 	delete analyser;
 }
@@ -1572,7 +1572,7 @@ START_TEST(test_analyse_4_replace_2)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 2);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -1597,7 +1597,7 @@ START_TEST(test_analyse_4_replace_2)
 	fail_unless(value1->odeIndex == 0);
 	fail_unless(util_isNaN(value1->k_real_value));
 
-	fail_unless(analyser->getNumHiddenSpecies() == 2);
+	fail_unless(analyser->getNumHiddenNodes() == 2);
 
 	delete analyser;
 }
@@ -1616,7 +1616,7 @@ START_TEST(test_analyse_4_replace_3)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 2);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -1641,7 +1641,7 @@ START_TEST(test_analyse_4_replace_3)
 	fail_unless(value1->odeIndex == 1);
 	fail_unless(util_isNaN(value1->k_real_value));
 
-	fail_unless(analyser->getNumHiddenSpecies() == 2);
+	fail_unless(analyser->getNumHiddenNodes() == 2);
 
 	delete analyser;
 }
@@ -1661,7 +1661,7 @@ START_TEST(test_analyse_4_replace_4)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 2);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -1686,7 +1686,7 @@ START_TEST(test_analyse_4_replace_4)
 	fail_unless(value1->odeIndex == 1);
 	fail_unless(util_isNaN(value1->k_real_value));
 
-	fail_unless(analyser->getNumHiddenSpecies() == 2);
+	fail_unless(analyser->getNumHiddenNodes() == 2);
 
 	delete analyser;
 }
@@ -1709,7 +1709,7 @@ START_TEST(test_analyse_4_replace_5)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 3);
 	SubstitutionValues_t* value = analyser->getExpression(1);
@@ -1746,7 +1746,7 @@ START_TEST(test_analyse_4_replace_5)
 	fail_unless(value2->odeIndex == 2);
 	fail_unless(util_isNaN(value2->k_real_value));
 
-	fail_unless(analyser->getNumHiddenSpecies() == 2);
+	fail_unless(analyser->getNumHiddenNodes() == 2);
 
 	delete analyser;
 }
@@ -1769,7 +1769,7 @@ START_TEST(test_analyse_4_replace_6)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 3);
 	SubstitutionValues_t* value = analyser->getExpression(1);
@@ -1806,7 +1806,7 @@ START_TEST(test_analyse_4_replace_6)
 	fail_unless(value2->odeIndex == 2);
 	fail_unless(util_isNaN(value2->k_real_value));
 
-	fail_unless(analyser->getNumHiddenSpecies() == 2);
+	fail_unless(analyser->getNumHiddenNodes() == 2);
 
 	delete analyser;
 }
@@ -1830,7 +1830,7 @@ START_TEST(test_analyse_4_replace_7)
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
-	analyser->detectHiddenSpecies();
+	analyser->detectHiddenSpecies(true);
 
 	fail_unless(analyser->getNumExpressions() == 3);
 	SubstitutionValues_t* value = analyser->getExpression(0);
@@ -1867,7 +1867,7 @@ START_TEST(test_analyse_4_replace_7)
 	fail_unless(value2->odeIndex == 2);
 	fail_unless(util_isNaN(value2->k_real_value));
 
-	fail_unless(analyser->getNumHiddenSpecies() == 2);
+	fail_unless(analyser->getNumHiddenNodes() == 2);
 
 	delete analyser;
 }
@@ -1938,4 +1938,4 @@ create_suite_TestExpressionAnalyser (void)
 }
 END_C_DECLS
 
-			 
+				 
