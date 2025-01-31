@@ -245,30 +245,6 @@ void ExpressionAnalyser::identifyHiddenSpeciesWithinExpressions()
             }
         }
     }
-    //substituteNodes();
-}
-
-void ExpressionAnalyser::substituteParameters(SubstitutionValues_t* exp)
-{
-    for (unsigned int j = 0; j < mODEs.size(); j++)
-    {
-        std::pair<std::string, ASTNode*> ode = mODEs.at(j);
-        ASTNode* odeRHS = ode.second;
-        bool index = isParameterAlreadyCreated(exp->z_value);
-        if (index == true)
-        {
-            replaceExpressionWithNewParameter(odeRHS, exp);
-        }
-        else
-        {
-            std::string zName = getUniqueNewParameterName();
-            exp->z_value = zName;
-            mNewVarCount++;
-//            replaceExpressionWithNewParameter(odeRHS, exp);
-//            addParametersAndRateRules(exp);
-        }
-        //cout << "ode in main: " << SBML_formulaToL3String(odeRHS) << endl;
-    }
 }
 
 SubstitutionValues_t* 
@@ -723,9 +699,6 @@ ExpressionAnalyser::replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* repl
   {
     return;
   }
-  cout << "node: " << SBML_formulaToL3String(node) << endl;
-  cout << "with: " << SBML_formulaToL3String(replaced) << endl;
-  cout << "by: " << SBML_formulaToL3String(replacement) << endl;
   // we might be replcing the whole node
   if (node == replaced)
   {
@@ -751,14 +724,6 @@ ExpressionAnalyser::replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* repl
   }
 }
 
-void
-ExpressionAnalyser::replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* replaced, std::string var)
-{
-  ASTNode* z = new ASTNode(AST_NAME);
-  z->setName(var.c_str());
-  replaceExpressionInNodeWithNode(node, replaced, z);
-}
-
 std::string
 ExpressionAnalyser::getUniqueNewParameterName()
 { 
@@ -771,7 +736,6 @@ void ExpressionAnalyser::substituteNodes()
   {
     SubstitutionValues_t* exp = mExpressions.at(i);
     replaceExpressionInNodeWithNode(getODE(exp->odeIndex), exp->current, exp->z_expression); //getODEFor(exp->current);
-    cout << "node: " << SBML_formulaToL3String(getODE(exp->odeIndex)) << endl;
     addParametersAndRateRules(exp);
   }
 }
@@ -871,87 +835,6 @@ ExpressionAnalyser::addParametersAndRateRules(SubstitutionValues_t* exp)
 }
 
 
-void
-ExpressionAnalyser::replaceExpressionWithNewParameter(ASTNode* ode, SubstitutionValues_t* exp)
-{
-  if (exp->type == TYPE_K_MINUS_X || exp->type == TYPE_K_MINUS_X_MINUS_Y)
-  {
-    replaceExpressionInNodeWithVar(ode, exp->current, exp->z_value);
-    //cout << "ode in new param var: " << SBML_formulaToL3String(ode) << endl;
-    for (unsigned int i = 0; i < mExpressions.size(); i++)
-    {
-      SubstitutionValues_t *thisexp = mExpressions.at(i);
-      if (thisexp->dxdt_expression != NULL)
-      {
-        replaceExpressionInNodeWithVar(thisexp->dxdt_expression, exp->current, exp->z_value);
-      }
-      if (thisexp->dydt_expression != NULL)
-      {
-        replaceExpressionInNodeWithVar(thisexp->dydt_expression, exp->current, exp->z_value);
-      }
-    }
-
-  }
-  if (exp->type == TYPE_K_PLUS_V_MINUS_X || exp->type == TYPE_K_PLUS_V_MINUS_X_MINUS_Y)
-  {
-    ASTNode* replacement = new ASTNode(AST_PLUS);
-    ASTNode* z = new ASTNode(AST_NAME);
-    z->setName(exp->z_value.c_str());
-    ASTNode *v = exp->v_expression->deepCopy();
-    replacement->addChild(z);
-    replacement->addChild(v);
-    replaceExpressionInNodeWithNode(ode, exp->current, replacement);
-    //cout << "ode in new param node: " << SBML_formulaToL3String(ode) << endl;
-    for (unsigned int i = 0; i < mExpressions.size(); i++)
-    {
-      SubstitutionValues_t *thisexp = mExpressions.at(i);
-
-      if (thisexp->dxdt_expression != NULL)
-      {
-        //cout << "dxdt_b4: " << SBML_formulaToL3String(thisexp->dxdt_expression) << endl;
-        replaceExpressionInNodeWithNode(thisexp->dxdt_expression, exp->current, replacement);
-        //cout << "dxdt: " << SBML_formulaToL3String(thisexp->dxdt_expression) << endl;
-      }
-      if (thisexp->dydt_expression != NULL)
-      {
-        //cout << "dydt_b4: " << SBML_formulaToL3String(thisexp->dydt_expression) << endl;
-        replaceExpressionInNodeWithNode(thisexp->dydt_expression, exp->current, replacement);
-        //cout << "dydt: " << SBML_formulaToL3String(thisexp->dydt_expression) << endl;
-      }
-    }
-  }
-  if (exp->type == TYPE_K_MINUS_X_PLUS_W_MINUS_Y)
-  {
-    ASTNode* replacement = new ASTNode(AST_PLUS);
-    ASTNode* z = new ASTNode(AST_NAME);
-    z->setName(exp->z_value.c_str());
-    ASTNode *v = exp->w_expression->deepCopy();
-    replacement->addChild(z);
-    replacement->addChild(v);
-    //cout << "ode in new param node: " << SBML_formulaToL3String(ode) << endl;
-    //cout << "current in new param node: " << SBML_formulaToL3String(exp->current) << endl;
-    //cout << "replace in new param node: " << SBML_formulaToL3String(replacement) << endl;
-    replaceExpressionInNodeWithNode(ode, exp->current, replacement);
-    //cout << "ode in new param node: " << SBML_formulaToL3String(ode) << endl;
-    for (unsigned int i = 0; i < mExpressions.size(); i++)
-    {
-      SubstitutionValues_t *thisexp = mExpressions.at(i);
-
-      if (thisexp->dxdt_expression != NULL)
-      {
-        //cout << "dxdt_b4: " << SBML_formulaToL3String(thisexp->dxdt_expression) << endl;
-        replaceExpressionInNodeWithNode(thisexp->dxdt_expression, exp->current, replacement);
-        //cout << "dxdt: " << SBML_formulaToL3String(thisexp->dxdt_expression) << endl;
-      }
-      if (thisexp->dydt_expression != NULL)
-      {
-        //cout << "dydt_b4: " << SBML_formulaToL3String(thisexp->dydt_expression) << endl;
-        replaceExpressionInNodeWithNode(thisexp->dydt_expression, exp->current, replacement);
-        //cout << "dydt: " << SBML_formulaToL3String(thisexp->dydt_expression) << endl;
-      }
-    }
-  }
-}
 
 unsigned int ExpressionAnalyser::getNumHiddenNodes()
 {   
@@ -961,26 +844,15 @@ unsigned int ExpressionAnalyser::getNumHiddenNodes()
         return mHiddenNodes->getSize();
 }
 
-
-/*
-* Have we already created a parameter for this expression
-* if so, return name
-*/
-bool
-ExpressionAnalyser::isParameterAlreadyCreated(std::string& name)
-{
-    if (name.empty())
+Parameter* ExpressionAnalyser::getHiddenSpecies(unsigned int index)
+{  
+    if (mHiddenSpecies != NULL && index < mHiddenSpecies->getSize())
     {
-        return false;
+        return static_cast<Parameter*>(mHiddenSpecies->get(index));
     }
-    else
-    {
-        mModel->clearAllElementIdList();
-        mModel->populateAllElementIdList();
-        IdList& ids = mModel->getAllElementIdList();
-        return ids.contains(name);
-    }
+    return NULL;
 }
+
 
 bool ExpressionAnalyser::isTypeKminusXminusY(unsigned int numChildren, ASTNode* rightChild, 
     ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value)

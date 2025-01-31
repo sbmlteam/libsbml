@@ -158,8 +158,7 @@ public:
     unsigned int getNumHiddenNodes();
 
 
-    // need a function to get hidden species by index
-    // TODO
+    Parameter* getHiddenSpecies(unsigned int index);
 
     /**
     * Function to work through all the expressions and detect hidden species
@@ -388,16 +387,6 @@ public:
     std::pair<ASTNode*, int> getParentNode(const ASTNode* child, const ASTNode* root);
 
     /*
-* Checks whether a parameter with the given name is already in the model.
-*
-* @param name the name of the parameter to check
-* @return true if the parameter is already in the model, false otherwise.flac
-*/
-    bool isParameterAlreadyCreated(std::string& name);
-
-
-    void substituteParameters(SubstitutionValues_t* values);
-    /*
 * THIS NEEDS PROPERLY SORTING IS DO THE FUNCTIONS THAT DEAL WITH MATCHING WHETHER A PARAMETER IS ALREADY IN THE MODEL
 * ALSO NEED TO TAKE THE MATCHING OF THE ODES OUT OF THE COMPARISON OF EXPRESSIONS
 * AND CHECK THAT THE MATCHES VARIABLES INCLUDES ALL THE VARIABLES
@@ -405,10 +394,6 @@ public:
     void addParametersAndRateRules(SubstitutionValues_t* exp = NULL);
 
     void replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
-
-    void replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* replaced, std::string var);
-
-    void replaceExpressionWithNewParameter(ASTNode* ode, SubstitutionValues_t* exp);
 
     // member variables populated during analysis
     pairODEs mODEs;
