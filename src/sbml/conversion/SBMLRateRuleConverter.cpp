@@ -83,7 +83,7 @@ void print_vectors_bool(std::vector<std::vector<bool>> co)
         std::vector<bool> values = co.at(n);
         unsigned int noValues = values.size();
 
-        cout << "term " << n << ": Coefficients [";
+        cout << "term " << n << ": boolean value [";
         for (unsigned int l = 0; l < noValues; l++)
         {
             cout << values.at(l) << ", ";
@@ -92,6 +92,26 @@ void print_vectors_bool(std::vector<std::vector<bool>> co)
     }
 }
 
+void SBMLRateRuleConverter::print_rn_coefficients(setRnCoeffs co)
+{
+    unsigned int noTerms = co.size();
+    for (unsigned int n = 0; n < noTerms; n++)
+    {
+        cout << "Coefficients for " << SBML_formulaToL3String(mTerms.at(n)) << " \n";
+            std::vector<double> values = co.at(n);
+        unsigned int noValues = values.size();
+        for (unsigned int l = 0; l < mODEs.size(); l++)
+        {
+
+            cout << "variable: " << mODEs.at(l).first << ":Coefficients [";
+            for (unsigned int k = 0; k < noValues; k++)
+            {
+                cout << values.at(k) << ", ";
+            }
+            cout << "]\n";
+        }
+    }
+}
 
 /** @cond doxygenLibsbmlInternal */
 void SBMLRateRuleConverter::init()
@@ -143,7 +163,7 @@ SBMLRateRuleConverter::operator=(const SBMLRateRuleConverter& rhs)
     //, mODEs(NULL)
     //  , mTerms(NULL)
     //  , mCoefficients(NULL)
-      mPosDerivative = rhs.mPosDerivative;
+    mPosDerivative = rhs.mPosDerivative;
     mNegDerivative = rhs.mNegDerivative;
     mDerivSign = rhs.mDerivSign;
     mMathNotSupported = rhs.mMathNotSupported;
@@ -408,6 +428,7 @@ void SBMLRateRuleConverter::populateTerms()
         ASTNode* node = mTerms.at(n);
         cout << "Term " << n << ": " << SBML_formulaToL3String(node) << endl;
     }
+    print_vectors(mCoefficients);
 }
 
 void SBMLRateRuleConverter::createAnalysisVectors()
@@ -417,6 +438,8 @@ void SBMLRateRuleConverter::createAnalysisVectors()
   //
   //  mCoefficients[0] = [mTerms[0], [-1, 1, 0]] - coeff of k1*S1 in -k1*S1, k1*S1, k2*S3
   //  mCoefficients[1] = [mTerms[1], [0, 0, 1]] -  coeff of k2*S3 in -k1*S1, k1*S1, k2*S3
+  // coefficients are now sorted during the creation of terms
+  // 
     // posDerivative/negDerivative
     // vector < vector<bool> >
     // these are vector of booleans for each term's derivative wrt each variable
@@ -449,11 +472,9 @@ void SBMLRateRuleConverter::createAnalysisVectors()
         std::vector<double> coeffVector = populateCoefficientVector(n);
         mCoefficients.push_back(std::make_pair(node, coeffVector));
         mDerivSign = POSITIVE_DERIVATIVE;
-        cout << "positive\n";
         std::vector<bool> posDerVector = populateDerivativeVector(n);
         mPosDerivative.push_back(posDerVector);
         mDerivSign = NEGATIVE_DERIVATIVE;
-        cout << "negative\n";
         std::vector<bool> negDerVector = populateDerivativeVector(n);
         mNegDerivative.push_back(negDerVector);
     }
@@ -490,22 +511,22 @@ SBMLRateRuleConverter::determineCoefficient(ASTNode* ode, unsigned int termN, do
   bool found = false;
   coeff = 0;
 
-  ASTNode* term1 = ode->deepCopy();
+  ASTNode* ode_node = ode->deepCopy();
   // we have decomposed nodes so that if it is times the 
   // first child should be a number
   // take it out of the term
   // it will be used as a coefficient
-  //if (term1->getType() == AST_REAL)
+  //if (ode_node->getType() == AST_REAL)
   //{
-  //    coeff = term1->getValue();
+  //    coeff = ode_node->getValue();
   //    found = true;
   //}
-  if (term1->getType() == AST_TIMES && term1->getNumChildren() > 0)
+  if (ode_node->getType() == AST_TIMES && ode_node->getNumChildren() > 0)
   {
-    if (term1->getChild(0)->isNumber())
+    if (ode_node->getChild(0)->isNumber())
     {
-      coeff = term1->getChild(0)->getValue();
-      term1->removeChild(0, true);
+      coeff = ode_node->getChild(0)->getValue();
+      ode_node->removeChild(0, true);
     }
     else
     {
@@ -566,7 +587,7 @@ SBMLRateRuleConverter::determineCoefficient(ASTNode* ode, unsigned int termN, do
 
   if (!found)
   {
-    unsigned int index = locateTerm(term1);
+    unsigned int index = locateTerm(ode_node);
 
     if (index == termN)
     {
@@ -577,7 +598,7 @@ SBMLRateRuleConverter::determineCoefficient(ASTNode* ode, unsigned int termN, do
       coeff = 0.0;
     }
   }
-  delete term1;
+  delete ode_node;
   return found;
 }
 
@@ -759,6 +780,8 @@ SBMLRateRuleConverter::createTerms(ASTNode* node, bool isToplevel)
 void 
 SBMLRateRuleConverter::addToTerms(ASTNode* node, bool isToplevel)
 {
+ //   double coefficient = 0.0;
+	//std::vector<double> coefficients;
   if (node == NULL)
   {
     mMathNotSupported = true;
@@ -773,6 +796,8 @@ SBMLRateRuleConverter::addToTerms(ASTNode* node, bool isToplevel)
   {
     if (term->getChild(0)->isNumber())
     {
+  //      coefficient = term->getChild(0)->getValue();
+		//coefficients.push_back(coefficient);
       term->removeChild(0, true);
     }
     // if we are just left with * 1 child remove times
@@ -813,22 +838,33 @@ SBMLRateRuleConverter::addToTerms(ASTNode* node, bool isToplevel)
   if (mTerms.size() == 0)
   {
     mTerms.push_back(term);
+	//mCoefficients.push_back(std::make_pair(term, coefficients));
   }
   else
   {
     bool equivalent = false;
     std::vector<ASTNode*>::iterator it = mTerms.begin();
+	//unsigned int i = 0;
     while (!equivalent && it != mTerms.end())
     {
       equivalent = term->exactlyEqual(**it);
       it++;
+	  //i++;
     }
     if (!equivalent)
     {
       mTerms.push_back(term);
+   //   coefficients.push_back(coefficient);
+	  //mCoefficients.push_back(std::make_pair(term, coefficients));
+      // need to paste there coefficients into the vector of vectors
+//      mCoefficients.push_back(std::make_pair(term, coefficients));
     }
     else
     {
+		//i--;
+		//pairCoeff* termCoeff = &mCoefficients.at(i);
+		//termCoeff->second.push_back(coefficient);
+        // add coefficient to the vector of coefficient
       delete term;
     }
   }
@@ -863,10 +899,10 @@ SBMLRateRuleConverter::populateInitialODEinfo()
         }
     }
 
-    //for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
-    //{
-    //    cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
-    //}
+    for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+    {
+        cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+    }
 }
 
 
@@ -911,6 +947,9 @@ SBMLRateRuleConverter::populateReactionCoefficients()
 {
   // Fages algo 3.6 Step 4a
   createInitialValues();
+  print_rn_coefficients(mReactants);
+  print_rn_coefficients(mProducts);
+  print_rn_coefficients(mModifiers);
   unsigned int i = 0;
   for (setCoeffIt it = mCoefficients.begin(); it != mCoefficients.end(); ++it)
   {
@@ -922,11 +961,22 @@ SBMLRateRuleConverter::populateReactionCoefficients()
     analyseNegDerivative(it->second, i);
     i++;
   }
+  print_rn_coefficients(mReactants);
+  print_rn_coefficients(mProducts);
+  print_rn_coefficients(mModifiers);
+
 }
 
 void
 SBMLRateRuleConverter::analyseCoefficient(std::vector<double> coeffs, unsigned int index)
 {
+    // 4(b)
+    //for each variable x where term occurs with integer coefficient c in dx/dt in O,
+    //   i. if c<0 then reactant(x) equals -c
+    //  ii. if c>0 then product(x) equals c
+                
+    // index is the array of terms and coeffs is the vector of doubles indicating
+    // the coefficient of that term in each ode
   for (unsigned int i = 0; i < coeffs.size(); ++i)
   {
     double coeff = coeffs.at(i);

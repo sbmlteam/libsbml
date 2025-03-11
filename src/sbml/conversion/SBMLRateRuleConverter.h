@@ -76,14 +76,23 @@ typedef enum
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 typedef std::vector< std::pair< std::string, ASTNode*> > pairODEs;
-typedef std::vector<std::pair<ASTNode*, std::vector<double> > > setCoeff;
+typedef std::vector< std::pair< std::string, ASTNode*> >::iterator odeIt;
+
+typedef std::pair<ASTNode*, std::vector<double> > pairCoeff;
+typedef std::vector<pairCoeff > setCoeff;
 typedef std::vector<std::pair<ASTNode*, std::vector<double> > >::iterator setCoeffIt;
+
+typedef std::pair<std::string, std::string > pairString;
+typedef std::vector< std::vector<double> > setRnCoeffs;
+
 
 class LIBSBML_EXTERN SBMLRateRuleConverter : public SBMLConverter
 {
 public:
 
-  /** @cond doxygenLibsbmlInternal */
+    void print_rn_coefficients(setRnCoeffs co);
+
+    /** @cond doxygenLibsbmlInternal */
   /**
    * Register with the ConversionRegistry.
    */
@@ -183,10 +192,6 @@ public:
   virtual ConversionProperties getDefaultProperties() const;
 
   // helper functions whilst creating code
-  typedef std::pair<std::string, std::string > pairString;
-
-  typedef std::vector< std::vector<double> > setRnCoeffs;
-  typedef std::vector< std::pair< std::string, ASTNode*> >::iterator odeIt;
 
   pairODEs getOdePairs() { return mODEs; };
 
